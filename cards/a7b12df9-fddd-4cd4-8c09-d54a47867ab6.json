@@ -1,0 +1,135 @@
+{
+  "arena_id": 98307,
+  "artist": "Evan Shipard",
+  "artist_ids": [
+    "eea284ce-9377-49c1-9d96-f34b7d487cdf"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 857932,
+  "cmc": 3.0,
+  "collector_number": "162",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2476,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Avatar Roku showed Aang the truth behind Sozin's Comet.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "144d5261-ee05-4b7f-ba9d-68aefbdab48e",
+  "illustration_id": "8633e57d-6050-4bbd-b53d-e24575cd197e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:06:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/4/144d5261-ee05-4b7f-ba9d-68aefbdab48e.webp?1783904805",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/4/144d5261-ee05-4b7f-ba9d-68aefbdab48e.jpg?1783904805",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/4/144d5261-ee05-4b7f-ba9d-68aefbdab48e.jpg?1783904805",
+    "crop": "https://cards.scryfall.io/crop/front/1/4/144d5261-ee05-4b7f-ba9d-68aefbdab48e.webp?1783904805",
+    "display": "https://cards.scryfall.io/display/front/1/4/144d5261-ee05-4b7f-ba9d-68aefbdab48e.webp?1783904805",
+    "grid": "https://cards.scryfall.io/grid/front/1/4/144d5261-ee05-4b7f-ba9d-68aefbdab48e.webp?1783904805",
+    "large": "https://cards.scryfall.io/large/front/1/4/144d5261-ee05-4b7f-ba9d-68aefbdab48e.jpg?1783904805",
+    "normal": "https://cards.scryfall.io/normal/front/1/4/144d5261-ee05-4b7f-ba9d-68aefbdab48e.jpg?1783904805",
+    "png": "https://cards.scryfall.io/png/front/1/4/144d5261-ee05-4b7f-ba9d-68aefbdab48e.png?1783904805",
+    "small": "https://cards.scryfall.io/small/front/1/4/144d5261-ee05-4b7f-ba9d-68aefbdab48e.jpg?1783904805",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/4/144d5261-ee05-4b7f-ba9d-68aefbdab48e.webp?1783904805"
+  },
+  "keywords": [
+    "Surveil"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "multiverse_ids": [],
+  "name": "Diresight",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a7b12df9-fddd-4cd4-8c09-d54a47867ab6",
+  "oracle_text": "Surveil 2, then draw two cards. You lose 2 life. (To surveil 2, look at the top two cards of your library, then put any number of them into your graveyard and the rest on top of your library in any order.)",
+  "oversized": false,
+  "penny_rank": 3289,
+  "prices": {
+    "eur": "0.31",
+    "eur_foil": "0.30",
+    "tix": null,
+    "usd": "0.14",
+    "usd_etched": null,
+    "usd_foil": "0.33"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa7b12df9-fddd-4cd4-8c09-d54a47867ab6&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Diresight&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=857932&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F662457%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Diresight",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDiresight",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDiresight"
+  },
+  "released_at": "2025-11-21",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "8DF90DC7EBC23EF277B1147D6B5399CAFC8FC1F4F176E8CD1AA1BCC6BAE3A24F",
+  "rulings_uri": "https://api.scryfall.com/cards/144d5261-ee05-4b7f-ba9d-68aefbdab48e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tle?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tle/162/diresight?utm_source=api",
+  "set": "tle",
+  "set_id": "a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "set_name": "Avatar: The Last Airbender Eternal",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atle&unique=prints",
+  "set_type": "eternal",
+  "set_uri": "https://api.scryfall.com/sets/a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "story_spotlight": false,
+  "tcgplayer_id": 662457,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/144d5261-ee05-4b7f-ba9d-68aefbdab48e",
+  "variation": false
+}
