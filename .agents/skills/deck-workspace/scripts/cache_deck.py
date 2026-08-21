@@ -147,6 +147,34 @@ def infer_categories(card: dict) -> list[str]:
     return categories
 
 
+
+def compact_card_details(card: dict) -> dict:
+    """Embed analysis-relevant Oracle data in the deck manifest."""
+    fields = (
+        "mana_cost", "type_line", "oracle_text", "power", "toughness",
+        "loyalty", "defense",
+    )
+    details = {
+        field: card[field]
+        for field in fields
+        if card.get(field) is not None
+    }
+    details["keywords"] = card.get("keywords", [])
+
+    faces = card.get("card_faces")
+    if faces:
+        details["faces"] = [
+            {
+                field: face[field]
+                for field in ("name",) + fields
+                if face.get(field) is not None
+            }
+            for face in faces
+        ]
+
+    return details
+
+
 def category_list(value: object) -> list[str]:
     if not isinstance(value, list):
         return ["other"]
@@ -251,6 +279,7 @@ def main() -> int:
             "categories": categories,
             "category_source": category_source,
             "scryfall_uri": card.get("scryfall_uri"),
+            "card": compact_card_details(card),
         })
 
     now = datetime.now(timezone.utc).isoformat()
@@ -260,7 +289,7 @@ def main() -> int:
     write_json(category_path, category_registry)
 
     manifest = {
-        "schema_version": 2,
+        "schema_version": 3,
         "generated_at": now,
         "source": str(decklist.relative_to(repo_root)),
         "total_cards": sum(card["quantity"] for card in resolved),
