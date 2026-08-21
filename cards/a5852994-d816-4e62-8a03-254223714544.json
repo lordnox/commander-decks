@@ -1,0 +1,131 @@
+{
+  "artist": "Eric Deschamps",
+  "artist_ids": [
+    "37970e22-9cee-44c1-af44-5ee27cf26b76"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 723476,
+  "cmc": 5.0,
+  "collector_number": "160",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2594,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Sleep now, brother. That is the one gift I can give you.\"\n—Liliana Vess",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "94f24b7c-4952-4abc-aaba-22a529012468",
+  "illustration_id": "e2998884-67d9-4781-83d5-99246391be19",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:07:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/4/94f24b7c-4952-4abc-aaba-22a529012468.webp?1783915675",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/4/94f24b7c-4952-4abc-aaba-22a529012468.jpg?1783915675",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/4/94f24b7c-4952-4abc-aaba-22a529012468.jpg?1783915675",
+    "crop": "https://cards.scryfall.io/crop/front/9/4/94f24b7c-4952-4abc-aaba-22a529012468.webp?1783915675",
+    "display": "https://cards.scryfall.io/display/front/9/4/94f24b7c-4952-4abc-aaba-22a529012468.webp?1783915675",
+    "grid": "https://cards.scryfall.io/grid/front/9/4/94f24b7c-4952-4abc-aaba-22a529012468.webp?1783915675",
+    "large": "https://cards.scryfall.io/large/front/9/4/94f24b7c-4952-4abc-aaba-22a529012468.jpg?1783915675",
+    "normal": "https://cards.scryfall.io/normal/front/9/4/94f24b7c-4952-4abc-aaba-22a529012468.jpg?1783915675",
+    "png": "https://cards.scryfall.io/png/front/9/4/94f24b7c-4952-4abc-aaba-22a529012468.png?1783915675",
+    "small": "https://cards.scryfall.io/small/front/9/4/94f24b7c-4952-4abc-aaba-22a529012468.jpg?1783915675",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/4/94f24b7c-4952-4abc-aaba-22a529012468.webp?1783915675"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_id": 115419,
+  "multiverse_ids": [
+    622768
+  ],
+  "name": "Final Parting",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a5852994-d816-4e62-8a03-254223714544",
+  "oracle_text": "Search your library for two cards. Put one into your hand and the other into your graveyard. Then shuffle.",
+  "oversized": false,
+  "penny_rank": 6255,
+  "prices": {
+    "eur": "0.32",
+    "eur_foil": "1.04",
+    "tix": "0.04",
+    "usd": "0.40",
+    "usd_etched": null,
+    "usd_foil": "0.92"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa5852994-d816-4e62-8a03-254223714544&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/115419?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=723476&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F507114%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Final+Parting",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=622768&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFinal%2BParting",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFinal%2BParting"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/94f24b7c-4952-4abc-aaba-22a529012468/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/160/final-parting?utm_source=api",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 507114,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/94f24b7c-4952-4abc-aaba-22a529012468",
+  "variation": false
+}
