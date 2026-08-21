@@ -1,0 +1,1886 @@
+{
+  "cards": [
+    {
+      "cache": "cards/a3da7d5b-2c2b-45fe-b9c5-413b8c8fc0a2.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{1}{U}, {T}: Put target artifact card from your graveyard on top of your library.",
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Academy Ruins",
+      "oracle_id": "a3da7d5b-2c2b-45fe-b9c5-413b8c8fc0a2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/309/academy-ruins?utm_source=api",
+      "submitted_name": "Academy Ruins"
+    },
+    {
+      "cache": "cards/0bc7f093-bef0-4f1a-852c-4b75ebf54838.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Arcane Signet",
+      "oracle_id": "0bc7f093-bef0-4f1a-852c-4b75ebf54838",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/192/arcane-signet?utm_source=api",
+      "submitted_name": "Arcane Signet"
+    },
+    {
+      "cache": "cards/6dccf583-1045-4058-86cc-ebbcc8de080e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nThe first artifact spell you cast each turn costs {1} less to cast.\n{1}{U}: Level 2\nWhen this Class becomes level 2, reveal cards from the top of your library until you reveal an artifact card. Put that card into your hand and the rest on the bottom of your library in a random order.\n{5}{U}: Level 3\nAt the beginning of your end step, create a token that's a copy of target artifact you control.",
+        "type_line": "Enchantment — Class"
+      },
+      "categories": [
+        "ramp",
+        "card-draw"
+      ],
+      "category_source": "deck",
+      "name": "Artificer Class",
+      "oracle_id": "6dccf583-1045-4058-86cc-ebbcc8de080e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/663/artificer-class?utm_source=api",
+      "submitted_name": "Artificer Class"
+    },
+    {
+      "cache": "cards/13ff3222-91cb-4796-a34e-899ed817694c.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {B} or {R}.)",
+        "type_line": "Land — Swamp Mountain"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Badlands",
+      "oracle_id": "13ff3222-91cb-4796-a34e-899ed817694c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/vma/291/badlands?utm_source=api",
+      "submitted_name": "Badlands"
+    },
+    {
+      "cache": "cards/977c2f33-b622-4172-9efb-7f523becd32b.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {B}.\n{T}: Add {R}. Activate only if you control a Swamp or a Mountain.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Blazemire Verge",
+      "oracle_id": "977c2f33-b622-4172-9efb-7f523becd32b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsk/256/blazemire-verge?utm_source=api",
+      "submitted_name": "Blazemire Verge"
+    },
+    {
+      "cache": "cards/43985bbc-a0f6-4812-984e-392bc8562633.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {B} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "type_line": "Land — Swamp Mountain"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Blood Crypt",
+      "oracle_id": "43985bbc-a0f6-4812-984e-392bc8562633",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/278/blood-crypt?utm_source=api",
+      "submitted_name": "Blood Crypt"
+    },
+    {
+      "cache": "cards/fc0707c7-d504-4ccf-a0d2-3eb6e26e7a57.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Bloodstained Mire",
+      "oracle_id": "fc0707c7-d504-4ccf-a0d2-3eb6e26e7a57",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/216/bloodstained-mire?utm_source=api",
+      "submitted_name": "Bloodstained Mire"
+    },
+    {
+      "cache": "cards/c20a96f7-aa5a-4c15-b8b1-806685c99b27.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{R}",
+        "oracle_text": "This spell costs {3} less to cast if you control a creature with power 4 or greater.\nChange the target of target spell or ability with a single target.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "deck",
+      "name": "Bolt Bend",
+      "oracle_id": "c20a96f7-aa5a-4c15-b8b1-806685c99b27",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tle/163/bolt-bend?utm_source=api",
+      "submitted_name": "Bolt Bend"
+    },
+    {
+      "cache": "cards/a7ac5d98-805e-4212-be94-333a0c0c44a7.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{4}{U}{R}",
+        "oracle_text": "Creature tokens you control have haste.\nAt the beginning of combat on your turn, create a 2/1 blue Phyrexian Myr artifact creature token. Then you may choose a token you control. If you do, each other token you control becomes a copy of that token.",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Legendary Artifact Creature — Phyrexian Artificer"
+      },
+      "categories": [
+        "token-production"
+      ],
+      "category_source": "deck",
+      "name": "Brudiclad, Telchor Engineer",
+      "oracle_id": "a7ac5d98-805e-4212-be94-333a0c0c44a7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/299/brudiclad-telchor-engineer?utm_source=api",
+      "submitted_name": "Brudiclad, Telchor Engineer"
+    },
+    {
+      "cache": "cards/3644f316-f9a3-46c9-9b1e-747f86cf4ead.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Return target artifact card from your graveyard to your hand.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Buried Ruin",
+      "oracle_id": "3644f316-f9a3-46c9-9b1e-747f86cf4ead",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/150/buried-ruin?utm_source=api",
+      "submitted_name": "Buried Ruin"
+    },
+    {
+      "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Command Tower",
+      "oracle_id": "0895c9b7-ae7d-4bb3-af17-3b75deb50a25",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/236/command-tower?utm_source=api",
+      "submitted_name": "Command Tower"
+    },
+    {
+      "cache": "cards/98492d7d-3b9e-4ae1-ac45-1b508d6d2670.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{6}",
+        "oracle_text": "When this artifact enters, draw three cards.\n{T}: Add three mana of any one color.\nWhenever one or more creatures an opponent controls attack you and aren't blocked, that player draws three cards and gains control of this artifact. Untap it.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp",
+        "card-draw",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Coveted Jewel",
+      "oracle_id": "98492d7d-3b9e-4ae1-ac45-1b508d6d2670",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/196/coveted-jewel?utm_source=api",
+      "submitted_name": "Coveted Jewel"
+    },
+    {
+      "cache": "cards/106e9c0d-67a2-4db7-97d9-03e1ea1b40b5.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "When this artifact enters or leaves the battlefield, draw a card.\n{1}{U}, Sacrifice this artifact: Put a stun counter on up to one target tapped creature. (If a permanent with a stun counter would become untapped, remove one from it instead.)",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "deck",
+      "name": "Cryogen Relic",
+      "oracle_id": "106e9c0d-67a2-4db7-97d9-03e1ea1b40b5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoe/52/cryogen-relic?utm_source=api",
+      "submitted_name": "Cryogen Relic"
+    },
+    {
+      "cache": "cards/4d67e2a7-4aa7-44cc-853b-500d7aac046d.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{R}",
+        "oracle_text": "{T}: Add {R}.\nAs this artifact enters, you may have it become a copy of any creature on the battlefield until end of turn, except it has haste.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Cursed Mirror",
+      "oracle_id": "4d67e2a7-4aa7-44cc-853b-500d7aac046d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/242/cursed-mirror?utm_source=api",
+      "submitted_name": "Cursed Mirror"
+    },
+    {
+      "cache": "cards/8d035688-089f-4d5c-bcad-9140a6c1681b.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{7}",
+        "oracle_text": "Nonlegendary artifact creatures you control have myriad. (Whenever a creature with myriad attacks, for each opponent other than defending player, you may create a token copy that's tapped and attacking that player or a planeswalker they control. Exile the tokens at end of combat.)",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Artifact Creature — Cyberman"
+      },
+      "categories": [
+        "token-production"
+      ],
+      "category_source": "deck",
+      "name": "Cybermen Squadron",
+      "oracle_id": "8d035688-089f-4d5c-bcad-9140a6c1681b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/who/176/cybermen-squadron?utm_source=api",
+      "submitted_name": "Cybermen Squadron"
+    },
+    {
+      "cache": "cards/544c9ad2-86f9-483e-a53c-f64c8602c393.json",
+      "card": {
+        "keywords": [
+          "Deathtouch",
+          "Flying",
+          "Crew"
+        ],
+        "mana_cost": "{4}{B}",
+        "oracle_text": "Flying, deathtouch\nWhenever Damocles Base deals combat damage to a player, that player faces a villainous choice — They sacrifice a nontoken creature of their choice, or they lose 2 life and you draw two cards.\nCrew 3",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Legendary Artifact — Vehicle"
+      },
+      "categories": [
+        "card-draw",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Damocles Base, Sword of Kang",
+      "oracle_id": "544c9ad2-86f9-483e-a53c-f64c8602c393",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/42/damocles-base-sword-of-kang?utm_source=api",
+      "submitted_name": "Damocles Base, Sword of Kang"
+    },
+    {
+      "cache": "cards/8dc067bf-f78f-4ac4-b6e7-b305c42cf0bc.json",
+      "card": {
+        "keywords": [
+          "Indestructible"
+        ],
+        "mana_cost": "",
+        "oracle_text": "Indestructible\n{T}: Add {C}.",
+        "type_line": "Artifact Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Darksteel Citadel",
+      "oracle_id": "8dc067bf-f78f-4ac4-b6e7-b305c42cf0bc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c21/285/darksteel-citadel?utm_source=api",
+      "submitted_name": "Darksteel Citadel"
+    },
+    {
+      "cache": "cards/ae120613-97d6-4393-b39d-c3e6c076f5d6.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{R}",
+        "oracle_text": "If you control a commander, you may cast this spell without paying its mana cost.\nYou may choose new targets for target spell or ability.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "deck",
+      "name": "Deflecting Swat",
+      "oracle_id": "ae120613-97d6-4393-b39d-c3e6c076f5d6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/214/deflecting-swat?utm_source=api",
+      "submitted_name": "Deflecting Swat"
+    },
+    {
+      "cache": "cards/88075828-a76e-412d-b738-182f50e3a133.json",
+      "card": {
+        "keywords": [
+          "Affinity",
+          "Crew"
+        ],
+        "mana_cost": "{6}{B}",
+        "oracle_text": "Affinity for artifacts (This spell costs {1} less to cast for each artifact you control.)\nWhen this Vehicle enters, for each player, destroy up to one target creature that player controls. If a creature you controlled was destroyed this way, put two +1/+1 counters on this Vehicle.\nCrew 2",
+        "power": "4",
+        "toughness": "3",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "removal",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Demonic Junker",
+      "oracle_id": "88075828-a76e-412d-b738-182f50e3a133",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dft/83/demonic-junker?utm_source=api",
+      "submitted_name": "Demonic Junker"
+    },
+    {
+      "cache": "cards/7d881c57-0bd9-4c57-aa4a-b10808b86143.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{1}, {T}: Add {U}{B}.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Dimir Signet",
+      "oracle_id": "7d881c57-0bd9-4c57-aa4a-b10808b86143",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clu/221/dimir-signet?utm_source=api",
+      "submitted_name": "Dimir Signet"
+    },
+    {
+      "cache": "cards/da3e7d3d-2ca0-40c3-9602-fca37c92f507.json",
+      "card": {
+        "keywords": [
+          "Affinity",
+          "Mill"
+        ],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Affinity for artifacts (This spell costs {1} less to cast for each artifact you control.)\nWhen Emry enters, mill four cards.\n{T}: Choose target artifact card in your graveyard. You may cast that card this turn. (You still pay its costs. Timing rules still apply.)",
+        "power": "1",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Merfolk Wizard"
+      },
+      "categories": [
+        "recursion"
+      ],
+      "category_source": "deck",
+      "name": "Emry, Lurker of the Loch",
+      "oracle_id": "da3e7d3d-2ca0-40c3-9602-fca37c92f507",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/71/emry-lurker-of-the-loch?utm_source=api",
+      "submitted_name": "Emry, Lurker of the Loch"
+    },
+    {
+      "cache": "cards/0752fe67-9b8a-42c0-90e3-087d426b2f3b.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Whenever you sacrifice this artifact or another artifact, you may pay {2}. If you do, at the beginning of the next end step, create a token that's a copy of that artifact.\n{2}, Sacrifice this artifact: Draw a card.",
+        "type_line": "Artifact — Clue"
+      },
+      "categories": [
+        "copy"
+      ],
+      "category_source": "deck",
+      "name": "Esoteric Duplicator",
+      "oracle_id": "0752fe67-9b8a-42c0-90e3-087d426b2f3b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/big/5/esoteric-duplicator?utm_source=api",
+      "submitted_name": "Esoteric Duplicator"
+    },
+    {
+      "cache": "cards/27b047e3-0d41-45e2-98e9-9391d7923a1e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Exotic Orchard",
+      "oracle_id": "27b047e3-0d41-45e2-98e9-9391d7923a1e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/79/exotic-orchard?utm_source=api",
+      "submitted_name": "Exotic Orchard"
+    },
+    {
+      "cache": "cards/7ddbf891-7f80-44e9-b94c-70c1da0b91ed.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{R}",
+        "oracle_text": "When this artifact is put into a graveyard from the battlefield, reveal the top thirteen cards of your library. Put a random creature card from among them onto the battlefield. Put the rest on the bottom of your library in a random order.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "card-draw",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Getaway Barrel",
+      "oracle_id": "7ddbf891-7f80-44e9-b94c-70c1da0b91ed",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/hob/98/getaway-barrel?utm_source=api",
+      "submitted_name": "Getaway Barrel"
+    },
+    {
+      "cache": "cards/d71bda4c-3dee-4398-8fd0-f77d8743b887.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {U}.\n{T}: Add {B}. Activate only if you control an Island or a Swamp.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Gloomlake Verge",
+      "oracle_id": "d71bda4c-3dee-4398-8fd0-f77d8743b887",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsk/260/gloomlake-verge?utm_source=api",
+      "submitted_name": "Gloomlake Verge"
+    },
+    {
+      "cache": "cards/f4819061-b0b5-48ab-af7b-6525c3d2eab7.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {R}.",
+        "type_line": "Artifact Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Great Furnace",
+      "oracle_id": "f4819061-b0b5-48ab-af7b-6525c3d2eab7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/161/great-furnace?utm_source=api",
+      "submitted_name": "Great Furnace"
+    },
+    {
+      "cache": "cards/e2a37967-4212-4553-9f77-bcb613405807.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control two or more other lands.\n{T}: Add {B} or {R}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Haunted Ridge",
+      "oracle_id": "e2a37967-4212-4553-9f77-bcb613405807",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inr/280/haunted-ridge?utm_source=api",
+      "submitted_name": "Haunted Ridge"
+    },
+    {
+      "cache": "cards/2578e8e4-a93c-4904-9037-92a1529c2c67.json",
+      "card": {
+        "keywords": [
+          "Treasure",
+          "Crew",
+          "Trample"
+        ],
+        "mana_cost": "{3}{R}",
+        "oracle_text": "Trample\nWhenever this Vehicle deals combat damage to a player, create a Treasure token for each artifact they control.\nCrew 3",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Hoard Hauler",
+      "oracle_id": "2578e8e4-a93c-4904-9037-92a1529c2c67",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/snc/109/hoard-hauler?utm_source=api",
+      "submitted_name": "Hoard Hauler"
+    },
+    {
+      "cache": "cards/a0a7319d-9441-4aed-a351-9ff3fb3b1d9e.json",
+      "card": {
+        "keywords": [
+          "Flying",
+          "Crew"
+        ],
+        "mana_cost": "{3}{U}{U}",
+        "oracle_text": "Flying\nWhen this Vehicle enters, draw two cards.\nCrew 3 (Tap any number of creatures you control with total power 3 or more: This Vehicle becomes an artifact creature until end of turn.)",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "card-draw",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Hulldrifter",
+      "oracle_id": "a0a7319d-9441-4aed-a351-9ff3fb3b1d9e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dft/47/hulldrifter?utm_source=api",
+      "submitted_name": "Hulldrifter"
+    },
+    {
+      "cache": "cards/5b5ef43b-13fd-4461-8d2d-18be65e9a790.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "When this artifact enters or is put into a graveyard from the battlefield, draw a card.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "card-draw",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Ichor Wellspring",
+      "oracle_id": "5b5ef43b-13fd-4461-8d2d-18be65e9a790",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c21/245/ichor-wellspring?utm_source=api",
+      "submitted_name": "Ichor Wellspring"
+    },
+    {
+      "cache": "cards/f434e266-d9d6-4058-96ff-a1bd4029d8dc.json",
+      "card": {
+        "keywords": [
+          "Crew"
+        ],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "You may have this Vehicle enter as a copy of a creature an opponent controls, except it's a Vehicle artifact with crew 3 and it loses all other card types.\nCrew 3",
+        "power": "3",
+        "toughness": "1",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "copy",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Imposter Mech",
+      "oracle_id": "f434e266-d9d6-4058-96ff-a1bd4029d8dc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/nec/13/imposter-mech?utm_source=api",
+      "submitted_name": "Imposter Mech"
+    },
+    {
+      "cache": "cards/2494101a-2c6b-45d8-95fe-e62bf9a25130.json",
+      "card": {
+        "keywords": [
+          "Affinity"
+        ],
+        "mana_cost": "{6}{B}{R}",
+        "oracle_text": "Affinity for artifacts (This spell costs {1} less to cast for each artifact you control.)\nWhen Imskir enters, you draw X cards and you lose X life, where X is half the number of artifacts you control, rounded down.\n{3}{R}, Sacrifice an artifact: Imskir deals damage equal to the sacrificed artifact's mana value to any target.",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Legendary Creature — Demon"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "deck",
+      "name": "Imskir Iron-Eater",
+      "oracle_id": "2494101a-2c6b-45d8-95fe-e62bf9a25130",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/189/imskir-iron-eater?utm_source=api",
+      "submitted_name": "Imskir Iron-Eater"
+    },
+    {
+      "cache": "cards/97369152-3b85-4cf1-aeb9-b3a8f1c37611.json",
+      "card": {
+        "keywords": [
+          "Exhaust",
+          "Waterbend"
+        ],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "When this Vehicle enters, return up to one other target nonland permanent to its owner's hand.\nExhaust — Waterbend {3}: This Vehicle becomes an artifact creature. Put three +1/+1 counters on it. (While paying a waterbend cost, you can tap your artifacts and creatures to help. Each one pays for {1}. Activate each exhaust ability only once.)",
+        "power": "0",
+        "toughness": "0",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "removal",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Invasion Submersible",
+      "oracle_id": "97369152-3b85-4cf1-aeb9-b3a8f1c37611",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tla/57/invasion-submersible?utm_source=api",
+      "submitted_name": "Invasion Submersible"
+    },
+    {
+      "cache": "cards/b2c6aa39-2d2a-459c-a555-fb48ba993373.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U}.)",
+        "type_line": "Basic Land — Island"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Island",
+      "oracle_id": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
+      "quantity": 4,
+      "scryfall_uri": "https://scryfall.com/card/trk/319/island?utm_source=api",
+      "submitted_name": "Island"
+    },
+    {
+      "cache": "cards/2fda4fe7-8b0c-489c-a000-6d358e614e34.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{1}, {T}: Add {U}{R}.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Izzet Signet",
+      "oracle_id": "2fda4fe7-8b0c-489c-a000-6d358e614e34",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/320/izzet-signet?utm_source=api",
+      "submitted_name": "Izzet Signet"
+    },
+    {
+      "cache": "cards/e2ab0f84-8402-472d-be66-9661b85e08fc.json",
+      "card": {
+        "keywords": [
+          "Crew",
+          "Trample",
+          "Rapid-fire Battle Cannon"
+        ],
+        "mana_cost": "{5}",
+        "oracle_text": "Trample\nRapid-fire Battle Cannon — When this Vehicle enters, it deals 4 damage to each opponent.\nCrew 1 (Tap any number of creatures you control with total power 1 or more: This Vehicle becomes an artifact creature until end of turn.)",
+        "power": "6",
+        "toughness": "6",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "win-condition",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Knight Paladin",
+      "oracle_id": "e2ab0f84-8402-472d-be66-9661b85e08fc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/40k/160/knight-paladin?utm_source=api",
+      "submitted_name": "Knight Paladin"
+    },
+    {
+      "cache": "cards/caa69b51-1efd-4d0e-803b-914a83ccb836.json",
+      "card": {
+        "keywords": [
+          "Crew"
+        ],
+        "mana_cost": "{3}",
+        "oracle_text": "As this Vehicle enters, choose a creature type.\nVehicle creatures you control are the chosen creature type in addition to their other types.\nEach creature you control of the chosen type other than this Vehicle gets +1/+1.\nCrew 3",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "anthem"
+      ],
+      "category_source": "deck",
+      "name": "Lifecraft Engine",
+      "oracle_id": "caa69b51-1efd-4d0e-803b-914a83ccb836",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dft/234/lifecraft-engine?utm_source=api",
+      "submitted_name": "Lifecraft Engine"
+    },
+    {
+      "cache": "cards/5f8941d8-f8f7-4ec3-86c3-88af8829080b.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{R}",
+        "oracle_text": "When Loki's Scepter enters, gain control of target creature until end of turn. Untap that creature. Until end of turn, it becomes a Villain in addition to its other types and gains haste.\n{T}: Add one mana of any color.",
+        "type_line": "Legendary Artifact"
+      },
+      "categories": [
+        "ramp",
+        "theft",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Loki's Scepter",
+      "oracle_id": "5f8941d8-f8f7-4ec3-86c3-88af8829080b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/56/lokis-scepter?utm_source=api",
+      "submitted_name": "Loki's Scepter"
+    },
+    {
+      "cache": "cards/819e1765-8325-4e6f-89c1-63ea86de369f.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {B} or {R}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Luxury Suite",
+      "oracle_id": "819e1765-8325-4e6f-89c1-63ea86de369f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/252/luxury-suite?utm_source=api",
+      "submitted_name": "Luxury Suite"
+    },
+    {
+      "cache": "cards/64ebdd6f-acde-4aab-a86b-2798bad5f70c.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "You may have this artifact enter as a copy of any creature on the battlefield, except it's an artifact and it has \"{T}: Add {U}.\" (It's not a creature.)\n{T}: Add {U}.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Machine God's Effigy",
+      "oracle_id": "64ebdd6f-acde-4aab-a86b-2798bad5f70c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/brc/16/machine-gods-effigy?utm_source=api",
+      "submitted_name": "Machine God's Effigy"
+    },
+    {
+      "cache": "cards/59322432-591a-4e8d-aff5-12ca1feb1028.json",
+      "card": {
+        "keywords": [
+          "Treasure",
+          "Crew"
+        ],
+        "mana_cost": "{3}{R}{R}",
+        "oracle_text": "When this Vehicle enters, it deals 5 damage to target creature an opponent controls.\nWhenever one or more creatures your opponents control are dealt excess noncombat damage, create a Treasure token.\nCrew 2",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "removal",
+        "ramp",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Magmatic Galleon",
+      "oracle_id": "59322432-591a-4e8d-aff5-12ca1feb1028",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lci/157/magmatic-galleon?utm_source=api",
+      "submitted_name": "Magmatic Galleon"
+    },
+    {
+      "cache": "cards/da46786e-28df-4638-ab3d-121011d2f150.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "{U}, {T}, Return an artifact you control to its owner's hand: You may put an artifact card from your hand onto the battlefield.",
+        "power": "1",
+        "toughness": "2",
+        "type_line": "Artifact Creature — Human Artificer"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Master Transmuter",
+      "oracle_id": "da46786e-28df-4638-ab3d-121011d2f150",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/58/master-transmuter?utm_source=api",
+      "submitted_name": "Master Transmuter"
+    },
+    {
+      "cache": "cards/39d8406a-90c3-460c-b4e8-0f590573db51.json",
+      "card": {
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{2}{U}{U}",
+        "oracle_text": "Enchant artifact you control\nAt the beginning of your upkeep, create a token that's a copy of enchanted artifact. Then if you control eight or more artifacts with the same name as one another, you win the game.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "copy",
+        "win-condition"
+      ],
+      "category_source": "deck",
+      "name": "Mechanized Production",
+      "oracle_id": "39d8406a-90c3-460c-b4e8-0f590573db51",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/109/mechanized-production?utm_source=api",
+      "submitted_name": "Mechanized Production"
+    },
+    {
+      "cache": "cards/67d6fbcb-2df7-4b5a-8464-158f6b720a2e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "If target spell has only one target and that target is a creature, change that spell's target to another creature.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "deck",
+      "name": "Meddle",
+      "oracle_id": "67d6fbcb-2df7-4b5a-8464-158f6b720a2e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ons/92/meddle?utm_source=api",
+      "submitted_name": "Meddle"
+    },
+    {
+      "cache": "cards/181965fb-e685-4b1f-9bd6-3a33bed933b2.json",
+      "card": {
+        "keywords": [
+          "Equip"
+        ],
+        "mana_cost": "{7}",
+        "oracle_text": "When this Equipment enters, destroy target permanent.\nEquipped creature gets +3/+3.\nEquip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)",
+        "type_line": "Artifact — Equipment"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "deck",
+      "name": "Meteor Sword",
+      "oracle_id": "181965fb-e685-4b1f-9bd6-3a33bed933b2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tla/258/meteor-sword?utm_source=api",
+      "submitted_name": "Meteor Sword"
+    },
+    {
+      "cache": "cards/fd9c4ebe-cc9c-427c-8105-adb1703c191b.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{5}",
+        "oracle_text": "Whenever another nontoken artifact you control enters, you may pay {2}. If you do, create a token that's a copy of that artifact.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "copy"
+      ],
+      "category_source": "deck",
+      "name": "Mirrorworks",
+      "oracle_id": "fd9c4ebe-cc9c-427c-8105-adb1703c191b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c18/211/mirrorworks?utm_source=api",
+      "submitted_name": "Mirrorworks"
+    },
+    {
+      "cache": "cards/d3438037-3efd-4ce0-88ec-6d48ab521992.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{U}{B}{R}",
+        "oracle_text": "At the beginning of combat on your turn, create a token that's a copy of target noncreature artifact you control, except its name is Mishra's Warform and it's a 4/4 Construct artifact creature in addition to its other types. It gains haste until end of turn. Sacrifice it at the beginning of the next end step.",
+        "power": "5",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Human Artificer"
+      },
+      "categories": [
+        "commander"
+      ],
+      "category_source": "deck",
+      "name": "Mishra, Eminent One",
+      "oracle_id": "d3438037-3efd-4ce0-88ec-6d48ab521992",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/brc/1/mishra-eminent-one?utm_source=api",
+      "submitted_name": "Mishra, Eminent One"
+    },
+    {
+      "cache": "cards/ba64d3a9-08b4-4b12-b011-e41b00815277.json",
+      "card": {
+        "keywords": [
+          "Crew",
+          "Menace",
+          "Mill"
+        ],
+        "mana_cost": "{5}",
+        "oracle_text": "Menace\nWhenever this Vehicle deals combat damage to a player, mill four cards. You may put a permanent card from among them onto the battlefield.\nCrew 2",
+        "power": "6",
+        "toughness": "6",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "card-draw",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Mole Module",
+      "oracle_id": "ba64d3a9-08b4-4b12-b011-e41b00815277",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmc/40/mole-module?utm_source=api",
+      "submitted_name": "Mole Module"
+    },
+    {
+      "cache": "cards/bd004c9d-771e-4e63-a97d-a2259c096af8.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {U} or {B}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Morphic Pool",
+      "oracle_id": "bd004c9d-771e-4e63-a97d-a2259c096af8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/357/morphic-pool?utm_source=api",
+      "submitted_name": "Morphic Pool"
+    },
+    {
+      "cache": "cards/a3fb7228-e76b-4e96-a40e-20b5fed75685.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {R}.)",
+        "type_line": "Basic Land — Mountain"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Mountain",
+      "oracle_id": "a3fb7228-e76b-4e96-a40e-20b5fed75685",
+      "quantity": 3,
+      "scryfall_uri": "https://scryfall.com/card/trk/323/mountain?utm_source=api",
+      "submitted_name": "Mountain"
+    },
+    {
+      "cache": "cards/404e958b-ead9-4ec7-b786-7b3d65e29967.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{R}",
+        "oracle_text": "When this artifact enters or leaves the battlefield, create a 1/1 colorless Robot artifact creature token.\n{4}{R}, Sacrifice this artifact: It deals 3 damage to target creature.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "token-production"
+      ],
+      "category_source": "deck",
+      "name": "Mouser Foundry",
+      "oracle_id": "404e958b-ead9-4ec7-b786-7b3d65e29967",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmt/96/mouser-foundry?utm_source=api",
+      "submitted_name": "Mouser Foundry"
+    },
+    {
+      "cache": "cards/5dec1b09-4df0-4e9b-9dca-b80134be3343.json",
+      "card": {
+        "keywords": [
+          "Flying",
+          "Vigilance",
+          "Haste",
+          "Crew"
+        ],
+        "mana_cost": "{6}",
+        "oracle_text": "Flying, vigilance, haste\nWhenever this Vehicle deals combat damage to a player, look at the top card of your library. If it's a permanent card, you may put it onto the battlefield. If you don't put it onto the battlefield, put it into your hand.\nCrew 3",
+        "power": "5",
+        "toughness": "7",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "card-draw",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "N'Yami-Class Mother Ship",
+      "oracle_id": "5dec1b09-4df0-4e9b-9dca-b80134be3343",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/110/nyami-class-mother-ship?utm_source=api",
+      "submitted_name": "N'Yami-Class Mother Ship"
+    },
+    {
+      "cache": "cards/613a8774-165e-4cf6-ad43-124f9ffc9980.json",
+      "card": {
+        "keywords": [
+          "Flying",
+          "Crew"
+        ],
+        "mana_cost": "{4}",
+        "oracle_text": "Flying\nWhen this Vehicle enters, exile target player's graveyard.\nWhenever this Vehicle deals combat damage to a player, you may put a creature card exiled with this Vehicle onto the battlefield under your control.\nCrew 3",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "removal",
+        "theft",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Nautiloid Ship",
+      "oracle_id": "613a8774-165e-4cf6-ad43-124f9ffc9980",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/328/nautiloid-ship?utm_source=api",
+      "submitted_name": "Nautiloid Ship"
+    },
+    {
+      "cache": "cards/0c7ba712-6a99-4d2f-9242-a2163a11f69c.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Artifacts you control have hexproof. (They can't be the targets of spells or abilities your opponents control.)\nAt the beginning of your upkeep, if you control the artifact with the greatest mana value or tied for the greatest mana value, draw a card.",
+        "power": "1",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Vedalken Artificer"
+      },
+      "categories": [
+        "card-draw",
+        "protection"
+      ],
+      "category_source": "deck",
+      "name": "Padeem, Consul of Innovation",
+      "oracle_id": "0c7ba712-6a99-4d2f-9242-a2163a11f69c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/109/padeem-consul-of-innovation?utm_source=api",
+      "submitted_name": "Padeem, Consul of Innovation"
+    },
+    {
+      "cache": "cards/ad556aee-3dbf-4c8b-9f3a-31947e26c6f5.json",
+      "card": {
+        "keywords": [
+          "Station"
+        ],
+        "mana_cost": "{7}",
+        "oracle_text": "When this Spacecraft enters, it deals 10 damage to up to one target creature.\nStation (Tap another creature you control: Put charge counters equal to its power on this Spacecraft. Station only as a sorcery. It's an artifact creature at 7+.)\n7+ | Flying",
+        "power": "7",
+        "toughness": "7",
+        "type_line": "Artifact — Spacecraft"
+      },
+      "categories": [
+        "removal",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Pinnacle Kill-Ship",
+      "oracle_id": "ad556aee-3dbf-4c8b-9f3a-31947e26c6f5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoe/244/pinnacle-kill-ship?utm_source=api",
+      "submitted_name": "Pinnacle Kill-Ship"
+    },
+    {
+      "cache": "cards/ef86989d-ce80-4e55-aece-7d11710eeffa.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Swamp card, put it onto the battlefield, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Polluted Delta",
+      "oracle_id": "ef86989d-ce80-4e55-aece-7d11710eeffa",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/224/polluted-delta?utm_source=api",
+      "submitted_name": "Polluted Delta"
+    },
+    {
+      "cache": "cards/ab7c0256-eea9-4e0d-932d-c25460eed836.json",
+      "card": {
+        "keywords": [
+          "Crew"
+        ],
+        "mana_cost": "{3}{U}{U}",
+        "oracle_text": "When this Vehicle enters, gain control of target creature an opponent controls for as long as you control this Vehicle. That creature can't attack or block for as long as you control this Vehicle.\nCrew 3",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "removal",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Possession Engine",
+      "oracle_id": "ab7c0256-eea9-4e0d-932d-c25460eed836",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dft/54/possession-engine?utm_source=api",
+      "submitted_name": "Possession Engine"
+    },
+    {
+      "cache": "cards/3adb7681-977f-4a32-9ec8-51481b958268.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{1}, {T}: Add {B}{R}.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Rakdos Signet",
+      "oracle_id": "3adb7681-977f-4a32-9ec8-51481b958268",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/250/rakdos-signet?utm_source=api",
+      "submitted_name": "Rakdos Signet"
+    },
+    {
+      "cache": "cards/2951671b-ac01-4e65-857f-0b7b7c7478ce.json",
+      "card": {
+        "keywords": [
+          "Gatling Blaster",
+          "Void Shields",
+          "Protection",
+          "Crew"
+        ],
+        "mana_cost": "{7}",
+        "oracle_text": "Void Shields — Protection from mana value 3 or less\nGatling Blaster — Whenever this Vehicle attacks, it deals 5 damage to each opponent.\nCrew 4 (Tap any number of creatures you control with total power 4 or more: This Vehicle becomes an artifact creature until end of turn.)",
+        "power": "10",
+        "toughness": "10",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "win-condition",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Reaver Titan",
+      "oracle_id": "2951671b-ac01-4e65-857f-0b7b7c7478ce",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/40k/163/reaver-titan?utm_source=api",
+      "submitted_name": "Reaver Titan"
+    },
+    {
+      "cache": "cards/c62b5c22-e058-436f-9575-a01cb2112829.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{R}",
+        "oracle_text": "As an additional cost to cast this spell, pay 5 life or pay {2}.\nChange the target of target spell or ability with a single target.",
+        "type_line": "Instant — Lesson"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "deck",
+      "name": "Redirect Lightning",
+      "oracle_id": "c62b5c22-e058-436f-9575-a01cb2112829",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tla/151/redirect-lightning?utm_source=api",
+      "submitted_name": "Redirect Lightning"
+    },
+    {
+      "cache": "cards/30377bd5-99ab-4888-9ea7-e5a069b527e8.json",
+      "card": {
+        "keywords": [
+          "Spree"
+        ],
+        "mana_cost": "{R}{R}",
+        "oracle_text": "Spree (Choose one or more additional costs.)\n+ {1} — Copy target instant spell, sorcery spell, activated ability, or triggered ability. You may choose new targets for the copy.\n+ {1} — Change the target of target spell or ability with a single target.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "deck",
+      "name": "Return the Favor",
+      "oracle_id": "30377bd5-99ab-4888-9ea7-e5a069b527e8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otj/142/return-the-favor?utm_source=api",
+      "submitted_name": "Return the Favor"
+    },
+    {
+      "cache": "cards/6754753d-790e-4a95-a150-76741c4a02d4.json",
+      "card": {
+        "keywords": [
+          "Flying",
+          "Treasure",
+          "Crew",
+          "Trample"
+        ],
+        "mana_cost": "{3}{R}",
+        "oracle_text": "Flying, trample\nWhen RMS Titanic deals combat damage to a player, sacrifice it and create that many Treasure tokens.\nCrew 3 (Tap any number of creatures you control with total power 3 or more: This Vehicle becomes an artifact creature until end of turn.)",
+        "power": "7",
+        "toughness": "1",
+        "type_line": "Legendary Artifact — Vehicle"
+      },
+      "categories": [
+        "ramp",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "RMS Titanic",
+      "oracle_id": "6754753d-790e-4a95-a150-76741c4a02d4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/who/93/rms-titanic?utm_source=api",
+      "submitted_name": "RMS Titanic"
+    },
+    {
+      "cache": "cards/a6c3aa17-8338-4daa-889e-d36dc715e546.json",
+      "card": {
+        "keywords": [
+          "Crew"
+        ],
+        "mana_cost": "{7}",
+        "oracle_text": "This Vehicle gets +1/+1 for each Hamster you control.\nWhenever this Vehicle attacks, create three 1/1 red Hamster creature tokens, then it deals X damage to any target, where X is the number of Hamsters you control.\nCrew 3",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "win-condition",
+        "token-production",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Rolling Hamsphere",
+      "oracle_id": "a6c3aa17-8338-4daa-889e-d36dc715e546",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blc/39/rolling-hamsphere?utm_source=api",
+      "submitted_name": "Rolling Hamsphere"
+    },
+    {
+      "cache": "cards/cb027150-848c-4a66-88ad-e20222304dd8.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Scalding Tarn",
+      "oracle_id": "cb027150-848c-4a66-88ad-e20222304dd8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/254/scalding-tarn?utm_source=api",
+      "submitted_name": "Scalding Tarn"
+    },
+    {
+      "cache": "cards/39451b4d-cd7a-40da-b457-cb51b609173f.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {U}.",
+        "type_line": "Artifact Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Seat of the Synod",
+      "oracle_id": "39451b4d-cd7a-40da-b457-cb51b609173f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/176/seat-of-the-synod?utm_source=api",
+      "submitted_name": "Seat of the Synod"
+    },
+    {
+      "cache": "cards/25c83d45-581f-48ba-b6bb-feb66e8a65c7.json",
+      "card": {
+        "keywords": [
+          "Flash"
+        ],
+        "mana_cost": "{U}",
+        "oracle_text": "Flash\nWhen this artifact enters or leaves the battlefield, you may tap or untap target creature.\n{3}{U}, Sacrifice this artifact: Draw two cards.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "deck",
+      "name": "Sewer-veillance Cam",
+      "oracle_id": "25c83d45-581f-48ba-b6bb-feb66e8a65c7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmt/53/sewer-veillance-cam?utm_source=api",
+      "submitted_name": "Sewer-veillance Cam"
+    },
+    {
+      "cache": "cards/5f42b67f-87fd-4f98-a0e8-0c8313f4bbc8.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control two or more other lands.\n{T}: Add {U} or {B}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Shipwreck Marsh",
+      "oracle_id": "5f42b67f-87fd-4f98-a0e8-0c8313f4bbc8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inr/284/shipwreck-marsh?utm_source=api",
+      "submitted_name": "Shipwreck Marsh"
+    },
+    {
+      "cache": "cards/127f6985-c1f4-487f-b5ee-c84524cd6c55.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "When this artifact enters, create two tapped Vibranium tokens. (They're artifacts with indestructible and \"{T}: Add {C}. This mana can't be spent to cast a nonartifact spell.\")\n{6}, {T}: Return target artifact card from your graveyard to the battlefield with a finality counter on it. Activate only as a sorcery. (If a permanent with a finality counter on it would be put into a graveyard, exile it instead.)",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp",
+        "recursion"
+      ],
+      "category_source": "deck",
+      "name": "Shuri's Fabricator",
+      "oracle_id": "127f6985-c1f4-487f-b5ee-c84524cd6c55",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/114/shuris-fabricator?utm_source=api",
+      "submitted_name": "Shuri's Fabricator"
+    },
+    {
+      "cache": "cards/eb7a1f21-a66d-415b-8520-710b44890bb6.json",
+      "card": {
+        "keywords": [
+          "Scry"
+        ],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "When this artifact enters, scry 2.\nWhenever another artifact you control with mana value 3 or greater enters, create a 0/0 colorless Construct artifact creature token with \"This token gets +1/+1 for each artifact you control.\"",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "token-production"
+      ],
+      "category_source": "deck",
+      "name": "Simulacrum Synthesizer",
+      "oracle_id": "eb7a1f21-a66d-415b-8520-710b44890bb6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/big/6/simulacrum-synthesizer?utm_source=api",
+      "submitted_name": "Simulacrum Synthesizer"
+    },
+    {
+      "cache": "cards/599402d9-2ea6-4709-b010-b35636be8c8c.json",
+      "card": {
+        "keywords": [
+          "Flying",
+          "Crew"
+        ],
+        "mana_cost": "{4}{R}",
+        "oracle_text": "Flying\nWhen this Vehicle enters, it deals X damage to up to one target creature, where X is twice the number of Vehicles you control.\nCrew 2 (Tap any number of creatures you control with total power 2 or more: This Vehicle becomes an artifact creature until end of turn.)",
+        "power": "4",
+        "toughness": "3",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "removal",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Sky Cycle",
+      "oracle_id": "599402d9-2ea6-4709-b010-b35636be8c8c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/704/sky-cycle?utm_source=api",
+      "submitted_name": "Sky Cycle"
+    },
+    {
+      "cache": "cards/50b14338-9318-4327-a1dd-c0ef38903cc4.json",
+      "card": {
+        "keywords": [
+          "Flying",
+          "Crew"
+        ],
+        "mana_cost": "{5}",
+        "oracle_text": "Flying\nWhenever Skysovereign enters or attacks, it deals 3 damage to target creature or planeswalker an opponent controls.\nCrew 3 (Tap any number of creatures you control with total power 3 or more: This Vehicle becomes an artifact creature until end of turn.)",
+        "power": "6",
+        "toughness": "5",
+        "type_line": "Legendary Artifact — Vehicle"
+      },
+      "categories": [
+        "removal",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Skysovereign, Consul Flagship",
+      "oracle_id": "50b14338-9318-4327-a1dd-c0ef38903cc4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/nec/159/skysovereign-consul-flagship?utm_source=api",
+      "submitted_name": "Skysovereign, Consul Flagship"
+    },
+    {
+      "cache": "cards/e0aa6ce0-ca31-433b-ac6c-32b8675cdb71.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{U/P}: Change a target of target spell or ability to this creature. ({U/P} can be paid with either {U} or 2 life.)",
+        "power": "0",
+        "toughness": "4",
+        "type_line": "Artifact Creature — Phyrexian Horror"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "deck",
+      "name": "Spellskite",
+      "oracle_id": "e0aa6ce0-ca31-433b-ac6c-32b8675cdb71",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/873/spellskite?utm_source=api",
+      "submitted_name": "Spellskite"
+    },
+    {
+      "cache": "cards/17039058-822d-409f-938c-b727a366ba63.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "type_line": "Land — Island Mountain"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Steam Vents",
+      "oracle_id": "17039058-822d-409f-938c-b727a366ba63",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/298/steam-vents?utm_source=api",
+      "submitted_name": "Steam Vents"
+    },
+    {
+      "cache": "cards/4722105b-0085-4bb8-bca1-9de0d3eb5600.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control two or more other lands.\n{T}: Add {U} or {R}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Stormcarved Coast",
+      "oracle_id": "4722105b-0085-4bb8-bca1-9de0d3eb5600",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sos/263/stormcarved-coast?utm_source=api",
+      "submitted_name": "Stormcarved Coast"
+    },
+    {
+      "cache": "cards/bf9421d2-54e2-44d8-8b39-2e41192a6517.json",
+      "card": {
+        "keywords": [
+          "Crew",
+          "Menace"
+        ],
+        "mana_cost": "{4}",
+        "oracle_text": "Menace\nWhen this Vehicle enters, it deals damage equal to twice the number of Vehicles you control to target creature or planeswalker an opponent controls.\nCrew 4",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "removal",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Surgehacker Mech",
+      "oracle_id": "bf9421d2-54e2-44d8-8b39-2e41192a6517",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/260/surgehacker-mech?utm_source=api",
+      "submitted_name": "Surgehacker Mech"
+    },
+    {
+      "cache": "cards/50d6cadc-07e4-479e-90f4-e3a20f769bab.json",
+      "card": {
+        "keywords": [
+          "Station"
+        ],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {B}.\nStation (Tap another creature you control: Put charge counters equal to its power on this Planet. Station only as a sorcery.)\n12+ | {1}{B}, {T}, Pay 2 life, Sacrifice a creature: Draw cards equal to the sacrificed creature's power. Activate only as a sorcery.",
+        "type_line": "Land — Planet"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Susur Secundi, Void Altar",
+      "oracle_id": "50d6cadc-07e4-479e-90f4-e3a20f769bab",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoe/259/susur-secundi-void-altar?utm_source=api",
+      "submitted_name": "Susur Secundi, Void Altar"
+    },
+    {
+      "cache": "cards/56719f6a-1a6c-4c0a-8d21-18f7d7350b68.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {B}.)",
+        "type_line": "Basic Land — Swamp"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Swamp",
+      "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
+      "quantity": 3,
+      "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
+      "submitted_name": "Swamp"
+    },
+    {
+      "cache": "cards/14d2979d-5728-42d7-a027-0eb1f754655d.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {U} or {R}. This artifact deals 1 damage to you.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Talisman of Creativity",
+      "oracle_id": "14d2979d-5728-42d7-a027-0eb1f754655d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/218/talisman-of-creativity?utm_source=api",
+      "submitted_name": "Talisman of Creativity"
+    },
+    {
+      "cache": "cards/4c0a0448-b9d6-43a0-8549-64066dac63f0.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {U} or {B}. This artifact deals 1 damage to you.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Talisman of Dominance",
+      "oracle_id": "4c0a0448-b9d6-43a0-8549-64066dac63f0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/219/talisman-of-dominance?utm_source=api",
+      "submitted_name": "Talisman of Dominance"
+    },
+    {
+      "cache": "cards/1d9aeaaa-66f6-41cb-9bac-162d6fd8662c.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {B} or {R}. This artifact deals 1 damage to you.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Talisman of Indulgence",
+      "oracle_id": "1d9aeaaa-66f6-41cb-9bac-162d6fd8662c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/220/talisman-of-indulgence?utm_source=api",
+      "submitted_name": "Talisman of Indulgence"
+    },
+    {
+      "cache": "cards/11323af4-b8b8-4ca9-932f-377c7fd77dea.json",
+      "card": {
+        "keywords": [
+          "Station"
+        ],
+        "mana_cost": "{5}",
+        "oracle_text": "{T}: Add {C}{C}{C}.\nStation (Tap another creature you control: Put charge counters equal to its power on this Spacecraft. Station only as a sorcery.)\n20+ | {T}: Add X mana of any one color, where X is the number of charge counters on The Eternity Elevator.",
+        "type_line": "Legendary Artifact — Spacecraft"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "The Eternity Elevator",
+      "oracle_id": "11323af4-b8b8-4ca9-932f-377c7fd77dea",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoe/241/the-eternity-elevator?utm_source=api",
+      "submitted_name": "The Eternity Elevator"
+    },
+    {
+      "cache": "cards/276dc5c8-c8cf-4b9c-ad75-31876e6e040a.json",
+      "card": {
+        "keywords": [
+          "Crew",
+          "Trample"
+        ],
+        "mana_cost": "{2}{U}{U}",
+        "oracle_text": "Trample\nWhenever a creature you control deals combat damage to a player, draw a card.\nCrew 3\nYou may cast this card from your graveyard as long as you control three or more tapped Pirates and/or Vehicles.",
+        "power": "6",
+        "toughness": "6",
+        "type_line": "Legendary Artifact — Vehicle"
+      },
+      "categories": [
+        "card-draw",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "The Indomitable",
+      "oracle_id": "276dc5c8-c8cf-4b9c-ad75-31876e6e040a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lcc/75/the-indomitable?utm_source=api",
+      "submitted_name": "The Indomitable"
+    },
+    {
+      "cache": "cards/c396db03-bf11-4e20-b630-4f9aa8fd78da.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{5}",
+        "oracle_text": "When The Mightstone and Weakstone enters, choose one —\n• Draw two cards.\n• Target creature gets -5/-5 until end of turn.\n{T}: Add {C}{C}. This mana can't be spent to cast nonartifact spells.\n(Melds with Urza, Lord Protector.)",
+        "type_line": "Legendary Artifact — Powerstone"
+      },
+      "categories": [
+        "ramp",
+        "removal",
+        "card-draw",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "The Mightstone and Weakstone",
+      "oracle_id": "c396db03-bf11-4e20-b630-4f9aa8fd78da",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/bro/238/the-mightstone-and-weakstone?utm_source=api",
+      "submitted_name": "The Mightstone and Weakstone"
+    },
+    {
+      "cache": "cards/e58e94dc-9602-48db-9dd9-9d3051c33a76.json",
+      "card": {
+        "keywords": [
+          "Flying",
+          "Haste",
+          "Crew"
+        ],
+        "mana_cost": "{6}",
+        "oracle_text": "Flying, haste\nWhen The Thanos-Copter enters, Vehicles you control become artifact creatures until end of turn.\nWhenever a Vehicle you control deals combat damage to a player, draw a card.\nCrew 2",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Legendary Artifact — Vehicle"
+      },
+      "categories": [
+        "card-draw",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "The Thanos-Copter",
+      "oracle_id": "e58e94dc-9602-48db-9dd9-9d3051c33a76",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/753/the-thanos-copter?utm_source=api",
+      "submitted_name": "The Thanos-Copter"
+    },
+    {
+      "cache": "cards/49be65fd-3755-410d-b0dc-2e5861ea2552.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{U}{U}",
+        "oracle_text": "At the beginning of your upkeep, if you control an artifact, create a 1/1 colorless Thopter artifact creature token with flying.\nWhenever one or more artifact creatures you control deal combat damage to a player, draw a card.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "card-draw",
+        "token-production"
+      ],
+      "category_source": "deck",
+      "name": "Thopter Spy Network",
+      "oracle_id": "49be65fd-3755-410d-b0dc-2e5861ea2552",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/moc/241/thopter-spy-network?utm_source=api",
+      "submitted_name": "Thopter Spy Network"
+    },
+    {
+      "cache": "cards/e3570ac7-c593-40e3-bbd6-ec3da6d8158d.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {U} or {R}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Training Center",
+      "oracle_id": "e3570ac7-c593-40e3-bbd6-ec3da6d8158d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/434/training-center?utm_source=api",
+      "submitted_name": "Training Center"
+    },
+    {
+      "cache": "cards/4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U} or {B}.)",
+        "type_line": "Land — Island Swamp"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Underground Sea",
+      "oracle_id": "4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/vma/323/underground-sea?utm_source=api",
+      "submitted_name": "Underground Sea"
+    },
+    {
+      "cache": "cards/df08ac72-010f-42f8-beb3-6d645c638e1e.json",
+      "card": {
+        "keywords": [
+          "Station"
+        ],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {U}.\nStation (Tap another creature you control: Put charge counters equal to its power on this Planet. Station only as a sorcery.)\n12+ | {U}, {T}: Add {U} for each artifact you control.",
+        "type_line": "Land — Planet"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Uthros, Titanic Godcore",
+      "oracle_id": "df08ac72-010f-42f8-beb3-6d645c638e1e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoe/260/uthros-titanic-godcore?utm_source=api",
+      "submitted_name": "Uthros, Titanic Godcore"
+    },
+    {
+      "cache": "cards/09496421-74e4-466a-9546-56f2a0c8eef4.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {B}.",
+        "type_line": "Artifact Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Vault of Whispers",
+      "oracle_id": "09496421-74e4-466a-9546-56f2a0c8eef4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/322/vault-of-whispers?utm_source=api",
+      "submitted_name": "Vault of Whispers"
+    },
+    {
+      "cache": "cards/1bea6d02-186e-46d8-b788-d4cc37dbb480.json",
+      "card": {
+        "keywords": [
+          "Crew",
+          "Trample"
+        ],
+        "mana_cost": "{4}",
+        "oracle_text": "Trample\nWhenever this Vehicle enters or attacks, create a tapped Vibranium token. (It's an artifact with indestructible and \"{T}: Add {C}. This mana can't be spent to cast a nonartifact spell.\")\n{2}: This Vehicle gets +1/+0 until end of turn.\nCrew 2",
+        "power": "6",
+        "toughness": "6",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "ramp",
+        "mishra-target"
+      ],
+      "category_source": "deck",
+      "name": "Vibranium Mining Mech",
+      "oracle_id": "1bea6d02-186e-46d8-b788-d4cc37dbb480",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/117/vibranium-mining-mech?utm_source=api",
+      "submitted_name": "Vibranium Mining Mech"
+    },
+    {
+      "cache": "cards/c718911c-c955-4eb9-9e16-be4bd49a4e4e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U} or {R}.)",
+        "type_line": "Land — Island Mountain"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Volcanic Island",
+      "oracle_id": "c718911c-c955-4eb9-9e16-be4bd49a4e4e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/vma/324/volcanic-island?utm_source=api",
+      "submitted_name": "Volcanic Island"
+    },
+    {
+      "cache": "cards/fc9ec820-4245-4a96-b009-5308a818ca58.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "type_line": "Land — Island Swamp"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Watery Grave",
+      "oracle_id": "fc9ec820-4245-4a96-b009-5308a818ca58",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/306/watery-grave?utm_source=api",
+      "submitted_name": "Watery Grave"
+    },
+    {
+      "cache": "cards/8291543f-d086-48aa-b2b7-5481ca8c9198.json",
+      "card": {
+        "keywords": [
+          "Cycling"
+        ],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U}, {B}, or {R}.)\nThis land enters tapped.\nCycling {3} ({3}, Discard this card: Draw a card.)",
+        "type_line": "Land — Island Swamp Mountain"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Xander's Lounge",
+      "oracle_id": "8291543f-d086-48aa-b2b7-5481ca8c9198",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/snc/260/xanders-lounge?utm_source=api",
+      "submitted_name": "Xander's Lounge"
+    }
+  ],
+  "categorized_cards": 93,
+  "generated_at": "2026-08-21T18:42:45.539363+00:00",
+  "schema_version": 3,
+  "source": "decks/3_mishra-racecar-driver/decklist.txt",
+  "total_cards": 100,
+  "unique_cards": 93,
+  "unresolved": []
+}
