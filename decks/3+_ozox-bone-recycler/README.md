@@ -1,6 +1,6 @@
 # Ozox — Bone Recycler
 
-> High Bracket 3 combo deck. Usually threatens a win around turn six, but has an unlikely turn-four line.
+> Bracket 3+ combo deck. Usually threatens a win around turn six, but has an unlikely turn-four line.
 
 A mono-black sacrifice deck built around repeatedly killing and recasting its commander. Ozox turns itself into Jumblebones, Jumblebones returns Ozox, and the deck converts that rotation into mana, cards, and life loss.
 
