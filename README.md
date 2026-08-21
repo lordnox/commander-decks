@@ -1,5 +1,10 @@
 # Commander Decks
 
+## Deck primers
+
+- [Bartolomé del Presidio](decks/bartolome-del-presidio/README.md)
+- [Ozox — Graveyard Rotation](decks/ozox-graveyard-rotation/README.md)
+
 A conversation-driven workspace for importing, resolving, categorizing, and improving Magic: The Gathering Commander decks.
 
 The repository keeps each submitted deck list unchanged and caches card data from Scryfall for reuse across decks.
@@ -81,7 +86,9 @@ When a deck list is submitted, the agent must:
 6. Assign one or more categories to every card.
 7. Write the deck manifest to `decks/<deck-name>/cards.json`.
 8. Cache shared card data and universal categories under `cards/`.
-9. Report unresolved names before analyzing the deck.
+9. Create the deck primer at `decks/<deck-name>/README.md`.
+10. Add or update its link in the `Deck primers` section at the top of this README.
+11. Report unresolved names before analyzing the deck.
 
 ## Card categories
 
@@ -130,6 +137,7 @@ Before making changes:
 6. Preserve submitted deck lists and never overwrite a likely existing deck
    without confirmation.
 7. Ensure every resolved card has one or more categories.
+8. Ensure every deck has a primer linked near the top of the root README.
 ```
 
 To resolve a saved list manually:
