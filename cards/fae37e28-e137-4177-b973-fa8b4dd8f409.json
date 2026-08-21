@@ -1,0 +1,151 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "e96f22c0-b9c8-418a-8224-e7d0b2841bd2",
+      "name": "Elephant",
+      "object": "related_card",
+      "type_line": "Token Creature — Elephant",
+      "uri": "https://api.scryfall.com/cards/e96f22c0-b9c8-418a-8224-e7d0b2841bd2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c3f9b454-97e9-4c77-b37a-e974221ae385",
+      "name": "Generous Gift",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/c3f9b454-97e9-4c77-b37a-e974221ae385"
+    }
+  ],
+  "artist": "David Álvarez",
+  "artist_ids": [
+    "c3004e2c-d372-4faa-90db-f1274e75ef41"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 892684,
+  "cmc": 3.0,
+  "collector_number": "133",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 60,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"What am I supposed to do with this?\"\n—Everett K. Ross, State Department liaison",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c3f9b454-97e9-4c77-b37a-e974221ae385",
+  "illustration_id": "ffd9f94a-5eb2-4a23-8143-5df38be19781",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:40:47Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/3/c3f9b454-97e9-4c77-b37a-e974221ae385.webp?1783903247",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/3/c3f9b454-97e9-4c77-b37a-e974221ae385.jpg?1783903247",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/3/c3f9b454-97e9-4c77-b37a-e974221ae385.jpg?1783903247",
+    "crop": "https://cards.scryfall.io/crop/front/c/3/c3f9b454-97e9-4c77-b37a-e974221ae385.webp?1783903247",
+    "display": "https://cards.scryfall.io/display/front/c/3/c3f9b454-97e9-4c77-b37a-e974221ae385.webp?1783903247",
+    "grid": "https://cards.scryfall.io/grid/front/c/3/c3f9b454-97e9-4c77-b37a-e974221ae385.webp?1783903247",
+    "large": "https://cards.scryfall.io/large/front/c/3/c3f9b454-97e9-4c77-b37a-e974221ae385.jpg?1783903247",
+    "normal": "https://cards.scryfall.io/normal/front/c/3/c3f9b454-97e9-4c77-b37a-e974221ae385.jpg?1783903247",
+    "png": "https://cards.scryfall.io/png/front/c/3/c3f9b454-97e9-4c77-b37a-e974221ae385.png?1783903247",
+    "small": "https://cards.scryfall.io/small/front/c/3/c3f9b454-97e9-4c77-b37a-e974221ae385.jpg?1783903247",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/3/c3f9b454-97e9-4c77-b37a-e974221ae385.webp?1783903247"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 150735,
+  "multiverse_ids": [],
+  "name": "Generous Gift",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "fae37e28-e137-4177-b973-fa8b4dd8f409",
+  "oracle_text": "Destroy target permanent. Its controller creates a 3/3 green Elephant creature token.",
+  "oversized": false,
+  "penny_rank": 2554,
+  "prices": {
+    "eur": "0.85",
+    "eur_foil": null,
+    "tix": "0.04",
+    "usd": "0.87",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Afae37e28-e137-4177-b973-fa8b4dd8f409&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150735?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=892684&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F698177%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Generous+Gift",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGenerous%2BGift",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGenerous%2BGift"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "AADE2557130D6D616373DF0600D01C79834BC4BD6AEBF4C65E6C4A7A3083D2D6",
+  "rulings_uri": "https://api.scryfall.com/cards/c3f9b454-97e9-4c77-b37a-e974221ae385/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/133/generous-gift?utm_source=api",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 698177,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/c3f9b454-97e9-4c77-b37a-e974221ae385",
+  "variation": false
+}
