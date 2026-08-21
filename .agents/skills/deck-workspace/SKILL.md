@@ -33,7 +33,7 @@ python3 .agents/skills/deck-workspace/scripts/cache_deck.py decks/<slug>/decklis
 
 The script writes:
 
-- `decks/<slug>/cards.json`
+- `decks/<slug>/cards.json` (including compact Oracle text and card characteristics)
 - `cards/<oracle-id>.json`
 - `cards/index.json`
 - `cards/categories.json`
@@ -77,6 +77,6 @@ A deck override replaces the universal category list for that card in that deck.
 
 ## 5. Continue deck work
 
-Use `cards.json` as the deck inventory and load detailed card data from the referenced cache files. Use the `scryfall-lookup` skill for searches or to refresh current card information.
+Use `cards.json` as the deck inventory and prefer its embedded `card` details for analysis. Load referenced cache files only for fields not embedded in the manifest. Use the `scryfall-lookup` skill for searches or to refresh current card information. Use the `deck-primer` skill when documenting how a deck plays.
 
 When reporting completion, state the deck name, total cards, unique cards, category coverage, and any unresolved entries.
