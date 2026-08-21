@@ -1,0 +1,173 @@
+{
+  "arena_id": 90814,
+  "artist": "Yeong-Hao Han",
+  "artist_ids": [
+    "f8e7f8d6-6dde-4059-973c-30f1fd1bbe4e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Yeong-Hao Han",
+      "artist_id": "f8e7f8d6-6dde-4059-973c-30f1fd1bbe4e",
+      "colors": [
+        "B"
+      ],
+      "flavor_text": "\"I can think of no fate more fitting for one so foul as you.\"\n—Aryel, knight of Windgrace",
+      "illustration_id": "ad0eb554-f687-411c-95c2-edc23f7f2b66",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/a/3/a3cb782d-c459-468d-9779-9b5669abc337.webp?1783911234",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/a/3/a3cb782d-c459-468d-9779-9b5669abc337.jpg?1783911234",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/a/3/a3cb782d-c459-468d-9779-9b5669abc337.jpg?1783911234",
+        "crop": "https://cards.scryfall.io/crop/front/a/3/a3cb782d-c459-468d-9779-9b5669abc337.webp?1783911234",
+        "display": "https://cards.scryfall.io/display/front/a/3/a3cb782d-c459-468d-9779-9b5669abc337.webp?1783911234",
+        "grid": "https://cards.scryfall.io/grid/front/a/3/a3cb782d-c459-468d-9779-9b5669abc337.webp?1783911234",
+        "large": "https://cards.scryfall.io/large/front/a/3/a3cb782d-c459-468d-9779-9b5669abc337.jpg?1783911234",
+        "normal": "https://cards.scryfall.io/normal/front/a/3/a3cb782d-c459-468d-9779-9b5669abc337.jpg?1783911234",
+        "png": "https://cards.scryfall.io/png/front/a/3/a3cb782d-c459-468d-9779-9b5669abc337.png?1783911234",
+        "small": "https://cards.scryfall.io/small/front/a/3/a3cb782d-c459-468d-9779-9b5669abc337.jpg?1783911234",
+        "thumb": "https://cards.scryfall.io/thumb/front/a/3/a3cb782d-c459-468d-9779-9b5669abc337.webp?1783911234"
+      },
+      "mana_cost": "{2}{B}{B}",
+      "name": "Fell the Profane",
+      "object": "card_face",
+      "oracle_text": "Destroy target creature or planeswalker.",
+      "type_line": "Instant"
+    },
+    {
+      "artist": "Yeong-Hao Han",
+      "artist_id": "f8e7f8d6-6dde-4059-973c-30f1fd1bbe4e",
+      "colors": [],
+      "flavor_text": "\"The Nethermire is all the salvation you deserve.\"\n—Aryel, knight of Windgrace",
+      "illustration_id": "f88db4fc-7556-4851-bb4e-dd39e8396723",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/a/3/a3cb782d-c459-468d-9779-9b5669abc337.webp?1783911234",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/a/3/a3cb782d-c459-468d-9779-9b5669abc337.jpg?1783911234",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/a/3/a3cb782d-c459-468d-9779-9b5669abc337.jpg?1783911234",
+        "crop": "https://cards.scryfall.io/crop/back/a/3/a3cb782d-c459-468d-9779-9b5669abc337.webp?1783911234",
+        "display": "https://cards.scryfall.io/display/back/a/3/a3cb782d-c459-468d-9779-9b5669abc337.webp?1783911234",
+        "grid": "https://cards.scryfall.io/grid/back/a/3/a3cb782d-c459-468d-9779-9b5669abc337.webp?1783911234",
+        "large": "https://cards.scryfall.io/large/back/a/3/a3cb782d-c459-468d-9779-9b5669abc337.jpg?1783911234",
+        "normal": "https://cards.scryfall.io/normal/back/a/3/a3cb782d-c459-468d-9779-9b5669abc337.jpg?1783911234",
+        "png": "https://cards.scryfall.io/png/back/a/3/a3cb782d-c459-468d-9779-9b5669abc337.png?1783911234",
+        "small": "https://cards.scryfall.io/small/back/a/3/a3cb782d-c459-468d-9779-9b5669abc337.jpg?1783911234",
+        "thumb": "https://cards.scryfall.io/thumb/back/a/3/a3cb782d-c459-468d-9779-9b5669abc337.webp?1783911234"
+      },
+      "mana_cost": "",
+      "name": "Fell Mire",
+      "object": "card_face",
+      "oracle_text": "As this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {B}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 771814,
+  "cmc": 4.0,
+  "collector_number": "244",
+  "color_identity": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 202,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "a3cb782d-c459-468d-9779-9b5669abc337",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:53:54Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 126521,
+  "multiverse_ids": [
+    661767
+  ],
+  "name": "Fell the Profane // Fell Mire",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "053a69d8-2b5e-4f14-8b02-ca405891dc4a",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-05-23",
+    "source": "ChannelFireball",
+    "source_uri": "https://www.channelfireball.com/article/Our-EXCLUSIVE-Modern-Horizons-3-Preview-Card/f16a095e-4a0c-4b98-b99a-0ef94a09f369/"
+  },
+  "prices": {
+    "eur": "4.38",
+    "eur_foil": "5.22",
+    "tix": "0.18",
+    "usd": "4.14",
+    "usd_etched": null,
+    "usd_foil": "4.67"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A053a69d8-2b5e-4f14-8b02-ca405891dc4a&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126521?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=771814&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552580%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Fell+the+Profane",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=661767&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFell%2Bthe%2BProfane%2B%252F%252F%2BFell%2BMire",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFell%2Bthe%2BProfane%2B%252F%252F%2BFell%2BMire"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a3cb782d-c459-468d-9779-9b5669abc337/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/244/fell-the-profane-fell-mire?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552580,
+  "textless": false,
+  "type_line": "Instant // Land",
+  "uri": "https://api.scryfall.com/cards/a3cb782d-c459-468d-9779-9b5669abc337",
+  "variation": false
+}
