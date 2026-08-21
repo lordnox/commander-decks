@@ -1,0 +1,139 @@
+{
+  "arena_id": 90437,
+  "artist": "Scott Murphy",
+  "artist_ids": [
+    "07c7ac65-dfa6-4273-9c66-ec9d8f3e2226"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 763882,
+  "cmc": 1.0,
+  "collector_number": "91",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1171,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Akul didn't know what lay inside Tarnation's great vault, but the mystery fueled his obsession.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "spree"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "a108b0e4-1b43-4659-9e91-facb0bd57ebb",
+  "illustration_id": "63b6adbc-af4d-400f-9172-b660fec6823b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:03:50Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/1/a108b0e4-1b43-4659-9e91-facb0bd57ebb.webp?1783911830",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/1/a108b0e4-1b43-4659-9e91-facb0bd57ebb.jpg?1783911830",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/1/a108b0e4-1b43-4659-9e91-facb0bd57ebb.jpg?1783911830",
+    "crop": "https://cards.scryfall.io/crop/front/a/1/a108b0e4-1b43-4659-9e91-facb0bd57ebb.webp?1783911830",
+    "display": "https://cards.scryfall.io/display/front/a/1/a108b0e4-1b43-4659-9e91-facb0bd57ebb.webp?1783911830",
+    "grid": "https://cards.scryfall.io/grid/front/a/1/a108b0e4-1b43-4659-9e91-facb0bd57ebb.webp?1783911830",
+    "large": "https://cards.scryfall.io/large/front/a/1/a108b0e4-1b43-4659-9e91-facb0bd57ebb.jpg?1783911830",
+    "normal": "https://cards.scryfall.io/normal/front/a/1/a108b0e4-1b43-4659-9e91-facb0bd57ebb.jpg?1783911830",
+    "png": "https://cards.scryfall.io/png/front/a/1/a108b0e4-1b43-4659-9e91-facb0bd57ebb.png?1783911830",
+    "small": "https://cards.scryfall.io/small/front/a/1/a108b0e4-1b43-4659-9e91-facb0bd57ebb.jpg?1783911830",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/1/a108b0e4-1b43-4659-9e91-facb0bd57ebb.webp?1783911830"
+  },
+  "keywords": [
+    "Spree"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 124093,
+  "multiverse_ids": [
+    655032
+  ],
+  "name": "Insatiable Avarice",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ad3e705f-da57-4eff-84d7-2072522de988",
+  "oracle_text": "Spree (Choose one or more additional costs.)\n+ {2} — Search your library for a card, then shuffle and put that card on top.\n+ {B}{B} — Target player draws three cards and loses 3 life.",
+  "oversized": false,
+  "penny_rank": 721,
+  "prices": {
+    "eur": "5.09",
+    "eur_foil": "6.21",
+    "tix": "0.02",
+    "usd": "4.89",
+    "usd_etched": null,
+    "usd_foil": "5.30"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aad3e705f-da57-4eff-84d7-2072522de988&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124093?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=763882&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544175%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Insatiable+Avarice",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=655032&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DInsatiable%2BAvarice",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DInsatiable%2BAvarice"
+  },
+  "released_at": "2024-04-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a108b0e4-1b43-4659-9e91-facb0bd57ebb/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otj?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otj/91/insatiable-avarice?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otj",
+  "set_id": "55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "set_name": "Outlaws of Thunder Junction",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotj&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "story_spotlight": false,
+  "tcgplayer_id": 544175,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/a108b0e4-1b43-4659-9e91-facb0bd57ebb",
+  "variation": false
+}
