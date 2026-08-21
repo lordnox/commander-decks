@@ -1,0 +1,133 @@
+{
+  "artist": "John Tyler Christopher",
+  "artist_ids": [
+    "b029218f-baba-45aa-8f5a-24353077dcc9"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 892411,
+  "cmc": 3.0,
+  "collector_number": "162",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 276,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Hell is real, Richards. I will show you!\"\n—Doctor Doom",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "06d44ada-f98e-405f-89d3-ac1002bfb854",
+  "illustration_id": "910710e7-031b-4f48-8471-0ffc574e3fc9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:40:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/6/06d44ada-f98e-405f-89d3-ac1002bfb854.webp?1783903235",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/6/06d44ada-f98e-405f-89d3-ac1002bfb854.jpg?1783903235",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/6/06d44ada-f98e-405f-89d3-ac1002bfb854.jpg?1783903235",
+    "crop": "https://cards.scryfall.io/crop/front/0/6/06d44ada-f98e-405f-89d3-ac1002bfb854.webp?1783903235",
+    "display": "https://cards.scryfall.io/display/front/0/6/06d44ada-f98e-405f-89d3-ac1002bfb854.webp?1783903235",
+    "grid": "https://cards.scryfall.io/grid/front/0/6/06d44ada-f98e-405f-89d3-ac1002bfb854.webp?1783903235",
+    "large": "https://cards.scryfall.io/large/front/0/6/06d44ada-f98e-405f-89d3-ac1002bfb854.jpg?1783903235",
+    "normal": "https://cards.scryfall.io/normal/front/0/6/06d44ada-f98e-405f-89d3-ac1002bfb854.jpg?1783903235",
+    "png": "https://cards.scryfall.io/png/front/0/6/06d44ada-f98e-405f-89d3-ac1002bfb854.png?1783903235",
+    "small": "https://cards.scryfall.io/small/front/0/6/06d44ada-f98e-405f-89d3-ac1002bfb854.jpg?1783903235",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/6/06d44ada-f98e-405f-89d3-ac1002bfb854.webp?1783903235"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 150793,
+  "multiverse_ids": [],
+  "name": "Withering Torment",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ffce81c5-1b58-4882-a4e7-6f8d7cb170de",
+  "oracle_text": "Destroy target creature or enchantment. You lose 2 life.",
+  "oversized": false,
+  "penny_rank": 3746,
+  "prices": {
+    "eur": "1.42",
+    "eur_foil": null,
+    "tix": "0.03",
+    "usd": "0.82",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Affce81c5-1b58-4882-a4e7-6f8d7cb170de&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150793?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=892411&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F698038%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Withering+Torment",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWithering%2BTorment",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWithering%2BTorment"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "BAB6DF6AFFC6B8CE558D75F54032520EDFC49DD74FAD379BFD6BDA1FF4E3D2FE",
+  "rulings_uri": "https://api.scryfall.com/cards/06d44ada-f98e-405f-89d3-ac1002bfb854/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/162/withering-torment?utm_source=api",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 698038,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/06d44ada-f98e-405f-89d3-ac1002bfb854",
+  "variation": false
+}
