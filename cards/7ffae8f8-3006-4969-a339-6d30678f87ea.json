@@ -1,0 +1,131 @@
+{
+  "artist": "Miranda Meeks",
+  "artist_ids": [
+    "6c9ca5a9-5ac6-4478-9606-075fd10a8f01"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 900709,
+  "cmc": 2.0,
+  "collector_number": "189",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 182,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Frodo was hardly less terrified than his companions; he was quaking as if he was bitter cold, but his terror was swallowed up in a sudden temptation to put on the Ring.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "e8399c2e-ecc8-41c9-a690-a0eeafb27f77",
+  "illustration_id": "00f11d6f-daff-48b8-9b0b-a7ea2ffe301b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-31T11:31:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/8/e8399c2e-ecc8-41c9-a690-a0eeafb27f77.webp?1785497515",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/8/e8399c2e-ecc8-41c9-a690-a0eeafb27f77.jpg?1785497515",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/8/e8399c2e-ecc8-41c9-a690-a0eeafb27f77.jpg?1785497515",
+    "crop": "https://cards.scryfall.io/crop/front/e/8/e8399c2e-ecc8-41c9-a690-a0eeafb27f77.webp?1785497515",
+    "display": "https://cards.scryfall.io/display/front/e/8/e8399c2e-ecc8-41c9-a690-a0eeafb27f77.webp?1785497515",
+    "grid": "https://cards.scryfall.io/grid/front/e/8/e8399c2e-ecc8-41c9-a690-a0eeafb27f77.webp?1785497515",
+    "large": "https://cards.scryfall.io/large/front/e/8/e8399c2e-ecc8-41c9-a690-a0eeafb27f77.jpg?1785497515",
+    "normal": "https://cards.scryfall.io/normal/front/e/8/e8399c2e-ecc8-41c9-a690-a0eeafb27f77.jpg?1785497515",
+    "png": "https://cards.scryfall.io/png/front/e/8/e8399c2e-ecc8-41c9-a690-a0eeafb27f77.png?1785497515",
+    "small": "https://cards.scryfall.io/small/front/e/8/e8399c2e-ecc8-41c9-a690-a0eeafb27f77.jpg?1785497515",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/8/e8399c2e-ecc8-41c9-a690-a0eeafb27f77.webp?1785497515"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 154794,
+  "multiverse_ids": [],
+  "name": "Night's Whisper",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7ffae8f8-3006-4969-a339-6d30678f87ea",
+  "oracle_text": "You draw two cards and lose 2 life.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.64",
+    "eur_foil": null,
+    "tix": "0.01",
+    "usd": "5.37",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7ffae8f8-3006-4969-a339-6d30678f87ea&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/154794?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=900709&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F709605%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Night%27s+Whisper",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DNight%2527s%2BWhisper",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DNight%2527s%2BWhisper"
+  },
+  "released_at": "2026-08-14",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "A166819AFD292416575C2C5AF641CEB96A371B5EC53476146030FD3E7CBFCDF1",
+  "rulings_uri": "https://api.scryfall.com/cards/e8399c2e-ecc8-41c9-a690-a0eeafb27f77/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/hoc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/hoc/189/nights-whisper?utm_source=api",
+  "set": "hoc",
+  "set_id": "a185c905-5359-4f40-85c3-a3eae2ca4ff0",
+  "set_name": "The Hobbit Eternal",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ahoc&unique=prints",
+  "set_type": "eternal",
+  "set_uri": "https://api.scryfall.com/sets/a185c905-5359-4f40-85c3-a3eae2ca4ff0",
+  "story_spotlight": false,
+  "tcgplayer_id": 709605,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/e8399c2e-ecc8-41c9-a690-a0eeafb27f77",
+  "variation": false
+}
