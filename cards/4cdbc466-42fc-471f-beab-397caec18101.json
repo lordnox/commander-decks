@@ -1,0 +1,144 @@
+{
+  "arena_id": 93789,
+  "artist": "Jarel Threat",
+  "artist_ids": [
+    "0fd89fbd-bd59-4ded-890e-731a8982f278"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 795109,
+  "cmc": 2.0,
+  "collector_number": "76",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1800,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"You thought I was unarmed? Poor fool—your veins are my arsenal.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "bd0c12dd-f138-45c0-9614-d83a1d8e8399",
+  "illustration_id": "e1f389fd-e389-4537-b413-0ee3b6aeda1b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:18:28Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/d/bd0c12dd-f138-45c0-9614-d83a1d8e8399.webp?1783909108",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/d/bd0c12dd-f138-45c0-9614-d83a1d8e8399.jpg?1783909108",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/d/bd0c12dd-f138-45c0-9614-d83a1d8e8399.jpg?1783909108",
+    "crop": "https://cards.scryfall.io/crop/front/b/d/bd0c12dd-f138-45c0-9614-d83a1d8e8399.webp?1783909108",
+    "display": "https://cards.scryfall.io/display/front/b/d/bd0c12dd-f138-45c0-9614-d83a1d8e8399.webp?1783909108",
+    "grid": "https://cards.scryfall.io/grid/front/b/d/bd0c12dd-f138-45c0-9614-d83a1d8e8399.webp?1783909108",
+    "large": "https://cards.scryfall.io/large/front/b/d/bd0c12dd-f138-45c0-9614-d83a1d8e8399.jpg?1783909108",
+    "normal": "https://cards.scryfall.io/normal/front/b/d/bd0c12dd-f138-45c0-9614-d83a1d8e8399.jpg?1783909108",
+    "png": "https://cards.scryfall.io/png/front/b/d/bd0c12dd-f138-45c0-9614-d83a1d8e8399.png?1783909108",
+    "small": "https://cards.scryfall.io/small/front/b/d/bd0c12dd-f138-45c0-9614-d83a1d8e8399.jpg?1783909108",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/d/bd0c12dd-f138-45c0-9614-d83a1d8e8399.webp?1783909108"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 133720,
+  "multiverse_ids": [
+    679153
+  ],
+  "name": "Vengeful Bloodwitch",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4cdbc466-42fc-471f-beab-397caec18101",
+  "oracle_text": "Whenever this creature or another creature you control dies, target opponent loses 1 life and you gain 1 life.",
+  "oversized": false,
+  "penny_rank": 481,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2024-08-15",
+    "source": "Gamingtrend",
+    "source_uri": "https://gamingtrend.com/news/peak-inside-the-foundations-beginner-box-for-magic-the-gathering/"
+  },
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": "0.79",
+    "tix": "0.03",
+    "usd": "0.29",
+    "usd_etched": null,
+    "usd_foil": "0.46"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4cdbc466-42fc-471f-beab-397caec18101&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "beginnerbox",
+    "startercollection"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/133720?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=795109&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F563893%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vengeful+Bloodwitch",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=679153&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVengeful%2BBloodwitch",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVengeful%2BBloodwitch"
+  },
+  "released_at": "2024-11-15",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/bd0c12dd-f138-45c0-9614-d83a1d8e8399/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fdn/76/vengeful-bloodwitch?utm_source=api",
+  "set": "fdn",
+  "set_id": "a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "set_name": "Foundations",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afdn&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "story_spotlight": false,
+  "tcgplayer_id": 563893,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Vampire Warlock",
+  "uri": "https://api.scryfall.com/cards/bd0c12dd-f138-45c0-9614-d83a1d8e8399",
+  "variation": false
+}
