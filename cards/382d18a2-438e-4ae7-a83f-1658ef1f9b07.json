@@ -1,0 +1,143 @@
+{
+  "arena_id": 91790,
+  "artist": "Fiona Hsieh",
+  "artist_ids": [
+    "22211c1d-e15e-4db3-9350-e4a9862928bb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 778110,
+  "cmc": 0.0,
+  "collector_number": "254",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 2245,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "4ba8f2e7-8357-4862-97dc-1942d066023a",
+  "illustration_id": "f235d603-9d51-4a99-8a5d-5fb9bd7fd564",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:46:25Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/b/4ba8f2e7-8357-4862-97dc-1942d066023a.webp?1783910785",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/b/4ba8f2e7-8357-4862-97dc-1942d066023a.jpg?1783910785",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/b/4ba8f2e7-8357-4862-97dc-1942d066023a.jpg?1783910785",
+    "crop": "https://cards.scryfall.io/crop/front/4/b/4ba8f2e7-8357-4862-97dc-1942d066023a.webp?1783910785",
+    "display": "https://cards.scryfall.io/display/front/4/b/4ba8f2e7-8357-4862-97dc-1942d066023a.webp?1783910785",
+    "grid": "https://cards.scryfall.io/grid/front/4/b/4ba8f2e7-8357-4862-97dc-1942d066023a.webp?1783910785",
+    "large": "https://cards.scryfall.io/large/front/4/b/4ba8f2e7-8357-4862-97dc-1942d066023a.jpg?1783910785",
+    "normal": "https://cards.scryfall.io/normal/front/4/b/4ba8f2e7-8357-4862-97dc-1942d066023a.jpg?1783910785",
+    "png": "https://cards.scryfall.io/png/front/4/b/4ba8f2e7-8357-4862-97dc-1942d066023a.png?1783910785",
+    "small": "https://cards.scryfall.io/small/front/4/b/4ba8f2e7-8357-4862-97dc-1942d066023a.jpg?1783910785",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/b/4ba8f2e7-8357-4862-97dc-1942d066023a.webp?1783910785"
+  },
+  "keywords": [
+    "Surveil"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 129753,
+  "multiverse_ids": [
+    669168
+  ],
+  "name": "Hidden Grotto",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "382d18a2-438e-4ae7-a83f-1658ef1f9b07",
+  "oracle_text": "When this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)\n{T}: Add {C}.\n{1}, {T}: Add one mana of any color.",
+  "oversized": false,
+  "penny_rank": 1052,
+  "preview": {
+    "previewed_at": "2024-07-12",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.15",
+    "eur_foil": "0.17",
+    "tix": "0.03",
+    "usd": "0.24",
+    "usd_etched": null,
+    "usd_foil": "0.35"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A382d18a2-438e-4ae7-a83f-1658ef1f9b07&unique=prints",
+  "produced_mana": [
+    "B",
+    "C",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/129753?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=778110&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F559050%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hidden+Grotto",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=669168&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHidden%2BGrotto",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHidden%2BGrotto"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4ba8f2e7-8357-4862-97dc-1942d066023a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/254/hidden-grotto?utm_source=api",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": false,
+  "tcgplayer_id": 559050,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/4ba8f2e7-8357-4862-97dc-1942d066023a",
+  "variation": false
+}
