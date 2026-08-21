@@ -1,5 +1,7 @@
 # Bartolomé del Presidio
 
+> Mid Bracket 3 combo deck. Usually threatens a win around turn seven, but has an unlikely turn-five line.
+
 An Orzhov graveyard-combo deck built around cheap recursion effects, creatures that recover those effects, and death triggers.
 
 **Commander:** [Bartolomé del Presidio](https://scryfall.com/card/lci/224/bartolom%C3%A9-del-presidio)  
