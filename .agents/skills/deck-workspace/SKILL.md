@@ -95,11 +95,13 @@ After all cards resolve and have useful categories:
 Maintain a `## Deck primers` section immediately after the root README title.
 
 - Add a relative Markdown link to `decks/<prefix><slug>/README.md`.
-- Use the deck's human-readable name as the link label.
-- Keep one entry per deck, sorted alphabetically.
-- Preserve all existing primer links.
+- Prefix the human-readable link label with its assessed bracket, using `<bracket> — <deck name>`, for example `3+ — Bartolomé del Skeleton 🦴`.
+- Read the bracket from the primer's assessment blockquote. Prefer `N−`, `N`, or `N+`; when migrating legacy wording, map Low/Mid/High Bracket N to `N−`/`N`/`N+`.
+- Use `Unrated — <deck name>` when the deck has no assessment.
+- Sort entries by numeric bracket ascending, then `−`, plain, `+`, and finally alphabetically by deck name. Keep unrated decks last, alphabetically.
+- Keep one entry per deck and preserve all existing primer links.
 - When a deck is renamed, update its link rather than adding a duplicate.
-- After `assess-deck` changes a bracket prefix, update every stored path, including the manifest's `source` field.
+- After `assess-deck` changes a bracket or directory prefix, update the root README label and order, every stored path, and the manifest's `source` field.
 
 ## 7. Continue deck work
 
