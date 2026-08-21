@@ -1,0 +1,136 @@
+{
+  "artist": "John Avon",
+  "artist_ids": [
+    "798f3932-30e0-4420-aa3f-db4d613f89ca"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 834136,
+  "cmc": 0.0,
+  "collector_number": "156",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 1285,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "72474b66-1dda-409d-8703-b026c1777081",
+  "illustration_id": "1e1f73b1-9321-4826-aa1e-3cf7ed0fc971",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:26:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/2/72474b66-1dda-409d-8703-b026c1777081.webp?1783906015",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/2/72474b66-1dda-409d-8703-b026c1777081.jpg?1783906015",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/2/72474b66-1dda-409d-8703-b026c1777081.jpg?1783906015",
+    "crop": "https://cards.scryfall.io/crop/front/7/2/72474b66-1dda-409d-8703-b026c1777081.webp?1783906015",
+    "display": "https://cards.scryfall.io/display/front/7/2/72474b66-1dda-409d-8703-b026c1777081.webp?1783906015",
+    "grid": "https://cards.scryfall.io/grid/front/7/2/72474b66-1dda-409d-8703-b026c1777081.webp?1783906015",
+    "large": "https://cards.scryfall.io/large/front/7/2/72474b66-1dda-409d-8703-b026c1777081.jpg?1783906015",
+    "normal": "https://cards.scryfall.io/normal/front/7/2/72474b66-1dda-409d-8703-b026c1777081.jpg?1783906015",
+    "png": "https://cards.scryfall.io/png/front/7/2/72474b66-1dda-409d-8703-b026c1777081.png?1783906015",
+    "small": "https://cards.scryfall.io/small/front/7/2/72474b66-1dda-409d-8703-b026c1777081.jpg?1783906015",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/2/72474b66-1dda-409d-8703-b026c1777081.webp?1783906015"
+  },
+  "keywords": [
+    "Dredge",
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 142449,
+  "multiverse_ids": [],
+  "name": "Dakmor Salvage",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cdc4048a-73ec-4ec1-a179-2b36c397bf1a",
+  "oracle_text": "This land enters tapped.\n{T}: Add {B}.\nDredge 2 (If you would draw a card, you may mill two cards instead. If you do, return this card from your graveyard to your hand.)",
+  "oversized": false,
+  "penny_rank": 1446,
+  "preview": {
+    "previewed_at": "2025-07-09",
+    "source": "The Command Zone",
+    "source_uri": "https://www.youtube.com/watch?v=HxXLWC_JRdM"
+  },
+  "prices": {
+    "eur": "0.22",
+    "eur_foil": null,
+    "tix": "0.06",
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acdc4048a-73ec-4ec1-a179-2b36c397bf1a&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/142449?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=834136&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F642060%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dakmor+Salvage",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDakmor%2BSalvage",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDakmor%2BSalvage"
+  },
+  "released_at": "2025-08-01",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "C7E71D10ADB8AC4923A727AC28814071105BAB8105D71EF88AF30BFD39F309A1",
+  "rulings_uri": "https://api.scryfall.com/cards/72474b66-1dda-409d-8703-b026c1777081/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eoc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eoc/156/dakmor-salvage?utm_source=api",
+  "set": "eoc",
+  "set_id": "b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "set_name": "Edge of Eternities Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "story_spotlight": false,
+  "tcgplayer_id": 642060,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/72474b66-1dda-409d-8703-b026c1777081",
+  "variation": false
+}
