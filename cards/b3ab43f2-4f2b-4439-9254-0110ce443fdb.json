@@ -1,0 +1,166 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "acce0c81-1c30-4971-ae6f-a9c6a4dd017d",
+      "name": "Ratadrabik of Urborg",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Zombie Wizard",
+      "uri": "https://api.scryfall.com/cards/acce0c81-1c30-4971-ae6f-a9c6a4dd017d"
+    }
+  ],
+  "arena_id": 82265,
+  "artist": "Anna Pavleeva",
+  "artist_ids": [
+    "32223955-c0eb-49b2-a323-4eec2e067acf"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 671934,
+  "cmc": 4,
+  "collector_number": "213",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 2825,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9315812d-03e8-4eb4-a693-e7adf281f7fb",
+  "illustration_id": "2c36e972-58e5-4c5e-b25e-bdfdc7da9bbd",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:41:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/3/9315812d-03e8-4eb4-a693-e7adf281f7fb.webp?1783921278",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/3/9315812d-03e8-4eb4-a693-e7adf281f7fb.jpg?1783921278",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/3/9315812d-03e8-4eb4-a693-e7adf281f7fb.jpg?1783921278",
+    "crop": "https://cards.scryfall.io/crop/front/9/3/9315812d-03e8-4eb4-a693-e7adf281f7fb.webp?1783921278",
+    "display": "https://cards.scryfall.io/display/front/9/3/9315812d-03e8-4eb4-a693-e7adf281f7fb.webp?1783921278",
+    "grid": "https://cards.scryfall.io/grid/front/9/3/9315812d-03e8-4eb4-a693-e7adf281f7fb.webp?1783921278",
+    "large": "https://cards.scryfall.io/large/front/9/3/9315812d-03e8-4eb4-a693-e7adf281f7fb.jpg?1783921278",
+    "normal": "https://cards.scryfall.io/normal/front/9/3/9315812d-03e8-4eb4-a693-e7adf281f7fb.jpg?1783921278",
+    "png": "https://cards.scryfall.io/png/front/9/3/9315812d-03e8-4eb4-a693-e7adf281f7fb.png?1783921278",
+    "small": "https://cards.scryfall.io/small/front/9/3/9315812d-03e8-4eb4-a693-e7adf281f7fb.jpg?1783921278",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/3/9315812d-03e8-4eb4-a693-e7adf281f7fb.webp?1783921278"
+  },
+  "keywords": [
+    "Vigilance",
+    "Ward"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}{B}",
+  "mtgo_id": 102902,
+  "multiverse_ids": [
+    574693
+  ],
+  "name": "Ratadrabik of Urborg",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b3ab43f2-4f2b-4439-9254-0110ce443fdb",
+  "oracle_text": "Vigilance, ward {2}\nOther Zombies you control have vigilance.\nWhenever another legendary creature you control dies, create a token that's a copy of that creature, except it's not legendary and it's a 2/2 black Zombie in addition to its other colors and types.",
+  "oversized": false,
+  "penny_rank": 2580,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2022-08-23",
+    "source": "Star City Games",
+    "source_uri": "https://articles.starcitygames.com/magic-the-gathering/longtime-character-gets-first-card-in-dominaria-united"
+  },
+  "prices": {
+    "eur": "0.76",
+    "eur_foil": "1.14",
+    "tix": "0.02",
+    "usd": "2.15",
+    "usd_etched": null,
+    "usd_foil": "2.12"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab3ab43f2-4f2b-4439-9254-0110ce443fdb&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/102902?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=671934&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F283163%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ratadrabik+of+Urborg",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=574693&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRatadrabik%2Bof%2BUrborg",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRatadrabik%2Bof%2BUrborg"
+  },
+  "released_at": "2022-09-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9315812d-03e8-4eb4-a693-e7adf281f7fb/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dmu?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dmu/213/ratadrabik-of-urborg?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dmu",
+  "set_id": "4e47a6cd-cdeb-4b0f-8f24-cfe1a0127cb3",
+  "set_name": "Dominaria United",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Admu&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4e47a6cd-cdeb-4b0f-8f24-cfe1a0127cb3",
+  "story_spotlight": false,
+  "tcgplayer_id": 283163,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Legendary Creature — Zombie Wizard",
+  "uri": "https://api.scryfall.com/cards/9315812d-03e8-4eb4-a693-e7adf281f7fb",
+  "variation": false
+}
