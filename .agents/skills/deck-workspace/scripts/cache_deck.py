@@ -25,6 +25,7 @@ SECTION_NAMES = {
 }
 COUNTED_CARD = re.compile(r"^(?P<count>\d+)\s*x?\s+(?P<name>.+?)\s*$", re.IGNORECASE)
 SET_SUFFIX = re.compile(r"\s+\([A-Z0-9]{2,8}\)\s+[A-Za-z0-9-]+(?:\s+\*\w+\*)?\s*$")
+CATEGORY_SUFFIX = re.compile(r"\s+\[(?P<categories>[^]]*)\]\s*$")
 
 
 def normalized_name(name: str) -> str:
@@ -32,9 +33,22 @@ def normalized_name(name: str) -> str:
     return " ".join(value.split())
 
 
-def clean_card_name(value: str) -> str:
-    value = SET_SUFFIX.sub("", value.strip())
-    return re.sub(r"\s+\*(?:F|E|ETCHED)\*\s*$", "", value, flags=re.IGNORECASE).strip()
+def parse_card_entry(value: str) -> tuple[str, list[str]]:
+    """Separate a card name from source categories without normalizing them."""
+    value = value.strip()
+    category_match = CATEGORY_SUFFIX.search(value)
+    categories: list[str] = []
+    if category_match:
+        categories = list(dict.fromkeys(
+            category.strip()
+            for category in category_match.group("categories").split(",")
+            if category.strip()
+        ))
+        value = value[:category_match.start()].rstrip()
+
+    value = SET_SUFFIX.sub("", value)
+    name = re.sub(r"\s+\*(?:F|E|ETCHED)\*\s*$", "", value, flags=re.IGNORECASE).strip()
+    return name, categories
 
 
 def parse_decklist(path: Path) -> tuple[list[dict], list[dict]]:
@@ -52,10 +66,10 @@ def parse_decklist(path: Path) -> tuple[list[dict], list[dict]]:
         match = COUNTED_CARD.match(line)
         if match:
             quantity = int(match.group("count"))
-            name = clean_card_name(match.group("name"))
+            name, submitted_categories = parse_card_entry(match.group("name"))
         else:
             quantity = 1
-            name = clean_card_name(line)
+            name, submitted_categories = parse_card_entry(line)
 
         if not name:
             ignored.append({"line": number, "text": raw, "reason": "empty card name"})
@@ -64,8 +78,16 @@ def parse_decklist(path: Path) -> tuple[list[dict], list[dict]]:
         key = normalized_name(name)
         if key in merged:
             merged[key]["quantity"] += quantity
+            for category in submitted_categories:
+                if category not in merged[key]["submitted_categories"]:
+                    merged[key]["submitted_categories"].append(category)
         else:
-            merged[key] = {"quantity": quantity, "submitted_name": name, "line": number}
+            merged[key] = {
+                "quantity": quantity,
+                "submitted_name": name,
+                "submitted_categories": submitted_categories,
+                "line": number,
+            }
 
     return list(merged.values()), ignored
 
@@ -266,6 +288,9 @@ def main() -> int:
         if override is not None:
             categories = category_list(override.get("categories"))
             category_source = "deck"
+        elif entry["submitted_categories"]:
+            categories = entry["submitted_categories"]
+            category_source = "decklist"
         else:
             categories = universal["categories"]
             category_source = "universal"
@@ -274,6 +299,7 @@ def main() -> int:
             "quantity": entry["quantity"],
             "name": canonical_name,
             "submitted_name": submitted_name,
+            "submitted_categories": entry["submitted_categories"],
             "oracle_id": oracle_id,
             "cache": f"cards/{oracle_id}.json",
             "categories": categories,
