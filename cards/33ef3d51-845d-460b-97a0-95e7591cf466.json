@@ -1,0 +1,142 @@
+{
+  "arena_id": 82585,
+  "artist": "Raoul Vitale",
+  "artist_ids": [
+    "c7c15d49-f84b-4d98-9a34-e80e8347b756"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 683317,
+  "cmc": 1.0,
+  "collector_number": "101",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 9978,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Everyone warns about the sand and the food, but the rats are worse than both put together!\"\n—Sanwell, letter to his family",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2fa2fa48-ddb7-45f0-b183-4186df98f7cc",
+  "illustration_id": "5e4bc168-5815-45a2-ac2c-346046735fa0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:21:27Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/f/2fa2fa48-ddb7-45f0-b183-4186df98f7cc.webp?1783920087",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/f/2fa2fa48-ddb7-45f0-b183-4186df98f7cc.jpg?1783920087",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/f/2fa2fa48-ddb7-45f0-b183-4186df98f7cc.jpg?1783920087",
+    "crop": "https://cards.scryfall.io/crop/front/2/f/2fa2fa48-ddb7-45f0-b183-4186df98f7cc.webp?1783920087",
+    "display": "https://cards.scryfall.io/display/front/2/f/2fa2fa48-ddb7-45f0-b183-4186df98f7cc.webp?1783920087",
+    "grid": "https://cards.scryfall.io/grid/front/2/f/2fa2fa48-ddb7-45f0-b183-4186df98f7cc.webp?1783920087",
+    "large": "https://cards.scryfall.io/large/front/2/f/2fa2fa48-ddb7-45f0-b183-4186df98f7cc.jpg?1783920087",
+    "normal": "https://cards.scryfall.io/normal/front/2/f/2fa2fa48-ddb7-45f0-b183-4186df98f7cc.jpg?1783920087",
+    "png": "https://cards.scryfall.io/png/front/2/f/2fa2fa48-ddb7-45f0-b183-4186df98f7cc.png?1783920087",
+    "small": "https://cards.scryfall.io/small/front/2/f/2fa2fa48-ddb7-45f0-b183-4186df98f7cc.jpg?1783920087",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/f/2fa2fa48-ddb7-45f0-b183-4186df98f7cc.webp?1783920087"
+  },
+  "keywords": [
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 104820,
+  "multiverse_ids": [
+    583686
+  ],
+  "name": "Gnawing Vermin",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "33ef3d51-845d-460b-97a0-95e7591cf466",
+  "oracle_text": "When this creature enters, target player mills two cards.\nWhen this creature dies, target creature you don't control gets -1/-1 until end of turn.",
+  "oversized": false,
+  "penny_rank": 1544,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2022-11-02",
+    "source": "Press Start",
+    "source_uri": "https://press-start.com.au/news/2022/11/02/heres-an-exclusive-magic-the-gathering-the-brothers-war-card-preview/"
+  },
+  "prices": {
+    "eur": "0.17",
+    "eur_foil": "0.31",
+    "tix": "0.03",
+    "usd": "0.21",
+    "usd_etched": null,
+    "usd_foil": "0.30"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A33ef3d51-845d-460b-97a0-95e7591cf466&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/104820?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=683317&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F452534%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Gnawing+Vermin",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=583686&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGnawing%2BVermin",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGnawing%2BVermin"
+  },
+  "released_at": "2022-11-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2fa2fa48-ddb7-45f0-b183-4186df98f7cc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/bro?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/bro/101/gnawing-vermin?utm_source=api",
+  "set": "bro",
+  "set_id": "4219a14e-6701-4ddd-a185-21dc054ab19b",
+  "set_name": "The Brothers' War",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abro&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4219a14e-6701-4ddd-a185-21dc054ab19b",
+  "story_spotlight": false,
+  "tcgplayer_id": 452534,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Rat",
+  "uri": "https://api.scryfall.com/cards/2fa2fa48-ddb7-45f0-b183-4186df98f7cc",
+  "variation": false
+}
