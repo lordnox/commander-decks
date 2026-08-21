@@ -1,0 +1,133 @@
+{
+  "artist": "Kev Walker",
+  "artist_ids": [
+    "f366a0ee-a0cd-466d-ba6a-90058c7a31a6"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 723532,
+  "cmc": 4.0,
+  "collector_number": "153",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 532,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Those who forget the horrors of the past are doomed to re-meet them.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "34a87901-98bb-41dd-b566-bcb510c20022",
+  "illustration_id": "c090778c-eb99-4a02-93aa-1efebc62a2c2",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:07:57Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/4/34a87901-98bb-41dd-b566-bcb510c20022.webp?1783915677",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/4/34a87901-98bb-41dd-b566-bcb510c20022.jpg?1783915677",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/4/34a87901-98bb-41dd-b566-bcb510c20022.jpg?1783915677",
+    "crop": "https://cards.scryfall.io/crop/front/3/4/34a87901-98bb-41dd-b566-bcb510c20022.webp?1783915677",
+    "display": "https://cards.scryfall.io/display/front/3/4/34a87901-98bb-41dd-b566-bcb510c20022.webp?1783915677",
+    "grid": "https://cards.scryfall.io/grid/front/3/4/34a87901-98bb-41dd-b566-bcb510c20022.webp?1783915677",
+    "large": "https://cards.scryfall.io/large/front/3/4/34a87901-98bb-41dd-b566-bcb510c20022.jpg?1783915677",
+    "normal": "https://cards.scryfall.io/normal/front/3/4/34a87901-98bb-41dd-b566-bcb510c20022.jpg?1783915677",
+    "png": "https://cards.scryfall.io/png/front/3/4/34a87901-98bb-41dd-b566-bcb510c20022.png?1783915677",
+    "small": "https://cards.scryfall.io/small/front/3/4/34a87901-98bb-41dd-b566-bcb510c20022.jpg?1783915677",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/4/34a87901-98bb-41dd-b566-bcb510c20022.webp?1783915677"
+  },
+  "keywords": [
+    "Flashback"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "banned",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "mtgo_id": 115405,
+  "multiverse_ids": [
+    622761
+  ],
+  "name": "Dread Return",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "352b64d2-2ae5-44ee-a64f-94932ef545d3",
+  "oracle_text": "Return target creature card from your graveyard to the battlefield.\nFlashback—Sacrifice three creatures. (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+  "oversized": false,
+  "penny_rank": 413,
+  "prices": {
+    "eur": "0.28",
+    "eur_foil": "0.72",
+    "tix": "1.07",
+    "usd": "0.67",
+    "usd_etched": null,
+    "usd_foil": "0.44"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A352b64d2-2ae5-44ee-a64f-94932ef545d3&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/115405?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=723532&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F507219%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dread+Return",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=622761&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDread%2BReturn",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDread%2BReturn"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/34a87901-98bb-41dd-b566-bcb510c20022/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/153/dread-return?utm_source=api",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 507219,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/34a87901-98bb-41dd-b566-bcb510c20022",
+  "variation": false
+}
