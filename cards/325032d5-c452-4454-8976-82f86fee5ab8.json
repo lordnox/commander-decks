@@ -1,0 +1,138 @@
+{
+  "artist": "Josh Hass",
+  "artist_ids": [
+    "8fa1fdf0-96d6-46f4-a7ff-b1c0257c3735"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 659187,
+  "cmc": 3.0,
+  "collector_number": "107",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2254,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "You give your clients what they want at a fair price. What happens after that is none of your concern.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5a5984d3-1e76-4d97-9373-b59cfa9c38ae",
+  "illustration_id": "6cd12f0e-03da-4eb8-a3c7-fa0d57d29c4e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:06:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/a/5a5984d3-1e76-4d97-9373-b59cfa9c38ae.webp?1783922772",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/a/5a5984d3-1e76-4d97-9373-b59cfa9c38ae.jpg?1783922772",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/a/5a5984d3-1e76-4d97-9373-b59cfa9c38ae.jpg?1783922772",
+    "crop": "https://cards.scryfall.io/crop/front/5/a/5a5984d3-1e76-4d97-9373-b59cfa9c38ae.webp?1783922772",
+    "display": "https://cards.scryfall.io/display/front/5/a/5a5984d3-1e76-4d97-9373-b59cfa9c38ae.webp?1783922772",
+    "grid": "https://cards.scryfall.io/grid/front/5/a/5a5984d3-1e76-4d97-9373-b59cfa9c38ae.webp?1783922772",
+    "large": "https://cards.scryfall.io/large/front/5/a/5a5984d3-1e76-4d97-9373-b59cfa9c38ae.jpg?1783922772",
+    "normal": "https://cards.scryfall.io/normal/front/5/a/5a5984d3-1e76-4d97-9373-b59cfa9c38ae.jpg?1783922772",
+    "png": "https://cards.scryfall.io/png/front/5/a/5a5984d3-1e76-4d97-9373-b59cfa9c38ae.png?1783922772",
+    "small": "https://cards.scryfall.io/small/front/5/a/5a5984d3-1e76-4d97-9373-b59cfa9c38ae.jpg?1783922772",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/a/5a5984d3-1e76-4d97-9373-b59cfa9c38ae.webp?1783922772"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 100224,
+  "multiverse_ids": [
+    562990
+  ],
+  "name": "Agent of the Iron Throne",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "325032d5-c452-4454-8976-82f86fee5ab8",
+  "oracle_text": "Commander creatures you own have \"Whenever an artifact or creature you control is put into a graveyard from the battlefield, each opponent loses 1 life.\"",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2022-05-19",
+    "source": "KakiTabletop",
+    "source_uri": "https://www.youtube.com/watch?v=1Nt1gXj5tyM"
+  },
+  "prices": {
+    "eur": "0.71",
+    "eur_foil": "1.05",
+    "tix": "5.33",
+    "usd": "0.55",
+    "usd_etched": null,
+    "usd_foil": "4.85"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A325032d5-c452-4454-8976-82f86fee5ab8&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/100224?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=659187&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F272779%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Agent+of+the+Iron+Throne",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=562990&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAgent%2Bof%2Bthe%2BIron%2BThrone",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAgent%2Bof%2Bthe%2BIron%2BThrone"
+  },
+  "released_at": "2022-06-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5a5984d3-1e76-4d97-9373-b59cfa9c38ae/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/107/agent-of-the-iron-throne?utm_source=api",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 272779,
+  "textless": false,
+  "type_line": "Legendary Enchantment — Background",
+  "uri": "https://api.scryfall.com/cards/5a5984d3-1e76-4d97-9373-b59cfa9c38ae",
+  "variation": false
+}
