@@ -1,0 +1,158 @@
+{
+  "arena_id": 92176,
+  "artist": "Miklós Ligeti",
+  "artist_ids": [
+    "397e374b-b428-4bab-b198-372f7f4c2f40"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "card_faces": [
+    {
+      "artist": "Miklós Ligeti",
+      "artist_id": "397e374b-b428-4bab-b198-372f7f4c2f40",
+      "illustration_id": "54af30ac-b3cf-40c9-a24b-ca1836ea1722",
+      "mana_cost": "{2}{B}",
+      "name": "Funeral Room",
+      "object": "card_face",
+      "oracle_text": "Whenever a creature you control dies, each opponent loses 1 life and you gain 1 life.\n(You may cast either half. That door unlocks on the battlefield. As a sorcery, you may pay the mana cost of a locked door to unlock it.)",
+      "type_line": "Enchantment — Room"
+    },
+    {
+      "artist": "Miklós Ligeti",
+      "artist_id": "397e374b-b428-4bab-b198-372f7f4c2f40",
+      "mana_cost": "{6}{B}{B}",
+      "name": "Awakening Hall",
+      "object": "card_face",
+      "oracle_text": "When you unlock this door, return all creature cards from your graveyard to the battlefield.\n(You may cast either half. That door unlocks on the battlefield. As a sorcery, you may pay the mana cost of a locked door to unlock it.)",
+      "type_line": "Enchantment — Room"
+    }
+  ],
+  "cardmarket_id": 786877,
+  "cmc": 11.0,
+  "collector_number": "100",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2076,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "48237c98-5067-47a8-af74-7b9bce57c6a4",
+  "illustration_id": "54af30ac-b3cf-40c9-a24b-ca1836ea1722",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:24:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/8/48237c98-5067-47a8-af74-7b9bce57c6a4.webp?1783909480",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/8/48237c98-5067-47a8-af74-7b9bce57c6a4.jpg?1783909480",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/8/48237c98-5067-47a8-af74-7b9bce57c6a4.jpg?1783909480",
+    "crop": "https://cards.scryfall.io/crop/front/4/8/48237c98-5067-47a8-af74-7b9bce57c6a4.webp?1783909480",
+    "display": "https://cards.scryfall.io/display/front/4/8/48237c98-5067-47a8-af74-7b9bce57c6a4.webp?1783909480",
+    "grid": "https://cards.scryfall.io/grid/front/4/8/48237c98-5067-47a8-af74-7b9bce57c6a4.webp?1783909480",
+    "large": "https://cards.scryfall.io/large/front/4/8/48237c98-5067-47a8-af74-7b9bce57c6a4.jpg?1783909480",
+    "normal": "https://cards.scryfall.io/normal/front/4/8/48237c98-5067-47a8-af74-7b9bce57c6a4.jpg?1783909480",
+    "png": "https://cards.scryfall.io/png/front/4/8/48237c98-5067-47a8-af74-7b9bce57c6a4.png?1783909480",
+    "small": "https://cards.scryfall.io/small/front/4/8/48237c98-5067-47a8-af74-7b9bce57c6a4.jpg?1783909480",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/8/48237c98-5067-47a8-af74-7b9bce57c6a4.webp?1783909480"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "split",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B} // {6}{B}{B}",
+  "mtgo_id": 130331,
+  "multiverse_ids": [
+    673505
+  ],
+  "name": "Funeral Room // Awakening Hall",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a39d541e-86c1-4595-a2e9-f107def5bbc6",
+  "oversized": false,
+  "penny_rank": 4182,
+  "preview": {
+    "previewed_at": "2024-09-04",
+    "source": "Gameshub",
+    "source_uri": "https://www.gameshub.com/news/features/mtg-duskmourn-funeral-room-awakening-hall-2644900/"
+  },
+  "prices": {
+    "eur": "4.31",
+    "eur_foil": "5.08",
+    "tix": "0.03",
+    "usd": "6.58",
+    "usd_etched": null,
+    "usd_foil": "6.45"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa39d541e-86c1-4595-a2e9-f107def5bbc6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130331?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=786877&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F576497%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Funeral+Room+%2F%2F+Awakening+Hall",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=673505&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFuneral%2BRoom%2B%252F%252F%2BAwakening%2BHall",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFuneral%2BRoom%2B%252F%252F%2BAwakening%2BHall"
+  },
+  "released_at": "2024-09-27",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/48237c98-5067-47a8-af74-7b9bce57c6a4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsk/100/funeral-room-awakening-hall?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsk",
+  "set_id": "a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "set_name": "Duskmourn: House of Horror",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "story_spotlight": false,
+  "tcgplayer_id": 576497,
+  "textless": false,
+  "type_line": "Enchantment — Room // Enchantment — Room",
+  "uri": "https://api.scryfall.com/cards/48237c98-5067-47a8-af74-7b9bce57c6a4",
+  "variation": false
+}
