@@ -58,7 +58,7 @@ Give separate estimates for:
 | Normal goldfish | Representative draw with no opposing disruption |
 | Interactive game | Commander is answered or key engines are disrupted |
 
-For each estimate, trace enough mana and setup to show the turn is achievable. Distinguish:
+For each estimate, trace enough mana and setup to show the turn is achievable. For an exceptional fastest line, show a legal turn-by-turn sequence, count the required cards, and distinguish "possible" from "likely" or "reasonable." Do not use a rare nut draw as the deck's expected pace. Distinguish:
 
 - presenting lethal or a deterministic win;
 - beginning to generate value;
@@ -88,6 +88,12 @@ Keep the result concise and include:
 4. **Boundary argument:** why not the adjacent brackets.
 5. **Pregame description:** one sentence the player can use at the table.
 
-Mention the specific cards or packages that materially determine the result. Avoid generic numerical power scales unless the user asks for one.
+Use this sentence pattern, adjusted to the evidence:
 
-If the user asks to preserve the assessment, add a concise power assessment section to the deck primer and update it when the deck changes.
+> High Bracket 3 combo deck. Usually threatens a win around turn six, but has an unlikely turn-four line.
+
+The sentence must state the bracket position and deck style, the usual threat or win turn, and any verified exceptional line that is materially faster. Keep "usually," "reasonably," and "unlikely" precise; never present the fastest possible line as the expected pace.
+
+Whenever an assessment is performed or refreshed, write this pregame sentence as a Markdown blockquote directly below the deck README's H1 title, before every other paragraph or section. Replace an existing assessment sentence instead of adding another. Keep it current when the deck changes.
+
+Mention the specific cards or packages that materially determine the result. Avoid generic numerical power scales unless the user asks for one.
