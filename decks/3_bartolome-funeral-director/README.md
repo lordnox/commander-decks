@@ -1,6 +1,6 @@
 # Bartolomé — Funeral Director
 
-> Mid Bracket 3 combo deck. Usually threatens a win around turn seven, but has an unlikely turn-five line.
+> Bracket 3 combo deck. Usually threatens a win around turn seven, but has an unlikely turn-five line.
 
 An Orzhov graveyard-combo deck built around cheap recursion effects, creatures that recover those effects, and death triggers.
 
