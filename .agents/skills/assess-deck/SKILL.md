@@ -94,6 +94,12 @@ Use this sentence pattern, adjusted to the evidence:
 
 The sentence must state the bracket position and deck style, the usual threat or win turn, and any verified exceptional line that is materially faster. Keep "usually," "reasonably," and "unlikely" precise; never present the fastest possible line as the expected pace.
 
-Whenever an assessment is performed or refreshed, write this pregame sentence as a Markdown blockquote directly below the deck README's H1 title, before every other paragraph or section. Replace an existing assessment sentence instead of adding another. Keep it current when the deck changes.
+Whenever an assessment is performed or refreshed:
+
+1. Write this pregame sentence as a Markdown blockquote directly below the deck README's H1 title, before every other paragraph or section. Replace an existing assessment sentence instead of adding another.
+2. Rename the deck directory to `decks/<bracket>_<slug>/`. Use `1_`, `2_`, `3_`, `3+_`, `4_`, or `5_`; map High Bracket 3 to `3+_` and other positions to their bracket number.
+3. Preserve the slug after removing any existing bracket or `unrated_` prefix.
+4. Update the root README link, the `source` path in `cards.json`, and every other repository reference to the old directory.
+5. Keep the sentence and prefix current when the deck changes.
 
 Mention the specific cards or packages that materially determine the result. Avoid generic numerical power scales unless the user asks for one.
