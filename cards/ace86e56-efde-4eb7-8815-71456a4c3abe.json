@@ -1,0 +1,168 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "79a7e037-9f56-4a77-a09e-caeafbb86d7c",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/79a7e037-9f56-4a77-a09e-caeafbb86d7c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "17fd4d15-413f-41c5-b3e0-71bbb52851bc",
+      "name": "Warren Soultrader",
+      "object": "related_card",
+      "type_line": "Creature — Zombie Goblin Wizard",
+      "uri": "https://api.scryfall.com/cards/17fd4d15-413f-41c5-b3e0-71bbb52851bc"
+    }
+  ],
+  "arena_id": 90959,
+  "artist": "Pete Venters",
+  "artist_ids": [
+    "d54c4a1a-c0c5-4834-84db-125d341f3ad8"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 771511,
+  "cmc": 3.0,
+  "collector_number": "110",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 417,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"The living take their souls for granted. The dead know what they're worth.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "b334e4c6-d316-4141-8889-f95afcc04701",
+  "illustration_id": "e0b5ff17-1609-4169-b60a-63d9325c14a3",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-21T11:49:25Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/3/b334e4c6-d316-4141-8889-f95afcc04701.webp?1784634565",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/3/b334e4c6-d316-4141-8889-f95afcc04701.jpg?1784634565",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/3/b334e4c6-d316-4141-8889-f95afcc04701.jpg?1784634565",
+    "crop": "https://cards.scryfall.io/crop/front/b/3/b334e4c6-d316-4141-8889-f95afcc04701.webp?1784634565",
+    "display": "https://cards.scryfall.io/display/front/b/3/b334e4c6-d316-4141-8889-f95afcc04701.webp?1784634565",
+    "grid": "https://cards.scryfall.io/grid/front/b/3/b334e4c6-d316-4141-8889-f95afcc04701.webp?1784634565",
+    "large": "https://cards.scryfall.io/large/front/b/3/b334e4c6-d316-4141-8889-f95afcc04701.jpg?1784634565",
+    "normal": "https://cards.scryfall.io/normal/front/b/3/b334e4c6-d316-4141-8889-f95afcc04701.jpg?1784634565",
+    "png": "https://cards.scryfall.io/png/front/b/3/b334e4c6-d316-4141-8889-f95afcc04701.png?1784634565",
+    "small": "https://cards.scryfall.io/small/front/b/3/b334e4c6-d316-4141-8889-f95afcc04701.jpg?1784634565",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/3/b334e4c6-d316-4141-8889-f95afcc04701.webp?1784634565"
+  },
+  "keywords": [
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 126237,
+  "multiverse_ids": [
+    662262
+  ],
+  "name": "Warren Soultrader",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ace86e56-efde-4eb7-8815-71456a4c3abe",
+  "oracle_text": "Pay 1 life, Sacrifice another creature: Create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+  "oversized": false,
+  "penny_rank": 1156,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2024-05-22",
+    "source": "Goblin Lore Podcast",
+    "source_uri": "https://twitter.com/GoblinLorePod/status/1793328624763822468"
+  },
+  "prices": {
+    "eur": "14.01",
+    "eur_foil": "15.15",
+    "tix": "0.02",
+    "usd": "15.43",
+    "usd_etched": null,
+    "usd_foil": "16.09"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aace86e56-efde-4eb7-8815-71456a4c3abe&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126237?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=771511&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552631%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Warren+Soultrader",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662262&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWarren%2BSoultrader",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWarren%2BSoultrader"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b334e4c6-d316-4141-8889-f95afcc04701/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/110/warren-soultrader?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552631,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Zombie Goblin Wizard",
+  "uri": "https://api.scryfall.com/cards/b334e4c6-d316-4141-8889-f95afcc04701",
+  "variation": false
+}
