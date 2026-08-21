@@ -1,0 +1,130 @@
+{
+  "artist": "Dominick Domingo",
+  "artist_ids": [
+    "64374332-23aa-4f5c-ad70-511ed2fb7b7d"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 269944,
+  "cmc": 1.0,
+  "collector_number": "33",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 5300,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"The bones of allies grant wisdom. The bones of enemies grant strength. The bones of dragons grant life eternal.\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "561b8539-cb84-42f0-97f2-2c94839777e3",
+  "illustration_id": "c2084ba1-5199-45b1-8d41-f27aa56bffdc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:32:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/6/561b8539-cb84-42f0-97f2-2c94839777e3.webp?1783938755",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/6/561b8539-cb84-42f0-97f2-2c94839777e3.jpg?1783938755",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/6/561b8539-cb84-42f0-97f2-2c94839777e3.jpg?1783938755",
+    "crop": "https://cards.scryfall.io/crop/front/5/6/561b8539-cb84-42f0-97f2-2c94839777e3.webp?1783938755",
+    "display": "https://cards.scryfall.io/display/front/5/6/561b8539-cb84-42f0-97f2-2c94839777e3.webp?1783938755",
+    "grid": "https://cards.scryfall.io/grid/front/5/6/561b8539-cb84-42f0-97f2-2c94839777e3.webp?1783938755",
+    "large": "https://cards.scryfall.io/large/front/5/6/561b8539-cb84-42f0-97f2-2c94839777e3.jpg?1783938755",
+    "normal": "https://cards.scryfall.io/normal/front/5/6/561b8539-cb84-42f0-97f2-2c94839777e3.jpg?1783938755",
+    "png": "https://cards.scryfall.io/png/front/5/6/561b8539-cb84-42f0-97f2-2c94839777e3.png?1783938755",
+    "small": "https://cards.scryfall.io/small/front/5/6/561b8539-cb84-42f0-97f2-2c94839777e3.jpg?1783938755",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/6/561b8539-cb84-42f0-97f2-2c94839777e3.webp?1783938755"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "multiverse_ids": [
+    393884
+  ],
+  "name": "Deathgreeter",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b7ad11dc-c962-4034-b15a-a080c6fff75f",
+  "oracle_text": "Whenever another creature dies, you may gain 1 life.",
+  "oversized": false,
+  "penny_rank": 11481,
+  "power": "1",
+  "prices": {
+    "eur": "2.41",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "3.42",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab7ad11dc-c962-4034-b15a-a080c6fff75f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Deathgreeter&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=269944&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F93701%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Deathgreeter",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=393884&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDeathgreeter",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDeathgreeter"
+  },
+  "released_at": "2014-12-05",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/561b8539-cb84-42f0-97f2-2c94839777e3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/gvl?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/gvl/33/deathgreeter?utm_source=api",
+  "set": "gvl",
+  "set_id": "db352daa-9827-44ca-ba19-511969a97689",
+  "set_name": "Duel Decks Anthology: Garruk vs. Liliana",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Agvl&unique=prints",
+  "set_type": "duel_deck",
+  "set_uri": "https://api.scryfall.com/sets/db352daa-9827-44ca-ba19-511969a97689",
+  "story_spotlight": false,
+  "tcgplayer_id": 93701,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Shaman",
+  "uri": "https://api.scryfall.com/cards/561b8539-cb84-42f0-97f2-2c94839777e3",
+  "variation": false
+}
