@@ -1,0 +1,133 @@
+{
+  "arena_id": 79440,
+  "artist": "Steve Prescott",
+  "artist_ids": [
+    "a1139fb8-41f5-4a9e-9a74-f662e1a23b35"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 608182,
+  "cmc": 3.0,
+  "collector_number": "20",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 17694,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "e83f2148-bb5d-4236-8d12-150deed0577e",
+  "illustration_id": "fec11a5f-3c97-4aa2-a39d-0be374dfb73a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:25:19Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/8/e83f2148-bb5d-4236-8d12-150deed0577e.webp?1783923919",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/8/e83f2148-bb5d-4236-8d12-150deed0577e.jpg?1783923919",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/8/e83f2148-bb5d-4236-8d12-150deed0577e.jpg?1783923919",
+    "crop": "https://cards.scryfall.io/crop/front/e/8/e83f2148-bb5d-4236-8d12-150deed0577e.webp?1783923919",
+    "display": "https://cards.scryfall.io/display/front/e/8/e83f2148-bb5d-4236-8d12-150deed0577e.webp?1783923919",
+    "grid": "https://cards.scryfall.io/grid/front/e/8/e83f2148-bb5d-4236-8d12-150deed0577e.webp?1783923919",
+    "large": "https://cards.scryfall.io/large/front/e/8/e83f2148-bb5d-4236-8d12-150deed0577e.jpg?1783923919",
+    "normal": "https://cards.scryfall.io/normal/front/e/8/e83f2148-bb5d-4236-8d12-150deed0577e.jpg?1783923919",
+    "png": "https://cards.scryfall.io/png/front/e/8/e83f2148-bb5d-4236-8d12-150deed0577e.png?1783923919",
+    "small": "https://cards.scryfall.io/small/front/e/8/e83f2148-bb5d-4236-8d12-150deed0577e.jpg?1783923919",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/8/e83f2148-bb5d-4236-8d12-150deed0577e.webp?1783923919"
+  },
+  "keywords": [
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 96950,
+  "multiverse_ids": [
+    548313
+  ],
+  "name": "Intercessor's Arrest",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d75357f4-d439-48ff-8fd7-52a02f07cc81",
+  "oracle_text": "Enchant permanent\nEnchanted permanent can't attack, block, or crew Vehicles. Its activated abilities can't be activated unless they're mana abilities.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.06",
+    "eur_foil": "0.16",
+    "tix": "0.01",
+    "usd": "0.04",
+    "usd_etched": null,
+    "usd_foil": "0.23"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad75357f4-d439-48ff-8fd7-52a02f07cc81&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/96950?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=608182&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F262712%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Intercessor%27s+Arrest",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=548313&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIntercessor%2527s%2BArrest",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIntercessor%2527s%2BArrest"
+  },
+  "released_at": "2022-02-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e83f2148-bb5d-4236-8d12-150deed0577e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/neo?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/neo/20/intercessors-arrest?utm_source=api",
+  "set": "neo",
+  "set_id": "59a2059f-5482-433f-8761-eb2e17859b71",
+  "set_name": "Kamigawa: Neon Dynasty",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aneo&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/59a2059f-5482-433f-8761-eb2e17859b71",
+  "story_spotlight": false,
+  "tcgplayer_id": 262712,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/e83f2148-bb5d-4236-8d12-150deed0577e",
+  "variation": false
+}
