@@ -1,0 +1,151 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "41163f43-7357-4bbc-a1e7-9c8070135c93",
+      "name": "Angel of Indemnity",
+      "object": "related_card",
+      "type_line": "Creature — Angel Warrior",
+      "uri": "https://api.scryfall.com/cards/41163f43-7357-4bbc-a1e7-9c8070135c93"
+    },
+    {
+      "component": "token",
+      "id": "4e119457-948d-4ef8-8c27-59fa675f766f",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/4e119457-948d-4ef8-8c27-59fa675f766f"
+    }
+  ],
+  "artist": "Denman Rooke",
+  "artist_ids": [
+    "5eedbc4b-34a3-4ca5-b3f5-9ac2f6b6adf7"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 881455,
+  "cmc": 6.0,
+  "collector_number": "133",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 3365,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "41163f43-7357-4bbc-a1e7-9c8070135c93",
+  "illustration_id": "94f8debf-86ee-49d8-8b3f-0e65e7a6b35b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:50:16Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/1/41163f43-7357-4bbc-a1e7-9c8070135c93.webp?1783903816",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/1/41163f43-7357-4bbc-a1e7-9c8070135c93.jpg?1783903816",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/1/41163f43-7357-4bbc-a1e7-9c8070135c93.jpg?1783903816",
+    "crop": "https://cards.scryfall.io/crop/front/4/1/41163f43-7357-4bbc-a1e7-9c8070135c93.webp?1783903816",
+    "display": "https://cards.scryfall.io/display/front/4/1/41163f43-7357-4bbc-a1e7-9c8070135c93.webp?1783903816",
+    "grid": "https://cards.scryfall.io/grid/front/4/1/41163f43-7357-4bbc-a1e7-9c8070135c93.webp?1783903816",
+    "large": "https://cards.scryfall.io/large/front/4/1/41163f43-7357-4bbc-a1e7-9c8070135c93.jpg?1783903816",
+    "normal": "https://cards.scryfall.io/normal/front/4/1/41163f43-7357-4bbc-a1e7-9c8070135c93.jpg?1783903816",
+    "png": "https://cards.scryfall.io/png/front/4/1/41163f43-7357-4bbc-a1e7-9c8070135c93.png?1783903816",
+    "small": "https://cards.scryfall.io/small/front/4/1/41163f43-7357-4bbc-a1e7-9c8070135c93.jpg?1783903816",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/1/41163f43-7357-4bbc-a1e7-9c8070135c93.webp?1783903816"
+  },
+  "keywords": [
+    "Flying",
+    "Lifelink",
+    "Encore"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{W}",
+  "mtgo_id": 148737,
+  "multiverse_ids": [],
+  "name": "Angel of Indemnity",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4f57a320-b6b5-49de-af0a-f2e2649758a7",
+  "oracle_text": "Flying, lifelink\nWhen this creature enters, return target permanent card with mana value 4 or less from your graveyard to the battlefield.\nEncore {6}{W}{W} ({6}{W}{W}, Exile this card from your graveyard: For each opponent, create a token copy that attacks that opponent this turn if able. They gain haste. Sacrifice them at the beginning of the next end step. Activate only as a sorcery.)",
+  "oversized": false,
+  "power": "5",
+  "prices": {
+    "eur": "0.51",
+    "eur_foil": null,
+    "tix": "1.62",
+    "usd": "0.37",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4f57a320-b6b5-49de-af0a-f2e2649758a7&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/148737?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=881455&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F687361%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Angel+of+Indemnity",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAngel%2Bof%2BIndemnity",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAngel%2Bof%2BIndemnity"
+  },
+  "released_at": "2026-04-24",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "E314786C22857A57EF928481312783FA25ECFBDB515E179BABDD19AE3725D541",
+  "rulings_uri": "https://api.scryfall.com/cards/41163f43-7357-4bbc-a1e7-9c8070135c93/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/soc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/soc/133/angel-of-indemnity?utm_source=api",
+  "security_stamp": "oval",
+  "set": "soc",
+  "set_id": "97fab8d1-480a-419d-ab14-663968e29b9c",
+  "set_name": "Secrets of Strixhaven Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/97fab8d1-480a-419d-ab14-663968e29b9c",
+  "story_spotlight": false,
+  "tcgplayer_id": 687361,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Creature — Angel Warrior",
+  "uri": "https://api.scryfall.com/cards/41163f43-7357-4bbc-a1e7-9c8070135c93",
+  "variation": false
+}
