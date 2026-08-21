@@ -1,6 +1,6 @@
 ---
 name: deck-workspace
-description: Create, identify, import, categorize, and update Commander deck workspaces in this repository. Use whenever the user posts a Magic deck list, names a deck they want to work on, asks to import or save a deck, or begins deck analysis that requires resolving the submitted list. Check existing decks first, preserve the original list, resolve every card with Scryfall, assign card categories, and maintain the shared card cache.
+description: Create, identify, import, categorize, and update Commander deck workspaces in this repository. Use whenever the user posts a Magic deck list, names a deck they want to work on, asks to import or save a deck, or begins deck analysis that requires resolving the submitted list. Check existing decks first, preserve the original list, resolve every card with Scryfall, assign card categories, create a deck primer, link it near the top of the root README, and maintain the shared card cache.
 ---
 
 # Deck Workspace
@@ -75,8 +75,27 @@ When a card has a different role in one deck, create or edit `decks/<slug>/categ
 
 A deck override replaces the universal category list for that card in that deck. Rerun the cache script after editing categories or overrides so `cards.json` contains the effective categories and `category_source`.
 
-## 5. Continue deck work
+## 5. Create the primer
 
-Use `cards.json` as the deck inventory and prefer its embedded `card` details for analysis. Load referenced cache files only for fields not embedded in the manifest. Use the `scryfall-lookup` skill for searches or to refresh current card information. Use the `deck-primer` skill when documenting how a deck plays.
+After all cards resolve and have useful categories:
 
-When reporting completion, state the deck name, total cards, unique cards, category coverage, and any unresolved entries.
+1. Read and follow `.agents/skills/deck-primer/SKILL.md`.
+2. Create or refresh `decks/<slug>/README.md` from the resolved manifest.
+3. Do not leave a newly created deck without a primer.
+4. If the primer cannot be completed, report the blocker and treat deck creation as incomplete.
+
+## 6. Link the primer from the root README
+
+Maintain a `## Deck primers` section immediately after the root README title.
+
+- Add a relative Markdown link to `decks/<slug>/README.md`.
+- Use the deck's human-readable name as the link label.
+- Keep one entry per deck, sorted alphabetically.
+- Preserve all existing primer links.
+- When a deck is renamed, update its link rather than adding a duplicate.
+
+## 7. Continue deck work
+
+Use `cards.json` as the deck inventory and prefer its embedded `card` details for analysis. Load referenced cache files only for fields not embedded in the manifest. Use the `scryfall-lookup` skill for searches or to refresh current card information. Use the `deck-primer` skill when updating how a deck plays.
+
+When reporting completion, state the deck name, total cards, unique cards, category coverage, unresolved entries, primer path, and whether the root README link was added or updated.
