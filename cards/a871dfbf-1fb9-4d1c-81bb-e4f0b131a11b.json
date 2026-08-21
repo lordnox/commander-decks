@@ -1,0 +1,140 @@
+{
+  "arena_id": 92201,
+  "artist": "Jodie Muir",
+  "artist_ids": [
+    "b09e6cd1-0257-425a-9bbb-5cac3f803443"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 786502,
+  "cmc": 1.0,
+  "collector_number": "121",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 7774,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"That's the one good thing about these cultists: sometimes they do your work for you.\"\n—Winter",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "995194a0-ceb7-48c2-be5d-a208b3971e77",
+  "illustration_id": "48432fe9-be4d-4a6e-96a3-896dbb1d9e1d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:24:34Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/9/995194a0-ceb7-48c2-be5d-a208b3971e77.webp?1783909474",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/9/995194a0-ceb7-48c2-be5d-a208b3971e77.jpg?1783909474",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/9/995194a0-ceb7-48c2-be5d-a208b3971e77.jpg?1783909474",
+    "crop": "https://cards.scryfall.io/crop/front/9/9/995194a0-ceb7-48c2-be5d-a208b3971e77.webp?1783909474",
+    "display": "https://cards.scryfall.io/display/front/9/9/995194a0-ceb7-48c2-be5d-a208b3971e77.webp?1783909474",
+    "grid": "https://cards.scryfall.io/grid/front/9/9/995194a0-ceb7-48c2-be5d-a208b3971e77.webp?1783909474",
+    "large": "https://cards.scryfall.io/large/front/9/9/995194a0-ceb7-48c2-be5d-a208b3971e77.jpg?1783909474",
+    "normal": "https://cards.scryfall.io/normal/front/9/9/995194a0-ceb7-48c2-be5d-a208b3971e77.jpg?1783909474",
+    "png": "https://cards.scryfall.io/png/front/9/9/995194a0-ceb7-48c2-be5d-a208b3971e77.png?1783909474",
+    "small": "https://cards.scryfall.io/small/front/9/9/995194a0-ceb7-48c2-be5d-a208b3971e77.jpg?1783909474",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/9/995194a0-ceb7-48c2-be5d-a208b3971e77.webp?1783909474"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 130373,
+  "multiverse_ids": [
+    673526
+  ],
+  "name": "Valgavoth's Faithful",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a871dfbf-1fb9-4d1c-81bb-e4f0b131a11b",
+  "oracle_text": "{3}{B}, Sacrifice this creature: Return target creature card from your graveyard to the battlefield. Activate only as a sorcery.",
+  "oversized": false,
+  "penny_rank": 4892,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2024-09-03",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.youtube.com/watch?v=8mYQLkstDs8"
+  },
+  "prices": {
+    "eur": "0.14",
+    "eur_foil": "0.16",
+    "tix": "0.03",
+    "usd": "0.33",
+    "usd_etched": null,
+    "usd_foil": "0.33"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa871dfbf-1fb9-4d1c-81bb-e4f0b131a11b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130373?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=786502&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F575290%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Valgavoth%27s+Faithful",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=673526&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DValgavoth%2527s%2BFaithful",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DValgavoth%2527s%2BFaithful"
+  },
+  "released_at": "2024-09-27",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/995194a0-ceb7-48c2-be5d-a208b3971e77/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsk/121/valgavoths-faithful?utm_source=api",
+  "set": "dsk",
+  "set_id": "a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "set_name": "Duskmourn: House of Horror",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "story_spotlight": false,
+  "tcgplayer_id": 575290,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Cleric",
+  "uri": "https://api.scryfall.com/cards/995194a0-ceb7-48c2-be5d-a208b3971e77",
+  "variation": false
+}
