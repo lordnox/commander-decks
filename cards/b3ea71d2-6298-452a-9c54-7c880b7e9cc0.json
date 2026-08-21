@@ -1,0 +1,134 @@
+{
+  "arena_id": 84402,
+  "artist": "Isis",
+  "artist_ids": [
+    "4d12227a-8657-48b7-884a-ff70cc6428a5"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 704796,
+  "cmc": 3.0,
+  "collector_number": "128",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 8720,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "On Amonkhet, Phyrexia found a ready-made army of horrors waiting for a new master.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9f9825ac-c186-4a10-b9e3-e73b10f75ed9",
+  "illustration_id": "2c5bdde2-b231-462d-9691-b620a5ffabd8",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:29:58Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/f/9f9825ac-c186-4a10-b9e3-e73b10f75ed9.webp?1783916998",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/f/9f9825ac-c186-4a10-b9e3-e73b10f75ed9.jpg?1783916998",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/f/9f9825ac-c186-4a10-b9e3-e73b10f75ed9.jpg?1783916998",
+    "crop": "https://cards.scryfall.io/crop/front/9/f/9f9825ac-c186-4a10-b9e3-e73b10f75ed9.webp?1783916998",
+    "display": "https://cards.scryfall.io/display/front/9/f/9f9825ac-c186-4a10-b9e3-e73b10f75ed9.webp?1783916998",
+    "grid": "https://cards.scryfall.io/grid/front/9/f/9f9825ac-c186-4a10-b9e3-e73b10f75ed9.webp?1783916998",
+    "large": "https://cards.scryfall.io/large/front/9/f/9f9825ac-c186-4a10-b9e3-e73b10f75ed9.jpg?1783916998",
+    "normal": "https://cards.scryfall.io/normal/front/9/f/9f9825ac-c186-4a10-b9e3-e73b10f75ed9.jpg?1783916998",
+    "png": "https://cards.scryfall.io/png/front/9/f/9f9825ac-c186-4a10-b9e3-e73b10f75ed9.png?1783916998",
+    "small": "https://cards.scryfall.io/small/front/9/f/9f9825ac-c186-4a10-b9e3-e73b10f75ed9.jpg?1783916998",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/f/9f9825ac-c186-4a10-b9e3-e73b10f75ed9.webp?1783916998"
+  },
+  "keywords": [
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 110104,
+  "multiverse_ids": [
+    607166
+  ],
+  "name": "Unseal the Necropolis",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b3ea71d2-6298-452a-9c54-7c880b7e9cc0",
+  "oracle_text": "Each player mills three cards. Then you return up to two creature cards from your graveyard to your hand. (To mill three cards, a player puts the top three cards of their library into their graveyard.)",
+  "oversized": false,
+  "prices": {
+    "eur": "0.16",
+    "eur_foil": "0.31",
+    "tix": "0.03",
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": "0.16"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab3ea71d2-6298-452a-9c54-7c880b7e9cc0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/110104?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=704796&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F491699%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Unseal+the+Necropolis",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=607166&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DUnseal%2Bthe%2BNecropolis",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DUnseal%2Bthe%2BNecropolis"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9f9825ac-c186-4a10-b9e3-e73b10f75ed9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/128/unseal-the-necropolis?utm_source=api",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": false,
+  "tcgplayer_id": 491699,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/9f9825ac-c186-4a10-b9e3-e73b10f75ed9",
+  "variation": false
+}
