@@ -1,0 +1,134 @@
+{
+  "artist": "Nino Vecia",
+  "artist_ids": [
+    "21466232-678a-4836-89fd-82cb15f52366"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 881266,
+  "cmc": 2.0,
+  "collector_number": "23",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 7177,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5c2e30d4-98ab-46a7-87ab-1c36c43ab34a",
+  "illustration_id": "0678b5e5-7640-4807-a726-ab6ec2748dca",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:50:59Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/c/5c2e30d4-98ab-46a7-87ab-1c36c43ab34a.webp?1783903859",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/c/5c2e30d4-98ab-46a7-87ab-1c36c43ab34a.jpg?1783903859",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/c/5c2e30d4-98ab-46a7-87ab-1c36c43ab34a.jpg?1783903859",
+    "crop": "https://cards.scryfall.io/crop/front/5/c/5c2e30d4-98ab-46a7-87ab-1c36c43ab34a.webp?1783903859",
+    "display": "https://cards.scryfall.io/display/front/5/c/5c2e30d4-98ab-46a7-87ab-1c36c43ab34a.webp?1783903859",
+    "grid": "https://cards.scryfall.io/grid/front/5/c/5c2e30d4-98ab-46a7-87ab-1c36c43ab34a.webp?1783903859",
+    "large": "https://cards.scryfall.io/large/front/5/c/5c2e30d4-98ab-46a7-87ab-1c36c43ab34a.jpg?1783903859",
+    "normal": "https://cards.scryfall.io/normal/front/5/c/5c2e30d4-98ab-46a7-87ab-1c36c43ab34a.jpg?1783903859",
+    "png": "https://cards.scryfall.io/png/front/5/c/5c2e30d4-98ab-46a7-87ab-1c36c43ab34a.png?1783903859",
+    "small": "https://cards.scryfall.io/small/front/5/c/5c2e30d4-98ab-46a7-87ab-1c36c43ab34a.jpg?1783903859",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/c/5c2e30d4-98ab-46a7-87ab-1c36c43ab34a.webp?1783903859"
+  },
+  "keywords": [
+    "Replicate",
+    "Enchant",
+    "Flash"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 148613,
+  "multiverse_ids": [],
+  "name": "Changing Loyalty",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cdfa9de4-7d7d-4638-8ac4-793ece6372dd",
+  "oracle_text": "Flash\nReplicate {2} (When you cast this spell, copy it for each time you paid its replicate cost. You may choose new targets for the copies. Copies become tokens.)\nEnchant creature\nWhen enchanted creature dies, return it to the battlefield under your control.",
+  "oversized": false,
+  "prices": {
+    "eur": "1.70",
+    "eur_foil": null,
+    "tix": "1.65",
+    "usd": "0.78",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acdfa9de4-7d7d-4638-8ac4-793ece6372dd&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/148613?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=881266&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F687336%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Changing+Loyalty",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DChanging%2BLoyalty",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DChanging%2BLoyalty"
+  },
+  "released_at": "2026-04-24",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "DA722939824E568BB30CDEC9DC5D2411834A946890B776729DFF66DE52E6FF1B",
+  "rulings_uri": "https://api.scryfall.com/cards/5c2e30d4-98ab-46a7-87ab-1c36c43ab34a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/soc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/soc/23/changing-loyalty?utm_source=api",
+  "security_stamp": "oval",
+  "set": "soc",
+  "set_id": "97fab8d1-480a-419d-ab14-663968e29b9c",
+  "set_name": "Secrets of Strixhaven Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/97fab8d1-480a-419d-ab14-663968e29b9c",
+  "story_spotlight": false,
+  "tcgplayer_id": 687336,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/5c2e30d4-98ab-46a7-87ab-1c36c43ab34a",
+  "variation": false
+}
