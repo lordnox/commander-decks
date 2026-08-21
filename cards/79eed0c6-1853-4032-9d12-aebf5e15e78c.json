@@ -1,0 +1,133 @@
+{
+  "artist": "Adam Paquette",
+  "artist_ids": [
+    "89023dad-e6c0-41e0-83fb-eb2bfbbdc3f2"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 267749,
+  "cmc": 7.0,
+  "collector_number": "5",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 20683,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "85003365-7c5f-4283-995d-e466deef444b",
+  "illustration_id": "376eb798-b04c-46fb-ae43-40a730600b81",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:40:04Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/5/85003365-7c5f-4283-995d-e466deef444b.webp?1783939204",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/5/85003365-7c5f-4283-995d-e466deef444b.jpg?1783939204",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/5/85003365-7c5f-4283-995d-e466deef444b.jpg?1783939204",
+    "crop": "https://cards.scryfall.io/crop/front/8/5/85003365-7c5f-4283-995d-e466deef444b.webp?1783939204",
+    "display": "https://cards.scryfall.io/display/front/8/5/85003365-7c5f-4283-995d-e466deef444b.webp?1783939204",
+    "grid": "https://cards.scryfall.io/grid/front/8/5/85003365-7c5f-4283-995d-e466deef444b.webp?1783939204",
+    "large": "https://cards.scryfall.io/large/front/8/5/85003365-7c5f-4283-995d-e466deef444b.jpg?1783939204",
+    "normal": "https://cards.scryfall.io/normal/front/8/5/85003365-7c5f-4283-995d-e466deef444b.jpg?1783939204",
+    "png": "https://cards.scryfall.io/png/front/8/5/85003365-7c5f-4283-995d-e466deef444b.png?1783939204",
+    "small": "https://cards.scryfall.io/small/front/8/5/85003365-7c5f-4283-995d-e466deef444b.jpg?1783939204",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/5/85003365-7c5f-4283-995d-e466deef444b.webp?1783939204"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{6}{W}",
+  "mtgo_foil_id": 53513,
+  "mtgo_id": 53512,
+  "multiverse_ids": [
+    383194
+  ],
+  "name": "Boonweaver Giant",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "79eed0c6-1853-4032-9d12-aebf5e15e78c",
+  "oracle_text": "When this creature enters, you may search your graveyard, hand, and/or library for an Aura card and put it onto the battlefield attached to this creature. If you search your library this way, shuffle.",
+  "oversized": false,
+  "penny_rank": 3807,
+  "power": "4",
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": "1.72",
+    "tix": "0.03",
+    "usd": "0.14",
+    "usd_etched": null,
+    "usd_foil": "0.49"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A79eed0c6-1853-4032-9d12-aebf5e15e78c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/53512?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=267749&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F91186%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Boonweaver+Giant",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=383194&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBoonweaver%2BGiant",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBoonweaver%2BGiant"
+  },
+  "released_at": "2014-07-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/85003365-7c5f-4283-995d-e466deef444b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/m15?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/m15/5/boonweaver-giant?utm_source=api",
+  "set": "m15",
+  "set_id": "6ce49890-3b37-42a5-8932-dbeef1d7b62c",
+  "set_name": "Magic 2015",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Am15&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/6ce49890-3b37-42a5-8932-dbeef1d7b62c",
+  "story_spotlight": false,
+  "tcgplayer_id": 91186,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Giant Monk",
+  "uri": "https://api.scryfall.com/cards/85003365-7c5f-4283-995d-e466deef444b",
+  "variation": false
+}
