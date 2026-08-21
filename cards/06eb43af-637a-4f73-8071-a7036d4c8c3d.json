@@ -1,0 +1,132 @@
+{
+  "artist": "Scott M. Fischer",
+  "artist_ids": [
+    "23b0cf43-3e43-44c6-8329-96446eca5bce"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 723506,
+  "cmc": 4.0,
+  "collector_number": "145",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 5989,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Even when the flesh grows cold, knowledge waits in the bones for a master to release it.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "14fc0dfb-663a-4713-902e-96dbecc404b7",
+  "illustration_id": "22d84a5d-e673-41eb-946e-06f624743b50",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:08:00Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/4/14fc0dfb-663a-4713-902e-96dbecc404b7.webp?1783915680",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/4/14fc0dfb-663a-4713-902e-96dbecc404b7.jpg?1783915680",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/4/14fc0dfb-663a-4713-902e-96dbecc404b7.jpg?1783915680",
+    "crop": "https://cards.scryfall.io/crop/front/1/4/14fc0dfb-663a-4713-902e-96dbecc404b7.webp?1783915680",
+    "display": "https://cards.scryfall.io/display/front/1/4/14fc0dfb-663a-4713-902e-96dbecc404b7.webp?1783915680",
+    "grid": "https://cards.scryfall.io/grid/front/1/4/14fc0dfb-663a-4713-902e-96dbecc404b7.webp?1783915680",
+    "large": "https://cards.scryfall.io/large/front/1/4/14fc0dfb-663a-4713-902e-96dbecc404b7.jpg?1783915680",
+    "normal": "https://cards.scryfall.io/normal/front/1/4/14fc0dfb-663a-4713-902e-96dbecc404b7.jpg?1783915680",
+    "png": "https://cards.scryfall.io/png/front/1/4/14fc0dfb-663a-4713-902e-96dbecc404b7.png?1783915680",
+    "small": "https://cards.scryfall.io/small/front/1/4/14fc0dfb-663a-4713-902e-96dbecc404b7.jpg?1783915680",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/4/14fc0dfb-663a-4713-902e-96dbecc404b7.webp?1783915680"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "mtgo_id": 115389,
+  "multiverse_ids": [
+    622753
+  ],
+  "name": "Corpse Augur",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "06eb43af-637a-4f73-8071-a7036d4c8c3d",
+  "oracle_text": "When this creature dies, you draw X cards and you lose X life, where X is the number of creature cards in target player's graveyard.",
+  "oversized": false,
+  "power": "4",
+  "prices": {
+    "eur": "0.07",
+    "eur_foil": "0.27",
+    "tix": "0.06",
+    "usd": "0.29",
+    "usd_etched": null,
+    "usd_foil": "0.31"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A06eb43af-637a-4f73-8071-a7036d4c8c3d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/115389?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=723506&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F507160%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Corpse+Augur",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=622753&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCorpse%2BAugur",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCorpse%2BAugur"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/14fc0dfb-663a-4713-902e-96dbecc404b7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/145/corpse-augur?utm_source=api",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 507160,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Zombie Wizard",
+  "uri": "https://api.scryfall.com/cards/14fc0dfb-663a-4713-902e-96dbecc404b7",
+  "variation": false
+}
