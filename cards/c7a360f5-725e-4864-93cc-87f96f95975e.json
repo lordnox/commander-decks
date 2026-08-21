@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "1c516212-ad39-4396-8e05-ae57f100309f",
+      "name": "Energy Reserve",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/1c516212-ad39-4396-8e05-ae57f100309f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "59cbd637-30d1-4c3c-95ce-b6c6f9248d15",
+      "name": "Chthonian Nightmare",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/59cbd637-30d1-4c3c-95ce-b6c6f9248d15"
+    }
+  ],
+  "arena_id": 90932,
+  "artist": "Josu Solano",
+  "artist_ids": [
+    "fb7b61a8-13c5-4813-a749-9d3396801906"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 768039,
+  "cmc": 2.0,
+  "collector_number": "83",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2301,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "ce5dd2c1-b6e0-4914-b5c9-7dd451c29e22",
+  "illustration_id": "a292c90c-8ba0-4019-a16a-d12878c86bfc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:43Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/e/ce5dd2c1-b6e0-4914-b5c9-7dd451c29e22.webp?1783911283",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/e/ce5dd2c1-b6e0-4914-b5c9-7dd451c29e22.jpg?1783911283",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/e/ce5dd2c1-b6e0-4914-b5c9-7dd451c29e22.jpg?1783911283",
+    "crop": "https://cards.scryfall.io/crop/front/c/e/ce5dd2c1-b6e0-4914-b5c9-7dd451c29e22.webp?1783911283",
+    "display": "https://cards.scryfall.io/display/front/c/e/ce5dd2c1-b6e0-4914-b5c9-7dd451c29e22.webp?1783911283",
+    "grid": "https://cards.scryfall.io/grid/front/c/e/ce5dd2c1-b6e0-4914-b5c9-7dd451c29e22.webp?1783911283",
+    "large": "https://cards.scryfall.io/large/front/c/e/ce5dd2c1-b6e0-4914-b5c9-7dd451c29e22.jpg?1783911283",
+    "normal": "https://cards.scryfall.io/normal/front/c/e/ce5dd2c1-b6e0-4914-b5c9-7dd451c29e22.jpg?1783911283",
+    "png": "https://cards.scryfall.io/png/front/c/e/ce5dd2c1-b6e0-4914-b5c9-7dd451c29e22.png?1783911283",
+    "small": "https://cards.scryfall.io/small/front/c/e/ce5dd2c1-b6e0-4914-b5c9-7dd451c29e22.jpg?1783911283",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/e/ce5dd2c1-b6e0-4914-b5c9-7dd451c29e22.webp?1783911283"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 126183,
+  "multiverse_ids": [
+    662235
+  ],
+  "name": "Chthonian Nightmare",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c7a360f5-725e-4864-93cc-87f96f95975e",
+  "oracle_text": "When this enchantment enters, you get {E}{E}{E} (three energy counters).\nPay X {E}, Sacrifice a creature, Return this enchantment to its owner's hand: Return target creature card with mana value X from your graveyard to the battlefield. Activate only as a sorcery.",
+  "oversized": false,
+  "penny_rank": 379,
+  "preview": {
+    "previewed_at": "2024-04-30",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/news/announcements/the-modern-horizons-3-leaks-nulldrifters-and-you"
+  },
+  "prices": {
+    "eur": "0.77",
+    "eur_foil": "1.67",
+    "tix": "0.02",
+    "usd": "0.63",
+    "usd_etched": null,
+    "usd_foil": "0.71"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac7a360f5-725e-4864-93cc-87f96f95975e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126183?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=768039&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F548588%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Chthonian+Nightmare",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662235&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DChthonian%2BNightmare",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DChthonian%2BNightmare"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ce5dd2c1-b6e0-4914-b5c9-7dd451c29e22/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/83/chthonian-nightmare?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 548588,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/ce5dd2c1-b6e0-4914-b5c9-7dd451c29e22",
+  "variation": false
+}
