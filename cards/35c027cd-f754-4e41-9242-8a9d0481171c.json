@@ -1,0 +1,137 @@
+{
+  "artist": "John Zeleznik",
+  "artist_ids": [
+    "7d96bd59-7779-4740-8658-953f518ff805"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 748421,
+  "cmc": 4.0,
+  "collector_number": "73",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 5337,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a1974bac-4763-4f95-ae60-061e34d0283d",
+  "illustration_id": "4bff22cd-dff6-4613-bbd6-4a8df26a98ba",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:28:47Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/1/a1974bac-4763-4f95-ae60-061e34d0283d.webp?1783913327",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/1/a1974bac-4763-4f95-ae60-061e34d0283d.jpg?1783913327",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/1/a1974bac-4763-4f95-ae60-061e34d0283d.jpg?1783913327",
+    "crop": "https://cards.scryfall.io/crop/front/a/1/a1974bac-4763-4f95-ae60-061e34d0283d.webp?1783913327",
+    "display": "https://cards.scryfall.io/display/front/a/1/a1974bac-4763-4f95-ae60-061e34d0283d.webp?1783913327",
+    "grid": "https://cards.scryfall.io/grid/front/a/1/a1974bac-4763-4f95-ae60-061e34d0283d.webp?1783913327",
+    "large": "https://cards.scryfall.io/large/front/a/1/a1974bac-4763-4f95-ae60-061e34d0283d.jpg?1783913327",
+    "normal": "https://cards.scryfall.io/normal/front/a/1/a1974bac-4763-4f95-ae60-061e34d0283d.jpg?1783913327",
+    "png": "https://cards.scryfall.io/png/front/a/1/a1974bac-4763-4f95-ae60-061e34d0283d.png?1783913327",
+    "small": "https://cards.scryfall.io/small/front/a/1/a1974bac-4763-4f95-ae60-061e34d0283d.jpg?1783913327",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/1/a1974bac-4763-4f95-ae60-061e34d0283d.webp?1783913327"
+  },
+  "keywords": [
+    "Regenerate",
+    "Fear",
+    "Transmute"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "mtgo_id": 120673,
+  "multiverse_ids": [
+    643080
+  ],
+  "name": "Dimir House Guard",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "35c027cd-f754-4e41-9242-8a9d0481171c",
+  "oracle_text": "Fear (This creature can't be blocked except by artifact creatures and/or black creatures.)\nSacrifice a creature: Regenerate this creature.\nTransmute {1}{B}{B} ({1}{B}{B}, Discard this card: Search your library for a card with the same mana value as this card, reveal it, put it into your hand, then shuffle. Transmute only as a sorcery.)",
+  "oversized": false,
+  "penny_rank": 5814,
+  "power": "2",
+  "prices": {
+    "eur": "0.13",
+    "eur_foil": "0.47",
+    "tix": "0.04",
+    "usd": "0.20",
+    "usd_etched": null,
+    "usd_foil": "0.35"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A35c027cd-f754-4e41-9242-8a9d0481171c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/120673?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=748421&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F531152%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dimir+House+Guard",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=643080&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDimir%2BHouse%2BGuard",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDimir%2BHouse%2BGuard"
+  },
+  "released_at": "2024-01-12",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a1974bac-4763-4f95-ae60-061e34d0283d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rvr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rvr/73/dimir-house-guard?utm_source=api",
+  "set": "rvr",
+  "set_id": "fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "set_name": "Ravnica Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arvr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "story_spotlight": false,
+  "tcgplayer_id": 531152,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Skeleton",
+  "uri": "https://api.scryfall.com/cards/a1974bac-4763-4f95-ae60-061e34d0283d",
+  "variation": false,
+  "watermark": "dimir"
+}
