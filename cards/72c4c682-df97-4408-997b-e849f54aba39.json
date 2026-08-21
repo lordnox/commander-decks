@@ -1,0 +1,134 @@
+{
+  "arena_id": 84288,
+  "artist": "Anato Finnstark",
+  "artist_ids": [
+    "05d233e7-4958-4f79-83e6-f9bf8b6ff78e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 703472,
+  "cmc": 3.0,
+  "collector_number": "35",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 9217,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "2ccc29cc-025d-402e-9fe3-75998eb290c9",
+  "illustration_id": "45baa1a4-4e1f-476e-9161-39df0cbec661",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:30:49Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/c/2ccc29cc-025d-402e-9fe3-75998eb290c9.webp?1783917049",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/c/2ccc29cc-025d-402e-9fe3-75998eb290c9.jpg?1783917049",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/c/2ccc29cc-025d-402e-9fe3-75998eb290c9.jpg?1783917049",
+    "crop": "https://cards.scryfall.io/crop/front/2/c/2ccc29cc-025d-402e-9fe3-75998eb290c9.webp?1783917049",
+    "display": "https://cards.scryfall.io/display/front/2/c/2ccc29cc-025d-402e-9fe3-75998eb290c9.webp?1783917049",
+    "grid": "https://cards.scryfall.io/grid/front/2/c/2ccc29cc-025d-402e-9fe3-75998eb290c9.webp?1783917049",
+    "large": "https://cards.scryfall.io/large/front/2/c/2ccc29cc-025d-402e-9fe3-75998eb290c9.jpg?1783917049",
+    "normal": "https://cards.scryfall.io/normal/front/2/c/2ccc29cc-025d-402e-9fe3-75998eb290c9.jpg?1783917049",
+    "png": "https://cards.scryfall.io/png/front/2/c/2ccc29cc-025d-402e-9fe3-75998eb290c9.png?1783917049",
+    "small": "https://cards.scryfall.io/small/front/2/c/2ccc29cc-025d-402e-9fe3-75998eb290c9.jpg?1783917049",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/c/2ccc29cc-025d-402e-9fe3-75998eb290c9.webp?1783917049"
+  },
+  "keywords": [
+    "Ward"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}{W}",
+  "mtgo_id": 109876,
+  "multiverse_ids": [
+    607052
+  ],
+  "name": "Seal from Existence",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "72c4c682-df97-4408-997b-e849f54aba39",
+  "oracle_text": "Ward {3} (Whenever this enchantment becomes the target of a spell or ability an opponent controls, counter it unless that player pays {3}.)\nWhen this enchantment enters, exile target nonland permanent an opponent controls until this enchantment leaves the battlefield.",
+  "oversized": false,
+  "penny_rank": 7722,
+  "prices": {
+    "eur": "0.14",
+    "eur_foil": "0.26",
+    "tix": "0.03",
+    "usd": "0.19",
+    "usd_etched": null,
+    "usd_foil": "0.35"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A72c4c682-df97-4408-997b-e849f54aba39&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/109876?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=703472&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F490406%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Seal+from+Existence",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=607052&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSeal%2Bfrom%2BExistence",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSeal%2Bfrom%2BExistence"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2ccc29cc-025d-402e-9fe3-75998eb290c9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/35/seal-from-existence?utm_source=api",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": true,
+  "tcgplayer_id": 490406,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/2ccc29cc-025d-402e-9fe3-75998eb290c9",
+  "variation": false
+}
