@@ -1,0 +1,1047 @@
+{
+  "cards": [
+    {
+      "board": "maybeboard",
+      "cache": "cards/0a364b66-95df-480b-a733-e90f6d5c4d2b.json",
+      "categories": [
+        "maybeboard"
+      ],
+      "category_source": "deck",
+      "name": "Altar of Bhaal // Bone Offering",
+      "oracle_id": "0a364b66-95df-480b-a733-e90f6d5c4d2b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/109/altar-of-bhaal-bone-offering?utm_source=api",
+      "submitted_name": "Altar of Bhaal // Bone Offering"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/a75087aa-41bd-4e0f-a118-61b5209356f5.json",
+      "categories": [
+        "extra-cost-sacrifice"
+      ],
+      "category_source": "deck",
+      "name": "Annihilating Glare",
+      "oracle_id": "a75087aa-41bd-4e0f-a118-61b5209356f5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/one/80/annihilating-glare?utm_source=api",
+      "submitted_name": "Annihilating Glare"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/0bc7f093-bef0-4f1a-852c-4b75ebf54838.json",
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Arcane Signet",
+      "oracle_id": "0bc7f093-bef0-4f1a-852c-4b75ebf54838",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/191/arcane-signet?utm_source=api",
+      "submitted_name": "Arcane Signet"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/4d18bcba-a346-445e-a182-6cc30b7e066d.json",
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Ashnod's Altar",
+      "oracle_id": "4d18bcba-a346-445e-a182-6cc30b7e066d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/368/ashnods-altar?utm_source=api",
+      "submitted_name": "Ashnod's Altar"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/388168b3-ec68-4af2-b88c-6a5ec88c15f6.json",
+      "categories": [
+        "draw",
+        "lifegain",
+        "extra-cost-sacrifice",
+        "drain"
+      ],
+      "category_source": "deck",
+      "name": "Ayara, First of Locthwain",
+      "oracle_id": "388168b3-ec68-4af2-b88c-6a5ec88c15f6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eld/75/ayara-first-of-locthwain?utm_source=api",
+      "submitted_name": "Ayara, First of Locthwain"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/fc5d3341-cbce-49e5-93cc-8add92479dca.json",
+      "categories": [
+        "anthem"
+      ],
+      "category_source": "deck",
+      "name": "Bad Moon",
+      "oracle_id": "fc5d3341-cbce-49e5-93cc-8add92479dca",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/gvl/48/bad-moon?utm_source=api",
+      "submitted_name": "Bad Moon"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/c7f33cea-2ec8-4081-9208-a5b1d86721b3.json",
+      "categories": [
+        "drain"
+      ],
+      "category_source": "deck",
+      "name": "Bastion of Remembrance",
+      "oracle_id": "c7f33cea-2ec8-4081-9208-a5b1d86721b3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tle/160/bastion-of-remembrance?utm_source=api",
+      "submitted_name": "Bastion of Remembrance"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/c4fe854e-8783-492e-bb2e-9f242ada8a5b.json",
+      "categories": [
+        "tokens"
+      ],
+      "category_source": "deck",
+      "name": "Blight Mound",
+      "oracle_id": "c4fe854e-8783-492e-bb2e-9f242ada8a5b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/208/blight-mound?utm_source=api",
+      "submitted_name": "Blight Mound"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/23f93411-f83c-4ed2-abed-99cf905f7d7f.json",
+      "categories": [
+        "black-mana"
+      ],
+      "category_source": "deck",
+      "name": "Bog Initiate",
+      "oracle_id": "23f93411-f83c-4ed2-abed-99cf905f7d7f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inv/95/bog-initiate?utm_source=api",
+      "submitted_name": "Bog Initiate"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/940ba435-7abc-40f8-a5af-c1c653b3284e.json",
+      "categories": [
+        "ramp",
+        "lifegain",
+        "drain"
+      ],
+      "category_source": "deck",
+      "name": "Bontu's Monument",
+      "oracle_id": "940ba435-7abc-40f8-a5af-c1c653b3284e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmc/179/bontus-monument?utm_source=api",
+      "submitted_name": "Bontu's Monument"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/e0445c80-fa53-4c3e-881e-940e9fce7f57.json",
+      "categories": [
+        "draw"
+      ],
+      "category_source": "deck",
+      "name": "Braids, Arisen Nightmare",
+      "oracle_id": "e0445c80-fa53-4c3e-881e-940e9fce7f57",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/82/braids-arisen-nightmare?utm_source=api",
+      "submitted_name": "Braids, Arisen Nightmare"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/95b10ca7-7360-4da5-bd93-686ae3051833.json",
+      "categories": [
+        "black-mana",
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Carnival of Souls",
+      "oracle_id": "95b10ca7-7360-4da5-bd93-686ae3051833",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/uds/55/carnival-of-souls?utm_source=api",
+      "submitted_name": "Carnival of Souls"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/a1cc5e37-b09a-4b7f-afd5-77c1c35aa425.json",
+      "categories": [
+        "sac-outlet"
+      ],
+      "category_source": "deck",
+      "name": "Carrion Feeder",
+      "oracle_id": "a1cc5e37-b09a-4b7f-afd5-77c1c35aa425",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh1/81/carrion-feeder?utm_source=api",
+      "submitted_name": "Carrion Feeder"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/c7a360f5-725e-4864-93cc-87f96f95975e.json",
+      "categories": [
+        "recursion"
+      ],
+      "category_source": "deck",
+      "name": "Chthonian Nightmare",
+      "oracle_id": "c7a360f5-725e-4864-93cc-87f96f95975e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/83/chthonian-nightmare?utm_source=api",
+      "submitted_name": "Chthonian Nightmare"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/3bc0bd36-70be-4180-9fb3-b10ce054107b.json",
+      "categories": [
+        "removal",
+        "lifegain"
+      ],
+      "category_source": "deck",
+      "name": "Consuming Corruption",
+      "oracle_id": "3bc0bd36-70be-4180-9fb3-b10ce054107b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/84/consuming-corruption?utm_source=api",
+      "submitted_name": "Consuming Corruption"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/b45e35df-9032-4482-89a6-c7c50c6d0a79.json",
+      "categories": [
+        "draw",
+        "extra-cost-sacrifice"
+      ],
+      "category_source": "deck",
+      "name": "Corrupted Conviction",
+      "oracle_id": "b45e35df-9032-4482-89a6-c7c50c6d0a79",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otj/84/corrupted-conviction?utm_source=api",
+      "submitted_name": "Corrupted Conviction"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/8cdfd9df-4783-4138-a286-828a97f516aa.json",
+      "categories": [
+        "draw",
+        "extra-cost-sacrifice"
+      ],
+      "category_source": "deck",
+      "name": "Costly Plunder",
+      "oracle_id": "8cdfd9df-4783-4138-a286-828a97f516aa",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/80/costly-plunder?utm_source=api",
+      "submitted_name": "Costly Plunder"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/f47659b5-d834-4153-b9fc-6a0702c503d9.json",
+      "categories": [
+        "draw"
+      ],
+      "category_source": "deck",
+      "name": "Dark Prophecy",
+      "oracle_id": "f47659b5-d834-4153-b9fc-6a0702c503d9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/m14/93/dark-prophecy?utm_source=api",
+      "submitted_name": "Dark Prophecy"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/457af74a-02b3-4659-846d-63e482667f34.json",
+      "categories": [
+        "draw",
+        "extra-cost-sacrifice"
+      ],
+      "category_source": "deck",
+      "name": "Deadly Dispute",
+      "oracle_id": "457af74a-02b3-4659-846d-63e482667f34",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/794/deadly-dispute?utm_source=api",
+      "submitted_name": "Deadly Dispute"
+    },
+    {
+      "board": "maybeboard",
+      "cache": "cards/99024aa8-5687-4d38-8a4b-feef42d6c1ff.json",
+      "categories": [
+        "maybeboard",
+        "anthem"
+      ],
+      "category_source": "deck",
+      "name": "Death Baron",
+      "oracle_id": "99024aa8-5687-4d38-8a4b-feef42d6c1ff",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/521/death-baron?utm_source=api",
+      "submitted_name": "Death Baron"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/b7ad11dc-c962-4034-b15a-a080c6fff75f.json",
+      "categories": [
+        "lifegain"
+      ],
+      "category_source": "deck",
+      "name": "Deathgreeter",
+      "oracle_id": "b7ad11dc-c962-4034-b15a-a080c6fff75f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/gvl/33/deathgreeter?utm_source=api",
+      "submitted_name": "Deathgreeter"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/49dddec0-d958-4810-8c6e-225fc8118c8f.json",
+      "categories": [
+        "removal"
+      ],
+      "category_source": "deck",
+      "name": "Defile",
+      "oracle_id": "49dddec0-d958-4810-8c6e-225fc8118c8f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh1/86/defile?utm_source=api",
+      "submitted_name": "Defile"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/ee38377f-8d3a-402e-a5d7-a01cfe3a5322.json",
+      "categories": [
+        "lifegain"
+      ],
+      "category_source": "deck",
+      "name": "Demon's Horn",
+      "oracle_id": "ee38377f-8d3a-402e-a5d7-a01cfe3a5322",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dvd/57/demons-horn?utm_source=api",
+      "submitted_name": "Demon's Horn"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/d437ecc2-2fd3-4ad3-b23e-217f55e58dae.json",
+      "categories": [
+        "removal",
+        "extra-cost-sacrifice"
+      ],
+      "category_source": "deck",
+      "name": "Eaten Alive",
+      "oracle_id": "d437ecc2-2fd3-4ad3-b23e-217f55e58dae",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inr/106/eaten-alive?utm_source=api",
+      "submitted_name": "Eaten Alive"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/93056597-b964-421f-be2f-e92abef1c2a4.json",
+      "categories": [
+        "tutor"
+      ],
+      "category_source": "deck",
+      "name": "Emeritus of Woe // Demonic Tutor",
+      "oracle_id": "93056597-b964-421f-be2f-e92abef1c2a4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sos/80/emeritus-of-woe-demonic-tutor?utm_source=api",
+      "submitted_name": "Emeritus of Woe // Demonic Tutor"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/a5690dc9-f12e-4ecc-b528-f2f83c79c3c8.json",
+      "categories": [
+        "draw",
+        "sac-outlet"
+      ],
+      "category_source": "deck",
+      "name": "Erebos, Bleak-Hearted",
+      "oracle_id": "a5690dc9-f12e-4ecc-b528-f2f83c79c3c8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/868/erebos-bleak-hearted?utm_source=api",
+      "submitted_name": "Erebos, Bleak-Hearted"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/81a398ee-e534-43b7-88fe-45155d6aba3a.json",
+      "categories": [
+        "draw",
+        "extra-cost-sacrifice",
+        "recursion"
+      ],
+      "category_source": "deck",
+      "name": "Eviscerator's Insight",
+      "oracle_id": "81a398ee-e534-43b7-88fe-45155d6aba3a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/93/eviscerators-insight?utm_source=api",
+      "submitted_name": "Eviscerator's Insight"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/5825997b-10d7-4a36-972c-a80ddd90b8ed.json",
+      "categories": [
+        "removal"
+      ],
+      "category_source": "deck",
+      "name": "Feed the Swarm",
+      "oracle_id": "5825997b-10d7-4a36-972c-a80ddd90b8ed",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tle/257/feed-the-swarm?utm_source=api",
+      "submitted_name": "Feed the Swarm"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/053a69d8-2b5e-4f14-8b02-ca405891dc4a.json",
+      "categories": [
+        "removal"
+      ],
+      "category_source": "deck",
+      "name": "Fell the Profane // Fell Mire",
+      "oracle_id": "053a69d8-2b5e-4f14-8b02-ca405891dc4a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/244/fell-the-profane-fell-mire?utm_source=api",
+      "submitted_name": "Fell the Profane // Fell Mire"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/4ce156f8-6b0b-41ce-9e8f-b2735c757406.json",
+      "categories": [
+        "removal"
+      ],
+      "category_source": "deck",
+      "name": "Flare of Malice",
+      "oracle_id": "4ce156f8-6b0b-41ce-9e8f-b2735c757406",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/95/flare-of-malice?utm_source=api",
+      "submitted_name": "Flare of Malice"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/d37e0127-6f68-438e-8b9e-a71bb3c34733.json",
+      "categories": [
+        "skeleton",
+        "recursion"
+      ],
+      "category_source": "deck",
+      "name": "Forsaken Miner",
+      "oracle_id": "d37e0127-6f68-438e-8b9e-a71bb3c34733",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otj/88/forsaken-miner?utm_source=api",
+      "submitted_name": "Forsaken Miner"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/a39d541e-86c1-4595-a2e9-f107def5bbc6.json",
+      "categories": [
+        "drain"
+      ],
+      "category_source": "deck",
+      "name": "Funeral Room // Awakening Hall",
+      "oracle_id": "a39d541e-86c1-4595-a2e9-f107def5bbc6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsk/100/funeral-room-awakening-hall?utm_source=api",
+      "submitted_name": "Funeral Room // Awakening Hall"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/72aef1d8-11df-4bc2-af83-907b05df73a8.json",
+      "categories": [
+        "draw"
+      ],
+      "category_source": "deck",
+      "name": "Grim Haruspex",
+      "oracle_id": "72aef1d8-11df-4bc2-af83-907b05df73a8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/754/grim-haruspex?utm_source=api",
+      "submitted_name": "Grim Haruspex"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/1caa7fa2-a881-4a65-a87e-12a974520c83.json",
+      "categories": [
+        "tutor"
+      ],
+      "category_source": "deck",
+      "name": "Grim Servant",
+      "oracle_id": "1caa7fa2-a881-4a65-a87e-12a974520c83",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/97/grim-servant?utm_source=api",
+      "submitted_name": "Grim Servant"
+    },
+    {
+      "board": "maybeboard",
+      "cache": "cards/76ae3779-c821-4cd3-8d0f-8c42d1206ce4.json",
+      "categories": [
+        "maybeboard",
+        "skeleton",
+        "recursion"
+      ],
+      "category_source": "deck",
+      "name": "Gutterbones",
+      "oracle_id": "76ae3779-c821-4cd3-8d0f-8c42d1206ce4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rna/76/gutterbones?utm_source=api",
+      "submitted_name": "Gutterbones"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/fa1be67e-a07e-42ce-88be-446acd643dc6.json",
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Heartless Summoning",
+      "oracle_id": "fa1be67e-a07e-42ce-88be-446acd643dc6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inr/117/heartless-summoning?utm_source=api",
+      "submitted_name": "Heartless Summoning"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/86fb3749-37d6-48a6-8524-71e996850307.json",
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "High Market",
+      "oracle_id": "86fb3749-37d6-48a6-8524-71e996850307",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/380/high-market?utm_source=api",
+      "submitted_name": "High Market"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/ad3e705f-da57-4eff-84d7-2072522de988.json",
+      "categories": [
+        "tutor",
+        "draw"
+      ],
+      "category_source": "deck",
+      "name": "Insatiable Avarice",
+      "oracle_id": "ad3e705f-da57-4eff-84d7-2072522de988",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otj/91/insatiable-avarice?utm_source=api",
+      "submitted_name": "Insatiable Avarice"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/e330412f-46a1-4e7c-8766-f644606049e0.json",
+      "categories": [
+        "draw"
+      ],
+      "category_source": "deck",
+      "name": "Into the Pit",
+      "oracle_id": "e330412f-46a1-4e7c-8766-f644606049e0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/20/into-the-pit?utm_source=api",
+      "submitted_name": "Into the Pit"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/bccb06f1-8839-4104-9ffa-c79a817f8378.json",
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Jet Medallion",
+      "oracle_id": "bccb06f1-8839-4104-9ffa-c79a817f8378",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/292/jet-medallion?utm_source=api",
+      "submitted_name": "Jet Medallion"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/78a48f4e-ba4c-4d8d-938a-9ddb342a885b.json",
+      "categories": [
+        "recursion"
+      ],
+      "category_source": "deck",
+      "name": "Junji, the Midnight Sky",
+      "oracle_id": "78a48f4e-ba4c-4d8d-938a-9ddb342a885b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/183/junji-the-midnight-sky?utm_source=api",
+      "submitted_name": "Junji, the Midnight Sky"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/e8c7566d-7cc0-48af-a986-83223ec7e06c.json",
+      "categories": [
+        "draw"
+      ],
+      "category_source": "deck",
+      "name": "Midnight Reaper",
+      "oracle_id": "e8c7566d-7cc0-48af-a986-83223ec7e06c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/609/midnight-reaper?utm_source=api",
+      "submitted_name": "Midnight Reaper"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/f73da5d8-fd15-4315-ad3c-c86c28087285.json",
+      "categories": [
+        "draw",
+        "extra-cost-sacrifice"
+      ],
+      "category_source": "deck",
+      "name": "Nasty End",
+      "oracle_id": "f73da5d8-fd15-4315-ad3c-c86c28087285",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ltr/99/nasty-end?utm_source=api",
+      "submitted_name": "Nasty End"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/7ffae8f8-3006-4969-a339-6d30678f87ea.json",
+      "categories": [
+        "draw"
+      ],
+      "category_source": "deck",
+      "name": "Night's Whisper",
+      "oracle_id": "7ffae8f8-3006-4969-a339-6d30678f87ea",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/hoc/189/nights-whisper?utm_source=api",
+      "submitted_name": "Night's Whisper"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/5049da27-f38b-4fe6-a387-51510bd1f44e.json",
+      "categories": [
+        "recursion"
+      ],
+      "category_source": "deck",
+      "name": "Nine-Lives Familiar",
+      "oracle_id": "5049da27-f38b-4fe6-a387-51510bd1f44e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/66/nine-lives-familiar?utm_source=api",
+      "submitted_name": "Nine-Lives Familiar"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/04e575d1-f843-4330-972f-e77b264073e0.json",
+      "categories": [
+        "commander-top"
+      ],
+      "category_source": "deck",
+      "name": "Ozox, the Clattering King",
+      "oracle_id": "04e575d1-f843-4330-972f-e77b264073e0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/j25/44/ozox-the-clattering-king?utm_source=api",
+      "submitted_name": "Ozox, the Clattering King"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/8d02b297-97c4-4379-9862-0a462400f66f.json",
+      "categories": [
+        "black-mana",
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Phyrexian Altar",
+      "oracle_id": "8d02b297-97c4-4379-9862-0a462400f66f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2x2/311/phyrexian-altar?utm_source=api",
+      "submitted_name": "Phyrexian Altar"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/1861e642-21d5-4232-89f3-b5557f2946c1.json",
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Phyrexian Tower",
+      "oracle_id": "1861e642-21d5-4232-89f3-b5557f2946c1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/303/phyrexian-tower?utm_source=api",
+      "submitted_name": "Phyrexian Tower"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/a784481f-eccb-4112-bb38-04a659319660.json",
+      "categories": [
+        "black-mana",
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Pitiless Plunderer",
+      "oracle_id": "a784481f-eccb-4112-bb38-04a659319660",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lcc/208/pitiless-plunderer?utm_source=api",
+      "submitted_name": "Pitiless Plunderer"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/129ee7d6-e3df-40ef-9502-7aad10183031.json",
+      "categories": [
+        "lifegain"
+      ],
+      "category_source": "deck",
+      "name": "Prism Ring",
+      "oracle_id": "129ee7d6-e3df-40ef-9502-7aad10183031",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ori/235/prism-ring?utm_source=api",
+      "submitted_name": "Prism Ring"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/a044474a-cd72-4e9d-bd8d-a08f2de9cdc0.json",
+      "categories": [
+        "recursion"
+      ],
+      "category_source": "deck",
+      "name": "Reanimate",
+      "oracle_id": "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/155/reanimate?utm_source=api",
+      "submitted_name": "Reanimate"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/9dbc3530-b278-4c8d-b2cc-a09dfac9d5e5.json",
+      "categories": [
+        "skeleton",
+        "recursion"
+      ],
+      "category_source": "deck",
+      "name": "Reassembling Skeleton",
+      "oracle_id": "9dbc3530-b278-4c8d-b2cc-a09dfac9d5e5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/195/reassembling-skeleton?utm_source=api",
+      "submitted_name": "Reassembling Skeleton"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/044ea111-ce87-49ab-98f7-ae8447f48ac5.json",
+      "categories": [
+        "draw",
+        "lifegain",
+        "extra-cost-sacrifice"
+      ],
+      "category_source": "deck",
+      "name": "Reckoner's Bargain",
+      "oracle_id": "044ea111-ce87-49ab-98f7-ae8447f48ac5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/120/reckoners-bargain?utm_source=api",
+      "submitted_name": "Reckoner's Bargain"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/4d9554de-c005-41ab-a941-39328ebff9de.json",
+      "categories": [
+        "black-mana",
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Relic of Legends",
+      "oracle_id": "4d9554de-c005-41ab-a941-39328ebff9de",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/209/relic-of-legends?utm_source=api",
+      "submitted_name": "Relic of Legends"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/70113003-be5e-406a-9aec-cb480468c36d.json",
+      "categories": [
+        "drain"
+      ],
+      "category_source": "deck",
+      "name": "Sephiroth, Fabled SOLDIER // Sephiroth, One-Winged Angel",
+      "oracle_id": "70113003-be5e-406a-9aec-cb480468c36d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fin/115/sephiroth-fabled-soldier-sephiroth-one-winged-angel?utm_source=api",
+      "submitted_name": "Sephiroth, Fabled SOLDIER // Sephiroth, One-Winged Angel"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/c6207f6a-a624-4754-88f5-dbe700c841ff.json",
+      "categories": [
+        "draw"
+      ],
+      "category_source": "deck",
+      "name": "Sign in Blood",
+      "oracle_id": "c6207f6a-a624-4754-88f5-dbe700c841ff",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/156/sign-in-blood?utm_source=api",
+      "submitted_name": "Sign in Blood"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/6ad8011d-3471-4369-9d68-b264cc027487.json",
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Sol Ring",
+      "oracle_id": "6ad8011d-3471-4369-9d68-b264cc027487",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/211/sol-ring?utm_source=api",
+      "submitted_name": "Sol Ring"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/56719f6a-1a6c-4c0a-8d21-18f7d7350b68.json",
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Swamp",
+      "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
+      "quantity": 34,
+      "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
+      "submitted_name": "Swamp"
+    },
+    {
+      "board": "maybeboard",
+      "cache": "cards/9ae376d5-c68f-4a4b-851c-ebfd385b86dd.json",
+      "categories": [
+        "maybeboard",
+        "skeleton",
+        "recursion"
+      ],
+      "category_source": "deck",
+      "name": "Tenacious Dead",
+      "oracle_id": "9ae376d5-c68f-4a4b-851c-ebfd385b86dd",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/bbd/163/tenacious-dead?utm_source=api",
+      "submitted_name": "Tenacious Dead"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/71fc2393-f55c-4b06-897c-fb7d4199b5f5.json",
+      "categories": [
+        "draw"
+      ],
+      "category_source": "deck",
+      "name": "Teval's Judgment",
+      "oracle_id": "71fc2393-f55c-4b06-897c-fb7d4199b5f5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/28/tevals-judgment?utm_source=api",
+      "submitted_name": "Teval's Judgment"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/bbdb731d-c533-48ef-b82a-cf1a8ba36208.json",
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "The Sibsig Ceremony",
+      "oracle_id": "bbdb731d-c533-48ef-b82a-cf1a8ba36208",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdm/91/the-sibsig-ceremony?utm_source=api",
+      "submitted_name": "The Sibsig Ceremony"
+    },
+    {
+      "board": "maybeboard",
+      "cache": "cards/6dc0150d-7145-41e2-bd3d-2564d9d32301.json",
+      "categories": [
+        "maybeboard"
+      ],
+      "category_source": "deck",
+      "name": "Tormod, the Desecrator",
+      "oracle_id": "6dc0150d-7145-41e2-bd3d-2564d9d32301",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmr/155/tormod-the-desecrator?utm_source=api",
+      "submitted_name": "Tormod, the Desecrator"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/afaef788-34d1-460b-b884-9d7ae6ddeb18.json",
+      "categories": [
+        "boardwipe"
+      ],
+      "category_source": "deck",
+      "name": "Toxic Deluge",
+      "oracle_id": "afaef788-34d1-460b-b884-9d7ae6ddeb18",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/161/toxic-deluge?utm_source=api",
+      "submitted_name": "Toxic Deluge"
+    },
+    {
+      "board": "maybeboard",
+      "cache": "cards/12db6263-75c2-442f-a1a5-7af7915f8f9f.json",
+      "categories": [
+        "maybeboard"
+      ],
+      "category_source": "deck",
+      "name": "Umbral Collar Zealot",
+      "oracle_id": "12db6263-75c2-442f-a1a5-7af7915f8f9f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/227/umbral-collar-zealot?utm_source=api",
+      "submitted_name": "Umbral Collar Zealot"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/b380c04b-0bce-4328-8f0a-1425e48bee72.json",
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Urza's Incubator",
+      "oracle_id": "b380c04b-0bce-4328-8f0a-1425e48bee72",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/297/urzas-incubator?utm_source=api",
+      "submitted_name": "Urza's Incubator"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/660de988-b6fb-4f36-8006-42af3e7f908d.json",
+      "categories": [
+        "draw",
+        "sac-outlet"
+      ],
+      "category_source": "deck",
+      "name": "Vampiric Rites",
+      "oracle_id": "660de988-b6fb-4f36-8006-42af3e7f908d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/615/vampiric-rites?utm_source=api",
+      "submitted_name": "Vampiric Rites"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/10c31317-71e8-42e0-85e0-3e64bd0c3dd3.json",
+      "categories": [
+        "recursion"
+      ],
+      "category_source": "deck",
+      "name": "Vat of Rebirth",
+      "oracle_id": "10c31317-71e8-42e0-85e0-3e64bd0c3dd3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/one/113/vat-of-rebirth?utm_source=api",
+      "submitted_name": "Vat of Rebirth"
+    },
+    {
+      "board": "maybeboard",
+      "cache": "cards/f83a768c-162d-46f0-8ebd-d9c6b2c69322.json",
+      "categories": [
+        "maybeboard"
+      ],
+      "category_source": "deck",
+      "name": "Vein Ripper",
+      "oracle_id": "f83a768c-162d-46f0-8ebd-d9c6b2c69322",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkm/110/vein-ripper?utm_source=api",
+      "submitted_name": "Vein Ripper"
+    },
+    {
+      "board": "maybeboard",
+      "cache": "cards/4cdbc466-42fc-471f-beab-397caec18101.json",
+      "categories": [
+        "maybeboard"
+      ],
+      "category_source": "deck",
+      "name": "Vengeful Bloodwitch",
+      "oracle_id": "4cdbc466-42fc-471f-beab-397caec18101",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/76/vengeful-bloodwitch?utm_source=api",
+      "submitted_name": "Vengeful Bloodwitch"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/240e85d3-e495-4877-8609-4b4056c402f7.json",
+      "categories": [
+        "recursion",
+        "extra-cost-sacrifice"
+      ],
+      "category_source": "deck",
+      "name": "Victimize",
+      "oracle_id": "240e85d3-e495-4877-8609-4b4056c402f7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/198/victimize?utm_source=api",
+      "submitted_name": "Victimize"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/365548fb-5acc-4a8a-b20b-26d28b7d029f.json",
+      "categories": [
+        "draw",
+        "extra-cost-sacrifice"
+      ],
+      "category_source": "deck",
+      "name": "Village Rites",
+      "oracle_id": "365548fb-5acc-4a8a-b20b-26d28b7d029f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inr/137/village-rites?utm_source=api",
+      "submitted_name": "Village Rites"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/f82a4e85-526d-4456-b700-7760043a31be.json",
+      "categories": [
+        "sac-outlet"
+      ],
+      "category_source": "deck",
+      "name": "Viscera Seer",
+      "oracle_id": "f82a4e85-526d-4456-b700-7760043a31be",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/229/viscera-seer?utm_source=api",
+      "submitted_name": "Viscera Seer"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/ace86e56-efde-4eb7-8815-71456a4c3abe.json",
+      "categories": [
+        "black-mana",
+        "sac-outlet"
+      ],
+      "category_source": "deck",
+      "name": "Warren Soultrader",
+      "oracle_id": "ace86e56-efde-4eb7-8815-71456a4c3abe",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/110/warren-soultrader?utm_source=api",
+      "submitted_name": "Warren Soultrader"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/ffce81c5-1b58-4882-a4e7-6f8d7cb170de.json",
+      "categories": [
+        "removal"
+      ],
+      "category_source": "deck",
+      "name": "Withering Torment",
+      "oracle_id": "ffce81c5-1b58-4882-a4e7-6f8d7cb170de",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/162/withering-torment?utm_source=api",
+      "submitted_name": "Withering Torment"
+    },
+    {
+      "board": "maybeboard",
+      "cache": "cards/3adbd963-e85d-4569-963a-4472594f06f9.json",
+      "categories": [
+        "maybeboard"
+      ],
+      "category_source": "deck",
+      "name": "Woe Strider",
+      "oracle_id": "3adbd963-e85d-4569-963a-4472594f06f9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/231/woe-strider?utm_source=api",
+      "submitted_name": "Woe Strider"
+    },
+    {
+      "board": "mainboard",
+      "cache": "cards/fdba89eb-1cf5-46e6-9d09-1adb9bc40fcd.json",
+      "categories": [
+        "sac-outlet"
+      ],
+      "category_source": "deck",
+      "name": "Yahenni, Undying Partisan",
+      "oracle_id": "fdba89eb-1cf5-46e6-9d09-1adb9bc40fcd",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/232/yahenni-undying-partisan?utm_source=api",
+      "submitted_name": "Yahenni, Undying Partisan"
+    },
+    {
+      "board": "maybeboard",
+      "cache": "cards/76b003e0-15af-4f22-bdf2-1ade5430964a.json",
+      "categories": [
+        "maybeboard"
+      ],
+      "category_source": "deck",
+      "name": "Zulaport Cutthroat",
+      "oracle_id": "76b003e0-15af-4f22-bdf2-1ade5430964a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/233/zulaport-cutthroat?utm_source=api",
+      "submitted_name": "Zulaport Cutthroat"
+    }
+  ],
+  "categorized_cards": 77,
+  "generated_at": "2026-08-21T16:03:36.840900+00:00",
+  "maybeboard_cards": 10,
+  "maybeboard_unique_cards": 10,
+  "resolved_unique_cards": 77,
+  "schema_version": 2,
+  "source": "decks/ozox-graveyard-rotation/decklist.txt",
+  "total_cards": 100,
+  "unique_cards": 67,
+  "unresolved": []
+}
