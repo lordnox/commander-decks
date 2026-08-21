@@ -1,5 +1,7 @@
 # Ozox — Graveyard Rotation
 
+> High Bracket 3 combo deck. Usually threatens a win around turn six, but has an unlikely turn-four line.
+
 A mono-black sacrifice deck built around repeatedly killing and recasting its commander. Ozox turns itself into Jumblebones, Jumblebones returns Ozox, and the deck converts that rotation into mana, cards, and life loss.
 
 **Commander:** [Ozox, the Clattering King](https://scryfall.com/card/j25/44/ozox-the-clattering-king)  
