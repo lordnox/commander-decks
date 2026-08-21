@@ -1,0 +1,161 @@
+{
+  "arena_id": 102539,
+  "artist": "Jodie Muir",
+  "artist_ids": [
+    "b09e6cd1-0257-425a-9bbb-5cac3f803443"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "card_faces": [
+    {
+      "artist": "Jodie Muir",
+      "artist_id": "b09e6cd1-0257-425a-9bbb-5cac3f803443",
+      "illustration_id": "f1b27e06-cb6d-48ec-a3c5-7c37da669f53",
+      "mana_cost": "{3}{B}",
+      "name": "Emeritus of Woe",
+      "object": "card_face",
+      "oracle_text": "This creature enters prepared. (While it's prepared, you may cast a copy of its spell. Doing so unprepares it.)\nAt the beginning of your end step, if two or more creatures died this turn, this creature becomes prepared.",
+      "power": "5",
+      "toughness": "4",
+      "type_line": "Creature — Vampire Warlock"
+    },
+    {
+      "artist": "Jodie Muir",
+      "artist_id": "b09e6cd1-0257-425a-9bbb-5cac3f803443",
+      "mana_cost": "{1}{B}",
+      "name": "Demonic Tutor",
+      "object": "card_face",
+      "oracle_text": "Search your library for a card, put that card into your hand, then shuffle.",
+      "type_line": "Sorcery"
+    }
+  ],
+  "cardmarket_id": 883000,
+  "cmc": 4.0,
+  "collector_number": "80",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3676,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "7eb9e83d-515d-4911-a06b-9982200277b2",
+  "illustration_id": "f1b27e06-cb6d-48ec-a3c5-7c37da669f53",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:48:02Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/e/7eb9e83d-515d-4911-a06b-9982200277b2.webp?1783903682",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/e/7eb9e83d-515d-4911-a06b-9982200277b2.jpg?1783903682",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/e/7eb9e83d-515d-4911-a06b-9982200277b2.jpg?1783903682",
+    "crop": "https://cards.scryfall.io/crop/front/7/e/7eb9e83d-515d-4911-a06b-9982200277b2.webp?1783903682",
+    "display": "https://cards.scryfall.io/display/front/7/e/7eb9e83d-515d-4911-a06b-9982200277b2.webp?1783903682",
+    "grid": "https://cards.scryfall.io/grid/front/7/e/7eb9e83d-515d-4911-a06b-9982200277b2.webp?1783903682",
+    "large": "https://cards.scryfall.io/large/front/7/e/7eb9e83d-515d-4911-a06b-9982200277b2.jpg?1783903682",
+    "normal": "https://cards.scryfall.io/normal/front/7/e/7eb9e83d-515d-4911-a06b-9982200277b2.jpg?1783903682",
+    "png": "https://cards.scryfall.io/png/front/7/e/7eb9e83d-515d-4911-a06b-9982200277b2.png?1783903682",
+    "small": "https://cards.scryfall.io/small/front/7/e/7eb9e83d-515d-4911-a06b-9982200277b2.jpg?1783903682",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/e/7eb9e83d-515d-4911-a06b-9982200277b2.webp?1783903682"
+  },
+  "keywords": [
+    "Prepared"
+  ],
+  "lang": "en",
+  "layout": "prepare",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B} // {1}{B}",
+  "mtgo_id": 149659,
+  "multiverse_ids": [],
+  "name": "Emeritus of Woe // Demonic Tutor",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "93056597-b964-421f-be2f-e92abef1c2a4",
+  "oversized": false,
+  "power": "5",
+  "preview": {
+    "previewed_at": "2026-04-09",
+    "source": "Leonard Williams",
+    "source_uri": "https://x.com/leonardwilliams/status/2042371748633419975"
+  },
+  "prices": {
+    "eur": "10.38",
+    "eur_foil": "11.95",
+    "tix": "0.97",
+    "usd": "11.22",
+    "usd_etched": null,
+    "usd_foil": "12.70"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A93056597-b964-421f-be2f-e92abef1c2a4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/149659?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=883000&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F689158%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Emeritus+of+Woe",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEmeritus%2Bof%2BWoe%2B%252F%252F%2BDemonic%2BTutor",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEmeritus%2Bof%2BWoe%2B%252F%252F%2BDemonic%2BTutor"
+  },
+  "released_at": "2026-04-24",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "6D85FE6FDBFFF5D02403E07953888626081A43F6F5B1B12DD005E5B4F8AFDBB9",
+  "rulings_uri": "https://api.scryfall.com/cards/7eb9e83d-515d-4911-a06b-9982200277b2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/sos?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/sos/80/emeritus-of-woe-demonic-tutor?utm_source=api",
+  "security_stamp": "oval",
+  "set": "sos",
+  "set_id": "e487c9ce-5e76-4756-bcd0-e4b7db5c38a3",
+  "set_name": "Secrets of Strixhaven",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asos&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e487c9ce-5e76-4756-bcd0-e4b7db5c38a3",
+  "story_spotlight": false,
+  "tcgplayer_id": 689158,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Vampire Warlock // Sorcery",
+  "uri": "https://api.scryfall.com/cards/7eb9e83d-515d-4911-a06b-9982200277b2",
+  "variation": false
+}
