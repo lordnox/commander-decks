@@ -1,0 +1,132 @@
+{
+  "artist": "John Avon",
+  "artist_ids": [
+    "798f3932-30e0-4420-aa3f-db4d613f89ca"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 789035,
+  "cmc": 0.0,
+  "collector_number": "292",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 402,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9c7c08fc-b6ee-498c-8ab6-fd6be27c9d97",
+  "illustration_id": "ca3fcecb-a2af-45bf-9dfd-f3e2d045c4e8",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:26:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/c/9c7c08fc-b6ee-498c-8ab6-fd6be27c9d97.webp?1783909569",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/c/9c7c08fc-b6ee-498c-8ab6-fd6be27c9d97.jpg?1783909569",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/c/9c7c08fc-b6ee-498c-8ab6-fd6be27c9d97.jpg?1783909569",
+    "crop": "https://cards.scryfall.io/crop/front/9/c/9c7c08fc-b6ee-498c-8ab6-fd6be27c9d97.webp?1783909569",
+    "display": "https://cards.scryfall.io/display/front/9/c/9c7c08fc-b6ee-498c-8ab6-fd6be27c9d97.webp?1783909569",
+    "grid": "https://cards.scryfall.io/grid/front/9/c/9c7c08fc-b6ee-498c-8ab6-fd6be27c9d97.webp?1783909569",
+    "large": "https://cards.scryfall.io/large/front/9/c/9c7c08fc-b6ee-498c-8ab6-fd6be27c9d97.jpg?1783909569",
+    "normal": "https://cards.scryfall.io/normal/front/9/c/9c7c08fc-b6ee-498c-8ab6-fd6be27c9d97.jpg?1783909569",
+    "png": "https://cards.scryfall.io/png/front/9/c/9c7c08fc-b6ee-498c-8ab6-fd6be27c9d97.png?1783909569",
+    "small": "https://cards.scryfall.io/small/front/9/c/9c7c08fc-b6ee-498c-8ab6-fd6be27c9d97.jpg?1783909569",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/c/9c7c08fc-b6ee-498c-8ab6-fd6be27c9d97.webp?1783909569"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 131209,
+  "multiverse_ids": [
+    676165
+  ],
+  "name": "Orzhov Basilica",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "aa00ae0b-7c0f-427e-8102-ce0e2a6af5df",
+  "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {W}{B}.",
+  "oversized": false,
+  "penny_rank": 2432,
+  "prices": {
+    "eur": "0.24",
+    "eur_foil": null,
+    "tix": "0.04",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aaa00ae0b-7c0f-427e-8102-ce0e2a6af5df&unique=prints",
+  "produced_mana": [
+    "B",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/131209?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=789035&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F579329%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Orzhov+Basilica",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676165&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOrzhov%2BBasilica",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOrzhov%2BBasilica"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9c7c08fc-b6ee-498c-8ab6-fd6be27c9d97/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/292/orzhov-basilica?utm_source=api",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 579329,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/9c7c08fc-b6ee-498c-8ab6-fd6be27c9d97",
+  "variation": false
+}
