@@ -1,0 +1,159 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "0dce2241-e58b-41d4-b57c-9794fc8ee004",
+      "name": "Food",
+      "object": "related_card",
+      "type_line": "Token Artifact — Food",
+      "uri": "https://api.scryfall.com/cards/0dce2241-e58b-41d4-b57c-9794fc8ee004"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9a52b7fe-87ae-425b-85fd-b24e6e0395f1",
+      "name": "Scavenger's Talent",
+      "object": "related_card",
+      "type_line": "Enchantment — Class",
+      "uri": "https://api.scryfall.com/cards/9a52b7fe-87ae-425b-85fd-b24e6e0395f1"
+    }
+  ],
+  "arena_id": 91647,
+  "artist": "Chris Seaman",
+  "artist_ids": [
+    "b9c49463-6f55-4039-9d32-c02a658af100"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 778520,
+  "cmc": 1.0,
+  "collector_number": "111",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3835,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "9a52b7fe-87ae-425b-85fd-b24e6e0395f1",
+  "illustration_id": "8142131f-4598-454a-978b-9bc3cd666ea5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:47:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/a/9a52b7fe-87ae-425b-85fd-b24e6e0395f1.webp?1783910829",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/a/9a52b7fe-87ae-425b-85fd-b24e6e0395f1.jpg?1783910829",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/a/9a52b7fe-87ae-425b-85fd-b24e6e0395f1.jpg?1783910829",
+    "crop": "https://cards.scryfall.io/crop/front/9/a/9a52b7fe-87ae-425b-85fd-b24e6e0395f1.webp?1783910829",
+    "display": "https://cards.scryfall.io/display/front/9/a/9a52b7fe-87ae-425b-85fd-b24e6e0395f1.webp?1783910829",
+    "grid": "https://cards.scryfall.io/grid/front/9/a/9a52b7fe-87ae-425b-85fd-b24e6e0395f1.webp?1783910829",
+    "large": "https://cards.scryfall.io/large/front/9/a/9a52b7fe-87ae-425b-85fd-b24e6e0395f1.jpg?1783910829",
+    "normal": "https://cards.scryfall.io/normal/front/9/a/9a52b7fe-87ae-425b-85fd-b24e6e0395f1.jpg?1783910829",
+    "png": "https://cards.scryfall.io/png/front/9/a/9a52b7fe-87ae-425b-85fd-b24e6e0395f1.png?1783910829",
+    "small": "https://cards.scryfall.io/small/front/9/a/9a52b7fe-87ae-425b-85fd-b24e6e0395f1.jpg?1783910829",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/a/9a52b7fe-87ae-425b-85fd-b24e6e0395f1.webp?1783910829"
+  },
+  "keywords": [
+    "Food",
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "class",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 129467,
+  "multiverse_ids": [
+    669025
+  ],
+  "name": "Scavenger's Talent",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "aefea339-8a0d-4531-8a62-afaecc88d078",
+  "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhenever one or more creatures you control die, create a Food token. This ability triggers only once each turn.\n{1}{B}: Level 2\nWhenever you sacrifice a permanent, target player mills two cards.\n{2}{B}: Level 3\nAt the beginning of your end step, you may sacrifice three other nonland permanents. If you do, return a creature card from your graveyard to the battlefield with a finality counter on it.",
+  "oversized": false,
+  "penny_rank": 3891,
+  "preview": {
+    "previewed_at": "2024-07-16",
+    "source": "Good Luck High Five",
+    "source_uri": "https://twitter.com/GLHFMagic/status/1813243822366945539"
+  },
+  "prices": {
+    "eur": "0.94",
+    "eur_foil": "1.52",
+    "tix": "0.02",
+    "usd": "1.12",
+    "usd_etched": null,
+    "usd_foil": "1.67"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aaefea339-8a0d-4531-8a62-afaecc88d078&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/129467?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=778520&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F559652%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Scavenger%27s+Talent",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=669025&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DScavenger%2527s%2BTalent",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DScavenger%2527s%2BTalent"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9a52b7fe-87ae-425b-85fd-b24e6e0395f1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/111/scavengers-talent?utm_source=api",
+  "security_stamp": "oval",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": false,
+  "tcgplayer_id": 559652,
+  "textless": false,
+  "type_line": "Enchantment — Class",
+  "uri": "https://api.scryfall.com/cards/9a52b7fe-87ae-425b-85fd-b24e6e0395f1",
+  "variation": false
+}
