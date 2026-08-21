@@ -15,12 +15,12 @@ Whenever the user posts a deck list or asks to begin work on a deck:
 7. Assign one or more useful categories to every resolved card. Use universal categories unless the card has a deck-specific role.
 8. Do not analyze or recommend changes until resolution errors are reported or fixed.
 
-Use the repository's `deck-workspace` skill for this workflow and `scryfall-lookup` for card searches.
+Use the repository's `deck-workspace` skill for this workflow, `scryfall-lookup` for card searches, and `deck-primer` when creating a deck README or play guide.
 
 ## Repository structure
 
 - `decks/<deck-name>/decklist.txt`: original user-supplied deck list
-- `decks/<deck-name>/cards.json`: resolved quantities and cache references
+- `decks/<deck-name>/cards.json`: resolved quantities, effective categories, and compact embedded Oracle details
 - `cards/<oracle-id>.json`: shared Scryfall card object, one per Oracle card
 - `cards/index.json`: normalized card-name aliases mapped to Oracle IDs
 - `cards/categories.json`: universal categories keyed by Oracle ID
