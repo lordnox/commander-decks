@@ -1,0 +1,135 @@
+{
+  "artist": "Brian Valeza",
+  "artist_ids": [
+    "bb2a9339-bbe4-445f-9736-3c43379ee076"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 757899,
+  "cmc": 3.0,
+  "collector_number": "12",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 9672,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5e96e656-7146-420d-aaae-3aedd773eea2",
+  "illustration_id": "cc1d4f14-8cce-41d8-ac5f-6bd5d1dd2a54",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:13:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/e/5e96e656-7146-420d-aaae-3aedd773eea2.webp?1783912418",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/e/5e96e656-7146-420d-aaae-3aedd773eea2.jpg?1783912418",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/e/5e96e656-7146-420d-aaae-3aedd773eea2.jpg?1783912418",
+    "crop": "https://cards.scryfall.io/crop/front/5/e/5e96e656-7146-420d-aaae-3aedd773eea2.webp?1783912418",
+    "display": "https://cards.scryfall.io/display/front/5/e/5e96e656-7146-420d-aaae-3aedd773eea2.webp?1783912418",
+    "grid": "https://cards.scryfall.io/grid/front/5/e/5e96e656-7146-420d-aaae-3aedd773eea2.webp?1783912418",
+    "large": "https://cards.scryfall.io/large/front/5/e/5e96e656-7146-420d-aaae-3aedd773eea2.jpg?1783912418",
+    "normal": "https://cards.scryfall.io/normal/front/5/e/5e96e656-7146-420d-aaae-3aedd773eea2.jpg?1783912418",
+    "png": "https://cards.scryfall.io/png/front/5/e/5e96e656-7146-420d-aaae-3aedd773eea2.png?1783912418",
+    "small": "https://cards.scryfall.io/small/front/5/e/5e96e656-7146-420d-aaae-3aedd773eea2.jpg?1783912418",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/e/5e96e656-7146-420d-aaae-3aedd773eea2.webp?1783912418"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 132271,
+  "multiverse_ids": [
+    652099
+  ],
+  "name": "Brotherhood Outcast",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "79d0cdc1-2e27-48c5-8840-430490068f68",
+  "oracle_text": "When this creature enters, choose one —\n• Return target Aura or Equipment card with mana value 3 or less from your graveyard to the battlefield.\n• Put a shield counter on target creature. (If it would be dealt damage or destroyed, remove a shield counter from it instead.)",
+  "oversized": false,
+  "power": "3",
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": "1.05",
+    "tix": "0.78",
+    "usd": "0.30",
+    "usd_etched": null,
+    "usd_foil": "2.52"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A79d0cdc1-2e27-48c5-8840-430490068f68&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/132271?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=757899&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F539620%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Brotherhood+Outcast",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=652099&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBrotherhood%2BOutcast",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBrotherhood%2BOutcast"
+  },
+  "released_at": "2024-03-08",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5e96e656-7146-420d-aaae-3aedd773eea2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/pip?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/pip/12/brotherhood-outcast?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "pip",
+  "set_id": "d84d7a49-2ef4-4808-83b4-8c65b4aa0e2d",
+  "set_name": "Fallout",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Apip&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d84d7a49-2ef4-4808-83b4-8c65b4aa0e2d",
+  "story_spotlight": false,
+  "tcgplayer_id": 539620,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Human Soldier",
+  "uri": "https://api.scryfall.com/cards/5e96e656-7146-420d-aaae-3aedd773eea2",
+  "variation": false
+}
