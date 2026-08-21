@@ -1,10 +1,30 @@
 {
   "cards": {
+    "044ea111-ce87-49ab-98f7-ae8447f48ac5": {
+      "categories": [
+        "draw",
+        "lifegain",
+        "extra-cost-sacrifice"
+      ],
+      "name": "Reckoner's Bargain"
+    },
     "04b7362d-0490-4cb0-b5d7-2a7732f659ce": {
       "categories": [
         "land"
       ],
       "name": "Bojuka Bog"
+    },
+    "04e575d1-f843-4330-972f-e77b264073e0": {
+      "categories": [
+        "creature"
+      ],
+      "name": "Ozox, the Clattering King"
+    },
+    "053a69d8-2b5e-4f14-8b02-ca405891dc4a": {
+      "categories": [
+        "land"
+      ],
+      "name": "Fell the Profane // Fell Mire"
     },
     "06eb43af-637a-4f73-8071-a7036d4c8c3d": {
       "categories": [
@@ -18,11 +38,35 @@
       ],
       "name": "Command Tower"
     },
+    "0a364b66-95df-480b-a733-e90f6d5c4d2b": {
+      "categories": [
+        "sorcery"
+      ],
+      "name": "Altar of Bhaal // Bone Offering"
+    },
     "0bc7f093-bef0-4f1a-852c-4b75ebf54838": {
       "categories": [
         "ramp"
       ],
       "name": "Arcane Signet"
+    },
+    "10c31317-71e8-42e0-85e0-3e64bd0c3dd3": {
+      "categories": [
+        "recursion"
+      ],
+      "name": "Vat of Rebirth"
+    },
+    "129ee7d6-e3df-40ef-9502-7aad10183031": {
+      "categories": [
+        "lifegain"
+      ],
+      "name": "Prism Ring"
+    },
+    "12db6263-75c2-442f-a1a5-7af7915f8f9f": {
+      "categories": [
+        "creature"
+      ],
+      "name": "Umbral Collar Zealot"
     },
     "1386d111-a2a7-4df1-91d7-947664126989": {
       "categories": [
@@ -30,11 +74,36 @@
       ],
       "name": "Charcoal Diamond"
     },
+    "1861e642-21d5-4232-89f3-b5557f2946c1": {
+      "categories": [
+        "land"
+      ],
+      "name": "Phyrexian Tower"
+    },
     "1b9f9f5b-8712-4f00-90cb-1b7b9970eccc": {
       "categories": [
         "recursion"
       ],
       "name": "Sevinne's Reclamation"
+    },
+    "1caa7fa2-a881-4a65-a87e-12a974520c83": {
+      "categories": [
+        "tutor"
+      ],
+      "name": "Grim Servant"
+    },
+    "23f93411-f83c-4ed2-abed-99cf905f7d7f": {
+      "categories": [
+        "black-mana"
+      ],
+      "name": "Bog Initiate"
+    },
+    "240e85d3-e495-4877-8609-4b4056c402f7": {
+      "categories": [
+        "recursion",
+        "extra-cost-sacrifice"
+      ],
+      "name": "Victimize"
     },
     "2549bc57-9ffb-4053-9f10-f2a5f792b845": {
       "categories": [
@@ -110,6 +179,13 @@
       ],
       "name": "Dimir House Guard"
     },
+    "365548fb-5acc-4a8a-b20b-26d28b7d029f": {
+      "categories": [
+        "draw",
+        "extra-cost-sacrifice"
+      ],
+      "name": "Village Rites"
+    },
     "37f924e1-7c25-4f06-88bb-054693a21e5a": {
       "categories": [
         "land"
@@ -121,6 +197,28 @@
         "land"
       ],
       "name": "Hidden Grotto"
+    },
+    "388168b3-ec68-4af2-b88c-6a5ec88c15f6": {
+      "categories": [
+        "draw",
+        "lifegain",
+        "extra-cost-sacrifice",
+        "drain"
+      ],
+      "name": "Ayara, First of Locthwain"
+    },
+    "3adbd963-e85d-4569-963a-4472594f06f9": {
+      "categories": [
+        "creature"
+      ],
+      "name": "Woe Strider"
+    },
+    "3bc0bd36-70be-4180-9fb3-b10ce054107b": {
+      "categories": [
+        "removal",
+        "lifegain"
+      ],
+      "name": "Consuming Corruption"
     },
     "426fa8e8-b0f9-4b6c-b22b-04ec2073187a": {
       "categories": [
@@ -141,12 +239,56 @@
       ],
       "name": "Danitha, Benalia's Hope"
     },
+    "457af74a-02b3-4659-846d-63e482667f34": {
+      "categories": [
+        "draw",
+        "extra-cost-sacrifice"
+      ],
+      "name": "Deadly Dispute"
+    },
+    "49dddec0-d958-4810-8c6e-225fc8118c8f": {
+      "categories": [
+        "removal"
+      ],
+      "name": "Defile"
+    },
+    "4cdbc466-42fc-471f-beab-397caec18101": {
+      "categories": [
+        "creature"
+      ],
+      "name": "Vengeful Bloodwitch"
+    },
+    "4ce156f8-6b0b-41ce-9e8f-b2735c757406": {
+      "categories": [
+        "removal"
+      ],
+      "name": "Flare of Malice"
+    },
+    "4d18bcba-a346-445e-a182-6cc30b7e066d": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "Ashnod's Altar"
+    },
+    "4d9554de-c005-41ab-a941-39328ebff9de": {
+      "categories": [
+        "black-mana",
+        "ramp"
+      ],
+      "name": "Relic of Legends"
+    },
     "4f57a320-b6b5-49de-af0a-f2e2649758a7": {
       "categories": [
         "recursion",
         "loop-return-sacrifice-fodder"
       ],
       "name": "Angel of Indemnity"
+    },
+    "5049da27-f38b-4fe6-a387-51510bd1f44e": {
+      "categories": [
+        "recursion"
+      ],
+      "name": "Nine-Lives Familiar"
     },
     "56719f6a-1a6c-4c0a-8d21-18f7d7350b68": {
       "categories": [
@@ -160,11 +302,30 @@
       ],
       "name": "Ash Barrens"
     },
+    "5825997b-10d7-4a36-972c-a80ddd90b8ed": {
+      "categories": [
+        "removal"
+      ],
+      "name": "Feed the Swarm"
+    },
+    "660de988-b6fb-4f36-8006-42af3e7f908d": {
+      "categories": [
+        "draw",
+        "sac-outlet"
+      ],
+      "name": "Vampiric Rites"
+    },
     "69bf79c3-87d1-4244-8d58-989307c91a12": {
       "categories": [
         "recursion"
       ],
       "name": "Wake the Dead"
+    },
+    "6ad8011d-3471-4369-9d68-b264cc027487": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "Sol Ring"
     },
     "6cbe76c6-2b64-4389-b5f9-0b221cd92312": {
       "categories": [
@@ -173,17 +334,48 @@
       ],
       "name": "Minion's Return"
     },
+    "6dc0150d-7145-41e2-bd3d-2564d9d32301": {
+      "categories": [
+        "creature"
+      ],
+      "name": "Tormod, the Desecrator"
+    },
+    "70113003-be5e-406a-9aec-cb480468c36d": {
+      "categories": [
+        "drain"
+      ],
+      "name": "Sephiroth, Fabled SOLDIER // Sephiroth, One-Winged Angel"
+    },
+    "71fc2393-f55c-4b06-897c-fb7d4199b5f5": {
+      "categories": [
+        "draw"
+      ],
+      "name": "Teval's Judgment"
+    },
     "726d9d2c-736a-4852-9938-a0f50d8fd89f": {
       "categories": [
         "finisher-triggers"
       ],
       "name": "Marionette Apprentice"
     },
+    "72aef1d8-11df-4bc2-af83-907b05df73a8": {
+      "categories": [
+        "draw"
+      ],
+      "name": "Grim Haruspex"
+    },
     "72c4c682-df97-4408-997b-e849f54aba39": {
       "categories": [
         "removal"
       ],
       "name": "Seal from Existence"
+    },
+    "76ae3779-c821-4cd3-8d0f-8c42d1206ce4": {
+      "categories": [
+        "skeleton",
+        "recursion"
+      ],
+      "name": "Gutterbones"
     },
     "76b003e0-15af-4f22-bdf2-1ade5430964a": {
       "categories": [
@@ -196,6 +388,12 @@
         "draw"
       ],
       "name": "Funeral Rites"
+    },
+    "78a48f4e-ba4c-4d8d-938a-9ddb342a885b": {
+      "categories": [
+        "recursion"
+      ],
+      "name": "Junji, the Midnight Sky"
     },
     "79d0cdc1-2e27-48c5-8840-430490068f68": {
       "categories": [
@@ -223,6 +421,40 @@
       ],
       "name": "Stitcher's Supplier"
     },
+    "7ffae8f8-3006-4969-a339-6d30678f87ea": {
+      "categories": [
+        "draw"
+      ],
+      "name": "Night's Whisper"
+    },
+    "81a398ee-e534-43b7-88fe-45155d6aba3a": {
+      "categories": [
+        "draw",
+        "extra-cost-sacrifice",
+        "recursion"
+      ],
+      "name": "Eviscerator's Insight"
+    },
+    "86fb3749-37d6-48a6-8524-71e996850307": {
+      "categories": [
+        "land"
+      ],
+      "name": "High Market"
+    },
+    "8cdfd9df-4783-4138-a286-828a97f516aa": {
+      "categories": [
+        "draw",
+        "extra-cost-sacrifice"
+      ],
+      "name": "Costly Plunder"
+    },
+    "8d02b297-97c4-4379-9862-0a462400f66f": {
+      "categories": [
+        "black-mana",
+        "ramp"
+      ],
+      "name": "Phyrexian Altar"
+    },
     "8e720216-a980-4a34-8aef-62ac3ef15a6e": {
       "categories": [
         "removal"
@@ -242,11 +474,70 @@
       ],
       "name": "Redemption Choir"
     },
+    "93056597-b964-421f-be2f-e92abef1c2a4": {
+      "categories": [
+        "tutor"
+      ],
+      "name": "Emeritus of Woe // Demonic Tutor"
+    },
+    "940ba435-7abc-40f8-a5af-c1c653b3284e": {
+      "categories": [
+        "ramp",
+        "lifegain",
+        "drain"
+      ],
+      "name": "Bontu's Monument"
+    },
+    "95b10ca7-7360-4da5-bd93-686ae3051833": {
+      "categories": [
+        "black-mana",
+        "ramp"
+      ],
+      "name": "Carnival of Souls"
+    },
+    "99024aa8-5687-4d38-8a4b-feef42d6c1ff": {
+      "categories": [
+        "anthem"
+      ],
+      "name": "Death Baron"
+    },
+    "9ae376d5-c68f-4a4b-851c-ebfd385b86dd": {
+      "categories": [
+        "skeleton",
+        "recursion"
+      ],
+      "name": "Tenacious Dead"
+    },
+    "9dbc3530-b278-4c8d-b2cc-a09dfac9d5e5": {
+      "categories": [
+        "skeleton",
+        "recursion"
+      ],
+      "name": "Reassembling Skeleton"
+    },
+    "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0": {
+      "categories": [
+        "recursion"
+      ],
+      "name": "Reanimate"
+    },
+    "a1cc5e37-b09a-4b7f-afd5-77c1c35aa425": {
+      "categories": [
+        "sac-outlet"
+      ],
+      "name": "Carrion Feeder"
+    },
     "a3648376-dc8b-409b-b2d1-c29e326a059c": {
       "categories": [
         "land"
       ],
       "name": "Surveillance Room"
+    },
+    "a39d541e-86c1-4595-a2e9-f107def5bbc6": {
+      "categories": [
+        "drain"
+      ],
+      "name": "Funeral Room // Awakening Hall"
     },
     "a4ffe297-5e82-43f9-91a4-7aa3d8dd3b4a": {
       "categories": [
@@ -254,11 +545,31 @@
       ],
       "name": "Crow of Dark Tidings"
     },
+    "a5690dc9-f12e-4ecc-b528-f2f83c79c3c8": {
+      "categories": [
+        "draw",
+        "sac-outlet"
+      ],
+      "name": "Erebos, Bleak-Hearted"
+    },
     "a5852994-d816-4e62-8a03-254223714544": {
       "categories": [
         "tutor"
       ],
       "name": "Final Parting"
+    },
+    "a75087aa-41bd-4e0f-a118-61b5209356f5": {
+      "categories": [
+        "extra-cost-sacrifice"
+      ],
+      "name": "Annihilating Glare"
+    },
+    "a784481f-eccb-4112-bb38-04a659319660": {
+      "categories": [
+        "black-mana",
+        "ramp"
+      ],
+      "name": "Pitiless Plunderer"
     },
     "a7b12df9-fddd-4cd4-8c09-d54a47867ab6": {
       "categories": [
@@ -290,6 +601,20 @@
       ],
       "name": "Orzhov Basilica"
     },
+    "ace86e56-efde-4eb7-8815-71456a4c3abe": {
+      "categories": [
+        "black-mana",
+        "sac-outlet"
+      ],
+      "name": "Warren Soultrader"
+    },
+    "ad3e705f-da57-4eff-84d7-2072522de988": {
+      "categories": [
+        "tutor",
+        "draw"
+      ],
+      "name": "Insatiable Avarice"
+    },
     "ae18580a-1753-4dc8-b437-8a779b1a6e4d": {
       "categories": [
         "tutor"
@@ -301,6 +626,12 @@
         "finisher-triggers"
       ],
       "name": "Scavenger's Talent"
+    },
+    "afaef788-34d1-460b-b884-9d7ae6ddeb18": {
+      "categories": [
+        "boardwipe"
+      ],
+      "name": "Toxic Deluge"
     },
     "b15c6203-6311-44eb-916d-a4c271960c74": {
       "categories": [
@@ -316,6 +647,12 @@
       ],
       "name": "Sun Titan"
     },
+    "b380c04b-0bce-4328-8f0a-1425e48bee72": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "Urza's Incubator"
+    },
     "b3e28bcf-0ed0-4406-b615-68ddc55b349a": {
       "categories": [
         "land"
@@ -327,6 +664,13 @@
         "graveyard-draw"
       ],
       "name": "Unseal the Necropolis"
+    },
+    "b45e35df-9032-4482-89a6-c7c50c6d0a79": {
+      "categories": [
+        "draw",
+        "extra-cost-sacrifice"
+      ],
+      "name": "Corrupted Conviction"
     },
     "b473e293-59e3-4e04-acf2-622604aeb25f": {
       "categories": [
@@ -340,11 +684,47 @@
       ],
       "name": "Talisman of Hierarchy"
     },
+    "b7ad11dc-c962-4034-b15a-a080c6fff75f": {
+      "categories": [
+        "lifegain"
+      ],
+      "name": "Deathgreeter"
+    },
+    "bbdb731d-c533-48ef-b82a-cf1a8ba36208": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "The Sibsig Ceremony"
+    },
     "bc71ebf6-2056-41f7-be35-b2e5c34afa99": {
       "categories": [
         "land"
       ],
       "name": "Plains"
+    },
+    "bccb06f1-8839-4104-9ffa-c79a817f8378": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "Jet Medallion"
+    },
+    "c4fe854e-8783-492e-bb2e-9f242ada8a5b": {
+      "categories": [
+        "tokens"
+      ],
+      "name": "Blight Mound"
+    },
+    "c6207f6a-a624-4754-88f5-dbe700c841ff": {
+      "categories": [
+        "draw"
+      ],
+      "name": "Sign in Blood"
+    },
+    "c7a360f5-725e-4864-93cc-87f96f95975e": {
+      "categories": [
+        "recursion"
+      ],
+      "name": "Chthonian Nightmare"
     },
     "c7f33cea-2ec8-4081-9208-a5b1d86721b3": {
       "categories": [
@@ -397,6 +777,20 @@
       ],
       "name": "Fungal Fortitude"
     },
+    "d37e0127-6f68-438e-8b9e-a71bb3c34733": {
+      "categories": [
+        "skeleton",
+        "recursion"
+      ],
+      "name": "Forsaken Miner"
+    },
+    "d437ecc2-2fd3-4ad3-b23e-217f55e58dae": {
+      "categories": [
+        "removal",
+        "extra-cost-sacrifice"
+      ],
+      "name": "Eaten Alive"
+    },
     "d48e1545-7997-45ed-83a1-aee45b3d3d20": {
       "categories": [
         "recursion"
@@ -434,6 +828,12 @@
       ],
       "name": "Another Chance"
     },
+    "e0445c80-fa53-4c3e-881e-940e9fce7f57": {
+      "categories": [
+        "draw"
+      ],
+      "name": "Braids, Arisen Nightmare"
+    },
     "e04688e0-672b-407f-a2c9-fd7292926483": {
       "categories": [
         "recursion"
@@ -451,6 +851,24 @@
         "ramp"
       ],
       "name": "Prismatic Lens"
+    },
+    "e330412f-46a1-4e7c-8766-f644606049e0": {
+      "categories": [
+        "draw"
+      ],
+      "name": "Into the Pit"
+    },
+    "e8c7566d-7cc0-48af-a986-83223ec7e06c": {
+      "categories": [
+        "draw"
+      ],
+      "name": "Midnight Reaper"
+    },
+    "ee38377f-8d3a-402e-a5d7-a01cfe3a5322": {
+      "categories": [
+        "lifegain"
+      ],
+      "name": "Demon's Horn"
     },
     "f1e03d99-024a-430b-9342-ffd2268bd103": {
       "categories": [
@@ -470,11 +888,36 @@
       ],
       "name": "Noble's Purse"
     },
+    "f47659b5-d834-4153-b9fc-6a0702c503d9": {
+      "categories": [
+        "draw"
+      ],
+      "name": "Dark Prophecy"
+    },
     "f47e4c56-0a0b-422d-bf3d-7a20ee289f15": {
       "categories": [
         "commander-top"
       ],
       "name": "Bartolomé del Presidio"
+    },
+    "f73da5d8-fd15-4315-ad3c-c86c28087285": {
+      "categories": [
+        "draw",
+        "extra-cost-sacrifice"
+      ],
+      "name": "Nasty End"
+    },
+    "f82a4e85-526d-4456-b700-7760043a31be": {
+      "categories": [
+        "sac-outlet"
+      ],
+      "name": "Viscera Seer"
+    },
+    "f83a768c-162d-46f0-8ebd-d9c6b2c69322": {
+      "categories": [
+        "creature"
+      ],
+      "name": "Vein Ripper"
     },
     "f86bcdde-8b1f-4efa-a01d-39e09dc826d0": {
       "categories": [
@@ -482,6 +925,12 @@
         "loop-target-recurs-the-fodder"
       ],
       "name": "Angelic Renewal"
+    },
+    "fa1be67e-a07e-42ce-88be-446acd643dc6": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "Heartless Summoning"
     },
     "fa4dffda-6f04-4d0b-829d-28a1a5794dee": {
       "categories": [
@@ -495,14 +944,32 @@
       ],
       "name": "Generous Gift"
     },
+    "fc5d3341-cbce-49e5-93cc-8add92479dca": {
+      "categories": [
+        "anthem"
+      ],
+      "name": "Bad Moon"
+    },
+    "fdba89eb-1cf5-46e6-9d09-1adb9bc40fcd": {
+      "categories": [
+        "sac-outlet"
+      ],
+      "name": "Yahenni, Undying Partisan"
+    },
     "ff58459a-0015-4012-86c0-580da4e02676": {
       "categories": [
         "protection",
         "loop-target-recurs-the-fodder"
       ],
       "name": "Necrogen Communion"
+    },
+    "ffce81c5-1b58-4882-a4e7-6f8d7cb170de": {
+      "categories": [
+        "removal"
+      ],
+      "name": "Withering Torment"
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-21T15:18:15.216535+00:00"
+  "updated_at": "2026-08-21T16:03:36.840900+00:00"
 }
