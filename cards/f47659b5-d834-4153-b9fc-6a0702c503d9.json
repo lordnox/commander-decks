@@ -1,0 +1,132 @@
+{
+  "artist": "Scott Chou",
+  "artist_ids": [
+    "9e048547-f9c3-4958-9c2c-91e45df7c6ae"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 262857,
+  "cmc": 3.0,
+  "collector_number": "93",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 4317,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "When the bog ran short on small animals, Ekri turned to the surrounding farmlands.",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ecf82c3b-7a35-43dd-8bf3-ebc68dc1b8fc",
+  "illustration_id": "2e54ffc5-f0b1-495c-9546-c53522ee6ea4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:52:05Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/c/ecf82c3b-7a35-43dd-8bf3-ebc68dc1b8fc.webp?1783939925",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/c/ecf82c3b-7a35-43dd-8bf3-ebc68dc1b8fc.jpg?1783939925",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/c/ecf82c3b-7a35-43dd-8bf3-ebc68dc1b8fc.jpg?1783939925",
+    "crop": "https://cards.scryfall.io/crop/front/e/c/ecf82c3b-7a35-43dd-8bf3-ebc68dc1b8fc.webp?1783939925",
+    "display": "https://cards.scryfall.io/display/front/e/c/ecf82c3b-7a35-43dd-8bf3-ebc68dc1b8fc.webp?1783939925",
+    "grid": "https://cards.scryfall.io/grid/front/e/c/ecf82c3b-7a35-43dd-8bf3-ebc68dc1b8fc.webp?1783939925",
+    "large": "https://cards.scryfall.io/large/front/e/c/ecf82c3b-7a35-43dd-8bf3-ebc68dc1b8fc.jpg?1783939925",
+    "normal": "https://cards.scryfall.io/normal/front/e/c/ecf82c3b-7a35-43dd-8bf3-ebc68dc1b8fc.jpg?1783939925",
+    "png": "https://cards.scryfall.io/png/front/e/c/ecf82c3b-7a35-43dd-8bf3-ebc68dc1b8fc.png?1783939925",
+    "small": "https://cards.scryfall.io/small/front/e/c/ecf82c3b-7a35-43dd-8bf3-ebc68dc1b8fc.jpg?1783939925",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/c/ecf82c3b-7a35-43dd-8bf3-ebc68dc1b8fc.webp?1783939925"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}{B}{B}",
+  "mtgo_foil_id": 49446,
+  "mtgo_id": 49445,
+  "multiverse_ids": [
+    370596
+  ],
+  "name": "Dark Prophecy",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f47659b5-d834-4153-b9fc-6a0702c503d9",
+  "oracle_text": "Whenever a creature you control dies, you draw a card and you lose 1 life.",
+  "oversized": false,
+  "penny_rank": 4339,
+  "prices": {
+    "eur": "6.38",
+    "eur_foil": "9.34",
+    "tix": "0.02",
+    "usd": "6.96",
+    "usd_etched": null,
+    "usd_foil": "27.04"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af47659b5-d834-4153-b9fc-6a0702c503d9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/49445?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=262857&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F69253%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dark+Prophecy",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=370596&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDark%2BProphecy",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDark%2BProphecy"
+  },
+  "released_at": "2013-07-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ecf82c3b-7a35-43dd-8bf3-ebc68dc1b8fc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/m14?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/m14/93/dark-prophecy?utm_source=api",
+  "set": "m14",
+  "set_id": "e03ee1c0-ecd2-4fcc-ac3c-e8fdb103a847",
+  "set_name": "Magic 2014",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Am14&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/e03ee1c0-ecd2-4fcc-ac3c-e8fdb103a847",
+  "story_spotlight": false,
+  "tcgplayer_id": 69253,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/ecf82c3b-7a35-43dd-8bf3-ebc68dc1b8fc",
+  "variation": false
+}
