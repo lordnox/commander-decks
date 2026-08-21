@@ -1,0 +1,161 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "cec5cc8b-bc15-415a-bde6-6c783f8d0b0b",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/cec5cc8b-bc15-415a-bde6-6c783f8d0b0b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d86fa72c-25c1-43ef-9cb0-fe76f7568ed3",
+      "name": "Deadly Dispute",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/d86fa72c-25c1-43ef-9cb0-fe76f7568ed3"
+    }
+  ],
+  "arena_id": 105804,
+  "artist": "John Thacker",
+  "artist_ids": [
+    "38ee615a-e59f-4e2e-b894-2b74c6e75541"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 892085,
+  "cmc": 2.0,
+  "collector_number": "794",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 130,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Ain't you heard a' honor among thieves?\"\n—Tombstone, to Anaconda",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "d86fa72c-25c1-43ef-9cb0-fe76f7568ed3",
+  "illustration_id": "c71a05a5-d934-4379-9285-9fb1e2a90139",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:36:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/8/d86fa72c-25c1-43ef-9cb0-fe76f7568ed3.webp?1783903013",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/8/d86fa72c-25c1-43ef-9cb0-fe76f7568ed3.jpg?1783903013",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/8/d86fa72c-25c1-43ef-9cb0-fe76f7568ed3.jpg?1783903013",
+    "crop": "https://cards.scryfall.io/crop/front/d/8/d86fa72c-25c1-43ef-9cb0-fe76f7568ed3.webp?1783903013",
+    "display": "https://cards.scryfall.io/display/front/d/8/d86fa72c-25c1-43ef-9cb0-fe76f7568ed3.webp?1783903013",
+    "grid": "https://cards.scryfall.io/grid/front/d/8/d86fa72c-25c1-43ef-9cb0-fe76f7568ed3.webp?1783903013",
+    "large": "https://cards.scryfall.io/large/front/d/8/d86fa72c-25c1-43ef-9cb0-fe76f7568ed3.jpg?1783903013",
+    "normal": "https://cards.scryfall.io/normal/front/d/8/d86fa72c-25c1-43ef-9cb0-fe76f7568ed3.jpg?1783903013",
+    "png": "https://cards.scryfall.io/png/front/d/8/d86fa72c-25c1-43ef-9cb0-fe76f7568ed3.png?1783903013",
+    "small": "https://cards.scryfall.io/small/front/d/8/d86fa72c-25c1-43ef-9cb0-fe76f7568ed3.jpg?1783903013",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/8/d86fa72c-25c1-43ef-9cb0-fe76f7568ed3.webp?1783903013"
+  },
+  "keywords": [
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "banned",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 152013,
+  "multiverse_ids": [],
+  "name": "Deadly Dispute",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "457af74a-02b3-4659-846d-63e482667f34",
+  "oracle_text": "As an additional cost to cast this spell, sacrifice an artifact or creature.\nDraw two cards and create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+  "oversized": false,
+  "penny_rank": 1133,
+  "prices": {
+    "eur": "0.35",
+    "eur_foil": "0.31",
+    "tix": "0.01",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": "0.40"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A457af74a-02b3-4659-846d-63e482667f34&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/152013?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=892085&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F697280%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Deadly+Dispute",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDeadly%2BDispute",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDeadly%2BDispute"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "E3D7F66E9F7F465C66C6631F52282151CA0E902A26D5B462A5318D6519F4A55A",
+  "rulings_uri": "https://api.scryfall.com/cards/d86fa72c-25c1-43ef-9cb0-fe76f7568ed3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/794/deadly-dispute?utm_source=api",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 697280,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/d86fa72c-25c1-43ef-9cb0-fe76f7568ed3",
+  "variation": false
+}
