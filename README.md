@@ -3,6 +3,7 @@
 ## Deck primers
 
 - [Bartolomé del Presidio](decks/bartolome-del-presidio/README.md)
+- [Bartolomé del Skeleton 🦴](decks/bartolome-del-skeleton/README.md)
 - [Ozox — Graveyard Rotation](decks/ozox-graveyard-rotation/README.md)
 
 A conversation-driven workspace for importing, resolving, categorizing, and improving Magic: The Gathering Commander decks.
