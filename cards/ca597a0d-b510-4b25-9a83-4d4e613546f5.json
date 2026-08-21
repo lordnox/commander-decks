@@ -1,0 +1,140 @@
+{
+  "arena_id": 75040,
+  "artist": "Victor Adame Minguez",
+  "artist_ids": [
+    "bd8f7368-5b10-4554-b6b8-d052c6aca89f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 530827,
+  "cmc": 3.0,
+  "collector_number": "5",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 16229,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Trespassers will be smelted.\"\n—Axgard inscription",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "074d526a-1eef-4045-bd38-f6d68c4bc4b9",
+  "illustration_id": "a4ab09ed-2223-4626-b9bf-7e82559e1062",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:38:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/7/074d526a-1eef-4045-bd38-f6d68c4bc4b9.webp?1783928289",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/7/074d526a-1eef-4045-bd38-f6d68c4bc4b9.jpg?1783928289",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/7/074d526a-1eef-4045-bd38-f6d68c4bc4b9.jpg?1783928289",
+    "crop": "https://cards.scryfall.io/crop/front/0/7/074d526a-1eef-4045-bd38-f6d68c4bc4b9.webp?1783928289",
+    "display": "https://cards.scryfall.io/display/front/0/7/074d526a-1eef-4045-bd38-f6d68c4bc4b9.webp?1783928289",
+    "grid": "https://cards.scryfall.io/grid/front/0/7/074d526a-1eef-4045-bd38-f6d68c4bc4b9.webp?1783928289",
+    "large": "https://cards.scryfall.io/large/front/0/7/074d526a-1eef-4045-bd38-f6d68c4bc4b9.jpg?1783928289",
+    "normal": "https://cards.scryfall.io/normal/front/0/7/074d526a-1eef-4045-bd38-f6d68c4bc4b9.jpg?1783928289",
+    "png": "https://cards.scryfall.io/png/front/0/7/074d526a-1eef-4045-bd38-f6d68c4bc4b9.png?1783928289",
+    "small": "https://cards.scryfall.io/small/front/0/7/074d526a-1eef-4045-bd38-f6d68c4bc4b9.jpg?1783928289",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/7/074d526a-1eef-4045-bd38-f6d68c4bc4b9.webp?1783928289"
+  },
+  "keywords": [
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 87329,
+  "multiverse_ids": [
+    503609
+  ],
+  "name": "Bound in Gold",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ca597a0d-b510-4b25-9a83-4d4e613546f5",
+  "oracle_text": "Enchant permanent\nEnchanted permanent can't attack, block, or crew Vehicles, and its activated abilities can't be activated unless they're mana abilities.",
+  "oversized": false,
+  "penny_rank": 15264,
+  "preview": {
+    "previewed_at": "2021-01-11",
+    "source": "Charly GAG",
+    "source_uri": "https://twitter.com/CharlyGAG/status/1348800334425157636"
+  },
+  "prices": {
+    "eur": "0.06",
+    "eur_foil": "0.17",
+    "tix": "0.03",
+    "usd": "0.11",
+    "usd_etched": null,
+    "usd_foil": "0.26"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aca597a0d-b510-4b25-9a83-4d4e613546f5&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/87329?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=530827&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F230432%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bound+in+Gold",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=503609&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBound%2Bin%2BGold",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBound%2Bin%2BGold"
+  },
+  "released_at": "2021-02-05",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/074d526a-1eef-4045-bd38-f6d68c4bc4b9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/khm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/khm/5/bound-in-gold?utm_source=api",
+  "set": "khm",
+  "set_id": "43057fad-b1c1-437f-bc48-0045bce6d8c9",
+  "set_name": "Kaldheim",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Akhm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/43057fad-b1c1-437f-bc48-0045bce6d8c9",
+  "story_spotlight": false,
+  "tcgplayer_id": 230432,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/074d526a-1eef-4045-bd38-f6d68c4bc4b9",
+  "variation": false
+}
