@@ -1,0 +1,138 @@
+{
+  "arena_id": 94037,
+  "artist": "Sidharth Chaturvedi",
+  "artist_ids": [
+    "55e6d846-2f73-4fba-9b88-441686bb8dcb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 795905,
+  "cmc": 3.0,
+  "collector_number": "609",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1045,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "No one welcomes his visit, yet all must grant him tribute.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f229b0e6-1ffd-410e-b04b-a0afc179c58c",
+  "illustration_id": "a609d9d0-bcbb-4486-b6dd-a95c1f1db959",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:15:29Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/2/f229b0e6-1ffd-410e-b04b-a0afc179c58c.webp?1783908929",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/2/f229b0e6-1ffd-410e-b04b-a0afc179c58c.jpg?1783908929",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/2/f229b0e6-1ffd-410e-b04b-a0afc179c58c.jpg?1783908929",
+    "crop": "https://cards.scryfall.io/crop/front/f/2/f229b0e6-1ffd-410e-b04b-a0afc179c58c.webp?1783908929",
+    "display": "https://cards.scryfall.io/display/front/f/2/f229b0e6-1ffd-410e-b04b-a0afc179c58c.webp?1783908929",
+    "grid": "https://cards.scryfall.io/grid/front/f/2/f229b0e6-1ffd-410e-b04b-a0afc179c58c.webp?1783908929",
+    "large": "https://cards.scryfall.io/large/front/f/2/f229b0e6-1ffd-410e-b04b-a0afc179c58c.jpg?1783908929",
+    "normal": "https://cards.scryfall.io/normal/front/f/2/f229b0e6-1ffd-410e-b04b-a0afc179c58c.jpg?1783908929",
+    "png": "https://cards.scryfall.io/png/front/f/2/f229b0e6-1ffd-410e-b04b-a0afc179c58c.png?1783908929",
+    "small": "https://cards.scryfall.io/small/front/f/2/f229b0e6-1ffd-410e-b04b-a0afc179c58c.jpg?1783908929",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/2/f229b0e6-1ffd-410e-b04b-a0afc179c58c.webp?1783908929"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 134554,
+  "multiverse_ids": [
+    680748
+  ],
+  "name": "Midnight Reaper",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e8c7566d-7cc0-48af-a986-83223ec7e06c",
+  "oracle_text": "Whenever a nontoken creature you control dies, this creature deals 1 damage to you and you draw a card.",
+  "oversized": false,
+  "penny_rank": 2324,
+  "power": "3",
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.19",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae8c7566d-7cc0-48af-a986-83223ec7e06c&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "startercollection"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/134554?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=795905&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F591011%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Midnight+Reaper",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=680748&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMidnight%2BReaper",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMidnight%2BReaper"
+  },
+  "released_at": "2024-11-15",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f229b0e6-1ffd-410e-b04b-a0afc179c58c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fdn/609/midnight-reaper?utm_source=api",
+  "security_stamp": "oval",
+  "set": "fdn",
+  "set_id": "a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "set_name": "Foundations",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afdn&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "story_spotlight": false,
+  "tcgplayer_id": 591011,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Zombie Knight",
+  "uri": "https://api.scryfall.com/cards/f229b0e6-1ffd-410e-b04b-a0afc179c58c",
+  "variation": false
+}
