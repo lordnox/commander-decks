@@ -1,0 +1,163 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "3dfaedeb-f8ec-4f0e-b243-c850770a86f2",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/3dfaedeb-f8ec-4f0e-b243-c850770a86f2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "692fe4e8-13b4-4bec-938e-a8073a7fbd71",
+      "name": "Greedy Freebooter",
+      "object": "related_card",
+      "type_line": "Creature — Human Pirate",
+      "uri": "https://api.scryfall.com/cards/692fe4e8-13b4-4bec-938e-a8073a7fbd71"
+    }
+  ],
+  "arena_id": 87254,
+  "artist": "David Palumbo",
+  "artist_ids": [
+    "04ce1c75-e30c-4b7a-8cb0-b53e4ecc2f39"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 743997,
+  "cmc": 1,
+  "collector_number": "109",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2349,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Neither Nurgam nor the mycoid who laid the trap could quite believe their luck.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "692fe4e8-13b4-4bec-938e-a8073a7fbd71",
+  "illustration_id": "b6b8b01a-d3e1-49d7-8c10-fb84e23a538c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:36:16Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/9/692fe4e8-13b4-4bec-938e-a8073a7fbd71.webp?1783913776",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/9/692fe4e8-13b4-4bec-938e-a8073a7fbd71.jpg?1783913776",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/9/692fe4e8-13b4-4bec-938e-a8073a7fbd71.jpg?1783913776",
+    "crop": "https://cards.scryfall.io/crop/front/6/9/692fe4e8-13b4-4bec-938e-a8073a7fbd71.webp?1783913776",
+    "display": "https://cards.scryfall.io/display/front/6/9/692fe4e8-13b4-4bec-938e-a8073a7fbd71.webp?1783913776",
+    "grid": "https://cards.scryfall.io/grid/front/6/9/692fe4e8-13b4-4bec-938e-a8073a7fbd71.webp?1783913776",
+    "large": "https://cards.scryfall.io/large/front/6/9/692fe4e8-13b4-4bec-938e-a8073a7fbd71.jpg?1783913776",
+    "normal": "https://cards.scryfall.io/normal/front/6/9/692fe4e8-13b4-4bec-938e-a8073a7fbd71.jpg?1783913776",
+    "png": "https://cards.scryfall.io/png/front/6/9/692fe4e8-13b4-4bec-938e-a8073a7fbd71.png?1783913776",
+    "small": "https://cards.scryfall.io/small/front/6/9/692fe4e8-13b4-4bec-938e-a8073a7fbd71.jpg?1783913776",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/9/692fe4e8-13b4-4bec-938e-a8073a7fbd71.webp?1783913776"
+  },
+  "keywords": [
+    "Treasure",
+    "Scry"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 118024,
+  "multiverse_ids": [
+    636814
+  ],
+  "name": "Greedy Freebooter",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d4a9d63a-5a8a-4f51-9e49-43d6dc3234b1",
+  "oracle_text": "When this creature dies, scry 1 and create a Treasure token. (To scry 1, look at the top card of your library. You may put that card on the bottom. A Treasure token is an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+  "oversized": false,
+  "penny_rank": 4333,
+  "power": "1",
+  "prices": {
+    "eur": "0.21",
+    "eur_foil": "0.54",
+    "tix": "0.04",
+    "usd": "0.40",
+    "usd_etched": null,
+    "usd_foil": "0.48"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad4a9d63a-5a8a-4f51-9e49-43d6dc3234b1&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/118024?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=743997&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F526296%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Greedy+Freebooter",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=636814&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGreedy%2BFreebooter",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGreedy%2BFreebooter"
+  },
+  "released_at": "2023-11-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/692fe4e8-13b4-4bec-938e-a8073a7fbd71/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lci?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lci/109/greedy-freebooter?utm_source=api",
+  "set": "lci",
+  "set_id": "70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "set_name": "The Lost Caverns of Ixalan",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alci&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "story_spotlight": false,
+  "tcgplayer_id": 526296,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Pirate",
+  "uri": "https://api.scryfall.com/cards/692fe4e8-13b4-4bec-938e-a8073a7fbd71",
+  "variation": false
+}
