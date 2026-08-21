@@ -1,0 +1,138 @@
+{
+  "arena_id": 96834,
+  "artist": "Adam Paquette",
+  "artist_ids": [
+    "89023dad-e6c0-41e0-83fb-eb2bfbbdc3f2"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 834035,
+  "cmc": 0.0,
+  "collector_number": "260",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 1399,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "11da39d6-cfa6-498d-91b1-11454cc7e5a3",
+  "illustration_id": "fdb78d80-fa7c-4f6b-a60e-e9c51b90a493",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:25:13Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/1/11da39d6-cfa6-498d-91b1-11454cc7e5a3.webp?1783905913",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/1/11da39d6-cfa6-498d-91b1-11454cc7e5a3.jpg?1783905913",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/1/11da39d6-cfa6-498d-91b1-11454cc7e5a3.jpg?1783905913",
+    "crop": "https://cards.scryfall.io/crop/front/1/1/11da39d6-cfa6-498d-91b1-11454cc7e5a3.webp?1783905913",
+    "display": "https://cards.scryfall.io/display/front/1/1/11da39d6-cfa6-498d-91b1-11454cc7e5a3.webp?1783905913",
+    "grid": "https://cards.scryfall.io/grid/front/1/1/11da39d6-cfa6-498d-91b1-11454cc7e5a3.webp?1783905913",
+    "large": "https://cards.scryfall.io/large/front/1/1/11da39d6-cfa6-498d-91b1-11454cc7e5a3.jpg?1783905913",
+    "normal": "https://cards.scryfall.io/normal/front/1/1/11da39d6-cfa6-498d-91b1-11454cc7e5a3.jpg?1783905913",
+    "png": "https://cards.scryfall.io/png/front/1/1/11da39d6-cfa6-498d-91b1-11454cc7e5a3.png?1783905913",
+    "small": "https://cards.scryfall.io/small/front/1/1/11da39d6-cfa6-498d-91b1-11454cc7e5a3.jpg?1783905913",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/1/11da39d6-cfa6-498d-91b1-11454cc7e5a3.webp?1783905913"
+  },
+  "keywords": [
+    "Station"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 143133,
+  "multiverse_ids": [],
+  "name": "Uthros, Titanic Godcore",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "df08ac72-010f-42f8-beb3-6d645c638e1e",
+  "oracle_text": "This land enters tapped.\n{T}: Add {U}.\nStation (Tap another creature you control: Put charge counters equal to its power on this Planet. Station only as a sorcery.)\n12+ | {U}, {T}: Add {U} for each artifact you control.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2025-07-08",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/products/edge-of-eternities/card-image-gallery"
+  },
+  "prices": {
+    "eur": "12.43",
+    "eur_foil": "14.82",
+    "tix": "0.34",
+    "usd": "13.29",
+    "usd_etched": null,
+    "usd_foil": "14.29"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Adf08ac72-010f-42f8-beb3-6d645c638e1e&unique=prints",
+  "produced_mana": [
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/143133?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=834035&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F641748%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Uthros%2C+Titanic+Godcore",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DUthros%252C%2BTitanic%2BGodcore",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DUthros%252C%2BTitanic%2BGodcore"
+  },
+  "released_at": "2025-08-01",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "AF1A20E8FB0FF166C451DC8538F350083631A2F5480DCDE440213EC6585AA1C9",
+  "rulings_uri": "https://api.scryfall.com/cards/11da39d6-cfa6-498d-91b1-11454cc7e5a3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eoe?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eoe/260/uthros-titanic-godcore?utm_source=api",
+  "security_stamp": "oval",
+  "set": "eoe",
+  "set_id": "452951cf-378b-4472-b7fe-572fe2af2ac0",
+  "set_name": "Edge of Eternities",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeoe&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/452951cf-378b-4472-b7fe-572fe2af2ac0",
+  "story_spotlight": false,
+  "tcgplayer_id": 641748,
+  "textless": false,
+  "type_line": "Land — Planet",
+  "uri": "https://api.scryfall.com/cards/11da39d6-cfa6-498d-91b1-11454cc7e5a3",
+  "variation": false
+}

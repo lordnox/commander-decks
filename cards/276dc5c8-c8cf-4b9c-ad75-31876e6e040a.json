@@ -1,0 +1,137 @@
+{
+  "artist": "Samuel Perin",
+  "artist_ids": [
+    "1037066e-f63a-42dc-9850-9d14b6cfe436"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 743452,
+  "cmc": 4.0,
+  "collector_number": "75",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2338,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "e6456329-b521-474b-bfb5-bfcd7e52b5f8",
+  "illustration_id": "763b1490-0899-4a02-8368-4f5322e96f86",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:38:33Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/6/e6456329-b521-474b-bfb5-bfcd7e52b5f8.webp?1783913913",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/6/e6456329-b521-474b-bfb5-bfcd7e52b5f8.jpg?1783913913",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/6/e6456329-b521-474b-bfb5-bfcd7e52b5f8.jpg?1783913913",
+    "crop": "https://cards.scryfall.io/crop/front/e/6/e6456329-b521-474b-bfb5-bfcd7e52b5f8.webp?1783913913",
+    "display": "https://cards.scryfall.io/display/front/e/6/e6456329-b521-474b-bfb5-bfcd7e52b5f8.webp?1783913913",
+    "grid": "https://cards.scryfall.io/grid/front/e/6/e6456329-b521-474b-bfb5-bfcd7e52b5f8.webp?1783913913",
+    "large": "https://cards.scryfall.io/large/front/e/6/e6456329-b521-474b-bfb5-bfcd7e52b5f8.jpg?1783913913",
+    "normal": "https://cards.scryfall.io/normal/front/e/6/e6456329-b521-474b-bfb5-bfcd7e52b5f8.jpg?1783913913",
+    "png": "https://cards.scryfall.io/png/front/e/6/e6456329-b521-474b-bfb5-bfcd7e52b5f8.png?1783913913",
+    "small": "https://cards.scryfall.io/small/front/e/6/e6456329-b521-474b-bfb5-bfcd7e52b5f8.jpg?1783913913",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/6/e6456329-b521-474b-bfb5-bfcd7e52b5f8.webp?1783913913"
+  },
+  "keywords": [
+    "Crew",
+    "Trample"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}{U}",
+  "mtgo_id": 119154,
+  "multiverse_ids": [
+    640035
+  ],
+  "name": "The Indomitable",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "276dc5c8-c8cf-4b9c-ad75-31876e6e040a",
+  "oracle_text": "Trample\nWhenever a creature you control deals combat damage to a player, draw a card.\nCrew 3\nYou may cast this card from your graveyard as long as you control three or more tapped Pirates and/or Vehicles.",
+  "oversized": false,
+  "power": "6",
+  "prices": {
+    "eur": "1.99",
+    "eur_foil": null,
+    "tix": "1.37",
+    "usd": "2.75",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A276dc5c8-c8cf-4b9c-ad75-31876e6e040a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/119154?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=743452&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F526205%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+Indomitable",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=640035&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BIndomitable",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BIndomitable"
+  },
+  "released_at": "2023-11-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e6456329-b521-474b-bfb5-bfcd7e52b5f8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lcc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lcc/75/the-indomitable?utm_source=api",
+  "security_stamp": "oval",
+  "set": "lcc",
+  "set_id": "d253edc3-5bc7-4cf1-9446-a8540dedffa5",
+  "set_name": "The Lost Caverns of Ixalan Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alcc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d253edc3-5bc7-4cf1-9446-a8540dedffa5",
+  "story_spotlight": false,
+  "tcgplayer_id": 526205,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Legendary Artifact — Vehicle",
+  "uri": "https://api.scryfall.com/cards/e6456329-b521-474b-bfb5-bfcd7e52b5f8",
+  "variation": false
+}

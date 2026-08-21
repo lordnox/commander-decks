@@ -1,0 +1,133 @@
+{
+  "artist": "Raoul Vitale",
+  "artist_ids": [
+    "c7c15d49-f84b-4d98-9a34-e80e8347b756"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818893,
+  "cmc": 2.0,
+  "collector_number": "320",
+  "color_identity": [
+    "R",
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 169,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "The Izzet signet is redesigned often, each time becoming closer to a vanity portrait of Niv-Mizzet.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "2c747a97-9070-4c1e-b7b7-52637fbb30e1",
+  "illustration_id": "99553e63-b669-492b-b37b-cf47f1e36b71",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:43:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/c/2c747a97-9070-4c1e-b7b7-52637fbb30e1.webp?1783907010",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/c/2c747a97-9070-4c1e-b7b7-52637fbb30e1.jpg?1783907010",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/c/2c747a97-9070-4c1e-b7b7-52637fbb30e1.jpg?1783907010",
+    "crop": "https://cards.scryfall.io/crop/front/2/c/2c747a97-9070-4c1e-b7b7-52637fbb30e1.webp?1783907010",
+    "display": "https://cards.scryfall.io/display/front/2/c/2c747a97-9070-4c1e-b7b7-52637fbb30e1.webp?1783907010",
+    "grid": "https://cards.scryfall.io/grid/front/2/c/2c747a97-9070-4c1e-b7b7-52637fbb30e1.webp?1783907010",
+    "large": "https://cards.scryfall.io/large/front/2/c/2c747a97-9070-4c1e-b7b7-52637fbb30e1.jpg?1783907010",
+    "normal": "https://cards.scryfall.io/normal/front/2/c/2c747a97-9070-4c1e-b7b7-52637fbb30e1.jpg?1783907010",
+    "png": "https://cards.scryfall.io/png/front/2/c/2c747a97-9070-4c1e-b7b7-52637fbb30e1.png?1783907010",
+    "small": "https://cards.scryfall.io/small/front/2/c/2c747a97-9070-4c1e-b7b7-52637fbb30e1.jpg?1783907010",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/c/2c747a97-9070-4c1e-b7b7-52637fbb30e1.webp?1783907010"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}",
+  "mtgo_id": 138581,
+  "multiverse_ids": [
+    696476
+  ],
+  "name": "Izzet Signet",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2fda4fe7-8b0c-489c-a000-6d358e614e34",
+  "oracle_text": "{1}, {T}: Add {U}{R}.",
+  "oversized": false,
+  "penny_rank": 2003,
+  "prices": {
+    "eur": "0.72",
+    "eur_foil": null,
+    "tix": "0.20",
+    "usd": "0.40",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2fda4fe7-8b0c-489c-a000-6d358e614e34&unique=prints",
+  "produced_mana": [
+    "R",
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138581?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818893&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624200%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Izzet+Signet",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696476&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIzzet%2BSignet",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIzzet%2BSignet"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2c747a97-9070-4c1e-b7b7-52637fbb30e1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/320/izzet-signet?utm_source=api",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624200,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/2c747a97-9070-4c1e-b7b7-52637fbb30e1",
+  "variation": false
+}

@@ -1,0 +1,138 @@
+{
+  "arena_id": 96833,
+  "artist": "Adam Paquette",
+  "artist_ids": [
+    "89023dad-e6c0-41e0-83fb-eb2bfbbdc3f2"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 834034,
+  "cmc": 0.0,
+  "collector_number": "259",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 1942,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "aefb8c0d-2bc6-4bec-851e-0137b4abfb22",
+  "illustration_id": "17bf0079-d182-402f-b043-488edccee695",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:25:14Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/e/aefb8c0d-2bc6-4bec-851e-0137b4abfb22.webp?1783905914",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/e/aefb8c0d-2bc6-4bec-851e-0137b4abfb22.jpg?1783905914",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/e/aefb8c0d-2bc6-4bec-851e-0137b4abfb22.jpg?1783905914",
+    "crop": "https://cards.scryfall.io/crop/front/a/e/aefb8c0d-2bc6-4bec-851e-0137b4abfb22.webp?1783905914",
+    "display": "https://cards.scryfall.io/display/front/a/e/aefb8c0d-2bc6-4bec-851e-0137b4abfb22.webp?1783905914",
+    "grid": "https://cards.scryfall.io/grid/front/a/e/aefb8c0d-2bc6-4bec-851e-0137b4abfb22.webp?1783905914",
+    "large": "https://cards.scryfall.io/large/front/a/e/aefb8c0d-2bc6-4bec-851e-0137b4abfb22.jpg?1783905914",
+    "normal": "https://cards.scryfall.io/normal/front/a/e/aefb8c0d-2bc6-4bec-851e-0137b4abfb22.jpg?1783905914",
+    "png": "https://cards.scryfall.io/png/front/a/e/aefb8c0d-2bc6-4bec-851e-0137b4abfb22.png?1783905914",
+    "small": "https://cards.scryfall.io/small/front/a/e/aefb8c0d-2bc6-4bec-851e-0137b4abfb22.jpg?1783905914",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/e/aefb8c0d-2bc6-4bec-851e-0137b4abfb22.webp?1783905914"
+  },
+  "keywords": [
+    "Station"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 143131,
+  "multiverse_ids": [],
+  "name": "Susur Secundi, Void Altar",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "50d6cadc-07e4-479e-90f4-e3a20f769bab",
+  "oracle_text": "This land enters tapped.\n{T}: Add {B}.\nStation (Tap another creature you control: Put charge counters equal to its power on this Planet. Station only as a sorcery.)\n12+ | {1}{B}, {T}, Pay 2 life, Sacrifice a creature: Draw cards equal to the sacrificed creature's power. Activate only as a sorcery.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2025-07-08",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/products/edge-of-eternities/card-image-gallery"
+  },
+  "prices": {
+    "eur": "5.23",
+    "eur_foil": "6.13",
+    "tix": "0.50",
+    "usd": "4.65",
+    "usd_etched": null,
+    "usd_foil": "6.01"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A50d6cadc-07e4-479e-90f4-e3a20f769bab&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/143131?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=834034&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F641742%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Susur+Secundi%2C+Void+Altar",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSusur%2BSecundi%252C%2BVoid%2BAltar",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSusur%2BSecundi%252C%2BVoid%2BAltar"
+  },
+  "released_at": "2025-08-01",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "CD3B3FADA9D2B51DF07B72268223C0DB1C4086CCF28115F555DCF8DF012CB248",
+  "rulings_uri": "https://api.scryfall.com/cards/aefb8c0d-2bc6-4bec-851e-0137b4abfb22/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eoe?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eoe/259/susur-secundi-void-altar?utm_source=api",
+  "security_stamp": "oval",
+  "set": "eoe",
+  "set_id": "452951cf-378b-4472-b7fe-572fe2af2ac0",
+  "set_name": "Edge of Eternities",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeoe&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/452951cf-378b-4472-b7fe-572fe2af2ac0",
+  "story_spotlight": false,
+  "tcgplayer_id": 641742,
+  "textless": false,
+  "type_line": "Land — Planet",
+  "uri": "https://api.scryfall.com/cards/aefb8c0d-2bc6-4bec-851e-0137b4abfb22",
+  "variation": false
+}

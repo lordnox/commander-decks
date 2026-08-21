@@ -1,0 +1,141 @@
+{
+  "arena_id": 92356,
+  "artist": "Andrew Mar",
+  "artist_ids": [
+    "adad79bf-cd52-456a-b170-740ed8bff0fc"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 786880,
+  "cmc": 0.0,
+  "collector_number": "256",
+  "color_identity": [
+    "B",
+    "R"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 527,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Here, the Balemurk spits and boils, the oppressive darkness pierced by scorching spears of fire.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "d151c8e2-d715-470d-868a-f45191db9fa0",
+  "illustration_id": "7fec1a48-ef55-4fc4-a1a8-f0a299ef4c81",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:23:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/1/d151c8e2-d715-470d-868a-f45191db9fa0.webp?1783909431",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/1/d151c8e2-d715-470d-868a-f45191db9fa0.jpg?1783909431",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/1/d151c8e2-d715-470d-868a-f45191db9fa0.jpg?1783909431",
+    "crop": "https://cards.scryfall.io/crop/front/d/1/d151c8e2-d715-470d-868a-f45191db9fa0.webp?1783909431",
+    "display": "https://cards.scryfall.io/display/front/d/1/d151c8e2-d715-470d-868a-f45191db9fa0.webp?1783909431",
+    "grid": "https://cards.scryfall.io/grid/front/d/1/d151c8e2-d715-470d-868a-f45191db9fa0.webp?1783909431",
+    "large": "https://cards.scryfall.io/large/front/d/1/d151c8e2-d715-470d-868a-f45191db9fa0.jpg?1783909431",
+    "normal": "https://cards.scryfall.io/normal/front/d/1/d151c8e2-d715-470d-868a-f45191db9fa0.jpg?1783909431",
+    "png": "https://cards.scryfall.io/png/front/d/1/d151c8e2-d715-470d-868a-f45191db9fa0.png?1783909431",
+    "small": "https://cards.scryfall.io/small/front/d/1/d151c8e2-d715-470d-868a-f45191db9fa0.jpg?1783909431",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/1/d151c8e2-d715-470d-868a-f45191db9fa0.webp?1783909431"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 130643,
+  "multiverse_ids": [
+    673661
+  ],
+  "name": "Blazemire Verge",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "977c2f33-b622-4172-9efb-7f523becd32b",
+  "oracle_text": "{T}: Add {B}.\n{T}: Add {R}. Activate only if you control a Swamp or a Mountain.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-09-03",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.youtube.com/watch?v=8mYQLkstDs8"
+  },
+  "prices": {
+    "eur": "8.46",
+    "eur_foil": "9.32",
+    "tix": "0.07",
+    "usd": "9.89",
+    "usd_etched": null,
+    "usd_foil": "10.01"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A977c2f33-b622-4172-9efb-7f523becd32b&unique=prints",
+  "produced_mana": [
+    "B",
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130643?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=786880&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F576512%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Blazemire+Verge",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=673661&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBlazemire%2BVerge",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBlazemire%2BVerge"
+  },
+  "released_at": "2024-09-27",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d151c8e2-d715-470d-868a-f45191db9fa0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsk/256/blazemire-verge?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsk",
+  "set_id": "a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "set_name": "Duskmourn: House of Horror",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "story_spotlight": false,
+  "tcgplayer_id": 576512,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/d151c8e2-d715-470d-868a-f45191db9fa0",
+  "variation": false
+}

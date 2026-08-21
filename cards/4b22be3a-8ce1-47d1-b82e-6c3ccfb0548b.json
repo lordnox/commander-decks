@@ -1,0 +1,131 @@
+{
+  "artist": "Cliff Childs",
+  "artist_ids": [
+    "ed6f7e03-20ba-4c73-bdda-4a4928480721"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "323",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "colors": [],
+  "digital": true,
+  "edhrec_rank": 297,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "26cee543-6eab-494e-a803-33a5d48d7d74",
+  "illustration_id": "c82bd9c4-0886-4797-b185-624c3c332741",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:40:14Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.webp?1783939214",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.jpg?1783939214",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.jpg?1783939214",
+    "crop": "https://cards.scryfall.io/crop/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.webp?1783939214",
+    "display": "https://cards.scryfall.io/display/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.webp?1783939214",
+    "grid": "https://cards.scryfall.io/grid/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.webp?1783939214",
+    "large": "https://cards.scryfall.io/large/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.jpg?1783939214",
+    "normal": "https://cards.scryfall.io/normal/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.jpg?1783939214",
+    "png": "https://cards.scryfall.io/png/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.png?1783939214",
+    "small": "https://cards.scryfall.io/small/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.jpg?1783939214",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.webp?1783939214"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_foil_id": 53098,
+  "mtgo_id": 53097,
+  "multiverse_ids": [
+    383142
+  ],
+  "name": "Underground Sea",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b",
+  "oracle_text": "({T}: Add {U} or {B}.)",
+  "oversized": false,
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": "15.55",
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b&unique=prints",
+  "produced_mana": [
+    "B",
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/53097?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Underground+Sea&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DUnderground%2BSea%26view%3Dgrid"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Underground+Sea",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=383142&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DUnderground%2BSea",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DUnderground%2BSea"
+  },
+  "released_at": "2014-06-16",
+  "reprint": true,
+  "reserved": true,
+  "rulings_uri": "https://api.scryfall.com/cards/26cee543-6eab-494e-a803-33a5d48d7d74/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/vma?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/vma/323/underground-sea?utm_source=api",
+  "security_stamp": "oval",
+  "set": "vma",
+  "set_id": "a944551a-73fa-41cd-9159-e8d0e4674403",
+  "set_name": "Vintage Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Avma&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/a944551a-73fa-41cd-9159-e8d0e4674403",
+  "story_spotlight": false,
+  "textless": false,
+  "type_line": "Land — Island Swamp",
+  "uri": "https://api.scryfall.com/cards/26cee543-6eab-494e-a803-33a5d48d7d74",
+  "variation": false
+}

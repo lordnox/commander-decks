@@ -1,0 +1,161 @@
+{
+  "all_parts": [
+    {
+      "component": "meld_result",
+      "id": "40a01679-3224-427e-bd1d-b797b0ab68b7",
+      "name": "Urza, Planeswalker",
+      "object": "related_card",
+      "type_line": "Legendary Planeswalker — Urza",
+      "uri": "https://api.scryfall.com/cards/40a01679-3224-427e-bd1d-b797b0ab68b7"
+    },
+    {
+      "component": "meld_part",
+      "id": "02aea379-b444-46a3-82f4-3038f698d4f4",
+      "name": "The Mightstone and Weakstone",
+      "object": "related_card",
+      "type_line": "Legendary Artifact — Powerstone",
+      "uri": "https://api.scryfall.com/cards/02aea379-b444-46a3-82f4-3038f698d4f4"
+    },
+    {
+      "component": "meld_part",
+      "id": "8aefe8bd-216a-4ec1-9362-3f9dbf7fd083",
+      "name": "Urza, Lord Protector",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Artificer",
+      "uri": "https://api.scryfall.com/cards/8aefe8bd-216a-4ec1-9362-3f9dbf7fd083"
+    }
+  ],
+  "arena_id": 82724,
+  "artist": "Ryan Pancoast",
+  "artist_ids": [
+    "89cc9475-dda2-4d13-bf88-54b92867a25c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "906fcd6b-718e-49a6-8d60-0dbaa07a05d6",
+  "cardmarket_id": 678195,
+  "cmc": 5.0,
+  "collector_number": "238",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 3002,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "02aea379-b444-46a3-82f4-3038f698d4f4",
+  "illustration_id": "f8e05098-615d-4720-b674-d3323fd23118",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:20:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/2/02aea379-b444-46a3-82f4-3038f698d4f4.webp?1783920017",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/2/02aea379-b444-46a3-82f4-3038f698d4f4.jpg?1783920017",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/2/02aea379-b444-46a3-82f4-3038f698d4f4.jpg?1783920017",
+    "crop": "https://cards.scryfall.io/crop/front/0/2/02aea379-b444-46a3-82f4-3038f698d4f4.webp?1783920017",
+    "display": "https://cards.scryfall.io/display/front/0/2/02aea379-b444-46a3-82f4-3038f698d4f4.webp?1783920017",
+    "grid": "https://cards.scryfall.io/grid/front/0/2/02aea379-b444-46a3-82f4-3038f698d4f4.webp?1783920017",
+    "large": "https://cards.scryfall.io/large/front/0/2/02aea379-b444-46a3-82f4-3038f698d4f4.jpg?1783920017",
+    "normal": "https://cards.scryfall.io/normal/front/0/2/02aea379-b444-46a3-82f4-3038f698d4f4.jpg?1783920017",
+    "png": "https://cards.scryfall.io/png/front/0/2/02aea379-b444-46a3-82f4-3038f698d4f4.png?1783920017",
+    "small": "https://cards.scryfall.io/small/front/0/2/02aea379-b444-46a3-82f4-3038f698d4f4.jpg?1783920017",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/2/02aea379-b444-46a3-82f4-3038f698d4f4.webp?1783920017"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "meld",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}",
+  "mtgo_id": 105100,
+  "multiverse_ids": [
+    588289
+  ],
+  "name": "The Mightstone and Weakstone",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c396db03-bf11-4e20-b630-4f9aa8fd78da",
+  "oracle_text": "When The Mightstone and Weakstone enters, choose one —\n• Draw two cards.\n• Target creature gets -5/-5 until end of turn.\n{T}: Add {C}{C}. This mana can't be spent to cast nonartifact spells.\n(Melds with Urza, Lord Protector.)",
+  "oversized": false,
+  "penny_rank": 3392,
+  "prices": {
+    "eur": "3.36",
+    "eur_foil": "4.25",
+    "tix": "0.02",
+    "usd": "5.08",
+    "usd_etched": null,
+    "usd_foil": "5.95"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac396db03-bf11-4e20-b630-4f9aa8fd78da&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/105100?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=678195&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F448411%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+Mightstone+and+Weakstone",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=588289&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BMightstone%2Band%2BWeakstone",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BMightstone%2Band%2BWeakstone"
+  },
+  "released_at": "2022-11-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/02aea379-b444-46a3-82f4-3038f698d4f4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/bro?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/bro/238/the-mightstone-and-weakstone?utm_source=api",
+  "security_stamp": "oval",
+  "set": "bro",
+  "set_id": "4219a14e-6701-4ddd-a185-21dc054ab19b",
+  "set_name": "The Brothers' War",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abro&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4219a14e-6701-4ddd-a185-21dc054ab19b",
+  "story_spotlight": false,
+  "tcgplayer_id": 448411,
+  "textless": false,
+  "type_line": "Legendary Artifact — Powerstone",
+  "uri": "https://api.scryfall.com/cards/02aea379-b444-46a3-82f4-3038f698d4f4",
+  "variation": false
+}

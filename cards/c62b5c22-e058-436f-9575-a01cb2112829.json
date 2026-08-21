@@ -1,0 +1,138 @@
+{
+  "arena_id": 97428,
+  "artist": "Toni Infante",
+  "artist_ids": [
+    "958bbc4a-3420-439a-b261-c988b8e4b580"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 842854,
+  "cmc": 1.0,
+  "collector_number": "151",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 596,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"A Waterbender lets their defense become their offense, turning their opponent's energy against them. I learned a way to do this with lightning.\"\n—Iroh",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "lesson"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2b5b14a7-1fdd-4efc-b197-cadfa7f7c860",
+  "illustration_id": "a39b5828-1b99-4a27-919c-f6ceb0d13347",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:09:13Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/b/2b5b14a7-1fdd-4efc-b197-cadfa7f7c860.webp?1783904953",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/b/2b5b14a7-1fdd-4efc-b197-cadfa7f7c860.jpg?1783904953",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/b/2b5b14a7-1fdd-4efc-b197-cadfa7f7c860.jpg?1783904953",
+    "crop": "https://cards.scryfall.io/crop/front/2/b/2b5b14a7-1fdd-4efc-b197-cadfa7f7c860.webp?1783904953",
+    "display": "https://cards.scryfall.io/display/front/2/b/2b5b14a7-1fdd-4efc-b197-cadfa7f7c860.webp?1783904953",
+    "grid": "https://cards.scryfall.io/grid/front/2/b/2b5b14a7-1fdd-4efc-b197-cadfa7f7c860.webp?1783904953",
+    "large": "https://cards.scryfall.io/large/front/2/b/2b5b14a7-1fdd-4efc-b197-cadfa7f7c860.jpg?1783904953",
+    "normal": "https://cards.scryfall.io/normal/front/2/b/2b5b14a7-1fdd-4efc-b197-cadfa7f7c860.jpg?1783904953",
+    "png": "https://cards.scryfall.io/png/front/2/b/2b5b14a7-1fdd-4efc-b197-cadfa7f7c860.png?1783904953",
+    "small": "https://cards.scryfall.io/small/front/2/b/2b5b14a7-1fdd-4efc-b197-cadfa7f7c860.jpg?1783904953",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/b/2b5b14a7-1fdd-4efc-b197-cadfa7f7c860.webp?1783904953"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{R}",
+  "mtgo_id": 144786,
+  "multiverse_ids": [],
+  "name": "Redirect Lightning",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c62b5c22-e058-436f-9575-a01cb2112829",
+  "oracle_text": "As an additional cost to cast this spell, pay 5 life or pay {2}.\nChange the target of target spell or ability with a single target.",
+  "oversized": false,
+  "prices": {
+    "eur": "10.24",
+    "eur_foil": "10.80",
+    "tix": "0.14",
+    "usd": "12.89",
+    "usd_etched": null,
+    "usd_foil": "13.08"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac62b5c22-e058-436f-9575-a01cb2112829&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/144786?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=842854&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F648709%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Redirect+Lightning",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRedirect%2BLightning",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRedirect%2BLightning"
+  },
+  "released_at": "2025-11-21",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "FBB49BDBDB61BB02FB7C25E940E6CC948DE9EFE2EDB9F87F9A363FDA7B9CF089",
+  "rulings_uri": "https://api.scryfall.com/cards/2b5b14a7-1fdd-4efc-b197-cadfa7f7c860/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tla?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tla/151/redirect-lightning?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tla",
+  "set_id": "118f7e64-5caa-4cb7-99a8-184f4d3a7422",
+  "set_name": "Avatar: The Last Airbender",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atla&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/118f7e64-5caa-4cb7-99a8-184f4d3a7422",
+  "story_spotlight": false,
+  "tcgplayer_id": 648709,
+  "textless": false,
+  "type_line": "Instant — Lesson",
+  "uri": "https://api.scryfall.com/cards/2b5b14a7-1fdd-4efc-b197-cadfa7f7c860",
+  "variation": false,
+  "watermark": "firenation"
+}

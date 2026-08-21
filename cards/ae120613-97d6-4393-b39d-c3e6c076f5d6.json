@@ -1,0 +1,136 @@
+{
+  "artist": "Izzy",
+  "artist_ids": [
+    "2c3d2473-ff5d-4309-8194-e0b2def2ab65"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 722423,
+  "cmc": 3.0,
+  "collector_number": "214",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 75,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Archmage attacks are little more than annoyances to Kalamax.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b4b36435-55b3-4615-8812-af41d4fc64d9",
+  "illustration_id": "f6211e11-2e62-4b24-bb90-9fb9fafae1c5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:07:36Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/4/b4b36435-55b3-4615-8812-af41d4fc64d9.webp?1783915656",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/4/b4b36435-55b3-4615-8812-af41d4fc64d9.jpg?1783915656",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/4/b4b36435-55b3-4615-8812-af41d4fc64d9.jpg?1783915656",
+    "crop": "https://cards.scryfall.io/crop/front/b/4/b4b36435-55b3-4615-8812-af41d4fc64d9.webp?1783915656",
+    "display": "https://cards.scryfall.io/display/front/b/4/b4b36435-55b3-4615-8812-af41d4fc64d9.webp?1783915656",
+    "grid": "https://cards.scryfall.io/grid/front/b/4/b4b36435-55b3-4615-8812-af41d4fc64d9.webp?1783915656",
+    "large": "https://cards.scryfall.io/large/front/b/4/b4b36435-55b3-4615-8812-af41d4fc64d9.jpg?1783915656",
+    "normal": "https://cards.scryfall.io/normal/front/b/4/b4b36435-55b3-4615-8812-af41d4fc64d9.jpg?1783915656",
+    "png": "https://cards.scryfall.io/png/front/b/4/b4b36435-55b3-4615-8812-af41d4fc64d9.png?1783915656",
+    "small": "https://cards.scryfall.io/small/front/b/4/b4b36435-55b3-4615-8812-af41d4fc64d9.jpg?1783915656",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/4/b4b36435-55b3-4615-8812-af41d4fc64d9.webp?1783915656"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "banned",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "banned",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "banned",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}",
+  "mtgo_id": 114655,
+  "multiverse_ids": [
+    627678
+  ],
+  "name": "Deflecting Swat",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ae120613-97d6-4393-b39d-c3e6c076f5d6",
+  "oracle_text": "If you control a commander, you may cast this spell without paying its mana cost.\nYou may choose new targets for target spell or ability.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-07-14",
+    "source": "PC Gamer",
+    "source_uri": "https://www.pcgamer.com/expect-dramatic-spells-and-creatures-of-unusual-size-in-magics-next-set/"
+  },
+  "prices": {
+    "eur": "59.77",
+    "eur_foil": "71.00",
+    "tix": "16.61",
+    "usd": "69.40",
+    "usd_etched": null,
+    "usd_foil": "84.48"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aae120613-97d6-4393-b39d-c3e6c076f5d6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/114655?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=722423&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F504494%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Deflecting+Swat",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=627678&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDeflecting%2BSwat",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDeflecting%2BSwat"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b4b36435-55b3-4615-8812-af41d4fc64d9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/214/deflecting-swat?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 504494,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/b4b36435-55b3-4615-8812-af41d4fc64d9",
+  "variation": false
+}

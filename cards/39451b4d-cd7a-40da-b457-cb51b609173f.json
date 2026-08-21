@@ -1,0 +1,133 @@
+{
+  "artist": "John Avon",
+  "artist_ids": [
+    "798f3932-30e0-4420-aa3f-db4d613f89ca"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 834311,
+  "cmc": 0.0,
+  "collector_number": "176",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 323,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Lumengrid, site of the Knowledge Pool, source of vedalken arcana.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "57a194b3-2899-4dee-977a-c77df0b94dfe",
+  "illustration_id": "744323a8-8ad0-4fb4-9d52-cd6f8b045b14",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:26:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/7/57a194b3-2899-4dee-977a-c77df0b94dfe.webp?1783906005",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/7/57a194b3-2899-4dee-977a-c77df0b94dfe.jpg?1783906005",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/7/57a194b3-2899-4dee-977a-c77df0b94dfe.jpg?1783906005",
+    "crop": "https://cards.scryfall.io/crop/front/5/7/57a194b3-2899-4dee-977a-c77df0b94dfe.webp?1783906005",
+    "display": "https://cards.scryfall.io/display/front/5/7/57a194b3-2899-4dee-977a-c77df0b94dfe.webp?1783906005",
+    "grid": "https://cards.scryfall.io/grid/front/5/7/57a194b3-2899-4dee-977a-c77df0b94dfe.webp?1783906005",
+    "large": "https://cards.scryfall.io/large/front/5/7/57a194b3-2899-4dee-977a-c77df0b94dfe.jpg?1783906005",
+    "normal": "https://cards.scryfall.io/normal/front/5/7/57a194b3-2899-4dee-977a-c77df0b94dfe.jpg?1783906005",
+    "png": "https://cards.scryfall.io/png/front/5/7/57a194b3-2899-4dee-977a-c77df0b94dfe.png?1783906005",
+    "small": "https://cards.scryfall.io/small/front/5/7/57a194b3-2899-4dee-977a-c77df0b94dfe.jpg?1783906005",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/7/57a194b3-2899-4dee-977a-c77df0b94dfe.webp?1783906005"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "banned",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 142489,
+  "multiverse_ids": [],
+  "name": "Seat of the Synod",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "39451b4d-cd7a-40da-b457-cb51b609173f",
+  "oracle_text": "{T}: Add {U}.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2025-07-10",
+    "source": "EDHijinks",
+    "source_uri": "https://www.youtube.com/watch?v=Swjj0JGhFco"
+  },
+  "prices": {
+    "eur": "0.86",
+    "eur_foil": null,
+    "tix": "2.69",
+    "usd": "0.90",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A39451b4d-cd7a-40da-b457-cb51b609173f&unique=prints",
+  "produced_mana": [
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/142489?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=834311&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F642862%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Seat+of+the+Synod",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSeat%2Bof%2Bthe%2BSynod",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSeat%2Bof%2Bthe%2BSynod"
+  },
+  "released_at": "2025-08-01",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "64B7D0F185475F4756AD2EEAA676FE82C5E87036B18C003EC8AF6211769857D3",
+  "rulings_uri": "https://api.scryfall.com/cards/57a194b3-2899-4dee-977a-c77df0b94dfe/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eoc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eoc/176/seat-of-the-synod?utm_source=api",
+  "set": "eoc",
+  "set_id": "b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "set_name": "Edge of Eternities Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "story_spotlight": false,
+  "tcgplayer_id": 642862,
+  "textless": false,
+  "type_line": "Artifact Land",
+  "uri": "https://api.scryfall.com/cards/57a194b3-2899-4dee-977a-c77df0b94dfe",
+  "variation": false
+}

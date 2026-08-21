@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "5ba1736b-9e11-4169-9525-1540a64a3188",
+      "name": "Esoteric Duplicator",
+      "object": "related_card",
+      "type_line": "Artifact — Clue",
+      "uri": "https://api.scryfall.com/cards/5ba1736b-9e11-4169-9525-1540a64a3188"
+    },
+    {
+      "component": "token",
+      "id": "e85f57c5-923a-4824-969e-53feddd78c3b",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/e85f57c5-923a-4824-969e-53feddd78c3b"
+    }
+  ],
+  "arena_id": 90666,
+  "artist": "Anton Solovianchyk",
+  "artist_ids": [
+    "8e962ba2-380a-4e6f-84d9-4198549b11ce"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764287,
+  "cmc": 3.0,
+  "collector_number": "5",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 6449,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "3dbb2755-97d9-492e-8697-5548160678c8",
+  "illustration_id": "05c76f2c-f6bb-4aa7-b3a4-be3259636659",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:06:42Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/d/3dbb2755-97d9-492e-8697-5548160678c8.webp?1783912002",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/d/3dbb2755-97d9-492e-8697-5548160678c8.jpg?1783912002",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/d/3dbb2755-97d9-492e-8697-5548160678c8.jpg?1783912002",
+    "crop": "https://cards.scryfall.io/crop/front/3/d/3dbb2755-97d9-492e-8697-5548160678c8.webp?1783912002",
+    "display": "https://cards.scryfall.io/display/front/3/d/3dbb2755-97d9-492e-8697-5548160678c8.webp?1783912002",
+    "grid": "https://cards.scryfall.io/grid/front/3/d/3dbb2755-97d9-492e-8697-5548160678c8.webp?1783912002",
+    "large": "https://cards.scryfall.io/large/front/3/d/3dbb2755-97d9-492e-8697-5548160678c8.jpg?1783912002",
+    "normal": "https://cards.scryfall.io/normal/front/3/d/3dbb2755-97d9-492e-8697-5548160678c8.jpg?1783912002",
+    "png": "https://cards.scryfall.io/png/front/3/d/3dbb2755-97d9-492e-8697-5548160678c8.png?1783912002",
+    "small": "https://cards.scryfall.io/small/front/3/d/3dbb2755-97d9-492e-8697-5548160678c8.jpg?1783912002",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/d/3dbb2755-97d9-492e-8697-5548160678c8.webp?1783912002"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 125371,
+  "multiverse_ids": [
+    660301
+  ],
+  "name": "Esoteric Duplicator",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0752fe67-9b8a-42c0-90e3-087d426b2f3b",
+  "oracle_text": "Whenever you sacrifice this artifact or another artifact, you may pay {2}. If you do, at the beginning of the next end step, create a token that's a copy of that artifact.\n{2}, Sacrifice this artifact: Draw a card.",
+  "oversized": false,
+  "penny_rank": 6333,
+  "preview": {
+    "previewed_at": "2024-04-02",
+    "source": "Benjamin Wheeler",
+    "source_uri": "https://vxtwitter.com/BWheelerMTG/status/1775234559996825617"
+  },
+  "prices": {
+    "eur": "1.57",
+    "eur_foil": "2.92",
+    "tix": "0.02",
+    "usd": "1.27",
+    "usd_etched": null,
+    "usd_foil": "1.90"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0752fe67-9b8a-42c0-90e3-087d426b2f3b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/125371?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764287&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544935%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Esoteric+Duplicator",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=660301&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEsoteric%2BDuplicator",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEsoteric%2BDuplicator"
+  },
+  "released_at": "2024-04-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3dbb2755-97d9-492e-8697-5548160678c8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/big?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/big/5/esoteric-duplicator?utm_source=api",
+  "security_stamp": "oval",
+  "set": "big",
+  "set_id": "14332d2c-ba93-4498-bf3f-9d601f88f783",
+  "set_name": "The Big Score",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abig&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/14332d2c-ba93-4498-bf3f-9d601f88f783",
+  "story_spotlight": false,
+  "tcgplayer_id": 544935,
+  "textless": false,
+  "type_line": "Artifact — Clue",
+  "uri": "https://api.scryfall.com/cards/3dbb2755-97d9-492e-8697-5548160678c8",
+  "variation": false
+}
