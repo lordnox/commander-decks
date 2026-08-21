@@ -1,0 +1,133 @@
+{
+  "arena_id": 90430,
+  "artist": "Inkognit",
+  "artist_ids": [
+    "0ebd73e7-55c9-49d6-bf99-241f10801f89"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764012,
+  "cmc": 1.0,
+  "collector_number": "84",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 593,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Every moving carriage is an accident waiting to happen, and the Hellspurs hate waiting.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "8046f892-3317-4ef7-9cf7-97b9060540c8",
+  "illustration_id": "1398807e-2b6a-47a8-95cf-c16fec85386c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:03:54Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/0/8046f892-3317-4ef7-9cf7-97b9060540c8.webp?1783911834",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/0/8046f892-3317-4ef7-9cf7-97b9060540c8.jpg?1783911834",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/0/8046f892-3317-4ef7-9cf7-97b9060540c8.jpg?1783911834",
+    "crop": "https://cards.scryfall.io/crop/front/8/0/8046f892-3317-4ef7-9cf7-97b9060540c8.webp?1783911834",
+    "display": "https://cards.scryfall.io/display/front/8/0/8046f892-3317-4ef7-9cf7-97b9060540c8.webp?1783911834",
+    "grid": "https://cards.scryfall.io/grid/front/8/0/8046f892-3317-4ef7-9cf7-97b9060540c8.webp?1783911834",
+    "large": "https://cards.scryfall.io/large/front/8/0/8046f892-3317-4ef7-9cf7-97b9060540c8.jpg?1783911834",
+    "normal": "https://cards.scryfall.io/normal/front/8/0/8046f892-3317-4ef7-9cf7-97b9060540c8.jpg?1783911834",
+    "png": "https://cards.scryfall.io/png/front/8/0/8046f892-3317-4ef7-9cf7-97b9060540c8.png?1783911834",
+    "small": "https://cards.scryfall.io/small/front/8/0/8046f892-3317-4ef7-9cf7-97b9060540c8.jpg?1783911834",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/0/8046f892-3317-4ef7-9cf7-97b9060540c8.webp?1783911834"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 124079,
+  "multiverse_ids": [
+    655025
+  ],
+  "name": "Corrupted Conviction",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b45e35df-9032-4482-89a6-c7c50c6d0a79",
+  "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nDraw two cards.",
+  "oversized": false,
+  "penny_rank": 2408,
+  "prices": {
+    "eur": "0.31",
+    "eur_foil": "0.53",
+    "tix": "0.03",
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": "0.49"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab45e35df-9032-4482-89a6-c7c50c6d0a79&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124079?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764012&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544718%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Corrupted+Conviction",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=655025&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCorrupted%2BConviction",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCorrupted%2BConviction"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8046f892-3317-4ef7-9cf7-97b9060540c8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otj?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otj/84/corrupted-conviction?utm_source=api",
+  "set": "otj",
+  "set_id": "55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "set_name": "Outlaws of Thunder Junction",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotj&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "story_spotlight": false,
+  "tcgplayer_id": 544718,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/8046f892-3317-4ef7-9cf7-97b9060540c8",
+  "variation": false
+}
