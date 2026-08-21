@@ -1,0 +1,154 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "6007af81-4541-4b55-90ea-03d365362ae5",
+      "name": "Human Soldier",
+      "object": "related_card",
+      "type_line": "Token Creature — Human Soldier",
+      "uri": "https://api.scryfall.com/cards/6007af81-4541-4b55-90ea-03d365362ae5"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6fe6ccad-e303-48f9-9dfa-0db7c1878031",
+      "name": "Bastion of Remembrance",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/6fe6ccad-e303-48f9-9dfa-0db7c1878031"
+    }
+  ],
+  "arena_id": 98305,
+  "artist": "Yuu Fujiki",
+  "artist_ids": [
+    "9903f026-75fa-439c-b586-2bd9f431192a"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 857930,
+  "cmc": 3.0,
+  "collector_number": "160",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 333,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Brave soldier boy comes marching home.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "6fe6ccad-e303-48f9-9dfa-0db7c1878031",
+  "illustration_id": "1363356c-9ccf-4a17-bad0-86da45bcb804",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:06:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/f/6fe6ccad-e303-48f9-9dfa-0db7c1878031.webp?1783904806",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/f/6fe6ccad-e303-48f9-9dfa-0db7c1878031.jpg?1783904806",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/f/6fe6ccad-e303-48f9-9dfa-0db7c1878031.jpg?1783904806",
+    "crop": "https://cards.scryfall.io/crop/front/6/f/6fe6ccad-e303-48f9-9dfa-0db7c1878031.webp?1783904806",
+    "display": "https://cards.scryfall.io/display/front/6/f/6fe6ccad-e303-48f9-9dfa-0db7c1878031.webp?1783904806",
+    "grid": "https://cards.scryfall.io/grid/front/6/f/6fe6ccad-e303-48f9-9dfa-0db7c1878031.webp?1783904806",
+    "large": "https://cards.scryfall.io/large/front/6/f/6fe6ccad-e303-48f9-9dfa-0db7c1878031.jpg?1783904806",
+    "normal": "https://cards.scryfall.io/normal/front/6/f/6fe6ccad-e303-48f9-9dfa-0db7c1878031.jpg?1783904806",
+    "png": "https://cards.scryfall.io/png/front/6/f/6fe6ccad-e303-48f9-9dfa-0db7c1878031.png?1783904806",
+    "small": "https://cards.scryfall.io/small/front/6/f/6fe6ccad-e303-48f9-9dfa-0db7c1878031.jpg?1783904806",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/f/6fe6ccad-e303-48f9-9dfa-0db7c1878031.webp?1783904806"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "multiverse_ids": [],
+  "name": "Bastion of Remembrance",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c7f33cea-2ec8-4081-9208-a5b1d86721b3",
+  "oracle_text": "When this enchantment enters, create a 1/1 white Human Soldier creature token.\nWhenever a creature you control dies, each opponent loses 1 life and you gain 1 life.",
+  "oversized": false,
+  "penny_rank": 2338,
+  "prices": {
+    "eur": "0.73",
+    "eur_foil": "0.97",
+    "tix": null,
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": "2.66"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac7f33cea-2ec8-4081-9208-a5b1d86721b3&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Bastion+of+Remembrance&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=857930&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F662454%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bastion+of+Remembrance",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBastion%2Bof%2BRemembrance",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBastion%2Bof%2BRemembrance"
+  },
+  "released_at": "2025-11-21",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "FA35F6BE4BC6B4637D264F0C4A22885ADE6FFB091E438B8B63644D1371AFBCD0",
+  "rulings_uri": "https://api.scryfall.com/cards/6fe6ccad-e303-48f9-9dfa-0db7c1878031/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tle?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tle/160/bastion-of-remembrance?utm_source=api",
+  "set": "tle",
+  "set_id": "a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "set_name": "Avatar: The Last Airbender Eternal",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atle&unique=prints",
+  "set_type": "eternal",
+  "set_uri": "https://api.scryfall.com/sets/a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "story_spotlight": false,
+  "tcgplayer_id": 662454,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/6fe6ccad-e303-48f9-9dfa-0db7c1878031",
+  "variation": false
+}
