@@ -15,7 +15,7 @@ Inspect the immediate subdirectories of `decks/` and their `cards.json` manifest
 - If several decks plausibly match, present the short list and ask the user to select one.
 - If none matches, infer a short name from the commander first, otherwise from the deck theme.
 - Use `decks/unrated_<slug>/` for a new deck, where `<slug>` is lowercase kebab-case.
-- Assessed decks use `decks/<bracket>_<slug>/`: `1_`, `2_`, `3_`, `3+_`, `4_`, or `5_`. High Bracket 3 uses `3+_`; other positions use their bracket number.
+- Assessed decks use `decks/<bracket>_<slug>/`: `1_`, `2_`, `3_`, `3+_`, `4_`, or `5_`. Bracket 3+ uses `3+_`; other positions use their bracket number.
 - Ignore these prefixes when matching a user's deck name or commander.
 - Ask for the name only if no clear commander or theme can be inferred.
 

@@ -21,7 +21,7 @@ Whenever the user posts a deck list or asks to begin work on a deck:
 9. Add or update the deck's primer link in the `Deck primers` section immediately below the root README title.
 10. Do not analyze or recommend changes until resolution errors are reported or fixed.
 
-A newly created deck is incomplete until its primer exists and is linked from the root README. Use directory prefixes `1_`, `2_`, `3_`, `3+_`, `4_`, or `5_` for assessed decks; use `unrated_` until assessment. High Bracket 3 maps to `3+_`.
+A newly created deck is incomplete until its primer exists and is linked from the root README. Use directory prefixes `1_`, `2_`, `3_`, `3+_`, `4_`, or `5_` for assessed decks; use `unrated_` until assessment. Bracket 3+ maps to `3+_`.
 
 Use the repository's `deck-workspace` skill for this workflow, `scryfall-lookup` for card searches, `deck-primer` when creating or updating a deck README or play guide, and `assess-deck` for bracket, power, or expected-win-turn analysis.
 
