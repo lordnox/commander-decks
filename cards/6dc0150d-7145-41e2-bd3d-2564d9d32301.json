@@ -1,0 +1,160 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "82aab532-0f3e-4569-9bef-18ce90654e5d",
+      "name": "Tormod, the Desecrator",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Zombie Wizard",
+      "uri": "https://api.scryfall.com/cards/82aab532-0f3e-4569-9bef-18ce90654e5d"
+    },
+    {
+      "component": "token",
+      "id": "9d62c8ad-af51-493c-aef1-fe7774156d4b",
+      "name": "Zombie",
+      "object": "related_card",
+      "type_line": "Token Creature — Zombie",
+      "uri": "https://api.scryfall.com/cards/9d62c8ad-af51-493c-aef1-fe7774156d4b"
+    }
+  ],
+  "artist": "Grzegorz Rutkowski",
+  "artist_ids": [
+    "b5f49d0d-8056-48e3-b614-090e656b4f9c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 511215,
+  "cmc": 4.0,
+  "collector_number": "155",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3590,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Life is but the precursor to a long and successful death.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "89903d5e-241f-477e-a336-2abe0232c04a",
+  "illustration_id": "db7f465a-b226-4b9e-80ec-87dd535354d9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:47:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/9/89903d5e-241f-477e-a336-2abe0232c04a.webp?1783928826",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/9/89903d5e-241f-477e-a336-2abe0232c04a.jpg?1783928826",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/9/89903d5e-241f-477e-a336-2abe0232c04a.jpg?1783928826",
+    "crop": "https://cards.scryfall.io/crop/front/8/9/89903d5e-241f-477e-a336-2abe0232c04a.webp?1783928826",
+    "display": "https://cards.scryfall.io/display/front/8/9/89903d5e-241f-477e-a336-2abe0232c04a.webp?1783928826",
+    "grid": "https://cards.scryfall.io/grid/front/8/9/89903d5e-241f-477e-a336-2abe0232c04a.webp?1783928826",
+    "large": "https://cards.scryfall.io/large/front/8/9/89903d5e-241f-477e-a336-2abe0232c04a.jpg?1783928826",
+    "normal": "https://cards.scryfall.io/normal/front/8/9/89903d5e-241f-477e-a336-2abe0232c04a.jpg?1783928826",
+    "png": "https://cards.scryfall.io/png/front/8/9/89903d5e-241f-477e-a336-2abe0232c04a.png?1783928826",
+    "small": "https://cards.scryfall.io/small/front/8/9/89903d5e-241f-477e-a336-2abe0232c04a.jpg?1783928826",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/9/89903d5e-241f-477e-a336-2abe0232c04a.webp?1783928826"
+  },
+  "keywords": [
+    "Partner"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "mtgo_id": 85092,
+  "multiverse_ids": [
+    497675
+  ],
+  "name": "Tormod, the Desecrator",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6dc0150d-7145-41e2-bd3d-2564d9d32301",
+  "oracle_text": "Whenever one or more cards leave your graveyard, create a tapped 2/2 black Zombie creature token.\nPartner (You can have two commanders if both have partner.)",
+  "oversized": false,
+  "power": "4",
+  "preview": {
+    "previewed_at": "2020-11-01",
+    "source": "Ladee Danger",
+    "source_uri": "https://twitter.com/Brttnymchlle/status/1322761670821703683"
+  },
+  "prices": {
+    "eur": "1.12",
+    "eur_foil": "1.86",
+    "tix": "0.35",
+    "usd": "0.88",
+    "usd_etched": null,
+    "usd_foil": "1.22"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6dc0150d-7145-41e2-bd3d-2564d9d32301&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/85092?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=511215&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F226883%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Tormod%2C+the+Desecrator",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=497675&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTormod%252C%2Bthe%2BDesecrator",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTormod%252C%2Bthe%2BDesecrator"
+  },
+  "released_at": "2020-11-20",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/89903d5e-241f-477e-a336-2abe0232c04a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmr/155/tormod-the-desecrator?utm_source=api",
+  "set": "cmr",
+  "set_id": "39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "set_name": "Commander Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "story_spotlight": false,
+  "tcgplayer_id": 226883,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Zombie Wizard",
+  "uri": "https://api.scryfall.com/cards/89903d5e-241f-477e-a336-2abe0232c04a",
+  "variation": false
+}
