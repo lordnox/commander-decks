@@ -1,0 +1,137 @@
+{
+  "arena_id": 83813,
+  "artist": "Peter Polach",
+  "artist_ids": [
+    "3cb68fd9-a9e9-425d-85a3-c116318a880f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 694321,
+  "cmc": 1.0,
+  "collector_number": "113",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2568,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "20a961ea-0639-4f5d-8cf4-f909c59a4ae1",
+  "illustration_id": "e96e1c61-9c0e-4ac4-85ba-f2f0fd2a0263",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:47:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/0/20a961ea-0639-4f5d-8cf4-f909c59a4ae1.webp?1783918038",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/0/20a961ea-0639-4f5d-8cf4-f909c59a4ae1.jpg?1783918038",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/0/20a961ea-0639-4f5d-8cf4-f909c59a4ae1.jpg?1783918038",
+    "crop": "https://cards.scryfall.io/crop/front/2/0/20a961ea-0639-4f5d-8cf4-f909c59a4ae1.webp?1783918038",
+    "display": "https://cards.scryfall.io/display/front/2/0/20a961ea-0639-4f5d-8cf4-f909c59a4ae1.webp?1783918038",
+    "grid": "https://cards.scryfall.io/grid/front/2/0/20a961ea-0639-4f5d-8cf4-f909c59a4ae1.webp?1783918038",
+    "large": "https://cards.scryfall.io/large/front/2/0/20a961ea-0639-4f5d-8cf4-f909c59a4ae1.jpg?1783918038",
+    "normal": "https://cards.scryfall.io/normal/front/2/0/20a961ea-0639-4f5d-8cf4-f909c59a4ae1.jpg?1783918038",
+    "png": "https://cards.scryfall.io/png/front/2/0/20a961ea-0639-4f5d-8cf4-f909c59a4ae1.png?1783918038",
+    "small": "https://cards.scryfall.io/small/front/2/0/20a961ea-0639-4f5d-8cf4-f909c59a4ae1.jpg?1783918038",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/0/20a961ea-0639-4f5d-8cf4-f909c59a4ae1.webp?1783918038"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 106441,
+  "multiverse_ids": [
+    602643
+  ],
+  "name": "Vat of Rebirth",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "10c31317-71e8-42e0-85e0-3e64bd0c3dd3",
+  "oracle_text": "Whenever another artifact or creature you control is put into a graveyard from the battlefield, put an oil counter on this artifact.\n{2}{B}, {T}, Remove four oil counters from this artifact: Return target creature card from your graveyard to the battlefield. Activate only as a sorcery.",
+  "oversized": false,
+  "penny_rank": 12337,
+  "preview": {
+    "previewed_at": "2023-01-23",
+    "source": "/r/magicTCG",
+    "source_uri": "https://www.reddit.com/r/magicTCG/comments/10ji0fb/one_vat_of_rebirth_rmagictcg_preview_card/"
+  },
+  "prices": {
+    "eur": "0.21",
+    "eur_foil": "0.45",
+    "tix": "0.03",
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": "0.37"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A10c31317-71e8-42e0-85e0-3e64bd0c3dd3&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/106441?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=694321&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F479047%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vat+of+Rebirth",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=602643&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVat%2Bof%2BRebirth",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVat%2Bof%2BRebirth"
+  },
+  "released_at": "2023-02-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/20a961ea-0639-4f5d-8cf4-f909c59a4ae1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/one?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/one/113/vat-of-rebirth?utm_source=api",
+  "set": "one",
+  "set_id": "04bef644-343f-4230-95ee-255f29aa67a2",
+  "set_name": "Phyrexia: All Will Be One",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aone&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/04bef644-343f-4230-95ee-255f29aa67a2",
+  "story_spotlight": false,
+  "tcgplayer_id": 479047,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/20a961ea-0639-4f5d-8cf4-f909c59a4ae1",
+  "variation": false
+}
