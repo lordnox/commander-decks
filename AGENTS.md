@@ -23,7 +23,7 @@ Whenever the user posts a deck list or asks to begin work on a deck:
 
 A newly created deck is incomplete until its primer exists and is linked from the root README.
 
-Use the repository's `deck-workspace` skill for this workflow, `scryfall-lookup` for card searches, and `deck-primer` when creating or updating a deck README or play guide.
+Use the repository's `deck-workspace` skill for this workflow, `scryfall-lookup` for card searches, `deck-primer` when creating or updating a deck README or play guide, and `assess-deck` for bracket, power, or expected-win-turn analysis.
 
 ## Repository structure
 
