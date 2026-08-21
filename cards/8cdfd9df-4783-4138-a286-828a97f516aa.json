@@ -1,0 +1,131 @@
+{
+  "artist": "Ben Maier",
+  "artist_ids": [
+    "7bc582c5-4733-4022-8cef-844b800be9f7"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 486404,
+  "cmc": 2.0,
+  "collector_number": "80",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3380,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "No lock of iron is a match for Vraska's will of stone.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "598405fd-02d2-4bf8-b241-7a2ae6338913",
+  "illustration_id": "59de31d0-ddf1-495d-8a20-dce841f2c6c1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:09:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/9/598405fd-02d2-4bf8-b241-7a2ae6338913.webp?1783930185",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/9/598405fd-02d2-4bf8-b241-7a2ae6338913.jpg?1783930185",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/9/598405fd-02d2-4bf8-b241-7a2ae6338913.jpg?1783930185",
+    "crop": "https://cards.scryfall.io/crop/front/5/9/598405fd-02d2-4bf8-b241-7a2ae6338913.webp?1783930185",
+    "display": "https://cards.scryfall.io/display/front/5/9/598405fd-02d2-4bf8-b241-7a2ae6338913.webp?1783930185",
+    "grid": "https://cards.scryfall.io/grid/front/5/9/598405fd-02d2-4bf8-b241-7a2ae6338913.webp?1783930185",
+    "large": "https://cards.scryfall.io/large/front/5/9/598405fd-02d2-4bf8-b241-7a2ae6338913.jpg?1783930185",
+    "normal": "https://cards.scryfall.io/normal/front/5/9/598405fd-02d2-4bf8-b241-7a2ae6338913.jpg?1783930185",
+    "png": "https://cards.scryfall.io/png/front/5/9/598405fd-02d2-4bf8-b241-7a2ae6338913.png?1783930185",
+    "small": "https://cards.scryfall.io/small/front/5/9/598405fd-02d2-4bf8-b241-7a2ae6338913.jpg?1783930185",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/9/598405fd-02d2-4bf8-b241-7a2ae6338913.webp?1783930185"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 82194,
+  "multiverse_ids": [
+    489753
+  ],
+  "name": "Costly Plunder",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8cdfd9df-4783-4138-a286-828a97f516aa",
+  "oracle_text": "As an additional cost to cast this spell, sacrifice an artifact or creature.\nDraw two cards.",
+  "oversized": false,
+  "penny_rank": 3817,
+  "prices": {
+    "eur": "0.14",
+    "eur_foil": "0.23",
+    "tix": "0.03",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": "0.29"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8cdfd9df-4783-4138-a286-828a97f516aa&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/82194?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=486404&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F219522%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Costly+Plunder",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=489753&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCostly%2BPlunder",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCostly%2BPlunder"
+  },
+  "released_at": "2020-08-07",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/598405fd-02d2-4bf8-b241-7a2ae6338913/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/2xm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/2xm/80/costly-plunder?utm_source=api",
+  "set": "2xm",
+  "set_id": "372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "set_name": "Double Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A2xm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "story_spotlight": false,
+  "tcgplayer_id": 219522,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/598405fd-02d2-4bf8-b241-7a2ae6338913",
+  "variation": false
+}
