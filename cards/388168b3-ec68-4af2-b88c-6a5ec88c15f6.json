@@ -1,0 +1,144 @@
+{
+  "arena_id": 70222,
+  "artist": "Ryan Pancoast",
+  "artist_ids": [
+    "89cc9475-dda2-4d13-bf88-54b92867a25c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 400259,
+  "cmc": 3.0,
+  "collector_number": "75",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 841,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Mourning shifts seamlessly to celebration as she chooses her next suitor.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ed0ace28-9a33-4f0d-b8c8-f5517f20ccf1",
+  "illustration_id": "93256148-fa83-4a5d-bb4b-92580eaaf3bb",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:50:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/d/ed0ace28-9a33-4f0d-b8c8-f5517f20ccf1.webp?1783932644",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/d/ed0ace28-9a33-4f0d-b8c8-f5517f20ccf1.jpg?1783932644",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/d/ed0ace28-9a33-4f0d-b8c8-f5517f20ccf1.jpg?1783932644",
+    "crop": "https://cards.scryfall.io/crop/front/e/d/ed0ace28-9a33-4f0d-b8c8-f5517f20ccf1.webp?1783932644",
+    "display": "https://cards.scryfall.io/display/front/e/d/ed0ace28-9a33-4f0d-b8c8-f5517f20ccf1.webp?1783932644",
+    "grid": "https://cards.scryfall.io/grid/front/e/d/ed0ace28-9a33-4f0d-b8c8-f5517f20ccf1.webp?1783932644",
+    "large": "https://cards.scryfall.io/large/front/e/d/ed0ace28-9a33-4f0d-b8c8-f5517f20ccf1.jpg?1783932644",
+    "normal": "https://cards.scryfall.io/normal/front/e/d/ed0ace28-9a33-4f0d-b8c8-f5517f20ccf1.jpg?1783932644",
+    "png": "https://cards.scryfall.io/png/front/e/d/ed0ace28-9a33-4f0d-b8c8-f5517f20ccf1.png?1783932644",
+    "small": "https://cards.scryfall.io/small/front/e/d/ed0ace28-9a33-4f0d-b8c8-f5517f20ccf1.jpg?1783932644",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/d/ed0ace28-9a33-4f0d-b8c8-f5517f20ccf1.webp?1783932644"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}{B}{B}",
+  "mtgo_id": 78262,
+  "multiverse_ids": [
+    473037
+  ],
+  "name": "Ayara, First of Locthwain",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "388168b3-ec68-4af2-b88c-6a5ec88c15f6",
+  "oracle_text": "Whenever Ayara or another black creature you control enters, each opponent loses 1 life and you gain 1 life.\n{T}, Sacrifice another black creature: Draw a card.",
+  "oversized": false,
+  "penny_rank": 2868,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2019-09-11",
+    "source": "Good Luck High Five",
+    "source_uri": "https://youtu.be/qhWhI57on0Q"
+  },
+  "prices": {
+    "eur": "6.34",
+    "eur_foil": "8.11",
+    "tix": "0.02",
+    "usd": "7.95",
+    "usd_etched": null,
+    "usd_foil": "11.00"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A388168b3-ec68-4af2-b88c-6a5ec88c15f6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/78262?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=400259&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F198909%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ayara%2C+First+of+Locthwain",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=473037&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAyara%252C%2BFirst%2Bof%2BLocthwain",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAyara%252C%2BFirst%2Bof%2BLocthwain"
+  },
+  "released_at": "2019-10-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ed0ace28-9a33-4f0d-b8c8-f5517f20ccf1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eld?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eld/75/ayara-first-of-locthwain?utm_source=api",
+  "security_stamp": "oval",
+  "set": "eld",
+  "set_id": "a90a7b2f-9dd8-4fc7-9f7d-8ea2797ec782",
+  "set_name": "Throne of Eldraine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeld&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a90a7b2f-9dd8-4fc7-9f7d-8ea2797ec782",
+  "story_spotlight": false,
+  "tcgplayer_id": 198909,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Legendary Creature — Elf Noble",
+  "uri": "https://api.scryfall.com/cards/ed0ace28-9a33-4f0d-b8c8-f5517f20ccf1",
+  "variation": false
+}
