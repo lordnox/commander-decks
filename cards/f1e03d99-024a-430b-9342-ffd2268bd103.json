@@ -1,0 +1,155 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "0886657d-afb0-4f1f-9af7-960724793077",
+      "name": "Radiation",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/0886657d-afb0-4f1f-9af7-960724793077"
+    },
+    {
+      "component": "combo_piece",
+      "id": "2724c630-5638-4b6a-8f1e-0f764b11c8d8",
+      "name": "Mariposa Military Base",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/2724c630-5638-4b6a-8f1e-0f764b11c8d8"
+    }
+  ],
+  "artist": "Alexander Forssberg",
+  "artist_ids": [
+    "85908891-3cc7-42b0-9b54-27ed0fe89c53"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 758561,
+  "cmc": 0.0,
+  "collector_number": "151",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 5365,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "cd7be9d4-f9fa-44a3-9902-7e9e226ccf56",
+  "illustration_id": "3c1e4294-0502-4e07-b3e4-70259475657e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:12:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/d/cd7be9d4-f9fa-44a3-9902-7e9e226ccf56.webp?1783912373",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/d/cd7be9d4-f9fa-44a3-9902-7e9e226ccf56.jpg?1783912373",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/d/cd7be9d4-f9fa-44a3-9902-7e9e226ccf56.jpg?1783912373",
+    "crop": "https://cards.scryfall.io/crop/front/c/d/cd7be9d4-f9fa-44a3-9902-7e9e226ccf56.webp?1783912373",
+    "display": "https://cards.scryfall.io/display/front/c/d/cd7be9d4-f9fa-44a3-9902-7e9e226ccf56.webp?1783912373",
+    "grid": "https://cards.scryfall.io/grid/front/c/d/cd7be9d4-f9fa-44a3-9902-7e9e226ccf56.webp?1783912373",
+    "large": "https://cards.scryfall.io/large/front/c/d/cd7be9d4-f9fa-44a3-9902-7e9e226ccf56.jpg?1783912373",
+    "normal": "https://cards.scryfall.io/normal/front/c/d/cd7be9d4-f9fa-44a3-9902-7e9e226ccf56.jpg?1783912373",
+    "png": "https://cards.scryfall.io/png/front/c/d/cd7be9d4-f9fa-44a3-9902-7e9e226ccf56.png?1783912373",
+    "small": "https://cards.scryfall.io/small/front/c/d/cd7be9d4-f9fa-44a3-9902-7e9e226ccf56.jpg?1783912373",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/d/cd7be9d4-f9fa-44a3-9902-7e9e226ccf56.webp?1783912373"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 132551,
+  "multiverse_ids": [
+    652238
+  ],
+  "name": "Mariposa Military Base",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f1e03d99-024a-430b-9342-ffd2268bd103",
+  "oracle_text": "You may have this land enter tapped. If you do, you get two rad counters.\n{T}: Add {C}.\n{5}, {T}: Draw a card. This ability costs {1} less to activate for each rad counter you have.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-02-22",
+    "source": "LoadingReadyRun",
+    "source_uri": "https://www.youtube.com/watch?v=gsFd6vUyUbg"
+  },
+  "prices": {
+    "eur": "0.24",
+    "eur_foil": "0.48",
+    "tix": "0.84",
+    "usd": "0.36",
+    "usd_etched": null,
+    "usd_foil": "0.32"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af1e03d99-024a-430b-9342-ffd2268bd103&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/132551?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=758561&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F540857%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mariposa+Military+Base",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=652238&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMariposa%2BMilitary%2BBase",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMariposa%2BMilitary%2BBase"
+  },
+  "released_at": "2024-03-08",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/cd7be9d4-f9fa-44a3-9902-7e9e226ccf56/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/pip?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/pip/151/mariposa-military-base?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "pip",
+  "set_id": "d84d7a49-2ef4-4808-83b4-8c65b4aa0e2d",
+  "set_name": "Fallout",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Apip&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d84d7a49-2ef4-4808-83b4-8c65b4aa0e2d",
+  "story_spotlight": false,
+  "tcgplayer_id": 540857,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/cd7be9d4-f9fa-44a3-9902-7e9e226ccf56",
+  "variation": false
+}
