@@ -125,10 +125,11 @@ Before making changes:
 1. Read AGENTS.md.
 2. Read .agents/skills/deck-workspace/SKILL.md.
 3. For card searches, read .agents/skills/scryfall-lookup/SKILL.md.
-4. Follow those workflows exactly.
-5. Preserve submitted deck lists and never overwrite a likely existing deck
+4. For a deck README or play guide, read .agents/skills/deck-primer/SKILL.md.
+5. Follow those workflows exactly.
+6. Preserve submitted deck lists and never overwrite a likely existing deck
    without confirmation.
-6. Ensure every resolved card has one or more categories.
+7. Ensure every resolved card has one or more categories.
 ```
 
 To resolve a saved list manually:
@@ -149,6 +150,7 @@ decks/
     decklist.txt
     cards.json
     category-overrides.json
+    README.md
 cards/
   index.json
   categories.json
@@ -157,6 +159,7 @@ cards/
   skills/
     deck-workspace/
     scryfall-lookup/
+    deck-primer/
 ```
 
 ## Example requests
