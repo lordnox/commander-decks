@@ -3,7 +3,7 @@
 ## Deck primers
 
 - [Bartolomé del Presidio](decks/bartolome-del-presidio/README.md)
-- [Bartolomé del Skeleton 🦴](decks/bartolome-del-skeleton/README.md)
+- [Bartolomé del Skeleton 🦴](decks/3+_bartolome-del-skeleton/README.md)
 - [Mishra — Racecar Driver](decks/mishra-racecar-driver/README.md)
 - [Ozox — Graveyard Rotation](decks/ozox-graveyard-rotation/README.md)
 
@@ -84,12 +84,12 @@ When a deck list is submitted, the agent must:
 1. Check the existing directories under `decks/`.
 2. Ask whether a likely existing deck is the intended deck.
 3. Otherwise infer a deck name, asking only when unclear.
-4. Save the original list as `decks/<deck-name>/decklist.txt`.
+4. Save the original list as `decks/<bracket>_<deck-name>/decklist.txt`.
 5. Resolve every card using Scryfall.
 6. Assign one or more categories to every card.
-7. Write the deck manifest to `decks/<deck-name>/cards.json`.
+7. Write the deck manifest to `decks/<bracket>_<deck-name>/cards.json`.
 8. Cache shared card data and universal categories under `cards/`.
-9. Create the deck primer at `decks/<deck-name>/README.md`.
+9. Create the deck primer at `decks/<bracket>_<deck-name>/README.md`.
 10. Add or update its link in the `Deck primers` section at the top of this README.
 11. Report unresolved names before analyzing the deck.
 
@@ -108,7 +108,7 @@ Example:
 }
 ```
 
-When a card serves a different purpose in one deck, add it to `decks/<deck-name>/category-overrides.json`:
+When a card serves a different purpose in one deck, add it to `decks/<bracket>_<deck-name>/category-overrides.json`:
 
 ```json
 {
@@ -148,7 +148,7 @@ To resolve a saved list manually:
 
 ```bash
 python3 .agents/skills/deck-workspace/scripts/cache_deck.py \
-  decks/<deck-name>/decklist.txt
+  decks/<bracket>_<deck-name>/decklist.txt
 ```
 
 Use `--refresh` to retrieve fresh data for cards already present in the cache. Rerun the command after editing categories or deck overrides to regenerate effective categories.

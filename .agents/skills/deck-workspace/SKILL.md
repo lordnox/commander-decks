@@ -14,26 +14,28 @@ Inspect the immediate subdirectories of `decks/` and their `cards.json` manifest
 - If one existing deck plausibly matches the named commander, deck name, or submitted list, ask: “Are we working on `<deck-name>`?”
 - If several decks plausibly match, present the short list and ask the user to select one.
 - If none matches, infer a short name from the commander first, otherwise from the deck theme.
-- Use a lowercase kebab-case directory slug.
+- Use `decks/unrated_<slug>/` for a new deck, where `<slug>` is lowercase kebab-case.
+- Assessed decks use `decks/<bracket>_<slug>/`: `1_`, `2_`, `3_`, `3+_`, `4_`, or `5_`. Bracket 3+ uses `3+_`; other positions use their bracket number.
+- Ignore these prefixes when matching a user's deck name or commander.
 - Ask for the name only if no clear commander or theme can be inferred.
 
 Do not overwrite an existing deck until its identity is confirmed.
 
 ## 2. Save the source list
 
-Create `decks/<slug>/decklist.txt` and preserve the submitted text exactly, including headings and quantities. When updating an existing list, replace it only if the user supplied a replacement list or explicitly requested the edit.
+Create `decks/<prefix><slug>/decklist.txt` and preserve the submitted text exactly, including headings and quantities. When updating an existing list, replace it only if the user supplied a replacement list or explicitly requested the edit.
 
 ## 3. Resolve and cache cards
 
 Run:
 
 ```bash
-python3 .agents/skills/deck-workspace/scripts/cache_deck.py decks/<slug>/decklist.txt
+python3 .agents/skills/deck-workspace/scripts/cache_deck.py decks/<prefix><slug>/decklist.txt
 ```
 
 The script writes:
 
-- `decks/<slug>/cards.json` (including compact Oracle text and card characteristics)
+- `decks/<prefix><slug>/cards.json` (including compact Oracle text and card characteristics)
 - `cards/<oracle-id>.json`
 - `cards/index.json`
 - `cards/categories.json`
@@ -63,7 +65,7 @@ Every card must have one or more categories.
 - Categories may describe universal functions such as `ramp`, `card-draw`, `removal`, `board-wipe`, `protection`, `recursion`, `tutor`, `counterspell`, `token-production`, `land`, or `win-condition`.
 - Do not force a global taxonomy when a clearer functional label is useful.
 
-When a card has a different role in one deck, create or edit `decks/<slug>/category-overrides.json`:
+When a card has a different role in one deck, create or edit `decks/<prefix><slug>/category-overrides.json`:
 
 ```json
 {
@@ -84,7 +86,7 @@ A deck override replaces the universal category list for that card in that deck.
 After all cards resolve and have useful categories:
 
 1. Read and follow `.agents/skills/deck-primer/SKILL.md`.
-2. Create or refresh `decks/<slug>/README.md` from the resolved manifest.
+2. Create or refresh `decks/<prefix><slug>/README.md` from the resolved manifest.
 3. Do not leave a newly created deck without a primer.
 4. If the primer cannot be completed, report the blocker and treat deck creation as incomplete.
 
@@ -92,11 +94,12 @@ After all cards resolve and have useful categories:
 
 Maintain a `## Deck primers` section immediately after the root README title.
 
-- Add a relative Markdown link to `decks/<slug>/README.md`.
+- Add a relative Markdown link to `decks/<prefix><slug>/README.md`.
 - Use the deck's human-readable name as the link label.
 - Keep one entry per deck, sorted alphabetically.
 - Preserve all existing primer links.
 - When a deck is renamed, update its link rather than adding a duplicate.
+- After `assess-deck` changes a bracket prefix, update every stored path, including the manifest's `source` field.
 
 ## 7. Continue deck work
 
