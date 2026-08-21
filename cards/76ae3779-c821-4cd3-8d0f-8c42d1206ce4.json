@@ -1,0 +1,141 @@
+{
+  "arena_id": 69204,
+  "artist": "Grzegorz Rutkowski",
+  "artist_ids": [
+    "b5f49d0d-8056-48e3-b614-090e656b4f9c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 368137,
+  "cmc": 1.0,
+  "collector_number": "76",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 10223,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Down here, things don't stay dead.\"\n—Lavinia",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "6a1c710b-bd67-4174-ab02-6ae98a7575ac",
+  "illustration_id": "54bac551-83b4-4ea5-8a1c-00c465f5e08d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:08:14Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/a/6a1c710b-bd67-4174-ab02-6ae98a7575ac.webp?1783933694",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/a/6a1c710b-bd67-4174-ab02-6ae98a7575ac.jpg?1783933694",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/a/6a1c710b-bd67-4174-ab02-6ae98a7575ac.jpg?1783933694",
+    "crop": "https://cards.scryfall.io/crop/front/6/a/6a1c710b-bd67-4174-ab02-6ae98a7575ac.webp?1783933694",
+    "display": "https://cards.scryfall.io/display/front/6/a/6a1c710b-bd67-4174-ab02-6ae98a7575ac.webp?1783933694",
+    "grid": "https://cards.scryfall.io/grid/front/6/a/6a1c710b-bd67-4174-ab02-6ae98a7575ac.webp?1783933694",
+    "large": "https://cards.scryfall.io/large/front/6/a/6a1c710b-bd67-4174-ab02-6ae98a7575ac.jpg?1783933694",
+    "normal": "https://cards.scryfall.io/normal/front/6/a/6a1c710b-bd67-4174-ab02-6ae98a7575ac.jpg?1783933694",
+    "png": "https://cards.scryfall.io/png/front/6/a/6a1c710b-bd67-4174-ab02-6ae98a7575ac.png?1783933694",
+    "small": "https://cards.scryfall.io/small/front/6/a/6a1c710b-bd67-4174-ab02-6ae98a7575ac.jpg?1783933694",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/a/6a1c710b-bd67-4174-ab02-6ae98a7575ac.webp?1783933694"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 71152,
+  "multiverse_ids": [
+    457220
+  ],
+  "name": "Gutterbones",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "76ae3779-c821-4cd3-8d0f-8c42d1206ce4",
+  "oracle_text": "This creature enters tapped.\n{1}{B}: Return this card from your graveyard to your hand. Activate only during your turn and only if an opponent lost life this turn.",
+  "oversized": false,
+  "penny_rank": 2145,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2019-01-03",
+    "source": "LoadingReadyRun",
+    "source_uri": "https://twitter.com/loadingreadyrun/status/1080981598500093952"
+  },
+  "prices": {
+    "eur": "0.50",
+    "eur_foil": "1.24",
+    "tix": "0.02",
+    "usd": "0.40",
+    "usd_etched": null,
+    "usd_foil": "1.49"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A76ae3779-c821-4cd3-8d0f-8c42d1206ce4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/71152?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=368137&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F183034%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Gutterbones",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=457220&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGutterbones",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGutterbones"
+  },
+  "released_at": "2019-01-25",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/6a1c710b-bd67-4174-ab02-6ae98a7575ac/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rna?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rna/76/gutterbones?utm_source=api",
+  "security_stamp": "oval",
+  "set": "rna",
+  "set_id": "97a7fd84-8d89-45a3-b48b-c951f6a3f9f1",
+  "set_name": "Ravnica Allegiance",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arna&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/97a7fd84-8d89-45a3-b48b-c951f6a3f9f1",
+  "story_spotlight": false,
+  "tcgplayer_id": 183034,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Skeleton Warrior",
+  "uri": "https://api.scryfall.com/cards/6a1c710b-bd67-4174-ab02-6ae98a7575ac",
+  "variation": false
+}
