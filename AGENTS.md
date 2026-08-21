@@ -12,7 +12,8 @@ Whenever the user posts a deck list or asks to begin work on a deck:
 4. If no deck matches, infer a concise kebab-case name from the commander or theme. Ask for a name only when the identity is ambiguous.
 5. Create `decks/<deck-name>/` and save the submitted list unchanged as `decklist.txt`.
 6. Resolve every card through Scryfall and update the repository cache and deck manifest.
-7. Do not analyze or recommend changes until resolution errors are reported or fixed.
+7. Assign one or more useful categories to every resolved card. Use universal categories unless the card has a deck-specific role.
+8. Do not analyze or recommend changes until resolution errors are reported or fixed.
 
 Use the repository's `deck-workspace` skill for this workflow and `scryfall-lookup` for card searches.
 
@@ -22,5 +23,9 @@ Use the repository's `deck-workspace` skill for this workflow and `scryfall-look
 - `decks/<deck-name>/cards.json`: resolved quantities and cache references
 - `cards/<oracle-id>.json`: shared Scryfall card object, one per Oracle card
 - `cards/index.json`: normalized card-name aliases mapped to Oracle IDs
+- `cards/categories.json`: universal categories keyed by Oracle ID
+- `decks/<deck-name>/category-overrides.json`: optional deck-specific category replacements
+
+Every card must have at least one category. Deck-specific categories replace, rather than merge with, universal categories for that deck.
 
 Do not duplicate card JSON inside deck directories. Preserve the user's deck-list formatting unless they ask for normalization.
