@@ -1,0 +1,131 @@
+{
+  "artist": "Johann Bodin",
+  "artist_ids": [
+    "d92e2dd9-9ef6-43f6-81f8-df87f9066983"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 788785,
+  "cmc": 1.0,
+  "collector_number": "155",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 56,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"You'd better be worth it.\"\n—Liliana Vess",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "368b6903-5fc4-43e7-bd44-46b8107c8bb4",
+  "illustration_id": "05602716-fdf8-4273-9d5c-e87a56af890b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:26:54Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/6/368b6903-5fc4-43e7-bd44-46b8107c8bb4.webp?1783909614",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/6/368b6903-5fc4-43e7-bd44-46b8107c8bb4.jpg?1783909614",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/6/368b6903-5fc4-43e7-bd44-46b8107c8bb4.jpg?1783909614",
+    "crop": "https://cards.scryfall.io/crop/front/3/6/368b6903-5fc4-43e7-bd44-46b8107c8bb4.webp?1783909614",
+    "display": "https://cards.scryfall.io/display/front/3/6/368b6903-5fc4-43e7-bd44-46b8107c8bb4.webp?1783909614",
+    "grid": "https://cards.scryfall.io/grid/front/3/6/368b6903-5fc4-43e7-bd44-46b8107c8bb4.webp?1783909614",
+    "large": "https://cards.scryfall.io/large/front/3/6/368b6903-5fc4-43e7-bd44-46b8107c8bb4.jpg?1783909614",
+    "normal": "https://cards.scryfall.io/normal/front/3/6/368b6903-5fc4-43e7-bd44-46b8107c8bb4.jpg?1783909614",
+    "png": "https://cards.scryfall.io/png/front/3/6/368b6903-5fc4-43e7-bd44-46b8107c8bb4.png?1783909614",
+    "small": "https://cards.scryfall.io/small/front/3/6/368b6903-5fc4-43e7-bd44-46b8107c8bb4.jpg?1783909614",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/6/368b6903-5fc4-43e7-bd44-46b8107c8bb4.webp?1783909614"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "banned",
+    "future": "not_legal",
+    "gladiator": "banned",
+    "historic": "banned",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 130933,
+  "multiverse_ids": [
+    676028
+  ],
+  "name": "Reanimate",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
+  "oracle_text": "Put target creature card from a graveyard onto the battlefield under your control. You lose life equal to that card's mana value.",
+  "oversized": false,
+  "penny_rank": 142,
+  "prices": {
+    "eur": "8.48",
+    "eur_foil": null,
+    "tix": "1.02",
+    "usd": "9.08",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa044474a-cd72-4e9d-bd8d-a08f2de9cdc0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130933?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=788785&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F579066%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Reanimate",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676028&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DReanimate",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DReanimate"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/368b6903-5fc4-43e7-bd44-46b8107c8bb4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/155/reanimate?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 579066,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/368b6903-5fc4-43e7-bd44-46b8107c8bb4",
+  "variation": false
+}
