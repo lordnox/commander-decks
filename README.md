@@ -2,10 +2,10 @@
 
 ## Deck primers
 
-- [Bartolomé del Presidio](decks/bartolome-del-presidio/README.md)
-- [Bartolomé del Skeleton 🦴](decks/3+_bartolome-del-skeleton/README.md)
-- [Mishra — Racecar Driver](decks/mishra-racecar-driver/README.md)
-- [Ozox — Graveyard Rotation](decks/ozox-graveyard-rotation/README.md)
+- [3 — Bartolomé del Presidio](decks/bartolome-del-presidio/README.md)
+- [3 — Mishra — Racecar Driver](decks/mishra-racecar-driver/README.md)
+- [3+ — Bartolomé del Skeleton 🦴](decks/3+_bartolome-del-skeleton/README.md)
+- [3+ — Ozox — Graveyard Rotation](decks/ozox-graveyard-rotation/README.md)
 
 A conversation-driven workspace for importing, resolving, categorizing, assessing, and improving Magic: The Gathering Commander decks.
 
