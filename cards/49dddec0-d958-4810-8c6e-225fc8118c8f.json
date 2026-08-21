@@ -1,0 +1,136 @@
+{
+  "artist": "Joe Slucher",
+  "artist_ids": [
+    "13b6c9ee-f7a8-46a4-934f-ea6b4a1b14b2"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 375390,
+  "cmc": 1.0,
+  "collector_number": "86",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 989,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The only shortcut in a bog is to the bottom.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5bcb4398-edd1-41a7-a496-b12bce22ceb6",
+  "illustration_id": "73a2c74c-4f22-4041-94fc-e2c9ce0943f7",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:58:50Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/b/5bcb4398-edd1-41a7-a496-b12bce22ceb6.webp?1783933130",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/b/5bcb4398-edd1-41a7-a496-b12bce22ceb6.jpg?1783933130",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/b/5bcb4398-edd1-41a7-a496-b12bce22ceb6.jpg?1783933130",
+    "crop": "https://cards.scryfall.io/crop/front/5/b/5bcb4398-edd1-41a7-a496-b12bce22ceb6.webp?1783933130",
+    "display": "https://cards.scryfall.io/display/front/5/b/5bcb4398-edd1-41a7-a496-b12bce22ceb6.webp?1783933130",
+    "grid": "https://cards.scryfall.io/grid/front/5/b/5bcb4398-edd1-41a7-a496-b12bce22ceb6.webp?1783933130",
+    "large": "https://cards.scryfall.io/large/front/5/b/5bcb4398-edd1-41a7-a496-b12bce22ceb6.jpg?1783933130",
+    "normal": "https://cards.scryfall.io/normal/front/5/b/5bcb4398-edd1-41a7-a496-b12bce22ceb6.jpg?1783933130",
+    "png": "https://cards.scryfall.io/png/front/5/b/5bcb4398-edd1-41a7-a496-b12bce22ceb6.png?1783933130",
+    "small": "https://cards.scryfall.io/small/front/5/b/5bcb4398-edd1-41a7-a496-b12bce22ceb6.jpg?1783933130",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/b/5bcb4398-edd1-41a7-a496-b12bce22ceb6.webp?1783933130"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 72544,
+  "multiverse_ids": [
+    464035
+  ],
+  "name": "Defile",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "49dddec0-d958-4810-8c6e-225fc8118c8f",
+  "oracle_text": "Target creature gets -1/-1 until end of turn for each Swamp you control.",
+  "oversized": false,
+  "penny_rank": 318,
+  "preview": {
+    "previewed_at": "2019-05-30",
+    "source": "Tolarian Community College",
+    "source_uri": "https://www.youtube.com/watch?v=KUE_nI7dRRc"
+  },
+  "prices": {
+    "eur": "1.03",
+    "eur_foil": "3.43",
+    "tix": "0.05",
+    "usd": "1.46",
+    "usd_etched": null,
+    "usd_foil": "3.02"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A49dddec0-d958-4810-8c6e-225fc8118c8f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/72544?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=375390&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F191582%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Defile",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=464035&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDefile",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDefile"
+  },
+  "released_at": "2019-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5bcb4398-edd1-41a7-a496-b12bce22ceb6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh1?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh1/86/defile?utm_source=api",
+  "set": "mh1",
+  "set_id": "d7efccd6-55bc-4fb8-9138-e72577510a99",
+  "set_name": "Modern Horizons",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh1&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/d7efccd6-55bc-4fb8-9138-e72577510a99",
+  "story_spotlight": false,
+  "tcgplayer_id": 191582,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/5bcb4398-edd1-41a7-a496-b12bce22ceb6",
+  "variation": false
+}
