@@ -1,5 +1,7 @@
 # Mishra — Racecar Driver
 
+> Mid Bracket 3 artifact-value deck. Usually threatens a win around turn eight, with strong starts applying pressure around turn six.
+
 A Grixis artifact-and-Vehicles deck that turns utility artifacts into disposable 4/4 racers, repeatedly reusing their enters-the-battlefield and attack abilities.
 
 ## Deck summary
