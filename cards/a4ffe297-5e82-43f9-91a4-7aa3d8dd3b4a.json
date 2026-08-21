@@ -1,0 +1,139 @@
+{
+  "arena_id": 93668,
+  "artist": "Simon Dominic",
+  "artist_ids": [
+    "b0e80135-db5a-4b88-a0bc-815a0e94faa1"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 797897,
+  "cmc": 3.0,
+  "collector_number": "519",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 12300,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2cd74e93-064a-42d7-8e6e-c413912a08cd",
+  "illustration_id": "71b8b8c9-2fa0-40bf-87a5-674ed7ac2d20",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:15:59Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/c/2cd74e93-064a-42d7-8e6e-c413912a08cd.webp?1783908959",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/c/2cd74e93-064a-42d7-8e6e-c413912a08cd.jpg?1783908959",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/c/2cd74e93-064a-42d7-8e6e-c413912a08cd.jpg?1783908959",
+    "crop": "https://cards.scryfall.io/crop/front/2/c/2cd74e93-064a-42d7-8e6e-c413912a08cd.webp?1783908959",
+    "display": "https://cards.scryfall.io/display/front/2/c/2cd74e93-064a-42d7-8e6e-c413912a08cd.webp?1783908959",
+    "grid": "https://cards.scryfall.io/grid/front/2/c/2cd74e93-064a-42d7-8e6e-c413912a08cd.webp?1783908959",
+    "large": "https://cards.scryfall.io/large/front/2/c/2cd74e93-064a-42d7-8e6e-c413912a08cd.jpg?1783908959",
+    "normal": "https://cards.scryfall.io/normal/front/2/c/2cd74e93-064a-42d7-8e6e-c413912a08cd.jpg?1783908959",
+    "png": "https://cards.scryfall.io/png/front/2/c/2cd74e93-064a-42d7-8e6e-c413912a08cd.png?1783908959",
+    "small": "https://cards.scryfall.io/small/front/2/c/2cd74e93-064a-42d7-8e6e-c413912a08cd.jpg?1783908959",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/c/2cd74e93-064a-42d7-8e6e-c413912a08cd.webp?1783908959"
+  },
+  "keywords": [
+    "Flying",
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 134810,
+  "multiverse_ids": [
+    677958
+  ],
+  "name": "Crow of Dark Tidings",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a4ffe297-5e82-43f9-91a4-7aa3d8dd3b4a",
+  "oracle_text": "Flying\nWhen this creature enters or dies, mill two cards. (Put the top two cards of your library into your graveyard.)",
+  "oversized": false,
+  "penny_rank": 12097,
+  "power": "2",
+  "prices": {
+    "eur": "0.28",
+    "eur_foil": null,
+    "tix": "0.03",
+    "usd": "0.23",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa4ffe297-5e82-43f9-91a4-7aa3d8dd3b4a&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "beginnerbox"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/134810?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=797897&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F591721%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Crow+of+Dark+Tidings",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=677958&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCrow%2Bof%2BDark%2BTidings",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCrow%2Bof%2BDark%2BTidings"
+  },
+  "released_at": "2024-11-15",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2cd74e93-064a-42d7-8e6e-c413912a08cd/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fdn/519/crow-of-dark-tidings?utm_source=api",
+  "set": "fdn",
+  "set_id": "a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "set_name": "Foundations",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afdn&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "story_spotlight": false,
+  "tcgplayer_id": 591721,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Zombie Bird",
+  "uri": "https://api.scryfall.com/cards/2cd74e93-064a-42d7-8e6e-c413912a08cd",
+  "variation": false
+}
