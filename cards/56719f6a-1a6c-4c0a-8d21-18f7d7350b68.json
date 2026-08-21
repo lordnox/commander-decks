@@ -1,0 +1,127 @@
+{
+  "artist": "Bastien Grivet",
+  "artist_ids": [
+    "434a6cf6-c6bf-4f87-84db-d0a902393b9e"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "321",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "b7387103-1df1-4fd0-9e91-1544509792c7",
+  "illustration_id": "2df014dd-87f0-401c-b09e-54a7b53f6459",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-08-06T02:00:59Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/7/b7387103-1df1-4fd0-9e91-1544509792c7.webp?1785981659",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/7/b7387103-1df1-4fd0-9e91-1544509792c7.jpg?1785981659",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/7/b7387103-1df1-4fd0-9e91-1544509792c7.jpg?1785981659",
+    "crop": "https://cards.scryfall.io/crop/front/b/7/b7387103-1df1-4fd0-9e91-1544509792c7.webp?1785981659",
+    "display": "https://cards.scryfall.io/display/front/b/7/b7387103-1df1-4fd0-9e91-1544509792c7.webp?1785981659",
+    "grid": "https://cards.scryfall.io/grid/front/b/7/b7387103-1df1-4fd0-9e91-1544509792c7.webp?1785981659",
+    "large": "https://cards.scryfall.io/large/front/b/7/b7387103-1df1-4fd0-9e91-1544509792c7.jpg?1785981659",
+    "normal": "https://cards.scryfall.io/normal/front/b/7/b7387103-1df1-4fd0-9e91-1544509792c7.jpg?1785981659",
+    "png": "https://cards.scryfall.io/png/front/b/7/b7387103-1df1-4fd0-9e91-1544509792c7.png?1785981659",
+    "small": "https://cards.scryfall.io/small/front/b/7/b7387103-1df1-4fd0-9e91-1544509792c7.jpg?1785981659",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/7/b7387103-1df1-4fd0-9e91-1544509792c7.webp?1785981659"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Swamp",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
+  "oracle_text": "({T}: Add {B}.)",
+  "oversized": false,
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A56719f6a-1a6c-4c0a-8d21-18f7d7350b68&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Swamp&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Swamp&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DSwamp%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Swamp",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSwamp",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSwamp"
+  },
+  "released_at": "2026-11-13",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b7387103-1df1-4fd0-9e91-1544509792c7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/trk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
+  "set": "trk",
+  "set_id": "b47039dc-da5a-448c-8feb-e77d458108a6",
+  "set_name": "Star Trek",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atrk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/b47039dc-da5a-448c-8feb-e77d458108a6",
+  "story_spotlight": false,
+  "textless": false,
+  "type_line": "Basic Land — Swamp",
+  "uri": "https://api.scryfall.com/cards/b7387103-1df1-4fd0-9e91-1544509792c7",
+  "variation": false
+}
