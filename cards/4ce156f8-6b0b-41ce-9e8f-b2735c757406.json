@@ -1,0 +1,139 @@
+{
+  "arena_id": 90944,
+  "artist": "David Palumbo",
+  "artist_ids": [
+    "04ce1c75-e30c-4b7a-8cb0-b53e4ecc2f39"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 771188,
+  "cmc": 4.0,
+  "collector_number": "95",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1279,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Suffer as I have suffered. Lose as I have lost.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "19efb9ce-62eb-4cbf-b01e-979f3fd09ba6",
+  "illustration_id": "b7a4d1ce-c110-4c6b-ba7a-2891f4261bef",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/9/19efb9ce-62eb-4cbf-b01e-979f3fd09ba6.webp?1783911280",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/9/19efb9ce-62eb-4cbf-b01e-979f3fd09ba6.jpg?1783911280",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/9/19efb9ce-62eb-4cbf-b01e-979f3fd09ba6.jpg?1783911280",
+    "crop": "https://cards.scryfall.io/crop/front/1/9/19efb9ce-62eb-4cbf-b01e-979f3fd09ba6.webp?1783911280",
+    "display": "https://cards.scryfall.io/display/front/1/9/19efb9ce-62eb-4cbf-b01e-979f3fd09ba6.webp?1783911280",
+    "grid": "https://cards.scryfall.io/grid/front/1/9/19efb9ce-62eb-4cbf-b01e-979f3fd09ba6.webp?1783911280",
+    "large": "https://cards.scryfall.io/large/front/1/9/19efb9ce-62eb-4cbf-b01e-979f3fd09ba6.jpg?1783911280",
+    "normal": "https://cards.scryfall.io/normal/front/1/9/19efb9ce-62eb-4cbf-b01e-979f3fd09ba6.jpg?1783911280",
+    "png": "https://cards.scryfall.io/png/front/1/9/19efb9ce-62eb-4cbf-b01e-979f3fd09ba6.png?1783911280",
+    "small": "https://cards.scryfall.io/small/front/1/9/19efb9ce-62eb-4cbf-b01e-979f3fd09ba6.jpg?1783911280",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/9/19efb9ce-62eb-4cbf-b01e-979f3fd09ba6.webp?1783911280"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "banned",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "mtgo_id": 126207,
+  "multiverse_ids": [
+    662247
+  ],
+  "name": "Flare of Malice",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4ce156f8-6b0b-41ce-9e8f-b2735c757406",
+  "oracle_text": "You may sacrifice a nontoken black creature rather than pay this spell's mana cost.\nEach opponent sacrifices a creature or planeswalker with the greatest mana value among creatures and planeswalkers they control.",
+  "oversized": false,
+  "penny_rank": 433,
+  "preview": {
+    "previewed_at": "2024-05-21",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "2.19",
+    "eur_foil": "2.90",
+    "tix": "0.02",
+    "usd": "2.22",
+    "usd_etched": null,
+    "usd_foil": "2.75"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4ce156f8-6b0b-41ce-9e8f-b2735c757406&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126207?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=771188&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552274%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Flare+of+Malice",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662247&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFlare%2Bof%2BMalice",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFlare%2Bof%2BMalice"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/19efb9ce-62eb-4cbf-b01e-979f3fd09ba6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/95/flare-of-malice?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552274,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/19efb9ce-62eb-4cbf-b01e-979f3fd09ba6",
+  "variation": false
+}
