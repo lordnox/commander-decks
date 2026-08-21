@@ -1,0 +1,133 @@
+{
+  "artist": "Martina Pilcerova",
+  "artist_ids": [
+    "30fead7c-da53-4c1b-b514-4be6e5ce487c"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818896,
+  "cmc": 2.0,
+  "collector_number": "323",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 185,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "The sigil holds different meanings depending on its form and presentation. While some wear it as a sign of status, others wear it as a sign of debt.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "90894726-1940-4291-a05c-b85cefbfa344",
+  "illustration_id": "5ceaccad-8199-4bed-bee6-a9fbf322d17b",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:43:28Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/0/90894726-1940-4291-a05c-b85cefbfa344.webp?1783907008",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/0/90894726-1940-4291-a05c-b85cefbfa344.jpg?1783907008",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/0/90894726-1940-4291-a05c-b85cefbfa344.jpg?1783907008",
+    "crop": "https://cards.scryfall.io/crop/front/9/0/90894726-1940-4291-a05c-b85cefbfa344.webp?1783907008",
+    "display": "https://cards.scryfall.io/display/front/9/0/90894726-1940-4291-a05c-b85cefbfa344.webp?1783907008",
+    "grid": "https://cards.scryfall.io/grid/front/9/0/90894726-1940-4291-a05c-b85cefbfa344.webp?1783907008",
+    "large": "https://cards.scryfall.io/large/front/9/0/90894726-1940-4291-a05c-b85cefbfa344.jpg?1783907008",
+    "normal": "https://cards.scryfall.io/normal/front/9/0/90894726-1940-4291-a05c-b85cefbfa344.jpg?1783907008",
+    "png": "https://cards.scryfall.io/png/front/9/0/90894726-1940-4291-a05c-b85cefbfa344.png?1783907008",
+    "small": "https://cards.scryfall.io/small/front/9/0/90894726-1940-4291-a05c-b85cefbfa344.jpg?1783907008",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/0/90894726-1940-4291-a05c-b85cefbfa344.webp?1783907008"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}",
+  "mtgo_id": 138587,
+  "multiverse_ids": [
+    696479
+  ],
+  "name": "Orzhov Signet",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "de3dcb5d-775a-479f-99f5-d1883ed9b1b5",
+  "oracle_text": "{1}, {T}: Add {W}{B}.",
+  "oversized": false,
+  "penny_rank": 1720,
+  "prices": {
+    "eur": "0.41",
+    "eur_foil": null,
+    "tix": "0.13",
+    "usd": "0.37",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ade3dcb5d-775a-479f-99f5-d1883ed9b1b5&unique=prints",
+  "produced_mana": [
+    "B",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138587?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818896&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624611%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Orzhov+Signet",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696479&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOrzhov%2BSignet",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOrzhov%2BSignet"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/90894726-1940-4291-a05c-b85cefbfa344/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/323/orzhov-signet?utm_source=api",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624611,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/90894726-1940-4291-a05c-b85cefbfa344",
+  "variation": false
+}
