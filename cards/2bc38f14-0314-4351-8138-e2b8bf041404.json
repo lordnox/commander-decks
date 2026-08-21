@@ -1,0 +1,130 @@
+{
+  "artist": "Sung Choi",
+  "artist_ids": [
+    "4b149402-618d-4f54-9db8-788e4a5bce70"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818941,
+  "cmc": 0.0,
+  "collector_number": "377",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 2912,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "2c5c070e-91d3-4613-8a46-0323ee425027",
+  "illustration_id": "22b44944-7e71-4b01-84e2-d868477cc2b1",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:42:59Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/c/2c5c070e-91d3-4613-8a46-0323ee425027.webp?1783906979",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/c/2c5c070e-91d3-4613-8a46-0323ee425027.jpg?1783906979",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/c/2c5c070e-91d3-4613-8a46-0323ee425027.jpg?1783906979",
+    "crop": "https://cards.scryfall.io/crop/front/2/c/2c5c070e-91d3-4613-8a46-0323ee425027.webp?1783906979",
+    "display": "https://cards.scryfall.io/display/front/2/c/2c5c070e-91d3-4613-8a46-0323ee425027.webp?1783906979",
+    "grid": "https://cards.scryfall.io/grid/front/2/c/2c5c070e-91d3-4613-8a46-0323ee425027.webp?1783906979",
+    "large": "https://cards.scryfall.io/large/front/2/c/2c5c070e-91d3-4613-8a46-0323ee425027.jpg?1783906979",
+    "normal": "https://cards.scryfall.io/normal/front/2/c/2c5c070e-91d3-4613-8a46-0323ee425027.jpg?1783906979",
+    "png": "https://cards.scryfall.io/png/front/2/c/2c5c070e-91d3-4613-8a46-0323ee425027.png?1783906979",
+    "small": "https://cards.scryfall.io/small/front/2/c/2c5c070e-91d3-4613-8a46-0323ee425027.jpg?1783906979",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/c/2c5c070e-91d3-4613-8a46-0323ee425027.webp?1783906979"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 138695,
+  "multiverse_ids": [
+    696533
+  ],
+  "name": "Memorial to Folly",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2bc38f14-0314-4351-8138-e2b8bf041404",
+  "oracle_text": "This land enters tapped.\n{T}: Add {B}.\n{2}{B}, {T}, Sacrifice this land: Return target creature card from your graveyard to your hand.",
+  "oversized": false,
+  "penny_rank": 6265,
+  "prices": {
+    "eur": "0.15",
+    "eur_foil": null,
+    "tix": "0.06",
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2bc38f14-0314-4351-8138-e2b8bf041404&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138695?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818941&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624470%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Memorial+to+Folly",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696533&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMemorial%2Bto%2BFolly",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMemorial%2Bto%2BFolly"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2c5c070e-91d3-4613-8a46-0323ee425027/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/377/memorial-to-folly?utm_source=api",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624470,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/2c5c070e-91d3-4613-8a46-0323ee425027",
+  "variation": false
+}
