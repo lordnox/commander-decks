@@ -32,6 +32,73 @@ Commander Brackets and the Game Changers list can change.
 
 Do not classify a deck solely by counting Game Changers. Use restrictions as hard boundaries and bracket intent as the primary classification.
 
+
+### Bracket definitions and expected pace
+
+Use these definitions as the evaluation baseline, refreshed against the latest official guidance:
+
+#### Bracket 1: Exhibition
+
+Players expect:
+
+- decks to prioritize a goal, theme, or idea over power;
+- flexibility around card legality or viable commanders when agreed by the pod;
+- highly thematic or substandard win conditions;
+- gameplay that gives each player time to show off their creation;
+- at least nine turns before a win or loss, with enough time for the deck's theme to be showcased.
+
+#### Bracket 2: Core
+
+Players expect:
+
+- unoptimized, straightforward decks with some choices made for creativity or entertainment;
+- incremental, telegraphed, board-based, and disruptable win conditions;
+- low-pressure, social gameplay;
+- proactive and considerate play that lets every deck demonstrate its plan;
+- at least eight turns before a win or loss.
+
+#### Bracket 3: Upgraded
+
+Players expect:
+
+- strong synergy, high card quality, and effective disruption;
+- Game Changers used mainly as value engines or game-ending spells;
+- win conditions that can be deployed in one large turn after resources have accumulated;
+- frequent proactive and reactive plays;
+- at least six turns before a win or loss.
+
+#### Bracket 4: Optimized
+
+Players expect:
+
+- high-power construction that is not built for the Bracket 5 cEDH metagame;
+- lethal, consistent, fast decks designed to win as quickly as possible;
+- fast mana, snowballing engines, free disruption, and tutors among their Game Changers;
+- efficient, instantaneous win conditions;
+- explosive gameplay with efficient threats and disruption;
+- at least four turns before a win or loss.
+
+#### Bracket 5: cEDH
+
+Players expect:
+
+- meticulous construction for the cEDH metagame, using cEDH knowledge, tools, or established lists where useful;
+- highly efficient and consistent win conditions;
+- intricate, advanced gameplay with very small margins for error and victory prioritized above all else;
+- games that may end on any turn.
+
+Treat the turn expectation as the deck's normal, repeatable pace, not its fastest theoretical line. A rare line that wins earlier does not automatically promote the deck when its typical pace and construction still fit the lower bracket.
+
+### Position within a bracket
+
+Write the final position as `N−`, `N`, or `N+`:
+
+- `N−`: lower edge of the bracket;
+- `N`: middle of the bracket;
+- `N+`: upper edge of the bracket.
+
+Use the deck's normal pace, consistency, resilience, tutors, fast mana, interaction, and compactness to choose the position. Record a materially faster exceptional line separately. For example, a deck that normally threatens a win on turn six but has an unlikely turn-four line can be `Bracket 3+`; the rare turn-four line alone does not make it Bracket 4.
+
 ## 3. Analyze construction and play pattern
 
 Inspect:
