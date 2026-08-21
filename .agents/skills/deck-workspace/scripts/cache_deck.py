@@ -24,7 +24,10 @@ SECTION_NAMES = {
     "enchantments", "planeswalkers", "lands", "other",
 }
 COUNTED_CARD = re.compile(r"^(?P<count>\d+)\s*x?\s+(?P<name>.+?)\s*$", re.IGNORECASE)
-SET_SUFFIX = re.compile(r"\s+\([A-Z0-9]{2,8}\)\s+[A-Za-z0-9-]+(?:\s+\*\w+\*)?\s*$")
+SET_SUFFIX = re.compile(
+    r"\s+\([A-Z0-9]{2,8}\)\s+[A-Za-z0-9-]+(?:\s+\*\w+\*)?\s*$",
+    re.IGNORECASE,
+)
 CATEGORY_SUFFIX = re.compile(r"\s+\[(?P<categories>[^]]*)\]\s*$")
 
 
