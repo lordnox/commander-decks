@@ -1,573 +1,573 @@
 {
+  "schema_version": 1,
   "cards": {
-    "04b7362d-0490-4cb0-b5d7-2a7732f659ce": {
+    "f47e4c56-0a0b-422d-bf3d-7a20ee289f15": {
+      "name": "Bartolomé del Presidio",
       "categories": [
-        "land",
-        "graveyard-hate"
-      ],
-      "name": "Bojuka Bog"
+        "commander",
+        "sacrifice-outlet"
+      ]
     },
     "04e575d1-f843-4330-972f-e77b264073e0": {
+      "name": "Ozox, the Clattering King",
       "categories": [
         "combo-piece",
         "recursive-fodder"
-      ],
-      "name": "Ozox, the Clattering King"
+      ]
     },
-    "0895c9b7-ae7d-4bb3-af17-3b75deb50a25": {
+    "8d02b297-97c4-4379-9862-0a462400f66f": {
+      "name": "Phyrexian Altar",
       "categories": [
-        "land"
-      ],
-      "name": "Command Tower"
+        "combo-piece",
+        "mana",
+        "sacrifice-outlet"
+      ]
     },
-    "0bc7f093-bef0-4f1a-852c-4b75ebf54838": {
+    "4d18bcba-a346-445e-a182-6cc30b7e066d": {
+      "name": "Ashnod's Altar",
       "categories": [
-        "ramp"
-      ],
-      "name": "Arcane Signet"
-    },
-    "1861e642-21d5-4232-89f3-b5557f2946c1": {
-      "categories": [
-        "land",
-        "sacrifice-outlet",
-        "ramp"
-      ],
-      "name": "Phyrexian Tower"
-    },
-    "1caa7fa2-a881-4a65-a87e-12a974520c83": {
-      "categories": [
-        "tutor"
-      ],
-      "name": "Grim Servant"
+        "combo-piece",
+        "mana",
+        "sacrifice-outlet"
+      ]
     },
     "23f93411-f83c-4ed2-abed-99cf905f7d7f": {
+      "name": "Bog Initiate",
       "categories": [
         "combo-piece",
         "mana-conversion"
-      ],
-      "name": "Bog Initiate"
-    },
-    "240e85d3-e495-4877-8609-4b4056c402f7": {
-      "categories": [
-        "recursion",
-        "sacrifice"
-      ],
-      "name": "Victimize"
-    },
-    "2549bc57-9ffb-4053-9f10-f2a5f792b845": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Myriad Landscape"
-    },
-    "27b047e3-0d41-45e2-98e9-9391d7923a1e": {
-      "categories": [
-        "land"
-      ],
-      "name": "Exotic Orchard"
-    },
-    "2bc38f14-0314-4351-8138-e2b8bf041404": {
-      "categories": [
-        "land",
-        "recursion"
-      ],
-      "name": "Memorial to Folly"
-    },
-    "2c11c72f-5b04-47d8-bdf8-8d9d197ebc1b": {
-      "categories": [
-        "protection",
-        "recursion"
-      ],
-      "name": "Gift of Immortality"
-    },
-    "2c5044ff-a303-4276-8e23-7caac30a275b": {
-      "categories": [
-        "death-payoff",
-        "win-condition"
-      ],
-      "name": "Ninja Teen"
-    },
-    "31f15274-301b-47c5-ba19-0ced04520878": {
-      "categories": [
-        "ramp"
-      ],
-      "name": "Wayfarer's Bauble"
-    },
-    "325032d5-c452-4454-8976-82f86fee5ab8": {
-      "categories": [
-        "death-payoff",
-        "win-condition"
-      ],
-      "name": "Agent of the Iron Throne"
-    },
-    "35c027cd-f754-4e41-9242-8a9d0481171c": {
-      "categories": [
-        "tutor",
-        "sacrifice-outlet"
-      ],
-      "name": "Dimir House Guard"
-    },
-    "365548fb-5acc-4a8a-b20b-26d28b7d029f": {
-      "categories": [
-        "card-draw",
-        "sacrifice"
-      ],
-      "name": "Village Rites"
-    },
-    "37f924e1-7c25-4f06-88bb-054693a21e5a": {
-      "categories": [
-        "land",
-        "mana-fixing"
-      ],
-      "name": "Conduit Pylons"
-    },
-    "382d18a2-438e-4ae7-a83f-1658ef1f9b07": {
-      "categories": [
-        "land"
-      ],
-      "name": "Hidden Grotto"
-    },
-    "388168b3-ec68-4af2-b88c-6a5ec88c15f6": {
-      "categories": [
-        "drain",
-        "card-draw",
-        "sacrifice-outlet"
-      ],
-      "name": "Ayara, First of Locthwain"
-    },
-    "426fa8e8-b0f9-4b6c-b22b-04ec2073187a": {
-      "categories": [
-        "self-mill",
-        "recursion"
-      ],
-      "name": "Undead Butler"
-    },
-    "439de49b-1091-4688-9ffb-80a025df31c2": {
-      "categories": [
-        "land"
-      ],
-      "name": "Tainted Field"
-    },
-    "43b5dbe9-41f7-4082-944b-ea9d6292c6fd": {
-      "categories": [
-        "loop-recursion-creature",
-        "recursion"
-      ],
-      "name": "Danitha, Benalia's Hope"
-    },
-    "457af74a-02b3-4659-846d-63e482667f34": {
-      "categories": [
-        "card-draw",
-        "sacrifice",
-        "ramp"
-      ],
-      "name": "Deadly Dispute"
-    },
-    "47a080c4-ff04-4f52-aca0-2b8e4f4d931e": {
-      "categories": [
-        "combo-piece",
-        "recursion-engine"
-      ],
-      "name": "Enduring Renewal"
-    },
-    "4d18bcba-a346-445e-a182-6cc30b7e066d": {
-      "categories": [
-        "combo-piece",
-        "mana",
-        "sacrifice-outlet"
-      ],
-      "name": "Ashnod's Altar"
-    },
-    "4f57a320-b6b5-49de-af0a-f2e2649758a7": {
-      "categories": [
-        "loop-recursion-creature",
-        "recursion"
-      ],
-      "name": "Angel of Indemnity"
-    },
-    "56719f6a-1a6c-4c0a-8d21-18f7d7350b68": {
-      "categories": [
-        "land"
-      ],
-      "name": "Swamp"
-    },
-    "58257464-278e-45fa-8e0b-bcd9a7500bc1": {
-      "categories": [
-        "land"
-      ],
-      "name": "Ash Barrens"
-    },
-    "5825997b-10d7-4a36-972c-a80ddd90b8ed": {
-      "categories": [
-        "removal"
-      ],
-      "name": "Feed the Swarm"
-    },
-    "6ad8011d-3471-4369-9d68-b264cc027487": {
-      "categories": [
-        "ramp"
-      ],
-      "name": "Sol Ring"
-    },
-    "6cbe76c6-2b64-4389-b5f9-0b221cd92312": {
-      "categories": [
-        "loop-return-effect",
-        "protection"
-      ],
-      "name": "Minion's Return"
-    },
-    "70113003-be5e-406a-9aec-cb480468c36d": {
-      "categories": [
-        "death-payoff",
-        "card-draw",
-        "win-condition"
-      ],
-      "name": "Sephiroth, Fabled SOLDIER // Sephiroth, One-Winged Angel"
-    },
-    "726d9d2c-736a-4852-9938-a0f50d8fd89f": {
-      "categories": [
-        "death-payoff",
-        "win-condition"
-      ],
-      "name": "Marionette Apprentice"
-    },
-    "76b003e0-15af-4f22-bdf2-1ade5430964a": {
-      "categories": [
-        "death-payoff",
-        "win-condition"
-      ],
-      "name": "Zulaport Cutthroat"
-    },
-    "79d0cdc1-2e27-48c5-8840-430490068f68": {
-      "categories": [
-        "loop-recursion-creature",
-        "recursion"
-      ],
-      "name": "Brotherhood Outcast"
-    },
-    "79eed0c6-1853-4032-9d12-aebf5e15e78c": {
-      "categories": [
-        "loop-recursion-creature",
-        "tutor"
-      ],
-      "name": "Boonweaver Giant"
-    },
-    "7bc3f92f-68a2-4934-afc4-89f6d0e8cf98": {
-      "categories": [
-        "board-wipe",
-        "recursion"
-      ],
-      "name": "Dusk // Dawn"
-    },
-    "7fd61a18-6e4f-40c5-aa00-3d101ec1ec82": {
-      "categories": [
-        "self-mill",
-        "sacrifice-fodder"
-      ],
-      "name": "Stitcher's Supplier"
-    },
-    "86fb3749-37d6-48a6-8524-71e996850307": {
-      "categories": [
-        "land",
-        "sacrifice-outlet"
-      ],
-      "name": "High Market"
-    },
-    "8d02b297-97c4-4379-9862-0a462400f66f": {
-      "categories": [
-        "combo-piece",
-        "mana",
-        "sacrifice-outlet"
-      ],
-      "name": "Phyrexian Altar"
-    },
-    "8e720216-a980-4a34-8aef-62ac3ef15a6e": {
-      "categories": [
-        "removal",
-        "recursion-target"
-      ],
-      "name": "Leonin Relic-Warder"
-    },
-    "90c62b27-027a-44a3-8d21-3c62701b18a8": {
-      "categories": [
-        "loop-recursion-creature",
-        "recursion"
-      ],
-      "name": "Redemption Choir"
-    },
-    "93056597-b964-421f-be2f-e92abef1c2a4": {
-      "categories": [
-        "tutor"
-      ],
-      "name": "Emeritus of Woe // Demonic Tutor"
+      ]
     },
     "940ba435-7abc-40f8-a5af-c1c653b3284e": {
+      "name": "Bontu's Monument",
       "categories": [
         "combo-piece",
         "cost-reduction",
         "drain"
-      ],
-      "name": "Bontu's Monument"
+      ]
+    },
+    "b380c04b-0bce-4328-8f0a-1425e48bee72": {
+      "name": "Urza's Incubator",
+      "categories": [
+        "cost-reduction",
+        "combo-piece"
+      ]
+    },
+    "bccb06f1-8839-4104-9ffa-c79a817f8378": {
+      "name": "Jet Medallion",
+      "categories": [
+        "cost-reduction",
+        "ramp"
+      ]
     },
     "95b10ca7-7360-4da5-bd93-686ae3051833": {
+      "name": "Carnival of Souls",
       "categories": [
         "combo-piece",
         "mana",
         "life-loss"
-      ],
-      "name": "Carnival of Souls"
+      ]
+    },
+    "a784481f-eccb-4112-bb38-04a659319660": {
+      "name": "Pitiless Plunderer",
+      "categories": [
+        "mana",
+        "death-trigger"
+      ]
     },
     "9dbc3530-b278-4c8d-b2cc-a09dfac9d5e5": {
+      "name": "Reassembling Skeleton",
       "categories": [
         "recursive-fodder"
-      ],
-      "name": "Reassembling Skeleton"
+      ]
     },
-    "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0": {
+    "c7a360f5-725e-4864-93cc-87f96f95975e": {
+      "name": "Chthonian Nightmare",
       "categories": [
-        "recursion"
-      ],
-      "name": "Reanimate"
+        "recursion",
+        "sacrifice-outlet"
+      ]
     },
     "a39d541e-86c1-4595-a2e9-f107def5bbc6": {
+      "name": "Funeral Room // Awakening Hall",
       "categories": [
         "drain",
         "mass-recursion",
         "win-condition"
-      ],
-      "name": "Funeral Room // Awakening Hall"
+      ]
+    },
+    "70113003-be5e-406a-9aec-cb480468c36d": {
+      "name": "Sephiroth, Fabled SOLDIER // Sephiroth, One-Winged Angel",
+      "categories": [
+        "death-payoff",
+        "card-draw",
+        "win-condition"
+      ]
+    },
+    "388168b3-ec68-4af2-b88c-6a5ec88c15f6": {
+      "name": "Ayara, First of Locthwain",
+      "categories": [
+        "drain",
+        "card-draw",
+        "sacrifice-outlet"
+      ]
+    },
+    "f47659b5-d834-4153-b9fc-6a0702c503d9": {
+      "name": "Dark Prophecy",
+      "categories": [
+        "card-draw",
+        "death-trigger"
+      ]
+    },
+    "e0445c80-fa53-4c3e-881e-940e9fce7f57": {
+      "name": "Braids, Arisen Nightmare",
+      "categories": [
+        "card-draw",
+        "sacrifice-payoff"
+      ]
     },
     "a5690dc9-f12e-4ecc-b528-f2f83c79c3c8": {
+      "name": "Erebos, Bleak-Hearted",
       "categories": [
         "card-draw",
         "sacrifice-outlet"
-      ],
-      "name": "Erebos, Bleak-Hearted"
+      ]
     },
-    "a5852994-d816-4e62-8a03-254223714544": {
+    "365548fb-5acc-4a8a-b20b-26d28b7d029f": {
+      "name": "Village Rites",
       "categories": [
-        "tutor",
-        "graveyard-setup"
-      ],
-      "name": "Final Parting"
+        "card-draw",
+        "sacrifice"
+      ]
     },
-    "a784481f-eccb-4112-bb38-04a659319660": {
+    "457af74a-02b3-4659-846d-63e482667f34": {
+      "name": "Deadly Dispute",
       "categories": [
-        "mana",
-        "death-trigger"
-      ],
-      "name": "Pitiless Plunderer"
-    },
-    "a7e97fa9-4b72-4548-b854-5be5f18a6f1a": {
-      "categories": [
-        "removal"
-      ],
-      "name": "Disenchant"
-    },
-    "aa00ae0b-7c0f-427e-8102-ce0e2a6af5df": {
-      "categories": [
-        "land"
-      ],
-      "name": "Orzhov Basilica"
-    },
-    "ae18580a-1753-4dc8-b437-8a779b1a6e4d": {
-      "categories": [
-        "tutor"
-      ],
-      "name": "Demonic Bargain"
+        "card-draw",
+        "sacrifice",
+        "ramp"
+      ]
     },
     "afaef788-34d1-460b-b884-9d7ae6ddeb18": {
+      "name": "Toxic Deluge",
       "categories": [
         "board-wipe"
-      ],
-      "name": "Toxic Deluge"
+      ]
     },
-    "b15c6203-6311-44eb-916d-a4c271960c74": {
+    "f86bcdde-8b1f-4efa-a01d-39e09dc826d0": {
+      "name": "Angelic Renewal",
+      "categories": [
+        "loop-return-effect",
+        "recursion"
+      ]
+    },
+    "cf73d2e7-584f-41d0-8fc7-50d886dcf9fe": {
+      "name": "Fungal Fortitude",
       "categories": [
         "loop-return-effect",
         "protection"
-      ],
-      "name": "Kaya's Ghostform"
+      ]
+    },
+    "b15c6203-6311-44eb-916d-a4c271960c74": {
+      "name": "Kaya's Ghostform",
+      "categories": [
+        "loop-return-effect",
+        "protection"
+      ]
+    },
+    "6cbe76c6-2b64-4389-b5f9-0b221cd92312": {
+      "name": "Minion's Return",
+      "categories": [
+        "loop-return-effect",
+        "protection"
+      ]
+    },
+    "ff58459a-0015-4012-86c0-580da4e02676": {
+      "name": "Necrogen Communion",
+      "categories": [
+        "loop-return-effect",
+        "protection"
+      ]
+    },
+    "cdfa9de4-7d7d-4638-8ac4-793ece6372dd": {
+      "name": "Changing Loyalty",
+      "categories": [
+        "loop-return-effect",
+        "recursion"
+      ]
+    },
+    "2c11c72f-5b04-47d8-bdf8-8d9d197ebc1b": {
+      "name": "Gift of Immortality",
+      "categories": [
+        "protection",
+        "recursion"
+      ]
     },
     "b2e950fb-cb7e-40a0-a311-5bbdd0477b29": {
+      "name": "Sun Titan",
       "categories": [
         "loop-recursion-creature",
         "recursion"
-      ],
-      "name": "Sun Titan"
+      ]
     },
-    "b380c04b-0bce-4328-8f0a-1425e48bee72": {
+    "4f57a320-b6b5-49de-af0a-f2e2649758a7": {
+      "name": "Angel of Indemnity",
       "categories": [
-        "cost-reduction",
-        "combo-piece"
-      ],
-      "name": "Urza's Incubator"
+        "loop-recursion-creature",
+        "recursion"
+      ]
+    },
+    "79d0cdc1-2e27-48c5-8840-430490068f68": {
+      "name": "Brotherhood Outcast",
+      "categories": [
+        "loop-recursion-creature",
+        "recursion"
+      ]
+    },
+    "43b5dbe9-41f7-4082-944b-ea9d6292c6fd": {
+      "name": "Danitha, Benalia's Hope",
+      "categories": [
+        "loop-recursion-creature",
+        "recursion"
+      ]
+    },
+    "90c62b27-027a-44a3-8d21-3c62701b18a8": {
+      "name": "Redemption Choir",
+      "categories": [
+        "loop-recursion-creature",
+        "recursion"
+      ]
+    },
+    "79eed0c6-1853-4032-9d12-aebf5e15e78c": {
+      "name": "Boonweaver Giant",
+      "categories": [
+        "loop-recursion-creature",
+        "tutor"
+      ]
+    },
+    "76b003e0-15af-4f22-bdf2-1ade5430964a": {
+      "name": "Zulaport Cutthroat",
+      "categories": [
+        "death-payoff",
+        "win-condition"
+      ]
+    },
+    "c7f33cea-2ec8-4081-9208-a5b1d86721b3": {
+      "name": "Bastion of Remembrance",
+      "categories": [
+        "death-payoff",
+        "win-condition"
+      ]
+    },
+    "726d9d2c-736a-4852-9938-a0f50d8fd89f": {
+      "name": "Marionette Apprentice",
+      "categories": [
+        "death-payoff",
+        "win-condition"
+      ]
+    },
+    "325032d5-c452-4454-8976-82f86fee5ab8": {
+      "name": "Agent of the Iron Throne",
+      "categories": [
+        "death-payoff",
+        "win-condition"
+      ]
+    },
+    "2c5044ff-a303-4276-8e23-7caac30a275b": {
+      "name": "Ninja Teen",
+      "categories": [
+        "death-payoff",
+        "win-condition"
+      ]
+    },
+    "7fd61a18-6e4f-40c5-aa00-3d101ec1ec82": {
+      "name": "Stitcher's Supplier",
+      "categories": [
+        "self-mill",
+        "sacrifice-fodder"
+      ]
+    },
+    "426fa8e8-b0f9-4b6c-b22b-04ec2073187a": {
+      "name": "Undead Butler",
+      "categories": [
+        "self-mill",
+        "recursion"
+      ]
+    },
+    "a5852994-d816-4e62-8a03-254223714544": {
+      "name": "Final Parting",
+      "categories": [
+        "tutor",
+        "graveyard-setup"
+      ]
+    },
+    "35c027cd-f754-4e41-9242-8a9d0481171c": {
+      "name": "Dimir House Guard",
+      "categories": [
+        "tutor",
+        "sacrifice-outlet"
+      ]
+    },
+    "ae18580a-1753-4dc8-b437-8a779b1a6e4d": {
+      "name": "Demonic Bargain",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "93056597-b964-421f-be2f-e92abef1c2a4": {
+      "name": "Emeritus of Woe // Demonic Tutor",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "1caa7fa2-a881-4a65-a87e-12a974520c83": {
+      "name": "Grim Servant",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "fae37e28-e137-4177-b973-fa8b4dd8f409": {
+      "name": "Generous Gift",
+      "categories": [
+        "removal"
+      ]
+    },
+    "a7e97fa9-4b72-4548-b854-5be5f18a6f1a": {
+      "name": "Disenchant",
+      "categories": [
+        "removal"
+      ]
+    },
+    "8e720216-a980-4a34-8aef-62ac3ef15a6e": {
+      "name": "Leonin Relic-Warder",
+      "categories": [
+        "removal",
+        "recursion-target"
+      ]
+    },
+    "cb9d557a-fc06-428c-8be6-7d28add33028": {
+      "name": "Fiend Hunter",
+      "categories": [
+        "removal",
+        "recursion-target"
+      ]
+    },
+    "7bc3f92f-68a2-4934-afc4-89f6d0e8cf98": {
+      "name": "Dusk // Dawn",
+      "categories": [
+        "board-wipe",
+        "recursion"
+      ]
+    },
+    "ffce81c5-1b58-4882-a4e7-6f8d7cb170de": {
+      "name": "Withering Torment",
+      "categories": [
+        "removal"
+      ]
+    },
+    "5825997b-10d7-4a36-972c-a80ddd90b8ed": {
+      "name": "Feed the Swarm",
+      "categories": [
+        "removal"
+      ]
+    },
+    "0bc7f093-bef0-4f1a-852c-4b75ebf54838": {
+      "name": "Arcane Signet",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "6ad8011d-3471-4369-9d68-b264cc027487": {
+      "name": "Sol Ring",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "de3dcb5d-775a-479f-99f5-d1883ed9b1b5": {
+      "name": "Orzhov Signet",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "b693c3de-2eaf-4850-b405-e79d00adefda": {
+      "name": "Talisman of Hierarchy",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "c97361b5-af16-4a7b-af85-a429dbaf4ad2": {
+      "name": "Mind Stone",
+      "categories": [
+        "ramp",
+        "card-draw"
+      ]
+    },
+    "31f15274-301b-47c5-ba19-0ced04520878": {
+      "name": "Wayfarer's Bauble",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "240e85d3-e495-4877-8609-4b4056c402f7": {
+      "name": "Victimize",
+      "categories": [
+        "recursion",
+        "sacrifice"
+      ]
+    },
+    "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0": {
+      "name": "Reanimate",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "58257464-278e-45fa-8e0b-bcd9a7500bc1": {
+      "name": "Ash Barrens",
+      "categories": [
+        "land"
+      ]
+    },
+    "04b7362d-0490-4cb0-b5d7-2a7732f659ce": {
+      "name": "Bojuka Bog",
+      "categories": [
+        "land",
+        "graveyard-hate"
+      ]
+    },
+    "0895c9b7-ae7d-4bb3-af17-3b75deb50a25": {
+      "name": "Command Tower",
+      "categories": [
+        "land"
+      ]
+    },
+    "37f924e1-7c25-4f06-88bb-054693a21e5a": {
+      "name": "Conduit Pylons",
+      "categories": [
+        "land",
+        "mana-fixing"
+      ]
+    },
+    "27b047e3-0d41-45e2-98e9-9391d7923a1e": {
+      "name": "Exotic Orchard",
+      "categories": [
+        "land"
+      ]
+    },
+    "86fb3749-37d6-48a6-8524-71e996850307": {
+      "name": "High Market",
+      "categories": [
+        "land",
+        "sacrifice-outlet"
+      ]
+    },
+    "2549bc57-9ffb-4053-9f10-f2a5f792b845": {
+      "name": "Myriad Landscape",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "aa00ae0b-7c0f-427e-8102-ce0e2a6af5df": {
+      "name": "Orzhov Basilica",
+      "categories": [
+        "land"
+      ]
+    },
+    "b473e293-59e3-4e04-acf2-622604aeb25f": {
+      "name": "Path of Ancestry",
+      "categories": [
+        "land"
+      ]
+    },
+    "1861e642-21d5-4232-89f3-b5557f2946c1": {
+      "name": "Phyrexian Tower",
+      "categories": [
+        "land",
+        "sacrifice-outlet",
+        "ramp"
+      ]
+    },
+    "f29dc596-2121-4421-8463-15f6c2e8b9b3": {
+      "name": "Rogue's Passage",
+      "categories": [
+        "land",
+        "evasion"
+      ]
+    },
+    "439de49b-1091-4688-9ffb-80a025df31c2": {
+      "name": "Tainted Field",
+      "categories": [
+        "land"
+      ]
+    },
+    "b3e28bcf-0ed0-4406-b615-68ddc55b349a": {
+      "name": "Great Hall of the Citadel",
+      "categories": [
+        "land"
+      ]
+    },
+    "382d18a2-438e-4ae7-a83f-1658ef1f9b07": {
+      "name": "Hidden Grotto",
+      "categories": [
+        "land"
+      ]
+    },
+    "2bc38f14-0314-4351-8138-e2b8bf041404": {
+      "name": "Memorial to Folly",
+      "categories": [
+        "land",
+        "recursion"
+      ]
+    },
+    "f1e03d99-024a-430b-9342-ffd2268bd103": {
+      "name": "Mariposa Military Base",
+      "categories": [
+        "land"
+      ]
+    },
+    "bc71ebf6-2056-41f7-be35-b2e5c34afa99": {
+      "name": "Plains",
+      "categories": [
+        "land"
+      ]
+    },
+    "56719f6a-1a6c-4c0a-8d21-18f7d7350b68": {
+      "name": "Swamp",
+      "categories": [
+        "land"
+      ]
     },
     "b3ab43f2-4f2b-4439-9254-0110ce443fdb": {
+      "name": "Ratadrabik of Urborg",
       "categories": [
         "combo-piece",
         "token-production",
         "death-trigger"
-      ],
-      "name": "Ratadrabik of Urborg"
-    },
-    "b3e28bcf-0ed0-4406-b615-68ddc55b349a": {
-      "categories": [
-        "land"
-      ],
-      "name": "Great Hall of the Citadel"
-    },
-    "b473e293-59e3-4e04-acf2-622604aeb25f": {
-      "categories": [
-        "land"
-      ],
-      "name": "Path of Ancestry"
-    },
-    "b693c3de-2eaf-4850-b405-e79d00adefda": {
-      "categories": [
-        "ramp"
-      ],
-      "name": "Talisman of Hierarchy"
-    },
-    "bc71ebf6-2056-41f7-be35-b2e5c34afa99": {
-      "categories": [
-        "land"
-      ],
-      "name": "Plains"
-    },
-    "bccb06f1-8839-4104-9ffa-c79a817f8378": {
-      "categories": [
-        "cost-reduction",
-        "ramp"
-      ],
-      "name": "Jet Medallion"
+      ]
     },
     "c0d8fef4-65f4-4769-982d-b397d2b7e977": {
+      "name": "Animate Dead",
       "categories": [
         "combo-piece",
         "recursion",
         "aura"
-      ],
-      "name": "Animate Dead"
-    },
-    "c7a360f5-725e-4864-93cc-87f96f95975e": {
-      "categories": [
-        "recursion",
-        "sacrifice-outlet"
-      ],
-      "name": "Chthonian Nightmare"
-    },
-    "c7f33cea-2ec8-4081-9208-a5b1d86721b3": {
-      "categories": [
-        "death-payoff",
-        "win-condition"
-      ],
-      "name": "Bastion of Remembrance"
-    },
-    "c97361b5-af16-4a7b-af85-a429dbaf4ad2": {
-      "categories": [
-        "ramp",
-        "card-draw"
-      ],
-      "name": "Mind Stone"
-    },
-    "cb9d557a-fc06-428c-8be6-7d28add33028": {
-      "categories": [
-        "removal",
-        "recursion-target"
-      ],
-      "name": "Fiend Hunter"
-    },
-    "cdfa9de4-7d7d-4638-8ac4-793ece6372dd": {
-      "categories": [
-        "loop-return-effect",
-        "recursion"
-      ],
-      "name": "Changing Loyalty"
-    },
-    "cf73d2e7-584f-41d0-8fc7-50d886dcf9fe": {
-      "categories": [
-        "loop-return-effect",
-        "protection"
-      ],
-      "name": "Fungal Fortitude"
+      ]
     },
     "d4a9d63a-5a8a-4f51-9e49-43d6dc3234b1": {
+      "name": "Greedy Freebooter",
       "categories": [
         "combo-piece",
         "sacrifice-fodder",
         "ramp",
         "scry"
-      ],
-      "name": "Greedy Freebooter"
+      ]
     },
-    "de3dcb5d-775a-479f-99f5-d1883ed9b1b5": {
+    "47a080c4-ff04-4f52-aca0-2b8e4f4d931e": {
+      "name": "Enduring Renewal",
       "categories": [
-        "ramp"
-      ],
-      "name": "Orzhov Signet"
-    },
-    "e0445c80-fa53-4c3e-881e-940e9fce7f57": {
-      "categories": [
-        "card-draw",
-        "sacrifice-payoff"
-      ],
-      "name": "Braids, Arisen Nightmare"
-    },
-    "f1e03d99-024a-430b-9342-ffd2268bd103": {
-      "categories": [
-        "land"
-      ],
-      "name": "Mariposa Military Base"
-    },
-    "f29dc596-2121-4421-8463-15f6c2e8b9b3": {
-      "categories": [
-        "land",
-        "evasion"
-      ],
-      "name": "Rogue's Passage"
-    },
-    "f47659b5-d834-4153-b9fc-6a0702c503d9": {
-      "categories": [
-        "card-draw",
-        "death-trigger"
-      ],
-      "name": "Dark Prophecy"
-    },
-    "f47e4c56-0a0b-422d-bf3d-7a20ee289f15": {
-      "categories": [
-        "commander",
-        "sacrifice-outlet"
-      ],
-      "name": "Bartolomé del Presidio"
-    },
-    "f86bcdde-8b1f-4efa-a01d-39e09dc826d0": {
-      "categories": [
-        "loop-return-effect",
-        "recursion"
-      ],
-      "name": "Angelic Renewal"
-    },
-    "fae37e28-e137-4177-b973-fa8b4dd8f409": {
-      "categories": [
-        "removal"
-      ],
-      "name": "Generous Gift"
-    },
-    "ff58459a-0015-4012-86c0-580da4e02676": {
-      "categories": [
-        "loop-return-effect",
-        "protection"
-      ],
-      "name": "Necrogen Communion"
-    },
-    "ffce81c5-1b58-4882-a4e7-6f8d7cb170de": {
-      "categories": [
-        "removal"
-      ],
-      "name": "Withering Torment"
+        "combo-piece",
+        "recursion-engine"
+      ]
     }
-  },
-  "schema_version": 1
+  }
 }
