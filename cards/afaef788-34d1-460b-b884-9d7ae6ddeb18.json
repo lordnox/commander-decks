@@ -1,0 +1,133 @@
+{
+  "artist": "Anthony Devine",
+  "artist_ids": [
+    "13a4bbe4-4e02-4403-8ecd-58f7744b994f"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 892410,
+  "cmc": 3.0,
+  "collector_number": "161",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 67,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Zemo insults me by tasking me with weaklings such as you. Even together, you pose no challenge.\"\n—Radioactive Man, Dr. Chen Lu",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "de5afccc-8d42-4bd6-b068-b9ea2361655e",
+  "illustration_id": "8d2b2e0d-1865-4fcf-95e3-93d5ddce2c03",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:40:36Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/e/de5afccc-8d42-4bd6-b068-b9ea2361655e.webp?1783903236",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/e/de5afccc-8d42-4bd6-b068-b9ea2361655e.jpg?1783903236",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/e/de5afccc-8d42-4bd6-b068-b9ea2361655e.jpg?1783903236",
+    "crop": "https://cards.scryfall.io/crop/front/d/e/de5afccc-8d42-4bd6-b068-b9ea2361655e.webp?1783903236",
+    "display": "https://cards.scryfall.io/display/front/d/e/de5afccc-8d42-4bd6-b068-b9ea2361655e.webp?1783903236",
+    "grid": "https://cards.scryfall.io/grid/front/d/e/de5afccc-8d42-4bd6-b068-b9ea2361655e.webp?1783903236",
+    "large": "https://cards.scryfall.io/large/front/d/e/de5afccc-8d42-4bd6-b068-b9ea2361655e.jpg?1783903236",
+    "normal": "https://cards.scryfall.io/normal/front/d/e/de5afccc-8d42-4bd6-b068-b9ea2361655e.jpg?1783903236",
+    "png": "https://cards.scryfall.io/png/front/d/e/de5afccc-8d42-4bd6-b068-b9ea2361655e.png?1783903236",
+    "small": "https://cards.scryfall.io/small/front/d/e/de5afccc-8d42-4bd6-b068-b9ea2361655e.jpg?1783903236",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/e/de5afccc-8d42-4bd6-b068-b9ea2361655e.webp?1783903236"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 150791,
+  "multiverse_ids": [],
+  "name": "Toxic Deluge",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "afaef788-34d1-460b-b884-9d7ae6ddeb18",
+  "oracle_text": "As an additional cost to cast this spell, pay X life.\nAll creatures get -X/-X until end of turn.",
+  "oversized": false,
+  "prices": {
+    "eur": "4.94",
+    "eur_foil": null,
+    "tix": "0.10",
+    "usd": "4.48",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aafaef788-34d1-460b-b884-9d7ae6ddeb18&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150791?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=892410&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F698035%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Toxic+Deluge",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DToxic%2BDeluge",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DToxic%2BDeluge"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "83A7D1A38019C3831B8605C13EEDCCCD00C20CB0EC2AD7C0DE60D47C767233A7",
+  "rulings_uri": "https://api.scryfall.com/cards/de5afccc-8d42-4bd6-b068-b9ea2361655e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/161/toxic-deluge?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 698035,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/de5afccc-8d42-4bd6-b068-b9ea2361655e",
+  "variation": false
+}
