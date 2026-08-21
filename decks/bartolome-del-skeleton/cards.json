@@ -237,25 +237,23 @@
     },
     {
       "board": "mainboard",
-      "cache": "cards/5049da27-f38b-4fe6-a387-51510bd1f44e.json",
+      "cache": "cards/47a080c4-ff04-4f52-aca0-2b8e4f4d931e.json",
       "card": {
         "keywords": [],
-        "mana_cost": "{1}{B}{B}",
-        "oracle_text": "This creature enters with eight revival counters on it if you cast it.\nWhen this creature dies, if it had a revival counter on it, return it to the battlefield with one fewer revival counter on it at the beginning of the next end step.",
-        "power": "1",
-        "toughness": "1",
-        "type_line": "Creature — Cat"
+        "mana_cost": "{2}{W}{W}",
+        "oracle_text": "Play with your hand revealed.\nIf you would draw a card, reveal the top card of your library instead. If it's a creature card, put it into your graveyard. Otherwise, draw a card.\nWhenever a creature is put into your graveyard from the battlefield, return it to your hand.",
+        "type_line": "Enchantment"
       },
       "categories": [
-        "recursive-fodder",
-        "recursion"
+        "combo-piece",
+        "recursion-engine"
       ],
       "category_source": "deck",
-      "name": "Nine-Lives Familiar",
-      "oracle_id": "5049da27-f38b-4fe6-a387-51510bd1f44e",
+      "name": "Enduring Renewal",
+      "oracle_id": "47a080c4-ff04-4f52-aca0-2b8e4f4d931e",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/fdn/66/nine-lives-familiar?utm_source=api",
-      "submitted_name": "Nine-Lives Familiar"
+      "scryfall_uri": "https://scryfall.com/card/tsb/7/enduring-renewal?utm_source=api",
+      "submitted_name": "Enduring Renewal"
     },
     {
       "board": "mainboard",
@@ -784,28 +782,29 @@
     },
     {
       "board": "mainboard",
-      "cache": "cards/2c5aa155-646c-47f6-ba5c-6e1b41fd4bb2.json",
+      "cache": "cards/b3ab43f2-4f2b-4439-9254-0110ce443fdb.json",
       "card": {
         "keywords": [
-          "Flying",
-          "Foretell"
+          "Vigilance",
+          "Ward"
         ],
-        "mana_cost": "{4}{W}{W}",
-        "oracle_text": "Flying\nWhen this creature enters, return target permanent card with mana value 2 or less from your graveyard to the battlefield.\nForetell {3}{W} (During your turn, you may pay {2} and exile this card from your hand face down. Cast it on a later turn for its foretell cost.)",
+        "mana_cost": "{2}{W}{B}",
+        "oracle_text": "Vigilance, ward {2}\nOther Zombies you control have vigilance.\nWhenever another legendary creature you control dies, create a token that's a copy of that creature, except it's not legendary and it's a 2/2 black Zombie in addition to its other colors and types.",
         "power": "3",
         "toughness": "3",
-        "type_line": "Creature — Angel Warrior"
+        "type_line": "Legendary Creature — Zombie Wizard"
       },
       "categories": [
-        "loop-recursion-creature",
-        "recursion"
+        "combo-piece",
+        "token-production",
+        "death-trigger"
       ],
       "category_source": "deck",
-      "name": "Shepherd of the Cosmos",
-      "oracle_id": "2c5aa155-646c-47f6-ba5c-6e1b41fd4bb2",
+      "name": "Ratadrabik of Urborg",
+      "oracle_id": "b3ab43f2-4f2b-4439-9254-0110ce443fdb",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/khm/28/shepherd-of-the-cosmos?utm_source=api",
-      "submitted_name": "Shepherd of the Cosmos"
+      "scryfall_uri": "https://scryfall.com/card/dmu/213/ratadrabik-of-urborg?utm_source=api",
+      "submitted_name": "Ratadrabik of Urborg"
     },
     {
       "board": "mainboard",
@@ -985,27 +984,30 @@
     },
     {
       "board": "mainboard",
-      "cache": "cards/33ef3d51-845d-460b-97a0-95e7591cf466.json",
+      "cache": "cards/d4a9d63a-5a8a-4f51-9e49-43d6dc3234b1.json",
       "card": {
         "keywords": [
-          "Mill"
+          "Treasure",
+          "Scry"
         ],
         "mana_cost": "{B}",
-        "oracle_text": "When this creature enters, target player mills two cards.\nWhen this creature dies, target creature you don't control gets -1/-1 until end of turn.",
+        "oracle_text": "When this creature dies, scry 1 and create a Treasure token. (To scry 1, look at the top card of your library. You may put that card on the bottom. A Treasure token is an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
         "power": "1",
         "toughness": "1",
-        "type_line": "Creature — Rat"
+        "type_line": "Creature — Human Pirate"
       },
       "categories": [
-        "self-mill",
-        "utility"
+        "combo-piece",
+        "sacrifice-fodder",
+        "ramp",
+        "scry"
       ],
       "category_source": "deck",
-      "name": "Gnawing Vermin",
-      "oracle_id": "33ef3d51-845d-460b-97a0-95e7591cf466",
+      "name": "Greedy Freebooter",
+      "oracle_id": "d4a9d63a-5a8a-4f51-9e49-43d6dc3234b1",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/bro/101/gnawing-vermin?utm_source=api",
-      "submitted_name": "Gnawing Vermin"
+      "scryfall_uri": "https://scryfall.com/card/lci/109/greedy-freebooter?utm_source=api",
+      "submitted_name": "Greedy Freebooter"
     },
     {
       "board": "mainboard",
@@ -1444,24 +1446,26 @@
     },
     {
       "board": "mainboard",
-      "cache": "cards/d48e1545-7997-45ed-83a1-aee45b3d3d20.json",
+      "cache": "cards/c0d8fef4-65f4-4769-982d-b397d2b7e977.json",
       "card": {
         "keywords": [
-          "Flashback"
+          "Enchant"
         ],
-        "mana_cost": "{4}{B}",
-        "oracle_text": "Return target creature card from your graveyard to the battlefield.\nFlashback {3}{W} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
-        "type_line": "Sorcery"
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Enchant creature card in a graveyard\nWhen this Aura enters, if it's on the battlefield, it loses \"enchant creature card in a graveyard\" and gains \"enchant creature put onto the battlefield with this Aura.\" Return enchanted creature card to the battlefield under your control and attach this Aura to it. When this Aura leaves the battlefield, that creature's controller sacrifices it.\nEnchanted creature gets -1/-0.",
+        "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "recursion"
+        "combo-piece",
+        "recursion",
+        "aura"
       ],
       "category_source": "deck",
-      "name": "Unburial Rites",
-      "oracle_id": "d48e1545-7997-45ed-83a1-aee45b3d3d20",
+      "name": "Animate Dead",
+      "oracle_id": "c0d8fef4-65f4-4769-982d-b397d2b7e977",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/2x2/95/unburial-rites?utm_source=api",
-      "submitted_name": "Unburial Rites"
+      "scryfall_uri": "https://scryfall.com/card/soc/207/animate-dead?utm_source=api",
+      "submitted_name": "Animate Dead"
     },
     {
       "board": "mainboard",
@@ -1826,7 +1830,7 @@
     }
   ],
   "categorized_cards": 83,
-  "generated_at": "2026-08-21T18:30:44.115Z",
+  "generated_at": "2026-08-21T19:15:44.881Z",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 83,
