@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Resolve a deck list with Scryfall and maintain the repository card cache."""
+"""Resolve a deck list with Scryfall and maintain card and category caches."""
 
 from __future__ import annotations
 
@@ -89,6 +89,12 @@ def lookup_card(name: str) -> dict:
     return api_json("/cards/named", {"fuzzy": name})
 
 
+def read_json(path: Path, default: object) -> object:
+    if not path.exists():
+        return default
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
@@ -97,6 +103,58 @@ def write_json(path: Path, value: object) -> None:
         encoding="utf-8",
     )
     temporary.replace(path)
+
+
+def infer_categories(card: dict) -> list[str]:
+    """Provide conservative universal defaults for later agent review."""
+    faces = card.get("card_faces") or [card]
+    text = " ".join(face.get("oracle_text", "") for face in faces).casefold()
+    type_line = " ".join(face.get("type_line", "") for face in faces)
+    categories: list[str] = []
+
+    def add(category: str) -> None:
+        if category not in categories:
+            categories.append(category)
+
+    if "Land" in type_line:
+        add("land")
+    if re.search(r"\b(add [\{a-z]|search your library for (?:a basic|up to .* land|a .* land))", text):
+        add("ramp")
+    if re.search(r"\bdraw (?:a|one|two|three|x|that many|cards?)\b", text):
+        add("card-draw")
+    if "counter target spell" in text:
+        add("counterspell")
+    if re.search(r"\b(?:destroy|exile) (?:target|up to one|another)\b", text):
+        add("removal")
+    if re.search(r"\b(?:destroy|exile) all\b", text):
+        add("board-wipe")
+    if re.search(r"\b(?:hexproof|indestructible|protection from)\b", text):
+        add("protection")
+    if "search your library for" in text and "land" not in text:
+        add("tutor")
+    if re.search(r"return .* from your graveyard|return target .* card from .* graveyard", text):
+        add("recursion")
+    if "create" in text and " token" in text:
+        add("token-production")
+    if re.search(r"exile .* then return|exile .* return (?:it|that card)", text):
+        add("blink")
+    if "sacrifice" in text:
+        add("sacrifice")
+    if "discard" in text:
+        add("discard")
+    if not categories:
+        add("other")
+    return categories
+
+
+def category_list(value: object) -> list[str]:
+    if not isinstance(value, list):
+        return ["other"]
+    categories = list(dict.fromkeys(
+        str(item).strip().casefold().replace(" ", "-")
+        for item in value if str(item).strip()
+    ))
+    return categories or ["other"]
 
 
 def main() -> int:
@@ -118,11 +176,15 @@ def main() -> int:
 
     cache_dir = repo_root / "cards"
     index_path = cache_dir / "index.json"
-    if index_path.exists():
-        index = json.loads(index_path.read_text(encoding="utf-8"))
-    else:
-        index = {"schema_version": 1, "names": {}}
+    category_path = cache_dir / "categories.json"
+    override_path = deck_dir / "category-overrides.json"
+
+    index = read_json(index_path, {"schema_version": 1, "names": {}})
+    category_registry = read_json(category_path, {"schema_version": 1, "cards": {}})
+    overrides = read_json(override_path, {"schema_version": 1, "cards": {}})
     aliases: dict[str, str] = index.setdefault("names", {})
+    universal_cards: dict[str, dict] = category_registry.setdefault("cards", {})
+    override_cards: dict[str, dict] = overrides.setdefault("cards", {})
 
     submitted, ignored = parse_decklist(decklist)
     resolved: list[dict] = []
@@ -136,7 +198,7 @@ def main() -> int:
         card = None
 
         if cache_path and cache_path.exists() and not args.refresh:
-            card = json.loads(cache_path.read_text(encoding="utf-8"))
+            card = read_json(cache_path, {})
         else:
             try:
                 card = lookup_card(submitted_name)
@@ -164,24 +226,46 @@ def main() -> int:
         canonical_name = card["name"]
         aliases[key] = oracle_id
         aliases[normalized_name(canonical_name)] = oracle_id
+
+        universal = universal_cards.setdefault(oracle_id, {
+            "name": canonical_name,
+            "categories": infer_categories(card),
+        })
+        universal["name"] = canonical_name
+        universal["categories"] = category_list(universal.get("categories"))
+
+        override = override_cards.get(oracle_id)
+        if override is not None:
+            categories = category_list(override.get("categories"))
+            category_source = "deck"
+        else:
+            categories = universal["categories"]
+            category_source = "universal"
+
         resolved.append({
             "quantity": entry["quantity"],
             "name": canonical_name,
             "submitted_name": submitted_name,
             "oracle_id": oracle_id,
             "cache": f"cards/{oracle_id}.json",
+            "categories": categories,
+            "category_source": category_source,
             "scryfall_uri": card.get("scryfall_uri"),
         })
 
-    index["updated_at"] = datetime.now(timezone.utc).isoformat()
+    now = datetime.now(timezone.utc).isoformat()
+    index["updated_at"] = now
+    category_registry["updated_at"] = now
     write_json(index_path, index)
+    write_json(category_path, category_registry)
 
     manifest = {
-        "schema_version": 1,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "schema_version": 2,
+        "generated_at": now,
         "source": str(decklist.relative_to(repo_root)),
         "total_cards": sum(card["quantity"] for card in resolved),
         "unique_cards": len(resolved),
+        "categorized_cards": sum(bool(card["categories"]) for card in resolved),
         "unresolved": unresolved,
         "cards": resolved,
     }
@@ -189,7 +273,9 @@ def main() -> int:
 
     print(
         f"Resolved {manifest['total_cards']} cards "
-        f"({manifest['unique_cards']} unique); {len(unresolved)} unresolved."
+        f"({manifest['unique_cards']} unique, "
+        f"{manifest['categorized_cards']} categorized); "
+        f"{len(unresolved)} unresolved."
     )
     if unresolved:
         for item in unresolved:
