@@ -164,7 +164,7 @@ The sentence must state the bracket position using `N−`, `N`, or `N+`, the dec
 Whenever an assessment is performed or refreshed:
 
 1. Write this pregame sentence as a Markdown blockquote directly below the deck README's H1 title, before every other paragraph or section. Replace an existing assessment sentence instead of adding another.
-2. Rename the deck directory to `decks/<bracket>_<slug>/`. Use `1_`, `2_`, `3_`, `3+_`, `4_`, or `5_`; map Bracket 3+ to `3+_` and other positions to their bracket number.
+2. Rename the deck directory to `decks/<N><modifier>_<slug>/`. Use ASCII `-`, no modifier, or `+` for positions `N−`, `N`, or `N+`; for example, Bracket 3− maps to `3-_`, Bracket 3 to `3_`, and Bracket 3+ to `3+_`.
 3. Preserve the slug after removing any existing bracket or `unrated_` prefix.
 4. Update the root README link, the `source` path in `cards.json`, and every other repository reference to the old directory.
 5. Keep the sentence and prefix current when the deck changes.
