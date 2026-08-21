@@ -1,0 +1,138 @@
+{
+  "artist": "Svetlin Velinov",
+  "artist_ids": [
+    "ffd063ae-c097-4f26-b2e6-b1e2137708bc"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 375294,
+  "cmc": 1.0,
+  "collector_number": "81",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 611,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "It has no respect for the deeds of martyrs, reducing their legacy to a mouthful of flesh.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "0a19da90-880e-4eca-8cf7-6d7baf090d53",
+  "illustration_id": "bec288be-56be-4db0-8c33-cd51aa55f5d0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:58:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/a/0a19da90-880e-4eca-8cf7-6d7baf090d53.webp?1783933131",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/a/0a19da90-880e-4eca-8cf7-6d7baf090d53.jpg?1783933131",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/a/0a19da90-880e-4eca-8cf7-6d7baf090d53.jpg?1783933131",
+    "crop": "https://cards.scryfall.io/crop/front/0/a/0a19da90-880e-4eca-8cf7-6d7baf090d53.webp?1783933131",
+    "display": "https://cards.scryfall.io/display/front/0/a/0a19da90-880e-4eca-8cf7-6d7baf090d53.webp?1783933131",
+    "grid": "https://cards.scryfall.io/grid/front/0/a/0a19da90-880e-4eca-8cf7-6d7baf090d53.webp?1783933131",
+    "large": "https://cards.scryfall.io/large/front/0/a/0a19da90-880e-4eca-8cf7-6d7baf090d53.jpg?1783933131",
+    "normal": "https://cards.scryfall.io/normal/front/0/a/0a19da90-880e-4eca-8cf7-6d7baf090d53.jpg?1783933131",
+    "png": "https://cards.scryfall.io/png/front/0/a/0a19da90-880e-4eca-8cf7-6d7baf090d53.png?1783933131",
+    "small": "https://cards.scryfall.io/small/front/0/a/0a19da90-880e-4eca-8cf7-6d7baf090d53.jpg?1783933131",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/a/0a19da90-880e-4eca-8cf7-6d7baf090d53.webp?1783933131"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 72534,
+  "multiverse_ids": [
+    464030
+  ],
+  "name": "Carrion Feeder",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a1cc5e37-b09a-4b7f-afd5-77c1c35aa425",
+  "oracle_text": "This creature can't block.\nSacrifice a creature: Put a +1/+1 counter on this creature.",
+  "oversized": false,
+  "penny_rank": 468,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2019-05-29",
+    "source": "TopDeck.ru",
+    "source_uri": "https://topdeck.ru/forums/topic/158908-mtgmh1-mh1-exclusive-preview-card/"
+  },
+  "prices": {
+    "eur": "3.08",
+    "eur_foil": "7.43",
+    "tix": "0.04",
+    "usd": "4.30",
+    "usd_etched": null,
+    "usd_foil": "8.42"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa1cc5e37-b09a-4b7f-afd5-77c1c35aa425&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/72534?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=375294&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F191578%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Carrion+Feeder",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=464030&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCarrion%2BFeeder",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCarrion%2BFeeder"
+  },
+  "released_at": "2019-06-14",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0a19da90-880e-4eca-8cf7-6d7baf090d53/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh1?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh1/81/carrion-feeder?utm_source=api",
+  "set": "mh1",
+  "set_id": "d7efccd6-55bc-4fb8-9138-e72577510a99",
+  "set_name": "Modern Horizons",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh1&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/d7efccd6-55bc-4fb8-9138-e72577510a99",
+  "story_spotlight": false,
+  "tcgplayer_id": 191578,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Zombie",
+  "uri": "https://api.scryfall.com/cards/0a19da90-880e-4eca-8cf7-6d7baf090d53",
+  "variation": false
+}
