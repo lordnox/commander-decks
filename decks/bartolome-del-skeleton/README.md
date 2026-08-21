@@ -4,7 +4,7 @@ An Orzhov graveyard-combo deck that combines Bartolomé's free sacrifice outlet 
 
 **Commander:** [Bartolomé del Presidio](https://scryfall.com/card/lci/224/bartolom%C3%A9-del-presidio)  
 **Deck size:** 100 cards  
-**Primary plan:** assemble either of two repeatable death loops  
+**Primary plan:** assemble one of several repeatable death loops  
 **Backup plan:** grind with recursive creatures, self-mill, reanimation, and a growing Bartolomé
 
 ## The two engines
@@ -34,12 +34,13 @@ Angelic Renewal can fill the same role when the returning creature can immediate
 | Role | Important cards |
 | --- | --- |
 | Free outlet | Bartolomé del Presidio |
-| Ozox engine | Ozox, Phyrexian Altar, Ashnod's Altar, Bog Initiate, Bontu's Monument |
+| Ozox engine | Ozox, Phyrexian Altar, Ashnod's Altar, Ratadrabik of Urborg, Bog Initiate, Bontu's Monument |
 | Cost reduction | Bontu's Monument, Jet Medallion, Urza's Incubator |
-| Return effects | Angelic Renewal, Changing Loyalty, Fungal Fortitude, Kaya's Ghostform, Minion's Return, Necrogen Communion |
-| Recursion creatures | Sun Titan, Angel of Indemnity, Brotherhood Outcast, Danitha, Redemption Choir, Shepherd of the Cosmos |
+| Return effects | Animate Dead, Angelic Renewal, Changing Loyalty, Fungal Fortitude, Kaya's Ghostform, Minion's Return, Necrogen Communion |
+| Recursion creatures | Sun Titan, Angel of Indemnity, Brotherhood Outcast, Danitha, Redemption Choir |
 | Death payoffs | Zulaport Cutthroat, Bastion of Remembrance, Marionette Apprentice, Agent of the Iron Throne, Ninja Teen |
 | Durable finish | Funeral Room and Sephiroth |
+| Renewal engine | Enduring Renewal and Greedy Freebooter |
 | Setup | Final Parting, Dimir House Guard, Demonic Bargain, Grim Servant, self-mill creatures |
 
 ## Main wins
@@ -55,6 +56,34 @@ Bartolomé is not required for this line, which gives the deck a combo that surv
 Sacrificing Ozox and Jumblebones produces four colorless mana. Bog Initiate converts one into black; recasting Ozox costs {2}{B}, leaving one additional colorless mana each cycle.
 
 This produces unlimited colorless mana and unlimited death triggers. A death payoff converts the loop into a win.
+
+### Ozox + Phyrexian Altar + Ratadrabik of Urborg
+
+1. Sacrifice Ozox to Phyrexian Altar.
+2. Ozox creates legendary Jumblebones, while Ratadrabik of Urborg creates a nonlegendary 2/2 Zombie copy of Ozox.
+3. Sacrifice Jumblebones and the Ozox copy to Phyrexian Altar.
+4. Jumblebones returns the original Ozox to hand; Ratadrabik of Urborg copies Jumblebones; the Ozox copy creates a new legendary Jumblebones.
+5. Spend the three generated mana to recast Ozox.
+
+Each cycle restores the starting pieces and adds a nonlegendary Jumblebones copy. Repeating produces unlimited tokens, death and enter triggers, storm count, and ultimately unlimited mana. A death payoff wins immediately.
+
+### Leonin Relic-Warder + Animate Dead
+
+1. Cast Animate Dead targeting Leonin Relic-Warder in the graveyard.
+2. Leonin enters and exiles Animate Dead.
+3. Animate Dead leaving makes you sacrifice Leonin.
+4. Leonin leaving returns Animate Dead, which returns Leonin again.
+
+Repeat for unlimited enter, leave, sacrifice, and death triggers. Begin this mandatory loop only with a payoff or another legal choice that can stop it.
+
+### Bartolomé + Enduring Renewal + Greedy Freebooter
+
+1. Sacrifice Greedy Freebooter to Bartolomé.
+2. Freebooter creates a Treasure and scries 1; Enduring Renewal returns it to hand.
+3. Sacrifice the Treasure for {B} and recast Freebooter.
+4. Repeat.
+
+The loop is mana-neutral and produces unlimited death, enter, sacrifice, scry, and storm triggers while putting unlimited counters on Bartolomé. A death payoff converts it into a win.
 
 ### Recursion creature + return effect + Bartolomé
 
@@ -106,7 +135,9 @@ Avoid hands containing several expensive recursion creatures without ramp or gra
 - Commander tax does not apply when Jumblebones returns Ozox to your hand.
 - Protect the mana engine or recursion creature before protecting Bartolomé.
 - Gift of Immortality returns itself only at the next end step and is not an immediate loop.
-- Bastion of Remembrance does not trigger when token Jumblebones dies; the other listed death payoffs may see both bodies according to their wording.
+- The Animate Dead and Leonin Relic-Warder loop can be mandatory; establish a payoff or an exit before starting it.
+- Enduring Renewal reveals your hand and puts creature cards you would draw into your graveyard.
+- Tokens die before ceasing to exist, so Bastion of Remembrance and the other listed death payoffs trigger from Jumblebones tokens.
 - Mandatory draw engines such as Dark Prophecy can empty the library during an unlimited loop.
 - Graveyard exile is the deck's most important threat; reserve flexible removal for it.
 
