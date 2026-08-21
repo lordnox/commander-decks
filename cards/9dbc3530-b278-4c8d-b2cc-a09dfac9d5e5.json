@@ -1,0 +1,150 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "5f52e2aa-59c2-4df2-92ec-15926d61b40f",
+      "name": "Boneyard Aberration",
+      "object": "related_card",
+      "type_line": "Creature — Skeleton Dog",
+      "uri": "https://api.scryfall.com/cards/5f52e2aa-59c2-4df2-92ec-15926d61b40f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4d431445-d7db-4ce1-b422-41494d9be1b4",
+      "name": "Reassembling Skeleton",
+      "object": "related_card",
+      "type_line": "Creature — Skeleton Warrior",
+      "uri": "https://api.scryfall.com/cards/4d431445-d7db-4ce1-b422-41494d9be1b4"
+    }
+  ],
+  "artist": "Austin Hsu",
+  "artist_ids": [
+    "c5e439d8-b3db-4c13-ae93-4e129e3b9478"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818804,
+  "cmc": 2.0,
+  "collector_number": "195",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 774,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"If none of the bones are original, is it even the same skele—aaagh!\"\n—Mort the Philosopher, last words",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "4d431445-d7db-4ce1-b422-41494d9be1b4",
+  "illustration_id": "360b0e81-f358-486f-990b-2cfb482f1d46",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:44:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/d/4d431445-d7db-4ce1-b422-41494d9be1b4.webp?1783907080",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/d/4d431445-d7db-4ce1-b422-41494d9be1b4.jpg?1783907080",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/d/4d431445-d7db-4ce1-b422-41494d9be1b4.jpg?1783907080",
+    "crop": "https://cards.scryfall.io/crop/front/4/d/4d431445-d7db-4ce1-b422-41494d9be1b4.webp?1783907080",
+    "display": "https://cards.scryfall.io/display/front/4/d/4d431445-d7db-4ce1-b422-41494d9be1b4.webp?1783907080",
+    "grid": "https://cards.scryfall.io/grid/front/4/d/4d431445-d7db-4ce1-b422-41494d9be1b4.webp?1783907080",
+    "large": "https://cards.scryfall.io/large/front/4/d/4d431445-d7db-4ce1-b422-41494d9be1b4.jpg?1783907080",
+    "normal": "https://cards.scryfall.io/normal/front/4/d/4d431445-d7db-4ce1-b422-41494d9be1b4.jpg?1783907080",
+    "png": "https://cards.scryfall.io/png/front/4/d/4d431445-d7db-4ce1-b422-41494d9be1b4.png?1783907080",
+    "small": "https://cards.scryfall.io/small/front/4/d/4d431445-d7db-4ce1-b422-41494d9be1b4.jpg?1783907080",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/d/4d431445-d7db-4ce1-b422-41494d9be1b4.webp?1783907080"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 138327,
+  "multiverse_ids": [
+    696351
+  ],
+  "name": "Reassembling Skeleton",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9dbc3530-b278-4c8d-b2cc-a09dfac9d5e5",
+  "oracle_text": "{1}{B}: Return this card from your graveyard to the battlefield tapped.",
+  "oversized": false,
+  "penny_rank": 2883,
+  "power": "1",
+  "prices": {
+    "eur": "0.18",
+    "eur_foil": null,
+    "tix": "0.15",
+    "usd": "0.30",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9dbc3530-b278-4c8d-b2cc-a09dfac9d5e5&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138327?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818804&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624433%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Reassembling+Skeleton",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696351&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DReassembling%2BSkeleton",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DReassembling%2BSkeleton"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4d431445-d7db-4ce1-b422-41494d9be1b4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/195/reassembling-skeleton?utm_source=api",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624433,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Skeleton Warrior",
+  "uri": "https://api.scryfall.com/cards/4d431445-d7db-4ce1-b422-41494d9be1b4",
+  "variation": false
+}
