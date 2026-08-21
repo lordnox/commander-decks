@@ -2,6 +2,10 @@
 
 This repository stores Commander deck workspaces and a shared Scryfall card cache.
 
+## Pull request workflow
+
+Always create pull requests as ready for review, never as drafts. When the pull-request API has a `draft` option, set `draft: false` explicitly.
+
 ## Required deck workflow
 
 Whenever the user posts a deck list or asks to begin work on a deck:
