@@ -1,5 +1,7 @@
 # Bartolomé del Skeleton 🦴
 
+> High Bracket 3 combo deck. Usually threatens a win around turn six, but has an unlikely turn-four line.
+
 An Orzhov graveyard-combo deck that combines Bartolomé's free sacrifice outlet with the Ozox/Jumblebones rotation and the original Aura-recursion engine.
 
 **Commander:** [Bartolomé del Presidio](https://scryfall.com/card/lci/224/bartolom%C3%A9-del-presidio)  
