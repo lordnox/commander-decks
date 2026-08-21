@@ -138,7 +138,7 @@ Use a range when draw variance is material. State uncertainty when the deck has 
 1. Apply current hard restrictions first.
 2. Compare the deck's repeatable pace and intent with the official bracket descriptions.
 3. Choose one default bracket for matchmaking.
-4. State where it sits within that bracket: low, middle, or high.
+4. State where it sits within that bracket using `N−`, `N`, or `N+`.
 5. Explain why it does not belong one bracket lower and one bracket higher.
 6. Do not promote a slow deck merely for an expensive mana base or isolated powerful card.
 7. Do not downgrade a tuned, consistent deck merely because it contains no Game Changers.
@@ -157,9 +157,9 @@ Keep the result concise and include:
 
 Use this sentence pattern, adjusted to the evidence:
 
-> High Bracket 3 combo deck. Usually threatens a win around turn six, but has an unlikely turn-four line.
+> Bracket 3+ combo deck. Usually threatens a win around turn six, but has an unlikely turn-four line.
 
-The sentence must state the bracket position and deck style, the usual threat or win turn, and any verified exceptional line that is materially faster. Keep "usually," "reasonably," and "unlikely" precise; never present the fastest possible line as the expected pace.
+The sentence must state the bracket position using `N−`, `N`, or `N+`, the deck style, the usual threat or win turn, and any verified exceptional line that is materially faster. Keep "usually," "reasonably," and "unlikely" precise; never present the fastest possible line as the expected pace.
 
 Whenever an assessment is performed or refreshed, write this pregame sentence as a Markdown blockquote directly below the deck README's H1 title, before every other paragraph or section. Replace an existing assessment sentence instead of adding another. Keep it current when the deck changes.
 
