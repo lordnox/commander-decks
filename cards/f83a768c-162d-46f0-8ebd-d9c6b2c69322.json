@@ -1,0 +1,144 @@
+{
+  "arena_id": 89025,
+  "artist": "Bastien L. Deharme",
+  "artist_ids": [
+    "798f63ec-41ad-474e-9708-df08193345c6"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 751367,
+  "cmc": 6.0,
+  "collector_number": "110",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2658,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"I'm afraid your investigation has reached a dead end.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "078933b3-6d82-45f2-94e8-addf54cf1704",
+  "illustration_id": "bb9f9c43-c724-490a-9563-39a32ebd2513",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:21:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/7/078933b3-6d82-45f2-94e8-addf54cf1704.webp?1783912890",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/7/078933b3-6d82-45f2-94e8-addf54cf1704.jpg?1783912890",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/7/078933b3-6d82-45f2-94e8-addf54cf1704.jpg?1783912890",
+    "crop": "https://cards.scryfall.io/crop/front/0/7/078933b3-6d82-45f2-94e8-addf54cf1704.webp?1783912890",
+    "display": "https://cards.scryfall.io/display/front/0/7/078933b3-6d82-45f2-94e8-addf54cf1704.webp?1783912890",
+    "grid": "https://cards.scryfall.io/grid/front/0/7/078933b3-6d82-45f2-94e8-addf54cf1704.webp?1783912890",
+    "large": "https://cards.scryfall.io/large/front/0/7/078933b3-6d82-45f2-94e8-addf54cf1704.jpg?1783912890",
+    "normal": "https://cards.scryfall.io/normal/front/0/7/078933b3-6d82-45f2-94e8-addf54cf1704.jpg?1783912890",
+    "png": "https://cards.scryfall.io/png/front/0/7/078933b3-6d82-45f2-94e8-addf54cf1704.png?1783912890",
+    "small": "https://cards.scryfall.io/small/front/0/7/078933b3-6d82-45f2-94e8-addf54cf1704.jpg?1783912890",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/7/078933b3-6d82-45f2-94e8-addf54cf1704.webp?1783912890"
+  },
+  "keywords": [
+    "Flying",
+    "Ward"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}{B}",
+  "mtgo_id": 121698,
+  "multiverse_ids": [
+    646668
+  ],
+  "name": "Vein Ripper",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f83a768c-162d-46f0-8ebd-d9c6b2c69322",
+  "oracle_text": "Flying\nWard—Sacrifice a creature.\nWhenever a creature dies, target opponent loses 2 life and you gain 2 life.",
+  "oversized": false,
+  "penny_rank": 8503,
+  "power": "6",
+  "preview": {
+    "previewed_at": "2024-01-16",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://weibo.com/2643025570/4991125029388936"
+  },
+  "prices": {
+    "eur": "7.65",
+    "eur_foil": "7.93",
+    "tix": "0.02",
+    "usd": "6.85",
+    "usd_etched": null,
+    "usd_foil": "8.10"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af83a768c-162d-46f0-8ebd-d9c6b2c69322&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/121698?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=751367&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F533392%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vein+Ripper",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=646668&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVein%2BRipper",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVein%2BRipper"
+  },
+  "released_at": "2024-02-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/078933b3-6d82-45f2-94e8-addf54cf1704/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkm/110/vein-ripper?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkm",
+  "set_id": "2b17794b-15c3-4796-ad6f-0887a0eceeca",
+  "set_name": "Murders at Karlov Manor",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/2b17794b-15c3-4796-ad6f-0887a0eceeca",
+  "story_spotlight": false,
+  "tcgplayer_id": 533392,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Creature — Vampire Assassin",
+  "uri": "https://api.scryfall.com/cards/078933b3-6d82-45f2-94e8-addf54cf1704",
+  "variation": false
+}
