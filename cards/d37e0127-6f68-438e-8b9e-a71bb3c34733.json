@@ -1,0 +1,139 @@
+{
+  "arena_id": 90434,
+  "artist": "Andrey Kuzinskiy",
+  "artist_ids": [
+    "c04ff0b2-67a1-4238-82f7-6c67de734b56"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764255,
+  "cmc": 1.0,
+  "collector_number": "88",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2452,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "1679f74d-00f8-436c-9f8c-aa3f843a546c",
+  "illustration_id": "9d58489a-7517-4c2b-a79a-4451df41da10",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:03:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/6/1679f74d-00f8-436c-9f8c-aa3f843a546c.webp?1783911833",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/6/1679f74d-00f8-436c-9f8c-aa3f843a546c.jpg?1783911833",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/6/1679f74d-00f8-436c-9f8c-aa3f843a546c.jpg?1783911833",
+    "crop": "https://cards.scryfall.io/crop/front/1/6/1679f74d-00f8-436c-9f8c-aa3f843a546c.webp?1783911833",
+    "display": "https://cards.scryfall.io/display/front/1/6/1679f74d-00f8-436c-9f8c-aa3f843a546c.webp?1783911833",
+    "grid": "https://cards.scryfall.io/grid/front/1/6/1679f74d-00f8-436c-9f8c-aa3f843a546c.webp?1783911833",
+    "large": "https://cards.scryfall.io/large/front/1/6/1679f74d-00f8-436c-9f8c-aa3f843a546c.jpg?1783911833",
+    "normal": "https://cards.scryfall.io/normal/front/1/6/1679f74d-00f8-436c-9f8c-aa3f843a546c.jpg?1783911833",
+    "png": "https://cards.scryfall.io/png/front/1/6/1679f74d-00f8-436c-9f8c-aa3f843a546c.png?1783911833",
+    "small": "https://cards.scryfall.io/small/front/1/6/1679f74d-00f8-436c-9f8c-aa3f843a546c.jpg?1783911833",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/6/1679f74d-00f8-436c-9f8c-aa3f843a546c.webp?1783911833"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 124087,
+  "multiverse_ids": [
+    655029
+  ],
+  "name": "Forsaken Miner",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d37e0127-6f68-438e-8b9e-a71bb3c34733",
+  "oracle_text": "This creature can't block.\nWhenever you commit a crime, you may pay {B}. If you do, return this card from your graveyard to the battlefield. (Targeting opponents, anything they control, and/or cards in their graveyards is a crime.)",
+  "oversized": false,
+  "penny_rank": 232,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2024-03-28",
+    "source": "Draftism",
+    "source_uri": "https://draftsim.com/draftsim-otj-preview-cards/"
+  },
+  "prices": {
+    "eur": "1.53",
+    "eur_foil": "2.13",
+    "tix": "0.03",
+    "usd": "1.55",
+    "usd_etched": null,
+    "usd_foil": "7.29"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad37e0127-6f68-438e-8b9e-a71bb3c34733&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124087?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764255&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544475%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Forsaken+Miner",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=655029&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DForsaken%2BMiner",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DForsaken%2BMiner"
+  },
+  "released_at": "2024-04-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1679f74d-00f8-436c-9f8c-aa3f843a546c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otj?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otj/88/forsaken-miner?utm_source=api",
+  "set": "otj",
+  "set_id": "55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "set_name": "Outlaws of Thunder Junction",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotj&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "story_spotlight": false,
+  "tcgplayer_id": 544475,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Skeleton Rogue",
+  "uri": "https://api.scryfall.com/cards/1679f74d-00f8-436c-9f8c-aa3f843a546c",
+  "variation": false
+}
