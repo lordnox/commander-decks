@@ -1,0 +1,135 @@
+{
+  "arena_id": 93608,
+  "artist": "Inuchiyo Meimaru",
+  "artist_ids": [
+    "1998c764-3598-4d23-ace9-2bc50d477128"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 795465,
+  "cmc": 3.0,
+  "collector_number": "44",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 10517,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "02cf5079-9da8-470d-8eea-00d6aac68d04",
+  "illustration_id": "893684aa-03c0-44a1-973f-c3bcce4b3966",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:14:16Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/2/02cf5079-9da8-470d-8eea-00d6aac68d04.webp?1783908856",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/2/02cf5079-9da8-470d-8eea-00d6aac68d04.jpg?1783908856",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/2/02cf5079-9da8-470d-8eea-00d6aac68d04.jpg?1783908856",
+    "crop": "https://cards.scryfall.io/crop/front/0/2/02cf5079-9da8-470d-8eea-00d6aac68d04.webp?1783908856",
+    "display": "https://cards.scryfall.io/display/front/0/2/02cf5079-9da8-470d-8eea-00d6aac68d04.webp?1783908856",
+    "grid": "https://cards.scryfall.io/grid/front/0/2/02cf5079-9da8-470d-8eea-00d6aac68d04.webp?1783908856",
+    "large": "https://cards.scryfall.io/large/front/0/2/02cf5079-9da8-470d-8eea-00d6aac68d04.jpg?1783908856",
+    "normal": "https://cards.scryfall.io/normal/front/0/2/02cf5079-9da8-470d-8eea-00d6aac68d04.jpg?1783908856",
+    "png": "https://cards.scryfall.io/png/front/0/2/02cf5079-9da8-470d-8eea-00d6aac68d04.png?1783908856",
+    "small": "https://cards.scryfall.io/small/front/0/2/02cf5079-9da8-470d-8eea-00d6aac68d04.jpg?1783908856",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/2/02cf5079-9da8-470d-8eea-00d6aac68d04.webp?1783908856"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 132768,
+  "multiverse_ids": [
+    680944
+  ],
+  "name": "Ozox, the Clattering King",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "04e575d1-f843-4330-972f-e77b264073e0",
+  "oracle_text": "Ozox can't block.\nWhen Ozox dies, create Jumblebones, a legendary 2/1 black Skeleton creature token with \"Jumblebones can't block\" and \"When Jumblebones leaves the battlefield, return target card named Ozox, the Clattering King from your graveyard to your hand.\"",
+  "oversized": false,
+  "power": "3",
+  "prices": {
+    "eur": "0.22",
+    "eur_foil": null,
+    "tix": "0.85",
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A04e575d1-f843-4330-972f-e77b264073e0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/132768?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=795465&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F590616%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ozox%2C+the+Clattering+King",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=680944&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOzox%252C%2Bthe%2BClattering%2BKing",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOzox%252C%2Bthe%2BClattering%2BKing"
+  },
+  "released_at": "2024-11-15",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/02cf5079-9da8-470d-8eea-00d6aac68d04/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/j25?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/j25/44/ozox-the-clattering-king?utm_source=api",
+  "set": "j25",
+  "set_id": "9201567c-bab5-4720-aac9-260e6741f115",
+  "set_name": "Foundations Jumpstart",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aj25&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/9201567c-bab5-4720-aac9-260e6741f115",
+  "story_spotlight": false,
+  "tcgplayer_id": 590616,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Skeleton Noble",
+  "uri": "https://api.scryfall.com/cards/02cf5079-9da8-470d-8eea-00d6aac68d04",
+  "variation": false
+}
