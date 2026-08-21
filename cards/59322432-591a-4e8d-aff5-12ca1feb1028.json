@@ -1,0 +1,161 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "3dfaedeb-f8ec-4f0e-b243-c850770a86f2",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/3dfaedeb-f8ec-4f0e-b243-c850770a86f2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3ba4238b-e7fb-4859-87e4-c192e7e6c047",
+      "name": "Magmatic Galleon",
+      "object": "related_card",
+      "type_line": "Artifact — Vehicle",
+      "uri": "https://api.scryfall.com/cards/3ba4238b-e7fb-4859-87e4-c192e7e6c047"
+    }
+  ],
+  "arena_id": 87309,
+  "artist": "Cristi Balanescu",
+  "artist_ids": [
+    "c09ede88-a1b5-4a18-9895-dc8a965d28a5"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 743031,
+  "cmc": 5.0,
+  "collector_number": "157",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 7279,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "4471a833-11b9-4146-a9c0-84a6896c94d8",
+  "illustration_id": "6ed7f55e-0fd2-4e5e-9208-2b33acc8a09f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:35:58Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/4/4471a833-11b9-4146-a9c0-84a6896c94d8.webp?1783913758",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/4/4471a833-11b9-4146-a9c0-84a6896c94d8.jpg?1783913758",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/4/4471a833-11b9-4146-a9c0-84a6896c94d8.jpg?1783913758",
+    "crop": "https://cards.scryfall.io/crop/front/4/4/4471a833-11b9-4146-a9c0-84a6896c94d8.webp?1783913758",
+    "display": "https://cards.scryfall.io/display/front/4/4/4471a833-11b9-4146-a9c0-84a6896c94d8.webp?1783913758",
+    "grid": "https://cards.scryfall.io/grid/front/4/4/4471a833-11b9-4146-a9c0-84a6896c94d8.webp?1783913758",
+    "large": "https://cards.scryfall.io/large/front/4/4/4471a833-11b9-4146-a9c0-84a6896c94d8.jpg?1783913758",
+    "normal": "https://cards.scryfall.io/normal/front/4/4/4471a833-11b9-4146-a9c0-84a6896c94d8.jpg?1783913758",
+    "png": "https://cards.scryfall.io/png/front/4/4/4471a833-11b9-4146-a9c0-84a6896c94d8.png?1783913758",
+    "small": "https://cards.scryfall.io/small/front/4/4/4471a833-11b9-4146-a9c0-84a6896c94d8.jpg?1783913758",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/4/4471a833-11b9-4146-a9c0-84a6896c94d8.webp?1783913758"
+  },
+  "keywords": [
+    "Treasure",
+    "Crew"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{R}{R}",
+  "mtgo_id": 118134,
+  "multiverse_ids": [
+    636869
+  ],
+  "name": "Magmatic Galleon",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "59322432-591a-4e8d-aff5-12ca1feb1028",
+  "oracle_text": "When this Vehicle enters, it deals 5 damage to target creature an opponent controls.\nWhenever one or more creatures your opponents control are dealt excess noncombat damage, create a Treasure token.\nCrew 2",
+  "oversized": false,
+  "penny_rank": 12952,
+  "power": "5",
+  "preview": {
+    "previewed_at": "2023-10-28",
+    "source": "Good Luck High Five",
+    "source_uri": "https://twitter.com/GLHFMagic/status/1718499027430339022?s=20"
+  },
+  "prices": {
+    "eur": "0.14",
+    "eur_foil": "0.32",
+    "tix": "0.02",
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": "0.36"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A59322432-591a-4e8d-aff5-12ca1feb1028&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/118134?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=743031&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F525168%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Magmatic+Galleon",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=636869&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMagmatic%2BGalleon",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMagmatic%2BGalleon"
+  },
+  "released_at": "2023-11-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4471a833-11b9-4146-a9c0-84a6896c94d8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lci?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lci/157/magmatic-galleon?utm_source=api",
+  "security_stamp": "oval",
+  "set": "lci",
+  "set_id": "70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "set_name": "The Lost Caverns of Ixalan",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alci&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "story_spotlight": false,
+  "tcgplayer_id": 525168,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Artifact — Vehicle",
+  "uri": "https://api.scryfall.com/cards/4471a833-11b9-4146-a9c0-84a6896c94d8",
+  "variation": false
+}

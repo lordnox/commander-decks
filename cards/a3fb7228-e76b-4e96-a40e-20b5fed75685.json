@@ -1,0 +1,127 @@
+{
+  "artist": "Bastien Grivet",
+  "artist_ids": [
+    "434a6cf6-c6bf-4f87-84db-d0a902393b9e"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "323",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "2a844b96-6616-4c39-8f4f-5d14a3b2bd55",
+  "illustration_id": "5f46014a-fd97-4fb0-a7d4-de58c9e63f18",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-08-06T02:01:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/a/2a844b96-6616-4c39-8f4f-5d14a3b2bd55.webp?1785981666",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/a/2a844b96-6616-4c39-8f4f-5d14a3b2bd55.jpg?1785981666",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/a/2a844b96-6616-4c39-8f4f-5d14a3b2bd55.jpg?1785981666",
+    "crop": "https://cards.scryfall.io/crop/front/2/a/2a844b96-6616-4c39-8f4f-5d14a3b2bd55.webp?1785981666",
+    "display": "https://cards.scryfall.io/display/front/2/a/2a844b96-6616-4c39-8f4f-5d14a3b2bd55.webp?1785981666",
+    "grid": "https://cards.scryfall.io/grid/front/2/a/2a844b96-6616-4c39-8f4f-5d14a3b2bd55.webp?1785981666",
+    "large": "https://cards.scryfall.io/large/front/2/a/2a844b96-6616-4c39-8f4f-5d14a3b2bd55.jpg?1785981666",
+    "normal": "https://cards.scryfall.io/normal/front/2/a/2a844b96-6616-4c39-8f4f-5d14a3b2bd55.jpg?1785981666",
+    "png": "https://cards.scryfall.io/png/front/2/a/2a844b96-6616-4c39-8f4f-5d14a3b2bd55.png?1785981666",
+    "small": "https://cards.scryfall.io/small/front/2/a/2a844b96-6616-4c39-8f4f-5d14a3b2bd55.jpg?1785981666",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/a/2a844b96-6616-4c39-8f4f-5d14a3b2bd55.webp?1785981666"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Mountain",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a3fb7228-e76b-4e96-a40e-20b5fed75685",
+  "oracle_text": "({T}: Add {R}.)",
+  "oversized": false,
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa3fb7228-e76b-4e96-a40e-20b5fed75685&unique=prints",
+  "produced_mana": [
+    "R"
+  ],
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Mountain&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Mountain&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DMountain%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mountain",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMountain",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMountain"
+  },
+  "released_at": "2026-11-13",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2a844b96-6616-4c39-8f4f-5d14a3b2bd55/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/trk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/trk/323/mountain?utm_source=api",
+  "set": "trk",
+  "set_id": "b47039dc-da5a-448c-8feb-e77d458108a6",
+  "set_name": "Star Trek",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atrk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/b47039dc-da5a-448c-8feb-e77d458108a6",
+  "story_spotlight": false,
+  "textless": false,
+  "type_line": "Basic Land — Mountain",
+  "uri": "https://api.scryfall.com/cards/2a844b96-6616-4c39-8f4f-5d14a3b2bd55",
+  "variation": false
+}

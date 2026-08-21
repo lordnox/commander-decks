@@ -4,6 +4,7 @@
 
 - [Bartolomé del Presidio](decks/bartolome-del-presidio/README.md)
 - [Bartolomé del Skeleton 🦴](decks/bartolome-del-skeleton/README.md)
+- [Mishra — Racecar Driver](decks/mishra-racecar-driver/README.md)
 - [Ozox — Graveyard Rotation](decks/ozox-graveyard-rotation/README.md)
 
 A conversation-driven workspace for importing, resolving, categorizing, and improving Magic: The Gathering Commander decks.
@@ -188,3 +189,4 @@ Open my Mishra deck and suggest three cuts.
 ```text
 Compare this new list with the stored version of my Mishra deck.
 ```
+

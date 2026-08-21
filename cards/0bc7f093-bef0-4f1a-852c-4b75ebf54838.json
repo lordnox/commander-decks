@@ -1,14 +1,14 @@
 {
-  "artist": "Jason Smith",
+  "artist": "Vilhelmas Banys",
   "artist_ids": [
-    "f51581c1-fab2-47f5-8c86-40ad1f52c369"
+    "020fbe69-3549-4d96-bb71-c1688925b1fb"
   ],
   "booster": false,
   "border_color": "black",
   "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
-  "cardmarket_id": 891686,
+  "cardmarket_id": 891871,
   "cmc": 2.0,
-  "collector_number": "191",
+  "collector_number": "192",
   "color_identity": [],
   "colors": [],
   "digital": false,
@@ -17,7 +17,7 @@
     "nonfoil",
     "foil"
   ],
-  "flavor_text": "\"The new ID cards are amazing! Instant communication with any Avenger worldwide, top level security clearance in over a hundred countries, and ten percent off at the cafe downstairs!\" -She-Hulk, Jennifer Walters",
+  "flavor_text": "\"Thing Rings, do your thing.\"\n—Ms. Thing, Darla Deering",
   "foil": true,
   "frame": "2015",
   "full_art": false,
@@ -27,22 +27,22 @@
     "mtgo"
   ],
   "highres_image": true,
-  "id": "1cad1bd2-7c56-4ce0-99a6-b2a49c1288dd",
-  "illustration_id": "b47dc6bb-f7f2-4726-b30a-cf11da375c3f",
+  "id": "1bbc3ce9-f3df-41b4-b238-37319546c595",
+  "illustration_id": "8f2f9c16-4f4a-4e49-9383-2a46eb747535",
   "image_status": "highres_scan",
   "image_updated_at": "2026-07-13T00:40:22Z",
   "image_uris": {
-    "art": "https://cards.scryfall.io/art/front/1/c/1cad1bd2-7c56-4ce0-99a6-b2a49c1288dd.webp?1783903222",
-    "art_crop": "https://cards.scryfall.io/art_crop/front/1/c/1cad1bd2-7c56-4ce0-99a6-b2a49c1288dd.jpg?1783903222",
-    "border_crop": "https://cards.scryfall.io/border_crop/front/1/c/1cad1bd2-7c56-4ce0-99a6-b2a49c1288dd.jpg?1783903222",
-    "crop": "https://cards.scryfall.io/crop/front/1/c/1cad1bd2-7c56-4ce0-99a6-b2a49c1288dd.webp?1783903222",
-    "display": "https://cards.scryfall.io/display/front/1/c/1cad1bd2-7c56-4ce0-99a6-b2a49c1288dd.webp?1783903222",
-    "grid": "https://cards.scryfall.io/grid/front/1/c/1cad1bd2-7c56-4ce0-99a6-b2a49c1288dd.webp?1783903222",
-    "large": "https://cards.scryfall.io/large/front/1/c/1cad1bd2-7c56-4ce0-99a6-b2a49c1288dd.jpg?1783903222",
-    "normal": "https://cards.scryfall.io/normal/front/1/c/1cad1bd2-7c56-4ce0-99a6-b2a49c1288dd.jpg?1783903222",
-    "png": "https://cards.scryfall.io/png/front/1/c/1cad1bd2-7c56-4ce0-99a6-b2a49c1288dd.png?1783903222",
-    "small": "https://cards.scryfall.io/small/front/1/c/1cad1bd2-7c56-4ce0-99a6-b2a49c1288dd.jpg?1783903222",
-    "thumb": "https://cards.scryfall.io/thumb/front/1/c/1cad1bd2-7c56-4ce0-99a6-b2a49c1288dd.webp?1783903222"
+    "art": "https://cards.scryfall.io/art/front/1/b/1bbc3ce9-f3df-41b4-b238-37319546c595.webp?1783903222",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/b/1bbc3ce9-f3df-41b4-b238-37319546c595.jpg?1783903222",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/b/1bbc3ce9-f3df-41b4-b238-37319546c595.jpg?1783903222",
+    "crop": "https://cards.scryfall.io/crop/front/1/b/1bbc3ce9-f3df-41b4-b238-37319546c595.webp?1783903222",
+    "display": "https://cards.scryfall.io/display/front/1/b/1bbc3ce9-f3df-41b4-b238-37319546c595.webp?1783903222",
+    "grid": "https://cards.scryfall.io/grid/front/1/b/1bbc3ce9-f3df-41b4-b238-37319546c595.webp?1783903222",
+    "large": "https://cards.scryfall.io/large/front/1/b/1bbc3ce9-f3df-41b4-b238-37319546c595.jpg?1783903222",
+    "normal": "https://cards.scryfall.io/normal/front/1/b/1bbc3ce9-f3df-41b4-b238-37319546c595.jpg?1783903222",
+    "png": "https://cards.scryfall.io/png/front/1/b/1bbc3ce9-f3df-41b4-b238-37319546c595.png?1783903222",
+    "small": "https://cards.scryfall.io/small/front/1/b/1bbc3ce9-f3df-41b4-b238-37319546c595.jpg?1783903222",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/b/1bbc3ce9-f3df-41b4-b238-37319546c595.webp?1783903222"
   },
   "keywords": [],
   "lang": "en",
@@ -73,7 +73,7 @@
     "vintage": "legal"
   },
   "mana_cost": "{2}",
-  "mtgo_id": 150851,
+  "mtgo_id": 150853,
   "multiverse_ids": [],
   "name": "Arcane Signet",
   "nonfoil": true,
@@ -82,10 +82,10 @@
   "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
   "oversized": false,
   "prices": {
-    "eur": "0.53",
+    "eur": "0.49",
     "eur_foil": null,
-    "tix": "0.06",
-    "usd": "0.54",
+    "tix": "0.05",
+    "usd": "0.47",
     "usd_etched": null,
     "usd_foil": null
   },
@@ -103,9 +103,9 @@
     "universesbeyond"
   ],
   "purchase_uris": {
-    "cardhoarder": "https://www.cardhoarder.com/cards/150851?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
-    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891686&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
-    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F697413%3Fpage%3D1"
+    "cardhoarder": "https://www.cardhoarder.com/cards/150853?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891871&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F697561%3Fpage%3D1"
   },
   "rarity": "uncommon",
   "related_uris": {
@@ -116,9 +116,9 @@
   "released_at": "2026-06-26",
   "reprint": true,
   "reserved": false,
-  "rulings_uri": "https://api.scryfall.com/cards/1cad1bd2-7c56-4ce0-99a6-b2a49c1288dd/rulings",
+  "rulings_uri": "https://api.scryfall.com/cards/1bbc3ce9-f3df-41b4-b238-37319546c595/rulings",
   "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
-  "scryfall_uri": "https://scryfall.com/card/msc/191/arcane-signet?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/192/arcane-signet?utm_source=api",
   "set": "msc",
   "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
   "set_name": "Marvel Super Heroes Commander",
@@ -126,9 +126,9 @@
   "set_type": "commander",
   "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
   "story_spotlight": false,
-  "tcgplayer_id": 697413,
+  "tcgplayer_id": 697561,
   "textless": false,
   "type_line": "Artifact",
-  "uri": "https://api.scryfall.com/cards/1cad1bd2-7c56-4ce0-99a6-b2a49c1288dd",
+  "uri": "https://api.scryfall.com/cards/1bbc3ce9-f3df-41b4-b238-37319546c595",
   "variation": false
 }

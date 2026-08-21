@@ -1,0 +1,131 @@
+{
+  "artist": "John Avon",
+  "artist_ids": [
+    "798f3932-30e0-4420-aa3f-db4d613f89ca"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 558550,
+  "cmc": 0.0,
+  "collector_number": "285",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 284,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Structures built from darksteel yield to neither assault nor age.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2ba7597d-6d76-45b8-b172-342999e401bd",
+  "illustration_id": "420513a6-7177-499d-8bc7-3ba18163cd76",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:24:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/b/2ba7597d-6d76-45b8-b172-342999e401bd.webp?1783927495",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/b/2ba7597d-6d76-45b8-b172-342999e401bd.jpg?1783927495",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/b/2ba7597d-6d76-45b8-b172-342999e401bd.jpg?1783927495",
+    "crop": "https://cards.scryfall.io/crop/front/2/b/2ba7597d-6d76-45b8-b172-342999e401bd.webp?1783927495",
+    "display": "https://cards.scryfall.io/display/front/2/b/2ba7597d-6d76-45b8-b172-342999e401bd.webp?1783927495",
+    "grid": "https://cards.scryfall.io/grid/front/2/b/2ba7597d-6d76-45b8-b172-342999e401bd.webp?1783927495",
+    "large": "https://cards.scryfall.io/large/front/2/b/2ba7597d-6d76-45b8-b172-342999e401bd.jpg?1783927495",
+    "normal": "https://cards.scryfall.io/normal/front/2/b/2ba7597d-6d76-45b8-b172-342999e401bd.jpg?1783927495",
+    "png": "https://cards.scryfall.io/png/front/2/b/2ba7597d-6d76-45b8-b172-342999e401bd.png?1783927495",
+    "small": "https://cards.scryfall.io/small/front/2/b/2ba7597d-6d76-45b8-b172-342999e401bd.jpg?1783927495",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/b/2ba7597d-6d76-45b8-b172-342999e401bd.webp?1783927495"
+  },
+  "keywords": [
+    "Indestructible"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 89675,
+  "multiverse_ids": [
+    519320
+  ],
+  "name": "Darksteel Citadel",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8dc067bf-f78f-4ac4-b6e7-b305c42cf0bc",
+  "oracle_text": "Indestructible\n{T}: Add {C}.",
+  "oversized": false,
+  "penny_rank": 373,
+  "prices": {
+    "eur": "1.14",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "3.60",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8dc067bf-f78f-4ac4-b6e7-b305c42cf0bc&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/89675?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=558550&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F236152%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Darksteel+Citadel",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=519320&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDarksteel%2BCitadel",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDarksteel%2BCitadel"
+  },
+  "released_at": "2021-04-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2ba7597d-6d76-45b8-b172-342999e401bd/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c21?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c21/285/darksteel-citadel?utm_source=api",
+  "set": "c21",
+  "set_id": "27bf6dbd-a9e1-4904-afa7-d28fc7745c4f",
+  "set_name": "Commander 2021",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac21&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/27bf6dbd-a9e1-4904-afa7-d28fc7745c4f",
+  "story_spotlight": false,
+  "tcgplayer_id": 236152,
+  "textless": false,
+  "type_line": "Artifact Land",
+  "uri": "https://api.scryfall.com/cards/2ba7597d-6d76-45b8-b172-342999e401bd",
+  "variation": false
+}

@@ -1,0 +1,143 @@
+{
+  "arena_id": 94856,
+  "artist": "Leroy Steinmann",
+  "artist_ids": [
+    "e770721b-7b32-45b3-8839-72f4b36464f6"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 807901,
+  "cmc": 5.0,
+  "collector_number": "54",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 10221,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Here's a tip: If your ride needs souls for fuel, make sure to always keep one handy.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f206b0a1-50d8-4d53-850d-fb15fd328267",
+  "illustration_id": "efd4cd43-28d0-4403-a20c-8633e6b57c10",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:58:26Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/2/f206b0a1-50d8-4d53-850d-fb15fd328267.webp?1783907906",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/2/f206b0a1-50d8-4d53-850d-fb15fd328267.jpg?1783907906",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/2/f206b0a1-50d8-4d53-850d-fb15fd328267.jpg?1783907906",
+    "crop": "https://cards.scryfall.io/crop/front/f/2/f206b0a1-50d8-4d53-850d-fb15fd328267.webp?1783907906",
+    "display": "https://cards.scryfall.io/display/front/f/2/f206b0a1-50d8-4d53-850d-fb15fd328267.webp?1783907906",
+    "grid": "https://cards.scryfall.io/grid/front/f/2/f206b0a1-50d8-4d53-850d-fb15fd328267.webp?1783907906",
+    "large": "https://cards.scryfall.io/large/front/f/2/f206b0a1-50d8-4d53-850d-fb15fd328267.jpg?1783907906",
+    "normal": "https://cards.scryfall.io/normal/front/f/2/f206b0a1-50d8-4d53-850d-fb15fd328267.jpg?1783907906",
+    "png": "https://cards.scryfall.io/png/front/f/2/f206b0a1-50d8-4d53-850d-fb15fd328267.png?1783907906",
+    "small": "https://cards.scryfall.io/small/front/f/2/f206b0a1-50d8-4d53-850d-fb15fd328267.jpg?1783907906",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/2/f206b0a1-50d8-4d53-850d-fb15fd328267.webp?1783907906"
+  },
+  "keywords": [
+    "Crew"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{U}",
+  "mtgo_id": 136231,
+  "multiverse_ids": [
+    690491
+  ],
+  "name": "Possession Engine",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ab7c0256-eea9-4e0d-932d-c25460eed836",
+  "oracle_text": "When this Vehicle enters, gain control of target creature an opponent controls for as long as you control this Vehicle. That creature can't attack or block for as long as you control this Vehicle.\nCrew 3",
+  "oversized": false,
+  "penny_rank": 9635,
+  "power": "5",
+  "preview": {
+    "previewed_at": "2025-01-23",
+    "source": "Gizmodo",
+    "source_uri": "https://gizmodo.com/magic-the-gathering-aetherdrift-spoilers-possession-engine-marshalls-pathcruiser-2000554126"
+  },
+  "prices": {
+    "eur": "0.21",
+    "eur_foil": "0.21",
+    "tix": "0.02",
+    "usd": "0.30",
+    "usd_etched": null,
+    "usd_foil": "0.29"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aab7c0256-eea9-4e0d-932d-c25460eed836&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/136231?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=807901&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F614717%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Possession+Engine",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=690491&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPossession%2BEngine",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPossession%2BEngine"
+  },
+  "released_at": "2025-02-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f206b0a1-50d8-4d53-850d-fb15fd328267/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dft?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dft/54/possession-engine?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dft",
+  "set_id": "23464cc2-a69c-427d-b8a7-08e5d80235d7",
+  "set_name": "Aetherdrift",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adft&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/23464cc2-a69c-427d-b8a7-08e5d80235d7",
+  "story_spotlight": false,
+  "tcgplayer_id": 614717,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Artifact — Vehicle",
+  "uri": "https://api.scryfall.com/cards/f206b0a1-50d8-4d53-850d-fb15fd328267",
+  "variation": false
+}

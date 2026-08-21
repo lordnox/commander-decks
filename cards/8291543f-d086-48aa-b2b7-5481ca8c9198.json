@@ -1,0 +1,141 @@
+{
+  "arena_id": 80411,
+  "artist": "James Paick",
+  "artist_ids": [
+    "1a7be0a2-d8ac-45c7-b0a0-eb0886f47b5f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 611272,
+  "cmc": 0.0,
+  "collector_number": "260",
+  "color_identity": [
+    "B",
+    "R",
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 467,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Maestros agents can lie low in high style at the opulent Shadow Hostel.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "54f449ff-4025-465e-9ec5-a5cf42c4c9d3",
+  "illustration_id": "e1605231-1472-42f1-a2b8-cdbcd76198af",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:10:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/4/54f449ff-4025-465e-9ec5-a5cf42c4c9d3.webp?1783923052",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/4/54f449ff-4025-465e-9ec5-a5cf42c4c9d3.jpg?1783923052",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/4/54f449ff-4025-465e-9ec5-a5cf42c4c9d3.jpg?1783923052",
+    "crop": "https://cards.scryfall.io/crop/front/5/4/54f449ff-4025-465e-9ec5-a5cf42c4c9d3.webp?1783923052",
+    "display": "https://cards.scryfall.io/display/front/5/4/54f449ff-4025-465e-9ec5-a5cf42c4c9d3.webp?1783923052",
+    "grid": "https://cards.scryfall.io/grid/front/5/4/54f449ff-4025-465e-9ec5-a5cf42c4c9d3.webp?1783923052",
+    "large": "https://cards.scryfall.io/large/front/5/4/54f449ff-4025-465e-9ec5-a5cf42c4c9d3.jpg?1783923052",
+    "normal": "https://cards.scryfall.io/normal/front/5/4/54f449ff-4025-465e-9ec5-a5cf42c4c9d3.jpg?1783923052",
+    "png": "https://cards.scryfall.io/png/front/5/4/54f449ff-4025-465e-9ec5-a5cf42c4c9d3.png?1783923052",
+    "small": "https://cards.scryfall.io/small/front/5/4/54f449ff-4025-465e-9ec5-a5cf42c4c9d3.jpg?1783923052",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/4/54f449ff-4025-465e-9ec5-a5cf42c4c9d3.webp?1783923052"
+  },
+  "keywords": [
+    "Cycling"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 98739,
+  "multiverse_ids": [
+    555461
+  ],
+  "name": "Xander's Lounge",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8291543f-d086-48aa-b2b7-5481ca8c9198",
+  "oracle_text": "({T}: Add {U}, {B}, or {R}.)\nThis land enters tapped.\nCycling {3} ({3}, Discard this card: Draw a card.)",
+  "oversized": false,
+  "prices": {
+    "eur": "11.10",
+    "eur_foil": "11.05",
+    "tix": "0.07",
+    "usd": "13.46",
+    "usd_etched": null,
+    "usd_foil": "14.47"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8291543f-d086-48aa-b2b7-5481ca8c9198&unique=prints",
+  "produced_mana": [
+    "B",
+    "R",
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/98739?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=611272&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F265350%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Xander%27s+Lounge",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=555461&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DXander%2527s%2BLounge",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DXander%2527s%2BLounge"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/54f449ff-4025-465e-9ec5-a5cf42c4c9d3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/snc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/snc/260/xanders-lounge?utm_source=api",
+  "security_stamp": "oval",
+  "set": "snc",
+  "set_id": "df837242-8c15-42e4-b049-c933a02dc501",
+  "set_name": "Streets of New Capenna",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asnc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/df837242-8c15-42e4-b049-c933a02dc501",
+  "story_spotlight": false,
+  "tcgplayer_id": 265350,
+  "textless": false,
+  "type_line": "Land — Island Swamp Mountain",
+  "uri": "https://api.scryfall.com/cards/54f449ff-4025-465e-9ec5-a5cf42c4c9d3",
+  "variation": false,
+  "watermark": "maestros"
+}

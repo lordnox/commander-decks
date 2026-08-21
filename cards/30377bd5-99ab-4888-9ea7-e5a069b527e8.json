@@ -1,0 +1,143 @@
+{
+  "arena_id": 90488,
+  "artist": "Eli Minaya",
+  "artist_ids": [
+    "fee369ac-08b5-4a69-8ef8-f2b42b81e807"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764030,
+  "cmc": 2.0,
+  "collector_number": "142",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 604,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Don't you know it's rude not to share?\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "spree"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "a9cc02d1-799d-42aa-9bc2-4c05452b63b4",
+  "illustration_id": "df1e1cb9-973c-4f24-b4d1-08b86af36abc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:03:36Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/9/a9cc02d1-799d-42aa-9bc2-4c05452b63b4.webp?1783911816",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/9/a9cc02d1-799d-42aa-9bc2-4c05452b63b4.jpg?1783911816",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/9/a9cc02d1-799d-42aa-9bc2-4c05452b63b4.jpg?1783911816",
+    "crop": "https://cards.scryfall.io/crop/front/a/9/a9cc02d1-799d-42aa-9bc2-4c05452b63b4.webp?1783911816",
+    "display": "https://cards.scryfall.io/display/front/a/9/a9cc02d1-799d-42aa-9bc2-4c05452b63b4.webp?1783911816",
+    "grid": "https://cards.scryfall.io/grid/front/a/9/a9cc02d1-799d-42aa-9bc2-4c05452b63b4.webp?1783911816",
+    "large": "https://cards.scryfall.io/large/front/a/9/a9cc02d1-799d-42aa-9bc2-4c05452b63b4.jpg?1783911816",
+    "normal": "https://cards.scryfall.io/normal/front/a/9/a9cc02d1-799d-42aa-9bc2-4c05452b63b4.jpg?1783911816",
+    "png": "https://cards.scryfall.io/png/front/a/9/a9cc02d1-799d-42aa-9bc2-4c05452b63b4.png?1783911816",
+    "small": "https://cards.scryfall.io/small/front/a/9/a9cc02d1-799d-42aa-9bc2-4c05452b63b4.jpg?1783911816",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/9/a9cc02d1-799d-42aa-9bc2-4c05452b63b4.webp?1783911816"
+  },
+  "keywords": [
+    "Spree"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{R}{R}",
+  "mtgo_id": 124195,
+  "multiverse_ids": [
+    655083
+  ],
+  "name": "Return the Favor",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "30377bd5-99ab-4888-9ea7-e5a069b527e8",
+  "oracle_text": "Spree (Choose one or more additional costs.)\n+ {1} — Copy target instant spell, sorcery spell, activated ability, or triggered ability. You may choose new targets for the copy.\n+ {1} — Change the target of target spell or ability with a single target.",
+  "oversized": false,
+  "penny_rank": 13022,
+  "preview": {
+    "previewed_at": "2024-03-30",
+    "source": "The Outerhaven",
+    "source_uri": "https://www.theouterhaven.net/2024/03/mtg-preview-outlaws-of-thunder-junction/"
+  },
+  "prices": {
+    "eur": "0.96",
+    "eur_foil": "1.47",
+    "tix": "0.03",
+    "usd": "0.93",
+    "usd_etched": null,
+    "usd_foil": "1.31"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A30377bd5-99ab-4888-9ea7-e5a069b527e8&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124195?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764030&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544709%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Return+the+Favor",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=655083&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DReturn%2Bthe%2BFavor",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DReturn%2Bthe%2BFavor"
+  },
+  "released_at": "2024-04-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a9cc02d1-799d-42aa-9bc2-4c05452b63b4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otj?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otj/142/return-the-favor?utm_source=api",
+  "set": "otj",
+  "set_id": "55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "set_name": "Outlaws of Thunder Junction",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotj&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "story_spotlight": false,
+  "tcgplayer_id": 544709,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/a9cc02d1-799d-42aa-9bc2-4c05452b63b4",
+  "variation": false
+}

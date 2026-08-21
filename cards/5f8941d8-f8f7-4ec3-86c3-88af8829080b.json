@@ -1,0 +1,143 @@
+{
+  "artist": "L J Koh",
+  "artist_ids": [
+    "91b5e9ca-767f-4859-aec3-5b0b234418c7"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 891671,
+  "cmc": 3.0,
+  "collector_number": "56",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 9503,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Nothing is safe from me. Not even your mind.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "57e90938-9225-4c15-b4fb-aad2cced2e6a",
+  "illustration_id": "d85e0669-1724-466f-b6ee-ee1b82ac2b02",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:41:22Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/7/57e90938-9225-4c15-b4fb-aad2cced2e6a.webp?1783903282",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/7/57e90938-9225-4c15-b4fb-aad2cced2e6a.jpg?1783903282",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/7/57e90938-9225-4c15-b4fb-aad2cced2e6a.jpg?1783903282",
+    "crop": "https://cards.scryfall.io/crop/front/5/7/57e90938-9225-4c15-b4fb-aad2cced2e6a.webp?1783903282",
+    "display": "https://cards.scryfall.io/display/front/5/7/57e90938-9225-4c15-b4fb-aad2cced2e6a.webp?1783903282",
+    "grid": "https://cards.scryfall.io/grid/front/5/7/57e90938-9225-4c15-b4fb-aad2cced2e6a.webp?1783903282",
+    "large": "https://cards.scryfall.io/large/front/5/7/57e90938-9225-4c15-b4fb-aad2cced2e6a.jpg?1783903282",
+    "normal": "https://cards.scryfall.io/normal/front/5/7/57e90938-9225-4c15-b4fb-aad2cced2e6a.jpg?1783903282",
+    "png": "https://cards.scryfall.io/png/front/5/7/57e90938-9225-4c15-b4fb-aad2cced2e6a.png?1783903282",
+    "small": "https://cards.scryfall.io/small/front/5/7/57e90938-9225-4c15-b4fb-aad2cced2e6a.jpg?1783903282",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/7/57e90938-9225-4c15-b4fb-aad2cced2e6a.webp?1783903282"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}",
+  "mtgo_id": 150551,
+  "multiverse_ids": [],
+  "name": "Loki's Scepter",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5f8941d8-f8f7-4ec3-86c3-88af8829080b",
+  "oracle_text": "When Loki's Scepter enters, gain control of target creature until end of turn. Untap that creature. Until end of turn, it becomes a Villain in addition to its other types and gains haste.\n{T}: Add one mana of any color.",
+  "oversized": false,
+  "prices": {
+    "eur": "5.74",
+    "eur_foil": null,
+    "tix": "5.18",
+    "usd": "4.68",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5f8941d8-f8f7-4ec3-86c3-88af8829080b&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150551?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891671&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F697290%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Loki%27s+Scepter",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLoki%2527s%2BScepter",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLoki%2527s%2BScepter"
+  },
+  "released_at": "2026-06-26",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "3AB2155EF549062B5BD461FDC435E379073F1E795C7C56A9F4E1B8DA7E69FBF6",
+  "rulings_uri": "https://api.scryfall.com/cards/57e90938-9225-4c15-b4fb-aad2cced2e6a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/56/lokis-scepter?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 697290,
+  "textless": false,
+  "type_line": "Legendary Artifact",
+  "uri": "https://api.scryfall.com/cards/57e90938-9225-4c15-b4fb-aad2cced2e6a",
+  "variation": false
+}

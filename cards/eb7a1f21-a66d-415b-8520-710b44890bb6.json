@@ -1,0 +1,157 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "f0e003f9-2fad-48b4-8e5b-4cda8612ecd2",
+      "name": "Simulacrum Synthesizer",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/f0e003f9-2fad-48b4-8e5b-4cda8612ecd2"
+    },
+    {
+      "component": "token",
+      "id": "3877d2d1-61f2-4295-b0fc-827965eaaefc",
+      "name": "Construct",
+      "object": "related_card",
+      "type_line": "Token Artifact Creature — Construct",
+      "uri": "https://api.scryfall.com/cards/3877d2d1-61f2-4295-b0fc-827965eaaefc"
+    }
+  ],
+  "arena_id": 90667,
+  "artist": "Anton Solovianchyk",
+  "artist_ids": [
+    "8e962ba2-380a-4e6f-84d9-4198549b11ce"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764288,
+  "cmc": 3.0,
+  "collector_number": "6",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1740,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "aaa05ad1-5cda-4edd-b6bf-562ae3e5011a",
+  "illustration_id": "aa2714a0-ca09-4cdf-a095-a10f6ef834ef",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:06:42Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/a/aaa05ad1-5cda-4edd-b6bf-562ae3e5011a.webp?1783912002",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/a/aaa05ad1-5cda-4edd-b6bf-562ae3e5011a.jpg?1783912002",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/a/aaa05ad1-5cda-4edd-b6bf-562ae3e5011a.jpg?1783912002",
+    "crop": "https://cards.scryfall.io/crop/front/a/a/aaa05ad1-5cda-4edd-b6bf-562ae3e5011a.webp?1783912002",
+    "display": "https://cards.scryfall.io/display/front/a/a/aaa05ad1-5cda-4edd-b6bf-562ae3e5011a.webp?1783912002",
+    "grid": "https://cards.scryfall.io/grid/front/a/a/aaa05ad1-5cda-4edd-b6bf-562ae3e5011a.webp?1783912002",
+    "large": "https://cards.scryfall.io/large/front/a/a/aaa05ad1-5cda-4edd-b6bf-562ae3e5011a.jpg?1783912002",
+    "normal": "https://cards.scryfall.io/normal/front/a/a/aaa05ad1-5cda-4edd-b6bf-562ae3e5011a.jpg?1783912002",
+    "png": "https://cards.scryfall.io/png/front/a/a/aaa05ad1-5cda-4edd-b6bf-562ae3e5011a.png?1783912002",
+    "small": "https://cards.scryfall.io/small/front/a/a/aaa05ad1-5cda-4edd-b6bf-562ae3e5011a.jpg?1783912002",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/a/aaa05ad1-5cda-4edd-b6bf-562ae3e5011a.webp?1783912002"
+  },
+  "keywords": [
+    "Scry"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 125373,
+  "multiverse_ids": [
+    660302
+  ],
+  "name": "Simulacrum Synthesizer",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "eb7a1f21-a66d-415b-8520-710b44890bb6",
+  "oracle_text": "When this artifact enters, scry 2.\nWhenever another artifact you control with mana value 3 or greater enters, create a 0/0 colorless Construct artifact creature token with \"This token gets +1/+1 for each artifact you control.\"",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-04-02",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://twitter.com/mtgjp/status/1775093540609307023"
+  },
+  "prices": {
+    "eur": "25.32",
+    "eur_foil": "30.86",
+    "tix": "0.14",
+    "usd": "26.46",
+    "usd_etched": null,
+    "usd_foil": "30.74"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aeb7a1f21-a66d-415b-8520-710b44890bb6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/125373?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764288&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544933%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Simulacrum+Synthesizer",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=660302&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSimulacrum%2BSynthesizer",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSimulacrum%2BSynthesizer"
+  },
+  "released_at": "2024-04-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/aaa05ad1-5cda-4edd-b6bf-562ae3e5011a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/big?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/big/6/simulacrum-synthesizer?utm_source=api",
+  "security_stamp": "oval",
+  "set": "big",
+  "set_id": "14332d2c-ba93-4498-bf3f-9d601f88f783",
+  "set_name": "The Big Score",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abig&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/14332d2c-ba93-4498-bf3f-9d601f88f783",
+  "story_spotlight": false,
+  "tcgplayer_id": 544933,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/aaa05ad1-5cda-4edd-b6bf-562ae3e5011a",
+  "variation": false
+}

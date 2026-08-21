@@ -1,0 +1,136 @@
+{
+  "arena_id": 94849,
+  "artist": "Alexandre Honoré",
+  "artist_ids": [
+    "82ae431c-d7fa-438b-9611-01f704c3a958"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 807175,
+  "cmc": 5.0,
+  "collector_number": "47",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 10746,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "402666f8-c9cc-4e8f-abaa-6c38be90cdd2",
+  "illustration_id": "5ff735a6-9484-4b69-bed3-6f2170d07c4d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:58:27Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/0/402666f8-c9cc-4e8f-abaa-6c38be90cdd2.webp?1783907907",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/0/402666f8-c9cc-4e8f-abaa-6c38be90cdd2.jpg?1783907907",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/0/402666f8-c9cc-4e8f-abaa-6c38be90cdd2.jpg?1783907907",
+    "crop": "https://cards.scryfall.io/crop/front/4/0/402666f8-c9cc-4e8f-abaa-6c38be90cdd2.webp?1783907907",
+    "display": "https://cards.scryfall.io/display/front/4/0/402666f8-c9cc-4e8f-abaa-6c38be90cdd2.webp?1783907907",
+    "grid": "https://cards.scryfall.io/grid/front/4/0/402666f8-c9cc-4e8f-abaa-6c38be90cdd2.webp?1783907907",
+    "large": "https://cards.scryfall.io/large/front/4/0/402666f8-c9cc-4e8f-abaa-6c38be90cdd2.jpg?1783907907",
+    "normal": "https://cards.scryfall.io/normal/front/4/0/402666f8-c9cc-4e8f-abaa-6c38be90cdd2.jpg?1783907907",
+    "png": "https://cards.scryfall.io/png/front/4/0/402666f8-c9cc-4e8f-abaa-6c38be90cdd2.png?1783907907",
+    "small": "https://cards.scryfall.io/small/front/4/0/402666f8-c9cc-4e8f-abaa-6c38be90cdd2.jpg?1783907907",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/0/402666f8-c9cc-4e8f-abaa-6c38be90cdd2.webp?1783907907"
+  },
+  "keywords": [
+    "Flying",
+    "Crew"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{U}",
+  "mtgo_id": 136217,
+  "multiverse_ids": [
+    690484
+  ],
+  "name": "Hulldrifter",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a0a7319d-9441-4aed-a351-9ff3fb3b1d9e",
+  "oracle_text": "Flying\nWhen this Vehicle enters, draw two cards.\nCrew 3 (Tap any number of creatures you control with total power 3 or more: This Vehicle becomes an artifact creature until end of turn.)",
+  "oversized": false,
+  "power": "3",
+  "prices": {
+    "eur": "0.08",
+    "eur_foil": "0.16",
+    "tix": "0.03",
+    "usd": "0.17",
+    "usd_etched": null,
+    "usd_foil": "0.32"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa0a7319d-9441-4aed-a351-9ff3fb3b1d9e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/136217?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=807175&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F614232%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hulldrifter",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=690484&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHulldrifter",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHulldrifter"
+  },
+  "released_at": "2025-02-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/402666f8-c9cc-4e8f-abaa-6c38be90cdd2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dft?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dft/47/hulldrifter?utm_source=api",
+  "set": "dft",
+  "set_id": "23464cc2-a69c-427d-b8a7-08e5d80235d7",
+  "set_name": "Aetherdrift",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adft&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/23464cc2-a69c-427d-b8a7-08e5d80235d7",
+  "story_spotlight": false,
+  "tcgplayer_id": 614232,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Artifact — Vehicle",
+  "uri": "https://api.scryfall.com/cards/402666f8-c9cc-4e8f-abaa-6c38be90cdd2",
+  "variation": false
+}

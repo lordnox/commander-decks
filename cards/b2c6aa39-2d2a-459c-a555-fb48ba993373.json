@@ -1,0 +1,127 @@
+{
+  "artist": "Bastien Grivet",
+  "artist_ids": [
+    "434a6cf6-c6bf-4f87-84db-d0a902393b9e"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "319",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "f3cc07cd-cc79-4745-b0b7-eade60175cc3",
+  "illustration_id": "5a803c8c-9fe3-4346-8ef7-6b4ab31f0c03",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-08-06T02:00:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/3/f3cc07cd-cc79-4745-b0b7-eade60175cc3.webp?1785981645",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/3/f3cc07cd-cc79-4745-b0b7-eade60175cc3.jpg?1785981645",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/3/f3cc07cd-cc79-4745-b0b7-eade60175cc3.jpg?1785981645",
+    "crop": "https://cards.scryfall.io/crop/front/f/3/f3cc07cd-cc79-4745-b0b7-eade60175cc3.webp?1785981645",
+    "display": "https://cards.scryfall.io/display/front/f/3/f3cc07cd-cc79-4745-b0b7-eade60175cc3.webp?1785981645",
+    "grid": "https://cards.scryfall.io/grid/front/f/3/f3cc07cd-cc79-4745-b0b7-eade60175cc3.webp?1785981645",
+    "large": "https://cards.scryfall.io/large/front/f/3/f3cc07cd-cc79-4745-b0b7-eade60175cc3.jpg?1785981645",
+    "normal": "https://cards.scryfall.io/normal/front/f/3/f3cc07cd-cc79-4745-b0b7-eade60175cc3.jpg?1785981645",
+    "png": "https://cards.scryfall.io/png/front/f/3/f3cc07cd-cc79-4745-b0b7-eade60175cc3.png?1785981645",
+    "small": "https://cards.scryfall.io/small/front/f/3/f3cc07cd-cc79-4745-b0b7-eade60175cc3.jpg?1785981645",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/3/f3cc07cd-cc79-4745-b0b7-eade60175cc3.webp?1785981645"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Island",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
+  "oracle_text": "({T}: Add {U}.)",
+  "oversized": false,
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab2c6aa39-2d2a-459c-a555-fb48ba993373&unique=prints",
+  "produced_mana": [
+    "U"
+  ],
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Island&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Island&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DIsland%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Island",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIsland",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIsland"
+  },
+  "released_at": "2026-11-13",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f3cc07cd-cc79-4745-b0b7-eade60175cc3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/trk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/trk/319/island?utm_source=api",
+  "set": "trk",
+  "set_id": "b47039dc-da5a-448c-8feb-e77d458108a6",
+  "set_name": "Star Trek",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atrk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/b47039dc-da5a-448c-8feb-e77d458108a6",
+  "story_spotlight": false,
+  "textless": false,
+  "type_line": "Basic Land — Island",
+  "uri": "https://api.scryfall.com/cards/f3cc07cd-cc79-4745-b0b7-eade60175cc3",
+  "variation": false
+}

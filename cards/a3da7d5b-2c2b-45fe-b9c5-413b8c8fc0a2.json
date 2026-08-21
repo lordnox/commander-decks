@@ -1,0 +1,142 @@
+{
+  "artist": "Zoltan Boros & Gabor Szikszai",
+  "artist_ids": [
+    "1885e6cb-c827-4896-994e-3d0a027d602f",
+    "44c3877f-8771-43dc-9e40-f4c765f59d2e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 483994,
+  "cmc": 0.0,
+  "collector_number": "309",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 466,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Its secrets once wrought the greatest artifice ever known. Now crabs loot the rubble to decorate their shells.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a95b7645-154f-4904-bf71-db7eb24d4df2",
+  "illustration_id": "62323005-56bb-4cf0-bf97-6f1dafc7d646",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:08:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/9/a95b7645-154f-4904-bf71-db7eb24d4df2.webp?1783930087",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/9/a95b7645-154f-4904-bf71-db7eb24d4df2.jpg?1783930087",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/9/a95b7645-154f-4904-bf71-db7eb24d4df2.jpg?1783930087",
+    "crop": "https://cards.scryfall.io/crop/front/a/9/a95b7645-154f-4904-bf71-db7eb24d4df2.webp?1783930087",
+    "display": "https://cards.scryfall.io/display/front/a/9/a95b7645-154f-4904-bf71-db7eb24d4df2.webp?1783930087",
+    "grid": "https://cards.scryfall.io/grid/front/a/9/a95b7645-154f-4904-bf71-db7eb24d4df2.webp?1783930087",
+    "large": "https://cards.scryfall.io/large/front/a/9/a95b7645-154f-4904-bf71-db7eb24d4df2.jpg?1783930087",
+    "normal": "https://cards.scryfall.io/normal/front/a/9/a95b7645-154f-4904-bf71-db7eb24d4df2.jpg?1783930087",
+    "png": "https://cards.scryfall.io/png/front/a/9/a95b7645-154f-4904-bf71-db7eb24d4df2.png?1783930087",
+    "small": "https://cards.scryfall.io/small/front/a/9/a95b7645-154f-4904-bf71-db7eb24d4df2.jpg?1783930087",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/9/a95b7645-154f-4904-bf71-db7eb24d4df2.webp?1783930087"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 82652,
+  "multiverse_ids": [
+    489982
+  ],
+  "name": "Academy Ruins",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a3da7d5b-2c2b-45fe-b9c5-413b8c8fc0a2",
+  "oracle_text": "{T}: Add {C}.\n{1}{U}, {T}: Put target artifact card from your graveyard on top of your library.",
+  "oversized": false,
+  "penny_rank": 982,
+  "preview": {
+    "previewed_at": "2020-07-22",
+    "source": "Noah Walker",
+    "source_uri": "https://twitter.com/_NoWa_MTG/status/1286018047686455303"
+  },
+  "prices": {
+    "eur": "6.39",
+    "eur_foil": "13.01",
+    "tix": "0.03",
+    "usd": "8.46",
+    "usd_etched": null,
+    "usd_foil": "13.96"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa3da7d5b-2c2b-45fe-b9c5-413b8c8fc0a2&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/82652?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=483994&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F218575%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Academy+Ruins",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=489982&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAcademy%2BRuins",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAcademy%2BRuins"
+  },
+  "released_at": "2020-08-07",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a95b7645-154f-4904-bf71-db7eb24d4df2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/2xm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/2xm/309/academy-ruins?utm_source=api",
+  "security_stamp": "oval",
+  "set": "2xm",
+  "set_id": "372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "set_name": "Double Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A2xm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "story_spotlight": false,
+  "tcgplayer_id": 218575,
+  "textless": false,
+  "type_line": "Legendary Land",
+  "uri": "https://api.scryfall.com/cards/a95b7645-154f-4904-bf71-db7eb24d4df2",
+  "variation": false
+}

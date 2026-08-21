@@ -1,0 +1,141 @@
+{
+  "arena_id": 92360,
+  "artist": "Marco Gorlei",
+  "artist_ids": [
+    "b6476cc7-1576-47e8-9f6a-68d05b45cf62"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 786847,
+  "cmc": 0.0,
+  "collector_number": "260",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 600,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Here, the Floodpits languish like a corpse, the clear waters choked by the filthy hands of the bog.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "83f510b7-4cbd-4883-9c26-c8824bc668ac",
+  "illustration_id": "b479a2d4-5168-46f4-b7f5-9cd0e439be4b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:23:48Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/3/83f510b7-4cbd-4883-9c26-c8824bc668ac.webp?1783909428",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/3/83f510b7-4cbd-4883-9c26-c8824bc668ac.jpg?1783909428",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/3/83f510b7-4cbd-4883-9c26-c8824bc668ac.jpg?1783909428",
+    "crop": "https://cards.scryfall.io/crop/front/8/3/83f510b7-4cbd-4883-9c26-c8824bc668ac.webp?1783909428",
+    "display": "https://cards.scryfall.io/display/front/8/3/83f510b7-4cbd-4883-9c26-c8824bc668ac.webp?1783909428",
+    "grid": "https://cards.scryfall.io/grid/front/8/3/83f510b7-4cbd-4883-9c26-c8824bc668ac.webp?1783909428",
+    "large": "https://cards.scryfall.io/large/front/8/3/83f510b7-4cbd-4883-9c26-c8824bc668ac.jpg?1783909428",
+    "normal": "https://cards.scryfall.io/normal/front/8/3/83f510b7-4cbd-4883-9c26-c8824bc668ac.jpg?1783909428",
+    "png": "https://cards.scryfall.io/png/front/8/3/83f510b7-4cbd-4883-9c26-c8824bc668ac.png?1783909428",
+    "small": "https://cards.scryfall.io/small/front/8/3/83f510b7-4cbd-4883-9c26-c8824bc668ac.jpg?1783909428",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/3/83f510b7-4cbd-4883-9c26-c8824bc668ac.webp?1783909428"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 130651,
+  "multiverse_ids": [
+    673665
+  ],
+  "name": "Gloomlake Verge",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d71bda4c-3dee-4398-8fd0-f77d8743b887",
+  "oracle_text": "{T}: Add {U}.\n{T}: Add {B}. Activate only if you control an Island or a Swamp.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-09-03",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.youtube.com/watch?v=8mYQLkstDs8"
+  },
+  "prices": {
+    "eur": "9.89",
+    "eur_foil": "13.10",
+    "tix": "0.53",
+    "usd": "10.16",
+    "usd_etched": null,
+    "usd_foil": "10.96"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad71bda4c-3dee-4398-8fd0-f77d8743b887&unique=prints",
+  "produced_mana": [
+    "B",
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130651?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=786847&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F576518%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Gloomlake+Verge",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=673665&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGloomlake%2BVerge",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGloomlake%2BVerge"
+  },
+  "released_at": "2024-09-27",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/83f510b7-4cbd-4883-9c26-c8824bc668ac/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsk/260/gloomlake-verge?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsk",
+  "set_id": "a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "set_name": "Duskmourn: House of Horror",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "story_spotlight": false,
+  "tcgplayer_id": 576518,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/83f510b7-4cbd-4883-9c26-c8824bc668ac",
+  "variation": false
+}

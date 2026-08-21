@@ -1,0 +1,133 @@
+{
+  "artist": "Rob Alexander",
+  "artist_ids": [
+    "35906871-6c78-4ab2-9ed1-e6792c8efb74"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 834302,
+  "cmc": 0.0,
+  "collector_number": "161",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 391,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Kuldotha, wellspring of molten metal, temple of the goblin horde.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1",
+  "illustration_id": "da81347d-72a3-4221-adc3-3fe76dd141a5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:26:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/4/74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1.webp?1783906013",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/4/74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1.jpg?1783906013",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/4/74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1.jpg?1783906013",
+    "crop": "https://cards.scryfall.io/crop/front/7/4/74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1.webp?1783906013",
+    "display": "https://cards.scryfall.io/display/front/7/4/74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1.webp?1783906013",
+    "grid": "https://cards.scryfall.io/grid/front/7/4/74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1.webp?1783906013",
+    "large": "https://cards.scryfall.io/large/front/7/4/74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1.jpg?1783906013",
+    "normal": "https://cards.scryfall.io/normal/front/7/4/74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1.jpg?1783906013",
+    "png": "https://cards.scryfall.io/png/front/7/4/74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1.png?1783906013",
+    "small": "https://cards.scryfall.io/small/front/7/4/74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1.jpg?1783906013",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/4/74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1.webp?1783906013"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "banned",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 142459,
+  "multiverse_ids": [],
+  "name": "Great Furnace",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f4819061-b0b5-48ab-af7b-6525c3d2eab7",
+  "oracle_text": "{T}: Add {R}.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2025-07-10",
+    "source": "EDHijinks",
+    "source_uri": "https://www.youtube.com/watch?v=Swjj0JGhFco"
+  },
+  "prices": {
+    "eur": "2.68",
+    "eur_foil": null,
+    "tix": "10.93",
+    "usd": "2.28",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af4819061-b0b5-48ab-af7b-6525c3d2eab7&unique=prints",
+  "produced_mana": [
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/142459?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=834302&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F642853%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Great+Furnace",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGreat%2BFurnace",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGreat%2BFurnace"
+  },
+  "released_at": "2025-08-01",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "C31ED3208353D4CEA6989DC62E4D075A46250C0630180362F807F2CCAC21FBA9",
+  "rulings_uri": "https://api.scryfall.com/cards/74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eoc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eoc/161/great-furnace?utm_source=api",
+  "set": "eoc",
+  "set_id": "b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "set_name": "Edge of Eternities Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "story_spotlight": false,
+  "tcgplayer_id": 642853,
+  "textless": false,
+  "type_line": "Artifact Land",
+  "uri": "https://api.scryfall.com/cards/74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1",
+  "variation": false
+}
