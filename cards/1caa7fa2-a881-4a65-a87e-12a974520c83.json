@@ -1,0 +1,140 @@
+{
+  "arena_id": 90946,
+  "artist": "David Astruga",
+  "artist_ids": [
+    "4fa5b0e2-1324-4407-98b8-3282395a03e3"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 771189,
+  "cmc": 4.0,
+  "collector_number": "97",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3997,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "df9c275d-e8cc-40c2-8baf-7a0d154aa7cf",
+  "illustration_id": "cb7f0a80-c861-4eea-9f6d-5bb0f4a5123a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:39Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/f/df9c275d-e8cc-40c2-8baf-7a0d154aa7cf.webp?1783911279",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/f/df9c275d-e8cc-40c2-8baf-7a0d154aa7cf.jpg?1783911279",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/f/df9c275d-e8cc-40c2-8baf-7a0d154aa7cf.jpg?1783911279",
+    "crop": "https://cards.scryfall.io/crop/front/d/f/df9c275d-e8cc-40c2-8baf-7a0d154aa7cf.webp?1783911279",
+    "display": "https://cards.scryfall.io/display/front/d/f/df9c275d-e8cc-40c2-8baf-7a0d154aa7cf.webp?1783911279",
+    "grid": "https://cards.scryfall.io/grid/front/d/f/df9c275d-e8cc-40c2-8baf-7a0d154aa7cf.webp?1783911279",
+    "large": "https://cards.scryfall.io/large/front/d/f/df9c275d-e8cc-40c2-8baf-7a0d154aa7cf.jpg?1783911279",
+    "normal": "https://cards.scryfall.io/normal/front/d/f/df9c275d-e8cc-40c2-8baf-7a0d154aa7cf.jpg?1783911279",
+    "png": "https://cards.scryfall.io/png/front/d/f/df9c275d-e8cc-40c2-8baf-7a0d154aa7cf.png?1783911279",
+    "small": "https://cards.scryfall.io/small/front/d/f/df9c275d-e8cc-40c2-8baf-7a0d154aa7cf.jpg?1783911279",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/f/df9c275d-e8cc-40c2-8baf-7a0d154aa7cf.webp?1783911279"
+  },
+  "keywords": [
+    "Menace"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "mtgo_id": 126211,
+  "multiverse_ids": [
+    662249
+  ],
+  "name": "Grim Servant",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1caa7fa2-a881-4a65-a87e-12a974520c83",
+  "oracle_text": "Menace\nWhen this creature enters, search your library for a card with mana value less than or equal to your devotion to black, reveal it, put it into your hand, then shuffle. You lose 3 life. (Each {B} in the mana costs of permanents you control counts toward your devotion to black.)",
+  "oversized": false,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2024-05-21",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": "0.17",
+    "tix": "0.03",
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": "0.38"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1caa7fa2-a881-4a65-a87e-12a974520c83&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126211?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=771189&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552280%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Grim+Servant",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662249&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGrim%2BServant",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGrim%2BServant"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/df9c275d-e8cc-40c2-8baf-7a0d154aa7cf/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/97/grim-servant?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552280,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Zombie Warlock",
+  "uri": "https://api.scryfall.com/cards/df9c275d-e8cc-40c2-8baf-7a0d154aa7cf",
+  "variation": false
+}
