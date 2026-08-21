@@ -7,7 +7,7 @@
 - [Mishra — Racecar Driver](decks/mishra-racecar-driver/README.md)
 - [Ozox — Graveyard Rotation](decks/ozox-graveyard-rotation/README.md)
 
-A conversation-driven workspace for importing, resolving, categorizing, and improving Magic: The Gathering Commander decks.
+A conversation-driven workspace for importing, resolving, categorizing, assessing, and improving Magic: The Gathering Commander decks.
 
 The repository keeps each submitted deck list unchanged and caches card data from Scryfall for reuse across decks.
 
@@ -55,6 +55,7 @@ You can explicitly invoke a skill when needed:
 ```text
 $deck-workspace import this deck list
 $scryfall-lookup find red cards that blink things
+$assess-deck assess Mishra's bracket and expected win turn
 ```
 
 ### Codex cloud
@@ -135,11 +136,12 @@ Before making changes:
 2. Read .agents/skills/deck-workspace/SKILL.md.
 3. For card searches, read .agents/skills/scryfall-lookup/SKILL.md.
 4. For a deck README or play guide, read .agents/skills/deck-primer/SKILL.md.
-5. Follow those workflows exactly.
-6. Preserve submitted deck lists and never overwrite a likely existing deck
+5. For bracket, power, or win-turn analysis, read .agents/skills/assess-deck/SKILL.md.
+6. Follow those workflows exactly.
+7. Preserve submitted deck lists and never overwrite a likely existing deck
    without confirmation.
-7. Ensure every resolved card has one or more categories.
-8. Ensure every deck has a primer linked near the top of the root README.
+8. Ensure every resolved card has one or more categories.
+9. Ensure every deck has a primer linked near the top of the root README.
 ```
 
 To resolve a saved list manually:
@@ -167,6 +169,7 @@ cards/
   <oracle-id>.json
 .agents/
   skills/
+    assess-deck/
     deck-workspace/
     scryfall-lookup/
     deck-primer/
@@ -187,6 +190,9 @@ Open my Mishra deck and suggest three cuts.
 ```
 
 ```text
-Compare this new list with the stored version of my Mishra deck.
+Assess Mishra's Commander bracket and expected win turn.
 ```
 
+```text
+Compare this new list with the stored version of my Mishra deck.
+```
