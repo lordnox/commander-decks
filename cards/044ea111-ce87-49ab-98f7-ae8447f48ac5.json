@@ -1,0 +1,133 @@
+{
+  "arena_id": 79548,
+  "artist": "Justine Cruz",
+  "artist_ids": [
+    "4d6acc42-7bac-42cb-ac57-a56355292e89"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 608223,
+  "cmc": 2.0,
+  "collector_number": "120",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3738,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Restricted auctions are held once a year at the Dragon's Lair—the sacred, neutral meeting ground of all Reckoner gangs.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "6338942d-d650-4571-8ec6-4d658792c53e",
+  "illustration_id": "708147ab-48cc-4719-b513-1939df5252ac",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:24:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/3/6338942d-d650-4571-8ec6-4d658792c53e.webp?1783923877",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/3/6338942d-d650-4571-8ec6-4d658792c53e.jpg?1783923877",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/3/6338942d-d650-4571-8ec6-4d658792c53e.jpg?1783923877",
+    "crop": "https://cards.scryfall.io/crop/front/6/3/6338942d-d650-4571-8ec6-4d658792c53e.webp?1783923877",
+    "display": "https://cards.scryfall.io/display/front/6/3/6338942d-d650-4571-8ec6-4d658792c53e.webp?1783923877",
+    "grid": "https://cards.scryfall.io/grid/front/6/3/6338942d-d650-4571-8ec6-4d658792c53e.webp?1783923877",
+    "large": "https://cards.scryfall.io/large/front/6/3/6338942d-d650-4571-8ec6-4d658792c53e.jpg?1783923877",
+    "normal": "https://cards.scryfall.io/normal/front/6/3/6338942d-d650-4571-8ec6-4d658792c53e.jpg?1783923877",
+    "png": "https://cards.scryfall.io/png/front/6/3/6338942d-d650-4571-8ec6-4d658792c53e.png?1783923877",
+    "small": "https://cards.scryfall.io/small/front/6/3/6338942d-d650-4571-8ec6-4d658792c53e.jpg?1783923877",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/3/6338942d-d650-4571-8ec6-4d658792c53e.webp?1783923877"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 97166,
+  "multiverse_ids": [
+    548421
+  ],
+  "name": "Reckoner's Bargain",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "044ea111-ce87-49ab-98f7-ae8447f48ac5",
+  "oracle_text": "As an additional cost to cast this spell, sacrifice an artifact or creature.\nYou gain life equal to the sacrificed permanent's mana value. Draw two cards.",
+  "oversized": false,
+  "penny_rank": 2537,
+  "prices": {
+    "eur": "1.57",
+    "eur_foil": "2.50",
+    "tix": "0.03",
+    "usd": "1.12",
+    "usd_etched": null,
+    "usd_foil": "2.42"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A044ea111-ce87-49ab-98f7-ae8447f48ac5&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/97166?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=608223&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F262771%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Reckoner%27s+Bargain",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=548421&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DReckoner%2527s%2BBargain",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DReckoner%2527s%2BBargain"
+  },
+  "released_at": "2022-02-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/6338942d-d650-4571-8ec6-4d658792c53e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/neo?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/neo/120/reckoners-bargain?utm_source=api",
+  "set": "neo",
+  "set_id": "59a2059f-5482-433f-8761-eb2e17859b71",
+  "set_name": "Kamigawa: Neon Dynasty",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aneo&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/59a2059f-5482-433f-8761-eb2e17859b71",
+  "story_spotlight": false,
+  "tcgplayer_id": 262771,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/6338942d-d650-4571-8ec6-4d658792c53e",
+  "variation": false
+}
