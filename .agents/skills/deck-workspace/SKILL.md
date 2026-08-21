@@ -52,6 +52,10 @@ If any line cannot be resolved:
 
 Every card must have one or more categories.
 
+- Preserve categories supplied in bracket notation on imported deck-list lines.
+- Keep their spelling, capitalization, spaces, and directives such as `{top}`, `{noDeck}`, and `{noPrice}` exactly as submitted.
+- Treat imported categories as deck-specific effective categories with `category_source: "decklist"`; do not replace them with inferred universal defaults.
+- The commander is identified by and retains the exact category `Commander{top}`.
 - Universal defaults live in `cards/categories.json`, keyed by Oracle ID.
 - Review generated defaults and replace vague categories such as `other` with useful functional roles.
 - Multiple categories are allowed, such as `["ramp", "artifact-synergy"]`.
