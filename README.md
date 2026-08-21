@@ -1,6 +1,6 @@
 # Commander Decks
 
-A conversation-driven workspace for importing, resolving, and improving Magic: The Gathering Commander decks.
+A conversation-driven workspace for importing, resolving, categorizing, and improving Magic: The Gathering Commander decks.
 
 The repository keeps each submitted deck list unchanged and caches card data from Scryfall for reuse across decks.
 
@@ -78,9 +78,41 @@ When a deck list is submitted, the agent must:
 3. Otherwise infer a deck name, asking only when unclear.
 4. Save the original list as `decks/<deck-name>/decklist.txt`.
 5. Resolve every card using Scryfall.
-6. Write the deck manifest to `decks/<deck-name>/cards.json`.
-7. Cache shared card data under `cards/`.
-8. Report unresolved names before analyzing the deck.
+6. Assign one or more categories to every card.
+7. Write the deck manifest to `decks/<deck-name>/cards.json`.
+8. Cache shared card data and universal categories under `cards/`.
+9. Report unresolved names before analyzing the deck.
+
+## Card categories
+
+Universal categories are stored in `cards/categories.json` and reused in every deck. Each card may have multiple categories.
+
+Example:
+
+```json
+{
+  "<oracle-id>": {
+    "name": "Ichor Wellspring",
+    "categories": ["card-draw", "artifact-synergy"]
+  }
+}
+```
+
+When a card serves a different purpose in one deck, add it to `decks/<deck-name>/category-overrides.json`:
+
+```json
+{
+  "schema_version": 1,
+  "cards": {
+    "<oracle-id>": {
+      "name": "Card Name",
+      "categories": ["combo-piece", "sacrifice-fodder"]
+    }
+  }
+}
+```
+
+The deck-specific list replaces the universal list for that card in that deck. Effective categories and their source are written into the deck's `cards.json`.
 
 ## Instructions for other agents
 
@@ -96,6 +128,7 @@ Before making changes:
 4. Follow those workflows exactly.
 5. Preserve submitted deck lists and never overwrite a likely existing deck
    without confirmation.
+6. Ensure every resolved card has one or more categories.
 ```
 
 To resolve a saved list manually:
@@ -105,7 +138,7 @@ python3 .agents/skills/deck-workspace/scripts/cache_deck.py \
   decks/<deck-name>/decklist.txt
 ```
 
-Use `--refresh` to retrieve fresh data for cards already present in the cache.
+Use `--refresh` to retrieve fresh data for cards already present in the cache. Rerun the command after editing categories or deck overrides to regenerate effective categories.
 
 ## Repository layout
 
@@ -115,8 +148,10 @@ decks/
   <deck-name>/
     decklist.txt
     cards.json
+    category-overrides.json
 cards/
   index.json
+  categories.json
   <oracle-id>.json
 .agents/
   skills/
