@@ -1,0 +1,147 @@
+{
+  "arena_id": 82067,
+  "artist": "Magali Villeneuve",
+  "artist_ids": [
+    "9e6a55ae-be4d-4c23-a2a5-135737ffd879"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 672097,
+  "cmc": 5.0,
+  "collector_number": "15",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 4680,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "845e5663-2959-44ae-b4c6-d6ea41f01d6e",
+  "illustration_id": "82ce8c9e-d43f-4e96-aef5-9181de27398c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:42:47Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/4/845e5663-2959-44ae-b4c6-d6ea41f01d6e.webp?1783921367",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/4/845e5663-2959-44ae-b4c6-d6ea41f01d6e.jpg?1783921367",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/4/845e5663-2959-44ae-b4c6-d6ea41f01d6e.jpg?1783921367",
+    "crop": "https://cards.scryfall.io/crop/front/8/4/845e5663-2959-44ae-b4c6-d6ea41f01d6e.webp?1783921367",
+    "display": "https://cards.scryfall.io/display/front/8/4/845e5663-2959-44ae-b4c6-d6ea41f01d6e.webp?1783921367",
+    "grid": "https://cards.scryfall.io/grid/front/8/4/845e5663-2959-44ae-b4c6-d6ea41f01d6e.webp?1783921367",
+    "large": "https://cards.scryfall.io/large/front/8/4/845e5663-2959-44ae-b4c6-d6ea41f01d6e.jpg?1783921367",
+    "normal": "https://cards.scryfall.io/normal/front/8/4/845e5663-2959-44ae-b4c6-d6ea41f01d6e.jpg?1783921367",
+    "png": "https://cards.scryfall.io/png/front/8/4/845e5663-2959-44ae-b4c6-d6ea41f01d6e.png?1783921367",
+    "small": "https://cards.scryfall.io/small/front/8/4/845e5663-2959-44ae-b4c6-d6ea41f01d6e.jpg?1783921367",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/4/845e5663-2959-44ae-b4c6-d6ea41f01d6e.webp?1783921367"
+  },
+  "keywords": [
+    "Lifelink",
+    "Vigilance",
+    "First strike"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{W}",
+  "mtgo_id": 102506,
+  "multiverse_ids": [
+    574495
+  ],
+  "name": "Danitha, Benalia's Hope",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "43b5dbe9-41f7-4082-944b-ea9d6292c6fd",
+  "oracle_text": "First strike, vigilance, lifelink\nWhen Danitha enters, you may put an Aura or Equipment card from your hand or graveyard onto the battlefield attached to Danitha.",
+  "oversized": false,
+  "penny_rank": 7548,
+  "power": "4",
+  "preview": {
+    "previewed_at": "2022-08-23",
+    "source": "Good Luck High Five",
+    "source_uri": "https://www.youtube.com/watch?v=6HcX7mUI1NE"
+  },
+  "prices": {
+    "eur": "0.40",
+    "eur_foil": "0.51",
+    "tix": "0.02",
+    "usd": "1.09",
+    "usd_etched": null,
+    "usd_foil": "0.94"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A43b5dbe9-41f7-4082-944b-ea9d6292c6fd&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/102506?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=672097&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F283330%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Danitha%2C+Benalia%27s+Hope",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=574495&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDanitha%252C%2BBenalia%2527s%2BHope",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDanitha%252C%2BBenalia%2527s%2BHope"
+  },
+  "released_at": "2022-09-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/845e5663-2959-44ae-b4c6-d6ea41f01d6e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dmu?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dmu/15/danitha-benalias-hope?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dmu",
+  "set_id": "4e47a6cd-cdeb-4b0f-8f24-cfe1a0127cb3",
+  "set_name": "Dominaria United",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Admu&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4e47a6cd-cdeb-4b0f-8f24-cfe1a0127cb3",
+  "story_spotlight": false,
+  "tcgplayer_id": 283330,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Human Knight",
+  "uri": "https://api.scryfall.com/cards/845e5663-2959-44ae-b4c6-d6ea41f01d6e",
+  "variation": false
+}
