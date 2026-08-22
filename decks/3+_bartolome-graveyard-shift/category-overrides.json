@@ -103,14 +103,6 @@
         "Win Condition"
       ]
     },
-    "388168b3-ec68-4af2-b88c-6a5ec88c15f6": {
-      "name": "Ayara, First of Locthwain",
-      "categories": [
-        "Death Benefits",
-        "Card Draw",
-        "Sacrifice Outlet"
-      ]
-    },
     "f47659b5-d834-4153-b9fc-6a0702c503d9": {
       "name": "Dark Prophecy",
       "categories": [
@@ -195,13 +187,6 @@
         "Back from the Dead"
       ]
     },
-    "2c11c72f-5b04-47d8-bdf8-8d9d197ebc1b": {
-      "name": "Gift of Immortality",
-      "categories": [
-        "Protection",
-        "Back from the Dead"
-      ]
-    },
     "b2e950fb-cb7e-40a0-a311-5bbdd0477b29": {
       "name": "Sun Titan",
       "categories": [
@@ -272,13 +257,6 @@
         "Win Condition"
       ]
     },
-    "2c5044ff-a303-4276-8e23-7caac30a275b": {
-      "name": "Ninja Teen",
-      "categories": [
-        "Death Benefits",
-        "Win Condition"
-      ]
-    },
     "7fd61a18-6e4f-40c5-aa00-3d101ec1ec82": {
       "name": "Stitcher's Supplier",
       "categories": [
@@ -339,13 +317,6 @@
     },
     "8e720216-a980-4a34-8aef-62ac3ef15a6e": {
       "name": "Leonin Relic-Warder",
-      "categories": [
-        "Removal",
-        "Revolving Door"
-      ]
-    },
-    "cb9d557a-fc06-428c-8be6-7d28add33028": {
-      "name": "Fiend Hunter",
       "categories": [
         "Removal",
         "Revolving Door"
@@ -562,6 +533,34 @@
       "name": "Enduring Renewal",
       "categories": [
         "Combo Piece",
+        "Back from the Dead"
+      ]
+    },
+    "a4d33e21-d3fe-4d5b-903c-b75e859d6f7f": {
+      "name": "Elas il-Kor, Sadistic Pilgrim",
+      "categories": [
+        "Death Benefits",
+        "Win Condition"
+      ]
+    },
+    "0c77b805-728d-4ae4-88a9-223f4b7b52e0": {
+      "name": "Corpse Knight",
+      "categories": [
+        "Death Benefits",
+        "Win Condition"
+      ]
+    },
+    "9e597063-c077-4236-a9e4-b0721b24677f": {
+      "name": "Syr Vondam, Sunstar Exemplar",
+      "categories": [
+        "Death Benefits",
+        "Removal"
+      ]
+    },
+    "3bc757c1-3adb-4321-8832-8e1cc9e687f7": {
+      "name": "Lurrus of the Dream-Den",
+      "categories": [
+        "Graveyard Shift",
         "Back from the Dead"
       ]
     }
