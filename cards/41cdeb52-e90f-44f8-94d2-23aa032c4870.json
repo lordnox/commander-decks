@@ -1,0 +1,138 @@
+{
+  "arena_id": 77189,
+  "artist": "Gabor Szikszai",
+  "artist_ids": [
+    "44c3877f-8771-43dc-9e40-f4c765f59d2e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 571093,
+  "cmc": 3.0,
+  "collector_number": "84",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 5754,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Give me just a moment! I almost have it.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c6704458-6e9e-4795-a56d-25b68fbf9672",
+  "illustration_id": "a82db12e-a9ac-4d14-a1d2-821d387acf4e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:08:24Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/6/c6704458-6e9e-4795-a56d-25b68fbf9672.webp?1783926504",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/6/c6704458-6e9e-4795-a56d-25b68fbf9672.jpg?1783926504",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/6/c6704458-6e9e-4795-a56d-25b68fbf9672.jpg?1783926504",
+    "crop": "https://cards.scryfall.io/crop/front/c/6/c6704458-6e9e-4795-a56d-25b68fbf9672.webp?1783926504",
+    "display": "https://cards.scryfall.io/display/front/c/6/c6704458-6e9e-4795-a56d-25b68fbf9672.webp?1783926504",
+    "grid": "https://cards.scryfall.io/grid/front/c/6/c6704458-6e9e-4795-a56d-25b68fbf9672.webp?1783926504",
+    "large": "https://cards.scryfall.io/large/front/c/6/c6704458-6e9e-4795-a56d-25b68fbf9672.jpg?1783926504",
+    "normal": "https://cards.scryfall.io/normal/front/c/6/c6704458-6e9e-4795-a56d-25b68fbf9672.jpg?1783926504",
+    "png": "https://cards.scryfall.io/png/front/c/6/c6704458-6e9e-4795-a56d-25b68fbf9672.png?1783926504",
+    "small": "https://cards.scryfall.io/small/front/c/6/c6704458-6e9e-4795-a56d-25b68fbf9672.jpg?1783926504",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/6/c6704458-6e9e-4795-a56d-25b68fbf9672.webp?1783926504"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{U}",
+  "mtgo_id": 91670,
+  "multiverse_ids": [
+    527371
+  ],
+  "name": "You Find the Villains' Lair",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "41cdeb52-e90f-44f8-94d2-23aa032c4870",
+  "oracle_text": "Choose one —\n• Foil Their Scheme — Counter target spell.\n• Learn Their Secrets — Draw two cards, then discard two cards.",
+  "oversized": false,
+  "penny_rank": 5635,
+  "preview": {
+    "previewed_at": "2021-06-29",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.09",
+    "eur_foil": "0.27",
+    "tix": "0.03",
+    "usd": "0.24",
+    "usd_etched": null,
+    "usd_foil": "0.35"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A41cdeb52-e90f-44f8-94d2-23aa032c4870&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/91670?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=571093&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243104%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=You+Find+the+Villains%27+Lair",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=527371&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DYou%2BFind%2Bthe%2BVillains%2527%2BLair",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DYou%2BFind%2Bthe%2BVillains%2527%2BLair"
+  },
+  "released_at": "2021-07-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c6704458-6e9e-4795-a56d-25b68fbf9672/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afr/84/you-find-the-villains-lair?utm_source=api",
+  "set": "afr",
+  "set_id": "e1ef87ba-ba92-4573-817f-543b996d2851",
+  "set_name": "Adventures in the Forgotten Realms",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e1ef87ba-ba92-4573-817f-543b996d2851",
+  "story_spotlight": false,
+  "tcgplayer_id": 243104,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/c6704458-6e9e-4795-a56d-25b68fbf9672",
+  "variation": false
+}
