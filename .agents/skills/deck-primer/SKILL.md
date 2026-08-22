@@ -62,7 +62,7 @@ Prefer a table for interchangeable roles and tutor decisions. Explain representa
 
 ### Archidekt deck-creation link
 
-Every primer must contain an `Open this deck in Archidekt` link near the top. The link must open Archidekt's sandbox with the full resolved deck preloaded, including quantities and the commander designation.
+Every primer must contain an `Open this deck in Archidekt` link near the top. The link must open Archidekt's sandbox with the full resolved deck preloaded, including quantities and the commander designation. Exclude cards marked `{noDeck}`, such as maybeboard entries.
 
 After resolving the deck, create or refresh the link with:
 

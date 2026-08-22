@@ -59,6 +59,8 @@ def archidekt_payload(
         quantity = entry.get("quantity", 0)
         if not name or not isinstance(quantity, int) or quantity < 1:
             raise ValueError(f"invalid manifest entry: {entry!r}")
+        if any("{noDeck}" in category for category in entry.get("categories", [])):
+            continue
 
         override = overrides.get(name.casefold())
         cache_path = root / entry.get("cache", "")
