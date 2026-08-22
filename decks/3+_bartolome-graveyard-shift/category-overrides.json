@@ -294,11 +294,11 @@
         "recursion"
       ]
     },
-    "a5852994-d816-4e62-8a03-254223714544": {
-      "name": "Final Parting",
+    "59b02ca7-e7bd-4820-ac32-87ea1a8c64c0": {
+      "name": "Corpse Dance",
       "categories": [
-        "tutor",
-        "graveyard-setup"
+        "recursion",
+        "combo-piece"
       ]
     },
     "35c027cd-f754-4e41-9242-8a9d0481171c": {
@@ -377,10 +377,11 @@
         "ramp"
       ]
     },
-    "6ad8011d-3471-4369-9d68-b264cc027487": {
-      "name": "Sol Ring",
+    "e3174070-542f-429e-9149-b572f6614537": {
+      "name": "Soldevi Adnate",
       "categories": [
-        "ramp"
+        "ramp",
+        "sacrifice-outlet"
       ]
     },
     "de3dcb5d-775a-479f-99f5-d1883ed9b1b5": {
