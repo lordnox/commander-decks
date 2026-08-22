@@ -41,7 +41,7 @@ Do not call a line infinite when it is delayed, resource-limited, fails to resto
 
 ## 4. Write the README
 
-Use concise Markdown and card names in bold. Include only sections supported by the deck:
+Use concise Markdown. Write every card mention as a bold link to its manifest `scryfall_uri`, for example `[**Hedge Shredder**](https://scryfall.com/card/...)`. Include only sections supported by the deck:
 
 1. Title and short identity
 2. Deck summary
@@ -75,6 +75,8 @@ Add a compact `## Key cards` gallery near the top of every primer:
 Before saving:
 
 - confirm every named card is present in the manifest;
+- run `python3 .agents/skills/deck-primer/scripts/link_card_mentions.py decks/<slug>` after drafting so plain or bold card mentions become Scryfall links;
+- rerun the linker after every primer edit; it preserves existing links, images, HTML, URLs, and code;
 - recheck each described line against Oracle text;
 - ensure the primary plan reflects the deck as built rather than a generic archetype;
 - ensure delayed or finite interactions are described accurately;

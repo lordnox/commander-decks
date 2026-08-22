@@ -27,7 +27,7 @@ The deck uses that ability in three ways:
 
 1. Put creatures and artifacts into the graveyard on demand.
 2. Repeatedly sacrifice creatures that return themselves through an Aura or permanent.
-3. Trigger cards such as **Zulaport Cutthroat**, **Bastion of Remembrance**, or **Marionette Apprentice** until the table loses.
+3. Trigger cards such as [**Zulaport Cutthroat**](https://scryfall.com/card/soc/233/zulaport-cutthroat?utm_source=api), [**Bastion of Remembrance**](https://scryfall.com/card/tle/160/bastion-of-remembrance?utm_source=api), or [**Marionette Apprentice**](https://scryfall.com/card/mh3/100/marionette-apprentice?utm_source=api) until the table loses.
 
 The graveyard is effectively a second hand. Self-mill loads it, recursion rebuilds the board, and several creatures recover the exact permanents needed for a loop.
 
@@ -35,12 +35,12 @@ The graveyard is effectively a second hand. Self-mill loads it, recursion rebuil
 
 | Role | Important cards |
 | --- | --- |
-| Sacrifice outlet | Bartolomé del Presidio |
-| Return the sacrificed creature | Angelic Renewal, Changing Loyalty, Fungal Fortitude, Kaya's Ghostform, Minion's Return, Necrogen Communion |
-| Recover the return effect | Angel of Indemnity, Boonweaver Giant, Brotherhood Outcast, Danitha, Redemption Choir, Shepherd of the Cosmos, Sun Titan |
-| Win from deaths | Agent of the Iron Throne, Bastion of Remembrance, Marionette Apprentice, Ninja Teen, Zulaport Cutthroat |
-| Find the pieces | Boonweaver Giant, Demonic Bargain, Dimir House Guard, Final Parting |
-| Fill the graveyard | Stitcher's Supplier, Undead Butler, Gnawing Vermin, Crow of Dark Tidings, Corpse Churn, Unseal the Necropolis |
+| Sacrifice outlet | [Bartolomé del Presidio](https://scryfall.com/card/lci/224/bartolom%C3%A9-del-presidio?utm_source=api) |
+| Return the sacrificed creature | [Angelic Renewal](https://scryfall.com/card/uma/10/angelic-renewal?utm_source=api), [Changing Loyalty](https://scryfall.com/card/soc/23/changing-loyalty?utm_source=api), [Fungal Fortitude](https://scryfall.com/card/lci/106/fungal-fortitude?utm_source=api), [Kaya's Ghostform](https://scryfall.com/card/war/94/kayas-ghostform?utm_source=api), [Minion's Return](https://scryfall.com/card/thb/104/minions-return?utm_source=api), [Necrogen Communion](https://scryfall.com/card/one/99/necrogen-communion?utm_source=api) |
+| Recover the return effect | [Angel of Indemnity](https://scryfall.com/card/soc/133/angel-of-indemnity?utm_source=api), [Boonweaver Giant](https://scryfall.com/card/m15/5/boonweaver-giant?utm_source=api), [Brotherhood Outcast](https://scryfall.com/card/pip/12/brotherhood-outcast?utm_source=api), Danitha, [Redemption Choir](https://scryfall.com/card/lcc/74/redemption-choir?utm_source=api), [Shepherd of the Cosmos](https://scryfall.com/card/khm/28/shepherd-of-the-cosmos?utm_source=api), [Sun Titan](https://scryfall.com/card/soc/178/sun-titan?utm_source=api) |
+| Win from deaths | [Agent of the Iron Throne](https://scryfall.com/card/clb/107/agent-of-the-iron-throne?utm_source=api), [Bastion of Remembrance](https://scryfall.com/card/tle/160/bastion-of-remembrance?utm_source=api), [Marionette Apprentice](https://scryfall.com/card/mh3/100/marionette-apprentice?utm_source=api), [Ninja Teen](https://scryfall.com/card/tmt/67/ninja-teen?utm_source=api), [Zulaport Cutthroat](https://scryfall.com/card/soc/233/zulaport-cutthroat?utm_source=api) |
+| Find the pieces | [Boonweaver Giant](https://scryfall.com/card/m15/5/boonweaver-giant?utm_source=api), [Demonic Bargain](https://scryfall.com/card/vow/103/demonic-bargain?utm_source=api), [Dimir House Guard](https://scryfall.com/card/rvr/73/dimir-house-guard?utm_source=api), [Final Parting](https://scryfall.com/card/cmm/160/final-parting?utm_source=api) |
+| Fill the graveyard | [Stitcher's Supplier](https://scryfall.com/card/tdc/196/stitchers-supplier?utm_source=api), [Undead Butler](https://scryfall.com/card/vow/133/undead-butler?utm_source=api), [Gnawing Vermin](https://scryfall.com/card/bro/101/gnawing-vermin?utm_source=api), [Crow of Dark Tidings](https://scryfall.com/card/fdn/519/crow-of-dark-tidings?utm_source=api), [Corpse Churn](https://scryfall.com/card/clu/107/corpse-churn?utm_source=api), [Unseal the Necropolis](https://scryfall.com/card/mom/128/unseal-the-necropolis?utm_source=api) |
 
 ## Main loop pattern
 
@@ -51,36 +51,36 @@ The usual loop needs:
 - a return effect attached to, or protecting, that creature; and
 - preferably a death-trigger payoff.
 
-A typical **Sun Titan** line works like this:
+A typical [**Sun Titan**](https://scryfall.com/card/soc/178/sun-titan?utm_source=api) line works like this:
 
-1. Attach **Fungal Fortitude**, **Kaya's Ghostform**, **Minion's Return**, or **Necrogen Communion** to Sun Titan.
-2. Sacrifice Sun Titan to Bartolomé.
-3. The Aura's ability returns Sun Titan.
-4. Sun Titan's enter-the-battlefield trigger returns the Aura.
+1. Attach [**Fungal Fortitude**](https://scryfall.com/card/lci/106/fungal-fortitude?utm_source=api), [**Kaya's Ghostform**](https://scryfall.com/card/war/94/kayas-ghostform?utm_source=api), [**Minion's Return**](https://scryfall.com/card/thb/104/minions-return?utm_source=api), or [**Necrogen Communion**](https://scryfall.com/card/one/99/necrogen-communion?utm_source=api) to [Sun Titan](https://scryfall.com/card/soc/178/sun-titan?utm_source=api).
+2. Sacrifice [Sun Titan](https://scryfall.com/card/soc/178/sun-titan?utm_source=api) to Bartolomé.
+3. The Aura's ability returns [Sun Titan](https://scryfall.com/card/soc/178/sun-titan?utm_source=api).
+4. [Sun Titan](https://scryfall.com/card/soc/178/sun-titan?utm_source=api)'s enter-the-battlefield trigger returns the Aura.
 5. Repeat.
 
 This gives arbitrarily many sacrifices, death triggers, enters-the-battlefield triggers, and +1/+1 counters on Bartolomé. With a payoff in play, it ends the game.
 
 The same structure appears elsewhere in the deck: one piece brings the creature back, while the returning creature recovers the piece that brought it back.
 
-### Angelic Renewal line
+### [Angelic Renewal](https://scryfall.com/card/uma/10/angelic-renewal?utm_source=api) line
 
-**Angelic Renewal** can replace the Aura in the pattern:
+[**Angelic Renewal**](https://scryfall.com/card/uma/10/angelic-renewal?utm_source=api) can replace the Aura in the pattern:
 
 1. Sacrifice a compatible recursion creature to Bartolomé.
-2. Sacrifice Angelic Renewal to return that creature.
-3. Use the creature's return trigger to bring Angelic Renewal back.
+2. Sacrifice [Angelic Renewal](https://scryfall.com/card/uma/10/angelic-renewal?utm_source=api) to return that creature.
+3. Use the creature's return trigger to bring [Angelic Renewal](https://scryfall.com/card/uma/10/angelic-renewal?utm_source=api) back.
 4. Repeat when the creature can recover it immediately.
 
-**Sun Titan** and **Angel of Indemnity** are the clearest versions because Angelic Renewal has mana value two.
+[**Sun Titan**](https://scryfall.com/card/soc/178/sun-titan?utm_source=api) and [**Angel of Indemnity**](https://scryfall.com/card/soc/133/angel-of-indemnity?utm_source=api) are the clearest versions because [Angelic Renewal](https://scryfall.com/card/uma/10/angelic-renewal?utm_source=api) has mana value two.
 
-### Boonweaver Giant
+### [Boonweaver Giant](https://scryfall.com/card/m15/5/boonweaver-giant?utm_source=api)
 
-Boonweaver Giant is both a setup card and a combo body. When it enters, it finds an Aura from the library or graveyard and attaches it directly. This can assemble the return effect without first drawing it.
+[Boonweaver Giant](https://scryfall.com/card/m15/5/boonweaver-giant?utm_source=api) is both a setup card and a combo body. When it enters, it finds an Aura from the library or graveyard and attaches it directly. This can assemble the return effect without first drawing it.
 
-### Gift of Immortality
+### [Gift of Immortality](https://scryfall.com/card/msc/134/gift-of-immortality?utm_source=api)
 
-Gift of Immortality is excellent protection and value, but its Aura returns at the beginning of the next end step. It does not create the same immediate unlimited loop as the Auras that can be recovered by an enter-the-battlefield trigger. Treat it as a resilient setup card unless another line removes the delay.
+[Gift of Immortality](https://scryfall.com/card/msc/134/gift-of-immortality?utm_source=api) is excellent protection and value, but its Aura returns at the beginning of the next end step. It does not create the same immediate unlimited loop as the Auras that can be recovered by an enter-the-battlefield trigger. Treat it as a resilient setup card unless another line removes the delay.
 
 ## Winning the game
 
@@ -88,21 +88,21 @@ Gift of Immortality is excellent protection and value, but its Aura returns at t
 
 This is the preferred win. Assemble a repeatable loop with any of:
 
-- Zulaport Cutthroat
-- Bastion of Remembrance
-- Marionette Apprentice
-- Agent of the Iron Throne
-- Ninja Teen
+- [Zulaport Cutthroat](https://scryfall.com/card/soc/233/zulaport-cutthroat?utm_source=api)
+- [Bastion of Remembrance](https://scryfall.com/card/tle/160/bastion-of-remembrance?utm_source=api)
+- [Marionette Apprentice](https://scryfall.com/card/mh3/100/marionette-apprentice?utm_source=api)
+- [Agent of the Iron Throne](https://scryfall.com/card/clb/107/agent-of-the-iron-throne?utm_source=api)
+- [Ninja Teen](https://scryfall.com/card/tmt/67/ninja-teen?utm_source=api)
 
 Then repeat the loop until every opponent is dead.
 
 ### 2. Bartolomé combat damage
 
-Every sacrifice makes Bartolomé larger. If the drain payoff is unavailable, build him up and use **Rogue's Passage** to push through commander damage or regular combat damage.
+Every sacrifice makes Bartolomé larger. If the drain payoff is unavailable, build him up and use [**Rogue's Passage**](https://scryfall.com/card/hoc/212/rogues-passage?utm_source=api) to push through commander damage or regular combat damage.
 
 ### 3. Recursion grind
 
-The deck does not need to combo immediately. Reuse removal creatures, sacrifice cards before exile effects resolve, and repeatedly recover threats. **Dread Return**, **Unburial Rites**, **Wake the Dead**, **Body Snatcher**, and **Sun Titan** allow the deck to recover after removal or a board wipe.
+The deck does not need to combo immediately. Reuse removal creatures, sacrifice cards before exile effects resolve, and repeatedly recover threats. [**Dread Return**](https://scryfall.com/card/cmm/153/dread-return?utm_source=api), [**Unburial Rites**](https://scryfall.com/card/2x2/95/unburial-rites?utm_source=api), [**Wake the Dead**](https://scryfall.com/card/cmm/197/wake-the-dead?utm_source=api), [**Body Snatcher**](https://scryfall.com/card/dmr/75/body-snatcher?utm_source=api), and [**Sun Titan**](https://scryfall.com/card/soc/178/sun-titan?utm_source=api) allow the deck to recover after removal or a board wipe.
 
 ## Playing the deck
 
@@ -126,7 +126,7 @@ The deck does not need to combo immediately. Reuse removal creatures, sacrifice 
 - Resolve a payoff.
 - Assemble the shortest available loop.
 - Explain the repeating game state and demonstrate one full cycle.
-- If the combo is unavailable, grow Bartolomé and use Rogue's Passage.
+- If the combo is unavailable, grow Bartolomé and use [Rogue's Passage](https://scryfall.com/card/hoc/212/rogues-passage?utm_source=api).
 
 ## Mulligan guide
 
@@ -143,14 +143,14 @@ Keep a combo piece when the rest of the hand functions. Ship hands containing se
 
 | Situation | Find |
 | --- | --- |
-| Need to stock hand and graveyard | Final Parting |
-| Need an Aura directly attached | Boonweaver Giant |
-| Need a four-mana card | Dimir House Guard's transmute |
+| Need to stock hand and graveyard | [Final Parting](https://scryfall.com/card/cmm/160/final-parting?utm_source=api) |
+| Need an Aura directly attached | [Boonweaver Giant](https://scryfall.com/card/m15/5/boonweaver-giant?utm_source=api) |
+| Need a four-mana card | [Dimir House Guard](https://scryfall.com/card/rvr/73/dimir-house-guard?utm_source=api)'s transmute |
 | Have the engine but no win | A death-trigger payoff |
 | Have a payoff but no engine | A return effect or recursion creature |
 | Need a specific answer | The appropriate removal spell |
 
-**Final Parting** is especially useful because one chosen card goes to hand and the other goes to the graveyard, where many combo pieces are already usable.
+[**Final Parting**](https://scryfall.com/card/cmm/160/final-parting?utm_source=api) is especially useful because one chosen card goes to hand and the other goes to the graveyard, where many combo pieces are already usable.
 
 ## Important sequencing
 
@@ -165,11 +165,11 @@ Keep a combo piece when the rest of the hand functions. Ship hands containing se
 
 The deck's removal is deliberately attached to permanents where possible, allowing it to interact with recursion:
 
-- **Fiend Hunter** and **Werefox Bodyguard** handle creatures.
-- **Leonin Relic-Warder**, **Disenchant**, and **Seal from Existence** cover artifacts and enchantments.
-- **Generous Gift** answers almost anything.
-- **Dusk // Dawn** can clear larger creatures and later recover many of the deck's small creatures.
-- **Bojuka Bog** provides graveyard interaction without consuming a spell slot.
+- [**Fiend Hunter**](https://scryfall.com/card/hoc/167/fiend-hunter?utm_source=api) and [**Werefox Bodyguard**](https://scryfall.com/card/woe/39/werefox-bodyguard?utm_source=api) handle creatures.
+- [**Leonin Relic-Warder**](https://scryfall.com/card/c17/65/leonin-relic-warder?utm_source=api), [**Disenchant**](https://scryfall.com/card/fdn/572/disenchant?utm_source=api), and [**Seal from Existence**](https://scryfall.com/card/mom/35/seal-from-existence?utm_source=api) cover artifacts and enchantments.
+- [**Generous Gift**](https://scryfall.com/card/msc/133/generous-gift?utm_source=api) answers almost anything.
+- [**Dusk // Dawn**](https://scryfall.com/card/mkc/61/dusk-dawn?utm_source=api) can clear larger creatures and later recover many of the deck's small creatures.
+- [**Bojuka Bog**](https://scryfall.com/card/soc/363/bojuka-bog?utm_source=api) provides graveyard interaction without consuming a spell slot.
 
 ## What to protect
 

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import subprocess
 import sys
 import unicodedata
 from collections import Counter
@@ -152,6 +153,23 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = False
 
     if not primer_path.is_file() or not primer_path.read_text(encoding="utf-8").strip():
         errors.append("missing or empty README.md primer")
+    elif primer_path.is_file():
+        linker_path = (
+            Path(__file__).resolve().parents[2]
+            / "deck-primer/scripts/link_card_mentions.py"
+        )
+        link_check = subprocess.run(
+            [sys.executable, str(linker_path), str(deck_dir), "--check"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if link_check.returncode:
+            errors.append(
+                "primer has unlinked card mentions; run "
+                "python3 .agents/skills/deck-primer/scripts/link_card_mentions.py "
+                f"{deck_dir.relative_to(repo_root)}"
+            )
     root_readme = repo_root / "README.md"
     primer_link = f"({primer_path.relative_to(repo_root)})"
     if not root_readme.is_file() or primer_link not in root_readme.read_text(encoding="utf-8"):
