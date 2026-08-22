@@ -1,6 +1,6 @@
 ---
 name: deck-primer
-description: Analyze a resolved Commander deck and create or update its deck-specific README primer. Use when the user asks how a stored deck works, requests a primer or play guide, or wants the deck's game plan, engines, combos, mulligans, tutors, sequencing, or win conditions documented.
+description: Analyze a resolved Commander deck and create or update its deck-specific README primer. Use when the user asks how a stored deck works, requests a primer or play guide, or wants the deck's game plan, engines, combos, mulligans, tutors, sequencing, win conditions, or direct Archidekt deck-creation link documented.
 ---
 
 # Deck Primer
@@ -44,19 +44,39 @@ Do not call a line infinite when it is delayed, resource-limited, fails to resto
 Use concise Markdown. Write every card mention as a bold link to its manifest `scryfall_uri`, for example `[**Hedge Shredder**](https://scryfall.com/card/...)`. Include only sections supported by the deck:
 
 1. Title and short identity
-2. Deck summary
-3. Key-card image gallery
-4. How the deck works
-5. Core engine or role table
-6. Main combo or synergy patterns
-7. Win conditions
-8. Early, mid, and late game
-9. Mulligan guide
-10. Tutor priorities
-11. Important sequencing and rules notes
-12. Weaknesses and what to protect
+2. Archidekt deck-creation link
+3. Deck summary
+4. Key-card image gallery
+5. How the deck works
+6. Core engine or role table
+7. Main combo or synergy patterns
+8. Win conditions
+9. Early, mid, and late game
+10. Mulligan guide
+11. Tutor priorities
+12. Important sequencing and rules notes
+13. Weaknesses and what to protect
 
 Prefer a table for interchangeable roles and tutor decisions. Explain representative cards rather than listing every card. Make the primer useful during actual play.
+
+### Archidekt deck-creation link
+
+Every primer must contain an `Open this deck in Archidekt` link near the top. The link must open Archidekt's sandbox with the full resolved deck preloaded, including quantities and the commander designation.
+
+After resolving the deck, create or refresh the link with:
+
+```bash
+python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<slug>
+```
+
+The script uses the exact Scryfall printing IDs in the cache. Archidekt does not accept digital-only printings. If the script identifies one, use the Scryfall lookup workflow to select a paper printing and rerun with one or more overrides:
+
+```bash
+python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<slug> \
+  --printing-override "Card Name=paper-scryfall-printing-uuid"
+```
+
+Rerun this script whenever the deck list or resolved manifest changes. Never copy an Archidekt URL from an older deck revision.
 
 ### Key-card images
 
@@ -77,9 +97,11 @@ Before saving:
 - confirm every named card is present in the manifest;
 - run `python3 .agents/skills/deck-primer/scripts/link_card_mentions.py decks/<slug>` after drafting so plain or bold card mentions become Scryfall links;
 - rerun the linker after every primer edit; it preserves existing links, images, HTML, URLs, and code;
+- run `python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<slug> --check`, including the same printing overrides used to generate the link;
+- confirm the Archidekt payload contains every resolved card, the deck's total quantity, and exactly one commander entry;
 - recheck each described line against Oracle text;
 - ensure the primary plan reflects the deck as built rather than a generic archetype;
 - ensure delayed or finite interactions are described accurately;
 - confirm no source deck files changed unintentionally.
 
-Report the deck name, total and unique cards, unresolved count, and the README path.
+Report the deck name, total and unique cards, unresolved count, README path, and that the Archidekt link is current.
