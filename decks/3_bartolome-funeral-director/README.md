@@ -9,6 +9,16 @@ An Orzhov graveyard-combo deck built around cheap recursion effects, creatures t
 **Primary plan:** assemble a repeatable sacrifice loop and turn it into life loss  
 **Backup plan:** grind through removal with recursion, then attack with a very large Bartolomé
 
+## Key cards
+
+<p align="center">
+  <a href="https://scryfall.com/card/lci/224/bartolom%C3%A9-del-presidio"><img src="https://cards.scryfall.io/normal/front/6/9/690ccdc7-6c43-4902-9d11-2f07b7a36b11.jpg?1783913734" width="160" alt="Bartolomé del Presidio"></a>
+  <a href="https://scryfall.com/card/soc/178/sun-titan"><img src="https://cards.scryfall.io/normal/front/3/d/3d6eacf2-f6c7-4ede-b5a5-7463602699ae.jpg?1783903797" width="160" alt="Sun Titan"></a>
+  <a href="https://scryfall.com/card/lci/106/fungal-fortitude"><img src="https://cards.scryfall.io/normal/front/9/d/9d2bd0ca-521c-45d9-85ed-2f36f583408e.jpg?1783913777" width="160" alt="Fungal Fortitude"></a>
+  <a href="https://scryfall.com/card/soc/233/zulaport-cutthroat"><img src="https://cards.scryfall.io/normal/front/c/4/c43609fb-3cee-44e0-98d0-3ecaba1d5767.jpg?1783903779" width="160" alt="Zulaport Cutthroat"></a>
+  <a href="https://scryfall.com/card/cmm/160/final-parting"><img src="https://cards.scryfall.io/normal/front/9/4/94f24b7c-4952-4abc-aaba-22a529012468.jpg?1783915675" width="160" alt="Final Parting"></a>
+</p>
+
 ## How the deck works
 
 Bartolomé is a free sacrifice outlet in the command zone. He sacrifices a creature or artifact without spending mana and receives a +1/+1 counter each time.
