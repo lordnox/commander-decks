@@ -204,6 +204,7 @@ class ValidateDeckTests(unittest.TestCase):
                 "oracle_id": "commander-id",
                 "cache": "cards/commander-id.json",
                 "categories": ["Commander{top}"],
+                "scryfall_uri": "https://scryfall.com/card/test/1/green-commander",
             },
             {
                 "quantity": 99,
@@ -212,6 +213,7 @@ class ValidateDeckTests(unittest.TestCase):
                 "oracle_id": "forest-id",
                 "cache": "cards/forest-id.json",
                 "categories": ["land"],
+                "scryfall_uri": "https://scryfall.com/card/test/2/forest",
             },
         ]
         manifest = {
@@ -251,6 +253,18 @@ class ValidateDeckTests(unittest.TestCase):
             errors, _ = validate_deck.validate(deck_dir, repo, require_decisions=True)
             self.assertTrue(any("singleton violation" in error for error in errors))
             self.assertTrue(any("decision log is missing: Sol Ring" in error for error in errors))
+
+    def test_validator_catches_unlinked_primer_mentions(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            repo, deck_dir = self.make_workspace(temporary)
+            (deck_dir / "README.md").write_text(
+                "# Green Commander primer\n",
+                encoding="utf-8",
+            )
+
+            errors, _ = validate_deck.validate(deck_dir, repo)
+
+            self.assertTrue(any("primer has unlinked card mentions" in error for error in errors))
 
 
 if __name__ == "__main__":
