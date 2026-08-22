@@ -32,26 +32,11 @@
       ],
       "name": "Corpse Augur"
     },
-    "0752fe67-9b8a-42c0-90e3-087d426b2f3b": {
-      "categories": [
-        "card-draw",
-        "token-production",
-        "sacrifice"
-      ],
-      "name": "Esoteric Duplicator"
-    },
     "0895c9b7-ae7d-4bb3-af17-3b75deb50a25": {
       "categories": [
         "land"
       ],
       "name": "Command Tower"
-    },
-    "09496421-74e4-466a-9546-56f2a0c8eef4": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Vault of Whispers"
     },
     "0a364b66-95df-480b-a733-e90f6d5c4d2b": {
       "categories": [
@@ -65,40 +50,11 @@
       ],
       "name": "Arcane Signet"
     },
-    "0c7ba712-6a99-4d2f-9242-a2163a11f69c": {
-      "categories": [
-        "card-draw",
-        "protection"
-      ],
-      "name": "Padeem, Consul of Innovation"
-    },
-    "106e9c0d-67a2-4db7-97d9-03e1ea1b40b5": {
-      "categories": [
-        "card-draw",
-        "sacrifice"
-      ],
-      "name": "Cryogen Relic"
-    },
     "10c31317-71e8-42e0-85e0-3e64bd0c3dd3": {
       "categories": [
         "recursion"
       ],
       "name": "Vat of Rebirth"
-    },
-    "11323af4-b8b8-4ca9-932f-377c7fd77dea": {
-      "categories": [
-        "ramp"
-      ],
-      "name": "The Eternity Elevator"
-    },
-    "127f6985-c1f4-487f-b5ee-c84524cd6c55": {
-      "categories": [
-        "ramp",
-        "protection",
-        "recursion",
-        "token-production"
-      ],
-      "name": "Shuri's Fabricator"
     },
     "129ee7d6-e3df-40ef-9502-7aad10183031": {
       "categories": [
@@ -118,32 +74,6 @@
       ],
       "name": "Charcoal Diamond"
     },
-    "13ff3222-91cb-4796-a34e-899ed817694c": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Badlands"
-    },
-    "14d2979d-5728-42d7-a027-0eb1f754655d": {
-      "categories": [
-        "ramp"
-      ],
-      "name": "Talisman of Creativity"
-    },
-    "17039058-822d-409f-938c-b727a366ba63": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Steam Vents"
-    },
-    "181965fb-e685-4b1f-9bd6-3a33bed933b2": {
-      "categories": [
-        "removal"
-      ],
-      "name": "Meteor Sword"
-    },
     "1861e642-21d5-4232-89f3-b5557f2946c1": {
       "categories": [
         "land"
@@ -156,25 +86,11 @@
       ],
       "name": "Sevinne's Reclamation"
     },
-    "1bea6d02-186e-46d8-b788-d4cc37dbb480": {
-      "categories": [
-        "ramp",
-        "protection",
-        "token-production"
-      ],
-      "name": "Vibranium Mining Mech"
-    },
     "1caa7fa2-a881-4a65-a87e-12a974520c83": {
       "categories": [
         "tutor"
       ],
       "name": "Grim Servant"
-    },
-    "1d9aeaaa-66f6-41cb-9bac-162d6fd8662c": {
-      "categories": [
-        "ramp"
-      ],
-      "name": "Talisman of Indulgence"
     },
     "23f93411-f83c-4ed2-abed-99cf905f7d7f": {
       "categories": [
@@ -189,49 +105,17 @@
       ],
       "name": "Victimize"
     },
-    "2494101a-2c6b-45d8-95fe-e62bf9a25130": {
-      "categories": [
-        "card-draw",
-        "sacrifice"
-      ],
-      "name": "Imskir Iron-Eater"
-    },
     "2549bc57-9ffb-4053-9f10-f2a5f792b845": {
       "categories": [
         "land"
       ],
       "name": "Myriad Landscape"
     },
-    "2578e8e4-a93c-4904-9037-92a1529c2c67": {
-      "categories": [
-        "token-production"
-      ],
-      "name": "Hoard Hauler"
-    },
-    "25c83d45-581f-48ba-b6bb-feb66e8a65c7": {
-      "categories": [
-        "card-draw",
-        "sacrifice"
-      ],
-      "name": "Sewer-veillance Cam"
-    },
-    "276dc5c8-c8cf-4b9c-ad75-31876e6e040a": {
-      "categories": [
-        "card-draw"
-      ],
-      "name": "The Indomitable"
-    },
     "27b047e3-0d41-45e2-98e9-9391d7923a1e": {
       "categories": [
         "land"
       ],
       "name": "Exotic Orchard"
-    },
-    "2951671b-ac01-4e65-857f-0b7b7c7478ce": {
-      "categories": [
-        "protection"
-      ],
-      "name": "Reaver Titan"
     },
     "2bc38f14-0314-4351-8138-e2b8bf041404": {
       "categories": [
@@ -258,18 +142,6 @@
         "loop-return-sacrifice-fodder"
       ],
       "name": "Shepherd of the Cosmos"
-    },
-    "2fda4fe7-8b0c-489c-a000-6d358e614e34": {
-      "categories": [
-        "ramp"
-      ],
-      "name": "Izzet Signet"
-    },
-    "30377bd5-99ab-4888-9ea7-e5a069b527e8": {
-      "categories": [
-        "other"
-      ],
-      "name": "Return the Favor"
     },
     "31f15274-301b-47c5-ba19-0ced04520878": {
       "categories": [
@@ -307,15 +179,6 @@
       ],
       "name": "Dimir House Guard"
     },
-    "3644f316-f9a3-46c9-9b1e-747f86cf4ead": {
-      "categories": [
-        "land",
-        "ramp",
-        "recursion",
-        "sacrifice"
-      ],
-      "name": "Buried Ruin"
-    },
     "365548fb-5acc-4a8a-b20b-26d28b7d029f": {
       "categories": [
         "draw",
@@ -344,25 +207,6 @@
       ],
       "name": "Ayara, First of Locthwain"
     },
-    "39451b4d-cd7a-40da-b457-cb51b609173f": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Seat of the Synod"
-    },
-    "39d8406a-90c3-460c-b4e8-0f590573db51": {
-      "categories": [
-        "token-production"
-      ],
-      "name": "Mechanized Production"
-    },
-    "3adb7681-977f-4a32-9ec8-51481b958268": {
-      "categories": [
-        "ramp"
-      ],
-      "name": "Rakdos Signet"
-    },
     "3adbd963-e85d-4569-963a-4472594f06f9": {
       "categories": [
         "creature"
@@ -376,25 +220,11 @@
       ],
       "name": "Consuming Corruption"
     },
-    "404e958b-ead9-4ec7-b786-7b3d65e29967": {
-      "categories": [
-        "token-production",
-        "sacrifice"
-      ],
-      "name": "Mouser Foundry"
-    },
     "426fa8e8-b0f9-4b6c-b22b-04ec2073187a": {
       "categories": [
         "graveyard-draw"
       ],
       "name": "Undead Butler"
-    },
-    "43985bbc-a0f6-4812-984e-392bc8562633": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Blood Crypt"
     },
     "439de49b-1091-4688-9ffb-80a025df31c2": {
       "categories": [
@@ -416,44 +246,11 @@
       ],
       "name": "Deadly Dispute"
     },
-    "4722105b-0085-4bb8-bca1-9de0d3eb5600": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Stormcarved Coast"
-    },
-    "47a080c4-ff04-4f52-aca0-2b8e4f4d931e": {
-      "name": "Enduring Renewal",
-      "categories": [
-        "recursion"
-      ]
-    },
-    "49be65fd-3755-410d-b0dc-2e5861ea2552": {
-      "categories": [
-        "card-draw",
-        "token-production"
-      ],
-      "name": "Thopter Spy Network"
-    },
     "49dddec0-d958-4810-8c6e-225fc8118c8f": {
       "categories": [
         "removal"
       ],
       "name": "Defile"
-    },
-    "4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Underground Sea"
-    },
-    "4c0a0448-b9d6-43a0-8549-64066dac63f0": {
-      "categories": [
-        "ramp"
-      ],
-      "name": "Talisman of Dominance"
     },
     "4cdbc466-42fc-471f-beab-397caec18101": {
       "categories": [
@@ -472,12 +269,6 @@
         "ramp"
       ],
       "name": "Ashnod's Altar"
-    },
-    "4d67e2a7-4aa7-44cc-853b-500d7aac046d": {
-      "categories": [
-        "ramp"
-      ],
-      "name": "Cursed Mirror"
     },
     "4d9554de-c005-41ab-a941-39328ebff9de": {
       "categories": [
@@ -499,28 +290,6 @@
       ],
       "name": "Nine-Lives Familiar"
     },
-    "50b14338-9318-4327-a1dd-c0ef38903cc4": {
-      "categories": [
-        "other"
-      ],
-      "name": "Skysovereign, Consul Flagship"
-    },
-    "50d6cadc-07e4-479e-90f4-e3a20f769bab": {
-      "categories": [
-        "land",
-        "ramp",
-        "card-draw",
-        "sacrifice"
-      ],
-      "name": "Susur Secundi, Void Altar"
-    },
-    "544c9ad2-86f9-483e-a53c-f64c8602c393": {
-      "categories": [
-        "card-draw",
-        "sacrifice"
-      ],
-      "name": "Damocles Base, Sword of Kang"
-    },
     "56719f6a-1a6c-4c0a-8d21-18f7d7350b68": {
       "categories": [
         "land"
@@ -539,80 +308,12 @@
       ],
       "name": "Feed the Swarm"
     },
-    "59322432-591a-4e8d-aff5-12ca1feb1028": {
-      "categories": [
-        "token-production"
-      ],
-      "name": "Magmatic Galleon"
-    },
-    "599402d9-2ea6-4709-b010-b35636be8c8c": {
-      "categories": [
-        "other"
-      ],
-      "name": "Sky Cycle"
-    },
-    "59b02ca7-e7bd-4820-ac32-87ea1a8c64c0": {
-      "categories": [
-        "recursion"
-      ],
-      "name": "Corpse Dance"
-    },
-    "5b5ef43b-13fd-4461-8d2d-18be65e9a790": {
-      "categories": [
-        "card-draw"
-      ],
-      "name": "Ichor Wellspring"
-    },
-    "5dec1b09-4df0-4e9b-9dca-b80134be3343": {
-      "categories": [
-        "other"
-      ],
-      "name": "N'Yami-Class Mother Ship"
-    },
-    "5f42b67f-87fd-4f98-a0e8-0c8313f4bbc8": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Shipwreck Marsh"
-    },
-    "5f8941d8-f8f7-4ec3-86c3-88af8829080b": {
-      "categories": [
-        "ramp"
-      ],
-      "name": "Loki's Scepter"
-    },
-    "613a8774-165e-4cf6-ad43-124f9ffc9980": {
-      "categories": [
-        "removal"
-      ],
-      "name": "Nautiloid Ship"
-    },
-    "64ebdd6f-acde-4aab-a86b-2798bad5f70c": {
-      "categories": [
-        "ramp"
-      ],
-      "name": "Machine God's Effigy"
-    },
     "660de988-b6fb-4f36-8006-42af3e7f908d": {
       "categories": [
         "draw",
         "sac-outlet"
       ],
       "name": "Vampiric Rites"
-    },
-    "6754753d-790e-4a95-a150-76741c4a02d4": {
-      "categories": [
-        "token-production",
-        "sacrifice"
-      ],
-      "name": "RMS Titanic"
-    },
-    "67d6fbcb-2df7-4b5a-8464-158f6b720a2e": {
-      "categories": [
-        "other"
-      ],
-      "name": "Meddle"
     },
     "69bf79c3-87d1-4244-8d58-989307c91a12": {
       "categories": [
@@ -638,13 +339,6 @@
         "creature"
       ],
       "name": "Tormod, the Desecrator"
-    },
-    "6dccf583-1045-4058-86cc-ebbcc8de080e": {
-      "categories": [
-        "ramp",
-        "token-production"
-      ],
-      "name": "Artificer Class"
     },
     "70113003-be5e-406a-9aec-cb480468c36d": {
       "categories": [
@@ -721,18 +415,6 @@
       ],
       "name": "Dusk // Dawn"
     },
-    "7d881c57-0bd9-4c57-aa4a-b10808b86143": {
-      "categories": [
-        "ramp"
-      ],
-      "name": "Dimir Signet"
-    },
-    "7ddbf891-7f80-44e9-b94c-70c1da0b91ed": {
-      "categories": [
-        "other"
-      ],
-      "name": "Getaway Barrel"
-    },
     "7fd61a18-6e4f-40c5-aa00-3d101ec1ec82": {
       "categories": [
         "graveyard-draw"
@@ -745,13 +427,6 @@
       ],
       "name": "Night's Whisper"
     },
-    "819e1765-8325-4e6f-89c1-63ea86de369f": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Luxury Suite"
-    },
     "81a398ee-e534-43b7-88fe-45155d6aba3a": {
       "categories": [
         "draw",
@@ -760,26 +435,11 @@
       ],
       "name": "Eviscerator's Insight"
     },
-    "8291543f-d086-48aa-b2b7-5481ca8c9198": {
-      "categories": [
-        "land",
-        "ramp",
-        "card-draw",
-        "discard"
-      ],
-      "name": "Xander's Lounge"
-    },
     "86fb3749-37d6-48a6-8524-71e996850307": {
       "categories": [
         "land"
       ],
       "name": "High Market"
-    },
-    "88075828-a76e-412d-b738-182f50e3a133": {
-      "categories": [
-        "removal"
-      ],
-      "name": "Demonic Junker"
     },
     "8cdfd9df-4783-4138-a286-828a97f516aa": {
       "categories": [
@@ -794,20 +454,6 @@
         "ramp"
       ],
       "name": "Phyrexian Altar"
-    },
-    "8d035688-089f-4d5c-bcad-9140a6c1681b": {
-      "categories": [
-        "token-production"
-      ],
-      "name": "Cybermen Squadron"
-    },
-    "8dc067bf-f78f-4ac4-b6e7-b305c42cf0bc": {
-      "categories": [
-        "land",
-        "ramp",
-        "protection"
-      ],
-      "name": "Darksteel Citadel"
     },
     "8e720216-a980-4a34-8aef-62ac3ef15a6e": {
       "categories": [
@@ -849,26 +495,6 @@
       ],
       "name": "Carnival of Souls"
     },
-    "97369152-3b85-4cf1-aeb9-b3a8f1c37611": {
-      "categories": [
-        "other"
-      ],
-      "name": "Invasion Submersible"
-    },
-    "977c2f33-b622-4172-9efb-7f523becd32b": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Blazemire Verge"
-    },
-    "98492d7d-3b9e-4ae1-ac45-1b508d6d2670": {
-      "categories": [
-        "ramp",
-        "card-draw"
-      ],
-      "name": "Coveted Jewel"
-    },
     "99024aa8-5687-4d38-8a4b-feef42d6c1ff": {
       "categories": [
         "anthem"
@@ -895,12 +521,6 @@
       ],
       "name": "Reanimate"
     },
-    "a0a7319d-9441-4aed-a351-9ff3fb3b1d9e": {
-      "categories": [
-        "card-draw"
-      ],
-      "name": "Hulldrifter"
-    },
     "a1cc5e37-b09a-4b7f-afd5-77c1c35aa425": {
       "categories": [
         "sac-outlet"
@@ -918,20 +538,6 @@
         "drain"
       ],
       "name": "Funeral Room // Awakening Hall"
-    },
-    "a3da7d5b-2c2b-45fe-b9c5-413b8c8fc0a2": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Academy Ruins"
-    },
-    "a3fb7228-e76b-4e96-a40e-20b5fed75685": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Mountain"
     },
     "a4ffe297-5e82-43f9-91a4-7aa3d8dd3b4a": {
       "categories": [
@@ -952,12 +558,6 @@
       ],
       "name": "Final Parting"
     },
-    "a6c3aa17-8338-4daa-889e-d36dc715e546": {
-      "categories": [
-        "token-production"
-      ],
-      "name": "Rolling Hamsphere"
-    },
     "a75087aa-41bd-4e0f-a118-61b5209356f5": {
       "categories": [
         "extra-cost-sacrifice"
@@ -970,12 +570,6 @@
         "ramp"
       ],
       "name": "Pitiless Plunderer"
-    },
-    "a7ac5d98-805e-4212-be94-333a0c0c44a7": {
-      "categories": [
-        "token-production"
-      ],
-      "name": "Brudiclad, Telchor Engineer"
     },
     "a7b12df9-fddd-4cd4-8c09-d54a47867ab6": {
       "categories": [
@@ -1007,12 +601,6 @@
       ],
       "name": "Orzhov Basilica"
     },
-    "ab7c0256-eea9-4e0d-932d-c25460eed836": {
-      "categories": [
-        "other"
-      ],
-      "name": "Possession Engine"
-    },
     "ace86e56-efde-4eb7-8815-71456a4c3abe": {
       "categories": [
         "black-mana",
@@ -1026,18 +614,6 @@
         "draw"
       ],
       "name": "Insatiable Avarice"
-    },
-    "ad556aee-3dbf-4c8b-9f3a-31947e26c6f5": {
-      "categories": [
-        "other"
-      ],
-      "name": "Pinnacle Kill-Ship"
-    },
-    "ae120613-97d6-4393-b39d-c3e6c076f5d6": {
-      "categories": [
-        "other"
-      ],
-      "name": "Deflecting Swat"
     },
     "ae18580a-1753-4dc8-b437-8a779b1a6e4d": {
       "categories": [
@@ -1064,13 +640,6 @@
       ],
       "name": "Kaya's Ghostform"
     },
-    "b2c6aa39-2d2a-459c-a555-fb48ba993373": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Island"
-    },
     "b2e950fb-cb7e-40a0-a311-5bbdd0477b29": {
       "categories": [
         "loop-return-sacrifice-fodder",
@@ -1083,13 +652,6 @@
         "ramp"
       ],
       "name": "Urza's Incubator"
-    },
-    "b3ab43f2-4f2b-4439-9254-0110ce443fdb": {
-      "name": "Ratadrabik of Urborg",
-      "categories": [
-        "token-production",
-        "death-trigger"
-      ]
     },
     "b3e28bcf-0ed0-4406-b615-68ddc55b349a": {
       "categories": [
@@ -1128,12 +690,6 @@
       ],
       "name": "Deathgreeter"
     },
-    "ba64d3a9-08b4-4b12-b011-e41b00815277": {
-      "categories": [
-        "other"
-      ],
-      "name": "Mole Module"
-    },
     "bbdb731d-c533-48ef-b82a-cf1a8ba36208": {
       "categories": [
         "ramp"
@@ -1152,38 +708,6 @@
       ],
       "name": "Jet Medallion"
     },
-    "bd004c9d-771e-4e63-a97d-a2259c096af8": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Morphic Pool"
-    },
-    "bf9421d2-54e2-44d8-8b39-2e41192a6517": {
-      "categories": [
-        "other"
-      ],
-      "name": "Surgehacker Mech"
-    },
-    "c0d8fef4-65f4-4769-982d-b397d2b7e977": {
-      "name": "Animate Dead",
-      "categories": [
-        "recursion"
-      ]
-    },
-    "c20a96f7-aa5a-4c15-b8b1-806685c99b27": {
-      "categories": [
-        "other"
-      ],
-      "name": "Bolt Bend"
-    },
-    "c396db03-bf11-4e20-b630-4f9aa8fd78da": {
-      "categories": [
-        "ramp",
-        "card-draw"
-      ],
-      "name": "The Mightstone and Weakstone"
-    },
     "c4fe854e-8783-492e-bb2e-9f242ada8a5b": {
       "categories": [
         "tokens"
@@ -1195,19 +719,6 @@
         "draw"
       ],
       "name": "Sign in Blood"
-    },
-    "c62b5c22-e058-436f-9575-a01cb2112829": {
-      "categories": [
-        "other"
-      ],
-      "name": "Redirect Lightning"
-    },
-    "c718911c-c955-4eb9-9e16-be4bd49a4e4e": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Volcanic Island"
     },
     "c7a360f5-725e-4864-93cc-87f96f95975e": {
       "categories": [
@@ -1239,19 +750,6 @@
       ],
       "name": "Bound in Gold"
     },
-    "caa69b51-1efd-4d0e-803b-914a83ccb836": {
-      "categories": [
-        "other"
-      ],
-      "name": "Lifecraft Engine"
-    },
-    "cb027150-848c-4a66-88ad-e20222304dd8": {
-      "categories": [
-        "land",
-        "sacrifice"
-      ],
-      "name": "Scalding Tarn"
-    },
     "cb9d557a-fc06-428c-8be6-7d28add33028": {
       "categories": [
         "removal",
@@ -1279,13 +777,6 @@
       ],
       "name": "Fungal Fortitude"
     },
-    "d3438037-3efd-4ce0-88ec-6d48ab521992": {
-      "categories": [
-        "token-production",
-        "sacrifice"
-      ],
-      "name": "Mishra, Eminent One"
-    },
     "d37e0127-6f68-438e-8b9e-a71bb3c34733": {
       "categories": [
         "skeleton",
@@ -1306,13 +797,6 @@
       ],
       "name": "Unburial Rites"
     },
-    "d4a9d63a-5a8a-4f51-9e49-43d6dc3234b1": {
-      "name": "Greedy Freebooter",
-      "categories": [
-        "token-production",
-        "scry"
-      ]
-    },
     "d5ee2ced-29f4-430f-962e-2f930b92624c": {
       "categories": [
         "removal",
@@ -1320,43 +804,17 @@
       ],
       "name": "Werefox Bodyguard"
     },
-    "d71bda4c-3dee-4398-8fd0-f77d8743b887": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Gloomlake Verge"
-    },
     "d75357f4-d439-48ff-8fd7-52a02f07cc81": {
       "categories": [
         "removal"
       ],
       "name": "Intercessor's Arrest"
     },
-    "da3e7d3d-2ca0-40c3-9602-fca37c92f507": {
-      "categories": [
-        "other"
-      ],
-      "name": "Emry, Lurker of the Loch"
-    },
-    "da46786e-28df-4638-ab3d-121011d2f150": {
-      "categories": [
-        "other"
-      ],
-      "name": "Master Transmuter"
-    },
     "de3dcb5d-775a-479f-99f5-d1883ed9b1b5": {
       "categories": [
         "ramp"
       ],
       "name": "Orzhov Signet"
-    },
-    "df08ac72-010f-42f8-beb3-6d645c638e1e": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Uthros, Titanic Godcore"
     },
     "df0b5995-117b-4ba8-964d-ea3c592621ef": {
       "categories": [
@@ -1382,25 +840,6 @@
       ],
       "name": "Body Snatcher"
     },
-    "e0aa6ce0-ca31-433b-ac6c-32b8675cdb71": {
-      "categories": [
-        "other"
-      ],
-      "name": "Spellskite"
-    },
-    "e2a37967-4212-4553-9f77-bcb613405807": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Haunted Ridge"
-    },
-    "e2ab0f84-8402-472d-be66-9661b85e08fc": {
-      "categories": [
-        "other"
-      ],
-      "name": "Knight Paladin"
-    },
     "e2aeac0b-af74-4c47-9ac1-51fbf869c95f": {
       "categories": [
         "graveyard-draw"
@@ -1413,31 +852,11 @@
       ],
       "name": "Prismatic Lens"
     },
-    "e3174070-542f-429e-9149-b572f6614537": {
-      "categories": [
-        "ramp",
-        "sacrifice-outlet"
-      ],
-      "name": "Soldevi Adnate"
-    },
     "e330412f-46a1-4e7c-8766-f644606049e0": {
       "categories": [
         "draw"
       ],
       "name": "Into the Pit"
-    },
-    "e3570ac7-c593-40e3-bbd6-ec3da6d8158d": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Training Center"
-    },
-    "e58e94dc-9602-48db-9dd9-9d3051c33a76": {
-      "categories": [
-        "card-draw"
-      ],
-      "name": "The Thanos-Copter"
     },
     "e8c7566d-7cc0-48af-a986-83223ec7e06c": {
       "categories": [
@@ -1445,24 +864,11 @@
       ],
       "name": "Midnight Reaper"
     },
-    "eb7a1f21-a66d-415b-8520-710b44890bb6": {
-      "categories": [
-        "token-production"
-      ],
-      "name": "Simulacrum Synthesizer"
-    },
     "ee38377f-8d3a-402e-a5d7-a01cfe3a5322": {
       "categories": [
         "lifegain"
       ],
       "name": "Demon's Horn"
-    },
-    "ef86989d-ce80-4e55-aece-7d11710eeffa": {
-      "categories": [
-        "land",
-        "sacrifice"
-      ],
-      "name": "Polluted Delta"
     },
     "f1e03d99-024a-430b-9342-ffd2268bd103": {
       "categories": [
@@ -1482,12 +888,6 @@
       ],
       "name": "Noble's Purse"
     },
-    "f434e266-d9d6-4058-96ff-a1bd4029d8dc": {
-      "categories": [
-        "other"
-      ],
-      "name": "Imposter Mech"
-    },
     "f47659b5-d834-4153-b9fc-6a0702c503d9": {
       "categories": [
         "draw"
@@ -1499,13 +899,6 @@
         "commander-top"
       ],
       "name": "Bartolomé del Presidio"
-    },
-    "f4819061-b0b5-48ab-af7b-6525c3d2eab7": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Great Furnace"
     },
     "f73da5d8-fd15-4315-ad3c-c86c28087285": {
       "categories": [
@@ -1551,31 +944,11 @@
       ],
       "name": "Generous Gift"
     },
-    "fc0707c7-d504-4ccf-a0d2-3eb6e26e7a57": {
-      "categories": [
-        "land",
-        "sacrifice"
-      ],
-      "name": "Bloodstained Mire"
-    },
     "fc5d3341-cbce-49e5-93cc-8add92479dca": {
       "categories": [
         "anthem"
       ],
       "name": "Bad Moon"
-    },
-    "fc9ec820-4245-4a96-b009-5308a818ca58": {
-      "categories": [
-        "land",
-        "ramp"
-      ],
-      "name": "Watery Grave"
-    },
-    "fd9c4ebe-cc9c-427c-8105-adb1703c191b": {
-      "categories": [
-        "token-production"
-      ],
-      "name": "Mirrorworks"
     },
     "fdba89eb-1cf5-46e6-9d09-1adb9bc40fcd": {
       "categories": [
@@ -1595,6 +968,633 @@
         "removal"
       ],
       "name": "Withering Torment"
+    },
+    "0752fe67-9b8a-42c0-90e3-087d426b2f3b": {
+      "categories": [
+        "card-draw",
+        "token-production",
+        "sacrifice"
+      ],
+      "name": "Esoteric Duplicator"
+    },
+    "09496421-74e4-466a-9546-56f2a0c8eef4": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Vault of Whispers"
+    },
+    "0c7ba712-6a99-4d2f-9242-a2163a11f69c": {
+      "categories": [
+        "card-draw",
+        "protection"
+      ],
+      "name": "Padeem, Consul of Innovation"
+    },
+    "106e9c0d-67a2-4db7-97d9-03e1ea1b40b5": {
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ],
+      "name": "Cryogen Relic"
+    },
+    "11323af4-b8b8-4ca9-932f-377c7fd77dea": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "The Eternity Elevator"
+    },
+    "127f6985-c1f4-487f-b5ee-c84524cd6c55": {
+      "categories": [
+        "ramp",
+        "protection",
+        "recursion",
+        "token-production"
+      ],
+      "name": "Shuri's Fabricator"
+    },
+    "13ff3222-91cb-4796-a34e-899ed817694c": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Badlands"
+    },
+    "14d2979d-5728-42d7-a027-0eb1f754655d": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "Talisman of Creativity"
+    },
+    "17039058-822d-409f-938c-b727a366ba63": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Steam Vents"
+    },
+    "181965fb-e685-4b1f-9bd6-3a33bed933b2": {
+      "categories": [
+        "removal"
+      ],
+      "name": "Meteor Sword"
+    },
+    "1bea6d02-186e-46d8-b788-d4cc37dbb480": {
+      "categories": [
+        "ramp",
+        "protection",
+        "token-production"
+      ],
+      "name": "Vibranium Mining Mech"
+    },
+    "1d9aeaaa-66f6-41cb-9bac-162d6fd8662c": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "Talisman of Indulgence"
+    },
+    "2494101a-2c6b-45d8-95fe-e62bf9a25130": {
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ],
+      "name": "Imskir Iron-Eater"
+    },
+    "2578e8e4-a93c-4904-9037-92a1529c2c67": {
+      "categories": [
+        "token-production"
+      ],
+      "name": "Hoard Hauler"
+    },
+    "25c83d45-581f-48ba-b6bb-feb66e8a65c7": {
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ],
+      "name": "Sewer-veillance Cam"
+    },
+    "276dc5c8-c8cf-4b9c-ad75-31876e6e040a": {
+      "categories": [
+        "card-draw"
+      ],
+      "name": "The Indomitable"
+    },
+    "2951671b-ac01-4e65-857f-0b7b7c7478ce": {
+      "categories": [
+        "protection"
+      ],
+      "name": "Reaver Titan"
+    },
+    "2fda4fe7-8b0c-489c-a000-6d358e614e34": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "Izzet Signet"
+    },
+    "30377bd5-99ab-4888-9ea7-e5a069b527e8": {
+      "categories": [
+        "other"
+      ],
+      "name": "Return the Favor"
+    },
+    "3644f316-f9a3-46c9-9b1e-747f86cf4ead": {
+      "categories": [
+        "land",
+        "ramp",
+        "recursion",
+        "sacrifice"
+      ],
+      "name": "Buried Ruin"
+    },
+    "39451b4d-cd7a-40da-b457-cb51b609173f": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Seat of the Synod"
+    },
+    "39d8406a-90c3-460c-b4e8-0f590573db51": {
+      "categories": [
+        "token-production"
+      ],
+      "name": "Mechanized Production"
+    },
+    "3adb7681-977f-4a32-9ec8-51481b958268": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "Rakdos Signet"
+    },
+    "404e958b-ead9-4ec7-b786-7b3d65e29967": {
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ],
+      "name": "Mouser Foundry"
+    },
+    "43985bbc-a0f6-4812-984e-392bc8562633": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Blood Crypt"
+    },
+    "4722105b-0085-4bb8-bca1-9de0d3eb5600": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Stormcarved Coast"
+    },
+    "49be65fd-3755-410d-b0dc-2e5861ea2552": {
+      "categories": [
+        "card-draw",
+        "token-production"
+      ],
+      "name": "Thopter Spy Network"
+    },
+    "4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Underground Sea"
+    },
+    "4c0a0448-b9d6-43a0-8549-64066dac63f0": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "Talisman of Dominance"
+    },
+    "4d67e2a7-4aa7-44cc-853b-500d7aac046d": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "Cursed Mirror"
+    },
+    "50b14338-9318-4327-a1dd-c0ef38903cc4": {
+      "categories": [
+        "other"
+      ],
+      "name": "Skysovereign, Consul Flagship"
+    },
+    "50d6cadc-07e4-479e-90f4-e3a20f769bab": {
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "sacrifice"
+      ],
+      "name": "Susur Secundi, Void Altar"
+    },
+    "544c9ad2-86f9-483e-a53c-f64c8602c393": {
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ],
+      "name": "Damocles Base, Sword of Kang"
+    },
+    "59322432-591a-4e8d-aff5-12ca1feb1028": {
+      "categories": [
+        "token-production"
+      ],
+      "name": "Magmatic Galleon"
+    },
+    "599402d9-2ea6-4709-b010-b35636be8c8c": {
+      "categories": [
+        "other"
+      ],
+      "name": "Sky Cycle"
+    },
+    "5b5ef43b-13fd-4461-8d2d-18be65e9a790": {
+      "categories": [
+        "card-draw"
+      ],
+      "name": "Ichor Wellspring"
+    },
+    "5dec1b09-4df0-4e9b-9dca-b80134be3343": {
+      "categories": [
+        "other"
+      ],
+      "name": "N'Yami-Class Mother Ship"
+    },
+    "5f42b67f-87fd-4f98-a0e8-0c8313f4bbc8": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Shipwreck Marsh"
+    },
+    "5f8941d8-f8f7-4ec3-86c3-88af8829080b": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "Loki's Scepter"
+    },
+    "613a8774-165e-4cf6-ad43-124f9ffc9980": {
+      "categories": [
+        "removal"
+      ],
+      "name": "Nautiloid Ship"
+    },
+    "64ebdd6f-acde-4aab-a86b-2798bad5f70c": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "Machine God's Effigy"
+    },
+    "6754753d-790e-4a95-a150-76741c4a02d4": {
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ],
+      "name": "RMS Titanic"
+    },
+    "67d6fbcb-2df7-4b5a-8464-158f6b720a2e": {
+      "categories": [
+        "other"
+      ],
+      "name": "Meddle"
+    },
+    "6dccf583-1045-4058-86cc-ebbcc8de080e": {
+      "categories": [
+        "ramp",
+        "token-production"
+      ],
+      "name": "Artificer Class"
+    },
+    "7d881c57-0bd9-4c57-aa4a-b10808b86143": {
+      "categories": [
+        "ramp"
+      ],
+      "name": "Dimir Signet"
+    },
+    "7ddbf891-7f80-44e9-b94c-70c1da0b91ed": {
+      "categories": [
+        "other"
+      ],
+      "name": "Getaway Barrel"
+    },
+    "819e1765-8325-4e6f-89c1-63ea86de369f": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Luxury Suite"
+    },
+    "8291543f-d086-48aa-b2b7-5481ca8c9198": {
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ],
+      "name": "Xander's Lounge"
+    },
+    "88075828-a76e-412d-b738-182f50e3a133": {
+      "categories": [
+        "removal"
+      ],
+      "name": "Demonic Junker"
+    },
+    "8d035688-089f-4d5c-bcad-9140a6c1681b": {
+      "categories": [
+        "token-production"
+      ],
+      "name": "Cybermen Squadron"
+    },
+    "8dc067bf-f78f-4ac4-b6e7-b305c42cf0bc": {
+      "categories": [
+        "land",
+        "ramp",
+        "protection"
+      ],
+      "name": "Darksteel Citadel"
+    },
+    "97369152-3b85-4cf1-aeb9-b3a8f1c37611": {
+      "categories": [
+        "other"
+      ],
+      "name": "Invasion Submersible"
+    },
+    "977c2f33-b622-4172-9efb-7f523becd32b": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Blazemire Verge"
+    },
+    "98492d7d-3b9e-4ae1-ac45-1b508d6d2670": {
+      "categories": [
+        "ramp",
+        "card-draw"
+      ],
+      "name": "Coveted Jewel"
+    },
+    "a0a7319d-9441-4aed-a351-9ff3fb3b1d9e": {
+      "categories": [
+        "card-draw"
+      ],
+      "name": "Hulldrifter"
+    },
+    "a3da7d5b-2c2b-45fe-b9c5-413b8c8fc0a2": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Academy Ruins"
+    },
+    "a3fb7228-e76b-4e96-a40e-20b5fed75685": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Mountain"
+    },
+    "a6c3aa17-8338-4daa-889e-d36dc715e546": {
+      "categories": [
+        "token-production"
+      ],
+      "name": "Rolling Hamsphere"
+    },
+    "a7ac5d98-805e-4212-be94-333a0c0c44a7": {
+      "categories": [
+        "token-production"
+      ],
+      "name": "Brudiclad, Telchor Engineer"
+    },
+    "ab7c0256-eea9-4e0d-932d-c25460eed836": {
+      "categories": [
+        "other"
+      ],
+      "name": "Possession Engine"
+    },
+    "ad556aee-3dbf-4c8b-9f3a-31947e26c6f5": {
+      "categories": [
+        "other"
+      ],
+      "name": "Pinnacle Kill-Ship"
+    },
+    "ae120613-97d6-4393-b39d-c3e6c076f5d6": {
+      "categories": [
+        "other"
+      ],
+      "name": "Deflecting Swat"
+    },
+    "b2c6aa39-2d2a-459c-a555-fb48ba993373": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Island"
+    },
+    "ba64d3a9-08b4-4b12-b011-e41b00815277": {
+      "categories": [
+        "other"
+      ],
+      "name": "Mole Module"
+    },
+    "bd004c9d-771e-4e63-a97d-a2259c096af8": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Morphic Pool"
+    },
+    "bf9421d2-54e2-44d8-8b39-2e41192a6517": {
+      "categories": [
+        "other"
+      ],
+      "name": "Surgehacker Mech"
+    },
+    "c20a96f7-aa5a-4c15-b8b1-806685c99b27": {
+      "categories": [
+        "other"
+      ],
+      "name": "Bolt Bend"
+    },
+    "c396db03-bf11-4e20-b630-4f9aa8fd78da": {
+      "categories": [
+        "ramp",
+        "card-draw"
+      ],
+      "name": "The Mightstone and Weakstone"
+    },
+    "c62b5c22-e058-436f-9575-a01cb2112829": {
+      "categories": [
+        "other"
+      ],
+      "name": "Redirect Lightning"
+    },
+    "c718911c-c955-4eb9-9e16-be4bd49a4e4e": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Volcanic Island"
+    },
+    "caa69b51-1efd-4d0e-803b-914a83ccb836": {
+      "categories": [
+        "other"
+      ],
+      "name": "Lifecraft Engine"
+    },
+    "cb027150-848c-4a66-88ad-e20222304dd8": {
+      "categories": [
+        "land",
+        "sacrifice"
+      ],
+      "name": "Scalding Tarn"
+    },
+    "d3438037-3efd-4ce0-88ec-6d48ab521992": {
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ],
+      "name": "Mishra, Eminent One"
+    },
+    "d71bda4c-3dee-4398-8fd0-f77d8743b887": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Gloomlake Verge"
+    },
+    "da3e7d3d-2ca0-40c3-9602-fca37c92f507": {
+      "categories": [
+        "other"
+      ],
+      "name": "Emry, Lurker of the Loch"
+    },
+    "da46786e-28df-4638-ab3d-121011d2f150": {
+      "categories": [
+        "other"
+      ],
+      "name": "Master Transmuter"
+    },
+    "df08ac72-010f-42f8-beb3-6d645c638e1e": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Uthros, Titanic Godcore"
+    },
+    "e0aa6ce0-ca31-433b-ac6c-32b8675cdb71": {
+      "categories": [
+        "other"
+      ],
+      "name": "Spellskite"
+    },
+    "e2a37967-4212-4553-9f77-bcb613405807": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Haunted Ridge"
+    },
+    "e2ab0f84-8402-472d-be66-9661b85e08fc": {
+      "categories": [
+        "other"
+      ],
+      "name": "Knight Paladin"
+    },
+    "e3570ac7-c593-40e3-bbd6-ec3da6d8158d": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Training Center"
+    },
+    "e58e94dc-9602-48db-9dd9-9d3051c33a76": {
+      "categories": [
+        "card-draw"
+      ],
+      "name": "The Thanos-Copter"
+    },
+    "eb7a1f21-a66d-415b-8520-710b44890bb6": {
+      "categories": [
+        "token-production"
+      ],
+      "name": "Simulacrum Synthesizer"
+    },
+    "ef86989d-ce80-4e55-aece-7d11710eeffa": {
+      "categories": [
+        "land",
+        "sacrifice"
+      ],
+      "name": "Polluted Delta"
+    },
+    "f434e266-d9d6-4058-96ff-a1bd4029d8dc": {
+      "categories": [
+        "other"
+      ],
+      "name": "Imposter Mech"
+    },
+    "f4819061-b0b5-48ab-af7b-6525c3d2eab7": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Great Furnace"
+    },
+    "fc0707c7-d504-4ccf-a0d2-3eb6e26e7a57": {
+      "categories": [
+        "land",
+        "sacrifice"
+      ],
+      "name": "Bloodstained Mire"
+    },
+    "fc9ec820-4245-4a96-b009-5308a818ca58": {
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "name": "Watery Grave"
+    },
+    "fd9c4ebe-cc9c-427c-8105-adb1703c191b": {
+      "categories": [
+        "token-production"
+      ],
+      "name": "Mirrorworks"
+    },
+    "b3ab43f2-4f2b-4439-9254-0110ce443fdb": {
+      "name": "Ratadrabik of Urborg",
+      "categories": [
+        "token-production",
+        "death-trigger"
+      ]
+    },
+    "c0d8fef4-65f4-4769-982d-b397d2b7e977": {
+      "name": "Animate Dead",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "d4a9d63a-5a8a-4f51-9e49-43d6dc3234b1": {
+      "name": "Greedy Freebooter",
+      "categories": [
+        "token-production",
+        "scry"
+      ]
+    },
+    "47a080c4-ff04-4f52-aca0-2b8e4f4d931e": {
+      "name": "Enduring Renewal",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "e3174070-542f-429e-9149-b572f6614537": {
+      "categories": [
+        "ramp",
+        "sacrifice-outlet"
+      ],
+      "name": "Soldevi Adnate"
+    },
+    "59b02ca7-e7bd-4820-ac32-87ea1a8c64c0": {
+      "categories": [
+        "recursion"
+      ],
+      "name": "Corpse Dance"
     }
   },
   "schema_version": 1,
