@@ -2226,13 +2226,13 @@
         "card-draw"
       ]
     },
-    "e21c8fc6-d4ef-42b6-b11e-d9c931da1387": {
-      "name": "Realms Uncharted",
+    "9baff93e-4ef9-404d-884b-f651a11f3742": {
+      "name": "Fortune's Favor",
       "categories": [
-        "tutor"
+        "card-draw"
       ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-22T10:50:10.186Z"
+  "updated_at": "2026-08-22T10:58:27.506Z"
 }
