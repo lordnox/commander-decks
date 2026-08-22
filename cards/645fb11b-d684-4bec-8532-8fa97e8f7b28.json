@@ -1,0 +1,133 @@
+{
+  "artist": "Rob Alexander",
+  "artist_ids": [
+    "35906871-6c78-4ab2-9ed1-e6792c8efb74"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 12728,
+  "cmc": 0.0,
+  "collector_number": "164",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 5067,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Here the soratami wove their endless plots—graceful, artful, and deceitful, while the unwitting world moved below.",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ffc2d68e-6543-43ec-b67a-afff1325a32f",
+  "illustration_id": "62cb4da7-3f62-40bb-ad11-b58962e38229",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:02:08Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/f/ffc2d68e-6543-43ec-b67a-afff1325a32f.webp?1783944128",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/f/ffc2d68e-6543-43ec-b67a-afff1325a32f.jpg?1783944128",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/f/ffc2d68e-6543-43ec-b67a-afff1325a32f.jpg?1783944128",
+    "crop": "https://cards.scryfall.io/crop/front/f/f/ffc2d68e-6543-43ec-b67a-afff1325a32f.webp?1783944128",
+    "display": "https://cards.scryfall.io/display/front/f/f/ffc2d68e-6543-43ec-b67a-afff1325a32f.webp?1783944128",
+    "grid": "https://cards.scryfall.io/grid/front/f/f/ffc2d68e-6543-43ec-b67a-afff1325a32f.webp?1783944128",
+    "large": "https://cards.scryfall.io/large/front/f/f/ffc2d68e-6543-43ec-b67a-afff1325a32f.jpg?1783944128",
+    "normal": "https://cards.scryfall.io/normal/front/f/f/ffc2d68e-6543-43ec-b67a-afff1325a32f.jpg?1783944128",
+    "png": "https://cards.scryfall.io/png/front/f/f/ffc2d68e-6543-43ec-b67a-afff1325a32f.png?1783944128",
+    "small": "https://cards.scryfall.io/small/front/f/f/ffc2d68e-6543-43ec-b67a-afff1325a32f.jpg?1783944128",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/f/ffc2d68e-6543-43ec-b67a-afff1325a32f.webp?1783944128"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_foil_id": 22045,
+  "mtgo_id": 22044,
+  "multiverse_ids": [
+    74206
+  ],
+  "name": "Oboro, Palace in the Clouds",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "645fb11b-d684-4bec-8532-8fa97e8f7b28",
+  "oracle_text": "{T}: Add {U}.\n{1}: Return Oboro to its owner's hand.",
+  "oversized": false,
+  "penny_rank": 2775,
+  "prices": {
+    "eur": "16.08",
+    "eur_foil": "91.06",
+    "tix": "0.02",
+    "usd": "22.62",
+    "usd_etched": null,
+    "usd_foil": "191.56"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A645fb11b-d684-4bec-8532-8fa97e8f7b28&unique=prints",
+  "produced_mana": [
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/22044?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=12728&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F12500%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Oboro%2C+Palace+in+the+Clouds",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=74206&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOboro%252C%2BPalace%2Bin%2Bthe%2BClouds",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOboro%252C%2BPalace%2Bin%2Bthe%2BClouds"
+  },
+  "released_at": "2005-06-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ffc2d68e-6543-43ec-b67a-afff1325a32f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/sok?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/sok/164/oboro-palace-in-the-clouds?utm_source=api",
+  "set": "sok",
+  "set_id": "4db16ad3-2b95-442f-bb6b-e9aa7fe7f769",
+  "set_name": "Saviors of Kamigawa",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asok&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4db16ad3-2b95-442f-bb6b-e9aa7fe7f769",
+  "story_spotlight": false,
+  "tcgplayer_id": 12500,
+  "textless": false,
+  "type_line": "Legendary Land",
+  "uri": "https://api.scryfall.com/cards/ffc2d68e-6543-43ec-b67a-afff1325a32f",
+  "variation": false
+}

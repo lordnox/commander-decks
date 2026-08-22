@@ -1,0 +1,131 @@
+{
+  "artist": "Matt Cavotta",
+  "artist_ids": [
+    "2e6a0611-9411-4ba4-98e3-c0e18cbf9f83"
+  ],
+  "booster": true,
+  "border_color": "white",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 12576,
+  "cmc": 2.0,
+  "collector_number": "108",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 8299,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "The wise, the righteous, the mighty—the merchant feeds them all.",
+  "foil": false,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "57e5d7c9-36f7-4312-ada0-b6c2757487c8",
+  "illustration_id": "3fc734fa-56c5-455b-a574-19206998661a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:00:21Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/7/57e5d7c9-36f7-4312-ada0-b6c2757487c8.webp?1783944021",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/7/57e5d7c9-36f7-4312-ada0-b6c2757487c8.jpg?1783944021",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/7/57e5d7c9-36f7-4312-ada0-b6c2757487c8.jpg?1783944021",
+    "crop": "https://cards.scryfall.io/crop/front/5/7/57e5d7c9-36f7-4312-ada0-b6c2757487c8.webp?1783944021",
+    "display": "https://cards.scryfall.io/display/front/5/7/57e5d7c9-36f7-4312-ada0-b6c2757487c8.webp?1783944021",
+    "grid": "https://cards.scryfall.io/grid/front/5/7/57e5d7c9-36f7-4312-ada0-b6c2757487c8.webp?1783944021",
+    "large": "https://cards.scryfall.io/large/front/5/7/57e5d7c9-36f7-4312-ada0-b6c2757487c8.jpg?1783944021",
+    "normal": "https://cards.scryfall.io/normal/front/5/7/57e5d7c9-36f7-4312-ada0-b6c2757487c8.jpg?1783944021",
+    "png": "https://cards.scryfall.io/png/front/5/7/57e5d7c9-36f7-4312-ada0-b6c2757487c8.png?1783944021",
+    "small": "https://cards.scryfall.io/small/front/5/7/57e5d7c9-36f7-4312-ada0-b6c2757487c8.jpg?1783944021",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/7/57e5d7c9-36f7-4312-ada0-b6c2757487c8.webp?1783944021"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_foil_id": 22476,
+  "mtgo_id": 22475,
+  "multiverse_ids": [
+    83302
+  ],
+  "name": "Trade Routes",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "120fa67e-e5e0-4c23-9a78-d6171d357aee",
+  "oracle_text": "{1}: Return target land you control to its owner's hand.\n{1}, Discard a land card: Draw a card.",
+  "oversized": false,
+  "penny_rank": 4578,
+  "prices": {
+    "eur": "1.53",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "5.46",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A120fa67e-e5e0-4c23-9a78-d6171d357aee&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/22475?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=12576&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F12857%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Trade+Routes",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=83302&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTrade%2BRoutes",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTrade%2BRoutes"
+  },
+  "released_at": "2005-07-29",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/57e5d7c9-36f7-4312-ada0-b6c2757487c8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/9ed?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/9ed/108/trade-routes?utm_source=api",
+  "set": "9ed",
+  "set_id": "e70c8572-4732-4e92-a140-b4e3c1c84c93",
+  "set_name": "Ninth Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A9ed&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/e70c8572-4732-4e92-a140-b4e3c1c84c93",
+  "story_spotlight": false,
+  "tcgplayer_id": 12857,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/57e5d7c9-36f7-4312-ada0-b6c2757487c8",
+  "variation": false
+}

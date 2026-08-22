@@ -1,0 +1,136 @@
+{
+  "artist": "Dave Kendall",
+  "artist_ids": [
+    "8a5540a8-18c9-4fa9-802c-59d6866114d5"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 834114,
+  "cmc": 2.0,
+  "collector_number": "109",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 868,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "No one knew why the spiritmongers were so enraged by Phyrexian technology, but it was a stroke of good luck for the Coalition.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "e408c673-4a1f-45db-827a-75c501e1b3d6",
+  "illustration_id": "33fe6146-554d-4eda-8567-8707dc361f85",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:27:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/4/e408c673-4a1f-45db-827a-75c501e1b3d6.webp?1783906030",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/4/e408c673-4a1f-45db-827a-75c501e1b3d6.jpg?1783906030",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/4/e408c673-4a1f-45db-827a-75c501e1b3d6.jpg?1783906030",
+    "crop": "https://cards.scryfall.io/crop/front/e/4/e408c673-4a1f-45db-827a-75c501e1b3d6.webp?1783906030",
+    "display": "https://cards.scryfall.io/display/front/e/4/e408c673-4a1f-45db-827a-75c501e1b3d6.webp?1783906030",
+    "grid": "https://cards.scryfall.io/grid/front/e/4/e408c673-4a1f-45db-827a-75c501e1b3d6.webp?1783906030",
+    "large": "https://cards.scryfall.io/large/front/e/4/e408c673-4a1f-45db-827a-75c501e1b3d6.jpg?1783906030",
+    "normal": "https://cards.scryfall.io/normal/front/e/4/e408c673-4a1f-45db-827a-75c501e1b3d6.jpg?1783906030",
+    "png": "https://cards.scryfall.io/png/front/e/4/e408c673-4a1f-45db-827a-75c501e1b3d6.png?1783906030",
+    "small": "https://cards.scryfall.io/small/front/e/4/e408c673-4a1f-45db-827a-75c501e1b3d6.jpg?1783906030",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/4/e408c673-4a1f-45db-827a-75c501e1b3d6.webp?1783906030"
+  },
+  "keywords": [
+    "Kicker"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 142355,
+  "multiverse_ids": [],
+  "name": "Tear Asunder",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "610af0f7-b5e3-43fb-9d02-7c59bd99034c",
+  "oracle_text": "Kicker {1}{B} (You may pay an additional {1}{B} as you cast this spell.)\nExile target artifact or enchantment. If this spell was kicked, exile target nonland permanent instead.",
+  "oversized": false,
+  "penny_rank": 421,
+  "preview": {
+    "previewed_at": "2025-07-09",
+    "source": "The Command Zone",
+    "source_uri": "https://www.youtube.com/watch?v=HxXLWC_JRdM"
+  },
+  "prices": {
+    "eur": "0.26",
+    "eur_foil": null,
+    "tix": "0.13",
+    "usd": "0.30",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A610af0f7-b5e3-43fb-9d02-7c59bd99034c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/142355?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=834114&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F642003%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Tear+Asunder",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTear%2BAsunder",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTear%2BAsunder"
+  },
+  "released_at": "2025-08-01",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "FC6096E1EE5E4C06EC27D58D765E32359D8A4642B618055BD411050406D052E1",
+  "rulings_uri": "https://api.scryfall.com/cards/e408c673-4a1f-45db-827a-75c501e1b3d6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eoc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eoc/109/tear-asunder?utm_source=api",
+  "set": "eoc",
+  "set_id": "b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "set_name": "Edge of Eternities Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "story_spotlight": false,
+  "tcgplayer_id": 642003,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/e408c673-4a1f-45db-827a-75c501e1b3d6",
+  "variation": false
+}

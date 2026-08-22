@@ -1,0 +1,142 @@
+{
+  "artist": "Jason A. Engle",
+  "artist_ids": [
+    "02e2b5de-4341-464c-8fdb-a1adbf873bc0"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 512880,
+  "cmc": 4.0,
+  "collector_number": "89",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1072,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "714c3a1f-7b30-4ed8-8f38-6176758741fb",
+  "illustration_id": "633543d7-60b3-4bc6-ba5d-e6ef062a340b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:47:33Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/1/714c3a1f-7b30-4ed8-8f38-6176758741fb.webp?1783928853",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/1/714c3a1f-7b30-4ed8-8f38-6176758741fb.jpg?1783928853",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/1/714c3a1f-7b30-4ed8-8f38-6176758741fb.jpg?1783928853",
+    "crop": "https://cards.scryfall.io/crop/front/7/1/714c3a1f-7b30-4ed8-8f38-6176758741fb.webp?1783928853",
+    "display": "https://cards.scryfall.io/display/front/7/1/714c3a1f-7b30-4ed8-8f38-6176758741fb.webp?1783928853",
+    "grid": "https://cards.scryfall.io/grid/front/7/1/714c3a1f-7b30-4ed8-8f38-6176758741fb.webp?1783928853",
+    "large": "https://cards.scryfall.io/large/front/7/1/714c3a1f-7b30-4ed8-8f38-6176758741fb.jpg?1783928853",
+    "normal": "https://cards.scryfall.io/normal/front/7/1/714c3a1f-7b30-4ed8-8f38-6176758741fb.jpg?1783928853",
+    "png": "https://cards.scryfall.io/png/front/7/1/714c3a1f-7b30-4ed8-8f38-6176758741fb.png?1783928853",
+    "small": "https://cards.scryfall.io/small/front/7/1/714c3a1f-7b30-4ed8-8f38-6176758741fb.jpg?1783928853",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/1/714c3a1f-7b30-4ed8-8f38-6176758741fb.webp?1783928853"
+  },
+  "keywords": [
+    "Partner"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "mtgo_id": 84960,
+  "multiverse_ids": [
+    497609
+  ],
+  "name": "Sakashima of a Thousand Faces",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8ecdaf4b-4442-42da-9714-4257a83faf50",
+  "oracle_text": "You may have Sakashima enter as a copy of another creature you control, except it has Sakashima's other abilities.\nThe \"legend rule\" doesn't apply to permanents you control.\nPartner (You can have two commanders if both have partner.)",
+  "oversized": false,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2020-11-03",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/card-preview/sakashima-thousand-faces-2020-11-03"
+  },
+  "prices": {
+    "eur": "28.10",
+    "eur_foil": "37.87",
+    "tix": "12.21",
+    "usd": "32.79",
+    "usd_etched": null,
+    "usd_foil": "40.71"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8ecdaf4b-4442-42da-9714-4257a83faf50&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/84960?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=512880&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F227010%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sakashima+of+a+Thousand+Faces",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=497609&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSakashima%2Bof%2Ba%2BThousand%2BFaces",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSakashima%2Bof%2Ba%2BThousand%2BFaces"
+  },
+  "released_at": "2020-11-20",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/714c3a1f-7b30-4ed8-8f38-6176758741fb/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmr/89/sakashima-of-a-thousand-faces?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmr",
+  "set_id": "39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "set_name": "Commander Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "story_spotlight": false,
+  "tcgplayer_id": 227010,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Legendary Creature — Human Rogue",
+  "uri": "https://api.scryfall.com/cards/714c3a1f-7b30-4ed8-8f38-6176758741fb",
+  "variation": false
+}

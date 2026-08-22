@@ -1,0 +1,152 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "041351b5-e253-41ec-bc6d-579ae89d6396",
+      "name": "Quantum Misalignment",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/041351b5-e253-41ec-bc6d-579ae89d6396"
+    },
+    {
+      "component": "token",
+      "id": "f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c"
+    }
+  ],
+  "artist": "Alexander Skripnikov",
+  "artist_ids": [
+    "fe9325bf-2698-430d-a3e8-7771fb80351f"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 891826,
+  "cmc": 5.0,
+  "collector_number": "152",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1819,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "561caecd-e065-48f6-8fde-85b938794ed3",
+  "illustration_id": "ba55c29f-409f-48ac-84f7-9e7eeefeea4e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:40:39Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/6/561caecd-e065-48f6-8fde-85b938794ed3.webp?1783903239",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/6/561caecd-e065-48f6-8fde-85b938794ed3.jpg?1783903239",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/6/561caecd-e065-48f6-8fde-85b938794ed3.jpg?1783903239",
+    "crop": "https://cards.scryfall.io/crop/front/5/6/561caecd-e065-48f6-8fde-85b938794ed3.webp?1783903239",
+    "display": "https://cards.scryfall.io/display/front/5/6/561caecd-e065-48f6-8fde-85b938794ed3.webp?1783903239",
+    "grid": "https://cards.scryfall.io/grid/front/5/6/561caecd-e065-48f6-8fde-85b938794ed3.webp?1783903239",
+    "large": "https://cards.scryfall.io/large/front/5/6/561caecd-e065-48f6-8fde-85b938794ed3.jpg?1783903239",
+    "normal": "https://cards.scryfall.io/normal/front/5/6/561caecd-e065-48f6-8fde-85b938794ed3.jpg?1783903239",
+    "png": "https://cards.scryfall.io/png/front/5/6/561caecd-e065-48f6-8fde-85b938794ed3.png?1783903239",
+    "small": "https://cards.scryfall.io/small/front/5/6/561caecd-e065-48f6-8fde-85b938794ed3.jpg?1783903239",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/6/561caecd-e065-48f6-8fde-85b938794ed3.webp?1783903239"
+  },
+  "keywords": [
+    "Rebound"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{U}",
+  "mtgo_id": 150773,
+  "multiverse_ids": [],
+  "name": "Quantum Misalignment",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "197582b9-4c86-41a3-ad0c-789a0db8e087",
+  "oracle_text": "Create a token that's a copy of target creature you control, except it isn't legendary.\nRebound (If you cast this spell from your hand, exile it as it resolves. At the beginning of your next upkeep, you may cast this card from exile without paying its mana cost.)",
+  "oversized": false,
+  "prices": {
+    "eur": "3.69",
+    "eur_foil": null,
+    "tix": "0.58",
+    "usd": "3.51",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A197582b9-4c86-41a3-ad0c-789a0db8e087&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150773?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891826&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F697558%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Quantum+Misalignment",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DQuantum%2BMisalignment",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DQuantum%2BMisalignment"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "A398F365F04A1F90D1D41AC9E6EB07C3CF591C56CCF2C20102990A98FA030111",
+  "rulings_uri": "https://api.scryfall.com/cards/561caecd-e065-48f6-8fde-85b938794ed3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/152/quantum-misalignment?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 697558,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/561caecd-e065-48f6-8fde-85b938794ed3",
+  "variation": false
+}

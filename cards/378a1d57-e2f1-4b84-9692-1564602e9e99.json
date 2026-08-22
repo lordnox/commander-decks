@@ -1,0 +1,132 @@
+{
+  "artist": "John Avon",
+  "artist_ids": [
+    "798f3932-30e0-4420-aa3f-db4d613f89ca"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 789008,
+  "cmc": 0.0,
+  "collector_number": "270",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 361,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "84bf9d60-64b8-4209-acfe-e07eefc6bf1f",
+  "illustration_id": "639d76fb-b677-428b-9278-de3332c07e25",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:26:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/4/84bf9d60-64b8-4209-acfe-e07eefc6bf1f.webp?1783909578",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/4/84bf9d60-64b8-4209-acfe-e07eefc6bf1f.jpg?1783909578",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/4/84bf9d60-64b8-4209-acfe-e07eefc6bf1f.jpg?1783909578",
+    "crop": "https://cards.scryfall.io/crop/front/8/4/84bf9d60-64b8-4209-acfe-e07eefc6bf1f.webp?1783909578",
+    "display": "https://cards.scryfall.io/display/front/8/4/84bf9d60-64b8-4209-acfe-e07eefc6bf1f.webp?1783909578",
+    "grid": "https://cards.scryfall.io/grid/front/8/4/84bf9d60-64b8-4209-acfe-e07eefc6bf1f.webp?1783909578",
+    "large": "https://cards.scryfall.io/large/front/8/4/84bf9d60-64b8-4209-acfe-e07eefc6bf1f.jpg?1783909578",
+    "normal": "https://cards.scryfall.io/normal/front/8/4/84bf9d60-64b8-4209-acfe-e07eefc6bf1f.jpg?1783909578",
+    "png": "https://cards.scryfall.io/png/front/8/4/84bf9d60-64b8-4209-acfe-e07eefc6bf1f.png?1783909578",
+    "small": "https://cards.scryfall.io/small/front/8/4/84bf9d60-64b8-4209-acfe-e07eefc6bf1f.jpg?1783909578",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/4/84bf9d60-64b8-4209-acfe-e07eefc6bf1f.webp?1783909578"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 131165,
+  "multiverse_ids": [
+    676143
+  ],
+  "name": "Dimir Aqueduct",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "378a1d57-e2f1-4b84-9692-1564602e9e99",
+  "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {U}{B}.",
+  "oversized": false,
+  "penny_rank": 1007,
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": null,
+    "tix": "0.04",
+    "usd": "0.33",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A378a1d57-e2f1-4b84-9692-1564602e9e99&unique=prints",
+  "produced_mana": [
+    "B",
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/131165?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=789008&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F579305%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dimir+Aqueduct",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676143&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDimir%2BAqueduct",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDimir%2BAqueduct"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/84bf9d60-64b8-4209-acfe-e07eefc6bf1f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/270/dimir-aqueduct?utm_source=api",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 579305,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/84bf9d60-64b8-4209-acfe-e07eefc6bf1f",
+  "variation": false
+}

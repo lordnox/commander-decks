@@ -1,0 +1,133 @@
+{
+  "artist": "Jim Murray",
+  "artist_ids": [
+    "1c906f9b-5bbe-4643-8f5c-90eb1c7f0c43"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 548076,
+  "cmc": 2.0,
+  "collector_number": "64",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 6518,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "He's mastered the art of sleight of land.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f244985e-7487-44db-bd69-47c781753f2e",
+  "illustration_id": "89b059e4-0103-4531-87f3-05df3130db6e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:30:49Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/2/f244985e-7487-44db-bd69-47c781753f2e.webp?1783927849",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/2/f244985e-7487-44db-bd69-47c781753f2e.jpg?1783927849",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/2/f244985e-7487-44db-bd69-47c781753f2e.jpg?1783927849",
+    "crop": "https://cards.scryfall.io/crop/front/f/2/f244985e-7487-44db-bd69-47c781753f2e.webp?1783927849",
+    "display": "https://cards.scryfall.io/display/front/f/2/f244985e-7487-44db-bd69-47c781753f2e.webp?1783927849",
+    "grid": "https://cards.scryfall.io/grid/front/f/2/f244985e-7487-44db-bd69-47c781753f2e.webp?1783927849",
+    "large": "https://cards.scryfall.io/large/front/f/2/f244985e-7487-44db-bd69-47c781753f2e.jpg?1783927849",
+    "normal": "https://cards.scryfall.io/normal/front/f/2/f244985e-7487-44db-bd69-47c781753f2e.jpg?1783927849",
+    "png": "https://cards.scryfall.io/png/front/f/2/f244985e-7487-44db-bd69-47c781753f2e.png?1783927849",
+    "small": "https://cards.scryfall.io/small/front/f/2/f244985e-7487-44db-bd69-47c781753f2e.jpg?1783927849",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/2/f244985e-7487-44db-bd69-47c781753f2e.webp?1783927849"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 86491,
+  "multiverse_ids": [
+    509429
+  ],
+  "name": "Dreamscape Artist",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c2550f1a-b662-43e7-a0b2-843025739a8f",
+  "oracle_text": "{2}{U}, {T}, Discard a card, Sacrifice a land: Search your library for up to two basic land cards, put them onto the battlefield, then shuffle.",
+  "oversized": false,
+  "penny_rank": 10595,
+  "power": "1",
+  "prices": {
+    "eur": "0.18",
+    "eur_foil": "0.19",
+    "tix": "0.04",
+    "usd": "0.10",
+    "usd_etched": null,
+    "usd_foil": "0.34"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac2550f1a-b662-43e7-a0b2-843025739a8f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/86491?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=548076&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F234311%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dreamscape+Artist",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=509429&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDreamscape%2BArtist",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDreamscape%2BArtist"
+  },
+  "released_at": "2021-03-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f244985e-7487-44db-bd69-47c781753f2e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tsr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tsr/64/dreamscape-artist?utm_source=api",
+  "set": "tsr",
+  "set_id": "11e90d1b-0502-43e6-b056-e24836523c13",
+  "set_name": "Time Spiral Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atsr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/11e90d1b-0502-43e6-b056-e24836523c13",
+  "story_spotlight": false,
+  "tcgplayer_id": 234311,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Spellshaper",
+  "uri": "https://api.scryfall.com/cards/f244985e-7487-44db-bd69-47c781753f2e",
+  "variation": false
+}

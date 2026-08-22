@@ -1,0 +1,141 @@
+{
+  "artist": "Daarken",
+  "artist_ids": [
+    "e607a0d4-fc12-4c01-9e3f-501f5269b9cb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 865068,
+  "cmc": 5.0,
+  "collector_number": "136",
+  "color_identity": [
+    "B",
+    "G",
+    "U"
+  ],
+  "colors": [
+    "B",
+    "G",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2489,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Yarok grieves within the waste\nOf Bala Ged's corrupted land.\"\n—*Lament for Bala Ged*, stanza 1",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c08a2da8-3ce7-4e0d-bdb0-81b6cdf3126a",
+  "illustration_id": "b73ba2be-e28d-4ba5-aada-00dd3322721d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:02:13Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/0/c08a2da8-3ce7-4e0d-bdb0-81b6cdf3126a.webp?1783904533",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/0/c08a2da8-3ce7-4e0d-bdb0-81b6cdf3126a.jpg?1783904533",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/0/c08a2da8-3ce7-4e0d-bdb0-81b6cdf3126a.jpg?1783904533",
+    "crop": "https://cards.scryfall.io/crop/front/c/0/c08a2da8-3ce7-4e0d-bdb0-81b6cdf3126a.webp?1783904533",
+    "display": "https://cards.scryfall.io/display/front/c/0/c08a2da8-3ce7-4e0d-bdb0-81b6cdf3126a.webp?1783904533",
+    "grid": "https://cards.scryfall.io/grid/front/c/0/c08a2da8-3ce7-4e0d-bdb0-81b6cdf3126a.webp?1783904533",
+    "large": "https://cards.scryfall.io/large/front/c/0/c08a2da8-3ce7-4e0d-bdb0-81b6cdf3126a.jpg?1783904533",
+    "normal": "https://cards.scryfall.io/normal/front/c/0/c08a2da8-3ce7-4e0d-bdb0-81b6cdf3126a.jpg?1783904533",
+    "png": "https://cards.scryfall.io/png/front/c/0/c08a2da8-3ce7-4e0d-bdb0-81b6cdf3126a.png?1783904533",
+    "small": "https://cards.scryfall.io/small/front/c/0/c08a2da8-3ce7-4e0d-bdb0-81b6cdf3126a.jpg?1783904533",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/0/c08a2da8-3ce7-4e0d-bdb0-81b6cdf3126a.webp?1783904533"
+  },
+  "keywords": [
+    "Lifelink",
+    "Deathtouch"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{G}{U}",
+  "mtgo_id": 146207,
+  "multiverse_ids": [],
+  "name": "Yarok, the Desecrated",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "95b53836-18aa-451a-992d-2a111deeeab2",
+  "oracle_text": "Deathtouch, lifelink\nIf a permanent entering causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.",
+  "oversized": false,
+  "penny_rank": 10017,
+  "power": "3",
+  "prices": {
+    "eur": "0.49",
+    "eur_foil": null,
+    "tix": "0.03",
+    "usd": "0.37",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A95b53836-18aa-451a-992d-2a111deeeab2&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/146207?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=865068&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F671283%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Yarok%2C+the+Desecrated",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DYarok%252C%2Bthe%2BDesecrated",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DYarok%252C%2Bthe%2BDesecrated"
+  },
+  "released_at": "2026-01-23",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "F08E221DFF59F106BD5A3ED47BE4FC7ECD8885B0DE89D4F5652571F3CC4F7E79",
+  "rulings_uri": "https://api.scryfall.com/cards/c08a2da8-3ce7-4e0d-bdb0-81b6cdf3126a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ecc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ecc/136/yarok-the-desecrated?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ecc",
+  "set_id": "805b5a0c-f8bb-4555-86ea-eb9ec36a011a",
+  "set_name": "Lorwyn Eclipsed Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aecc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/805b5a0c-f8bb-4555-86ea-eb9ec36a011a",
+  "story_spotlight": false,
+  "tcgplayer_id": 671283,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Legendary Creature — Elemental Horror",
+  "uri": "https://api.scryfall.com/cards/c08a2da8-3ce7-4e0d-bdb0-81b6cdf3126a",
+  "variation": false
+}

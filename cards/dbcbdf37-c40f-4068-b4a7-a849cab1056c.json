@@ -1,0 +1,141 @@
+{
+  "arena_id": 91019,
+  "artist": "Andrew Mar",
+  "artist_ids": [
+    "adad79bf-cd52-456a-b170-740ed8bff0fc"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 771200,
+  "cmc": 3.0,
+  "collector_number": "169",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 577,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "f9246b68-580f-4f53-883d-7900880e4b0d",
+  "illustration_id": "7bb9f6c6-0e77-46f9-b740-c85cee829156",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:16Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/9/f9246b68-580f-4f53-883d-7900880e4b0d.webp?1783911256",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/9/f9246b68-580f-4f53-883d-7900880e4b0d.jpg?1783911256",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/9/f9246b68-580f-4f53-883d-7900880e4b0d.jpg?1783911256",
+    "crop": "https://cards.scryfall.io/crop/front/f/9/f9246b68-580f-4f53-883d-7900880e4b0d.webp?1783911256",
+    "display": "https://cards.scryfall.io/display/front/f/9/f9246b68-580f-4f53-883d-7900880e4b0d.webp?1783911256",
+    "grid": "https://cards.scryfall.io/grid/front/f/9/f9246b68-580f-4f53-883d-7900880e4b0d.webp?1783911256",
+    "large": "https://cards.scryfall.io/large/front/f/9/f9246b68-580f-4f53-883d-7900880e4b0d.jpg?1783911256",
+    "normal": "https://cards.scryfall.io/normal/front/f/9/f9246b68-580f-4f53-883d-7900880e4b0d.jpg?1783911256",
+    "png": "https://cards.scryfall.io/png/front/f/9/f9246b68-580f-4f53-883d-7900880e4b0d.png?1783911256",
+    "small": "https://cards.scryfall.io/small/front/f/9/f9246b68-580f-4f53-883d-7900880e4b0d.jpg?1783911256",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/9/f9246b68-580f-4f53-883d-7900880e4b0d.webp?1783911256"
+  },
+  "keywords": [
+    "Reach",
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "mtgo_id": 126355,
+  "multiverse_ids": [
+    662321
+  ],
+  "name": "Six",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "dbcbdf37-c40f-4068-b4a7-a849cab1056c",
+  "oracle_text": "Reach\nWhenever Six attacks, mill three cards. You may put a land card from among them into your hand.\nDuring your turn, nonland permanent cards in your graveyard have retrace. (You may cast permanent cards from your graveyard by discarding a land card in addition to paying their other costs.)",
+  "oversized": false,
+  "penny_rank": 255,
+  "power": "2",
+  "prices": {
+    "eur": "5.43",
+    "eur_foil": "6.84",
+    "tix": "0.02",
+    "usd": "5.86",
+    "usd_etched": null,
+    "usd_foil": "5.77"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Adbcbdf37-c40f-4068-b4a7-a849cab1056c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126355?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=771200&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552272%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Six",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662321&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSix",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSix"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f9246b68-580f-4f53-883d-7900880e4b0d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/169/six?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552272,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Treefolk",
+  "uri": "https://api.scryfall.com/cards/f9246b68-580f-4f53-883d-7900880e4b0d",
+  "variation": false
+}

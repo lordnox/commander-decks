@@ -1,0 +1,147 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "5443f46d-03f9-468e-a78d-a059529b1151",
+      "name": "Resculpt",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/5443f46d-03f9-468e-a78d-a059529b1151"
+    },
+    {
+      "component": "token",
+      "id": "8ba20bb4-a476-448d-bb39-23f8dd59e5a8",
+      "name": "Elemental",
+      "object": "related_card",
+      "type_line": "Token Creature — Elemental",
+      "uri": "https://api.scryfall.com/cards/8ba20bb4-a476-448d-bb39-23f8dd59e5a8"
+    }
+  ],
+  "artist": "Torstein Nordstrand",
+  "artist_ids": [
+    "d72fed18-68fb-4a66-b369-978ae372fa07"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 881521,
+  "cmc": 2.0,
+  "collector_number": "201",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 891,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Critics were struck first by the elemental's surprising grace, and then by its fists.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5443f46d-03f9-468e-a78d-a059529b1151",
+  "illustration_id": "00359f2e-3a1a-4cfc-8571-c46f1ecc6604",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:49:49Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/4/5443f46d-03f9-468e-a78d-a059529b1151.webp?1783903789",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/4/5443f46d-03f9-468e-a78d-a059529b1151.jpg?1783903789",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/4/5443f46d-03f9-468e-a78d-a059529b1151.jpg?1783903789",
+    "crop": "https://cards.scryfall.io/crop/front/5/4/5443f46d-03f9-468e-a78d-a059529b1151.webp?1783903789",
+    "display": "https://cards.scryfall.io/display/front/5/4/5443f46d-03f9-468e-a78d-a059529b1151.webp?1783903789",
+    "grid": "https://cards.scryfall.io/grid/front/5/4/5443f46d-03f9-468e-a78d-a059529b1151.webp?1783903789",
+    "large": "https://cards.scryfall.io/large/front/5/4/5443f46d-03f9-468e-a78d-a059529b1151.jpg?1783903789",
+    "normal": "https://cards.scryfall.io/normal/front/5/4/5443f46d-03f9-468e-a78d-a059529b1151.jpg?1783903789",
+    "png": "https://cards.scryfall.io/png/front/5/4/5443f46d-03f9-468e-a78d-a059529b1151.png?1783903789",
+    "small": "https://cards.scryfall.io/small/front/5/4/5443f46d-03f9-468e-a78d-a059529b1151.jpg?1783903789",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/4/5443f46d-03f9-468e-a78d-a059529b1151.webp?1783903789"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 148871,
+  "multiverse_ids": [],
+  "name": "Resculpt",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "814e321d-16fd-4f7b-a8d8-2b089be76f2c",
+  "oracle_text": "Exile target artifact or creature. Its controller creates a 4/4 blue and red Elemental creature token.",
+  "oversized": false,
+  "penny_rank": 12266,
+  "prices": {
+    "eur": "0.24",
+    "eur_foil": null,
+    "tix": "0.07",
+    "usd": "0.30",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A814e321d-16fd-4f7b-a8d8-2b089be76f2c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/148871?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=881521&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F687446%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Resculpt",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DResculpt",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DResculpt"
+  },
+  "released_at": "2026-04-24",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "C26A10F94BE16707726C516D367F660BF55B6DC314CC8FE5F35495599CF5D455",
+  "rulings_uri": "https://api.scryfall.com/cards/5443f46d-03f9-468e-a78d-a059529b1151/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/soc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/soc/201/resculpt?utm_source=api",
+  "set": "soc",
+  "set_id": "97fab8d1-480a-419d-ab14-663968e29b9c",
+  "set_name": "Secrets of Strixhaven Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/97fab8d1-480a-419d-ab14-663968e29b9c",
+  "story_spotlight": false,
+  "tcgplayer_id": 687446,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/5443f46d-03f9-468e-a78d-a059529b1151",
+  "variation": false,
+  "watermark": "prismari"
+}
