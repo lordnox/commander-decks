@@ -150,27 +150,29 @@
       "submitted_name": "Nanogene Conversion"
     },
     {
-      "cache": "cards/64ebdd6f-acde-4aab-a86b-2798bad5f70c.json",
+      "cache": "cards/5602c14d-cc22-47d7-a1b0-6491749f00dd.json",
       "card": {
         "keywords": [],
-        "mana_cost": "{4}",
-        "oracle_text": "You may have this artifact enter as a copy of any creature on the battlefield, except it's an artifact and it has \"{T}: Add {U}.\" (It's not a creature.)\n{T}: Add {U}.",
-        "type_line": "Artifact"
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Counter target spell that targets a permanent you control.\nDraw a card.",
+        "type_line": "Instant"
       },
       "categories": [
-        "Homer Factory",
-        "Ramp"
+        "Protection",
+        "Interaction",
+        "Card Advantage"
       ],
       "category_source": "decklist",
-      "name": "Machine God's Effigy",
-      "oracle_id": "64ebdd6f-acde-4aab-a86b-2798bad5f70c",
+      "name": "Keep Safe",
+      "oracle_id": "5602c14d-cc22-47d7-a1b0-6491749f00dd",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/brc/16/machine-gods-effigy?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/iko/56/keep-safe?utm_source=api",
       "submitted_categories": [
-        "Homer Factory",
-        "Ramp"
+        "Protection",
+        "Interaction",
+        "Card Advantage"
       ],
-      "submitted_name": "Machine God's Effigy"
+      "submitted_name": "Keep Safe"
     },
     {
       "cache": "cards/8a3ad2ef-8bcb-40c0-85de-f03328c2b644.json",
@@ -390,27 +392,32 @@
       "submitted_name": "Maskwood Nexus"
     },
     {
-      "cache": "cards/2188c03f-11b6-4651-914a-b4fdd59127e3.json",
+      "cache": "cards/361b0d7f-1e43-45c5-92c2-92baacaf326f.json",
       "card": {
-        "keywords": [],
-        "mana_cost": "{2}{U}",
-        "oracle_text": "As this enchantment enters, choose a creature type.\nCreatures you control are the chosen type in addition to their other types. The same is true for creature spells you control and creature cards you own that aren't on the battlefield.",
-        "type_line": "Enchantment"
+        "keywords": [
+          "Surveil",
+          "Convoke"
+        ],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.)\nDestroy target creature or planeswalker. Surveil 2. (Look at the top two cards of your library, then put any number of them into your graveyard and the rest on top of your library in any order.)",
+        "type_line": "Instant"
       },
       "categories": [
-        "Seafood Disguise",
-        "Typal Support"
+        "Removal",
+        "Interaction",
+        "Dumpster Diving"
       ],
       "category_source": "decklist",
-      "name": "Arcane Adaptation",
-      "oracle_id": "2188c03f-11b6-4651-914a-b4fdd59127e3",
+      "name": "Pile On",
+      "oracle_id": "361b0d7f-1e43-45c5-92c2-92baacaf326f",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/xln/46/arcane-adaptation?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mkc/134/pile-on?utm_source=api",
       "submitted_categories": [
-        "Seafood Disguise",
-        "Typal Support"
+        "Removal",
+        "Interaction",
+        "Dumpster Diving"
       ],
-      "submitted_name": "Arcane Adaptation"
+      "submitted_name": "Pile On"
     },
     {
       "cache": "cards/210940f1-3c11-4877-bbfc-2429c03f98ee.json",
@@ -897,29 +904,31 @@
       "submitted_name": "Ramunap Excavator"
     },
     {
-      "cache": "cards/855a4837-7fc8-4b97-afbd-daa88e322c89.json",
+      "cache": "cards/41cdeb52-e90f-44f8-94d2-23aa032c4870.json",
       "card": {
         "keywords": [],
-        "mana_cost": "{2}",
-        "oracle_text": "{T}: You may put a land card from your hand onto the battlefield.",
-        "power": "1",
-        "toughness": "1",
-        "type_line": "Artifact Creature — Construct"
+        "mana_cost": "{1}{U}{U}",
+        "oracle_text": "Choose one —\n• Foil Their Scheme — Counter target spell.\n• Learn Their Secrets — Draw two cards, then discard two cards.",
+        "type_line": "Instant"
       },
       "categories": [
-        "Land Laundering",
-        "Ramp"
+        "Counterspell",
+        "Interaction",
+        "Dumpster Diving",
+        "Card Selection"
       ],
       "category_source": "decklist",
-      "name": "Walking Atlas",
-      "oracle_id": "855a4837-7fc8-4b97-afbd-daa88e322c89",
+      "name": "You Find the Villains' Lair",
+      "oracle_id": "41cdeb52-e90f-44f8-94d2-23aa032c4870",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/wwk/131/walking-atlas?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/afr/84/you-find-the-villains-lair?utm_source=api",
       "submitted_categories": [
-        "Land Laundering",
-        "Ramp"
+        "Counterspell",
+        "Interaction",
+        "Dumpster Diving",
+        "Card Selection"
       ],
-      "submitted_name": "Walking Atlas"
+      "submitted_name": "You Find the Villains' Lair"
     },
     {
       "cache": "cards/0c319f45-cb0f-4641-acd8-145768acb3fc.json",
@@ -995,33 +1004,6 @@
         "Dumpster Diving"
       ],
       "submitted_name": "Dreamscape Artist"
-    },
-    {
-      "cache": "cards/3b96b8c3-b9c8-4712-a3b1-243a67cc013a.json",
-      "card": {
-        "keywords": [
-          "Flying"
-        ],
-        "mana_cost": "{4}{U}",
-        "oracle_text": "Flying\n{1}, Return a land you control to its owner's hand: Create a 1/1 blue Illusion creature token with flying.",
-        "power": "2",
-        "toughness": "4",
-        "type_line": "Legendary Creature — Moonfolk Wizard"
-      },
-      "categories": [
-        "Land Laundering",
-        "Token Production"
-      ],
-      "category_source": "decklist",
-      "name": "Meloku the Clouded Mirror",
-      "oracle_id": "3b96b8c3-b9c8-4712-a3b1-243a67cc013a",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cmr/399/meloku-the-clouded-mirror?utm_source=api",
-      "submitted_categories": [
-        "Land Laundering",
-        "Token Production"
-      ],
-      "submitted_name": "Meloku the Clouded Mirror"
     },
     {
       "cache": "cards/120fa67e-e5e0-4c23-9a78-d6171d357aee.json",
@@ -1611,90 +1593,6 @@
         "Land"
       ],
       "submitted_name": "Malakir Rebirth // Malakir Mire"
-    },
-    {
-      "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "",
-        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
-        "type_line": "Land"
-      },
-      "categories": [
-        "Land"
-      ],
-      "category_source": "decklist",
-      "name": "Command Tower",
-      "oracle_id": "0895c9b7-ae7d-4bb3-af17-3b75deb50a25",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/msc/233/command-tower?utm_source=api",
-      "submitted_categories": [
-        "Land"
-      ],
-      "submitted_name": "Command Tower"
-    },
-    {
-      "cache": "cards/4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "",
-        "oracle_text": "({T}: Add {U} or {B}.)",
-        "type_line": "Land — Island Swamp"
-      },
-      "categories": [
-        "Land"
-      ],
-      "category_source": "decklist",
-      "name": "Underground Sea",
-      "oracle_id": "4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/vma/323/underground-sea?utm_source=api",
-      "submitted_categories": [
-        "Land"
-      ],
-      "submitted_name": "Underground Sea"
-    },
-    {
-      "cache": "cards/74b7fe23-5d3a-4092-8d78-7c0eba8f6f73.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "",
-        "oracle_text": "({T}: Add {G} or {U}.)",
-        "type_line": "Land — Forest Island"
-      },
-      "categories": [
-        "Land"
-      ],
-      "category_source": "decklist",
-      "name": "Tropical Island",
-      "oracle_id": "74b7fe23-5d3a-4092-8d78-7c0eba8f6f73",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/vma/321/tropical-island?utm_source=api",
-      "submitted_categories": [
-        "Land"
-      ],
-      "submitted_name": "Tropical Island"
-    },
-    {
-      "cache": "cards/b76d1ae6-ad1d-4bac-b4c3-2e03e0e84d9b.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "",
-        "oracle_text": "({T}: Add {B} or {G}.)",
-        "type_line": "Land — Swamp Forest"
-      },
-      "categories": [
-        "Land"
-      ],
-      "category_source": "decklist",
-      "name": "Bayou",
-      "oracle_id": "b76d1ae6-ad1d-4bac-b4c3-2e03e0e84d9b",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/vma/293/bayou?utm_source=api",
-      "submitted_categories": [
-        "Land"
-      ],
-      "submitted_name": "Bayou"
     },
     {
       "cache": "cards/fc9ec820-4245-4a96-b009-5308a818ca58.json",
@@ -2336,7 +2234,7 @@
       "category_source": "decklist",
       "name": "Forest",
       "oracle_id": "b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6",
-      "quantity": 3,
+      "quantity": 5,
       "scryfall_uri": "https://scryfall.com/card/trk/325/forest?utm_source=api",
       "submitted_categories": [
         "Land"
@@ -2357,7 +2255,7 @@
       "category_source": "decklist",
       "name": "Island",
       "oracle_id": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
-      "quantity": 2,
+      "quantity": 4,
       "scryfall_uri": "https://scryfall.com/card/trk/319/island?utm_source=api",
       "submitted_categories": [
         "Land"
@@ -2378,7 +2276,7 @@
       "category_source": "decklist",
       "name": "Swamp",
       "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
-      "quantity": 1,
+      "quantity": 2,
       "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
       "submitted_categories": [
         "Land"
@@ -2386,11 +2284,11 @@
       "submitted_name": "Swamp"
     }
   ],
-  "categorized_cards": 97,
-  "generated_at": "2026-08-22T10:57:47.961216+00:00",
+  "categorized_cards": 92,
+  "generated_at": "2026-08-22T12:23:42.322414+00:00",
   "schema_version": 3,
   "source": "decks/3+_homer-dumpster-diver-crab/decklist.txt",
   "total_cards": 100,
-  "unique_cards": 97,
+  "unique_cards": 92,
   "unresolved": []
 }
