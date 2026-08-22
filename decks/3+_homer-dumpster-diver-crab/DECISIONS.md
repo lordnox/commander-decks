@@ -12,7 +12,6 @@ This log records why every card entered the initial list. Future changes should 
 - **Irenicus's Vile Duplication** — Clean nonlegendary Homer that also gains flying.
 - **Quantum Misalignment** — Produces two nonlegendary Homers across consecutive turns.
 - **Auton Soldier** — Nonlegendary Homer clone with an unusual myriad upside.
-- **Helm of the Host** — Slow but repeatable source of nonlegendary Homers.
 - **Nanogene Conversion** — Converts every utility creature into a temporary Homer for one explosive landfall turn.
 - **Mirror Box** — Makes the legend-dependent clone package safe while rewarding repeated names.
 - **Machine God's Effigy** — A mana rock that can become a noncreature Homer trigger source; intentionally requires legend-rule support.
@@ -52,7 +51,7 @@ This log records why every card entered the initial list. Future changes should 
 - **Aftermath Analyst** — Early self-mill attached to a later mass land-return activation.
 - **Lumra, Bellow of the Woods** — Self-mills on entry and immediately returns every land from the graveyard.
 - **Splendid Reclamation** — The cleanest mass-landfall finisher after the dumpster is full.
-- **Walk-In Closet // Forgotten Cellar** — Replays lands early and reanimates a crucial clone late.
+- **Walk-In Closet // Forgotten Cellar** — Replays lands early and lets a crucial permanent be cast from the graveyard late.
 
 ### Land laundering
 
@@ -127,3 +126,7 @@ This log records why every card entered the initial list. Future changes should 
 - **Deathsprout** — Replaces Crop Rotation, removing a Game Changer while turning instant-speed creature removal into a landfall trigger by fetching a basic land.
 - **Dryad of the Ilysian Grove** — Replaces Patron of the Moon, trading the seven-mana burst engine for an earlier additional land play and reliable color fixing.
 - **Ramunap Excavator** — Replaces Field of the Dead, removing the second Game Changer while repeatedly replaying fetch lands, sacrificed utility lands, and milled lands from the graveyard.
+
+## 2026-08-22 — Retire the Helm
+
+- **Stitch Together** — Replaces Helm of the Host. Threshold is natural in the self-mill plan, turning a milled Yarok or clone directly back into a battlefield piece for two mana.
