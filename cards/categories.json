@@ -1582,6 +1582,19 @@
       "categories": [
         "recursion"
       ]
+    },
+    "e3174070-542f-429e-9149-b572f6614537": {
+      "categories": [
+        "ramp",
+        "sacrifice-outlet"
+      ],
+      "name": "Soldevi Adnate"
+    },
+    "59b02ca7-e7bd-4820-ac32-87ea1a8c64c0": {
+      "categories": [
+        "recursion"
+      ],
+      "name": "Corpse Dance"
     }
   },
   "schema_version": 1,

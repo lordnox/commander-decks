@@ -12,8 +12,8 @@
         "type_line": "Legendary Creature — Vampire Knight"
       },
       "categories": [
-        "commander",
-        "sacrifice-outlet"
+        "Commander{top}",
+        "Sacrifice Outlet"
       ],
       "category_source": "deck",
       "name": "Bartolomé del Presidio",
@@ -34,8 +34,8 @@
         "type_line": "Legendary Creature — Skeleton Noble"
       },
       "categories": [
-        "combo-piece",
-        "recursive-fodder"
+        "Combo Piece",
+        "Skeleton Crew"
       ],
       "category_source": "deck",
       "name": "Ozox, the Clattering King",
@@ -54,9 +54,9 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "combo-piece",
-        "mana",
-        "sacrifice-outlet"
+        "Combo Piece",
+        "Mana Engine",
+        "Sacrifice Outlet"
       ],
       "category_source": "deck",
       "name": "Phyrexian Altar",
@@ -75,9 +75,9 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "combo-piece",
-        "mana",
-        "sacrifice-outlet"
+        "Combo Piece",
+        "Mana Engine",
+        "Sacrifice Outlet"
       ],
       "category_source": "deck",
       "name": "Ashnod's Altar",
@@ -98,8 +98,8 @@
         "type_line": "Creature — Human Wizard"
       },
       "categories": [
-        "combo-piece",
-        "mana-conversion"
+        "Combo Piece",
+        "Mana Engine"
       ],
       "category_source": "deck",
       "name": "Bog Initiate",
@@ -118,9 +118,9 @@
         "type_line": "Legendary Artifact"
       },
       "categories": [
-        "combo-piece",
-        "cost-reduction",
-        "drain"
+        "Combo Piece",
+        "Discount Coffin",
+        "Death Benefits"
       ],
       "category_source": "deck",
       "name": "Bontu's Monument",
@@ -139,8 +139,8 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "cost-reduction",
-        "combo-piece"
+        "Discount Coffin",
+        "Combo Piece"
       ],
       "category_source": "deck",
       "name": "Urza's Incubator",
@@ -159,8 +159,8 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "cost-reduction",
-        "ramp"
+        "Discount Coffin",
+        "Ramp"
       ],
       "category_source": "deck",
       "name": "Jet Medallion",
@@ -179,9 +179,8 @@
         "type_line": "Enchantment"
       },
       "categories": [
-        "combo-piece",
-        "mana",
-        "life-loss"
+        "Combo Piece",
+        "Mana Engine"
       ],
       "category_source": "deck",
       "name": "Carnival of Souls",
@@ -204,8 +203,8 @@
         "type_line": "Creature — Human Pirate"
       },
       "categories": [
-        "mana",
-        "death-trigger"
+        "Mana Engine",
+        "Death Benefits"
       ],
       "category_source": "deck",
       "name": "Pitiless Plunderer",
@@ -226,7 +225,7 @@
         "type_line": "Creature — Skeleton Warrior"
       },
       "categories": [
-        "recursive-fodder"
+        "Skeleton Crew"
       ],
       "category_source": "deck",
       "name": "Reassembling Skeleton",
@@ -245,8 +244,8 @@
         "type_line": "Enchantment"
       },
       "categories": [
-        "combo-piece",
-        "recursion-engine"
+        "Combo Piece",
+        "Back from the Dead"
       ],
       "category_source": "deck",
       "name": "Enduring Renewal",
@@ -265,8 +264,8 @@
         "type_line": "Enchantment"
       },
       "categories": [
-        "recursion",
-        "sacrifice-outlet"
+        "Back from the Dead",
+        "Sacrifice Outlet"
       ],
       "category_source": "deck",
       "name": "Chthonian Nightmare",
@@ -298,9 +297,9 @@
         "type_line": "Enchantment — Room // Enchantment — Room"
       },
       "categories": [
-        "drain",
-        "mass-recursion",
-        "win-condition"
+        "Death Benefits",
+        "Back from the Dead",
+        "Win Condition"
       ],
       "category_source": "deck",
       "name": "Funeral Room // Awakening Hall",
@@ -339,9 +338,9 @@
         "type_line": "Legendary Creature — Human Avatar Soldier // Legendary Creature — Angel Nightmare Avatar"
       },
       "categories": [
-        "death-payoff",
-        "card-draw",
-        "win-condition"
+        "Death Benefits",
+        "Card Draw",
+        "Win Condition"
       ],
       "category_source": "deck",
       "name": "Sephiroth, Fabled SOLDIER // Sephiroth, One-Winged Angel",
@@ -362,9 +361,9 @@
         "type_line": "Legendary Creature — Elf Noble"
       },
       "categories": [
-        "drain",
-        "card-draw",
-        "sacrifice-outlet"
+        "Death Benefits",
+        "Card Draw",
+        "Sacrifice Outlet"
       ],
       "category_source": "deck",
       "name": "Ayara, First of Locthwain",
@@ -383,8 +382,8 @@
         "type_line": "Enchantment"
       },
       "categories": [
-        "card-draw",
-        "death-trigger"
+        "Card Draw",
+        "Death Benefits"
       ],
       "category_source": "deck",
       "name": "Dark Prophecy",
@@ -405,8 +404,8 @@
         "type_line": "Legendary Creature — Nightmare"
       },
       "categories": [
-        "card-draw",
-        "sacrifice-payoff"
+        "Card Draw",
+        "Death Benefits"
       ],
       "category_source": "deck",
       "name": "Braids, Arisen Nightmare",
@@ -429,8 +428,8 @@
         "type_line": "Legendary Enchantment Creature — God"
       },
       "categories": [
-        "card-draw",
-        "sacrifice-outlet"
+        "Card Draw",
+        "Sacrifice Outlet"
       ],
       "category_source": "deck",
       "name": "Erebos, Bleak-Hearted",
@@ -449,8 +448,8 @@
         "type_line": "Instant"
       },
       "categories": [
-        "card-draw",
-        "sacrifice"
+        "Card Draw",
+        "Sacrifice Matters"
       ],
       "category_source": "deck",
       "name": "Village Rites",
@@ -471,9 +470,9 @@
         "type_line": "Instant"
       },
       "categories": [
-        "card-draw",
-        "sacrifice",
-        "ramp"
+        "Card Draw",
+        "Sacrifice Matters",
+        "Ramp"
       ],
       "category_source": "deck",
       "name": "Deadly Dispute",
@@ -492,7 +491,7 @@
         "type_line": "Sorcery"
       },
       "categories": [
-        "board-wipe"
+        "Board Wipe"
       ],
       "category_source": "deck",
       "name": "Toxic Deluge",
@@ -511,8 +510,8 @@
         "type_line": "Enchantment"
       },
       "categories": [
-        "loop-return-effect",
-        "recursion"
+        "Second Life Insurance",
+        "Back from the Dead"
       ],
       "category_source": "deck",
       "name": "Angelic Renewal",
@@ -534,8 +533,8 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "loop-return-effect",
-        "protection"
+        "Second Life Insurance",
+        "Protection"
       ],
       "category_source": "deck",
       "name": "Fungal Fortitude",
@@ -556,8 +555,8 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "loop-return-effect",
-        "protection"
+        "Second Life Insurance",
+        "Protection"
       ],
       "category_source": "deck",
       "name": "Kaya's Ghostform",
@@ -579,8 +578,8 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "loop-return-effect",
-        "protection"
+        "Second Life Insurance",
+        "Protection"
       ],
       "category_source": "deck",
       "name": "Minion's Return",
@@ -601,8 +600,8 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "loop-return-effect",
-        "protection"
+        "Second Life Insurance",
+        "Protection"
       ],
       "category_source": "deck",
       "name": "Necrogen Communion",
@@ -625,8 +624,8 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "loop-return-effect",
-        "recursion"
+        "Second Life Insurance",
+        "Back from the Dead"
       ],
       "category_source": "deck",
       "name": "Changing Loyalty",
@@ -647,8 +646,8 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "protection",
-        "recursion"
+        "Protection",
+        "Back from the Dead"
       ],
       "category_source": "deck",
       "name": "Gift of Immortality",
@@ -671,8 +670,8 @@
         "type_line": "Creature — Giant"
       },
       "categories": [
-        "loop-recursion-creature",
-        "recursion"
+        "Graveyard Shift",
+        "Back from the Dead"
       ],
       "category_source": "deck",
       "name": "Sun Titan",
@@ -697,8 +696,8 @@
         "type_line": "Creature — Angel Warrior"
       },
       "categories": [
-        "loop-recursion-creature",
-        "recursion"
+        "Graveyard Shift",
+        "Back from the Dead"
       ],
       "category_source": "deck",
       "name": "Angel of Indemnity",
@@ -719,8 +718,8 @@
         "type_line": "Creature — Human Soldier"
       },
       "categories": [
-        "loop-recursion-creature",
-        "recursion"
+        "Graveyard Shift",
+        "Back from the Dead"
       ],
       "category_source": "deck",
       "name": "Brotherhood Outcast",
@@ -745,8 +744,8 @@
         "type_line": "Legendary Creature — Human Knight"
       },
       "categories": [
-        "loop-recursion-creature",
-        "recursion"
+        "Graveyard Shift",
+        "Back from the Dead"
       ],
       "category_source": "deck",
       "name": "Danitha, Benalia's Hope",
@@ -770,8 +769,8 @@
         "type_line": "Creature — Vampire Cleric"
       },
       "categories": [
-        "loop-recursion-creature",
-        "recursion"
+        "Graveyard Shift",
+        "Back from the Dead"
       ],
       "category_source": "deck",
       "name": "Redemption Choir",
@@ -795,9 +794,8 @@
         "type_line": "Legendary Creature — Zombie Wizard"
       },
       "categories": [
-        "combo-piece",
-        "token-production",
-        "death-trigger"
+        "Combo Piece",
+        "Death Benefits"
       ],
       "category_source": "deck",
       "name": "Ratadrabik of Urborg",
@@ -818,8 +816,8 @@
         "type_line": "Creature — Giant Monk"
       },
       "categories": [
-        "loop-recursion-creature",
-        "tutor"
+        "Graveyard Shift",
+        "Tutor"
       ],
       "category_source": "deck",
       "name": "Boonweaver Giant",
@@ -840,8 +838,8 @@
         "type_line": "Creature — Human Rogue Ally"
       },
       "categories": [
-        "death-payoff",
-        "win-condition"
+        "Death Benefits",
+        "Win Condition"
       ],
       "category_source": "deck",
       "name": "Zulaport Cutthroat",
@@ -860,8 +858,8 @@
         "type_line": "Enchantment"
       },
       "categories": [
-        "death-payoff",
-        "win-condition"
+        "Death Benefits",
+        "Win Condition"
       ],
       "category_source": "deck",
       "name": "Bastion of Remembrance",
@@ -884,8 +882,8 @@
         "type_line": "Creature — Human Artificer"
       },
       "categories": [
-        "death-payoff",
-        "win-condition"
+        "Death Benefits",
+        "Win Condition"
       ],
       "category_source": "deck",
       "name": "Marionette Apprentice",
@@ -904,8 +902,8 @@
         "type_line": "Legendary Enchantment — Background"
       },
       "categories": [
-        "death-payoff",
-        "win-condition"
+        "Death Benefits",
+        "Win Condition"
       ],
       "category_source": "deck",
       "name": "Agent of the Iron Throne",
@@ -924,8 +922,8 @@
         "type_line": "Enchantment — Class"
       },
       "categories": [
-        "death-payoff",
-        "win-condition"
+        "Death Benefits",
+        "Win Condition"
       ],
       "category_source": "deck",
       "name": "Ninja Teen",
@@ -948,8 +946,8 @@
         "type_line": "Creature — Zombie"
       },
       "categories": [
-        "self-mill",
-        "sacrifice-fodder"
+        "Graveyard Fuel",
+        "Disposable Staff"
       ],
       "category_source": "deck",
       "name": "Stitcher's Supplier",
@@ -972,8 +970,8 @@
         "type_line": "Creature — Zombie"
       },
       "categories": [
-        "self-mill",
-        "recursion"
+        "Graveyard Fuel",
+        "Back from the Dead"
       ],
       "category_source": "deck",
       "name": "Undead Butler",
@@ -997,10 +995,9 @@
         "type_line": "Creature — Human Pirate"
       },
       "categories": [
-        "combo-piece",
-        "sacrifice-fodder",
-        "ramp",
-        "scry"
+        "Combo Piece",
+        "Disposable Staff",
+        "Ramp"
       ],
       "category_source": "deck",
       "name": "Greedy Freebooter",
@@ -1011,23 +1008,25 @@
     },
     {
       "board": "mainboard",
-      "cache": "cards/a5852994-d816-4e62-8a03-254223714544.json",
+      "cache": "cards/59b02ca7-e7bd-4820-ac32-87ea1a8c64c0.json",
       "card": {
-        "keywords": [],
-        "mana_cost": "{3}{B}{B}",
-        "oracle_text": "Search your library for two cards. Put one into your hand and the other into your graveyard. Then shuffle.",
-        "type_line": "Sorcery"
+        "keywords": [
+          "Buyback"
+        ],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Buyback {2} (You may pay an additional {2} as you cast this spell. If you do, put this card into your hand as it resolves.)\nReturn the top creature card of your graveyard to the battlefield. That creature gains haste until end of turn. Exile it at the beginning of the next end step.",
+        "type_line": "Instant"
       },
       "categories": [
-        "tutor",
-        "graveyard-setup"
+        "Back from the Dead",
+        "Combo Piece"
       ],
-      "category_source": "deck",
-      "name": "Final Parting",
-      "oracle_id": "a5852994-d816-4e62-8a03-254223714544",
+      "category_source": "decklist",
+      "name": "Corpse Dance",
+      "oracle_id": "59b02ca7-e7bd-4820-ac32-87ea1a8c64c0",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cmm/160/final-parting?utm_source=api",
-      "submitted_name": "Final Parting"
+      "scryfall_uri": "https://scryfall.com/card/tpr/89/corpse-dance?utm_source=api",
+      "submitted_name": "Corpse Dance"
     },
     {
       "board": "mainboard",
@@ -1045,8 +1044,8 @@
         "type_line": "Creature — Skeleton"
       },
       "categories": [
-        "tutor",
-        "sacrifice-outlet"
+        "Tutor",
+        "Sacrifice Outlet"
       ],
       "category_source": "deck",
       "name": "Dimir House Guard",
@@ -1065,7 +1064,7 @@
         "type_line": "Sorcery"
       },
       "categories": [
-        "tutor"
+        "Tutor"
       ],
       "category_source": "deck",
       "name": "Demonic Bargain",
@@ -1103,7 +1102,7 @@
         "type_line": "Creature — Vampire Warlock // Sorcery"
       },
       "categories": [
-        "tutor"
+        "Tutor"
       ],
       "category_source": "deck",
       "name": "Emeritus of Woe // Demonic Tutor",
@@ -1126,7 +1125,7 @@
         "type_line": "Creature — Zombie Warlock"
       },
       "categories": [
-        "tutor"
+        "Tutor"
       ],
       "category_source": "deck",
       "name": "Grim Servant",
@@ -1145,7 +1144,7 @@
         "type_line": "Instant"
       },
       "categories": [
-        "removal"
+        "Removal"
       ],
       "category_source": "deck",
       "name": "Generous Gift",
@@ -1164,7 +1163,7 @@
         "type_line": "Instant"
       },
       "categories": [
-        "removal"
+        "Removal"
       ],
       "category_source": "deck",
       "name": "Disenchant",
@@ -1185,8 +1184,8 @@
         "type_line": "Creature — Cat Cleric"
       },
       "categories": [
-        "removal",
-        "recursion-target"
+        "Removal",
+        "Revolving Door"
       ],
       "category_source": "deck",
       "name": "Leonin Relic-Warder",
@@ -1207,8 +1206,8 @@
         "type_line": "Creature — Human Cleric"
       },
       "categories": [
-        "removal",
-        "recursion-target"
+        "Removal",
+        "Revolving Door"
       ],
       "category_source": "deck",
       "name": "Fiend Hunter",
@@ -1242,8 +1241,8 @@
         "type_line": "Sorcery // Sorcery"
       },
       "categories": [
-        "board-wipe",
-        "recursion"
+        "Board Wipe",
+        "Back from the Dead"
       ],
       "category_source": "deck",
       "name": "Dusk // Dawn",
@@ -1262,7 +1261,7 @@
         "type_line": "Instant"
       },
       "categories": [
-        "removal"
+        "Removal"
       ],
       "category_source": "deck",
       "name": "Withering Torment",
@@ -1281,7 +1280,7 @@
         "type_line": "Sorcery"
       },
       "categories": [
-        "removal"
+        "Removal"
       ],
       "category_source": "deck",
       "name": "Feed the Swarm",
@@ -1300,7 +1299,7 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "ramp"
+        "Ramp"
       ],
       "category_source": "deck",
       "name": "Arcane Signet",
@@ -1311,22 +1310,25 @@
     },
     {
       "board": "mainboard",
-      "cache": "cards/6ad8011d-3471-4369-9d68-b264cc027487.json",
+      "cache": "cards/e3174070-542f-429e-9149-b572f6614537.json",
       "card": {
         "keywords": [],
-        "mana_cost": "{1}",
-        "oracle_text": "{T}: Add {C}{C}.",
-        "type_line": "Artifact"
+        "mana_cost": "{1}{B}",
+        "oracle_text": "{T}, Sacrifice a black or artifact creature: Add an amount of {B} equal to the sacrificed creature's mana value.",
+        "type_line": "Creature — Human Cleric",
+        "power": "1",
+        "toughness": "2"
       },
       "categories": [
-        "ramp"
+        "Ramp",
+        "Sacrifice Outlet"
       ],
-      "category_source": "deck",
-      "name": "Sol Ring",
-      "oracle_id": "6ad8011d-3471-4369-9d68-b264cc027487",
+      "category_source": "decklist",
+      "name": "Soldevi Adnate",
+      "oracle_id": "e3174070-542f-429e-9149-b572f6614537",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/msc/211/sol-ring?utm_source=api",
-      "submitted_name": "Sol Ring"
+      "scryfall_uri": "https://scryfall.com/card/all/60a/soldevi-adnate?utm_source=api",
+      "submitted_name": "Soldevi Adnate"
     },
     {
       "board": "mainboard",
@@ -1338,7 +1340,7 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "ramp"
+        "Ramp"
       ],
       "category_source": "deck",
       "name": "Orzhov Signet",
@@ -1357,7 +1359,7 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "ramp"
+        "Ramp"
       ],
       "category_source": "deck",
       "name": "Talisman of Hierarchy",
@@ -1376,8 +1378,8 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "ramp",
-        "card-draw"
+        "Ramp",
+        "Card Draw"
       ],
       "category_source": "deck",
       "name": "Mind Stone",
@@ -1396,7 +1398,7 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "ramp"
+        "Ramp"
       ],
       "category_source": "deck",
       "name": "Wayfarer's Bauble",
@@ -1415,8 +1417,8 @@
         "type_line": "Sorcery"
       },
       "categories": [
-        "recursion",
-        "sacrifice"
+        "Back from the Dead",
+        "Sacrifice Matters"
       ],
       "category_source": "deck",
       "name": "Victimize",
@@ -1435,7 +1437,7 @@
         "type_line": "Sorcery"
       },
       "categories": [
-        "recursion"
+        "Back from the Dead"
       ],
       "category_source": "deck",
       "name": "Reanimate",
@@ -1456,9 +1458,9 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "combo-piece",
-        "recursion",
-        "aura"
+        "Combo Piece",
+        "Back from the Dead",
+        "Second Life Insurance"
       ],
       "category_source": "deck",
       "name": "Animate Dead",
@@ -1482,7 +1484,7 @@
         "type_line": "Land"
       },
       "categories": [
-        "land"
+        "Land"
       ],
       "category_source": "deck",
       "name": "Ash Barrens",
@@ -1501,8 +1503,8 @@
         "type_line": "Land"
       },
       "categories": [
-        "land",
-        "graveyard-hate"
+        "Land",
+        "Graveyard Hate"
       ],
       "category_source": "deck",
       "name": "Bojuka Bog",
@@ -1521,7 +1523,7 @@
         "type_line": "Land"
       },
       "categories": [
-        "land"
+        "Land"
       ],
       "category_source": "deck",
       "name": "Command Tower",
@@ -1542,8 +1544,7 @@
         "type_line": "Land — Desert"
       },
       "categories": [
-        "land",
-        "mana-fixing"
+        "Land"
       ],
       "category_source": "deck",
       "name": "Conduit Pylons",
@@ -1562,7 +1563,7 @@
         "type_line": "Land"
       },
       "categories": [
-        "land"
+        "Land"
       ],
       "category_source": "deck",
       "name": "Exotic Orchard",
@@ -1581,8 +1582,8 @@
         "type_line": "Land"
       },
       "categories": [
-        "land",
-        "sacrifice-outlet"
+        "Land",
+        "Sacrifice Outlet"
       ],
       "category_source": "deck",
       "name": "High Market",
@@ -1601,8 +1602,8 @@
         "type_line": "Land"
       },
       "categories": [
-        "land",
-        "ramp"
+        "Land",
+        "Ramp"
       ],
       "category_source": "deck",
       "name": "Myriad Landscape",
@@ -1621,7 +1622,7 @@
         "type_line": "Land"
       },
       "categories": [
-        "land"
+        "Land"
       ],
       "category_source": "deck",
       "name": "Orzhov Basilica",
@@ -1642,7 +1643,7 @@
         "type_line": "Land"
       },
       "categories": [
-        "land"
+        "Land"
       ],
       "category_source": "deck",
       "name": "Path of Ancestry",
@@ -1661,9 +1662,9 @@
         "type_line": "Legendary Land"
       },
       "categories": [
-        "land",
-        "sacrifice-outlet",
-        "ramp"
+        "Land",
+        "Sacrifice Outlet",
+        "Ramp"
       ],
       "category_source": "deck",
       "name": "Phyrexian Tower",
@@ -1682,8 +1683,7 @@
         "type_line": "Land"
       },
       "categories": [
-        "land",
-        "evasion"
+        "Land"
       ],
       "category_source": "deck",
       "name": "Rogue's Passage",
@@ -1702,7 +1702,7 @@
         "type_line": "Land"
       },
       "categories": [
-        "land"
+        "Land"
       ],
       "category_source": "deck",
       "name": "Tainted Field",
@@ -1721,7 +1721,7 @@
         "type_line": "Land"
       },
       "categories": [
-        "land"
+        "Land"
       ],
       "category_source": "deck",
       "name": "Great Hall of the Citadel",
@@ -1742,7 +1742,7 @@
         "type_line": "Land"
       },
       "categories": [
-        "land"
+        "Land"
       ],
       "category_source": "deck",
       "name": "Hidden Grotto",
@@ -1761,8 +1761,8 @@
         "type_line": "Land"
       },
       "categories": [
-        "land",
-        "recursion"
+        "Land",
+        "Back from the Dead"
       ],
       "category_source": "deck",
       "name": "Memorial to Folly",
@@ -1781,7 +1781,7 @@
         "type_line": "Land"
       },
       "categories": [
-        "land"
+        "Land"
       ],
       "category_source": "deck",
       "name": "Mariposa Military Base",
@@ -1800,7 +1800,7 @@
         "type_line": "Basic Land — Plains"
       },
       "categories": [
-        "land"
+        "Land"
       ],
       "category_source": "deck",
       "name": "Plains",
@@ -1819,7 +1819,7 @@
         "type_line": "Basic Land — Swamp"
       },
       "categories": [
-        "land"
+        "Land"
       ],
       "category_source": "deck",
       "name": "Swamp",
@@ -1830,7 +1830,7 @@
     }
   ],
   "categorized_cards": 83,
-  "generated_at": "2026-08-21T19:15:44.881Z",
+  "generated_at": "2026-08-22T00:20:30.736Z",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 83,
