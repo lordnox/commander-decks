@@ -1,7 +1,6 @@
 {
   "cards": [
     {
-      "board": "mainboard",
       "cache": "cards/f47e4c56-0a0b-422d-bf3d-7a20ee289f15.json",
       "card": {
         "keywords": [],
@@ -12,18 +11,21 @@
         "type_line": "Legendary Creature — Vampire Knight"
       },
       "categories": [
-        "Commander{top}",
-        "Sacrifice Outlet"
+        "commander{top}",
+        "sacrifice-outlet"
       ],
       "category_source": "deck",
       "name": "Bartolomé del Presidio",
       "oracle_id": "f47e4c56-0a0b-422d-bf3d-7a20ee289f15",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/lci/224/bartolom%C3%A9-del-presidio?utm_source=api",
+      "submitted_categories": [
+        "Commander{top}",
+        "Sacrifice Outlet"
+      ],
       "submitted_name": "Bartolomé del Presidio"
     },
     {
-      "board": "mainboard",
       "cache": "cards/04e575d1-f843-4330-972f-e77b264073e0.json",
       "card": {
         "keywords": [],
@@ -34,18 +36,21 @@
         "type_line": "Legendary Creature — Skeleton Noble"
       },
       "categories": [
-        "Combo Piece",
-        "Skeleton Crew"
+        "combo-piece",
+        "skeleton-crew"
       ],
       "category_source": "deck",
       "name": "Ozox, the Clattering King",
       "oracle_id": "04e575d1-f843-4330-972f-e77b264073e0",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/j25/44/ozox-the-clattering-king?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece",
+        "Skeleton Crew"
+      ],
       "submitted_name": "Ozox, the Clattering King"
     },
     {
-      "board": "mainboard",
       "cache": "cards/8d02b297-97c4-4379-9862-0a462400f66f.json",
       "card": {
         "keywords": [],
@@ -54,19 +59,23 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "Combo Piece",
-        "Mana Engine",
-        "Sacrifice Outlet"
+        "combo-piece",
+        "mana-engine",
+        "sacrifice-outlet"
       ],
       "category_source": "deck",
       "name": "Phyrexian Altar",
       "oracle_id": "8d02b297-97c4-4379-9862-0a462400f66f",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/2x2/311/phyrexian-altar?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece",
+        "Mana Engine",
+        "Sacrifice Outlet"
+      ],
       "submitted_name": "Phyrexian Altar"
     },
     {
-      "board": "mainboard",
       "cache": "cards/4d18bcba-a346-445e-a182-6cc30b7e066d.json",
       "card": {
         "keywords": [],
@@ -75,19 +84,23 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "Combo Piece",
-        "Mana Engine",
-        "Sacrifice Outlet"
+        "combo-piece",
+        "mana-engine",
+        "sacrifice-outlet"
       ],
       "category_source": "deck",
       "name": "Ashnod's Altar",
       "oracle_id": "4d18bcba-a346-445e-a182-6cc30b7e066d",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/cmm/368/ashnods-altar?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece",
+        "Mana Engine",
+        "Sacrifice Outlet"
+      ],
       "submitted_name": "Ashnod's Altar"
     },
     {
-      "board": "mainboard",
       "cache": "cards/23f93411-f83c-4ed2-abed-99cf905f7d7f.json",
       "card": {
         "keywords": [],
@@ -98,18 +111,21 @@
         "type_line": "Creature — Human Wizard"
       },
       "categories": [
-        "Combo Piece",
-        "Mana Engine"
+        "combo-piece",
+        "mana-engine"
       ],
       "category_source": "deck",
       "name": "Bog Initiate",
       "oracle_id": "23f93411-f83c-4ed2-abed-99cf905f7d7f",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/inv/95/bog-initiate?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece",
+        "Mana Engine"
+      ],
       "submitted_name": "Bog Initiate"
     },
     {
-      "board": "mainboard",
       "cache": "cards/940ba435-7abc-40f8-a5af-c1c653b3284e.json",
       "card": {
         "keywords": [],
@@ -118,19 +134,23 @@
         "type_line": "Legendary Artifact"
       },
       "categories": [
-        "Combo Piece",
-        "Discount Coffin",
-        "Death Benefits"
+        "combo-piece",
+        "discount-coffin",
+        "death-benefits"
       ],
       "category_source": "deck",
       "name": "Bontu's Monument",
       "oracle_id": "940ba435-7abc-40f8-a5af-c1c653b3284e",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/dmc/179/bontus-monument?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece",
+        "Discount Coffin",
+        "Death Benefits"
+      ],
       "submitted_name": "Bontu's Monument"
     },
     {
-      "board": "mainboard",
       "cache": "cards/b380c04b-0bce-4328-8f0a-1425e48bee72.json",
       "card": {
         "keywords": [],
@@ -139,18 +159,21 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "Discount Coffin",
-        "Combo Piece"
+        "discount-coffin",
+        "combo-piece"
       ],
       "category_source": "deck",
       "name": "Urza's Incubator",
       "oracle_id": "b380c04b-0bce-4328-8f0a-1425e48bee72",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/mh3/297/urzas-incubator?utm_source=api",
+      "submitted_categories": [
+        "Discount Coffin",
+        "Combo Piece"
+      ],
       "submitted_name": "Urza's Incubator"
     },
     {
-      "board": "mainboard",
       "cache": "cards/bccb06f1-8839-4104-9ffa-c79a817f8378.json",
       "card": {
         "keywords": [],
@@ -159,18 +182,21 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "Discount Coffin",
-        "Ramp"
+        "discount-coffin",
+        "ramp"
       ],
       "category_source": "deck",
       "name": "Jet Medallion",
       "oracle_id": "bccb06f1-8839-4104-9ffa-c79a817f8378",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/mh3/292/jet-medallion?utm_source=api",
+      "submitted_categories": [
+        "Discount Coffin",
+        "Ramp"
+      ],
       "submitted_name": "Jet Medallion"
     },
     {
-      "board": "mainboard",
       "cache": "cards/95b10ca7-7360-4da5-bd93-686ae3051833.json",
       "card": {
         "keywords": [],
@@ -179,18 +205,21 @@
         "type_line": "Enchantment"
       },
       "categories": [
-        "Combo Piece",
-        "Mana Engine"
+        "combo-piece",
+        "mana-engine"
       ],
       "category_source": "deck",
       "name": "Carnival of Souls",
       "oracle_id": "95b10ca7-7360-4da5-bd93-686ae3051833",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/uds/55/carnival-of-souls?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece",
+        "Mana Engine"
+      ],
       "submitted_name": "Carnival of Souls"
     },
     {
-      "board": "mainboard",
       "cache": "cards/a784481f-eccb-4112-bb38-04a659319660.json",
       "card": {
         "keywords": [
@@ -203,18 +232,21 @@
         "type_line": "Creature — Human Pirate"
       },
       "categories": [
-        "Mana Engine",
-        "Death Benefits"
+        "mana-engine",
+        "death-benefits"
       ],
       "category_source": "deck",
       "name": "Pitiless Plunderer",
       "oracle_id": "a784481f-eccb-4112-bb38-04a659319660",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/lcc/208/pitiless-plunderer?utm_source=api",
+      "submitted_categories": [
+        "Mana Engine",
+        "Death Benefits"
+      ],
       "submitted_name": "Pitiless Plunderer"
     },
     {
-      "board": "mainboard",
       "cache": "cards/9dbc3530-b278-4c8d-b2cc-a09dfac9d5e5.json",
       "card": {
         "keywords": [],
@@ -225,17 +257,19 @@
         "type_line": "Creature — Skeleton Warrior"
       },
       "categories": [
-        "Skeleton Crew"
+        "skeleton-crew"
       ],
       "category_source": "deck",
       "name": "Reassembling Skeleton",
       "oracle_id": "9dbc3530-b278-4c8d-b2cc-a09dfac9d5e5",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/tdc/195/reassembling-skeleton?utm_source=api",
+      "submitted_categories": [
+        "Skeleton Crew"
+      ],
       "submitted_name": "Reassembling Skeleton"
     },
     {
-      "board": "mainboard",
       "cache": "cards/47a080c4-ff04-4f52-aca0-2b8e4f4d931e.json",
       "card": {
         "keywords": [],
@@ -244,18 +278,21 @@
         "type_line": "Enchantment"
       },
       "categories": [
-        "Combo Piece",
-        "Back from the Dead"
+        "combo-piece",
+        "back-from-the-dead"
       ],
       "category_source": "deck",
       "name": "Enduring Renewal",
       "oracle_id": "47a080c4-ff04-4f52-aca0-2b8e4f4d931e",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/tsb/7/enduring-renewal?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece",
+        "Back from the Dead"
+      ],
       "submitted_name": "Enduring Renewal"
     },
     {
-      "board": "mainboard",
       "cache": "cards/c7a360f5-725e-4864-93cc-87f96f95975e.json",
       "card": {
         "keywords": [],
@@ -264,18 +301,21 @@
         "type_line": "Enchantment"
       },
       "categories": [
-        "Back from the Dead",
-        "Sacrifice Outlet"
+        "back-from-the-dead",
+        "sacrifice-outlet"
       ],
       "category_source": "deck",
       "name": "Chthonian Nightmare",
       "oracle_id": "c7a360f5-725e-4864-93cc-87f96f95975e",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/mh3/83/chthonian-nightmare?utm_source=api",
+      "submitted_categories": [
+        "Back from the Dead",
+        "Sacrifice Outlet"
+      ],
       "submitted_name": "Chthonian Nightmare"
     },
     {
-      "board": "mainboard",
       "cache": "cards/a39d541e-86c1-4595-a2e9-f107def5bbc6.json",
       "card": {
         "faces": [
@@ -297,19 +337,23 @@
         "type_line": "Enchantment — Room // Enchantment — Room"
       },
       "categories": [
-        "Death Benefits",
-        "Back from the Dead",
-        "Win Condition"
+        "death-benefits",
+        "back-from-the-dead",
+        "win-condition"
       ],
       "category_source": "deck",
       "name": "Funeral Room // Awakening Hall",
       "oracle_id": "a39d541e-86c1-4595-a2e9-f107def5bbc6",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/dsk/100/funeral-room-awakening-hall?utm_source=api",
+      "submitted_categories": [
+        "Death Benefits",
+        "Back from the Dead",
+        "Win Condition"
+      ],
       "submitted_name": "Funeral Room // Awakening Hall"
     },
     {
-      "board": "mainboard",
       "cache": "cards/70113003-be5e-406a-9aec-cb480468c36d.json",
       "card": {
         "faces": [
@@ -338,42 +382,48 @@
         "type_line": "Legendary Creature — Human Avatar Soldier // Legendary Creature — Angel Nightmare Avatar"
       },
       "categories": [
-        "Death Benefits",
-        "Card Draw",
-        "Win Condition"
+        "death-benefits",
+        "card-draw",
+        "win-condition"
       ],
       "category_source": "deck",
       "name": "Sephiroth, Fabled SOLDIER // Sephiroth, One-Winged Angel",
       "oracle_id": "70113003-be5e-406a-9aec-cb480468c36d",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/fin/115/sephiroth-fabled-soldier-sephiroth-one-winged-angel?utm_source=api",
+      "submitted_categories": [
+        "Death Benefits",
+        "Card Draw",
+        "Win Condition"
+      ],
       "submitted_name": "Sephiroth, Fabled SOLDIER // Sephiroth, One-Winged Angel"
     },
     {
-      "board": "mainboard",
-      "cache": "cards/388168b3-ec68-4af2-b88c-6a5ec88c15f6.json",
+      "cache": "cards/0c77b805-728d-4ae4-88a9-223f4b7b52e0.json",
       "card": {
         "keywords": [],
-        "mana_cost": "{B}{B}{B}",
-        "oracle_text": "Whenever Ayara or another black creature you control enters, each opponent loses 1 life and you gain 1 life.\n{T}, Sacrifice another black creature: Draw a card.",
+        "mana_cost": "{W}{B}",
+        "oracle_text": "Whenever another creature you control enters, each opponent loses 1 life.",
         "power": "2",
-        "toughness": "3",
-        "type_line": "Legendary Creature — Elf Noble"
+        "toughness": "2",
+        "type_line": "Creature — Zombie Knight"
       },
       "categories": [
         "Death Benefits",
-        "Card Draw",
-        "Sacrifice Outlet"
+        "Win Condition"
       ],
-      "category_source": "deck",
-      "name": "Ayara, First of Locthwain",
-      "oracle_id": "388168b3-ec68-4af2-b88c-6a5ec88c15f6",
+      "category_source": "decklist",
+      "name": "Corpse Knight",
+      "oracle_id": "0c77b805-728d-4ae4-88a9-223f4b7b52e0",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/eld/75/ayara-first-of-locthwain?utm_source=api",
-      "submitted_name": "Ayara, First of Locthwain"
+      "scryfall_uri": "https://scryfall.com/card/moc/321/corpse-knight?utm_source=api",
+      "submitted_categories": [
+        "Death Benefits",
+        "Win Condition"
+      ],
+      "submitted_name": "Corpse Knight"
     },
     {
-      "board": "mainboard",
       "cache": "cards/f47659b5-d834-4153-b9fc-6a0702c503d9.json",
       "card": {
         "keywords": [],
@@ -382,18 +432,21 @@
         "type_line": "Enchantment"
       },
       "categories": [
-        "Card Draw",
-        "Death Benefits"
+        "card-draw",
+        "death-benefits"
       ],
       "category_source": "deck",
       "name": "Dark Prophecy",
       "oracle_id": "f47659b5-d834-4153-b9fc-6a0702c503d9",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/m14/93/dark-prophecy?utm_source=api",
+      "submitted_categories": [
+        "Card Draw",
+        "Death Benefits"
+      ],
       "submitted_name": "Dark Prophecy"
     },
     {
-      "board": "mainboard",
       "cache": "cards/e0445c80-fa53-4c3e-881e-940e9fce7f57.json",
       "card": {
         "keywords": [],
@@ -404,18 +457,21 @@
         "type_line": "Legendary Creature — Nightmare"
       },
       "categories": [
-        "Card Draw",
-        "Death Benefits"
+        "card-draw",
+        "death-benefits"
       ],
       "category_source": "deck",
       "name": "Braids, Arisen Nightmare",
       "oracle_id": "e0445c80-fa53-4c3e-881e-940e9fce7f57",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/eoc/82/braids-arisen-nightmare?utm_source=api",
+      "submitted_categories": [
+        "Card Draw",
+        "Death Benefits"
+      ],
       "submitted_name": "Braids, Arisen Nightmare"
     },
     {
-      "board": "mainboard",
       "cache": "cards/a5690dc9-f12e-4ecc-b528-f2f83c79c3c8.json",
       "card": {
         "keywords": [
@@ -428,18 +484,21 @@
         "type_line": "Legendary Enchantment Creature — God"
       },
       "categories": [
-        "Card Draw",
-        "Sacrifice Outlet"
+        "card-draw",
+        "sacrifice-outlet"
       ],
       "category_source": "deck",
       "name": "Erebos, Bleak-Hearted",
       "oracle_id": "a5690dc9-f12e-4ecc-b528-f2f83c79c3c8",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/cmm/868/erebos-bleak-hearted?utm_source=api",
+      "submitted_categories": [
+        "Card Draw",
+        "Sacrifice Outlet"
+      ],
       "submitted_name": "Erebos, Bleak-Hearted"
     },
     {
-      "board": "mainboard",
       "cache": "cards/365548fb-5acc-4a8a-b20b-26d28b7d029f.json",
       "card": {
         "keywords": [],
@@ -448,18 +507,21 @@
         "type_line": "Instant"
       },
       "categories": [
-        "Card Draw",
-        "Sacrifice Matters"
+        "card-draw",
+        "sacrifice-matters"
       ],
       "category_source": "deck",
       "name": "Village Rites",
       "oracle_id": "365548fb-5acc-4a8a-b20b-26d28b7d029f",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/inr/137/village-rites?utm_source=api",
+      "submitted_categories": [
+        "Card Draw",
+        "Sacrifice Matters"
+      ],
       "submitted_name": "Village Rites"
     },
     {
-      "board": "mainboard",
       "cache": "cards/457af74a-02b3-4659-846d-63e482667f34.json",
       "card": {
         "keywords": [
@@ -470,19 +532,23 @@
         "type_line": "Instant"
       },
       "categories": [
-        "Card Draw",
-        "Sacrifice Matters",
-        "Ramp"
+        "card-draw",
+        "sacrifice-matters",
+        "ramp"
       ],
       "category_source": "deck",
       "name": "Deadly Dispute",
       "oracle_id": "457af74a-02b3-4659-846d-63e482667f34",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/msc/794/deadly-dispute?utm_source=api",
+      "submitted_categories": [
+        "Card Draw",
+        "Sacrifice Matters",
+        "Ramp"
+      ],
       "submitted_name": "Deadly Dispute"
     },
     {
-      "board": "mainboard",
       "cache": "cards/afaef788-34d1-460b-b884-9d7ae6ddeb18.json",
       "card": {
         "keywords": [],
@@ -491,17 +557,19 @@
         "type_line": "Sorcery"
       },
       "categories": [
-        "Board Wipe"
+        "board-wipe"
       ],
       "category_source": "deck",
       "name": "Toxic Deluge",
       "oracle_id": "afaef788-34d1-460b-b884-9d7ae6ddeb18",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/msc/161/toxic-deluge?utm_source=api",
+      "submitted_categories": [
+        "Board Wipe"
+      ],
       "submitted_name": "Toxic Deluge"
     },
     {
-      "board": "mainboard",
       "cache": "cards/f86bcdde-8b1f-4efa-a01d-39e09dc826d0.json",
       "card": {
         "keywords": [],
@@ -510,18 +578,21 @@
         "type_line": "Enchantment"
       },
       "categories": [
-        "Second Life Insurance",
-        "Back from the Dead"
+        "second-life-insurance",
+        "back-from-the-dead"
       ],
       "category_source": "deck",
       "name": "Angelic Renewal",
       "oracle_id": "f86bcdde-8b1f-4efa-a01d-39e09dc826d0",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/uma/10/angelic-renewal?utm_source=api",
+      "submitted_categories": [
+        "Second Life Insurance",
+        "Back from the Dead"
+      ],
       "submitted_name": "Angelic Renewal"
     },
     {
-      "board": "mainboard",
       "cache": "cards/cf73d2e7-584f-41d0-8fc7-50d886dcf9fe.json",
       "card": {
         "keywords": [
@@ -533,18 +604,21 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "Second Life Insurance",
-        "Protection"
+        "second-life-insurance",
+        "protection"
       ],
       "category_source": "deck",
       "name": "Fungal Fortitude",
       "oracle_id": "cf73d2e7-584f-41d0-8fc7-50d886dcf9fe",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/lci/106/fungal-fortitude?utm_source=api",
+      "submitted_categories": [
+        "Second Life Insurance",
+        "Protection"
+      ],
       "submitted_name": "Fungal Fortitude"
     },
     {
-      "board": "mainboard",
       "cache": "cards/b15c6203-6311-44eb-916d-a4c271960c74.json",
       "card": {
         "keywords": [
@@ -555,18 +629,21 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "Second Life Insurance",
-        "Protection"
+        "second-life-insurance",
+        "protection"
       ],
       "category_source": "deck",
       "name": "Kaya's Ghostform",
       "oracle_id": "b15c6203-6311-44eb-916d-a4c271960c74",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/war/94/kayas-ghostform?utm_source=api",
+      "submitted_categories": [
+        "Second Life Insurance",
+        "Protection"
+      ],
       "submitted_name": "Kaya's Ghostform"
     },
     {
-      "board": "mainboard",
       "cache": "cards/6cbe76c6-2b64-4389-b5f9-0b221cd92312.json",
       "card": {
         "keywords": [
@@ -578,18 +655,21 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "Second Life Insurance",
-        "Protection"
+        "second-life-insurance",
+        "protection"
       ],
       "category_source": "deck",
       "name": "Minion's Return",
       "oracle_id": "6cbe76c6-2b64-4389-b5f9-0b221cd92312",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/thb/104/minions-return?utm_source=api",
+      "submitted_categories": [
+        "Second Life Insurance",
+        "Protection"
+      ],
       "submitted_name": "Minion's Return"
     },
     {
-      "board": "mainboard",
       "cache": "cards/ff58459a-0015-4012-86c0-580da4e02676.json",
       "card": {
         "keywords": [
@@ -600,18 +680,21 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "Second Life Insurance",
-        "Protection"
+        "second-life-insurance",
+        "protection"
       ],
       "category_source": "deck",
       "name": "Necrogen Communion",
       "oracle_id": "ff58459a-0015-4012-86c0-580da4e02676",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/one/99/necrogen-communion?utm_source=api",
+      "submitted_categories": [
+        "Second Life Insurance",
+        "Protection"
+      ],
       "submitted_name": "Necrogen Communion"
     },
     {
-      "board": "mainboard",
       "cache": "cards/cdfa9de4-7d7d-4638-8ac4-793ece6372dd.json",
       "card": {
         "keywords": [
@@ -624,40 +707,49 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "Second Life Insurance",
-        "Back from the Dead"
+        "second-life-insurance",
+        "back-from-the-dead"
       ],
       "category_source": "deck",
       "name": "Changing Loyalty",
       "oracle_id": "cdfa9de4-7d7d-4638-8ac4-793ece6372dd",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/soc/23/changing-loyalty?utm_source=api",
+      "submitted_categories": [
+        "Second Life Insurance",
+        "Back from the Dead"
+      ],
       "submitted_name": "Changing Loyalty"
     },
     {
-      "board": "mainboard",
-      "cache": "cards/2c11c72f-5b04-47d8-bdf8-8d9d197ebc1b.json",
+      "cache": "cards/3bc757c1-3adb-4321-8832-8e1cc9e687f7.json",
       "card": {
         "keywords": [
-          "Enchant"
+          "Lifelink",
+          "Companion"
         ],
-        "mana_cost": "{2}{W}",
-        "oracle_text": "Enchant creature\nWhen enchanted creature dies, return that card to the battlefield under its owner's control. Return this card to the battlefield attached to that creature at the beginning of the next end step.",
-        "type_line": "Enchantment — Aura"
+        "mana_cost": "{1}{W/B}{W/B}",
+        "oracle_text": "Companion — Each permanent card in your starting deck has mana value 2 or less. (If this card is your chosen companion, you may put it into your hand from outside the game for {3} as a sorcery.)\nLifelink\nOnce during each of your turns, you may cast a permanent spell with mana value 2 or less from your graveyard.",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Cat Nightmare"
       },
       "categories": [
-        "Protection",
+        "Graveyard Shift",
         "Back from the Dead"
       ],
-      "category_source": "deck",
-      "name": "Gift of Immortality",
-      "oracle_id": "2c11c72f-5b04-47d8-bdf8-8d9d197ebc1b",
+      "category_source": "decklist",
+      "name": "Lurrus of the Dream-Den",
+      "oracle_id": "3bc757c1-3adb-4321-8832-8e1cc9e687f7",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/msc/134/gift-of-immortality?utm_source=api",
-      "submitted_name": "Gift of Immortality"
+      "scryfall_uri": "https://scryfall.com/card/iko/226/lurrus-of-the-dream-den?utm_source=api",
+      "submitted_categories": [
+        "Graveyard Shift",
+        "Back from the Dead"
+      ],
+      "submitted_name": "Lurrus of the Dream-Den"
     },
     {
-      "board": "mainboard",
       "cache": "cards/b2e950fb-cb7e-40a0-a311-5bbdd0477b29.json",
       "card": {
         "keywords": [
@@ -670,18 +762,21 @@
         "type_line": "Creature — Giant"
       },
       "categories": [
-        "Graveyard Shift",
-        "Back from the Dead"
+        "graveyard-shift",
+        "back-from-the-dead"
       ],
       "category_source": "deck",
       "name": "Sun Titan",
       "oracle_id": "b2e950fb-cb7e-40a0-a311-5bbdd0477b29",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/soc/178/sun-titan?utm_source=api",
+      "submitted_categories": [
+        "Graveyard Shift",
+        "Back from the Dead"
+      ],
       "submitted_name": "Sun Titan"
     },
     {
-      "board": "mainboard",
       "cache": "cards/4f57a320-b6b5-49de-af0a-f2e2649758a7.json",
       "card": {
         "keywords": [
@@ -696,18 +791,21 @@
         "type_line": "Creature — Angel Warrior"
       },
       "categories": [
-        "Graveyard Shift",
-        "Back from the Dead"
+        "graveyard-shift",
+        "back-from-the-dead"
       ],
       "category_source": "deck",
       "name": "Angel of Indemnity",
       "oracle_id": "4f57a320-b6b5-49de-af0a-f2e2649758a7",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/soc/133/angel-of-indemnity?utm_source=api",
+      "submitted_categories": [
+        "Graveyard Shift",
+        "Back from the Dead"
+      ],
       "submitted_name": "Angel of Indemnity"
     },
     {
-      "board": "mainboard",
       "cache": "cards/79d0cdc1-2e27-48c5-8840-430490068f68.json",
       "card": {
         "keywords": [],
@@ -718,18 +816,21 @@
         "type_line": "Creature — Human Soldier"
       },
       "categories": [
-        "Graveyard Shift",
-        "Back from the Dead"
+        "graveyard-shift",
+        "back-from-the-dead"
       ],
       "category_source": "deck",
       "name": "Brotherhood Outcast",
       "oracle_id": "79d0cdc1-2e27-48c5-8840-430490068f68",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/pip/12/brotherhood-outcast?utm_source=api",
+      "submitted_categories": [
+        "Graveyard Shift",
+        "Back from the Dead"
+      ],
       "submitted_name": "Brotherhood Outcast"
     },
     {
-      "board": "mainboard",
       "cache": "cards/43b5dbe9-41f7-4082-944b-ea9d6292c6fd.json",
       "card": {
         "keywords": [
@@ -744,18 +845,21 @@
         "type_line": "Legendary Creature — Human Knight"
       },
       "categories": [
-        "Graveyard Shift",
-        "Back from the Dead"
+        "graveyard-shift",
+        "back-from-the-dead"
       ],
       "category_source": "deck",
       "name": "Danitha, Benalia's Hope",
       "oracle_id": "43b5dbe9-41f7-4082-944b-ea9d6292c6fd",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/dmu/15/danitha-benalias-hope?utm_source=api",
+      "submitted_categories": [
+        "Graveyard Shift",
+        "Back from the Dead"
+      ],
       "submitted_name": "Danitha, Benalia's Hope"
     },
     {
-      "board": "mainboard",
       "cache": "cards/90c62b27-027a-44a3-8d21-3c62701b18a8.json",
       "card": {
         "keywords": [
@@ -769,18 +873,21 @@
         "type_line": "Creature — Vampire Cleric"
       },
       "categories": [
-        "Graveyard Shift",
-        "Back from the Dead"
+        "graveyard-shift",
+        "back-from-the-dead"
       ],
       "category_source": "deck",
       "name": "Redemption Choir",
       "oracle_id": "90c62b27-027a-44a3-8d21-3c62701b18a8",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/lcc/74/redemption-choir?utm_source=api",
+      "submitted_categories": [
+        "Graveyard Shift",
+        "Back from the Dead"
+      ],
       "submitted_name": "Redemption Choir"
     },
     {
-      "board": "mainboard",
       "cache": "cards/b3ab43f2-4f2b-4439-9254-0110ce443fdb.json",
       "card": {
         "keywords": [
@@ -794,18 +901,21 @@
         "type_line": "Legendary Creature — Zombie Wizard"
       },
       "categories": [
-        "Combo Piece",
-        "Death Benefits"
+        "combo-piece",
+        "death-benefits"
       ],
       "category_source": "deck",
       "name": "Ratadrabik of Urborg",
       "oracle_id": "b3ab43f2-4f2b-4439-9254-0110ce443fdb",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/dmu/213/ratadrabik-of-urborg?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece",
+        "Death Benefits"
+      ],
       "submitted_name": "Ratadrabik of Urborg"
     },
     {
-      "board": "mainboard",
       "cache": "cards/79eed0c6-1853-4032-9d12-aebf5e15e78c.json",
       "card": {
         "keywords": [],
@@ -816,18 +926,21 @@
         "type_line": "Creature — Giant Monk"
       },
       "categories": [
-        "Graveyard Shift",
-        "Tutor"
+        "graveyard-shift",
+        "tutor"
       ],
       "category_source": "deck",
       "name": "Boonweaver Giant",
       "oracle_id": "79eed0c6-1853-4032-9d12-aebf5e15e78c",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/m15/5/boonweaver-giant?utm_source=api",
+      "submitted_categories": [
+        "Graveyard Shift",
+        "Tutor"
+      ],
       "submitted_name": "Boonweaver Giant"
     },
     {
-      "board": "mainboard",
       "cache": "cards/76b003e0-15af-4f22-bdf2-1ade5430964a.json",
       "card": {
         "keywords": [],
@@ -838,18 +951,21 @@
         "type_line": "Creature — Human Rogue Ally"
       },
       "categories": [
-        "Death Benefits",
-        "Win Condition"
+        "death-benefits",
+        "win-condition"
       ],
       "category_source": "deck",
       "name": "Zulaport Cutthroat",
       "oracle_id": "76b003e0-15af-4f22-bdf2-1ade5430964a",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/soc/233/zulaport-cutthroat?utm_source=api",
+      "submitted_categories": [
+        "Death Benefits",
+        "Win Condition"
+      ],
       "submitted_name": "Zulaport Cutthroat"
     },
     {
-      "board": "mainboard",
       "cache": "cards/c7f33cea-2ec8-4081-9208-a5b1d86721b3.json",
       "card": {
         "keywords": [],
@@ -858,18 +974,21 @@
         "type_line": "Enchantment"
       },
       "categories": [
-        "Death Benefits",
-        "Win Condition"
+        "death-benefits",
+        "win-condition"
       ],
       "category_source": "deck",
       "name": "Bastion of Remembrance",
       "oracle_id": "c7f33cea-2ec8-4081-9208-a5b1d86721b3",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/tle/160/bastion-of-remembrance?utm_source=api",
+      "submitted_categories": [
+        "Death Benefits",
+        "Win Condition"
+      ],
       "submitted_name": "Bastion of Remembrance"
     },
     {
-      "board": "mainboard",
       "cache": "cards/726d9d2c-736a-4852-9938-a0f50d8fd89f.json",
       "card": {
         "keywords": [
@@ -882,18 +1001,21 @@
         "type_line": "Creature — Human Artificer"
       },
       "categories": [
-        "Death Benefits",
-        "Win Condition"
+        "death-benefits",
+        "win-condition"
       ],
       "category_source": "deck",
       "name": "Marionette Apprentice",
       "oracle_id": "726d9d2c-736a-4852-9938-a0f50d8fd89f",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/mh3/100/marionette-apprentice?utm_source=api",
+      "submitted_categories": [
+        "Death Benefits",
+        "Win Condition"
+      ],
       "submitted_name": "Marionette Apprentice"
     },
     {
-      "board": "mainboard",
       "cache": "cards/325032d5-c452-4454-8976-82f86fee5ab8.json",
       "card": {
         "keywords": [],
@@ -902,38 +1024,48 @@
         "type_line": "Legendary Enchantment — Background"
       },
       "categories": [
-        "Death Benefits",
-        "Win Condition"
+        "death-benefits",
+        "win-condition"
       ],
       "category_source": "deck",
       "name": "Agent of the Iron Throne",
       "oracle_id": "325032d5-c452-4454-8976-82f86fee5ab8",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/clb/107/agent-of-the-iron-throne?utm_source=api",
+      "submitted_categories": [
+        "Death Benefits",
+        "Win Condition"
+      ],
       "submitted_name": "Agent of the Iron Throne"
     },
     {
-      "board": "mainboard",
-      "cache": "cards/2c5044ff-a303-4276-8e23-7caac30a275b.json",
+      "cache": "cards/a4d33e21-d3fe-4d5b-903c-b75e859d6f7f.json",
       "card": {
-        "keywords": [],
-        "mana_cost": "{2}{B}",
-        "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhenever a creature you control leaves the battlefield, each opponent loses 1 life.\n{1}{B}: Level 2\nCreatures you control get +1/+0 and have menace.\n{B}: Level 3\nCreature cards in your graveyard have sneak {3}{B}.\nYou may cast creature spells from your graveyard using their sneak abilities.",
-        "type_line": "Enchantment — Class"
+        "keywords": [
+          "Deathtouch"
+        ],
+        "mana_cost": "{W}{B}",
+        "oracle_text": "Deathtouch\nWhenever another creature you control enters, you gain 1 life.\nWhenever another creature you control dies, each opponent loses 1 life.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Phyrexian Kor Cleric"
       },
       "categories": [
         "Death Benefits",
         "Win Condition"
       ],
-      "category_source": "deck",
-      "name": "Ninja Teen",
-      "oracle_id": "2c5044ff-a303-4276-8e23-7caac30a275b",
+      "category_source": "decklist",
+      "name": "Elas il-Kor, Sadistic Pilgrim",
+      "oracle_id": "a4d33e21-d3fe-4d5b-903c-b75e859d6f7f",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/tmt/67/ninja-teen?utm_source=api",
-      "submitted_name": "Ninja Teen"
+      "scryfall_uri": "https://scryfall.com/card/dmu/198/elas-il-kor-sadistic-pilgrim?utm_source=api",
+      "submitted_categories": [
+        "Death Benefits",
+        "Win Condition"
+      ],
+      "submitted_name": "Elas il-Kor, Sadistic Pilgrim"
     },
     {
-      "board": "mainboard",
       "cache": "cards/7fd61a18-6e4f-40c5-aa00-3d101ec1ec82.json",
       "card": {
         "keywords": [
@@ -946,18 +1078,21 @@
         "type_line": "Creature — Zombie"
       },
       "categories": [
-        "Graveyard Fuel",
-        "Disposable Staff"
+        "graveyard-fuel",
+        "disposable-staff"
       ],
       "category_source": "deck",
       "name": "Stitcher's Supplier",
       "oracle_id": "7fd61a18-6e4f-40c5-aa00-3d101ec1ec82",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/tdc/196/stitchers-supplier?utm_source=api",
+      "submitted_categories": [
+        "Graveyard Fuel",
+        "Disposable Staff"
+      ],
       "submitted_name": "Stitcher's Supplier"
     },
     {
-      "board": "mainboard",
       "cache": "cards/426fa8e8-b0f9-4b6c-b22b-04ec2073187a.json",
       "card": {
         "keywords": [
@@ -970,18 +1105,21 @@
         "type_line": "Creature — Zombie"
       },
       "categories": [
-        "Graveyard Fuel",
-        "Back from the Dead"
+        "graveyard-fuel",
+        "back-from-the-dead"
       ],
       "category_source": "deck",
       "name": "Undead Butler",
       "oracle_id": "426fa8e8-b0f9-4b6c-b22b-04ec2073187a",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/vow/133/undead-butler?utm_source=api",
+      "submitted_categories": [
+        "Graveyard Fuel",
+        "Back from the Dead"
+      ],
       "submitted_name": "Undead Butler"
     },
     {
-      "board": "mainboard",
       "cache": "cards/d4a9d63a-5a8a-4f51-9e49-43d6dc3234b1.json",
       "card": {
         "keywords": [
@@ -995,19 +1133,23 @@
         "type_line": "Creature — Human Pirate"
       },
       "categories": [
-        "Combo Piece",
-        "Disposable Staff",
-        "Ramp"
+        "combo-piece",
+        "disposable-staff",
+        "ramp"
       ],
       "category_source": "deck",
       "name": "Greedy Freebooter",
       "oracle_id": "d4a9d63a-5a8a-4f51-9e49-43d6dc3234b1",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/lci/109/greedy-freebooter?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece",
+        "Disposable Staff",
+        "Ramp"
+      ],
       "submitted_name": "Greedy Freebooter"
     },
     {
-      "board": "mainboard",
       "cache": "cards/59b02ca7-e7bd-4820-ac32-87ea1a8c64c0.json",
       "card": {
         "keywords": [
@@ -1018,18 +1160,21 @@
         "type_line": "Instant"
       },
       "categories": [
-        "Back from the Dead",
-        "Combo Piece"
+        "back-from-the-dead",
+        "combo-piece"
       ],
-      "category_source": "decklist",
+      "category_source": "deck",
       "name": "Corpse Dance",
       "oracle_id": "59b02ca7-e7bd-4820-ac32-87ea1a8c64c0",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/tpr/89/corpse-dance?utm_source=api",
+      "submitted_categories": [
+        "Back from the Dead",
+        "Combo Piece"
+      ],
       "submitted_name": "Corpse Dance"
     },
     {
-      "board": "mainboard",
       "cache": "cards/35c027cd-f754-4e41-9242-8a9d0481171c.json",
       "card": {
         "keywords": [
@@ -1044,18 +1189,21 @@
         "type_line": "Creature — Skeleton"
       },
       "categories": [
-        "Tutor",
-        "Sacrifice Outlet"
+        "tutor",
+        "sacrifice-outlet"
       ],
       "category_source": "deck",
       "name": "Dimir House Guard",
       "oracle_id": "35c027cd-f754-4e41-9242-8a9d0481171c",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/rvr/73/dimir-house-guard?utm_source=api",
+      "submitted_categories": [
+        "Tutor",
+        "Sacrifice Outlet"
+      ],
       "submitted_name": "Dimir House Guard"
     },
     {
-      "board": "mainboard",
       "cache": "cards/ae18580a-1753-4dc8-b437-8a779b1a6e4d.json",
       "card": {
         "keywords": [],
@@ -1064,17 +1212,19 @@
         "type_line": "Sorcery"
       },
       "categories": [
-        "Tutor"
+        "tutor"
       ],
       "category_source": "deck",
       "name": "Demonic Bargain",
       "oracle_id": "ae18580a-1753-4dc8-b437-8a779b1a6e4d",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/vow/103/demonic-bargain?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
       "submitted_name": "Demonic Bargain"
     },
     {
-      "board": "mainboard",
       "cache": "cards/93056597-b964-421f-be2f-e92abef1c2a4.json",
       "card": {
         "faces": [
@@ -1102,17 +1252,19 @@
         "type_line": "Creature — Vampire Warlock // Sorcery"
       },
       "categories": [
-        "Tutor"
+        "tutor"
       ],
       "category_source": "deck",
       "name": "Emeritus of Woe // Demonic Tutor",
       "oracle_id": "93056597-b964-421f-be2f-e92abef1c2a4",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/sos/80/emeritus-of-woe-demonic-tutor?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
       "submitted_name": "Emeritus of Woe // Demonic Tutor"
     },
     {
-      "board": "mainboard",
       "cache": "cards/1caa7fa2-a881-4a65-a87e-12a974520c83.json",
       "card": {
         "keywords": [
@@ -1125,17 +1277,19 @@
         "type_line": "Creature — Zombie Warlock"
       },
       "categories": [
-        "Tutor"
+        "tutor"
       ],
       "category_source": "deck",
       "name": "Grim Servant",
       "oracle_id": "1caa7fa2-a881-4a65-a87e-12a974520c83",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/mh3/97/grim-servant?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
       "submitted_name": "Grim Servant"
     },
     {
-      "board": "mainboard",
       "cache": "cards/fae37e28-e137-4177-b973-fa8b4dd8f409.json",
       "card": {
         "keywords": [],
@@ -1144,17 +1298,19 @@
         "type_line": "Instant"
       },
       "categories": [
-        "Removal"
+        "removal"
       ],
       "category_source": "deck",
       "name": "Generous Gift",
       "oracle_id": "fae37e28-e137-4177-b973-fa8b4dd8f409",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/msc/133/generous-gift?utm_source=api",
+      "submitted_categories": [
+        "Removal"
+      ],
       "submitted_name": "Generous Gift"
     },
     {
-      "board": "mainboard",
       "cache": "cards/a7e97fa9-4b72-4548-b854-5be5f18a6f1a.json",
       "card": {
         "keywords": [],
@@ -1163,17 +1319,19 @@
         "type_line": "Instant"
       },
       "categories": [
-        "Removal"
+        "removal"
       ],
       "category_source": "deck",
       "name": "Disenchant",
       "oracle_id": "a7e97fa9-4b72-4548-b854-5be5f18a6f1a",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/fdn/572/disenchant?utm_source=api",
+      "submitted_categories": [
+        "Removal"
+      ],
       "submitted_name": "Disenchant"
     },
     {
-      "board": "mainboard",
       "cache": "cards/8e720216-a980-4a34-8aef-62ac3ef15a6e.json",
       "card": {
         "keywords": [],
@@ -1184,40 +1342,49 @@
         "type_line": "Creature — Cat Cleric"
       },
       "categories": [
-        "Removal",
-        "Revolving Door"
+        "removal",
+        "revolving-door"
       ],
       "category_source": "deck",
       "name": "Leonin Relic-Warder",
       "oracle_id": "8e720216-a980-4a34-8aef-62ac3ef15a6e",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/c17/65/leonin-relic-warder?utm_source=api",
-      "submitted_name": "Leonin Relic-Warder"
-    },
-    {
-      "board": "mainboard",
-      "cache": "cards/cb9d557a-fc06-428c-8be6-7d28add33028.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "{1}{W}{W}",
-        "oracle_text": "When this creature enters, you may exile another target creature.\nWhen this creature leaves the battlefield, return the exiled card to the battlefield under its owner's control.",
-        "power": "1",
-        "toughness": "3",
-        "type_line": "Creature — Human Cleric"
-      },
-      "categories": [
+      "submitted_categories": [
         "Removal",
         "Revolving Door"
       ],
-      "category_source": "deck",
-      "name": "Fiend Hunter",
-      "oracle_id": "cb9d557a-fc06-428c-8be6-7d28add33028",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/hoc/167/fiend-hunter?utm_source=api",
-      "submitted_name": "Fiend Hunter"
+      "submitted_name": "Leonin Relic-Warder"
     },
     {
-      "board": "mainboard",
+      "cache": "cards/9e597063-c077-4236-a9e4-b0721b24677f.json",
+      "card": {
+        "keywords": [
+          "Vigilance",
+          "Menace"
+        ],
+        "mana_cost": "{W}{B}",
+        "oracle_text": "Vigilance, menace\nWhenever another creature you control dies or is put into exile, put a +1/+1 counter on Syr Vondam and you gain 1 life.\nWhen Syr Vondam dies or is put into exile while its power is 4 or greater, destroy up to one target nonland permanent.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Human Knight"
+      },
+      "categories": [
+        "Death Benefits",
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "Syr Vondam, Sunstar Exemplar",
+      "oracle_id": "9e597063-c077-4236-a9e4-b0721b24677f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoe/231/syr-vondam-sunstar-exemplar?utm_source=api",
+      "submitted_categories": [
+        "Death Benefits",
+        "Removal"
+      ],
+      "submitted_name": "Syr Vondam, Sunstar Exemplar"
+    },
+    {
       "cache": "cards/7bc3f92f-68a2-4934-afc4-89f6d0e8cf98.json",
       "card": {
         "faces": [
@@ -1241,18 +1408,21 @@
         "type_line": "Sorcery // Sorcery"
       },
       "categories": [
-        "Board Wipe",
-        "Back from the Dead"
+        "board-wipe",
+        "back-from-the-dead"
       ],
       "category_source": "deck",
       "name": "Dusk // Dawn",
       "oracle_id": "7bc3f92f-68a2-4934-afc4-89f6d0e8cf98",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/mkc/61/dusk-dawn?utm_source=api",
+      "submitted_categories": [
+        "Board Wipe",
+        "Back from the Dead"
+      ],
       "submitted_name": "Dusk // Dawn"
     },
     {
-      "board": "mainboard",
       "cache": "cards/ffce81c5-1b58-4882-a4e7-6f8d7cb170de.json",
       "card": {
         "keywords": [],
@@ -1261,17 +1431,19 @@
         "type_line": "Instant"
       },
       "categories": [
-        "Removal"
+        "removal"
       ],
       "category_source": "deck",
       "name": "Withering Torment",
       "oracle_id": "ffce81c5-1b58-4882-a4e7-6f8d7cb170de",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/msc/162/withering-torment?utm_source=api",
+      "submitted_categories": [
+        "Removal"
+      ],
       "submitted_name": "Withering Torment"
     },
     {
-      "board": "mainboard",
       "cache": "cards/5825997b-10d7-4a36-972c-a80ddd90b8ed.json",
       "card": {
         "keywords": [],
@@ -1280,17 +1452,19 @@
         "type_line": "Sorcery"
       },
       "categories": [
-        "Removal"
+        "removal"
       ],
       "category_source": "deck",
       "name": "Feed the Swarm",
       "oracle_id": "5825997b-10d7-4a36-972c-a80ddd90b8ed",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/tle/257/feed-the-swarm?utm_source=api",
+      "submitted_categories": [
+        "Removal"
+      ],
       "submitted_name": "Feed the Swarm"
     },
     {
-      "board": "mainboard",
       "cache": "cards/0bc7f093-bef0-4f1a-852c-4b75ebf54838.json",
       "card": {
         "keywords": [],
@@ -1299,39 +1473,44 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "Ramp"
+        "ramp"
       ],
       "category_source": "deck",
       "name": "Arcane Signet",
       "oracle_id": "0bc7f093-bef0-4f1a-852c-4b75ebf54838",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/msc/191/arcane-signet?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
       "submitted_name": "Arcane Signet"
     },
     {
-      "board": "mainboard",
       "cache": "cards/e3174070-542f-429e-9149-b572f6614537.json",
       "card": {
         "keywords": [],
         "mana_cost": "{1}{B}",
         "oracle_text": "{T}, Sacrifice a black or artifact creature: Add an amount of {B} equal to the sacrificed creature's mana value.",
-        "type_line": "Creature — Human Cleric",
         "power": "1",
-        "toughness": "2"
+        "toughness": "2",
+        "type_line": "Creature — Human Cleric"
       },
       "categories": [
-        "Ramp",
-        "Sacrifice Outlet"
+        "ramp",
+        "sacrifice-outlet"
       ],
-      "category_source": "decklist",
+      "category_source": "deck",
       "name": "Soldevi Adnate",
       "oracle_id": "e3174070-542f-429e-9149-b572f6614537",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/all/60a/soldevi-adnate?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Sacrifice Outlet"
+      ],
       "submitted_name": "Soldevi Adnate"
     },
     {
-      "board": "mainboard",
       "cache": "cards/de3dcb5d-775a-479f-99f5-d1883ed9b1b5.json",
       "card": {
         "keywords": [],
@@ -1340,17 +1519,19 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "Ramp"
+        "ramp"
       ],
       "category_source": "deck",
       "name": "Orzhov Signet",
       "oracle_id": "de3dcb5d-775a-479f-99f5-d1883ed9b1b5",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/tdc/323/orzhov-signet?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
       "submitted_name": "Orzhov Signet"
     },
     {
-      "board": "mainboard",
       "cache": "cards/b693c3de-2eaf-4850-b405-e79d00adefda.json",
       "card": {
         "keywords": [],
@@ -1359,17 +1540,19 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "Ramp"
+        "ramp"
       ],
       "category_source": "deck",
       "name": "Talisman of Hierarchy",
       "oracle_id": "b693c3de-2eaf-4850-b405-e79d00adefda",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/soc/358/talisman-of-hierarchy?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
       "submitted_name": "Talisman of Hierarchy"
     },
     {
-      "board": "mainboard",
       "cache": "cards/c97361b5-af16-4a7b-af85-a429dbaf4ad2.json",
       "card": {
         "keywords": [],
@@ -1378,18 +1561,21 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "Ramp",
-        "Card Draw"
+        "ramp",
+        "card-draw"
       ],
       "category_source": "deck",
       "name": "Mind Stone",
       "oracle_id": "c97361b5-af16-4a7b-af85-a429dbaf4ad2",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/mbc/76/mind-stone?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Card Draw"
+      ],
       "submitted_name": "Mind Stone"
     },
     {
-      "board": "mainboard",
       "cache": "cards/31f15274-301b-47c5-ba19-0ced04520878.json",
       "card": {
         "keywords": [],
@@ -1398,17 +1584,19 @@
         "type_line": "Artifact"
       },
       "categories": [
-        "Ramp"
+        "ramp"
       ],
       "category_source": "deck",
       "name": "Wayfarer's Bauble",
       "oracle_id": "31f15274-301b-47c5-ba19-0ced04520878",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/hoc/211/wayfarers-bauble?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
       "submitted_name": "Wayfarer's Bauble"
     },
     {
-      "board": "mainboard",
       "cache": "cards/240e85d3-e495-4877-8609-4b4056c402f7.json",
       "card": {
         "keywords": [],
@@ -1417,18 +1605,21 @@
         "type_line": "Sorcery"
       },
       "categories": [
-        "Back from the Dead",
-        "Sacrifice Matters"
+        "back-from-the-dead",
+        "sacrifice-matters"
       ],
       "category_source": "deck",
       "name": "Victimize",
       "oracle_id": "240e85d3-e495-4877-8609-4b4056c402f7",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/tdc/198/victimize?utm_source=api",
+      "submitted_categories": [
+        "Back from the Dead",
+        "Sacrifice Matters"
+      ],
       "submitted_name": "Victimize"
     },
     {
-      "board": "mainboard",
       "cache": "cards/a044474a-cd72-4e9d-bd8d-a08f2de9cdc0.json",
       "card": {
         "keywords": [],
@@ -1437,17 +1628,19 @@
         "type_line": "Sorcery"
       },
       "categories": [
-        "Back from the Dead"
+        "back-from-the-dead"
       ],
       "category_source": "deck",
       "name": "Reanimate",
       "oracle_id": "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/dsc/155/reanimate?utm_source=api",
+      "submitted_categories": [
+        "Back from the Dead"
+      ],
       "submitted_name": "Reanimate"
     },
     {
-      "board": "mainboard",
       "cache": "cards/c0d8fef4-65f4-4769-982d-b397d2b7e977.json",
       "card": {
         "keywords": [
@@ -1458,19 +1651,23 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "Combo Piece",
-        "Back from the Dead",
-        "Second Life Insurance"
+        "combo-piece",
+        "back-from-the-dead",
+        "second-life-insurance"
       ],
       "category_source": "deck",
       "name": "Animate Dead",
       "oracle_id": "c0d8fef4-65f4-4769-982d-b397d2b7e977",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/soc/207/animate-dead?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece",
+        "Back from the Dead",
+        "Second Life Insurance"
+      ],
       "submitted_name": "Animate Dead"
     },
     {
-      "board": "mainboard",
       "cache": "cards/58257464-278e-45fa-8e0b-bcd9a7500bc1.json",
       "card": {
         "keywords": [
@@ -1484,17 +1681,19 @@
         "type_line": "Land"
       },
       "categories": [
-        "Land"
+        "land"
       ],
       "category_source": "deck",
       "name": "Ash Barrens",
       "oracle_id": "58257464-278e-45fa-8e0b-bcd9a7500bc1",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/tmc/60/ash-barrens?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
       "submitted_name": "Ash Barrens"
     },
     {
-      "board": "mainboard",
       "cache": "cards/04b7362d-0490-4cb0-b5d7-2a7732f659ce.json",
       "card": {
         "keywords": [],
@@ -1503,18 +1702,21 @@
         "type_line": "Land"
       },
       "categories": [
-        "Land",
-        "Graveyard Hate"
+        "land",
+        "graveyard-hate"
       ],
       "category_source": "deck",
       "name": "Bojuka Bog",
       "oracle_id": "04b7362d-0490-4cb0-b5d7-2a7732f659ce",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/soc/363/bojuka-bog?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Graveyard Hate"
+      ],
       "submitted_name": "Bojuka Bog"
     },
     {
-      "board": "mainboard",
       "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
       "card": {
         "keywords": [],
@@ -1523,17 +1725,19 @@
         "type_line": "Land"
       },
       "categories": [
-        "Land"
+        "land"
       ],
       "category_source": "deck",
       "name": "Command Tower",
       "oracle_id": "0895c9b7-ae7d-4bb3-af17-3b75deb50a25",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/msc/233/command-tower?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
       "submitted_name": "Command Tower"
     },
     {
-      "board": "mainboard",
       "cache": "cards/37f924e1-7c25-4f06-88bb-054693a21e5a.json",
       "card": {
         "keywords": [
@@ -1544,17 +1748,19 @@
         "type_line": "Land — Desert"
       },
       "categories": [
-        "Land"
+        "land"
       ],
       "category_source": "deck",
       "name": "Conduit Pylons",
       "oracle_id": "37f924e1-7c25-4f06-88bb-054693a21e5a",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/otj/254/conduit-pylons?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
       "submitted_name": "Conduit Pylons"
     },
     {
-      "board": "mainboard",
       "cache": "cards/27b047e3-0d41-45e2-98e9-9391d7923a1e.json",
       "card": {
         "keywords": [],
@@ -1563,17 +1769,19 @@
         "type_line": "Land"
       },
       "categories": [
-        "Land"
+        "land"
       ],
       "category_source": "deck",
       "name": "Exotic Orchard",
       "oracle_id": "27b047e3-0d41-45e2-98e9-9391d7923a1e",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/mbc/79/exotic-orchard?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
       "submitted_name": "Exotic Orchard"
     },
     {
-      "board": "mainboard",
       "cache": "cards/86fb3749-37d6-48a6-8524-71e996850307.json",
       "card": {
         "keywords": [],
@@ -1582,18 +1790,21 @@
         "type_line": "Land"
       },
       "categories": [
-        "Land",
-        "Sacrifice Outlet"
+        "land",
+        "sacrifice-outlet"
       ],
       "category_source": "deck",
       "name": "High Market",
       "oracle_id": "86fb3749-37d6-48a6-8524-71e996850307",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/soc/380/high-market?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Sacrifice Outlet"
+      ],
       "submitted_name": "High Market"
     },
     {
-      "board": "mainboard",
       "cache": "cards/2549bc57-9ffb-4053-9f10-f2a5f792b845.json",
       "card": {
         "keywords": [],
@@ -1602,18 +1813,21 @@
         "type_line": "Land"
       },
       "categories": [
-        "Land",
-        "Ramp"
+        "land",
+        "ramp"
       ],
       "category_source": "deck",
       "name": "Myriad Landscape",
       "oracle_id": "2549bc57-9ffb-4053-9f10-f2a5f792b845",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/eoc/169/myriad-landscape?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Ramp"
+      ],
       "submitted_name": "Myriad Landscape"
     },
     {
-      "board": "mainboard",
       "cache": "cards/aa00ae0b-7c0f-427e-8102-ce0e2a6af5df.json",
       "card": {
         "keywords": [],
@@ -1622,17 +1836,19 @@
         "type_line": "Land"
       },
       "categories": [
-        "Land"
+        "land"
       ],
       "category_source": "deck",
       "name": "Orzhov Basilica",
       "oracle_id": "aa00ae0b-7c0f-427e-8102-ce0e2a6af5df",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/dsc/292/orzhov-basilica?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
       "submitted_name": "Orzhov Basilica"
     },
     {
-      "board": "mainboard",
       "cache": "cards/b473e293-59e3-4e04-acf2-622604aeb25f.json",
       "card": {
         "keywords": [
@@ -1643,17 +1859,19 @@
         "type_line": "Land"
       },
       "categories": [
-        "Land"
+        "land"
       ],
       "category_source": "deck",
       "name": "Path of Ancestry",
       "oracle_id": "b473e293-59e3-4e04-acf2-622604aeb25f",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/mbc/80/path-of-ancestry?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
       "submitted_name": "Path of Ancestry"
     },
     {
-      "board": "mainboard",
       "cache": "cards/1861e642-21d5-4232-89f3-b5557f2946c1.json",
       "card": {
         "keywords": [],
@@ -1662,19 +1880,23 @@
         "type_line": "Legendary Land"
       },
       "categories": [
-        "Land",
-        "Sacrifice Outlet",
-        "Ramp"
+        "land",
+        "sacrifice-outlet",
+        "ramp"
       ],
       "category_source": "deck",
       "name": "Phyrexian Tower",
       "oracle_id": "1861e642-21d5-4232-89f3-b5557f2946c1",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/mh3/303/phyrexian-tower?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Sacrifice Outlet",
+        "Ramp"
+      ],
       "submitted_name": "Phyrexian Tower"
     },
     {
-      "board": "mainboard",
       "cache": "cards/f29dc596-2121-4421-8463-15f6c2e8b9b3.json",
       "card": {
         "keywords": [],
@@ -1683,17 +1905,19 @@
         "type_line": "Land"
       },
       "categories": [
-        "Land"
+        "land"
       ],
       "category_source": "deck",
       "name": "Rogue's Passage",
       "oracle_id": "f29dc596-2121-4421-8463-15f6c2e8b9b3",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/hoc/212/rogues-passage?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
       "submitted_name": "Rogue's Passage"
     },
     {
-      "board": "mainboard",
       "cache": "cards/439de49b-1091-4688-9ffb-80a025df31c2.json",
       "card": {
         "keywords": [],
@@ -1702,17 +1926,19 @@
         "type_line": "Land"
       },
       "categories": [
-        "Land"
+        "land"
       ],
       "category_source": "deck",
       "name": "Tainted Field",
       "oracle_id": "439de49b-1091-4688-9ffb-80a025df31c2",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/dsc/302/tainted-field?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
       "submitted_name": "Tainted Field"
     },
     {
-      "board": "mainboard",
       "cache": "cards/b3e28bcf-0ed0-4406-b615-68ddc55b349a.json",
       "card": {
         "keywords": [],
@@ -1721,17 +1947,19 @@
         "type_line": "Land"
       },
       "categories": [
-        "Land"
+        "land"
       ],
       "category_source": "deck",
       "name": "Great Hall of the Citadel",
       "oracle_id": "b3e28bcf-0ed0-4406-b615-68ddc55b349a",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/ltr/254/great-hall-of-the-citadel?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
       "submitted_name": "Great Hall of the Citadel"
     },
     {
-      "board": "mainboard",
       "cache": "cards/382d18a2-438e-4ae7-a83f-1658ef1f9b07.json",
       "card": {
         "keywords": [
@@ -1742,17 +1970,19 @@
         "type_line": "Land"
       },
       "categories": [
-        "Land"
+        "land"
       ],
       "category_source": "deck",
       "name": "Hidden Grotto",
       "oracle_id": "382d18a2-438e-4ae7-a83f-1658ef1f9b07",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/blb/254/hidden-grotto?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
       "submitted_name": "Hidden Grotto"
     },
     {
-      "board": "mainboard",
       "cache": "cards/2bc38f14-0314-4351-8138-e2b8bf041404.json",
       "card": {
         "keywords": [],
@@ -1761,18 +1991,21 @@
         "type_line": "Land"
       },
       "categories": [
-        "Land",
-        "Back from the Dead"
+        "land",
+        "back-from-the-dead"
       ],
       "category_source": "deck",
       "name": "Memorial to Folly",
       "oracle_id": "2bc38f14-0314-4351-8138-e2b8bf041404",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/tdc/377/memorial-to-folly?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Back from the Dead"
+      ],
       "submitted_name": "Memorial to Folly"
     },
     {
-      "board": "mainboard",
       "cache": "cards/f1e03d99-024a-430b-9342-ffd2268bd103.json",
       "card": {
         "keywords": [],
@@ -1781,17 +2014,19 @@
         "type_line": "Land"
       },
       "categories": [
-        "Land"
+        "land"
       ],
       "category_source": "deck",
       "name": "Mariposa Military Base",
       "oracle_id": "f1e03d99-024a-430b-9342-ffd2268bd103",
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/pip/151/mariposa-military-base?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
       "submitted_name": "Mariposa Military Base"
     },
     {
-      "board": "mainboard",
       "cache": "cards/bc71ebf6-2056-41f7-be35-b2e5c34afa99.json",
       "card": {
         "keywords": [],
@@ -1800,17 +2035,19 @@
         "type_line": "Basic Land — Plains"
       },
       "categories": [
-        "Land"
+        "land"
       ],
       "category_source": "deck",
       "name": "Plains",
       "oracle_id": "bc71ebf6-2056-41f7-be35-b2e5c34afa99",
       "quantity": 7,
       "scryfall_uri": "https://scryfall.com/card/trk/317/plains?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
       "submitted_name": "Plains"
     },
     {
-      "board": "mainboard",
       "cache": "cards/56719f6a-1a6c-4c0a-8d21-18f7d7350b68.json",
       "card": {
         "keywords": [],
@@ -1819,21 +2056,21 @@
         "type_line": "Basic Land — Swamp"
       },
       "categories": [
-        "Land"
+        "land"
       ],
       "category_source": "deck",
       "name": "Swamp",
       "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
       "quantity": 12,
       "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
       "submitted_name": "Swamp"
     }
   ],
   "categorized_cards": 83,
-  "generated_at": "2026-08-22T00:20:30.736Z",
-  "maybeboard_cards": 0,
-  "maybeboard_unique_cards": 0,
-  "resolved_unique_cards": 83,
+  "generated_at": "2026-08-22T00:48:32.406270+00:00",
   "schema_version": 3,
   "source": "decks/3+_bartolome-graveyard-shift/decklist.txt",
   "total_cards": 100,
