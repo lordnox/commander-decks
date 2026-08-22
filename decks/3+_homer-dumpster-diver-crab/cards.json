@@ -127,31 +127,6 @@
       "submitted_name": "Quantum Misalignment"
     },
     {
-      "cache": "cards/94357494-4ccc-43d4-b2d4-351581cbf9b6.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "{4}{U}{U}",
-        "oracle_text": "You may have this creature enter as a copy of any creature on the battlefield, except it isn't legendary, is an artifact in addition to its other types, and has myriad. (Whenever it attacks, for each opponent other than defending player, you may create a token copy that's tapped and attacking that player or a planeswalker they control. Exile the tokens at end of combat.)",
-        "power": "0",
-        "toughness": "0",
-        "type_line": "Artifact Creature — Alien Soldier"
-      },
-      "categories": [
-        "Homer Factory",
-        "Legend Rule"
-      ],
-      "category_source": "decklist",
-      "name": "Auton Soldier",
-      "oracle_id": "94357494-4ccc-43d4-b2d4-351581cbf9b6",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/who/36/auton-soldier?utm_source=api",
-      "submitted_categories": [
-        "Homer Factory",
-        "Legend Rule"
-      ],
-      "submitted_name": "Auton Soldier"
-    },
-    {
       "cache": "cards/c06d1127-a269-453f-9c06-e9c424998eb7.json",
       "card": {
         "keywords": [],
@@ -175,29 +150,6 @@
       "submitted_name": "Nanogene Conversion"
     },
     {
-      "cache": "cards/3bed1944-58dc-4679-9aee-7be4d94fb55c.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "{3}",
-        "oracle_text": "The \"legend rule\" doesn't apply to permanents you control.\nEach legendary creature you control gets +1/+1.\nEach nontoken creature you control gets +1/+1 for each other creature you control with the same name as that creature.",
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Homer Factory",
-        "Legend Rule"
-      ],
-      "category_source": "decklist",
-      "name": "Mirror Box",
-      "oracle_id": "3bed1944-58dc-4679-9aee-7be4d94fb55c",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/neo/250/mirror-box?utm_source=api",
-      "submitted_categories": [
-        "Homer Factory",
-        "Legend Rule"
-      ],
-      "submitted_name": "Mirror Box"
-    },
-    {
       "cache": "cards/64ebdd6f-acde-4aab-a86b-2798bad5f70c.json",
       "card": {
         "keywords": [],
@@ -219,31 +171,6 @@
         "Ramp"
       ],
       "submitted_name": "Machine God's Effigy"
-    },
-    {
-      "cache": "cards/88929ea9-900f-4dbb-b16c-cf3bad4e410c.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "{4}{G}{U}",
-        "oracle_text": "You may have this creature enter as a copy of any creature on the battlefield, except it has \"At the beginning of your upkeep, if this creature isn't a token, create a token that's a copy of this creature.\"",
-        "power": "0",
-        "toughness": "0",
-        "type_line": "Creature — Shapeshifter"
-      },
-      "categories": [
-        "Homer Factory",
-        "Value"
-      ],
-      "category_source": "decklist",
-      "name": "Progenitor Mimic",
-      "oracle_id": "88929ea9-900f-4dbb-b16c-cf3bad4e410c",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/2xm/212/progenitor-mimic?utm_source=api",
-      "submitted_categories": [
-        "Homer Factory",
-        "Value"
-      ],
-      "submitted_name": "Progenitor Mimic"
     },
     {
       "cache": "cards/8a3ad2ef-8bcb-40c0-85de-f03328c2b644.json",
@@ -484,29 +411,6 @@
         "Typal Support"
       ],
       "submitted_name": "Arcane Adaptation"
-    },
-    {
-      "cache": "cards/775d284d-0884-4ae3-a1b5-2b2a50a895b4.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "{3}{B}{B}",
-        "oracle_text": "As this enchantment enters, choose a creature type.\nCreatures you control are the chosen type. The same is true for creature spells you control and creature cards you own that aren't on the battlefield.",
-        "type_line": "Enchantment"
-      },
-      "categories": [
-        "Seafood Disguise",
-        "Typal Support"
-      ],
-      "category_source": "decklist",
-      "name": "Conspiracy",
-      "oracle_id": "775d284d-0884-4ae3-a1b5-2b2a50a895b4",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/tsb/39/conspiracy?utm_source=api",
-      "submitted_categories": [
-        "Seafood Disguise",
-        "Typal Support"
-      ],
-      "submitted_name": "Conspiracy"
     },
     {
       "cache": "cards/210940f1-3c11-4877-bbfc-2429c03f98ee.json",
@@ -1352,6 +1256,105 @@
         "Creature Recursion"
       ],
       "submitted_name": "Stitch Together"
+    },
+    {
+      "cache": "cards/1920254f-0f65-4426-aabc-f3807476b67b.json",
+      "card": {
+        "keywords": [
+          "Flashback"
+        ],
+        "mana_cost": "{3}{B}{G}",
+        "oracle_text": "This spell costs {1} less to cast for each creature that died this turn.\nReturn target creature card from your graveyard to the battlefield.\nFlashback {5}{B}{G} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Creature Recursion",
+        "Dumpster Diving"
+      ],
+      "category_source": "decklist",
+      "name": "Diregraf Rebirth",
+      "oracle_id": "1920254f-0f65-4426-aabc-f3807476b67b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mid/220/diregraf-rebirth?utm_source=api",
+      "submitted_categories": [
+        "Creature Recursion",
+        "Dumpster Diving"
+      ],
+      "submitted_name": "Diregraf Rebirth"
+    },
+    {
+      "cache": "cards/0ab9539d-3461-4936-95cd-4c229308c4a4.json",
+      "card": {
+        "keywords": [
+          "Mill",
+          "Demonstrate"
+        ],
+        "mana_cost": "{4}{B}",
+        "oracle_text": "Demonstrate (When you cast this spell, you may copy it. If you do, choose an opponent to also copy it.)\nMill five cards, then return a creature card from your graveyard to the battlefield.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Creature Recursion",
+        "Dumpster Diving"
+      ],
+      "category_source": "decklist",
+      "name": "Incarnation Technique",
+      "oracle_id": "0ab9539d-3461-4936-95cd-4c229308c4a4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c21/41/incarnation-technique?utm_source=api",
+      "submitted_categories": [
+        "Creature Recursion",
+        "Dumpster Diving"
+      ],
+      "submitted_name": "Incarnation Technique"
+    },
+    {
+      "cache": "cards/437b2dab-15e0-4b9a-a204-58622d37a3b3.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Card Advantage",
+        "Dumpster Diving"
+      ],
+      "category_source": "decklist",
+      "name": "Fact or Fiction",
+      "oracle_id": "437b2dab-15e0-4b9a-a204-58622d37a3b3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/91/fact-or-fiction?utm_source=api",
+      "submitted_categories": [
+        "Card Advantage",
+        "Dumpster Diving"
+      ],
+      "submitted_name": "Fact or Fiction"
+    },
+    {
+      "cache": "cards/e21c8fc6-d4ef-42b6-b11e-d9c931da1387.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Search your library for up to four land cards with different names and reveal them. An opponent chooses two of those cards. Put the chosen cards into your graveyard and the rest into your hand. Then shuffle.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Card Advantage",
+        "Dumpster Diving",
+        "Land Selection"
+      ],
+      "category_source": "decklist",
+      "name": "Realms Uncharted",
+      "oracle_id": "e21c8fc6-d4ef-42b6-b11e-d9c931da1387",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/roe/206/realms-uncharted?utm_source=api",
+      "submitted_categories": [
+        "Card Advantage",
+        "Dumpster Diving",
+        "Land Selection"
+      ],
+      "submitted_name": "Realms Uncharted"
     },
     {
       "cache": "cards/d2075f58-b0e9-4e85-b7e6-0523a27a1d5b.json",
@@ -2386,7 +2389,7 @@
     }
   ],
   "categorized_cards": 97,
-  "generated_at": "2026-08-22T10:09:50.548565+00:00",
+  "generated_at": "2026-08-22T10:48:31.190552+00:00",
   "schema_version": 3,
   "source": "decks/3+_homer-dumpster-diver-crab/decklist.txt",
   "total_cards": 100,
