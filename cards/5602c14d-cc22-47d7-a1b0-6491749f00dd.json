@@ -1,0 +1,133 @@
+{
+  "arena_id": 71123,
+  "artist": "Ekaterina Burmak",
+  "artist_ids": [
+    "2a9f3780-fcc8-4ec5-b403-ee1d1370d3b4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 452943,
+  "cmc": 2.0,
+  "collector_number": "56",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 5868,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Coppercoats think they understand duty and loyalty, but they can't begin to fathom the depths of my bond.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "febfa682-76ae-4979-a40c-c1eae1121f3c",
+  "illustration_id": "41665ae3-bb53-43a1-9eb3-e7b9da252283",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:24:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/e/febfa682-76ae-4979-a40c-c1eae1121f3c.webp?1783931075",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/e/febfa682-76ae-4979-a40c-c1eae1121f3c.jpg?1783931075",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/e/febfa682-76ae-4979-a40c-c1eae1121f3c.jpg?1783931075",
+    "crop": "https://cards.scryfall.io/crop/front/f/e/febfa682-76ae-4979-a40c-c1eae1121f3c.webp?1783931075",
+    "display": "https://cards.scryfall.io/display/front/f/e/febfa682-76ae-4979-a40c-c1eae1121f3c.webp?1783931075",
+    "grid": "https://cards.scryfall.io/grid/front/f/e/febfa682-76ae-4979-a40c-c1eae1121f3c.webp?1783931075",
+    "large": "https://cards.scryfall.io/large/front/f/e/febfa682-76ae-4979-a40c-c1eae1121f3c.jpg?1783931075",
+    "normal": "https://cards.scryfall.io/normal/front/f/e/febfa682-76ae-4979-a40c-c1eae1121f3c.jpg?1783931075",
+    "png": "https://cards.scryfall.io/png/front/f/e/febfa682-76ae-4979-a40c-c1eae1121f3c.png?1783931075",
+    "small": "https://cards.scryfall.io/small/front/f/e/febfa682-76ae-4979-a40c-c1eae1121f3c.jpg?1783931075",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/e/febfa682-76ae-4979-a40c-c1eae1121f3c.webp?1783931075"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 80121,
+  "multiverse_ids": [
+    479576
+  ],
+  "name": "Keep Safe",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5602c14d-cc22-47d7-a1b0-6491749f00dd",
+  "oracle_text": "Counter target spell that targets a permanent you control.\nDraw a card.",
+  "oversized": false,
+  "penny_rank": 7452,
+  "prices": {
+    "eur": "0.17",
+    "eur_foil": "0.39",
+    "tix": "0.03",
+    "usd": "0.24",
+    "usd_etched": null,
+    "usd_foil": "0.39"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5602c14d-cc22-47d7-a1b0-6491749f00dd&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/80121?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=452943&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F212259%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Keep+Safe",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=479576&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKeep%2BSafe",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKeep%2BSafe"
+  },
+  "released_at": "2020-04-24",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/febfa682-76ae-4979-a40c-c1eae1121f3c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/iko?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/iko/56/keep-safe?utm_source=api",
+  "set": "iko",
+  "set_id": "19feda43-15ab-427e-a0e4-148a4bf2b03a",
+  "set_name": "Ikoria: Lair of Behemoths",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aiko&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/19feda43-15ab-427e-a0e4-148a4bf2b03a",
+  "story_spotlight": false,
+  "tcgplayer_id": 212259,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/febfa682-76ae-4979-a40c-c1eae1121f3c",
+  "variation": false
+}
