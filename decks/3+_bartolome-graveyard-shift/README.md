@@ -49,9 +49,10 @@ Angelic Renewal can fill the same role when the returning creature can immediate
 | Ozox engine | Ozox, Phyrexian Altar, Ashnod's Altar, Ratadrabik of Urborg, Bog Initiate, Bontu's Monument |
 | Cost reduction | Bontu's Monument, Jet Medallion, Urza's Incubator |
 | Return effects | Animate Dead, Angelic Renewal, Changing Loyalty, Fungal Fortitude, Kaya's Ghostform, Minion's Return, Necrogen Communion |
-| Repeatable recursion | Chthonian Nightmare, Corpse Dance, Animate Dead, Victimize |
+| Repeatable recursion | Chthonian Nightmare, Corpse Dance, Animate Dead, Victimize, Lurrus of the Dream-Den |
 | Recursion creatures | Sun Titan, Angel of Indemnity, Brotherhood Outcast, Danitha, Redemption Choir |
-| Death payoffs | Zulaport Cutthroat, Bastion of Remembrance, Marionette Apprentice, Agent of the Iron Throne, Ninja Teen |
+| Death and entry payoffs | Zulaport Cutthroat, Bastion of Remembrance, Marionette Apprentice, Agent of the Iron Throne, Elas il-Kor, Corpse Knight |
+| Loaded rattlesnake | Syr Vondam, Sunstar Exemplar |
 | Durable finish | Funeral Room and Sephiroth |
 | Renewal engine | Enduring Renewal and Greedy Freebooter |
 | Setup | Dimir House Guard, Demonic Bargain, Grim Servant, self-mill creatures |
@@ -147,7 +148,9 @@ Avoid hands containing several expensive recursion creatures without ramp or gra
 - Sacrifice Ozox before Jumblebones so Ozox is present in the graveyard when Jumblebones leaves.
 - Commander tax does not apply when Jumblebones returns Ozox to your hand.
 - Protect the mana engine or recursion creature before protecting Bartolomé.
-- Gift of Immortality returns itself only at the next end step and is not an immediate loop.
+- **Elas il-Kor** pays off creatures dying; **Corpse Knight** pays off creatures entering. Most loops trigger both sides.
+- **Lurrus** casts only one permanent spell from the graveyard during each of your turns and cannot play lands from the graveyard.
+- Once **Syr Vondam** has reached 4 power, sacrificing it to Bartolomé turns it into a removal spell and makes opponents think twice about removing it themselves.
 - Corpse Dance returns only the top creature card of your graveyard. Preserve graveyard order, and sacrifice the returned creature before the next end step so it goes back to the graveyard instead of being exiled.
 - The Animate Dead and Leonin Relic-Warder loop can be mandatory; establish a payoff or an exit before starting it.
 - Enduring Renewal reveals your hand and puts creature cards you would draw into your graveyard.
