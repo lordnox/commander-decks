@@ -45,17 +45,30 @@ Use concise Markdown and card names in bold. Include only sections supported by 
 
 1. Title and short identity
 2. Deck summary
-3. How the deck works
-4. Core engine or role table
-5. Main combo or synergy patterns
-6. Win conditions
-7. Early, mid, and late game
-8. Mulligan guide
-9. Tutor priorities
-10. Important sequencing and rules notes
-11. Weaknesses and what to protect
+3. Key-card image gallery
+4. How the deck works
+5. Core engine or role table
+6. Main combo or synergy patterns
+7. Win conditions
+8. Early, mid, and late game
+9. Mulligan guide
+10. Tutor priorities
+11. Important sequencing and rules notes
+12. Weaknesses and what to protect
 
 Prefer a table for interchangeable roles and tutor decisions. Explain representative cards rather than listing every card. Make the primer useful during actual play.
+
+### Key-card images
+
+Add a compact `## Key cards` gallery near the top of every primer:
+
+- show four to six cards that best explain how the deck works;
+- include the commander, the central engine pieces, and representative payoff or win-condition cards;
+- use the exact `image_uris.normal` URL from each card's cached Scryfall object;
+- wrap every image in a link to that printing's `scryfall_uri`;
+- use HTML images with `width="160"` and descriptive `alt` text so the gallery stays compact and accessible;
+- use the front-face image for double-faced cards;
+- do not download or commit card-image files to the repository.
 
 ## 5. Check the result
 
