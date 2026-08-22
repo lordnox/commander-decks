@@ -2201,8 +2201,14 @@
         "ramp",
         "removal"
       ]
+    },
+    "bc3d5911-3580-4132-9daf-2826495b5739": {
+      "name": "Stitch Together",
+      "categories": [
+        "recursion"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-22T08:47:48.210519+00:00"
+  "updated_at": "2026-08-22T10:06:37.940Z"
 }
