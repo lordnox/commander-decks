@@ -1,0 +1,131 @@
+{
+  "artist": "Seb McKinnon",
+  "artist_ids": [
+    "ad4caca0-8d89-44ce-a1a6-d5ca905bd6fb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 454183,
+  "cmc": 4.0,
+  "collector_number": "208",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [
+    "B",
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 3573,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"They say nothing lasts forever. I say everything lasts forever, just not in the form you may be accustomed to.\"\n—Vraska",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "26a0ae4f-a48c-4333-a53f-70702b5b4c9e",
+  "illustration_id": "402f461b-4857-4339-b5bd-bac18a935789",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:25:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/6/26a0ae4f-a48c-4333-a53f-70702b5b4c9e.webp?1783931151",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/6/26a0ae4f-a48c-4333-a53f-70702b5b4c9e.jpg?1783931151",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/6/26a0ae4f-a48c-4333-a53f-70702b5b4c9e.jpg?1783931151",
+    "crop": "https://cards.scryfall.io/crop/front/2/6/26a0ae4f-a48c-4333-a53f-70702b5b4c9e.webp?1783931151",
+    "display": "https://cards.scryfall.io/display/front/2/6/26a0ae4f-a48c-4333-a53f-70702b5b4c9e.webp?1783931151",
+    "grid": "https://cards.scryfall.io/grid/front/2/6/26a0ae4f-a48c-4333-a53f-70702b5b4c9e.webp?1783931151",
+    "large": "https://cards.scryfall.io/large/front/2/6/26a0ae4f-a48c-4333-a53f-70702b5b4c9e.jpg?1783931151",
+    "normal": "https://cards.scryfall.io/normal/front/2/6/26a0ae4f-a48c-4333-a53f-70702b5b4c9e.jpg?1783931151",
+    "png": "https://cards.scryfall.io/png/front/2/6/26a0ae4f-a48c-4333-a53f-70702b5b4c9e.png?1783931151",
+    "small": "https://cards.scryfall.io/small/front/2/6/26a0ae4f-a48c-4333-a53f-70702b5b4c9e.jpg?1783931151",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/6/26a0ae4f-a48c-4333-a53f-70702b5b4c9e.webp?1783931151"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}{B}{G}",
+  "multiverse_ids": [
+    482836
+  ],
+  "name": "Deathsprout",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "793b0c73-601c-41dc-b49a-45fee4970d52",
+  "oracle_text": "Destroy target creature. Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
+  "oversized": false,
+  "penny_rank": 4573,
+  "prices": {
+    "eur": "0.37",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.38",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A793b0c73-601c-41dc-b49a-45fee4970d52&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Deathsprout&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=454183&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F212307%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Deathsprout",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=482836&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDeathsprout",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDeathsprout"
+  },
+  "released_at": "2020-04-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/26a0ae4f-a48c-4333-a53f-70702b5b4c9e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c20?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c20/208/deathsprout?utm_source=api",
+  "set": "c20",
+  "set_id": "f60ec786-1f8d-42f7-9abc-0d880fe243f6",
+  "set_name": "Commander 2020",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac20&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/f60ec786-1f8d-42f7-9abc-0d880fe243f6",
+  "story_spotlight": false,
+  "tcgplayer_id": 212307,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/26a0ae4f-a48c-4333-a53f-70702b5b4c9e",
+  "variation": false
+}
