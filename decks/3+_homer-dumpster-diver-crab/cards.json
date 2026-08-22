@@ -152,31 +152,6 @@
       "submitted_name": "Auton Soldier"
     },
     {
-      "cache": "cards/83b43aba-bf9c-4da2-967d-9daa632e97d2.json",
-      "card": {
-        "keywords": [
-          "Equip"
-        ],
-        "mana_cost": "{4}",
-        "oracle_text": "At the beginning of combat on your turn, create a token that's a copy of equipped creature, except the token isn't legendary. That token gains haste.\nEquip {5}",
-        "type_line": "Legendary Artifact — Equipment"
-      },
-      "categories": [
-        "Homer Factory",
-        "Legend Rule"
-      ],
-      "category_source": "decklist",
-      "name": "Helm of the Host",
-      "oracle_id": "83b43aba-bf9c-4da2-967d-9daa632e97d2",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/msc/200/helm-of-the-host?utm_source=api",
-      "submitted_categories": [
-        "Homer Factory",
-        "Legend Rule"
-      ],
-      "submitted_name": "Helm of the Host"
-    },
-    {
       "cache": "cards/c06d1127-a269-453f-9c06-e9c424998eb7.json",
       "card": {
         "keywords": [],
@@ -1356,6 +1331,29 @@
       "submitted_name": "Victimize"
     },
     {
+      "cache": "cards/bc3d5911-3580-4132-9daf-2826495b5739.json",
+      "card": {
+        "keywords": [
+          "Threshold"
+        ],
+        "mana_cost": "{B}{B}",
+        "oracle_text": "Return target creature card from your graveyard to your hand.\nThreshold — Return that card from your graveyard to the battlefield instead if there are seven or more cards in your graveyard.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Creature Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Stitch Together",
+      "oracle_id": "bc3d5911-3580-4132-9daf-2826495b5739",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c18/119/stitch-together?utm_source=api",
+      "submitted_categories": [
+        "Creature Recursion"
+      ],
+      "submitted_name": "Stitch Together"
+    },
+    {
       "cache": "cards/d2075f58-b0e9-4e85-b7e6-0523a27a1d5b.json",
       "card": {
         "faces": [
@@ -2388,7 +2386,7 @@
     }
   ],
   "categorized_cards": 97,
-  "generated_at": "2026-08-22T08:47:48.210519+00:00",
+  "generated_at": "2026-08-22T10:04:46.079900+00:00",
   "schema_version": 3,
   "source": "decks/3+_homer-dumpster-diver-crab/decklist.txt",
   "total_cards": 100,
