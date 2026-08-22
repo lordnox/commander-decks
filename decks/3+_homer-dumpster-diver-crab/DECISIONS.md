@@ -132,4 +132,4 @@ This log records why every card entered the initial list. Future changes should 
 - **Diregraf Rebirth** — Replaces Auton Soldier. Direct reanimation remains useful from hand, and flashback makes it safe to mill.
 - **Incarnation Technique** — Replaces Progenitor Mimic. It mills five before reanimating and can use demonstrate for table politics.
 - **Fact or Fiction** — Replaces Mirror Box. Instant-speed card advantage also stocks the graveyard.
-- **Realms Uncharted** — Replaces Conspiracy. This land-focused Fact or Fiction puts two selected lands in hand and two in the graveyard, where every outcome remains useful.
+- **Fortune's Favor** — Replaces Conspiracy. This second Fact or Fiction-style instant creates a hidden-information choice while sending the unchosen pile to the graveyard.
