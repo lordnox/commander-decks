@@ -1,0 +1,176 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "fcf4c7fb-7859-4c11-8552-6817f5119d2e",
+      "name": "On an Adventure",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/fcf4c7fb-7859-4c11-8552-6817f5119d2e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7cc2173a-b7fb-4bd6-9c8e-73de91c6903a",
+      "name": "Virtue of Knowledge // Vantress Visions",
+      "object": "related_card",
+      "type_line": "Enchantment // Instant — Adventure",
+      "uri": "https://api.scryfall.com/cards/7cc2173a-b7fb-4bd6-9c8e-73de91c6903a"
+    }
+  ],
+  "arena_id": 86768,
+  "artist": "Piotr Dura",
+  "artist_ids": [
+    "aff176e8-1d15-432e-ad1d-207a474decba"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "card_faces": [
+    {
+      "artist": "Piotr Dura",
+      "artist_id": "aff176e8-1d15-432e-ad1d-207a474decba",
+      "illustration_id": "33d6cfe0-5bc0-478b-9bd6-31139dcefecc",
+      "mana_cost": "{4}{U}",
+      "name": "Virtue of Knowledge",
+      "object": "card_face",
+      "oracle_text": "If a permanent entering causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.",
+      "type_line": "Enchantment"
+    },
+    {
+      "artist": "Piotr Dura",
+      "artist_id": "aff176e8-1d15-432e-ad1d-207a474decba",
+      "mana_cost": "{1}{U}",
+      "name": "Vantress Visions",
+      "object": "card_face",
+      "oracle_text": "Copy target activated or triggered ability you control. You may choose new targets for the copy.",
+      "type_line": "Instant — Adventure"
+    }
+  ],
+  "cardmarket_id": 728035,
+  "cmc": 5.0,
+  "collector_number": "76",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2174,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "df606cf5-67dc-46f4-8c79-1d2f1d054391",
+  "illustration_id": "33d6cfe0-5bc0-478b-9bd6-31139dcefecc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:58:32Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/f/df606cf5-67dc-46f4-8c79-1d2f1d054391.webp?1783915112",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/f/df606cf5-67dc-46f4-8c79-1d2f1d054391.jpg?1783915112",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/f/df606cf5-67dc-46f4-8c79-1d2f1d054391.jpg?1783915112",
+    "crop": "https://cards.scryfall.io/crop/front/d/f/df606cf5-67dc-46f4-8c79-1d2f1d054391.webp?1783915112",
+    "display": "https://cards.scryfall.io/display/front/d/f/df606cf5-67dc-46f4-8c79-1d2f1d054391.webp?1783915112",
+    "grid": "https://cards.scryfall.io/grid/front/d/f/df606cf5-67dc-46f4-8c79-1d2f1d054391.webp?1783915112",
+    "large": "https://cards.scryfall.io/large/front/d/f/df606cf5-67dc-46f4-8c79-1d2f1d054391.jpg?1783915112",
+    "normal": "https://cards.scryfall.io/normal/front/d/f/df606cf5-67dc-46f4-8c79-1d2f1d054391.jpg?1783915112",
+    "png": "https://cards.scryfall.io/png/front/d/f/df606cf5-67dc-46f4-8c79-1d2f1d054391.png?1783915112",
+    "small": "https://cards.scryfall.io/small/front/d/f/df606cf5-67dc-46f4-8c79-1d2f1d054391.jpg?1783915112",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/f/df606cf5-67dc-46f4-8c79-1d2f1d054391.webp?1783915112"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "adventure",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{U} // {1}{U}",
+  "mtgo_id": 116460,
+  "multiverse_ids": [
+    629577
+  ],
+  "name": "Virtue of Knowledge // Vantress Visions",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f0bbcabf-29e7-4c7e-893f-86b64d3620a9",
+  "oversized": false,
+  "penny_rank": 5876,
+  "preview": {
+    "previewed_at": "2023-08-15",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "4.90",
+    "eur_foil": "5.32",
+    "tix": "0.03",
+    "usd": "5.49",
+    "usd_etched": null,
+    "usd_foil": "6.00"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af0bbcabf-29e7-4c7e-893f-86b64d3620a9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/116460?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=728035&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F512236%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Virtue+of+Knowledge",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=629577&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVirtue%2Bof%2BKnowledge%2B%252F%252F%2BVantress%2BVisions",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVirtue%2Bof%2BKnowledge%2B%252F%252F%2BVantress%2BVisions"
+  },
+  "released_at": "2023-09-08",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/df606cf5-67dc-46f4-8c79-1d2f1d054391/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/woe?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/woe/76/virtue-of-knowledge-vantress-visions?utm_source=api",
+  "security_stamp": "oval",
+  "set": "woe",
+  "set_id": "79139661-13ee-43c4-8bad-a8c069f1a1df",
+  "set_name": "Wilds of Eldraine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awoe&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/79139661-13ee-43c4-8bad-a8c069f1a1df",
+  "story_spotlight": false,
+  "tcgplayer_id": 512236,
+  "textless": false,
+  "type_line": "Enchantment // Instant — Adventure",
+  "uri": "https://api.scryfall.com/cards/df606cf5-67dc-46f4-8c79-1d2f1d054391",
+  "variation": false
+}

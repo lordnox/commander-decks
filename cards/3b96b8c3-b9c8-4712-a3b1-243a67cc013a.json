@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "60b9db96-a6ab-454b-99a7-910ef77560d7",
+      "name": "Meloku the Clouded Mirror",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Moonfolk Wizard",
+      "uri": "https://api.scryfall.com/cards/60b9db96-a6ab-454b-99a7-910ef77560d7"
+    },
+    {
+      "component": "token",
+      "id": "7274e711-42fd-489e-809d-77d3bce24422",
+      "name": "Illusion",
+      "object": "related_card",
+      "type_line": "Token Creature — Illusion",
+      "uri": "https://api.scryfall.com/cards/7274e711-42fd-489e-809d-77d3bce24422"
+    }
+  ],
+  "artist": "Scott M. Fischer",
+  "artist_ids": [
+    "23b0cf43-3e43-44c6-8329-96446eca5bce"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 514519,
+  "cmc": 5.0,
+  "collector_number": "399",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 5808,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "He loved his cities in the clouds. When he traveled to the lands below, he brought many reminders of his home.",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "60b9db96-a6ab-454b-99a7-910ef77560d7",
+  "illustration_id": "fcb332c7-2082-40f6-8a47-92d230a53f82",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:45:19Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/0/60b9db96-a6ab-454b-99a7-910ef77560d7.webp?1783928719",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/0/60b9db96-a6ab-454b-99a7-910ef77560d7.jpg?1783928719",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/0/60b9db96-a6ab-454b-99a7-910ef77560d7.jpg?1783928719",
+    "crop": "https://cards.scryfall.io/crop/front/6/0/60b9db96-a6ab-454b-99a7-910ef77560d7.webp?1783928719",
+    "display": "https://cards.scryfall.io/display/front/6/0/60b9db96-a6ab-454b-99a7-910ef77560d7.webp?1783928719",
+    "grid": "https://cards.scryfall.io/grid/front/6/0/60b9db96-a6ab-454b-99a7-910ef77560d7.webp?1783928719",
+    "large": "https://cards.scryfall.io/large/front/6/0/60b9db96-a6ab-454b-99a7-910ef77560d7.jpg?1783928719",
+    "normal": "https://cards.scryfall.io/normal/front/6/0/60b9db96-a6ab-454b-99a7-910ef77560d7.jpg?1783928719",
+    "png": "https://cards.scryfall.io/png/front/6/0/60b9db96-a6ab-454b-99a7-910ef77560d7.png?1783928719",
+    "small": "https://cards.scryfall.io/small/front/6/0/60b9db96-a6ab-454b-99a7-910ef77560d7.jpg?1783928719",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/0/60b9db96-a6ab-454b-99a7-910ef77560d7.webp?1783928719"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{U}",
+  "mtgo_id": 85610,
+  "multiverse_ids": [
+    500879
+  ],
+  "name": "Meloku the Clouded Mirror",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3b96b8c3-b9c8-4712-a3b1-243a67cc013a",
+  "oracle_text": "Flying\n{1}, Return a land you control to its owner's hand: Create a 1/1 blue Illusion creature token with flying.",
+  "oversized": false,
+  "penny_rank": 4550,
+  "power": "2",
+  "prices": {
+    "eur": "0.45",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.82",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3b96b8c3-b9c8-4712-a3b1-243a67cc013a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/85610?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=514519&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F227295%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Meloku+the+Clouded+Mirror",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=500879&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMeloku%2Bthe%2BClouded%2BMirror",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMeloku%2Bthe%2BClouded%2BMirror"
+  },
+  "released_at": "2020-11-20",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/60b9db96-a6ab-454b-99a7-910ef77560d7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmr/399/meloku-the-clouded-mirror?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmr",
+  "set_id": "39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "set_name": "Commander Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "story_spotlight": false,
+  "tcgplayer_id": 227295,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Moonfolk Wizard",
+  "uri": "https://api.scryfall.com/cards/60b9db96-a6ab-454b-99a7-910ef77560d7",
+  "variation": false
+}

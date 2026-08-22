@@ -1,0 +1,155 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "470ca3f4-29aa-4c4c-8ff2-8cdd70c69943",
+      "name": "Field of the Dead",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/470ca3f4-29aa-4c4c-8ff2-8cdd70c69943"
+    },
+    {
+      "component": "token",
+      "id": "18f0436e-9328-4266-9cf8-80b557a0c17c",
+      "name": "Zombie",
+      "object": "related_card",
+      "type_line": "Token Creature — Zombie",
+      "uri": "https://api.scryfall.com/cards/18f0436e-9328-4266-9cf8-80b557a0c17c"
+    }
+  ],
+  "arena_id": 70032,
+  "artist": "Kev Walker",
+  "artist_ids": [
+    "f366a0ee-a0cd-466d-ba6a-90058c7a31a6"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 378606,
+  "cmc": 0.0,
+  "collector_number": "247",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 483,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": true,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "470ca3f4-29aa-4c4c-8ff2-8cdd70c69943",
+  "illustration_id": "8232cbde-5c08-4207-aaf4-1b246c314d4c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:55:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/7/470ca3f4-29aa-4c4c-8ff2-8cdd70c69943.webp?1783932937",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/7/470ca3f4-29aa-4c4c-8ff2-8cdd70c69943.jpg?1783932937",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/7/470ca3f4-29aa-4c4c-8ff2-8cdd70c69943.jpg?1783932937",
+    "crop": "https://cards.scryfall.io/crop/front/4/7/470ca3f4-29aa-4c4c-8ff2-8cdd70c69943.webp?1783932937",
+    "display": "https://cards.scryfall.io/display/front/4/7/470ca3f4-29aa-4c4c-8ff2-8cdd70c69943.webp?1783932937",
+    "grid": "https://cards.scryfall.io/grid/front/4/7/470ca3f4-29aa-4c4c-8ff2-8cdd70c69943.webp?1783932937",
+    "large": "https://cards.scryfall.io/large/front/4/7/470ca3f4-29aa-4c4c-8ff2-8cdd70c69943.jpg?1783932937",
+    "normal": "https://cards.scryfall.io/normal/front/4/7/470ca3f4-29aa-4c4c-8ff2-8cdd70c69943.jpg?1783932937",
+    "png": "https://cards.scryfall.io/png/front/4/7/470ca3f4-29aa-4c4c-8ff2-8cdd70c69943.png?1783932937",
+    "small": "https://cards.scryfall.io/small/front/4/7/470ca3f4-29aa-4c4c-8ff2-8cdd70c69943.jpg?1783932937",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/7/470ca3f4-29aa-4c4c-8ff2-8cdd70c69943.webp?1783932937"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "banned",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "banned",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "banned",
+    "legacy": "legal",
+    "modern": "banned",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "banned",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 73393,
+  "multiverse_ids": [
+    467001
+  ],
+  "name": "Field of the Dead",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "aa959340-c869-4caa-92c7-572bd8d23eef",
+  "oracle_text": "This land enters tapped.\n{T}: Add {C}.\nWhenever this land or another land you control enters, if you control seven or more lands with different names, create a 2/2 black Zombie creature token.",
+  "oversized": false,
+  "penny_rank": 118,
+  "preview": {
+    "previewed_at": "2019-06-18",
+    "source": "Sean Plott (Day9TV)",
+    "source_uri": "https://twitter.com/day9tv/status/1141005146773524480"
+  },
+  "prices": {
+    "eur": "27.13",
+    "eur_foil": "36.27",
+    "tix": "0.02",
+    "usd": "27.50",
+    "usd_etched": null,
+    "usd_foil": "42.74"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aaa959340-c869-4caa-92c7-572bd8d23eef&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/73393?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=378606&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F192562%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Field+of+the+Dead",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=467001&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DField%2Bof%2Bthe%2BDead",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DField%2Bof%2Bthe%2BDead"
+  },
+  "released_at": "2019-07-12",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/470ca3f4-29aa-4c4c-8ff2-8cdd70c69943/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/m20?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/m20/247/field-of-the-dead?utm_source=api",
+  "security_stamp": "oval",
+  "set": "m20",
+  "set_id": "4a787360-9767-4f44-80b1-2405dc5e39c7",
+  "set_name": "Core Set 2020",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Am20&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/4a787360-9767-4f44-80b1-2405dc5e39c7",
+  "story_spotlight": false,
+  "tcgplayer_id": 192562,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/470ca3f4-29aa-4c4c-8ff2-8cdd70c69943",
+  "variation": false
+}

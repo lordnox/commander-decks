@@ -1,0 +1,175 @@
+{
+  "arena_id": 73308,
+  "artist": "Marta Nael",
+  "artist_ids": [
+    "266ab861-ed64-4ba5-865c-f18758421cc3"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Marta Nael",
+      "artist_id": "266ab861-ed64-4ba5-865c-f18758421cc3",
+      "colors": [
+        "B"
+      ],
+      "flavor_text": "\"Those who fail to escape Malakir become part of the city's defense.\"\n—Doros, expedition guide",
+      "illustration_id": "ae64131f-9f7c-4a01-b60b-1831e6ff753a",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.webp?1783929378",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.jpg?1783929378",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.jpg?1783929378",
+        "crop": "https://cards.scryfall.io/crop/front/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.webp?1783929378",
+        "display": "https://cards.scryfall.io/display/front/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.webp?1783929378",
+        "grid": "https://cards.scryfall.io/grid/front/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.webp?1783929378",
+        "large": "https://cards.scryfall.io/large/front/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.jpg?1783929378",
+        "normal": "https://cards.scryfall.io/normal/front/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.jpg?1783929378",
+        "png": "https://cards.scryfall.io/png/front/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.png?1783929378",
+        "small": "https://cards.scryfall.io/small/front/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.jpg?1783929378",
+        "thumb": "https://cards.scryfall.io/thumb/front/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.webp?1783929378"
+      },
+      "mana_cost": "{B}",
+      "name": "Malakir Rebirth",
+      "object": "card_face",
+      "oracle_text": "Choose target creature. You lose 2 life. Until end of turn, that creature gains \"When this creature dies, return it to the battlefield tapped under its owner's control.\"",
+      "type_line": "Instant"
+    },
+    {
+      "artist": "Marta Nael",
+      "artist_id": "266ab861-ed64-4ba5-865c-f18758421cc3",
+      "colors": [],
+      "flavor_text": "\"Getting into Malakir isn't difficult. It's getting out that's the hard part.\"\n—Doros, expedition guide",
+      "illustration_id": "2da93ccb-71e9-4143-a72c-61d02b7a4fa9",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.webp?1783929378",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.jpg?1783929378",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.jpg?1783929378",
+        "crop": "https://cards.scryfall.io/crop/back/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.webp?1783929378",
+        "display": "https://cards.scryfall.io/display/back/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.webp?1783929378",
+        "grid": "https://cards.scryfall.io/grid/back/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.webp?1783929378",
+        "large": "https://cards.scryfall.io/large/back/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.jpg?1783929378",
+        "normal": "https://cards.scryfall.io/normal/back/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.jpg?1783929378",
+        "png": "https://cards.scryfall.io/png/back/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.png?1783929378",
+        "small": "https://cards.scryfall.io/small/back/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.jpg?1783929378",
+        "thumb": "https://cards.scryfall.io/thumb/back/6/0/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60.webp?1783929378"
+      },
+      "mana_cost": "",
+      "name": "Malakir Mire",
+      "object": "card_face",
+      "oracle_text": "This land enters tapped.\n{T}: Add {B}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 496410,
+  "cmc": 1.0,
+  "collector_number": "111",
+  "color_identity": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 241,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "609d3ecf-f88d-4268-a8d3-4bf2bcf5df60",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:56:18Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 83187,
+  "multiverse_ids": [
+    491747,
+    491748
+  ],
+  "name": "Malakir Rebirth // Malakir Mire",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a731e87b-8d99-4b64-8ee3-8e540d652366",
+  "oversized": false,
+  "penny_rank": 634,
+  "preview": {
+    "previewed_at": "2020-09-06",
+    "source": "Rob Bubble",
+    "source_uri": "https://twitter.com/RobBubble/status/1302533613356019714"
+  },
+  "prices": {
+    "eur": "10.51",
+    "eur_foil": "14.63",
+    "tix": "0.03",
+    "usd": "12.88",
+    "usd_etched": null,
+    "usd_foil": "15.35"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa731e87b-8d99-4b64-8ee3-8e540d652366&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/83187?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=496410&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F222103%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Malakir+Rebirth",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=491747&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMalakir%2BRebirth%2B%252F%252F%2BMalakir%2BMire",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMalakir%2BRebirth%2B%252F%252F%2BMalakir%2BMire"
+  },
+  "released_at": "2020-09-25",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/znr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/znr/111/malakir-rebirth-malakir-mire?utm_source=api",
+  "set": "znr",
+  "set_id": "f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "set_name": "Zendikar Rising",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aznr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "story_spotlight": false,
+  "tcgplayer_id": 222103,
+  "textless": false,
+  "type_line": "Instant // Land",
+  "uri": "https://api.scryfall.com/cards/609d3ecf-f88d-4268-a8d3-4bf2bcf5df60",
+  "variation": false
+}

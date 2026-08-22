@@ -1,0 +1,172 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "8a016157-6f3f-4fb2-b962-1f548d378545",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/8a016157-6f3f-4fb2-b962-1f548d378545"
+    },
+    {
+      "component": "combo_piece",
+      "id": "cf723c91-e3ae-4a71-93b2-65d05bfa9b60",
+      "name": "Springheart Nantuko",
+      "object": "related_card",
+      "type_line": "Enchantment Creature — Insect Monk",
+      "uri": "https://api.scryfall.com/cards/cf723c91-e3ae-4a71-93b2-65d05bfa9b60"
+    },
+    {
+      "component": "token",
+      "id": "059e9d51-c7bf-41c0-a6f0-c0bbc6d3b434",
+      "name": "Insect",
+      "object": "related_card",
+      "type_line": "Token Creature — Insect",
+      "uri": "https://api.scryfall.com/cards/059e9d51-c7bf-41c0-a6f0-c0bbc6d3b434"
+    }
+  ],
+  "arena_id": 91021,
+  "artist": "Valera Lutfullina",
+  "artist_ids": [
+    "76bc57c7-47c6-40c5-8797-8ffcce430ac7"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 772226,
+  "cmc": 2.0,
+  "collector_number": "171",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 692,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "54a3ea87-005e-4985-b2a5-21711d0b71c0",
+  "illustration_id": "12a84ea9-c11a-4a8a-8a9c-ab3e62443e19",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:15Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/4/54a3ea87-005e-4985-b2a5-21711d0b71c0.webp?1783911255",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/4/54a3ea87-005e-4985-b2a5-21711d0b71c0.jpg?1783911255",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/4/54a3ea87-005e-4985-b2a5-21711d0b71c0.jpg?1783911255",
+    "crop": "https://cards.scryfall.io/crop/front/5/4/54a3ea87-005e-4985-b2a5-21711d0b71c0.webp?1783911255",
+    "display": "https://cards.scryfall.io/display/front/5/4/54a3ea87-005e-4985-b2a5-21711d0b71c0.webp?1783911255",
+    "grid": "https://cards.scryfall.io/grid/front/5/4/54a3ea87-005e-4985-b2a5-21711d0b71c0.webp?1783911255",
+    "large": "https://cards.scryfall.io/large/front/5/4/54a3ea87-005e-4985-b2a5-21711d0b71c0.jpg?1783911255",
+    "normal": "https://cards.scryfall.io/normal/front/5/4/54a3ea87-005e-4985-b2a5-21711d0b71c0.jpg?1783911255",
+    "png": "https://cards.scryfall.io/png/front/5/4/54a3ea87-005e-4985-b2a5-21711d0b71c0.png?1783911255",
+    "small": "https://cards.scryfall.io/small/front/5/4/54a3ea87-005e-4985-b2a5-21711d0b71c0.jpg?1783911255",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/4/54a3ea87-005e-4985-b2a5-21711d0b71c0.webp?1783911255"
+  },
+  "keywords": [
+    "Bestow",
+    "Landfall"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 126359,
+  "multiverse_ids": [
+    662323
+  ],
+  "name": "Springheart Nantuko",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8a3ad2ef-8bcb-40c0-85de-f03328c2b644",
+  "oracle_text": "Bestow {1}{G}\nEnchanted creature gets +1/+1.\nLandfall — Whenever a land you control enters, you may pay {1}{G} if this permanent is attached to a creature you control. If you do, create a token that's a copy of that creature. If you didn't create a token this way, create a 1/1 green Insect creature token.",
+  "oversized": false,
+  "penny_rank": 282,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2024-05-27",
+    "source": "AfterOfficeTTV",
+    "source_uri": "https://x.com/AfterTtv/status/1795221106913132646"
+  },
+  "prices": {
+    "eur": "4.22",
+    "eur_foil": "4.99",
+    "tix": "0.02",
+    "usd": "5.33",
+    "usd_etched": null,
+    "usd_foil": "7.05"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8a3ad2ef-8bcb-40c0-85de-f03328c2b644&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126359?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=772226&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552859%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Springheart+Nantuko",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662323&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSpringheart%2BNantuko",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSpringheart%2BNantuko"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/54a3ea87-005e-4985-b2a5-21711d0b71c0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/171/springheart-nantuko?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552859,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Enchantment Creature — Insect Monk",
+  "uri": "https://api.scryfall.com/cards/54a3ea87-005e-4985-b2a5-21711d0b71c0",
+  "variation": false
+}

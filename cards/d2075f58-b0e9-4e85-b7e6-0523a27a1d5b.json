@@ -1,0 +1,175 @@
+{
+  "arena_id": 73386,
+  "artist": "Lucas Staniec",
+  "artist_ids": [
+    "b4344292-387b-4aa0-8225-13f1fbe77808"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Lucas Staniec",
+      "artist_id": "b4344292-387b-4aa0-8225-13f1fbe77808",
+      "colors": [
+        "G"
+      ],
+      "flavor_text": "\"Always have a backup plan.\"\n—Doral, Bala Ged guide",
+      "illustration_id": "367b96a4-1778-4fed-8d5d-136cee6a44dd",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.webp?1783929347",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.jpg?1783929347",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.jpg?1783929347",
+        "crop": "https://cards.scryfall.io/crop/front/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.webp?1783929347",
+        "display": "https://cards.scryfall.io/display/front/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.webp?1783929347",
+        "grid": "https://cards.scryfall.io/grid/front/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.webp?1783929347",
+        "large": "https://cards.scryfall.io/large/front/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.jpg?1783929347",
+        "normal": "https://cards.scryfall.io/normal/front/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.jpg?1783929347",
+        "png": "https://cards.scryfall.io/png/front/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.png?1783929347",
+        "small": "https://cards.scryfall.io/small/front/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.jpg?1783929347",
+        "thumb": "https://cards.scryfall.io/thumb/front/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.webp?1783929347"
+      },
+      "mana_cost": "{2}{G}",
+      "name": "Bala Ged Recovery",
+      "object": "card_face",
+      "oracle_text": "Return target card from your graveyard to your hand.",
+      "type_line": "Sorcery"
+    },
+    {
+      "artist": "Lucas Staniec",
+      "artist_id": "b4344292-387b-4aa0-8225-13f1fbe77808",
+      "colors": [],
+      "flavor_text": "\"I know it's around here somewhere.\"\n—Doral, Bala Ged guide",
+      "illustration_id": "e3acc691-4dd2-4638-93ef-0d00e6a186fd",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.webp?1783929347",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.jpg?1783929347",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.jpg?1783929347",
+        "crop": "https://cards.scryfall.io/crop/back/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.webp?1783929347",
+        "display": "https://cards.scryfall.io/display/back/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.webp?1783929347",
+        "grid": "https://cards.scryfall.io/grid/back/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.webp?1783929347",
+        "large": "https://cards.scryfall.io/large/back/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.jpg?1783929347",
+        "normal": "https://cards.scryfall.io/normal/back/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.jpg?1783929347",
+        "png": "https://cards.scryfall.io/png/back/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.png?1783929347",
+        "small": "https://cards.scryfall.io/small/back/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.jpg?1783929347",
+        "thumb": "https://cards.scryfall.io/thumb/back/c/5/c5cb3052-358d-44a7-8cfd-cd31b236494a.webp?1783929347"
+      },
+      "mana_cost": "",
+      "name": "Bala Ged Sanctuary",
+      "object": "card_face",
+      "oracle_text": "This land enters tapped.\n{T}: Add {G}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 495294,
+  "cmc": 3.0,
+  "collector_number": "180",
+  "color_identity": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 320,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c5cb3052-358d-44a7-8cfd-cd31b236494a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:55:47Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 83343,
+  "multiverse_ids": [
+    491825,
+    491826
+  ],
+  "name": "Bala Ged Recovery // Bala Ged Sanctuary",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d2075f58-b0e9-4e85-b7e6-0523a27a1d5b",
+  "oversized": false,
+  "penny_rank": 316,
+  "preview": {
+    "previewed_at": "2020-09-02",
+    "source": "William Jensen",
+    "source_uri": "https://twitter.com/HueyJensen/status/1301181096218906625"
+  },
+  "prices": {
+    "eur": "5.01",
+    "eur_foil": "6.56",
+    "tix": "0.03",
+    "usd": "6.34",
+    "usd_etched": null,
+    "usd_foil": "8.34"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad2075f58-b0e9-4e85-b7e6-0523a27a1d5b&unique=prints",
+  "produced_mana": [
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/83343?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=495294&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F221901%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bala+Ged+Recovery",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=491825&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBala%2BGed%2BRecovery%2B%252F%252F%2BBala%2BGed%2BSanctuary",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBala%2BGed%2BRecovery%2B%252F%252F%2BBala%2BGed%2BSanctuary"
+  },
+  "released_at": "2020-09-25",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c5cb3052-358d-44a7-8cfd-cd31b236494a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/znr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/znr/180/bala-ged-recovery-bala-ged-sanctuary?utm_source=api",
+  "set": "znr",
+  "set_id": "f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "set_name": "Zendikar Rising",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aznr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "story_spotlight": false,
+  "tcgplayer_id": 221901,
+  "textless": false,
+  "type_line": "Sorcery // Land",
+  "uri": "https://api.scryfall.com/cards/c5cb3052-358d-44a7-8cfd-cd31b236494a",
+  "variation": false
+}

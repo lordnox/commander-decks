@@ -1,0 +1,130 @@
+{
+  "artist": "DiTerlizzi",
+  "artist_ids": [
+    "ed44dce4-30cf-4c2c-b2e1-a19ba2295690"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 688368,
+  "cmc": 1.0,
+  "collector_number": "154",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 215,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Hmm ... maybe lotuses this year.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": true,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "523414cb-f8db-407a-808a-01454e03d8b9",
+  "illustration_id": "e7bb8ee3-282b-4bab-95fe-4f8ad7bd1cae",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:54:08Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/2/523414cb-f8db-407a-808a-01454e03d8b9.webp?1783918448",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/2/523414cb-f8db-407a-808a-01454e03d8b9.jpg?1783918448",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/2/523414cb-f8db-407a-808a-01454e03d8b9.jpg?1783918448",
+    "crop": "https://cards.scryfall.io/crop/front/5/2/523414cb-f8db-407a-808a-01454e03d8b9.webp?1783918448",
+    "display": "https://cards.scryfall.io/display/front/5/2/523414cb-f8db-407a-808a-01454e03d8b9.webp?1783918448",
+    "grid": "https://cards.scryfall.io/grid/front/5/2/523414cb-f8db-407a-808a-01454e03d8b9.webp?1783918448",
+    "large": "https://cards.scryfall.io/large/front/5/2/523414cb-f8db-407a-808a-01454e03d8b9.jpg?1783918448",
+    "normal": "https://cards.scryfall.io/normal/front/5/2/523414cb-f8db-407a-808a-01454e03d8b9.jpg?1783918448",
+    "png": "https://cards.scryfall.io/png/front/5/2/523414cb-f8db-407a-808a-01454e03d8b9.png?1783918448",
+    "small": "https://cards.scryfall.io/small/front/5/2/523414cb-f8db-407a-808a-01454e03d8b9.jpg?1783918448",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/2/523414cb-f8db-407a-808a-01454e03d8b9.webp?1783918448"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "banned",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "mtgo_id": 107797,
+  "multiverse_ids": [
+    599028
+  ],
+  "name": "Crop Rotation",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "28b46183-c62f-47b1-9fee-3ba148202cab",
+  "oracle_text": "As an additional cost to cast this spell, sacrifice a land.\nSearch your library for a land card, put that card onto the battlefield, then shuffle.",
+  "oversized": false,
+  "prices": {
+    "eur": "3.57",
+    "eur_foil": "4.91",
+    "tix": "2.34",
+    "usd": "3.46",
+    "usd_etched": null,
+    "usd_foil": "4.01"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A28b46183-c62f-47b1-9fee-3ba148202cab&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/107797?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=688368&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F457142%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Crop+Rotation",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=599028&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCrop%2BRotation",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCrop%2BRotation"
+  },
+  "released_at": "2023-01-13",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/523414cb-f8db-407a-808a-01454e03d8b9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dmr/154/crop-rotation?utm_source=api",
+  "set": "dmr",
+  "set_id": "ca4c2884-e539-4b7f-980d-5d6a50220f2a",
+  "set_name": "Dominaria Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Admr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/ca4c2884-e539-4b7f-980d-5d6a50220f2a",
+  "story_spotlight": false,
+  "tcgplayer_id": 457142,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/523414cb-f8db-407a-808a-01454e03d8b9",
+  "variation": false
+}

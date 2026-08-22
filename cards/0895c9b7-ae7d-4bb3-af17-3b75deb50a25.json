@@ -17,16 +17,16 @@
       "uri": "https://api.scryfall.com/cards/ad03209f-568a-40f5-8470-a083080e6831"
     }
   ],
-  "artist": "Rockey Chen",
+  "artist": "Leon Tukker",
   "artist_ids": [
-    "5f92512a-2da0-4d91-8aaf-ac8d2404d776"
+    "669b8b90-758d-4f9e-b4f7-98cd6742eb97"
   ],
   "booster": false,
   "border_color": "black",
   "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
-  "cardmarket_id": 892739,
+  "cardmarket_id": 891701,
   "cmc": 0.0,
-  "collector_number": "236",
+  "collector_number": "233",
   "color_identity": [],
   "colors": [],
   "digital": false,
@@ -35,7 +35,7 @@
     "nonfoil",
     "foil"
   ],
-  "flavor_text": "\"The Royal Palace of Wakanda is more than a home to our royal family. It is a constant reminder of the blessings of Bast that protect our people.\"\n—Changamire, Wakandan philosopher",
+  "flavor_text": "\"Of course the Triskelion is a big gaudy target. And anyone who's confident enough to think about taking it out is someone we want on our radar.\"\n—Nick Fury, director of S.H.I.E.L.D.",
   "foil": true,
   "frame": "2015",
   "full_art": false,
@@ -45,22 +45,22 @@
     "mtgo"
   ],
   "highres_image": true,
-  "id": "ef8ac50e-251b-411b-aee9-e5102843d1ed",
-  "illustration_id": "e6f6b082-6495-4363-9bf0-0ce207353de7",
+  "id": "0548fb60-c843-4f8f-a029-6f10efc63a41",
+  "illustration_id": "23d2ecb9-f554-4a7c-bb3f-976dc0652265",
   "image_status": "highres_scan",
-  "image_updated_at": "2026-07-13T00:40:05Z",
+  "image_updated_at": "2026-07-13T00:40:06Z",
   "image_uris": {
-    "art": "https://cards.scryfall.io/art/front/e/f/ef8ac50e-251b-411b-aee9-e5102843d1ed.webp?1783903205",
-    "art_crop": "https://cards.scryfall.io/art_crop/front/e/f/ef8ac50e-251b-411b-aee9-e5102843d1ed.jpg?1783903205",
-    "border_crop": "https://cards.scryfall.io/border_crop/front/e/f/ef8ac50e-251b-411b-aee9-e5102843d1ed.jpg?1783903205",
-    "crop": "https://cards.scryfall.io/crop/front/e/f/ef8ac50e-251b-411b-aee9-e5102843d1ed.webp?1783903205",
-    "display": "https://cards.scryfall.io/display/front/e/f/ef8ac50e-251b-411b-aee9-e5102843d1ed.webp?1783903205",
-    "grid": "https://cards.scryfall.io/grid/front/e/f/ef8ac50e-251b-411b-aee9-e5102843d1ed.webp?1783903205",
-    "large": "https://cards.scryfall.io/large/front/e/f/ef8ac50e-251b-411b-aee9-e5102843d1ed.jpg?1783903205",
-    "normal": "https://cards.scryfall.io/normal/front/e/f/ef8ac50e-251b-411b-aee9-e5102843d1ed.jpg?1783903205",
-    "png": "https://cards.scryfall.io/png/front/e/f/ef8ac50e-251b-411b-aee9-e5102843d1ed.png?1783903205",
-    "small": "https://cards.scryfall.io/small/front/e/f/ef8ac50e-251b-411b-aee9-e5102843d1ed.jpg?1783903205",
-    "thumb": "https://cards.scryfall.io/thumb/front/e/f/ef8ac50e-251b-411b-aee9-e5102843d1ed.webp?1783903205"
+    "art": "https://cards.scryfall.io/art/front/0/5/0548fb60-c843-4f8f-a029-6f10efc63a41.webp?1783903206",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/5/0548fb60-c843-4f8f-a029-6f10efc63a41.jpg?1783903206",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/5/0548fb60-c843-4f8f-a029-6f10efc63a41.jpg?1783903206",
+    "crop": "https://cards.scryfall.io/crop/front/0/5/0548fb60-c843-4f8f-a029-6f10efc63a41.webp?1783903206",
+    "display": "https://cards.scryfall.io/display/front/0/5/0548fb60-c843-4f8f-a029-6f10efc63a41.webp?1783903206",
+    "grid": "https://cards.scryfall.io/grid/front/0/5/0548fb60-c843-4f8f-a029-6f10efc63a41.webp?1783903206",
+    "large": "https://cards.scryfall.io/large/front/0/5/0548fb60-c843-4f8f-a029-6f10efc63a41.jpg?1783903206",
+    "normal": "https://cards.scryfall.io/normal/front/0/5/0548fb60-c843-4f8f-a029-6f10efc63a41.jpg?1783903206",
+    "png": "https://cards.scryfall.io/png/front/0/5/0548fb60-c843-4f8f-a029-6f10efc63a41.png?1783903206",
+    "small": "https://cards.scryfall.io/small/front/0/5/0548fb60-c843-4f8f-a029-6f10efc63a41.jpg?1783903206",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/5/0548fb60-c843-4f8f-a029-6f10efc63a41.webp?1783903206"
   },
   "keywords": [],
   "lang": "en",
@@ -91,7 +91,7 @@
     "vintage": "legal"
   },
   "mana_cost": "",
-  "mtgo_id": 150941,
+  "mtgo_id": 150935,
   "multiverse_ids": [],
   "name": "Command Tower",
   "nonfoil": true,
@@ -100,10 +100,10 @@
   "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
   "oversized": false,
   "prices": {
-    "eur": "0.28",
+    "eur": "0.30",
     "eur_foil": null,
-    "tix": "0.03",
-    "usd": "0.38",
+    "tix": "0.04",
+    "usd": "0.41",
     "usd_etched": null,
     "usd_foil": null
   },
@@ -121,9 +121,9 @@
     "universesbeyond"
   ],
   "purchase_uris": {
-    "cardhoarder": "https://www.cardhoarder.com/cards/150941?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
-    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=892739&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
-    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F698226%3Fpage%3D1"
+    "cardhoarder": "https://www.cardhoarder.com/cards/150935?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891701&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F697438%3Fpage%3D1"
   },
   "rarity": "common",
   "related_uris": {
@@ -134,9 +134,9 @@
   "released_at": "2026-06-26",
   "reprint": true,
   "reserved": false,
-  "rulings_uri": "https://api.scryfall.com/cards/ef8ac50e-251b-411b-aee9-e5102843d1ed/rulings",
+  "rulings_uri": "https://api.scryfall.com/cards/0548fb60-c843-4f8f-a029-6f10efc63a41/rulings",
   "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
-  "scryfall_uri": "https://scryfall.com/card/msc/236/command-tower?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/233/command-tower?utm_source=api",
   "set": "msc",
   "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
   "set_name": "Marvel Super Heroes Commander",
@@ -144,9 +144,9 @@
   "set_type": "commander",
   "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
   "story_spotlight": false,
-  "tcgplayer_id": 698226,
+  "tcgplayer_id": 697438,
   "textless": false,
   "type_line": "Land",
-  "uri": "https://api.scryfall.com/cards/ef8ac50e-251b-411b-aee9-e5102843d1ed",
+  "uri": "https://api.scryfall.com/cards/0548fb60-c843-4f8f-a029-6f10efc63a41",
   "variation": false
 }

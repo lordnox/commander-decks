@@ -1,0 +1,131 @@
+{
+  "artist": "Karl Kopinski",
+  "artist_ids": [
+    "0fad2c48-a56e-4a0b-b512-224f6f238f20"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "293",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [],
+  "digital": true,
+  "edhrec_rank": 423,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "bd7567df-b4d8-41a8-8eac-c05afa784bfe",
+  "illustration_id": "0112e448-4c26-4adb-a15e-743dad3ff5ba",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:40:26Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/d/bd7567df-b4d8-41a8-8eac-c05afa784bfe.webp?1783939226",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/d/bd7567df-b4d8-41a8-8eac-c05afa784bfe.jpg?1783939226",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/d/bd7567df-b4d8-41a8-8eac-c05afa784bfe.jpg?1783939226",
+    "crop": "https://cards.scryfall.io/crop/front/b/d/bd7567df-b4d8-41a8-8eac-c05afa784bfe.webp?1783939226",
+    "display": "https://cards.scryfall.io/display/front/b/d/bd7567df-b4d8-41a8-8eac-c05afa784bfe.webp?1783939226",
+    "grid": "https://cards.scryfall.io/grid/front/b/d/bd7567df-b4d8-41a8-8eac-c05afa784bfe.webp?1783939226",
+    "large": "https://cards.scryfall.io/large/front/b/d/bd7567df-b4d8-41a8-8eac-c05afa784bfe.jpg?1783939226",
+    "normal": "https://cards.scryfall.io/normal/front/b/d/bd7567df-b4d8-41a8-8eac-c05afa784bfe.jpg?1783939226",
+    "png": "https://cards.scryfall.io/png/front/b/d/bd7567df-b4d8-41a8-8eac-c05afa784bfe.png?1783939226",
+    "small": "https://cards.scryfall.io/small/front/b/d/bd7567df-b4d8-41a8-8eac-c05afa784bfe.jpg?1783939226",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/d/bd7567df-b4d8-41a8-8eac-c05afa784bfe.webp?1783939226"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_foil_id": 53080,
+  "mtgo_id": 53079,
+  "multiverse_ids": [
+    382860
+  ],
+  "name": "Bayou",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b76d1ae6-ad1d-4bac-b4c3-2e03e0e84d9b",
+  "oracle_text": "({T}: Add {B} or {G}.)",
+  "oversized": false,
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": "6.39",
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab76d1ae6-ad1d-4bac-b4c3-2e03e0e84d9b&unique=prints",
+  "produced_mana": [
+    "B",
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/53079?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Bayou&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DBayou%26view%3Dgrid"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bayou",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=382860&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBayou",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBayou"
+  },
+  "released_at": "2014-06-16",
+  "reprint": true,
+  "reserved": true,
+  "rulings_uri": "https://api.scryfall.com/cards/bd7567df-b4d8-41a8-8eac-c05afa784bfe/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/vma?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/vma/293/bayou?utm_source=api",
+  "security_stamp": "oval",
+  "set": "vma",
+  "set_id": "a944551a-73fa-41cd-9159-e8d0e4674403",
+  "set_name": "Vintage Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Avma&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/a944551a-73fa-41cd-9159-e8d0e4674403",
+  "story_spotlight": false,
+  "textless": false,
+  "type_line": "Land — Swamp Forest",
+  "uri": "https://api.scryfall.com/cards/bd7567df-b4d8-41a8-8eac-c05afa784bfe",
+  "variation": false
+}

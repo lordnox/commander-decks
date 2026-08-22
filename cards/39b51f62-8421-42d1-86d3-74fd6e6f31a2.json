@@ -1,0 +1,140 @@
+{
+  "artist": "Nils Hamm",
+  "artist_ids": [
+    "c540d1fc-1500-457f-93cf-d6069ee66546"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818879,
+  "cmc": 2.0,
+  "collector_number": "304",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [
+    "B",
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1374,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"I study bone because that's where truth dwells. One monster knucklebone is wiser than all that damp meat in your head.\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "ea53e2c9-0a3f-4fda-a6ab-9a558bb8f126",
+  "illustration_id": "8fe32372-4daa-48b1-ab04-ca12a3191e5b",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:43:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/a/ea53e2c9-0a3f-4fda-a6ab-9a558bb8f126.webp?1783907020",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/a/ea53e2c9-0a3f-4fda-a6ab-9a558bb8f126.jpg?1783907020",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/a/ea53e2c9-0a3f-4fda-a6ab-9a558bb8f126.jpg?1783907020",
+    "crop": "https://cards.scryfall.io/crop/front/e/a/ea53e2c9-0a3f-4fda-a6ab-9a558bb8f126.webp?1783907020",
+    "display": "https://cards.scryfall.io/display/front/e/a/ea53e2c9-0a3f-4fda-a6ab-9a558bb8f126.webp?1783907020",
+    "grid": "https://cards.scryfall.io/grid/front/e/a/ea53e2c9-0a3f-4fda-a6ab-9a558bb8f126.webp?1783907020",
+    "large": "https://cards.scryfall.io/large/front/e/a/ea53e2c9-0a3f-4fda-a6ab-9a558bb8f126.jpg?1783907020",
+    "normal": "https://cards.scryfall.io/normal/front/e/a/ea53e2c9-0a3f-4fda-a6ab-9a558bb8f126.jpg?1783907020",
+    "png": "https://cards.scryfall.io/png/front/e/a/ea53e2c9-0a3f-4fda-a6ab-9a558bb8f126.png?1783907020",
+    "small": "https://cards.scryfall.io/small/front/e/a/ea53e2c9-0a3f-4fda-a6ab-9a558bb8f126.jpg?1783907020",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/a/ea53e2c9-0a3f-4fda-a6ab-9a558bb8f126.webp?1783907020"
+  },
+  "keywords": [
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}{G}",
+  "mtgo_id": 138549,
+  "multiverse_ids": [
+    696460
+  ],
+  "name": "Skull Prophet",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "39b51f62-8421-42d1-86d3-74fd6e6f31a2",
+  "oracle_text": "{T}: Add {B} or {G}.\n{T}: Mill two cards. (Put the top two cards of your library into your graveyard.)",
+  "oversized": false,
+  "penny_rank": 7943,
+  "power": "3",
+  "prices": {
+    "eur": "1.12",
+    "eur_foil": null,
+    "tix": "0.18",
+    "usd": "0.74",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A39b51f62-8421-42d1-86d3-74fd6e6f31a2&unique=prints",
+  "produced_mana": [
+    "B",
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138549?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818879&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624503%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Skull+Prophet",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696460&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSkull%2BProphet",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSkull%2BProphet"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ea53e2c9-0a3f-4fda-a6ab-9a558bb8f126/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/304/skull-prophet?utm_source=api",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624503,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Druid",
+  "uri": "https://api.scryfall.com/cards/ea53e2c9-0a3f-4fda-a6ab-9a558bb8f126",
+  "variation": false
+}

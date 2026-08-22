@@ -1,0 +1,133 @@
+{
+  "arena_id": 79648,
+  "artist": "Aurore Folny",
+  "artist_ids": [
+    "02f6cdda-7a80-4184-853d-20b28d580868"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 608275,
+  "cmc": 1.0,
+  "collector_number": "211",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 482,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "To keep the Reality Chip out of Jin-Gitaxias's hands, the Wanderer entrusted it to Tamiyo.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "fd4b7ee2-de65-4288-872d-486065a4f226",
+  "illustration_id": "9f8cc304-b44b-42c3-9fde-3cdf2991cc95",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:23:59Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/d/fd4b7ee2-de65-4288-872d-486065a4f226.webp?1783923839",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/d/fd4b7ee2-de65-4288-872d-486065a4f226.jpg?1783923839",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/d/fd4b7ee2-de65-4288-872d-486065a4f226.jpg?1783923839",
+    "crop": "https://cards.scryfall.io/crop/front/f/d/fd4b7ee2-de65-4288-872d-486065a4f226.webp?1783923839",
+    "display": "https://cards.scryfall.io/display/front/f/d/fd4b7ee2-de65-4288-872d-486065a4f226.webp?1783923839",
+    "grid": "https://cards.scryfall.io/grid/front/f/d/fd4b7ee2-de65-4288-872d-486065a4f226.webp?1783923839",
+    "large": "https://cards.scryfall.io/large/front/f/d/fd4b7ee2-de65-4288-872d-486065a4f226.jpg?1783923839",
+    "normal": "https://cards.scryfall.io/normal/front/f/d/fd4b7ee2-de65-4288-872d-486065a4f226.jpg?1783923839",
+    "png": "https://cards.scryfall.io/png/front/f/d/fd4b7ee2-de65-4288-872d-486065a4f226.png?1783923839",
+    "small": "https://cards.scryfall.io/small/front/f/d/fd4b7ee2-de65-4288-872d-486065a4f226.jpg?1783923839",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/d/fd4b7ee2-de65-4288-872d-486065a4f226.webp?1783923839"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "mtgo_id": 97366,
+  "multiverse_ids": [
+    548521
+  ],
+  "name": "Tamiyo's Safekeeping",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "bb2b324c-970a-4920-884e-c92ba49669f0",
+  "oracle_text": "Target permanent you control gains hexproof and indestructible until end of turn. You gain 2 life. (A permanent with hexproof and indestructible can't be the target of spells or abilities your opponents control. Damage and effects that say \"destroy\" don't destroy it.)",
+  "oversized": false,
+  "penny_rank": 2289,
+  "prices": {
+    "eur": "4.16",
+    "eur_foil": "6.73",
+    "tix": "0.03",
+    "usd": "5.15",
+    "usd_etched": null,
+    "usd_foil": "9.20"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abb2b324c-970a-4920-884e-c92ba49669f0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/97366?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=608275&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F262765%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Tamiyo%27s+Safekeeping",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=548521&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTamiyo%2527s%2BSafekeeping",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTamiyo%2527s%2BSafekeeping"
+  },
+  "released_at": "2022-02-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/fd4b7ee2-de65-4288-872d-486065a4f226/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/neo?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/neo/211/tamiyos-safekeeping?utm_source=api",
+  "set": "neo",
+  "set_id": "59a2059f-5482-433f-8761-eb2e17859b71",
+  "set_name": "Kamigawa: Neon Dynasty",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aneo&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/59a2059f-5482-433f-8761-eb2e17859b71",
+  "story_spotlight": true,
+  "tcgplayer_id": 262765,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/fd4b7ee2-de65-4288-872d-486065a4f226",
+  "variation": false
+}

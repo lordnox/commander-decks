@@ -1,0 +1,141 @@
+{
+  "arena_id": 86868,
+  "artist": "Simon Dominic",
+  "artist_ids": [
+    "b0e80135-db5a-4b88-a0bc-815a0e94faa1"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 728109,
+  "cmc": 4.0,
+  "collector_number": "163",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 3241,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7811a45d-6bfb-4c2a-b5a2-cccbd8cff186",
+  "illustration_id": "84de250b-79fc-4cd7-9930-f4b6b5791992",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:58:05Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/8/7811a45d-6bfb-4c2a-b5a2-cccbd8cff186.webp?1783915085",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/8/7811a45d-6bfb-4c2a-b5a2-cccbd8cff186.jpg?1783915085",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/8/7811a45d-6bfb-4c2a-b5a2-cccbd8cff186.jpg?1783915085",
+    "crop": "https://cards.scryfall.io/crop/front/7/8/7811a45d-6bfb-4c2a-b5a2-cccbd8cff186.webp?1783915085",
+    "display": "https://cards.scryfall.io/display/front/7/8/7811a45d-6bfb-4c2a-b5a2-cccbd8cff186.webp?1783915085",
+    "grid": "https://cards.scryfall.io/grid/front/7/8/7811a45d-6bfb-4c2a-b5a2-cccbd8cff186.webp?1783915085",
+    "large": "https://cards.scryfall.io/large/front/7/8/7811a45d-6bfb-4c2a-b5a2-cccbd8cff186.jpg?1783915085",
+    "normal": "https://cards.scryfall.io/normal/front/7/8/7811a45d-6bfb-4c2a-b5a2-cccbd8cff186.jpg?1783915085",
+    "png": "https://cards.scryfall.io/png/front/7/8/7811a45d-6bfb-4c2a-b5a2-cccbd8cff186.png?1783915085",
+    "small": "https://cards.scryfall.io/small/front/7/8/7811a45d-6bfb-4c2a-b5a2-cccbd8cff186.jpg?1783915085",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/8/7811a45d-6bfb-4c2a-b5a2-cccbd8cff186.webp?1783915085"
+  },
+  "keywords": [
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}{G}",
+  "mtgo_id": 116660,
+  "multiverse_ids": [
+    629664
+  ],
+  "name": "Blossoming Tortoise",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5e1bf23b-7fb0-45ff-8544-fce9fa3eba00",
+  "oracle_text": "Whenever this creature enters or attacks, mill three cards, then return a land card from your graveyard to the battlefield tapped.\nActivated abilities of lands you control cost {1} less to activate.\nLand creatures you control get +1/+1.",
+  "oversized": false,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2023-08-15",
+    "source": "GameSpot",
+    "source_uri": "https://www.gamespot.com/articles/heres-a-new-card-from-the-upcoming-magic-the-gathering-wilds-of-eldraine-expansion/1100-6516566/"
+  },
+  "prices": {
+    "eur": "6.29",
+    "eur_foil": "6.29",
+    "tix": "0.02",
+    "usd": "5.91",
+    "usd_etched": null,
+    "usd_foil": "6.56"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5e1bf23b-7fb0-45ff-8544-fce9fa3eba00&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/116660?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=728109&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F512321%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Blossoming+Tortoise",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=629664&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBlossoming%2BTortoise",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBlossoming%2BTortoise"
+  },
+  "released_at": "2023-09-08",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7811a45d-6bfb-4c2a-b5a2-cccbd8cff186/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/woe?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/woe/163/blossoming-tortoise?utm_source=api",
+  "security_stamp": "oval",
+  "set": "woe",
+  "set_id": "79139661-13ee-43c4-8bad-a8c069f1a1df",
+  "set_name": "Wilds of Eldraine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awoe&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/79139661-13ee-43c4-8bad-a8c069f1a1df",
+  "story_spotlight": false,
+  "tcgplayer_id": 512321,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Turtle",
+  "uri": "https://api.scryfall.com/cards/7811a45d-6bfb-4c2a-b5a2-cccbd8cff186",
+  "variation": false
+}

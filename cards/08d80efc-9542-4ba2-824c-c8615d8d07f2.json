@@ -1,0 +1,137 @@
+{
+  "arena_id": 89192,
+  "artist": "Yeong-Hao Han",
+  "artist_ids": [
+    "f8e7f8d6-6dde-4059-973c-30f1fd1bbe4e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 750912,
+  "cmc": 0.0,
+  "collector_number": "270",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 422,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2b5801fb-2026-4f25-98bc-ebb2f99684b9",
+  "illustration_id": "b1e53b43-abfa-40ec-8835-501e4c93c4b2",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-08-12T04:09:01Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/b/2b5801fb-2026-4f25-98bc-ebb2f99684b9.webp?1786507741",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/b/2b5801fb-2026-4f25-98bc-ebb2f99684b9.jpg?1786507741",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/b/2b5801fb-2026-4f25-98bc-ebb2f99684b9.jpg?1786507741",
+    "crop": "https://cards.scryfall.io/crop/front/2/b/2b5801fb-2026-4f25-98bc-ebb2f99684b9.webp?1786507741",
+    "display": "https://cards.scryfall.io/display/front/2/b/2b5801fb-2026-4f25-98bc-ebb2f99684b9.webp?1786507741",
+    "grid": "https://cards.scryfall.io/grid/front/2/b/2b5801fb-2026-4f25-98bc-ebb2f99684b9.webp?1786507741",
+    "large": "https://cards.scryfall.io/large/front/2/b/2b5801fb-2026-4f25-98bc-ebb2f99684b9.jpg?1786507741",
+    "normal": "https://cards.scryfall.io/normal/front/2/b/2b5801fb-2026-4f25-98bc-ebb2f99684b9.jpg?1786507741",
+    "png": "https://cards.scryfall.io/png/front/2/b/2b5801fb-2026-4f25-98bc-ebb2f99684b9.png?1786507741",
+    "small": "https://cards.scryfall.io/small/front/2/b/2b5801fb-2026-4f25-98bc-ebb2f99684b9.jpg?1786507741",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/b/2b5801fb-2026-4f25-98bc-ebb2f99684b9.webp?1786507741"
+  },
+  "keywords": [
+    "Surveil"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 122032,
+  "multiverse_ids": [
+    646824
+  ],
+  "name": "Undercity Sewers",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "08d80efc-9542-4ba2-824c-c8615d8d07f2",
+  "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+  "oversized": false,
+  "prices": {
+    "eur": "19.66",
+    "eur_foil": "24.06",
+    "tix": "7.98",
+    "usd": "14.66",
+    "usd_etched": null,
+    "usd_foil": "17.92"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A08d80efc-9542-4ba2-824c-c8615d8d07f2&unique=prints",
+  "produced_mana": [
+    "B",
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122032?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=750912&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F532905%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Undercity+Sewers",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=646824&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DUndercity%2BSewers",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DUndercity%2BSewers"
+  },
+  "released_at": "2024-02-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2b5801fb-2026-4f25-98bc-ebb2f99684b9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkm/270/undercity-sewers?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkm",
+  "set_id": "2b17794b-15c3-4796-ad6f-0887a0eceeca",
+  "set_name": "Murders at Karlov Manor",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/2b17794b-15c3-4796-ad6f-0887a0eceeca",
+  "story_spotlight": false,
+  "tcgplayer_id": 532905,
+  "textless": false,
+  "type_line": "Land — Island Swamp",
+  "uri": "https://api.scryfall.com/cards/2b5801fb-2026-4f25-98bc-ebb2f99684b9",
+  "variation": false
+}

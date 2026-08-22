@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "51d7dc49-7116-489b-a719-7b293a513cdc",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/51d7dc49-7116-489b-a719-7b293a513cdc"
+    },
+    {
+      "component": "combo_piece",
+      "id": "40a791df-2483-406d-90b0-a8d402d615d6",
+      "name": "Irenicus's Vile Duplication",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/40a791df-2483-406d-90b0-a8d402d615d6"
+    }
+  ],
+  "artist": "Oleksandr Kozachenko",
+  "artist_ids": [
+    "89289600-1874-4493-aa1b-6a7dc6e771ba"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 658460,
+  "cmc": 4.0,
+  "collector_number": "78",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 938,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"You will serve me better in this form.\"\n—Jon Irenicus",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "40a791df-2483-406d-90b0-a8d402d615d6",
+  "illustration_id": "883cf8c3-cd52-44ae-8f6a-b00bc88e6932",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:06:27Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/0/40a791df-2483-406d-90b0-a8d402d615d6.webp?1783922787",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/0/40a791df-2483-406d-90b0-a8d402d615d6.jpg?1783922787",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/0/40a791df-2483-406d-90b0-a8d402d615d6.jpg?1783922787",
+    "crop": "https://cards.scryfall.io/crop/front/4/0/40a791df-2483-406d-90b0-a8d402d615d6.webp?1783922787",
+    "display": "https://cards.scryfall.io/display/front/4/0/40a791df-2483-406d-90b0-a8d402d615d6.webp?1783922787",
+    "grid": "https://cards.scryfall.io/grid/front/4/0/40a791df-2483-406d-90b0-a8d402d615d6.webp?1783922787",
+    "large": "https://cards.scryfall.io/large/front/4/0/40a791df-2483-406d-90b0-a8d402d615d6.jpg?1783922787",
+    "normal": "https://cards.scryfall.io/normal/front/4/0/40a791df-2483-406d-90b0-a8d402d615d6.jpg?1783922787",
+    "png": "https://cards.scryfall.io/png/front/4/0/40a791df-2483-406d-90b0-a8d402d615d6.png?1783922787",
+    "small": "https://cards.scryfall.io/small/front/4/0/40a791df-2483-406d-90b0-a8d402d615d6.jpg?1783922787",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/0/40a791df-2483-406d-90b0-a8d402d615d6.webp?1783922787"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "mtgo_id": 100156,
+  "multiverse_ids": [
+    562961
+  ],
+  "name": "Irenicus's Vile Duplication",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a3faf698-1dac-45ef-9c43-c8cead489ffc",
+  "oracle_text": "Create a token that's a copy of target creature you control, except the token has flying and it isn't legendary.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2022-05-17",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/card-image-gallery/commander-legends-battle-for-baldurs-gate"
+  },
+  "prices": {
+    "eur": "9.05",
+    "eur_foil": "11.90",
+    "tix": "2.02",
+    "usd": "13.04",
+    "usd_etched": null,
+    "usd_foil": "12.95"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa3faf698-1dac-45ef-9c43-c8cead489ffc&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/100156?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=658460&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F272576%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Irenicus%27s+Vile+Duplication",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=562961&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIrenicus%2527s%2BVile%2BDuplication",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIrenicus%2527s%2BVile%2BDuplication"
+  },
+  "released_at": "2022-06-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/40a791df-2483-406d-90b0-a8d402d615d6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/78/irenicuss-vile-duplication?utm_source=api",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 272576,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/40a791df-2483-406d-90b0-a8d402d615d6",
+  "variation": false
+}
