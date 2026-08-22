@@ -9,6 +9,16 @@ An Orzhov graveyard-combo deck that combines Bartolomé's free sacrifice outlet 
 **Primary plan:** assemble one of several repeatable death loops  
 **Backup plan:** grind with recursive creatures, self-mill, reanimation, and a growing Bartolomé
 
+## Key cards
+
+<p align="center">
+  <a href="https://scryfall.com/card/lci/224/bartolom%C3%A9-del-presidio"><img src="https://cards.scryfall.io/normal/front/6/9/690ccdc7-6c43-4902-9d11-2f07b7a36b11.jpg?1783913734" width="160" alt="Bartolomé del Presidio"></a>
+  <a href="https://scryfall.com/card/j25/44/ozox-the-clattering-king"><img src="https://cards.scryfall.io/normal/front/0/2/02cf5079-9da8-470d-8eea-00d6aac68d04.jpg?1783908856" width="160" alt="Ozox, the Clattering King"></a>
+  <a href="https://scryfall.com/card/2x2/311/phyrexian-altar"><img src="https://cards.scryfall.io/normal/front/9/5/95d9f93c-50a8-41a9-be98-d1900bf1c12f.jpg?1783921789" width="160" alt="Phyrexian Altar"></a>
+  <a href="https://scryfall.com/card/soc/178/sun-titan"><img src="https://cards.scryfall.io/normal/front/3/d/3d6eacf2-f6c7-4ede-b5a5-7463602699ae.jpg?1783903797" width="160" alt="Sun Titan"></a>
+  <a href="https://scryfall.com/card/dmc/179/bontus-monument"><img src="https://cards.scryfall.io/normal/front/1/7/171a9a3f-6278-4921-9848-2b8459869d6c.jpg?1783921400" width="160" alt="Bontu's Monument"></a>
+</p>
+
 ## The two engines
 
 ### Ozox rotation
