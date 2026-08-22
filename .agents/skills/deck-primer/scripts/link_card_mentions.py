@@ -15,6 +15,8 @@ PROTECTED_MARKDOWN = re.compile(
     r"|https?://[^\s<]+"
     r"|<[^>\n]+>)"
 )
+CATEGORY_PROBABILITY_START = "<!-- category-probabilities:start -->"
+CATEGORY_PROBABILITY_END = "<!-- category-probabilities:end -->"
 
 
 def card_links(manifest: dict, markdown: str = "") -> dict[str, str]:
@@ -92,8 +94,18 @@ def link_markdown(markdown: str, links: dict[str, str]) -> tuple[str, int]:
 
     output = []
     in_fence = False
+    in_category_probabilities = False
     for line in markdown.splitlines(keepends=True):
         stripped = line.lstrip()
+        if line.strip() == CATEGORY_PROBABILITY_START:
+            in_category_probabilities = True
+            output.append(line)
+            continue
+        if in_category_probabilities:
+            output.append(line)
+            if line.strip() == CATEGORY_PROBABILITY_END:
+                in_category_probabilities = False
+            continue
         if stripped.startswith(("\x60\x60\x60", "~~~")):
             in_fence = not in_fence
             output.append(line)
