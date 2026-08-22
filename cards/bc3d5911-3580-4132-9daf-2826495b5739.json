@@ -1,0 +1,27 @@
+{
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "game_changer": false,
+  "id": "8423c98d-4cb6-4a70-8bf2-3ac24c025c4e",
+  "image_uris": {
+    "normal": "https://cards.scryfall.io/normal/front/8/4/8423c98d-4cb6-4a70-8bf2-3ac24c025c4e.jpg?1783934297"
+  },
+  "keywords": [
+    "Threshold"
+  ],
+  "legalities": {
+    "commander": "legal"
+  },
+  "mana_cost": "{B}{B}",
+  "name": "Stitch Together",
+  "object": "card",
+  "oracle_id": "bc3d5911-3580-4132-9daf-2826495b5739",
+  "oracle_text": "Return target creature card from your graveyard to your hand.\nThreshold — Return that card from your graveyard to the battlefield instead if there are seven or more cards in your graveyard.",
+  "released_at": "2018-08-09",
+  "scryfall_uri": "https://scryfall.com/card/c18/119/stitch-together?utm_source=api",
+  "type_line": "Sorcery"
+}
