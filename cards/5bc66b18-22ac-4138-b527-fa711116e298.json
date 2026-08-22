@@ -1,0 +1,147 @@
+{
+  "arena_id": 84564,
+  "artist": "Lie Setiawan",
+  "artist_ids": [
+    "6f771d3f-310e-4aa4-841f-5ba4ba9f025a"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 704065,
+  "cmc": 3.0,
+  "collector_number": "257",
+  "color_identity": [
+    "B",
+    "G",
+    "U"
+  ],
+  "colors": [
+    "B",
+    "G",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 9898,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "bf2af874-1052-4cad-90ed-d80e49d4c68c",
+  "illustration_id": "770b2ed6-391e-4ac1-81de-19e5d3fea358",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:28:56Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/f/bf2af874-1052-4cad-90ed-d80e49d4c68c.webp?1783916936",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/f/bf2af874-1052-4cad-90ed-d80e49d4c68c.jpg?1783916936",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/f/bf2af874-1052-4cad-90ed-d80e49d4c68c.jpg?1783916936",
+    "crop": "https://cards.scryfall.io/crop/front/b/f/bf2af874-1052-4cad-90ed-d80e49d4c68c.webp?1783916936",
+    "display": "https://cards.scryfall.io/display/front/b/f/bf2af874-1052-4cad-90ed-d80e49d4c68c.webp?1783916936",
+    "grid": "https://cards.scryfall.io/grid/front/b/f/bf2af874-1052-4cad-90ed-d80e49d4c68c.webp?1783916936",
+    "large": "https://cards.scryfall.io/large/front/b/f/bf2af874-1052-4cad-90ed-d80e49d4c68c.jpg?1783916936",
+    "normal": "https://cards.scryfall.io/normal/front/b/f/bf2af874-1052-4cad-90ed-d80e49d4c68c.jpg?1783916936",
+    "png": "https://cards.scryfall.io/png/front/b/f/bf2af874-1052-4cad-90ed-d80e49d4c68c.png?1783916936",
+    "small": "https://cards.scryfall.io/small/front/b/f/bf2af874-1052-4cad-90ed-d80e49d4c68c.jpg?1783916936",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/f/bf2af874-1052-4cad-90ed-d80e49d4c68c.webp?1783916936"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}{G}{U}",
+  "mtgo_id": 110428,
+  "multiverse_ids": [
+    607328
+  ],
+  "name": "Zimone and Dina",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5bc66b18-22ac-4138-b527-fa711116e298",
+  "oracle_text": "Whenever you draw your second card each turn, target opponent loses 2 life and you gain 2 life.\n{T}, Sacrifice another creature: Draw a card. You may put a land card from your hand onto the battlefield tapped. If you control eight or more lands, repeat this process once.",
+  "oversized": false,
+  "penny_rank": 10328,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2023-03-31",
+    "source": "Good Games",
+    "source_uri": "https://www.goodgames.com.au/blog/march-of-the-machine-mythic-spoiler-reveal-zimone-and-dina-deck-tech/"
+  },
+  "prices": {
+    "eur": "0.50",
+    "eur_foil": "0.94",
+    "tix": "0.02",
+    "usd": "0.52",
+    "usd_etched": null,
+    "usd_foil": "0.67"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5bc66b18-22ac-4138-b527-fa711116e298&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/110428?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=704065&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F490663%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Zimone+and+Dina",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=607328&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DZimone%2Band%2BDina",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DZimone%2Band%2BDina"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/bf2af874-1052-4cad-90ed-d80e49d4c68c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/257/zimone-and-dina?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": false,
+  "tcgplayer_id": 490663,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Human Dryad",
+  "uri": "https://api.scryfall.com/cards/bf2af874-1052-4cad-90ed-d80e49d4c68c",
+  "variation": false
+}
