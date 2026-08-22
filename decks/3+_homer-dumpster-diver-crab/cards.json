@@ -474,29 +474,31 @@
       "submitted_name": "Realmwalker"
     },
     {
-      "cache": "cards/03efb4f3-b8e2-4441-824f-886dc40712c4.json",
+      "cache": "cards/98441834-7da0-4d9f-88a4-a342a9b2a4c3.json",
       "card": {
         "keywords": [
           "Mill"
         ],
-        "mana_cost": "{2}",
-        "oracle_text": "Whenever a permanent becomes untapped, that permanent's controller mills a card.",
-        "type_line": "Artifact"
+        "mana_cost": "{2}{G}",
+        "oracle_text": "At the beginning of your upkeep, you may mill two cards. (You may put the top two cards of your library into your graveyard.)\nWhenever one or more land cards are put into your graveyard from anywhere for the first time each turn, create a 1/1 green Insect creature token.",
+        "type_line": "Enchantment"
       },
       "categories": [
         "Dumpster Diving",
-        "Self Mill"
+        "Self Mill",
+        "Token Production"
       ],
       "category_source": "decklist",
-      "name": "Mesmeric Orb",
-      "oracle_id": "03efb4f3-b8e2-4441-824f-886dc40712c4",
+      "name": "Crawling Sensation",
+      "oracle_id": "98441834-7da0-4d9f-88a4-a342a9b2a4c3",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/2xm/272/mesmeric-orb?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/tdc/252/crawling-sensation?utm_source=api",
       "submitted_categories": [
         "Dumpster Diving",
-        "Self Mill"
+        "Self Mill",
+        "Token Production"
       ],
-      "submitted_name": "Mesmeric Orb"
+      "submitted_name": "Crawling Sensation"
     },
     {
       "cache": "cards/17b4778b-82b1-4845-ad08-00f3ff66877b.json",
@@ -879,29 +881,36 @@
       "submitted_name": "Walk-In Closet // Forgotten Cellar"
     },
     {
-      "cache": "cards/4f819ba4-52ef-4fdd-8e4c-5ae3b2f44db5.json",
+      "cache": "cards/34994475-b914-44f6-8ca1-c2747b6d5956.json",
       "card": {
-        "keywords": [],
+        "keywords": [
+          "Mill",
+          "Landfall"
+        ],
         "mana_cost": "{2}{G}",
-        "oracle_text": "You may play lands from your graveyard.",
-        "power": "2",
-        "toughness": "3",
-        "type_line": "Creature — Snake Cleric"
+        "oracle_text": "You may play lands from your graveyard.\nLandfall — Whenever a land you control enters, create a 1/1 green Minion creature token named Moloid with \"Whenever this token attacks, you may mill a card.\"",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Legendary Creature — Human Villain"
       },
       "categories": [
         "Land Recursion",
-        "Land Laundering"
+        "Landfall",
+        "Token Production",
+        "Dumpster Diving"
       ],
       "category_source": "decklist",
-      "name": "Ramunap Excavator",
-      "oracle_id": "4f819ba4-52ef-4fdd-8e4c-5ae3b2f44db5",
+      "name": "Mole Man, Moloid Master",
+      "oracle_id": "34994475-b914-44f6-8ca1-c2747b6d5956",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/otc/202/ramunap-excavator?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/msh/177/mole-man-moloid-master?utm_source=api",
       "submitted_categories": [
         "Land Recursion",
-        "Land Laundering"
+        "Landfall",
+        "Token Production",
+        "Dumpster Diving"
       ],
-      "submitted_name": "Ramunap Excavator"
+      "submitted_name": "Mole Man, Moloid Master"
     },
     {
       "cache": "cards/41cdeb52-e90f-44f8-94d2-23aa032c4870.json",
@@ -956,29 +965,29 @@
       "submitted_name": "Sakura-Tribe Scout"
     },
     {
-      "cache": "cards/bdbde5d0-f5e4-44da-b27c-b4ad6f374cc9.json",
+      "cache": "cards/5bc66b18-22ac-4138-b527-fa711116e298.json",
       "card": {
         "keywords": [],
-        "mana_cost": "{2}{G}",
-        "oracle_text": "You may play an additional land on each of your turns.\nLands you control are every basic land type in addition to their other types.",
-        "power": "2",
+        "mana_cost": "{B}{G}{U}",
+        "oracle_text": "Whenever you draw your second card each turn, target opponent loses 2 life and you gain 2 life.\n{T}, Sacrifice another creature: Draw a card. You may put a land card from your hand onto the battlefield tapped. If you control eight or more lands, repeat this process once.",
+        "power": "3",
         "toughness": "4",
-        "type_line": "Enchantment Creature — Nymph Dryad"
+        "type_line": "Legendary Creature — Human Dryad"
       },
       "categories": [
         "Land Laundering",
-        "Ramp"
+        "Card Advantage"
       ],
       "category_source": "decklist",
-      "name": "Dryad of the Ilysian Grove",
-      "oracle_id": "bdbde5d0-f5e4-44da-b27c-b4ad6f374cc9",
+      "name": "Zimone and Dina",
+      "oracle_id": "5bc66b18-22ac-4138-b527-fa711116e298",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cmm/891/dryad-of-the-ilysian-grove?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mom/257/zimone-and-dina?utm_source=api",
       "submitted_categories": [
         "Land Laundering",
-        "Ramp"
+        "Card Advantage"
       ],
-      "submitted_name": "Dryad of the Ilysian Grove"
+      "submitted_name": "Zimone and Dina"
     },
     {
       "cache": "cards/c2550f1a-b662-43e7-a0b2-843025739a8f.json",
@@ -1441,27 +1450,33 @@
       "submitted_name": "Arcane Denial"
     },
     {
-      "cache": "cards/814e321d-16fd-4f7b-a8d8-2b089be76f2c.json",
+      "cache": "cards/5f694917-f434-4459-bc86-caf9ac1c80e7.json",
       "card": {
-        "keywords": [],
-        "mana_cost": "{1}{U}",
-        "oracle_text": "Exile target artifact or creature. Its controller creates a 4/4 blue and red Elemental creature token.",
-        "type_line": "Instant"
+        "keywords": [
+          "Mill"
+        ],
+        "mana_cost": "{B}{G}{U}",
+        "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Destroy target nonland permanent.\nII — Mill three cards.\nIII — You may discard a card. When you do, return target creature or land card from your graveyard to your hand.",
+        "type_line": "Enchantment — Saga"
       },
       "categories": [
         "Removal",
-        "Interaction"
+        "Interaction",
+        "Dumpster Diving",
+        "Recursion"
       ],
       "category_source": "decklist",
-      "name": "Resculpt",
-      "oracle_id": "814e321d-16fd-4f7b-a8d8-2b089be76f2c",
+      "name": "Awaken the Honored Dead",
+      "oracle_id": "5f694917-f434-4459-bc86-caf9ac1c80e7",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/soc/201/resculpt?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/tdm/170/awaken-the-honored-dead?utm_source=api",
       "submitted_categories": [
         "Removal",
-        "Interaction"
+        "Interaction",
+        "Dumpster Diving",
+        "Recursion"
       ],
-      "submitted_name": "Resculpt"
+      "submitted_name": "Awaken the Honored Dead"
     },
     {
       "cache": "cards/610af0f7-b5e3-43fb-9d02-7c59bd99034c.json",
@@ -2285,7 +2300,7 @@
     }
   ],
   "categorized_cards": 92,
-  "generated_at": "2026-08-22T12:23:42.322414+00:00",
+  "generated_at": "2026-08-22T12:38:28.090948+00:00",
   "schema_version": 3,
   "source": "decks/3+_homer-dumpster-diver-crab/decklist.txt",
   "total_cards": 100,
