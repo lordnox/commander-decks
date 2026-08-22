@@ -2231,8 +2231,33 @@
       "categories": [
         "card-draw"
       ]
+    },
+    "5602c14d-cc22-47d7-a1b0-6491749f00dd": {
+      "name": "Keep Safe",
+      "categories": [
+        "card-draw",
+        "counterspell",
+        "protection"
+      ]
+    },
+    "361b0d7f-1e43-45c5-92c2-92baacaf326f": {
+      "name": "Pile On",
+      "categories": [
+        "removal",
+        "card-selection",
+        "self-mill"
+      ]
+    },
+    "41cdeb52-e90f-44f8-94d2-23aa032c4870": {
+      "name": "You Find the Villains' Lair",
+      "categories": [
+        "card-draw",
+        "counterspell",
+        "discard",
+        "card-selection"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-22T10:58:27.506Z"
+  "updated_at": "2026-08-22T12:26:37.587Z"
 }
