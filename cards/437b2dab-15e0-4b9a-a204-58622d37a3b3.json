@@ -1,0 +1,131 @@
+{
+  "object": "card",
+  "id": "04588d2f-9e90-4f83-b85e-67e4bc222a62",
+  "oracle_id": "437b2dab-15e0-4b9a-a204-58622d37a3b3",
+  "multiverse_ids": [
+    622699
+  ],
+  "mtgo_id": 115281,
+  "tcgplayer_id": 504951,
+  "cardmarket_id": 722772,
+  "name": "Fact or Fiction",
+  "lang": "en",
+  "released_at": "2023-08-04",
+  "uri": "https://api.scryfall.com/cards/04588d2f-9e90-4f83-b85e-67e4bc222a62",
+  "scryfall_uri": "https://scryfall.com/card/cmm/91/fact-or-fiction?utm_source=api",
+  "layout": "normal",
+  "highres_image": true,
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:08:21Z",
+  "image_uris": {
+    "small": "https://cards.scryfall.io/small/front/0/4/04588d2f-9e90-4f83-b85e-67e4bc222a62.jpg?1783915701",
+    "normal": "https://cards.scryfall.io/normal/front/0/4/04588d2f-9e90-4f83-b85e-67e4bc222a62.jpg?1783915701",
+    "large": "https://cards.scryfall.io/large/front/0/4/04588d2f-9e90-4f83-b85e-67e4bc222a62.jpg?1783915701",
+    "png": "https://cards.scryfall.io/png/front/0/4/04588d2f-9e90-4f83-b85e-67e4bc222a62.png?1783915701",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/4/04588d2f-9e90-4f83-b85e-67e4bc222a62.jpg?1783915701",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/4/04588d2f-9e90-4f83-b85e-67e4bc222a62.jpg?1783915701",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/4/04588d2f-9e90-4f83-b85e-67e4bc222a62.webp?1783915701",
+    "grid": "https://cards.scryfall.io/grid/front/0/4/04588d2f-9e90-4f83-b85e-67e4bc222a62.webp?1783915701",
+    "display": "https://cards.scryfall.io/display/front/0/4/04588d2f-9e90-4f83-b85e-67e4bc222a62.webp?1783915701",
+    "art": "https://cards.scryfall.io/art/front/0/4/04588d2f-9e90-4f83-b85e-67e4bc222a62.webp?1783915701",
+    "crop": "https://cards.scryfall.io/crop/front/0/4/04588d2f-9e90-4f83-b85e-67e4bc222a62.webp?1783915701"
+  },
+  "mana_cost": "{3}{U}",
+  "cmc": 4,
+  "type_line": "Instant",
+  "oracle_text": "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.",
+  "colors": [
+    "U"
+  ],
+  "color_identity": [
+    "U"
+  ],
+  "keywords": [],
+  "legalities": {
+    "standard": "not_legal",
+    "future": "not_legal",
+    "historic": "not_legal",
+    "timeless": "not_legal",
+    "gladiator": "not_legal",
+    "pioneer": "not_legal",
+    "modern": "legal",
+    "legacy": "legal",
+    "pauper": "not_legal",
+    "vintage": "legal",
+    "penny": "legal",
+    "commander": "legal",
+    "oathbreaker": "legal",
+    "standardbrawl": "not_legal",
+    "brawl": "not_legal",
+    "competitivebrawl": "not_legal",
+    "alchemy": "not_legal",
+    "paupercommander": "not_legal",
+    "duel": "legal",
+    "oldschool": "not_legal",
+    "premodern": "legal",
+    "predh": "legal",
+    "tlr": "not_legal"
+  },
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "reserved": false,
+  "game_changer": false,
+  "foil": true,
+  "nonfoil": true,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "oversized": false,
+  "promo": false,
+  "reprint": true,
+  "variation": false,
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set": "cmm",
+  "set_name": "Commander Masters",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "rulings_uri": "https://api.scryfall.com/cards/04588d2f-9e90-4f83-b85e-67e4bc222a62/rulings",
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A437b2dab-15e0-4b9a-a204-58622d37a3b3&unique=prints",
+  "collector_number": "91",
+  "digital": false,
+  "rarity": "uncommon",
+  "flavor_text": "\"Slimefoot, I know I said I wanted to grow our repository of knowledge, but this isn't what I had in mind.\"",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "artist": "Anna Christenson",
+  "artist_ids": [
+    "4db0516b-e162-444f-ba7d-73f7d17fe66c"
+  ],
+  "illustration_id": "405b8199-2902-49ff-81ae-86ab46ef275b",
+  "border_color": "black",
+  "frame": "2015",
+  "full_art": false,
+  "textless": false,
+  "booster": true,
+  "story_spotlight": false,
+  "edhrec_rank": 698,
+  "penny_rank": 102,
+  "prices": {
+    "usd": "0.24",
+    "usd_foil": "0.45",
+    "usd_etched": null,
+    "eur": "0.17",
+    "eur_foil": "0.27",
+    "tix": "0.04"
+  },
+  "related_uris": {
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=622699&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFact%2Bor%2BFiction",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFact%2Bor%2BFiction",
+    "edhrec": "https://edhrec.com/route/?cc=Fact+or+Fiction"
+  },
+  "purchase_uris": {
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F504951%3Fpage%3D1",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=722772&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "cardhoarder": "https://www.cardhoarder.com/cards/115281?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall"
+  }
+}
