@@ -56,6 +56,49 @@ That example includes three Homers, [Firdoch Core](https://scryfall.com/card/ecl
 
 [**Yarok, the Desecrated**](https://scryfall.com/card/ecc/136/yarok-the-desecrated?utm_source=api), [**Ancient Greenwarden**](https://scryfall.com/card/otc/186/ancient-greenwarden?utm_source=api), [**Virtue of Knowledge**](https://scryfall.com/card/woe/76/virtue-of-knowledge-vantress-visions?utm_source=api), and [**Roaming Throne**](https://scryfall.com/card/lci/258/roaming-throne?utm_source=api) each add another trigger rather than multiplying one another. [**Strionic Resonator**](https://scryfall.com/card/moc/384/strionic-resonator?utm_source=api) copies one chosen trigger.
 
+<!-- category-probabilities:start -->
+## Category access by turn three
+
+Using a hypergeometric calculation with a 99-card library and 10 cards seen: the opening seven plus three normal draw steps, with no mulligans or additional draw. The commander and `{noDeck}` extras are excluded.
+
+For a category containing K cards:
+
+\[
+P(X \ge 1)=1-\frac{\binom{99-K}{10}}{\binom{99}{10}}
+\]
+
+All categories require at least one card except Land, which requires at least three. Categories overlap, so each row is an independent access probability.
+
+| Category | Cards | Required | Probability |
+|---|---:|---:|---:|
+| Dumpster Diving | 24 | ≥1 | 94.68% |
+| Landfall | 20 | ≥1 | 90.75% |
+| Land Laundering | 18 | ≥1 | 87.94% |
+| Land | 39 | ≥3 | 83.65% |
+| Ramp | 9 | ≥1 | 63.28% |
+| Homer Factory | 8 | ≥1 | 58.75% |
+| Seafood Disguise | 8 | ≥1 | 58.75% |
+| Creature Recursion | 7 | ≥1 | 53.72% |
+| Interaction | 6 | ≥1 | 48.14% |
+| Card Advantage | 5 | ≥1 | 41.97% |
+| Finisher | 5 | ≥1 | 41.97% |
+| Trigger Shenanigans | 5 | ≥1 | 41.97% |
+| Land Recursion | 4 | ≥1 | 35.14% |
+| Legend Rule | 4 | ≥1 | 35.14% |
+| Removal | 4 | ≥1 | 35.14% |
+| Protection | 3 | ≥1 | 27.60% |
+| Recursion | 3 | ≥1 | 27.60% |
+| Board Wipe | 2 | ≥1 | 19.27% |
+| Copy | 2 | ≥1 | 19.27% |
+| Token Production | 2 | ≥1 | 19.27% |
+| Card Selection | 1 | ≥1 | 10.10% |
+| Counterspell | 1 | ≥1 | 10.10% |
+| Graveyard Safety | 1 | ≥1 | 10.10% |
+| Land Selection | 1 | ≥1 | 10.10% |
+| Self Mill | 1 | ≥1 | 10.10% |
+| Typal Support | 1 | ≥1 | 10.10% |
+<!-- category-probabilities:end -->
+
 ## How the deck works
 
 ### 1. Dive into the dumpster
