@@ -1,6 +1,6 @@
 ---
 name: scryfall-lookup
-description: Look up Magic: The Gathering cards and search for cards using the Scryfall API and Scryfall search syntax. Use when the user asks what a card does, requests card details or rulings-relevant Oracle text, or wants cards matching colors, color identity, mechanics, Oracle tags, types, formats, prices, or other Scryfall criteria. Do not use for evaluating a deck unless card data or candidate cards must first be retrieved.
+description: "Look up Magic: The Gathering cards and search for cards using the Scryfall API and Scryfall search syntax. Use when the user asks what a card does, requests card details or rulings-relevant Oracle text, or wants cards matching colors, color identity, mechanics, Oracle tags, types, formats, prices, or other Scryfall criteria. Do not use for evaluating a deck unless card data or candidate cards must first be retrieved."
 ---
 
 # Scryfall Lookup
@@ -42,6 +42,14 @@ Report the card's:
 - `scryfall_uri` as the card link
 
 For double-faced cards, read the `card_faces` array and report both relevant faces.
+
+For multiple known card names, send exact identifiers to:
+
+```text
+POST https://api.scryfall.com/cards/collection
+```
+
+Use a JSON body shaped as `{"identifiers": [{"name": "Card A"}, {"name": "Card B"}]}`, with at most 75 identifiers per request. Retry only entries returned in `not_found` through the fuzzy named endpoint. Do not turn a list of exact names into one request per card.
 
 ## Card searches
 
@@ -86,7 +94,7 @@ Do not silently broaden a restrictive request. If zero results are returned, exp
 - Link each recommended card using its `scryfall_uri`.
 - Distinguish card color (`color:`) from Commander color identity (`id:`).
 - Preserve the user's requested format, budget, color identity, and exclusions.
-- Avoid excessive requests; perform searches sequentially and respect Scryfall's API guidance.
+- Avoid excessive requests; batch exact names, perform remaining searches sequentially, and respect Scryfall's API guidance.
 
 ## Answer style
 

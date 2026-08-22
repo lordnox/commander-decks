@@ -40,7 +40,11 @@ The script writes:
 - `cards/index.json`
 - `cards/categories.json`
 
-It performs exact Scryfall name lookups and retries unambiguous misses with the fuzzy endpoint. Shared cached cards are reused by Oracle ID.
+It reuses local cache objects first, resolves remaining exact names through Scryfall's collection endpoint in batches of at most 75, and retries only collection misses with the fuzzy endpoint. Its summary reports cache hits, collection requests, fuzzy requests, and unresolved names.
+
+- Run one resolver process at a time. If a command is still running, wait for that process; do not start the resolver again. A repository lock rejects concurrent runs.
+- In a partial or connector-backed workspace, `cards/index.json` alone is not a cache hit. Hydrate the referenced `cards/<oracle-id>.json` objects before running the resolver, or those names will be fetched again.
+- Prefer a complete repository checkout for bulk deck imports so shared cache objects can be reused and reviewed in one diff.
 
 If any line cannot be resolved:
 
@@ -90,6 +94,14 @@ After all cards resolve and have useful categories:
 3. Do not leave a newly created deck without a primer.
 4. If the primer cannot be completed, report the blocker and treat deck creation as incomplete.
 
+When the user requests a decision log, create `DECISIONS.md` or `decisions.json` with exactly one substantive entry for every unique deck card. Include the card's submitted or canonical name in each entry. For Markdown, use this machine-checkable form:
+
+```markdown
+- **Card Name** — Why this card is included and what role it serves.
+```
+
+For JSON, use `{"schema_version": 1, "cards": {"<oracle-id>": {"name": "Card Name", "decision": "Reason"}}}`.
+
 ## 6. Link the primer from the root README
 
 Maintain a `## Deck primers` section immediately after the root README title.
@@ -103,7 +115,19 @@ Maintain a `## Deck primers` section immediately after the root README title.
 - When a deck is renamed, update its link rather than adding a duplicate.
 - After `assess-deck` changes a bracket or directory prefix, update the root README label and order, every stored path, and the manifest's `source` field.
 
-## 7. Continue deck work
+## 7. Validate the workspace
+
+Run:
+
+```bash
+python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<prefix><slug>
+```
+
+Add `--require-decisions` when the user requested a card-by-card decision log. Fix every error before review. The validator checks deck size, manifest consistency, categories, commander designation, singleton and color-identity rules, cached Commander legality, primer linkage, and decision-log coverage. A prerelease commander produces a warning until its release date.
+
+Inspect the final diff after validation. Shared registries preserve their existing order, so unrelated global reordering or cache changes indicate a workflow problem and should be removed.
+
+## 8. Continue deck work
 
 Use `cards.json` as the deck inventory and prefer its embedded `card` details for analysis. Load referenced cache files only for fields not embedded in the manifest. Use the `scryfall-lookup` skill for searches or to refresh current card information. Use the `deck-primer` skill when updating how a deck plays.
 
