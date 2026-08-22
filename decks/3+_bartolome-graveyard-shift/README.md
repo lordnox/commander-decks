@@ -2,7 +2,7 @@
 
 > Bracket 3+ combo deck. Usually threatens a win around turn six, but has an unlikely turn-four line.
 
-An Orzhov graveyard-combo deck that combines Bartolomé's free sacrifice outlet with the Ozox/Jumblebones rotation and the original Aura-recursion engine.
+An Orzhov graveyard-combo deck built around Bartolomé's free sacrifice outlet, with the Ozox/Jumblebones rotation and Aura-recursion loops serving as overlapping engines.
 
 **Commander:** [Bartolomé del Presidio](https://scryfall.com/card/lci/224/bartolom%C3%A9-del-presidio)  
 **Deck size:** 100 cards  
@@ -143,6 +143,6 @@ Avoid hands containing several expensive recursion creatures without ramp or gra
 - Mandatory draw engines such as Dark Prophecy can empty the library during an unlimited loop.
 - Graveyard exile is the deck's most important threat; reserve flexible removal for it.
 
-## Identity of the merged deck
+## Deck identity
 
-This is still primarily a Bartolomé deck. The Ozox package adds a compact second engine instead of replacing the Aura-recursion plan. Most support cards contribute to both engines, keeping the list from becoming two unrelated half-decks.
+Graveyard Shift is a Bartolomé graveyard-combo deck with two overlapping engines. Ozox provides renewable bodies and compact loops, while the Aura-recursion package repeatedly returns useful creatures. Most support cards contribute to both plans, so the deck can pivot naturally between setup, attrition, and a combo finish.
