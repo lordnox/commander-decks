@@ -1,6 +1,6 @@
 ---
 name: deck-primer
-description: Analyze a resolved Commander deck and create or update its deck-specific README primer. Use when the user asks how a stored deck works, requests a primer or play guide, or wants the deck's game plan, engines, combos, mulligans, tutors, sequencing, win conditions, or direct Archidekt deck-creation link documented.
+description: Analyze a resolved Commander deck and create or update its deck-specific README primer. Use when the user asks how a stored deck works, requests a primer or play guide, or wants the deck's game plan, engines, combos, mulligans, tutors, sequencing, win conditions, category draw probabilities, or direct Archidekt deck-creation link documented.
 ---
 
 # Deck Primer
@@ -47,15 +47,16 @@ Use concise Markdown. Write every card mention as a bold link to its manifest `s
 2. Archidekt deck-creation link
 3. Deck summary
 4. Key-card image gallery
-5. How the deck works
-6. Core engine or role table
-7. Main combo or synergy patterns
-8. Win conditions
-9. Early, mid, and late game
-10. Mulligan guide
-11. Tutor priorities
-12. Important sequencing and rules notes
-13. Weaknesses and what to protect
+5. Category access by turn three
+6. How the deck works
+7. Core engine or role table
+8. Main combo or synergy patterns
+9. Win conditions
+10. Early, mid, and late game
+11. Mulligan guide
+12. Tutor priorities
+13. Important sequencing and rules notes
+14. Weaknesses and what to protect
 
 Prefer a table for interchangeable roles and tutor decisions. Explain representative cards rather than listing every card. Make the primer useful during actual play.
 
@@ -78,6 +79,18 @@ python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<slug>
 
 Rerun this script whenever the deck list or resolved manifest changes. Never copy an Archidekt URL from an older deck revision.
 
+### Category access by turn three
+
+Every primer must contain a hypergeometric probability table calculated from the resolved manifest. Use a 99-card library and 10 cards seen by turn three: the opening seven plus three normal draw steps, with no mulligans or additional draw. Exclude commanders and cards marked `{noDeck}`. Categories overlap, so present each category's probability independently.
+
+Require at least one card from each category except `Land`, which requires at least three. Create or refresh the section with:
+
+```bash
+python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py decks/<slug>
+```
+
+Rerun this script whenever the deck list, quantities, categories, or resolved manifest changes. Do not multiply the individual category probabilities to claim a combined opening-hand probability.
+
 ### Key-card images
 
 Add a compact `## Key cards` gallery near the top of every primer:
@@ -99,9 +112,11 @@ Before saving:
 - rerun the linker after every primer edit; it preserves existing links, images, HTML, URLs, and code;
 - run `python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<slug> --check`, including the same printing overrides used to generate the link;
 - confirm the Archidekt payload contains every resolved card, the deck's total quantity, and exactly one commander entry;
+- run `python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py decks/<slug> --check`;
+- confirm the category table uses 10 cards seen, excludes commanders and `{noDeck}` extras, and requires three Lands but one card from other categories;
 - recheck each described line against Oracle text;
 - ensure the primary plan reflects the deck as built rather than a generic archetype;
 - ensure delayed or finite interactions are described accurately;
 - confirm no source deck files changed unintentionally.
 
-Report the deck name, total and unique cards, unresolved count, README path, and that the Archidekt link is current.
+Report the deck name, total and unique cards, unresolved count, README path, and that the Archidekt link and category probability table are current.
