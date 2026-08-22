@@ -31,7 +31,6 @@ This log records why every card entered the initial list. Future changes should 
 
 ### Dumpster diving
 
-- **Mesmeric Orb** — Large repeatable self-mill that also works during every untap step.
 - **Perpetual Timepiece** — Self-mill during setup and a graveyard-to-library safety valve before decking.
 - **Life from the Loam** — Dredges repeatedly and returns lands for discard, replay, or bounce-land engines.
 - **Ripples of Undeath** — Mills each turn and converts the best permanent into a card in hand.
@@ -70,7 +69,6 @@ This log records why every card entered the initial list. Future changes should 
 - **Tamiyo's Safekeeping** — Cheap protection for Homer or a crucial artifact, enchantment, or land.
 - **March of Swirling Mist** — Protects several Homers simultaneously and can remove blockers or opposing creatures temporarily.
 - **Arcane Denial** — Flexible protection against sweepers and graveyard hate without a demanding mana cost.
-- **Resculpt** — Exiles a creature or artifact and leaves behind a token that is usually irrelevant to the mill plan.
 - **Tear Asunder** — Flexible artifact, enchantment, and late-game permanent exile.
 - **Raise the Palisade** — Naming Crab becomes a one-sided creature reset under a type-changing effect.
 - **Kindred Dominance** — Expensive but thematic one-sided sweeper naming Crab.
@@ -112,8 +110,6 @@ This log records why every card entered the initial list. Future changes should 
 ## 2026-08-22 — Remove the Game Changers
 
 - **Deathsprout** — Replaces Crop Rotation, removing a Game Changer while turning instant-speed creature removal into a landfall trigger by fetching a basic land.
-- **Dryad of the Ilysian Grove** — Replaces Patron of the Moon, trading the seven-mana burst engine for an earlier additional land play and reliable color fixing.
-- **Ramunap Excavator** — Replaces Field of the Dead, removing the second Game Changer while repeatedly replaying fetch lands, sacrificed utility lands, and milled lands from the graveyard.
 
 ## 2026-08-22 — Retire the Helm
 
@@ -133,3 +129,10 @@ This log records why every card entered the initial list. Future changes should 
 - **You Find the Villains' Lair** — Replaces Walking Atlas with a deliberately fair three-mana counterspell whose other mode draws two and discards two into the graveyard.
 
 Meloku the Clouded Mirror became the fortieth land. Command Tower and the three original duals became basics, raising the basic package to eleven cards so repeated searches are less likely to run out of targets.
+
+## 2026-08-22 — Moloids in the Dumpster
+
+- **Awaken the Honored Dead** — Replaces Resculpt with slower, broader removal followed by self-mill and, after discarding a card, creature-or-land recovery.
+- **Zimone and Dina** — Replaces Dryad of the Ilysian Grove with a less consistent but more interesting sacrifice, draw, and off-turn landfall engine.
+- **Mole Man, Moloid Master** — Replaces Ramunap Excavator while retaining graveyard land plays and creating a disposable, self-milling Moloid for every landfall.
+- **Crawling Sensation** — Replaces Mesmeric Orb with deliberately slower self-mill and recurring Insect fodder whenever lands enter the graveyard.
