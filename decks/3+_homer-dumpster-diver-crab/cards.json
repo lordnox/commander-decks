@@ -1332,29 +1332,27 @@
       "submitted_name": "Fact or Fiction"
     },
     {
-      "cache": "cards/e21c8fc6-d4ef-42b6-b11e-d9c931da1387.json",
+      "cache": "cards/9baff93e-4ef9-404d-884b-f651a11f3742.json",
       "card": {
         "keywords": [],
-        "mana_cost": "{2}{G}",
-        "oracle_text": "Search your library for up to four land cards with different names and reveal them. An opponent chooses two of those cards. Put the chosen cards into your graveyard and the rest into your hand. Then shuffle.",
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Target opponent looks at the top four cards of your library and separates them into a face-down pile and a face-up pile. Put one pile into your hand and the other into your graveyard.",
         "type_line": "Instant"
       },
       "categories": [
         "Card Advantage",
-        "Dumpster Diving",
-        "Land Selection"
+        "Dumpster Diving"
       ],
       "category_source": "decklist",
-      "name": "Realms Uncharted",
-      "oracle_id": "e21c8fc6-d4ef-42b6-b11e-d9c931da1387",
+      "name": "Fortune's Favor",
+      "oracle_id": "9baff93e-4ef9-404d-884b-f651a11f3742",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/roe/206/realms-uncharted?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/emn/61/fortunes-favor?utm_source=api",
       "submitted_categories": [
         "Card Advantage",
-        "Dumpster Diving",
-        "Land Selection"
+        "Dumpster Diving"
       ],
-      "submitted_name": "Realms Uncharted"
+      "submitted_name": "Fortune's Favor"
     },
     {
       "cache": "cards/d2075f58-b0e9-4e85-b7e6-0523a27a1d5b.json",
@@ -2389,7 +2387,7 @@
     }
   ],
   "categorized_cards": 97,
-  "generated_at": "2026-08-22T10:48:31.190552+00:00",
+  "generated_at": "2026-08-22T10:57:47.961216+00:00",
   "schema_version": 3,
   "source": "decks/3+_homer-dumpster-diver-crab/decklist.txt",
   "total_cards": 100,
