@@ -39,11 +39,12 @@ Angelic Renewal can fill the same role when the returning creature can immediate
 | Ozox engine | Ozox, Phyrexian Altar, Ashnod's Altar, Ratadrabik of Urborg, Bog Initiate, Bontu's Monument |
 | Cost reduction | Bontu's Monument, Jet Medallion, Urza's Incubator |
 | Return effects | Animate Dead, Angelic Renewal, Changing Loyalty, Fungal Fortitude, Kaya's Ghostform, Minion's Return, Necrogen Communion |
+| Repeatable recursion | Chthonian Nightmare, Corpse Dance, Animate Dead, Victimize |
 | Recursion creatures | Sun Titan, Angel of Indemnity, Brotherhood Outcast, Danitha, Redemption Choir |
 | Death payoffs | Zulaport Cutthroat, Bastion of Remembrance, Marionette Apprentice, Agent of the Iron Throne, Ninja Teen |
 | Durable finish | Funeral Room and Sephiroth |
 | Renewal engine | Enduring Renewal and Greedy Freebooter |
-| Setup | Final Parting, Dimir House Guard, Demonic Bargain, Grim Servant, self-mill creatures |
+| Setup | Dimir House Guard, Demonic Bargain, Grim Servant, self-mill creatures |
 
 ## Main wins
 
@@ -137,6 +138,7 @@ Avoid hands containing several expensive recursion creatures without ramp or gra
 - Commander tax does not apply when Jumblebones returns Ozox to your hand.
 - Protect the mana engine or recursion creature before protecting Bartolomé.
 - Gift of Immortality returns itself only at the next end step and is not an immediate loop.
+- Corpse Dance returns only the top creature card of your graveyard. Preserve graveyard order, and sacrifice the returned creature before the next end step so it goes back to the graveyard instead of being exiled.
 - The Animate Dead and Leonin Relic-Warder loop can be mandatory; establish a payoff or an exit before starting it.
 - Enduring Renewal reveals your hand and puts creature cards you would draw into your graveyard.
 - Tokens die before ceasing to exist, so Bastion of Remembrance and the other listed death payoffs trigger from Jumblebones tokens.
