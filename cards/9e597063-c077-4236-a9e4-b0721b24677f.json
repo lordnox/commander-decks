@@ -1,0 +1,146 @@
+{
+  "arena_id": 96805,
+  "artist": "Ryan Pancoast",
+  "artist_ids": [
+    "89cc9475-dda2-4d13-bf88-54b92867a25c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 835364,
+  "cmc": 2.0,
+  "collector_number": "231",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 4717,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "49554198-549b-4066-86ce-77a03fda0a2f",
+  "illustration_id": "db6f97b7-b4f3-4a15-b5da-5a5fe9d8f6ee",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:25:23Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/9/49554198-549b-4066-86ce-77a03fda0a2f.webp?1783905923",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/9/49554198-549b-4066-86ce-77a03fda0a2f.jpg?1783905923",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/9/49554198-549b-4066-86ce-77a03fda0a2f.jpg?1783905923",
+    "crop": "https://cards.scryfall.io/crop/front/4/9/49554198-549b-4066-86ce-77a03fda0a2f.webp?1783905923",
+    "display": "https://cards.scryfall.io/display/front/4/9/49554198-549b-4066-86ce-77a03fda0a2f.webp?1783905923",
+    "grid": "https://cards.scryfall.io/grid/front/4/9/49554198-549b-4066-86ce-77a03fda0a2f.webp?1783905923",
+    "large": "https://cards.scryfall.io/large/front/4/9/49554198-549b-4066-86ce-77a03fda0a2f.jpg?1783905923",
+    "normal": "https://cards.scryfall.io/normal/front/4/9/49554198-549b-4066-86ce-77a03fda0a2f.jpg?1783905923",
+    "png": "https://cards.scryfall.io/png/front/4/9/49554198-549b-4066-86ce-77a03fda0a2f.png?1783905923",
+    "small": "https://cards.scryfall.io/small/front/4/9/49554198-549b-4066-86ce-77a03fda0a2f.jpg?1783905923",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/9/49554198-549b-4066-86ce-77a03fda0a2f.webp?1783905923"
+  },
+  "keywords": [
+    "Vigilance",
+    "Menace"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}{B}",
+  "mtgo_id": 143075,
+  "multiverse_ids": [],
+  "name": "Syr Vondam, Sunstar Exemplar",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9e597063-c077-4236-a9e4-b0721b24677f",
+  "oracle_text": "Vigilance, menace\nWhenever another creature you control dies or is put into exile, put a +1/+1 counter on Syr Vondam and you gain 1 life.\nWhen Syr Vondam dies or is put into exile while its power is 4 or greater, destroy up to one target nonland permanent.",
+  "oversized": false,
+  "penny_rank": 6087,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2025-07-14",
+    "source": "TCGplayer",
+    "source_uri": "https://www.tcgplayer.com/content/article/Check-Out-TCGplayer-s-EXCLUSIVE-Edge-of-Eternities-Preview-Card/ae8de121-a1ab-4a8a-a40e-4fe2e41a92da/"
+  },
+  "prices": {
+    "eur": "0.55",
+    "eur_foil": "0.98",
+    "tix": "0.02",
+    "usd": "0.37",
+    "usd_etched": null,
+    "usd_foil": "0.48"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9e597063-c077-4236-a9e4-b0721b24677f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/143075?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=835364&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F643466%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Syr+Vondam%2C+Sunstar+Exemplar",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSyr%2BVondam%252C%2BSunstar%2BExemplar",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSyr%2BVondam%252C%2BSunstar%2BExemplar"
+  },
+  "released_at": "2025-08-01",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "08E463476CCDF78C4D8F63A9DD1C62DC66EF3F4A3A27E4DD3F957BE2488C1820",
+  "rulings_uri": "https://api.scryfall.com/cards/49554198-549b-4066-86ce-77a03fda0a2f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eoe?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eoe/231/syr-vondam-sunstar-exemplar?utm_source=api",
+  "security_stamp": "oval",
+  "set": "eoe",
+  "set_id": "452951cf-378b-4472-b7fe-572fe2af2ac0",
+  "set_name": "Edge of Eternities",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeoe&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/452951cf-378b-4472-b7fe-572fe2af2ac0",
+  "story_spotlight": false,
+  "tcgplayer_id": 643466,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Human Knight",
+  "uri": "https://api.scryfall.com/cards/49554198-549b-4066-86ce-77a03fda0a2f",
+  "variation": false
+}
