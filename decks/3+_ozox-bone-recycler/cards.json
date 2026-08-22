@@ -4,7 +4,7 @@
       "board": "maybeboard",
       "cache": "cards/0a364b66-95df-480b-a733-e90f6d5c4d2b.json",
       "categories": [
-        "maybeboard"
+        "maybeboard{noDeck}"
       ],
       "category_source": "deck",
       "name": "Altar of Bhaal // Bone Offering",
@@ -398,7 +398,7 @@
       "board": "maybeboard",
       "cache": "cards/99024aa8-5687-4d38-8a4b-feef42d6c1ff.json",
       "categories": [
-        "maybeboard",
+        "maybeboard{noDeck}",
         "anthem"
       ],
       "category_source": "deck",
@@ -753,7 +753,7 @@
       "board": "maybeboard",
       "cache": "cards/76ae3779-c821-4cd3-8d0f-8c42d1206ce4.json",
       "categories": [
-        "maybeboard",
+        "maybeboard{noDeck}",
         "skeleton",
         "recursion"
       ],
@@ -979,7 +979,7 @@
       "board": "mainboard",
       "cache": "cards/04e575d1-f843-4330-972f-e77b264073e0.json",
       "categories": [
-        "commander-top"
+        "Commander{top}"
       ],
       "category_source": "deck",
       "name": "Ozox, the Clattering King",
@@ -1260,7 +1260,7 @@
       "board": "maybeboard",
       "cache": "cards/9ae376d5-c68f-4a4b-851c-ebfd385b86dd.json",
       "categories": [
-        "maybeboard",
+        "maybeboard{noDeck}",
         "skeleton",
         "recursion"
       ],
@@ -1323,7 +1323,7 @@
       "board": "maybeboard",
       "cache": "cards/6dc0150d-7145-41e2-bd3d-2564d9d32301.json",
       "categories": [
-        "maybeboard"
+        "maybeboard{noDeck}"
       ],
       "category_source": "deck",
       "name": "Tormod, the Desecrator",
@@ -1365,7 +1365,7 @@
       "board": "maybeboard",
       "cache": "cards/12db6263-75c2-442f-a1a5-7af7915f8f9f.json",
       "categories": [
-        "maybeboard"
+        "maybeboard{noDeck}"
       ],
       "category_source": "deck",
       "name": "Umbral Collar Zealot",
@@ -1446,7 +1446,7 @@
       "board": "maybeboard",
       "cache": "cards/f83a768c-162d-46f0-8ebd-d9c6b2c69322.json",
       "categories": [
-        "maybeboard"
+        "maybeboard{noDeck}"
       ],
       "category_source": "deck",
       "name": "Vein Ripper",
@@ -1470,7 +1470,7 @@
       "board": "maybeboard",
       "cache": "cards/4cdbc466-42fc-471f-beab-397caec18101.json",
       "categories": [
-        "maybeboard"
+        "maybeboard{noDeck}"
       ],
       "category_source": "deck",
       "name": "Vengeful Bloodwitch",
@@ -1597,7 +1597,7 @@
       "board": "maybeboard",
       "cache": "cards/3adbd963-e85d-4569-963a-4472594f06f9.json",
       "categories": [
-        "maybeboard"
+        "maybeboard{noDeck}"
       ],
       "category_source": "deck",
       "name": "Woe Strider",
@@ -1644,7 +1644,7 @@
       "board": "maybeboard",
       "cache": "cards/76b003e0-15af-4f22-bdf2-1ade5430964a.json",
       "categories": [
-        "maybeboard"
+        "maybeboard{noDeck}"
       ],
       "category_source": "deck",
       "name": "Zulaport Cutthroat",
