@@ -1011,23 +1011,25 @@
     },
     {
       "board": "mainboard",
-      "cache": "cards/a5852994-d816-4e62-8a03-254223714544.json",
+      "cache": "cards/59b02ca7-e7bd-4820-ac32-87ea1a8c64c0.json",
       "card": {
-        "keywords": [],
-        "mana_cost": "{3}{B}{B}",
-        "oracle_text": "Search your library for two cards. Put one into your hand and the other into your graveyard. Then shuffle.",
-        "type_line": "Sorcery"
+        "keywords": [
+          "Buyback"
+        ],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Buyback {2} (You may pay an additional {2} as you cast this spell. If you do, put this card into your hand as it resolves.)\nReturn the top creature card of your graveyard to the battlefield. That creature gains haste until end of turn. Exile it at the beginning of the next end step.",
+        "type_line": "Instant"
       },
       "categories": [
-        "tutor",
-        "graveyard-setup"
+        "recursion",
+        "combo-piece"
       ],
-      "category_source": "deck",
-      "name": "Final Parting",
-      "oracle_id": "a5852994-d816-4e62-8a03-254223714544",
+      "category_source": "decklist",
+      "name": "Corpse Dance",
+      "oracle_id": "59b02ca7-e7bd-4820-ac32-87ea1a8c64c0",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cmm/160/final-parting?utm_source=api",
-      "submitted_name": "Final Parting"
+      "scryfall_uri": "https://scryfall.com/card/tpr/89/corpse-dance?utm_source=api",
+      "submitted_name": "Corpse Dance"
     },
     {
       "board": "mainboard",
@@ -1311,22 +1313,25 @@
     },
     {
       "board": "mainboard",
-      "cache": "cards/6ad8011d-3471-4369-9d68-b264cc027487.json",
+      "cache": "cards/e3174070-542f-429e-9149-b572f6614537.json",
       "card": {
         "keywords": [],
-        "mana_cost": "{1}",
-        "oracle_text": "{T}: Add {C}{C}.",
-        "type_line": "Artifact"
+        "mana_cost": "{1}{B}",
+        "oracle_text": "{T}, Sacrifice a black or artifact creature: Add an amount of {B} equal to the sacrificed creature's mana value.",
+        "type_line": "Creature — Human Cleric",
+        "power": "1",
+        "toughness": "2"
       },
       "categories": [
-        "ramp"
+        "ramp",
+        "sacrifice-outlet"
       ],
-      "category_source": "deck",
-      "name": "Sol Ring",
-      "oracle_id": "6ad8011d-3471-4369-9d68-b264cc027487",
+      "category_source": "decklist",
+      "name": "Soldevi Adnate",
+      "oracle_id": "e3174070-542f-429e-9149-b572f6614537",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/msc/211/sol-ring?utm_source=api",
-      "submitted_name": "Sol Ring"
+      "scryfall_uri": "https://scryfall.com/card/all/60a/soldevi-adnate?utm_source=api",
+      "submitted_name": "Soldevi Adnate"
     },
     {
       "board": "mainboard",
@@ -1830,7 +1835,7 @@
     }
   ],
   "categorized_cards": 83,
-  "generated_at": "2026-08-21T19:15:44.881Z",
+  "generated_at": "2026-08-22T00:20:30.736Z",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 83,
