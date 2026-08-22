@@ -4,9 +4,13 @@
 from __future__ import annotations
 
 import argparse
+import copy
+import contextlib
+import hashlib
 import json
 import re
 import sys
+import tempfile
 import time
 import unicodedata
 import urllib.error
@@ -16,8 +20,20 @@ from collections import OrderedDict
 from datetime import datetime, timezone
 from pathlib import Path
 
+try:
+    import fcntl
+except ImportError:  # pragma: no cover - Windows
+    fcntl = None
+
+try:
+    import msvcrt
+except ImportError:  # pragma: no cover - POSIX
+    msvcrt = None
+
 API = "https://api.scryfall.com"
 USER_AGENT = "commander-decks/1.0"
+COLLECTION_BATCH_SIZE = 75
+REQUEST_DELAY = 0.1
 SECTION_NAMES = {
     "commander", "commanders", "deck", "mainboard", "sideboard", "maybeboard",
     "considering", "creatures", "instants", "sorceries", "artifacts",
@@ -105,13 +121,52 @@ def api_json(path: str, params: dict[str, str]) -> dict:
         return json.load(response)
 
 
-def lookup_card(name: str) -> dict:
-    try:
-        return api_json("/cards/named", {"exact": name})
-    except urllib.error.HTTPError as error:
-        if error.code != 404:
-            raise
-    return api_json("/cards/named", {"fuzzy": name})
+def api_post_json(path: str, payload: dict) -> dict:
+    request = urllib.request.Request(
+        f"{API}{path}",
+        data=json.dumps(payload).encode("utf-8"),
+        method="POST",
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+    )
+    with urllib.request.urlopen(request, timeout=30) as response:
+        return json.load(response)
+
+
+def card_names(card: dict) -> list[str]:
+    names = [card.get("name", "")]
+    names.extend(face.get("name", "") for face in card.get("card_faces", []))
+    return [name for name in names if name]
+
+
+def lookup_collection(names: list[str]) -> tuple[dict[str, dict], list[str], int]:
+    """Resolve exact names in Scryfall collection batches of at most 75."""
+    resolved: dict[str, dict] = {}
+    requests = 0
+
+    for offset in range(0, len(names), COLLECTION_BATCH_SIZE):
+        chunk = names[offset:offset + COLLECTION_BATCH_SIZE]
+        response = api_post_json(
+            "/cards/collection",
+            {"identifiers": [{"name": name} for name in chunk]},
+        )
+        requests += 1
+        cards_by_name = {
+            normalized_name(alias): card
+            for card in response.get("data", [])
+            for alias in card_names(card)
+        }
+        for name in chunk:
+            card = cards_by_name.get(normalized_name(name))
+            if card is not None:
+                resolved[normalized_name(name)] = card
+        time.sleep(REQUEST_DELAY)
+
+    missing = [name for name in names if normalized_name(name) not in resolved]
+    return resolved, missing, requests
 
 
 def read_json(path: Path, default: object) -> object:
@@ -120,11 +175,11 @@ def read_json(path: Path, default: object) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def write_json(path: Path, value: object) -> None:
+def write_json(path: Path, value: object, *, sort_keys: bool = True) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
     temporary.write_text(
-        json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        json.dumps(value, ensure_ascii=False, indent=2, sort_keys=sort_keys) + "\n",
         encoding="utf-8",
     )
     temporary.replace(path)
@@ -210,23 +265,33 @@ def category_list(value: object) -> list[str]:
     return categories or ["other"]
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("decklist", type=Path)
-    parser.add_argument("--refresh", action="store_true", help="refresh already cached cards")
-    args = parser.parse_args()
+@contextlib.contextmanager
+def repository_lock(repo_root: Path):
+    """Prevent concurrent resolver runs from racing on shared registries."""
+    digest = hashlib.sha256(str(repo_root.resolve()).encode("utf-8")).hexdigest()[:16]
+    lock_path = Path(tempfile.gettempdir()) / f"commander-decks-{digest}.lock"
+    with lock_path.open("a+b") as handle:
+        try:
+            if fcntl is not None:
+                fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            elif msvcrt is not None:  # pragma: no cover - Windows
+                handle.seek(0)
+                handle.write(b"\0")
+                handle.flush()
+                handle.seek(0)
+                msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+            else:  # pragma: no cover - unsupported platform
+                raise OSError("no supported file-lock implementation")
+        except (BlockingIOError, OSError) as error:
+            raise RuntimeError(
+                "another cache_deck.py process is already updating this repository; "
+                "wait for it to finish instead of starting a second resolver"
+            ) from error
+        yield
 
-    decklist = args.decklist.resolve()
-    if not decklist.is_file():
-        parser.error(f"deck list not found: {decklist}")
 
-    repo_root = Path(__file__).resolve().parents[4]
-    try:
-        deck_dir = decklist.parent
-        deck_dir.relative_to(repo_root / "decks")
-    except ValueError:
-        parser.error("deck list must be inside decks/<deck-name>/")
-
+def resolve_deck(decklist: Path, repo_root: Path, *, refresh: bool = False) -> int:
+    deck_dir = decklist.parent
     cache_dir = repo_root / "cards"
     index_path = cache_dir / "index.json"
     category_path = cache_dir / "categories.json"
@@ -235,6 +300,8 @@ def main() -> int:
     index = read_json(index_path, {"schema_version": 1, "names": {}})
     category_registry = read_json(category_path, {"schema_version": 1, "cards": {}})
     overrides = read_json(override_path, {"schema_version": 1, "cards": {}})
+    original_index = copy.deepcopy(index)
+    original_category_registry = copy.deepcopy(category_registry)
     aliases: dict[str, str] = index.setdefault("names", {})
     universal_cards: dict[str, dict] = category_registry.setdefault("cards", {})
     override_cards: dict[str, dict] = overrides.setdefault("cards", {})
@@ -242,43 +309,89 @@ def main() -> int:
     submitted, ignored = parse_decklist(decklist)
     resolved: list[dict] = []
     unresolved: list[dict] = list(ignored)
+    cards_by_key: dict[str, dict] = {}
+    pending: list[dict] = []
+    stats = {
+        "cache_hits": 0,
+        "collection_requests": 0,
+        "collection_resolved": 0,
+        "fuzzy_requests": 0,
+        "fuzzy_resolved": 0,
+    }
 
     for entry in submitted:
         submitted_name = entry["submitted_name"]
         key = normalized_name(submitted_name)
         oracle_id = aliases.get(key)
         cache_path = cache_dir / f"{oracle_id}.json" if oracle_id else None
-        card = None
 
-        if cache_path and cache_path.exists() and not args.refresh:
+        if cache_path and cache_path.exists() and not refresh:
             card = read_json(cache_path, {})
-        else:
+            if isinstance(card, dict) and card.get("oracle_id"):
+                cards_by_key[key] = card
+                stats["cache_hits"] += 1
+                continue
+        pending.append(entry)
+
+    if pending:
+        names = [entry["submitted_name"] for entry in pending]
+        try:
+            collection_cards, fuzzy_names, request_count = lookup_collection(names)
+            stats["collection_requests"] = request_count
+            stats["collection_resolved"] = len(collection_cards)
+            cards_by_key.update(collection_cards)
+        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as error:
+            for entry in pending:
+                unresolved.append({
+                    "line": entry["line"],
+                    "text": entry["submitted_name"],
+                    "reason": f"collection lookup failed: {error}",
+                })
+            fuzzy_names = []
+
+        fuzzy_entries = {
+            normalized_name(entry["submitted_name"]): entry
+            for entry in pending
+            if entry["submitted_name"] in fuzzy_names
+        }
+        for name in fuzzy_names:
+            entry = fuzzy_entries[normalized_name(name)]
+            stats["fuzzy_requests"] += 1
             try:
-                card = lookup_card(submitted_name)
-                time.sleep(0.1)
+                card = api_json("/cards/named", {"fuzzy": name})
+                time.sleep(REQUEST_DELAY)
             except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as error:
                 unresolved.append({
                     "line": entry["line"],
-                    "text": submitted_name,
+                    "text": name,
                     "reason": str(error),
                 })
                 continue
+            cards_by_key[normalized_name(name)] = card
+            stats["fuzzy_resolved"] += 1
 
-            oracle_id = card.get("oracle_id")
-            if not oracle_id:
-                unresolved.append({
-                    "line": entry["line"],
-                    "text": submitted_name,
-                    "reason": "Scryfall response has no oracle_id",
-                })
-                continue
-            cache_path = cache_dir / f"{oracle_id}.json"
+    for entry in submitted:
+        submitted_name = entry["submitted_name"]
+        key = normalized_name(submitted_name)
+        card = cards_by_key.get(key)
+        if card is None:
+            continue
+
+        oracle_id = card.get("oracle_id")
+        if not oracle_id:
+            unresolved.append({
+                "line": entry["line"],
+                "text": submitted_name,
+                "reason": "Scryfall response has no oracle_id",
+            })
+            continue
+        cache_path = cache_dir / f"{oracle_id}.json"
+        if refresh or not cache_path.exists():
             write_json(cache_path, card)
 
-        oracle_id = card["oracle_id"]
         canonical_name = card["name"]
-        aliases[key] = oracle_id
-        aliases[normalized_name(canonical_name)] = oracle_id
+        for alias in [submitted_name, *card_names(card)]:
+            aliases[normalized_name(alias)] = oracle_id
 
         universal = universal_cards.setdefault(oracle_id, {
             "name": canonical_name,
@@ -312,10 +425,12 @@ def main() -> int:
         })
 
     now = datetime.now(timezone.utc).isoformat()
-    index["updated_at"] = now
-    category_registry["updated_at"] = now
-    write_json(index_path, index)
-    write_json(category_path, category_registry)
+    if index != original_index:
+        index["updated_at"] = now
+        write_json(index_path, index, sort_keys=False)
+    if category_registry != original_category_registry:
+        category_registry["updated_at"] = now
+        write_json(category_path, category_registry, sort_keys=False)
 
     manifest = {
         "schema_version": 3,
@@ -333,7 +448,11 @@ def main() -> int:
         f"Resolved {manifest['total_cards']} cards "
         f"({manifest['unique_cards']} unique, "
         f"{manifest['categorized_cards']} categorized); "
-        f"{len(unresolved)} unresolved."
+        f"{len(unresolved)} unresolved. "
+        f"Cache: {stats['cache_hits']} hit(s); "
+        f"Scryfall: {stats['collection_resolved']} exact in "
+        f"{stats['collection_requests']} collection request(s), "
+        f"{stats['fuzzy_resolved']}/{stats['fuzzy_requests']} fuzzy."
     )
     if unresolved:
         for item in unresolved:
@@ -342,6 +461,29 @@ def main() -> int:
     return 0
 
 
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("decklist", type=Path)
+    parser.add_argument("--refresh", action="store_true", help="refresh already cached cards")
+    args = parser.parse_args()
+
+    decklist = args.decklist.resolve()
+    if not decklist.is_file():
+        parser.error(f"deck list not found: {decklist}")
+
+    repo_root = Path(__file__).resolve().parents[4]
+    try:
+        decklist.parent.relative_to(repo_root / "decks")
+    except ValueError:
+        parser.error("deck list must be inside decks/<deck-name>/")
+
+    try:
+        with repository_lock(repo_root):
+            return resolve_deck(decklist, repo_root, refresh=args.refresh)
+    except RuntimeError as error:
+        print(f"cache_deck.py: {error}", file=sys.stderr)
+        return 2
+
+
 if __name__ == "__main__":
     raise SystemExit(main())
-

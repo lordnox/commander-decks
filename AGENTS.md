@@ -15,11 +15,13 @@ Whenever the user posts a deck list or asks to begin work on a deck:
 3. If a likely deck exists, ask whether that is the deck being worked on before changing it.
 4. If no deck matches, infer a concise kebab-case name from the commander or theme and prefix it with `unrated_`. Ask for a name only when the identity is ambiguous.
 5. Create `decks/unrated_<deck-name>/` and save the submitted list unchanged as `decklist.txt`.
-6. Resolve every card through Scryfall and update the repository cache and deck manifest.
+6. Run one resolver process to resolve every card through Scryfall and update the repository cache and deck manifest. Wait for a running resolver instead of starting it again.
 7. Assign one or more useful categories to every resolved card. Use universal categories unless the card has a deck-specific role.
 8. Create or refresh the deck's `README.md` by following the `deck-primer` skill.
 9. Add or update the deck's primer link in the `Deck primers` section immediately below the root README title. Prefix the label with its bracket and sort the section by bracket, then deck name.
-10. Do not analyze or recommend changes until resolution errors are reported or fixed.
+10. If a card-by-card decision log was requested, add `DECISIONS.md` or `decisions.json` with one entry per unique deck card.
+11. Run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<deck-name>`; add `--require-decisions` when a decision log is required.
+12. Do not analyze or recommend changes until resolution or validation errors are reported or fixed.
 
 A newly created deck is incomplete until its primer exists and is linked from the root README. Use `decks/<N><modifier>_<deck-name>/` for assessed decks, where `<modifier>` is ASCII `-`, empty, or `+` for positions `N−`, `N`, or `N+`; for example, Bracket 3− uses `3-_`, Bracket 3 uses `3_`, and Bracket 3+ uses `3+_`. Use `unrated_` until assessment.
 
@@ -38,3 +40,5 @@ Use the repository's `deck-workspace` skill for this workflow, `scryfall-lookup`
 Every card must have at least one category. Deck-specific categories replace, rather than merge with, universal categories for that deck.
 
 Do not duplicate card JSON inside deck directories. Preserve the user's deck-list formatting unless they ask for normalization.
+
+Before opening a pull request, inspect the complete diff and exclude unrelated shared-cache or registry changes. Keep pull requests ready for review.
