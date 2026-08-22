@@ -9,6 +9,16 @@ A mono-black sacrifice deck built around repeatedly killing and recasting its co
 **Primary plan:** loop Ozox and Jumblebones through sacrifice outlets  
 **Backup plan:** grind with recursive creatures, sacrifice-based draw, and reanimation
 
+## Key cards
+
+<p align="center">
+  <a href="https://scryfall.com/card/j25/44/ozox-the-clattering-king"><img src="https://cards.scryfall.io/normal/front/0/2/02cf5079-9da8-470d-8eea-00d6aac68d04.jpg?1783908856" width="160" alt="Ozox, the Clattering King"></a>
+  <a href="https://scryfall.com/card/2x2/311/phyrexian-altar"><img src="https://cards.scryfall.io/normal/front/9/5/95d9f93c-50a8-41a9-be98-d1900bf1c12f.jpg?1783921789" width="160" alt="Phyrexian Altar"></a>
+  <a href="https://scryfall.com/card/dmc/179/bontus-monument"><img src="https://cards.scryfall.io/normal/front/1/7/171a9a3f-6278-4921-9848-2b8459869d6c.jpg?1783921400" width="160" alt="Bontu's Monument"></a>
+  <a href="https://scryfall.com/card/cmm/368/ashnods-altar"><img src="https://cards.scryfall.io/normal/front/3/c/3c0f7157-a375-499c-92c7-d47d2e95dbad.jpg?1783915605" width="160" alt="Ashnod's Altar"></a>
+  <a href="https://scryfall.com/card/dsk/100/funeral-room-awakening-hall"><img src="https://cards.scryfall.io/normal/front/4/8/48237c98-5067-47a8-af74-7b9bce57c6a4.jpg?1783909480" width="160" alt="Funeral Room // Awakening Hall"></a>
+</p>
+
 ## How the deck works
 
 When Ozox dies, it creates **Jumblebones**, a legendary 2/1 Skeleton token. When Jumblebones leaves the battlefield, it returns Ozox from the graveyard to your hand.
