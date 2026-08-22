@@ -2,7 +2,7 @@
 
 > Bracket 3+ combo deck. Usually threatens a win around turn six, but has an unlikely turn-four line.
 
-An Orzhov graveyard-combo deck that combines Bartolomé's free sacrifice outlet with the Ozox/Jumblebones rotation and the original Aura-recursion engine.
+An Orzhov graveyard-combo deck built around Bartolomé's free sacrifice outlet, with the Ozox/Jumblebones rotation and Aura-recursion loops serving as overlapping engines.
 
 **Commander:** [Bartolomé del Presidio](https://scryfall.com/card/lci/224/bartolom%C3%A9-del-presidio)  
 **Deck size:** 100 cards  
@@ -49,11 +49,12 @@ Angelic Renewal can fill the same role when the returning creature can immediate
 | Ozox engine | Ozox, Phyrexian Altar, Ashnod's Altar, Ratadrabik of Urborg, Bog Initiate, Bontu's Monument |
 | Cost reduction | Bontu's Monument, Jet Medallion, Urza's Incubator |
 | Return effects | Animate Dead, Angelic Renewal, Changing Loyalty, Fungal Fortitude, Kaya's Ghostform, Minion's Return, Necrogen Communion |
+| Repeatable recursion | Chthonian Nightmare, Corpse Dance, Animate Dead, Victimize |
 | Recursion creatures | Sun Titan, Angel of Indemnity, Brotherhood Outcast, Danitha, Redemption Choir |
 | Death payoffs | Zulaport Cutthroat, Bastion of Remembrance, Marionette Apprentice, Agent of the Iron Throne, Ninja Teen |
 | Durable finish | Funeral Room and Sephiroth |
 | Renewal engine | Enduring Renewal and Greedy Freebooter |
-| Setup | Final Parting, Dimir House Guard, Demonic Bargain, Grim Servant, self-mill creatures |
+| Setup | Dimir House Guard, Demonic Bargain, Grim Servant, self-mill creatures |
 
 ## Main wins
 
@@ -147,12 +148,13 @@ Avoid hands containing several expensive recursion creatures without ramp or gra
 - Commander tax does not apply when Jumblebones returns Ozox to your hand.
 - Protect the mana engine or recursion creature before protecting Bartolomé.
 - Gift of Immortality returns itself only at the next end step and is not an immediate loop.
+- Corpse Dance returns only the top creature card of your graveyard. Preserve graveyard order, and sacrifice the returned creature before the next end step so it goes back to the graveyard instead of being exiled.
 - The Animate Dead and Leonin Relic-Warder loop can be mandatory; establish a payoff or an exit before starting it.
 - Enduring Renewal reveals your hand and puts creature cards you would draw into your graveyard.
 - Tokens die before ceasing to exist, so Bastion of Remembrance and the other listed death payoffs trigger from Jumblebones tokens.
 - Mandatory draw engines such as Dark Prophecy can empty the library during an unlimited loop.
 - Graveyard exile is the deck's most important threat; reserve flexible removal for it.
 
-## Identity of the merged deck
+## Deck identity
 
-This is still primarily a Bartolomé deck. The Ozox package adds a compact second engine instead of replacing the Aura-recursion plan. Most support cards contribute to both engines, keeping the list from becoming two unrelated half-decks.
+Graveyard Shift is a Bartolomé graveyard-combo deck with two overlapping engines. Ozox provides renewable bodies and compact loops, while the Aura-recursion package repeatedly returns useful creatures. Most support cards contribute to both plans, so the deck can pivot naturally between setup, attrition, and a combo finish.
