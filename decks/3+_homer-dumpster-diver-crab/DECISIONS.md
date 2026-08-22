@@ -12,7 +12,6 @@ This log records why every card entered the initial list. Future changes should 
 - **Irenicus's Vile Duplication** — Clean nonlegendary Homer that also gains flying.
 - **Quantum Misalignment** — Produces two nonlegendary Homers across consecutive turns.
 - **Nanogene Conversion** — Converts every utility creature into a temporary Homer for one explosive landfall turn.
-- **Machine God's Effigy** — A mana rock that can become a noncreature Homer trigger source; intentionally requires legend-rule support.
 - **Springheart Nantuko** — Turns subsequent landfall into additional Homers when attached to a safe clone.
 
 ### Trigger multiplication
@@ -27,7 +26,6 @@ This log records why every card entered the initial list. Future changes should 
 
 - **Firdoch Core** — The cleanest example of the deck's philosophy: mana rock and seafood count in one card.
 - **Maskwood Nexus** — Makes every creature and creature card seafood, then creates additional changelings.
-- **Arcane Adaptation** — Redundant type-changing effect across the battlefield, stack, library, and graveyard.
 - **Masked Vandal** — A changeling that raises Homer's count and supplies artifact or enchantment removal.
 - **Realmwalker** — A changeling that turns the type-changing package into top-of-library creature access.
 
@@ -51,10 +49,8 @@ This log records why every card entered the initial list. Future changes should 
 
 ### Land laundering
 
-- **Walking Atlas** — Places a land during any turn and becomes seafood under the type-changing effects.
 - **Sakura-Tribe Scout** — One-mana repeatable off-turn landfall.
 - **Dreamscape Artist** — An old spellshaper that discards into the graveyard and converts one land into two.
-- **Meloku the Clouded Mirror** — Returns lands for reuse while creating creatures that become seafood.
 - **Trade Routes** — Returns lands, converts excess lands into cards, and keeps landfall fuel in hand.
 - **Harrow** — Instant-speed double landfall with the sacrificed land ready for later recursion.
 - **Entish Restoration** — Instant-speed double landfall, or triple landfall while Roaming Throne, Ancient Greenwarden, or another creature with power 4 or greater is present.
@@ -82,10 +78,6 @@ This log records why every card entered the initial list. Future changes should 
 
 ### Lands
 
-- **Command Tower** — Untapped three-color fixing.
-- **Underground Sea** — Fetchable blue-black fixing without entering tapped.
-- **Tropical Island** — Fetchable blue-green fixing without entering tapped.
-- **Bayou** — Fetchable black-green fixing without entering tapped.
 - **Watery Grave** — Fetchable blue-black fixing.
 - **Breeding Pool** — Fetchable blue-green fixing.
 - **Overgrown Tomb** — Fetchable black-green fixing.
@@ -113,9 +105,9 @@ This log records why every card entered the initial list. Future changes should 
 - **Golgari Rot Farm** — Black-green version of the reusable bounce-land engine.
 - **Cephalid Coliseum** — Land slot that turns threshold into draw-three, discard-three graveyard setup.
 - **Dakmor Salvage** — Dredgeable land that is easy to recover and replay.
-- **Forest ×3** — Supports green-heavy setup spells, Harrow, fetch lands, and Myriad Landscape.
-- **Island ×2** — Supports Homer, clone spells, and blue interaction.
-- **Swamp ×1** — Supplies a fetchable black source for recursion and interaction.
+- **Forest ×5** — Supports green-heavy setup spells, Harrow, fetch lands, and Myriad Landscape.
+- **Island ×4** — Supports Homer, clone spells, and blue interaction.
+- **Swamp ×2** — Supplies fetchable black sources for recursion and interaction.
 
 ## 2026-08-22 — Remove the Game Changers
 
@@ -133,3 +125,11 @@ This log records why every card entered the initial list. Future changes should 
 - **Incarnation Technique** — Replaces Progenitor Mimic. It mills five before reanimating and can use demonstrate for table politics.
 - **Fact or Fiction** — Replaces Mirror Box. Instant-speed card advantage also stocks the graveyard.
 - **Fortune's Favor** — Replaces Conspiracy. This second Fact or Fiction-style instant creates a hidden-information choice while sending the unchosen pile to the graveyard.
+
+## 2026-08-22 — More Basics, More Answers
+
+- **Keep Safe** — Replaces Machine God's Effigy with targeted protection that counters the removal spell and replaces itself.
+- **Pile On** — Replaces Arcane Adaptation with instant-speed creature or planeswalker removal whose surveil fills the graveyard.
+- **You Find the Villains' Lair** — Replaces Walking Atlas with a deliberately fair three-mana counterspell whose other mode draws two and discards two into the graveyard.
+
+Meloku the Clouded Mirror became the fortieth land. Command Tower and the three original duals became basics, raising the basic package to eleven cards so repeated searches are less likely to run out of targets.
