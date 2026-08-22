@@ -1,0 +1,149 @@
+{
+  "arena_id": 71293,
+  "artist": "Slawomir Maniak",
+  "artist_ids": [
+    "d887bc66-2779-416c-a1ff-d8720242063e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 453203,
+  "cmc": 3.0,
+  "collector_number": "226",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 2775,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "companion",
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5ad36fb2-c44e-4085-ba0d-54277841ad3a",
+  "illustration_id": "f715763e-13f5-4f16-87b6-466bf5dbffba",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:23:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/a/5ad36fb2-c44e-4085-ba0d-54277841ad3a.webp?1783931010",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/a/5ad36fb2-c44e-4085-ba0d-54277841ad3a.jpg?1783931010",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/a/5ad36fb2-c44e-4085-ba0d-54277841ad3a.jpg?1783931010",
+    "crop": "https://cards.scryfall.io/crop/front/5/a/5ad36fb2-c44e-4085-ba0d-54277841ad3a.webp?1783931010",
+    "display": "https://cards.scryfall.io/display/front/5/a/5ad36fb2-c44e-4085-ba0d-54277841ad3a.webp?1783931010",
+    "grid": "https://cards.scryfall.io/grid/front/5/a/5ad36fb2-c44e-4085-ba0d-54277841ad3a.webp?1783931010",
+    "large": "https://cards.scryfall.io/large/front/5/a/5ad36fb2-c44e-4085-ba0d-54277841ad3a.jpg?1783931010",
+    "normal": "https://cards.scryfall.io/normal/front/5/a/5ad36fb2-c44e-4085-ba0d-54277841ad3a.jpg?1783931010",
+    "png": "https://cards.scryfall.io/png/front/5/a/5ad36fb2-c44e-4085-ba0d-54277841ad3a.png?1783931010",
+    "small": "https://cards.scryfall.io/small/front/5/a/5ad36fb2-c44e-4085-ba0d-54277841ad3a.jpg?1783931010",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/a/5ad36fb2-c44e-4085-ba0d-54277841ad3a.webp?1783931010"
+  },
+  "keywords": [
+    "Lifelink",
+    "Companion"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "banned",
+    "modern": "banned",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "banned",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W/B}{W/B}",
+  "mtgo_id": 80461,
+  "multiverse_ids": [
+    479746
+  ],
+  "name": "Lurrus of the Dream-Den",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3bc757c1-3adb-4321-8832-8e1cc9e687f7",
+  "oracle_text": "Companion — Each permanent card in your starting deck has mana value 2 or less. (If this card is your chosen companion, you may put it into your hand from outside the game for {3} as a sorcery.)\nLifelink\nOnce during each of your turns, you may cast a permanent spell with mana value 2 or less from your graveyard.",
+  "oversized": false,
+  "penny_rank": 292,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2020-04-06",
+    "source": "Kripparrian",
+    "source_uri": "https://twitter.com/Kripparrian/status/1247269442398101510"
+  },
+  "prices": {
+    "eur": "1.54",
+    "eur_foil": "2.47",
+    "tix": "0.02",
+    "usd": "2.33",
+    "usd_etched": null,
+    "usd_foil": "3.41"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3bc757c1-3adb-4321-8832-8e1cc9e687f7&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/80461?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=453203&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F212282%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Lurrus+of+the+Dream-Den",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=479746&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLurrus%2Bof%2Bthe%2BDream-Den",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLurrus%2Bof%2Bthe%2BDream-Den"
+  },
+  "released_at": "2020-04-24",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5ad36fb2-c44e-4085-ba0d-54277841ad3a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/iko?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/iko/226/lurrus-of-the-dream-den?utm_source=api",
+  "security_stamp": "oval",
+  "set": "iko",
+  "set_id": "19feda43-15ab-427e-a0e4-148a4bf2b03a",
+  "set_name": "Ikoria: Lair of Behemoths",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aiko&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/19feda43-15ab-427e-a0e4-148a4bf2b03a",
+  "story_spotlight": false,
+  "tcgplayer_id": 212282,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Cat Nightmare",
+  "uri": "https://api.scryfall.com/cards/5ad36fb2-c44e-4085-ba0d-54277841ad3a",
+  "variation": false
+}
