@@ -2,10 +2,10 @@
 
 ## Deck primers
 
-- [3− — Homer — Dumpster-Diver Crab](decks/3-_homer-dumpster-diver-crab/README.md)
 - [3− — Mishra — Racecar Driver](decks/3-_mishra-racecar-driver/README.md)
 - [3 — Bartolomé — Funeral Director](decks/3_bartolome-funeral-director/README.md)
 - [3+ — Bartolomé — Graveyard Shift](decks/3+_bartolome-graveyard-shift/README.md)
+- [3− — Homer — Dumpster-Diver Crab](decks/3-_homer-dumpster-diver-crab/README.md)
 - [3+ — Ozox — Bone Recycler](decks/3+_ozox-bone-recycler/README.md)
 
 A conversation-driven workspace for importing, resolving, categorizing, assessing, and improving Magic: The Gathering Commander decks.
@@ -92,7 +92,9 @@ When a deck list is submitted, the agent must:
 8. Cache shared card data and universal categories under `cards/`.
 9. Create the deck primer at `decks/<bracket>_<deck-name>/README.md`.
 10. Add or update its link in the `Deck primers` section at the top of this README.
-11. Report unresolved names before analyzing the deck.
+11. Add a card-by-card decision log when requested.
+12. Validate deck size, legality, categories, cache coverage, primer linkage, and decision-log coverage.
+13. Report unresolved names before analyzing the deck.
 
 ## Card categories
 
@@ -153,6 +155,15 @@ python3 .agents/skills/deck-workspace/scripts/cache_deck.py \
 ```
 
 Use `--refresh` to retrieve fresh data for cards already present in the cache. Rerun the command after editing categories or deck overrides to regenerate effective categories.
+
+Validate the completed workspace before review:
+
+```bash
+python3 .agents/skills/deck-workspace/scripts/validate_deck.py \
+  decks/<bracket>_<deck-name>
+```
+
+Add `--require-decisions` when the deck must include a card-by-card decision log. Run the test suite for workflow changes with `python3 -m unittest discover -s tests -v`.
 
 ## Repository layout
 
