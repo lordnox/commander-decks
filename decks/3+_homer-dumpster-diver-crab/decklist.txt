@@ -50,7 +50,7 @@
 1x Diregraf Rebirth [Creature Recursion,Dumpster Diving]
 1x Incarnation Technique [Creature Recursion,Dumpster Diving]
 1x Fact or Fiction [Card Advantage,Dumpster Diving]
-1x Realms Uncharted [Card Advantage,Dumpster Diving,Land Selection]
+1x Fortune's Favor [Card Advantage,Dumpster Diving]
 1x Bala Ged Recovery // Bala Ged Sanctuary [Recursion,Land]
 1x Tamiyo's Safekeeping [Protection,Interaction]
 1x March of Swirling Mist [Protection,Interaction]
