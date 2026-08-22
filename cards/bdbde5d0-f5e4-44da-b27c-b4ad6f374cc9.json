@@ -1,0 +1,136 @@
+{
+  "artist": "Scott Murphy",
+  "artist_ids": [
+    "07c7ac65-dfa6-4273-9c66-ec9d8f3e2226"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 723082,
+  "cmc": 3.0,
+  "collector_number": "891",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 300,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Vine-wreathed, he nurtures life among the dead.\"\n—Psemilla, Meletian poet",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "43be1363-7e73-4862-b45f-07f490ab46be",
+  "illustration_id": "7962ce0e-1c51-4f24-9c74-4d878adbed34",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:03:47Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/3/43be1363-7e73-4862-b45f-07f490ab46be.webp?1783915427",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/3/43be1363-7e73-4862-b45f-07f490ab46be.jpg?1783915427",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/3/43be1363-7e73-4862-b45f-07f490ab46be.jpg?1783915427",
+    "crop": "https://cards.scryfall.io/crop/front/4/3/43be1363-7e73-4862-b45f-07f490ab46be.webp?1783915427",
+    "display": "https://cards.scryfall.io/display/front/4/3/43be1363-7e73-4862-b45f-07f490ab46be.webp?1783915427",
+    "grid": "https://cards.scryfall.io/grid/front/4/3/43be1363-7e73-4862-b45f-07f490ab46be.webp?1783915427",
+    "large": "https://cards.scryfall.io/large/front/4/3/43be1363-7e73-4862-b45f-07f490ab46be.jpg?1783915427",
+    "normal": "https://cards.scryfall.io/normal/front/4/3/43be1363-7e73-4862-b45f-07f490ab46be.jpg?1783915427",
+    "png": "https://cards.scryfall.io/png/front/4/3/43be1363-7e73-4862-b45f-07f490ab46be.png?1783915427",
+    "small": "https://cards.scryfall.io/small/front/4/3/43be1363-7e73-4862-b45f-07f490ab46be.jpg?1783915427",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/3/43be1363-7e73-4862-b45f-07f490ab46be.webp?1783915427"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "mtgo_id": 114123,
+  "multiverse_ids": [
+    625296
+  ],
+  "name": "Dryad of the Ilysian Grove",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "bdbde5d0-f5e4-44da-b27c-b4ad6f374cc9",
+  "oracle_text": "You may play an additional land on each of your turns.\nLands you control are every basic land type in addition to their other types.",
+  "oversized": false,
+  "penny_rank": 3311,
+  "power": "2",
+  "prices": {
+    "eur": "6.42",
+    "eur_foil": null,
+    "tix": "0.66",
+    "usd": "10.44",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abdbde5d0-f5e4-44da-b27c-b4ad6f374cc9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/114123?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=723082&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F505970%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dryad+of+the+Ilysian+Grove",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=625296&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDryad%2Bof%2Bthe%2BIlysian%2BGrove",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDryad%2Bof%2Bthe%2BIlysian%2BGrove"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/43be1363-7e73-4862-b45f-07f490ab46be/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/891/dryad-of-the-ilysian-grove?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 505970,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Enchantment Creature — Nymph Dryad",
+  "uri": "https://api.scryfall.com/cards/43be1363-7e73-4862-b45f-07f490ab46be",
+  "variation": false
+}
