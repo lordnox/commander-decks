@@ -11,11 +11,8 @@ This log records why every card entered the initial list. Future changes should 
 - **Spark Double** — Clean nonlegendary Homer without requiring another support card.
 - **Irenicus's Vile Duplication** — Clean nonlegendary Homer that also gains flying.
 - **Quantum Misalignment** — Produces two nonlegendary Homers across consecutive turns.
-- **Auton Soldier** — Nonlegendary Homer clone with an unusual myriad upside.
 - **Nanogene Conversion** — Converts every utility creature into a temporary Homer for one explosive landfall turn.
-- **Mirror Box** — Makes the legend-dependent clone package safe while rewarding repeated names.
 - **Machine God's Effigy** — A mana rock that can become a noncreature Homer trigger source; intentionally requires legend-rule support.
-- **Progenitor Mimic** — Creates another Homer each upkeep once the legend rule is disabled.
 - **Springheart Nantuko** — Turns subsequent landfall into additional Homers when attached to a safe clone.
 
 ### Trigger multiplication
@@ -31,7 +28,6 @@ This log records why every card entered the initial list. Future changes should 
 - **Firdoch Core** — The cleanest example of the deck's philosophy: mana rock and seafood count in one card.
 - **Maskwood Nexus** — Makes every creature and creature card seafood, then creates additional changelings.
 - **Arcane Adaptation** — Redundant type-changing effect across the battlefield, stack, library, and graveyard.
-- **Conspiracy** — Older and slower redundancy for turning the whole creature package into Crabs.
 - **Masked Vandal** — A changeling that raises Homer's count and supplies artifact or enchantment removal.
 - **Realmwalker** — A changeling that turns the type-changing package into top-of-library creature access.
 
@@ -130,3 +126,10 @@ This log records why every card entered the initial list. Future changes should 
 ## 2026-08-22 — Retire the Helm
 
 - **Stitch Together** — Replaces Helm of the Host. Threshold is natural in the self-mill plan, turning a milled Yarok or clone directly back into a battlefield piece for two mana.
+
+## 2026-08-22 — Trade Clones for Recovery and Cards
+
+- **Diregraf Rebirth** — Replaces Auton Soldier. Direct reanimation remains useful from hand, and flashback makes it safe to mill.
+- **Incarnation Technique** — Replaces Progenitor Mimic. It mills five before reanimating and can use demonstrate for table politics.
+- **Fact or Fiction** — Replaces Mirror Box. Instant-speed card advantage also stocks the graveyard.
+- **Realms Uncharted** — Replaces Conspiracy. This land-focused Fact or Fiction puts two selected lands in hand and two in the graveyard, where every outcome remains useful.
