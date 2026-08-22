@@ -1,0 +1,133 @@
+{
+  "object": "card",
+  "id": "9655deda-f02b-47a0-89a3-2904b11b84aa",
+  "oracle_id": "0ab9539d-3461-4936-95cd-4c229308c4a4",
+  "multiverse_ids": [
+    518437
+  ],
+  "mtgo_id": 89825,
+  "tcgplayer_id": 236398,
+  "cardmarket_id": 559479,
+  "name": "Incarnation Technique",
+  "lang": "en",
+  "released_at": "2021-04-23",
+  "uri": "https://api.scryfall.com/cards/9655deda-f02b-47a0-89a3-2904b11b84aa",
+  "scryfall_uri": "https://scryfall.com/card/c21/41/incarnation-technique?utm_source=api",
+  "layout": "normal",
+  "highres_image": true,
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:26:37Z",
+  "image_uris": {
+    "small": "https://cards.scryfall.io/small/front/9/6/9655deda-f02b-47a0-89a3-2904b11b84aa.jpg?1783927597",
+    "normal": "https://cards.scryfall.io/normal/front/9/6/9655deda-f02b-47a0-89a3-2904b11b84aa.jpg?1783927597",
+    "large": "https://cards.scryfall.io/large/front/9/6/9655deda-f02b-47a0-89a3-2904b11b84aa.jpg?1783927597",
+    "png": "https://cards.scryfall.io/png/front/9/6/9655deda-f02b-47a0-89a3-2904b11b84aa.png?1783927597",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/6/9655deda-f02b-47a0-89a3-2904b11b84aa.jpg?1783927597",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/6/9655deda-f02b-47a0-89a3-2904b11b84aa.jpg?1783927597",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/6/9655deda-f02b-47a0-89a3-2904b11b84aa.webp?1783927597",
+    "grid": "https://cards.scryfall.io/grid/front/9/6/9655deda-f02b-47a0-89a3-2904b11b84aa.webp?1783927597",
+    "display": "https://cards.scryfall.io/display/front/9/6/9655deda-f02b-47a0-89a3-2904b11b84aa.webp?1783927597",
+    "art": "https://cards.scryfall.io/art/front/9/6/9655deda-f02b-47a0-89a3-2904b11b84aa.webp?1783927597",
+    "crop": "https://cards.scryfall.io/crop/front/9/6/9655deda-f02b-47a0-89a3-2904b11b84aa.webp?1783927597"
+  },
+  "mana_cost": "{4}{B}",
+  "cmc": 5,
+  "type_line": "Sorcery",
+  "oracle_text": "Demonstrate (When you cast this spell, you may copy it. If you do, choose an opponent to also copy it.)\nMill five cards, then return a creature card from your graveyard to the battlefield.",
+  "colors": [
+    "B"
+  ],
+  "color_identity": [
+    "B"
+  ],
+  "keywords": [
+    "Mill",
+    "Demonstrate"
+  ],
+  "legalities": {
+    "standard": "not_legal",
+    "future": "not_legal",
+    "historic": "not_legal",
+    "timeless": "not_legal",
+    "gladiator": "not_legal",
+    "pioneer": "not_legal",
+    "modern": "not_legal",
+    "legacy": "legal",
+    "pauper": "not_legal",
+    "vintage": "legal",
+    "penny": "not_legal",
+    "commander": "legal",
+    "oathbreaker": "legal",
+    "standardbrawl": "not_legal",
+    "brawl": "not_legal",
+    "competitivebrawl": "not_legal",
+    "alchemy": "not_legal",
+    "paupercommander": "not_legal",
+    "duel": "legal",
+    "oldschool": "not_legal",
+    "premodern": "not_legal",
+    "predh": "not_legal",
+    "tlr": "not_legal"
+  },
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "reserved": false,
+  "game_changer": false,
+  "foil": false,
+  "nonfoil": true,
+  "finishes": [
+    "nonfoil"
+  ],
+  "oversized": false,
+  "promo": false,
+  "reprint": false,
+  "variation": false,
+  "set_id": "27bf6dbd-a9e1-4904-afa7-d28fc7745c4f",
+  "set": "c21",
+  "set_name": "Commander 2021",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/27bf6dbd-a9e1-4904-afa7-d28fc7745c4f",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac21&unique=prints",
+  "scryfall_set_uri": "https://scryfall.com/sets/c21?utm_source=api",
+  "rulings_uri": "https://api.scryfall.com/cards/9655deda-f02b-47a0-89a3-2904b11b84aa/rulings",
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0ab9539d-3461-4936-95cd-4c229308c4a4&unique=prints",
+  "collector_number": "41",
+  "digital": false,
+  "rarity": "rare",
+  "flavor_text": "\"Draw out your fear, but don't let it control you. You're in charge now.\"",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "artist": "Alexander Mokhov",
+  "artist_ids": [
+    "3a6a9d37-e62c-44bd-90f2-f5126324e3f0"
+  ],
+  "illustration_id": "975c235a-bc64-49e1-9e0c-e6b13aac5566",
+  "border_color": "black",
+  "frame": "2015",
+  "security_stamp": "oval",
+  "full_art": false,
+  "textless": false,
+  "booster": false,
+  "story_spotlight": false,
+  "edhrec_rank": 3552,
+  "prices": {
+    "usd": "9.57",
+    "usd_foil": null,
+    "usd_etched": null,
+    "eur": "11.98",
+    "eur_foil": null,
+    "tix": null
+  },
+  "related_uris": {
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=518437&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIncarnation%2BTechnique",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIncarnation%2BTechnique",
+    "edhrec": "https://edhrec.com/route/?cc=Incarnation+Technique"
+  },
+  "purchase_uris": {
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F236398%3Fpage%3D1",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=559479&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "cardhoarder": "https://www.cardhoarder.com/cards/89825?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall"
+  }
+}
