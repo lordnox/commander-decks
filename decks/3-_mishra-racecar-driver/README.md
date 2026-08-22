@@ -4,6 +4,16 @@
 
 A Grixis artifact-and-Vehicles deck that turns utility artifacts into disposable 4/4 racers, repeatedly reusing their enters-the-battlefield and attack abilities.
 
+## Key cards
+
+<p align="center">
+  <a href="https://scryfall.com/card/brc/1/mishra-eminent-one"><img src="https://cards.scryfall.io/normal/front/7/f/7f5b1daa-ec45-48de-9496-6ca5b491a0dc.jpg?1783919726" width="160" alt="Mishra, Eminent One"></a>
+  <a href="https://scryfall.com/card/c21/245/ichor-wellspring"><img src="https://cards.scryfall.io/normal/front/1/c/1ccdb407-ac8f-4736-89d3-ab0d086096ea.jpg?1783927513" width="160" alt="Ichor Wellspring"></a>
+  <a href="https://scryfall.com/card/40k/163/reaver-titan"><img src="https://cards.scryfall.io/normal/front/d/a/dacc5e02-c21e-4a41-a704-5b87151a28c6.jpg?1783920814" width="160" alt="Reaver Titan"></a>
+  <a href="https://scryfall.com/card/msc/753/the-thanos-copter"><img src="https://cards.scryfall.io/normal/front/6/f/6fd703f5-32ee-47d6-a501-b45fb921e42f.jpg?1783903028" width="160" alt="The Thanos-Copter"></a>
+  <a href="https://scryfall.com/card/mkc/109/mechanized-production"><img src="https://cards.scryfall.io/normal/front/e/a/eaf86997-68e8-4c37-99f1-db10ac08f54c.jpg?1783913014" width="160" alt="Mechanized Production"></a>
+</p>
+
 ## Deck summary
 
 **Mishra, Eminent One** creates a hasty **Mishra's Warform** copy of one noncreature artifact at the beginning of combat. The copy keeps the artifact's abilities, becomes a 4/4 artifact creature, attacks immediately, and is normally sacrificed at the next end step.
