@@ -1,0 +1,134 @@
+{
+  "artist": "Noah Bradley",
+  "artist_ids": [
+    "81995d11-da98-4f8b-89bd-b88ca2ddb06b"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 514594,
+  "cmc": 2.0,
+  "collector_number": "415",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 2239,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Centuries ago, a pyromancer's spark ignited a fiery conflagration.",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "365336b4-92ee-429d-8f18-4624cba5469d",
+  "illustration_id": "3137cb24-e3d1-486d-897d-942de6002281",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:45:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/6/365336b4-92ee-429d-8f18-4624cba5469d.webp?1783928712",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/6/365336b4-92ee-429d-8f18-4624cba5469d.jpg?1783928712",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/6/365336b4-92ee-429d-8f18-4624cba5469d.jpg?1783928712",
+    "crop": "https://cards.scryfall.io/crop/front/3/6/365336b4-92ee-429d-8f18-4624cba5469d.webp?1783928712",
+    "display": "https://cards.scryfall.io/display/front/3/6/365336b4-92ee-429d-8f18-4624cba5469d.webp?1783928712",
+    "grid": "https://cards.scryfall.io/grid/front/3/6/365336b4-92ee-429d-8f18-4624cba5469d.webp?1783928712",
+    "large": "https://cards.scryfall.io/large/front/3/6/365336b4-92ee-429d-8f18-4624cba5469d.jpg?1783928712",
+    "normal": "https://cards.scryfall.io/normal/front/3/6/365336b4-92ee-429d-8f18-4624cba5469d.jpg?1783928712",
+    "png": "https://cards.scryfall.io/png/front/3/6/365336b4-92ee-429d-8f18-4624cba5469d.png?1783928712",
+    "small": "https://cards.scryfall.io/small/front/3/6/365336b4-92ee-429d-8f18-4624cba5469d.jpg?1783928712",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/6/365336b4-92ee-429d-8f18-4624cba5469d.webp?1783928712"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{X}{R}{R}",
+  "mtgo_id": 85642,
+  "multiverse_ids": [
+    500895
+  ],
+  "name": "Jaya's Immolating Inferno",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f5f0deb0-070a-45b6-9b81-0bc8143f3040",
+  "oracle_text": "(You may cast a legendary sorcery only if you control a legendary creature or planeswalker.)\nJaya's Immolating Inferno deals X damage to each of up to three targets.",
+  "oversized": false,
+  "penny_rank": 6498,
+  "prices": {
+    "eur": "0.62",
+    "eur_foil": null,
+    "tix": "0.03",
+    "usd": "2.36",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af5f0deb0-070a-45b6-9b81-0bc8143f3040&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/85642?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=514594&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F227317%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Jaya%27s+Immolating+Inferno",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=500895&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DJaya%2527s%2BImmolating%2BInferno",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DJaya%2527s%2BImmolating%2BInferno"
+  },
+  "released_at": "2020-11-20",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/365336b4-92ee-429d-8f18-4624cba5469d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmr/415/jayas-immolating-inferno?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmr",
+  "set_id": "39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "set_name": "Commander Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "story_spotlight": false,
+  "tcgplayer_id": 227317,
+  "textless": false,
+  "type_line": "Legendary Sorcery",
+  "uri": "https://api.scryfall.com/cards/365336b4-92ee-429d-8f18-4624cba5469d",
+  "variation": false
+}

@@ -1,0 +1,134 @@
+{
+  "artist": "Jama Jurabaev",
+  "artist_ids": [
+    "dd6ac36b-bdb4-48d5-9fae-1b017437669d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 287293,
+  "cmc": 4.0,
+  "collector_number": "61",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 16077,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "33ff1000-1a4e-43f6-aa02-1dbe9fac6901",
+  "illustration_id": "bdfaba7f-1c14-4a47-82ac-873f6cc1b24f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:18:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/3/33ff1000-1a4e-43f6-aa02-1dbe9fac6901.webp?1783937918",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/3/33ff1000-1a4e-43f6-aa02-1dbe9fac6901.jpg?1783937918",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/3/33ff1000-1a4e-43f6-aa02-1dbe9fac6901.jpg?1783937918",
+    "crop": "https://cards.scryfall.io/crop/front/3/3/33ff1000-1a4e-43f6-aa02-1dbe9fac6901.webp?1783937918",
+    "display": "https://cards.scryfall.io/display/front/3/3/33ff1000-1a4e-43f6-aa02-1dbe9fac6901.webp?1783937918",
+    "grid": "https://cards.scryfall.io/grid/front/3/3/33ff1000-1a4e-43f6-aa02-1dbe9fac6901.webp?1783937918",
+    "large": "https://cards.scryfall.io/large/front/3/3/33ff1000-1a4e-43f6-aa02-1dbe9fac6901.jpg?1783937918",
+    "normal": "https://cards.scryfall.io/normal/front/3/3/33ff1000-1a4e-43f6-aa02-1dbe9fac6901.jpg?1783937918",
+    "png": "https://cards.scryfall.io/png/front/3/3/33ff1000-1a4e-43f6-aa02-1dbe9fac6901.png?1783937918",
+    "small": "https://cards.scryfall.io/small/front/3/3/33ff1000-1a4e-43f6-aa02-1dbe9fac6901.jpg?1783937918",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/3/33ff1000-1a4e-43f6-aa02-1dbe9fac6901.webp?1783937918"
+  },
+  "keywords": [
+    "Surge"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}{U}",
+  "mtgo_foil_id": 59496,
+  "mtgo_id": 59495,
+  "multiverse_ids": [
+    407571
+  ],
+  "name": "Overwhelming Denial",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "45aa8bdb-54da-4069-bd6c-c63396154464",
+  "oracle_text": "Surge {U}{U} (You may cast this spell for its surge cost if you or a teammate has cast another spell this turn.)\nThis spell can't be countered.\nCounter target spell.",
+  "oversized": false,
+  "penny_rank": 3580,
+  "prices": {
+    "eur": "0.15",
+    "eur_foil": "0.51",
+    "tix": "0.02",
+    "usd": "0.17",
+    "usd_etched": null,
+    "usd_foil": "0.38"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A45aa8bdb-54da-4069-bd6c-c63396154464&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/59495?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=287293&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F110872%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Overwhelming+Denial",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=407571&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOverwhelming%2BDenial",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOverwhelming%2BDenial"
+  },
+  "released_at": "2016-01-22",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/33ff1000-1a4e-43f6-aa02-1dbe9fac6901/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ogw?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ogw/61/overwhelming-denial?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ogw",
+  "set_id": "cd51d245-8f95-45b0-ab5f-e2b3a3eb5dfe",
+  "set_name": "Oath of the Gatewatch",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aogw&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/cd51d245-8f95-45b0-ab5f-e2b3a3eb5dfe",
+  "story_spotlight": false,
+  "tcgplayer_id": 110872,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/33ff1000-1a4e-43f6-aa02-1dbe9fac6901",
+  "variation": false
+}

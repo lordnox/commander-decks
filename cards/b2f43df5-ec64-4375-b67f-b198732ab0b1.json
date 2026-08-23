@@ -1,0 +1,131 @@
+{
+  "artist": "Campbell White",
+  "artist_ids": [
+    "d281eab4-463a-4ba8-9039-8943737960a0"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 652413,
+  "cmc": 2.0,
+  "collector_number": "24",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 7050,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7cc7f675-3e56-4e5a-9618-9a9ba8e0310d",
+  "illustration_id": "5b25e591-dba2-470f-9c33-65d637882953",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:16:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/c/7cc7f675-3e56-4e5a-9618-9a9ba8e0310d.webp?1783923372",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/c/7cc7f675-3e56-4e5a-9618-9a9ba8e0310d.jpg?1783923372",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/c/7cc7f675-3e56-4e5a-9618-9a9ba8e0310d.jpg?1783923372",
+    "crop": "https://cards.scryfall.io/crop/front/7/c/7cc7f675-3e56-4e5a-9618-9a9ba8e0310d.webp?1783923372",
+    "display": "https://cards.scryfall.io/display/front/7/c/7cc7f675-3e56-4e5a-9618-9a9ba8e0310d.webp?1783923372",
+    "grid": "https://cards.scryfall.io/grid/front/7/c/7cc7f675-3e56-4e5a-9618-9a9ba8e0310d.webp?1783923372",
+    "large": "https://cards.scryfall.io/large/front/7/c/7cc7f675-3e56-4e5a-9618-9a9ba8e0310d.jpg?1783923372",
+    "normal": "https://cards.scryfall.io/normal/front/7/c/7cc7f675-3e56-4e5a-9618-9a9ba8e0310d.jpg?1783923372",
+    "png": "https://cards.scryfall.io/png/front/7/c/7cc7f675-3e56-4e5a-9618-9a9ba8e0310d.png?1783923372",
+    "small": "https://cards.scryfall.io/small/front/7/c/7cc7f675-3e56-4e5a-9618-9a9ba8e0310d.jpg?1783923372",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/c/7cc7f675-3e56-4e5a-9618-9a9ba8e0310d.webp?1783923372"
+  },
+  "keywords": [
+    "Connive"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{X}{1}{U}",
+  "multiverse_ids": [
+    598138
+  ],
+  "name": "Change of Plans",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b2f43df5-ec64-4375-b67f-b198732ab0b1",
+  "oracle_text": "Each of X target creatures you control connive. You may have any number of them phase out. (To have a creature connive, draw a card, then discard a card. If you discarded a nonland card, put a +1/+1 counter on that creature. Treat phased-out permanents and anything attached to them as though they don't exist until their controller's next turn.)",
+  "oversized": false,
+  "prices": {
+    "eur": "10.40",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "14.60",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab2f43df5-ec64-4375-b67f-b198732ab0b1&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Change+of+Plans&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=652413&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F269734%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Change+of+Plans",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=598138&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DChange%2Bof%2BPlans",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DChange%2Bof%2BPlans"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7cc7f675-3e56-4e5a-9618-9a9ba8e0310d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ncc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ncc/24/change-of-plans?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ncc",
+  "set_id": "c51de34b-d4d6-4179-a432-573744ded119",
+  "set_name": "New Capenna Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ancc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c51de34b-d4d6-4179-a432-573744ded119",
+  "story_spotlight": false,
+  "tcgplayer_id": 269734,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/7cc7f675-3e56-4e5a-9618-9a9ba8e0310d",
+  "variation": false,
+  "watermark": "obscura"
+}

@@ -1,0 +1,131 @@
+{
+  "artist": "Dan Murayama Scott",
+  "artist_ids": [
+    "f852fa13-137e-40f2-bbc1-0f01df09c0e0"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 514609,
+  "cmc": 4.0,
+  "collector_number": "419",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 4027,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"May your day never match your expectations.\"\n—Scriptus Fleen, flectomancer",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "8d3dddfa-9579-42d7-867b-7e37b83b3eeb",
+  "illustration_id": "bbea305c-edb5-44c9-9820-5baf52b6a4cd",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:45:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/d/8d3dddfa-9579-42d7-867b-7e37b83b3eeb.webp?1783928710",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/d/8d3dddfa-9579-42d7-867b-7e37b83b3eeb.jpg?1783928710",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/d/8d3dddfa-9579-42d7-867b-7e37b83b3eeb.jpg?1783928710",
+    "crop": "https://cards.scryfall.io/crop/front/8/d/8d3dddfa-9579-42d7-867b-7e37b83b3eeb.webp?1783928710",
+    "display": "https://cards.scryfall.io/display/front/8/d/8d3dddfa-9579-42d7-867b-7e37b83b3eeb.webp?1783928710",
+    "grid": "https://cards.scryfall.io/grid/front/8/d/8d3dddfa-9579-42d7-867b-7e37b83b3eeb.webp?1783928710",
+    "large": "https://cards.scryfall.io/large/front/8/d/8d3dddfa-9579-42d7-867b-7e37b83b3eeb.jpg?1783928710",
+    "normal": "https://cards.scryfall.io/normal/front/8/d/8d3dddfa-9579-42d7-867b-7e37b83b3eeb.jpg?1783928710",
+    "png": "https://cards.scryfall.io/png/front/8/d/8d3dddfa-9579-42d7-867b-7e37b83b3eeb.png?1783928710",
+    "small": "https://cards.scryfall.io/small/front/8/d/8d3dddfa-9579-42d7-867b-7e37b83b3eeb.jpg?1783928710",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/d/8d3dddfa-9579-42d7-867b-7e37b83b3eeb.webp?1783928710"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}{R}",
+  "mtgo_id": 85650,
+  "multiverse_ids": [
+    500899
+  ],
+  "name": "Wild Ricochet",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8c35fd11-be45-4984-bd83-6e4f3fbc47a9",
+  "oracle_text": "You may choose new targets for target instant or sorcery spell. Then copy that spell. You may choose new targets for the copy.",
+  "oversized": false,
+  "penny_rank": 11479,
+  "prices": {
+    "eur": "0.38",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.36",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8c35fd11-be45-4984-bd83-6e4f3fbc47a9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/85650?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=514609&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F227322%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wild+Ricochet",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=500899&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWild%2BRicochet",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWild%2BRicochet"
+  },
+  "released_at": "2020-11-20",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8d3dddfa-9579-42d7-867b-7e37b83b3eeb/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmr/419/wild-ricochet?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmr",
+  "set_id": "39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "set_name": "Commander Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "story_spotlight": false,
+  "tcgplayer_id": 227322,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/8d3dddfa-9579-42d7-867b-7e37b83b3eeb",
+  "variation": false
+}

@@ -1,0 +1,147 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "920bb44e-aa7f-4ee9-ab19-30114f55ec9b",
+      "name": "Reality Shift",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/920bb44e-aa7f-4ee9-ab19-30114f55ec9b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0eb1e449-d7ce-4d87-a589-7ae5e3f0951d",
+      "name": "Manifest",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/0eb1e449-d7ce-4d87-a589-7ae5e3f0951d"
+    }
+  ],
+  "artist": "Howard Lyon",
+  "artist_ids": [
+    "6dd06426-59fe-4b9c-aad5-6da8446a5c3d"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 881519,
+  "cmc": 2.0,
+  "collector_number": "199",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 281,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "920bb44e-aa7f-4ee9-ab19-30114f55ec9b",
+  "illustration_id": "d975663e-5b54-472a-9397-1c2b4e159217",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:49:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/2/920bb44e-aa7f-4ee9-ab19-30114f55ec9b.webp?1783903791",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/2/920bb44e-aa7f-4ee9-ab19-30114f55ec9b.jpg?1783903791",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/2/920bb44e-aa7f-4ee9-ab19-30114f55ec9b.jpg?1783903791",
+    "crop": "https://cards.scryfall.io/crop/front/9/2/920bb44e-aa7f-4ee9-ab19-30114f55ec9b.webp?1783903791",
+    "display": "https://cards.scryfall.io/display/front/9/2/920bb44e-aa7f-4ee9-ab19-30114f55ec9b.webp?1783903791",
+    "grid": "https://cards.scryfall.io/grid/front/9/2/920bb44e-aa7f-4ee9-ab19-30114f55ec9b.webp?1783903791",
+    "large": "https://cards.scryfall.io/large/front/9/2/920bb44e-aa7f-4ee9-ab19-30114f55ec9b.jpg?1783903791",
+    "normal": "https://cards.scryfall.io/normal/front/9/2/920bb44e-aa7f-4ee9-ab19-30114f55ec9b.jpg?1783903791",
+    "png": "https://cards.scryfall.io/png/front/9/2/920bb44e-aa7f-4ee9-ab19-30114f55ec9b.png?1783903791",
+    "small": "https://cards.scryfall.io/small/front/9/2/920bb44e-aa7f-4ee9-ab19-30114f55ec9b.jpg?1783903791",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/2/920bb44e-aa7f-4ee9-ab19-30114f55ec9b.webp?1783903791"
+  },
+  "keywords": [
+    "Manifest"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 148867,
+  "multiverse_ids": [],
+  "name": "Reality Shift",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "70dc830e-d05b-4fc7-88dd-879e140b3fbf",
+  "oracle_text": "Exile target creature. Its controller manifests the top card of their library. (That player puts the top card of their library onto the battlefield face down as a 2/2 creature. If it's a creature card, it can be turned face up any time for its mana cost.)",
+  "oversized": false,
+  "penny_rank": 5018,
+  "prices": {
+    "eur": "0.21",
+    "eur_foil": null,
+    "tix": "0.07",
+    "usd": "0.33",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A70dc830e-d05b-4fc7-88dd-879e140b3fbf&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/148867?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=881519&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F687437%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Reality+Shift",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DReality%2BShift",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DReality%2BShift"
+  },
+  "released_at": "2026-04-24",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "CECEE91C297BC8D34C40E7AAD1B9AA8CDF7C13B2DF4D4059C8F1C9A429BA43E6",
+  "rulings_uri": "https://api.scryfall.com/cards/920bb44e-aa7f-4ee9-ab19-30114f55ec9b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/soc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/soc/199/reality-shift?utm_source=api",
+  "set": "soc",
+  "set_id": "97fab8d1-480a-419d-ab14-663968e29b9c",
+  "set_name": "Secrets of Strixhaven Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/97fab8d1-480a-419d-ab14-663968e29b9c",
+  "story_spotlight": false,
+  "tcgplayer_id": 687437,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/920bb44e-aa7f-4ee9-ab19-30114f55ec9b",
+  "variation": false
+}

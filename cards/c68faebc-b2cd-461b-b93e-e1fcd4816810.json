@@ -1,0 +1,151 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a",
+      "name": "Midnight Clock",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c153d43d-fb7c-47cd-8796-4a0f6ff53579",
+      "name": "Rusko, Clockmaker",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Artificer",
+      "uri": "https://api.scryfall.com/cards/c153d43d-fb7c-47cd-8796-4a0f6ff53579"
+    }
+  ],
+  "artist": "Alexander Forssberg",
+  "artist_ids": [
+    "85908891-3cc7-42b0-9b54-27ed0fe89c53"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764869,
+  "cmc": 3.0,
+  "collector_number": "100",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 627,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a",
+  "illustration_id": "7cbc3949-bca2-4029-a74d-7dbc1bf09fb0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:05:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/b/0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a.webp?1783911941",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/b/0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a.jpg?1783911941",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/b/0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a.jpg?1783911941",
+    "crop": "https://cards.scryfall.io/crop/front/0/b/0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a.webp?1783911941",
+    "display": "https://cards.scryfall.io/display/front/0/b/0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a.webp?1783911941",
+    "grid": "https://cards.scryfall.io/grid/front/0/b/0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a.webp?1783911941",
+    "large": "https://cards.scryfall.io/large/front/0/b/0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a.jpg?1783911941",
+    "normal": "https://cards.scryfall.io/normal/front/0/b/0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a.jpg?1783911941",
+    "png": "https://cards.scryfall.io/png/front/0/b/0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a.png?1783911941",
+    "small": "https://cards.scryfall.io/small/front/0/b/0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a.jpg?1783911941",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/b/0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a.webp?1783911941"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 124659,
+  "multiverse_ids": [
+    658544
+  ],
+  "name": "Midnight Clock",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c68faebc-b2cd-461b-b93e-e1fcd4816810",
+  "oracle_text": "{T}: Add {U}.\n{2}{U}: Put an hour counter on this artifact.\nAt the beginning of each upkeep, put an hour counter on this artifact.\nWhen the twelfth hour counter is put on this artifact, shuffle your hand and graveyard into your library, then draw seven cards. Exile this artifact.",
+  "oversized": false,
+  "penny_rank": 997,
+  "prices": {
+    "eur": "0.30",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.64",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac68faebc-b2cd-461b-b93e-e1fcd4816810&unique=prints",
+  "produced_mana": [
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124659?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764869&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F545292%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Midnight+Clock",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=658544&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMidnight%2BClock",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMidnight%2BClock"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otc/100/midnight-clock?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otc",
+  "set_id": "d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "set_name": "Outlaws of Thunder Junction Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "story_spotlight": false,
+  "tcgplayer_id": 545292,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/0b3c33b7-5b15-4b61-bfd6-1ffa823eb28a",
+  "variation": false
+}

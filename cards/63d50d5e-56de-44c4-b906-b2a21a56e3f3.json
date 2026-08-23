@@ -1,0 +1,145 @@
+{
+  "arena_id": 91740,
+  "artist": "Joshua Raphael",
+  "artist_ids": [
+    "553b2a73-780f-414b-b2d7-3b7888821082"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 777656,
+  "cmc": 5.0,
+  "collector_number": "204",
+  "color_identity": [
+    "R",
+    "U"
+  ],
+  "colors": [
+    "R",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 4040,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Why would I chase the storm? Does a cloud chase the rain? Does the sun chase the light?\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "436d6a84-4cea-4ca7-94aa-9d08280652af",
+  "illustration_id": "2746db34-3fd2-4c86-989c-dd1512da6638",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:46:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/3/436d6a84-4cea-4ca7-94aa-9d08280652af.webp?1783910801",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/3/436d6a84-4cea-4ca7-94aa-9d08280652af.jpg?1783910801",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/3/436d6a84-4cea-4ca7-94aa-9d08280652af.jpg?1783910801",
+    "crop": "https://cards.scryfall.io/crop/front/4/3/436d6a84-4cea-4ca7-94aa-9d08280652af.webp?1783910801",
+    "display": "https://cards.scryfall.io/display/front/4/3/436d6a84-4cea-4ca7-94aa-9d08280652af.webp?1783910801",
+    "grid": "https://cards.scryfall.io/grid/front/4/3/436d6a84-4cea-4ca7-94aa-9d08280652af.webp?1783910801",
+    "large": "https://cards.scryfall.io/large/front/4/3/436d6a84-4cea-4ca7-94aa-9d08280652af.jpg?1783910801",
+    "normal": "https://cards.scryfall.io/normal/front/4/3/436d6a84-4cea-4ca7-94aa-9d08280652af.jpg?1783910801",
+    "png": "https://cards.scryfall.io/png/front/4/3/436d6a84-4cea-4ca7-94aa-9d08280652af.png?1783910801",
+    "small": "https://cards.scryfall.io/small/front/4/3/436d6a84-4cea-4ca7-94aa-9d08280652af.jpg?1783910801",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/3/436d6a84-4cea-4ca7-94aa-9d08280652af.webp?1783910801"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{R}",
+  "mtgo_id": 129653,
+  "multiverse_ids": [
+    669118
+  ],
+  "name": "Alania, Divergent Storm",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "63d50d5e-56de-44c4-b906-b2a21a56e3f3",
+  "oracle_text": "Whenever you cast a spell, if it's the first instant spell, the first sorcery spell, or the first Otter spell other than Alania you've cast this turn, you may have target opponent draw a card. If you do, copy that spell. You may choose new targets for the copy.",
+  "oversized": false,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2024-07-09",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/products/bloomburrow/card-image-gallery"
+  },
+  "prices": {
+    "eur": "0.18",
+    "eur_foil": "0.42",
+    "tix": "0.02",
+    "usd": "0.30",
+    "usd_etched": null,
+    "usd_foil": "0.46"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A63d50d5e-56de-44c4-b906-b2a21a56e3f3&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/129653?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=777656&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F558439%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Alania%2C+Divergent+Storm",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=669118&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAlania%252C%2BDivergent%2BStorm",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAlania%252C%2BDivergent%2BStorm"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/436d6a84-4cea-4ca7-94aa-9d08280652af/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/204/alania-divergent-storm?utm_source=api",
+  "security_stamp": "oval",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": false,
+  "tcgplayer_id": 558439,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Legendary Creature — Otter Wizard",
+  "uri": "https://api.scryfall.com/cards/436d6a84-4cea-4ca7-94aa-9d08280652af",
+  "variation": false
+}

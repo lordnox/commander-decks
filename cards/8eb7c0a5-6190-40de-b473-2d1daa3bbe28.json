@@ -1,0 +1,135 @@
+{
+  "artist": "Matt Stewart",
+  "artist_ids": [
+    "20871267-2d8a-41d5-b03a-be3d557c5734"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 558785,
+  "cmc": 3.0,
+  "collector_number": "165",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 664,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"It has been my experience that disasters like to strike in pairs.\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "defcc4a3-40e0-4f5d-b23c-6cd6a614abc1",
+  "illustration_id": "53ff74cb-f970-4fb0-ae1e-1f8f80838ca3",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:25:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/e/defcc4a3-40e0-4f5d-b23c-6cd6a614abc1.webp?1783927545",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/e/defcc4a3-40e0-4f5d-b23c-6cd6a614abc1.jpg?1783927545",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/e/defcc4a3-40e0-4f5d-b23c-6cd6a614abc1.jpg?1783927545",
+    "crop": "https://cards.scryfall.io/crop/front/d/e/defcc4a3-40e0-4f5d-b23c-6cd6a614abc1.webp?1783927545",
+    "display": "https://cards.scryfall.io/display/front/d/e/defcc4a3-40e0-4f5d-b23c-6cd6a614abc1.webp?1783927545",
+    "grid": "https://cards.scryfall.io/grid/front/d/e/defcc4a3-40e0-4f5d-b23c-6cd6a614abc1.webp?1783927545",
+    "large": "https://cards.scryfall.io/large/front/d/e/defcc4a3-40e0-4f5d-b23c-6cd6a614abc1.jpg?1783927545",
+    "normal": "https://cards.scryfall.io/normal/front/d/e/defcc4a3-40e0-4f5d-b23c-6cd6a614abc1.jpg?1783927545",
+    "png": "https://cards.scryfall.io/png/front/d/e/defcc4a3-40e0-4f5d-b23c-6cd6a614abc1.png?1783927545",
+    "small": "https://cards.scryfall.io/small/front/d/e/defcc4a3-40e0-4f5d-b23c-6cd6a614abc1.jpg?1783927545",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/e/defcc4a3-40e0-4f5d-b23c-6cd6a614abc1.webp?1783927545"
+  },
+  "keywords": [
+    "Flash"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}{R}",
+  "mtgo_id": 89431,
+  "multiverse_ids": [
+    519200
+  ],
+  "name": "Dualcaster Mage",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8eb7c0a5-6190-40de-b473-2d1daa3bbe28",
+  "oracle_text": "Flash\nWhen this creature enters, copy target instant or sorcery spell. You may choose new targets for the copy.",
+  "oversized": false,
+  "penny_rank": 1619,
+  "power": "2",
+  "prices": {
+    "eur": "3.13",
+    "eur_foil": null,
+    "tix": "0.93",
+    "usd": "4.40",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8eb7c0a5-6190-40de-b473-2d1daa3bbe28&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/89431?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=558785&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F236179%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dualcaster+Mage",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=519200&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDualcaster%2BMage",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDualcaster%2BMage"
+  },
+  "released_at": "2021-04-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/defcc4a3-40e0-4f5d-b23c-6cd6a614abc1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c21?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c21/165/dualcaster-mage?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c21",
+  "set_id": "27bf6dbd-a9e1-4904-afa7-d28fc7745c4f",
+  "set_name": "Commander 2021",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac21&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/27bf6dbd-a9e1-4904-afa7-d28fc7745c4f",
+  "story_spotlight": false,
+  "tcgplayer_id": 236179,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Human Wizard",
+  "uri": "https://api.scryfall.com/cards/defcc4a3-40e0-4f5d-b23c-6cd6a614abc1",
+  "variation": false
+}

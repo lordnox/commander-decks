@@ -1,0 +1,140 @@
+{
+  "arena_id": 94105,
+  "artist": "Kevin Sidharta",
+  "artist_ids": [
+    "e0bcff21-4a2b-4151-86a2-a462da7b5aaa"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 796124,
+  "cmc": 5.0,
+  "collector_number": "677",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 2816,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Chandra treasures her mentor's goggles, not for their magical properties, but for the memory of the woman who taught her to truly harness the power of fire.",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f340d8a4-196a-4433-807c-b7124e96e44f",
+  "illustration_id": "21ce57e6-54e3-45a0-9418-82b239ddf1a1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:15:05Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/3/f340d8a4-196a-4433-807c-b7124e96e44f.webp?1783908905",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/3/f340d8a4-196a-4433-807c-b7124e96e44f.jpg?1783908905",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/3/f340d8a4-196a-4433-807c-b7124e96e44f.jpg?1783908905",
+    "crop": "https://cards.scryfall.io/crop/front/f/3/f340d8a4-196a-4433-807c-b7124e96e44f.webp?1783908905",
+    "display": "https://cards.scryfall.io/display/front/f/3/f340d8a4-196a-4433-807c-b7124e96e44f.webp?1783908905",
+    "grid": "https://cards.scryfall.io/grid/front/f/3/f340d8a4-196a-4433-807c-b7124e96e44f.webp?1783908905",
+    "large": "https://cards.scryfall.io/large/front/f/3/f340d8a4-196a-4433-807c-b7124e96e44f.jpg?1783908905",
+    "normal": "https://cards.scryfall.io/normal/front/f/3/f340d8a4-196a-4433-807c-b7124e96e44f.jpg?1783908905",
+    "png": "https://cards.scryfall.io/png/front/f/3/f340d8a4-196a-4433-807c-b7124e96e44f.png?1783908905",
+    "small": "https://cards.scryfall.io/small/front/f/3/f340d8a4-196a-4433-807c-b7124e96e44f.jpg?1783908905",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/3/f340d8a4-196a-4433-807c-b7124e96e44f.webp?1783908905"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}",
+  "mtgo_id": 134690,
+  "multiverse_ids": [
+    680816
+  ],
+  "name": "Pyromancer's Goggles",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f76bcbfe-483f-4e63-8425-76feca1abf3e",
+  "oracle_text": "{T}: Add {R}. When that mana is spent to cast a red instant or sorcery spell, copy that spell and you may choose new targets for the copy.",
+  "oversized": false,
+  "penny_rank": 9687,
+  "prices": {
+    "eur": "0.66",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.38",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af76bcbfe-483f-4e63-8425-76feca1abf3e&unique=prints",
+  "produced_mana": [
+    "R"
+  ],
+  "promo": false,
+  "promo_types": [
+    "startercollection"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/134690?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=796124&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F589361%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Pyromancer%27s+Goggles",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=680816&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPyromancer%2527s%2BGoggles",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPyromancer%2527s%2BGoggles"
+  },
+  "released_at": "2024-11-15",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f340d8a4-196a-4433-807c-b7124e96e44f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fdn/677/pyromancers-goggles?utm_source=api",
+  "security_stamp": "oval",
+  "set": "fdn",
+  "set_id": "a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "set_name": "Foundations",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afdn&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "story_spotlight": false,
+  "tcgplayer_id": 589361,
+  "textless": false,
+  "type_line": "Legendary Artifact",
+  "uri": "https://api.scryfall.com/cards/f340d8a4-196a-4433-807c-b7124e96e44f",
+  "variation": false
+}

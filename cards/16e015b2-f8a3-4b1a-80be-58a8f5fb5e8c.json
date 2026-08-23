@@ -1,0 +1,133 @@
+{
+  "arena_id": 98304,
+  "artist": "Alejandro Pacheco",
+  "artist_ids": [
+    "e001c298-d81d-4824-87fd-44dec540a6f5"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 857971,
+  "cmc": 3.0,
+  "collector_number": "159",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 101,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "In the skies of the Si Wong Desert, a solitary winged lemur searched in vain for a lost friend.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d8c5e52d-57ae-464b-8860-7dd39ebfef64",
+  "illustration_id": "84104a16-d0bd-4ab9-bd0f-b7a56af18e12",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:06:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/8/d8c5e52d-57ae-464b-8860-7dd39ebfef64.webp?1783904806",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/8/d8c5e52d-57ae-464b-8860-7dd39ebfef64.jpg?1783904806",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/8/d8c5e52d-57ae-464b-8860-7dd39ebfef64.jpg?1783904806",
+    "crop": "https://cards.scryfall.io/crop/front/d/8/d8c5e52d-57ae-464b-8860-7dd39ebfef64.webp?1783904806",
+    "display": "https://cards.scryfall.io/display/front/d/8/d8c5e52d-57ae-464b-8860-7dd39ebfef64.webp?1783904806",
+    "grid": "https://cards.scryfall.io/grid/front/d/8/d8c5e52d-57ae-464b-8860-7dd39ebfef64.webp?1783904806",
+    "large": "https://cards.scryfall.io/large/front/d/8/d8c5e52d-57ae-464b-8860-7dd39ebfef64.jpg?1783904806",
+    "normal": "https://cards.scryfall.io/normal/front/d/8/d8c5e52d-57ae-464b-8860-7dd39ebfef64.jpg?1783904806",
+    "png": "https://cards.scryfall.io/png/front/d/8/d8c5e52d-57ae-464b-8860-7dd39ebfef64.png?1783904806",
+    "small": "https://cards.scryfall.io/small/front/d/8/d8c5e52d-57ae-464b-8860-7dd39ebfef64.jpg?1783904806",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/8/d8c5e52d-57ae-464b-8860-7dd39ebfef64.webp?1783904806"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "banned",
+    "legacy": "banned",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "banned",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "multiverse_ids": [],
+  "name": "Frantic Search",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c",
+  "oracle_text": "Draw two cards, then discard two cards. Untap up to three lands.",
+  "oversized": false,
+  "penny_rank": 118,
+  "prices": {
+    "eur": "0.95",
+    "eur_foil": "1.21",
+    "tix": null,
+    "usd": "2.09",
+    "usd_etched": null,
+    "usd_foil": "1.93"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Frantic+Search&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=857971&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F662464%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Frantic+Search",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFrantic%2BSearch",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFrantic%2BSearch"
+  },
+  "released_at": "2025-11-21",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "F0B843D4E512A67E46F061EC8B3CBE1A48BD23F38C0ADD03BF35F997983F2197",
+  "rulings_uri": "https://api.scryfall.com/cards/d8c5e52d-57ae-464b-8860-7dd39ebfef64/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tle?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tle/159/frantic-search?utm_source=api",
+  "set": "tle",
+  "set_id": "a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "set_name": "Avatar: The Last Airbender Eternal",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atle&unique=prints",
+  "set_type": "eternal",
+  "set_uri": "https://api.scryfall.com/sets/a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "story_spotlight": false,
+  "tcgplayer_id": 662464,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/d8c5e52d-57ae-464b-8860-7dd39ebfef64",
+  "variation": false
+}

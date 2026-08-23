@@ -1,0 +1,135 @@
+{
+  "arena_id": 84302,
+  "artist": "Olivier Bernard",
+  "artist_ids": [
+    "11c6f325-68c2-4f2a-972d-98d2ffe6c224"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 704296,
+  "cmc": 6.0,
+  "collector_number": "46",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 7300,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Errant wouldn't allow anything to stop her from decorating the streets of New Capenna.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "2bd05f97-ef8b-4cbe-a44b-6501aa5895b0",
+  "illustration_id": "e331e06d-96f5-4170-8863-bf35c9a28ca5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:30:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/b/2bd05f97-ef8b-4cbe-a44b-6501aa5895b0.webp?1783917045",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/b/2bd05f97-ef8b-4cbe-a44b-6501aa5895b0.jpg?1783917045",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/b/2bd05f97-ef8b-4cbe-a44b-6501aa5895b0.jpg?1783917045",
+    "crop": "https://cards.scryfall.io/crop/front/2/b/2bd05f97-ef8b-4cbe-a44b-6501aa5895b0.webp?1783917045",
+    "display": "https://cards.scryfall.io/display/front/2/b/2bd05f97-ef8b-4cbe-a44b-6501aa5895b0.webp?1783917045",
+    "grid": "https://cards.scryfall.io/grid/front/2/b/2bd05f97-ef8b-4cbe-a44b-6501aa5895b0.webp?1783917045",
+    "large": "https://cards.scryfall.io/large/front/2/b/2bd05f97-ef8b-4cbe-a44b-6501aa5895b0.jpg?1783917045",
+    "normal": "https://cards.scryfall.io/normal/front/2/b/2bd05f97-ef8b-4cbe-a44b-6501aa5895b0.jpg?1783917045",
+    "png": "https://cards.scryfall.io/png/front/2/b/2bd05f97-ef8b-4cbe-a44b-6501aa5895b0.png?1783917045",
+    "small": "https://cards.scryfall.io/small/front/2/b/2bd05f97-ef8b-4cbe-a44b-6501aa5895b0.jpg?1783917045",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/b/2bd05f97-ef8b-4cbe-a44b-6501aa5895b0.webp?1783917045"
+  },
+  "keywords": [
+    "Convoke"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{U}{U}",
+  "mtgo_id": 109904,
+  "multiverse_ids": [
+    607066
+  ],
+  "name": "Artistic Refusal",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ff192482-3808-4291-a31e-3dfaeb49cda2",
+  "oracle_text": "Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.)\nChoose one or both —\n• Counter target spell.\n• Draw two cards, then discard a card.",
+  "oversized": false,
+  "penny_rank": 7732,
+  "prices": {
+    "eur": "0.09",
+    "eur_foil": "0.23",
+    "tix": "0.03",
+    "usd": "0.14",
+    "usd_etched": null,
+    "usd_foil": "0.33"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aff192482-3808-4291-a31e-3dfaeb49cda2&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/109904?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=704296&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F490600%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Artistic+Refusal",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=607066&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DArtistic%2BRefusal",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DArtistic%2BRefusal"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2bd05f97-ef8b-4cbe-a44b-6501aa5895b0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/46/artistic-refusal?utm_source=api",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": false,
+  "tcgplayer_id": 490600,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/2bd05f97-ef8b-4cbe-a44b-6501aa5895b0",
+  "variation": false
+}

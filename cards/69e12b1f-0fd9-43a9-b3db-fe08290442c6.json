@@ -1,0 +1,141 @@
+{
+  "arena_id": 91040,
+  "artist": "Leonardo Santanna",
+  "artist_ids": [
+    "f1f8e6d8-8fb3-472a-a32f-a4b1225bd054"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 772138,
+  "cmc": 3.0,
+  "collector_number": "190",
+  "color_identity": [
+    "R",
+    "U"
+  ],
+  "colors": [
+    "R",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2197,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Skreeg! I thought I told you to stop messing with... Oh, that worked. Good job, Skreeg.\"\n—Ral Zarek",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "dcee6a8a-c3a8-43bc-beb9-be30d03ab952",
+  "illustration_id": "2b99d94b-1b75-465a-8c6c-5bc6b9957d05",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/c/dcee6a8a-c3a8-43bc-beb9-be30d03ab952.webp?1783911250",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/c/dcee6a8a-c3a8-43bc-beb9-be30d03ab952.jpg?1783911250",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/c/dcee6a8a-c3a8-43bc-beb9-be30d03ab952.jpg?1783911250",
+    "crop": "https://cards.scryfall.io/crop/front/d/c/dcee6a8a-c3a8-43bc-beb9-be30d03ab952.webp?1783911250",
+    "display": "https://cards.scryfall.io/display/front/d/c/dcee6a8a-c3a8-43bc-beb9-be30d03ab952.webp?1783911250",
+    "grid": "https://cards.scryfall.io/grid/front/d/c/dcee6a8a-c3a8-43bc-beb9-be30d03ab952.webp?1783911250",
+    "large": "https://cards.scryfall.io/large/front/d/c/dcee6a8a-c3a8-43bc-beb9-be30d03ab952.jpg?1783911250",
+    "normal": "https://cards.scryfall.io/normal/front/d/c/dcee6a8a-c3a8-43bc-beb9-be30d03ab952.jpg?1783911250",
+    "png": "https://cards.scryfall.io/png/front/d/c/dcee6a8a-c3a8-43bc-beb9-be30d03ab952.png?1783911250",
+    "small": "https://cards.scryfall.io/small/front/d/c/dcee6a8a-c3a8-43bc-beb9-be30d03ab952.jpg?1783911250",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/c/dcee6a8a-c3a8-43bc-beb9-be30d03ab952.webp?1783911250"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "banned",
+    "future": "not_legal",
+    "gladiator": "banned",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}{U}{R}",
+  "mtgo_id": 126397,
+  "multiverse_ids": [
+    662342
+  ],
+  "name": "Invert Polarity",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "69e12b1f-0fd9-43a9-b3db-fe08290442c6",
+  "oracle_text": "Choose target spell, then flip a coin. If you win the flip, gain control of that spell and you may choose new targets for it. If you lose the flip, counter that spell.",
+  "oversized": false,
+  "penny_rank": 219,
+  "preview": {
+    "previewed_at": "2024-05-25",
+    "source": "Skulk, the Hulking",
+    "source_uri": "https://www.tiktok.com/@skulkthehulking/video/7372951801877810475"
+  },
+  "prices": {
+    "eur": "0.60",
+    "eur_foil": "0.97",
+    "tix": "0.02",
+    "usd": "0.52",
+    "usd_etched": null,
+    "usd_foil": "0.75"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A69e12b1f-0fd9-43a9-b3db-fe08290442c6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126397?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=772138&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552825%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Invert+Polarity",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662342&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DInvert%2BPolarity",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DInvert%2BPolarity"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/dcee6a8a-c3a8-43bc-beb9-be30d03ab952/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/190/invert-polarity?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552825,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/dcee6a8a-c3a8-43bc-beb9-be30d03ab952",
+  "variation": false
+}
