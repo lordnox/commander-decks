@@ -1,0 +1,114 @@
+Commander
+1x Iname, Death Aspect [Commander{top}]
+
++1 Mana
+1x Blood Pet [+1 Mana]
+1x Cabal Ritual [+1 Mana]
+1x Jeweled Amulet [+1 Mana]
+1x Lotus Petal [+1 Mana]
+
++2 Mana
+1x Basal Thrull [+2 Mana]
+1x Dark Ritual [+2 Mana]
+1x Sol Ring [+2 Mana]
+1x Soldevi Adnate [+2 Mana]
+
++3 Mana
+1x Expedition Map [+3 Mana]
+
+Draw
+1x Doom Weaver [Draw]
+
+Enable Delirium
+1x Nameless Inversion [Enable Delirium]
+
+Finisher
+1x Mortal Combat [Finisher]
+
+Land
+1x Agadeem's Awakening // Agadeem, the Undercrypt [Land]
+1x Bloodstained Mire [Land]
+1x Castle Locthwain [Land]
+1x Cavern of Souls [Land]
+1x Crypt of Agadeem [Land]
+1x Crystal Vein [Land,+1 Mana]
+1x Ebon Stronghold [Land,+1 Mana]
+1x Gemstone Caverns [Land,+1 Mana]
+1x Lake of the Dead [Land,+3 Mana]
+1x Marsh Flats [Land]
+1x Peat Bog [Land,+1 Mana]
+1x Polluted Delta [Land]
+1x Prismatic Vista [Land]
+25x Swamp [Land]
+1x Urborg, Tomb of Yawgmoth [Land]
+1x Urza's Saga [Land,+1 Mana,+3 Mana]
+1x Vault of Whispers [Land]
+1x Verdant Catacombs [Land]
+
+Late-Game Ramp
+1x Songs of the Damned [Late-Game Ramp]
+
+Lifelink
+1x Osseous Sticktwister [Lifelink]
+
+Ramp
+1x Crypt Ghast [Ramp]
+1x Jet Medallion [Ramp]
+
+Recursion
+1x Bloodghast [Recursion,Swarm]
+1x Chthonian Nightmare [Recursion]
+1x Eerie Soultender [Recursion]
+1x Junji, the Midnight Sky [Recursion,Those Who Came Before]
+1x Krovikan Horror [Recursion]
+1x Living Death [Recursion]
+1x Nether Shadow [Recursion,Swarm]
+1x Nether Traitor [Recursion,Swarm]
+1x Patriarch's Bidding [Recursion]
+1x Yawgmoth's Will [Recursion]
+
+Removal
+1x Toxic Deluge [Removal]
+1x Ugin, Eye of the Storms [Removal]
+
+Secret Commander
+1x The Capitoline Triad [Secret Commander]
+
+Swarm
+1x Nested Shambler [Swarm]
+
+Those Who Came Before
+1x Akuta, Born of Ash [Those Who Came Before]
+1x Kagemaro, First to Suffer [Those Who Came Before]
+1x Kokusho, the Evening Star [Those Who Came Before]
+1x Kuro, Pitlord [Those Who Came Before]
+1x Moira, Urborg Haunt [Those Who Came Before]
+1x Myojin of Grim Betrayal [Those Who Came Before]
+1x Myojin of Night's Reach [Those Who Came Before]
+1x Omarthis, Ghostfire Initiate [Those Who Came Before,Swarm]
+1x Patron of the Nezumi [Those Who Came Before]
+1x Pus Kami [Those Who Came Before]
+1x Seymour Flux [Those Who Came Before]
+1x Sorcerer's Broom [Those Who Came Before,Enable Delirium]
+1x Spirit of the Night [Those Who Came Before]
+
+Tutor
+1x Beseech the Mirror [Tutor]
+1x Dark Petition [Tutor]
+1x Demonic Collusion [Tutor]
+1x Demonic Counsel [Tutor]
+1x Diabolic Intent [Tutor]
+1x Diabolic Tutor [Tutor]
+1x Final Parting [Tutor]
+1x Grim Tutor [Tutor]
+1x Illicit Shipment [Tutor]
+1x Increasing Ambition [Tutor]
+1x Insatiable Avarice [Tutor]
+1x Mastermind's Acquisition [Tutor]
+1x Scheming Symmetry [Tutor,+3 Mana]
+1x Sidisi, Undead Vizier [Tutor]
+
+Tokens & Extras
+2x Construct [Tokens & Extras{noDeck}]
+2x Manifest [Tokens & Extras{noDeck}]
+3x Squirrel [Tokens & Extras{noDeck}]
