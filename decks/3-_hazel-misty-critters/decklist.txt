@@ -24,7 +24,7 @@
 1x Nadier's Nightblade [life-drain,token-payoff]
 1x Species Specialist [card-draw]
 1x Eternal Witness [recursion]
-1x Seedborn Muse [untap-engine]
+1x Quest for Renewal [untap-engine]
 1x Tippy-Toe, Terrific Partner [token-production,card-draw]
 1x Chatter of the Squirrel [token-production]
 1x Squirrel Sanctuary [token-production,recursion]

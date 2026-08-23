@@ -26,7 +26,7 @@
 - **Nadier's Nightblade** — Drains whenever tokens leave, rewarding sacrifice, chump blocking, Treasures, Food, and temporary token copies.
 - **Species Specialist** — Names Squirrel in most games and turns token deaths into cards without requiring combat damage.
 - **Eternal Witness** — Recovers a destroyed engine, spent interaction spell, fog, or finisher.
-- **Seedborn Muse** — Untaps the token board on opponents' turns so Hazel mana and defensive interaction can coexist without erasing the own-turn combat decision.
+- **Quest for Renewal** — Keeps the extra-untap role after Seedborn Muse was cut as a Game Changer. After a few token taps, it untaps creatures on opponents' turns so Hazel mana and defensive interaction can coexist without erasing the own-turn combat decision. Unlike Muse, it does not untap lands or artifact tokens.
 - **Tippy-Toe, Terrific Partner** — Adds Food to each token event and draws at end step after Rotcaller, Food, or another life-gain effect resolves.
 - **Chatter of the Squirrel** — Provides an inexpensive Squirrel seed twice through flashback.
 - **Squirrel Sanctuary** — Seeds Hazel early and can return to hand after a nontoken creature dies for repeatable token production.
@@ -90,3 +90,5 @@
 - **Myriad Landscape** — Supplies a land-slot ramp effect that finds two basics in slower games.
 - **Forest** — Eight copies provide reliable green mana and enough basic targets for land-search effects.
 - **Swamp** — Four copies provide resilient black mana and basic targets without overloading the green-heavy curve.
+
+Seedborn Muse previously filled the extra-untap slot: it untapped the token board on opponents' turns so Hazel mana and defensive interaction could coexist without erasing the own-turn combat decision. It left the 99 because it is a Game Changer; Quest for Renewal is the replacement.

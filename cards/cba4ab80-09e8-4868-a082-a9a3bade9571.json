@@ -1,0 +1,131 @@
+{
+  "artist": "Tomasz Jedruszek",
+  "artist_ids": [
+    "bba69285-2445-4a4b-a847-59397be972ea"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 22247,
+  "cmc": 2.0,
+  "collector_number": "110",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 3392,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "41b7ad82-1115-4f80-886a-3f59f568423f",
+  "illustration_id": "64102ad3-212f-4f6d-b499-68744c7c35df",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:27:23Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/1/41b7ad82-1115-4f80-886a-3f59f568423f.webp?1783942043",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/1/41b7ad82-1115-4f80-886a-3f59f568423f.jpg?1783942043",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/1/41b7ad82-1115-4f80-886a-3f59f568423f.jpg?1783942043",
+    "crop": "https://cards.scryfall.io/crop/front/4/1/41b7ad82-1115-4f80-886a-3f59f568423f.webp?1783942043",
+    "display": "https://cards.scryfall.io/display/front/4/1/41b7ad82-1115-4f80-886a-3f59f568423f.webp?1783942043",
+    "grid": "https://cards.scryfall.io/grid/front/4/1/41b7ad82-1115-4f80-886a-3f59f568423f.webp?1783942043",
+    "large": "https://cards.scryfall.io/large/front/4/1/41b7ad82-1115-4f80-886a-3f59f568423f.jpg?1783942043",
+    "normal": "https://cards.scryfall.io/normal/front/4/1/41b7ad82-1115-4f80-886a-3f59f568423f.jpg?1783942043",
+    "png": "https://cards.scryfall.io/png/front/4/1/41b7ad82-1115-4f80-886a-3f59f568423f.png?1783942043",
+    "small": "https://cards.scryfall.io/small/front/4/1/41b7ad82-1115-4f80-886a-3f59f568423f.jpg?1783942043",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/1/41b7ad82-1115-4f80-886a-3f59f568423f.webp?1783942043"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_foil_id": 35600,
+  "mtgo_id": 35599,
+  "multiverse_ids": [
+    194007
+  ],
+  "name": "Quest for Renewal",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cba4ab80-09e8-4868-a082-a9a3bade9571",
+  "oracle_text": "Whenever a creature you control becomes tapped, you may put a quest counter on this enchantment.\nAs long as there are four or more quest counters on this enchantment, untap all creatures you control during each other player's untap step.",
+  "oversized": false,
+  "penny_rank": 10936,
+  "prices": {
+    "eur": "5.36",
+    "eur_foil": "8.83",
+    "tix": "0.03",
+    "usd": "5.42",
+    "usd_etched": null,
+    "usd_foil": "30.45"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acba4ab80-09e8-4868-a082-a9a3bade9571&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/35599?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=22247&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F34414%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Quest+for+Renewal",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=194007&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DQuest%2Bfor%2BRenewal",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DQuest%2Bfor%2BRenewal"
+  },
+  "released_at": "2010-02-05",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/41b7ad82-1115-4f80-886a-3f59f568423f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/wwk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/wwk/110/quest-for-renewal?utm_source=api",
+  "set": "wwk",
+  "set_id": "2f248ce6-c2a5-4c6f-a2be-0c593fbe173c",
+  "set_name": "Worldwake",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awwk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/2f248ce6-c2a5-4c6f-a2be-0c593fbe173c",
+  "story_spotlight": false,
+  "tcgplayer_id": 34414,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/41b7ad82-1115-4f80-886a-3f59f568423f",
+  "variation": false
+}
