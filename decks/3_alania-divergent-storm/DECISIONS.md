@@ -12,7 +12,6 @@
 - **Increasing Vengeance** — Copies a key spell once from hand or twice with flashback, rewarding the deck's discard and graveyard setup.
 - **Reiterate** — A reusable Fork when buyback is affordable and a flexible answer to valuable opposing spells.
 - **Display of Power** — An unusual stack tool that can copy several relevant spells at once during a crowded counter or copy exchange.
-- **Chandra, Hope's Beacon** — Provides one automatic spell copy each turn, card access, and mana while remaining a difficult permanent type to answer.
 - **Dualcaster Mage** — Adds a copy at instant speed while leaving a creature that can help pressure planeswalkers or convoke Artistic Refusal.
 - **Thunderclap Drake** — Reduces every instant and sorcery and can be sacrificed for additional copies after Alania has been recast.
 - **Ruby Medallion** — Reduces the red setup spells, including the generic portions of Repeated Reverberation and Storm King's Thunder.
@@ -22,12 +21,14 @@
 - **Mizzix of the Izmagnus** — Accumulates permanent player-based discounts and makes large X-spell turns dramatically more efficient.
 - **Vadrik, Astral Archmage** — Turns its power into generic spell reduction and can grow naturally through the day-and-night cycle.
 - **Mindsplice Apparatus** — A flash-speed reducer that grows every upkeep and is hard to remove with creature sweepers.
+- **Primal Amulet** — Reduces setup spells, then flips into Primal Wellspring, a land whose mana copies the instant or sorcery it pays for.
 - **Sol Ring** — The deck's only true fast-mana card and the main enabler of the credible turn-four high roll.
 - **Arcane Signet** — Reliable two-mana fixing that accelerates the five-mana commander.
 - **Izzet Signet** — Converts spare generic mana into both colors required by the copy and finisher packages.
 - **Talisman of Creativity** — Untapped two-mana acceleration that produces either required color immediately.
 - **Fellwar Stone** — Usually produces blue or red in multiplayer while accelerating Alania by a turn.
 - **Midnight Clock** — Supplies blue mana early and eventually refills a hand depleted by setup and interaction.
+- **Pyromancer's Goggles** — Produces red mana and copies the red spell that mana pays for, stacking with Alania on the copy turn.
 - **Serum Visions** — Cheap sorcery-speed selection that improves land drops without consuming the first instant of a future combo turn.
 - **Lat-Nam's Legacy** — Hides a redundant card in the library and produces delayed card advantage at instant speed.
 - **Strategic Planning** — Selects the best of three cards while placing flashback and recursion targets into the graveyard.
@@ -48,7 +49,6 @@
 - **Artistic Refusal** — Combines a hard counter and card filtering, with convoke occasionally reducing its high printed cost.
 - **Confounding Riddle** — Either counters a spell unless its controller pays four or digs for the next nonland card.
 - **Three Steps Ahead** — Scales between a counterspell, a creature copy, card filtering, or multiple modes in the late game.
-- **Sublime Epiphany** — A high-impact modal answer that can counter, bounce, copy a reducer, and draw within one resolution.
 - **Resculpt** — Exiles a creature or artifact cleanly; the 4/4 token is usually less dangerous than the removed permanent.
 - **Reality Shift** — Efficiently exiles a creature and replaces it with an uncertain face-down card.
 - **Amphibian Downpour** — Uses storm to neutralize several creatures during a busy turn without destroying them.
@@ -88,3 +88,7 @@ The deck ran 35 true lands, which is below the floor for a five-mana commander w
 The land fix left the deck thin on answers: four dedicated removal spells, three protection spells, and a single sweeper, with the primer's "interaction" figure inflated by counting counterspells and copy effects. There is no Otter-themed removal worth running — the only real candidate, Frolicking Familiar // Blow Off Steam, deals two damage for two mana — so the package is built from efficient Izzet interaction instead.
 
 Cut the five slowest or most redundant cards for five answers. **Invoke Calamity** demands `{R}{R}{R}{R}` and its combined mana value six ceiling cannot rebuild Repeated Reverberation plus a finisher. **Pyromancer's Goggles** costs five and copies only red spells. **Invert // Invent** was a six-mana fourth tutor; three tutors is still enough. **Primal Amulet** wants four casts before it does the interesting half. **Shreds of Sanity** was the least efficient recursion spell. In return the deck gains **Into the Flood Maw**, **Flame of Anor**, **Prismari Command**, **Aetherize** back, and **Mizzium Skin**, moving to seven dedicated removal spells, two sweepers, and four protection spells while the counterspell suite stays at seven.
+
+## 2026-08-24 — Copy permanents restored by pilot preference
+
+The pilot wants **Pyromancer's Goggles** and **Primal Amulet** back, cutting **Chandra, Hope's Beacon** and **Sublime Epiphany**. Both returning cards produce mana that copies the spell it pays for, which stacks with Alania's own copy rather than competing with it, and both survive the creature sweepers that answer the reducer package. The cost is real and deliberate: the counterspell suite drops from seven to six and loses its most flexible answer, since Sublime Epiphany could counter, bounce, copy a reducer, and draw in one resolution. Chandra was the easier cut of the two, as six mana for one guaranteed copy per turn is slower than the deck's other multipliers.
