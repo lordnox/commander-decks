@@ -511,41 +511,6 @@
       "submitted_name": "Mindsplice Apparatus"
     },
     {
-      "cache": "cards/8e4d0da0-c7d8-4a20-9bfd-02c1331a7a49.json",
-      "card": {
-        "faces": [
-          {
-            "mana_cost": "{4}",
-            "name": "Primal Amulet",
-            "oracle_text": "Instant and sorcery spells you cast cost {1} less to cast.\nWhenever you cast an instant or sorcery spell, put a charge counter on this artifact. Then if there are four or more charge counters on it, you may remove those counters and transform it.",
-            "type_line": "Artifact"
-          },
-          {
-            "mana_cost": "",
-            "name": "Primal Wellspring",
-            "oracle_text": "(Transforms from Primal Amulet.)\n{T}: Add one mana of any color. When that mana is spent to cast an instant or sorcery spell, copy that spell and you may choose new targets for the copy.",
-            "type_line": "Land"
-          }
-        ],
-        "keywords": [
-          "Transform"
-        ],
-        "type_line": "Artifact // Land"
-      },
-      "categories": [
-        "Cost Reduction"
-      ],
-      "category_source": "decklist",
-      "name": "Primal Amulet // Primal Wellspring",
-      "oracle_id": "8e4d0da0-c7d8-4a20-9bfd-02c1331a7a49",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/xln/243/primal-amulet-primal-wellspring?utm_source=api",
-      "submitted_categories": [
-        "Cost Reduction"
-      ],
-      "submitted_name": "Primal Amulet"
-    },
-    {
       "cache": "cards/6ad8011d-3471-4369-9d68-b264cc027487.json",
       "card": {
         "keywords": [],
@@ -672,29 +637,6 @@
         "Card Advantage"
       ],
       "submitted_name": "Midnight Clock"
-    },
-    {
-      "cache": "cards/f76bcbfe-483f-4e63-8425-76feca1abf3e.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "{5}",
-        "oracle_text": "{T}: Add {R}. When that mana is spent to cast a red instant or sorcery spell, copy that spell and you may choose new targets for the copy.",
-        "type_line": "Legendary Artifact"
-      },
-      "categories": [
-        "Ramp",
-        "Copy"
-      ],
-      "category_source": "decklist",
-      "name": "Pyromancer's Goggles",
-      "oracle_id": "f76bcbfe-483f-4e63-8425-76feca1abf3e",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/fdn/677/pyromancers-goggles?utm_source=api",
-      "submitted_categories": [
-        "Ramp",
-        "Copy"
-      ],
-      "submitted_name": "Pyromancer's Goggles"
     },
     {
       "cache": "cards/56956afd-db53-4542-816b-490c8b0bbcf7.json",
@@ -917,63 +859,6 @@
       "submitted_name": "Long-Term Plans"
     },
     {
-      "cache": "cards/9a378964-2c04-4d60-a905-c819d37ed4c3.json",
-      "card": {
-        "faces": [
-          {
-            "mana_cost": "{U/R}",
-            "name": "Invert",
-            "oracle_text": "Switch the power and toughness of each of up to two target creatures until end of turn.",
-            "type_line": "Instant"
-          },
-          {
-            "mana_cost": "{4}{U}{R}",
-            "name": "Invent",
-            "oracle_text": "Search your library for an instant card and/or a sorcery card, reveal them, put them into your hand, then shuffle.",
-            "type_line": "Instant"
-          }
-        ],
-        "keywords": [],
-        "mana_cost": "{U/R} // {4}{U}{R}",
-        "type_line": "Instant // Instant"
-      },
-      "categories": [
-        "Tutor",
-        "Interaction"
-      ],
-      "category_source": "decklist",
-      "name": "Invert // Invent",
-      "oracle_id": "9a378964-2c04-4d60-a905-c819d37ed4c3",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/grn/228/invert-invent?utm_source=api",
-      "submitted_categories": [
-        "Tutor",
-        "Interaction"
-      ],
-      "submitted_name": "Invert // Invent"
-    },
-    {
-      "cache": "cards/6eaa343d-0097-4f05-80ab-deb016d4e15e.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "{2}{R}",
-        "oracle_text": "Return up to one target instant card and up to one target sorcery card from your graveyard to your hand, then discard a card. Exile Shreds of Sanity.",
-        "type_line": "Sorcery"
-      },
-      "categories": [
-        "Recursion"
-      ],
-      "category_source": "decklist",
-      "name": "Shreds of Sanity",
-      "oracle_id": "6eaa343d-0097-4f05-80ab-deb016d4e15e",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/emn/141/shreds-of-sanity?utm_source=api",
-      "submitted_categories": [
-        "Recursion"
-      ],
-      "submitted_name": "Shreds of Sanity"
-    },
-    {
       "cache": "cards/40362fe0-a1a9-4d76-8c35-eac474b91af5.json",
       "card": {
         "keywords": [
@@ -997,27 +882,6 @@
         "Copy"
       ],
       "submitted_name": "Mizzix's Mastery"
-    },
-    {
-      "cache": "cards/5b3f041e-ad4a-47ea-bdc4-1be2353f2e18.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "{1}{R}{R}{R}{R}",
-        "oracle_text": "You may cast up to two instant and/or sorcery spells with total mana value 6 or less from your graveyard and/or hand without paying their mana costs. If those spells would be put into your graveyard, exile them instead. Exile Invoke Calamity.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Recursion"
-      ],
-      "category_source": "decklist",
-      "name": "Invoke Calamity",
-      "oracle_id": "5b3f041e-ad4a-47ea-bdc4-1be2353f2e18",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/neo/147/invoke-calamity?utm_source=api",
-      "submitted_categories": [
-        "Recursion"
-      ],
-      "submitted_name": "Invoke Calamity"
     },
     {
       "cache": "cards/d55f6c70-321f-4fb4-bd33-0850ae1a7c36.json",
@@ -1347,6 +1211,83 @@
       "submitted_name": "Amphibian Downpour"
     },
     {
+      "cache": "cards/8cb36a67-9206-4665-a03f-64f52ba559c4.json",
+      "card": {
+        "keywords": [
+          "Gift"
+        ],
+        "mana_cost": "{U}",
+        "oracle_text": "Gift a tapped Fish (You may promise an opponent a gift as you cast this spell. If you do, they create a tapped 1/1 blue Fish creature token before its other effects.)\nReturn target creature an opponent controls to its owner's hand. If the gift was promised, instead return target nonland permanent an opponent controls to its owner's hand.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Interaction",
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "Into the Flood Maw",
+      "oracle_id": "8cb36a67-9206-4665-a03f-64f52ba559c4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blb/52/into-the-flood-maw?utm_source=api",
+      "submitted_categories": [
+        "Interaction",
+        "Removal"
+      ],
+      "submitted_name": "Into the Flood Maw"
+    },
+    {
+      "cache": "cards/ecd49d85-9c8c-4cc9-9a83-072ecd433677.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{U}{R}",
+        "oracle_text": "Choose one. If you control a Wizard as you cast this spell, you may choose two instead.\n• Target player draws two cards.\n• Destroy target artifact.\n• Flame of Anor deals 5 damage to target creature.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Interaction",
+        "Removal",
+        "Card Advantage"
+      ],
+      "category_source": "decklist",
+      "name": "Flame of Anor",
+      "oracle_id": "ecd49d85-9c8c-4cc9-9a83-072ecd433677",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ltr/203/flame-of-anor?utm_source=api",
+      "submitted_categories": [
+        "Interaction",
+        "Removal",
+        "Card Advantage"
+      ],
+      "submitted_name": "Flame of Anor"
+    },
+    {
+      "cache": "cards/fa3e28b1-131c-4223-81e0-18dfbab22c26.json",
+      "card": {
+        "keywords": [
+          "Treasure"
+        ],
+        "mana_cost": "{1}{U}{R}",
+        "oracle_text": "Choose two —\n• Prismari Command deals 2 damage to any target.\n• Target player draws two cards, then discards two cards.\n• Target player creates a Treasure token.\n• Destroy target artifact.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Interaction",
+        "Removal",
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Prismari Command",
+      "oracle_id": "fa3e28b1-131c-4223-81e0-18dfbab22c26",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/323/prismari-command?utm_source=api",
+      "submitted_categories": [
+        "Interaction",
+        "Removal",
+        "Ramp"
+      ],
+      "submitted_name": "Prismari Command"
+    },
+    {
       "cache": "cards/6e3b3a3f-e32f-4c72-a9fb-dd1e877876b6.json",
       "card": {
         "keywords": [],
@@ -1370,6 +1311,29 @@
         "Card Selection"
       ],
       "submitted_name": "Ill-Timed Explosion"
+    },
+    {
+      "cache": "cards/7c779721-cd1b-4696-9ae9-68ccc284ed2a.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Return all attacking creatures to their owner's hand.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Interaction",
+        "Board Wipe"
+      ],
+      "category_source": "decklist",
+      "name": "Aetherize",
+      "oracle_id": "7c779721-cd1b-4696-9ae9-68ccc284ed2a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/151/aetherize?utm_source=api",
+      "submitted_categories": [
+        "Interaction",
+        "Board Wipe"
+      ],
+      "submitted_name": "Aetherize"
     },
     {
       "cache": "cards/05e0a10d-532a-451c-a54e-27e64969fe0e.json",
@@ -1466,6 +1430,31 @@
         "Protection"
       ],
       "submitted_name": "March of Swirling Mist"
+    },
+    {
+      "cache": "cards/02d998a6-0afd-4be1-a209-05618fcc43ea.json",
+      "card": {
+        "keywords": [
+          "Overload"
+        ],
+        "mana_cost": "{U}",
+        "oracle_text": "Target creature you control gets +0/+1 and gains hexproof until end of turn.\nOverload {1}{U} (You may cast this spell for its overload cost. If you do, change \"target\" in its text to \"each.\")",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Interaction",
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Mizzium Skin",
+      "oracle_id": "02d998a6-0afd-4be1-a209-05618fcc43ea",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rtr/45/mizzium-skin?utm_source=api",
+      "submitted_categories": [
+        "Interaction",
+        "Protection"
+      ],
+      "submitted_name": "Mizzium Skin"
     },
     {
       "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
@@ -1823,7 +1812,7 @@
     }
   ],
   "categorized_cards": 78,
-  "generated_at": "2026-08-23T21:32:20.994270+00:00",
+  "generated_at": "2026-08-23T22:08:04.777447+00:00",
   "schema_version": 3,
   "source": "decks/3_alania-divergent-storm/decklist.txt",
   "total_cards": 100,
