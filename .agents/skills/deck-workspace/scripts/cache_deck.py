@@ -476,12 +476,20 @@ def resolve_deck(decklist: Path, repo_root: Path, *, refresh: bool = False) -> i
         category_registry["updated_at"] = now
         write_json(category_path, category_registry, sort_keys=False)
 
+    def is_extra(card):
+        return any("{noDeck}" in category for category in card["categories"])
+
+    deck_cards = [card for card in resolved if not is_extra(card)]
+    extra_cards = [card for card in resolved if is_extra(card)]
     manifest = {
         "schema_version": 3,
         "generated_at": now,
         "source": str(decklist.relative_to(repo_root)),
-        "total_cards": sum(card["quantity"] for card in resolved),
-        "unique_cards": len(resolved),
+        "total_cards": sum(card["quantity"] for card in deck_cards),
+        "unique_cards": len(deck_cards),
+        "maybeboard_cards": sum(card["quantity"] for card in extra_cards),
+        "maybeboard_unique_cards": len(extra_cards),
+        "resolved_unique_cards": len(resolved),
         "categorized_cards": sum(bool(card["categories"]) for card in resolved),
         "unresolved": unresolved,
         "cards": resolved,

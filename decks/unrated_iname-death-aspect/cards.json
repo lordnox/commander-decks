@@ -8,7 +8,7 @@
         "oracle_text": "When Iname enters, you may search your library for any number of Spirit cards, put them into your graveyard, then shuffle.",
         "power": "4",
         "toughness": "4",
-        "type_line": "Legendary Creature — Spirit"
+        "type_line": "Legendary Creature \u2014 Spirit"
       },
       "categories": [
         "Commander{top}"
@@ -31,7 +31,7 @@
         "oracle_text": "Sacrifice this creature: Add {B}.",
         "power": "1",
         "toughness": "1",
-        "type_line": "Creature — Thrull"
+        "type_line": "Creature \u2014 Thrull"
       },
       "categories": [
         "+1 Mana"
@@ -53,7 +53,7 @@
           "Threshold"
         ],
         "mana_cost": "{1}{B}",
-        "oracle_text": "Add {B}{B}{B}.\nThreshold — Add {B}{B}{B}{B}{B} instead if there are seven or more cards in your graveyard.",
+        "oracle_text": "Add {B}{B}{B}.\nThreshold \u2014 Add {B}{B}{B}{B}{B} instead if there are seven or more cards in your graveyard.",
         "type_line": "Instant"
       },
       "categories": [
@@ -119,7 +119,7 @@
         "oracle_text": "{T}, Sacrifice this creature: Add {B}{B}.",
         "power": "1",
         "toughness": "2",
-        "type_line": "Creature — Thrull"
+        "type_line": "Creature \u2014 Thrull"
       },
       "categories": [
         "+2 Mana"
@@ -184,7 +184,7 @@
         "oracle_text": "{T}, Sacrifice a black or artifact creature: Add an amount of {B} equal to the sacrificed creature's mana value.",
         "power": "1",
         "toughness": "2",
-        "type_line": "Creature — Human Cleric"
+        "type_line": "Creature \u2014 Human Cleric"
       },
       "categories": [
         "+2 Mana"
@@ -231,7 +231,7 @@
         "oracle_text": "Reach\nSoulbond (You may pair this creature with another unpaired creature when either enters. They remain paired for as long as you control both of them.)\nAs long as Doom Weaver is paired with another creature, each of those creatures has \"When this creature dies, draw cards equal to its power.\"",
         "power": "1",
         "toughness": "8",
-        "type_line": "Creature — Spider Horror"
+        "type_line": "Creature \u2014 Spider Horror"
       },
       "categories": [
         "Draw"
@@ -254,7 +254,7 @@
         ],
         "mana_cost": "{1}{B}",
         "oracle_text": "Changeling (This card is every creature type.)\nTarget creature gets +3/-3 and loses all creature types until end of turn.",
-        "type_line": "Kindred Instant — Shapeshifter"
+        "type_line": "Kindred Instant \u2014 Shapeshifter"
       },
       "categories": [
         "Enable Delirium"
@@ -591,7 +591,7 @@
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {B}.)",
-        "type_line": "Basic Land — Swamp"
+        "type_line": "Basic Land \u2014 Swamp"
       },
       "categories": [
         "Land"
@@ -632,8 +632,8 @@
       "card": {
         "keywords": [],
         "mana_cost": "",
-        "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — This Saga gains \"{T}: Add {C}.\"\nII — This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle.",
-        "type_line": "Enchantment Land — Urza's Saga"
+        "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI \u2014 This Saga gains \"{T}: Add {C}.\"\nII \u2014 This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII \u2014 Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle.",
+        "type_line": "Enchantment Land \u2014 Urza's Saga"
       },
       "categories": [
         "Land",
@@ -723,10 +723,10 @@
           "Lifelink"
         ],
         "mana_cost": "{1}{B}",
-        "oracle_text": "Lifelink\nDelirium — At the beginning of your end step, if there are four or more card types among cards in your graveyard, each opponent may sacrifice a nonland permanent of their choice or discard a card. Then this creature deals damage equal to its power to each opponent who didn't sacrifice a permanent or discard a card this way.",
+        "oracle_text": "Lifelink\nDelirium \u2014 At the beginning of your end step, if there are four or more card types among cards in your graveyard, each opponent may sacrifice a nonland permanent of their choice or discard a card. Then this creature deals damage equal to its power to each opponent who didn't sacrifice a permanent or discard a card this way.",
         "power": "2",
         "toughness": "2",
-        "type_line": "Artifact Creature — Scarecrow"
+        "type_line": "Artifact Creature \u2014 Scarecrow"
       },
       "categories": [
         "Lifelink"
@@ -751,7 +751,7 @@
         "oracle_text": "Extort (Whenever you cast a spell, you may pay {W/B}. If you do, each opponent loses 1 life and you gain that much life.)\nWhenever you tap a Swamp for mana, add an additional {B}.",
         "power": "2",
         "toughness": "2",
-        "type_line": "Creature — Spirit"
+        "type_line": "Creature \u2014 Spirit"
       },
       "categories": [
         "Ramp"
@@ -794,10 +794,10 @@
           "Landfall"
         ],
         "mana_cost": "{B}{B}",
-        "oracle_text": "This creature can't block.\nThis creature has haste as long as an opponent has 10 or less life.\nLandfall — Whenever a land you control enters, you may return this card from your graveyard to the battlefield.",
+        "oracle_text": "This creature can't block.\nThis creature has haste as long as an opponent has 10 or less life.\nLandfall \u2014 Whenever a land you control enters, you may return this card from your graveyard to the battlefield.",
         "power": "2",
         "toughness": "1",
-        "type_line": "Creature — Vampire Spirit"
+        "type_line": "Creature \u2014 Vampire Spirit"
       },
       "categories": [
         "Recursion",
@@ -845,7 +845,7 @@
         "oracle_text": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)\n{4}{B}, Exile this card from your graveyard: Return another target creature card from your graveyard to your hand.",
         "power": "3",
         "toughness": "1",
-        "type_line": "Creature — Spirit Cleric"
+        "type_line": "Creature \u2014 Spirit Cleric"
       },
       "categories": [
         "Recursion"
@@ -868,10 +868,10 @@
           "Menace"
         ],
         "mana_cost": "{3}{B}{B}",
-        "oracle_text": "Flying, menace\nWhen Junji dies, choose one —\n• Each opponent discards two cards and loses 2 life.\n• Put target non-Dragon creature card from a graveyard onto the battlefield under your control. You lose 2 life.",
+        "oracle_text": "Flying, menace\nWhen Junji dies, choose one \u2014\n\u2022 Each opponent discards two cards and loses 2 life.\n\u2022 Put target non-Dragon creature card from a graveyard onto the battlefield under your control. You lose 2 life.",
         "power": "5",
         "toughness": "5",
-        "type_line": "Legendary Creature — Dragon Spirit"
+        "type_line": "Legendary Creature \u2014 Dragon Spirit"
       },
       "categories": [
         "Recursion",
@@ -896,7 +896,7 @@
         "oracle_text": "At the beginning of the end step, if this card is in your graveyard with a creature card directly above it, you may return this card to your hand.\n{1}, Sacrifice a creature: This creature deals 1 damage to any target.",
         "power": "2",
         "toughness": "2",
-        "type_line": "Creature — Horror Spirit"
+        "type_line": "Creature \u2014 Horror Spirit"
       },
       "categories": [
         "Recursion"
@@ -942,7 +942,7 @@
         "oracle_text": "Haste\nAt the beginning of your upkeep, if this card is in your graveyard with three or more creature cards above it, you may put this card onto the battlefield.",
         "power": "1",
         "toughness": "1",
-        "type_line": "Creature — Spirit"
+        "type_line": "Creature \u2014 Spirit"
       },
       "categories": [
         "Recursion",
@@ -970,7 +970,7 @@
         "oracle_text": "Haste\nShadow (This creature can block or be blocked by only creatures with shadow.)\nWhenever another creature is put into your graveyard from the battlefield, you may pay {B}. If you do, return this card from your graveyard to the battlefield.",
         "power": "1",
         "toughness": "1",
-        "type_line": "Creature — Spirit"
+        "type_line": "Creature \u2014 Spirit"
       },
       "categories": [
         "Recursion",
@@ -1056,8 +1056,8 @@
         "keywords": [],
         "loyalty": "7",
         "mana_cost": "{7}",
-        "oracle_text": "When you cast this spell, exile up to one target permanent that's one or more colors.\nWhenever you cast a colorless spell, exile up to one target permanent that's one or more colors.\n+2: You gain 3 life and draw a card.\n0: Add {C}{C}{C}.\n−11: Search your library for any number of colorless nonland cards, exile them, then shuffle. Until end of turn, you may cast those cards without paying their mana costs.",
-        "type_line": "Legendary Planeswalker — Ugin"
+        "oracle_text": "When you cast this spell, exile up to one target permanent that's one or more colors.\nWhenever you cast a colorless spell, exile up to one target permanent that's one or more colors.\n+2: You gain 3 life and draw a card.\n0: Add {C}{C}{C}.\n\u221211: Search your library for any number of colorless nonland cards, exile them, then shuffle. Until end of turn, you may cast those cards without paying their mana costs.",
+        "type_line": "Legendary Planeswalker \u2014 Ugin"
       },
       "categories": [
         "Removal"
@@ -1079,10 +1079,10 @@
           "Those Who Came Before"
         ],
         "mana_cost": "{10}",
-        "oracle_text": "Those Who Came Before — This spell costs {1} less to cast for each historic card in your graveyard. (Artifacts, legendaries, and Sagas are historic.)\nExile any number of historic cards from your graveyard with total mana value 30 or greater: You get an emblem with \"Creatures you control have base power and toughness 9/9.\"",
+        "oracle_text": "Those Who Came Before \u2014 This spell costs {1} less to cast for each historic card in your graveyard. (Artifacts, legendaries, and Sagas are historic.)\nExile any number of historic cards from your graveyard with total mana value 30 or greater: You get an emblem with \"Creatures you control have base power and toughness 9/9.\"",
         "power": "7",
         "toughness": "7",
-        "type_line": "Legendary Creature — God Artificer"
+        "type_line": "Legendary Creature \u2014 God Artificer"
       },
       "categories": [
         "Secret Commander"
@@ -1105,7 +1105,7 @@
         "oracle_text": "When this creature dies, create X tapped 1/1 green Squirrel creature tokens, where X is this creature's power.",
         "power": "1",
         "toughness": "1",
-        "type_line": "Creature — Zombie"
+        "type_line": "Creature \u2014 Zombie"
       },
       "categories": [
         "Swarm"
@@ -1130,7 +1130,7 @@
         "oracle_text": "Haste\nAt the beginning of your upkeep, if you have more cards in hand than each opponent, you may sacrifice a Swamp. If you do, return Akuta from your graveyard to the battlefield.",
         "power": "3",
         "toughness": "2",
-        "type_line": "Legendary Creature — Spirit"
+        "type_line": "Legendary Creature \u2014 Spirit"
       },
       "categories": [
         "Those Who Came Before"
@@ -1153,7 +1153,7 @@
         "oracle_text": "Kagemaro's power and toughness are each equal to the number of cards in your hand.\n{B}, Sacrifice Kagemaro: All creatures get -X/-X until end of turn, where X is the number of cards in your hand.",
         "power": "*",
         "toughness": "*",
-        "type_line": "Legendary Creature — Demon Spirit"
+        "type_line": "Legendary Creature \u2014 Demon Spirit"
       },
       "categories": [
         "Those Who Came Before"
@@ -1178,7 +1178,7 @@
         "oracle_text": "Flying\nWhen Kokusho dies, each opponent loses 5 life. You gain life equal to the life lost this way.",
         "power": "5",
         "toughness": "5",
-        "type_line": "Legendary Creature — Dragon Spirit"
+        "type_line": "Legendary Creature \u2014 Dragon Spirit"
       },
       "categories": [
         "Those Who Came Before"
@@ -1201,7 +1201,7 @@
         "oracle_text": "At the beginning of your upkeep, sacrifice Kuro unless you pay {B}{B}{B}{B}.\nPay 1 life: Target creature gets -1/-1 until end of turn.",
         "power": "9",
         "toughness": "9",
-        "type_line": "Legendary Creature — Demon Spirit"
+        "type_line": "Legendary Creature \u2014 Demon Spirit"
       },
       "categories": [
         "Those Who Came Before"
@@ -1226,7 +1226,7 @@
         "oracle_text": "Menace\nWhenever Moira deals combat damage to a player, return to the battlefield target creature card in your graveyard that was put there from the battlefield this turn.",
         "power": "3",
         "toughness": "2",
-        "type_line": "Legendary Creature — Spirit Wizard"
+        "type_line": "Legendary Creature \u2014 Spirit Wizard"
       },
       "categories": [
         "Those Who Came Before"
@@ -1249,7 +1249,7 @@
         "oracle_text": "Myojin of Grim Betrayal enters with an indestructible counter on it if you cast it from your hand.\nRemove an indestructible counter from Myojin of Grim Betrayal: Put onto the battlefield under your control all creature cards in all graveyards that were put there from anywhere this turn.",
         "power": "5",
         "toughness": "2",
-        "type_line": "Legendary Creature — Spirit"
+        "type_line": "Legendary Creature \u2014 Spirit"
       },
       "categories": [
         "Those Who Came Before"
@@ -1272,7 +1272,7 @@
         "oracle_text": "Myojin of Night's Reach enters with a divinity counter on it if you cast it from your hand.\nMyojin of Night's Reach has indestructible as long as it has a divinity counter on it.\nRemove a divinity counter from Myojin of Night's Reach: Each opponent discards their hand.",
         "power": "5",
         "toughness": "2",
-        "type_line": "Legendary Creature — Spirit"
+        "type_line": "Legendary Creature \u2014 Spirit"
       },
       "categories": [
         "Those Who Came Before"
@@ -1297,7 +1297,7 @@
         "oracle_text": "Omarthis enters with X +1/+1 counters on it.\nWhenever you put one or more +1/+1 counters on another colorless creature, you may put a +1/+1 counter on Omarthis.\nWhen Omarthis dies, manifest a number of cards from the top of your library equal to the number of counters on it.",
         "power": "0",
         "toughness": "0",
-        "type_line": "Legendary Creature — Spirit Snake"
+        "type_line": "Legendary Creature \u2014 Spirit Snake"
       },
       "categories": [
         "Those Who Came Before",
@@ -1324,7 +1324,7 @@
         "oracle_text": "Rat offering (You may cast this spell any time you could cast an instant by sacrificing a Rat and paying the difference in mana costs between this and the sacrificed Rat. Mana cost includes color.)\nWhenever a permanent is put into an opponent's graveyard, that player loses 1 life.",
         "power": "6",
         "toughness": "6",
-        "type_line": "Legendary Creature — Spirit"
+        "type_line": "Legendary Creature \u2014 Spirit"
       },
       "categories": [
         "Those Who Came Before"
@@ -1349,7 +1349,7 @@
         "oracle_text": "{B}, Sacrifice this creature: Destroy target nonblack creature.\nSoulshift 6 (When this creature dies, you may return target Spirit card with mana value 6 or less from your graveyard to your hand.)",
         "power": "3",
         "toughness": "3",
-        "type_line": "Creature — Spirit"
+        "type_line": "Creature \u2014 Spirit"
       },
       "categories": [
         "Those Who Came Before"
@@ -1372,7 +1372,7 @@
         "oracle_text": "At the beginning of your upkeep, you may pay 1 life. If you do, draw a card and put a +1/+1 counter on Seymour Flux.",
         "power": "5",
         "toughness": "5",
-        "type_line": "Legendary Creature — Spirit Avatar"
+        "type_line": "Legendary Creature \u2014 Spirit Avatar"
       },
       "categories": [
         "Those Who Came Before"
@@ -1395,7 +1395,7 @@
         "oracle_text": "Whenever you sacrifice another permanent, you may pay {3}. If you do, create a token that's a copy of this creature.",
         "power": "2",
         "toughness": "1",
-        "type_line": "Artifact Creature — Spirit"
+        "type_line": "Artifact Creature \u2014 Spirit"
       },
       "categories": [
         "Those Who Came Before",
@@ -1425,7 +1425,7 @@
         "oracle_text": "Flying, trample, haste, protection from black\nSpirit of the Night has first strike as long as it's attacking.",
         "power": "6",
         "toughness": "5",
-        "type_line": "Legendary Creature — Demon Spirit"
+        "type_line": "Legendary Creature \u2014 Demon Spirit"
       },
       "categories": [
         "Those Who Came Before"
@@ -1470,7 +1470,7 @@
           "Spell mastery"
         ],
         "mana_cost": "{3}{B}{B}",
-        "oracle_text": "Search your library for a card, put that card into your hand, then shuffle.\nSpell mastery — If there are two or more instant and/or sorcery cards in your graveyard, add {B}{B}{B}.",
+        "oracle_text": "Search your library for a card, put that card into your hand, then shuffle.\nSpell mastery \u2014 If there are two or more instant and/or sorcery cards in your graveyard, add {B}{B}{B}.",
         "type_line": "Sorcery"
       },
       "categories": [
@@ -1493,7 +1493,7 @@
           "Buyback"
         ],
         "mana_cost": "{3}{B}{B}",
-        "oracle_text": "Buyback—Discard two cards. (You may discard two cards in addition to any other costs as you cast this spell. If you do, put this card into your hand as it resolves.)\nSearch your library for a card, put that card into your hand, then shuffle.",
+        "oracle_text": "Buyback\u2014Discard two cards. (You may discard two cards in addition to any other costs as you cast this spell. If you do, put this card into your hand as it resolves.)\nSearch your library for a card, put that card into your hand, then shuffle.",
         "type_line": "Sorcery"
       },
       "categories": [
@@ -1516,7 +1516,7 @@
           "Delirium"
         ],
         "mana_cost": "{1}{B}",
-        "oracle_text": "Search your library for a Demon card, reveal it, put it into your hand, then shuffle.\nDelirium — If there are four or more card types among cards in your graveyard, instead search your library for any card, put it into your hand, then shuffle.",
+        "oracle_text": "Search your library for a Demon card, reveal it, put it into your hand, then shuffle.\nDelirium \u2014 If there are four or more card types among cards in your graveyard, instead search your library for any card, put it into your hand, then shuffle.",
         "type_line": "Sorcery"
       },
       "categories": [
@@ -1669,7 +1669,7 @@
           "Spree"
         ],
         "mana_cost": "{B}",
-        "oracle_text": "Spree (Choose one or more additional costs.)\n+ {2} — Search your library for a card, then shuffle and put that card on top.\n+ {B}{B} — Target player draws three cards and loses 3 life.",
+        "oracle_text": "Spree (Choose one or more additional costs.)\n+ {2} \u2014 Search your library for a card, then shuffle and put that card on top.\n+ {B}{B} \u2014 Target player draws three cards and loses 3 life.",
         "type_line": "Sorcery"
       },
       "categories": [
@@ -1690,7 +1690,7 @@
       "card": {
         "keywords": [],
         "mana_cost": "{2}{B}{B}",
-        "oracle_text": "Choose one —\n• Search your library for a card, put it into your hand, then shuffle.\n• Put a card you own from outside the game into your hand.",
+        "oracle_text": "Choose one \u2014\n\u2022 Search your library for a card, put it into your hand, then shuffle.\n\u2022 Put a card you own from outside the game into your hand.",
         "type_line": "Sorcery"
       },
       "categories": [
@@ -1740,7 +1740,7 @@
         "oracle_text": "Deathtouch\nExploit (When this creature enters, you may sacrifice a creature.)\nWhen Sidisi exploits a creature, you may search your library for a card, put it into your hand, then shuffle.",
         "power": "4",
         "toughness": "6",
-        "type_line": "Legendary Creature — Zombie Snake"
+        "type_line": "Legendary Creature \u2014 Zombie Snake"
       },
       "categories": [
         "Tutor"
@@ -1763,7 +1763,7 @@
         "oracle_text": "",
         "power": "*",
         "toughness": "*",
-        "type_line": "Token Artifact Creature — Construct"
+        "type_line": "Token Artifact Creature \u2014 Construct"
       },
       "categories": [
         "Tokens & Extras{noDeck}"
@@ -1809,7 +1809,7 @@
         "oracle_text": "",
         "power": "1",
         "toughness": "1",
-        "type_line": "Token Creature — Squirrel"
+        "type_line": "Token Creature \u2014 Squirrel"
       },
       "categories": [
         "Tokens & Extras{noDeck}"
@@ -1829,7 +1829,10 @@
   "generated_at": "2026-08-23T22:31:04.695318+00:00",
   "schema_version": 3,
   "source": "decks/unrated_iname-death-aspect/decklist.txt",
-  "total_cards": 107,
-  "unique_cards": 79,
-  "unresolved": []
+  "total_cards": 100,
+  "unique_cards": 76,
+  "unresolved": [],
+  "maybeboard_cards": 7,
+  "maybeboard_unique_cards": 3,
+  "resolved_unique_cards": 79
 }
