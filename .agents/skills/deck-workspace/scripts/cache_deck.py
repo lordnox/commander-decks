@@ -268,7 +268,7 @@ def compact_card_details(card: dict) -> dict:
     """Embed analysis-relevant Oracle data in the deck manifest."""
     fields = (
         "mana_cost", "type_line", "oracle_text", "power", "toughness",
-        "loyalty", "defense",
+        "loyalty", "defense", "cmc",
     )
     details = {
         field: card[field]
@@ -276,6 +276,8 @@ def compact_card_details(card: dict) -> dict:
         if card.get(field) is not None
     }
     details["keywords"] = card.get("keywords", [])
+    if card.get("produced_mana"):
+        details["produced_mana"] = card["produced_mana"]
 
     faces = card.get("card_faces")
     if faces:

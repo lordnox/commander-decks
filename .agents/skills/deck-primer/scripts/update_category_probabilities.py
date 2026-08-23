@@ -18,6 +18,7 @@ SECTION_PATTERN = re.compile(
 )
 KEY_CARDS_HEADING = re.compile(r"^## Key cards\s*$", re.MULTILINE)
 HEADING = re.compile(r"^## ", re.MULTILINE)
+MANA_START = "<!-- mana-stats:start -->"
 
 
 def choose(population: int, count: int) -> int:
@@ -137,7 +138,11 @@ def insert_category_section(original: str, section: str) -> str:
     key_match = KEY_CARDS_HEADING.search(body)
     if key_match:
         next_heading = HEADING.search(body, key_match.end())
-        insert_at = next_heading.start() if next_heading else len(body)
+        mana_at = body.find(MANA_START, key_match.end())
+        if mana_at >= 0 and (next_heading is None or mana_at < next_heading.start()):
+            insert_at = mana_at
+        else:
+            insert_at = next_heading.start() if next_heading else len(body)
     else:
         heading = "## How the deck works"
         insert_at = body.find(heading)

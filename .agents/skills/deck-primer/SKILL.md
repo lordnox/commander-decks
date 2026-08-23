@@ -1,6 +1,6 @@
 ---
 name: deck-primer
-description: Analyze a resolved Commander deck and create or update its deck-specific README primer. Use when the user asks how a stored deck works, requests a primer or play guide, or wants the deck's game plan, engines, combos, mulligans, tutors, sequencing, win conditions, category draw probabilities, or direct Archidekt deck-creation link documented.
+description: Analyze a resolved Commander deck and create or update its deck-specific README primer. Use when the user asks how a stored deck works, requests a primer or play guide, or wants the deck's game plan, engines, combos, mulligans, tutors, sequencing, win conditions, category draw probabilities, mana curve, color cost and production, or direct Archidekt deck-creation link documented.
 ---
 
 # Deck Primer
@@ -49,15 +49,16 @@ Use concise Markdown. Write every card mention as a bold link to its manifest `s
 4. Short identity or summary
 5. `## Key cards`
 6. Category access by turn three
-7. How the deck works
-8. Core engine or role table
-9. Main combo or synergy patterns
-10. Win conditions
-11. Early, mid, and late game
-12. Mulligan guide
-13. Tutor priorities
-14. Important sequencing and rules notes
-15. Weaknesses and what to protect
+7. Mana (color cost and production, average and total mana value, mana curve)
+8. How the deck works
+9. Core engine or role table
+10. Main combo or synergy patterns
+11. Win conditions
+12. Early, mid, and late game
+13. Mulligan guide
+14. Tutor priorities
+15. Important sequencing and rules notes
+16. Weaknesses and what to protect
 
 Prefer a table for interchangeable roles and tutor decisions. Explain representative cards rather than listing every card. Make the primer useful during actual play.
 
@@ -96,6 +97,23 @@ python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py deck
 
 Rerun this script whenever the deck list, quantities, categories, or resolved manifest changes. `--check` must fail when the table is missing, stale, or later than Key cards. Do not multiply the individual category probabilities to claim a combined opening-hand probability.
 
+### Mana
+
+Every primer must contain a mana-stats block calculated from the resolved manifest and cached Scryfall objects: color cost vs production, average and total mana value, and a 0–8+ mana curve. Place it immediately after the category table, before the first play-guide heading.
+
+- Color cost counts mana symbols in costs. Ignore generic numerals and `{X}`; split hybrid symbols evenly; count explicit `{C}` as colorless. Do not treat generic mana as colorless cost.
+- Production counts each color in a card's Scryfall `produced_mana` list, including nonland producers such as mana rocks. Dual and rainbow sources count once per listed color.
+- Average and total mana value, and the curve, use nonland cards in the 100-card deck, including the commander. Exclude `{noDeck}` extras. Count MDFCs from their front face, so a spell//land still sits on the curve.
+- Show only colors that have cost or production. Keep WUBRG then C order.
+
+Create or refresh the section with:
+
+```bash
+python3 .agents/skills/deck-primer/scripts/update_mana_stats.py decks/<prefix><slug>
+```
+
+Rerun this script whenever the deck list, quantities, or resolved manifest changes. `--check` must fail when the block is missing, stale, or not after the category table.
+
 ### Key cards
 
 Add a compact `## Key cards` gallery near the top of every primer:
@@ -119,10 +137,12 @@ Before saving:
 - confirm the Archidekt payload contains every resolved card, the deck's total quantity, and exactly one commander entry;
 - run `python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py decks/<prefix><slug> --check`;
 - confirm the category table uses 10 cards seen, excludes commanders and `{noDeck}` extras, and requires three Lands but one card from other categories;
+- run `python3 .agents/skills/deck-primer/scripts/update_mana_stats.py decks/<prefix><slug> --check`;
+- confirm mana stats sit after the category table and use nonland cards for the curve;
 - recheck each described line against Oracle text;
 - ensure the primary plan reflects the deck as built rather than a generic archetype;
 - ensure delayed or finite interactions are described accurately;
 - confirm no source deck files changed unintentionally;
 - run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<prefix><slug>` after the primer scripts.
 
-Report the deck name, total and unique cards, unresolved count, README path, and that the Archidekt link and category probability table are current.
+Report the deck name, total and unique cards, unresolved count, README path, and that the Archidekt link, category probability table, and mana stats are current.

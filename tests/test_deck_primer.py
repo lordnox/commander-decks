@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 LINKER_SCRIPT = ROOT / ".agents/skills/deck-primer/scripts/link_card_mentions.py"
 ARCHIDEKT_SCRIPT = ROOT / ".agents/skills/deck-primer/scripts/update_archidekt_link.py"
 CATEGORY_SCRIPT = ROOT / ".agents/skills/deck-primer/scripts/update_category_probabilities.py"
+MANA_SCRIPT = ROOT / ".agents/skills/deck-primer/scripts/update_mana_stats.py"
 SPEC = importlib.util.spec_from_file_location("link_card_mentions", LINKER_SCRIPT)
 linker = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(linker)
@@ -23,6 +24,12 @@ CATEGORY_SPEC = importlib.util.spec_from_file_location(
 )
 category_probs = importlib.util.module_from_spec(CATEGORY_SPEC)
 CATEGORY_SPEC.loader.exec_module(category_probs)
+MANA_SPEC = importlib.util.spec_from_file_location(
+    "update_mana_stats",
+    MANA_SCRIPT,
+)
+mana_stats = importlib.util.module_from_spec(MANA_SPEC)
+MANA_SPEC.loader.exec_module(mana_stats)
 
 
 class LinkCardMentionsTests(unittest.TestCase):
@@ -260,6 +267,98 @@ class CategoryProbabilityTests(unittest.TestCase):
                 check=True,
             )
             self.assertEqual(check, 0)
+
+
+class ManaStatsTests(unittest.TestCase):
+    def test_inserts_stats_after_category_table(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            deck_dir = root / "decks/test"
+            cards_dir = root / "cards"
+            deck_dir.mkdir(parents=True)
+            cards_dir.mkdir()
+            (cards_dir / "commander.json").write_text(
+                json.dumps({
+                    "mana_cost": "{2}{B}",
+                    "cmc": 3,
+                    "type_line": "Legendary Creature",
+                }),
+                encoding="utf-8",
+            )
+            (cards_dir / "swamp.json").write_text(
+                json.dumps({
+                    "mana_cost": "",
+                    "cmc": 0,
+                    "type_line": "Basic Land — Swamp",
+                    "produced_mana": ["B"],
+                }),
+                encoding="utf-8",
+            )
+            (cards_dir / "sol-ring.json").write_text(
+                json.dumps({
+                    "mana_cost": "{1}",
+                    "cmc": 1,
+                    "type_line": "Artifact",
+                    "produced_mana": ["C"],
+                }),
+                encoding="utf-8",
+            )
+            (deck_dir / "cards.json").write_text(
+                json.dumps({
+                    "cards": [
+                        {
+                            "name": "Black Commander",
+                            "quantity": 1,
+                            "cache": "cards/commander.json",
+                            "categories": ["Commander{top}"],
+                            "card": {"mana_cost": "{2}{B}", "type_line": "Legendary Creature"},
+                        },
+                        {
+                            "name": "Swamp",
+                            "quantity": 1,
+                            "cache": "cards/swamp.json",
+                            "categories": ["Land"],
+                            "card": {"type_line": "Basic Land — Swamp"},
+                        },
+                        {
+                            "name": "Sol Ring",
+                            "quantity": 1,
+                            "cache": "cards/sol-ring.json",
+                            "categories": ["Ramp"],
+                            "card": {"mana_cost": "{1}", "type_line": "Artifact"},
+                        },
+                    ],
+                }),
+                encoding="utf-8",
+            )
+            (deck_dir / "README.md").write_text(
+                "# Test primer\n\n"
+                "## Key cards\n\n"
+                "gallery\n\n"
+                "<!-- category-probabilities:start -->\n"
+                "## Category access by turn three\n"
+                "table\n"
+                "<!-- category-probabilities:end -->\n\n"
+                "## How the deck works\n\n"
+                "plan\n",
+                encoding="utf-8",
+            )
+
+            result = mana_stats.update_primer(deck_dir)
+            primer = (deck_dir / "README.md").read_text(encoding="utf-8")
+            category_at = primer.index("## Category access by turn three")
+            mana_at = primer.index("## Mana")
+            play_at = primer.index("## How the deck works")
+
+            self.assertEqual(result, 0)
+            self.assertLess(category_at, mana_at)
+            self.assertLess(mana_at, play_at)
+            self.assertIn("| Black (B) | 100% | 50% |", primer)
+            self.assertIn("| Colorless (C) | 0% | 50% |", primer)
+            self.assertIn("Avg mana value: **2.00**", primer)
+            self.assertIn("| 1 | 1 |", primer)
+            self.assertIn("| 3 | 1 |", primer)
+            self.assertEqual(mana_stats.update_primer(deck_dir, check=True), 0)
 
 
 if __name__ == "__main__":

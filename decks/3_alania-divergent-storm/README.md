@@ -51,6 +51,35 @@ All categories require at least one card except Land, which requires at least th
 | Redirection | 1 | ≥1 | 10.10% |
 <!-- category-probabilities:end -->
 
+<!-- mana-stats:start -->
+## Mana
+
+Color cost counts mana symbols in card costs: generic numerals and `{X}` are ignored, and hybrid symbols split evenly. Production counts each color in a card's Scryfall `produced_mana`. Lands are omitted from the curve and mana-value totals. The commander is included; `{noDeck}` extras are not.
+
+| Color | Cost | Prod |
+|---|---:|---:|
+| White (W) | 0% | 7% |
+| Blue (U) | 54% | 41% |
+| Black (B) | 0% | 7% |
+| Red (R) | 46% | 33% |
+| Green (G) | 0% | 7% |
+| Colorless (C) | 0% | 5% |
+
+Avg mana value: **2.81** · Total mana value: **174.00** · Nonland cards: **62**
+
+| MV | Cards |  |
+|---:|---:|:---|
+| 0 | 0 |  |
+| 1 | 7 | ███████ |
+| 2 | 21 | ████████████████████ |
+| 3 | 18 | █████████████████ |
+| 4 | 11 | ██████████ |
+| 5 | 3 | ███ |
+| 6 | 2 | ██ |
+| 7 | 0 |  |
+| 8+ | 0 |  |
+<!-- mana-stats:end -->
+
 ## How the deck works
 
 The deck does not mill incrementally. It develops mana, lands a cost reducer, and keeps opponents from establishing a winning board. Once [Alania](https://scryfall.com/card/blb/204/alania-divergent-storm?utm_source=api) is safe, it reserves the first instant and first sorcery of a turn for the winning sequence.

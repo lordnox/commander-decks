@@ -58,6 +58,35 @@ All categories require at least one card except Land, which requires at least th
 | untap-engine | 1 | ≥1 | 10.10% |
 <!-- category-probabilities:end -->
 
+<!-- mana-stats:start -->
+## Mana
+
+Color cost counts mana symbols in card costs: generic numerals and `{X}` are ignored, and hybrid symbols split evenly. Production counts each color in a card's Scryfall `produced_mana`. Lands are omitted from the curve and mana-value totals. The commander is included; `{noDeck}` extras are not.
+
+| Color | Cost | Prod |
+|---|---:|---:|
+| White (W) | 0% | 10% |
+| Blue (U) | 0% | 10% |
+| Black (B) | 32% | 29% |
+| Red (R) | 0% | 10% |
+| Green (G) | 68% | 32% |
+| Colorless (C) | 0% | 7% |
+
+Avg mana value: **3.02** · Total mana value: **193.00** · Nonland cards: **64**
+
+| MV | Cards |  |
+|---:|---:|:---|
+| 0 | 0 |  |
+| 1 | 8 | █████████ |
+| 2 | 16 | ███████████████████ |
+| 3 | 16 | ███████████████████ |
+| 4 | 17 | ████████████████████ |
+| 5 | 6 | ███████ |
+| 6 | 0 |  |
+| 7 | 1 | █ |
+| 8+ | 0 |  |
+<!-- mana-stats:end -->
+
 ## Deck summary
 
 The deck first establishes cheap Squirrel or Rat tokens, then lets Hazel turn those tokens into mana and two extra copies of the best Squirrel token each end step. Chatterfang makes every token spell contribute additional Squirrels, while [Maskwood Nexus](https://scryfall.com/card/clb/865/maskwood-nexus?utm_source=api) and [Springleaf Parade](https://scryfall.com/card/ecc/19/springleaf-parade?utm_source=api) let the mixed swarm count for [Valley Rotcaller](https://scryfall.com/card/blb/119/valley-rotcaller?utm_source=api).
