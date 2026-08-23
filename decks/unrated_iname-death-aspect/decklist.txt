@@ -25,7 +25,8 @@ Enable Delirium:
 Finisher:
 1x Mortal Combat [Finisher]
 
-Land:1x Agadeem's Awakening // Agadeem, the Undercrypt [Land]
+Land:
+1x Agadeem's Awakening // Agadeem, the Undercrypt [Land]
 1x Bloodstained Mire [Land]
 1x Castle Locthwain [Land]
 1x Cavern of Souls [Land]
@@ -54,7 +55,8 @@ Ramp:
 1x Crypt Ghast [Ramp]
 1x Jet Medallion [Ramp]
 
-Recursion:1x Bloodghast [Recursion,Swarm]
+Recursion:
+1x Bloodghast [Recursion,Swarm]
 1x Chthonian Nightmare [Recursion]
 1x Eerie Soultender [Recursion]
 1x Junji, the Midnight Sky [Recursion,Those Who Came Before]
@@ -75,7 +77,8 @@ Secret Commander:
 Swarm:
 1x Nested Shambler [Swarm]
 
-Those Who Came Before:1x Akuta, Born of Ash [Those Who Came Before]
+Those Who Came Before:
+1x Akuta, Born of Ash [Those Who Came Before]
 1x Kagemaro, First to Suffer [Those Who Came Before]
 1x Kokusho, the Evening Star [Those Who Came Before]
 1x Kuro, Pitlord [Those Who Came Before]
