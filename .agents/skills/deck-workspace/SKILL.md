@@ -100,7 +100,7 @@ After all cards resolve and have useful categories:
 3. Do not leave a newly created deck without a primer.
 4. If the primer cannot be completed, report the blocker and treat deck creation as incomplete.
 
-When the user requests a decision log, create `DECISIONS.md` or `decisions.json` with exactly one substantive entry for every unique deck card. Include the card's submitted or canonical name in each entry. For Markdown, use this machine-checkable form:
+Create `DECISIONS.md` or `decisions.json` with exactly one substantive entry for every unique deck card. Decision logs are required for every deck. Include the card's submitted or canonical name in each entry. For Markdown, use this machine-checkable form:
 
 ```markdown
 - **Card Name** — Why this card is included and what role it serves.
@@ -129,7 +129,7 @@ Run:
 python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<prefix><slug>
 ```
 
-Add `--require-decisions` when the user requested a card-by-card decision log. Fix every error before review. The validator checks deck size, manifest consistency, categories, commander designation, singleton and color-identity rules, cached Commander legality, primer linkage and sort, assessment placement, Archidekt and category-table currency, card-mention links, and decision-log coverage. A prerelease commander produces a warning until its release date.
+Decision logs are required by default. Pass `--no-require-decisions` only for a temporary import. Fix every error before review. The validator checks deck size, manifest consistency, categories, commander designation, singleton and color-identity rules, cached Commander legality, primer linkage and sort, assessment placement, Archidekt and category-table currency, card-mention links, and decision-log coverage. A prerelease commander produces a warning until its release date.
 
 Inspect the final diff after validation. Shared registries preserve their existing order, so unrelated global reordering or cache changes indicate a workflow problem and should be removed.
 

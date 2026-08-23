@@ -19,7 +19,9 @@ When the task is done, inspect the full diff, exclude unrelated shared-cache or 
 
 ## Required deck workflow
 
-Whenever the user posts a deck list or asks to begin work on a deck:
+When the user wants to brew a new Commander deck from a theme or commander, follow `.agents/skills/design-deck/SKILL.md` and grill the plan before writing a 99.
+
+Whenever the user posts a deck list or asks to begin work on a stored list:
 
 1. Inspect the directories directly under `decks/`.
 2. Compare the request, commander, and deck contents with existing deck names and manifests.
@@ -30,19 +32,20 @@ Whenever the user posts a deck list or asks to begin work on a deck:
 7. Assign one or more useful categories to every resolved card. Use universal categories unless the card has a deck-specific role.
 8. Create or refresh the deck's `README.md` by following the `deck-primer` skill.
 9. Add or update the deck's primer link in the `Deck primers` section immediately below the root README title. Prefix the label with its bracket and sort by numeric bracket, then `−` / plain / `+`, then deck name; keep unrated last.
-10. If a card-by-card decision log was requested, add `DECISIONS.md` or `decisions.json` with one entry per unique deck card.
-11. Run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<deck-name>`; add `--require-decisions` when a decision log is required.
+10. Add `DECISIONS.md` or `decisions.json` with one entry per unique deck card.
+11. Run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<deck-name>` (decision logs are required by default).
 12. Do not analyze or recommend changes until resolution or validation errors are reported or fixed.
 
 A newly created deck is incomplete until its primer exists and is linked from the root README. Use `decks/<N><modifier>_<deck-name>/` for assessed decks, where `<modifier>` is ASCII `-`, empty, or `+` for positions `N−`, `N`, or `N+`; for example, Bracket 3− uses `3-_`, Bracket 3 uses `3_`, and Bracket 3+ uses `3+_`. Use `unrated_` until assessment.
 
-Use the repository's `deck-workspace` skill for this workflow, `scryfall-lookup` for card searches, `deck-primer` when creating or updating a deck README or play guide, and `assess-deck` for bracket, power, or expected-win-turn analysis.
+Use `design-deck` when brewing from a theme, `deck-workspace` for import and validation, `scryfall-lookup` for card searches, `deck-primer` when creating or updating a play guide, and `assess-deck` for bracket, power, or expected-win-turn analysis.
 
 ## Repository structure
 
 - `decks/<bracket>_<deck-name>/decklist.txt`: original user-supplied deck list
 - `decks/<bracket>_<deck-name>/cards.json`: resolved quantities, effective categories, and compact embedded Oracle details
 - `decks/<bracket>_<deck-name>/README.md`: deck primer
+- `decks/<bracket>_<deck-name>/DECISIONS.md`: required card-by-card inclusion reasons
 - `cards/<oracle-id>.json`: shared Scryfall card object, one per Oracle card
 - `cards/index.json`: normalized card-name aliases mapped to Oracle IDs
 - `cards/categories.json`: universal categories keyed by Oracle ID

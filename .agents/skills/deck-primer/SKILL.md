@@ -113,8 +113,8 @@ Add a compact `## Key cards` gallery near the top of every primer:
 Before saving:
 
 - confirm every named card is present in the manifest;
-- run `python3 .agents/skills/deck-primer/scripts/link_card_mentions.py decks/<prefix><slug>` after drafting so plain or bold card mentions become Scryfall links;
-- rerun the linker after every primer edit; it preserves existing links, images, HTML, URLs, and code;
+- run `python3 .agents/skills/deck-primer/scripts/link_card_mentions.py decks/<prefix><slug>` after drafting so card mentions become Scryfall links to each card's manifest `scryfall_uri`;
+- rerun the linker after every primer edit; it rewrites incorrect Scryfall hrefs to the manifest URI and preserves code, images, and non-card URLs;
 - run `python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<prefix><slug> --check`;
 - confirm the Archidekt payload contains every resolved card, the deck's total quantity, and exactly one commander entry;
 - run `python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py decks/<prefix><slug> --check`;

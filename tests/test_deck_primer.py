@@ -117,6 +117,23 @@ class LinkCardMentionsTests(unittest.TestCase):
         self.assertEqual(count, 1)
         self.assertEqual(updated, f"Draw six cards, then cast [Six]({six_uri}).\n")
 
+
+    def test_rewrites_incorrect_scryfall_hrefs(self):
+        markdown = (
+            "[**Homer, the Hermit**](https://scryfall.com/card/zzz/1/wrong-homer) "
+            "and [Roaming Throne](https://scryfall.com/card/zzz/2/wrong-throne).\n"
+            '<a href="https://scryfall.com/card/zzz/3/wrong">'
+            '<img alt="Homer, the Hermit"></a>\n'
+        )
+        updated, count = linker.link_markdown(
+            markdown,
+            linker.card_links(self.manifest, markdown),
+        )
+        self.assertGreaterEqual(count, 3)
+        self.assertIn(self.homer_uri, updated)
+        self.assertIn(self.throne_uri, updated)
+        self.assertNotIn("card/zzz/", updated)
+
     def test_check_mode_does_not_write(self):
         with tempfile.TemporaryDirectory() as temporary:
             deck_dir = Path(temporary)

@@ -65,10 +65,59 @@ def card_links(manifest: dict, markdown: str = "") -> dict[str, str]:
     return links
 
 
-def link_markdown(markdown: str, links: dict[str, str]) -> tuple[str, int]:
-    """Link card names while preserving existing links, code, URLs, and HTML."""
+def canonical_uri(uri: str) -> str:
+    return uri.split("#", 1)[0].split("?", 1)[0].rstrip("/")
+
+
+def lookup_alias(label: str, links: dict[str, str]) -> str | None:
+    visible = re.sub(r"[*_]", "", label).strip()
+    return links.get(visible.casefold())
+
+
+MARKDOWN_SCRYFALL_LINK = re.compile(
+    r"\[([^\]]+)\]\((https?://scryfall\.com/[^)\s]+)\)"
+)
+HTML_SCRYFALL_ANCHOR = re.compile(
+    r'(<a\s+[^>]*href=")(https?://scryfall\.com/[^"]+)("[^>]*>)(.*?)(</a>)',
+    re.IGNORECASE | re.DOTALL,
+)
+
+
+def rewrite_scryfall_hrefs(markdown: str, links: dict[str, str]) -> tuple[str, int]:
+    """Point existing Scryfall links at the manifest URI for that card name."""
     if not links:
         return markdown, 0
+    replacements = 0
+
+    def replace_markdown(match: re.Match) -> str:
+        nonlocal replacements
+        target = lookup_alias(match.group(1), links)
+        if target and canonical_uri(match.group(2)) != canonical_uri(target):
+            replacements += 1
+            return f"[{match.group(1)}]({target})"
+        return match.group(0)
+
+    def replace_html(match: re.Match) -> str:
+        nonlocal replacements
+        inner = match.group(4)
+        alt = re.search(r'alt="([^"]+)"', inner, re.IGNORECASE)
+        label = alt.group(1) if alt else re.sub(r"<[^>]+>", "", inner)
+        target = lookup_alias(label, links)
+        if target and canonical_uri(match.group(2)) != canonical_uri(target):
+            replacements += 1
+            return f"{match.group(1)}{target}{match.group(3)}{inner}{match.group(5)}"
+        return match.group(0)
+
+    rewritten = MARKDOWN_SCRYFALL_LINK.sub(replace_markdown, markdown)
+    rewritten = HTML_SCRYFALL_ANCHOR.sub(replace_html, rewritten)
+    return rewritten, replacements
+
+
+def link_markdown(markdown: str, links: dict[str, str]) -> tuple[str, int]:
+    """Link card names while preserving existing links, code, URLs, and HTML."""
+    markdown, rewritten = rewrite_scryfall_hrefs(markdown, links)
+    if not links:
+        return markdown, rewritten
 
     aliases = sorted(links, key=lambda name: (-len(name), name))
     names = "|".join(re.escape(name) for name in aliases)
@@ -119,7 +168,18 @@ def link_markdown(markdown: str, links: dict[str, str]) -> tuple[str, int]:
             for index, part in enumerate(parts)
         )
 
-    return "".join(output), replacements
+    return "".join(output), replacements + rewritten
+
+
+def missing_scryfall_uris(manifest: dict) -> list[str]:
+    missing = []
+    for entry in manifest.get("cards", []):
+        categories = entry.get("categories", [])
+        if any("{noDeck}" in category for category in categories):
+            continue
+        if not entry.get("scryfall_uri"):
+            missing.append(entry.get("submitted_name") or entry.get("name") or "?")
+    return missing
 
 
 def process_primer(deck_dir: Path, *, check: bool = False) -> int:
@@ -131,11 +191,15 @@ def process_primer(deck_dir: Path, *, check: bool = False) -> int:
         raise FileNotFoundError(f"missing primer: {readme_path}")
 
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    missing = missing_scryfall_uris(manifest)
+    if missing:
+        print(f"{manifest_path}: missing scryfall_uri for {', '.join(missing)}")
+        return 1
     original = readme_path.read_text(encoding="utf-8")
     updated, replacements = link_markdown(original, card_links(manifest, original))
 
     if check and updated != original:
-        print(f"{readme_path}: {replacements} unlinked card mention(s)")
+        print(f"{readme_path}: {replacements} incorrect or unlinked card mention(s)")
         return 1
     if updated != original:
         readme_path.write_text(updated, encoding="utf-8")
