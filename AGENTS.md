@@ -15,7 +15,13 @@ Reuse that worktree for the rest of the session. Do not share a branch or worktr
 
 Commit after each coherent step without waiting to be asked. Use a 1–2 sentence message focused on why. Do not amend published commits.
 
-When the task is done, inspect the full diff, exclude unrelated shared-cache or registry changes, push the branch, and open a ready-for-review pull request (`draft: false`) summarizing what changed. Return the PR URL.
+When the task is done, inspect the full diff, exclude unrelated shared-cache or registry changes, push the branch, and open a ready-for-review pull request (`draft: false`) summarizing what changed. Use `gh pr create --base main --head <branch>`; if `gh` is unavailable, return the `compare/main...<branch>?expand=1` URL instead. Return the PR URL.
+
+A pull request that changes an existing deck list must include a `## Cards in / Cards out` table with every card linked to Scryfall, generated with:
+
+```bash
+python3 .agents/skills/deck-workspace/scripts/deck_change_table.py decks/<deck-name> --base origin/main
+```
 
 ## Required deck workflow
 

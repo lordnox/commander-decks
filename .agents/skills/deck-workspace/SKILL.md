@@ -133,6 +133,14 @@ Decision logs are required by default. Pass `--no-require-decisions` only for a 
 
 Inspect the final diff after validation. Shared registries preserve their existing order, so unrelated global reordering or cache changes indicate a workflow problem and should be removed.
 
+When the change modifies an existing deck list, generate the Scryfall-linked swap table for the pull request body:
+
+```bash
+python3 .agents/skills/deck-workspace/scripts/deck_change_table.py decks/<prefix><slug> --base origin/main
+```
+
+The script compares the deck list at the base ref with the working tree, prints an `| In | Out |` table, and marks quantity changes such as `Island ×2`. Pass `--head <ref>` to compare two committed revisions. Put the table under a `## Cards in / Cards out` heading in the pull request.
+
 ## 8. Continue deck work
 
 Use `cards.json` as the deck inventory and prefer its embedded `card` details for analysis. Load referenced cache files only for fields not embedded in the manifest. Use the `scryfall-lookup` skill for searches or to refresh current card information. Use the `deck-primer` skill when updating how a deck plays.
