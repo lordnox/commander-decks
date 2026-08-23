@@ -4163,8 +4163,14 @@
       "categories": [
         "untap-engine"
       ]
+    },
+    "113c3024-c3bd-4c3a-8c08-3828646d9ca2": {
+      "name": "Forerunner of the Empire",
+      "categories": [
+        "tutor"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-23T23:34:55.242541+00:00"
+  "updated_at": "2026-08-23T23:48:05.795640+00:00"
 }
