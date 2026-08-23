@@ -275,6 +275,13 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
                 "python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py "
                 f"{deck_dir.relative_to(repo_root)}"
             )
+        mana_check = run_primer_check(primer_script("update_mana_stats.py"), deck_dir)
+        if mana_check.returncode:
+            errors.append(
+                "primer mana stats are missing, stale, or misplaced; run "
+                "python3 .agents/skills/deck-primer/scripts/update_mana_stats.py "
+                f"{deck_dir.relative_to(repo_root)}"
+            )
     root_readme = repo_root / "README.md"
     primer_link = f"({primer_path.relative_to(repo_root)})"
     if not root_readme.is_file() or primer_link not in root_readme.read_text(encoding="utf-8"):

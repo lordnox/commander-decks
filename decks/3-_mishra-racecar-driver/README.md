@@ -45,6 +45,35 @@ All categories require at least one card except Land, which requires at least th
 | anthem | 1 | ≥1 | 10.10% |
 <!-- category-probabilities:end -->
 
+<!-- mana-stats:start -->
+## Mana
+
+Color cost counts mana symbols in card costs: generic numerals and `{X}` are ignored, and hybrid symbols split evenly. Production counts each color in a card's Scryfall `produced_mana`. Lands are omitted from the curve and mana-value totals. The commander is included; `{noDeck}` extras are not.
+
+| Color | Cost | Prod |
+|---|---:|---:|
+| White (W) | 0% | 6% |
+| Blue (U) | 52% | 27% |
+| Black (B) | 9% | 26% |
+| Red (R) | 39% | 25% |
+| Green (G) | 0% | 6% |
+| Colorless (C) | 0% | 10% |
+
+Avg mana value: **3.97** · Total mana value: **246.00** · Nonland cards: **62**
+
+| MV | Cards |  |
+|---:|---:|:---|
+| 0 | 0 |  |
+| 1 | 2 | ███ |
+| 2 | 15 | ████████████████████ |
+| 3 | 8 | ███████████ |
+| 4 | 14 | ███████████████████ |
+| 5 | 12 | ████████████████ |
+| 6 | 4 | █████ |
+| 7 | 6 | ████████ |
+| 8+ | 1 | █ |
+<!-- mana-stats:end -->
+
 ## Deck summary
 
 [**Mishra, Eminent One**](https://scryfall.com/card/brc/1/mishra-eminent-one?utm_source=api) creates a hasty **[Mishra](https://scryfall.com/card/brc/1/mishra-eminent-one?utm_source=api)'s Warform** copy of one noncreature artifact at the beginning of combat. The copy keeps the artifact's abilities, becomes a 4/4 artifact creature, attacks immediately, and is normally sacrificed at the next end step.

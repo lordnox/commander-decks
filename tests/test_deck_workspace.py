@@ -25,6 +25,7 @@ validate_deck = load_script("validate_deck")
 change_table = load_script("deck_change_table")
 archidekt = load_script("update_archidekt_link", PRIMER_SCRIPTS)
 category_probs = load_script("update_category_probabilities", PRIMER_SCRIPTS)
+mana_stats = load_script("update_mana_stats", PRIMER_SCRIPTS)
 
 
 def card(
@@ -293,12 +294,15 @@ class ValidateDeckTests(unittest.TestCase):
         )
 
         commander = card("Green Commander", "commander-id", color_identity=["G"])
+        commander["mana_cost"] = "{2}{G}"
+        commander["cmc"] = 3
         forest = card(
             "Forest",
             "forest-id",
             type_line="Basic Land — Forest",
             color_identity=["G"],
         )
+        forest["produced_mana"] = ["G"]
         for cached in (commander, forest):
             (cards_dir / f"{cached['oracle_id']}.json").write_text(
                 json.dumps(cached),
@@ -342,6 +346,7 @@ class ValidateDeckTests(unittest.TestCase):
                 draws=10,
                 thresholds={"land": 3},
             )
+            mana_stats.update_primer(deck_dir)
         return repo, deck_dir
 
     def test_valid_workspace_with_decision_log_passes(self):

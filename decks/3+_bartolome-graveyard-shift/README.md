@@ -60,6 +60,35 @@ All categories require at least one card except Land, which requires at least th
 | Revolving Door | 1 | ≥1 | 10.10% |
 <!-- category-probabilities:end -->
 
+<!-- mana-stats:start -->
+## Mana
+
+Color cost counts mana symbols in card costs: generic numerals and `{X}` are ignored, and hybrid symbols split evenly. Production counts each color in a card's Scryfall `produced_mana`. Lands are omitted from the curve and mana-value totals. The commander is included; `{noDeck}` extras are not.
+
+| Color | Cost | Prod |
+|---|---:|---:|
+| White (W) | 34% | 22% |
+| Blue (U) | 0% | 11% |
+| Black (B) | 66% | 33% |
+| Red (R) | 0% | 11% |
+| Green (G) | 0% | 11% |
+| Colorless (C) | 0% | 13% |
+
+Avg mana value: **2.94** · Total mana value: **191.00** · Nonland cards: **65**
+
+| MV | Cards |  |
+|---:|---:|:---|
+| 0 | 0 |  |
+| 1 | 6 | █████ |
+| 2 | 26 | ████████████████████ |
+| 3 | 19 | ███████████████ |
+| 4 | 8 | ██████ |
+| 5 | 1 | █ |
+| 6 | 2 | ██ |
+| 7 | 1 | █ |
+| 8+ | 2 | ██ |
+<!-- mana-stats:end -->
+
 ## The two engines
 
 ### Ozox rotation

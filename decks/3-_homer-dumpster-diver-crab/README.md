@@ -61,6 +61,35 @@ All categories require at least one card except Land, which requires at least th
 | Self Mill | 1 | ≥1 | 10.10% |
 <!-- category-probabilities:end -->
 
+<!-- mana-stats:start -->
+## Mana
+
+Color cost counts mana symbols in card costs: generic numerals and `{X}` are ignored, and hybrid symbols split evenly. Production counts each color in a card's Scryfall `produced_mana`. Lands are omitted from the curve and mana-value totals. The commander is included; `{noDeck}` extras are not.
+
+| Color | Cost | Prod |
+|---|---:|---:|
+| White (W) | 0% | 2% |
+| Blue (U) | 27% | 29% |
+| Black (B) | 26% | 27% |
+| Red (R) | 0% | 2% |
+| Green (G) | 47% | 31% |
+| Colorless (C) | 0% | 8% |
+
+Avg mana value: **3.32** · Total mana value: **206.00** · Nonland cards: **62**
+
+| MV | Cards |  |
+|---:|---:|:---|
+| 0 | 0 |  |
+| 1 | 4 | ████ |
+| 2 | 18 | ████████████████████ |
+| 3 | 13 | ██████████████ |
+| 4 | 16 | ██████████████████ |
+| 5 | 6 | ███████ |
+| 6 | 3 | ███ |
+| 7 | 1 | █ |
+| 8+ | 1 | █ |
+<!-- mana-stats:end -->
+
 ## Deck summary
 
 This is not Crab typal. The deck uses four independent multipliers:

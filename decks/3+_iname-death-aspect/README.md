@@ -55,6 +55,35 @@ All categories require at least one card except Land, which requires at least th
 | Secret Commander | 1 | ≥1 | 10.10% |
 <!-- category-probabilities:end -->
 
+<!-- mana-stats:start -->
+## Mana
+
+Color cost counts mana symbols in card costs: generic numerals and `{X}` are ignored, and hybrid symbols split evenly. Production counts each color in a card's Scryfall `produced_mana`. Lands are omitted from the curve and mana-value totals. The commander is included; `{noDeck}` extras are not.
+
+| Color | Cost | Prod |
+|---|---:|---:|
+| White (W) | 0% | 6% |
+| Blue (U) | 0% | 6% |
+| Black (B) | 100% | 67% |
+| Red (R) | 0% | 6% |
+| Green (G) | 0% | 6% |
+| Colorless (C) | 0% | 9% |
+
+Avg mana value: **3.69** · Total mana value: **218.00** · Nonland cards: **59**
+
+| MV | Cards |  |
+|---:|---:|:---|
+| 0 | 3 | █████ |
+| 1 | 8 | ████████████ |
+| 2 | 13 | ████████████████████ |
+| 3 | 6 | █████████ |
+| 4 | 7 | ███████████ |
+| 5 | 11 | █████████████████ |
+| 6 | 3 | █████ |
+| 7 | 3 | █████ |
+| 8+ | 5 | ████████ |
+<!-- mana-stats:end -->
+
 ## How the deck works
 
 [Iname, Death Aspect](https://scryfall.com/card/chk/118/iname-death-aspect?utm_source=api) costs `{4}{B}{B}`. When it enters, search the library for any number of Spirit cards and put them into the graveyard. The 99 contains **20 Spirits**. Milling all of them puts exactly twenty creature cards in the yard, which is the [Mortal Combat](https://scryfall.com/card/10e/160/mortal-combat?utm_source=api) threshold.
