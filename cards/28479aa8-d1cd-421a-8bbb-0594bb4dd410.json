@@ -1,0 +1,139 @@
+{
+  "artist": "Anastasia Ovchinnikova",
+  "artist_ids": [
+    "3605d81f-5c97-4958-9dcc-d44a85e10305"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 566330,
+  "cmc": 2.0,
+  "collector_number": "278",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 3975,
+  "finishes": [
+    "nonfoil",
+    "foil",
+    "etched"
+  ],
+  "flavor_text": "\"You might want to step back.\"\n—Jaya Ballard, task mage",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "e63ed449-d249-4639-85d2-f8fe75496d5c",
+  "illustration_id": "9787a493-accd-4614-a3a3-f46f03012921",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:13:04Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/6/e63ed449-d249-4639-85d2-f8fe75496d5c.webp?1783926784",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/6/e63ed449-d249-4639-85d2-f8fe75496d5c.jpg?1783926784",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/6/e63ed449-d249-4639-85d2-f8fe75496d5c.jpg?1783926784",
+    "crop": "https://cards.scryfall.io/crop/front/e/6/e63ed449-d249-4639-85d2-f8fe75496d5c.webp?1783926784",
+    "display": "https://cards.scryfall.io/display/front/e/6/e63ed449-d249-4639-85d2-f8fe75496d5c.webp?1783926784",
+    "grid": "https://cards.scryfall.io/grid/front/e/6/e63ed449-d249-4639-85d2-f8fe75496d5c.webp?1783926784",
+    "large": "https://cards.scryfall.io/large/front/e/6/e63ed449-d249-4639-85d2-f8fe75496d5c.jpg?1783926784",
+    "normal": "https://cards.scryfall.io/normal/front/e/6/e63ed449-d249-4639-85d2-f8fe75496d5c.jpg?1783926784",
+    "png": "https://cards.scryfall.io/png/front/e/6/e63ed449-d249-4639-85d2-f8fe75496d5c.png?1783926784",
+    "small": "https://cards.scryfall.io/small/front/e/6/e63ed449-d249-4639-85d2-f8fe75496d5c.jpg?1783926784",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/6/e63ed449-d249-4639-85d2-f8fe75496d5c.webp?1783926784"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}",
+  "mtgo_id": 90979,
+  "multiverse_ids": [
+    526249
+  ],
+  "name": "Flame Rift",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "28479aa8-d1cd-421a-8bbb-0594bb4dd410",
+  "oracle_text": "Flame Rift deals 4 damage to each player.",
+  "oversized": false,
+  "penny_rank": 947,
+  "preview": {
+    "previewed_at": "2021-05-27",
+    "source": "Cardmarket",
+    "source_uri": "https://www.cardmarket.com/it/Magic/Insight/Articles/Exclusive-Preview-Three-New-Cards-on-Moderns-Horizon"
+  },
+  "prices": {
+    "eur": "0.22",
+    "eur_foil": "0.33",
+    "tix": "0.03",
+    "usd": "0.33",
+    "usd_etched": "1.18",
+    "usd_foil": "0.33"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A28479aa8-d1cd-421a-8bbb-0594bb4dd410&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/90979?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=566330&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F239806%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Flame+Rift",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=526249&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFlame%2BRift",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFlame%2BRift"
+  },
+  "released_at": "2021-06-18",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e63ed449-d249-4639-85d2-f8fe75496d5c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh2/278/flame-rift?utm_source=api",
+  "set": "mh2",
+  "set_id": "c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "set_name": "Modern Horizons 2",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh2&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "story_spotlight": false,
+  "tcgplayer_etched_id": 240819,
+  "tcgplayer_id": 239806,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/e63ed449-d249-4639-85d2-f8fe75496d5c",
+  "variation": false,
+  "watermark": "set"
+}

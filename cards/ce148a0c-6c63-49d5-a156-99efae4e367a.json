@@ -1,0 +1,175 @@
+{
+  "arena_id": 73427,
+  "artist": "Sidharth Chaturvedi",
+  "artist_ids": [
+    "55e6d846-2f73-4fba-9b88-441686bb8dcb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Sidharth Chaturvedi",
+      "artist_id": "55e6d846-2f73-4fba-9b88-441686bb8dcb",
+      "colors": [
+        "G"
+      ],
+      "flavor_text": "\"When you understand nature's ways, you're never unarmed.\"\n—Eyza, Joraga guide",
+      "illustration_id": "40a8199a-100a-4d73-a0c0-93238f2bbe1e",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.webp?1783929332",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.jpg?1783929332",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.jpg?1783929332",
+        "crop": "https://cards.scryfall.io/crop/front/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.webp?1783929332",
+        "display": "https://cards.scryfall.io/display/front/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.webp?1783929332",
+        "grid": "https://cards.scryfall.io/grid/front/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.webp?1783929332",
+        "large": "https://cards.scryfall.io/large/front/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.jpg?1783929332",
+        "normal": "https://cards.scryfall.io/normal/front/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.jpg?1783929332",
+        "png": "https://cards.scryfall.io/png/front/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.png?1783929332",
+        "small": "https://cards.scryfall.io/small/front/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.jpg?1783929332",
+        "thumb": "https://cards.scryfall.io/thumb/front/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.webp?1783929332"
+      },
+      "mana_cost": "{G}",
+      "name": "Vastwood Fortification",
+      "object": "card_face",
+      "oracle_text": "Put a +1/+1 counter on target creature.",
+      "type_line": "Instant"
+    },
+    {
+      "artist": "Sidharth Chaturvedi",
+      "artist_id": "55e6d846-2f73-4fba-9b88-441686bb8dcb",
+      "colors": [],
+      "flavor_text": "\"Never underestimate the ferocity of the imperative to thrive.\"\n—Eyza, Joraga guide",
+      "illustration_id": "224cedb3-433d-4062-a889-2083f5f5cb37",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.webp?1783929332",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.jpg?1783929332",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.jpg?1783929332",
+        "crop": "https://cards.scryfall.io/crop/back/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.webp?1783929332",
+        "display": "https://cards.scryfall.io/display/back/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.webp?1783929332",
+        "grid": "https://cards.scryfall.io/grid/back/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.webp?1783929332",
+        "large": "https://cards.scryfall.io/large/back/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.jpg?1783929332",
+        "normal": "https://cards.scryfall.io/normal/back/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.jpg?1783929332",
+        "png": "https://cards.scryfall.io/png/back/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.png?1783929332",
+        "small": "https://cards.scryfall.io/small/back/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.jpg?1783929332",
+        "thumb": "https://cards.scryfall.io/thumb/back/3/a/3a7fd24e-84d8-405d-86e4-0571a9e23cc2.webp?1783929332"
+      },
+      "mana_cost": "",
+      "name": "Vastwood Thicket",
+      "object": "card_face",
+      "oracle_text": "This land enters tapped.\n{T}: Add {G}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 496650,
+  "cmc": 1.0,
+  "collector_number": "216",
+  "color_identity": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 6245,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "3a7fd24e-84d8-405d-86e4-0571a9e23cc2",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:55:32Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 83425,
+  "multiverse_ids": [
+    491866,
+    491867
+  ],
+  "name": "Vastwood Fortification // Vastwood Thicket",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ce148a0c-6c63-49d5-a156-99efae4e367a",
+  "oversized": false,
+  "penny_rank": 5355,
+  "preview": {
+    "previewed_at": "2020-09-07",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/734450636"
+  },
+  "prices": {
+    "eur": "0.13",
+    "eur_foil": "0.25",
+    "tix": "0.03",
+    "usd": "0.23",
+    "usd_etched": null,
+    "usd_foil": "0.36"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ace148a0c-6c63-49d5-a156-99efae4e367a&unique=prints",
+  "produced_mana": [
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/83425?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=496650&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F222155%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vastwood+Fortification",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=491866&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVastwood%2BFortification%2B%252F%252F%2BVastwood%2BThicket",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVastwood%2BFortification%2B%252F%252F%2BVastwood%2BThicket"
+  },
+  "released_at": "2020-09-25",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3a7fd24e-84d8-405d-86e4-0571a9e23cc2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/znr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/znr/216/vastwood-fortification-vastwood-thicket?utm_source=api",
+  "set": "znr",
+  "set_id": "f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "set_name": "Zendikar Rising",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aznr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "story_spotlight": false,
+  "tcgplayer_id": 222155,
+  "textless": false,
+  "type_line": "Instant // Land",
+  "uri": "https://api.scryfall.com/cards/3a7fd24e-84d8-405d-86e4-0571a9e23cc2",
+  "variation": false
+}

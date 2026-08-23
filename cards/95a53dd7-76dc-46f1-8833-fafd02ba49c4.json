@@ -1,0 +1,151 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "856e308d-6268-4311-9667-c2f761db8f99",
+      "name": "Poison Counter",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/856e308d-6268-4311-9667-c2f761db8f99"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d0f82007-99f6-4c6c-8182-ee631c33531f",
+      "name": "Tainted Strike",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/d0f82007-99f6-4c6c-8182-ee631c33531f"
+    }
+  ],
+  "artist": "James Ryman",
+  "artist_ids": [
+    "3852bbc9-11c0-4fe3-8722-a06ad7e2bcc5"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 242845,
+  "cmc": 1.0,
+  "collector_number": "80",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2343,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Welcome to perfection.\"\n—Sheoldred, Whispering One",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d0f82007-99f6-4c6c-8182-ee631c33531f",
+  "illustration_id": "42de0880-c863-448a-a28e-97813263b215",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:22:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/0/d0f82007-99f6-4c6c-8182-ee631c33531f.webp?1783941727",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/0/d0f82007-99f6-4c6c-8182-ee631c33531f.jpg?1783941727",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/0/d0f82007-99f6-4c6c-8182-ee631c33531f.jpg?1783941727",
+    "crop": "https://cards.scryfall.io/crop/front/d/0/d0f82007-99f6-4c6c-8182-ee631c33531f.webp?1783941727",
+    "display": "https://cards.scryfall.io/display/front/d/0/d0f82007-99f6-4c6c-8182-ee631c33531f.webp?1783941727",
+    "grid": "https://cards.scryfall.io/grid/front/d/0/d0f82007-99f6-4c6c-8182-ee631c33531f.webp?1783941727",
+    "large": "https://cards.scryfall.io/large/front/d/0/d0f82007-99f6-4c6c-8182-ee631c33531f.jpg?1783941727",
+    "normal": "https://cards.scryfall.io/normal/front/d/0/d0f82007-99f6-4c6c-8182-ee631c33531f.jpg?1783941727",
+    "png": "https://cards.scryfall.io/png/front/d/0/d0f82007-99f6-4c6c-8182-ee631c33531f.png?1783941727",
+    "small": "https://cards.scryfall.io/small/front/d/0/d0f82007-99f6-4c6c-8182-ee631c33531f.jpg?1783941727",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/0/d0f82007-99f6-4c6c-8182-ee631c33531f.webp?1783941727"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_foil_id": 38270,
+  "mtgo_id": 38269,
+  "multiverse_ids": [
+    209049
+  ],
+  "name": "Tainted Strike",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "95a53dd7-76dc-46f1-8833-fafd02ba49c4",
+  "oracle_text": "Target creature gets +1/+0 and gains infect until end of turn. (It deals damage to creatures in the form of -1/-1 counters and to players in the form of poison counters.)",
+  "oversized": false,
+  "penny_rank": 6555,
+  "prices": {
+    "eur": "1.77",
+    "eur_foil": "10.63",
+    "tix": "0.03",
+    "usd": "2.86",
+    "usd_etched": null,
+    "usd_foil": "25.47"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A95a53dd7-76dc-46f1-8833-fafd02ba49c4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/38269?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=242845&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F36465%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Tainted+Strike",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=209049&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTainted%2BStrike",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTainted%2BStrike"
+  },
+  "released_at": "2010-10-01",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d0f82007-99f6-4c6c-8182-ee631c33531f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/som?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/som/80/tainted-strike?utm_source=api",
+  "set": "som",
+  "set_id": "8f403072-9b22-4e69-8d59-22dc4c97fd8d",
+  "set_name": "Scars of Mirrodin",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/8f403072-9b22-4e69-8d59-22dc4c97fd8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 36465,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/d0f82007-99f6-4c6c-8182-ee631c33531f",
+  "variation": false,
+  "watermark": "phyrexian"
+}

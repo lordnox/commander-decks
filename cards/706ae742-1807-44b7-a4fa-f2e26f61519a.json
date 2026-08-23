@@ -1,0 +1,135 @@
+{
+  "artist": "Tony Szczudlo",
+  "artist_ids": [
+    "1952c90b-a5a7-4328-9f7c-e11064f59daf"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753509,
+  "cmc": 1.0,
+  "collector_number": "195",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 212,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "If you stop to listen, you can hear it grow.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "47260e7c-29bf-46f1-a029-9da7bbb418b5",
+  "illustration_id": "7e47f354-372c-427b-8296-181d277c1261",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:23:03Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/7/47260e7c-29bf-46f1-a029-9da7bbb418b5.webp?1783912983",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/7/47260e7c-29bf-46f1-a029-9da7bbb418b5.jpg?1783912983",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/7/47260e7c-29bf-46f1-a029-9da7bbb418b5.jpg?1783912983",
+    "crop": "https://cards.scryfall.io/crop/front/4/7/47260e7c-29bf-46f1-a029-9da7bbb418b5.webp?1783912983",
+    "display": "https://cards.scryfall.io/display/front/4/7/47260e7c-29bf-46f1-a029-9da7bbb418b5.webp?1783912983",
+    "grid": "https://cards.scryfall.io/grid/front/4/7/47260e7c-29bf-46f1-a029-9da7bbb418b5.webp?1783912983",
+    "large": "https://cards.scryfall.io/large/front/4/7/47260e7c-29bf-46f1-a029-9da7bbb418b5.jpg?1783912983",
+    "normal": "https://cards.scryfall.io/normal/front/4/7/47260e7c-29bf-46f1-a029-9da7bbb418b5.jpg?1783912983",
+    "png": "https://cards.scryfall.io/png/front/4/7/47260e7c-29bf-46f1-a029-9da7bbb418b5.png?1783912983",
+    "small": "https://cards.scryfall.io/small/front/4/7/47260e7c-29bf-46f1-a029-9da7bbb418b5.jpg?1783912983",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/7/47260e7c-29bf-46f1-a029-9da7bbb418b5.webp?1783912983"
+  },
+  "keywords": [
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "mtgo_id": 122530,
+  "multiverse_ids": [
+    650289
+  ],
+  "name": "Wild Growth",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "706ae742-1807-44b7-a4fa-f2e26f61519a",
+  "oracle_text": "Enchant land\nWhenever enchanted land is tapped for mana, its controller adds an additional {G}.",
+  "oversized": false,
+  "penny_rank": 204,
+  "prices": {
+    "eur": "0.55",
+    "eur_foil": null,
+    "tix": "1.01",
+    "usd": "0.63",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A706ae742-1807-44b7-a4fa-f2e26f61519a&unique=prints",
+  "produced_mana": [
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122530?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753509&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535861%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wild+Growth",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=650289&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWild%2BGrowth",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWild%2BGrowth"
+  },
+  "released_at": "2024-02-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/47260e7c-29bf-46f1-a029-9da7bbb418b5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkc/195/wild-growth?utm_source=api",
+  "set": "mkc",
+  "set_id": "286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "set_name": "Murders at Karlov Manor Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "story_spotlight": false,
+  "tcgplayer_id": 535861,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/47260e7c-29bf-46f1-a029-9da7bbb418b5",
+  "variation": false
+}

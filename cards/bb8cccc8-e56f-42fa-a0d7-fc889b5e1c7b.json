@@ -1,0 +1,132 @@
+{
+  "arena_id": 93792,
+  "artist": "Caio Monteiro",
+  "artist_ids": [
+    "d5053eb6-af72-47a0-b6e8-023cc3b9aefb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 797016,
+  "cmc": 1.0,
+  "collector_number": "79",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 1471,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Taming a storm is like taming a wild beast; once you understand its wants and needs, you can direct it any way you like.\"\n—Ral Zarek",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "8d1ec351-5e70-4eb2-b590-6bff94ef8178",
+  "illustration_id": "229ae5f9-7768-438c-a212-496ac4c9a1a5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:18:25Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/d/8d1ec351-5e70-4eb2-b590-6bff94ef8178.webp?1783909105",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/d/8d1ec351-5e70-4eb2-b590-6bff94ef8178.jpg?1783909105",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/d/8d1ec351-5e70-4eb2-b590-6bff94ef8178.jpg?1783909105",
+    "crop": "https://cards.scryfall.io/crop/front/8/d/8d1ec351-5e70-4eb2-b590-6bff94ef8178.webp?1783909105",
+    "display": "https://cards.scryfall.io/display/front/8/d/8d1ec351-5e70-4eb2-b590-6bff94ef8178.webp?1783909105",
+    "grid": "https://cards.scryfall.io/grid/front/8/d/8d1ec351-5e70-4eb2-b590-6bff94ef8178.webp?1783909105",
+    "large": "https://cards.scryfall.io/large/front/8/d/8d1ec351-5e70-4eb2-b590-6bff94ef8178.jpg?1783909105",
+    "normal": "https://cards.scryfall.io/normal/front/8/d/8d1ec351-5e70-4eb2-b590-6bff94ef8178.jpg?1783909105",
+    "png": "https://cards.scryfall.io/png/front/8/d/8d1ec351-5e70-4eb2-b590-6bff94ef8178.png?1783909105",
+    "small": "https://cards.scryfall.io/small/front/8/d/8d1ec351-5e70-4eb2-b590-6bff94ef8178.jpg?1783909105",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/d/8d1ec351-5e70-4eb2-b590-6bff94ef8178.webp?1783909105"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{R}",
+  "mtgo_id": 133726,
+  "multiverse_ids": [
+    679156
+  ],
+  "name": "Boltwave",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "bb8cccc8-e56f-42fa-a0d7-fc889b5e1c7b",
+  "oracle_text": "Boltwave deals 3 damage to each opponent.",
+  "oversized": false,
+  "prices": {
+    "eur": "2.37",
+    "eur_foil": "4.29",
+    "tix": "6.77",
+    "usd": "3.02",
+    "usd_etched": null,
+    "usd_foil": "4.62"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abb8cccc8-e56f-42fa-a0d7-fc889b5e1c7b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/133726?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=797016&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F591308%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Boltwave",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=679156&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBoltwave",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBoltwave"
+  },
+  "released_at": "2024-11-15",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8d1ec351-5e70-4eb2-b590-6bff94ef8178/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fdn/79/boltwave?utm_source=api",
+  "set": "fdn",
+  "set_id": "a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "set_name": "Foundations",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afdn&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "story_spotlight": false,
+  "tcgplayer_id": 591308,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/8d1ec351-5e70-4eb2-b590-6bff94ef8178",
+  "variation": false
+}

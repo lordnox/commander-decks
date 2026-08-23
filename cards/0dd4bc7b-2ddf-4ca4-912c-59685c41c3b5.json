@@ -1,0 +1,148 @@
+{
+  "artist": "Daren Bader",
+  "artist_ids": [
+    "7da1a585-c875-45e4-b322-5da9e8e1f651"
+  ],
+  "booster": false,
+  "border_color": "borderless",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 740987,
+  "cmc": 3.0,
+  "collector_number": "15",
+  "color_identity": [
+    "B",
+    "G",
+    "R"
+  ],
+  "colors": [
+    "B",
+    "G",
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 8758,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary",
+    "inverted"
+  ],
+  "full_art": true,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "3826e2af-c134-4dc1-98b5-574b1bda9a98",
+  "illustration_id": "96ff5ba2-9b93-49ab-b034-c7b41f2f6231",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:33:54Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/8/3826e2af-c134-4dc1-98b5-574b1bda9a98.webp?1783913634",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/8/3826e2af-c134-4dc1-98b5-574b1bda9a98.jpg?1783913634",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/8/3826e2af-c134-4dc1-98b5-574b1bda9a98.jpg?1783913634",
+    "crop": "https://cards.scryfall.io/crop/front/3/8/3826e2af-c134-4dc1-98b5-574b1bda9a98.webp?1783913634",
+    "display": "https://cards.scryfall.io/display/front/3/8/3826e2af-c134-4dc1-98b5-574b1bda9a98.webp?1783913634",
+    "grid": "https://cards.scryfall.io/grid/front/3/8/3826e2af-c134-4dc1-98b5-574b1bda9a98.webp?1783913634",
+    "large": "https://cards.scryfall.io/large/front/3/8/3826e2af-c134-4dc1-98b5-574b1bda9a98.jpg?1783913634",
+    "normal": "https://cards.scryfall.io/normal/front/3/8/3826e2af-c134-4dc1-98b5-574b1bda9a98.jpg?1783913634",
+    "png": "https://cards.scryfall.io/png/front/3/8/3826e2af-c134-4dc1-98b5-574b1bda9a98.png?1783913634",
+    "small": "https://cards.scryfall.io/small/front/3/8/3826e2af-c134-4dc1-98b5-574b1bda9a98.jpg?1783913634",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/8/3826e2af-c134-4dc1-98b5-574b1bda9a98.webp?1783913634"
+  },
+  "keywords": [
+    "Enrage",
+    "Bloodthirst",
+    "Menace"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B/G}{R}",
+  "mtgo_id": 117438,
+  "multiverse_ids": [
+    642687
+  ],
+  "name": "Indoraptor, the Perfect Hybrid",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0dd4bc7b-2ddf-4ca4-912c-59685c41c3b5",
+  "oracle_text": "Bloodthirst X (This creature enters with X +1/+1 counters on it, where X is the damage dealt to your opponents this turn.)\nMenace\nEnrage — Whenever Indoraptor is dealt damage, choose an opponent at random. Indoraptor deals damage equal to its power to that player unless they sacrifice a nontoken creature of their choice.",
+  "oversized": false,
+  "power": "3",
+  "prices": {
+    "eur": "16.81",
+    "eur_foil": "29.08",
+    "tix": "4.09",
+    "usd": "21.82",
+    "usd_etched": null,
+    "usd_foil": "47.62"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0dd4bc7b-2ddf-4ca4-912c-59685c41c3b5&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond",
+    "boosterfun"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/117438?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=740987&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F524277%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Indoraptor%2C+the+Perfect+Hybrid",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=642687&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIndoraptor%252C%2Bthe%2BPerfect%2BHybrid",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIndoraptor%252C%2Bthe%2BPerfect%2BHybrid"
+  },
+  "released_at": "2023-11-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3826e2af-c134-4dc1-98b5-574b1bda9a98/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rex?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rex/15/indoraptor-the-perfect-hybrid?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "rex",
+  "set_id": "647b6fd3-6935-4b96-85a4-d0191487ea5a",
+  "set_name": "Jurassic World Collection",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arex&unique=prints",
+  "set_type": "eternal",
+  "set_uri": "https://api.scryfall.com/sets/647b6fd3-6935-4b96-85a4-d0191487ea5a",
+  "story_spotlight": false,
+  "tcgplayer_id": 524277,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Legendary Creature — Dinosaur Mutant",
+  "uri": "https://api.scryfall.com/cards/3826e2af-c134-4dc1-98b5-574b1bda9a98",
+  "variation": false
+}

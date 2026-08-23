@@ -226,7 +226,7 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
         if not cached:
             continue
         if entry.get("quantity", 0) > 1:
-            basic = "Basic Land" in cached.get("type_line", "")
+            basic = cached.get("type_line", "").startswith("Basic ")
             if not basic and not allows_multiple(cached):
                 errors.append(f"singleton violation: {entry['quantity']}× {name}")
         extra_colors = set(cached.get("color_identity", [])) - commander_identity

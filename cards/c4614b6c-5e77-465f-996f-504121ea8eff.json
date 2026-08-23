@@ -1,0 +1,134 @@
+{
+  "arena_id": 84358,
+  "artist": "Colin Boyer",
+  "artist_ids": [
+    "9c201dbe-db56-429a-87e6-189ea70c2632"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 704784,
+  "cmc": 2.0,
+  "collector_number": "91",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 15100,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a28f5de4-2af6-44ff-9bb8-d874f8ae7dd1",
+  "illustration_id": "94c0c208-a8c0-4ff7-ba50-62b7ae2a634f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:30:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/2/a28f5de4-2af6-44ff-9bb8-d874f8ae7dd1.webp?1783917017",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/2/a28f5de4-2af6-44ff-9bb8-d874f8ae7dd1.jpg?1783917017",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/2/a28f5de4-2af6-44ff-9bb8-d874f8ae7dd1.jpg?1783917017",
+    "crop": "https://cards.scryfall.io/crop/front/a/2/a28f5de4-2af6-44ff-9bb8-d874f8ae7dd1.webp?1783917017",
+    "display": "https://cards.scryfall.io/display/front/a/2/a28f5de4-2af6-44ff-9bb8-d874f8ae7dd1.webp?1783917017",
+    "grid": "https://cards.scryfall.io/grid/front/a/2/a28f5de4-2af6-44ff-9bb8-d874f8ae7dd1.webp?1783917017",
+    "large": "https://cards.scryfall.io/large/front/a/2/a28f5de4-2af6-44ff-9bb8-d874f8ae7dd1.jpg?1783917017",
+    "normal": "https://cards.scryfall.io/normal/front/a/2/a28f5de4-2af6-44ff-9bb8-d874f8ae7dd1.jpg?1783917017",
+    "png": "https://cards.scryfall.io/png/front/a/2/a28f5de4-2af6-44ff-9bb8-d874f8ae7dd1.png?1783917017",
+    "small": "https://cards.scryfall.io/small/front/a/2/a28f5de4-2af6-44ff-9bb8-d874f8ae7dd1.jpg?1783917017",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/2/a28f5de4-2af6-44ff-9bb8-d874f8ae7dd1.webp?1783917017"
+  },
+  "keywords": [
+    "Equip",
+    "Flash"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 110016,
+  "multiverse_ids": [
+    607122
+  ],
+  "name": "Bladed Battle-Fan",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c4614b6c-5e77-465f-996f-504121ea8eff",
+  "oracle_text": "Flash\nWhen this Equipment enters, attach it to target creature you control. That creature gains indestructible until end of turn.\nEquipped creature gets +1/+0.\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)",
+  "oversized": false,
+  "prices": {
+    "eur": "0.13",
+    "eur_foil": "0.15",
+    "tix": "0.03",
+    "usd": "0.29",
+    "usd_etched": null,
+    "usd_foil": "0.21"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac4614b6c-5e77-465f-996f-504121ea8eff&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/110016?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=704784&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F491698%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bladed+Battle-Fan",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=607122&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBladed%2BBattle-Fan",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBladed%2BBattle-Fan"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a28f5de4-2af6-44ff-9bb8-d874f8ae7dd1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/91/bladed-battle-fan?utm_source=api",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": false,
+  "tcgplayer_id": 491698,
+  "textless": false,
+  "type_line": "Artifact — Equipment",
+  "uri": "https://api.scryfall.com/cards/a28f5de4-2af6-44ff-9bb8-d874f8ae7dd1",
+  "variation": false
+}

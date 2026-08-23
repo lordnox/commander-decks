@@ -3673,8 +3673,492 @@
       "categories": [
         "other"
       ]
+    },
+    "0dd4bc7b-2ddf-4ca4-912c-59685c41c3b5": {
+      "name": "Indoraptor, the Perfect Hybrid",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "e3d82066-d8b9-47bf-8821-1370c506970b": {
+      "name": "Barbed Servitor",
+      "categories": [
+        "card-draw",
+        "protection"
+      ]
+    },
+    "cf8a0782-f545-445e-abac-d9063dad696b": {
+      "name": "Hunter's Insight",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "8d47b78b-11cc-4351-91d6-c891eb63dd98": {
+      "name": "Keen Sense",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "13a8b19b-23bd-4e45-81ff-23371665e4fc": {
+      "name": "Requiem Monolith",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "80bb9ce4-1f3c-42ca-b75f-9a6b2f42073b": {
+      "name": "Ripjaw Raptor",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "70ed2052-f03c-461d-b32a-8835c97c559f": {
+      "name": "Snake Umbra",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "4d60dae0-7be4-4859-99ac-781a27bcfd93": {
+      "name": "Thickest in the Thicket",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "c91b0dd5-4c63-49a5-95bf-c342b6ff2076": {
+      "name": "Vraska Joins Up",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "4b23a89c-89ba-41ad-b894-ec02221689eb": {
+      "name": "Death Spark",
+      "categories": [
+        "burn",
+        "recursion"
+      ]
+    },
+    "a4374baa-a846-4b34-afbf-6bb7feb4648c": {
+      "name": "Electric Seaweed",
+      "categories": [
+        "pinger"
+      ]
+    },
+    "3c22e031-4804-4c31-bd3c-c3f29d456b34": {
+      "name": "Fiery Confluence",
+      "categories": [
+        "removal"
+      ]
+    },
+    "6f6ac768-4c97-44db-933a-f2d442e7f665": {
+      "name": "Frostling",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "9afb3b6e-4909-4efa-aa79-81c0229411c9": {
+      "name": "Gut Shot",
+      "categories": [
+        "burn",
+        "removal"
+      ]
+    },
+    "5facb256-b993-43f8-b971-b3a59a7434bf": {
+      "name": "Last Laugh",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "6f9bc0c6-1792-4771-a839-95a22d9c699a": {
+      "name": "Meltstrider's Resolve",
+      "categories": [
+        "aura",
+        "removal"
+      ]
+    },
+    "7efd5d62-6da2-428a-98e3-5b842f668656": {
+      "name": "Mogg Fanatic",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "c75ec3c6-2786-4386-b758-ac03610f2a99": {
+      "name": "Noxious Field",
+      "categories": [
+        "aura",
+        "pinger"
+      ]
+    },
+    "dafe63ef-f3d6-45e7-877a-573da92ba85e": {
+      "name": "Pestilence",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "5feedfb0-30e6-400d-9e28-d541ea1aa14e": {
+      "name": "Plague Spitter",
+      "categories": [
+        "pinger"
+      ]
+    },
+    "9ac57a10-3402-4656-9079-f713884cde35": {
+      "name": "Pyrohemia",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "81036c9f-fe0a-45a7-bcd5-0d344f31055a": {
+      "name": "Spikefield Hazard // Spikefield Cave",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "7eaf3fd0-e141-42c2-874d-b471f4a94ad2": {
+      "name": "Swift Demise",
+      "categories": [
+        "removal"
+      ]
+    },
+    "ce65c6ed-e5d4-48d8-b569-4e2774b2912c": {
+      "name": "Withering Wisps",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "f5f4dd28-f4ae-4d39-b9b8-6ebfd63c93fe": {
+      "name": "Basilisk Collar",
+      "categories": [
+        "equipment",
+        "lifegain"
+      ]
+    },
+    "a1b66fbf-14a3-4582-8414-53f432f96dad": {
+      "name": "Eternal Thirst",
+      "categories": [
+        "aura",
+        "lifegain",
+        "counters"
+      ]
+    },
+    "8b27326f-e7b8-4a4d-b589-df459246d19a": {
+      "name": "Shadowspear",
+      "categories": [
+        "protection"
+      ]
+    },
+    "1943cbb0-2b12-4450-90af-060b8c8627c3": {
+      "name": "Atarka's Command",
+      "categories": [
+        "burn",
+        "ramp"
+      ]
+    },
+    "bb8cccc8-e56f-42fa-a0d7-fc889b5e1c7b": {
+      "name": "Boltwave",
+      "categories": [
+        "burn"
+      ]
+    },
+    "28479aa8-d1cd-421a-8bbb-0594bb4dd410": {
+      "name": "Flame Rift",
+      "categories": [
+        "burn"
+      ]
+    },
+    "88cd43ce-b168-45a4-8d29-6cac5ab42857": {
+      "name": "Level Up",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "bdfcf7df-8c06-4abe-af41-eccabb9fc2c8": {
+      "name": "Power Fist",
+      "categories": [
+        "equipment",
+        "counters"
+      ]
+    },
+    "4b8d7d30-a97f-4169-a860-02783ca622ea": {
+      "name": "Rite of Passage",
+      "categories": [
+        "counters"
+      ]
+    },
+    "929117cd-caa6-402b-9d7b-1f684d75695c": {
+      "name": "Scythecat Cub",
+      "categories": [
+        "counters",
+        "landfall"
+      ]
+    },
+    "dfac0258-e148-4d7d-8ded-fc2466d9caa6": {
+      "name": "Cinder Glade",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "185c70c1-8403-4ae5-b45d-3679d4ee092a": {
+      "name": "Rockfall Vale",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "9516c4c1-d72d-434f-97e1-6a862434a169": {
+      "name": "Rootbound Crag",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "a3292406-3f49-42d6-a547-e43dd5797f84": {
+      "name": "Savage Lands",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "390f1b56-264e-4336-83be-dc1fe79bfdcf": {
+      "name": "Smoldering Marsh",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "5f0d3be8-e63e-4ade-ae58-6b0c14f2ce6d": {
+      "name": "Snow-Covered Forest",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "ca9f660b-e07d-4f42-a46e-abd0ca72510c": {
+      "name": "Snow-Covered Mountain",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "d8239a86-7184-4005-ba1e-2dddcd756c47": {
+      "name": "Snow-Covered Swamp",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "45fe016e-1a09-410c-bbe3-4663ba06c5b7": {
+      "name": "Spire Garden",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "40544d12-0391-4a61-af95-9b8ec01ed8fc": {
+      "name": "Vernal Fen",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "6587a463-a108-4854-b6d1-944e89b8c8a4": {
+      "name": "Wooded Foothills",
+      "categories": [
+        "land",
+        "sacrifice"
+      ]
+    },
+    "f7e7b78c-c769-4720-8585-1874773eb342": {
+      "name": "Ziatora's Proving Ground",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "7c06a368-3306-48e0-825e-a8fdc81fa343": {
+      "name": "Biophagus",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "d3a0b660-358c-41bd-9cd2-41fbf3491b1a": {
+      "name": "Birds of Paradise",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "6deba6e8-077b-4602-86af-64db766fbbd9": {
+      "name": "Drover of the Mighty",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "495e52e6-4c2b-4574-9474-eadbdcc8b4ac": {
+      "name": "Farseek",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "e9319f13-1f2b-429c-9d61-e58a3cbec86a": {
+      "name": "Goblin Anarchomancer",
+      "categories": [
+        "cost-reduction"
+      ]
+    },
+    "1cf51f50-24e4-48d0-95b3-1dad3ffa4bf5": {
+      "name": "Golgari Signet",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "d36e0c9f-c025-4dfe-9644-9cad2461ce38": {
+      "name": "Gruul Signet",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "8539f295-5d58-4436-a73a-b9277c4c7795": {
+      "name": "Rampant Growth",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "2a86b70b-34ca-45df-8aa1-c3fb2da72dc3": {
+      "name": "Ranging Raptors",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "00d8efa6-a2d9-4249-8da7-b45173675329": {
+      "name": "Utopia Sprawl",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "706ae742-1807-44b7-a4fa-f2e26f61519a": {
+      "name": "Wild Growth",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "7e10c141-dfb0-409b-b8c9-cdfe93b42a06": {
+      "name": "Wreck and Rebuild",
+      "categories": [
+        "removal"
+      ]
+    },
+    "bffdfe7b-f17a-41b6-a460-80280fe497d4": {
+      "name": "Collective Resistance",
+      "categories": [
+        "removal",
+        "protection"
+      ]
+    },
+    "2da232d8-580f-4116-b977-2c59cd21b5a4": {
+      "name": "Hull Breach",
+      "categories": [
+        "removal"
+      ]
+    },
+    "8bd6dea2-2fdd-482f-9fe8-6f3eeed13872": {
+      "name": "Cacophodon",
+      "categories": [
+        "enrage",
+        "untap"
+      ]
+    },
+    "2d21dc80-2900-4dc3-9657-f17b50716481": {
+      "name": "Fiendlash",
+      "categories": [
+        "equipment",
+        "damage-redirect"
+      ]
+    },
+    "acfa77fd-3610-4f12-9c3c-bd860ce91700": {
+      "name": "Rhythm of the Wild",
+      "categories": [
+        "haste",
+        "protection"
+      ]
+    },
+    "95a53dd7-76dc-46f1-8833-fafd02ba49c4": {
+      "name": "Tainted Strike",
+      "categories": [
+        "infect",
+        "finisher"
+      ]
+    },
+    "64de050c-7167-4ebd-8584-f064d8be3302": {
+      "name": "Armor of Shadows",
+      "categories": [
+        "protection"
+      ]
+    },
+    "c4614b6c-5e77-465f-996f-504121ea8eff": {
+      "name": "Bladed Battle-Fan",
+      "categories": [
+        "protection"
+      ]
+    },
+    "2cb95721-56c8-4008-8055-579a5a97fc8b": {
+      "name": "Gaea's Gift",
+      "categories": [
+        "protection"
+      ]
+    },
+    "96c2d71e-0fc9-42aa-bc6b-6d0ae3f66f8b": {
+      "name": "Hexing Squelcher",
+      "categories": [
+        "protection"
+      ]
+    },
+    "8dd6d060-d023-48a6-85cb-7a5521b6257b": {
+      "name": "Revitalizing Repast // Old-Growth Grove",
+      "categories": [
+        "land",
+        "ramp",
+        "protection"
+      ]
+    },
+    "fffa9334-3576-4f70-9605-2ad062cdbc69": {
+      "name": "Without Weakness",
+      "categories": [
+        "card-draw",
+        "protection",
+        "discard"
+      ]
+    },
+    "9d581188-ce80-494e-bd38-f411e1f4efb5": {
+      "name": "Bridgeworks Battle // Tanglespan Bridgeworks",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "ce148a0c-6c63-49d5-a156-99efae4e367a": {
+      "name": "Vastwood Fortification // Vastwood Thicket",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "727f3201-1cfc-4ab2-9dfe-be4f7251f42f": {
+      "name": "Boggart Trawler // Boggart Bog",
+      "categories": [
+        "land",
+        "ramp",
+        "removal"
+      ]
+    },
+    "fd2617fe-1bf3-40c3-9da5-841e63f4d62d": {
+      "name": "Dinosaur // Treasure",
+      "categories": [
+        "ramp",
+        "sacrifice"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-23T22:31:04.695318+00:00"
+  "updated_at": "2026-08-23T23:21:17.665114+00:00"
 }

@@ -1,0 +1,142 @@
+{
+  "arena_id": 92880,
+  "artist": "Gabor Szikszai",
+  "artist_ids": [
+    "44c3877f-8771-43dc-9e40-f4c765f59d2e"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 795445,
+  "cmc": 2.0,
+  "collector_number": "24",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 2905,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b3dd3c7d-4685-4579-b483-14ddaaaddf5b",
+  "illustration_id": "1cf543c6-ba13-478f-ab8e-38badf2288e5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:14:23Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/3/b3dd3c7d-4685-4579-b483-14ddaaaddf5b.webp?1783908863",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/3/b3dd3c7d-4685-4579-b483-14ddaaaddf5b.jpg?1783908863",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/3/b3dd3c7d-4685-4579-b483-14ddaaaddf5b.jpg?1783908863",
+    "crop": "https://cards.scryfall.io/crop/front/b/3/b3dd3c7d-4685-4579-b483-14ddaaaddf5b.webp?1783908863",
+    "display": "https://cards.scryfall.io/display/front/b/3/b3dd3c7d-4685-4579-b483-14ddaaaddf5b.webp?1783908863",
+    "grid": "https://cards.scryfall.io/grid/front/b/3/b3dd3c7d-4685-4579-b483-14ddaaaddf5b.webp?1783908863",
+    "large": "https://cards.scryfall.io/large/front/b/3/b3dd3c7d-4685-4579-b483-14ddaaaddf5b.jpg?1783908863",
+    "normal": "https://cards.scryfall.io/normal/front/b/3/b3dd3c7d-4685-4579-b483-14ddaaaddf5b.jpg?1783908863",
+    "png": "https://cards.scryfall.io/png/front/b/3/b3dd3c7d-4685-4579-b483-14ddaaaddf5b.png?1783908863",
+    "small": "https://cards.scryfall.io/small/front/b/3/b3dd3c7d-4685-4579-b483-14ddaaaddf5b.jpg?1783908863",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/3/b3dd3c7d-4685-4579-b483-14ddaaaddf5b.webp?1783908863"
+  },
+  "keywords": [
+    "Trample",
+    "Double",
+    "Landfall"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 132840,
+  "multiverse_ids": [
+    681349
+  ],
+  "name": "Scythecat Cub",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "929117cd-caa6-402b-9d7b-1f684d75695c",
+  "oracle_text": "Trample\nLandfall — Whenever a land you control enters, put a +1/+1 counter on target creature you control. If this is the second time this ability has resolved this turn, double the number of +1/+1 counters on that creature instead.",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2024-10-26",
+    "source": "TheGamer",
+    "source_uri": "https://www.thegamer.com/magic-the-gathering-mtg-foundations-jumpstart-visual-spoiler-every-card/#latest-reveals---october-25-2024"
+  },
+  "prices": {
+    "eur": "29.86",
+    "eur_foil": null,
+    "tix": "17.42",
+    "usd": "25.96",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A929117cd-caa6-402b-9d7b-1f684d75695c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/132840?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=795445&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F589389%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Scythecat+Cub",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=681349&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DScythecat%2BCub",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DScythecat%2BCub"
+  },
+  "released_at": "2024-11-15",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b3dd3c7d-4685-4579-b483-14ddaaaddf5b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/j25?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/j25/24/scythecat-cub?utm_source=api",
+  "security_stamp": "oval",
+  "set": "j25",
+  "set_id": "9201567c-bab5-4720-aac9-260e6741f115",
+  "set_name": "Foundations Jumpstart",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aj25&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/9201567c-bab5-4720-aac9-260e6741f115",
+  "story_spotlight": false,
+  "tcgplayer_id": 589389,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Cat",
+  "uri": "https://api.scryfall.com/cards/b3dd3c7d-4685-4579-b483-14ddaaaddf5b",
+  "variation": false
+}

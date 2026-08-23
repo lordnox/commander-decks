@@ -1,0 +1,175 @@
+{
+  "arena_id": 90812,
+  "artist": "Randy Gallegos",
+  "artist_ids": [
+    "a5048cc7-438a-4378-98e4-da99b78e1db0"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Randy Gallegos",
+      "artist_id": "a5048cc7-438a-4378-98e4-da99b78e1db0",
+      "colors": [
+        "B"
+      ],
+      "flavor_text": "\"Look what I found, and it's only been dead for a week!\"",
+      "illustration_id": "1841dc98-79b8-4fee-b9fb-e533481aefdf",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.webp?1783911234",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.jpg?1783911234",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.jpg?1783911234",
+        "crop": "https://cards.scryfall.io/crop/front/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.webp?1783911234",
+        "display": "https://cards.scryfall.io/display/front/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.webp?1783911234",
+        "grid": "https://cards.scryfall.io/grid/front/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.webp?1783911234",
+        "large": "https://cards.scryfall.io/large/front/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.jpg?1783911234",
+        "normal": "https://cards.scryfall.io/normal/front/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.jpg?1783911234",
+        "png": "https://cards.scryfall.io/png/front/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.png?1783911234",
+        "small": "https://cards.scryfall.io/small/front/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.jpg?1783911234",
+        "thumb": "https://cards.scryfall.io/thumb/front/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.webp?1783911234"
+      },
+      "mana_cost": "{2}{B}",
+      "name": "Boggart Trawler",
+      "object": "card_face",
+      "oracle_text": "When this creature enters, exile target player's graveyard.",
+      "power": "3",
+      "toughness": "1",
+      "type_line": "Creature — Goblin"
+    },
+    {
+      "artist": "Randy Gallegos",
+      "artist_id": "a5048cc7-438a-4378-98e4-da99b78e1db0",
+      "colors": [],
+      "flavor_text": "A boggart warren is usually located in a place rich with sensations... good and bad.",
+      "illustration_id": "2d106e5e-e046-4d47-aea1-cd15138e3e63",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.webp?1783911234",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.jpg?1783911234",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.jpg?1783911234",
+        "crop": "https://cards.scryfall.io/crop/back/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.webp?1783911234",
+        "display": "https://cards.scryfall.io/display/back/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.webp?1783911234",
+        "grid": "https://cards.scryfall.io/grid/back/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.webp?1783911234",
+        "large": "https://cards.scryfall.io/large/back/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.jpg?1783911234",
+        "normal": "https://cards.scryfall.io/normal/back/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.jpg?1783911234",
+        "png": "https://cards.scryfall.io/png/back/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.png?1783911234",
+        "small": "https://cards.scryfall.io/small/back/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.jpg?1783911234",
+        "thumb": "https://cards.scryfall.io/thumb/back/d/0/d0d484a6-5610-4f1d-95ec-eda273c255e4.webp?1783911234"
+      },
+      "mana_cost": "",
+      "name": "Boggart Bog",
+      "object": "card_face",
+      "oracle_text": "As this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {B}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 772120,
+  "cmc": 3.0,
+  "collector_number": "243",
+  "color_identity": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 641,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "d0d484a6-5610-4f1d-95ec-eda273c255e4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:53:54Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 126517,
+  "multiverse_ids": [
+    661765
+  ],
+  "name": "Boggart Trawler // Boggart Bog",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "727f3201-1cfc-4ab2-9dfe-be4f7251f42f",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-05-27",
+    "source": "jellboi",
+    "source_uri": "https://x.com/jellboi/status/1795136156780163575"
+  },
+  "prices": {
+    "eur": "1.76",
+    "eur_foil": "2.67",
+    "tix": "0.50",
+    "usd": "1.28",
+    "usd_etched": null,
+    "usd_foil": "4.42"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A727f3201-1cfc-4ab2-9dfe-be4f7251f42f&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126517?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=772120&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552873%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Boggart+Trawler",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=661765&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBoggart%2BTrawler%2B%252F%252F%2BBoggart%2BBog",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBoggart%2BTrawler%2B%252F%252F%2BBoggart%2BBog"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d0d484a6-5610-4f1d-95ec-eda273c255e4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/243/boggart-trawler-boggart-bog?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552873,
+  "textless": false,
+  "type_line": "Creature — Goblin // Land",
+  "uri": "https://api.scryfall.com/cards/d0d484a6-5610-4f1d-95ec-eda273c255e4",
+  "variation": false
+}

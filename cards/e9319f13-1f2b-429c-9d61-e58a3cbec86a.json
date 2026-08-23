@@ -1,0 +1,140 @@
+{
+  "artist": "Joe Slucher",
+  "artist_ids": [
+    "13b6c9ee-f7a8-46a4-934f-ea6b4a1b14b2"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 566874,
+  "cmc": 2.0,
+  "collector_number": "200",
+  "color_identity": [
+    "G",
+    "R"
+  ],
+  "colors": [
+    "G",
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 547,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "A good Gruul shaman can work a whole clan into a frenzy. A great one will wait until the enemy's nearby.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "633a3423-501d-4b22-95a6-743233be521e",
+  "illustration_id": "9214bd45-fb90-41ba-acec-3dc8dcf7c10a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:13:34Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/3/633a3423-501d-4b22-95a6-743233be521e.webp?1783926814",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/3/633a3423-501d-4b22-95a6-743233be521e.jpg?1783926814",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/3/633a3423-501d-4b22-95a6-743233be521e.jpg?1783926814",
+    "crop": "https://cards.scryfall.io/crop/front/6/3/633a3423-501d-4b22-95a6-743233be521e.webp?1783926814",
+    "display": "https://cards.scryfall.io/display/front/6/3/633a3423-501d-4b22-95a6-743233be521e.webp?1783926814",
+    "grid": "https://cards.scryfall.io/grid/front/6/3/633a3423-501d-4b22-95a6-743233be521e.webp?1783926814",
+    "large": "https://cards.scryfall.io/large/front/6/3/633a3423-501d-4b22-95a6-743233be521e.jpg?1783926814",
+    "normal": "https://cards.scryfall.io/normal/front/6/3/633a3423-501d-4b22-95a6-743233be521e.jpg?1783926814",
+    "png": "https://cards.scryfall.io/png/front/6/3/633a3423-501d-4b22-95a6-743233be521e.png?1783926814",
+    "small": "https://cards.scryfall.io/small/front/6/3/633a3423-501d-4b22-95a6-743233be521e.jpg?1783926814",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/3/633a3423-501d-4b22-95a6-743233be521e.webp?1783926814"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{R}{G}",
+  "mtgo_id": 90777,
+  "multiverse_ids": [
+    522276
+  ],
+  "name": "Goblin Anarchomancer",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e9319f13-1f2b-429c-9d61-e58a3cbec86a",
+  "oracle_text": "Each spell you cast that's red or green costs {1} less to cast.",
+  "oversized": false,
+  "penny_rank": 1865,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2021-06-02",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://twitter.com/wizards_magic/status/1399951673234116615"
+  },
+  "prices": {
+    "eur": "0.36",
+    "eur_foil": "0.53",
+    "tix": "0.03",
+    "usd": "1.23",
+    "usd_etched": null,
+    "usd_foil": "1.22"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae9319f13-1f2b-429c-9d61-e58a3cbec86a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/90777?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=566874&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F240412%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Goblin+Anarchomancer",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=522276&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGoblin%2BAnarchomancer",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGoblin%2BAnarchomancer"
+  },
+  "released_at": "2021-06-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/633a3423-501d-4b22-95a6-743233be521e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh2/200/goblin-anarchomancer?utm_source=api",
+  "set": "mh2",
+  "set_id": "c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "set_name": "Modern Horizons 2",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh2&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "story_spotlight": false,
+  "tcgplayer_id": 240412,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Goblin Shaman",
+  "uri": "https://api.scryfall.com/cards/633a3423-501d-4b22-95a6-743233be521e",
+  "variation": false
+}

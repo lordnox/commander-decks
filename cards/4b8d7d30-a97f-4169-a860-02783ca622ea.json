@@ -1,0 +1,132 @@
+{
+  "artist": "Kev Walker",
+  "artist_ids": [
+    "f366a0ee-a0cd-466d-ba6a-90058c7a31a6"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 567,
+  "cmc": 3.0,
+  "collector_number": "91",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 5782,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Every scar is a lesson, every battle a test of what you have learned.",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "bea92a0c-f73f-4e85-9d87-6401aa1b052e",
+  "illustration_id": "2c79e49c-5c2f-4c20-9b6d-545a50410a48",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:06:29Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/e/bea92a0c-f73f-4e85-9d87-6401aa1b052e.webp?1783944389",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/e/bea92a0c-f73f-4e85-9d87-6401aa1b052e.jpg?1783944389",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/e/bea92a0c-f73f-4e85-9d87-6401aa1b052e.jpg?1783944389",
+    "crop": "https://cards.scryfall.io/crop/front/b/e/bea92a0c-f73f-4e85-9d87-6401aa1b052e.webp?1783944389",
+    "display": "https://cards.scryfall.io/display/front/b/e/bea92a0c-f73f-4e85-9d87-6401aa1b052e.webp?1783944389",
+    "grid": "https://cards.scryfall.io/grid/front/b/e/bea92a0c-f73f-4e85-9d87-6401aa1b052e.webp?1783944389",
+    "large": "https://cards.scryfall.io/large/front/b/e/bea92a0c-f73f-4e85-9d87-6401aa1b052e.jpg?1783944389",
+    "normal": "https://cards.scryfall.io/normal/front/b/e/bea92a0c-f73f-4e85-9d87-6401aa1b052e.jpg?1783944389",
+    "png": "https://cards.scryfall.io/png/front/b/e/bea92a0c-f73f-4e85-9d87-6401aa1b052e.png?1783944389",
+    "small": "https://cards.scryfall.io/small/front/b/e/bea92a0c-f73f-4e85-9d87-6401aa1b052e.jpg?1783944389",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/e/bea92a0c-f73f-4e85-9d87-6401aa1b052e.webp?1783944389"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "mtgo_foil_id": 20809,
+  "mtgo_id": 20808,
+  "multiverse_ids": [
+    51163
+  ],
+  "name": "Rite of Passage",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4b8d7d30-a97f-4169-a860-02783ca622ea",
+  "oracle_text": "Whenever a creature you control is dealt damage, put a +1/+1 counter on it. (It must survive the damage to get the counter.)",
+  "oversized": false,
+  "penny_rank": 14171,
+  "prices": {
+    "eur": "1.15",
+    "eur_foil": "7.63",
+    "tix": "0.02",
+    "usd": "4.85",
+    "usd_etched": null,
+    "usd_foil": "15.00"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4b8d7d30-a97f-4169-a860-02783ca622ea&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/20808?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=567&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F11860%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rite+of+Passage",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=51163&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRite%2Bof%2BPassage",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRite%2Bof%2BPassage"
+  },
+  "released_at": "2004-06-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/bea92a0c-f73f-4e85-9d87-6401aa1b052e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/5dn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/5dn/91/rite-of-passage?utm_source=api",
+  "set": "5dn",
+  "set_id": "e4bc1b87-5476-463c-8640-4c414ecf1763",
+  "set_name": "Fifth Dawn",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A5dn&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e4bc1b87-5476-463c-8640-4c414ecf1763",
+  "story_spotlight": false,
+  "tcgplayer_id": 11860,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/bea92a0c-f73f-4e85-9d87-6401aa1b052e",
+  "variation": false
+}

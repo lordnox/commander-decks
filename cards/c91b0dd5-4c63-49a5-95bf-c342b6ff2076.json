@@ -1,0 +1,144 @@
+{
+  "arena_id": 90582,
+  "artist": "Wylie Beckert",
+  "artist_ids": [
+    "074daf3d-0849-4c4a-b5a5-c276384e81e5"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 763892,
+  "cmc": 2.0,
+  "collector_number": "236",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [
+    "B",
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 2555,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Letting Oko believe he held all the cards provided the perfect cover for her own scheme to unfold.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "06e546c2-737e-4b17-bf60-3069b1ccdf31",
+  "illustration_id": "743e2259-2221-4628-95a1-114b12223ac5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:03:03Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/6/06e546c2-737e-4b17-bf60-3069b1ccdf31.webp?1783911783",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/6/06e546c2-737e-4b17-bf60-3069b1ccdf31.jpg?1783911783",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/6/06e546c2-737e-4b17-bf60-3069b1ccdf31.jpg?1783911783",
+    "crop": "https://cards.scryfall.io/crop/front/0/6/06e546c2-737e-4b17-bf60-3069b1ccdf31.webp?1783911783",
+    "display": "https://cards.scryfall.io/display/front/0/6/06e546c2-737e-4b17-bf60-3069b1ccdf31.webp?1783911783",
+    "grid": "https://cards.scryfall.io/grid/front/0/6/06e546c2-737e-4b17-bf60-3069b1ccdf31.webp?1783911783",
+    "large": "https://cards.scryfall.io/large/front/0/6/06e546c2-737e-4b17-bf60-3069b1ccdf31.jpg?1783911783",
+    "normal": "https://cards.scryfall.io/normal/front/0/6/06e546c2-737e-4b17-bf60-3069b1ccdf31.jpg?1783911783",
+    "png": "https://cards.scryfall.io/png/front/0/6/06e546c2-737e-4b17-bf60-3069b1ccdf31.png?1783911783",
+    "small": "https://cards.scryfall.io/small/front/0/6/06e546c2-737e-4b17-bf60-3069b1ccdf31.jpg?1783911783",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/6/06e546c2-737e-4b17-bf60-3069b1ccdf31.webp?1783911783"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}{G}",
+  "mtgo_id": 124383,
+  "multiverse_ids": [
+    655177
+  ],
+  "name": "Vraska Joins Up",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c91b0dd5-4c63-49a5-95bf-c342b6ff2076",
+  "oracle_text": "When Vraska Joins Up enters, put a deathtouch counter on each creature you control.\nWhenever a legendary creature you control deals combat damage to a player, draw a card.",
+  "oversized": false,
+  "penny_rank": 9449,
+  "preview": {
+    "previewed_at": "2024-03-27",
+    "source": "Maxzzie",
+    "source_uri": "https://twitter.com/Maxzzie/status/1772562623332331670"
+  },
+  "prices": {
+    "eur": "0.60",
+    "eur_foil": "1.03",
+    "tix": "0.02",
+    "usd": "0.98",
+    "usd_etched": null,
+    "usd_foil": "1.30"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac91b0dd5-4c63-49a5-95bf-c342b6ff2076&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124383?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=763892&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544176%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vraska+Joins+Up",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=655177&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVraska%2BJoins%2BUp",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVraska%2BJoins%2BUp"
+  },
+  "released_at": "2024-04-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/06e546c2-737e-4b17-bf60-3069b1ccdf31/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otj?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otj/236/vraska-joins-up?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otj",
+  "set_id": "55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "set_name": "Outlaws of Thunder Junction",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotj&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "story_spotlight": false,
+  "tcgplayer_id": 544176,
+  "textless": false,
+  "type_line": "Legendary Enchantment",
+  "uri": "https://api.scryfall.com/cards/06e546c2-737e-4b17-bf60-3069b1ccdf31",
+  "variation": false
+}

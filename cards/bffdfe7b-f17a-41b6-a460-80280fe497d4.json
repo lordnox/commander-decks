@@ -1,0 +1,138 @@
+{
+  "arena_id": 90997,
+  "artist": "Raoul Vitale",
+  "artist_ids": [
+    "c7c15d49-f84b-4d98-9a34-e80e8347b756"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 771458,
+  "cmc": 2.0,
+  "collector_number": "147",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 781,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "f260bd08-68b6-44f4-ace9-e298cb13d82e",
+  "illustration_id": "1c6017c6-e67e-4d28-8873-714a7e98c1ba",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:23Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/2/f260bd08-68b6-44f4-ace9-e298cb13d82e.webp?1783911263",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/2/f260bd08-68b6-44f4-ace9-e298cb13d82e.jpg?1783911263",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/2/f260bd08-68b6-44f4-ace9-e298cb13d82e.jpg?1783911263",
+    "crop": "https://cards.scryfall.io/crop/front/f/2/f260bd08-68b6-44f4-ace9-e298cb13d82e.webp?1783911263",
+    "display": "https://cards.scryfall.io/display/front/f/2/f260bd08-68b6-44f4-ace9-e298cb13d82e.webp?1783911263",
+    "grid": "https://cards.scryfall.io/grid/front/f/2/f260bd08-68b6-44f4-ace9-e298cb13d82e.webp?1783911263",
+    "large": "https://cards.scryfall.io/large/front/f/2/f260bd08-68b6-44f4-ace9-e298cb13d82e.jpg?1783911263",
+    "normal": "https://cards.scryfall.io/normal/front/f/2/f260bd08-68b6-44f4-ace9-e298cb13d82e.jpg?1783911263",
+    "png": "https://cards.scryfall.io/png/front/f/2/f260bd08-68b6-44f4-ace9-e298cb13d82e.png?1783911263",
+    "small": "https://cards.scryfall.io/small/front/f/2/f260bd08-68b6-44f4-ace9-e298cb13d82e.jpg?1783911263",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/2/f260bd08-68b6-44f4-ace9-e298cb13d82e.webp?1783911263"
+  },
+  "keywords": [
+    "Escalate"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 126311,
+  "multiverse_ids": [
+    662299
+  ],
+  "name": "Collective Resistance",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "bffdfe7b-f17a-41b6-a460-80280fe497d4",
+  "oracle_text": "Escalate {G} (Pay this cost for each mode chosen beyond the first.)\nChoose one or more —\n• Destroy target artifact.\n• Destroy target enchantment.\n• Target creature gains hexproof and indestructible until end of turn.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-05-22",
+    "source": "Shivam Bhatt",
+    "source_uri": "https://twitter.com/ghirapurigears/status/1793280279068741925"
+  },
+  "prices": {
+    "eur": "2.03",
+    "eur_foil": "2.45",
+    "tix": "0.03",
+    "usd": "2.04",
+    "usd_etched": null,
+    "usd_foil": "6.07"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abffdfe7b-f17a-41b6-a460-80280fe497d4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126311?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=771458&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552623%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Collective+Resistance",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662299&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCollective%2BResistance",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCollective%2BResistance"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f260bd08-68b6-44f4-ace9-e298cb13d82e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/147/collective-resistance?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552623,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/f260bd08-68b6-44f4-ace9-e298cb13d82e",
+  "variation": false
+}

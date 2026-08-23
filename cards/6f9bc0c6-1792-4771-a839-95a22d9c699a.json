@@ -1,0 +1,140 @@
+{
+  "arena_id": 96773,
+  "artist": "Carlos Palma Cruchaga",
+  "artist_ids": [
+    "f0c43e1b-1853-4abc-8a1b-d7dda6c1d592"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 836836,
+  "cmc": 1.0,
+  "collector_number": "199",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 10203,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "53c08af4-b975-4d9d-baba-73e6727f2778",
+  "illustration_id": "8601c012-e1eb-4070-a43f-96e304be297d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:25:33Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/3/53c08af4-b975-4d9d-baba-73e6727f2778.webp?1783905933",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/3/53c08af4-b975-4d9d-baba-73e6727f2778.jpg?1783905933",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/3/53c08af4-b975-4d9d-baba-73e6727f2778.jpg?1783905933",
+    "crop": "https://cards.scryfall.io/crop/front/5/3/53c08af4-b975-4d9d-baba-73e6727f2778.webp?1783905933",
+    "display": "https://cards.scryfall.io/display/front/5/3/53c08af4-b975-4d9d-baba-73e6727f2778.webp?1783905933",
+    "grid": "https://cards.scryfall.io/grid/front/5/3/53c08af4-b975-4d9d-baba-73e6727f2778.webp?1783905933",
+    "large": "https://cards.scryfall.io/large/front/5/3/53c08af4-b975-4d9d-baba-73e6727f2778.jpg?1783905933",
+    "normal": "https://cards.scryfall.io/normal/front/5/3/53c08af4-b975-4d9d-baba-73e6727f2778.jpg?1783905933",
+    "png": "https://cards.scryfall.io/png/front/5/3/53c08af4-b975-4d9d-baba-73e6727f2778.png?1783905933",
+    "small": "https://cards.scryfall.io/small/front/5/3/53c08af4-b975-4d9d-baba-73e6727f2778.jpg?1783905933",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/3/53c08af4-b975-4d9d-baba-73e6727f2778.webp?1783905933"
+  },
+  "keywords": [
+    "Fight",
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "mtgo_id": 143011,
+  "multiverse_ids": [],
+  "name": "Meltstrider's Resolve",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6f9bc0c6-1792-4771-a839-95a22d9c699a",
+  "oracle_text": "Enchant creature you control\nWhen this Aura enters, enchanted creature fights up to one target creature an opponent controls. (Each deals damage equal to its power to the other.)\nEnchanted creature gets +0/+2 and can't be blocked by more than one creature.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2025-07-17",
+    "source": "Based Deck Department",
+    "source_uri": "https://bsky.app/profile/baseddeckdept.bsky.social/post/3lu5eyckrdk2g"
+  },
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": "0.29",
+    "tix": "0.04",
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": "0.34"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6f9bc0c6-1792-4771-a839-95a22d9c699a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/143011?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=836836&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F644628%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Meltstrider%27s+Resolve",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMeltstrider%2527s%2BResolve",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMeltstrider%2527s%2BResolve"
+  },
+  "released_at": "2025-08-01",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "446309B36B47A94FA3C6AD3EC371D9E9B7BBFAD1471DE6D6E84106E774D9A311",
+  "rulings_uri": "https://api.scryfall.com/cards/53c08af4-b975-4d9d-baba-73e6727f2778/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eoe?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eoe/199/meltstriders-resolve?utm_source=api",
+  "set": "eoe",
+  "set_id": "452951cf-378b-4472-b7fe-572fe2af2ac0",
+  "set_name": "Edge of Eternities",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeoe&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/452951cf-378b-4472-b7fe-572fe2af2ac0",
+  "story_spotlight": false,
+  "tcgplayer_id": 644628,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/53c08af4-b975-4d9d-baba-73e6727f2778",
+  "variation": false
+}

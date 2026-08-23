@@ -1,0 +1,176 @@
+{
+  "arena_id": 90838,
+  "artist": "Raoul Vitale",
+  "artist_ids": [
+    "c7c15d49-f84b-4d98-9a34-e80e8347b756"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Raoul Vitale",
+      "artist_id": "c7c15d49-f84b-4d98-9a34-e80e8347b756",
+      "colors": [
+        "B",
+        "G"
+      ],
+      "flavor_text": "\"Today, we feast! Tomorrow, we fight! Then, we feast again!\"\n—Harald, king of Skemfar",
+      "illustration_id": "ade72946-5b69-43f3-8412-24091884ab18",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.webp?1783911227",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.jpg?1783911227",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.jpg?1783911227",
+        "crop": "https://cards.scryfall.io/crop/front/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.webp?1783911227",
+        "display": "https://cards.scryfall.io/display/front/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.webp?1783911227",
+        "grid": "https://cards.scryfall.io/grid/front/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.webp?1783911227",
+        "large": "https://cards.scryfall.io/large/front/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.jpg?1783911227",
+        "normal": "https://cards.scryfall.io/normal/front/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.jpg?1783911227",
+        "png": "https://cards.scryfall.io/png/front/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.png?1783911227",
+        "small": "https://cards.scryfall.io/small/front/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.jpg?1783911227",
+        "thumb": "https://cards.scryfall.io/thumb/front/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.webp?1783911227"
+      },
+      "mana_cost": "{B/G}",
+      "name": "Revitalizing Repast",
+      "object": "card_face",
+      "oracle_text": "Put a +1/+1 counter on target creature. It gains indestructible until end of turn.",
+      "type_line": "Instant"
+    },
+    {
+      "artist": "Raoul Vitale",
+      "artist_id": "c7c15d49-f84b-4d98-9a34-e80e8347b756",
+      "colors": [],
+      "flavor_text": "The most potent elvish tonics and potions are brewed from the trees containing their imprisoned gods, the Einir.",
+      "illustration_id": "b30d29ed-b0d1-4894-a0f4-a519102c2084",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.webp?1783911227",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.jpg?1783911227",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.jpg?1783911227",
+        "crop": "https://cards.scryfall.io/crop/back/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.webp?1783911227",
+        "display": "https://cards.scryfall.io/display/back/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.webp?1783911227",
+        "grid": "https://cards.scryfall.io/grid/back/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.webp?1783911227",
+        "large": "https://cards.scryfall.io/large/back/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.jpg?1783911227",
+        "normal": "https://cards.scryfall.io/normal/back/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.jpg?1783911227",
+        "png": "https://cards.scryfall.io/png/back/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.png?1783911227",
+        "small": "https://cards.scryfall.io/small/back/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.jpg?1783911227",
+        "thumb": "https://cards.scryfall.io/thumb/back/0/3/03522b6b-31ec-4126-8885-5dbb2248688b.webp?1783911227"
+      },
+      "mana_cost": "",
+      "name": "Old-Growth Grove",
+      "object": "card_face",
+      "oracle_text": "This land enters tapped.\n{T}: Add {B} or {G}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 771541,
+  "cmc": 1.0,
+  "collector_number": "256",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 740,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "03522b6b-31ec-4126-8885-5dbb2248688b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:53:47Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 126569,
+  "multiverse_ids": [
+    661791
+  ],
+  "name": "Revitalizing Repast // Old-Growth Grove",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8dd6d060-d023-48a6-85cb-7a5521b6257b",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-05-22",
+    "source": "IGN",
+    "source_uri": "https://www.ign.com/articles/magic-the-gathering-modern-horizons-3-spoilers-mdfc-dual-land"
+  },
+  "prices": {
+    "eur": "1.39",
+    "eur_foil": "1.90",
+    "tix": "0.03",
+    "usd": "1.75",
+    "usd_etched": null,
+    "usd_foil": "2.90"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8dd6d060-d023-48a6-85cb-7a5521b6257b&unique=prints",
+  "produced_mana": [
+    "B",
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126569?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=771541&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552651%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Revitalizing+Repast",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=661791&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRevitalizing%2BRepast%2B%252F%252F%2BOld-Growth%2BGrove",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRevitalizing%2BRepast%2B%252F%252F%2BOld-Growth%2BGrove"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/03522b6b-31ec-4126-8885-5dbb2248688b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/256/revitalizing-repast-old-growth-grove?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552651,
+  "textless": false,
+  "type_line": "Instant // Land",
+  "uri": "https://api.scryfall.com/cards/03522b6b-31ec-4126-8885-5dbb2248688b",
+  "variation": false
+}

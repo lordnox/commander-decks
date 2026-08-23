@@ -1,0 +1,127 @@
+{
+  "artist": "Stephen Tappin",
+  "artist_ids": [
+    "bb596c13-9c39-4b11-8a7b-c88944826e70"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 298035,
+  "cmc": 4.0,
+  "collector_number": "86",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 2496,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "ad840567-c3ac-4e14-b398-0d11c88931bc",
+  "illustration_id": "9e43de38-6ce0-4500-ac7b-db7b0f2b3787",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:51:13Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/d/ad840567-c3ac-4e14-b398-0d11c88931bc.webp?1783936273",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/d/ad840567-c3ac-4e14-b398-0d11c88931bc.jpg?1783936273",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/d/ad840567-c3ac-4e14-b398-0d11c88931bc.jpg?1783936273",
+    "crop": "https://cards.scryfall.io/crop/front/a/d/ad840567-c3ac-4e14-b398-0d11c88931bc.webp?1783936273",
+    "display": "https://cards.scryfall.io/display/front/a/d/ad840567-c3ac-4e14-b398-0d11c88931bc.webp?1783936273",
+    "grid": "https://cards.scryfall.io/grid/front/a/d/ad840567-c3ac-4e14-b398-0d11c88931bc.webp?1783936273",
+    "large": "https://cards.scryfall.io/large/front/a/d/ad840567-c3ac-4e14-b398-0d11c88931bc.jpg?1783936273",
+    "normal": "https://cards.scryfall.io/normal/front/a/d/ad840567-c3ac-4e14-b398-0d11c88931bc.jpg?1783936273",
+    "png": "https://cards.scryfall.io/png/front/a/d/ad840567-c3ac-4e14-b398-0d11c88931bc.png?1783936273",
+    "small": "https://cards.scryfall.io/small/front/a/d/ad840567-c3ac-4e14-b398-0d11c88931bc.jpg?1783936273",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/d/ad840567-c3ac-4e14-b398-0d11c88931bc.webp?1783936273"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}{R}",
+  "multiverse_ids": [
+    430305
+  ],
+  "name": "Pyrohemia",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9ac57a10-3402-4656-9079-f713884cde35",
+  "oracle_text": "At the beginning of the end step, if no creatures are on the battlefield, sacrifice this enchantment.\n{R}: This enchantment deals 1 damage to each creature and each player.",
+  "oversized": false,
+  "penny_rank": 5780,
+  "prices": {
+    "eur": "7.36",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "13.54",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9ac57a10-3402-4656-9079-f713884cde35&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Pyrohemia&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=298035&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F132127%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Pyrohemia",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=430305&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPyrohemia",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPyrohemia"
+  },
+  "released_at": "2017-06-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ad840567-c3ac-4e14-b398-0d11c88931bc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cma?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cma/86/pyrohemia?utm_source=api",
+  "set": "cma",
+  "set_id": "fd4d8463-0156-4c60-a40e-778762bb90e4",
+  "set_name": "Commander Anthology",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acma&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/fd4d8463-0156-4c60-a40e-778762bb90e4",
+  "story_spotlight": false,
+  "tcgplayer_id": 132127,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/ad840567-c3ac-4e14-b398-0d11c88931bc",
+  "variation": false
+}
