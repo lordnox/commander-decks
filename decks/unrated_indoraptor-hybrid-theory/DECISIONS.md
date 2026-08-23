@@ -1,0 +1,89 @@
+# Card decisions
+
+- **Indoraptor, the Perfect Hybrid** — Commands the deck: a cheap menace threat that grows on entry from prior burn and converts every point of self-inflicted damage into a forced sacrifice or direct damage.
+- **Barbed Servitor** — Indestructible pinger target that drains an opponent for each damage instance it takes, so it survives every sweeper the deck runs.
+- **Hunter's Insight** — Turns one connection by a grown commander into a large refill; combat damage only, so it wants the menace body rather than the ping engine.
+- **Keen Sense** — One-mana aura that draws on any damage to an opponent, including enrage damage from the commander.
+- **Requiem Monolith** — Grants a creature "draw that many cards when dealt damage" for a turn, converting a ping engine into a draw engine at the cost of life.
+- **Ripjaw Raptor** — The most reliable damage payoff: every ping from your own sweepers becomes a card, and its 4/5 body survives them.
+- **Snake Umbra** — Draw on damage to an opponent plus totem armor, which is one of the few effects that protects the commander from destruction.
+- **Thickest in the Thicket** — Doubles a creature's power in counters on entry and draws two per turn while you control the largest creature.
+- **Vraska Joins Up** — Deathtouch counters make the deck's 1-damage pings lethal to any creature, and legendary combat damage draws.
+- **Death Spark** — One-mana ping that recurs from the graveyard, giving a repeatable enrage trigger without a permanent on board.
+- **Electric Seaweed** — Untapped ping outlet that combos with Cacophodon and Rite of Passage into an arbitrarily large damage loop.
+- **Fiery Confluence** — Flexible: bloodthirst fuel before the commander, artifact removal, or a one-sided sweep alongside Rite of Passage.
+- **Frostling** — Cheap sacrificial ping for an early enrage trigger or to finish a small creature.
+- **Gut Shot** — Free enrage trigger, which matters for the turn you cast the commander with no mana left.
+- **Last Laugh** — Punishing repeatable sweeper that grows your board through Rite of Passage while shrinking everyone else's.
+- **Meltstrider's Resolve** — Fight effect that deals damage to your own creature, so it removes a blocker and triggers enrage at once.
+- **Mogg Fanatic** — Sacrificial ping that can trigger enrage at instant speed in response to removal.
+- **Noxious Field** — Repeatable land-based ping that loops with Cacophodon; symmetrical, so it is best when your life total is ahead.
+- **Pestilence** — Primary mana-driven engine: each activation is a scaling edict from the commander plus counters from Rite of Passage.
+- **Plague Spitter** — Free upkeep ping every turn and another on death, so the engine runs without mana.
+- **Pyrohemia** — Red copy of Pestilence, adding redundancy to the deck's key engine slot.
+- **Spikefield Hazard // Spikefield Cave** — Free-roll: a land when you need one, a ping with exile upside when you need a trigger.
+- **Swift Demise** — Removal that pairs with the deck's incidental damage, destroying every opposing creature already damaged this turn.
+- **Withering Wisps** — Repeatable ping whose limit rises to fifteen with Urborg turning the snow basics into snow Swamps.
+- **Basilisk Collar** — Turns any pinger into deathtouch removal and adds lifelink to offset the symmetrical damage.
+- **Eternal Thirst** — Lifelink plus counters when opposing creatures die, which is frequent when the deck's pings and edicts resolve.
+- **Shadowspear** — Trample and lifelink to convert a grown commander into lethal damage, and strips hexproof or indestructible from blockers.
+- **Atarka's Command** — Bloodthirst fuel, a land drop, or a team pump at instant speed for three damage before the commander lands.
+- **Boltwave** — One mana for nine bloodthirst counters in a four-player pod, the cheapest way to make the commander enter large.
+- **Flame Rift** — Efficient bloodthirst fuel and reach; the damage to yourself is real, so it is best cast in the same turn as the commander.
+- **Level Up** — Doubles counters each attack, converting a moderately grown commander into a one-hit threat.
+- **Power Fist** — Trample plus combat-damage counters, giving the commander permanent size for connecting once.
+- **Rite of Passage** — The central enabler: it makes self-damage build a board instead of losing one.
+- **Scythecat Cub** — Landfall counters help the commander survive its first ping and grow on ramp turns.
+- **Bloodstained Mire** — Fetches the Swamp or Mountain half of the mana base and thins the deck.
+- **Bojuka Bog** — Untapped-cost-free graveyard hate on a land the deck already wants for black mana.
+- **Cinder Glade** — Red-green dual that comes in untapped once the snow basics are down.
+- **Command Tower** — Perfect mana in a three-color deck with several double-costed enchantments.
+- **Deathcap Glade** — Black-green dual that is usually untapped from turn three.
+- **Haunted Ridge** — Black-red dual that is usually untapped from turn three.
+- **Luxury Suite** — Untapped black-red source in a multiplayer pod.
+- **Riveteers Overlook** — Fetches a basic and gains a life, effectively a free land-thinning ramp piece.
+- **Rockfall Vale** — Red-green dual that is usually untapped from turn three.
+- **Rootbound Crag** — Red-green dual supported by the snow basics.
+- **Savage Lands** — Tri-land that guarantees all three colors for the enchantment-heavy curve.
+- **Smoldering Marsh** — Black-red dual with basic land types, so Farseek can find it.
+- **Snow-Covered Forest** — Green source that also counts toward Withering Wisps once Urborg is out.
+- **Snow-Covered Mountain** — Red source that also counts toward Withering Wisps once Urborg is out.
+- **Snow-Covered Swamp** — Primary black source and the direct fuel for Withering Wisps activations.
+- **Spire Garden** — Untapped red-green source in a multiplayer pod.
+- **Undergrowth Stadium** — Untapped black-green source in a multiplayer pod.
+- **Urborg, Tomb of Yawgmoth** — Fixes black mana and turns every snow land into a snow Swamp for Withering Wisps.
+- **Vernal Fen** — Snow black-green dual with basic land types for Farseek.
+- **Wooded Foothills** — Fetches the Mountain or Forest half of the mana base.
+- **Ziatora's Proving Ground** — Tri-land with all three basic types, findable by Farseek and cyclable late.
+- **Arcane Signet** — Two-mana perfect fixing for a deck that wants the commander down on turn three.
+- **Biophagus** — Any-color mana that adds a counter to a creature it helps cast, which keeps the 3/1 commander alive through its own engine.
+- **Birds of Paradise** — Turn-one fixing and acceleration for all three colors.
+- **Drover of the Mighty** — Any-color dork that becomes a 3/3 body alongside the Dinosaurs.
+- **Farseek** — Ramp that finds Smoldering Marsh, Vernal Fen, or Ziatora's Proving Ground rather than a basic Forest.
+- **Goblin Anarchomancer** — Cost reduction on most of the deck's red and green spells.
+- **Golgari Signet** — Fixing toward the double-black enchantments.
+- **Gruul Signet** — Fixing toward the red-green half of the curve.
+- **Nature's Lore** — Untapped ramp that finds any Forest, including the snow basics and Vernal Fen.
+- **Rakdos Signet** — Fixing for the black-red sweepers.
+- **Rampant Growth** — Cheap basic-land ramp that supports the snow-Swamp count.
+- **Ranging Raptors** — Turns the deck's own pings into repeatable land ramp.
+- **Utopia Sprawl** — One-mana acceleration on a Forest that fixes toward black or red.
+- **Wild Growth** — One-mana acceleration that works on any land.
+- **Wreck and Rebuild** — Artifact and enchantment removal with a flashback mode that also rebuilds a land drop.
+- **Collective Resistance** — Instant-speed artifact and enchantment removal that can instead make the commander hexproof and indestructible.
+- **Hull Breach** — Two-for-one answer to artifacts and enchantments in a deck otherwise short on interaction.
+- **Cacophodon** — Untaps a permanent every time it takes damage, which is the untap half of the deck's loops.
+- **Fiendlash** — Converts incoming damage into aimed damage equal to the creature's power, bypassing the commander's random-opponent clause.
+- **Rhythm of the Wild** — Protects creature spells from counterspells and gives the commander haste or an extra counter on entry.
+- **Tainted Strike** — Infect finisher on a grown menace commander, killing from ten poison rather than commander damage.
+- **Armor of Shadows** — One-mana indestructibility so the commander survives its first ping and gains a counter instead.
+- **Bladed Battle-Fan** — Flash indestructibility that stays as a cheap equipment afterwards.
+- **Gaea's Gift** — Counter plus hexproof and indestructible at instant speed, the deck's best answer to targeted removal.
+- **Hexing Squelcher** — Ward on the whole team and counterspell protection for the deck's key spells.
+- **Revitalizing Repast // Old-Growth Grove** — Counter plus indestructible for one mana, or a land when the hand is short.
+- **Tamiyo's Safekeeping** — Cheap hexproof and indestructible that also protects Rite of Passage or another key permanent.
+- **Without Weakness** — Indestructibility that cycles when protection is not needed.
+- **Bridgeworks Battle // Tanglespan Bridgeworks** — Pump plus fight, which removes a blocker and triggers enrage; a land when flooded on spells.
+- **Vastwood Fortification // Vastwood Thicket** — A counter to survive the first ping, or a land drop.
+- **Bala Ged Recovery // Bala Ged Sanctuary** — The deck's only recursion, returning a lost engine piece, or a land when not needed.
+- **Boggart Trawler // Boggart Bog** — Graveyard hate on a body, or an untapped black source for three life.
