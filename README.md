@@ -7,6 +7,7 @@
 - [3− — Mishra — Racecar Driver](decks/3-_mishra-racecar-driver/README.md)
 - [3 — Alania — Divergent Laughter](decks/3_alania-divergent-storm/README.md)
 - [3+ — Bartolomé — Graveyard Shift](decks/3+_bartolome-graveyard-shift/README.md)
+- [Unrated — Iname — Death Aspect](decks/unrated_iname-death-aspect/README.md)
 
 A conversation-driven workspace for importing, resolving, categorizing, assessing, and improving Magic: The Gathering Commander decks.
 
