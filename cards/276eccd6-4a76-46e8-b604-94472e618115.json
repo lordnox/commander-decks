@@ -1,0 +1,133 @@
+{
+  "artist": "Steve Ellis",
+  "artist_ids": [
+    "39d8411c-2187-426c-8ad3-d4f688b22db1"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 881533,
+  "cmc": 3.0,
+  "collector_number": "214",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2636,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f6fab24d-0174-4248-8481-52194e05d6f9",
+  "illustration_id": "16e8bac3-cd8b-49f0-9947-0cca6a7ae416",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:49:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/6/f6fab24d-0174-4248-8481-52194e05d6f9.webp?1783903785",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/6/f6fab24d-0174-4248-8481-52194e05d6f9.jpg?1783903785",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/6/f6fab24d-0174-4248-8481-52194e05d6f9.jpg?1783903785",
+    "crop": "https://cards.scryfall.io/crop/front/f/6/f6fab24d-0174-4248-8481-52194e05d6f9.webp?1783903785",
+    "display": "https://cards.scryfall.io/display/front/f/6/f6fab24d-0174-4248-8481-52194e05d6f9.webp?1783903785",
+    "grid": "https://cards.scryfall.io/grid/front/f/6/f6fab24d-0174-4248-8481-52194e05d6f9.webp?1783903785",
+    "large": "https://cards.scryfall.io/large/front/f/6/f6fab24d-0174-4248-8481-52194e05d6f9.jpg?1783903785",
+    "normal": "https://cards.scryfall.io/normal/front/f/6/f6fab24d-0174-4248-8481-52194e05d6f9.jpg?1783903785",
+    "png": "https://cards.scryfall.io/png/front/f/6/f6fab24d-0174-4248-8481-52194e05d6f9.png?1783903785",
+    "small": "https://cards.scryfall.io/small/front/f/6/f6fab24d-0174-4248-8481-52194e05d6f9.jpg?1783903785",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/6/f6fab24d-0174-4248-8481-52194e05d6f9.webp?1783903785"
+  },
+  "keywords": [
+    "Goad",
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 148895,
+  "multiverse_ids": [],
+  "name": "Ghoulish Impetus",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "276eccd6-4a76-46e8-b604-94472e618115",
+  "oracle_text": "Enchant creature\nEnchanted creature gets +1/+1, has deathtouch, and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\nWhen enchanted creature dies, return this card to the battlefield at the beginning of the next end step.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.72",
+    "eur_foil": null,
+    "tix": "3.25",
+    "usd": "0.57",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A276eccd6-4a76-46e8-b604-94472e618115&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/148895?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=881533&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F687411%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ghoulish+Impetus",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGhoulish%2BImpetus",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGhoulish%2BImpetus"
+  },
+  "released_at": "2026-04-24",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "05B4E8610BFF0537A4B908921C1256B6E93848053B75F8371D3E1CAFE9724CE8",
+  "rulings_uri": "https://api.scryfall.com/cards/f6fab24d-0174-4248-8481-52194e05d6f9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/soc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/soc/214/ghoulish-impetus?utm_source=api",
+  "security_stamp": "oval",
+  "set": "soc",
+  "set_id": "97fab8d1-480a-419d-ab14-663968e29b9c",
+  "set_name": "Secrets of Strixhaven Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/97fab8d1-480a-419d-ab14-663968e29b9c",
+  "story_spotlight": false,
+  "tcgplayer_id": 687411,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/f6fab24d-0174-4248-8481-52194e05d6f9",
+  "variation": false
+}

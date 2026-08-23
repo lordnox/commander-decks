@@ -1,0 +1,137 @@
+{
+  "artist": "Filip Burburan",
+  "artist_ids": [
+    "66082c3b-a623-4d34-be51-2475214b85d3"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 511115,
+  "cmc": 3.0,
+  "collector_number": "107",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 5737,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Its bewildered bellow was met with a stern \"shh.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "3b69687d-191a-4bca-b1f7-eea27847c1af",
+  "illustration_id": "c01e19ba-2567-44fd-ab89-e232c0893a7a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:47:25Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/b/3b69687d-191a-4bca-b1f7-eea27847c1af.webp?1783928845",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/b/3b69687d-191a-4bca-b1f7-eea27847c1af.jpg?1783928845",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/b/3b69687d-191a-4bca-b1f7-eea27847c1af.jpg?1783928845",
+    "crop": "https://cards.scryfall.io/crop/front/3/b/3b69687d-191a-4bca-b1f7-eea27847c1af.webp?1783928845",
+    "display": "https://cards.scryfall.io/display/front/3/b/3b69687d-191a-4bca-b1f7-eea27847c1af.webp?1783928845",
+    "grid": "https://cards.scryfall.io/grid/front/3/b/3b69687d-191a-4bca-b1f7-eea27847c1af.webp?1783928845",
+    "large": "https://cards.scryfall.io/large/front/3/b/3b69687d-191a-4bca-b1f7-eea27847c1af.jpg?1783928845",
+    "normal": "https://cards.scryfall.io/normal/front/3/b/3b69687d-191a-4bca-b1f7-eea27847c1af.jpg?1783928845",
+    "png": "https://cards.scryfall.io/png/front/3/b/3b69687d-191a-4bca-b1f7-eea27847c1af.png?1783928845",
+    "small": "https://cards.scryfall.io/small/front/3/b/3b69687d-191a-4bca-b1f7-eea27847c1af.jpg?1783928845",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/b/3b69687d-191a-4bca-b1f7-eea27847c1af.webp?1783928845"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 84996,
+  "multiverse_ids": [
+    497627
+  ],
+  "name": "Wrong Turn",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d1cfbbcc-4aee-4400-b5a8-18713829ae72",
+  "oracle_text": "Target opponent gains control of target creature. (If an attacking or blocking creature changes controllers, it's removed from combat.)",
+  "oversized": false,
+  "penny_rank": 13741,
+  "preview": {
+    "previewed_at": "2020-10-31",
+    "source": "Pinnoel",
+    "source_uri": "https://www.twitch.tv/videos/787632456"
+  },
+  "prices": {
+    "eur": "0.61",
+    "eur_foil": "0.71",
+    "tix": "1.20",
+    "usd": "0.43",
+    "usd_etched": null,
+    "usd_foil": "0.61"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad1cfbbcc-4aee-4400-b5a8-18713829ae72&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/84996?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=511115&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F226869%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wrong+Turn",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=497627&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWrong%2BTurn",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWrong%2BTurn"
+  },
+  "released_at": "2020-11-20",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3b69687d-191a-4bca-b1f7-eea27847c1af/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmr/107/wrong-turn?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmr",
+  "set_id": "39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "set_name": "Commander Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "story_spotlight": false,
+  "tcgplayer_id": 226869,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/3b69687d-191a-4bca-b1f7-eea27847c1af",
+  "variation": false
+}

@@ -1,0 +1,135 @@
+{
+  "artist": "Ian Miller",
+  "artist_ids": [
+    "d2200e9f-c40d-45d4-8d87-3f1412c61770"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 8146,
+  "cmc": 5.0,
+  "collector_number": "95",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 14350,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Taniwha rolls in its sleep, and the land is awash with the waves.\"\n—Poetics of Hanan",
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "72d12315-4220-470d-9628-b9a3ea904ca7",
+  "illustration_id": "5f2090ba-f3f8-4184-b038-5a34892cc150",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:51:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/2/72d12315-4220-470d-9628-b9a3ea904ca7.webp?1783947101",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/2/72d12315-4220-470d-9628-b9a3ea904ca7.jpg?1783947101",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/2/72d12315-4220-470d-9628-b9a3ea904ca7.jpg?1783947101",
+    "crop": "https://cards.scryfall.io/crop/front/7/2/72d12315-4220-470d-9628-b9a3ea904ca7.webp?1783947101",
+    "display": "https://cards.scryfall.io/display/front/7/2/72d12315-4220-470d-9628-b9a3ea904ca7.webp?1783947101",
+    "grid": "https://cards.scryfall.io/grid/front/7/2/72d12315-4220-470d-9628-b9a3ea904ca7.webp?1783947101",
+    "large": "https://cards.scryfall.io/large/front/7/2/72d12315-4220-470d-9628-b9a3ea904ca7.jpg?1783947101",
+    "normal": "https://cards.scryfall.io/normal/front/7/2/72d12315-4220-470d-9628-b9a3ea904ca7.jpg?1783947101",
+    "png": "https://cards.scryfall.io/png/front/7/2/72d12315-4220-470d-9628-b9a3ea904ca7.png?1783947101",
+    "small": "https://cards.scryfall.io/small/front/7/2/72d12315-4220-470d-9628-b9a3ea904ca7.jpg?1783947101",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/2/72d12315-4220-470d-9628-b9a3ea904ca7.webp?1783947101"
+  },
+  "keywords": [
+    "Trample",
+    "Phasing"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{U}",
+  "mtgo_foil_id": 7358,
+  "mtgo_id": 7357,
+  "multiverse_ids": [
+    3366
+  ],
+  "name": "Taniwha",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "371c993a-69b8-4a51-af89-982b79940b2d",
+  "oracle_text": "Trample\nPhasing (This phases in or out before you untap during each of your untap steps. While it's phased out, it's treated as though it doesn't exist.)\nAt the beginning of your upkeep, all lands you control phase out. (They phase in before you untap during your next untap step.)",
+  "oversized": false,
+  "power": "7",
+  "prices": {
+    "eur": "3.77",
+    "eur_foil": null,
+    "tix": "0.14",
+    "usd": "5.81",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A371c993a-69b8-4a51-af89-982b79940b2d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/7357?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=8146&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F5256%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Taniwha",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=3366&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTaniwha",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTaniwha"
+  },
+  "released_at": "1996-10-08",
+  "reprint": false,
+  "reserved": true,
+  "rulings_uri": "https://api.scryfall.com/cards/72d12315-4220-470d-9628-b9a3ea904ca7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mir?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mir/95/taniwha?utm_source=api",
+  "set": "mir",
+  "set_id": "5f06acf3-8123-4a78-b2e7-089b0b775a4a",
+  "set_name": "Mirage",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amir&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5f06acf3-8123-4a78-b2e7-089b0b775a4a",
+  "story_spotlight": false,
+  "tcgplayer_id": 5256,
+  "textless": false,
+  "toughness": "7",
+  "type_line": "Legendary Creature — Serpent",
+  "uri": "https://api.scryfall.com/cards/72d12315-4220-470d-9628-b9a3ea904ca7",
+  "variation": false
+}

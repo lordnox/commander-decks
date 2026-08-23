@@ -1,0 +1,128 @@
+{
+  "artist": "Quinton Hoover",
+  "artist_ids": [
+    "1a2db619-92a5-431a-822b-101cdcc5bd5d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 6291,
+  "cmc": 4.0,
+  "collector_number": "79",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 10331,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "1993",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "17eeeef2-2ced-42b8-a5e0-1095c9e13b02",
+  "illustration_id": "568e0070-2808-47db-918e-6bcfc41248e5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:58:33Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/7/17eeeef2-2ced-42b8-a5e0-1095c9e13b02.webp?1783947513",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/7/17eeeef2-2ced-42b8-a5e0-1095c9e13b02.jpg?1783947513",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/7/17eeeef2-2ced-42b8-a5e0-1095c9e13b02.jpg?1783947513",
+    "crop": "https://cards.scryfall.io/crop/front/1/7/17eeeef2-2ced-42b8-a5e0-1095c9e13b02.webp?1783947513",
+    "display": "https://cards.scryfall.io/display/front/1/7/17eeeef2-2ced-42b8-a5e0-1095c9e13b02.webp?1783947513",
+    "grid": "https://cards.scryfall.io/grid/front/1/7/17eeeef2-2ced-42b8-a5e0-1095c9e13b02.webp?1783947513",
+    "large": "https://cards.scryfall.io/large/front/1/7/17eeeef2-2ced-42b8-a5e0-1095c9e13b02.jpg?1783947513",
+    "normal": "https://cards.scryfall.io/normal/front/1/7/17eeeef2-2ced-42b8-a5e0-1095c9e13b02.jpg?1783947513",
+    "png": "https://cards.scryfall.io/png/front/1/7/17eeeef2-2ced-42b8-a5e0-1095c9e13b02.png?1783947513",
+    "small": "https://cards.scryfall.io/small/front/1/7/17eeeef2-2ced-42b8-a5e0-1095c9e13b02.jpg?1783947513",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/7/17eeeef2-2ced-42b8-a5e0-1095c9e13b02.webp?1783947513"
+  },
+  "keywords": [
+    "Cumulative upkeep"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "multiverse_ids": [
+    2515
+  ],
+  "name": "Illusions of Grandeur",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d7c81b3e-8082-4aaf-8979-2717d118234c",
+  "oracle_text": "Cumulative upkeep {2} (At the beginning of your upkeep, put an age counter on this permanent, then sacrifice it unless you pay its upkeep cost for each age counter on it.)\nWhen this enchantment enters, you gain 20 life.\nWhen this enchantment leaves the battlefield, you lose 20 life.",
+  "oversized": false,
+  "prices": {
+    "eur": "13.24",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "16.53",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad7c81b3e-8082-4aaf-8979-2717d118234c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Illusions+of+Grandeur&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=6291&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F4739%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Illusions+of+Grandeur",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=2515&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIllusions%2Bof%2BGrandeur",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIllusions%2Bof%2BGrandeur"
+  },
+  "released_at": "1995-06-03",
+  "reprint": false,
+  "reserved": true,
+  "rulings_uri": "https://api.scryfall.com/cards/17eeeef2-2ced-42b8-a5e0-1095c9e13b02/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ice?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ice/79/illusions-of-grandeur?utm_source=api",
+  "set": "ice",
+  "set_id": "b0e08eea-5c01-4406-a6e2-dcd09c5e5b67",
+  "set_name": "Ice Age",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aice&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/b0e08eea-5c01-4406-a6e2-dcd09c5e5b67",
+  "story_spotlight": false,
+  "tcgplayer_id": 4739,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/17eeeef2-2ced-42b8-a5e0-1095c9e13b02",
+  "variation": false
+}

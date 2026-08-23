@@ -1,0 +1,135 @@
+{
+  "artist": "Hideaki Takamura",
+  "artist_ids": [
+    "49b6270b-1b28-4e03-b503-522f97dc3a78"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 12149,
+  "cmc": 5.0,
+  "collector_number": "136",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 19818,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Blood flows. Blood calls. Blood devours all and only blood remains.\"\n—Ogre chant",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "1b371b32-7758-4dc9-b4c5-1d1df1f1826a",
+  "illustration_id": "7b5b76ad-69bb-4426-bc61-0af089726b17",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:05:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/b/1b371b32-7758-4dc9-b4c5-1d1df1f1826a.webp?1783944309",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/b/1b371b32-7758-4dc9-b4c5-1d1df1f1826a.jpg?1783944309",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/b/1b371b32-7758-4dc9-b4c5-1d1df1f1826a.jpg?1783944309",
+    "crop": "https://cards.scryfall.io/crop/front/1/b/1b371b32-7758-4dc9-b4c5-1d1df1f1826a.webp?1783944309",
+    "display": "https://cards.scryfall.io/display/front/1/b/1b371b32-7758-4dc9-b4c5-1d1df1f1826a.webp?1783944309",
+    "grid": "https://cards.scryfall.io/grid/front/1/b/1b371b32-7758-4dc9-b4c5-1d1df1f1826a.webp?1783944309",
+    "large": "https://cards.scryfall.io/large/front/1/b/1b371b32-7758-4dc9-b4c5-1d1df1f1826a.jpg?1783944309",
+    "normal": "https://cards.scryfall.io/normal/front/1/b/1b371b32-7758-4dc9-b4c5-1d1df1f1826a.jpg?1783944309",
+    "png": "https://cards.scryfall.io/png/front/1/b/1b371b32-7758-4dc9-b4c5-1d1df1f1826a.png?1783944309",
+    "small": "https://cards.scryfall.io/small/front/1/b/1b371b32-7758-4dc9-b4c5-1d1df1f1826a.jpg?1783944309",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/b/1b371b32-7758-4dc9-b4c5-1d1df1f1826a.webp?1783944309"
+  },
+  "keywords": [
+    "Fear"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_foil_id": 21506,
+  "mtgo_id": 21505,
+  "multiverse_ids": [
+    79119
+  ],
+  "name": "Painwracker Oni",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4c033502-2005-4e13-96b6-3f8c0a4b6a81",
+  "oracle_text": "Fear (This creature can't be blocked except by artifact creatures and/or black creatures.)\nAt the beginning of your upkeep, sacrifice a creature if you don't control an Ogre.",
+  "oversized": false,
+  "power": "5",
+  "prices": {
+    "eur": "0.11",
+    "eur_foil": "0.58",
+    "tix": "0.03",
+    "usd": "0.16",
+    "usd_etched": null,
+    "usd_foil": "0.49"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4c033502-2005-4e13-96b6-3f8c0a4b6a81&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/21505?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=12149&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F12130%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Painwracker+Oni",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=79119&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPainwracker%2BOni",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPainwracker%2BOni"
+  },
+  "released_at": "2004-10-01",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1b371b32-7758-4dc9-b4c5-1d1df1f1826a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/chk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/chk/136/painwracker-oni?utm_source=api",
+  "set": "chk",
+  "set_id": "6183d21f-a0af-4118-ba58-aca1d8719c01",
+  "set_name": "Champions of Kamigawa",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Achk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/6183d21f-a0af-4118-ba58-aca1d8719c01",
+  "story_spotlight": false,
+  "tcgplayer_id": 12130,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Demon Spirit",
+  "uri": "https://api.scryfall.com/cards/1b371b32-7758-4dc9-b4c5-1d1df1f1826a",
+  "variation": false
+}

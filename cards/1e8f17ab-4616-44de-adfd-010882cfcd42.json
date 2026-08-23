@@ -1,0 +1,133 @@
+{
+  "artist": "Daren Bader",
+  "artist_ids": [
+    "7da1a585-c875-45e4-b322-5da9e8e1f651"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 386,
+  "cmc": 5.0,
+  "collector_number": "44",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 13236,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c0b9c148-5f31-405e-9215-a12bafcac99a",
+  "illustration_id": "87155d9d-1f53-4bdf-897f-f63a0ce590de",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:07:24Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/0/c0b9c148-5f31-405e-9215-a12bafcac99a.webp?1783944444",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/0/c0b9c148-5f31-405e-9215-a12bafcac99a.jpg?1783944444",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/0/c0b9c148-5f31-405e-9215-a12bafcac99a.jpg?1783944444",
+    "crop": "https://cards.scryfall.io/crop/front/c/0/c0b9c148-5f31-405e-9215-a12bafcac99a.webp?1783944444",
+    "display": "https://cards.scryfall.io/display/front/c/0/c0b9c148-5f31-405e-9215-a12bafcac99a.webp?1783944444",
+    "grid": "https://cards.scryfall.io/grid/front/c/0/c0b9c148-5f31-405e-9215-a12bafcac99a.webp?1783944444",
+    "large": "https://cards.scryfall.io/large/front/c/0/c0b9c148-5f31-405e-9215-a12bafcac99a.jpg?1783944444",
+    "normal": "https://cards.scryfall.io/normal/front/c/0/c0b9c148-5f31-405e-9215-a12bafcac99a.jpg?1783944444",
+    "png": "https://cards.scryfall.io/png/front/c/0/c0b9c148-5f31-405e-9215-a12bafcac99a.png?1783944444",
+    "small": "https://cards.scryfall.io/small/front/c/0/c0b9c148-5f31-405e-9215-a12bafcac99a.jpg?1783944444",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/0/c0b9c148-5f31-405e-9215-a12bafcac99a.webp?1783944444"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}{B}",
+  "mtgo_foil_id": 20452,
+  "mtgo_id": 20451,
+  "multiverse_ids": [
+    49837
+  ],
+  "name": "Greater Harvester",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1e8f17ab-4616-44de-adfd-010882cfcd42",
+  "oracle_text": "At the beginning of your upkeep, sacrifice a permanent.\nWhenever this creature deals combat damage to a player, that player sacrifices two permanents of their choice.",
+  "oversized": false,
+  "penny_rank": 13978,
+  "power": "5",
+  "prices": {
+    "eur": "0.41",
+    "eur_foil": "4.63",
+    "tix": "0.02",
+    "usd": "1.74",
+    "usd_etched": null,
+    "usd_foil": "5.63"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1e8f17ab-4616-44de-adfd-010882cfcd42&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/20451?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=386&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F11674%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Greater+Harvester",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=49837&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGreater%2BHarvester",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGreater%2BHarvester"
+  },
+  "released_at": "2004-02-06",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c0b9c148-5f31-405e-9215-a12bafcac99a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dst?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dst/44/greater-harvester?utm_source=api",
+  "set": "dst",
+  "set_id": "e29cb2dd-1345-4032-abfe-e52e8c8ce074",
+  "set_name": "Darksteel",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adst&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e29cb2dd-1345-4032-abfe-e52e8c8ce074",
+  "story_spotlight": false,
+  "tcgplayer_id": 11674,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Creature — Horror",
+  "uri": "https://api.scryfall.com/cards/c0b9c148-5f31-405e-9215-a12bafcac99a",
+  "variation": false
+}

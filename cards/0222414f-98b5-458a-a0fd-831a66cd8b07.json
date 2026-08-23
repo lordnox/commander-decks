@@ -1,0 +1,132 @@
+{
+  "artist": "Alan Pollack",
+  "artist_ids": [
+    "70c20ea3-5ad6-4082-a337-6e994ae5828e"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 789061,
+  "cmc": 0.0,
+  "collector_number": "303",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 507,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "70e8e7e2-e9ea-4358-805e-c5110c8d8443",
+  "illustration_id": "688991be-4256-45fe-a887-ca4f01d3a487",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:26:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/0/70e8e7e2-e9ea-4358-805e-c5110c8d8443.webp?1783909566",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/0/70e8e7e2-e9ea-4358-805e-c5110c8d8443.jpg?1783909566",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/0/70e8e7e2-e9ea-4358-805e-c5110c8d8443.jpg?1783909566",
+    "crop": "https://cards.scryfall.io/crop/front/7/0/70e8e7e2-e9ea-4358-805e-c5110c8d8443.webp?1783909566",
+    "display": "https://cards.scryfall.io/display/front/7/0/70e8e7e2-e9ea-4358-805e-c5110c8d8443.webp?1783909566",
+    "grid": "https://cards.scryfall.io/grid/front/7/0/70e8e7e2-e9ea-4358-805e-c5110c8d8443.webp?1783909566",
+    "large": "https://cards.scryfall.io/large/front/7/0/70e8e7e2-e9ea-4358-805e-c5110c8d8443.jpg?1783909566",
+    "normal": "https://cards.scryfall.io/normal/front/7/0/70e8e7e2-e9ea-4358-805e-c5110c8d8443.jpg?1783909566",
+    "png": "https://cards.scryfall.io/png/front/7/0/70e8e7e2-e9ea-4358-805e-c5110c8d8443.png?1783909566",
+    "small": "https://cards.scryfall.io/small/front/7/0/70e8e7e2-e9ea-4358-805e-c5110c8d8443.jpg?1783909566",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/0/70e8e7e2-e9ea-4358-805e-c5110c8d8443.webp?1783909566"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 131231,
+  "multiverse_ids": [
+    676176
+  ],
+  "name": "Tainted Isle",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0222414f-98b5-458a-a0fd-831a66cd8b07",
+  "oracle_text": "{T}: Add {C}.\n{T}: Add {U} or {B}. Activate only if you control a Swamp.",
+  "oversized": false,
+  "prices": {
+    "eur": "1.03",
+    "eur_foil": null,
+    "tix": "0.13",
+    "usd": "2.91",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0222414f-98b5-458a-a0fd-831a66cd8b07&unique=prints",
+  "produced_mana": [
+    "B",
+    "C",
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/131231?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=789061&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F579338%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Tainted+Isle",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676176&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTainted%2BIsle",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTainted%2BIsle"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/70e8e7e2-e9ea-4358-805e-c5110c8d8443/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/303/tainted-isle?utm_source=api",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 579338,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/70e8e7e2-e9ea-4358-805e-c5110c8d8443",
+  "variation": false
+}

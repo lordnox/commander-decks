@@ -1,0 +1,135 @@
+{
+  "artist": "Chris Rahn",
+  "artist_ids": [
+    "7742047e-0f80-4c0f-a530-d07460165e86"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 805752,
+  "cmc": 3.0,
+  "collector_number": "104",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 9553,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Subservience to greater power is the only law in the pit.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "af33e187-b535-49ac-90fa-17a5ed72d920",
+  "illustration_id": "5d90f8ac-eeca-4e58-8f52-13265396d070",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:02:25Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/f/af33e187-b535-49ac-90fa-17a5ed72d920.webp?1783908145",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/f/af33e187-b535-49ac-90fa-17a5ed72d920.jpg?1783908145",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/f/af33e187-b535-49ac-90fa-17a5ed72d920.jpg?1783908145",
+    "crop": "https://cards.scryfall.io/crop/front/a/f/af33e187-b535-49ac-90fa-17a5ed72d920.webp?1783908145",
+    "display": "https://cards.scryfall.io/display/front/a/f/af33e187-b535-49ac-90fa-17a5ed72d920.webp?1783908145",
+    "grid": "https://cards.scryfall.io/grid/front/a/f/af33e187-b535-49ac-90fa-17a5ed72d920.webp?1783908145",
+    "large": "https://cards.scryfall.io/large/front/a/f/af33e187-b535-49ac-90fa-17a5ed72d920.jpg?1783908145",
+    "normal": "https://cards.scryfall.io/normal/front/a/f/af33e187-b535-49ac-90fa-17a5ed72d920.jpg?1783908145",
+    "png": "https://cards.scryfall.io/png/front/a/f/af33e187-b535-49ac-90fa-17a5ed72d920.png?1783908145",
+    "small": "https://cards.scryfall.io/small/front/a/f/af33e187-b535-49ac-90fa-17a5ed72d920.jpg?1783908145",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/f/af33e187-b535-49ac-90fa-17a5ed72d920.webp?1783908145"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 135596,
+  "multiverse_ids": [
+    685934
+  ],
+  "name": "Demonic Taskmaster",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "162e45f5-edb8-4a13-acdc-8980ce5ba8ac",
+  "oracle_text": "Flying\nAt the beginning of your upkeep, sacrifice a creature other than this creature.",
+  "oversized": false,
+  "penny_rank": 12160,
+  "power": "4",
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": "0.25",
+    "tix": "0.05",
+    "usd": "0.29",
+    "usd_etched": null,
+    "usd_foil": "0.31"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A162e45f5-edb8-4a13-acdc-8980ce5ba8ac&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/135596?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=805752&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F609910%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Demonic+Taskmaster",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=685934&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDemonic%2BTaskmaster",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDemonic%2BTaskmaster"
+  },
+  "released_at": "2025-01-24",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/af33e187-b535-49ac-90fa-17a5ed72d920/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/inr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/inr/104/demonic-taskmaster?utm_source=api",
+  "set": "inr",
+  "set_id": "b9618c8c-9f31-4b42-9798-2991893c27bf",
+  "set_name": "Innistrad Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ainr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/b9618c8c-9f31-4b42-9798-2991893c27bf",
+  "story_spotlight": false,
+  "tcgplayer_id": 609910,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Demon",
+  "uri": "https://api.scryfall.com/cards/af33e187-b535-49ac-90fa-17a5ed72d920",
+  "variation": false
+}

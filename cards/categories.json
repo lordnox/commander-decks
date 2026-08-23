@@ -4169,6 +4169,456 @@
       "categories": [
         "tutor"
       ]
+    },
+    "7282f643-191b-41be-9f6f-82360c915d6d": {
+      "name": "Abyssal Persecutor",
+      "categories": [
+        "other"
+      ]
+    },
+    "8910f79a-66c9-41b3-b55a-e3e651ae6f26": {
+      "name": "Amphin Mutineer",
+      "categories": [
+        "removal",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "234a734b-ba28-4f1b-9d01-3c3e7d516590": {
+      "name": "An Offer You Can't Refuse",
+      "categories": [
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "9188031e-1c24-4981-a3d2-461a2bf917b6": {
+      "name": "Archfiend of the Dross",
+      "categories": [
+        "other"
+      ]
+    },
+    "37688720-03de-4eca-a82d-a0afe8d58adc": {
+      "name": "Baleful Strix",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "ed1eaac2-79f7-4d4f-a0c5-f87a4cf6042c": {
+      "name": "Bird",
+      "categories": [
+        "other"
+      ]
+    },
+    "6cf50e21-0f60-4e9a-b910-ebe1bad2a29e": {
+      "name": "Blasphemous Edict",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "b2747459-05ec-42a6-81be-e97e182bc778": {
+      "name": "Bloodthirsty Blade",
+      "categories": [
+        "other"
+      ]
+    },
+    "36cd2364-d113-47d1-b2c4-b088d9eb88dd": {
+      "name": "Brainstorm",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "6d194882-ca37-49bb-ac9f-a751c53850a8": {
+      "name": "Bribery",
+      "categories": [
+        "other"
+      ]
+    },
+    "7358e164-5704-4e78-9b21-6a9bf2a968ce": {
+      "name": "Cabal Coffers",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "d473b507-8c33-4118-bc10-b0a268776074": {
+      "name": "Choked Estuary",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "144119bc-7fd1-45c5-9e29-f742e7c255ac": {
+      "name": "Clearwater Pathway // Murkwater Pathway",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "c27b771d-b5ec-459a-a101-f078cb8d0184": {
+      "name": "Contaminated Aquifer",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "cc187110-1148-4090-bbb8-e205694a39f5": {
+      "name": "Counterspell",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "4869a530-757f-4364-8d8e-4dc8001f433c": {
+      "name": "Darkwater Catacombs",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "2847c8a0-f6aa-4e4a-a7b8-fc116436a264": {
+      "name": "Demonic Hordes",
+      "categories": [
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "162e45f5-edb8-4a13-acdc-8980ce5ba8ac": {
+      "name": "Demonic Taskmaster",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "82004860-e589-4e38-8d61-8c0210e4ea39": {
+      "name": "Demonic Tutor",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "2c438ecb-b127-4450-9395-2d1eea294f30": {
+      "name": "Domineering Will",
+      "categories": [
+        "other"
+      ]
+    },
+    "049d1fb2-cce7-40e7-a633-e84cf9782d89": {
+      "name": "Donate",
+      "categories": [
+        "other"
+      ]
+    },
+    "6208534d-e7c7-43ef-b8b2-fea1d82459e8": {
+      "name": "Drinker of Sorrow",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "819fc966-434e-470f-91e9-a38df974ad17": {
+      "name": "Drowned Catacomb",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "db4242ab-fdf3-487a-bc77-42bd2ef973c3": {
+      "name": "Ebon Drake",
+      "categories": [
+        "other"
+      ]
+    },
+    "86fd4652-a629-429a-bf95-0b8724708a71": {
+      "name": "Ebonblade Reaper",
+      "categories": [
+        "other"
+      ]
+    },
+    "3f79780a-accd-4782-94a8-a6e71fb3ada7": {
+      "name": "Evil Eye of Orms-by-Gore",
+      "categories": [
+        "other"
+      ]
+    },
+    "752b5a97-e2f7-43c0-b8c8-2c1efbbfbd2a": {
+      "name": "Evil Eye of Urborg",
+      "categories": [
+        "other"
+      ]
+    },
+    "a55ef412-257b-4ecd-9440-4545521be938": {
+      "name": "Exchange of Words",
+      "categories": [
+        "other"
+      ]
+    },
+    "a143fdfe-f1aa-4eab-8c81-8c72a4dc1695": {
+      "name": "Flesh Reaver",
+      "categories": [
+        "other"
+      ]
+    },
+    "276eccd6-4a76-46e8-b604-94472e618115": {
+      "name": "Ghoulish Impetus",
+      "categories": [
+        "other"
+      ]
+    },
+    "1e8f17ab-4616-44de-adfd-010882cfcd42": {
+      "name": "Greater Harvester",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "b947b9a7-7a42-447d-b3fd-e20dba8a8f41": {
+      "name": "Grid Monitor",
+      "categories": [
+        "other"
+      ]
+    },
+    "a57d4a9d-4ac5-4a68-adb9-a73754034d7c": {
+      "name": "Hasran Ogress",
+      "categories": [
+        "other"
+      ]
+    },
+    "333745d9-e930-439b-94d6-3aeea2877f69": {
+      "name": "Illusionist's Gambit",
+      "categories": [
+        "other"
+      ]
+    },
+    "d7c81b3e-8082-4aaf-8979-2717d118234c": {
+      "name": "Illusions of Grandeur",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "c5c19d6e-16d5-4d24-be2d-c63646bdf00c": {
+      "name": "Jon Irenicus, Shattered One",
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "69d6b906-5461-4eba-8667-dbb8c0ce3fcb": {
+      "name": "Killing Wave",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "01dc86f3-5ebb-4b10-bf68-8fc9f232c724": {
+      "name": "Master of the Feast",
+      "categories": [
+        "other"
+      ]
+    },
+    "38a12bd7-4394-44a8-91a0-6a4ff7fa4f71": {
+      "name": "Maze of Ith",
+      "categories": [
+        "land"
+      ]
+    },
+    "03dc8820-ec10-42c1-8200-d323cfcbf2b0": {
+      "name": "Misinformation",
+      "categories": [
+        "other"
+      ]
+    },
+    "eaffdf95-8e20-408d-99fa-3adc9e19523d": {
+      "name": "Misleading Signpost",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "2c37d4e1-6b76-4feb-933b-1752ecc6d3e8": {
+      "name": "Modify Memory",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "491dc110-b459-412e-8a0b-45e5744ee8d1": {
+      "name": "Mystic Reflection",
+      "categories": [
+        "other"
+      ]
+    },
+    "8a52f3c0-2552-4425-b2e3-5496eb2232a7": {
+      "name": "Mystic Remora",
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "3407fe41-fdd3-4119-8f70-4bc4590a379f": {
+      "name": "Negate",
+      "categories": [
+        "other"
+      ]
+    },
+    "4c033502-2005-4e13-96b6-3f8c0a4b6a81": {
+      "name": "Painwracker Oni",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "ff3de07d-86c3-49e1-9de0-97c85301ff93": {
+      "name": "Parasitic Impetus",
+      "categories": [
+        "other"
+      ]
+    },
+    "f22fcd17-bc24-41df-81ce-6d11208861b9": {
+      "name": "Phyrexian Negator",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "6d56aeb1-0a50-46b6-abdb-cd6575a98dc3": {
+      "name": "Praetor's Grasp",
+      "categories": [
+        "other"
+      ]
+    },
+    "47214acc-08c4-4dcb-9a8b-09196ce41045": {
+      "name": "Psychic Impetus",
+      "categories": [
+        "other"
+      ]
+    },
+    "c5f360dc-fe4e-4796-b5c1-468cbd0f6d24": {
+      "name": "Public Enemy",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "d3d61a6a-7870-44df-92e5-513dac2c2c3e": {
+      "name": "Ravenform",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "96381388-1e82-411c-8290-1f3e909d3b5f": {
+      "name": "Reins of Power",
+      "categories": [
+        "other"
+      ]
+    },
+    "acdbaa99-18c9-4aa1-8797-69837ca7d8f5": {
+      "name": "Rotting Regisaur",
+      "categories": [
+        "discard"
+      ]
+    },
+    "290faa28-450e-4797-9a8f-642d8af3f82a": {
+      "name": "Run Away Together",
+      "categories": [
+        "other"
+      ]
+    },
+    "0e23b3a3-e210-439b-a4f1-3bc880b4b39e": {
+      "name": "Salamander Warrior",
+      "categories": [
+        "other"
+      ]
+    },
+    "217062f5-96f1-454c-9507-17f34ef37070": {
+      "name": "Sheoldred's Edict",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "763d60ea-a0ad-4f13-b8a7-aa1515283266": {
+      "name": "Shifting Grift",
+      "categories": [
+        "other"
+      ]
+    },
+    "627c9546-85b0-4b4d-93c6-e2ca8c3adf4f": {
+      "name": "Sleeper Agent",
+      "categories": [
+        "other"
+      ]
+    },
+    "c6aadaf0-eb47-4228-95e2-48e3ff7b6e2f": {
+      "name": "Sower of Discord",
+      "categories": [
+        "other"
+      ]
+    },
+    "b5cd9c55-34ad-4e1f-92b2-527c9babc4d4": {
+      "name": "Steel Golem",
+      "categories": [
+        "other"
+      ]
+    },
+    "e5ddacfb-e5a8-4885-a4c9-fa117f321293": {
+      "name": "Sudden Substitution",
+      "categories": [
+        "other"
+      ]
+    },
+    "cd2c90ac-2b04-461c-92f3-939871b6b6a3": {
+      "name": "Sunken Hollow",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "e6415ffb-8b7a-41c3-bedf-0d4112b7b795": {
+      "name": "Sunken Ruins",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "cd4db500-0017-46c6-be94-1bf48f686b6a": {
+      "name": "Sygg, River Cutthroat",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "0222414f-98b5-458a-a0fd-831a66cd8b07": {
+      "name": "Tainted Isle",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "371c993a-69b8-4a51-af89-982b79940b2d": {
+      "name": "Taniwha",
+      "categories": [
+        "other"
+      ]
+    },
+    "33b9b3bd-33ca-46f3-b8bb-a978bc3d1085": {
+      "name": "Temple of Deceit",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "ededbdae-d9dc-4206-9335-d7158f2d7700": {
+      "name": "Vampiric Tutor",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "da522912-1bc2-4d70-b426-94d10edb2afe": {
+      "name": "Vona's Hunger",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "d1cfbbcc-4aee-4400-b5a8-18713829ae72": {
+      "name": "Wrong Turn",
+      "categories": [
+        "other"
+      ]
+    },
+    "10026343-a8cd-4a99-b4d9-ff7611f52052": {
+      "name": "Yukora, the Prisoner",
+      "categories": [
+        "sacrifice"
+      ]
     }
   },
   "schema_version": 1,

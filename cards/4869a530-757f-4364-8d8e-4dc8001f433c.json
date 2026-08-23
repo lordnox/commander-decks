@@ -1,0 +1,133 @@
+{
+  "artist": "Monte Michael Moore",
+  "artist_ids": [
+    "a77227ad-26f9-40da-b0f2-664b5196cea0"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818923,
+  "cmc": 0.0,
+  "collector_number": "355",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 321,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Murky Otarian tides hide the forgotten treacheries of the Phyrexian war.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "03fbf51d-f622-4629-a228-a03ce7caf500",
+  "illustration_id": "061f660c-deb0-473f-a4ed-a073f9e40210",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:43:11Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/3/03fbf51d-f622-4629-a228-a03ce7caf500.webp?1783906991",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/3/03fbf51d-f622-4629-a228-a03ce7caf500.jpg?1783906991",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/3/03fbf51d-f622-4629-a228-a03ce7caf500.jpg?1783906991",
+    "crop": "https://cards.scryfall.io/crop/front/0/3/03fbf51d-f622-4629-a228-a03ce7caf500.webp?1783906991",
+    "display": "https://cards.scryfall.io/display/front/0/3/03fbf51d-f622-4629-a228-a03ce7caf500.webp?1783906991",
+    "grid": "https://cards.scryfall.io/grid/front/0/3/03fbf51d-f622-4629-a228-a03ce7caf500.webp?1783906991",
+    "large": "https://cards.scryfall.io/large/front/0/3/03fbf51d-f622-4629-a228-a03ce7caf500.jpg?1783906991",
+    "normal": "https://cards.scryfall.io/normal/front/0/3/03fbf51d-f622-4629-a228-a03ce7caf500.jpg?1783906991",
+    "png": "https://cards.scryfall.io/png/front/0/3/03fbf51d-f622-4629-a228-a03ce7caf500.png?1783906991",
+    "small": "https://cards.scryfall.io/small/front/0/3/03fbf51d-f622-4629-a228-a03ce7caf500.jpg?1783906991",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/3/03fbf51d-f622-4629-a228-a03ce7caf500.webp?1783906991"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 138651,
+  "multiverse_ids": [
+    696511
+  ],
+  "name": "Darkwater Catacombs",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4869a530-757f-4364-8d8e-4dc8001f433c",
+  "oracle_text": "{1}, {T}: Add {U}{B}.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.27",
+    "eur_foil": null,
+    "tix": "0.74",
+    "usd": "0.37",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4869a530-757f-4364-8d8e-4dc8001f433c&unique=prints",
+  "produced_mana": [
+    "B",
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138651?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818923&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624454%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Darkwater+Catacombs",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696511&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDarkwater%2BCatacombs",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDarkwater%2BCatacombs"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/03fbf51d-f622-4629-a228-a03ce7caf500/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/355/darkwater-catacombs?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624454,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/03fbf51d-f622-4629-a228-a03ce7caf500",
+  "variation": false
+}

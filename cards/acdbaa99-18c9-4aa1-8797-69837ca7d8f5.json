@@ -1,0 +1,141 @@
+{
+  "arena_id": 69896,
+  "artist": "Randy Vargas",
+  "artist_ids": [
+    "d20672ca-0555-4238-a984-fd171d36b247"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 378666,
+  "cmc": 3.0,
+  "collector_number": "111",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 5162,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Now, *that's* a zombie!\"\n—Modriss of Zargoth Fen",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d88c61cb-dbf9-46c3-8795-8896ba1208d5",
+  "illustration_id": "a7083a36-6d83-44e2-bf85-99b85f4b9e8a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:56:29Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/8/d88c61cb-dbf9-46c3-8795-8896ba1208d5.webp?1783932989",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/8/d88c61cb-dbf9-46c3-8795-8896ba1208d5.jpg?1783932989",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/8/d88c61cb-dbf9-46c3-8795-8896ba1208d5.jpg?1783932989",
+    "crop": "https://cards.scryfall.io/crop/front/d/8/d88c61cb-dbf9-46c3-8795-8896ba1208d5.webp?1783932989",
+    "display": "https://cards.scryfall.io/display/front/d/8/d88c61cb-dbf9-46c3-8795-8896ba1208d5.webp?1783932989",
+    "grid": "https://cards.scryfall.io/grid/front/d/8/d88c61cb-dbf9-46c3-8795-8896ba1208d5.webp?1783932989",
+    "large": "https://cards.scryfall.io/large/front/d/8/d88c61cb-dbf9-46c3-8795-8896ba1208d5.jpg?1783932989",
+    "normal": "https://cards.scryfall.io/normal/front/d/8/d88c61cb-dbf9-46c3-8795-8896ba1208d5.jpg?1783932989",
+    "png": "https://cards.scryfall.io/png/front/d/8/d88c61cb-dbf9-46c3-8795-8896ba1208d5.png?1783932989",
+    "small": "https://cards.scryfall.io/small/front/d/8/d88c61cb-dbf9-46c3-8795-8896ba1208d5.jpg?1783932989",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/8/d88c61cb-dbf9-46c3-8795-8896ba1208d5.webp?1783932989"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 73121,
+  "multiverse_ids": [
+    466865
+  ],
+  "name": "Rotting Regisaur",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "acdbaa99-18c9-4aa1-8797-69837ca7d8f5",
+  "oracle_text": "At the beginning of your upkeep, discard a card.",
+  "oversized": false,
+  "penny_rank": 1988,
+  "power": "7",
+  "preview": {
+    "previewed_at": "2019-06-19",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/card-preview/dino-cores-2019-06-19"
+  },
+  "prices": {
+    "eur": "1.24",
+    "eur_foil": "2.43",
+    "tix": "0.02",
+    "usd": "1.77",
+    "usd_etched": null,
+    "usd_foil": "3.50"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aacdbaa99-18c9-4aa1-8797-69837ca7d8f5&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/73121?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=378666&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F192593%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rotting+Regisaur",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=466865&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRotting%2BRegisaur",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRotting%2BRegisaur"
+  },
+  "released_at": "2019-07-12",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d88c61cb-dbf9-46c3-8795-8896ba1208d5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/m20?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/m20/111/rotting-regisaur?utm_source=api",
+  "security_stamp": "oval",
+  "set": "m20",
+  "set_id": "4a787360-9767-4f44-80b1-2405dc5e39c7",
+  "set_name": "Core Set 2020",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Am20&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/4a787360-9767-4f44-80b1-2405dc5e39c7",
+  "story_spotlight": false,
+  "tcgplayer_id": 192593,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Creature — Zombie Dinosaur",
+  "uri": "https://api.scryfall.com/cards/d88c61cb-dbf9-46c3-8795-8896ba1208d5",
+  "variation": false
+}

@@ -1,0 +1,138 @@
+{
+  "arena_id": 83808,
+  "artist": "Helge C. Balzer",
+  "artist_ids": [
+    "0c81268c-9a69-4dd5-b214-9f25e3483578"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 693202,
+  "cmc": 2.0,
+  "collector_number": "108",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1149,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Congratulations. I am entertained.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "a9225cc3-90f0-448f-a8d9-7c6c2796d077",
+  "illustration_id": "9bcd0559-13f5-4e2c-b7c8-4467e5d74387",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:47:21Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/9/a9225cc3-90f0-448f-a8d9-7c6c2796d077.webp?1783918041",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/9/a9225cc3-90f0-448f-a8d9-7c6c2796d077.jpg?1783918041",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/9/a9225cc3-90f0-448f-a8d9-7c6c2796d077.jpg?1783918041",
+    "crop": "https://cards.scryfall.io/crop/front/a/9/a9225cc3-90f0-448f-a8d9-7c6c2796d077.webp?1783918041",
+    "display": "https://cards.scryfall.io/display/front/a/9/a9225cc3-90f0-448f-a8d9-7c6c2796d077.webp?1783918041",
+    "grid": "https://cards.scryfall.io/grid/front/a/9/a9225cc3-90f0-448f-a8d9-7c6c2796d077.webp?1783918041",
+    "large": "https://cards.scryfall.io/large/front/a/9/a9225cc3-90f0-448f-a8d9-7c6c2796d077.jpg?1783918041",
+    "normal": "https://cards.scryfall.io/normal/front/a/9/a9225cc3-90f0-448f-a8d9-7c6c2796d077.jpg?1783918041",
+    "png": "https://cards.scryfall.io/png/front/a/9/a9225cc3-90f0-448f-a8d9-7c6c2796d077.png?1783918041",
+    "small": "https://cards.scryfall.io/small/front/a/9/a9225cc3-90f0-448f-a8d9-7c6c2796d077.jpg?1783918041",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/9/a9225cc3-90f0-448f-a8d9-7c6c2796d077.webp?1783918041"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 106431,
+  "multiverse_ids": [
+    602638
+  ],
+  "name": "Sheoldred's Edict",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "217062f5-96f1-454c-9507-17f34ef37070",
+  "oracle_text": "Choose one —\n• Each opponent sacrifices a nontoken creature of their choice.\n• Each opponent sacrifices a creature token of their choice.\n• Each opponent sacrifices a planeswalker of their choice.",
+  "oversized": false,
+  "penny_rank": 767,
+  "preview": {
+    "previewed_at": "2023-01-17",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/1710176714"
+  },
+  "prices": {
+    "eur": "1.59",
+    "eur_foil": "2.52",
+    "tix": "0.03",
+    "usd": "1.69",
+    "usd_etched": null,
+    "usd_foil": "2.28"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A217062f5-96f1-454c-9507-17f34ef37070&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/106431?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=693202&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F478441%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sheoldred%27s+Edict",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=602638&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSheoldred%2527s%2BEdict",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSheoldred%2527s%2BEdict"
+  },
+  "released_at": "2023-02-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a9225cc3-90f0-448f-a8d9-7c6c2796d077/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/one?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/one/108/sheoldreds-edict?utm_source=api",
+  "set": "one",
+  "set_id": "04bef644-343f-4230-95ee-255f29aa67a2",
+  "set_name": "Phyrexia: All Will Be One",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aone&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/04bef644-343f-4230-95ee-255f29aa67a2",
+  "story_spotlight": false,
+  "tcgplayer_id": 478441,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/a9225cc3-90f0-448f-a8d9-7c6c2796d077",
+  "variation": false
+}

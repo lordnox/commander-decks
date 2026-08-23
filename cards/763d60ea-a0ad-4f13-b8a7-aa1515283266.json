@@ -1,0 +1,142 @@
+{
+  "arena_id": 90412,
+  "artist": "Nereida",
+  "artist_ids": [
+    "bcab6d8a-e3eb-4502-9cc4-23b92bc8c4d1"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 763921,
+  "cmc": 2.0,
+  "collector_number": "66",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 6417,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "spree"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "20b8313b-a680-4dca-959a-1a7fa5cb4b1b",
+  "illustration_id": "25a55960-9105-451d-946f-fd8008297d0c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:04:00Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/0/20b8313b-a680-4dca-959a-1a7fa5cb4b1b.webp?1783911840",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/0/20b8313b-a680-4dca-959a-1a7fa5cb4b1b.jpg?1783911840",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/0/20b8313b-a680-4dca-959a-1a7fa5cb4b1b.jpg?1783911840",
+    "crop": "https://cards.scryfall.io/crop/front/2/0/20b8313b-a680-4dca-959a-1a7fa5cb4b1b.webp?1783911840",
+    "display": "https://cards.scryfall.io/display/front/2/0/20b8313b-a680-4dca-959a-1a7fa5cb4b1b.webp?1783911840",
+    "grid": "https://cards.scryfall.io/grid/front/2/0/20b8313b-a680-4dca-959a-1a7fa5cb4b1b.webp?1783911840",
+    "large": "https://cards.scryfall.io/large/front/2/0/20b8313b-a680-4dca-959a-1a7fa5cb4b1b.jpg?1783911840",
+    "normal": "https://cards.scryfall.io/normal/front/2/0/20b8313b-a680-4dca-959a-1a7fa5cb4b1b.jpg?1783911840",
+    "png": "https://cards.scryfall.io/png/front/2/0/20b8313b-a680-4dca-959a-1a7fa5cb4b1b.png?1783911840",
+    "small": "https://cards.scryfall.io/small/front/2/0/20b8313b-a680-4dca-959a-1a7fa5cb4b1b.jpg?1783911840",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/0/20b8313b-a680-4dca-959a-1a7fa5cb4b1b.webp?1783911840"
+  },
+  "keywords": [
+    "Spree"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}{U}",
+  "mtgo_id": 124043,
+  "multiverse_ids": [
+    655007
+  ],
+  "name": "Shifting Grift",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "763d60ea-a0ad-4f13-b8a7-aa1515283266",
+  "oracle_text": "Spree (Choose one or more additional costs.)\n+ {2} — Exchange control of two target creatures.\n+ {1} — Exchange control of two target artifacts.\n+ {1} — Exchange control of two target enchantments.",
+  "oversized": false,
+  "penny_rank": 17640,
+  "preview": {
+    "previewed_at": "2024-03-27",
+    "source": "Commander's Cauldron",
+    "source_uri": "https://www.youtube.com/watch?v=XO6lQrHkSy0"
+  },
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": "0.20",
+    "tix": "0.03",
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": "0.31"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A763d60ea-a0ad-4f13-b8a7-aa1515283266&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124043?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=763921&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544418%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Shifting+Grift",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=655007&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DShifting%2BGrift",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DShifting%2BGrift"
+  },
+  "released_at": "2024-04-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/20b8313b-a680-4dca-959a-1a7fa5cb4b1b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otj?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otj/66/shifting-grift?utm_source=api",
+  "set": "otj",
+  "set_id": "55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "set_name": "Outlaws of Thunder Junction",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotj&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "story_spotlight": false,
+  "tcgplayer_id": 544418,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/20b8313b-a680-4dca-959a-1a7fa5cb4b1b",
+  "variation": false
+}
