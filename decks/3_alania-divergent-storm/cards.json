@@ -275,30 +275,6 @@
       "submitted_name": "Display of Power"
     },
     {
-      "cache": "cards/53231b31-fb3c-4b30-bfe9-0ee8e754247b.json",
-      "card": {
-        "keywords": [],
-        "loyalty": "5",
-        "mana_cost": "{4}{R}{R}",
-        "oracle_text": "Whenever you cast an instant or sorcery spell, copy it. You may choose new targets for the copy. This ability triggers only once each turn.\n+2: Add two mana in any combination of colors.\n+1: Exile the top five cards of your library. Until the end of your next turn, you may cast an instant or sorcery spell from among those exiled cards.\n−X: Chandra deals X damage to each of up to two targets.",
-        "type_line": "Legendary Planeswalker — Chandra"
-      },
-      "categories": [
-        "Copy",
-        "Card Advantage"
-      ],
-      "category_source": "decklist",
-      "name": "Chandra, Hope's Beacon",
-      "oracle_id": "53231b31-fb3c-4b30-bfe9-0ee8e754247b",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mom/134/chandra-hopes-beacon?utm_source=api",
-      "submitted_categories": [
-        "Copy",
-        "Card Advantage"
-      ],
-      "submitted_name": "Chandra, Hope's Beacon"
-    },
-    {
       "cache": "cards/8eb7c0a5-6190-40de-b473-2d1daa3bbe28.json",
       "card": {
         "keywords": [
@@ -511,6 +487,43 @@
       "submitted_name": "Mindsplice Apparatus"
     },
     {
+      "cache": "cards/8e4d0da0-c7d8-4a20-9bfd-02c1331a7a49.json",
+      "card": {
+        "faces": [
+          {
+            "mana_cost": "{4}",
+            "name": "Primal Amulet",
+            "oracle_text": "Instant and sorcery spells you cast cost {1} less to cast.\nWhenever you cast an instant or sorcery spell, put a charge counter on this artifact. Then if there are four or more charge counters on it, you may remove those counters and transform it.",
+            "type_line": "Artifact"
+          },
+          {
+            "mana_cost": "",
+            "name": "Primal Wellspring",
+            "oracle_text": "(Transforms from Primal Amulet.)\n{T}: Add one mana of any color. When that mana is spent to cast an instant or sorcery spell, copy that spell and you may choose new targets for the copy.",
+            "type_line": "Land"
+          }
+        ],
+        "keywords": [
+          "Transform"
+        ],
+        "type_line": "Artifact // Land"
+      },
+      "categories": [
+        "Cost Reduction",
+        "Copy"
+      ],
+      "category_source": "decklist",
+      "name": "Primal Amulet // Primal Wellspring",
+      "oracle_id": "8e4d0da0-c7d8-4a20-9bfd-02c1331a7a49",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/xln/243/primal-amulet-primal-wellspring?utm_source=api",
+      "submitted_categories": [
+        "Cost Reduction",
+        "Copy"
+      ],
+      "submitted_name": "Primal Amulet"
+    },
+    {
       "cache": "cards/6ad8011d-3471-4369-9d68-b264cc027487.json",
       "card": {
         "keywords": [],
@@ -637,6 +650,29 @@
         "Card Advantage"
       ],
       "submitted_name": "Midnight Clock"
+    },
+    {
+      "cache": "cards/f76bcbfe-483f-4e63-8425-76feca1abf3e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{5}",
+        "oracle_text": "{T}: Add {R}. When that mana is spent to cast a red instant or sorcery spell, copy that spell and you may choose new targets for the copy.",
+        "type_line": "Legendary Artifact"
+      },
+      "categories": [
+        "Ramp",
+        "Copy"
+      ],
+      "category_source": "decklist",
+      "name": "Pyromancer's Goggles",
+      "oracle_id": "f76bcbfe-483f-4e63-8425-76feca1abf3e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/677/pyromancers-goggles?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Copy"
+      ],
+      "submitted_name": "Pyromancer's Goggles"
     },
     {
       "cache": "cards/56956afd-db53-4542-816b-490c8b0bbcf7.json",
@@ -1107,33 +1143,6 @@
         "Card Advantage"
       ],
       "submitted_name": "Three Steps Ahead"
-    },
-    {
-      "cache": "cards/56148ae7-a9df-4771-8d53-d9ffb815c884.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "{4}{U}{U}",
-        "oracle_text": "Choose one or more —\n• Counter target spell.\n• Counter target activated or triggered ability.\n• Return target nonland permanent to its owner's hand.\n• Create a token that's a copy of target creature you control.\n• Target player draws a card.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Interaction",
-        "Counterspell",
-        "Copy",
-        "Card Advantage"
-      ],
-      "category_source": "decklist",
-      "name": "Sublime Epiphany",
-      "oracle_id": "56148ae7-a9df-4771-8d53-d9ffb815c884",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/tdc/167/sublime-epiphany?utm_source=api",
-      "submitted_categories": [
-        "Interaction",
-        "Counterspell",
-        "Copy",
-        "Card Advantage"
-      ],
-      "submitted_name": "Sublime Epiphany"
     },
     {
       "cache": "cards/814e321d-16fd-4f7b-a8d8-2b089be76f2c.json",
@@ -1812,7 +1821,7 @@
     }
   ],
   "categorized_cards": 78,
-  "generated_at": "2026-08-23T22:08:04.777447+00:00",
+  "generated_at": "2026-08-23T22:20:17.145547+00:00",
   "schema_version": 3,
   "source": "decks/3_alania-divergent-storm/decklist.txt",
   "total_cards": 100,
