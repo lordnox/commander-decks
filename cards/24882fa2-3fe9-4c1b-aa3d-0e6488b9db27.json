@@ -1,0 +1,137 @@
+{
+  "artist": "James Ryman",
+  "artist_ids": [
+    "3852bbc9-11c0-4fe3-8722-a06ad7e2bcc5"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 721903,
+  "cmc": 2.0,
+  "collector_number": "295",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 31,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Wherever the strong would harm the weak, I will be there.\"\n—Ajani Goldmane",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "e32c67d1-187f-40df-b3b3-6036f5c92834",
+  "illustration_id": "16b9c334-bec0-4911-aecf-93c420e4e53d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:07:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/3/e32c67d1-187f-40df-b3b3-6036f5c92834.webp?1783915629",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/3/e32c67d1-187f-40df-b3b3-6036f5c92834.jpg?1783915629",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/3/e32c67d1-187f-40df-b3b3-6036f5c92834.jpg?1783915629",
+    "crop": "https://cards.scryfall.io/crop/front/e/3/e32c67d1-187f-40df-b3b3-6036f5c92834.webp?1783915629",
+    "display": "https://cards.scryfall.io/display/front/e/3/e32c67d1-187f-40df-b3b3-6036f5c92834.webp?1783915629",
+    "grid": "https://cards.scryfall.io/grid/front/e/3/e32c67d1-187f-40df-b3b3-6036f5c92834.webp?1783915629",
+    "large": "https://cards.scryfall.io/large/front/e/3/e32c67d1-187f-40df-b3b3-6036f5c92834.jpg?1783915629",
+    "normal": "https://cards.scryfall.io/normal/front/e/3/e32c67d1-187f-40df-b3b3-6036f5c92834.jpg?1783915629",
+    "png": "https://cards.scryfall.io/png/front/e/3/e32c67d1-187f-40df-b3b3-6036f5c92834.png?1783915629",
+    "small": "https://cards.scryfall.io/small/front/e/3/e32c67d1-187f-40df-b3b3-6036f5c92834.jpg?1783915629",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/3/e32c67d1-187f-40df-b3b3-6036f5c92834.webp?1783915629"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 114819,
+  "multiverse_ids": [
+    627759
+  ],
+  "name": "Heroic Intervention",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "24882fa2-3fe9-4c1b-aa3d-0e6488b9db27",
+  "oracle_text": "Permanents you control gain hexproof and indestructible until end of turn.",
+  "oversized": false,
+  "penny_rank": 1713,
+  "preview": {
+    "previewed_at": "2023-07-12",
+    "source": "Good Luck High Five",
+    "source_uri": "https://www.youtube.com/watch?v=230Dzf6Cr28"
+  },
+  "prices": {
+    "eur": "12.60",
+    "eur_foil": "14.28",
+    "tix": "0.59",
+    "usd": "15.82",
+    "usd_etched": null,
+    "usd_foil": "16.34"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A24882fa2-3fe9-4c1b-aa3d-0e6488b9db27&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/114819?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=721903&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F503556%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Heroic+Intervention",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=627759&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHeroic%2BIntervention",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHeroic%2BIntervention"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e32c67d1-187f-40df-b3b3-6036f5c92834/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/295/heroic-intervention?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 503556,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/e32c67d1-187f-40df-b3b3-6036f5c92834",
+  "variation": false
+}

@@ -1,0 +1,150 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "aa846cf5-c618-4304-bb92-5df936ebca9b",
+      "name": "Squirrel",
+      "object": "related_card",
+      "type_line": "Token Creature — Squirrel",
+      "uri": "https://api.scryfall.com/cards/aa846cf5-c618-4304-bb92-5df936ebca9b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5f7e1991-9ffa-4a57-b8eb-ebe542a47f09",
+      "name": "Chatter of the Squirrel",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/5f7e1991-9ffa-4a57-b8eb-ebe542a47f09"
+    }
+  ],
+  "artist": "Jim Nelson",
+  "artist_ids": [
+    "aa9f64d1-29e1-4c82-877e-44c18183f40b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 486589,
+  "cmc": 1.0,
+  "collector_number": "157",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 7081,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5f7e1991-9ffa-4a57-b8eb-ebe542a47f09",
+  "illustration_id": "52f29fa4-bfc2-4046-a98d-3192256ba4f0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:09:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/f/5f7e1991-9ffa-4a57-b8eb-ebe542a47f09.webp?1783930150",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/f/5f7e1991-9ffa-4a57-b8eb-ebe542a47f09.jpg?1783930150",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/f/5f7e1991-9ffa-4a57-b8eb-ebe542a47f09.jpg?1783930150",
+    "crop": "https://cards.scryfall.io/crop/front/5/f/5f7e1991-9ffa-4a57-b8eb-ebe542a47f09.webp?1783930150",
+    "display": "https://cards.scryfall.io/display/front/5/f/5f7e1991-9ffa-4a57-b8eb-ebe542a47f09.webp?1783930150",
+    "grid": "https://cards.scryfall.io/grid/front/5/f/5f7e1991-9ffa-4a57-b8eb-ebe542a47f09.webp?1783930150",
+    "large": "https://cards.scryfall.io/large/front/5/f/5f7e1991-9ffa-4a57-b8eb-ebe542a47f09.jpg?1783930150",
+    "normal": "https://cards.scryfall.io/normal/front/5/f/5f7e1991-9ffa-4a57-b8eb-ebe542a47f09.jpg?1783930150",
+    "png": "https://cards.scryfall.io/png/front/5/f/5f7e1991-9ffa-4a57-b8eb-ebe542a47f09.png?1783930150",
+    "small": "https://cards.scryfall.io/small/front/5/f/5f7e1991-9ffa-4a57-b8eb-ebe542a47f09.jpg?1783930150",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/f/5f7e1991-9ffa-4a57-b8eb-ebe542a47f09.webp?1783930150"
+  },
+  "keywords": [
+    "Flashback"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "mtgo_id": 82348,
+  "multiverse_ids": [
+    489830
+  ],
+  "name": "Chatter of the Squirrel",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b0aaa4b1-5188-43a6-997d-7a9b2ad452bc",
+  "oracle_text": "Create a 1/1 green Squirrel creature token.\nFlashback {1}{G} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+  "oversized": false,
+  "penny_rank": 8227,
+  "prices": {
+    "eur": "0.11",
+    "eur_foil": "0.34",
+    "tix": "0.03",
+    "usd": "0.34",
+    "usd_etched": null,
+    "usd_foil": "0.41"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab0aaa4b1-5188-43a6-997d-7a9b2ad452bc&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/82348?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=486589&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F219569%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Chatter+of+the+Squirrel",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=489830&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DChatter%2Bof%2Bthe%2BSquirrel",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DChatter%2Bof%2Bthe%2BSquirrel"
+  },
+  "released_at": "2020-08-07",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5f7e1991-9ffa-4a57-b8eb-ebe542a47f09/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/2xm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/2xm/157/chatter-of-the-squirrel?utm_source=api",
+  "set": "2xm",
+  "set_id": "372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "set_name": "Double Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A2xm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "story_spotlight": false,
+  "tcgplayer_id": 219569,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/5f7e1991-9ffa-4a57-b8eb-ebe542a47f09",
+  "variation": false
+}

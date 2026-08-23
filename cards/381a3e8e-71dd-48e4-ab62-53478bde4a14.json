@@ -1,0 +1,139 @@
+{
+  "arena_id": 91618,
+  "artist": "Hristo D. Chukov",
+  "artist_ids": [
+    "e4631396-f0ce-41df-9d35-a7bd1da9d5a6"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 778511,
+  "cmc": 2.0,
+  "collector_number": "82",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 8840,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Some lizardfolk wield the precious agate and yearn for fire. Others wield it and thirst for blood.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "39ebb84a-1c52-4b07-9bd0-b360523b3a5b",
+  "illustration_id": "f2fc19cd-5a0d-4ed7-94c5-ce69d4fbc2cc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:47:19Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/9/39ebb84a-1c52-4b07-9bd0-b360523b3a5b.webp?1783910839",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/9/39ebb84a-1c52-4b07-9bd0-b360523b3a5b.jpg?1783910839",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/9/39ebb84a-1c52-4b07-9bd0-b360523b3a5b.jpg?1783910839",
+    "crop": "https://cards.scryfall.io/crop/front/3/9/39ebb84a-1c52-4b07-9bd0-b360523b3a5b.webp?1783910839",
+    "display": "https://cards.scryfall.io/display/front/3/9/39ebb84a-1c52-4b07-9bd0-b360523b3a5b.webp?1783910839",
+    "grid": "https://cards.scryfall.io/grid/front/3/9/39ebb84a-1c52-4b07-9bd0-b360523b3a5b.webp?1783910839",
+    "large": "https://cards.scryfall.io/large/front/3/9/39ebb84a-1c52-4b07-9bd0-b360523b3a5b.jpg?1783910839",
+    "normal": "https://cards.scryfall.io/normal/front/3/9/39ebb84a-1c52-4b07-9bd0-b360523b3a5b.jpg?1783910839",
+    "png": "https://cards.scryfall.io/png/front/3/9/39ebb84a-1c52-4b07-9bd0-b360523b3a5b.png?1783910839",
+    "small": "https://cards.scryfall.io/small/front/3/9/39ebb84a-1c52-4b07-9bd0-b360523b3a5b.jpg?1783910839",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/9/39ebb84a-1c52-4b07-9bd0-b360523b3a5b.webp?1783910839"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 129409,
+  "multiverse_ids": [
+    668996
+  ],
+  "name": "Agate-Blade Assassin",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "381a3e8e-71dd-48e4-ab62-53478bde4a14",
+  "oracle_text": "Whenever this creature attacks, defending player loses 1 life and you gain 1 life.",
+  "oversized": false,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2024-07-17",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.08",
+    "eur_foil": "0.16",
+    "tix": "0.03",
+    "usd": "0.17",
+    "usd_etched": null,
+    "usd_foil": "0.29"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A381a3e8e-71dd-48e4-ab62-53478bde4a14&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/129409?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=778511&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F559647%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Agate-Blade+Assassin",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=668996&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAgate-Blade%2BAssassin",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAgate-Blade%2BAssassin"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/39ebb84a-1c52-4b07-9bd0-b360523b3a5b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/82/agate-blade-assassin?utm_source=api",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": false,
+  "tcgplayer_id": 559647,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Lizard Assassin",
+  "uri": "https://api.scryfall.com/cards/39ebb84a-1c52-4b07-9bd0-b360523b3a5b",
+  "variation": false
+}

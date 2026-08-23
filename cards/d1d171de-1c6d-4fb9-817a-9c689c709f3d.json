@@ -1,0 +1,133 @@
+{
+  "artist": "Cynthia Sheppard",
+  "artist_ids": [
+    "9dfbdd58-65e6-40cf-951a-80e141061939"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 652895,
+  "cmc": 5.0,
+  "collector_number": "311",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 369,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "First, whispers of ancient days. Then, visions of things to come.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b3784eff-ab7b-4fd4-9a07-fbc852d116bf",
+  "illustration_id": "aa39327c-330d-4fde-ae15-9b6c96033bac",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:14:01Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/3/b3784eff-ab7b-4fd4-9a07-fbc852d116bf.webp?1783923241",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/3/b3784eff-ab7b-4fd4-9a07-fbc852d116bf.jpg?1783923241",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/3/b3784eff-ab7b-4fd4-9a07-fbc852d116bf.jpg?1783923241",
+    "crop": "https://cards.scryfall.io/crop/front/b/3/b3784eff-ab7b-4fd4-9a07-fbc852d116bf.webp?1783923241",
+    "display": "https://cards.scryfall.io/display/front/b/3/b3784eff-ab7b-4fd4-9a07-fbc852d116bf.webp?1783923241",
+    "grid": "https://cards.scryfall.io/grid/front/b/3/b3784eff-ab7b-4fd4-9a07-fbc852d116bf.webp?1783923241",
+    "large": "https://cards.scryfall.io/large/front/b/3/b3784eff-ab7b-4fd4-9a07-fbc852d116bf.jpg?1783923241",
+    "normal": "https://cards.scryfall.io/normal/front/b/3/b3784eff-ab7b-4fd4-9a07-fbc852d116bf.jpg?1783923241",
+    "png": "https://cards.scryfall.io/png/front/b/3/b3784eff-ab7b-4fd4-9a07-fbc852d116bf.png?1783923241",
+    "small": "https://cards.scryfall.io/small/front/b/3/b3784eff-ab7b-4fd4-9a07-fbc852d116bf.jpg?1783923241",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/3/b3784eff-ab7b-4fd4-9a07-fbc852d116bf.webp?1783923241"
+  },
+  "keywords": [
+    "Ferocious"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{G}{G}",
+  "mtgo_id": 99063,
+  "multiverse_ids": [
+    559883
+  ],
+  "name": "Shamanic Revelation",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d1d171de-1c6d-4fb9-817a-9c689c709f3d",
+  "oracle_text": "Draw a card for each creature you control.\nFerocious — You gain 4 life for each creature you control with power 4 or greater.",
+  "oversized": false,
+  "penny_rank": 6049,
+  "prices": {
+    "eur": "1.11",
+    "eur_foil": null,
+    "tix": "0.13",
+    "usd": "1.29",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad1d171de-1c6d-4fb9-817a-9c689c709f3d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/99063?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=652895&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F270119%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Shamanic+Revelation",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=559883&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DShamanic%2BRevelation",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DShamanic%2BRevelation"
+  },
+  "released_at": "2022-04-29",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b3784eff-ab7b-4fd4-9a07-fbc852d116bf/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ncc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ncc/311/shamanic-revelation?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ncc",
+  "set_id": "c51de34b-d4d6-4179-a432-573744ded119",
+  "set_name": "New Capenna Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ancc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c51de34b-d4d6-4179-a432-573744ded119",
+  "story_spotlight": false,
+  "tcgplayer_id": 270119,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/b3784eff-ab7b-4fd4-9a07-fbc852d116bf",
+  "variation": false
+}

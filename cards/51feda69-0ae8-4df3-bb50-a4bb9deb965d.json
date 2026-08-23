@@ -1,0 +1,137 @@
+{
+  "artist": "Paul Scott Canavan",
+  "artist_ids": [
+    "c19bfb77-5099-4f7c-8585-6eaf367712c9"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 452203,
+  "cmc": 4.0,
+  "collector_number": "47",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3436,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"I don't have anything against Snapdax. I'm just more of a dog person.\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "bb2cbf12-7f35-4162-b1a0-89a1632728c7",
+  "illustration_id": "521e8450-69b0-491f-a3c3-201bc86357d6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:26:57Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/b/bb2cbf12-7f35-4162-b1a0-89a1632728c7.webp?1783931217",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/b/bb2cbf12-7f35-4162-b1a0-89a1632728c7.jpg?1783931217",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/b/bb2cbf12-7f35-4162-b1a0-89a1632728c7.jpg?1783931217",
+    "crop": "https://cards.scryfall.io/crop/front/b/b/bb2cbf12-7f35-4162-b1a0-89a1632728c7.webp?1783931217",
+    "display": "https://cards.scryfall.io/display/front/b/b/bb2cbf12-7f35-4162-b1a0-89a1632728c7.webp?1783931217",
+    "grid": "https://cards.scryfall.io/grid/front/b/b/bb2cbf12-7f35-4162-b1a0-89a1632728c7.webp?1783931217",
+    "large": "https://cards.scryfall.io/large/front/b/b/bb2cbf12-7f35-4162-b1a0-89a1632728c7.jpg?1783931217",
+    "normal": "https://cards.scryfall.io/normal/front/b/b/bb2cbf12-7f35-4162-b1a0-89a1632728c7.jpg?1783931217",
+    "png": "https://cards.scryfall.io/png/front/b/b/bb2cbf12-7f35-4162-b1a0-89a1632728c7.png?1783931217",
+    "small": "https://cards.scryfall.io/small/front/b/b/bb2cbf12-7f35-4162-b1a0-89a1632728c7.jpg?1783931217",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/b/bb2cbf12-7f35-4162-b1a0-89a1632728c7.webp?1783931217"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "mtgo_id": 80675,
+  "multiverse_ids": [
+    484894
+  ],
+  "name": "Species Specialist",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "51feda69-0ae8-4df3-bb50-a4bb9deb965d",
+  "oracle_text": "As this creature enters, choose a creature type.\nWhenever a creature of the chosen type dies, you may draw a card.",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2020-04-04",
+    "source": "Commander Social",
+    "source_uri": "https://www.youtube.com/watch?v=LOPWwo4eNu8"
+  },
+  "prices": {
+    "eur": "12.79",
+    "eur_foil": null,
+    "tix": "12.96",
+    "usd": "10.22",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A51feda69-0ae8-4df3-bb50-a4bb9deb965d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/80675?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=452203&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F212168%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Species+Specialist",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=484894&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSpecies%2BSpecialist",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSpecies%2BSpecialist"
+  },
+  "released_at": "2020-04-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/bb2cbf12-7f35-4162-b1a0-89a1632728c7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c20?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c20/47/species-specialist?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c20",
+  "set_id": "f60ec786-1f8d-42f7-9abc-0d880fe243f6",
+  "set_name": "Commander 2020",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac20&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/f60ec786-1f8d-42f7-9abc-0d880fe243f6",
+  "story_spotlight": false,
+  "tcgplayer_id": 212168,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Human Warrior",
+  "uri": "https://api.scryfall.com/cards/bb2cbf12-7f35-4162-b1a0-89a1632728c7",
+  "variation": false
+}

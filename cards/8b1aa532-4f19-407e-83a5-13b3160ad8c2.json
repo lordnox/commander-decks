@@ -1,0 +1,149 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "02c73185-3062-4801-8ab2-5006b9c3b232",
+      "name": "Rat",
+      "object": "related_card",
+      "type_line": "Token Creature — Rat",
+      "uri": "https://api.scryfall.com/cards/02c73185-3062-4801-8ab2-5006b9c3b232"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7e361851-346e-4747-bbce-e2dc19e39b31",
+      "name": "Chittering Witch",
+      "object": "related_card",
+      "type_line": "Creature — Human Warlock",
+      "uri": "https://api.scryfall.com/cards/7e361851-346e-4747-bbce-e2dc19e39b31"
+    }
+  ],
+  "artist": "Winona Nelson",
+  "artist_ids": [
+    "e45fe8d3-75d6-42c9-a2df-e945ad81ea27"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818784,
+  "cmc": 4.0,
+  "collector_number": "175",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3266,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "7e361851-346e-4747-bbce-e2dc19e39b31",
+  "illustration_id": "024d6cb6-eec3-4cce-84a4-ce4bfa754eed",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:44:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/e/7e361851-346e-4747-bbce-e2dc19e39b31.webp?1783907093",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/e/7e361851-346e-4747-bbce-e2dc19e39b31.jpg?1783907093",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/e/7e361851-346e-4747-bbce-e2dc19e39b31.jpg?1783907093",
+    "crop": "https://cards.scryfall.io/crop/front/7/e/7e361851-346e-4747-bbce-e2dc19e39b31.webp?1783907093",
+    "display": "https://cards.scryfall.io/display/front/7/e/7e361851-346e-4747-bbce-e2dc19e39b31.webp?1783907093",
+    "grid": "https://cards.scryfall.io/grid/front/7/e/7e361851-346e-4747-bbce-e2dc19e39b31.webp?1783907093",
+    "large": "https://cards.scryfall.io/large/front/7/e/7e361851-346e-4747-bbce-e2dc19e39b31.jpg?1783907093",
+    "normal": "https://cards.scryfall.io/normal/front/7/e/7e361851-346e-4747-bbce-e2dc19e39b31.jpg?1783907093",
+    "png": "https://cards.scryfall.io/png/front/7/e/7e361851-346e-4747-bbce-e2dc19e39b31.png?1783907093",
+    "small": "https://cards.scryfall.io/small/front/7/e/7e361851-346e-4747-bbce-e2dc19e39b31.jpg?1783907093",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/e/7e361851-346e-4747-bbce-e2dc19e39b31.webp?1783907093"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "mtgo_id": 138287,
+  "multiverse_ids": [
+    696331
+  ],
+  "name": "Chittering Witch",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8b1aa532-4f19-407e-83a5-13b3160ad8c2",
+  "oracle_text": "When this creature enters, create a number of 1/1 black Rat creature tokens equal to the number of opponents you have.\n{1}{B}, Sacrifice a creature: Target creature gets -2/-2 until end of turn.",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "0.24",
+    "eur_foil": null,
+    "tix": "0.08",
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8b1aa532-4f19-407e-83a5-13b3160ad8c2&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138287?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818784&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624304%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Chittering+Witch",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696331&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DChittering%2BWitch",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DChittering%2BWitch"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7e361851-346e-4747-bbce-e2dc19e39b31/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/175/chittering-witch?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624304,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Human Warlock",
+  "uri": "https://api.scryfall.com/cards/7e361851-346e-4747-bbce-e2dc19e39b31",
+  "variation": false
+}

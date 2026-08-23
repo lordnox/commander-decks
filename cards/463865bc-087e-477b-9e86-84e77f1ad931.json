@@ -1,0 +1,133 @@
+{
+  "artist": "Adam Rex",
+  "artist_ids": [
+    "445bd2fb-4a70-4599-87a4-83cf5979fc56"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818848,
+  "cmc": 5.0,
+  "collector_number": "268",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 285,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"She speaks with the purity of nature and walks with the boldness of the wilds. She is a reminder of a world untamed.\"\n—Kamahl, druid acolyte",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": true,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "76f58441-5674-4f1e-af9b-94e14ab7e619",
+  "illustration_id": "3be1444d-2890-467c-ae41-28f60365a858",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:44:01Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/6/76f58441-5674-4f1e-af9b-94e14ab7e619.webp?1783907041",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/6/76f58441-5674-4f1e-af9b-94e14ab7e619.jpg?1783907041",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/6/76f58441-5674-4f1e-af9b-94e14ab7e619.jpg?1783907041",
+    "crop": "https://cards.scryfall.io/crop/front/7/6/76f58441-5674-4f1e-af9b-94e14ab7e619.webp?1783907041",
+    "display": "https://cards.scryfall.io/display/front/7/6/76f58441-5674-4f1e-af9b-94e14ab7e619.webp?1783907041",
+    "grid": "https://cards.scryfall.io/grid/front/7/6/76f58441-5674-4f1e-af9b-94e14ab7e619.webp?1783907041",
+    "large": "https://cards.scryfall.io/large/front/7/6/76f58441-5674-4f1e-af9b-94e14ab7e619.jpg?1783907041",
+    "normal": "https://cards.scryfall.io/normal/front/7/6/76f58441-5674-4f1e-af9b-94e14ab7e619.jpg?1783907041",
+    "png": "https://cards.scryfall.io/png/front/7/6/76f58441-5674-4f1e-af9b-94e14ab7e619.png?1783907041",
+    "small": "https://cards.scryfall.io/small/front/7/6/76f58441-5674-4f1e-af9b-94e14ab7e619.jpg?1783907041",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/6/76f58441-5674-4f1e-af9b-94e14ab7e619.webp?1783907041"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{G}{G}",
+  "mtgo_id": 138473,
+  "multiverse_ids": [
+    696424
+  ],
+  "name": "Seedborn Muse",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "463865bc-087e-477b-9e86-84e77f1ad931",
+  "oracle_text": "Untap all permanents you control during each other player's untap step.",
+  "oversized": false,
+  "penny_rank": 7775,
+  "power": "2",
+  "prices": {
+    "eur": "9.63",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "17.26",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A463865bc-087e-477b-9e86-84e77f1ad931&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138473?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818848&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624655%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Seedborn+Muse",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696424&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSeedborn%2BMuse",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSeedborn%2BMuse"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/76f58441-5674-4f1e-af9b-94e14ab7e619/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/268/seedborn-muse?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624655,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Spirit",
+  "uri": "https://api.scryfall.com/cards/76f58441-5674-4f1e-af9b-94e14ab7e619",
+  "variation": false
+}

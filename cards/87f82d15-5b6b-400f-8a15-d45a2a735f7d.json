@@ -1,0 +1,166 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "49aaf5db-9418-4b97-97da-736c674905d4",
+      "name": "Experimental Confectioner",
+      "object": "related_card",
+      "type_line": "Creature — Human Peasant",
+      "uri": "https://api.scryfall.com/cards/49aaf5db-9418-4b97-97da-736c674905d4"
+    },
+    {
+      "component": "token",
+      "id": "f67727b7-819c-4e96-aa8e-1e01ecaf9f33",
+      "name": "Food",
+      "object": "related_card",
+      "type_line": "Token Artifact — Food",
+      "uri": "https://api.scryfall.com/cards/f67727b7-819c-4e96-aa8e-1e01ecaf9f33"
+    },
+    {
+      "component": "token",
+      "id": "1e0205f2-25c1-403b-b408-56e3f2d63b4d",
+      "name": "Rat",
+      "object": "related_card",
+      "type_line": "Token Creature — Rat",
+      "uri": "https://api.scryfall.com/cards/1e0205f2-25c1-403b-b408-56e3f2d63b4d"
+    }
+  ],
+  "arena_id": 87000,
+  "artist": "Gaboleps",
+  "artist_ids": [
+    "0c37cdfe-5651-4ae6-a3c8-e7153509f970"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 730004,
+  "cmc": 3.0,
+  "collector_number": "314",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3737,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "49aaf5db-9418-4b97-97da-736c674905d4",
+  "illustration_id": "716131f9-1533-407a-9937-07ea9e21127a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:57:20Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/9/49aaf5db-9418-4b97-97da-736c674905d4.webp?1783915040",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/9/49aaf5db-9418-4b97-97da-736c674905d4.jpg?1783915040",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/9/49aaf5db-9418-4b97-97da-736c674905d4.jpg?1783915040",
+    "crop": "https://cards.scryfall.io/crop/front/4/9/49aaf5db-9418-4b97-97da-736c674905d4.webp?1783915040",
+    "display": "https://cards.scryfall.io/display/front/4/9/49aaf5db-9418-4b97-97da-736c674905d4.webp?1783915040",
+    "grid": "https://cards.scryfall.io/grid/front/4/9/49aaf5db-9418-4b97-97da-736c674905d4.webp?1783915040",
+    "large": "https://cards.scryfall.io/large/front/4/9/49aaf5db-9418-4b97-97da-736c674905d4.jpg?1783915040",
+    "normal": "https://cards.scryfall.io/normal/front/4/9/49aaf5db-9418-4b97-97da-736c674905d4.jpg?1783915040",
+    "png": "https://cards.scryfall.io/png/front/4/9/49aaf5db-9418-4b97-97da-736c674905d4.png?1783915040",
+    "small": "https://cards.scryfall.io/small/front/4/9/49aaf5db-9418-4b97-97da-736c674905d4.jpg?1783915040",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/9/49aaf5db-9418-4b97-97da-736c674905d4.webp?1783915040"
+  },
+  "keywords": [
+    "Food"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 116094,
+  "multiverse_ids": [
+    632075
+  ],
+  "name": "Experimental Confectioner",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "87f82d15-5b6b-400f-8a15-d45a2a735f7d",
+  "oracle_text": "When this creature enters, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")\nWhenever you sacrifice a Food, create a 1/1 black Rat creature token with \"This token can't block.\"",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2023-08-22",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/1905659212"
+  },
+  "prices": {
+    "eur": "4.81",
+    "eur_foil": "4.69",
+    "tix": "0.03",
+    "usd": "8.03",
+    "usd_etched": null,
+    "usd_foil": "8.37"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A87f82d15-5b6b-400f-8a15-d45a2a735f7d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/116094?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=730004&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F513386%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Experimental+Confectioner",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=632075&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DExperimental%2BConfectioner",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DExperimental%2BConfectioner"
+  },
+  "released_at": "2023-09-08",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/49aaf5db-9418-4b97-97da-736c674905d4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/woe?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/woe/314/experimental-confectioner?utm_source=api",
+  "set": "woe",
+  "set_id": "79139661-13ee-43c4-8bad-a8c069f1a1df",
+  "set_name": "Wilds of Eldraine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awoe&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/79139661-13ee-43c4-8bad-a8c069f1a1df",
+  "story_spotlight": false,
+  "tcgplayer_id": 513386,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Human Peasant",
+  "uri": "https://api.scryfall.com/cards/49aaf5db-9418-4b97-97da-736c674905d4",
+  "variation": false
+}

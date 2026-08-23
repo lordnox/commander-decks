@@ -1,0 +1,133 @@
+{
+  "artist": "Mateus Manhanini",
+  "artist_ids": [
+    "d194fa7a-4c05-44b1-af60-d474a72f7076"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 892705,
+  "cmc": 2.0,
+  "collector_number": "177",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 27,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"How can you build a better future without first looking to the past?\"\n—Queen Mother Ramonda",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7afc4a15-5ff8-457a-aa62-803b2d78d912",
+  "illustration_id": "6a7e6813-31c7-4d40-a007-dc71f8506dca",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:40:28Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/a/7afc4a15-5ff8-457a-aa62-803b2d78d912.webp?1783903228",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/a/7afc4a15-5ff8-457a-aa62-803b2d78d912.jpg?1783903228",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/a/7afc4a15-5ff8-457a-aa62-803b2d78d912.jpg?1783903228",
+    "crop": "https://cards.scryfall.io/crop/front/7/a/7afc4a15-5ff8-457a-aa62-803b2d78d912.webp?1783903228",
+    "display": "https://cards.scryfall.io/display/front/7/a/7afc4a15-5ff8-457a-aa62-803b2d78d912.webp?1783903228",
+    "grid": "https://cards.scryfall.io/grid/front/7/a/7afc4a15-5ff8-457a-aa62-803b2d78d912.webp?1783903228",
+    "large": "https://cards.scryfall.io/large/front/7/a/7afc4a15-5ff8-457a-aa62-803b2d78d912.jpg?1783903228",
+    "normal": "https://cards.scryfall.io/normal/front/7/a/7afc4a15-5ff8-457a-aa62-803b2d78d912.jpg?1783903228",
+    "png": "https://cards.scryfall.io/png/front/7/a/7afc4a15-5ff8-457a-aa62-803b2d78d912.png?1783903228",
+    "small": "https://cards.scryfall.io/small/front/7/a/7afc4a15-5ff8-457a-aa62-803b2d78d912.jpg?1783903228",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/a/7afc4a15-5ff8-457a-aa62-803b2d78d912.webp?1783903228"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 150823,
+  "multiverse_ids": [],
+  "name": "Nature's Lore",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "78826359-fe63-44ad-adc4-a17ffcd710e4",
+  "oracle_text": "Search your library for a Forest card, put that card onto the battlefield, then shuffle.",
+  "oversized": false,
+  "penny_rank": 1669,
+  "prices": {
+    "eur": "2.45",
+    "eur_foil": null,
+    "tix": "0.06",
+    "usd": "2.91",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A78826359-fe63-44ad-adc4-a17ffcd710e4&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150823?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=892705&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F698198%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Nature%27s+Lore",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DNature%2527s%2BLore",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DNature%2527s%2BLore"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "CA97301581301EE26A392BEBC04BC70FC9A153800B8932C6EF994E9A965A0BDC",
+  "rulings_uri": "https://api.scryfall.com/cards/7afc4a15-5ff8-457a-aa62-803b2d78d912/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/177/natures-lore?utm_source=api",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 698198,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/7afc4a15-5ff8-457a-aa62-803b2d78d912",
+  "variation": false
+}

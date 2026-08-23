@@ -2742,8 +2742,507 @@
       "categories": [
         "protection"
       ]
+    },
+    "845b40b1-dc09-44fa-9910-22544c1424ba": {
+      "name": "Hazel of the Rootbloom",
+      "categories": [
+        "ramp",
+        "token-production"
+      ]
+    },
+    "8da0599a-8f63-4dba-857f-b4e10b7191b6": {
+      "name": "Valley Rotcaller",
+      "categories": [
+        "other"
+      ]
+    },
+    "1d9d8028-d946-4245-ae0c-7508023f619a": {
+      "name": "The Odd Acorn Gang",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "80312910-5d53-44f1-9982-e46dc7532abb": {
+      "name": "The Unbeatable Squirrel Girl",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "f15b3b76-d38a-48db-bb44-3296183c8641": {
+      "name": "Chatterfang, Squirrel General",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "312c7a7b-2084-42b0-9b13-0a6d3e43a73d": {
+      "name": "Camellia, the Seedmiser",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "f43d1ea5-8127-4b64-a87b-ee5cc9b9e9fa": {
+      "name": "Squirrel Sovereign",
+      "categories": [
+        "other"
+      ]
+    },
+    "a8e707ec-ce77-4bc5-8c76-5ea3e81e8c7f": {
+      "name": "Toski, Bearer of Secrets",
+      "categories": [
+        "card-draw",
+        "protection"
+      ]
+    },
+    "c549b0fd-1e08-4873-952e-a14dc45a0fd2": {
+      "name": "Champion of Lambholt",
+      "categories": [
+        "other"
+      ]
+    },
+    "80e9a42e-f4f4-4bfc-91a2-ad124737dca2": {
+      "name": "Deep Forest Hermit",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "7223ef44-0bfb-4108-810d-134174ff26b0": {
+      "name": "Drey Keeper",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "eee6c02b-7d6a-4445-ad27-8b03176147d4": {
+      "name": "Scurry Oak",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "bfa882ee-de18-4ef8-8957-3e04ed6e3c1e": {
+      "name": "Nested Shambler",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "44bffa3e-4d31-4f9b-829c-e2066ab2f641": {
+      "name": "Honored Dreyleader",
+      "categories": [
+        "other"
+      ]
+    },
+    "ab8d5f5c-1976-4f77-8ed2-8d28ee666741": {
+      "name": "Tireless Provisioner",
+      "categories": [
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "f36d1d8b-8303-44a9-ab56-531931641ea2": {
+      "name": "Academy Manufactor",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "0636b6c3-0662-420a-b30d-f0a14e7c512d": {
+      "name": "Mirkwood Bats",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "4f8c4927-46c2-4c18-b5af-c6288dbaff6d": {
+      "name": "Iridescent Vinelasher",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "381a3e8e-71dd-48e4-ab62-53478bde4a14": {
+      "name": "Agate-Blade Assassin",
+      "categories": [
+        "other"
+      ]
+    },
+    "f5bed085-bb7a-4250-9599-b2a8a95e6b6f": {
+      "name": "Lord Skitter, Sewer King",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "a6c5c5ea-0bd0-4d5a-bd3f-6217f14c9939": {
+      "name": "Piper of the Swarm",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "8b1aa532-4f19-407e-83a5-13b3160ad8c2": {
+      "name": "Chittering Witch",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "87f82d15-5b6b-400f-8a15-d45a2a735f7d": {
+      "name": "Experimental Confectioner",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "391978f6-0bbc-41e8-9246-f7d0e21c7900": {
+      "name": "Nadier's Nightblade",
+      "categories": [
+        "other"
+      ]
+    },
+    "51feda69-0ae8-4df3-bb50-a4bb9deb965d": {
+      "name": "Species Specialist",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "30b24e8e-3b0e-4d8e-90f3-f66eb7c1858c": {
+      "name": "Eternal Witness",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "463865bc-087e-477b-9e86-84e77f1ad931": {
+      "name": "Seedborn Muse",
+      "categories": [
+        "other"
+      ]
+    },
+    "6a1bce89-0c11-4d8d-aacb-c0a5a5effffc": {
+      "name": "Tippy-Toe, Terrific Partner",
+      "categories": [
+        "card-draw",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "b0aaa4b1-5188-43a6-997d-7a9b2ad452bc": {
+      "name": "Chatter of the Squirrel",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "693d20e9-ad92-44ad-9190-d247c94660eb": {
+      "name": "Squirrel Sanctuary",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "2d584333-b25e-4291-a2c9-80c6d9f8732a": {
+      "name": "Squirrel Nest",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "4a338863-d599-46e7-9c30-e11b898ae1b0": {
+      "name": "Chitterspitter",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "5a5d426b-e5eb-44f0-b5fe-c258bec6d59e": {
+      "name": "Verdant Command",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "6aeba615-2d37-4eb8-a377-41a517e95aa3": {
+      "name": "Acorn Harvest",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "29e3a3d9-4839-44d0-ad48-159c01645a6a": {
+      "name": "Revenge of the Rats",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "61a6341e-0d36-44b6-8026-9c87c8ef61cb": {
+      "name": "Second Harvest",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "de6e4aa2-23f1-46e5-a061-05522944e0c6": {
+      "name": "For the Common Good",
+      "categories": [
+        "protection",
+        "token-production"
+      ]
+    },
+    "ffe13100-99dd-41e3-82ba-eaead6fd0113": {
+      "name": "Rootcast Apprenticeship",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "8e7b079d-9ede-421c-bd2b-f9a5126a8e6f": {
+      "name": "Esika's Chariot",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "84dc94b2-95fb-4d53-aaa2-191cb645639f": {
+      "name": "Parallel Lives",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "b1305916-53cc-4021-897e-bbefc65dce78": {
+      "name": "Springleaf Parade",
+      "categories": [
+        "ramp",
+        "token-production"
+      ]
+    },
+    "efc12acf-ffef-40a6-b2ce-fe93e89ad840": {
+      "name": "Plague of Vermin",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "cbbb5c0c-e953-410d-88c6-8fedb719e94c": {
+      "name": "Audience with Trostani",
+      "categories": [
+        "card-draw",
+        "token-production"
+      ]
+    },
+    "d1d171de-1c6d-4fb9-817a-9c689c709f3d": {
+      "name": "Shamanic Revelation",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "65986c1b-8e51-4604-b685-d82fa7d1263a": {
+      "name": "Skullclamp",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "78826359-fe63-44ad-adc4-a17ffcd710e4": {
+      "name": "Nature's Lore",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "1b882a0e-0ede-4d1a-bd1a-9b7cffbcde8e": {
+      "name": "Three Visits",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "3ded0c0c-40ce-4d14-a9a6-b023bc19ee0e": {
+      "name": "Triumph of the Hordes",
+      "categories": [
+        "other"
+      ]
+    },
+    "ac10d218-f9a6-4058-9cda-a15ca1b0b7b5": {
+      "name": "Assassin's Trophy",
+      "categories": [
+        "removal"
+      ]
+    },
+    "7735eeba-693b-47e2-bd51-414379cf1016": {
+      "name": "Beast Within",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "2f092562-9e17-43cd-aeb8-d0567f99363e": {
+      "name": "Go for the Throat",
+      "categories": [
+        "removal"
+      ]
+    },
+    "1b704798-0c69-4c18-ac7e-42933ce90028": {
+      "name": "Pest Infestation",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "50e7ae38-2a66-4e32-bfb3-fefbae0caa61": {
+      "name": "Swarmyard Massacre",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "4050e5b3-07c2-461c-9852-a2c081c0198d": {
+      "name": "Binding the Old Gods",
+      "categories": [
+        "ramp",
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "9af4a832-d634-47aa-91ed-79d44fe08864": {
+      "name": "Pick Your Poison",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "15e5136e-ed15-49a8-b027-e09436673fb4": {
+      "name": "Culling Ritual",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "b655bee5-52d3-467e-b16c-cfc2edf2b1a1": {
+      "name": "Arachnogenesis",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "f627e125-15af-4e53-b34e-82b60e4ec87b": {
+      "name": "Tangle",
+      "categories": [
+        "other"
+      ]
+    },
+    "c850a29e-dc40-4ab6-89f1-d501a1a350d1": {
+      "name": "Constant Mists",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "24882fa2-3fe9-4c1b-aa3d-0e6488b9db27": {
+      "name": "Heroic Intervention",
+      "categories": [
+        "protection"
+      ]
+    },
+    "c9fe1383-1331-4a58-a45a-3320250221a9": {
+      "name": "Woodland Cemetery",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "32116127-cf96-4a1b-8896-a1ebc087b597": {
+      "name": "Llanowar Wastes",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "66fa2326-1b5d-41fb-b919-83bf9f383577": {
+      "name": "Blooming Marsh",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "f6d24565-5b32-4eff-b2e0-6e2c25516ff0": {
+      "name": "Deathcap Glade",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "7c69f718-acc8-4851-8e5d-0cbaaa86192c": {
+      "name": "Undergrowth Stadium",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "db623754-e078-4030-ba07-818803c348a8": {
+      "name": "Twilight Mire",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "761ee6f9-b0fa-43c9-8d1f-9591ea18e52d": {
+      "name": "Necroblossom Snarl",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "79ba18fd-f184-43c1-86df-56ee18ce806c": {
+      "name": "Secluded Courtyard",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "584b15f2-6ae9-413a-8b8d-9244dbea4878": {
+      "name": "Unclaimed Territory",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "da3b17a2-e1e1-44e9-b9b1-ae54a92037db": {
+      "name": "Three Tree City",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "4b508087-99da-4eb1-8b12-29162f2ec85d": {
+      "name": "Swarmyard",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "ac2dd694-d2f1-4025-8400-12332bdc882a": {
+      "name": "Takenuma, Abandoned Mire",
+      "categories": [
+        "land",
+        "ramp",
+        "recursion",
+        "discard"
+      ]
+    },
+    "bf1341dd-41a3-49f6-87ec-63170dde4324": {
+      "name": "Boseiju, Who Endures",
+      "categories": [
+        "land",
+        "ramp",
+        "removal",
+        "discard"
+      ]
+    },
+    "8dd5f5af-d2d8-4356-8617-8381081b930c": {
+      "name": "Yavimaya, Cradle of Growth",
+      "categories": [
+        "land"
+      ]
+    },
+    "db6174d7-211d-4817-b8e4-8384594c83f9": {
+      "name": "Urborg, Tomb of Yawgmoth",
+      "categories": [
+        "land"
+      ]
+    },
+    "8ed932ff-986c-4592-ad70-53b3fac80d69": {
+      "name": "Nurturing Peatland",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "sacrifice"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-23T22:08:04.777447+00:00"
+  "updated_at": "2026-08-23T22:16:03.699127+00:00"
 }

@@ -1,0 +1,138 @@
+{
+  "artist": "John Avon",
+  "artist_ids": [
+    "798f3932-30e0-4420-aa3f-db4d613f89ca"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 548301,
+  "cmc": 0.0,
+  "collector_number": "287",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 73,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Yawgmoth's corpse is a wound in the universe. His foul blood seeps out, infecting the land with his final curse.\"\n—Lord Windgrace",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9e1a9e38-6ffc-490f-b0be-23ba4e8204c6",
+  "illustration_id": "28d2ea86-5021-4f36-a5ec-028dae5bc71d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:29:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/e/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6.webp?1783927747",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/e/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6.jpg?1783927747",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/e/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6.jpg?1783927747",
+    "crop": "https://cards.scryfall.io/crop/front/9/e/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6.webp?1783927747",
+    "display": "https://cards.scryfall.io/display/front/9/e/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6.webp?1783927747",
+    "grid": "https://cards.scryfall.io/grid/front/9/e/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6.webp?1783927747",
+    "large": "https://cards.scryfall.io/large/front/9/e/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6.jpg?1783927747",
+    "normal": "https://cards.scryfall.io/normal/front/9/e/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6.jpg?1783927747",
+    "png": "https://cards.scryfall.io/png/front/9/e/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6.png?1783927747",
+    "small": "https://cards.scryfall.io/small/front/9/e/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6.jpg?1783927747",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/e/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6.webp?1783927747"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 86949,
+  "multiverse_ids": [
+    509652
+  ],
+  "name": "Urborg, Tomb of Yawgmoth",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "db6174d7-211d-4817-b8e4-8384594c83f9",
+  "oracle_text": "Each land is a Swamp in addition to its other land types.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2021-03-04",
+    "source": "Commander Rules Committee",
+    "source_uri": "https://mtgcommander.net/index.php/2021/03/04/time-spiral-remastered-previews/"
+  },
+  "prices": {
+    "eur": "35.60",
+    "eur_foil": "48.35",
+    "tix": "0.82",
+    "usd": "54.84",
+    "usd_etched": null,
+    "usd_foil": "74.27"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Adb6174d7-211d-4817-b8e4-8384594c83f9&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/86949?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=548301&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F234275%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Urborg%2C+Tomb+of+Yawgmoth",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=509652&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DUrborg%252C%2BTomb%2Bof%2BYawgmoth",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DUrborg%252C%2BTomb%2Bof%2BYawgmoth"
+  },
+  "released_at": "2021-03-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tsr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tsr/287/urborg-tomb-of-yawgmoth?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tsr",
+  "set_id": "11e90d1b-0502-43e6-b056-e24836523c13",
+  "set_name": "Time Spiral Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atsr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/11e90d1b-0502-43e6-b056-e24836523c13",
+  "story_spotlight": false,
+  "tcgplayer_id": 234275,
+  "textless": false,
+  "type_line": "Legendary Land",
+  "uri": "https://api.scryfall.com/cards/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6",
+  "variation": false
+}

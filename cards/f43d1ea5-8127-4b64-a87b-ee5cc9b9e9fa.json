@@ -1,0 +1,138 @@
+{
+  "artist": "Ilse Gort",
+  "artist_ids": [
+    "12070c2e-4de6-46bc-b379-8a580dfb34c5"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 565928,
+  "cmc": 2.0,
+  "collector_number": "175",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 4260,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "For rule of the Aldering Forest, Numstail stole the acorn from Nestwind, who stole it from Brankie, who stole it from Lightroot, who stole it from Leafpaw, who stole it from Darkfur . . .",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "8f739d55-30d6-4879-872a-82c6778113de",
+  "illustration_id": "a703e3a7-6884-4253-95a0-6f35a896a88c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:13:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/f/8f739d55-30d6-4879-872a-82c6778113de.webp?1783926824",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/f/8f739d55-30d6-4879-872a-82c6778113de.jpg?1783926824",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/f/8f739d55-30d6-4879-872a-82c6778113de.jpg?1783926824",
+    "crop": "https://cards.scryfall.io/crop/front/8/f/8f739d55-30d6-4879-872a-82c6778113de.webp?1783926824",
+    "display": "https://cards.scryfall.io/display/front/8/f/8f739d55-30d6-4879-872a-82c6778113de.webp?1783926824",
+    "grid": "https://cards.scryfall.io/grid/front/8/f/8f739d55-30d6-4879-872a-82c6778113de.webp?1783926824",
+    "large": "https://cards.scryfall.io/large/front/8/f/8f739d55-30d6-4879-872a-82c6778113de.jpg?1783926824",
+    "normal": "https://cards.scryfall.io/normal/front/8/f/8f739d55-30d6-4879-872a-82c6778113de.jpg?1783926824",
+    "png": "https://cards.scryfall.io/png/front/8/f/8f739d55-30d6-4879-872a-82c6778113de.png?1783926824",
+    "small": "https://cards.scryfall.io/small/front/8/f/8f739d55-30d6-4879-872a-82c6778113de.jpg?1783926824",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/f/8f739d55-30d6-4879-872a-82c6778113de.webp?1783926824"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 90727,
+  "multiverse_ids": [
+    522251
+  ],
+  "name": "Squirrel Sovereign",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f43d1ea5-8127-4b64-a87b-ee5cc9b9e9fa",
+  "oracle_text": "Other Squirrels you control get +1/+1.",
+  "oversized": false,
+  "penny_rank": 9310,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2021-05-24",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/making-magic/modern-approach-part-1-2021-05-24"
+  },
+  "prices": {
+    "eur": "0.13",
+    "eur_foil": "0.31",
+    "tix": "0.03",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": "0.42"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af43d1ea5-8127-4b64-a87b-ee5cc9b9e9fa&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/90727?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=565928&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F239443%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Squirrel+Sovereign",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=522251&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSquirrel%2BSovereign",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSquirrel%2BSovereign"
+  },
+  "released_at": "2021-06-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8f739d55-30d6-4879-872a-82c6778113de/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh2/175/squirrel-sovereign?utm_source=api",
+  "set": "mh2",
+  "set_id": "c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "set_name": "Modern Horizons 2",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh2&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "story_spotlight": false,
+  "tcgplayer_id": 239443,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Squirrel Noble",
+  "uri": "https://api.scryfall.com/cards/8f739d55-30d6-4879-872a-82c6778113de",
+  "variation": false
+}

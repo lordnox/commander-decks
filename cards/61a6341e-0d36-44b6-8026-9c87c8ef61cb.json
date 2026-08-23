@@ -1,0 +1,150 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "a1ed6d4f-9c1b-4007-899a-e2209996dd0d",
+      "name": "Second Harvest",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/a1ed6d4f-9c1b-4007-899a-e2209996dd0d"
+    },
+    {
+      "component": "token",
+      "id": "f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c"
+    }
+  ],
+  "artist": "Matt Stewart",
+  "artist_ids": [
+    "20871267-2d8a-41d5-b03a-be3d557c5734"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 805837,
+  "cmc": 4.0,
+  "collector_number": "213",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 568,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"The cornfields promise a good yield this season.\"\n—Radwick, farmer of Gatstaf",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "aaecd005-b849-4e75-a8e0-24231bf2a0c9",
+  "illustration_id": "31ba29c7-6cfc-4dd0-9096-cde2760f2794",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:01:29Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/a/aaecd005-b849-4e75-a8e0-24231bf2a0c9.webp?1783908089",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/a/aaecd005-b849-4e75-a8e0-24231bf2a0c9.jpg?1783908089",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/a/aaecd005-b849-4e75-a8e0-24231bf2a0c9.jpg?1783908089",
+    "crop": "https://cards.scryfall.io/crop/front/a/a/aaecd005-b849-4e75-a8e0-24231bf2a0c9.webp?1783908089",
+    "display": "https://cards.scryfall.io/display/front/a/a/aaecd005-b849-4e75-a8e0-24231bf2a0c9.webp?1783908089",
+    "grid": "https://cards.scryfall.io/grid/front/a/a/aaecd005-b849-4e75-a8e0-24231bf2a0c9.webp?1783908089",
+    "large": "https://cards.scryfall.io/large/front/a/a/aaecd005-b849-4e75-a8e0-24231bf2a0c9.jpg?1783908089",
+    "normal": "https://cards.scryfall.io/normal/front/a/a/aaecd005-b849-4e75-a8e0-24231bf2a0c9.jpg?1783908089",
+    "png": "https://cards.scryfall.io/png/front/a/a/aaecd005-b849-4e75-a8e0-24231bf2a0c9.png?1783908089",
+    "small": "https://cards.scryfall.io/small/front/a/a/aaecd005-b849-4e75-a8e0-24231bf2a0c9.jpg?1783908089",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/a/aaecd005-b849-4e75-a8e0-24231bf2a0c9.webp?1783908089"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}{G}",
+  "mtgo_id": 135848,
+  "multiverse_ids": [
+    686059
+  ],
+  "name": "Second Harvest",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "61a6341e-0d36-44b6-8026-9c87c8ef61cb",
+  "oracle_text": "For each token you control, create a token that's a copy of that permanent.",
+  "oversized": false,
+  "penny_rank": 8825,
+  "prices": {
+    "eur": "2.09",
+    "eur_foil": "1.77",
+    "tix": "0.03",
+    "usd": "5.03",
+    "usd_etched": null,
+    "usd_foil": "5.58"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A61a6341e-0d36-44b6-8026-9c87c8ef61cb&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/135848?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=805837&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F610060%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Second+Harvest",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=686059&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSecond%2BHarvest",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSecond%2BHarvest"
+  },
+  "released_at": "2025-01-24",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/aaecd005-b849-4e75-a8e0-24231bf2a0c9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/inr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/inr/213/second-harvest?utm_source=api",
+  "security_stamp": "oval",
+  "set": "inr",
+  "set_id": "b9618c8c-9f31-4b42-9798-2991893c27bf",
+  "set_name": "Innistrad Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ainr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/b9618c8c-9f31-4b42-9798-2991893c27bf",
+  "story_spotlight": false,
+  "tcgplayer_id": 610060,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/aaecd005-b849-4e75-a8e0-24231bf2a0c9",
+  "variation": false
+}

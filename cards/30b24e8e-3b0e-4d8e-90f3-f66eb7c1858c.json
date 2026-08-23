@@ -1,0 +1,133 @@
+{
+  "artist": "Chris Rahn",
+  "artist_ids": [
+    "7742047e-0f80-4c0f-a530-d07460165e86"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 723669,
+  "cmc": 3.0,
+  "collector_number": "286",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 114,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "She remembers every word spoken, from the hero's oath to the baby's cry.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "39704000-65d3-4d39-849e-a3b617376bbc",
+  "illustration_id": "a2581942-d335-4d28-b1d5-345ea7bc056d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:07:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/9/39704000-65d3-4d39-849e-a3b617376bbc.webp?1783915632",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/9/39704000-65d3-4d39-849e-a3b617376bbc.jpg?1783915632",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/9/39704000-65d3-4d39-849e-a3b617376bbc.jpg?1783915632",
+    "crop": "https://cards.scryfall.io/crop/front/3/9/39704000-65d3-4d39-849e-a3b617376bbc.webp?1783915632",
+    "display": "https://cards.scryfall.io/display/front/3/9/39704000-65d3-4d39-849e-a3b617376bbc.webp?1783915632",
+    "grid": "https://cards.scryfall.io/grid/front/3/9/39704000-65d3-4d39-849e-a3b617376bbc.webp?1783915632",
+    "large": "https://cards.scryfall.io/large/front/3/9/39704000-65d3-4d39-849e-a3b617376bbc.jpg?1783915632",
+    "normal": "https://cards.scryfall.io/normal/front/3/9/39704000-65d3-4d39-849e-a3b617376bbc.jpg?1783915632",
+    "png": "https://cards.scryfall.io/png/front/3/9/39704000-65d3-4d39-849e-a3b617376bbc.png?1783915632",
+    "small": "https://cards.scryfall.io/small/front/3/9/39704000-65d3-4d39-849e-a3b617376bbc.jpg?1783915632",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/9/39704000-65d3-4d39-849e-a3b617376bbc.webp?1783915632"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}{G}",
+  "mtgo_id": 114801,
+  "multiverse_ids": [
+    627750
+  ],
+  "name": "Eternal Witness",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "30b24e8e-3b0e-4d8e-90f3-f66eb7c1858c",
+  "oracle_text": "When this creature enters, you may return target card from your graveyard to your hand.",
+  "oversized": false,
+  "penny_rank": 701,
+  "power": "2",
+  "prices": {
+    "eur": "0.61",
+    "eur_foil": "1.34",
+    "tix": "0.05",
+    "usd": "2.09",
+    "usd_etched": null,
+    "usd_foil": "2.12"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A30b24e8e-3b0e-4d8e-90f3-f66eb7c1858c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/114801?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=723669&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F507278%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Eternal+Witness",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=627750&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEternal%2BWitness",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEternal%2BWitness"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/39704000-65d3-4d39-849e-a3b617376bbc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/286/eternal-witness?utm_source=api",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 507278,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Shaman",
+  "uri": "https://api.scryfall.com/cards/39704000-65d3-4d39-849e-a3b617376bbc",
+  "variation": false
+}

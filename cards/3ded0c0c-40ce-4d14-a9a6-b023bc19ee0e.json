@@ -1,0 +1,135 @@
+{
+  "artist": "Sakyu",
+  "artist_ids": [
+    "d9a14e08-fcdf-4622-b040-8a5173110d18"
+  ],
+  "booster": false,
+  "border_color": "borderless",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 883113,
+  "cmc": 4.0,
+  "collector_number": "189",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1181,
+  "finishes": [
+    "foil"
+  ],
+  "flavor_text": "「避けられる死もあれば、免れようのない死もある。」\n――「戦呪文概要」",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "showcase"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c236853f-62fa-4bac-bdc0-295c8337fc2d",
+  "illustration_id": "5af71d63-175f-4286-9d30-596cd37cbf1c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:51:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/2/c236853f-62fa-4bac-bdc0-295c8337fc2d.webp?1783903870",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/2/c236853f-62fa-4bac-bdc0-295c8337fc2d.jpg?1783903870",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/2/c236853f-62fa-4bac-bdc0-295c8337fc2d.jpg?1783903870",
+    "crop": "https://cards.scryfall.io/crop/front/c/2/c236853f-62fa-4bac-bdc0-295c8337fc2d.webp?1783903870",
+    "display": "https://cards.scryfall.io/display/front/c/2/c236853f-62fa-4bac-bdc0-295c8337fc2d.webp?1783903870",
+    "grid": "https://cards.scryfall.io/grid/front/c/2/c236853f-62fa-4bac-bdc0-295c8337fc2d.webp?1783903870",
+    "large": "https://cards.scryfall.io/large/front/c/2/c236853f-62fa-4bac-bdc0-295c8337fc2d.jpg?1783903870",
+    "normal": "https://cards.scryfall.io/normal/front/c/2/c236853f-62fa-4bac-bdc0-295c8337fc2d.jpg?1783903870",
+    "png": "https://cards.scryfall.io/png/front/c/2/c236853f-62fa-4bac-bdc0-295c8337fc2d.png?1783903870",
+    "small": "https://cards.scryfall.io/small/front/c/2/c236853f-62fa-4bac-bdc0-295c8337fc2d.jpg?1783903870",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/2/c236853f-62fa-4bac-bdc0-295c8337fc2d.webp?1783903870"
+  },
+  "keywords": [],
+  "lang": "ja",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}{G}",
+  "multiverse_ids": [],
+  "name": "Triumph of the Hordes",
+  "nonfoil": false,
+  "object": "card",
+  "oracle_id": "3ded0c0c-40ce-4d14-a9a6-b023bc19ee0e",
+  "oracle_text": "Until end of turn, creatures you control get +1/+1 and gain trample and infect. (Creatures with infect deal damage to creatures in the form of -1/-1 counters and to players in the form of poison counters.)",
+  "oversized": false,
+  "penny_rank": 4181,
+  "prices": {
+    "eur": null,
+    "eur_foil": "45.81",
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": "65.68"
+  },
+  "printed_name": "大軍の功績",
+  "printed_text": "ターン終了時まで、あなたがコントロールしているすべてのクリーチャーは＋１/＋１の修整を受けトランプルと感染を得る。（感染を持つクリーチャーは、クリーチャーに－１/－１カウンターの形で、プレイヤーに毒カウンターの形でダメージを与える。）",
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3ded0c0c-40ce-4d14-a9a6-b023bc19ee0e&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "silverscroll"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Triumph+of+the+Hordes&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=883113&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F690167%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Triumph+of+the+Hordes",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTriumph%2Bof%2Bthe%2BHordes",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTriumph%2Bof%2Bthe%2BHordes"
+  },
+  "released_at": "2026-04-24",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c236853f-62fa-4bac-bdc0-295c8337fc2d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/soa?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/soa/189/ja/%E5%A4%A7%E8%BB%8D%E3%81%AE%E5%8A%9F%E7%B8%BE-(triumph-of-the-hordes)?utm_source=api",
+  "security_stamp": "oval",
+  "set": "soa",
+  "set_id": "f57497ce-4c8f-45e3-9cd9-395148357189",
+  "set_name": "Secrets of Strixhaven Mystical Archive",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asoa&unique=prints",
+  "set_type": "masterpiece",
+  "set_uri": "https://api.scryfall.com/sets/f57497ce-4c8f-45e3-9cd9-395148357189",
+  "story_spotlight": false,
+  "tcgplayer_id": 690167,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/c236853f-62fa-4bac-bdc0-295c8337fc2d",
+  "variation": false
+}

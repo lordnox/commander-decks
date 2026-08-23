@@ -1,0 +1,2135 @@
+{
+  "cards": [
+    {
+      "cache": "cards/845b40b1-dc09-44fa-9910-22544c1424ba.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{B}{G}",
+        "oracle_text": "{T}, Pay 2 life, Tap X untapped tokens you control: Add X mana in any combination of colors.\nAt the beginning of your end step, create a token that's a copy of target token you control. If that token is a Squirrel, instead create two tokens that are copies of it.",
+        "power": "3",
+        "toughness": "5",
+        "type_line": "Legendary Creature — Squirrel Druid"
+      },
+      "categories": [
+        "Commander{top}"
+      ],
+      "category_source": "decklist",
+      "name": "Hazel of the Rootbloom",
+      "oracle_id": "845b40b1-dc09-44fa-9910-22544c1424ba",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blc/2/hazel-of-the-rootbloom?utm_source=api",
+      "submitted_categories": [
+        "Commander{top}"
+      ],
+      "submitted_name": "Hazel of the Rootbloom"
+    },
+    {
+      "cache": "cards/8da0599a-8f63-4dba-857f-b4e10b7191b6.json",
+      "card": {
+        "keywords": [
+          "Menace"
+        ],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Menace\nWhenever this creature attacks, each opponent loses X life and you gain X life, where X is the number of other Squirrels, Bats, Lizards, and Rats you control.",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Creature — Squirrel Warlock"
+      },
+      "categories": [
+        "attack-payoff",
+        "life-drain"
+      ],
+      "category_source": "decklist",
+      "name": "Valley Rotcaller",
+      "oracle_id": "8da0599a-8f63-4dba-857f-b4e10b7191b6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blb/119/valley-rotcaller?utm_source=api",
+      "submitted_categories": [
+        "attack-payoff",
+        "life-drain"
+      ],
+      "submitted_name": "Valley Rotcaller"
+    },
+    {
+      "cache": "cards/1d9d8028-d946-4245-ae0c-7508023f619a.json",
+      "card": {
+        "keywords": [
+          "Reach",
+          "Trample",
+          "Menace"
+        ],
+        "mana_cost": "{3}{B}{G}",
+        "oracle_text": "Reach, menace, trample\nSquirrels you control have \"{T}: Target Squirrel gets +2/+2 and gains trample until end of turn. Activate only as a sorcery.\"\nWhenever one or more Squirrels you control deal combat damage to a player, draw a card.",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Legendary Creature — Squirrel Warrior"
+      },
+      "categories": [
+        "combat-payoff",
+        "card-draw"
+      ],
+      "category_source": "decklist",
+      "name": "The Odd Acorn Gang",
+      "oracle_id": "1d9d8028-d946-4245-ae0c-7508023f619a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blc/7/the-odd-acorn-gang?utm_source=api",
+      "submitted_categories": [
+        "combat-payoff",
+        "card-draw"
+      ],
+      "submitted_name": "The Odd Acorn Gang"
+    },
+    {
+      "cache": "cards/80312910-5d53-44f1-9982-e46dc7532abb.json",
+      "card": {
+        "keywords": [
+          "I LOVE Squirrels!"
+        ],
+        "mana_cost": "{1}{G}{G}{G}",
+        "oracle_text": "Do You Like Squirrels? — Whenever The Unbeatable Squirrel Girl enters or attacks, create a 1/1 green Squirrel creature token.\nI LOVE Squirrels! — {1}{G}{G}{G}: Create X 1/1 green Squirrel creature tokens, where X is the number of Squirrels you control.",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Squirrel Human Hero"
+      },
+      "categories": [
+        "token-production",
+        "finisher"
+      ],
+      "category_source": "decklist",
+      "name": "The Unbeatable Squirrel Girl",
+      "oracle_id": "80312910-5d53-44f1-9982-e46dc7532abb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msh/193/the-unbeatable-squirrel-girl?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "finisher"
+      ],
+      "submitted_name": "The Unbeatable Squirrel Girl"
+    },
+    {
+      "cache": "cards/f15b3b76-d38a-48db-bb44-3296183c8641.json",
+      "card": {
+        "keywords": [
+          "Landwalk",
+          "Forestwalk"
+        ],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Forestwalk (This creature can't be blocked as long as defending player controls a Forest.)\nIf one or more tokens would be created under your control, those tokens plus that many 1/1 green Squirrel creature tokens are created instead.\n{B}, Sacrifice X Squirrels: Target creature gets +X/-X until end of turn.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Squirrel Warrior"
+      },
+      "categories": [
+        "token-production",
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Chatterfang, Squirrel General",
+      "oracle_id": "f15b3b76-d38a-48db-bb44-3296183c8641",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/151/chatterfang-squirrel-general?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "removal"
+      ],
+      "submitted_name": "Chatterfang, Squirrel General"
+    },
+    {
+      "cache": "cards/312c7a7b-2084-42b0-9b13-0a6d3e43a73d.json",
+      "card": {
+        "keywords": [
+          "Forage",
+          "Menace"
+        ],
+        "mana_cost": "{1}{B}{G}",
+        "oracle_text": "Menace\nOther Squirrels you control have menace.\nWhenever you sacrifice one or more Foods, create a 1/1 green Squirrel creature token.\n{2}, Forage: Put a +1/+1 counter on each other Squirrel you control. (To forage, exile three cards from your graveyard or sacrifice a Food.)",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Squirrel Warlock"
+      },
+      "categories": [
+        "token-production",
+        "evasion"
+      ],
+      "category_source": "decklist",
+      "name": "Camellia, the Seedmiser",
+      "oracle_id": "312c7a7b-2084-42b0-9b13-0a6d3e43a73d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blb/207/camellia-the-seedmiser?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "evasion"
+      ],
+      "submitted_name": "Camellia, the Seedmiser"
+    },
+    {
+      "cache": "cards/f43d1ea5-8127-4b64-a87b-ee5cc9b9e9fa.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Other Squirrels you control get +1/+1.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Squirrel Noble"
+      },
+      "categories": [
+        "anthem"
+      ],
+      "category_source": "decklist",
+      "name": "Squirrel Sovereign",
+      "oracle_id": "f43d1ea5-8127-4b64-a87b-ee5cc9b9e9fa",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/175/squirrel-sovereign?utm_source=api",
+      "submitted_categories": [
+        "anthem"
+      ],
+      "submitted_name": "Squirrel Sovereign"
+    },
+    {
+      "cache": "cards/a8e707ec-ce77-4bc5-8c76-5ea3e81e8c7f.json",
+      "card": {
+        "keywords": [
+          "Indestructible"
+        ],
+        "mana_cost": "{3}{G}",
+        "oracle_text": "This spell can't be countered.\nIndestructible\nToski attacks each combat if able.\nWhenever a creature you control deals combat damage to a player, draw a card.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Legendary Creature — Squirrel"
+      },
+      "categories": [
+        "card-draw",
+        "combat-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Toski, Bearer of Secrets",
+      "oracle_id": "a8e707ec-ce77-4bc5-8c76-5ea3e81e8c7f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/191/toski-bearer-of-secrets?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "combat-payoff"
+      ],
+      "submitted_name": "Toski, Bearer of Secrets"
+    },
+    {
+      "cache": "cards/c549b0fd-1e08-4873-952e-a14dc45a0fd2.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{G}{G}",
+        "oracle_text": "Creatures with power less than this creature's power can't block creatures you control.\nWhenever another creature you control enters, put a +1/+1 counter on this creature.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Warrior"
+      },
+      "categories": [
+        "evasion",
+        "combat-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Champion of Lambholt",
+      "oracle_id": "c549b0fd-1e08-4873-952e-a14dc45a0fd2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/moc/293/champion-of-lambholt?utm_source=api",
+      "submitted_categories": [
+        "evasion",
+        "combat-payoff"
+      ],
+      "submitted_name": "Champion of Lambholt"
+    },
+    {
+      "cache": "cards/80e9a42e-f4f4-4bfc-91a2-ad124737dca2.json",
+      "card": {
+        "keywords": [
+          "Vanishing"
+        ],
+        "mana_cost": "{3}{G}{G}",
+        "oracle_text": "Vanishing 3 (This creature enters with three time counters on it. At the beginning of your upkeep, remove a time counter from it. When the last is removed, sacrifice it.)\nWhen this creature enters, create four 1/1 green Squirrel creature tokens.\nSquirrels you control get +1/+1.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Elf Druid"
+      },
+      "categories": [
+        "token-production",
+        "anthem"
+      ],
+      "category_source": "decklist",
+      "name": "Deep Forest Hermit",
+      "oracle_id": "80e9a42e-f4f4-4bfc-91a2-ad124737dca2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh1/161/deep-forest-hermit?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "anthem"
+      ],
+      "submitted_name": "Deep Forest Hermit"
+    },
+    {
+      "cache": "cards/7223ef44-0bfb-4108-810d-134174ff26b0.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{B}{G}",
+        "oracle_text": "When this creature enters, create two 1/1 green Squirrel creature tokens.\n{3}{B}: Squirrels you control get +1/+0 and gain menace until end of turn.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Elf Druid"
+      },
+      "categories": [
+        "token-production",
+        "evasion"
+      ],
+      "category_source": "decklist",
+      "name": "Drey Keeper",
+      "oracle_id": "7223ef44-0bfb-4108-810d-134174ff26b0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/194/drey-keeper?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "evasion"
+      ],
+      "submitted_name": "Drey Keeper"
+    },
+    {
+      "cache": "cards/eee6c02b-7d6a-4445-ad27-8b03176147d4.json",
+      "card": {
+        "keywords": [
+          "Evolve"
+        ],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Evolve (Whenever a creature you control enters, if that creature has greater power or toughness than this creature, put a +1/+1 counter on this creature.)\nWhenever one or more +1/+1 counters are put on this creature, you may create a 1/1 green Squirrel creature token.",
+        "power": "1",
+        "toughness": "2",
+        "type_line": "Creature — Treefolk"
+      },
+      "categories": [
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Scurry Oak",
+      "oracle_id": "eee6c02b-7d6a-4445-ad27-8b03176147d4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/172/scurry-oak?utm_source=api",
+      "submitted_categories": [
+        "token-production"
+      ],
+      "submitted_name": "Scurry Oak"
+    },
+    {
+      "cache": "cards/bfa882ee-de18-4ef8-8957-3e04ed6e3c1e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{B}",
+        "oracle_text": "When this creature dies, create X tapped 1/1 green Squirrel creature tokens, where X is this creature's power.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Zombie"
+      },
+      "categories": [
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Nested Shambler",
+      "oracle_id": "bfa882ee-de18-4ef8-8957-3e04ed6e3c1e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/95/nested-shambler?utm_source=api",
+      "submitted_categories": [
+        "token-production"
+      ],
+      "submitted_name": "Nested Shambler"
+    },
+    {
+      "cache": "cards/44bffa3e-4d31-4f9b-829c-e2066ab2f641.json",
+      "card": {
+        "keywords": [
+          "Trample"
+        ],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Trample\nWhen this creature enters, put a +1/+1 counter on it for each other Squirrel and/or Food you control.\nWhenever another Squirrel or Food you control enters, put a +1/+1 counter on this creature.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Squirrel Warrior"
+      },
+      "categories": [
+        "combat-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Honored Dreyleader",
+      "oracle_id": "44bffa3e-4d31-4f9b-829c-e2066ab2f641",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blb/178/honored-dreyleader?utm_source=api",
+      "submitted_categories": [
+        "combat-payoff"
+      ],
+      "submitted_name": "Honored Dreyleader"
+    },
+    {
+      "cache": "cards/ab8d5f5c-1976-4f77-8ed2-8d28ee666741.json",
+      "card": {
+        "keywords": [
+          "Treasure",
+          "Food",
+          "Landfall"
+        ],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Landfall — Whenever a land you control enters, create a Food token or a Treasure token. (Food is an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\" Treasure is an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Creature — Elf Scout"
+      },
+      "categories": [
+        "token-production",
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Tireless Provisioner",
+      "oracle_id": "ab8d5f5c-1976-4f77-8ed2-8d28ee666741",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/moc/313/tireless-provisioner?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "ramp"
+      ],
+      "submitted_name": "Tireless Provisioner"
+    },
+    {
+      "cache": "cards/f36d1d8b-8303-44a9-ab56-531931641ea2.json",
+      "card": {
+        "keywords": [
+          "Treasure",
+          "Food"
+        ],
+        "mana_cost": "{3}",
+        "oracle_text": "If you would create a Clue, Food, or Treasure token, instead create one of each.",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Artifact Creature — Assembly-Worker"
+      },
+      "categories": [
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Academy Manufactor",
+      "oracle_id": "f36d1d8b-8303-44a9-ab56-531931641ea2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/251/academy-manufactor?utm_source=api",
+      "submitted_categories": [
+        "token-production"
+      ],
+      "submitted_name": "Academy Manufactor"
+    },
+    {
+      "cache": "cards/0636b6c3-0662-420a-b30d-f0a14e7c512d.json",
+      "card": {
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "Flying\nWhenever you create or sacrifice a token, each opponent loses 1 life.",
+        "power": "2",
+        "toughness": "3",
+        "type_line": "Creature — Bat"
+      },
+      "categories": [
+        "life-drain",
+        "token-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Mirkwood Bats",
+      "oracle_id": "0636b6c3-0662-420a-b30d-f0a14e7c512d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ltr/95/mirkwood-bats?utm_source=api",
+      "submitted_categories": [
+        "life-drain",
+        "token-payoff"
+      ],
+      "submitted_name": "Mirkwood Bats"
+    },
+    {
+      "cache": "cards/4f8c4927-46c2-4c18-b5af-c6288dbaff6d.json",
+      "card": {
+        "keywords": [
+          "Offspring",
+          "Landfall"
+        ],
+        "mana_cost": "{B}",
+        "oracle_text": "Offspring {2} (You may pay an additional {2} as you cast this spell. If you do, when this creature enters, create a 1/1 token copy of it.)\nLandfall — Whenever a land you control enters, this creature deals 1 damage to target opponent.",
+        "power": "1",
+        "toughness": "2",
+        "type_line": "Creature — Lizard Assassin"
+      },
+      "categories": [
+        "life-drain",
+        "lizard"
+      ],
+      "category_source": "decklist",
+      "name": "Iridescent Vinelasher",
+      "oracle_id": "4f8c4927-46c2-4c18-b5af-c6288dbaff6d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blb/99/iridescent-vinelasher?utm_source=api",
+      "submitted_categories": [
+        "life-drain",
+        "lizard"
+      ],
+      "submitted_name": "Iridescent Vinelasher"
+    },
+    {
+      "cache": "cards/381a3e8e-71dd-48e4-ab62-53478bde4a14.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Whenever this creature attacks, defending player loses 1 life and you gain 1 life.",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Creature — Lizard Assassin"
+      },
+      "categories": [
+        "attack-payoff",
+        "life-drain",
+        "lizard"
+      ],
+      "category_source": "decklist",
+      "name": "Agate-Blade Assassin",
+      "oracle_id": "381a3e8e-71dd-48e4-ab62-53478bde4a14",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blb/82/agate-blade-assassin?utm_source=api",
+      "submitted_categories": [
+        "attack-payoff",
+        "life-drain",
+        "lizard"
+      ],
+      "submitted_name": "Agate-Blade Assassin"
+    },
+    {
+      "cache": "cards/f5bed085-bb7a-4250-9599-b2a8a95e6b6f.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Whenever another Rat you control enters, exile up to one target card from an opponent's graveyard.\nAt the beginning of combat on your turn, create a 1/1 black Rat creature token with \"This token can't block.\"",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Rat Noble"
+      },
+      "categories": [
+        "token-production",
+        "graveyard-hate"
+      ],
+      "category_source": "decklist",
+      "name": "Lord Skitter, Sewer King",
+      "oracle_id": "f5bed085-bb7a-4250-9599-b2a8a95e6b6f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/woe/97/lord-skitter-sewer-king?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "graveyard-hate"
+      ],
+      "submitted_name": "Lord Skitter, Sewer King"
+    },
+    {
+      "cache": "cards/a6c5c5ea-0bd0-4d5a-bd3f-6217f14c9939.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Rats you control have menace.\n{1}{B}, {T}: Create a 1/1 black Rat creature token.\n{2}{B}{B}, {T}, Sacrifice three Rats: Gain control of target creature.",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Creature — Human Warlock"
+      },
+      "categories": [
+        "token-production",
+        "evasion"
+      ],
+      "category_source": "decklist",
+      "name": "Piper of the Swarm",
+      "oracle_id": "a6c5c5ea-0bd0-4d5a-bd3f-6217f14c9939",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/afc/106/piper-of-the-swarm?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "evasion"
+      ],
+      "submitted_name": "Piper of the Swarm"
+    },
+    {
+      "cache": "cards/8b1aa532-4f19-407e-83a5-13b3160ad8c2.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "When this creature enters, create a number of 1/1 black Rat creature tokens equal to the number of opponents you have.\n{1}{B}, Sacrifice a creature: Target creature gets -2/-2 until end of turn.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Human Warlock"
+      },
+      "categories": [
+        "token-production",
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Chittering Witch",
+      "oracle_id": "8b1aa532-4f19-407e-83a5-13b3160ad8c2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/175/chittering-witch?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "removal"
+      ],
+      "submitted_name": "Chittering Witch"
+    },
+    {
+      "cache": "cards/87f82d15-5b6b-400f-8a15-d45a2a735f7d.json",
+      "card": {
+        "keywords": [
+          "Food"
+        ],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "When this creature enters, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")\nWhenever you sacrifice a Food, create a 1/1 black Rat creature token with \"This token can't block.\"",
+        "power": "2",
+        "toughness": "3",
+        "type_line": "Creature — Human Peasant"
+      },
+      "categories": [
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Experimental Confectioner",
+      "oracle_id": "87f82d15-5b6b-400f-8a15-d45a2a735f7d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/woe/314/experimental-confectioner?utm_source=api",
+      "submitted_categories": [
+        "token-production"
+      ],
+      "submitted_name": "Experimental Confectioner"
+    },
+    {
+      "cache": "cards/391978f6-0bbc-41e8-9246-f7d0e21c7900.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Whenever a token you control leaves the battlefield, each opponent loses 1 life and you gain 1 life.",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Creature — Elf Warrior"
+      },
+      "categories": [
+        "life-drain",
+        "token-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Nadier's Nightblade",
+      "oracle_id": "391978f6-0bbc-41e8-9246-f7d0e21c7900",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/275/nadiers-nightblade?utm_source=api",
+      "submitted_categories": [
+        "life-drain",
+        "token-payoff"
+      ],
+      "submitted_name": "Nadier's Nightblade"
+    },
+    {
+      "cache": "cards/51feda69-0ae8-4df3-bb50-a4bb9deb965d.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{B}{B}",
+        "oracle_text": "As this creature enters, choose a creature type.\nWhenever a creature of the chosen type dies, you may draw a card.",
+        "power": "2",
+        "toughness": "3",
+        "type_line": "Creature — Human Warrior"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "decklist",
+      "name": "Species Specialist",
+      "oracle_id": "51feda69-0ae8-4df3-bb50-a4bb9deb965d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c20/47/species-specialist?utm_source=api",
+      "submitted_categories": [
+        "card-draw"
+      ],
+      "submitted_name": "Species Specialist"
+    },
+    {
+      "cache": "cards/30b24e8e-3b0e-4d8e-90f3-f66eb7c1858c.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{G}{G}",
+        "oracle_text": "When this creature enters, you may return target card from your graveyard to your hand.",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Creature — Human Shaman"
+      },
+      "categories": [
+        "recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Eternal Witness",
+      "oracle_id": "30b24e8e-3b0e-4d8e-90f3-f66eb7c1858c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/286/eternal-witness?utm_source=api",
+      "submitted_categories": [
+        "recursion"
+      ],
+      "submitted_name": "Eternal Witness"
+    },
+    {
+      "cache": "cards/463865bc-087e-477b-9e86-84e77f1ad931.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{G}{G}",
+        "oracle_text": "Untap all permanents you control during each other player's untap step.",
+        "power": "2",
+        "toughness": "4",
+        "type_line": "Creature — Spirit"
+      },
+      "categories": [
+        "untap-engine"
+      ],
+      "category_source": "decklist",
+      "name": "Seedborn Muse",
+      "oracle_id": "463865bc-087e-477b-9e86-84e77f1ad931",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/268/seedborn-muse?utm_source=api",
+      "submitted_categories": [
+        "untap-engine"
+      ],
+      "submitted_name": "Seedborn Muse"
+    },
+    {
+      "cache": "cards/6a1bce89-0c11-4d8d-aacb-c0a5a5effffc.json",
+      "card": {
+        "keywords": [
+          "Food"
+        ],
+        "mana_cost": "{3}{G}",
+        "oracle_text": "If you would create one or more tokens, instead create those tokens plus an additional Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")\nAt the beginning of your end step, if you gained life this turn, draw a card.",
+        "power": "2",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Squirrel Hero"
+      },
+      "categories": [
+        "token-production",
+        "card-draw"
+      ],
+      "category_source": "decklist",
+      "name": "Tippy-Toe, Terrific Partner",
+      "oracle_id": "6a1bce89-0c11-4d8d-aacb-c0a5a5effffc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/734/tippy-toe-terrific-partner?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "card-draw"
+      ],
+      "submitted_name": "Tippy-Toe, Terrific Partner"
+    },
+    {
+      "cache": "cards/b0aaa4b1-5188-43a6-997d-7a9b2ad452bc.json",
+      "card": {
+        "keywords": [
+          "Flashback"
+        ],
+        "mana_cost": "{G}",
+        "oracle_text": "Create a 1/1 green Squirrel creature token.\nFlashback {1}{G} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Chatter of the Squirrel",
+      "oracle_id": "b0aaa4b1-5188-43a6-997d-7a9b2ad452bc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/157/chatter-of-the-squirrel?utm_source=api",
+      "submitted_categories": [
+        "token-production"
+      ],
+      "submitted_name": "Chatter of the Squirrel"
+    },
+    {
+      "cache": "cards/693d20e9-ad92-44ad-9190-d247c94660eb.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{G}",
+        "oracle_text": "When this enchantment enters, create a 1/1 green Squirrel creature token.\nWhenever a nontoken creature you control dies, you may pay {1}. If you do, return this enchantment to its owner's hand.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "token-production",
+        "recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Squirrel Sanctuary",
+      "oracle_id": "693d20e9-ad92-44ad-9190-d247c94660eb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/174/squirrel-sanctuary?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "recursion"
+      ],
+      "submitted_name": "Squirrel Sanctuary"
+    },
+    {
+      "cache": "cards/2d584333-b25e-4291-a2c9-80c6d9f8732a.json",
+      "card": {
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{1}{G}{G}",
+        "oracle_text": "Enchant land\nEnchanted land has \"{T}: Create a 1/1 green Squirrel creature token.\"",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Squirrel Nest",
+      "oracle_id": "2d584333-b25e-4291-a2c9-80c6d9f8732a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmr/177/squirrel-nest?utm_source=api",
+      "submitted_categories": [
+        "token-production"
+      ],
+      "submitted_name": "Squirrel Nest"
+    },
+    {
+      "cache": "cards/4a338863-d599-46e7-9c30-e11b898ae1b0.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "At the beginning of your upkeep, you may sacrifice a token. If you do, put an acorn counter on this artifact.\nSquirrels you control get +1/+1 for each acorn counter on this artifact.\n{G}, {T}: Create a 1/1 green Squirrel creature token.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "token-production",
+        "anthem"
+      ],
+      "category_source": "decklist",
+      "name": "Chitterspitter",
+      "oracle_id": "4a338863-d599-46e7-9c30-e11b898ae1b0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/153/chitterspitter?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "anthem"
+      ],
+      "submitted_name": "Chitterspitter"
+    },
+    {
+      "cache": "cards/5a5d426b-e5eb-44f0-b5fe-c258bec6d59e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Choose two —\n• Target player creates two tapped 1/1 green Squirrel creature tokens.\n• Counter target loyalty ability of a planeswalker.\n• Exile target card from a graveyard.\n• Target player gains 3 life.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "token-production",
+        "interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Verdant Command",
+      "oracle_id": "5a5d426b-e5eb-44f0-b5fe-c258bec6d59e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/182/verdant-command?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "interaction"
+      ],
+      "submitted_name": "Verdant Command"
+    },
+    {
+      "cache": "cards/6aeba615-2d37-4eb8-a377-41a517e95aa3.json",
+      "card": {
+        "keywords": [
+          "Flashback"
+        ],
+        "mana_cost": "{3}{G}",
+        "oracle_text": "Create two 1/1 green Squirrel creature tokens.\nFlashback—{1}{G}, Pay 3 life. (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Acorn Harvest",
+      "oracle_id": "6aeba615-2d37-4eb8-a377-41a517e95aa3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tor/118/acorn-harvest?utm_source=api",
+      "submitted_categories": [
+        "token-production"
+      ],
+      "submitted_name": "Acorn Harvest"
+    },
+    {
+      "cache": "cards/29e3a3d9-4839-44d0-ad48-159c01645a6a.json",
+      "card": {
+        "keywords": [
+          "Flashback"
+        ],
+        "mana_cost": "{2}{B}{B}",
+        "oracle_text": "Create a tapped 1/1 black Rat creature token for each creature card in your graveyard.\nFlashback {2}{B}{B} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "token-production",
+        "recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Revenge of the Rats",
+      "oracle_id": "29e3a3d9-4839-44d0-ad48-159c01645a6a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/67/revenge-of-the-rats?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "recursion"
+      ],
+      "submitted_name": "Revenge of the Rats"
+    },
+    {
+      "cache": "cards/61a6341e-0d36-44b6-8026-9c87c8ef61cb.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{G}{G}",
+        "oracle_text": "For each token you control, create a token that's a copy of that permanent.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "token-copy",
+        "finisher"
+      ],
+      "category_source": "decklist",
+      "name": "Second Harvest",
+      "oracle_id": "61a6341e-0d36-44b6-8026-9c87c8ef61cb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inr/213/second-harvest?utm_source=api",
+      "submitted_categories": [
+        "token-copy",
+        "finisher"
+      ],
+      "submitted_name": "Second Harvest"
+    },
+    {
+      "cache": "cards/de6e4aa2-23f1-46e5-a061-05522944e0c6.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{X}{X}{G}",
+        "oracle_text": "Create X tokens that are copies of target token you control. Then tokens you control gain indestructible until your next turn. You gain 1 life for each token you control.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "token-copy",
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "For the Common Good",
+      "oracle_id": "de6e4aa2-23f1-46e5-a061-05522944e0c6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blb/172/for-the-common-good?utm_source=api",
+      "submitted_categories": [
+        "token-copy",
+        "protection"
+      ],
+      "submitted_name": "For the Common Good"
+    },
+    {
+      "cache": "cards/ffe13100-99dd-41e3-82ba-eaead6fd0113.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{G}",
+        "oracle_text": "Choose three. You may choose the same mode more than once.\n• Put two +1/+1 counters on target creature.\n• Create a token that's a copy of target token you control.\n• Target player creates a 1/1 green Squirrel creature token.\n• Target opponent sacrifices a nontoken artifact of their choice.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "token-copy",
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Rootcast Apprenticeship",
+      "oracle_id": "ffe13100-99dd-41e3-82ba-eaead6fd0113",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blc/32/rootcast-apprenticeship?utm_source=api",
+      "submitted_categories": [
+        "token-copy",
+        "protection"
+      ],
+      "submitted_name": "Rootcast Apprenticeship"
+    },
+    {
+      "cache": "cards/8e7b079d-9ede-421c-bd2b-f9a5126a8e6f.json",
+      "card": {
+        "keywords": [
+          "Crew"
+        ],
+        "mana_cost": "{3}{G}",
+        "oracle_text": "When Esika's Chariot enters, create two 2/2 green Cat creature tokens.\nWhenever Esika's Chariot attacks, create a token that's a copy of target token you control.\nCrew 4",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Legendary Artifact — Vehicle"
+      },
+      "categories": [
+        "token-copy",
+        "attack-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Esika's Chariot",
+      "oracle_id": "8e7b079d-9ede-421c-bd2b-f9a5126a8e6f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/khm/169/esikas-chariot?utm_source=api",
+      "submitted_categories": [
+        "token-copy",
+        "attack-payoff"
+      ],
+      "submitted_name": "Esika's Chariot"
+    },
+    {
+      "cache": "cards/84dc94b2-95fb-4d53-aaa2-191cb645639f.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{G}",
+        "oracle_text": "If an effect would create one or more tokens under your control, it creates twice that many of those tokens instead.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "token-doubler"
+      ],
+      "category_source": "decklist",
+      "name": "Parallel Lives",
+      "oracle_id": "84dc94b2-95fb-4d53-aaa2-191cb645639f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/isd/199/parallel-lives?utm_source=api",
+      "submitted_categories": [
+        "token-doubler"
+      ],
+      "submitted_name": "Parallel Lives"
+    },
+    {
+      "cache": "cards/b1305916-53cc-4021-897e-bbefc65dce78.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{X}{G}{G}",
+        "oracle_text": "When this enchantment enters, create X 1/1 colorless Shapeshifter creature tokens with changeling. (They're every creature type.)\nCreature tokens you control have \"{T}: Add one mana of any color.\"",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "token-production",
+        "changeling"
+      ],
+      "category_source": "decklist",
+      "name": "Springleaf Parade",
+      "oracle_id": "b1305916-53cc-4021-897e-bbefc65dce78",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecc/19/springleaf-parade?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "changeling"
+      ],
+      "submitted_name": "Springleaf Parade"
+    },
+    {
+      "cache": "cards/9b2cdbed-c733-409b-b0e4-2c8960c25111.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "Creatures you control are every creature type. The same is true for creature spells you control and creature cards you own that aren't on the battlefield.\n{3}, {T}: Create a 2/2 blue Shapeshifter creature token with changeling. (It is every creature type.)",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "type-fixing",
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Maskwood Nexus",
+      "oracle_id": "9b2cdbed-c733-409b-b0e4-2c8960c25111",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/865/maskwood-nexus?utm_source=api",
+      "submitted_categories": [
+        "type-fixing",
+        "token-production"
+      ],
+      "submitted_name": "Maskwood Nexus"
+    },
+    {
+      "cache": "cards/efc12acf-ffef-40a6-b2ce-fe93e89ad840.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{6}{B}",
+        "oracle_text": "Starting with you, each player may pay any amount of life. Repeat this process until no one pays life. Each player creates a 1/1 black Rat creature token for each 1 life they paid this way.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "token-production",
+        "esoteric"
+      ],
+      "category_source": "decklist",
+      "name": "Plague of Vermin",
+      "oracle_id": "efc12acf-ffef-40a6-b2ce-fe93e89ad840",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/shm/73/plague-of-vermin?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "esoteric"
+      ],
+      "submitted_name": "Plague of Vermin"
+    },
+    {
+      "cache": "cards/cbbb5c0c-e953-410d-88c6-8fedb719e94c.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Create a 0/1 green Plant creature token, then draw cards equal to the number of differently named creature tokens you control.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "card-draw",
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Audience with Trostani",
+      "oracle_id": "cbbb5c0c-e953-410d-88c6-8fedb719e94c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkm/152/audience-with-trostani?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "token-production"
+      ],
+      "submitted_name": "Audience with Trostani"
+    },
+    {
+      "cache": "cards/d1d171de-1c6d-4fb9-817a-9c689c709f3d.json",
+      "card": {
+        "keywords": [
+          "Ferocious"
+        ],
+        "mana_cost": "{3}{G}{G}",
+        "oracle_text": "Draw a card for each creature you control.\nFerocious — You gain 4 life for each creature you control with power 4 or greater.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "decklist",
+      "name": "Shamanic Revelation",
+      "oracle_id": "d1d171de-1c6d-4fb9-817a-9c689c709f3d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ncc/311/shamanic-revelation?utm_source=api",
+      "submitted_categories": [
+        "card-draw"
+      ],
+      "submitted_name": "Shamanic Revelation"
+    },
+    {
+      "cache": "cards/65986c1b-8e51-4604-b685-d82fa7d1263a.json",
+      "card": {
+        "keywords": [
+          "Equip"
+        ],
+        "mana_cost": "{1}",
+        "oracle_text": "Equipped creature gets +1/-1.\nWhenever equipped creature dies, draw two cards.\nEquip {1}",
+        "type_line": "Artifact — Equipment"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "decklist",
+      "name": "Skullclamp",
+      "oracle_id": "65986c1b-8e51-4604-b685-d82fa7d1263a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/210/skullclamp?utm_source=api",
+      "submitted_categories": [
+        "card-draw"
+      ],
+      "submitted_name": "Skullclamp"
+    },
+    {
+      "cache": "cards/78826359-fe63-44ad-adc4-a17ffcd710e4.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Search your library for a Forest card, put that card onto the battlefield, then shuffle.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Nature's Lore",
+      "oracle_id": "78826359-fe63-44ad-adc4-a17ffcd710e4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/177/natures-lore?utm_source=api",
+      "submitted_categories": [
+        "ramp"
+      ],
+      "submitted_name": "Nature's Lore"
+    },
+    {
+      "cache": "cards/1b882a0e-0ede-4d1a-bd1a-9b7cffbcde8e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Search your library for a Forest card, put it onto the battlefield, then shuffle.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Three Visits",
+      "oracle_id": "1b882a0e-0ede-4d1a-bd1a-9b7cffbcde8e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/181/three-visits?utm_source=api",
+      "submitted_categories": [
+        "ramp"
+      ],
+      "submitted_name": "Three Visits"
+    },
+    {
+      "cache": "cards/0bc7f093-bef0-4f1a-852c-4b75ebf54838.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Arcane Signet",
+      "oracle_id": "0bc7f093-bef0-4f1a-852c-4b75ebf54838",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/192/arcane-signet?utm_source=api",
+      "submitted_categories": [
+        "ramp"
+      ],
+      "submitted_name": "Arcane Signet"
+    },
+    {
+      "cache": "cards/3ded0c0c-40ce-4d14-a9a6-b023bc19ee0e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{G}{G}",
+        "oracle_text": "Until end of turn, creatures you control get +1/+1 and gain trample and infect. (Creatures with infect deal damage to creatures in the form of -1/-1 counters and to players in the form of poison counters.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "finisher"
+      ],
+      "category_source": "decklist",
+      "name": "Triumph of the Hordes",
+      "oracle_id": "3ded0c0c-40ce-4d14-a9a6-b023bc19ee0e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soa/189/ja/%E5%A4%A7%E8%BB%8D%E3%81%AE%E5%8A%9F%E7%B8%BE-(triumph-of-the-hordes)?utm_source=api",
+      "submitted_categories": [
+        "finisher"
+      ],
+      "submitted_name": "Triumph of the Hordes"
+    },
+    {
+      "cache": "cards/ac10d218-f9a6-4058-9cda-a15ca1b0b7b5.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{B}{G}",
+        "oracle_text": "Destroy target permanent an opponent controls. Its controller may search their library for a basic land card, put it onto the battlefield, then shuffle.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "interaction",
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Assassin's Trophy",
+      "oracle_id": "ac10d218-f9a6-4058-9cda-a15ca1b0b7b5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/294/assassins-trophy?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "removal"
+      ],
+      "submitted_name": "Assassin's Trophy"
+    },
+    {
+      "cache": "cards/7735eeba-693b-47e2-bd51-414379cf1016.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Destroy target permanent. Its controller creates a 3/3 green Beast creature token.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "interaction",
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Beast Within",
+      "oracle_id": "7735eeba-693b-47e2-bd51-414379cf1016",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/169/beast-within?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "removal"
+      ],
+      "submitted_name": "Beast Within"
+    },
+    {
+      "cache": "cards/610af0f7-b5e3-43fb-9d02-7c59bd99034c.json",
+      "card": {
+        "keywords": [
+          "Kicker"
+        ],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Kicker {1}{B} (You may pay an additional {1}{B} as you cast this spell.)\nExile target artifact or enchantment. If this spell was kicked, exile target nonland permanent instead.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "interaction",
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Tear Asunder",
+      "oracle_id": "610af0f7-b5e3-43fb-9d02-7c59bd99034c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/109/tear-asunder?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "removal"
+      ],
+      "submitted_name": "Tear Asunder"
+    },
+    {
+      "cache": "cards/5825997b-10d7-4a36-972c-a80ddd90b8ed.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Destroy target creature or enchantment an opponent controls. You lose life equal to that permanent's mana value.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "interaction",
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Feed the Swarm",
+      "oracle_id": "5825997b-10d7-4a36-972c-a80ddd90b8ed",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tle/257/feed-the-swarm?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "removal"
+      ],
+      "submitted_name": "Feed the Swarm"
+    },
+    {
+      "cache": "cards/2f092562-9e17-43cd-aeb8-d0567f99363e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Destroy target nonartifact creature.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "interaction",
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Go for the Throat",
+      "oracle_id": "2f092562-9e17-43cd-aeb8-d0567f99363e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/moc/250/go-for-the-throat?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "removal"
+      ],
+      "submitted_name": "Go for the Throat"
+    },
+    {
+      "cache": "cards/1b704798-0c69-4c18-ac7e-42933ce90028.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{X}{X}{G}",
+        "oracle_text": "Destroy up to X target artifacts and/or enchantments. Create twice X 1/1 black and green Pest creature tokens with \"When this token dies, you gain 1 life.\"",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "interaction",
+        "removal",
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Pest Infestation",
+      "oracle_id": "1b704798-0c69-4c18-ac7e-42933ce90028",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/282/pest-infestation?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "removal",
+        "token-production"
+      ],
+      "submitted_name": "Pest Infestation"
+    },
+    {
+      "cache": "cards/50e7ae38-2a66-4e32-bfb3-fefbae0caa61.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Create two 1/1 green Squirrel creature tokens. Then each creature that isn't an Insect, Rat, Spider, or Squirrel gets -1/-1 until end of turn for each creature you control that's an Insect, Rat, Spider, or Squirrel.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "interaction",
+        "board-wipe",
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Swarmyard Massacre",
+      "oracle_id": "50e7ae38-2a66-4e32-bfb3-fefbae0caa61",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blc/20/swarmyard-massacre?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "board-wipe",
+        "token-production"
+      ],
+      "submitted_name": "Swarmyard Massacre"
+    },
+    {
+      "cache": "cards/4050e5b3-07c2-461c-9852-a2c081c0198d.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{B}{G}",
+        "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Destroy target nonland permanent an opponent controls.\nII — Search your library for a Forest card, put it onto the battlefield tapped, then shuffle.\nIII — Creatures you control gain deathtouch until end of turn.",
+        "type_line": "Enchantment — Saga"
+      },
+      "categories": [
+        "interaction",
+        "removal",
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Binding the Old Gods",
+      "oracle_id": "4050e5b3-07c2-461c-9852-a2c081c0198d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecc/120/binding-the-old-gods?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "removal",
+        "ramp"
+      ],
+      "submitted_name": "Binding the Old Gods"
+    },
+    {
+      "cache": "cards/9af4a832-d634-47aa-91ed-79d44fe08864.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{G}",
+        "oracle_text": "Choose one —\n• Each opponent sacrifices an artifact of their choice.\n• Each opponent sacrifices an enchantment of their choice.\n• Each opponent sacrifices a creature with flying of their choice.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "interaction",
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Pick Your Poison",
+      "oracle_id": "9af4a832-d634-47aa-91ed-79d44fe08864",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkm/170/pick-your-poison?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "removal"
+      ],
+      "submitted_name": "Pick Your Poison"
+    },
+    {
+      "cache": "cards/15e5136e-ed15-49a8-b027-e09436673fb4.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{B}{G}",
+        "oracle_text": "Destroy each nonland permanent with mana value 2 or less. Add {B} or {G} for each permanent destroyed this way.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "interaction",
+        "board-wipe",
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Culling Ritual",
+      "oracle_id": "15e5136e-ed15-49a8-b027-e09436673fb4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/302/culling-ritual?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "board-wipe",
+        "ramp"
+      ],
+      "submitted_name": "Culling Ritual"
+    },
+    {
+      "cache": "cards/b655bee5-52d3-467e-b16c-cfc2edf2b1a1.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Create X 1/2 green Spider creature tokens with reach, where X is the number of creatures attacking you. Prevent all combat damage that would be dealt this turn by non-Spider creatures.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "interaction",
+        "fog",
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Arachnogenesis",
+      "oracle_id": "b655bee5-52d3-467e-b16c-cfc2edf2b1a1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/169/arachnogenesis?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "fog",
+        "token-production"
+      ],
+      "submitted_name": "Arachnogenesis"
+    },
+    {
+      "cache": "cards/f627e125-15af-4e53-b34e-82b60e4ec87b.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Prevent all combat damage that would be dealt this turn.\nEach attacking creature doesn't untap during its controller's next untap step.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "interaction",
+        "fog"
+      ],
+      "category_source": "decklist",
+      "name": "Tangle",
+      "oracle_id": "f627e125-15af-4e53-b34e-82b60e4ec87b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mar/38/tangle?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "fog"
+      ],
+      "submitted_name": "Tangle"
+    },
+    {
+      "cache": "cards/c850a29e-dc40-4ab6-89f1-d501a1a350d1.json",
+      "card": {
+        "keywords": [
+          "Buyback"
+        ],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Buyback—Sacrifice a land. (You may sacrifice a land in addition to any other costs as you cast this spell. If you do, put this card into your hand as it resolves.)\nPrevent all combat damage that would be dealt this turn.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "interaction",
+        "fog"
+      ],
+      "category_source": "decklist",
+      "name": "Constant Mists",
+      "oracle_id": "c850a29e-dc40-4ab6-89f1-d501a1a350d1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sth/104/constant-mists?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "fog"
+      ],
+      "submitted_name": "Constant Mists"
+    },
+    {
+      "cache": "cards/24882fa2-3fe9-4c1b-aa3d-0e6488b9db27.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Permanents you control gain hexproof and indestructible until end of turn.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "interaction",
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Heroic Intervention",
+      "oracle_id": "24882fa2-3fe9-4c1b-aa3d-0e6488b9db27",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/295/heroic-intervention?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "protection"
+      ],
+      "submitted_name": "Heroic Intervention"
+    },
+    {
+      "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Command Tower",
+      "oracle_id": "0895c9b7-ae7d-4bb3-af17-3b75deb50a25",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/233/command-tower?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Command Tower"
+    },
+    {
+      "cache": "cards/27b047e3-0d41-45e2-98e9-9391d7923a1e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Exotic Orchard",
+      "oracle_id": "27b047e3-0d41-45e2-98e9-9391d7923a1e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/79/exotic-orchard?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Exotic Orchard"
+    },
+    {
+      "cache": "cards/975ec9a3-6f20-4177-8211-82526e092538.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {B} or {G}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "type_line": "Land — Swamp Forest"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Overgrown Tomb",
+      "oracle_id": "975ec9a3-6f20-4177-8211-82526e092538",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/289/overgrown-tomb?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Overgrown Tomb"
+    },
+    {
+      "cache": "cards/c9fe1383-1331-4a58-a45a-3320250221a9.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control a Swamp or a Forest.\n{T}: Add {B} or {G}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Woodland Cemetery",
+      "oracle_id": "c9fe1383-1331-4a58-a45a-3320250221a9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/424/woodland-cemetery?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Woodland Cemetery"
+    },
+    {
+      "cache": "cards/32116127-cf96-4a1b-8896-a1ebc087b597.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {B} or {G}. This land deals 1 damage to you.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Llanowar Wastes",
+      "oracle_id": "32116127-cf96-4a1b-8896-a1ebc087b597",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/383/llanowar-wastes?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Llanowar Wastes"
+    },
+    {
+      "cache": "cards/66fa2326-1b5d-41fb-b919-83bf9f383577.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {B} or {G}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Blooming Marsh",
+      "oracle_id": "66fa2326-1b5d-41fb-b919-83bf9f383577",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otj/266/blooming-marsh?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Blooming Marsh"
+    },
+    {
+      "cache": "cards/f6d24565-5b32-4eff-b2e0-6e2c25516ff0.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control two or more other lands.\n{T}: Add {B} or {G}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Deathcap Glade",
+      "oracle_id": "f6d24565-5b32-4eff-b2e0-6e2c25516ff0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sos/253/deathcap-glade?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Deathcap Glade"
+    },
+    {
+      "cache": "cards/7c69f718-acc8-4851-8e5d-0cbaaa86192c.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {B} or {G}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Undergrowth Stadium",
+      "oracle_id": "7c69f718-acc8-4851-8e5d-0cbaaa86192c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmc/80/undergrowth-stadium?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Undergrowth Stadium"
+    },
+    {
+      "cache": "cards/db623754-e078-4030-ba07-818803c348a8.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{B/G}, {T}: Add {B}{B}, {B}{G}, or {G}{G}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Twilight Mire",
+      "oracle_id": "db623754-e078-4030-ba07-818803c348a8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/418/twilight-mire?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Twilight Mire"
+    },
+    {
+      "cache": "cards/761ee6f9-b0fa-43c9-8d1f-9591ea18e52d.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "As this land enters, you may reveal a Swamp or Forest card from your hand. If you don't, this land enters tapped.\n{T}: Add {B} or {G}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Necroblossom Snarl",
+      "oracle_id": "761ee6f9-b0fa-43c9-8d1f-9591ea18e52d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/389/necroblossom-snarl?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Necroblossom Snarl"
+    },
+    {
+      "cache": "cards/1b301478-b14f-4ef8-94e6-9647d582eabe.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {B}{G}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Golgari Rot Farm",
+      "oracle_id": "1b301478-b14f-4ef8-94e6-9647d582eabe",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecc/151/golgari-rot-farm?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Golgari Rot Farm"
+    },
+    {
+      "cache": "cards/b473e293-59e3-4e04-acf2-622604aeb25f.json",
+      "card": {
+        "keywords": [
+          "Scry"
+        ],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add one mana of any color in your commander's color identity. When that mana is spent to cast a creature spell that shares a creature type with your commander, scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Path of Ancestry",
+      "oracle_id": "b473e293-59e3-4e04-acf2-622604aeb25f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/80/path-of-ancestry?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Path of Ancestry"
+    },
+    {
+      "cache": "cards/79ba18fd-f184-43c1-86df-56ee18ce806c.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type or activate an ability of a creature source of the chosen type.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Secluded Courtyard",
+      "oracle_id": "79ba18fd-f184-43c1-86df-56ee18ce806c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/265/secluded-courtyard?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Secluded Courtyard"
+    },
+    {
+      "cache": "cards/584b15f2-6ae9-413a-8b8d-9244dbea4878.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Unclaimed Territory",
+      "oracle_id": "584b15f2-6ae9-413a-8b8d-9244dbea4878",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/275/unclaimed-territory?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Unclaimed Territory"
+    },
+    {
+      "cache": "cards/da3b17a2-e1e1-44e9-b9b1-ae54a92037db.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "As Three Tree City enters, choose a creature type.\n{T}: Add {C}.\n{2}, {T}: Choose a color. Add an amount of mana of that color equal to the number of creatures you control of the chosen type.",
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Three Tree City",
+      "oracle_id": "da3b17a2-e1e1-44e9-b9b1-ae54a92037db",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blb/260/three-tree-city?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Three Tree City"
+    },
+    {
+      "cache": "cards/4b508087-99da-4eb1-8b12-29162f2ec85d.json",
+      "card": {
+        "keywords": [
+          "Heal",
+          "Regenerate"
+        ],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}: Regenerate target Insect, Rat, Spider, or Squirrel. (The next time it would be destroyed this turn, instead tap it, remove it from combat, and heal all damage on it.)",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Swarmyard",
+      "oracle_id": "4b508087-99da-4eb1-8b12-29162f2ec85d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsr/284/swarmyard?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Swarmyard"
+    },
+    {
+      "cache": "cards/04b7362d-0490-4cb0-b5d7-2a7732f659ce.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\nWhen this land enters, exile target player's graveyard.\n{T}: Add {B}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "graveyard-hate"
+      ],
+      "category_source": "decklist",
+      "name": "Bojuka Bog",
+      "oracle_id": "04b7362d-0490-4cb0-b5d7-2a7732f659ce",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/363/bojuka-bog?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "graveyard-hate"
+      ],
+      "submitted_name": "Bojuka Bog"
+    },
+    {
+      "cache": "cards/ac2dd694-d2f1-4025-8400-12332bdc882a.json",
+      "card": {
+        "keywords": [
+          "Mill",
+          "Channel"
+        ],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {B}.\nChannel — {3}{B}, Discard this card: Mill three cards, then return a creature or planeswalker card from your graveyard to your hand. This ability costs {1} less to activate for each legendary creature you control.",
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "land",
+        "recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Takenuma, Abandoned Mire",
+      "oracle_id": "ac2dd694-d2f1-4025-8400-12332bdc882a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/278/takenuma-abandoned-mire?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "recursion"
+      ],
+      "submitted_name": "Takenuma, Abandoned Mire"
+    },
+    {
+      "cache": "cards/bf1341dd-41a3-49f6-87ec-63170dde4324.json",
+      "card": {
+        "keywords": [
+          "Channel"
+        ],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {G}.\nChannel — {1}{G}, Discard this card: Destroy target artifact, enchantment, or nonbasic land an opponent controls. That player may search their library for a land card with a basic land type, put it onto the battlefield, then shuffle. This ability costs {1} less to activate for each legendary creature you control.",
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "land",
+        "interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Boseiju, Who Endures",
+      "oracle_id": "bf1341dd-41a3-49f6-87ec-63170dde4324",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/266/boseiju-who-endures?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "interaction"
+      ],
+      "submitted_name": "Boseiju, Who Endures"
+    },
+    {
+      "cache": "cards/8dd5f5af-d2d8-4356-8617-8381081b930c.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "Each land is a Forest in addition to its other land types.",
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Yavimaya, Cradle of Growth",
+      "oracle_id": "8dd5f5af-d2d8-4356-8617-8381081b930c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/261/yavimaya-cradle-of-growth?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Yavimaya, Cradle of Growth"
+    },
+    {
+      "cache": "cards/db6174d7-211d-4817-b8e4-8384594c83f9.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "Each land is a Swamp in addition to its other land types.",
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Urborg, Tomb of Yawgmoth",
+      "oracle_id": "db6174d7-211d-4817-b8e4-8384594c83f9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsr/287/urborg-tomb-of-yawgmoth?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Urborg, Tomb of Yawgmoth"
+    },
+    {
+      "cache": "cards/8ed932ff-986c-4592-ad70-53b3fac80d69.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life: Add {B} or {G}.\n{1}, {T}, Sacrifice this land: Draw a card.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "card-draw"
+      ],
+      "category_source": "decklist",
+      "name": "Nurturing Peatland",
+      "oracle_id": "8ed932ff-986c-4592-ad70-53b3fac80d69",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh1/243/nurturing-peatland?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "card-draw"
+      ],
+      "submitted_name": "Nurturing Peatland"
+    },
+    {
+      "cache": "cards/0c85b8f7-0bd0-4680-9ec5-d4b110460a54.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle. Then if you control four or more lands, untap that land.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Fabled Passage",
+      "oracle_id": "0c85b8f7-0bd0-4680-9ec5-d4b110460a54",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/242/fabled-passage?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Fabled Passage"
+    },
+    {
+      "cache": "cards/2549bc57-9ffb-4053-9f10-f2a5f792b845.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Search your library for up to two basic land cards that share a land type, put them onto the battlefield tapped, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Myriad Landscape",
+      "oracle_id": "2549bc57-9ffb-4053-9f10-f2a5f792b845",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/169/myriad-landscape?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "ramp"
+      ],
+      "submitted_name": "Myriad Landscape"
+    },
+    {
+      "cache": "cards/b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {G}.)",
+        "type_line": "Basic Land — Forest"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Forest",
+      "oracle_id": "b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6",
+      "quantity": 8,
+      "scryfall_uri": "https://scryfall.com/card/trk/325/forest?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Forest"
+    },
+    {
+      "cache": "cards/56719f6a-1a6c-4c0a-8d21-18f7d7350b68.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {B}.)",
+        "type_line": "Basic Land — Swamp"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Swamp",
+      "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
+      "quantity": 4,
+      "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Swamp"
+    }
+  ],
+  "categorized_cards": 90,
+  "generated_at": "2026-08-23T22:03:31.587271+00:00",
+  "schema_version": 3,
+  "source": "decks/unrated_hazel-go-wide/decklist.txt",
+  "total_cards": 100,
+  "unique_cards": 90,
+  "unresolved": []
+}
