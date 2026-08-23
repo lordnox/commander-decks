@@ -29,13 +29,13 @@
 - **Fellwar Stone** — Usually produces blue or red in multiplayer while accelerating Alania by a turn.
 - **Midnight Clock** — Supplies blue mana early and eventually refills a hand depleted by setup and interaction.
 - **Pyromancer's Goggles** — Produces red mana and copies the red spell that mana pays for, stacking with Alania on the copy turn.
-- **Serum Visions** — Cheap sorcery-speed selection that improves land drops without consuming the first instant of a future combo turn.
+- **Consider** — One-mana instant that surveils then draws, so it can hold up and still copy from Alania on an opponent's turn.
 - **Lat-Nam's Legacy** — Hides a redundant card in the library and produces delayed card advantage at instant speed.
-- **Strategic Planning** — Selects the best of three cards while placing flashback and recursion targets into the graveyard.
+- **Impulse** — Instant-speed look at four that takes one and bottoms the rest, replacing Strategic Planning without tapping out.
 - **Peer Through Depths** — Digs five cards deep specifically for the deck's dense instant and sorcery package.
 - **Frantic Search** — Filters cards while untapping lands, making it effectively free once enough mana is available.
 - **Big Score** — Turns a redundant card into two new cards and two Treasures for the closing turn.
-- **Pieces of the Puzzle** — Finds up to two instants or sorceries and stocks the graveyard for the recursion package.
+- **Quick Study** — Instant-speed draw two that Alania copies for a real four cards, unlike Memory Deluge whose copies spend zero mana.
 - **Solve the Equation** — The cleanest tutor for either Repeated Reverberation or a missing instant or sorcery payoff.
 - **Personal Tutor** — Places Tasha or a damage finisher on top without using a current Game Changer tutor.
 - **Long-Term Plans** — Finds any missing card, including permanent reducers, at the fair cost of delayed access.
@@ -92,3 +92,7 @@ Cut the five slowest or most redundant cards for five answers. **Invoke Calamity
 ## 2026-08-24 — Copy permanents restored by pilot preference
 
 The pilot wants **Pyromancer's Goggles** and **Primal Amulet** back, cutting **Chandra, Hope's Beacon** and **Sublime Epiphany**. Both returning cards produce mana that copies the spell it pays for, which stacks with Alania's own copy rather than competing with it, and both survive the creature sweepers that answer the reducer package. The cost is real and deliberate: the counterspell suite drops from seven to six and loses its most flexible answer, since Sublime Epiphany could counter, bounce, copy a reducer, and draw in one resolution. Chandra was the easier cut of the two, as six mana for one guaranteed copy per turn is slower than the deck's other multipliers.
+
+## 2026-08-24 — Instant-speed card draw
+
+Move the dedicated selection package to instants so the deck can hold up interaction like a blue-go list. Finishers and setup remain sorceries. Cut **Serum Visions**, **Strategic Planning**, and **Pieces of the Puzzle** for **Consider**, **Impulse**, and **Quick Study**. Memory Deluge was the first draw-two candidate, but copies look at X=0 because they were not cast, so Alania would not actually find cards with it.
