@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "50b9575a-53d9-4df7-b86c-cda021107d3f",
+      "name": "Into the Flood Maw",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/50b9575a-53d9-4df7-b86c-cda021107d3f"
+    },
+    {
+      "component": "token",
+      "id": "de0d6700-49f0-4233-97ba-cef7821c30ed",
+      "name": "Fish",
+      "object": "related_card",
+      "type_line": "Token Creature — Fish",
+      "uri": "https://api.scryfall.com/cards/de0d6700-49f0-4233-97ba-cef7821c30ed"
+    }
+  ],
+  "arena_id": 91588,
+  "artist": "Danny Schwartz",
+  "artist_ids": [
+    "48e30a4a-5b4d-48e2-9c53-03125085374e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 778345,
+  "cmc": 1.0,
+  "collector_number": "52",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 707,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "50b9575a-53d9-4df7-b86c-cda021107d3f",
+  "illustration_id": "9be40712-3155-4642-b3cf-f9c8844a7233",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:47:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/0/50b9575a-53d9-4df7-b86c-cda021107d3f.webp?1783910850",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/0/50b9575a-53d9-4df7-b86c-cda021107d3f.jpg?1783910850",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/0/50b9575a-53d9-4df7-b86c-cda021107d3f.jpg?1783910850",
+    "crop": "https://cards.scryfall.io/crop/front/5/0/50b9575a-53d9-4df7-b86c-cda021107d3f.webp?1783910850",
+    "display": "https://cards.scryfall.io/display/front/5/0/50b9575a-53d9-4df7-b86c-cda021107d3f.webp?1783910850",
+    "grid": "https://cards.scryfall.io/grid/front/5/0/50b9575a-53d9-4df7-b86c-cda021107d3f.webp?1783910850",
+    "large": "https://cards.scryfall.io/large/front/5/0/50b9575a-53d9-4df7-b86c-cda021107d3f.jpg?1783910850",
+    "normal": "https://cards.scryfall.io/normal/front/5/0/50b9575a-53d9-4df7-b86c-cda021107d3f.jpg?1783910850",
+    "png": "https://cards.scryfall.io/png/front/5/0/50b9575a-53d9-4df7-b86c-cda021107d3f.png?1783910850",
+    "small": "https://cards.scryfall.io/small/front/5/0/50b9575a-53d9-4df7-b86c-cda021107d3f.jpg?1783910850",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/0/50b9575a-53d9-4df7-b86c-cda021107d3f.webp?1783910850"
+  },
+  "keywords": [
+    "Gift"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_id": 129349,
+  "multiverse_ids": [
+    668966
+  ],
+  "name": "Into the Flood Maw",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8cb36a67-9206-4665-a03f-64f52ba559c4",
+  "oracle_text": "Gift a tapped Fish (You may promise an opponent a gift as you cast this spell. If you do, they create a tapped 1/1 blue Fish creature token before its other effects.)\nReturn target creature an opponent controls to its owner's hand. If the gift was promised, instead return target nonland permanent an opponent controls to its owner's hand.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-07-12",
+    "source": "Nerd Rage",
+    "source_uri": "https://www.facebook.com/nerdrageth/posts/pfbid02UrVoCfqeXGpKNH2dvXGJLA1TFVXnBymYEXT6CDpG392dSdJHLA7bu74S7ik3B79el"
+  },
+  "prices": {
+    "eur": "1.48",
+    "eur_foil": "2.11",
+    "tix": "4.01",
+    "usd": "2.37",
+    "usd_etched": null,
+    "usd_foil": "3.20"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8cb36a67-9206-4665-a03f-64f52ba559c4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/129349?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=778345&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F559137%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Into+the+Flood+Maw",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=668966&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DInto%2Bthe%2BFlood%2BMaw",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DInto%2Bthe%2BFlood%2BMaw"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/50b9575a-53d9-4df7-b86c-cda021107d3f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/52/into-the-flood-maw?utm_source=api",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": false,
+  "tcgplayer_id": 559137,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/50b9575a-53d9-4df7-b86c-cda021107d3f",
+  "variation": false
+}

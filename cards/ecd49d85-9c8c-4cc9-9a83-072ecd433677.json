@@ -1,0 +1,143 @@
+{
+  "arena_id": 84895,
+  "artist": "Yigit Koroglu",
+  "artist_ids": [
+    "a24479f8-6d9e-40f9-bede-f29899922b97"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 717124,
+  "cmc": 3.0,
+  "collector_number": "203",
+  "color_identity": [
+    "R",
+    "U"
+  ],
+  "colors": [
+    "R",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1751,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "There was a ringing clash and a stab of white fire, and the Balrog fell back.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "04779a7e-b453-48b9-b392-6d6fd0b8d283",
+  "illustration_id": "df5ad82b-3bb8-4690-a662-7c73d2081f2a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:17:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/4/04779a7e-b453-48b9-b392-6d6fd0b8d283.webp?1783916255",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/4/04779a7e-b453-48b9-b392-6d6fd0b8d283.jpg?1783916255",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/4/04779a7e-b453-48b9-b392-6d6fd0b8d283.jpg?1783916255",
+    "crop": "https://cards.scryfall.io/crop/front/0/4/04779a7e-b453-48b9-b392-6d6fd0b8d283.webp?1783916255",
+    "display": "https://cards.scryfall.io/display/front/0/4/04779a7e-b453-48b9-b392-6d6fd0b8d283.webp?1783916255",
+    "grid": "https://cards.scryfall.io/grid/front/0/4/04779a7e-b453-48b9-b392-6d6fd0b8d283.webp?1783916255",
+    "large": "https://cards.scryfall.io/large/front/0/4/04779a7e-b453-48b9-b392-6d6fd0b8d283.jpg?1783916255",
+    "normal": "https://cards.scryfall.io/normal/front/0/4/04779a7e-b453-48b9-b392-6d6fd0b8d283.jpg?1783916255",
+    "png": "https://cards.scryfall.io/png/front/0/4/04779a7e-b453-48b9-b392-6d6fd0b8d283.png?1783916255",
+    "small": "https://cards.scryfall.io/small/front/0/4/04779a7e-b453-48b9-b392-6d6fd0b8d283.jpg?1783916255",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/4/04779a7e-b453-48b9-b392-6d6fd0b8d283.webp?1783916255"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{R}",
+  "mtgo_id": 112316,
+  "multiverse_ids": [
+    617033
+  ],
+  "name": "Flame of Anor",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ecd49d85-9c8c-4cc9-9a83-072ecd433677",
+  "oracle_text": "Choose one. If you control a Wizard as you cast this spell, you may choose two instead.\n• Target player draws two cards.\n• Destroy target artifact.\n• Flame of Anor deals 5 damage to target creature.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-06-08",
+    "source": "IGN",
+    "source_uri": "https://www.ign.com/articles/magic-the-gathering-lord-of-the-rings-spoiler-reveal-bridge-of-khazad-dum-balrog-wings"
+  },
+  "prices": {
+    "eur": "3.90",
+    "eur_foil": "4.91",
+    "tix": "0.02",
+    "usd": "4.15",
+    "usd_etched": null,
+    "usd_foil": "4.83"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aecd49d85-9c8c-4cc9-9a83-072ecd433677&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/112316?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=717124&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F499872%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Flame+of+Anor",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=617033&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFlame%2Bof%2BAnor",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFlame%2Bof%2BAnor"
+  },
+  "released_at": "2023-06-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/04779a7e-b453-48b9-b392-6d6fd0b8d283/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ltr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ltr/203/flame-of-anor?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "ltr",
+  "set_id": "08078706-ac5d-439b-8f01-894d38751367",
+  "set_name": "The Lord of the Rings: Tales of Middle-earth",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Altr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/08078706-ac5d-439b-8f01-894d38751367",
+  "story_spotlight": false,
+  "tcgplayer_id": 499872,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/04779a7e-b453-48b9-b392-6d6fd0b8d283",
+  "variation": false
+}

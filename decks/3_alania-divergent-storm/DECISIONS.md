@@ -22,14 +22,12 @@
 - **Mizzix of the Izmagnus** — Accumulates permanent player-based discounts and makes large X-spell turns dramatically more efficient.
 - **Vadrik, Astral Archmage** — Turns its power into generic spell reduction and can grow naturally through the day-and-night cycle.
 - **Mindsplice Apparatus** — A flash-speed reducer that grows every upkeep and is hard to remove with creature sweepers.
-- **Primal Amulet** — Reduces setup spells before transforming into a land that copies a later instant or sorcery.
 - **Sol Ring** — The deck's only true fast-mana card and the main enabler of the credible turn-four high roll.
 - **Arcane Signet** — Reliable two-mana fixing that accelerates the five-mana commander.
 - **Izzet Signet** — Converts spare generic mana into both colors required by the copy and finisher packages.
 - **Talisman of Creativity** — Untapped two-mana acceleration that produces either required color immediately.
 - **Fellwar Stone** — Usually produces blue or red in multiplayer while accelerating Alania by a turn.
 - **Midnight Clock** — Supplies blue mana early and eventually refills a hand depleted by setup and interaction.
-- **Pyromancer's Goggles** — Provides red mana and automatically copies red setup spells such as Repeated Reverberation.
 - **Serum Visions** — Cheap sorcery-speed selection that improves land drops without consuming the first instant of a future combo turn.
 - **Lat-Nam's Legacy** — Hides a redundant card in the library and produces delayed card advantage at instant speed.
 - **Strategic Planning** — Selects the best of three cards while placing flashback and recursion targets into the graveyard.
@@ -40,10 +38,7 @@
 - **Solve the Equation** — The cleanest tutor for either Repeated Reverberation or a missing instant or sorcery payoff.
 - **Personal Tutor** — Places Tasha or a damage finisher on top without using a current Game Changer tutor.
 - **Long-Term Plans** — Finds any missing card, including permanent reducers, at the fair cost of delayed access.
-- **Invert // Invent** — Invent can collect two different instant or sorcery pieces in one card, while Invert remains an emergency combat trick.
-- **Shreds of Sanity** — Recovers both an instant setup piece and a sorcery finisher in exchange for a replaceable discard.
 - **Mizzix's Mastery** — Recasts a crucial graveyard spell without paying its mana cost and offers a late-game mass-recursion mode.
-- **Invoke Calamity** — Casts two modestly priced spells from hand or graveyard at instant speed, rebuilding a disrupted copy chain.
 - **Narset's Reversal** — Protects the stack by returning a spell while creating a useful copy under the deck's control.
 - **Return the Favor** — An esoteric modal answer that can redirect a target or copy a spell, activated ability, or triggered ability.
 - **Wild Ricochet** — Redirects an opposing instant or sorcery and adds a copy, providing both defense and value.
@@ -57,11 +52,16 @@
 - **Resculpt** — Exiles a creature or artifact cleanly; the 4/4 token is usually less dangerous than the removed permanent.
 - **Reality Shift** — Efficiently exiles a creature and replaces it with an uncertain face-down card.
 - **Amphibian Downpour** — Uses storm to neutralize several creatures during a busy turn without destroying them.
+- **Into the Flood Maw** — One-mana instant-speed answer that bounces an opposing creature, or any nonland permanent when a Fish is gifted, cheap enough to leave up alongside a setup spell.
+- **Flame of Anor** — The deck's Wizard count is high enough that this usually chooses two modes, killing a creature or artifact while drawing two.
+- **Prismari Command** — Two modes from damage, artifact removal, loot filtering, or a Treasure, so it answers a threat and advances the mana or graveyard at once.
 - **Ill-Timed Explosion** — Filters the hand and can clear creatures according to the discarded card's mana value.
+- **Aetherize** — The second sweeper, answering a lethal alpha strike at instant speed without needing to remove permanents.
 - **Volcanic Offering** — Removes two creatures and two nonbasic lands while forcing an opponent to help choose the collateral damage.
 - **Release to the Wind** — Temporarily answers any nonland permanent or protects Alania for a later free recast.
 - **Change of Plans** — Filters cards and phases out selected creatures, protecting Alania and other reducers from removal.
 - **March of Swirling Mist** — Scales from single-creature protection to phasing out an entire threatening board.
+- **Mizzium Skin** — One mana to make Alania hexproof, or two overloaded to cover every reducer against a sweeper.
 - **Command Tower** — The most reliable untapped source of either commander color.
 - **Exotic Orchard** — Usually produces both blue and red in a four-player Commander game.
 - **Steam Vents** — Untapped dual for two life, the cleanest way to hit both colors on a setup turn.
@@ -81,4 +81,10 @@
 
 ## 2026-08-23 — Mana base correction
 
-The deck ran 35 true lands, which is below the floor for a five-mana commander with double-colored copy spells. Cut **Portent**, **Chef's Kiss**, and **Aetherize** for **Steam Vents**, **Cascade Bluffs**, and **Otawara, Soaring City** to reach 38 lands while keeping interaction density: Otawara replaces a narrow redirect with repeatable removal on a land.
+The deck ran 35 true lands, which is below the floor for a five-mana commander with double-colored copy spells. The manifest read 36 only because **Primal Amulet** was counted as a land it reaches after four casts. Cut **Portent**, **Chef's Kiss**, and **Aetherize** for **Steam Vents**, **Cascade Bluffs**, and **Otawara, Soaring City** to reach 38 lands while keeping interaction density: Otawara replaces a narrow redirect with repeatable removal on a land.
+
+## 2026-08-24 — Interaction rework
+
+The land fix left the deck thin on answers: four dedicated removal spells, three protection spells, and a single sweeper, with the primer's "interaction" figure inflated by counting counterspells and copy effects. There is no Otter-themed removal worth running — the only real candidate, Frolicking Familiar // Blow Off Steam, deals two damage for two mana — so the package is built from efficient Izzet interaction instead.
+
+Cut the five slowest or most redundant cards for five answers. **Invoke Calamity** demands `{R}{R}{R}{R}` and its combined mana value six ceiling cannot rebuild Repeated Reverberation plus a finisher. **Pyromancer's Goggles** costs five and copies only red spells. **Invert // Invent** was a six-mana fourth tutor; three tutors is still enough. **Primal Amulet** wants four casts before it does the interesting half. **Shreds of Sanity** was the least efficient recursion spell. In return the deck gains **Into the Flood Maw**, **Flame of Anor**, **Prismari Command**, **Aetherize** back, and **Mizzium Skin**, moving to seven dedicated removal spells, two sweepers, and four protection spells while the counterspell suite stays at seven.

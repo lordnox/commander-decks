@@ -2716,8 +2716,34 @@
         "ramp",
         "removal"
       ]
+    },
+    "8cb36a67-9206-4665-a03f-64f52ba559c4": {
+      "name": "Into the Flood Maw",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "ecd49d85-9c8c-4cc9-9a83-072ecd433677": {
+      "name": "Flame of Anor",
+      "categories": [
+        "removal"
+      ]
+    },
+    "fa3e28b1-131c-4223-81e0-18dfbab22c26": {
+      "name": "Prismari Command",
+      "categories": [
+        "removal",
+        "token-production",
+        "discard"
+      ]
+    },
+    "02d998a6-0afd-4be1-a209-05618fcc43ea": {
+      "name": "Mizzium Skin",
+      "categories": [
+        "protection"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-23T21:30:47.606432+00:00"
+  "updated_at": "2026-08-23T22:08:04.777447+00:00"
 }
