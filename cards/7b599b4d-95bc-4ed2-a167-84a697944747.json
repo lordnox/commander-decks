@@ -1,0 +1,132 @@
+{
+  "artist": "Magali Villeneuve",
+  "artist_ids": [
+    "9e6a55ae-be4d-4c23-a2a5-135737ffd879"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 288987,
+  "cmc": 3.0,
+  "collector_number": "78",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 17299,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"The clues have begun to reveal a truth I hesitate to accept.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "69204c83-2e43-4ca1-a4cd-d75399a7d6dd",
+  "illustration_id": "fbc8b164-496e-43d8-a6b1-5759c55c6a38",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:16:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/9/69204c83-2e43-4ca1-a4cd-d75399a7d6dd.webp?1783937790",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/9/69204c83-2e43-4ca1-a4cd-d75399a7d6dd.jpg?1783937790",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/9/69204c83-2e43-4ca1-a4cd-d75399a7d6dd.jpg?1783937790",
+    "crop": "https://cards.scryfall.io/crop/front/6/9/69204c83-2e43-4ca1-a4cd-d75399a7d6dd.webp?1783937790",
+    "display": "https://cards.scryfall.io/display/front/6/9/69204c83-2e43-4ca1-a4cd-d75399a7d6dd.webp?1783937790",
+    "grid": "https://cards.scryfall.io/grid/front/6/9/69204c83-2e43-4ca1-a4cd-d75399a7d6dd.webp?1783937790",
+    "large": "https://cards.scryfall.io/large/front/6/9/69204c83-2e43-4ca1-a4cd-d75399a7d6dd.jpg?1783937790",
+    "normal": "https://cards.scryfall.io/normal/front/6/9/69204c83-2e43-4ca1-a4cd-d75399a7d6dd.jpg?1783937790",
+    "png": "https://cards.scryfall.io/png/front/6/9/69204c83-2e43-4ca1-a4cd-d75399a7d6dd.png?1783937790",
+    "small": "https://cards.scryfall.io/small/front/6/9/69204c83-2e43-4ca1-a4cd-d75399a7d6dd.jpg?1783937790",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/9/69204c83-2e43-4ca1-a4cd-d75399a7d6dd.webp?1783937790"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_foil_id": 59799,
+  "mtgo_id": 59798,
+  "multiverse_ids": [
+    409821
+  ],
+  "name": "Pieces of the Puzzle",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7b599b4d-95bc-4ed2-a167-84a697944747",
+  "oracle_text": "Reveal the top five cards of your library. Put up to two instant and/or sorcery cards from among them into your hand and the rest into your graveyard.",
+  "oversized": false,
+  "penny_rank": 1096,
+  "prices": {
+    "eur": "0.17",
+    "eur_foil": "2.09",
+    "tix": "0.03",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": "0.86"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7b599b4d-95bc-4ed2-a167-84a697944747&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/59798?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=288987&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F115911%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Pieces+of+the+Puzzle",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=409821&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPieces%2Bof%2Bthe%2BPuzzle",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPieces%2Bof%2Bthe%2BPuzzle"
+  },
+  "released_at": "2016-04-08",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/69204c83-2e43-4ca1-a4cd-d75399a7d6dd/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/soi?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/soi/78/pieces-of-the-puzzle?utm_source=api",
+  "set": "soi",
+  "set_id": "5e914d7e-c1e9-446c-a33d-d093c02b2743",
+  "set_name": "Shadows over Innistrad",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asoi&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5e914d7e-c1e9-446c-a33d-d093c02b2743",
+  "story_spotlight": false,
+  "tcgplayer_id": 115911,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/69204c83-2e43-4ca1-a4cd-d75399a7d6dd",
+  "variation": false
+}

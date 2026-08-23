@@ -2289,8 +2289,420 @@
         "self-mill",
         "token-production"
       ]
+    },
+    "63d50d5e-56de-44c4-b906-b2a21a56e3f3": {
+      "name": "Alania, Divergent Storm",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "e352f5b9-6406-4914-bc79-f24608be6bc9": {
+      "name": "Tasha's Hideous Laughter",
+      "categories": [
+        "other"
+      ]
+    },
+    "273f5483-b67e-4dd6-bba8-c0a047fa34d7": {
+      "name": "Crackle with Power",
+      "categories": [
+        "other"
+      ]
+    },
+    "f5f0deb0-070a-45b6-9b81-0bc8143f3040": {
+      "name": "Jaya's Immolating Inferno",
+      "categories": [
+        "other"
+      ]
+    },
+    "9a664735-6e38-407f-9d2f-a6d279cd6309": {
+      "name": "Repeated Reverberation",
+      "categories": [
+        "other"
+      ]
+    },
+    "f5c5f462-10fa-422a-90da-07f46257f22f": {
+      "name": "Storm King's Thunder",
+      "categories": [
+        "other"
+      ]
+    },
+    "40ab2b22-9cf6-4a73-a05f-6ce496d10bf7": {
+      "name": "Bonus Round",
+      "categories": [
+        "other"
+      ]
+    },
+    "dd4cf149-2fae-40e5-b50b-639f6bcec65e": {
+      "name": "Thousand-Year Storm",
+      "categories": [
+        "other"
+      ]
+    },
+    "c51ed6e3-813b-49c4-b1de-7f92a77f8f6e": {
+      "name": "Galvanic Iteration",
+      "categories": [
+        "other"
+      ]
+    },
+    "a5ca7bd9-0964-405f-adb9-7c27153595e6": {
+      "name": "Increasing Vengeance",
+      "categories": [
+        "other"
+      ]
+    },
+    "38394ee3-6726-4f91-bc25-36bce0c6aab9": {
+      "name": "Reiterate",
+      "categories": [
+        "other"
+      ]
+    },
+    "99140891-face-4015-aacd-1309e87d8f9f": {
+      "name": "Display of Power",
+      "categories": [
+        "other"
+      ]
+    },
+    "53231b31-fb3c-4b30-bfe9-0ee8e754247b": {
+      "name": "Chandra, Hope's Beacon",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "8eb7c0a5-6190-40de-b473-2d1daa3bbe28": {
+      "name": "Dualcaster Mage",
+      "categories": [
+        "other"
+      ]
+    },
+    "88d0a394-79e2-42ac-9a37-1a7b78231941": {
+      "name": "Thunderclap Drake",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "0c367958-729e-416d-988b-098e90e7a1fd": {
+      "name": "Ruby Medallion",
+      "categories": [
+        "other"
+      ]
+    },
+    "f1ef5698-14bd-42bf-aae5-2870699e4186": {
+      "name": "Sapphire Medallion",
+      "categories": [
+        "other"
+      ]
+    },
+    "81f06f84-1580-43c0-89d5-08d34541a519": {
+      "name": "Goblin Electromancer",
+      "categories": [
+        "other"
+      ]
+    },
+    "b2252471-01ca-4d58-aa99-4ab0aa5eae12": {
+      "name": "Stormcatch Mentor",
+      "categories": [
+        "other"
+      ]
+    },
+    "f787c6cf-a4ff-487b-a7b0-0f516e68510a": {
+      "name": "Mizzix of the Izmagnus",
+      "categories": [
+        "other"
+      ]
+    },
+    "a9ab17ce-ba07-4ce8-99f9-9c4c633957f7": {
+      "name": "Vadrik, Astral Archmage",
+      "categories": [
+        "other"
+      ]
+    },
+    "4d0760fb-4e04-4f29-a268-14c13c30232d": {
+      "name": "Mindsplice Apparatus",
+      "categories": [
+        "other"
+      ]
+    },
+    "8e4d0da0-c7d8-4a20-9bfd-02c1331a7a49": {
+      "name": "Primal Amulet // Primal Wellspring",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "95560508-7ac9-4be9-8a3f-3c7d5b52807b": {
+      "name": "Fellwar Stone",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "c68faebc-b2cd-461b-b93e-e1fcd4816810": {
+      "name": "Midnight Clock",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "f76bcbfe-483f-4e63-8425-76feca1abf3e": {
+      "name": "Pyromancer's Goggles",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c": {
+      "name": "Frantic Search",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "a5cbd257-c836-493e-bb1a-76242619dea2": {
+      "name": "Big Score",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "token-production",
+        "sacrifice",
+        "discard"
+      ]
+    },
+    "7b599b4d-95bc-4ed2-a167-84a697944747": {
+      "name": "Pieces of the Puzzle",
+      "categories": [
+        "other"
+      ]
+    },
+    "f02682f0-26c0-4032-9df3-273b6a45d0a8": {
+      "name": "Solve the Equation",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "90f54959-2c9b-4b8a-84c9-d6893eb43553": {
+      "name": "Personal Tutor",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "d1dfb359-d8f9-491e-88f7-95193b220200": {
+      "name": "Long-Term Plans",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "9a378964-2c04-4d60-a905-c819d37ed4c3": {
+      "name": "Invert // Invent",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "6eaa343d-0097-4f05-80ab-deb016d4e15e": {
+      "name": "Shreds of Sanity",
+      "categories": [
+        "recursion",
+        "discard"
+      ]
+    },
+    "40362fe0-a1a9-4d76-8c35-eac474b91af5": {
+      "name": "Mizzix's Mastery",
+      "categories": [
+        "removal"
+      ]
+    },
+    "5b3f041e-ad4a-47ea-bdc4-1be2353f2e18": {
+      "name": "Invoke Calamity",
+      "categories": [
+        "other"
+      ]
+    },
+    "d55f6c70-321f-4fb4-bd33-0850ae1a7c36": {
+      "name": "Narset's Reversal",
+      "categories": [
+        "other"
+      ]
+    },
+    "3d177c04-9aa3-44b8-bbe4-df5de23a4ce6": {
+      "name": "Chef's Kiss",
+      "categories": [
+        "other"
+      ]
+    },
+    "8c35fd11-be45-4984-bd83-6e4f3fbc47a9": {
+      "name": "Wild Ricochet",
+      "categories": [
+        "other"
+      ]
+    },
+    "69e12b1f-0fd9-43a9-b3db-fe08290442c6": {
+      "name": "Invert Polarity",
+      "categories": [
+        "other"
+      ]
+    },
+    "e197104f-5382-4cb2-8afe-5ca0594629c2": {
+      "name": "Reinterpret",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "45aa8bdb-54da-4069-bd6c-c63396154464": {
+      "name": "Overwhelming Denial",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "ff192482-3808-4291-a31e-3dfaeb49cda2": {
+      "name": "Artistic Refusal",
+      "categories": [
+        "card-draw",
+        "counterspell",
+        "discard"
+      ]
+    },
+    "3df49c4d-a285-4826-824e-b742b0deed3a": {
+      "name": "Confounding Riddle",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "282dfeaa-6243-4f92-838a-5cb54fa85184": {
+      "name": "Three Steps Ahead",
+      "categories": [
+        "card-draw",
+        "counterspell",
+        "token-production",
+        "discard"
+      ]
+    },
+    "56148ae7-a9df-4771-8d53-d9ffb815c884": {
+      "name": "Sublime Epiphany",
+      "categories": [
+        "counterspell",
+        "token-production"
+      ]
+    },
+    "70dc830e-d05b-4fc7-88dd-879e140b3fbf": {
+      "name": "Reality Shift",
+      "categories": [
+        "removal"
+      ]
+    },
+    "a4280cea-386b-450d-a7e9-29c7aa58ce5a": {
+      "name": "Amphibian Downpour",
+      "categories": [
+        "other"
+      ]
+    },
+    "7c779721-cd1b-4696-9ae9-68ccc284ed2a": {
+      "name": "Aetherize",
+      "categories": [
+        "other"
+      ]
+    },
+    "6e3b3a3f-e32f-4c72-a9fb-dd1e877876b6": {
+      "name": "Ill-Timed Explosion",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "05e0a10d-532a-451c-a54e-27e64969fe0e": {
+      "name": "Volcanic Offering",
+      "categories": [
+        "removal"
+      ]
+    },
+    "49d6a9be-1d10-4ce4-afa3-aa637f39b898": {
+      "name": "Release to the Wind",
+      "categories": [
+        "removal"
+      ]
+    },
+    "b2f43df5-ec64-4375-b67f-b198732ab0b1": {
+      "name": "Change of Plans",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "0fe16212-66c3-4e45-a641-7391e9b2e304": {
+      "name": "Shivan Reef",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "6a6c5e17-6465-4a1f-9d63-8a3ce2edc522": {
+      "name": "Sulfur Falls",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "eb0d8093-5f93-4b25-9384-08f9731bfb28": {
+      "name": "Spirebluff Canal",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "4924b3a4-a218-4783-8a4d-82361fdecc78": {
+      "name": "Riverglide Pathway // Lavaglide Pathway",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "339f5334-b65a-445a-a016-20e997e0b4bb": {
+      "name": "Mistrise Village",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "17b60106-a4c7-410a-8ac3-ec8e74e29a7c": {
+      "name": "Mystic Sanctuary",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "62c15af0-40e1-407d-b056-7a3d909e3fdb": {
+      "name": "Ferrous Lake",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "e744dbb6-2d56-462a-8d49-d79c73944048": {
+      "name": "Portent",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "56956afd-db53-4542-816b-490c8b0bbcf7": {
+      "name": "Serum Visions",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "f885ee54-3b26-4d61-9783-3930b0e625aa": {
+      "name": "Lat-Nam's Legacy",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "02b5acf3-47cb-4d39-9307-e02656f1879b": {
+      "name": "Strategic Planning",
+      "categories": [
+        "other"
+      ]
+    },
+    "a61f5100-aa38-4996-b23c-3ce4ed25ed09": {
+      "name": "Peer Through Depths",
+      "categories": [
+        "other"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-22T12:42:49.664Z"
+  "updated_at": "2026-08-23T20:58:17.516734+00:00"
 }

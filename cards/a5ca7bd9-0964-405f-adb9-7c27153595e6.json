@@ -1,0 +1,132 @@
+{
+  "artist": "Anthony Francisco",
+  "artist_ids": [
+    "6ac24c4b-70e9-4286-8f4b-b40c92ab5847"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 392137,
+  "cmc": 2.0,
+  "collector_number": "147",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 3031,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2a362d78-76a1-4dbc-80cc-0360e98ba280",
+  "illustration_id": "bb103f38-81fa-4830-b7df-a985d524fd9d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:52:33Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/a/2a362d78-76a1-4dbc-80cc-0360e98ba280.webp?1783932753",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/a/2a362d78-76a1-4dbc-80cc-0360e98ba280.jpg?1783932753",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/a/2a362d78-76a1-4dbc-80cc-0360e98ba280.jpg?1783932753",
+    "crop": "https://cards.scryfall.io/crop/front/2/a/2a362d78-76a1-4dbc-80cc-0360e98ba280.webp?1783932753",
+    "display": "https://cards.scryfall.io/display/front/2/a/2a362d78-76a1-4dbc-80cc-0360e98ba280.webp?1783932753",
+    "grid": "https://cards.scryfall.io/grid/front/2/a/2a362d78-76a1-4dbc-80cc-0360e98ba280.webp?1783932753",
+    "large": "https://cards.scryfall.io/large/front/2/a/2a362d78-76a1-4dbc-80cc-0360e98ba280.jpg?1783932753",
+    "normal": "https://cards.scryfall.io/normal/front/2/a/2a362d78-76a1-4dbc-80cc-0360e98ba280.jpg?1783932753",
+    "png": "https://cards.scryfall.io/png/front/2/a/2a362d78-76a1-4dbc-80cc-0360e98ba280.png?1783932753",
+    "small": "https://cards.scryfall.io/small/front/2/a/2a362d78-76a1-4dbc-80cc-0360e98ba280.jpg?1783932753",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/a/2a362d78-76a1-4dbc-80cc-0360e98ba280.webp?1783932753"
+  },
+  "keywords": [
+    "Flashback"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{R}{R}",
+  "mtgo_id": 77408,
+  "multiverse_ids": [
+    470693
+  ],
+  "name": "Increasing Vengeance",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a5ca7bd9-0964-405f-adb9-7c27153595e6",
+  "oracle_text": "Copy target instant or sorcery spell you control. If this spell was cast from a graveyard, copy that spell twice instead. You may choose new targets for the copies.\nFlashback {3}{R}{R} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+  "oversized": false,
+  "penny_rank": 6496,
+  "prices": {
+    "eur": "1.03",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.93",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa5ca7bd9-0964-405f-adb9-7c27153595e6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/77408?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=392137&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F196566%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Increasing+Vengeance",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=470693&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIncreasing%2BVengeance",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIncreasing%2BVengeance"
+  },
+  "released_at": "2019-08-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2a362d78-76a1-4dbc-80cc-0360e98ba280/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c19?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c19/147/increasing-vengeance?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c19",
+  "set_id": "0fa3ccbb-d86d-4a2e-a55e-c4979c4feeb2",
+  "set_name": "Commander 2019",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac19&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/0fa3ccbb-d86d-4a2e-a55e-c4979c4feeb2",
+  "story_spotlight": false,
+  "tcgplayer_id": 196566,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/2a362d78-76a1-4dbc-80cc-0360e98ba280",
+  "variation": false
+}

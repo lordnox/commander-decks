@@ -1,0 +1,132 @@
+{
+  "artist": "Ben Thompson",
+  "artist_ids": [
+    "f3116c88-57f4-4fd1-95f3-cfd163977661"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 1031,
+  "cmc": 3.0,
+  "collector_number": "38",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 5056,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Wait, it'll come to me in a minute.\"",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7e0422d9-9694-45b6-9c2b-2ca31198cebf",
+  "illustration_id": "944c74e5-80ac-4791-8765-2c0eb98c86d0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:14:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/e/7e0422d9-9694-45b6-9c2b-2ca31198cebf.webp?1783944886",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/e/7e0422d9-9694-45b6-9c2b-2ca31198cebf.jpg?1783944886",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/e/7e0422d9-9694-45b6-9c2b-2ca31198cebf.jpg?1783944886",
+    "crop": "https://cards.scryfall.io/crop/front/7/e/7e0422d9-9694-45b6-9c2b-2ca31198cebf.webp?1783944886",
+    "display": "https://cards.scryfall.io/display/front/7/e/7e0422d9-9694-45b6-9c2b-2ca31198cebf.webp?1783944886",
+    "grid": "https://cards.scryfall.io/grid/front/7/e/7e0422d9-9694-45b6-9c2b-2ca31198cebf.webp?1783944886",
+    "large": "https://cards.scryfall.io/large/front/7/e/7e0422d9-9694-45b6-9c2b-2ca31198cebf.jpg?1783944886",
+    "normal": "https://cards.scryfall.io/normal/front/7/e/7e0422d9-9694-45b6-9c2b-2ca31198cebf.jpg?1783944886",
+    "png": "https://cards.scryfall.io/png/front/7/e/7e0422d9-9694-45b6-9c2b-2ca31198cebf.png?1783944886",
+    "small": "https://cards.scryfall.io/small/front/7/e/7e0422d9-9694-45b6-9c2b-2ca31198cebf.jpg?1783944886",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/e/7e0422d9-9694-45b6-9c2b-2ca31198cebf.webp?1783944886"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_foil_id": 18725,
+  "mtgo_id": 18724,
+  "multiverse_ids": [
+    43605
+  ],
+  "name": "Long-Term Plans",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d1dfb359-d8f9-491e-88f7-95193b220200",
+  "oracle_text": "Search your library for a card, then shuffle and put that card third from the top.",
+  "oversized": false,
+  "penny_rank": 8441,
+  "prices": {
+    "eur": "1.33",
+    "eur_foil": "14.99",
+    "tix": "0.04",
+    "usd": "6.11",
+    "usd_etched": null,
+    "usd_foil": "36.58"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad1dfb359-d8f9-491e-88f7-95193b220200&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/18724?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=1031&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10864%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Long-Term+Plans",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=43605&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLong-Term%2BPlans",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLong-Term%2BPlans"
+  },
+  "released_at": "2003-05-26",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7e0422d9-9694-45b6-9c2b-2ca31198cebf/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/scg?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/scg/38/long-term-plans?utm_source=api",
+  "set": "scg",
+  "set_id": "5133c3a1-1412-4ce6-a1f0-73b695966ded",
+  "set_name": "Scourge",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ascg&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5133c3a1-1412-4ce6-a1f0-73b695966ded",
+  "story_spotlight": false,
+  "tcgplayer_id": 10864,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/7e0422d9-9694-45b6-9c2b-2ca31198cebf",
+  "variation": false
+}

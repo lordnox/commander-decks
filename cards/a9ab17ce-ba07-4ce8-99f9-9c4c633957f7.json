@@ -1,0 +1,164 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "9c0f7843-4cbb-4d0f-8887-ec823a9238da",
+      "name": "Day // Night",
+      "object": "related_card",
+      "type_line": "Card // Card",
+      "uri": "https://api.scryfall.com/cards/9c0f7843-4cbb-4d0f-8887-ec823a9238da"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f7e4a483-727d-45f4-bf20-47d94d37e0d0",
+      "name": "Vadrik, Astral Archmage",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Wizard",
+      "uri": "https://api.scryfall.com/cards/f7e4a483-727d-45f4-bf20-47d94d37e0d0"
+    }
+  ],
+  "arena_id": 78616,
+  "artist": "Kieran Yanner",
+  "artist_ids": [
+    "aa7e89ed-d294-4633-9057-ce04dacfcfa4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 574931,
+  "cmc": 3.0,
+  "collector_number": "248",
+  "color_identity": [
+    "R",
+    "U"
+  ],
+  "colors": [
+    "R",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 11597,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "454666bb-f81d-4845-84aa-d6f8f80ce86a",
+  "illustration_id": "03e26da9-0aad-4c3b-9cd5-c5b0972feec3",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:52:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/5/454666bb-f81d-4845-84aa-d6f8f80ce86a.webp?1783925550",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/5/454666bb-f81d-4845-84aa-d6f8f80ce86a.jpg?1783925550",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/5/454666bb-f81d-4845-84aa-d6f8f80ce86a.jpg?1783925550",
+    "crop": "https://cards.scryfall.io/crop/front/4/5/454666bb-f81d-4845-84aa-d6f8f80ce86a.webp?1783925550",
+    "display": "https://cards.scryfall.io/display/front/4/5/454666bb-f81d-4845-84aa-d6f8f80ce86a.webp?1783925550",
+    "grid": "https://cards.scryfall.io/grid/front/4/5/454666bb-f81d-4845-84aa-d6f8f80ce86a.webp?1783925550",
+    "large": "https://cards.scryfall.io/large/front/4/5/454666bb-f81d-4845-84aa-d6f8f80ce86a.jpg?1783925550",
+    "normal": "https://cards.scryfall.io/normal/front/4/5/454666bb-f81d-4845-84aa-d6f8f80ce86a.jpg?1783925550",
+    "png": "https://cards.scryfall.io/png/front/4/5/454666bb-f81d-4845-84aa-d6f8f80ce86a.png?1783925550",
+    "small": "https://cards.scryfall.io/small/front/4/5/454666bb-f81d-4845-84aa-d6f8f80ce86a.jpg?1783925550",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/5/454666bb-f81d-4845-84aa-d6f8f80ce86a.webp?1783925550"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{R}",
+  "mtgo_id": 93504,
+  "multiverse_ids": [
+    535045
+  ],
+  "name": "Vadrik, Astral Archmage",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a9ab17ce-ba07-4ce8-99f9-9c4c633957f7",
+  "oracle_text": "If it's neither day nor night, it becomes day as Vadrik enters.\nInstant and sorcery spells you cast cost {X} less to cast, where X is Vadrik's power.\nWhenever day becomes night or night becomes day, put a +1/+1 counter on Vadrik.",
+  "oversized": false,
+  "penny_rank": 9441,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2021-09-08",
+    "source": "LoadingReadyRun",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.28",
+    "eur_foil": "0.33",
+    "tix": "0.02",
+    "usd": "0.40",
+    "usd_etched": null,
+    "usd_foil": "0.40"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa9ab17ce-ba07-4ce8-99f9-9c4c633957f7&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/93504?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=574931&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F248107%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vadrik%2C+Astral+Archmage",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=535045&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVadrik%252C%2BAstral%2BArchmage",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVadrik%252C%2BAstral%2BArchmage"
+  },
+  "released_at": "2021-09-24",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "094CF7A0CE84BF4FF25D73CF907C0C6EB06F5EFD43C0367EEEF2069C5B38431C",
+  "rulings_uri": "https://api.scryfall.com/cards/454666bb-f81d-4845-84aa-d6f8f80ce86a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mid?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mid/248/vadrik-astral-archmage?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mid",
+  "set_id": "44b8eb8f-fa23-401a-98b5-1fbb9871128e",
+  "set_name": "Innistrad: Midnight Hunt",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amid&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/44b8eb8f-fa23-401a-98b5-1fbb9871128e",
+  "story_spotlight": false,
+  "tcgplayer_id": 248107,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Human Wizard",
+  "uri": "https://api.scryfall.com/cards/454666bb-f81d-4845-84aa-d6f8f80ce86a",
+  "variation": false
+}

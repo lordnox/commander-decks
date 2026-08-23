@@ -1,0 +1,80 @@
+# Card decisions
+
+- **Alania, Divergent Storm** — The commander copies both halves of the primary turn: first Repeated Reverberation, then the first sorcery finisher, producing five copies without relying on an infinite loop.
+- **Tasha's Hideous Laughter** — The only library-exile finisher; each copy independently exiles until mana value 20, so copy count is not a mill-out.
+- **Crackle with Power** — The deterministic damage fallback; at X=2, six resolutions provide exactly enough target slots to deal 40 to three opponents.
+- **Jaya's Immolating Inferno** — A second copyable damage finish that can hit all three opponents on every resolution, with Alania satisfying its legendary-sorcery restriction.
+- **Repeated Reverberation** — The most compact multiplier: Alania copies it once, and the two resulting delayed triggers each copy the finisher twice.
+- **Storm King's Thunder** — Converts excess mana and cost reductions directly into the requested five copies of the next payoff.
+- **Bonus Round** — A risky high-ceiling multiplier that can overwhelm a table when the deck can exploit the symmetric copying better than its opponents.
+- **Thousand-Year Storm** — A persistent copy engine and alternate route to five copies after a sequence of setup spells.
+- **Galvanic Iteration** — A cheap delayed copy that can be reused from the graveyard and helps bridge smaller copy chains.
+- **Increasing Vengeance** — Copies a key spell once from hand or twice with flashback, rewarding the deck's discard and graveyard setup.
+- **Reiterate** — A reusable Fork when buyback is affordable and a flexible answer to valuable opposing spells.
+- **Display of Power** — An unusual stack tool that can copy several relevant spells at once during a crowded counter or copy exchange.
+- **Chandra, Hope's Beacon** — Provides one automatic spell copy each turn, card access, and mana while remaining a difficult permanent type to answer.
+- **Dualcaster Mage** — Adds a copy at instant speed while leaving a creature that can help pressure planeswalkers or convoke Artistic Refusal.
+- **Thunderclap Drake** — Reduces every instant and sorcery and can be sacrificed for additional copies after Alania has been recast.
+- **Ruby Medallion** — Reduces the red setup spells, including the generic portions of Repeated Reverberation and Storm King's Thunder.
+- **Sapphire Medallion** — Makes blue selection, interaction, protection, and Tasha's generic mana cheaper.
+- **Goblin Electromancer** — The color-legal counterpart to Goblin Anarchomancer, reducing both instants and sorceries for only two mana.
+- **Stormcatch Mentor** — A second two-mana Izzet reducer that can also contribute minor combat damage.
+- **Mizzix of the Izmagnus** — Accumulates permanent player-based discounts and makes large X-spell turns dramatically more efficient.
+- **Vadrik, Astral Archmage** — Turns its power into generic spell reduction and can grow naturally through the day-and-night cycle.
+- **Mindsplice Apparatus** — A flash-speed reducer that grows every upkeep and is hard to remove with creature sweepers.
+- **Primal Amulet** — Reduces setup spells before transforming into a land that copies a later instant or sorcery.
+- **Sol Ring** — The deck's only true fast-mana card and the main enabler of the credible turn-four high roll.
+- **Arcane Signet** — Reliable two-mana fixing that accelerates the five-mana commander.
+- **Izzet Signet** — Converts spare generic mana into both colors required by the copy and finisher packages.
+- **Talisman of Creativity** — Untapped two-mana acceleration that produces either required color immediately.
+- **Fellwar Stone** — Usually produces blue or red in multiplayer while accelerating Alania by a turn.
+- **Midnight Clock** — Supplies blue mana early and eventually refills a hand depleted by setup and interaction.
+- **Pyromancer's Goggles** — Provides red mana and automatically copies red setup spells such as Repeated Reverberation.
+- **Portent** — An uncommon one-mana selection spell that can also manipulate an opponent's next draws before a combo turn.
+- **Serum Visions** — Cheap sorcery-speed selection that improves land drops without consuming the first instant of a future combo turn.
+- **Lat-Nam's Legacy** — Hides a redundant card in the library and produces delayed card advantage at instant speed.
+- **Strategic Planning** — Selects the best of three cards while placing flashback and recursion targets into the graveyard.
+- **Peer Through Depths** — Digs five cards deep specifically for the deck's dense instant and sorcery package.
+- **Frantic Search** — Filters cards while untapping lands, making it effectively free once enough mana is available.
+- **Big Score** — Turns a redundant card into two new cards and two Treasures for the closing turn.
+- **Pieces of the Puzzle** — Finds up to two instants or sorceries and stocks the graveyard for the recursion package.
+- **Solve the Equation** — The cleanest tutor for either Repeated Reverberation or a missing instant or sorcery payoff.
+- **Personal Tutor** — Places Tasha or a damage finisher on top without using a current Game Changer tutor.
+- **Long-Term Plans** — Finds any missing card, including permanent reducers, at the fair cost of delayed access.
+- **Invert // Invent** — Invent can collect two different instant or sorcery pieces in one card, while Invert remains an emergency combat trick.
+- **Shreds of Sanity** — Recovers both an instant setup piece and a sorcery finisher in exchange for a replaceable discard.
+- **Mizzix's Mastery** — Recasts a crucial graveyard spell without paying its mana cost and offers a late-game mass-recursion mode.
+- **Invoke Calamity** — Casts two modestly priced spells from hand or graveyard at instant speed, rebuilding a disrupted copy chain.
+- **Narset's Reversal** — Protects the stack by returning a spell while creating a useful copy under the deck's control.
+- **Return the Favor** — An esoteric modal answer that can redirect a target or copy a spell, activated ability, or triggered ability.
+- **Chef's Kiss** — Steals and copies a narrowly targeted spell, turning opposing removal or pump into unpredictable disruption.
+- **Wild Ricochet** — Redirects an opposing instant or sorcery and adds a copy, providing both defense and value.
+- **Invert Polarity** — A flavorful coin-flip counterspell whose successful flip takes control of the threatening spell instead.
+- **Reinterpret** — Counters a spell and converts its mana value into a free spell from hand, creating a large tempo swing.
+- **Overwhelming Denial** — Becomes an uncounterable two-mana answer after another spell has been cast that turn.
+- **Artistic Refusal** — Combines a hard counter and card filtering, with convoke occasionally reducing its high printed cost.
+- **Confounding Riddle** — Either counters a spell unless its controller pays four or digs for the next nonland card.
+- **Three Steps Ahead** — Scales between a counterspell, a creature copy, card filtering, or multiple modes in the late game.
+- **Sublime Epiphany** — A high-impact modal answer that can counter, bounce, copy a reducer, and draw within one resolution.
+- **Resculpt** — Exiles a creature or artifact cleanly; the 4/4 token is usually less dangerous than the removed permanent.
+- **Reality Shift** — Efficiently exiles a creature and replaces it with an uncertain face-down card.
+- **Amphibian Downpour** — Uses storm to neutralize several creatures during a busy turn without destroying them.
+- **Aetherize** — Punishes a wide attack while preserving the deck's sparse board and leaving mana for a later combo.
+- **Ill-Timed Explosion** — Filters the hand and can clear creatures according to the discarded card's mana value.
+- **Volcanic Offering** — Removes two creatures and two nonbasic lands while forcing an opponent to help choose the collateral damage.
+- **Release to the Wind** — Temporarily answers any nonland permanent or protects Alania for a later free recast.
+- **Change of Plans** — Filters cards and phases out selected creatures, protecting Alania and other reducers from removal.
+- **March of Swirling Mist** — Scales from single-creature protection to phasing out an entire threatening board.
+- **Command Tower** — The most reliable untapped source of either commander color.
+- **Exotic Orchard** — Usually produces both blue and red in a four-player Commander game.
+- **Shivan Reef** — Enters untapped and fixes either color when the deck cannot afford tempo loss.
+- **Stormcarved Coast** — An untapped dual land from turn three onward, matching the deck's setup curve.
+- **Sulfur Falls** — Frequently enters untapped because the mana base contains many Islands and Mountains.
+- **Spirebluff Canal** — Provides untapped early fixing when the deck most needs to deploy rocks and reducers.
+- **Riverglide Pathway** — Chooses whichever color the current hand needs without entering tapped.
+- **Training Center** — Reliably enters untapped in multiplayer and casts both blue and red setup pieces.
+- **Mistrise Village** — Protects the closing spell from counterspells while still functioning as a blue source.
+- **Mystic Sanctuary** — Returns a key instant or sorcery to the top once the deck controls enough Islands.
+- **Ferrous Lake** — Converts one mana into both blue and red, helping pay color-heavy copy turns.
+- **Island** — The larger basic allocation supports blue interaction, double-blue Tasha, and Mystic Sanctuary.
+- **Mountain** — Supplies the repeated red requirements in Repeated Reverberation, copy spells, and damage finishers.

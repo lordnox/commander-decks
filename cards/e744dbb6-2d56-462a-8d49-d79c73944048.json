@@ -1,0 +1,129 @@
+{
+  "artist": "Bartek Fedyczak",
+  "artist_ids": [
+    "70b1ba71-4ee1-4087-8a9e-ea919f20ebff"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 787932,
+  "cmc": 1.0,
+  "collector_number": "74",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 4022,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5b360632-9c81-4b9c-8b9f-ac0b51c974a0",
+  "illustration_id": "02a825f6-9d9d-4557-a985-926abcbfbc80",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:27:22Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/b/5b360632-9c81-4b9c-8b9f-ac0b51c974a0.webp?1783909642",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/b/5b360632-9c81-4b9c-8b9f-ac0b51c974a0.jpg?1783909642",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/b/5b360632-9c81-4b9c-8b9f-ac0b51c974a0.jpg?1783909642",
+    "crop": "https://cards.scryfall.io/crop/front/5/b/5b360632-9c81-4b9c-8b9f-ac0b51c974a0.webp?1783909642",
+    "display": "https://cards.scryfall.io/display/front/5/b/5b360632-9c81-4b9c-8b9f-ac0b51c974a0.webp?1783909642",
+    "grid": "https://cards.scryfall.io/grid/front/5/b/5b360632-9c81-4b9c-8b9f-ac0b51c974a0.webp?1783909642",
+    "large": "https://cards.scryfall.io/large/front/5/b/5b360632-9c81-4b9c-8b9f-ac0b51c974a0.jpg?1783909642",
+    "normal": "https://cards.scryfall.io/normal/front/5/b/5b360632-9c81-4b9c-8b9f-ac0b51c974a0.jpg?1783909642",
+    "png": "https://cards.scryfall.io/png/front/5/b/5b360632-9c81-4b9c-8b9f-ac0b51c974a0.png?1783909642",
+    "small": "https://cards.scryfall.io/small/front/5/b/5b360632-9c81-4b9c-8b9f-ac0b51c974a0.jpg?1783909642",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/b/5b360632-9c81-4b9c-8b9f-ac0b51c974a0.webp?1783909642"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_id": 131293,
+  "multiverse_ids": [
+    675802
+  ],
+  "name": "Portent",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e744dbb6-2d56-462a-8d49-d79c73944048",
+  "oracle_text": "Look at the top three cards of target player's library, then put them back in any order. You may have that player shuffle.\nDraw a card at the beginning of the next turn's upkeep.",
+  "oversized": false,
+  "penny_rank": 227,
+  "prices": {
+    "eur": "0.54",
+    "eur_foil": null,
+    "tix": "2.83",
+    "usd": "0.36",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae744dbb6-2d56-462a-8d49-d79c73944048&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/131293?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=787932&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F578976%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Portent",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=675802&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPortent",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPortent"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5b360632-9c81-4b9c-8b9f-ac0b51c974a0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/74/portent?utm_source=api",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 578976,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/5b360632-9c81-4b9c-8b9f-ac0b51c974a0",
+  "variation": false
+}

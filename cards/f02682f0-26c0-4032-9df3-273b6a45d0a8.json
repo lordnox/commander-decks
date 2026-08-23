@@ -1,0 +1,138 @@
+{
+  "arena_id": 76447,
+  "artist": "Lie Setiawan",
+  "artist_ids": [
+    "6f771d3f-310e-4aa4-841f-5ba4ba9f025a"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 557484,
+  "cmc": 3.0,
+  "collector_number": "54",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 930,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Zimone's brilliance drew attention from many, including the sinister mages known as the Oriq.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "66c04ee2-c1e0-45fb-aaf5-1b4459df80fc",
+  "illustration_id": "ab8c1242-d48b-42e2-bc94-aa6caeb8769d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:22:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/6/66c04ee2-c1e0-45fb-aaf5-1b4459df80fc.webp?1783927375",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/6/66c04ee2-c1e0-45fb-aaf5-1b4459df80fc.jpg?1783927375",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/6/66c04ee2-c1e0-45fb-aaf5-1b4459df80fc.jpg?1783927375",
+    "crop": "https://cards.scryfall.io/crop/front/6/6/66c04ee2-c1e0-45fb-aaf5-1b4459df80fc.webp?1783927375",
+    "display": "https://cards.scryfall.io/display/front/6/6/66c04ee2-c1e0-45fb-aaf5-1b4459df80fc.webp?1783927375",
+    "grid": "https://cards.scryfall.io/grid/front/6/6/66c04ee2-c1e0-45fb-aaf5-1b4459df80fc.webp?1783927375",
+    "large": "https://cards.scryfall.io/large/front/6/6/66c04ee2-c1e0-45fb-aaf5-1b4459df80fc.jpg?1783927375",
+    "normal": "https://cards.scryfall.io/normal/front/6/6/66c04ee2-c1e0-45fb-aaf5-1b4459df80fc.jpg?1783927375",
+    "png": "https://cards.scryfall.io/png/front/6/6/66c04ee2-c1e0-45fb-aaf5-1b4459df80fc.png?1783927375",
+    "small": "https://cards.scryfall.io/small/front/6/6/66c04ee2-c1e0-45fb-aaf5-1b4459df80fc.jpg?1783927375",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/6/66c04ee2-c1e0-45fb-aaf5-1b4459df80fc.webp?1783927375"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 88585,
+  "multiverse_ids": [
+    513531
+  ],
+  "name": "Solve the Equation",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f02682f0-26c0-4032-9df3-273b6a45d0a8",
+  "oracle_text": "Search your library for an instant or sorcery card, reveal it, put it into your hand, then shuffle.",
+  "oversized": false,
+  "penny_rank": 931,
+  "preview": {
+    "previewed_at": "2021-03-30",
+    "source": "One More Mana",
+    "source_uri": "https://www.youtube.com/watch?v=1XHz6Aoek6U"
+  },
+  "prices": {
+    "eur": "2.43",
+    "eur_foil": "3.02",
+    "tix": "0.03",
+    "usd": "4.10",
+    "usd_etched": null,
+    "usd_foil": "3.47"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af02682f0-26c0-4032-9df3-273b6a45d0a8&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/88585?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=557484&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F235658%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Solve+the+Equation",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=513531&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSolve%2Bthe%2BEquation",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSolve%2Bthe%2BEquation"
+  },
+  "released_at": "2021-04-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/66c04ee2-c1e0-45fb-aaf5-1b4459df80fc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/stx?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/stx/54/solve-the-equation?utm_source=api",
+  "set": "stx",
+  "set_id": "541c3c28-8747-40e5-a231-8e8f33234859",
+  "set_name": "Strixhaven: School of Mages",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Astx&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/541c3c28-8747-40e5-a231-8e8f33234859",
+  "story_spotlight": false,
+  "tcgplayer_id": 235658,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/66c04ee2-c1e0-45fb-aaf5-1b4459df80fc",
+  "variation": false
+}

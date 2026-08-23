@@ -1,0 +1,138 @@
+{
+  "arena_id": 87187,
+  "artist": "A. M. Sartor",
+  "artist_ids": [
+    "d01bfbdc-5442-482a-a339-933e0808c697"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 742059,
+  "cmc": 3.0,
+  "collector_number": "50",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 7614,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Explorers learned not to tamper with sites of ancient power without learning their purpose.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "f2ae23db-c391-402c-9568-65447cada66e",
+  "illustration_id": "c2f9bb24-5cad-4e0f-a13f-7b8d7365acfb",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:36:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/2/f2ae23db-c391-402c-9568-65447cada66e.webp?1783913798",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/2/f2ae23db-c391-402c-9568-65447cada66e.jpg?1783913798",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/2/f2ae23db-c391-402c-9568-65447cada66e.jpg?1783913798",
+    "crop": "https://cards.scryfall.io/crop/front/f/2/f2ae23db-c391-402c-9568-65447cada66e.webp?1783913798",
+    "display": "https://cards.scryfall.io/display/front/f/2/f2ae23db-c391-402c-9568-65447cada66e.webp?1783913798",
+    "grid": "https://cards.scryfall.io/grid/front/f/2/f2ae23db-c391-402c-9568-65447cada66e.webp?1783913798",
+    "large": "https://cards.scryfall.io/large/front/f/2/f2ae23db-c391-402c-9568-65447cada66e.jpg?1783913798",
+    "normal": "https://cards.scryfall.io/normal/front/f/2/f2ae23db-c391-402c-9568-65447cada66e.jpg?1783913798",
+    "png": "https://cards.scryfall.io/png/front/f/2/f2ae23db-c391-402c-9568-65447cada66e.png?1783913798",
+    "small": "https://cards.scryfall.io/small/front/f/2/f2ae23db-c391-402c-9568-65447cada66e.jpg?1783913798",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/2/f2ae23db-c391-402c-9568-65447cada66e.webp?1783913798"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 117890,
+  "multiverse_ids": [
+    636747
+  ],
+  "name": "Confounding Riddle",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3df49c4d-a285-4826-824e-b742b0deed3a",
+  "oracle_text": "Choose one —\n• Look at the top four cards of your library. Put one of them into your hand and the rest into your graveyard.\n• Counter target spell unless its controller pays {4}.",
+  "oversized": false,
+  "penny_rank": 768,
+  "preview": {
+    "previewed_at": "2023-10-26",
+    "source": "Dexerto",
+    "source_uri": "https://www.dexerto.com/magic-the-gathering/mtg-the-lost-caverns-of-ixalan-exclusive-card-reveals-2354442/"
+  },
+  "prices": {
+    "eur": "0.16",
+    "eur_foil": "0.42",
+    "tix": "0.03",
+    "usd": "0.24",
+    "usd_etched": null,
+    "usd_foil": "0.34"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3df49c4d-a285-4826-824e-b742b0deed3a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/117890?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=742059&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F524983%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Confounding+Riddle",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=636747&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DConfounding%2BRiddle",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DConfounding%2BRiddle"
+  },
+  "released_at": "2023-11-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f2ae23db-c391-402c-9568-65447cada66e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lci?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lci/50/confounding-riddle?utm_source=api",
+  "set": "lci",
+  "set_id": "70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "set_name": "The Lost Caverns of Ixalan",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alci&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "story_spotlight": false,
+  "tcgplayer_id": 524983,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/f2ae23db-c391-402c-9568-65447cada66e",
+  "variation": false
+}

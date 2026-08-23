@@ -1,0 +1,138 @@
+{
+  "arena_id": 75116,
+  "artist": "Donato Giancola",
+  "artist_ids": [
+    "90332db2-aecb-4d79-917b-95cbeb8d0cb6"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 531097,
+  "cmc": 2.0,
+  "collector_number": "77",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 7764,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Alrund sees the future as a whorl of signs and symbols, omens interwoven in an intricate knotwork only he can decipher.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "29306305-cb71-4fef-bf86-f5deb4e7e561",
+  "illustration_id": "d2f873c8-07be-4612-9df8-eed5a45d60bb",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:37:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/9/29306305-cb71-4fef-bf86-f5deb4e7e561.webp?1783928255",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/9/29306305-cb71-4fef-bf86-f5deb4e7e561.jpg?1783928255",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/9/29306305-cb71-4fef-bf86-f5deb4e7e561.jpg?1783928255",
+    "crop": "https://cards.scryfall.io/crop/front/2/9/29306305-cb71-4fef-bf86-f5deb4e7e561.webp?1783928255",
+    "display": "https://cards.scryfall.io/display/front/2/9/29306305-cb71-4fef-bf86-f5deb4e7e561.webp?1783928255",
+    "grid": "https://cards.scryfall.io/grid/front/2/9/29306305-cb71-4fef-bf86-f5deb4e7e561.webp?1783928255",
+    "large": "https://cards.scryfall.io/large/front/2/9/29306305-cb71-4fef-bf86-f5deb4e7e561.jpg?1783928255",
+    "normal": "https://cards.scryfall.io/normal/front/2/9/29306305-cb71-4fef-bf86-f5deb4e7e561.jpg?1783928255",
+    "png": "https://cards.scryfall.io/png/front/2/9/29306305-cb71-4fef-bf86-f5deb4e7e561.png?1783928255",
+    "small": "https://cards.scryfall.io/small/front/2/9/29306305-cb71-4fef-bf86-f5deb4e7e561.jpg?1783928255",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/9/29306305-cb71-4fef-bf86-f5deb4e7e561.webp?1783928255"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 87481,
+  "multiverse_ids": [
+    503685
+  ],
+  "name": "Strategic Planning",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "02b5acf3-47cb-4d39-9307-e02656f1879b",
+  "oracle_text": "Look at the top three cards of your library. Put one of them into your hand and the rest into your graveyard.",
+  "oversized": false,
+  "penny_rank": 1693,
+  "preview": {
+    "previewed_at": "2021-01-14",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/card-preview/kaldheim-limited-preview-2021-01-14"
+  },
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": "0.15",
+    "tix": "0.03",
+    "usd": "0.19",
+    "usd_etched": null,
+    "usd_foil": "0.18"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A02b5acf3-47cb-4d39-9307-e02656f1879b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/87481?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=531097&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F230725%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Strategic+Planning",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=503685&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DStrategic%2BPlanning",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DStrategic%2BPlanning"
+  },
+  "released_at": "2021-02-05",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/29306305-cb71-4fef-bf86-f5deb4e7e561/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/khm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/khm/77/strategic-planning?utm_source=api",
+  "set": "khm",
+  "set_id": "43057fad-b1c1-437f-bc48-0045bce6d8c9",
+  "set_name": "Kaldheim",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Akhm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/43057fad-b1c1-437f-bc48-0045bce6d8c9",
+  "story_spotlight": false,
+  "tcgplayer_id": 230725,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/29306305-cb71-4fef-bf86-f5deb4e7e561",
+  "variation": false
+}

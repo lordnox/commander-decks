@@ -1,0 +1,142 @@
+{
+  "arena_id": 90900,
+  "artist": "Omar Rayyan",
+  "artist_ids": [
+    "256b61a2-b9af-4ff5-b485-47a61818f818"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 772095,
+  "cmc": 3.0,
+  "collector_number": "51",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1227,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "2d8aeca5-622a-45be-8168-07e7c00e3092",
+  "illustration_id": "09e597a1-6b44-45cf-8051-9b50e1342540",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:54Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/d/2d8aeca5-622a-45be-8168-07e7c00e3092.webp?1783911294",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/d/2d8aeca5-622a-45be-8168-07e7c00e3092.jpg?1783911294",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/d/2d8aeca5-622a-45be-8168-07e7c00e3092.jpg?1783911294",
+    "crop": "https://cards.scryfall.io/crop/front/2/d/2d8aeca5-622a-45be-8168-07e7c00e3092.webp?1783911294",
+    "display": "https://cards.scryfall.io/display/front/2/d/2d8aeca5-622a-45be-8168-07e7c00e3092.webp?1783911294",
+    "grid": "https://cards.scryfall.io/grid/front/2/d/2d8aeca5-622a-45be-8168-07e7c00e3092.webp?1783911294",
+    "large": "https://cards.scryfall.io/large/front/2/d/2d8aeca5-622a-45be-8168-07e7c00e3092.jpg?1783911294",
+    "normal": "https://cards.scryfall.io/normal/front/2/d/2d8aeca5-622a-45be-8168-07e7c00e3092.jpg?1783911294",
+    "png": "https://cards.scryfall.io/png/front/2/d/2d8aeca5-622a-45be-8168-07e7c00e3092.png?1783911294",
+    "small": "https://cards.scryfall.io/small/front/2/d/2d8aeca5-622a-45be-8168-07e7c00e3092.jpg?1783911294",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/d/2d8aeca5-622a-45be-8168-07e7c00e3092.webp?1783911294"
+  },
+  "keywords": [
+    "Storm",
+    "Enchant",
+    "Flash"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 126119,
+  "multiverse_ids": [
+    662203
+  ],
+  "name": "Amphibian Downpour",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a4280cea-386b-450d-a7e9-29c7aa58ce5a",
+  "oracle_text": "Flash\nStorm (When you cast this spell, copy it for each spell cast before it this turn. You may choose new targets for the copies. Copies become tokens.)\nEnchant creature\nEnchanted creature loses all abilities and is a blue Frog creature with base power and toughness 1/1.",
+  "oversized": false,
+  "penny_rank": 5500,
+  "preview": {
+    "previewed_at": "2024-05-27",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/news/making-magic/third-times-the-charm-part-2"
+  },
+  "prices": {
+    "eur": "1.64",
+    "eur_foil": "2.34",
+    "tix": "0.02",
+    "usd": "2.22",
+    "usd_etched": null,
+    "usd_foil": "2.62"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa4280cea-386b-450d-a7e9-29c7aa58ce5a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126119?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=772095&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552794%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Amphibian+Downpour",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662203&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAmphibian%2BDownpour",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAmphibian%2BDownpour"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2d8aeca5-622a-45be-8168-07e7c00e3092/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/51/amphibian-downpour?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552794,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/2d8aeca5-622a-45be-8168-07e7c00e3092",
+  "variation": false
+}

@@ -1,0 +1,161 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "be980c3b-b4ab-4ed7-9f61-d8db54c226d9",
+      "name": "Three Steps Ahead",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/be980c3b-b4ab-4ed7-9f61-d8db54c226d9"
+    },
+    {
+      "component": "token",
+      "id": "e85f57c5-923a-4824-969e-53feddd78c3b",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/e85f57c5-923a-4824-969e-53feddd78c3b"
+    }
+  ],
+  "arena_id": 90421,
+  "artist": "Francisco Miyara",
+  "artist_ids": [
+    "fa64fc53-a243-4a94-a4d2-97625ea24b4f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 763923,
+  "cmc": 1.0,
+  "collector_number": "75",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1080,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "She'd planned for every eventuality, with the obvious exception of failure.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "spree"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "8fffd839-2337-4a14-9312-cee085a17f4b",
+  "illustration_id": "dfd77a6b-d087-46ac-938e-c00b4887b6e0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:03:57Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/f/8fffd839-2337-4a14-9312-cee085a17f4b.webp?1783911837",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/f/8fffd839-2337-4a14-9312-cee085a17f4b.jpg?1783911837",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/f/8fffd839-2337-4a14-9312-cee085a17f4b.jpg?1783911837",
+    "crop": "https://cards.scryfall.io/crop/front/8/f/8fffd839-2337-4a14-9312-cee085a17f4b.webp?1783911837",
+    "display": "https://cards.scryfall.io/display/front/8/f/8fffd839-2337-4a14-9312-cee085a17f4b.webp?1783911837",
+    "grid": "https://cards.scryfall.io/grid/front/8/f/8fffd839-2337-4a14-9312-cee085a17f4b.webp?1783911837",
+    "large": "https://cards.scryfall.io/large/front/8/f/8fffd839-2337-4a14-9312-cee085a17f4b.jpg?1783911837",
+    "normal": "https://cards.scryfall.io/normal/front/8/f/8fffd839-2337-4a14-9312-cee085a17f4b.jpg?1783911837",
+    "png": "https://cards.scryfall.io/png/front/8/f/8fffd839-2337-4a14-9312-cee085a17f4b.png?1783911837",
+    "small": "https://cards.scryfall.io/small/front/8/f/8fffd839-2337-4a14-9312-cee085a17f4b.jpg?1783911837",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/f/8fffd839-2337-4a14-9312-cee085a17f4b.webp?1783911837"
+  },
+  "keywords": [
+    "Spree"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_id": 124061,
+  "multiverse_ids": [
+    655016
+  ],
+  "name": "Three Steps Ahead",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "282dfeaa-6243-4f92-838a-5cb54fa85184",
+  "oracle_text": "Spree (Choose one or more additional costs.)\n+ {1}{U} — Counter target spell.\n+ {3} — Create a token that's a copy of target artifact or creature you control.\n+ {2} — Draw two cards, then discard a card.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-03-27",
+    "source": "Commander's Cauldron",
+    "source_uri": "https://www.youtube.com/watch?v=XO6lQrHkSy0"
+  },
+  "prices": {
+    "eur": "5.69",
+    "eur_foil": "7.49",
+    "tix": "0.02",
+    "usd": "5.52",
+    "usd_etched": null,
+    "usd_foil": "5.46"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A282dfeaa-6243-4f92-838a-5cb54fa85184&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124061?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=763923&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544417%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Three+Steps+Ahead",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=655016&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThree%2BSteps%2BAhead",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThree%2BSteps%2BAhead"
+  },
+  "released_at": "2024-04-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8fffd839-2337-4a14-9312-cee085a17f4b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otj?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otj/75/three-steps-ahead?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otj",
+  "set_id": "55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "set_name": "Outlaws of Thunder Junction",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotj&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "story_spotlight": false,
+  "tcgplayer_id": 544417,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/8fffd839-2337-4a14-9312-cee085a17f4b",
+  "variation": false
+}
