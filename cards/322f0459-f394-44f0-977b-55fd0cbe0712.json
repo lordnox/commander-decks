@@ -1,0 +1,127 @@
+{
+  "artist": "Ron Spencer",
+  "artist_ids": [
+    "dab52c11-0564-4207-a4a1-c1735c946a65"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 18985,
+  "cmc": 3.0,
+  "collector_number": "3",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2563,
+  "finishes": [
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "75d4f6fc-c5cd-416c-aafd-19c2f2c0cd51",
+  "illustration_id": "1eb67adf-187c-47e5-9fac-8db33729aaae",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:46:16Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/5/75d4f6fc-c5cd-416c-aafd-19c2f2c0cd51.webp?1783943176",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/5/75d4f6fc-c5cd-416c-aafd-19c2f2c0cd51.jpg?1783943176",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/5/75d4f6fc-c5cd-416c-aafd-19c2f2c0cd51.jpg?1783943176",
+    "crop": "https://cards.scryfall.io/crop/front/7/5/75d4f6fc-c5cd-416c-aafd-19c2f2c0cd51.webp?1783943176",
+    "display": "https://cards.scryfall.io/display/front/7/5/75d4f6fc-c5cd-416c-aafd-19c2f2c0cd51.webp?1783943176",
+    "grid": "https://cards.scryfall.io/grid/front/7/5/75d4f6fc-c5cd-416c-aafd-19c2f2c0cd51.webp?1783943176",
+    "large": "https://cards.scryfall.io/large/front/7/5/75d4f6fc-c5cd-416c-aafd-19c2f2c0cd51.jpg?1783943176",
+    "normal": "https://cards.scryfall.io/normal/front/7/5/75d4f6fc-c5cd-416c-aafd-19c2f2c0cd51.jpg?1783943176",
+    "png": "https://cards.scryfall.io/png/front/7/5/75d4f6fc-c5cd-416c-aafd-19c2f2c0cd51.png?1783943176",
+    "small": "https://cards.scryfall.io/small/front/7/5/75d4f6fc-c5cd-416c-aafd-19c2f2c0cd51.jpg?1783943176",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/5/75d4f6fc-c5cd-416c-aafd-19c2f2c0cd51.webp?1783943176"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "banned",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "banned",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "banned",
+    "vintage": "restricted"
+  },
+  "mana_cost": "{2}{B}",
+  "multiverse_ids": [],
+  "name": "Yawgmoth's Will",
+  "nonfoil": false,
+  "object": "card",
+  "oracle_id": "322f0459-f394-44f0-977b-55fd0cbe0712",
+  "oracle_text": "Until end of turn, you may play lands and cast spells from your graveyard.\nIf a card would be put into your graveyard from anywhere this turn, exile that card instead.",
+  "oversized": false,
+  "prices": {
+    "eur": null,
+    "eur_foil": "800.83",
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": "826.79"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A322f0459-f394-44f0-977b-55fd0cbe0712&unique=prints",
+  "promo": true,
+  "promo_types": [
+    "judgegift"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Yawgmoth%27s+Will&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=18985&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F38283%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Yawgmoth%27s+Will",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DYawgmoth%2527s%2BWill",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DYawgmoth%2527s%2BWill"
+  },
+  "released_at": "2007-01-01",
+  "reprint": true,
+  "reserved": true,
+  "rulings_uri": "https://api.scryfall.com/cards/75d4f6fc-c5cd-416c-aafd-19c2f2c0cd51/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/g07?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/g07/3/yawgmoths-will?utm_source=api",
+  "set": "g07",
+  "set_id": "4624619f-b5bf-4822-b364-8385a09a69da",
+  "set_name": "Judge Gift Cards 2007",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ag07&unique=prints",
+  "set_type": "promo",
+  "set_uri": "https://api.scryfall.com/sets/4624619f-b5bf-4822-b364-8385a09a69da",
+  "story_spotlight": false,
+  "tcgplayer_id": 38283,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/75d4f6fc-c5cd-416c-aafd-19c2f2c0cd51",
+  "variation": false,
+  "watermark": "dci"
+}

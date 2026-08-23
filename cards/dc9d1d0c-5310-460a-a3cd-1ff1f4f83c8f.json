@@ -1,0 +1,132 @@
+{
+  "artist": "Mike Ploog",
+  "artist_ids": [
+    "4a9465c4-1545-4ab6-91e7-60252b90bed4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 16324,
+  "cmc": 4.0,
+  "collector_number": "160",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 12568,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The crowd roared, the fighters bled, and the dead piled high in the pits. Only the Cabal could win.",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3",
+  "illustration_id": "935dada8-dfcc-4362-9e31-d07d7c635e6c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:43:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/1/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3.webp?1783943032",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/1/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3.jpg?1783943032",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/1/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3.jpg?1783943032",
+    "crop": "https://cards.scryfall.io/crop/front/f/1/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3.webp?1783943032",
+    "display": "https://cards.scryfall.io/display/front/f/1/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3.webp?1783943032",
+    "grid": "https://cards.scryfall.io/grid/front/f/1/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3.webp?1783943032",
+    "large": "https://cards.scryfall.io/large/front/f/1/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3.jpg?1783943032",
+    "normal": "https://cards.scryfall.io/normal/front/f/1/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3.jpg?1783943032",
+    "png": "https://cards.scryfall.io/png/front/f/1/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3.png?1783943032",
+    "small": "https://cards.scryfall.io/small/front/f/1/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3.jpg?1783943032",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/1/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3.webp?1783943032"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "mtgo_foil_id": 27479,
+  "mtgo_id": 27478,
+  "multiverse_ids": [
+    135259
+  ],
+  "name": "Mortal Combat",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "dc9d1d0c-5310-460a-a3cd-1ff1f4f83c8f",
+  "oracle_text": "At the beginning of your upkeep, if twenty or more creature cards are in your graveyard, you win the game.",
+  "oversized": false,
+  "penny_rank": 8344,
+  "prices": {
+    "eur": "4.14",
+    "eur_foil": "12.30",
+    "tix": "0.02",
+    "usd": "6.14",
+    "usd_etched": null,
+    "usd_foil": "17.55"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Adc9d1d0c-5310-460a-a3cd-1ff1f4f83c8f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/27478?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=16324&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F15223%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mortal+Combat",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=135259&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMortal%2BCombat",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMortal%2BCombat"
+  },
+  "released_at": "2007-07-13",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/10e?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/10e/160/mortal-combat?utm_source=api",
+  "set": "10e",
+  "set_id": "a66a6124-0d81-488d-b080-91f5ba7fbad0",
+  "set_name": "Tenth Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A10e&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a66a6124-0d81-488d-b080-91f5ba7fbad0",
+  "story_spotlight": false,
+  "tcgplayer_id": 15223,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3",
+  "variation": false
+}

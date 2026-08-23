@@ -1,0 +1,1835 @@
+{
+  "cards": [
+    {
+      "cache": "cards/46c7f465-304c-4c4b-a1f6-9707706dbf94.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{4}{B}{B}",
+        "oracle_text": "When Iname enters, you may search your library for any number of Spirit cards, put them into your graveyard, then shuffle.",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Spirit"
+      },
+      "categories": [
+        "Commander{top}"
+      ],
+      "category_source": "decklist",
+      "name": "Iname, Death Aspect",
+      "oracle_id": "46c7f465-304c-4c4b-a1f6-9707706dbf94",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/chk/118/iname-death-aspect?utm_source=api",
+      "submitted_categories": [
+        "Commander{top}"
+      ],
+      "submitted_name": "Iname, Death Aspect"
+    },
+    {
+      "cache": "cards/e05c6c80-a91a-45e0-b991-0014fd5a6472.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{B}",
+        "oracle_text": "Sacrifice this creature: Add {B}.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Thrull"
+      },
+      "categories": [
+        "+1 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Blood Pet",
+      "oracle_id": "e05c6c80-a91a-45e0-b991-0014fd5a6472",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/7ed/121/blood-pet?utm_source=api",
+      "submitted_categories": [
+        "+1 Mana"
+      ],
+      "submitted_name": "Blood Pet"
+    },
+    {
+      "cache": "cards/5b5bf1fa-6502-4790-b66b-f0f8504ebc7c.json",
+      "card": {
+        "keywords": [
+          "Threshold"
+        ],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Add {B}{B}{B}.\nThreshold — Add {B}{B}{B}{B}{B} instead if there are seven or more cards in your graveyard.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "+1 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Cabal Ritual",
+      "oracle_id": "5b5bf1fa-6502-4790-b66b-f0f8504ebc7c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sld/2199/cabal-ritual?utm_source=api",
+      "submitted_categories": [
+        "+1 Mana"
+      ],
+      "submitted_name": "Cabal Ritual"
+    },
+    {
+      "cache": "cards/e2ad4b4d-d5fe-4a64-9b40-296c8fc8bcce.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{0}",
+        "oracle_text": "{1}, {T}: Put a charge counter on this artifact. Note the type of mana spent to pay this activation cost. Activate only if there are no charge counters on this artifact.\n{T}, Remove a charge counter from this artifact: Add one mana of this artifact's last noted type.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "+1 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Jeweled Amulet",
+      "oracle_id": "e2ad4b4d-d5fe-4a64-9b40-296c8fc8bcce",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/75/jeweled-amulet?utm_source=api",
+      "submitted_categories": [
+        "+1 Mana"
+      ],
+      "submitted_name": "Jeweled Amulet"
+    },
+    {
+      "cache": "cards/32e5339e-9e4f-46f8-b305-f9d6d3ba8bb5.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{0}",
+        "oracle_text": "{T}, Sacrifice this artifact: Add one mana of any color.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "+1 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Lotus Petal",
+      "oracle_id": "32e5339e-9e4f-46f8-b305-f9d6d3ba8bb5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sld/7037/lotus-petal?utm_source=api",
+      "submitted_categories": [
+        "+1 Mana"
+      ],
+      "submitted_name": "Lotus Petal"
+    },
+    {
+      "cache": "cards/9da50130-3f83-4968-983c-7dcba257cf1b.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{B}{B}",
+        "oracle_text": "{T}, Sacrifice this creature: Add {B}{B}.",
+        "power": "1",
+        "toughness": "2",
+        "type_line": "Creature — Thrull"
+      },
+      "categories": [
+        "+2 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Basal Thrull",
+      "oracle_id": "9da50130-3f83-4968-983c-7dcba257cf1b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fem/34d/basal-thrull?utm_source=api",
+      "submitted_categories": [
+        "+2 Mana"
+      ],
+      "submitted_name": "Basal Thrull"
+    },
+    {
+      "cache": "cards/53f7c868-b03e-4fc2-8dcf-a75bbfa3272b.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{B}",
+        "oracle_text": "Add {B}{B}{B}.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "+2 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Dark Ritual",
+      "oracle_id": "53f7c868-b03e-4fc2-8dcf-a75bbfa3272b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/793/dark-ritual?utm_source=api",
+      "submitted_categories": [
+        "+2 Mana"
+      ],
+      "submitted_name": "Dark Ritual"
+    },
+    {
+      "cache": "cards/6ad8011d-3471-4369-9d68-b264cc027487.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "{T}: Add {C}{C}.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "+2 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Sol Ring",
+      "oracle_id": "6ad8011d-3471-4369-9d68-b264cc027487",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/211/sol-ring?utm_source=api",
+      "submitted_categories": [
+        "+2 Mana"
+      ],
+      "submitted_name": "Sol Ring"
+    },
+    {
+      "cache": "cards/e3174070-542f-429e-9149-b572f6614537.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "{T}, Sacrifice a black or artifact creature: Add an amount of {B} equal to the sacrificed creature's mana value.",
+        "power": "1",
+        "toughness": "2",
+        "type_line": "Creature — Human Cleric"
+      },
+      "categories": [
+        "+2 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Soldevi Adnate",
+      "oracle_id": "e3174070-542f-429e-9149-b572f6614537",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/all/60a/soldevi-adnate?utm_source=api",
+      "submitted_categories": [
+        "+2 Mana"
+      ],
+      "submitted_name": "Soldevi Adnate"
+    },
+    {
+      "cache": "cards/8fcf50cd-e6d0-4516-850f-d42ee75dcc3a.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "{2}, {T}, Sacrifice this artifact: Search your library for a land card, reveal it, put it into your hand, then shuffle.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "+3 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Expedition Map",
+      "oracle_id": "8fcf50cd-e6d0-4516-850f-d42ee75dcc3a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/724/expedition-map?utm_source=api",
+      "submitted_categories": [
+        "+3 Mana"
+      ],
+      "submitted_name": "Expedition Map"
+    },
+    {
+      "cache": "cards/172b94a0-2801-4623-aed8-902591c2d591.json",
+      "card": {
+        "keywords": [
+          "Reach",
+          "Soulbond"
+        ],
+        "mana_cost": "{4}{B}{B}",
+        "oracle_text": "Reach\nSoulbond (You may pair this creature with another unpaired creature when either enters. They remain paired for as long as you control both of them.)\nAs long as Doom Weaver is paired with another creature, each of those creatures has \"When this creature dies, draw cards equal to its power.\"",
+        "power": "1",
+        "toughness": "8",
+        "type_line": "Creature — Spider Horror"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Doom Weaver",
+      "oracle_id": "172b94a0-2801-4623-aed8-902591c2d591",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/voc/34/doom-weaver?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Doom Weaver"
+    },
+    {
+      "cache": "cards/d6911456-42cb-4b23-a560-dc98784530f5.json",
+      "card": {
+        "keywords": [
+          "Changeling"
+        ],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Changeling (This card is every creature type.)\nTarget creature gets +3/-3 and loses all creature types until end of turn.",
+        "type_line": "Kindred Instant — Shapeshifter"
+      },
+      "categories": [
+        "Enable Delirium"
+      ],
+      "category_source": "decklist",
+      "name": "Nameless Inversion",
+      "oracle_id": "d6911456-42cb-4b23-a560-dc98784530f5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecl/113/nameless-inversion?utm_source=api",
+      "submitted_categories": [
+        "Enable Delirium"
+      ],
+      "submitted_name": "Nameless Inversion"
+    },
+    {
+      "cache": "cards/dc9d1d0c-5310-460a-a3cd-1ff1f4f83c8f.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{B}{B}",
+        "oracle_text": "At the beginning of your upkeep, if twenty or more creature cards are in your graveyard, you win the game.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Finisher"
+      ],
+      "category_source": "decklist",
+      "name": "Mortal Combat",
+      "oracle_id": "dc9d1d0c-5310-460a-a3cd-1ff1f4f83c8f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/10e/160/mortal-combat?utm_source=api",
+      "submitted_categories": [
+        "Finisher"
+      ],
+      "submitted_name": "Mortal Combat"
+    },
+    {
+      "cache": "cards/562d71b9-1646-474e-9293-55da6947a758.json",
+      "card": {
+        "faces": [
+          {
+            "mana_cost": "{X}{B}{B}{B}",
+            "name": "Agadeem's Awakening",
+            "oracle_text": "Return from your graveyard to the battlefield any number of target creature cards that each have a different mana value X or less.",
+            "type_line": "Sorcery"
+          },
+          {
+            "mana_cost": "",
+            "name": "Agadeem, the Undercrypt",
+            "oracle_text": "As this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {B}.",
+            "type_line": "Land"
+          }
+        ],
+        "keywords": [],
+        "type_line": "Sorcery // Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Agadeem's Awakening // Agadeem, the Undercrypt",
+      "oracle_id": "562d71b9-1646-474e-9293-55da6947a758",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/znr/90/agadeems-awakening-agadeem-the-undercrypt?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Agadeem's Awakening // Agadeem, the Undercrypt"
+    },
+    {
+      "cache": "cards/fc0707c7-d504-4ccf-a0d2-3eb6e26e7a57.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Bloodstained Mire",
+      "oracle_id": "fc0707c7-d504-4ccf-a0d2-3eb6e26e7a57",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/216/bloodstained-mire?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Bloodstained Mire"
+    },
+    {
+      "cache": "cards/be811e70-aaaa-41f3-bf9e-5d3f9f719b49.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control a Swamp.\n{T}: Add {B}.\n{1}{B}{B}, {T}: Draw a card, then you lose life equal to the number of cards in your hand.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Castle Locthwain",
+      "oracle_id": "be811e70-aaaa-41f3-bf9e-5d3f9f719b49",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/884/castle-locthwain?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Castle Locthwain"
+    },
+    {
+      "cache": "cards/89ca686a-7c72-4d8f-9290-e89635624a83.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Cavern of Souls",
+      "oracle_id": "89ca686a-7c72-4d8f-9290-e89635624a83",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lci/269/cavern-of-souls?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Cavern of Souls"
+    },
+    {
+      "cache": "cards/4fe8af73-c84a-44bd-9739-ee5c8b027874.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {B}.\n{2}, {T}: Add {B} for each black creature card in your graveyard.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Crypt of Agadeem",
+      "oracle_id": "4fe8af73-c84a-44bd-9739-ee5c8b027874",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/354/crypt-of-agadeem?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Crypt of Agadeem"
+    },
+    {
+      "cache": "cards/616d6013-24f4-4999-9bf3-5b0764e52fa6.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Add {C}{C}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land",
+        "+1 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Crystal Vein",
+      "oracle_id": "616d6013-24f4-4999-9bf3-5b0764e52fa6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cma/246/crystal-vein?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "+1 Mana"
+      ],
+      "submitted_name": "Crystal Vein"
+    },
+    {
+      "cache": "cards/4d4b9512-d29d-4b99-9249-d37e1199a1f5.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {B}.\n{T}, Sacrifice this land: Add {B}{B}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land",
+        "+1 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Ebon Stronghold",
+      "oracle_id": "4d4b9512-d29d-4b99-9249-d37e1199a1f5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/pd3/25/ebon-stronghold?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "+1 Mana"
+      ],
+      "submitted_name": "Ebon Stronghold"
+    },
+    {
+      "cache": "cards/c0adbddc-b070-4c5f-afe0-0474c72a9251.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "If this card is in your opening hand and you're not the starting player, you may begin the game with Gemstone Caverns on the battlefield with a luck counter on it. If you do, exile a card from your hand.\n{T}: Add {C}. If Gemstone Caverns has a luck counter on it, instead add one mana of any color.",
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "Land",
+        "+1 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Gemstone Caverns",
+      "oracle_id": "c0adbddc-b070-4c5f-afe0-0474c72a9251",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsr/280/gemstone-caverns?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "+1 Mana"
+      ],
+      "submitted_name": "Gemstone Caverns"
+    },
+    {
+      "cache": "cards/bdf476e5-1d57-4b17-b45b-d52fd75aadeb.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "If this land would enter, sacrifice a Swamp instead. If you do, put this land onto the battlefield. If you don't, put it into its owner's graveyard.\n{T}: Add {B}.\n{T}, Sacrifice a Swamp: Add {B}{B}{B}{B}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land",
+        "+3 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Lake of the Dead",
+      "oracle_id": "bdf476e5-1d57-4b17-b45b-d52fd75aadeb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/all/140/lake-of-the-dead?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "+3 Mana"
+      ],
+      "submitted_name": "Lake of the Dead"
+    },
+    {
+      "cache": "cards/dab520d0-20b4-4273-ba6b-eb07f85ea433.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Swamp card, put it onto the battlefield, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Marsh Flats",
+      "oracle_id": "dab520d0-20b4-4273-ba6b-eb07f85ea433",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/248/marsh-flats?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Marsh Flats"
+    },
+    {
+      "cache": "cards/a176924c-78fc-4151-b2b5-1547b1114a40.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped with two depletion counters on it.\n{T}, Remove a depletion counter from this land: Add {B}{B}. If there are no depletion counters on this land, sacrifice it.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land",
+        "+1 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Peat Bog",
+      "oracle_id": "a176924c-78fc-4151-b2b5-1547b1114a40",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mmq/322/peat-bog?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "+1 Mana"
+      ],
+      "submitted_name": "Peat Bog"
+    },
+    {
+      "cache": "cards/ef86989d-ce80-4e55-aece-7d11710eeffa.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Swamp card, put it onto the battlefield, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Polluted Delta",
+      "oracle_id": "ef86989d-ce80-4e55-aece-7d11710eeffa",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/224/polluted-delta?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Polluted Delta"
+    },
+    {
+      "cache": "cards/032b8a0d-491a-4a12-ab9f-689010054d5b.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Prismatic Vista",
+      "oracle_id": "032b8a0d-491a-4a12-ab9f-689010054d5b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh1/244/prismatic-vista?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Prismatic Vista"
+    },
+    {
+      "cache": "cards/56719f6a-1a6c-4c0a-8d21-18f7d7350b68.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {B}.)",
+        "type_line": "Basic Land — Swamp"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Swamp",
+      "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
+      "quantity": 25,
+      "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Swamp"
+    },
+    {
+      "cache": "cards/db6174d7-211d-4817-b8e4-8384594c83f9.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "Each land is a Swamp in addition to its other land types.",
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Urborg, Tomb of Yawgmoth",
+      "oracle_id": "db6174d7-211d-4817-b8e4-8384594c83f9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsr/287/urborg-tomb-of-yawgmoth?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Urborg, Tomb of Yawgmoth"
+    },
+    {
+      "cache": "cards/4c6a0c30-b547-4eff-8ff4-0ca25803c076.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — This Saga gains \"{T}: Add {C}.\"\nII — This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle.",
+        "type_line": "Enchantment Land — Urza's Saga"
+      },
+      "categories": [
+        "Land",
+        "+1 Mana",
+        "+3 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Urza's Saga",
+      "oracle_id": "4c6a0c30-b547-4eff-8ff4-0ca25803c076",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/259/urzas-saga?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "+1 Mana",
+        "+3 Mana"
+      ],
+      "submitted_name": "Urza's Saga"
+    },
+    {
+      "cache": "cards/09496421-74e4-466a-9546-56f2a0c8eef4.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {B}.",
+        "type_line": "Artifact Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Vault of Whispers",
+      "oracle_id": "09496421-74e4-466a-9546-56f2a0c8eef4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/322/vault-of-whispers?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Vault of Whispers"
+    },
+    {
+      "cache": "cards/67d60b24-d429-4ded-90d9-06e49f28c396.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Forest card, put it onto the battlefield, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Verdant Catacombs",
+      "oracle_id": "67d60b24-d429-4ded-90d9-06e49f28c396",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/260/verdant-catacombs?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Verdant Catacombs"
+    },
+    {
+      "cache": "cards/39419d29-47e7-4d71-953b-96a2e14ae964.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{B}",
+        "oracle_text": "Add {B} for each creature card in your graveyard.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Late-Game Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Songs of the Damned",
+      "oracle_id": "39419d29-47e7-4d71-953b-96a2e14ae964",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/uma/115/songs-of-the-damned?utm_source=api",
+      "submitted_categories": [
+        "Late-Game Ramp"
+      ],
+      "submitted_name": "Songs of the Damned"
+    },
+    {
+      "cache": "cards/33c3a81a-6cea-48c9-b966-67084d96e74f.json",
+      "card": {
+        "keywords": [
+          "Delirium",
+          "Lifelink"
+        ],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Lifelink\nDelirium — At the beginning of your end step, if there are four or more card types among cards in your graveyard, each opponent may sacrifice a nonland permanent of their choice or discard a card. Then this creature deals damage equal to its power to each opponent who didn't sacrifice a permanent or discard a card this way.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Lifelink"
+      ],
+      "category_source": "decklist",
+      "name": "Osseous Sticktwister",
+      "oracle_id": "33c3a81a-6cea-48c9-b966-67084d96e74f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsk/112/osseous-sticktwister?utm_source=api",
+      "submitted_categories": [
+        "Lifelink"
+      ],
+      "submitted_name": "Osseous Sticktwister"
+    },
+    {
+      "cache": "cards/a3c8d817-7949-4dae-b9f5-f9d952479270.json",
+      "card": {
+        "keywords": [
+          "Extort"
+        ],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "Extort (Whenever you cast a spell, you may pay {W/B}. If you do, each opponent loses 1 life and you gain that much life.)\nWhenever you tap a Swamp for mana, add an additional {B}.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Spirit"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Crypt Ghast",
+      "oracle_id": "a3c8d817-7949-4dae-b9f5-f9d952479270",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rvr/70/crypt-ghast?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Crypt Ghast"
+    },
+    {
+      "cache": "cards/bccb06f1-8839-4104-9ffa-c79a817f8378.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "Black spells you cast cost {1} less to cast.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Jet Medallion",
+      "oracle_id": "bccb06f1-8839-4104-9ffa-c79a817f8378",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/292/jet-medallion?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Jet Medallion"
+    },
+    {
+      "cache": "cards/e97f9c2b-b41e-4f36-9245-77c0ac125647.json",
+      "card": {
+        "keywords": [
+          "Landfall"
+        ],
+        "mana_cost": "{B}{B}",
+        "oracle_text": "This creature can't block.\nThis creature has haste as long as an opponent has 10 or less life.\nLandfall — Whenever a land you control enters, you may return this card from your graveyard to the battlefield.",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Creature — Vampire Spirit"
+      },
+      "categories": [
+        "Recursion",
+        "Swarm"
+      ],
+      "category_source": "decklist",
+      "name": "Bloodghast",
+      "oracle_id": "e97f9c2b-b41e-4f36-9245-77c0ac125647",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/210/bloodghast?utm_source=api",
+      "submitted_categories": [
+        "Recursion",
+        "Swarm"
+      ],
+      "submitted_name": "Bloodghast"
+    },
+    {
+      "cache": "cards/c7a360f5-725e-4864-93cc-87f96f95975e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "When this enchantment enters, you get {E}{E}{E} (three energy counters).\nPay X {E}, Sacrifice a creature, Return this enchantment to its owner's hand: Return target creature card with mana value X from your graveyard to the battlefield. Activate only as a sorcery.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Chthonian Nightmare",
+      "oracle_id": "c7a360f5-725e-4864-93cc-87f96f95975e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/83/chthonian-nightmare?utm_source=api",
+      "submitted_categories": [
+        "Recursion"
+      ],
+      "submitted_name": "Chthonian Nightmare"
+    },
+    {
+      "cache": "cards/a3e4d14b-818a-4a4b-8462-1de9ad844941.json",
+      "card": {
+        "keywords": [
+          "Mill"
+        ],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)\n{4}{B}, Exile this card from your graveyard: Return another target creature card from your graveyard to your hand.",
+        "power": "3",
+        "toughness": "1",
+        "type_line": "Creature — Spirit Cleric"
+      },
+      "categories": [
+        "Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Eerie Soultender",
+      "oracle_id": "a3e4d14b-818a-4a4b-8462-1de9ad844941",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmu/92/eerie-soultender?utm_source=api",
+      "submitted_categories": [
+        "Recursion"
+      ],
+      "submitted_name": "Eerie Soultender"
+    },
+    {
+      "cache": "cards/78a48f4e-ba4c-4d8d-938a-9ddb342a885b.json",
+      "card": {
+        "keywords": [
+          "Flying",
+          "Menace"
+        ],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Flying, menace\nWhen Junji dies, choose one —\n• Each opponent discards two cards and loses 2 life.\n• Put target non-Dragon creature card from a graveyard onto the battlefield under your control. You lose 2 life.",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Legendary Creature — Dragon Spirit"
+      },
+      "categories": [
+        "Recursion",
+        "Those Who Came Before"
+      ],
+      "category_source": "decklist",
+      "name": "Junji, the Midnight Sky",
+      "oracle_id": "78a48f4e-ba4c-4d8d-938a-9ddb342a885b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/183/junji-the-midnight-sky?utm_source=api",
+      "submitted_categories": [
+        "Recursion",
+        "Those Who Came Before"
+      ],
+      "submitted_name": "Junji, the Midnight Sky"
+    },
+    {
+      "cache": "cards/a4c15223-784f-43a7-8626-30f96ccfdcaf.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "At the beginning of the end step, if this card is in your graveyard with a creature card directly above it, you may return this card to your hand.\n{1}, Sacrifice a creature: This creature deals 1 damage to any target.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Horror Spirit"
+      },
+      "categories": [
+        "Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Krovikan Horror",
+      "oracle_id": "a4c15223-784f-43a7-8626-30f96ccfdcaf",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/all/53/krovikan-horror?utm_source=api",
+      "submitted_categories": [
+        "Recursion"
+      ],
+      "submitted_name": "Krovikan Horror"
+    },
+    {
+      "cache": "cards/9e6a3df4-67a3-452e-a6ef-f04dbadb21ef.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Each player exiles all creature cards from their graveyard, then sacrifices all creatures they control, then puts all cards they exiled this way onto the battlefield.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Living Death",
+      "oracle_id": "9e6a3df4-67a3-452e-a6ef-f04dbadb21ef",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/185/living-death?utm_source=api",
+      "submitted_categories": [
+        "Recursion"
+      ],
+      "submitted_name": "Living Death"
+    },
+    {
+      "cache": "cards/c358b9e2-524c-434b-b3fa-74d2aa6d1df7.json",
+      "card": {
+        "keywords": [
+          "Haste"
+        ],
+        "mana_cost": "{B}{B}",
+        "oracle_text": "Haste\nAt the beginning of your upkeep, if this card is in your graveyard with three or more creature cards above it, you may put this card onto the battlefield.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Spirit"
+      },
+      "categories": [
+        "Recursion",
+        "Swarm"
+      ],
+      "category_source": "decklist",
+      "name": "Nether Shadow",
+      "oracle_id": "c358b9e2-524c-434b-b3fa-74d2aa6d1df7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/30a/410/nether-shadow?utm_source=api",
+      "submitted_categories": [
+        "Recursion",
+        "Swarm"
+      ],
+      "submitted_name": "Nether Shadow"
+    },
+    {
+      "cache": "cards/6f16c3ac-a9b8-47e6-b18b-ae37c74d44a0.json",
+      "card": {
+        "keywords": [
+          "Shadow",
+          "Haste"
+        ],
+        "mana_cost": "{B}{B}",
+        "oracle_text": "Haste\nShadow (This creature can block or be blocked by only creatures with shadow.)\nWhenever another creature is put into your graveyard from the battlefield, you may pay {B}. If you do, return this card from your graveyard to the battlefield.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Spirit"
+      },
+      "categories": [
+        "Recursion",
+        "Swarm"
+      ],
+      "category_source": "decklist",
+      "name": "Nether Traitor",
+      "oracle_id": "6f16c3ac-a9b8-47e6-b18b-ae37c74d44a0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/220/nether-traitor?utm_source=api",
+      "submitted_categories": [
+        "Recursion",
+        "Swarm"
+      ],
+      "submitted_name": "Nether Traitor"
+    },
+    {
+      "cache": "cards/25fc3bc2-d852-4f52-9adb-c7e35c06f3af.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Each player chooses a creature type. Each player returns all creature cards of a type chosen this way from their graveyard to the battlefield.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Patriarch's Bidding",
+      "oracle_id": "25fc3bc2-d852-4f52-9adb-c7e35c06f3af",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/275/patriarchs-bidding?utm_source=api",
+      "submitted_categories": [
+        "Recursion"
+      ],
+      "submitted_name": "Patriarch's Bidding"
+    },
+    {
+      "cache": "cards/322f0459-f394-44f0-977b-55fd0cbe0712.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Until end of turn, you may play lands and cast spells from your graveyard.\nIf a card would be put into your graveyard from anywhere this turn, exile that card instead.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Yawgmoth's Will",
+      "oracle_id": "322f0459-f394-44f0-977b-55fd0cbe0712",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/g07/3/yawgmoths-will?utm_source=api",
+      "submitted_categories": [
+        "Recursion"
+      ],
+      "submitted_name": "Yawgmoth's Will"
+    },
+    {
+      "cache": "cards/afaef788-34d1-460b-b884-9d7ae6ddeb18.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "As an additional cost to cast this spell, pay X life.\nAll creatures get -X/-X until end of turn.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "Toxic Deluge",
+      "oracle_id": "afaef788-34d1-460b-b884-9d7ae6ddeb18",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/161/toxic-deluge?utm_source=api",
+      "submitted_categories": [
+        "Removal"
+      ],
+      "submitted_name": "Toxic Deluge"
+    },
+    {
+      "cache": "cards/5c58353a-fd60-4528-bf0d-669626cda0b2.json",
+      "card": {
+        "keywords": [],
+        "loyalty": "7",
+        "mana_cost": "{7}",
+        "oracle_text": "When you cast this spell, exile up to one target permanent that's one or more colors.\nWhenever you cast a colorless spell, exile up to one target permanent that's one or more colors.\n+2: You gain 3 life and draw a card.\n0: Add {C}{C}{C}.\n−11: Search your library for any number of colorless nonland cards, exile them, then shuffle. Until end of turn, you may cast those cards without paying their mana costs.",
+        "type_line": "Legendary Planeswalker — Ugin"
+      },
+      "categories": [
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "Ugin, Eye of the Storms",
+      "oracle_id": "5c58353a-fd60-4528-bf0d-669626cda0b2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdm/1/ugin-eye-of-the-storms?utm_source=api",
+      "submitted_categories": [
+        "Removal"
+      ],
+      "submitted_name": "Ugin, Eye of the Storms"
+    },
+    {
+      "cache": "cards/e0321049-a3ed-4378-b607-7fb190b6f0fd.json",
+      "card": {
+        "keywords": [
+          "Those Who Came Before"
+        ],
+        "mana_cost": "{10}",
+        "oracle_text": "Those Who Came Before — This spell costs {1} less to cast for each historic card in your graveyard. (Artifacts, legendaries, and Sagas are historic.)\nExile any number of historic cards from your graveyard with total mana value 30 or greater: You get an emblem with \"Creatures you control have base power and toughness 9/9.\"",
+        "power": "7",
+        "toughness": "7",
+        "type_line": "Legendary Creature — God Artificer"
+      },
+      "categories": [
+        "Secret Commander"
+      ],
+      "category_source": "decklist",
+      "name": "The Capitoline Triad",
+      "oracle_id": "e0321049-a3ed-4378-b607-7fb190b6f0fd",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/acr/1/the-capitoline-triad?utm_source=api",
+      "submitted_categories": [
+        "Secret Commander"
+      ],
+      "submitted_name": "The Capitoline Triad"
+    },
+    {
+      "cache": "cards/bfa882ee-de18-4ef8-8957-3e04ed6e3c1e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{B}",
+        "oracle_text": "When this creature dies, create X tapped 1/1 green Squirrel creature tokens, where X is this creature's power.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Zombie"
+      },
+      "categories": [
+        "Swarm"
+      ],
+      "category_source": "decklist",
+      "name": "Nested Shambler",
+      "oracle_id": "bfa882ee-de18-4ef8-8957-3e04ed6e3c1e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/95/nested-shambler?utm_source=api",
+      "submitted_categories": [
+        "Swarm"
+      ],
+      "submitted_name": "Nested Shambler"
+    },
+    {
+      "cache": "cards/29169659-309f-4e1c-86ba-1d36420ed41e.json",
+      "card": {
+        "keywords": [
+          "Haste"
+        ],
+        "mana_cost": "{2}{B}{B}",
+        "oracle_text": "Haste\nAt the beginning of your upkeep, if you have more cards in hand than each opponent, you may sacrifice a Swamp. If you do, return Akuta from your graveyard to the battlefield.",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Spirit"
+      },
+      "categories": [
+        "Those Who Came Before"
+      ],
+      "category_source": "decklist",
+      "name": "Akuta, Born of Ash",
+      "oracle_id": "29169659-309f-4e1c-86ba-1d36420ed41e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sok/61/akuta-born-of-ash?utm_source=api",
+      "submitted_categories": [
+        "Those Who Came Before"
+      ],
+      "submitted_name": "Akuta, Born of Ash"
+    },
+    {
+      "cache": "cards/da3e399f-6801-4e4d-9b1d-ba15fcfb7ee4.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Kagemaro's power and toughness are each equal to the number of cards in your hand.\n{B}, Sacrifice Kagemaro: All creatures get -X/-X until end of turn, where X is the number of cards in your hand.",
+        "power": "*",
+        "toughness": "*",
+        "type_line": "Legendary Creature — Demon Spirit"
+      },
+      "categories": [
+        "Those Who Came Before"
+      ],
+      "category_source": "decklist",
+      "name": "Kagemaro, First to Suffer",
+      "oracle_id": "da3e399f-6801-4e4d-9b1d-ba15fcfb7ee4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sok/73/kagemaro-first-to-suffer?utm_source=api",
+      "submitted_categories": [
+        "Those Who Came Before"
+      ],
+      "submitted_name": "Kagemaro, First to Suffer"
+    },
+    {
+      "cache": "cards/cf631c93-b7fb-4e4f-b405-3778c15b1117.json",
+      "card": {
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{4}{B}{B}",
+        "oracle_text": "Flying\nWhen Kokusho dies, each opponent loses 5 life. You gain life equal to the life lost this way.",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Legendary Creature — Dragon Spirit"
+      },
+      "categories": [
+        "Those Who Came Before"
+      ],
+      "category_source": "decklist",
+      "name": "Kokusho, the Evening Star",
+      "oracle_id": "cf631c93-b7fb-4e4f-b405-3778c15b1117",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ima/95/kokusho-the-evening-star?utm_source=api",
+      "submitted_categories": [
+        "Those Who Came Before"
+      ],
+      "submitted_name": "Kokusho, the Evening Star"
+    },
+    {
+      "cache": "cards/c80a7d22-076a-4fd7-bcf4-4769143647f0.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{6}{B}{B}{B}",
+        "oracle_text": "At the beginning of your upkeep, sacrifice Kuro unless you pay {B}{B}{B}{B}.\nPay 1 life: Target creature gets -1/-1 until end of turn.",
+        "power": "9",
+        "toughness": "9",
+        "type_line": "Legendary Creature — Demon Spirit"
+      },
+      "categories": [
+        "Those Who Came Before"
+      ],
+      "category_source": "decklist",
+      "name": "Kuro, Pitlord",
+      "oracle_id": "c80a7d22-076a-4fd7-bcf4-4769143647f0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dvd/44/kuro-pitlord?utm_source=api",
+      "submitted_categories": [
+        "Those Who Came Before"
+      ],
+      "submitted_name": "Kuro, Pitlord"
+    },
+    {
+      "cache": "cards/48060406-dd5a-4df5-84e9-3e797f0248cd.json",
+      "card": {
+        "keywords": [
+          "Menace"
+        ],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Menace\nWhenever Moira deals combat damage to a player, return to the battlefield target creature card in your graveyard that was put there from the battlefield this turn.",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Spirit Wizard"
+      },
+      "categories": [
+        "Those Who Came Before"
+      ],
+      "category_source": "decklist",
+      "name": "Moira, Urborg Haunt",
+      "oracle_id": "48060406-dd5a-4df5-84e9-3e797f0248cd",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmc/6/moira-urborg-haunt?utm_source=api",
+      "submitted_categories": [
+        "Those Who Came Before"
+      ],
+      "submitted_name": "Moira, Urborg Haunt"
+    },
+    {
+      "cache": "cards/896fc91a-1f57-45e2-b135-37bc9c2c80a7.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{5}{B}{B}{B}",
+        "oracle_text": "Myojin of Grim Betrayal enters with an indestructible counter on it if you cast it from your hand.\nRemove an indestructible counter from Myojin of Grim Betrayal: Put onto the battlefield under your control all creature cards in all graveyards that were put there from anywhere this turn.",
+        "power": "5",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Spirit"
+      },
+      "categories": [
+        "Those Who Came Before"
+      ],
+      "category_source": "decklist",
+      "name": "Myojin of Grim Betrayal",
+      "oracle_id": "896fc91a-1f57-45e2-b135-37bc9c2c80a7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/nec/34/myojin-of-grim-betrayal?utm_source=api",
+      "submitted_categories": [
+        "Those Who Came Before"
+      ],
+      "submitted_name": "Myojin of Grim Betrayal"
+    },
+    {
+      "cache": "cards/5ac65688-0a74-4dc4-b6cb-12bdf8aed01e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{5}{B}{B}{B}",
+        "oracle_text": "Myojin of Night's Reach enters with a divinity counter on it if you cast it from your hand.\nMyojin of Night's Reach has indestructible as long as it has a divinity counter on it.\nRemove a divinity counter from Myojin of Night's Reach: Each opponent discards their hand.",
+        "power": "5",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Spirit"
+      },
+      "categories": [
+        "Those Who Came Before"
+      ],
+      "category_source": "decklist",
+      "name": "Myojin of Night's Reach",
+      "oracle_id": "5ac65688-0a74-4dc4-b6cb-12bdf8aed01e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/610/myojin-of-nights-reach?utm_source=api",
+      "submitted_categories": [
+        "Those Who Came Before"
+      ],
+      "submitted_name": "Myojin of Night's Reach"
+    },
+    {
+      "cache": "cards/50676eba-a55a-4749-bb07-74a30e015781.json",
+      "card": {
+        "keywords": [
+          "Manifest"
+        ],
+        "mana_cost": "{X}{X}",
+        "oracle_text": "Omarthis enters with X +1/+1 counters on it.\nWhenever you put one or more +1/+1 counters on another colorless creature, you may put a +1/+1 counter on Omarthis.\nWhen Omarthis dies, manifest a number of cards from the top of your library equal to the number of counters on it.",
+        "power": "0",
+        "toughness": "0",
+        "type_line": "Legendary Creature — Spirit Snake"
+      },
+      "categories": [
+        "Those Who Came Before",
+        "Swarm"
+      ],
+      "category_source": "decklist",
+      "name": "Omarthis, Ghostfire Initiate",
+      "oracle_id": "50676eba-a55a-4749-bb07-74a30e015781",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/708/omarthis-ghostfire-initiate?utm_source=api",
+      "submitted_categories": [
+        "Those Who Came Before",
+        "Swarm"
+      ],
+      "submitted_name": "Omarthis, Ghostfire Initiate"
+    },
+    {
+      "cache": "cards/038a8b6b-4529-4e06-bdff-9ee7ba291776.json",
+      "card": {
+        "keywords": [
+          "Offering"
+        ],
+        "mana_cost": "{5}{B}{B}",
+        "oracle_text": "Rat offering (You may cast this spell any time you could cast an instant by sacrificing a Rat and paying the difference in mana costs between this and the sacrificed Rat. Mana cost includes color.)\nWhenever a permanent is put into an opponent's graveyard, that player loses 1 life.",
+        "power": "6",
+        "toughness": "6",
+        "type_line": "Legendary Creature — Spirit"
+      },
+      "categories": [
+        "Those Who Came Before"
+      ],
+      "category_source": "decklist",
+      "name": "Patron of the Nezumi",
+      "oracle_id": "038a8b6b-4529-4e06-bdff-9ee7ba291776",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cm2/72/patron-of-the-nezumi?utm_source=api",
+      "submitted_categories": [
+        "Those Who Came Before"
+      ],
+      "submitted_name": "Patron of the Nezumi"
+    },
+    {
+      "cache": "cards/9b2471d4-2821-4220-becc-94bebfdc456f.json",
+      "card": {
+        "keywords": [
+          "Soulshift"
+        ],
+        "mana_cost": "{5}{B}{B}",
+        "oracle_text": "{B}, Sacrifice this creature: Destroy target nonblack creature.\nSoulshift 6 (When this creature dies, you may return target Spirit card with mana value 6 or less from your graveyard to your hand.)",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Creature — Spirit"
+      },
+      "categories": [
+        "Those Who Came Before"
+      ],
+      "category_source": "decklist",
+      "name": "Pus Kami",
+      "oracle_id": "9b2471d4-2821-4220-becc-94bebfdc456f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/bok/79/pus-kami?utm_source=api",
+      "submitted_categories": [
+        "Those Who Came Before"
+      ],
+      "submitted_name": "Pus Kami"
+    },
+    {
+      "cache": "cards/7312efc2-8a02-47cd-874b-c3338241435e.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{4}{B}",
+        "oracle_text": "At the beginning of your upkeep, you may pay 1 life. If you do, draw a card and put a +1/+1 counter on Seymour Flux.",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Legendary Creature — Spirit Avatar"
+      },
+      "categories": [
+        "Those Who Came Before"
+      ],
+      "category_source": "decklist",
+      "name": "Seymour Flux",
+      "oracle_id": "7312efc2-8a02-47cd-874b-c3338241435e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fin/558/seymour-flux?utm_source=api",
+      "submitted_categories": [
+        "Those Who Came Before"
+      ],
+      "submitted_name": "Seymour Flux"
+    },
+    {
+      "cache": "cards/e73efb04-30ac-4484-b11b-e98f0353b9b6.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "Whenever you sacrifice another permanent, you may pay {3}. If you do, create a token that's a copy of this creature.",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Artifact Creature — Spirit"
+      },
+      "categories": [
+        "Those Who Came Before",
+        "Enable Delirium"
+      ],
+      "category_source": "decklist",
+      "name": "Sorcerer's Broom",
+      "oracle_id": "e73efb04-30ac-4484-b11b-e98f0353b9b6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eld/232/sorcerers-broom?utm_source=api",
+      "submitted_categories": [
+        "Those Who Came Before",
+        "Enable Delirium"
+      ],
+      "submitted_name": "Sorcerer's Broom"
+    },
+    {
+      "cache": "cards/73016220-2436-4072-96dd-65c0cb05fff4.json",
+      "card": {
+        "keywords": [
+          "Flying",
+          "Protection",
+          "Haste",
+          "Trample"
+        ],
+        "mana_cost": "{6}{B}{B}{B}",
+        "oracle_text": "Flying, trample, haste, protection from black\nSpirit of the Night has first strike as long as it's attacking.",
+        "power": "6",
+        "toughness": "5",
+        "type_line": "Legendary Creature — Demon Spirit"
+      },
+      "categories": [
+        "Those Who Came Before"
+      ],
+      "category_source": "decklist",
+      "name": "Spirit of the Night",
+      "oracle_id": "73016220-2436-4072-96dd-65c0cb05fff4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mir/146/spirit-of-the-night?utm_source=api",
+      "submitted_categories": [
+        "Those Who Came Before"
+      ],
+      "submitted_name": "Spirit of the Night"
+    },
+    {
+      "cache": "cards/cbbe535b-12d6-4e6c-8b26-9220f06a1604.json",
+      "card": {
+        "keywords": [
+          "Bargain"
+        ],
+        "mana_cost": "{1}{B}{B}{B}",
+        "oracle_text": "Bargain (You may sacrifice an artifact, enchantment, or token as you cast this spell.)\nSearch your library for a card, exile it face down, then shuffle. If this spell was bargained, you may cast the exiled card without paying its mana cost if that spell's mana value is 4 or less. Put the exiled card into your hand if it wasn't cast this way.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Beseech the Mirror",
+      "oracle_id": "cbbe535b-12d6-4e6c-8b26-9220f06a1604",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/woe/82/beseech-the-mirror?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
+      "submitted_name": "Beseech the Mirror"
+    },
+    {
+      "cache": "cards/79acdb37-8d52-4bc8-a7be-a7e92b6166e5.json",
+      "card": {
+        "keywords": [
+          "Spell mastery"
+        ],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Search your library for a card, put that card into your hand, then shuffle.\nSpell mastery — If there are two or more instant and/or sorcery cards in your graveyard, add {B}{B}{B}.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Dark Petition",
+      "oracle_id": "79acdb37-8d52-4bc8-a7be-a7e92b6166e5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ori/90/dark-petition?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
+      "submitted_name": "Dark Petition"
+    },
+    {
+      "cache": "cards/53cbc12d-e182-4cde-8967-9b2664daa817.json",
+      "card": {
+        "keywords": [
+          "Buyback"
+        ],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Buyback—Discard two cards. (You may discard two cards in addition to any other costs as you cast this spell. If you do, put this card into your hand as it resolves.)\nSearch your library for a card, put that card into your hand, then shuffle.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Demonic Collusion",
+      "oracle_id": "53cbc12d-e182-4cde-8967-9b2664daa817",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsp/103/demonic-collusion?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
+      "submitted_name": "Demonic Collusion"
+    },
+    {
+      "cache": "cards/712e3479-722c-40a1-9b61-d5bdde93042b.json",
+      "card": {
+        "keywords": [
+          "Delirium"
+        ],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Search your library for a Demon card, reveal it, put it into your hand, then shuffle.\nDelirium — If there are four or more card types among cards in your graveyard, instead search your library for any card, put it into your hand, then shuffle.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Demonic Counsel",
+      "oracle_id": "712e3479-722c-40a1-9b61-d5bdde93042b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsk/92/demonic-counsel?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
+      "submitted_name": "Demonic Counsel"
+    },
+    {
+      "cache": "cards/038519b9-bca8-4b27-b5ac-2409595469d0.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nSearch your library for a card, put that card into your hand, then shuffle.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Diabolic Intent",
+      "oracle_id": "038519b9-bca8-4b27-b5ac-2409595469d0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/bro/89/diabolic-intent?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
+      "submitted_name": "Diabolic Intent"
+    },
+    {
+      "cache": "cards/14589b6b-1814-46f9-a364-83cc15dacac2.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{B}{B}",
+        "oracle_text": "Search your library for a card, put that card into your hand, then shuffle.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Diabolic Tutor",
+      "oracle_id": "14589b6b-1814-46f9-a364-83cc15dacac2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cma/54/diabolic-tutor?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
+      "submitted_name": "Diabolic Tutor"
+    },
+    {
+      "cache": "cards/a5852994-d816-4e62-8a03-254223714544.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Search your library for two cards. Put one into your hand and the other into your graveyard. Then shuffle.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Final Parting",
+      "oracle_id": "a5852994-d816-4e62-8a03-254223714544",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/160/final-parting?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
+      "submitted_name": "Final Parting"
+    },
+    {
+      "cache": "cards/e62f8d69-a559-4f13-a5c9-5fb750b4af2c.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{1}{B}{B}",
+        "oracle_text": "Search your library for a card, put that card into your hand, then shuffle. You lose 3 life.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Grim Tutor",
+      "oracle_id": "e62f8d69-a559-4f13-a5c9-5fb750b4af2c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/m21/103/grim-tutor?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
+      "submitted_name": "Grim Tutor"
+    },
+    {
+      "cache": "cards/81d62f0a-b2ba-4e87-9003-e5472bd1101f.json",
+      "card": {
+        "keywords": [
+          "Casualty"
+        ],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Casualty 3 (As you cast this spell, you may sacrifice a creature with power 3 or greater. When you do, copy this spell.)\nSearch your library for a card, put it into your hand, then shuffle.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Illicit Shipment",
+      "oracle_id": "81d62f0a-b2ba-4e87-9003-e5472bd1101f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/snc/83/illicit-shipment?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
+      "submitted_name": "Illicit Shipment"
+    },
+    {
+      "cache": "cards/09027657-bc9a-4702-88c1-e5b3534ad188.json",
+      "card": {
+        "keywords": [
+          "Flashback"
+        ],
+        "mana_cost": "{4}{B}",
+        "oracle_text": "Search your library for a card and put that card into your hand. If this spell was cast from a graveyard, instead search your library for two cards and put those cards into your hand. Then shuffle.\nFlashback {7}{B} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Increasing Ambition",
+      "oracle_id": "09027657-bc9a-4702-88c1-e5b3534ad188",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dka/69/increasing-ambition?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
+      "submitted_name": "Increasing Ambition"
+    },
+    {
+      "cache": "cards/ad3e705f-da57-4eff-84d7-2072522de988.json",
+      "card": {
+        "keywords": [
+          "Spree"
+        ],
+        "mana_cost": "{B}",
+        "oracle_text": "Spree (Choose one or more additional costs.)\n+ {2} — Search your library for a card, then shuffle and put that card on top.\n+ {B}{B} — Target player draws three cards and loses 3 life.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Insatiable Avarice",
+      "oracle_id": "ad3e705f-da57-4eff-84d7-2072522de988",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otj/91/insatiable-avarice?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
+      "submitted_name": "Insatiable Avarice"
+    },
+    {
+      "cache": "cards/6aec5b1f-cea6-4ec3-9759-e4544da8c52b.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{2}{B}{B}",
+        "oracle_text": "Choose one —\n• Search your library for a card, put it into your hand, then shuffle.\n• Put a card you own from outside the game into your hand.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Mastermind's Acquisition",
+      "oracle_id": "6aec5b1f-cea6-4ec3-9759-e4544da8c52b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rix/77/masterminds-acquisition?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
+      "submitted_name": "Mastermind's Acquisition"
+    },
+    {
+      "cache": "cards/6dfb50d7-359b-4644-90e3-7ecdacee7c12.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "{B}",
+        "oracle_text": "Choose two target players. Each of them searches their library for a card, then shuffles and puts that card on top.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Tutor",
+        "+3 Mana"
+      ],
+      "category_source": "decklist",
+      "name": "Scheming Symmetry",
+      "oracle_id": "6dfb50d7-359b-4644-90e3-7ecdacee7c12",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/m20/113/scheming-symmetry?utm_source=api",
+      "submitted_categories": [
+        "Tutor",
+        "+3 Mana"
+      ],
+      "submitted_name": "Scheming Symmetry"
+    },
+    {
+      "cache": "cards/3406db41-6b95-48fc-b58e-4476220fd34d.json",
+      "card": {
+        "keywords": [
+          "Exploit",
+          "Deathtouch"
+        ],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Deathtouch\nExploit (When this creature enters, you may sacrifice a creature.)\nWhen Sidisi exploits a creature, you may search your library for a card, put it into your hand, then shuffle.",
+        "power": "4",
+        "toughness": "6",
+        "type_line": "Legendary Creature — Zombie Snake"
+      },
+      "categories": [
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Sidisi, Undead Vizier",
+      "oracle_id": "3406db41-6b95-48fc-b58e-4476220fd34d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dtk/120/sidisi-undead-vizier?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
+      "submitted_name": "Sidisi, Undead Vizier"
+    },
+    {
+      "cache": "cards/63ff850d-df4a-4903-95cb-cc04dfacc3f1.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "",
+        "power": "*",
+        "toughness": "*",
+        "type_line": "Token Artifact Creature — Construct"
+      },
+      "categories": [
+        "Tokens & Extras{noDeck}"
+      ],
+      "category_source": "decklist",
+      "name": "Construct",
+      "oracle_id": "63ff850d-df4a-4903-95cb-cc04dfacc3f1",
+      "quantity": 2,
+      "scryfall_uri": "https://scryfall.com/card/tkld/2/construct?utm_source=api",
+      "submitted_categories": [
+        "Tokens & Extras{noDeck}"
+      ],
+      "submitted_name": "Construct"
+    },
+    {
+      "cache": "cards/f4f184ef-f456-47d8-9012-095629a5ea4d.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "(You can cover a face-down manifested creature with this reminder card.\nA manifested creature card can be turned face up any time for its mana cost. A face-down card can also be turned face up for its morph cost.)",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature"
+      },
+      "categories": [
+        "Tokens & Extras{noDeck}"
+      ],
+      "category_source": "decklist",
+      "name": "Manifest",
+      "oracle_id": "f4f184ef-f456-47d8-9012-095629a5ea4d",
+      "quantity": 2,
+      "scryfall_uri": "https://scryfall.com/card/tsoc/30/manifest?utm_source=api",
+      "submitted_categories": [
+        "Tokens & Extras{noDeck}"
+      ],
+      "submitted_name": "Manifest"
+    },
+    {
+      "cache": "cards/67f21c0c-2083-4eda-9dc3-cc8aee42289f.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Token Creature — Squirrel"
+      },
+      "categories": [
+        "Tokens & Extras{noDeck}"
+      ],
+      "category_source": "decklist",
+      "name": "Squirrel",
+      "oracle_id": "67f21c0c-2083-4eda-9dc3-cc8aee42289f",
+      "quantity": 3,
+      "scryfall_uri": "https://scryfall.com/card/tblb/23/squirrel?utm_source=api",
+      "submitted_categories": [
+        "Tokens & Extras{noDeck}"
+      ],
+      "submitted_name": "Squirrel"
+    }
+  ],
+  "categorized_cards": 79,
+  "generated_at": "2026-08-23T22:31:04.695318+00:00",
+  "schema_version": 3,
+  "source": "decks/unrated_iname-death-aspect/decklist.txt",
+  "total_cards": 107,
+  "unique_cards": 79,
+  "unresolved": []
+}

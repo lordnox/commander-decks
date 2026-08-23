@@ -1,0 +1,155 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "af6b7f6e-cd93-4b59-a574-7faa65eb8596",
+      "name": "Omarthis, Ghostfire Initiate",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Spirit Snake",
+      "uri": "https://api.scryfall.com/cards/af6b7f6e-cd93-4b59-a574-7faa65eb8596"
+    },
+    {
+      "component": "combo_piece",
+      "id": "56ae2eb8-5090-412a-ad72-46ec4861d599",
+      "name": "Manifest",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/56ae2eb8-5090-412a-ad72-46ec4861d599"
+    }
+  ],
+  "artist": "Brent Hollowell",
+  "artist_ids": [
+    "19d4900c-f5a1-4c08-b5e0-b8d7ba733ec2"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 723118,
+  "cmc": 0.0,
+  "collector_number": "708",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 8535,
+  "finishes": [
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "985e16ac-8e0f-4e2e-9b74-d6a77dddf274",
+  "illustration_id": "00af8865-781d-4bcf-83ad-58123eafc0ad",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:04:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/8/985e16ac-8e0f-4e2e-9b74-d6a77dddf274.webp?1783915491",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/8/985e16ac-8e0f-4e2e-9b74-d6a77dddf274.jpg?1783915491",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/8/985e16ac-8e0f-4e2e-9b74-d6a77dddf274.jpg?1783915491",
+    "crop": "https://cards.scryfall.io/crop/front/9/8/985e16ac-8e0f-4e2e-9b74-d6a77dddf274.webp?1783915491",
+    "display": "https://cards.scryfall.io/display/front/9/8/985e16ac-8e0f-4e2e-9b74-d6a77dddf274.webp?1783915491",
+    "grid": "https://cards.scryfall.io/grid/front/9/8/985e16ac-8e0f-4e2e-9b74-d6a77dddf274.webp?1783915491",
+    "large": "https://cards.scryfall.io/large/front/9/8/985e16ac-8e0f-4e2e-9b74-d6a77dddf274.jpg?1783915491",
+    "normal": "https://cards.scryfall.io/normal/front/9/8/985e16ac-8e0f-4e2e-9b74-d6a77dddf274.jpg?1783915491",
+    "png": "https://cards.scryfall.io/png/front/9/8/985e16ac-8e0f-4e2e-9b74-d6a77dddf274.png?1783915491",
+    "small": "https://cards.scryfall.io/small/front/9/8/985e16ac-8e0f-4e2e-9b74-d6a77dddf274.jpg?1783915491",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/8/985e16ac-8e0f-4e2e-9b74-d6a77dddf274.webp?1783915491"
+  },
+  "keywords": [
+    "Manifest"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{X}{X}",
+  "mtgo_id": 114519,
+  "multiverse_ids": [
+    625061
+  ],
+  "name": "Omarthis, Ghostfire Initiate",
+  "nonfoil": false,
+  "object": "card",
+  "oracle_id": "50676eba-a55a-4749-bb07-74a30e015781",
+  "oracle_text": "Omarthis enters with X +1/+1 counters on it.\nWhenever you put one or more +1/+1 counters on another colorless creature, you may put a +1/+1 counter on Omarthis.\nWhen Omarthis dies, manifest a number of cards from the top of your library equal to the number of counters on it.",
+  "oversized": false,
+  "power": "0",
+  "preview": {
+    "previewed_at": "2023-07-20",
+    "source": "LoadingReadyRun",
+    "source_uri": "https://www.youtube.com/watch?v=MHeLpN0k7WQ"
+  },
+  "prices": {
+    "eur": null,
+    "eur_foil": "1.06",
+    "tix": "1.65",
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": "1.28"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A50676eba-a55a-4749-bb07-74a30e015781&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/114519?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=723118&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F506610%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Omarthis%2C+Ghostfire+Initiate",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=625061&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOmarthis%252C%2BGhostfire%2BInitiate",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOmarthis%252C%2BGhostfire%2BInitiate"
+  },
+  "released_at": "2023-08-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/985e16ac-8e0f-4e2e-9b74-d6a77dddf274/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/708/omarthis-ghostfire-initiate?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 506610,
+  "textless": false,
+  "toughness": "0",
+  "type_line": "Legendary Creature — Spirit Snake",
+  "uri": "https://api.scryfall.com/cards/985e16ac-8e0f-4e2e-9b74-d6a77dddf274",
+  "variation": false
+}

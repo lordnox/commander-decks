@@ -1,0 +1,137 @@
+{
+  "arena_id": 105803,
+  "artist": "Nino Is",
+  "artist_ids": [
+    "ae717001-28ec-46e3-a07e-f16b6deaf9e2"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 891230,
+  "cmc": 1.0,
+  "collector_number": "793",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 33,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Behold! The most arcane powers of the multiverse are mere tools in service of Doom's ambition.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "11e12a84-e7be-4afc-a230-c2e644743fa8",
+  "illustration_id": "1fd0f019-5b49-416f-928b-d5ce9bb06525",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:36:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/1/11e12a84-e7be-4afc-a230-c2e644743fa8.webp?1783903013",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/1/11e12a84-e7be-4afc-a230-c2e644743fa8.jpg?1783903013",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/1/11e12a84-e7be-4afc-a230-c2e644743fa8.jpg?1783903013",
+    "crop": "https://cards.scryfall.io/crop/front/1/1/11e12a84-e7be-4afc-a230-c2e644743fa8.webp?1783903013",
+    "display": "https://cards.scryfall.io/display/front/1/1/11e12a84-e7be-4afc-a230-c2e644743fa8.webp?1783903013",
+    "grid": "https://cards.scryfall.io/grid/front/1/1/11e12a84-e7be-4afc-a230-c2e644743fa8.webp?1783903013",
+    "large": "https://cards.scryfall.io/large/front/1/1/11e12a84-e7be-4afc-a230-c2e644743fa8.jpg?1783903013",
+    "normal": "https://cards.scryfall.io/normal/front/1/1/11e12a84-e7be-4afc-a230-c2e644743fa8.jpg?1783903013",
+    "png": "https://cards.scryfall.io/png/front/1/1/11e12a84-e7be-4afc-a230-c2e644743fa8.png?1783903013",
+    "small": "https://cards.scryfall.io/small/front/1/1/11e12a84-e7be-4afc-a230-c2e644743fa8.jpg?1783903013",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/1/11e12a84-e7be-4afc-a230-c2e644743fa8.webp?1783903013"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "banned",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "banned",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "banned",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 152011,
+  "multiverse_ids": [],
+  "name": "Dark Ritual",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "53f7c868-b03e-4fc2-8dcf-a75bbfa3272b",
+  "oracle_text": "Add {B}{B}{B}.",
+  "oversized": false,
+  "penny_rank": 29,
+  "prices": {
+    "eur": "8.95",
+    "eur_foil": "8.41",
+    "tix": "0.02",
+    "usd": "6.08",
+    "usd_etched": null,
+    "usd_foil": "12.26"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A53f7c868-b03e-4fc2-8dcf-a75bbfa3272b&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/152011?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891230&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F696250%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dark+Ritual",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDark%2BRitual",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDark%2BRitual"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "5F9D12429A7C0843C73C70501CB4F376D3480BE20423A81826BFB175A1CA6867",
+  "rulings_uri": "https://api.scryfall.com/cards/11e12a84-e7be-4afc-a230-c2e644743fa8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/793/dark-ritual?utm_source=api",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 696250,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/11e12a84-e7be-4afc-a230-c2e644743fa8",
+  "variation": false
+}

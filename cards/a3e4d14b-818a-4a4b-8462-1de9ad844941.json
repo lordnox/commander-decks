@@ -1,0 +1,135 @@
+{
+  "arena_id": 82144,
+  "artist": "Igor Kieryluk",
+  "artist_ids": [
+    "9c3e9d17-509f-485c-9360-46d897ce716b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 672665,
+  "cmc": 3.0,
+  "collector_number": "92",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 17348,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "335f3146-743c-4a25-86b5-c45e9c66eb15",
+  "illustration_id": "3c421f23-4234-4d72-9125-f119067a9ac8",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:42:14Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/3/335f3146-743c-4a25-86b5-c45e9c66eb15.webp?1783921334",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/3/335f3146-743c-4a25-86b5-c45e9c66eb15.jpg?1783921334",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/3/335f3146-743c-4a25-86b5-c45e9c66eb15.jpg?1783921334",
+    "crop": "https://cards.scryfall.io/crop/front/3/3/335f3146-743c-4a25-86b5-c45e9c66eb15.webp?1783921334",
+    "display": "https://cards.scryfall.io/display/front/3/3/335f3146-743c-4a25-86b5-c45e9c66eb15.webp?1783921334",
+    "grid": "https://cards.scryfall.io/grid/front/3/3/335f3146-743c-4a25-86b5-c45e9c66eb15.webp?1783921334",
+    "large": "https://cards.scryfall.io/large/front/3/3/335f3146-743c-4a25-86b5-c45e9c66eb15.jpg?1783921334",
+    "normal": "https://cards.scryfall.io/normal/front/3/3/335f3146-743c-4a25-86b5-c45e9c66eb15.jpg?1783921334",
+    "png": "https://cards.scryfall.io/png/front/3/3/335f3146-743c-4a25-86b5-c45e9c66eb15.png?1783921334",
+    "small": "https://cards.scryfall.io/small/front/3/3/335f3146-743c-4a25-86b5-c45e9c66eb15.jpg?1783921334",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/3/335f3146-743c-4a25-86b5-c45e9c66eb15.webp?1783921334"
+  },
+  "keywords": [
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 102660,
+  "multiverse_ids": [
+    574572
+  ],
+  "name": "Eerie Soultender",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a3e4d14b-818a-4a4b-8462-1de9ad844941",
+  "oracle_text": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)\n{4}{B}, Exile this card from your graveyard: Return another target creature card from your graveyard to your hand.",
+  "oversized": false,
+  "power": "3",
+  "prices": {
+    "eur": "0.07",
+    "eur_foil": "0.13",
+    "tix": "0.03",
+    "usd": "0.10",
+    "usd_etched": null,
+    "usd_foil": "0.24"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa3e4d14b-818a-4a4b-8462-1de9ad844941&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/102660?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=672665&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F283688%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Eerie+Soultender",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=574572&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEerie%2BSoultender",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEerie%2BSoultender"
+  },
+  "released_at": "2022-09-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/335f3146-743c-4a25-86b5-c45e9c66eb15/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dmu?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dmu/92/eerie-soultender?utm_source=api",
+  "set": "dmu",
+  "set_id": "4e47a6cd-cdeb-4b0f-8f24-cfe1a0127cb3",
+  "set_name": "Dominaria United",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Admu&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4e47a6cd-cdeb-4b0f-8f24-cfe1a0127cb3",
+  "story_spotlight": false,
+  "tcgplayer_id": 283688,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Spirit Cleric",
+  "uri": "https://api.scryfall.com/cards/335f3146-743c-4a25-86b5-c45e9c66eb15",
+  "variation": false
+}

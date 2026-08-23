@@ -1,0 +1,140 @@
+{
+  "arena_id": 80234,
+  "artist": "Josu Hernaiz",
+  "artist_ids": [
+    "74246024-92b4-43d0-a5af-a3f9f2a35d5f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 651633,
+  "cmc": 5.0,
+  "collector_number": "83",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 10224,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Whatever the Maestros had ordered, it wasn't anyone's business, including his.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "1f7cced2-390b-499f-ace3-e52fd53d4712",
+  "illustration_id": "947243c3-87e3-4079-8897-6f45bfa38add",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:12:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/f/1f7cced2-390b-499f-ace3-e52fd53d4712.webp?1783923129",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/f/1f7cced2-390b-499f-ace3-e52fd53d4712.jpg?1783923129",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/f/1f7cced2-390b-499f-ace3-e52fd53d4712.jpg?1783923129",
+    "crop": "https://cards.scryfall.io/crop/front/1/f/1f7cced2-390b-499f-ace3-e52fd53d4712.webp?1783923129",
+    "display": "https://cards.scryfall.io/display/front/1/f/1f7cced2-390b-499f-ace3-e52fd53d4712.webp?1783923129",
+    "grid": "https://cards.scryfall.io/grid/front/1/f/1f7cced2-390b-499f-ace3-e52fd53d4712.webp?1783923129",
+    "large": "https://cards.scryfall.io/large/front/1/f/1f7cced2-390b-499f-ace3-e52fd53d4712.jpg?1783923129",
+    "normal": "https://cards.scryfall.io/normal/front/1/f/1f7cced2-390b-499f-ace3-e52fd53d4712.jpg?1783923129",
+    "png": "https://cards.scryfall.io/png/front/1/f/1f7cced2-390b-499f-ace3-e52fd53d4712.png?1783923129",
+    "small": "https://cards.scryfall.io/small/front/1/f/1f7cced2-390b-499f-ace3-e52fd53d4712.jpg?1783923129",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/f/1f7cced2-390b-499f-ace3-e52fd53d4712.webp?1783923129"
+  },
+  "keywords": [
+    "Casualty"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_id": 98385,
+  "multiverse_ids": [
+    555284
+  ],
+  "name": "Illicit Shipment",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "81d62f0a-b2ba-4e87-9003-e5472bd1101f",
+  "oracle_text": "Casualty 3 (As you cast this spell, you may sacrifice a creature with power 3 or greater. When you do, copy this spell.)\nSearch your library for a card, put it into your hand, then shuffle.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2022-04-08",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://twitter.com/MTGArenaJP/status/1512357632199122946"
+  },
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": "0.15",
+    "tix": "0.03",
+    "usd": "0.30",
+    "usd_etched": null,
+    "usd_foil": "0.34"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A81d62f0a-b2ba-4e87-9003-e5472bd1101f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/98385?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=651633&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F268672%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Illicit+Shipment",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=555284&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIllicit%2BShipment",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIllicit%2BShipment"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1f7cced2-390b-499f-ace3-e52fd53d4712/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/snc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/snc/83/illicit-shipment?utm_source=api",
+  "set": "snc",
+  "set_id": "df837242-8c15-42e4-b049-c933a02dc501",
+  "set_name": "Streets of New Capenna",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asnc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/df837242-8c15-42e4-b049-c933a02dc501",
+  "story_spotlight": false,
+  "tcgplayer_id": 268672,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/1f7cced2-390b-499f-ace3-e52fd53d4712",
+  "variation": false,
+  "watermark": "maestros"
+}

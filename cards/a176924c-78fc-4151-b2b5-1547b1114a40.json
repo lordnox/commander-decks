@@ -1,0 +1,131 @@
+{
+  "artist": "Val Mayerik",
+  "artist_ids": [
+    "289e552e-3b58-484f-a939-64a01426e84d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 11695,
+  "cmc": 0.0,
+  "collector_number": "322",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 6406,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "bcc9d1e0-c8f4-4bac-90d4-8167f7a1515a",
+  "illustration_id": "bb209b21-2535-4c13-8fc8-4c19e62c3ade",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:31:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/c/bcc9d1e0-c8f4-4bac-90d4-8167f7a1515a.webp?1783945905",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/c/bcc9d1e0-c8f4-4bac-90d4-8167f7a1515a.jpg?1783945905",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/c/bcc9d1e0-c8f4-4bac-90d4-8167f7a1515a.jpg?1783945905",
+    "crop": "https://cards.scryfall.io/crop/front/b/c/bcc9d1e0-c8f4-4bac-90d4-8167f7a1515a.webp?1783945905",
+    "display": "https://cards.scryfall.io/display/front/b/c/bcc9d1e0-c8f4-4bac-90d4-8167f7a1515a.webp?1783945905",
+    "grid": "https://cards.scryfall.io/grid/front/b/c/bcc9d1e0-c8f4-4bac-90d4-8167f7a1515a.webp?1783945905",
+    "large": "https://cards.scryfall.io/large/front/b/c/bcc9d1e0-c8f4-4bac-90d4-8167f7a1515a.jpg?1783945905",
+    "normal": "https://cards.scryfall.io/normal/front/b/c/bcc9d1e0-c8f4-4bac-90d4-8167f7a1515a.jpg?1783945905",
+    "png": "https://cards.scryfall.io/png/front/b/c/bcc9d1e0-c8f4-4bac-90d4-8167f7a1515a.png?1783945905",
+    "small": "https://cards.scryfall.io/small/front/b/c/bcc9d1e0-c8f4-4bac-90d4-8167f7a1515a.jpg?1783945905",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/c/bcc9d1e0-c8f4-4bac-90d4-8167f7a1515a.webp?1783945905"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_foil_id": 13398,
+  "mtgo_id": 13397,
+  "multiverse_ids": [
+    19644
+  ],
+  "name": "Peat Bog",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a176924c-78fc-4151-b2b5-1547b1114a40",
+  "oracle_text": "This land enters tapped with two depletion counters on it.\n{T}, Remove a depletion counter from this land: Add {B}{B}. If there are no depletion counters on this land, sacrifice it.",
+  "oversized": false,
+  "prices": {
+    "eur": "1.89",
+    "eur_foil": "38.28",
+    "tix": "2.78",
+    "usd": "2.87",
+    "usd_etched": null,
+    "usd_foil": "71.58"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa176924c-78fc-4151-b2b5-1547b1114a40&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/13397?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=11695&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F6631%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Peat+Bog",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=19644&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPeat%2BBog",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPeat%2BBog"
+  },
+  "released_at": "1999-10-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/bcc9d1e0-c8f4-4bac-90d4-8167f7a1515a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mmq?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mmq/322/peat-bog?utm_source=api",
+  "set": "mmq",
+  "set_id": "385e11a4-492b-4d07-b4a6-a1409ef829b8",
+  "set_name": "Mercadian Masques",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ammq&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/385e11a4-492b-4d07-b4a6-a1409ef829b8",
+  "story_spotlight": false,
+  "tcgplayer_id": 6631,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/bcc9d1e0-c8f4-4bac-90d4-8167f7a1515a",
+  "variation": false
+}

@@ -1,0 +1,142 @@
+{
+  "artist": "Martina Pilcerova",
+  "artist_ids": [
+    "30fead7c-da53-4c1b-b514-4be6e5ce487c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 547776,
+  "cmc": 0.0,
+  "collector_number": "280",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 180,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7f273641-c5f3-48bc-b89e-3cff52d26a0b",
+  "illustration_id": "3c317232-2fc0-4df1-8db5-eff87583413e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:29:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/f/7f273641-c5f3-48bc-b89e-3cff52d26a0b.webp?1783927750",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/f/7f273641-c5f3-48bc-b89e-3cff52d26a0b.jpg?1783927750",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/f/7f273641-c5f3-48bc-b89e-3cff52d26a0b.jpg?1783927750",
+    "crop": "https://cards.scryfall.io/crop/front/7/f/7f273641-c5f3-48bc-b89e-3cff52d26a0b.webp?1783927750",
+    "display": "https://cards.scryfall.io/display/front/7/f/7f273641-c5f3-48bc-b89e-3cff52d26a0b.webp?1783927750",
+    "grid": "https://cards.scryfall.io/grid/front/7/f/7f273641-c5f3-48bc-b89e-3cff52d26a0b.webp?1783927750",
+    "large": "https://cards.scryfall.io/large/front/7/f/7f273641-c5f3-48bc-b89e-3cff52d26a0b.jpg?1783927750",
+    "normal": "https://cards.scryfall.io/normal/front/7/f/7f273641-c5f3-48bc-b89e-3cff52d26a0b.jpg?1783927750",
+    "png": "https://cards.scryfall.io/png/front/7/f/7f273641-c5f3-48bc-b89e-3cff52d26a0b.png?1783927750",
+    "small": "https://cards.scryfall.io/small/front/7/f/7f273641-c5f3-48bc-b89e-3cff52d26a0b.jpg?1783927750",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/f/7f273641-c5f3-48bc-b89e-3cff52d26a0b.webp?1783927750"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 86935,
+  "multiverse_ids": [
+    509645
+  ],
+  "name": "Gemstone Caverns",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c0adbddc-b070-4c5f-afe0-0474c72a9251",
+  "oracle_text": "If this card is in your opening hand and you're not the starting player, you may begin the game with Gemstone Caverns on the battlefield with a luck counter on it. If you do, exile a card from your hand.\n{T}: Add {C}. If Gemstone Caverns has a luck counter on it, instead add one mana of any color.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2021-03-04",
+    "source": "TCGplayer",
+    "source_uri": "https://infinite.tcgplayer.com/article/Time-Spiral-Remastered-Exclusive-Preview/1e45ac89-eb7a-43f3-9df8-28566cae0f44"
+  },
+  "prices": {
+    "eur": "37.86",
+    "eur_foil": "91.35",
+    "tix": "6.24",
+    "usd": "57.41",
+    "usd_etched": null,
+    "usd_foil": "106.16"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac0adbddc-b070-4c5f-afe0-0474c72a9251&unique=prints",
+  "produced_mana": [
+    "B",
+    "C",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/86935?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=547776&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F234032%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Gemstone+Caverns",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=509645&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGemstone%2BCaverns",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGemstone%2BCaverns"
+  },
+  "released_at": "2021-03-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7f273641-c5f3-48bc-b89e-3cff52d26a0b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tsr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tsr/280/gemstone-caverns?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tsr",
+  "set_id": "11e90d1b-0502-43e6-b056-e24836523c13",
+  "set_name": "Time Spiral Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atsr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/11e90d1b-0502-43e6-b056-e24836523c13",
+  "story_spotlight": false,
+  "tcgplayer_id": 234032,
+  "textless": false,
+  "type_line": "Legendary Land",
+  "uri": "https://api.scryfall.com/cards/7f273641-c5f3-48bc-b89e-3cff52d26a0b",
+  "variation": false
+}

@@ -1,0 +1,138 @@
+{
+  "artist": "Min Yum",
+  "artist_ids": [
+    "9cb65d6f-8851-4d56-9add-9eefa274bd1b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 273080,
+  "cmc": 5.0,
+  "collector_number": "120",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2777,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "6ea5dbba-6114-4d97-9363-817ab9e896d3",
+  "illustration_id": "4aa84ba4-0cd4-482b-bff4-c73487eb08e2",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:29:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/e/6ea5dbba-6114-4d97-9363-817ab9e896d3.webp?1783938593",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/e/6ea5dbba-6114-4d97-9363-817ab9e896d3.jpg?1783938593",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/e/6ea5dbba-6114-4d97-9363-817ab9e896d3.jpg?1783938593",
+    "crop": "https://cards.scryfall.io/crop/front/6/e/6ea5dbba-6114-4d97-9363-817ab9e896d3.webp?1783938593",
+    "display": "https://cards.scryfall.io/display/front/6/e/6ea5dbba-6114-4d97-9363-817ab9e896d3.webp?1783938593",
+    "grid": "https://cards.scryfall.io/grid/front/6/e/6ea5dbba-6114-4d97-9363-817ab9e896d3.webp?1783938593",
+    "large": "https://cards.scryfall.io/large/front/6/e/6ea5dbba-6114-4d97-9363-817ab9e896d3.jpg?1783938593",
+    "normal": "https://cards.scryfall.io/normal/front/6/e/6ea5dbba-6114-4d97-9363-817ab9e896d3.jpg?1783938593",
+    "png": "https://cards.scryfall.io/png/front/6/e/6ea5dbba-6114-4d97-9363-817ab9e896d3.png?1783938593",
+    "small": "https://cards.scryfall.io/small/front/6/e/6ea5dbba-6114-4d97-9363-817ab9e896d3.jpg?1783938593",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/e/6ea5dbba-6114-4d97-9363-817ab9e896d3.webp?1783938593"
+  },
+  "keywords": [
+    "Exploit",
+    "Deathtouch"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_foil_id": 56039,
+  "mtgo_id": 56038,
+  "multiverse_ids": [
+    394695
+  ],
+  "name": "Sidisi, Undead Vizier",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3406db41-6b95-48fc-b58e-4476220fd34d",
+  "oracle_text": "Deathtouch\nExploit (When this creature enters, you may sacrifice a creature.)\nWhen Sidisi exploits a creature, you may search your library for a card, put it into your hand, then shuffle.",
+  "oversized": false,
+  "penny_rank": 7915,
+  "power": "4",
+  "prices": {
+    "eur": "5.66",
+    "eur_foil": "14.11",
+    "tix": "0.02",
+    "usd": "8.51",
+    "usd_etched": null,
+    "usd_foil": "16.64"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3406db41-6b95-48fc-b58e-4476220fd34d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/56038?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=273080&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F96362%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sidisi%2C+Undead+Vizier",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=394695&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSidisi%252C%2BUndead%2BVizier",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSidisi%252C%2BUndead%2BVizier"
+  },
+  "released_at": "2015-03-27",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/6ea5dbba-6114-4d97-9363-817ab9e896d3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dtk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dtk/120/sidisi-undead-vizier?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dtk",
+  "set_id": "7e72625f-f320-4552-a719-d11e2f1853bd",
+  "set_name": "Dragons of Tarkir",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adtk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/7e72625f-f320-4552-a719-d11e2f1853bd",
+  "story_spotlight": false,
+  "tcgplayer_id": 96362,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Legendary Creature — Zombie Snake",
+  "uri": "https://api.scryfall.com/cards/6ea5dbba-6114-4d97-9363-817ab9e896d3",
+  "variation": false,
+  "watermark": "silumgar"
+}

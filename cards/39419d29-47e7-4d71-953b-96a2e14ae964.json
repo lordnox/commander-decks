@@ -1,0 +1,133 @@
+{
+  "artist": "Robbie Trevino",
+  "artist_ids": [
+    "34f236c4-d646-4e48-9723-9df5f507754d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 366967,
+  "cmc": 1.0,
+  "collector_number": "115",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3185,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Not wind, but the breath of the dead.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9133b267-295d-4987-b1d6-f32a85b66081",
+  "illustration_id": "ab23653c-06eb-4e3d-8768-22ac26698632",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:10:13Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/1/9133b267-295d-4987-b1d6-f32a85b66081.webp?1783933813",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/1/9133b267-295d-4987-b1d6-f32a85b66081.jpg?1783933813",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/1/9133b267-295d-4987-b1d6-f32a85b66081.jpg?1783933813",
+    "crop": "https://cards.scryfall.io/crop/front/9/1/9133b267-295d-4987-b1d6-f32a85b66081.webp?1783933813",
+    "display": "https://cards.scryfall.io/display/front/9/1/9133b267-295d-4987-b1d6-f32a85b66081.webp?1783933813",
+    "grid": "https://cards.scryfall.io/grid/front/9/1/9133b267-295d-4987-b1d6-f32a85b66081.webp?1783933813",
+    "large": "https://cards.scryfall.io/large/front/9/1/9133b267-295d-4987-b1d6-f32a85b66081.jpg?1783933813",
+    "normal": "https://cards.scryfall.io/normal/front/9/1/9133b267-295d-4987-b1d6-f32a85b66081.jpg?1783933813",
+    "png": "https://cards.scryfall.io/png/front/9/1/9133b267-295d-4987-b1d6-f32a85b66081.png?1783933813",
+    "small": "https://cards.scryfall.io/small/front/9/1/9133b267-295d-4987-b1d6-f32a85b66081.jpg?1783933813",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/1/9133b267-295d-4987-b1d6-f32a85b66081.webp?1783933813"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 70303,
+  "multiverse_ids": [
+    456711
+  ],
+  "name": "Songs of the Damned",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "39419d29-47e7-4d71-953b-96a2e14ae964",
+  "oracle_text": "Add {B} for each creature card in your graveyard.",
+  "oversized": false,
+  "prices": {
+    "eur": "2.29",
+    "eur_foil": "11.90",
+    "tix": "2.01",
+    "usd": "3.58",
+    "usd_etched": null,
+    "usd_foil": "13.11"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A39419d29-47e7-4d71-953b-96a2e14ae964&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/70303?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=366967&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F180939%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Songs+of+the+Damned",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=456711&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSongs%2Bof%2Bthe%2BDamned",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSongs%2Bof%2Bthe%2BDamned"
+  },
+  "released_at": "2018-12-07",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9133b267-295d-4987-b1d6-f32a85b66081/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/uma?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/uma/115/songs-of-the-damned?utm_source=api",
+  "set": "uma",
+  "set_id": "2ec77b94-6d47-4891-a480-5d0b4e5c9372",
+  "set_name": "Ultimate Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Auma&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/2ec77b94-6d47-4891-a480-5d0b4e5c9372",
+  "story_spotlight": false,
+  "tcgplayer_id": 180939,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/9133b267-295d-4987-b1d6-f32a85b66081",
+  "variation": false
+}

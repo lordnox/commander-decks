@@ -1,0 +1,137 @@
+{
+  "artist": "Slawomir Maniak",
+  "artist_ids": [
+    "d887bc66-2779-416c-a1ff-d8720242063e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 301462,
+  "cmc": 6.0,
+  "collector_number": "95",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2294,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The fall of the evening star never heralds a gentle dawn.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ab56cedb-1bcd-48a5-8503-a8e324e236ad",
+  "illustration_id": "1d85ec27-dbbe-47b6-a44e-c6e2f7671a0e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:38:57Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/b/ab56cedb-1bcd-48a5-8503-a8e324e236ad.webp?1783935537",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/b/ab56cedb-1bcd-48a5-8503-a8e324e236ad.jpg?1783935537",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/b/ab56cedb-1bcd-48a5-8503-a8e324e236ad.jpg?1783935537",
+    "crop": "https://cards.scryfall.io/crop/front/a/b/ab56cedb-1bcd-48a5-8503-a8e324e236ad.webp?1783935537",
+    "display": "https://cards.scryfall.io/display/front/a/b/ab56cedb-1bcd-48a5-8503-a8e324e236ad.webp?1783935537",
+    "grid": "https://cards.scryfall.io/grid/front/a/b/ab56cedb-1bcd-48a5-8503-a8e324e236ad.webp?1783935537",
+    "large": "https://cards.scryfall.io/large/front/a/b/ab56cedb-1bcd-48a5-8503-a8e324e236ad.jpg?1783935537",
+    "normal": "https://cards.scryfall.io/normal/front/a/b/ab56cedb-1bcd-48a5-8503-a8e324e236ad.jpg?1783935537",
+    "png": "https://cards.scryfall.io/png/front/a/b/ab56cedb-1bcd-48a5-8503-a8e324e236ad.png?1783935537",
+    "small": "https://cards.scryfall.io/small/front/a/b/ab56cedb-1bcd-48a5-8503-a8e324e236ad.jpg?1783935537",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/b/ab56cedb-1bcd-48a5-8503-a8e324e236ad.webp?1783935537"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{B}{B}",
+  "mtgo_foil_id": 66070,
+  "mtgo_id": 66069,
+  "multiverse_ids": [
+    438661
+  ],
+  "name": "Kokusho, the Evening Star",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cf631c93-b7fb-4e4f-b405-3778c15b1117",
+  "oracle_text": "Flying\nWhen Kokusho dies, each opponent loses 5 life. You gain life equal to the life lost this way.",
+  "oversized": false,
+  "penny_rank": 8256,
+  "power": "5",
+  "prices": {
+    "eur": "16.63",
+    "eur_foil": "26.10",
+    "tix": "0.08",
+    "usd": "26.06",
+    "usd_etched": null,
+    "usd_foil": "40.71"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acf631c93-b7fb-4e4f-b405-3778c15b1117&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/66069?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=301462&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F145283%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Kokusho%2C+the+Evening+Star",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=438661&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKokusho%252C%2Bthe%2BEvening%2BStar",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKokusho%252C%2Bthe%2BEvening%2BStar"
+  },
+  "released_at": "2017-11-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ab56cedb-1bcd-48a5-8503-a8e324e236ad/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ima?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ima/95/kokusho-the-evening-star?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ima",
+  "set_id": "741bcd30-7709-4133-8919-f4b46483bed7",
+  "set_name": "Iconic Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aima&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/741bcd30-7709-4133-8919-f4b46483bed7",
+  "story_spotlight": false,
+  "tcgplayer_id": 145283,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Legendary Creature — Dragon Spirit",
+  "uri": "https://api.scryfall.com/cards/ab56cedb-1bcd-48a5-8503-a8e324e236ad",
+  "variation": false
+}

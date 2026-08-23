@@ -1,0 +1,170 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "edc9ff0f-adec-4d39-b281-98c5862f506b",
+      "name": "Urborg Panther",
+      "object": "related_card",
+      "type_line": "Creature — Nightstalker Cat",
+      "uri": "https://api.scryfall.com/cards/edc9ff0f-adec-4d39-b281-98c5862f506b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0cd9da69-5e57-4719-a712-630c9464fada",
+      "name": "Breathstealer",
+      "object": "related_card",
+      "type_line": "Creature — Nightstalker",
+      "uri": "https://api.scryfall.com/cards/0cd9da69-5e57-4719-a712-630c9464fada"
+    },
+    {
+      "component": "combo_piece",
+      "id": "845c4b06-090f-4217-acb2-8900b7dab37c",
+      "name": "Spirit of the Night",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Demon Spirit",
+      "uri": "https://api.scryfall.com/cards/845c4b06-090f-4217-acb2-8900b7dab37c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "672e2d34-1aae-47c7-8b7a-e3354bbbd662",
+      "name": "Feral Shadow",
+      "object": "related_card",
+      "type_line": "Creature — Nightstalker",
+      "uri": "https://api.scryfall.com/cards/672e2d34-1aae-47c7-8b7a-e3354bbbd662"
+    }
+  ],
+  "artist": "Cliff Nielsen",
+  "artist_ids": [
+    "7416bbed-fa7f-426b-b712-8b3ccd9fd858"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 8095,
+  "cmc": 9.0,
+  "collector_number": "146",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 19580,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "845c4b06-090f-4217-acb2-8900b7dab37c",
+  "illustration_id": "bc66526a-2a79-4109-bd7f-21e7d79e7dae",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:51:25Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/4/845c4b06-090f-4217-acb2-8900b7dab37c.webp?1783947085",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/4/845c4b06-090f-4217-acb2-8900b7dab37c.jpg?1783947085",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/4/845c4b06-090f-4217-acb2-8900b7dab37c.jpg?1783947085",
+    "crop": "https://cards.scryfall.io/crop/front/8/4/845c4b06-090f-4217-acb2-8900b7dab37c.webp?1783947085",
+    "display": "https://cards.scryfall.io/display/front/8/4/845c4b06-090f-4217-acb2-8900b7dab37c.webp?1783947085",
+    "grid": "https://cards.scryfall.io/grid/front/8/4/845c4b06-090f-4217-acb2-8900b7dab37c.webp?1783947085",
+    "large": "https://cards.scryfall.io/large/front/8/4/845c4b06-090f-4217-acb2-8900b7dab37c.jpg?1783947085",
+    "normal": "https://cards.scryfall.io/normal/front/8/4/845c4b06-090f-4217-acb2-8900b7dab37c.jpg?1783947085",
+    "png": "https://cards.scryfall.io/png/front/8/4/845c4b06-090f-4217-acb2-8900b7dab37c.png?1783947085",
+    "small": "https://cards.scryfall.io/small/front/8/4/845c4b06-090f-4217-acb2-8900b7dab37c.jpg?1783947085",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/4/845c4b06-090f-4217-acb2-8900b7dab37c.webp?1783947085"
+  },
+  "keywords": [
+    "Flying",
+    "Protection",
+    "Haste",
+    "Trample"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{6}{B}{B}{B}",
+  "mtgo_foil_id": 7328,
+  "mtgo_id": 7327,
+  "multiverse_ids": [
+    3315
+  ],
+  "name": "Spirit of the Night",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "73016220-2436-4072-96dd-65c0cb05fff4",
+  "oracle_text": "Flying, trample, haste, protection from black\nSpirit of the Night has first strike as long as it's attacking.",
+  "oversized": false,
+  "power": "6",
+  "prices": {
+    "eur": "6.02",
+    "eur_foil": null,
+    "tix": "2.19",
+    "usd": "7.79",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A73016220-2436-4072-96dd-65c0cb05fff4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/7327?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=8095&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F5241%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Spirit+of+the+Night",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=3315&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSpirit%2Bof%2Bthe%2BNight",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSpirit%2Bof%2Bthe%2BNight"
+  },
+  "released_at": "1996-10-08",
+  "reprint": false,
+  "reserved": true,
+  "rulings_uri": "https://api.scryfall.com/cards/845c4b06-090f-4217-acb2-8900b7dab37c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mir?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mir/146/spirit-of-the-night?utm_source=api",
+  "set": "mir",
+  "set_id": "5f06acf3-8123-4a78-b2e7-089b0b775a4a",
+  "set_name": "Mirage",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amir&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5f06acf3-8123-4a78-b2e7-089b0b775a4a",
+  "story_spotlight": false,
+  "tcgplayer_id": 5241,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Legendary Creature — Demon Spirit",
+  "uri": "https://api.scryfall.com/cards/845c4b06-090f-4217-acb2-8900b7dab37c",
+  "variation": false
+}

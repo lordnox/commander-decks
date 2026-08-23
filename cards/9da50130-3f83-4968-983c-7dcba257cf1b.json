@@ -1,0 +1,133 @@
+{
+  "artist": "Christopher Rush",
+  "artist_ids": [
+    "c96773f0-346c-4f7d-9271-2d98cc5d86e1"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 7408,
+  "cmc": 2.0,
+  "collector_number": "34d",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 12677,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Above all, a well crafted Thrull should be hideous—blasted of countenance and twisted of limb—to inspire fear and revulsion.\"\n—Endrek Sahr, Master Breeder",
+  "foil": false,
+  "frame": "1993",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "b6908e4c-f94d-4b0d-b9a5-64c04751f108",
+  "illustration_id": "726362a6-d2fb-4a4c-a961-fcdcb5e0f94e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T13:05:03Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/6/b6908e4c-f94d-4b0d-b9a5-64c04751f108.webp?1783947903",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/6/b6908e4c-f94d-4b0d-b9a5-64c04751f108.jpg?1783947903",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/6/b6908e4c-f94d-4b0d-b9a5-64c04751f108.jpg?1783947903",
+    "crop": "https://cards.scryfall.io/crop/front/b/6/b6908e4c-f94d-4b0d-b9a5-64c04751f108.webp?1783947903",
+    "display": "https://cards.scryfall.io/display/front/b/6/b6908e4c-f94d-4b0d-b9a5-64c04751f108.webp?1783947903",
+    "grid": "https://cards.scryfall.io/grid/front/b/6/b6908e4c-f94d-4b0d-b9a5-64c04751f108.webp?1783947903",
+    "large": "https://cards.scryfall.io/large/front/b/6/b6908e4c-f94d-4b0d-b9a5-64c04751f108.jpg?1783947903",
+    "normal": "https://cards.scryfall.io/normal/front/b/6/b6908e4c-f94d-4b0d-b9a5-64c04751f108.jpg?1783947903",
+    "png": "https://cards.scryfall.io/png/front/b/6/b6908e4c-f94d-4b0d-b9a5-64c04751f108.png?1783947903",
+    "small": "https://cards.scryfall.io/small/front/b/6/b6908e4c-f94d-4b0d-b9a5-64c04751f108.jpg?1783947903",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/6/b6908e4c-f94d-4b0d-b9a5-64c04751f108.webp?1783947903"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}{B}",
+  "multiverse_ids": [
+    1845
+  ],
+  "name": "Basal Thrull",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9da50130-3f83-4968-983c-7dcba257cf1b",
+  "oracle_text": "{T}, Sacrifice this creature: Add {B}{B}.",
+  "oversized": false,
+  "penny_rank": 9187,
+  "power": "1",
+  "prices": {
+    "eur": "0.47",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.36",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9da50130-3f83-4968-983c-7dcba257cf1b&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Basal+Thrull&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=7408&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F18186%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Basal+Thrull",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=1845&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBasal%2BThrull",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBasal%2BThrull"
+  },
+  "released_at": "1994-11-01",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b6908e4c-f94d-4b0d-b9a5-64c04751f108/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fem?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fem/34d/basal-thrull?utm_source=api",
+  "set": "fem",
+  "set_id": "cf7390b1-341a-4ae8-a325-da0f5f322f13",
+  "set_name": "Fallen Empires",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afem&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/cf7390b1-341a-4ae8-a325-da0f5f322f13",
+  "story_spotlight": false,
+  "tcgplayer_id": 18186,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Thrull",
+  "uri": "https://api.scryfall.com/cards/b6908e4c-f94d-4b0d-b9a5-64c04751f108",
+  "variation": false
+}

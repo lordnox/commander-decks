@@ -1,0 +1,139 @@
+{
+  "artist": "Bastien L. Deharme",
+  "artist_ids": [
+    "798f63ec-41ad-474e-9708-df08193345c6"
+  ],
+  "booster": false,
+  "border_color": "borderless",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 857461,
+  "cmc": 2.0,
+  "collector_number": "2199",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 451,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_name": "Cordyceps Excision",
+  "flavor_text": "\"I won't let you take her. This is our future. Think of all the lives we'll save.\"\n—Firefly surgeon",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "inverted"
+  ],
+  "full_art": true,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": false,
+  "id": "b6f93fe0-76f7-4db7-9315-adc26252c059",
+  "illustration_id": "75ba558e-6f12-4f86-9554-ae25820cda30",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:12:20Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/6/b6f93fe0-76f7-4db7-9315-adc26252c059.webp?1783905140",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/6/b6f93fe0-76f7-4db7-9315-adc26252c059.jpg?1783905140",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/6/b6f93fe0-76f7-4db7-9315-adc26252c059.jpg?1783905140",
+    "crop": "https://cards.scryfall.io/crop/front/b/6/b6f93fe0-76f7-4db7-9315-adc26252c059.webp?1783905140",
+    "display": "https://cards.scryfall.io/display/front/b/6/b6f93fe0-76f7-4db7-9315-adc26252c059.webp?1783905140",
+    "grid": "https://cards.scryfall.io/grid/front/b/6/b6f93fe0-76f7-4db7-9315-adc26252c059.webp?1783905140",
+    "large": "https://cards.scryfall.io/large/front/b/6/b6f93fe0-76f7-4db7-9315-adc26252c059.jpg?1783905140",
+    "normal": "https://cards.scryfall.io/normal/front/b/6/b6f93fe0-76f7-4db7-9315-adc26252c059.jpg?1783905140",
+    "png": "https://cards.scryfall.io/png/front/b/6/b6f93fe0-76f7-4db7-9315-adc26252c059.png?1783905140",
+    "small": "https://cards.scryfall.io/small/front/b/6/b6f93fe0-76f7-4db7-9315-adc26252c059.jpg?1783905140",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/6/b6f93fe0-76f7-4db7-9315-adc26252c059.webp?1783905140"
+  },
+  "keywords": [
+    "Threshold"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "multiverse_ids": [],
+  "name": "Cabal Ritual",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5b5bf1fa-6502-4790-b66b-f0f8504ebc7c",
+  "oracle_text": "Add {B}{B}{B}.\nThreshold — Add {B}{B}{B}{B}{B} instead if there are seven or more cards in your graveyard.",
+  "oversized": false,
+  "penny_rank": 243,
+  "prices": {
+    "eur": "11.28",
+    "eur_foil": "17.55",
+    "tix": null,
+    "usd": "13.58",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5b5bf1fa-6502-4790-b66b-f0f8504ebc7c&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Cabal+Ritual&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=857461&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F658390%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Cabal+Ritual",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCabal%2BRitual",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCabal%2BRitual"
+  },
+  "released_at": "2025-10-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b6f93fe0-76f7-4db7-9315-adc26252c059/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/sld?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/sld/2199/cabal-ritual?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "sld",
+  "set_id": "4d92a8a7-ccb0-437d-abdc-9d70fc5ed672",
+  "set_name": "Secret Lair Drop",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asld&unique=prints",
+  "set_type": "box",
+  "set_uri": "https://api.scryfall.com/sets/4d92a8a7-ccb0-437d-abdc-9d70fc5ed672",
+  "story_spotlight": false,
+  "tcgplayer_id": 658390,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/b6f93fe0-76f7-4db7-9315-adc26252c059",
+  "variation": false
+}

@@ -1,0 +1,128 @@
+{
+  "artist": "Pete Venters",
+  "artist_ids": [
+    "d54c4a1a-c0c5-4834-84db-125d341f3ad8"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 8037,
+  "cmc": 0.0,
+  "collector_number": "140",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 5361,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "1993",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "aee806ce-effa-4244-9659-43246e944d80",
+  "illustration_id": "95c81ac9-fd10-480e-a552-3c8336ba431e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:52:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/e/aee806ce-effa-4244-9659-43246e944d80.webp?1783947158",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/e/aee806ce-effa-4244-9659-43246e944d80.jpg?1783947158",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/e/aee806ce-effa-4244-9659-43246e944d80.jpg?1783947158",
+    "crop": "https://cards.scryfall.io/crop/front/a/e/aee806ce-effa-4244-9659-43246e944d80.webp?1783947158",
+    "display": "https://cards.scryfall.io/display/front/a/e/aee806ce-effa-4244-9659-43246e944d80.webp?1783947158",
+    "grid": "https://cards.scryfall.io/grid/front/a/e/aee806ce-effa-4244-9659-43246e944d80.webp?1783947158",
+    "large": "https://cards.scryfall.io/large/front/a/e/aee806ce-effa-4244-9659-43246e944d80.jpg?1783947158",
+    "normal": "https://cards.scryfall.io/normal/front/a/e/aee806ce-effa-4244-9659-43246e944d80.jpg?1783947158",
+    "png": "https://cards.scryfall.io/png/front/a/e/aee806ce-effa-4244-9659-43246e944d80.png?1783947158",
+    "small": "https://cards.scryfall.io/small/front/a/e/aee806ce-effa-4244-9659-43246e944d80.jpg?1783947158",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/e/aee806ce-effa-4244-9659-43246e944d80.webp?1783947158"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [
+    3234
+  ],
+  "name": "Lake of the Dead",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "bdf476e5-1d57-4b17-b45b-d52fd75aadeb",
+  "oracle_text": "If this land would enter, sacrifice a Swamp instead. If you do, put this land onto the battlefield. If you don't, put it into its owner's graveyard.\n{T}: Add {B}.\n{T}, Sacrifice a Swamp: Add {B}{B}{B}{B}.",
+  "oversized": false,
+  "penny_rank": 148,
+  "prices": {
+    "eur": "76.32",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "121.30",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abdf476e5-1d57-4b17-b45b-d52fd75aadeb&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Lake+of+the+Dead&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=8037&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F4183%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Lake+of+the+Dead",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=3234&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLake%2Bof%2Bthe%2BDead",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLake%2Bof%2Bthe%2BDead"
+  },
+  "released_at": "1996-06-10",
+  "reprint": false,
+  "reserved": true,
+  "rulings_uri": "https://api.scryfall.com/cards/aee806ce-effa-4244-9659-43246e944d80/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/all?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/all/140/lake-of-the-dead?utm_source=api",
+  "set": "all",
+  "set_id": "64987b06-4a5c-443d-b560-ff5691744582",
+  "set_name": "Alliances",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aall&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/64987b06-4a5c-443d-b560-ff5691744582",
+  "story_spotlight": false,
+  "tcgplayer_id": 4183,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/aee806ce-effa-4244-9659-43246e944d80",
+  "variation": false
+}
