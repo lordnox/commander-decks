@@ -1,0 +1,134 @@
+{
+  "artist": "Dave Allsop",
+  "artist_ids": [
+    "99b8310a-4fd6-4ded-8ab7-3b5185821cbe"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 12891,
+  "cmc": 7.0,
+  "collector_number": "79",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 24431,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "4f142dea-4751-453f-93a5-c8fdaba8a1b3",
+  "illustration_id": "e8d33213-134b-452f-800b-e4ebe9253848",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:03:16Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/f/4f142dea-4751-453f-93a5-c8fdaba8a1b3.webp?1783944196",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/f/4f142dea-4751-453f-93a5-c8fdaba8a1b3.jpg?1783944196",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/f/4f142dea-4751-453f-93a5-c8fdaba8a1b3.jpg?1783944196",
+    "crop": "https://cards.scryfall.io/crop/front/4/f/4f142dea-4751-453f-93a5-c8fdaba8a1b3.webp?1783944196",
+    "display": "https://cards.scryfall.io/display/front/4/f/4f142dea-4751-453f-93a5-c8fdaba8a1b3.webp?1783944196",
+    "grid": "https://cards.scryfall.io/grid/front/4/f/4f142dea-4751-453f-93a5-c8fdaba8a1b3.webp?1783944196",
+    "large": "https://cards.scryfall.io/large/front/4/f/4f142dea-4751-453f-93a5-c8fdaba8a1b3.jpg?1783944196",
+    "normal": "https://cards.scryfall.io/normal/front/4/f/4f142dea-4751-453f-93a5-c8fdaba8a1b3.jpg?1783944196",
+    "png": "https://cards.scryfall.io/png/front/4/f/4f142dea-4751-453f-93a5-c8fdaba8a1b3.png?1783944196",
+    "small": "https://cards.scryfall.io/small/front/4/f/4f142dea-4751-453f-93a5-c8fdaba8a1b3.jpg?1783944196",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/f/4f142dea-4751-453f-93a5-c8fdaba8a1b3.webp?1783944196"
+  },
+  "keywords": [
+    "Soulshift"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{B}{B}",
+  "mtgo_foil_id": 21624,
+  "mtgo_id": 21623,
+  "multiverse_ids": [
+    74124
+  ],
+  "name": "Pus Kami",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9b2471d4-2821-4220-becc-94bebfdc456f",
+  "oracle_text": "{B}, Sacrifice this creature: Destroy target nonblack creature.\nSoulshift 6 (When this creature dies, you may return target Spirit card with mana value 6 or less from your graveyard to your hand.)",
+  "oversized": false,
+  "power": "3",
+  "prices": {
+    "eur": "0.09",
+    "eur_foil": "0.40",
+    "tix": "0.04",
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": "0.69"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9b2471d4-2821-4220-becc-94bebfdc456f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/21623?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=12891&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F12333%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Pus+Kami",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=74124&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPus%2BKami",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPus%2BKami"
+  },
+  "released_at": "2005-02-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4f142dea-4751-453f-93a5-c8fdaba8a1b3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/bok?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/bok/79/pus-kami?utm_source=api",
+  "set": "bok",
+  "set_id": "d4b88587-a1f5-4b47-9e24-78ec9e57bd0e",
+  "set_name": "Betrayers of Kamigawa",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abok&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/d4b88587-a1f5-4b47-9e24-78ec9e57bd0e",
+  "story_spotlight": false,
+  "tcgplayer_id": 12333,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Spirit",
+  "uri": "https://api.scryfall.com/cards/4f142dea-4751-453f-93a5-c8fdaba8a1b3",
+  "variation": false
+}

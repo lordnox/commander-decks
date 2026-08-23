@@ -1,0 +1,138 @@
+{
+  "arena_id": 82573,
+  "artist": "Dan Murayama Scott",
+  "artist_ids": [
+    "f852fa13-137e-40f2-bbc1-0f01df09c0e0"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 682332,
+  "cmc": 2.0,
+  "collector_number": "89",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 268,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Gix pierced his disciples' minds and savored their experiences as he took in their knowledge.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d72ab698-de67-4ca8-8e42-b05346bf52fa",
+  "illustration_id": "67d3ab88-7300-489a-8f68-4c06c2c5718b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:21:34Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/7/d72ab698-de67-4ca8-8e42-b05346bf52fa.webp?1783920094",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/7/d72ab698-de67-4ca8-8e42-b05346bf52fa.jpg?1783920094",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/7/d72ab698-de67-4ca8-8e42-b05346bf52fa.jpg?1783920094",
+    "crop": "https://cards.scryfall.io/crop/front/d/7/d72ab698-de67-4ca8-8e42-b05346bf52fa.webp?1783920094",
+    "display": "https://cards.scryfall.io/display/front/d/7/d72ab698-de67-4ca8-8e42-b05346bf52fa.webp?1783920094",
+    "grid": "https://cards.scryfall.io/grid/front/d/7/d72ab698-de67-4ca8-8e42-b05346bf52fa.webp?1783920094",
+    "large": "https://cards.scryfall.io/large/front/d/7/d72ab698-de67-4ca8-8e42-b05346bf52fa.jpg?1783920094",
+    "normal": "https://cards.scryfall.io/normal/front/d/7/d72ab698-de67-4ca8-8e42-b05346bf52fa.jpg?1783920094",
+    "png": "https://cards.scryfall.io/png/front/d/7/d72ab698-de67-4ca8-8e42-b05346bf52fa.png?1783920094",
+    "small": "https://cards.scryfall.io/small/front/d/7/d72ab698-de67-4ca8-8e42-b05346bf52fa.jpg?1783920094",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/7/d72ab698-de67-4ca8-8e42-b05346bf52fa.webp?1783920094"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 104796,
+  "multiverse_ids": [
+    583674
+  ],
+  "name": "Diabolic Intent",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "038519b9-bca8-4b27-b5ac-2409595469d0",
+  "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nSearch your library for a card, put that card into your hand, then shuffle.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2022-11-01",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "11.47",
+    "eur_foil": "12.01",
+    "tix": "0.12",
+    "usd": "16.48",
+    "usd_etched": null,
+    "usd_foil": "16.84"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A038519b9-bca8-4b27-b5ac-2409595469d0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/104796?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=682332&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F452124%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Diabolic+Intent",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=583674&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDiabolic%2BIntent",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDiabolic%2BIntent"
+  },
+  "released_at": "2022-11-18",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d72ab698-de67-4ca8-8e42-b05346bf52fa/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/bro?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/bro/89/diabolic-intent?utm_source=api",
+  "security_stamp": "oval",
+  "set": "bro",
+  "set_id": "4219a14e-6701-4ddd-a185-21dc054ab19b",
+  "set_name": "The Brothers' War",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abro&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4219a14e-6701-4ddd-a185-21dc054ab19b",
+  "story_spotlight": true,
+  "tcgplayer_id": 452124,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/d72ab698-de67-4ca8-8e42-b05346bf52fa",
+  "variation": false
+}

@@ -1,0 +1,135 @@
+{
+  "artist": "Ben Thompson",
+  "artist_ids": [
+    "f3116c88-57f4-4fd1-95f3-cfd163977661"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 12625,
+  "cmc": 4.0,
+  "collector_number": "61",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 24125,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "08730b49-e51e-4868-9cc8-4ddc4a1dce4c",
+  "illustration_id": "109ffc11-2c60-49a3-8958-ac8e36ff71da",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:02:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/8/08730b49-e51e-4868-9cc8-4ddc4a1dce4c.webp?1783944158",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/8/08730b49-e51e-4868-9cc8-4ddc4a1dce4c.jpg?1783944158",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/8/08730b49-e51e-4868-9cc8-4ddc4a1dce4c.jpg?1783944158",
+    "crop": "https://cards.scryfall.io/crop/front/0/8/08730b49-e51e-4868-9cc8-4ddc4a1dce4c.webp?1783944158",
+    "display": "https://cards.scryfall.io/display/front/0/8/08730b49-e51e-4868-9cc8-4ddc4a1dce4c.webp?1783944158",
+    "grid": "https://cards.scryfall.io/grid/front/0/8/08730b49-e51e-4868-9cc8-4ddc4a1dce4c.webp?1783944158",
+    "large": "https://cards.scryfall.io/large/front/0/8/08730b49-e51e-4868-9cc8-4ddc4a1dce4c.jpg?1783944158",
+    "normal": "https://cards.scryfall.io/normal/front/0/8/08730b49-e51e-4868-9cc8-4ddc4a1dce4c.jpg?1783944158",
+    "png": "https://cards.scryfall.io/png/front/0/8/08730b49-e51e-4868-9cc8-4ddc4a1dce4c.png?1783944158",
+    "small": "https://cards.scryfall.io/small/front/0/8/08730b49-e51e-4868-9cc8-4ddc4a1dce4c.jpg?1783944158",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/8/08730b49-e51e-4868-9cc8-4ddc4a1dce4c.webp?1783944158"
+  },
+  "keywords": [
+    "Haste"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "mtgo_foil_id": 22003,
+  "mtgo_id": 22002,
+  "multiverse_ids": [
+    74148
+  ],
+  "name": "Akuta, Born of Ash",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "29169659-309f-4e1c-86ba-1d36420ed41e",
+  "oracle_text": "Haste\nAt the beginning of your upkeep, if you have more cards in hand than each opponent, you may sacrifice a Swamp. If you do, return Akuta from your graveyard to the battlefield.",
+  "oversized": false,
+  "penny_rank": 10588,
+  "power": "3",
+  "prices": {
+    "eur": "0.18",
+    "eur_foil": "3.13",
+    "tix": "0.02",
+    "usd": "0.37",
+    "usd_etched": null,
+    "usd_foil": "7.05"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A29169659-309f-4e1c-86ba-1d36420ed41e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/22002?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=12625&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F12397%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Akuta%2C+Born+of+Ash",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=74148&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAkuta%252C%2BBorn%2Bof%2BAsh",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAkuta%252C%2BBorn%2Bof%2BAsh"
+  },
+  "released_at": "2005-06-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/08730b49-e51e-4868-9cc8-4ddc4a1dce4c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/sok?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/sok/61/akuta-born-of-ash?utm_source=api",
+  "set": "sok",
+  "set_id": "4db16ad3-2b95-442f-bb6b-e9aa7fe7f769",
+  "set_name": "Saviors of Kamigawa",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asok&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4db16ad3-2b95-442f-bb6b-e9aa7fe7f769",
+  "story_spotlight": false,
+  "tcgplayer_id": 12397,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Spirit",
+  "uri": "https://api.scryfall.com/cards/08730b49-e51e-4868-9cc8-4ddc4a1dce4c",
+  "variation": false
+}

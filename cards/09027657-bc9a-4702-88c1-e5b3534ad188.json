@@ -1,0 +1,133 @@
+{
+  "artist": "Volkan Baǵa",
+  "artist_ids": [
+    "93bec3c0-0260-4d31-8064-5d01efb4153f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 252583,
+  "cmc": 5.0,
+  "collector_number": "69",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 9458,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c8f508dc-7c7d-47e8-a4ef-0e8fd99cbd74",
+  "illustration_id": "2a0ecff6-efcb-4dfc-96cd-55726c22d1e9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:07:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/8/c8f508dc-7c7d-47e8-a4ef-0e8fd99cbd74.webp?1783940827",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/8/c8f508dc-7c7d-47e8-a4ef-0e8fd99cbd74.jpg?1783940827",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/8/c8f508dc-7c7d-47e8-a4ef-0e8fd99cbd74.jpg?1783940827",
+    "crop": "https://cards.scryfall.io/crop/front/c/8/c8f508dc-7c7d-47e8-a4ef-0e8fd99cbd74.webp?1783940827",
+    "display": "https://cards.scryfall.io/display/front/c/8/c8f508dc-7c7d-47e8-a4ef-0e8fd99cbd74.webp?1783940827",
+    "grid": "https://cards.scryfall.io/grid/front/c/8/c8f508dc-7c7d-47e8-a4ef-0e8fd99cbd74.webp?1783940827",
+    "large": "https://cards.scryfall.io/large/front/c/8/c8f508dc-7c7d-47e8-a4ef-0e8fd99cbd74.jpg?1783940827",
+    "normal": "https://cards.scryfall.io/normal/front/c/8/c8f508dc-7c7d-47e8-a4ef-0e8fd99cbd74.jpg?1783940827",
+    "png": "https://cards.scryfall.io/png/front/c/8/c8f508dc-7c7d-47e8-a4ef-0e8fd99cbd74.png?1783940827",
+    "small": "https://cards.scryfall.io/small/front/c/8/c8f508dc-7c7d-47e8-a4ef-0e8fd99cbd74.jpg?1783940827",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/8/c8f508dc-7c7d-47e8-a4ef-0e8fd99cbd74.webp?1783940827"
+  },
+  "keywords": [
+    "Flashback"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{B}",
+  "mtgo_foil_id": 43390,
+  "mtgo_id": 43389,
+  "multiverse_ids": [
+    262833
+  ],
+  "name": "Increasing Ambition",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "09027657-bc9a-4702-88c1-e5b3534ad188",
+  "oracle_text": "Search your library for a card and put that card into your hand. If this spell was cast from a graveyard, instead search your library for two cards and put those cards into your hand. Then shuffle.\nFlashback {7}{B} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+  "oversized": false,
+  "penny_rank": 3957,
+  "prices": {
+    "eur": "0.72",
+    "eur_foil": "5.76",
+    "tix": "0.02",
+    "usd": "2.83",
+    "usd_etched": null,
+    "usd_foil": "5.99"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A09027657-bc9a-4702-88c1-e5b3534ad188&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/43389?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=252583&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F57815%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Increasing+Ambition",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=262833&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIncreasing%2BAmbition",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIncreasing%2BAmbition"
+  },
+  "released_at": "2012-02-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c8f508dc-7c7d-47e8-a4ef-0e8fd99cbd74/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dka?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dka/69/increasing-ambition?utm_source=api",
+  "set": "dka",
+  "set_id": "8052750a-aaf2-46fc-b46d-633f14124017",
+  "set_name": "Dark Ascension",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adka&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/8052750a-aaf2-46fc-b46d-633f14124017",
+  "story_spotlight": false,
+  "tcgplayer_id": 57815,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/c8f508dc-7c7d-47e8-a4ef-0e8fd99cbd74",
+  "variation": false
+}

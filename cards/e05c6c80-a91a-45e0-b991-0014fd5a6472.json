@@ -1,0 +1,136 @@
+{
+  "artist": "Heather Hudson",
+  "artist_ids": [
+    "4441fe52-9e41-40c1-9b74-8510426279ab"
+  ],
+  "booster": true,
+  "border_color": "white",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 2883,
+  "cmc": 1.0,
+  "collector_number": "121",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2655,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "No thrull has ever been burdened with a long life.",
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9ff08225-82a5-4636-be6a-d38d32f5663f",
+  "illustration_id": "270a2e56-d3dc-4d94-a271-a6f725b460c0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:25:14Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/f/9ff08225-82a5-4636-be6a-d38d32f5663f.webp?1783945514",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/f/9ff08225-82a5-4636-be6a-d38d32f5663f.jpg?1783945514",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/f/9ff08225-82a5-4636-be6a-d38d32f5663f.jpg?1783945514",
+    "crop": "https://cards.scryfall.io/crop/front/9/f/9ff08225-82a5-4636-be6a-d38d32f5663f.webp?1783945514",
+    "display": "https://cards.scryfall.io/display/front/9/f/9ff08225-82a5-4636-be6a-d38d32f5663f.webp?1783945514",
+    "grid": "https://cards.scryfall.io/grid/front/9/f/9ff08225-82a5-4636-be6a-d38d32f5663f.webp?1783945514",
+    "large": "https://cards.scryfall.io/large/front/9/f/9ff08225-82a5-4636-be6a-d38d32f5663f.jpg?1783945514",
+    "normal": "https://cards.scryfall.io/normal/front/9/f/9ff08225-82a5-4636-be6a-d38d32f5663f.jpg?1783945514",
+    "png": "https://cards.scryfall.io/png/front/9/f/9ff08225-82a5-4636-be6a-d38d32f5663f.png?1783945514",
+    "small": "https://cards.scryfall.io/small/front/9/f/9ff08225-82a5-4636-be6a-d38d32f5663f.jpg?1783945514",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/f/9ff08225-82a5-4636-be6a-d38d32f5663f.webp?1783945514"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_foil_id": 15387,
+  "mtgo_id": 15386,
+  "multiverse_ids": [
+    25625
+  ],
+  "name": "Blood Pet",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e05c6c80-a91a-45e0-b991-0014fd5a6472",
+  "oracle_text": "Sacrifice this creature: Add {B}.",
+  "oversized": false,
+  "penny_rank": 4503,
+  "power": "1",
+  "prices": {
+    "eur": "0.52",
+    "eur_foil": null,
+    "tix": "0.06",
+    "usd": "0.56",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae05c6c80-a91a-45e0-b991-0014fd5a6472&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/15386?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=2883&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F2835%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Blood+Pet",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=25625&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBlood%2BPet",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBlood%2BPet"
+  },
+  "released_at": "2001-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9ff08225-82a5-4636-be6a-d38d32f5663f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/7ed?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/7ed/121/blood-pet?utm_source=api",
+  "set": "7ed",
+  "set_id": "230f38aa-9511-4db8-a3aa-aeddbc3f7bb9",
+  "set_name": "Seventh Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A7ed&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/230f38aa-9511-4db8-a3aa-aeddbc3f7bb9",
+  "story_spotlight": false,
+  "tcgplayer_id": 2835,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Thrull",
+  "uri": "https://api.scryfall.com/cards/9ff08225-82a5-4636-be6a-d38d32f5663f",
+  "variation": false
+}

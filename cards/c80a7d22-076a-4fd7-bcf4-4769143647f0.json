@@ -1,0 +1,130 @@
+{
+  "artist": "Jon Foster",
+  "artist_ids": [
+    "be1fa767-c905-49b1-afcf-77a8e9ebbd31"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 270034,
+  "cmc": 9.0,
+  "collector_number": "44",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 17388,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "e1f9531a-7201-4dfc-beb1-4128ec41728c",
+  "illustration_id": "5c9d2373-dc8d-4207-850f-3114ec31648d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:32:59Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/1/e1f9531a-7201-4dfc-beb1-4128ec41728c.webp?1783938779",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/1/e1f9531a-7201-4dfc-beb1-4128ec41728c.jpg?1783938779",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/1/e1f9531a-7201-4dfc-beb1-4128ec41728c.jpg?1783938779",
+    "crop": "https://cards.scryfall.io/crop/front/e/1/e1f9531a-7201-4dfc-beb1-4128ec41728c.webp?1783938779",
+    "display": "https://cards.scryfall.io/display/front/e/1/e1f9531a-7201-4dfc-beb1-4128ec41728c.webp?1783938779",
+    "grid": "https://cards.scryfall.io/grid/front/e/1/e1f9531a-7201-4dfc-beb1-4128ec41728c.webp?1783938779",
+    "large": "https://cards.scryfall.io/large/front/e/1/e1f9531a-7201-4dfc-beb1-4128ec41728c.jpg?1783938779",
+    "normal": "https://cards.scryfall.io/normal/front/e/1/e1f9531a-7201-4dfc-beb1-4128ec41728c.jpg?1783938779",
+    "png": "https://cards.scryfall.io/png/front/e/1/e1f9531a-7201-4dfc-beb1-4128ec41728c.png?1783938779",
+    "small": "https://cards.scryfall.io/small/front/e/1/e1f9531a-7201-4dfc-beb1-4128ec41728c.jpg?1783938779",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/1/e1f9531a-7201-4dfc-beb1-4128ec41728c.webp?1783938779"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{6}{B}{B}{B}",
+  "multiverse_ids": [
+    394033
+  ],
+  "name": "Kuro, Pitlord",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c80a7d22-076a-4fd7-bcf4-4769143647f0",
+  "oracle_text": "At the beginning of your upkeep, sacrifice Kuro unless you pay {B}{B}{B}{B}.\nPay 1 life: Target creature gets -1/-1 until end of turn.",
+  "oversized": false,
+  "penny_rank": 8689,
+  "power": "9",
+  "prices": {
+    "eur": "0.40",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.49",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac80a7d22-076a-4fd7-bcf4-4769143647f0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Kuro%2C+Pitlord&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=270034&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F93585%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Kuro%2C+Pitlord",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=394033&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKuro%252C%2BPitlord",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKuro%252C%2BPitlord"
+  },
+  "released_at": "2014-12-05",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e1f9531a-7201-4dfc-beb1-4128ec41728c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dvd?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dvd/44/kuro-pitlord?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dvd",
+  "set_id": "02a67a0d-b4da-4ca9-be01-b0d78dc62ed0",
+  "set_name": "Duel Decks Anthology: Divine vs. Demonic",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Advd&unique=prints",
+  "set_type": "duel_deck",
+  "set_uri": "https://api.scryfall.com/sets/02a67a0d-b4da-4ca9-be01-b0d78dc62ed0",
+  "story_spotlight": false,
+  "tcgplayer_id": 93585,
+  "textless": false,
+  "toughness": "9",
+  "type_line": "Legendary Creature — Demon Spirit",
+  "uri": "https://api.scryfall.com/cards/e1f9531a-7201-4dfc-beb1-4128ec41728c",
+  "variation": false
+}

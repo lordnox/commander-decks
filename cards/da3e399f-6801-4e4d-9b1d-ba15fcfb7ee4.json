@@ -1,0 +1,133 @@
+{
+  "artist": "Adam Rex",
+  "artist_ids": [
+    "445bd2fb-4a70-4599-87a4-83cf5979fc56"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 12691,
+  "cmc": 5.0,
+  "collector_number": "73",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 17937,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "752f8672-1c37-4ab2-b290-fe3147784475",
+  "illustration_id": "d01a5ea9-cca2-4939-af2c-61b766ceedcd",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:02:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/5/752f8672-1c37-4ab2-b290-fe3147784475.webp?1783944155",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/5/752f8672-1c37-4ab2-b290-fe3147784475.jpg?1783944155",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/5/752f8672-1c37-4ab2-b290-fe3147784475.jpg?1783944155",
+    "crop": "https://cards.scryfall.io/crop/front/7/5/752f8672-1c37-4ab2-b290-fe3147784475.webp?1783944155",
+    "display": "https://cards.scryfall.io/display/front/7/5/752f8672-1c37-4ab2-b290-fe3147784475.webp?1783944155",
+    "grid": "https://cards.scryfall.io/grid/front/7/5/752f8672-1c37-4ab2-b290-fe3147784475.webp?1783944155",
+    "large": "https://cards.scryfall.io/large/front/7/5/752f8672-1c37-4ab2-b290-fe3147784475.jpg?1783944155",
+    "normal": "https://cards.scryfall.io/normal/front/7/5/752f8672-1c37-4ab2-b290-fe3147784475.jpg?1783944155",
+    "png": "https://cards.scryfall.io/png/front/7/5/752f8672-1c37-4ab2-b290-fe3147784475.png?1783944155",
+    "small": "https://cards.scryfall.io/small/front/7/5/752f8672-1c37-4ab2-b290-fe3147784475.jpg?1783944155",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/5/752f8672-1c37-4ab2-b290-fe3147784475.webp?1783944155"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_foil_id": 21955,
+  "mtgo_id": 21954,
+  "multiverse_ids": [
+    74016
+  ],
+  "name": "Kagemaro, First to Suffer",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "da3e399f-6801-4e4d-9b1d-ba15fcfb7ee4",
+  "oracle_text": "Kagemaro's power and toughness are each equal to the number of cards in your hand.\n{B}, Sacrifice Kagemaro: All creatures get -X/-X until end of turn, where X is the number of cards in your hand.",
+  "oversized": false,
+  "penny_rank": 8898,
+  "power": "*",
+  "prices": {
+    "eur": "0.88",
+    "eur_foil": "11.02",
+    "tix": "0.02",
+    "usd": "2.74",
+    "usd_etched": null,
+    "usd_foil": "20.00"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ada3e399f-6801-4e4d-9b1d-ba15fcfb7ee4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/21954?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=12691&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F12463%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Kagemaro%2C+First+to+Suffer",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=74016&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKagemaro%252C%2BFirst%2Bto%2BSuffer",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKagemaro%252C%2BFirst%2Bto%2BSuffer"
+  },
+  "released_at": "2005-06-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/752f8672-1c37-4ab2-b290-fe3147784475/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/sok?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/sok/73/kagemaro-first-to-suffer?utm_source=api",
+  "set": "sok",
+  "set_id": "4db16ad3-2b95-442f-bb6b-e9aa7fe7f769",
+  "set_name": "Saviors of Kamigawa",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asok&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4db16ad3-2b95-442f-bb6b-e9aa7fe7f769",
+  "story_spotlight": false,
+  "tcgplayer_id": 12463,
+  "textless": false,
+  "toughness": "*",
+  "type_line": "Legendary Creature — Demon Spirit",
+  "uri": "https://api.scryfall.com/cards/752f8672-1c37-4ab2-b290-fe3147784475",
+  "variation": false
+}

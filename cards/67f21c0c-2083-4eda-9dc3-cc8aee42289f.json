@@ -1,0 +1,421 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "bac26044-b41f-4c75-8bc1-26359250d8bc",
+      "name": "Squirrel Nest",
+      "object": "related_card",
+      "type_line": "Enchantment — Aura",
+      "uri": "https://api.scryfall.com/cards/bac26044-b41f-4c75-8bc1-26359250d8bc"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c0491dd1-3555-4a9c-ab5f-f4e464e60de4",
+      "name": "Camellia, the Seedmiser",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Squirrel Warlock",
+      "uri": "https://api.scryfall.com/cards/c0491dd1-3555-4a9c-ab5f-f4e464e60de4"
+    },
+    {
+      "component": "combo_piece",
+      "id": "97033651-05dc-4078-831d-5ea6a37e6ae3",
+      "name": "Squirrel Wrangler",
+      "object": "related_card",
+      "type_line": "Creature — Human Druid",
+      "uri": "https://api.scryfall.com/cards/97033651-05dc-4078-831d-5ea6a37e6ae3"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f0b80608-1455-4899-9d19-1b1d2d068744",
+      "name": "Chitterspitter",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/f0b80608-1455-4899-9d19-1b1d2d068744"
+    },
+    {
+      "component": "combo_piece",
+      "id": "2241203c-1219-4e75-9973-7e1a44885341",
+      "name": "Form of the Squirrel",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/2241203c-1219-4e75-9973-7e1a44885341"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b61af26f-bab1-412d-8849-0d7c3c304950",
+      "name": "Nut Collector",
+      "object": "related_card",
+      "type_line": "Creature — Human Druid",
+      "uri": "https://api.scryfall.com/cards/b61af26f-bab1-412d-8849-0d7c3c304950"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0ce5e24a-84e3-4ecb-924d-1a92b0da914a",
+      "name": "Swarmyard Massacre",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/0ce5e24a-84e3-4ecb-924d-1a92b0da914a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9fed5706-d7bd-4c8c-b301-4909b3167d06",
+      "name": "Acorn Catapult",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/9fed5706-d7bd-4c8c-b301-4909b3167d06"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6d3beeda-ae1d-4215-8318-f5670b5bfbc5",
+      "name": "Verdant Command",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/6d3beeda-ae1d-4215-8318-f5670b5bfbc5"
+    },
+    {
+      "component": "token",
+      "id": "5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0",
+      "name": "Squirrel",
+      "object": "related_card",
+      "type_line": "Token Creature — Squirrel",
+      "uri": "https://api.scryfall.com/cards/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0"
+    },
+    {
+      "component": "combo_piece",
+      "id": "919ae9b1-cd82-4c54-923e-689e16b6bad6",
+      "name": "Squirrel Sanctuary",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/919ae9b1-cd82-4c54-923e-689e16b6bad6"
+    },
+    {
+      "component": "combo_piece",
+      "id": "32987720-cc0c-416b-b79b-217d3b37542d",
+      "name": "Acorn Harvest",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/32987720-cc0c-416b-b79b-217d3b37542d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5c2d77ee-73d5-4eba-b188-4a0f298c1642",
+      "name": "Drey Keeper",
+      "object": "related_card",
+      "type_line": "Creature — Elf Druid",
+      "uri": "https://api.scryfall.com/cards/5c2d77ee-73d5-4eba-b188-4a0f298c1642"
+    },
+    {
+      "component": "combo_piece",
+      "id": "cff9491e-ea18-4b80-ae27-8ce8a8eca9cb",
+      "name": "Squirrel Squatters",
+      "object": "related_card",
+      "type_line": "Creature — Squirrel",
+      "uri": "https://api.scryfall.com/cards/cff9491e-ea18-4b80-ae27-8ce8a8eca9cb"
+    },
+    {
+      "component": "combo_piece",
+      "id": "83b60a89-cf45-4e90-a84f-d4674b926bf7",
+      "name": "Chittering Doom",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/83b60a89-cf45-4e90-a84f-d4674b926bf7"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9426c906-e665-40a4-823a-0245bc39fbda",
+      "name": "Chatterstorm",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/9426c906-e665-40a4-823a-0245bc39fbda"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ef518e5b-7942-4e66-aee0-a1c2aa1f9754",
+      "name": "The Unbeatable Squirrel Girl",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Squirrel Human Hero",
+      "uri": "https://api.scryfall.com/cards/ef518e5b-7942-4e66-aee0-a1c2aa1f9754"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f712e233-1de8-45e4-9225-790d608ac90b",
+      "name": "Deep Forest Hermit",
+      "object": "related_card",
+      "type_line": "Creature — Elf Druid",
+      "uri": "https://api.scryfall.com/cards/f712e233-1de8-45e4-9225-790d608ac90b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "89757c05-72af-4bfe-a4c0-abc5d1155b61",
+      "name": "Squirrel Dealer",
+      "object": "related_card",
+      "type_line": "Creature — Raccoon Lizard Bird",
+      "uri": "https://api.scryfall.com/cards/89757c05-72af-4bfe-a4c0-abc5d1155b61"
+    },
+    {
+      "component": "combo_piece",
+      "id": "cc67b0f2-c36d-4ad8-b2ec-08934568526b",
+      "name": "Squirrel Farm",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/cc67b0f2-c36d-4ad8-b2ec-08934568526b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d965b1cf-44f4-40d4-b06e-deca3c132dbc",
+      "name": "Animal Friend",
+      "object": "related_card",
+      "type_line": "Enchantment — Aura",
+      "uri": "https://api.scryfall.com/cards/d965b1cf-44f4-40d4-b06e-deca3c132dbc"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1f9b9720-d15a-4d07-af8c-a26409043696",
+      "name": "Chatter of the Squirrel",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/1f9b9720-d15a-4d07-af8c-a26409043696"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a7ddb64e-bb15-462d-b7b1-359e44425336",
+      "name": "Deranged Hermit",
+      "object": "related_card",
+      "type_line": "Creature — Elf",
+      "uri": "https://api.scryfall.com/cards/a7ddb64e-bb15-462d-b7b1-359e44425336"
+    },
+    {
+      "component": "combo_piece",
+      "id": "dff4512b-8244-4e38-bffb-0062a97d9531",
+      "name": "Liege of the Hollows",
+      "object": "related_card",
+      "type_line": "Creature — Spirit",
+      "uri": "https://api.scryfall.com/cards/dff4512b-8244-4e38-bffb-0062a97d9531"
+    },
+    {
+      "component": "combo_piece",
+      "id": "202011d5-755e-497b-b4a7-f2b6e6a0b464",
+      "name": "Nested Shambler",
+      "object": "related_card",
+      "type_line": "Creature — Zombie",
+      "uri": "https://api.scryfall.com/cards/202011d5-755e-497b-b4a7-f2b6e6a0b464"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7390d66f-9924-466a-9f32-0dff83c82d9e",
+      "name": "Druid's Call",
+      "object": "related_card",
+      "type_line": "Enchantment — Aura",
+      "uri": "https://api.scryfall.com/cards/7390d66f-9924-466a-9f32-0dff83c82d9e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c3385549-0342-4c51-9bae-888d34cf0087",
+      "name": "Comet, Stellar Pup",
+      "object": "related_card",
+      "type_line": "Legendary Planeswalker — Comet",
+      "uri": "https://api.scryfall.com/cards/c3385549-0342-4c51-9bae-888d34cf0087"
+    },
+    {
+      "component": "combo_piece",
+      "id": "04423fcd-fdfe-477a-9d92-eda91dc16f85",
+      "name": "Squirrel Stack",
+      "object": "related_card",
+      "type_line": "Artifact — Attraction",
+      "uri": "https://api.scryfall.com/cards/04423fcd-fdfe-477a-9d92-eda91dc16f85"
+    },
+    {
+      "component": "combo_piece",
+      "id": "acf8fa0e-fab4-468b-a32b-c8be9347f4d8",
+      "name": "Earl of Squirrel",
+      "object": "related_card",
+      "type_line": "Creature — Squirrel Noble Advisor",
+      "uri": "https://api.scryfall.com/cards/acf8fa0e-fab4-468b-a32b-c8be9347f4d8"
+    },
+    {
+      "component": "combo_piece",
+      "id": "91323e4a-4fd3-44c6-b124-277901fb8aae",
+      "name": "Scurry Oak",
+      "object": "related_card",
+      "type_line": "Creature — Treefolk",
+      "uri": "https://api.scryfall.com/cards/91323e4a-4fd3-44c6-b124-277901fb8aae"
+    },
+    {
+      "component": "combo_piece",
+      "id": "72ab0422-eba0-4e1e-9626-ef31b836dcd2",
+      "name": "Chatterfang, Squirrel General",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Squirrel Warrior",
+      "uri": "https://api.scryfall.com/cards/72ab0422-eba0-4e1e-9626-ef31b836dcd2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a66dbfed-34e7-4872-87d7-5ddae5d98b5b",
+      "name": "Underworld Hermit",
+      "object": "related_card",
+      "type_line": "Creature — Human Peasant",
+      "uri": "https://api.scryfall.com/cards/a66dbfed-34e7-4872-87d7-5ddae5d98b5b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "98bfbfaa-d66c-48d2-938e-024ef8c33c32",
+      "name": "Cloakwood Hermit",
+      "object": "related_card",
+      "type_line": "Legendary Enchantment — Background",
+      "uri": "https://api.scryfall.com/cards/98bfbfaa-d66c-48d2-938e-024ef8c33c32"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4b66bab3-ee6f-4f74-bbc1-8099c9c4904b",
+      "name": "Nantuko Shrine",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/4b66bab3-ee6f-4f74-bbc1-8099c9c4904b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5ca0f438-d0f9-40ae-959c-90971c878b0d",
+      "name": "Mistakes Were Made",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/5ca0f438-d0f9-40ae-959c-90971c878b0d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e0b291b4-1e90-40f6-b282-5c6c0c1dc7af",
+      "name": "Specimen Collector",
+      "object": "related_card",
+      "type_line": "Creature — Vedalken Wizard",
+      "uri": "https://api.scryfall.com/cards/e0b291b4-1e90-40f6-b282-5c6c0c1dc7af"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0ce616c9-af7f-4b81-bc94-dae14ffbf822",
+      "name": "Rootcast Apprenticeship",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/0ce616c9-af7f-4b81-bc94-dae14ffbf822"
+    }
+  ],
+  "artist": "Daria Aksenova",
+  "artist_ids": [
+    "3758986a-ae4e-4028-b641-63870fbed539"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "23",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0",
+  "illustration_id": "5bbcafc0-837e-4df2-b41e-288c36cd228f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:29:25Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/a/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0.webp?1783909765",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/a/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0.jpg?1783909765",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/a/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0.jpg?1783909765",
+    "crop": "https://cards.scryfall.io/crop/front/5/a/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0.webp?1783909765",
+    "display": "https://cards.scryfall.io/display/front/5/a/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0.webp?1783909765",
+    "grid": "https://cards.scryfall.io/grid/front/5/a/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0.webp?1783909765",
+    "large": "https://cards.scryfall.io/large/front/5/a/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0.jpg?1783909765",
+    "normal": "https://cards.scryfall.io/normal/front/5/a/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0.jpg?1783909765",
+    "png": "https://cards.scryfall.io/png/front/5/a/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0.png?1783909765",
+    "small": "https://cards.scryfall.io/small/front/5/a/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0.jpg?1783909765",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/a/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0.webp?1783909765"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Squirrel",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "67f21c0c-2083-4eda-9dc3-cc8aee42289f",
+  "oracle_text": "",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A67f21c0c-2083-4eda-9dc3-cc8aee42289f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Squirrel&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Squirrel&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DSquirrel%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Squirrel",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSquirrel",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSquirrel"
+  },
+  "released_at": "2024-08-02",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tblb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tblb/23/squirrel?utm_source=api",
+  "set": "tblb",
+  "set_id": "98ffb0ad-639e-4861-b81d-dd5ae734badf",
+  "set_name": "Bloomburrow Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atblb&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/98ffb0ad-639e-4861-b81d-dd5ae734badf",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Token Creature — Squirrel",
+  "uri": "https://api.scryfall.com/cards/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0",
+  "variation": false
+}
