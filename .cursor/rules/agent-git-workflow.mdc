@@ -41,4 +41,4 @@ When a PR changes an existing `decks/<deck>/decklist.txt`, the body must include
 python3 .agents/skills/deck-workspace/scripts/deck_change_table.py decks/<deck> --base origin/main
 ```
 
-Place the table under a `## Cards in / Cards out` heading, one row per swap, and explain the reasoning in prose around it. A deck PR that only adds a new deck does not need the table.
+Place the result under a `## Cards in / Cards out` heading. The script sorts each column alphabetically and zips them, so its rows are not real swaps: re-pair them into the swaps actually intended and add a `Reason` column giving the reason for each one. Check the final table against the script output so no card is dropped. When one change lands in several stages, use one table per stage rather than forcing unrelated cards into the same row. A deck PR that only adds a new deck does not need the table.

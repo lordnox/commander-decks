@@ -141,6 +141,8 @@ python3 .agents/skills/deck-workspace/scripts/deck_change_table.py decks/<prefix
 
 The script compares the deck list at the base ref with the working tree, prints an `| In | Out |` table, and marks quantity changes such as `Island ×2`. Pass `--head <ref>` to compare two committed revisions. Put the table under a `## Cards in / Cards out` heading in the pull request.
 
+Its columns are sorted alphabetically and zipped, so treat the output as a checklist rather than a finished table: re-pair the rows into the swaps actually intended, add a `Reason` column, and confirm every card the script lists still appears.
+
 ## 8. Continue deck work
 
 Use `cards.json` as the deck inventory and prefer its embedded `card` details for analysis. Load referenced cache files only for fields not embedded in the manifest. Use the `scryfall-lookup` skill for searches or to refresh current card information. Use the `deck-primer` skill when updating how a deck plays.
