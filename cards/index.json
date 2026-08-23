@@ -662,8 +662,9 @@
     "boggart bog": "727f3201-1cfc-4ab2-9dfe-be4f7251f42f",
     "treasure": "fd2617fe-1bf3-40c3-9da5-841e63f4d62d",
     "dinosaur // treasure": "fd2617fe-1bf3-40c3-9da5-841e63f4d62d",
-    "dinosaur": "fd2617fe-1bf3-40c3-9da5-841e63f4d62d"
+    "dinosaur": "fd2617fe-1bf3-40c3-9da5-841e63f4d62d",
+    "quest for renewal": "cba4ab80-09e8-4868-a082-a9a3bade9571"
   },
   "schema_version": 1,
-  "updated_at": "2026-08-23T23:21:17.665114+00:00"
+  "updated_at": "2026-08-23T23:34:55.242541+00:00"
 }

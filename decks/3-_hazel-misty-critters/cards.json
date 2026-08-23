@@ -3,10 +3,18 @@
     {
       "cache": "cards/845b40b1-dc09-44fa-9910-22544c1424ba.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{2}{B}{G}",
         "oracle_text": "{T}, Pay 2 life, Tap X untapped tokens you control: Add X mana in any combination of colors.\nAt the beginning of your end step, create a token that's a copy of target token you control. If that token is a Squirrel, instead create two tokens that are copies of it.",
         "power": "3",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "toughness": "5",
         "type_line": "Legendary Creature — Squirrel Druid"
       },
@@ -26,6 +34,7 @@
     {
       "cache": "cards/8da0599a-8f63-4dba-857f-b4e10b7191b6.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Menace"
         ],
@@ -53,6 +62,7 @@
     {
       "cache": "cards/1d9d8028-d946-4245-ae0c-7508023f619a.json",
       "card": {
+        "cmc": 5.0,
         "keywords": [
           "Reach",
           "Trample",
@@ -82,6 +92,7 @@
     {
       "cache": "cards/80312910-5d53-44f1-9982-e46dc7532abb.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "I LOVE Squirrels!"
         ],
@@ -109,6 +120,7 @@
     {
       "cache": "cards/f15b3b76-d38a-48db-bb44-3296183c8641.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Landwalk",
           "Forestwalk"
@@ -137,6 +149,7 @@
     {
       "cache": "cards/312c7a7b-2084-42b0-9b13-0a6d3e43a73d.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Forage",
           "Menace"
@@ -165,6 +178,7 @@
     {
       "cache": "cards/f43d1ea5-8127-4b64-a87b-ee5cc9b9e9fa.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{G}",
         "oracle_text": "Other Squirrels you control get +1/+1.",
@@ -188,6 +202,7 @@
     {
       "cache": "cards/a8e707ec-ce77-4bc5-8c76-5ea3e81e8c7f.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Indestructible"
         ],
@@ -215,6 +230,7 @@
     {
       "cache": "cards/c549b0fd-1e08-4873-952e-a14dc45a0fd2.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{1}{G}{G}",
         "oracle_text": "Creatures with power less than this creature's power can't block creatures you control.\nWhenever another creature you control enters, put a +1/+1 counter on this creature.",
@@ -240,6 +256,7 @@
     {
       "cache": "cards/80e9a42e-f4f4-4bfc-91a2-ad124737dca2.json",
       "card": {
+        "cmc": 5.0,
         "keywords": [
           "Vanishing"
         ],
@@ -267,6 +284,7 @@
     {
       "cache": "cards/7223ef44-0bfb-4108-810d-134174ff26b0.json",
       "card": {
+        "cmc": 5.0,
         "keywords": [],
         "mana_cost": "{3}{B}{G}",
         "oracle_text": "When this creature enters, create two 1/1 green Squirrel creature tokens.\n{3}{B}: Squirrels you control get +1/+0 and gain menace until end of turn.",
@@ -292,6 +310,7 @@
     {
       "cache": "cards/eee6c02b-7d6a-4445-ad27-8b03176147d4.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Evolve"
         ],
@@ -317,6 +336,7 @@
     {
       "cache": "cards/bfa882ee-de18-4ef8-8957-3e04ed6e3c1e.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{B}",
         "oracle_text": "When this creature dies, create X tapped 1/1 green Squirrel creature tokens, where X is this creature's power.",
@@ -340,6 +360,7 @@
     {
       "cache": "cards/44bffa3e-4d31-4f9b-829c-e2066ab2f641.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Trample"
         ],
@@ -365,6 +386,7 @@
     {
       "cache": "cards/ab8d5f5c-1976-4f77-8ed2-8d28ee666741.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Treasure",
           "Food",
@@ -373,6 +395,13 @@
         "mana_cost": "{2}{G}",
         "oracle_text": "Landfall — Whenever a land you control enters, create a Food token or a Treasure token. (Food is an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\" Treasure is an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
         "power": "3",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "toughness": "2",
         "type_line": "Creature — Elf Scout"
       },
@@ -394,6 +423,7 @@
     {
       "cache": "cards/f36d1d8b-8303-44a9-ab56-531931641ea2.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Treasure",
           "Food"
@@ -420,6 +450,7 @@
     {
       "cache": "cards/0636b6c3-0662-420a-b30d-f0a14e7c512d.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Flying"
         ],
@@ -447,6 +478,7 @@
     {
       "cache": "cards/4f8c4927-46c2-4c18-b5af-c6288dbaff6d.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [
           "Offspring",
           "Landfall"
@@ -475,6 +507,7 @@
     {
       "cache": "cards/381a3e8e-71dd-48e4-ab62-53478bde4a14.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{B}",
         "oracle_text": "Whenever this creature attacks, defending player loses 1 life and you gain 1 life.",
@@ -502,6 +535,7 @@
     {
       "cache": "cards/f5bed085-bb7a-4250-9599-b2a8a95e6b6f.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{2}{B}",
         "oracle_text": "Whenever another Rat you control enters, exile up to one target card from an opponent's graveyard.\nAt the beginning of combat on your turn, create a 1/1 black Rat creature token with \"This token can't block.\"",
@@ -527,6 +561,7 @@
     {
       "cache": "cards/a6c5c5ea-0bd0-4d5a-bd3f-6217f14c9939.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{B}",
         "oracle_text": "Rats you control have menace.\n{1}{B}, {T}: Create a 1/1 black Rat creature token.\n{2}{B}{B}, {T}, Sacrifice three Rats: Gain control of target creature.",
@@ -552,6 +587,7 @@
     {
       "cache": "cards/8b1aa532-4f19-407e-83a5-13b3160ad8c2.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{3}{B}",
         "oracle_text": "When this creature enters, create a number of 1/1 black Rat creature tokens equal to the number of opponents you have.\n{1}{B}, Sacrifice a creature: Target creature gets -2/-2 until end of turn.",
@@ -577,6 +613,7 @@
     {
       "cache": "cards/87f82d15-5b6b-400f-8a15-d45a2a735f7d.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Food"
         ],
@@ -602,6 +639,7 @@
     {
       "cache": "cards/391978f6-0bbc-41e8-9246-f7d0e21c7900.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{2}{B}",
         "oracle_text": "Whenever a token you control leaves the battlefield, each opponent loses 1 life and you gain 1 life.",
@@ -627,6 +665,7 @@
     {
       "cache": "cards/51feda69-0ae8-4df3-bb50-a4bb9deb965d.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{2}{B}{B}",
         "oracle_text": "As this creature enters, choose a creature type.\nWhenever a creature of the chosen type dies, you may draw a card.",
@@ -650,6 +689,7 @@
     {
       "cache": "cards/30b24e8e-3b0e-4d8e-90f3-f66eb7c1858c.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{1}{G}{G}",
         "oracle_text": "When this creature enters, you may return target card from your graveyard to your hand.",
@@ -671,31 +711,31 @@
       "submitted_name": "Eternal Witness"
     },
     {
-      "cache": "cards/463865bc-087e-477b-9e86-84e77f1ad931.json",
+      "cache": "cards/cba4ab80-09e8-4868-a082-a9a3bade9571.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
-        "mana_cost": "{3}{G}{G}",
-        "oracle_text": "Untap all permanents you control during each other player's untap step.",
-        "power": "2",
-        "toughness": "4",
-        "type_line": "Creature — Spirit"
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Whenever a creature you control becomes tapped, you may put a quest counter on this enchantment.\nAs long as there are four or more quest counters on this enchantment, untap all creatures you control during each other player's untap step.",
+        "type_line": "Enchantment"
       },
       "categories": [
         "untap-engine"
       ],
       "category_source": "decklist",
-      "name": "Seedborn Muse",
-      "oracle_id": "463865bc-087e-477b-9e86-84e77f1ad931",
+      "name": "Quest for Renewal",
+      "oracle_id": "cba4ab80-09e8-4868-a082-a9a3bade9571",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/tdc/268/seedborn-muse?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/wwk/110/quest-for-renewal?utm_source=api",
       "submitted_categories": [
         "untap-engine"
       ],
-      "submitted_name": "Seedborn Muse"
+      "submitted_name": "Quest for Renewal"
     },
     {
       "cache": "cards/6a1bce89-0c11-4d8d-aacb-c0a5a5effffc.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Food"
         ],
@@ -723,6 +763,7 @@
     {
       "cache": "cards/b0aaa4b1-5188-43a6-997d-7a9b2ad452bc.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [
           "Flashback"
         ],
@@ -746,6 +787,7 @@
     {
       "cache": "cards/693d20e9-ad92-44ad-9190-d247c94660eb.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{G}",
         "oracle_text": "When this enchantment enters, create a 1/1 green Squirrel creature token.\nWhenever a nontoken creature you control dies, you may pay {1}. If you do, return this enchantment to its owner's hand.",
@@ -769,6 +811,7 @@
     {
       "cache": "cards/2d584333-b25e-4291-a2c9-80c6d9f8732a.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Enchant"
         ],
@@ -792,6 +835,7 @@
     {
       "cache": "cards/4a338863-d599-46e7-9c30-e11b898ae1b0.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{2}{G}",
         "oracle_text": "At the beginning of your upkeep, you may sacrifice a token. If you do, put an acorn counter on this artifact.\nSquirrels you control get +1/+1 for each acorn counter on this artifact.\n{G}, {T}: Create a 1/1 green Squirrel creature token.",
@@ -815,6 +859,7 @@
     {
       "cache": "cards/5a5d426b-e5eb-44f0-b5fe-c258bec6d59e.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{G}",
         "oracle_text": "Choose two —\n• Target player creates two tapped 1/1 green Squirrel creature tokens.\n• Counter target loyalty ability of a planeswalker.\n• Exile target card from a graveyard.\n• Target player gains 3 life.",
@@ -838,6 +883,7 @@
     {
       "cache": "cards/6aeba615-2d37-4eb8-a377-41a517e95aa3.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Flashback"
         ],
@@ -861,6 +907,7 @@
     {
       "cache": "cards/29e3a3d9-4839-44d0-ad48-159c01645a6a.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Flashback"
         ],
@@ -886,6 +933,7 @@
     {
       "cache": "cards/61a6341e-0d36-44b6-8026-9c87c8ef61cb.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{2}{G}{G}",
         "oracle_text": "For each token you control, create a token that's a copy of that permanent.",
@@ -909,6 +957,7 @@
     {
       "cache": "cards/de6e4aa2-23f1-46e5-a061-05522944e0c6.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{X}{X}{G}",
         "oracle_text": "Create X tokens that are copies of target token you control. Then tokens you control gain indestructible until your next turn. You gain 1 life for each token you control.",
@@ -932,6 +981,7 @@
     {
       "cache": "cards/ffe13100-99dd-41e3-82ba-eaead6fd0113.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{3}{G}",
         "oracle_text": "Choose three. You may choose the same mode more than once.\n• Put two +1/+1 counters on target creature.\n• Create a token that's a copy of target token you control.\n• Target player creates a 1/1 green Squirrel creature token.\n• Target opponent sacrifices a nontoken artifact of their choice.",
@@ -955,6 +1005,7 @@
     {
       "cache": "cards/8e7b079d-9ede-421c-bd2b-f9a5126a8e6f.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Crew"
         ],
@@ -982,6 +1033,7 @@
     {
       "cache": "cards/84dc94b2-95fb-4d53-aaa2-191cb645639f.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{3}{G}",
         "oracle_text": "If an effect would create one or more tokens under your control, it creates twice that many of those tokens instead.",
@@ -1003,9 +1055,17 @@
     {
       "cache": "cards/b1305916-53cc-4021-897e-bbefc65dce78.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{X}{G}{G}",
         "oracle_text": "When this enchantment enters, create X 1/1 colorless Shapeshifter creature tokens with changeling. (They're every creature type.)\nCreature tokens you control have \"{T}: Add one mana of any color.\"",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "type_line": "Enchantment"
       },
       "categories": [
@@ -1026,6 +1086,7 @@
     {
       "cache": "cards/9b2cdbed-c733-409b-b0e4-2c8960c25111.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{4}",
         "oracle_text": "Creatures you control are every creature type. The same is true for creature spells you control and creature cards you own that aren't on the battlefield.\n{3}, {T}: Create a 2/2 blue Shapeshifter creature token with changeling. (It is every creature type.)",
@@ -1049,6 +1110,7 @@
     {
       "cache": "cards/efc12acf-ffef-40a6-b2ce-fe93e89ad840.json",
       "card": {
+        "cmc": 7.0,
         "keywords": [],
         "mana_cost": "{6}{B}",
         "oracle_text": "Starting with you, each player may pay any amount of life. Repeat this process until no one pays life. Each player creates a 1/1 black Rat creature token for each 1 life they paid this way.",
@@ -1072,6 +1134,7 @@
     {
       "cache": "cards/cbbb5c0c-e953-410d-88c6-8fedb719e94c.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{2}{G}",
         "oracle_text": "Create a 0/1 green Plant creature token, then draw cards equal to the number of differently named creature tokens you control.",
@@ -1095,6 +1158,7 @@
     {
       "cache": "cards/d1d171de-1c6d-4fb9-817a-9c689c709f3d.json",
       "card": {
+        "cmc": 5.0,
         "keywords": [
           "Ferocious"
         ],
@@ -1118,6 +1182,7 @@
     {
       "cache": "cards/65986c1b-8e51-4604-b685-d82fa7d1263a.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [
           "Equip"
         ],
@@ -1141,6 +1206,7 @@
     {
       "cache": "cards/78826359-fe63-44ad-adc4-a17ffcd710e4.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{G}",
         "oracle_text": "Search your library for a Forest card, put that card onto the battlefield, then shuffle.",
@@ -1162,6 +1228,7 @@
     {
       "cache": "cards/1b882a0e-0ede-4d1a-bd1a-9b7cffbcde8e.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{G}",
         "oracle_text": "Search your library for a Forest card, put it onto the battlefield, then shuffle.",
@@ -1183,9 +1250,17 @@
     {
       "cache": "cards/0bc7f093-bef0-4f1a-852c-4b75ebf54838.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{2}",
         "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "type_line": "Artifact"
       },
       "categories": [
@@ -1204,6 +1279,7 @@
     {
       "cache": "cards/3ded0c0c-40ce-4d14-a9a6-b023bc19ee0e.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{2}{G}{G}",
         "oracle_text": "Until end of turn, creatures you control get +1/+1 and gain trample and infect. (Creatures with infect deal damage to creatures in the form of -1/-1 counters and to players in the form of poison counters.)",
@@ -1225,6 +1301,7 @@
     {
       "cache": "cards/ac10d218-f9a6-4058-9cda-a15ca1b0b7b5.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{B}{G}",
         "oracle_text": "Destroy target permanent an opponent controls. Its controller may search their library for a basic land card, put it onto the battlefield, then shuffle.",
@@ -1248,6 +1325,7 @@
     {
       "cache": "cards/7735eeba-693b-47e2-bd51-414379cf1016.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{2}{G}",
         "oracle_text": "Destroy target permanent. Its controller creates a 3/3 green Beast creature token.",
@@ -1271,6 +1349,7 @@
     {
       "cache": "cards/610af0f7-b5e3-43fb-9d02-7c59bd99034c.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Kicker"
         ],
@@ -1296,6 +1375,7 @@
     {
       "cache": "cards/5825997b-10d7-4a36-972c-a80ddd90b8ed.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{B}",
         "oracle_text": "Destroy target creature or enchantment an opponent controls. You lose life equal to that permanent's mana value.",
@@ -1319,6 +1399,7 @@
     {
       "cache": "cards/2f092562-9e17-43cd-aeb8-d0567f99363e.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{B}",
         "oracle_text": "Destroy target nonartifact creature.",
@@ -1342,6 +1423,7 @@
     {
       "cache": "cards/1b704798-0c69-4c18-ac7e-42933ce90028.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{X}{X}{G}",
         "oracle_text": "Destroy up to X target artifacts and/or enchantments. Create twice X 1/1 black and green Pest creature tokens with \"When this token dies, you gain 1 life.\"",
@@ -1367,6 +1449,7 @@
     {
       "cache": "cards/50e7ae38-2a66-4e32-bfb3-fefbae0caa61.json",
       "card": {
+        "cmc": 5.0,
         "keywords": [],
         "mana_cost": "{3}{B}{B}",
         "oracle_text": "Create two 1/1 green Squirrel creature tokens. Then each creature that isn't an Insect, Rat, Spider, or Squirrel gets -1/-1 until end of turn for each creature you control that's an Insect, Rat, Spider, or Squirrel.",
@@ -1392,6 +1475,7 @@
     {
       "cache": "cards/4050e5b3-07c2-461c-9852-a2c081c0198d.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{2}{B}{G}",
         "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Destroy target nonland permanent an opponent controls.\nII — Search your library for a Forest card, put it onto the battlefield tapped, then shuffle.\nIII — Creatures you control gain deathtouch until end of turn.",
@@ -1417,6 +1501,7 @@
     {
       "cache": "cards/9af4a832-d634-47aa-91ed-79d44fe08864.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{G}",
         "oracle_text": "Choose one —\n• Each opponent sacrifices an artifact of their choice.\n• Each opponent sacrifices an enchantment of their choice.\n• Each opponent sacrifices a creature with flying of their choice.",
@@ -1440,9 +1525,14 @@
     {
       "cache": "cards/15e5136e-ed15-49a8-b027-e09436673fb4.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{2}{B}{G}",
         "oracle_text": "Destroy each nonland permanent with mana value 2 or less. Add {B} or {G} for each permanent destroyed this way.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Sorcery"
       },
       "categories": [
@@ -1465,6 +1555,7 @@
     {
       "cache": "cards/b655bee5-52d3-467e-b16c-cfc2edf2b1a1.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{2}{G}",
         "oracle_text": "Create X 1/2 green Spider creature tokens with reach, where X is the number of creatures attacking you. Prevent all combat damage that would be dealt this turn by non-Spider creatures.",
@@ -1490,6 +1581,7 @@
     {
       "cache": "cards/f627e125-15af-4e53-b34e-82b60e4ec87b.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{G}",
         "oracle_text": "Prevent all combat damage that would be dealt this turn.\nEach attacking creature doesn't untap during its controller's next untap step.",
@@ -1513,6 +1605,7 @@
     {
       "cache": "cards/c850a29e-dc40-4ab6-89f1-d501a1a350d1.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Buyback"
         ],
@@ -1538,6 +1631,7 @@
     {
       "cache": "cards/24882fa2-3fe9-4c1b-aa3d-0e6488b9db27.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{G}",
         "oracle_text": "Permanents you control gain hexproof and indestructible until end of turn.",
@@ -1561,9 +1655,17 @@
     {
       "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1582,9 +1684,17 @@
     {
       "cache": "cards/27b047e3-0d41-45e2-98e9-9391d7923a1e.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1603,9 +1713,14 @@
     {
       "cache": "cards/975ec9a3-6f20-4177-8211-82526e092538.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {B} or {G}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Land — Swamp Forest"
       },
       "categories": [
@@ -1624,9 +1739,14 @@
     {
       "cache": "cards/c9fe1383-1331-4a58-a45a-3320250221a9.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped unless you control a Swamp or a Forest.\n{T}: Add {B} or {G}.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1645,9 +1765,15 @@
     {
       "cache": "cards/32116127-cf96-4a1b-8896-a1ebc087b597.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}: Add {C}.\n{T}: Add {B} or {G}. This land deals 1 damage to you.",
+        "produced_mana": [
+          "B",
+          "C",
+          "G"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1666,9 +1792,14 @@
     {
       "cache": "cards/66fa2326-1b5d-41fb-b919-83bf9f383577.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {B} or {G}.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1687,9 +1818,14 @@
     {
       "cache": "cards/f6d24565-5b32-4eff-b2e0-6e2c25516ff0.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped unless you control two or more other lands.\n{T}: Add {B} or {G}.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1708,9 +1844,14 @@
     {
       "cache": "cards/7c69f718-acc8-4851-8e5d-0cbaaa86192c.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {B} or {G}.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1729,9 +1870,15 @@
     {
       "cache": "cards/db623754-e078-4030-ba07-818803c348a8.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}: Add {C}.\n{B/G}, {T}: Add {B}{B}, {B}{G}, or {G}{G}.",
+        "produced_mana": [
+          "B",
+          "C",
+          "G"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1750,9 +1897,14 @@
     {
       "cache": "cards/761ee6f9-b0fa-43c9-8d1f-9591ea18e52d.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "As this land enters, you may reveal a Swamp or Forest card from your hand. If you don't, this land enters tapped.\n{T}: Add {B} or {G}.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1771,9 +1923,14 @@
     {
       "cache": "cards/1b301478-b14f-4ef8-94e6-9647d582eabe.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {B}{G}.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1792,11 +1949,19 @@
     {
       "cache": "cards/b473e293-59e3-4e04-acf2-622604aeb25f.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [
           "Scry"
         ],
         "mana_cost": "",
         "oracle_text": "This land enters tapped.\n{T}: Add one mana of any color in your commander's color identity. When that mana is spent to cast a creature spell that shares a creature type with your commander, scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1815,9 +1980,18 @@
     {
       "cache": "cards/79ba18fd-f184-43c1-86df-56ee18ce806c.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type or activate an ability of a creature source of the chosen type.",
+        "produced_mana": [
+          "B",
+          "C",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1836,9 +2010,18 @@
     {
       "cache": "cards/584b15f2-6ae9-413a-8b8d-9244dbea4878.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type.",
+        "produced_mana": [
+          "B",
+          "C",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1857,9 +2040,18 @@
     {
       "cache": "cards/da3b17a2-e1e1-44e9-b9b1-ae54a92037db.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "As Three Tree City enters, choose a creature type.\n{T}: Add {C}.\n{2}, {T}: Choose a color. Add an amount of mana of that color equal to the number of creatures you control of the chosen type.",
+        "produced_mana": [
+          "B",
+          "C",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "type_line": "Legendary Land"
       },
       "categories": [
@@ -1878,12 +2070,16 @@
     {
       "cache": "cards/4b508087-99da-4eb1-8b12-29162f2ec85d.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [
           "Heal",
           "Regenerate"
         ],
         "mana_cost": "",
         "oracle_text": "{T}: Add {C}.\n{T}: Regenerate target Insect, Rat, Spider, or Squirrel. (The next time it would be destroyed this turn, instead tap it, remove it from combat, and heal all damage on it.)",
+        "produced_mana": [
+          "C"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1902,9 +2098,13 @@
     {
       "cache": "cards/04b7362d-0490-4cb0-b5d7-2a7732f659ce.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped.\nWhen this land enters, exile target player's graveyard.\n{T}: Add {B}.",
+        "produced_mana": [
+          "B"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1925,12 +2125,16 @@
     {
       "cache": "cards/ac2dd694-d2f1-4025-8400-12332bdc882a.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [
           "Mill",
           "Channel"
         ],
         "mana_cost": "",
         "oracle_text": "{T}: Add {B}.\nChannel — {3}{B}, Discard this card: Mill three cards, then return a creature or planeswalker card from your graveyard to your hand. This ability costs {1} less to activate for each legendary creature you control.",
+        "produced_mana": [
+          "B"
+        ],
         "type_line": "Legendary Land"
       },
       "categories": [
@@ -1951,11 +2155,15 @@
     {
       "cache": "cards/bf1341dd-41a3-49f6-87ec-63170dde4324.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [
           "Channel"
         ],
         "mana_cost": "",
         "oracle_text": "{T}: Add {G}.\nChannel — {1}{G}, Discard this card: Destroy target artifact, enchantment, or nonbasic land an opponent controls. That player may search their library for a land card with a basic land type, put it onto the battlefield, then shuffle. This ability costs {1} less to activate for each legendary creature you control.",
+        "produced_mana": [
+          "G"
+        ],
         "type_line": "Legendary Land"
       },
       "categories": [
@@ -1976,9 +2184,13 @@
     {
       "cache": "cards/8dd5f5af-d2d8-4356-8617-8381081b930c.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "Each land is a Forest in addition to its other land types.",
+        "produced_mana": [
+          "G"
+        ],
         "type_line": "Legendary Land"
       },
       "categories": [
@@ -1997,9 +2209,13 @@
     {
       "cache": "cards/db6174d7-211d-4817-b8e4-8384594c83f9.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "Each land is a Swamp in addition to its other land types.",
+        "produced_mana": [
+          "B"
+        ],
         "type_line": "Legendary Land"
       },
       "categories": [
@@ -2018,9 +2234,14 @@
     {
       "cache": "cards/8ed932ff-986c-4592-ad70-53b3fac80d69.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}, Pay 1 life: Add {B} or {G}.\n{1}, {T}, Sacrifice this land: Draw a card.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -2041,6 +2262,7 @@
     {
       "cache": "cards/0c85b8f7-0bd0-4680-9ec5-d4b110460a54.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle. Then if you control four or more lands, untap that land.",
@@ -2062,9 +2284,13 @@
     {
       "cache": "cards/2549bc57-9ffb-4053-9f10-f2a5f792b845.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Search your library for up to two basic land cards that share a land type, put them onto the battlefield tapped, then shuffle.",
+        "produced_mana": [
+          "C"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -2085,9 +2311,13 @@
     {
       "cache": "cards/b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {G}.)",
+        "produced_mana": [
+          "G"
+        ],
         "type_line": "Basic Land — Forest"
       },
       "categories": [
@@ -2106,9 +2336,13 @@
     {
       "cache": "cards/56719f6a-1a6c-4c0a-8d21-18f7d7350b68.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {B}.)",
+        "produced_mana": [
+          "B"
+        ],
         "type_line": "Basic Land — Swamp"
       },
       "categories": [
@@ -2126,7 +2360,10 @@
     }
   ],
   "categorized_cards": 90,
-  "generated_at": "2026-08-23T22:10:23.535185+00:00",
+  "generated_at": "2026-08-23T23:35:09.371849+00:00",
+  "maybeboard_cards": 0,
+  "maybeboard_unique_cards": 0,
+  "resolved_unique_cards": 90,
   "schema_version": 3,
   "source": "decks/3-_hazel-misty-critters/decklist.txt",
   "total_cards": 100,
