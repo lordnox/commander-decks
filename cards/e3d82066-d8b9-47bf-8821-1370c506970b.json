@@ -1,0 +1,143 @@
+{
+  "arena_id": 88994,
+  "artist": "Simon Dominic",
+  "artist_ids": [
+    "b0e80135-db5a-4b88-a0bc-815a0e94faa1"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 751952,
+  "cmc": 4.0,
+  "collector_number": "77",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 5573,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "1c34e4ae-9bf3-4098-88f1-267e7d6cfa35",
+  "illustration_id": "b181bc34-36b4-4b47-a62f-5474774cd01f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:21:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/c/1c34e4ae-9bf3-4098-88f1-267e7d6cfa35.webp?1783912901",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/c/1c34e4ae-9bf3-4098-88f1-267e7d6cfa35.jpg?1783912901",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/c/1c34e4ae-9bf3-4098-88f1-267e7d6cfa35.jpg?1783912901",
+    "crop": "https://cards.scryfall.io/crop/front/1/c/1c34e4ae-9bf3-4098-88f1-267e7d6cfa35.webp?1783912901",
+    "display": "https://cards.scryfall.io/display/front/1/c/1c34e4ae-9bf3-4098-88f1-267e7d6cfa35.webp?1783912901",
+    "grid": "https://cards.scryfall.io/grid/front/1/c/1c34e4ae-9bf3-4098-88f1-267e7d6cfa35.webp?1783912901",
+    "large": "https://cards.scryfall.io/large/front/1/c/1c34e4ae-9bf3-4098-88f1-267e7d6cfa35.jpg?1783912901",
+    "normal": "https://cards.scryfall.io/normal/front/1/c/1c34e4ae-9bf3-4098-88f1-267e7d6cfa35.jpg?1783912901",
+    "png": "https://cards.scryfall.io/png/front/1/c/1c34e4ae-9bf3-4098-88f1-267e7d6cfa35.png?1783912901",
+    "small": "https://cards.scryfall.io/small/front/1/c/1c34e4ae-9bf3-4098-88f1-267e7d6cfa35.jpg?1783912901",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/c/1c34e4ae-9bf3-4098-88f1-267e7d6cfa35.webp?1783912901"
+  },
+  "keywords": [
+    "Indestructible",
+    "Suspect"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "mtgo_id": 121636,
+  "multiverse_ids": [
+    646637
+  ],
+  "name": "Barbed Servitor",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e3d82066-d8b9-47bf-8821-1370c506970b",
+  "oracle_text": "Indestructible\nWhen this creature enters, suspect it. (It has menace and can't block.)\nWhenever this creature deals combat damage to a player, you draw a card and you lose 1 life.\nWhenever this creature is dealt damage, target opponent loses that much life.",
+  "oversized": false,
+  "penny_rank": 12114,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2024-01-19",
+    "source": "TheGamer",
+    "source_uri": "https://www.thegamer.com/magic-the-gathering-mtg-murders-at-karlov-manor-reveal-exclusive-archdruids-charm-barbed-servitor/"
+  },
+  "prices": {
+    "eur": "0.31",
+    "eur_foil": "0.47",
+    "tix": "0.02",
+    "usd": "0.45",
+    "usd_etched": null,
+    "usd_foil": "0.30"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae3d82066-d8b9-47bf-8821-1370c506970b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/121636?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=751952&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F534081%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Barbed+Servitor",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=646637&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBarbed%2BServitor",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBarbed%2BServitor"
+  },
+  "released_at": "2024-02-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1c34e4ae-9bf3-4098-88f1-267e7d6cfa35/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkm/77/barbed-servitor?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkm",
+  "set_id": "2b17794b-15c3-4796-ad6f-0887a0eceeca",
+  "set_name": "Murders at Karlov Manor",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/2b17794b-15c3-4796-ad6f-0887a0eceeca",
+  "story_spotlight": false,
+  "tcgplayer_id": 534081,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Artifact Creature — Construct",
+  "uri": "https://api.scryfall.com/cards/1c34e4ae-9bf3-4098-88f1-267e7d6cfa35",
+  "variation": false
+}

@@ -1,0 +1,137 @@
+{
+  "artist": "Randy Gallegos",
+  "artist_ids": [
+    "a5048cc7-438a-4378-98e4-da99b78e1db0"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 873454,
+  "cmc": 4.0,
+  "collector_number": "23",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 18313,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "1ead9586-2b40-498e-90d3-c8a3aa81ef92",
+  "illustration_id": "92998df8-f8b3-4df0-903b-72d5038e0fe0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:56:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/e/1ead9586-2b40-498e-90d3-c8a3aa81ef92.webp?1783904167",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/e/1ead9586-2b40-498e-90d3-c8a3aa81ef92.jpg?1783904167",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/e/1ead9586-2b40-498e-90d3-c8a3aa81ef92.jpg?1783904167",
+    "crop": "https://cards.scryfall.io/crop/front/1/e/1ead9586-2b40-498e-90d3-c8a3aa81ef92.webp?1783904167",
+    "display": "https://cards.scryfall.io/display/front/1/e/1ead9586-2b40-498e-90d3-c8a3aa81ef92.webp?1783904167",
+    "grid": "https://cards.scryfall.io/grid/front/1/e/1ead9586-2b40-498e-90d3-c8a3aa81ef92.webp?1783904167",
+    "large": "https://cards.scryfall.io/large/front/1/e/1ead9586-2b40-498e-90d3-c8a3aa81ef92.jpg?1783904167",
+    "normal": "https://cards.scryfall.io/normal/front/1/e/1ead9586-2b40-498e-90d3-c8a3aa81ef92.jpg?1783904167",
+    "png": "https://cards.scryfall.io/png/front/1/e/1ead9586-2b40-498e-90d3-c8a3aa81ef92.png?1783904167",
+    "small": "https://cards.scryfall.io/small/front/1/e/1ead9586-2b40-498e-90d3-c8a3aa81ef92.jpg?1783904167",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/e/1ead9586-2b40-498e-90d3-c8a3aa81ef92.webp?1783904167"
+  },
+  "keywords": [
+    "Haste",
+    "Defender"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}{R}",
+  "mtgo_id": 147375,
+  "multiverse_ids": [],
+  "name": "Electric Seaweed",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a4374baa-a846-4b34-afbf-6bb7feb4648c",
+  "oracle_text": "Defender, haste\nWhen this creature enters, until end of turn, whenever another creature dies, this creature deals 1 damage to each non-Wall creature.\n{T}: This creature deals 1 damage to any target.",
+  "oversized": false,
+  "power": "0",
+  "prices": {
+    "eur": "0.16",
+    "eur_foil": "0.25",
+    "tix": "0.53",
+    "usd": "0.24",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa4374baa-a846-4b34-afbf-6bb7feb4648c&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/147375?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=873454&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F679135%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Electric+Seaweed",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DElectric%2BSeaweed",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DElectric%2BSeaweed"
+  },
+  "released_at": "2026-03-06",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "A22145BBBEE7CB014629D605F3B092B97277549DDB63B545AA12C463D0338A3B",
+  "rulings_uri": "https://api.scryfall.com/cards/1ead9586-2b40-498e-90d3-c8a3aa81ef92/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tmc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tmc/23/electric-seaweed?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tmc",
+  "set_id": "178a07bb-cd54-4443-8b62-675e0c52cfe3",
+  "set_name": "Teenage Mutant Ninja Turtles Eternal",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atmc&unique=prints",
+  "set_type": "eternal",
+  "set_uri": "https://api.scryfall.com/sets/178a07bb-cd54-4443-8b62-675e0c52cfe3",
+  "story_spotlight": false,
+  "tcgplayer_id": 679135,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Plant Wall",
+  "uri": "https://api.scryfall.com/cards/1ead9586-2b40-498e-90d3-c8a3aa81ef92",
+  "variation": false
+}

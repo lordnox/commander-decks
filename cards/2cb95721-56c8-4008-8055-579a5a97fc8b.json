@@ -1,0 +1,138 @@
+{
+  "arena_id": 82667,
+  "artist": "Olivier Bernard",
+  "artist_ids": [
+    "11c6f325-68c2-4f2a-972d-98d2ffe6c224"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 682615,
+  "cmc": 2.0,
+  "collector_number": "182",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1383,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "When it came to fighting an army of trees, even Mishra's best generals were stumped.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5503186a-46fe-4956-8ae3-5ab3343f8a93",
+  "illustration_id": "7243c534-c4d6-4b93-93c7-993ffa1fddf0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:20:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/5/5503186a-46fe-4956-8ae3-5ab3343f8a93.webp?1783920046",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/5/5503186a-46fe-4956-8ae3-5ab3343f8a93.jpg?1783920046",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/5/5503186a-46fe-4956-8ae3-5ab3343f8a93.jpg?1783920046",
+    "crop": "https://cards.scryfall.io/crop/front/5/5/5503186a-46fe-4956-8ae3-5ab3343f8a93.webp?1783920046",
+    "display": "https://cards.scryfall.io/display/front/5/5/5503186a-46fe-4956-8ae3-5ab3343f8a93.webp?1783920046",
+    "grid": "https://cards.scryfall.io/grid/front/5/5/5503186a-46fe-4956-8ae3-5ab3343f8a93.webp?1783920046",
+    "large": "https://cards.scryfall.io/large/front/5/5/5503186a-46fe-4956-8ae3-5ab3343f8a93.jpg?1783920046",
+    "normal": "https://cards.scryfall.io/normal/front/5/5/5503186a-46fe-4956-8ae3-5ab3343f8a93.jpg?1783920046",
+    "png": "https://cards.scryfall.io/png/front/5/5/5503186a-46fe-4956-8ae3-5ab3343f8a93.png?1783920046",
+    "small": "https://cards.scryfall.io/small/front/5/5/5503186a-46fe-4956-8ae3-5ab3343f8a93.jpg?1783920046",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/5/5503186a-46fe-4956-8ae3-5ab3343f8a93.webp?1783920046"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 104982,
+  "multiverse_ids": [
+    583766
+  ],
+  "name": "Gaea's Gift",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2cb95721-56c8-4008-8055-579a5a97fc8b",
+  "oracle_text": "Put a +1/+1 counter on target creature you control. It gains reach, trample, hexproof, and indestructible until end of turn. (It can't be the target of spells or abilities your opponents control. Damage and effects that say \"destroy\" don't destroy it.)",
+  "oversized": false,
+  "penny_rank": 7876,
+  "preview": {
+    "previewed_at": "2022-11-01",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.89",
+    "eur_foil": "1.23",
+    "tix": "0.03",
+    "usd": "1.15",
+    "usd_etched": null,
+    "usd_foil": "1.30"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2cb95721-56c8-4008-8055-579a5a97fc8b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/104982?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=682615&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F452208%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Gaea%27s+Gift",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=583766&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGaea%2527s%2BGift",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGaea%2527s%2BGift"
+  },
+  "released_at": "2022-11-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5503186a-46fe-4956-8ae3-5ab3343f8a93/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/bro?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/bro/182/gaeas-gift?utm_source=api",
+  "set": "bro",
+  "set_id": "4219a14e-6701-4ddd-a185-21dc054ab19b",
+  "set_name": "The Brothers' War",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abro&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4219a14e-6701-4ddd-a185-21dc054ab19b",
+  "story_spotlight": false,
+  "tcgplayer_id": 452208,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/5503186a-46fe-4956-8ae3-5ab3343f8a93",
+  "variation": false
+}

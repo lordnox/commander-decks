@@ -1,0 +1,138 @@
+{
+  "artist": "Ron Spears",
+  "artist_ids": [
+    "fce9030b-86bd-4439-b06a-920a1eeb184c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 748512,
+  "cmc": 1.0,
+  "collector_number": "159",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 347,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5ea568df-04a1-4012-98ec-ba75e189e0ca",
+  "illustration_id": "11cccf38-af17-4198-8d78-354f6744e58a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:28:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/e/5ea568df-04a1-4012-98ec-ba75e189e0ca.webp?1783913297",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/e/5ea568df-04a1-4012-98ec-ba75e189e0ca.jpg?1783913297",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/e/5ea568df-04a1-4012-98ec-ba75e189e0ca.jpg?1783913297",
+    "crop": "https://cards.scryfall.io/crop/front/5/e/5ea568df-04a1-4012-98ec-ba75e189e0ca.webp?1783913297",
+    "display": "https://cards.scryfall.io/display/front/5/e/5ea568df-04a1-4012-98ec-ba75e189e0ca.webp?1783913297",
+    "grid": "https://cards.scryfall.io/grid/front/5/e/5ea568df-04a1-4012-98ec-ba75e189e0ca.webp?1783913297",
+    "large": "https://cards.scryfall.io/large/front/5/e/5ea568df-04a1-4012-98ec-ba75e189e0ca.jpg?1783913297",
+    "normal": "https://cards.scryfall.io/normal/front/5/e/5ea568df-04a1-4012-98ec-ba75e189e0ca.jpg?1783913297",
+    "png": "https://cards.scryfall.io/png/front/5/e/5ea568df-04a1-4012-98ec-ba75e189e0ca.png?1783913297",
+    "small": "https://cards.scryfall.io/small/front/5/e/5ea568df-04a1-4012-98ec-ba75e189e0ca.jpg?1783913297",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/e/5ea568df-04a1-4012-98ec-ba75e189e0ca.webp?1783913297"
+  },
+  "keywords": [
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "mtgo_id": 120845,
+  "multiverse_ids": [
+    643166
+  ],
+  "name": "Utopia Sprawl",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "00d8efa6-a2d9-4249-8da7-b45173675329",
+  "oracle_text": "Enchant Forest\nAs this Aura enters, choose a color.\nWhenever enchanted Forest is tapped for mana, its controller adds an additional one mana of the chosen color.",
+  "oversized": false,
+  "prices": {
+    "eur": "1.41",
+    "eur_foil": "1.82",
+    "tix": "0.04",
+    "usd": "2.09",
+    "usd_etched": null,
+    "usd_foil": "1.57"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A00d8efa6-a2d9-4249-8da7-b45173675329&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/120845?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=748512&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F530875%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Utopia+Sprawl",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=643166&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DUtopia%2BSprawl",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DUtopia%2BSprawl"
+  },
+  "released_at": "2024-01-12",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5ea568df-04a1-4012-98ec-ba75e189e0ca/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rvr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rvr/159/utopia-sprawl?utm_source=api",
+  "set": "rvr",
+  "set_id": "fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "set_name": "Ravnica Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arvr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "story_spotlight": false,
+  "tcgplayer_id": 530875,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/5ea568df-04a1-4012-98ec-ba75e189e0ca",
+  "variation": false
+}

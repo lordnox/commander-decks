@@ -1,0 +1,133 @@
+{
+  "artist": "Chris Rahn",
+  "artist_ids": [
+    "7742047e-0f80-4c0f-a530-d07460165e86"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 664875,
+  "cmc": 2.0,
+  "collector_number": "176",
+  "color_identity": [
+    "G",
+    "R"
+  ],
+  "colors": [
+    "G",
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 6544,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c57b152e-c94e-4c10-9f0d-d960e878a430",
+  "illustration_id": "d4ea949e-be2f-4ce0-ad2a-b61affd26e01",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:50:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/5/c57b152e-c94e-4c10-9f0d-d960e878a430.webp?1783921853",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/5/c57b152e-c94e-4c10-9f0d-d960e878a430.jpg?1783921853",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/5/c57b152e-c94e-4c10-9f0d-d960e878a430.jpg?1783921853",
+    "crop": "https://cards.scryfall.io/crop/front/c/5/c57b152e-c94e-4c10-9f0d-d960e878a430.webp?1783921853",
+    "display": "https://cards.scryfall.io/display/front/c/5/c57b152e-c94e-4c10-9f0d-d960e878a430.webp?1783921853",
+    "grid": "https://cards.scryfall.io/grid/front/c/5/c57b152e-c94e-4c10-9f0d-d960e878a430.webp?1783921853",
+    "large": "https://cards.scryfall.io/large/front/c/5/c57b152e-c94e-4c10-9f0d-d960e878a430.jpg?1783921853",
+    "normal": "https://cards.scryfall.io/normal/front/c/5/c57b152e-c94e-4c10-9f0d-d960e878a430.jpg?1783921853",
+    "png": "https://cards.scryfall.io/png/front/c/5/c57b152e-c94e-4c10-9f0d-d960e878a430.png?1783921853",
+    "small": "https://cards.scryfall.io/small/front/c/5/c57b152e-c94e-4c10-9f0d-d960e878a430.jpg?1783921853",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/5/c57b152e-c94e-4c10-9f0d-d960e878a430.webp?1783921853"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{R}{G}",
+  "mtgo_id": 101836,
+  "multiverse_ids": [
+    571509
+  ],
+  "name": "Atarka's Command",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1943cbb0-2b12-4450-90af-060b8c8627c3",
+  "oracle_text": "Choose two —\n• Your opponents can't gain life this turn.\n• Atarka's Command deals 3 damage to each opponent.\n• You may put a land card from your hand onto the battlefield.\n• Creatures you control get +1/+1 and gain reach until end of turn.",
+  "oversized": false,
+  "penny_rank": 1334,
+  "prices": {
+    "eur": "0.71",
+    "eur_foil": "1.86",
+    "tix": "0.08",
+    "usd": "1.21",
+    "usd_etched": null,
+    "usd_foil": "1.70"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1943cbb0-2b12-4450-90af-060b8c8627c3&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/101836?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=664875&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F277177%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Atarka%27s+Command",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=571509&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAtarka%2527s%2BCommand",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAtarka%2527s%2BCommand"
+  },
+  "released_at": "2022-07-08",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c57b152e-c94e-4c10-9f0d-d960e878a430/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/2x2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/2x2/176/atarkas-command?utm_source=api",
+  "security_stamp": "oval",
+  "set": "2x2",
+  "set_id": "5a645837-b050-449f-ac90-1e7ccbf45031",
+  "set_name": "Double Masters 2022",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A2x2&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/5a645837-b050-449f-ac90-1e7ccbf45031",
+  "story_spotlight": false,
+  "tcgplayer_id": 277177,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/c57b152e-c94e-4c10-9f0d-d960e878a430",
+  "variation": false
+}

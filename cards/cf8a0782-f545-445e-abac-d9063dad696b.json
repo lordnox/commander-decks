@@ -1,0 +1,131 @@
+{
+  "artist": "Jim Murray",
+  "artist_ids": [
+    "1c906f9b-5bbe-4643-8f5c-90eb1c7f0c43"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 723641,
+  "cmc": 3.0,
+  "collector_number": "296",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1059,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"The predator knows the true way of the world. Life is conflict. Only the strong survive.\"\n—Garruk Wildspeaker",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "de399acd-e792-4f4a-8025-434f1080c0fc",
+  "illustration_id": "18d53f23-9769-4e0f-9abc-8ccfe46dc985",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:07:08Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/e/de399acd-e792-4f4a-8025-434f1080c0fc.webp?1783915628",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/e/de399acd-e792-4f4a-8025-434f1080c0fc.jpg?1783915628",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/e/de399acd-e792-4f4a-8025-434f1080c0fc.jpg?1783915628",
+    "crop": "https://cards.scryfall.io/crop/front/d/e/de399acd-e792-4f4a-8025-434f1080c0fc.webp?1783915628",
+    "display": "https://cards.scryfall.io/display/front/d/e/de399acd-e792-4f4a-8025-434f1080c0fc.webp?1783915628",
+    "grid": "https://cards.scryfall.io/grid/front/d/e/de399acd-e792-4f4a-8025-434f1080c0fc.webp?1783915628",
+    "large": "https://cards.scryfall.io/large/front/d/e/de399acd-e792-4f4a-8025-434f1080c0fc.jpg?1783915628",
+    "normal": "https://cards.scryfall.io/normal/front/d/e/de399acd-e792-4f4a-8025-434f1080c0fc.jpg?1783915628",
+    "png": "https://cards.scryfall.io/png/front/d/e/de399acd-e792-4f4a-8025-434f1080c0fc.png?1783915628",
+    "small": "https://cards.scryfall.io/small/front/d/e/de399acd-e792-4f4a-8025-434f1080c0fc.jpg?1783915628",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/e/de399acd-e792-4f4a-8025-434f1080c0fc.webp?1783915628"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "mtgo_id": 114821,
+  "multiverse_ids": [
+    627760
+  ],
+  "name": "Hunter's Insight",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cf8a0782-f545-445e-abac-d9063dad696b",
+  "oracle_text": "Choose target creature you control. Whenever that creature deals combat damage to a player or planeswalker this turn, draw that many cards.",
+  "oversized": false,
+  "penny_rank": 10884,
+  "prices": {
+    "eur": "0.34",
+    "eur_foil": "0.42",
+    "tix": "0.04",
+    "usd": "0.63",
+    "usd_etched": null,
+    "usd_foil": "0.49"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acf8a0782-f545-445e-abac-d9063dad696b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/114821?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=723641&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F507232%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hunter%27s+Insight",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=627760&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHunter%2527s%2BInsight",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHunter%2527s%2BInsight"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/de399acd-e792-4f4a-8025-434f1080c0fc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/296/hunters-insight?utm_source=api",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 507232,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/de399acd-e792-4f4a-8025-434f1080c0fc",
+  "variation": false
+}

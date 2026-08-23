@@ -1,0 +1,133 @@
+{
+  "artist": "Alex Konstad",
+  "artist_ids": [
+    "58b2a57c-50ca-4047-b4e7-efb28cb22851"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 298834,
+  "cmc": 2.0,
+  "collector_number": "81",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 15889,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d6695fa8-881c-407c-91d9-3ac770372d35",
+  "illustration_id": "7e1d75ed-f0f9-4186-8c44-9f6ec354b2fa",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:47:15Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/6/d6695fa8-881c-407c-91d9-3ac770372d35.webp?1783936035",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/6/d6695fa8-881c-407c-91d9-3ac770372d35.jpg?1783936035",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/6/d6695fa8-881c-407c-91d9-3ac770372d35.jpg?1783936035",
+    "crop": "https://cards.scryfall.io/crop/front/d/6/d6695fa8-881c-407c-91d9-3ac770372d35.webp?1783936035",
+    "display": "https://cards.scryfall.io/display/front/d/6/d6695fa8-881c-407c-91d9-3ac770372d35.webp?1783936035",
+    "grid": "https://cards.scryfall.io/grid/front/d/6/d6695fa8-881c-407c-91d9-3ac770372d35.webp?1783936035",
+    "large": "https://cards.scryfall.io/large/front/d/6/d6695fa8-881c-407c-91d9-3ac770372d35.jpg?1783936035",
+    "normal": "https://cards.scryfall.io/normal/front/d/6/d6695fa8-881c-407c-91d9-3ac770372d35.jpg?1783936035",
+    "png": "https://cards.scryfall.io/png/front/d/6/d6695fa8-881c-407c-91d9-3ac770372d35.png?1783936035",
+    "small": "https://cards.scryfall.io/small/front/d/6/d6695fa8-881c-407c-91d9-3ac770372d35.jpg?1783936035",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/6/d6695fa8-881c-407c-91d9-3ac770372d35.webp?1783936035"
+  },
+  "keywords": [
+    "Cycling"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_foil_id": 64647,
+  "mtgo_id": 64646,
+  "multiverse_ids": [
+    430770
+  ],
+  "name": "Without Weakness",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "fffa9334-3576-4f70-9605-2ad062cdbc69",
+  "oracle_text": "Target creature you control gains indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy it. If its toughness is 0 or less, it still dies.)\nCycling {2} ({2}, Discard this card: Draw a card.)",
+  "oversized": false,
+  "penny_rank": 12778,
+  "prices": {
+    "eur": "0.07",
+    "eur_foil": "0.67",
+    "tix": "0.03",
+    "usd": "0.18",
+    "usd_etched": null,
+    "usd_foil": "0.27"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Afffa9334-3576-4f70-9605-2ad062cdbc69&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/64646?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=298834&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F136683%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Without+Weakness",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=430770&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWithout%2BWeakness",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWithout%2BWeakness"
+  },
+  "released_at": "2017-07-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d6695fa8-881c-407c-91d9-3ac770372d35/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/hou?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/hou/81/without-weakness?utm_source=api",
+  "set": "hou",
+  "set_id": "65ff168b-bb94-47a5-a8f9-4ec6c213e768",
+  "set_name": "Hour of Devastation",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ahou&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/65ff168b-bb94-47a5-a8f9-4ec6c213e768",
+  "story_spotlight": false,
+  "tcgplayer_id": 136683,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/d6695fa8-881c-407c-91d9-3ac770372d35",
+  "variation": false
+}

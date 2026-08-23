@@ -74,12 +74,28 @@ def parse_decklist(path: Path) -> tuple[list[dict], list[dict]]:
     merged: OrderedDict[str, dict] = OrderedDict()
     ignored: list[dict] = []
 
-    for number, raw in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+    lines = path.read_text(encoding="utf-8").splitlines()
+    # Grouped exports label every card line with a count and a category suffix, so
+    # bare lines in such a file are custom section headings rather than cards.
+    counted_lines = [
+        line.strip()
+        for line in lines
+        if line.strip()
+        and not line.strip().startswith(("#", "//"))
+        and COUNTED_CARD.match(line.strip())
+    ]
+    grouped_export = bool(counted_lines) and all(
+        CATEGORY_SUFFIX.search(line) for line in counted_lines
+    )
+
+    for number, raw in enumerate(lines, 1):
         line = raw.strip()
         if not line or line.startswith(("#", "//")):
             continue
         heading = line.rstrip(":").strip().casefold()
         if heading in SECTION_NAMES or line.endswith(":"):
+            continue
+        if grouped_export and not COUNTED_CARD.match(line):
             continue
 
         match = COUNTED_CARD.match(line)

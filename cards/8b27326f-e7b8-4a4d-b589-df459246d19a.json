@@ -1,0 +1,139 @@
+{
+  "arena_id": 70747,
+  "artist": "Yeong-Hao Han",
+  "artist_ids": [
+    "f8e7f8d6-6dde-4059-973c-30f1fd1bbe4e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 431404,
+  "cmc": 1.0,
+  "collector_number": "236",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 314,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "A weapon of darkness for a warrior of light.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "939c6e19-4b27-4023-bb9c-ae440f91e21c",
+  "illustration_id": "cb920e61-c273-45f7-a111-08bf51d85c00",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:31:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/3/939c6e19-4b27-4023-bb9c-ae440f91e21c.webp?1783931515",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/3/939c6e19-4b27-4023-bb9c-ae440f91e21c.jpg?1783931515",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/3/939c6e19-4b27-4023-bb9c-ae440f91e21c.jpg?1783931515",
+    "crop": "https://cards.scryfall.io/crop/front/9/3/939c6e19-4b27-4023-bb9c-ae440f91e21c.webp?1783931515",
+    "display": "https://cards.scryfall.io/display/front/9/3/939c6e19-4b27-4023-bb9c-ae440f91e21c.webp?1783931515",
+    "grid": "https://cards.scryfall.io/grid/front/9/3/939c6e19-4b27-4023-bb9c-ae440f91e21c.webp?1783931515",
+    "large": "https://cards.scryfall.io/large/front/9/3/939c6e19-4b27-4023-bb9c-ae440f91e21c.jpg?1783931515",
+    "normal": "https://cards.scryfall.io/normal/front/9/3/939c6e19-4b27-4023-bb9c-ae440f91e21c.jpg?1783931515",
+    "png": "https://cards.scryfall.io/png/front/9/3/939c6e19-4b27-4023-bb9c-ae440f91e21c.png?1783931515",
+    "small": "https://cards.scryfall.io/small/front/9/3/939c6e19-4b27-4023-bb9c-ae440f91e21c.jpg?1783931515",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/3/939c6e19-4b27-4023-bb9c-ae440f91e21c.webp?1783931515"
+  },
+  "keywords": [
+    "Equip"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}",
+  "mtgo_id": 79596,
+  "multiverse_ids": [
+    476487
+  ],
+  "name": "Shadowspear",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8b27326f-e7b8-4a4d-b589-df459246d19a",
+  "oracle_text": "Equipped creature gets +1/+1 and has trample and lifelink.\n{1}: Permanents your opponents control lose hexproof and indestructible until end of turn.\nEquip {2}",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2020-01-09",
+    "source": "LoadingReadyRun",
+    "source_uri": "https://www.youtube.com/watch?v=n3cQj0KnKAg"
+  },
+  "prices": {
+    "eur": "23.35",
+    "eur_foil": "27.26",
+    "tix": "0.42",
+    "usd": "33.51",
+    "usd_etched": null,
+    "usd_foil": "44.06"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8b27326f-e7b8-4a4d-b589-df459246d19a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/79596?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=431404&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F206978%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Shadowspear",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=476487&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DShadowspear",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DShadowspear"
+  },
+  "released_at": "2020-01-24",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/939c6e19-4b27-4023-bb9c-ae440f91e21c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/thb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/thb/236/shadowspear?utm_source=api",
+  "security_stamp": "oval",
+  "set": "thb",
+  "set_id": "5f23a78d-cda1-462a-8be3-a62b40c34913",
+  "set_name": "Theros Beyond Death",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Athb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5f23a78d-cda1-462a-8be3-a62b40c34913",
+  "story_spotlight": false,
+  "tcgplayer_id": 206978,
+  "textless": false,
+  "type_line": "Legendary Artifact — Equipment",
+  "uri": "https://api.scryfall.com/cards/939c6e19-4b27-4023-bb9c-ae440f91e21c",
+  "variation": false
+}

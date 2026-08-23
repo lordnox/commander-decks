@@ -1,0 +1,175 @@
+{
+  "arena_id": 90824,
+  "artist": "Ron Spears",
+  "artist_ids": [
+    "fce9030b-86bd-4439-b06a-920a1eeb184c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Ron Spears",
+      "artist_id": "fce9030b-86bd-4439-b06a-920a1eeb184c",
+      "colors": [
+        "G"
+      ],
+      "flavor_text": "\"I thought trolls were supposed to be *under* bridges!\"\n—Nelvin, Vantress squire",
+      "illustration_id": "5d7cfa08-ce85-4d34-8fe5-d8fcb489e6d0",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.webp?1783911228",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.jpg?1783911228",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.jpg?1783911228",
+        "crop": "https://cards.scryfall.io/crop/front/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.webp?1783911228",
+        "display": "https://cards.scryfall.io/display/front/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.webp?1783911228",
+        "grid": "https://cards.scryfall.io/grid/front/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.webp?1783911228",
+        "large": "https://cards.scryfall.io/large/front/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.jpg?1783911228",
+        "normal": "https://cards.scryfall.io/normal/front/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.jpg?1783911228",
+        "png": "https://cards.scryfall.io/png/front/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.png?1783911228",
+        "small": "https://cards.scryfall.io/small/front/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.jpg?1783911228",
+        "thumb": "https://cards.scryfall.io/thumb/front/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.webp?1783911228"
+      },
+      "mana_cost": "{2}{G}",
+      "name": "Bridgeworks Battle",
+      "object": "card_face",
+      "oracle_text": "Target creature you control gets +2/+2 until end of turn. It fights up to one target creature you don't control. (Each deals damage equal to its power to the other.)",
+      "type_line": "Sorcery"
+    },
+    {
+      "artist": "Ron Spears",
+      "artist_id": "fce9030b-86bd-4439-b06a-920a1eeb184c",
+      "colors": [],
+      "flavor_text": "The chasm formed during the Phyrexian Invasion quickly filled with new life.",
+      "illustration_id": "6a833b4d-88bb-42b7-8e7e-80a7b06e18f9",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.webp?1783911228",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.jpg?1783911228",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.jpg?1783911228",
+        "crop": "https://cards.scryfall.io/crop/back/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.webp?1783911228",
+        "display": "https://cards.scryfall.io/display/back/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.webp?1783911228",
+        "grid": "https://cards.scryfall.io/grid/back/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.webp?1783911228",
+        "large": "https://cards.scryfall.io/large/back/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.jpg?1783911228",
+        "normal": "https://cards.scryfall.io/normal/back/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.jpg?1783911228",
+        "png": "https://cards.scryfall.io/png/back/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.png?1783911228",
+        "small": "https://cards.scryfall.io/small/back/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.jpg?1783911228",
+        "thumb": "https://cards.scryfall.io/thumb/back/e/b/ebef3db0-2b58-4581-a79c-fbca9a059e63.webp?1783911228"
+      },
+      "mana_cost": "",
+      "name": "Tanglespan Bridgeworks",
+      "object": "card_face",
+      "oracle_text": "As this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {G}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 771806,
+  "cmc": 3.0,
+  "collector_number": "249",
+  "color_identity": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 682,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "ebef3db0-2b58-4581-a79c-fbca9a059e63",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:53:48Z",
+  "keywords": [
+    "Fight"
+  ],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 126541,
+  "multiverse_ids": [
+    661777
+  ],
+  "name": "Bridgeworks Battle // Tanglespan Bridgeworks",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9d581188-ce80-494e-bd38-f411e1f4efb5",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-05-23",
+    "source": "ChannelFireball",
+    "source_uri": "https://www.channelfireball.com/article/Our-EXCLUSIVE-Modern-Horizons-3-Preview-Card/f16a095e-4a0c-4b98-b99a-0ef94a09f369/"
+  },
+  "prices": {
+    "eur": "1.02",
+    "eur_foil": "1.79",
+    "tix": "0.03",
+    "usd": "1.57",
+    "usd_etched": null,
+    "usd_foil": "1.55"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9d581188-ce80-494e-bd38-f411e1f4efb5&unique=prints",
+  "produced_mana": [
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126541?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=771806&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552579%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bridgeworks+Battle",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=661777&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBridgeworks%2BBattle%2B%252F%252F%2BTanglespan%2BBridgeworks",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBridgeworks%2BBattle%2B%252F%252F%2BTanglespan%2BBridgeworks"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ebef3db0-2b58-4581-a79c-fbca9a059e63/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/249/bridgeworks-battle-tanglespan-bridgeworks?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552579,
+  "textless": false,
+  "type_line": "Sorcery // Land",
+  "uri": "https://api.scryfall.com/cards/ebef3db0-2b58-4581-a79c-fbca9a059e63",
+  "variation": false
+}

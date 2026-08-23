@@ -1,0 +1,131 @@
+{
+  "artist": "John Matson",
+  "artist_ids": [
+    "a1685587-4b55-446b-b420-c37b202ed3f1"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 2337,
+  "cmc": 4.0,
+  "collector_number": "68",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 14661,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d4c05f2a-b844-42b3-af91-65694b4211dd",
+  "illustration_id": "132ad37f-8a19-4dfa-9008-36eeb84be29b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:19:15Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/4/d4c05f2a-b844-42b3-af91-65694b4211dd.webp?1783945155",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/4/d4c05f2a-b844-42b3-af91-65694b4211dd.jpg?1783945155",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/4/d4c05f2a-b844-42b3-af91-65694b4211dd.jpg?1783945155",
+    "crop": "https://cards.scryfall.io/crop/front/d/4/d4c05f2a-b844-42b3-af91-65694b4211dd.webp?1783945155",
+    "display": "https://cards.scryfall.io/display/front/d/4/d4c05f2a-b844-42b3-af91-65694b4211dd.webp?1783945155",
+    "grid": "https://cards.scryfall.io/grid/front/d/4/d4c05f2a-b844-42b3-af91-65694b4211dd.webp?1783945155",
+    "large": "https://cards.scryfall.io/large/front/d/4/d4c05f2a-b844-42b3-af91-65694b4211dd.jpg?1783945155",
+    "normal": "https://cards.scryfall.io/normal/front/d/4/d4c05f2a-b844-42b3-af91-65694b4211dd.jpg?1783945155",
+    "png": "https://cards.scryfall.io/png/front/d/4/d4c05f2a-b844-42b3-af91-65694b4211dd.png?1783945155",
+    "small": "https://cards.scryfall.io/small/front/d/4/d4c05f2a-b844-42b3-af91-65694b4211dd.jpg?1783945155",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/4/d4c05f2a-b844-42b3-af91-65694b4211dd.webp?1783945155"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "mtgo_foil_id": 17334,
+  "mtgo_id": 17333,
+  "multiverse_ids": [
+    34467
+  ],
+  "name": "Last Laugh",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5facb256-b993-43f8-b971-b3a59a7434bf",
+  "oracle_text": "Whenever a permanent other than this enchantment is put into a graveyard from the battlefield, this enchantment deals 1 damage to each creature and each player.\nWhen no creatures are on the battlefield, sacrifice this enchantment.",
+  "oversized": false,
+  "penny_rank": 17148,
+  "prices": {
+    "eur": "4.09",
+    "eur_foil": "15.87",
+    "tix": "0.03",
+    "usd": "12.51",
+    "usd_etched": null,
+    "usd_foil": "36.85"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5facb256-b993-43f8-b971-b3a59a7434bf&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/17333?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=2337&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F9682%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Last+Laugh",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=34467&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLast%2BLaugh",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLast%2BLaugh"
+  },
+  "released_at": "2002-02-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d4c05f2a-b844-42b3-af91-65694b4211dd/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tor?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tor/68/last-laugh?utm_source=api",
+  "set": "tor",
+  "set_id": "e0b3fda1-a6ca-4996-849b-08b463d39484",
+  "set_name": "Torment",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ator&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e0b3fda1-a6ca-4996-849b-08b463d39484",
+  "story_spotlight": false,
+  "tcgplayer_id": 9682,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/d4c05f2a-b844-42b3-af91-65694b4211dd",
+  "variation": false
+}

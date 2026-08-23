@@ -1,0 +1,145 @@
+{
+  "artist": "Kevin Sidharta",
+  "artist_ids": [
+    "e0bcff21-4a2b-4151-86a2-a462da7b5aaa"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 892700,
+  "cmc": 1.0,
+  "collector_number": "170",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 34,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The migration of the cranes is believed to be a portent of coming abundance in Wakanda.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "492c2f9a-51e7-4e0f-9899-23bf43ea988b",
+  "illustration_id": "2415fae1-9658-4501-aaec-4991e7f70ea6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:40:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/9/492c2f9a-51e7-4e0f-9899-23bf43ea988b.webp?1783903230",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/9/492c2f9a-51e7-4e0f-9899-23bf43ea988b.jpg?1783903230",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/9/492c2f9a-51e7-4e0f-9899-23bf43ea988b.jpg?1783903230",
+    "crop": "https://cards.scryfall.io/crop/front/4/9/492c2f9a-51e7-4e0f-9899-23bf43ea988b.webp?1783903230",
+    "display": "https://cards.scryfall.io/display/front/4/9/492c2f9a-51e7-4e0f-9899-23bf43ea988b.webp?1783903230",
+    "grid": "https://cards.scryfall.io/grid/front/4/9/492c2f9a-51e7-4e0f-9899-23bf43ea988b.webp?1783903230",
+    "large": "https://cards.scryfall.io/large/front/4/9/492c2f9a-51e7-4e0f-9899-23bf43ea988b.jpg?1783903230",
+    "normal": "https://cards.scryfall.io/normal/front/4/9/492c2f9a-51e7-4e0f-9899-23bf43ea988b.jpg?1783903230",
+    "png": "https://cards.scryfall.io/png/front/4/9/492c2f9a-51e7-4e0f-9899-23bf43ea988b.png?1783903230",
+    "small": "https://cards.scryfall.io/small/front/4/9/492c2f9a-51e7-4e0f-9899-23bf43ea988b.jpg?1783903230",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/9/492c2f9a-51e7-4e0f-9899-23bf43ea988b.webp?1783903230"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "mtgo_id": 150809,
+  "multiverse_ids": [],
+  "name": "Birds of Paradise",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
+  "oracle_text": "Flying\n{T}: Add one mana of any color.",
+  "oversized": false,
+  "penny_rank": 73,
+  "power": "0",
+  "prices": {
+    "eur": "8.32",
+    "eur_foil": null,
+    "tix": "0.27",
+    "usd": "9.74",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad3a0b660-358c-41bd-9cd2-41fbf3491b1a&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150809?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=892700&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F698193%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Birds+of+Paradise",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBirds%2Bof%2BParadise",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBirds%2Bof%2BParadise"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "03497AB30469815E10E1F0E0F9CDA09D242D1A54ED52B4D1F14C4F8C8F8E4E8B",
+  "rulings_uri": "https://api.scryfall.com/cards/492c2f9a-51e7-4e0f-9899-23bf43ea988b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/170/birds-of-paradise?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 698193,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Bird",
+  "uri": "https://api.scryfall.com/cards/492c2f9a-51e7-4e0f-9899-23bf43ea988b",
+  "variation": false
+}

@@ -1,0 +1,175 @@
+{
+  "arena_id": 73370,
+  "artist": "Tomasz Jedruszek",
+  "artist_ids": [
+    "bba69285-2445-4a4b-a847-59397be972ea"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Tomasz Jedruszek",
+      "artist_id": "bba69285-2445-4a4b-a847-59397be972ea",
+      "colors": [
+        "R"
+      ],
+      "flavor_text": "\"Stop screaming! You'll only bring down more spikes.\"\n—Raff Slugeater, goblin shortcutter",
+      "illustration_id": "41ff249a-5698-43da-880b-9a880ef84937",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.webp?1783929354",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.jpg?1783929354",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.jpg?1783929354",
+        "crop": "https://cards.scryfall.io/crop/front/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.webp?1783929354",
+        "display": "https://cards.scryfall.io/display/front/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.webp?1783929354",
+        "grid": "https://cards.scryfall.io/grid/front/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.webp?1783929354",
+        "large": "https://cards.scryfall.io/large/front/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.jpg?1783929354",
+        "normal": "https://cards.scryfall.io/normal/front/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.jpg?1783929354",
+        "png": "https://cards.scryfall.io/png/front/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.png?1783929354",
+        "small": "https://cards.scryfall.io/small/front/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.jpg?1783929354",
+        "thumb": "https://cards.scryfall.io/thumb/front/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.webp?1783929354"
+      },
+      "mana_cost": "{R}",
+      "name": "Spikefield Hazard",
+      "object": "card_face",
+      "oracle_text": "Spikefield Hazard deals 1 damage to any target. If a permanent dealt damage this way would die this turn, exile it instead.",
+      "type_line": "Instant"
+    },
+    {
+      "artist": "Tomasz Jedruszek",
+      "artist_id": "bba69285-2445-4a4b-a847-59397be972ea",
+      "colors": [],
+      "flavor_text": "\"Silence until we're through. Even a whisper's echo can dislodge death from above.\"\n—Raff Slugeater, goblin shortcutter",
+      "illustration_id": "0f0c1e52-06d8-4129-af66-97ec23586721",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.webp?1783929354",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.jpg?1783929354",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.jpg?1783929354",
+        "crop": "https://cards.scryfall.io/crop/back/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.webp?1783929354",
+        "display": "https://cards.scryfall.io/display/back/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.webp?1783929354",
+        "grid": "https://cards.scryfall.io/grid/back/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.webp?1783929354",
+        "large": "https://cards.scryfall.io/large/back/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.jpg?1783929354",
+        "normal": "https://cards.scryfall.io/normal/back/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.jpg?1783929354",
+        "png": "https://cards.scryfall.io/png/back/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.png?1783929354",
+        "small": "https://cards.scryfall.io/small/back/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.jpg?1783929354",
+        "thumb": "https://cards.scryfall.io/thumb/back/a/6/a69541db-3f4e-412f-aa8e-dec1e74f74dc.webp?1783929354"
+      },
+      "mana_cost": "",
+      "name": "Spikefield Cave",
+      "object": "card_face",
+      "oracle_text": "This land enters tapped.\n{T}: Add {R}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 495629,
+  "cmc": 1.0,
+  "collector_number": "166",
+  "color_identity": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 2894,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a69541db-3f4e-412f-aa8e-dec1e74f74dc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:55:54Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 83311,
+  "multiverse_ids": [
+    491809,
+    491810
+  ],
+  "name": "Spikefield Hazard // Spikefield Cave",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "81036c9f-fe0a-45a7-bcd5-0d344f31055a",
+  "oversized": false,
+  "penny_rank": 180,
+  "preview": {
+    "previewed_at": "2020-09-02",
+    "source": "3 Gordos Bastardos",
+    "source_uri": "https://twitter.com/3ChubbyB/status/1301225374274084864"
+  },
+  "prices": {
+    "eur": "0.40",
+    "eur_foil": "1.04",
+    "tix": "0.03",
+    "usd": "0.42",
+    "usd_etched": null,
+    "usd_foil": "0.62"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A81036c9f-fe0a-45a7-bcd5-0d344f31055a&unique=prints",
+  "produced_mana": [
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/83311?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=495629&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F221957%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Spikefield+Hazard",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=491809&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSpikefield%2BHazard%2B%252F%252F%2BSpikefield%2BCave",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSpikefield%2BHazard%2B%252F%252F%2BSpikefield%2BCave"
+  },
+  "released_at": "2020-09-25",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a69541db-3f4e-412f-aa8e-dec1e74f74dc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/znr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/znr/166/spikefield-hazard-spikefield-cave?utm_source=api",
+  "set": "znr",
+  "set_id": "f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "set_name": "Zendikar Rising",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aznr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "story_spotlight": false,
+  "tcgplayer_id": 221957,
+  "textless": false,
+  "type_line": "Instant // Land",
+  "uri": "https://api.scryfall.com/cards/a69541db-3f4e-412f-aa8e-dec1e74f74dc",
+  "variation": false
+}

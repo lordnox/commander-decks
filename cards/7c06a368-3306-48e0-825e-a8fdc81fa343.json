@@ -1,0 +1,149 @@
+{
+  "artist": "Thea Dumitriu",
+  "artist_ids": [
+    "3e3387a2-128d-4027-9a37-700493e77579"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 674723,
+  "cmc": 2.0,
+  "collector_number": "87",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 2921,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"We guarantee you that within a week, you will feel like a new man.\"\n—Galaxos Klynesmith, biophagus",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "cfd188ec-5e63-414e-a949-20a0daa82690",
+  "illustration_id": "53fe6a7a-31d7-4056-836a-ee14ece48976",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:34:42Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/f/cfd188ec-5e63-414e-a949-20a0daa82690.webp?1783920882",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/f/cfd188ec-5e63-414e-a949-20a0daa82690.jpg?1783920882",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/f/cfd188ec-5e63-414e-a949-20a0daa82690.jpg?1783920882",
+    "crop": "https://cards.scryfall.io/crop/front/c/f/cfd188ec-5e63-414e-a949-20a0daa82690.webp?1783920882",
+    "display": "https://cards.scryfall.io/display/front/c/f/cfd188ec-5e63-414e-a949-20a0daa82690.webp?1783920882",
+    "grid": "https://cards.scryfall.io/grid/front/c/f/cfd188ec-5e63-414e-a949-20a0daa82690.webp?1783920882",
+    "large": "https://cards.scryfall.io/large/front/c/f/cfd188ec-5e63-414e-a949-20a0daa82690.jpg?1783920882",
+    "normal": "https://cards.scryfall.io/normal/front/c/f/cfd188ec-5e63-414e-a949-20a0daa82690.jpg?1783920882",
+    "png": "https://cards.scryfall.io/png/front/c/f/cfd188ec-5e63-414e-a949-20a0daa82690.png?1783920882",
+    "small": "https://cards.scryfall.io/small/front/c/f/cfd188ec-5e63-414e-a949-20a0daa82690.jpg?1783920882",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/f/cfd188ec-5e63-414e-a949-20a0daa82690.webp?1783920882"
+  },
+  "keywords": [
+    "Genomic Enhancement"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 108646,
+  "multiverse_ids": [
+    580909
+  ],
+  "name": "Biophagus",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7c06a368-3306-48e0-825e-a8fdc81fa343",
+  "oracle_text": "Genomic Enhancement — {T}: Add one mana of any color. If this mana is spent to cast a creature spell, that creature enters with an additional +1/+1 counter on it.",
+  "oversized": false,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2022-09-13",
+    "source": "Tabletop Tactics",
+    "source_uri": "https://www.instagram.com/p/CidFyY7tAHn/"
+  },
+  "prices": {
+    "eur": "17.30",
+    "eur_foil": null,
+    "tix": "10.24",
+    "usd": "15.68",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7c06a368-3306-48e0-825e-a8fdc81fa343&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/108646?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=674723&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F285868%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Biophagus",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=580909&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBiophagus",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBiophagus"
+  },
+  "released_at": "2022-10-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/cfd188ec-5e63-414e-a949-20a0daa82690/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/40k?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/40k/87/biophagus?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "40k",
+  "set_id": "f35f5dd8-5b95-4f52-bbe7-1c62909a8d08",
+  "set_name": "Warhammer 40,000 Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A40k&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/f35f5dd8-5b95-4f52-bbe7-1c62909a8d08",
+  "story_spotlight": false,
+  "tcgplayer_id": 285868,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Human Tyranid Wizard",
+  "uri": "https://api.scryfall.com/cards/cfd188ec-5e63-414e-a949-20a0daa82690",
+  "variation": false
+}

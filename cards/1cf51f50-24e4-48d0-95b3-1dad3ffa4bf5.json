@@ -1,0 +1,133 @@
+{
+  "artist": "Raoul Vitale",
+  "artist_ids": [
+    "c7c15d49-f84b-4d98-9a34-e80e8347b756"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 788985,
+  "cmc": 2.0,
+  "collector_number": "246",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 691,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Depending on your point of view, the seal represents a proud guardian of the natural cycle or one who has sold her soul to darkness for eternal life.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "95103b4c-d0c0-40fa-9ddd-c7416455ca0c",
+  "illustration_id": "b3a631b1-5716-48a8-b2a5-d4982bb7d545",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:26:25Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/5/95103b4c-d0c0-40fa-9ddd-c7416455ca0c.webp?1783909585",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/5/95103b4c-d0c0-40fa-9ddd-c7416455ca0c.jpg?1783909585",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/5/95103b4c-d0c0-40fa-9ddd-c7416455ca0c.jpg?1783909585",
+    "crop": "https://cards.scryfall.io/crop/front/9/5/95103b4c-d0c0-40fa-9ddd-c7416455ca0c.webp?1783909585",
+    "display": "https://cards.scryfall.io/display/front/9/5/95103b4c-d0c0-40fa-9ddd-c7416455ca0c.webp?1783909585",
+    "grid": "https://cards.scryfall.io/grid/front/9/5/95103b4c-d0c0-40fa-9ddd-c7416455ca0c.webp?1783909585",
+    "large": "https://cards.scryfall.io/large/front/9/5/95103b4c-d0c0-40fa-9ddd-c7416455ca0c.jpg?1783909585",
+    "normal": "https://cards.scryfall.io/normal/front/9/5/95103b4c-d0c0-40fa-9ddd-c7416455ca0c.jpg?1783909585",
+    "png": "https://cards.scryfall.io/png/front/9/5/95103b4c-d0c0-40fa-9ddd-c7416455ca0c.png?1783909585",
+    "small": "https://cards.scryfall.io/small/front/9/5/95103b4c-d0c0-40fa-9ddd-c7416455ca0c.jpg?1783909585",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/5/95103b4c-d0c0-40fa-9ddd-c7416455ca0c.webp?1783909585"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}",
+  "mtgo_id": 131117,
+  "multiverse_ids": [
+    676119
+  ],
+  "name": "Golgari Signet",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1cf51f50-24e4-48d0-95b3-1dad3ffa4bf5",
+  "oracle_text": "{1}, {T}: Add {B}{G}.",
+  "oversized": false,
+  "penny_rank": 3807,
+  "prices": {
+    "eur": "0.51",
+    "eur_foil": null,
+    "tix": "0.10",
+    "usd": "0.30",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1cf51f50-24e4-48d0-95b3-1dad3ffa4bf5&unique=prints",
+  "produced_mana": [
+    "B",
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/131117?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=788985&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F579091%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Golgari+Signet",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676119&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGolgari%2BSignet",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGolgari%2BSignet"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/95103b4c-d0c0-40fa-9ddd-c7416455ca0c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/246/golgari-signet?utm_source=api",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 579091,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/95103b4c-d0c0-40fa-9ddd-c7416455ca0c",
+  "variation": false
+}

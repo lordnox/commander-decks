@@ -1,0 +1,132 @@
+{
+  "artist": "Antonio José Manzanedo",
+  "artist_ids": [
+    "74986d28-0001-4a78-827c-e490b325d0e3"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 723727,
+  "cmc": 2.0,
+  "collector_number": "221",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 4993,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "A fiery scourge for both flesh and soul.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7ff6fab0-7872-445d-a514-774ecccd2355",
+  "illustration_id": "ea961861-bd4e-42e6-a1d3-fe6341d88ae6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:07:34Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/f/7ff6fab0-7872-445d-a514-774ecccd2355.webp?1783915654",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/f/7ff6fab0-7872-445d-a514-774ecccd2355.jpg?1783915654",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/f/7ff6fab0-7872-445d-a514-774ecccd2355.jpg?1783915654",
+    "crop": "https://cards.scryfall.io/crop/front/7/f/7ff6fab0-7872-445d-a514-774ecccd2355.webp?1783915654",
+    "display": "https://cards.scryfall.io/display/front/7/f/7ff6fab0-7872-445d-a514-774ecccd2355.webp?1783915654",
+    "grid": "https://cards.scryfall.io/grid/front/7/f/7ff6fab0-7872-445d-a514-774ecccd2355.webp?1783915654",
+    "large": "https://cards.scryfall.io/large/front/7/f/7ff6fab0-7872-445d-a514-774ecccd2355.jpg?1783915654",
+    "normal": "https://cards.scryfall.io/normal/front/7/f/7ff6fab0-7872-445d-a514-774ecccd2355.jpg?1783915654",
+    "png": "https://cards.scryfall.io/png/front/7/f/7ff6fab0-7872-445d-a514-774ecccd2355.png?1783915654",
+    "small": "https://cards.scryfall.io/small/front/7/f/7ff6fab0-7872-445d-a514-774ecccd2355.jpg?1783915654",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/f/7ff6fab0-7872-445d-a514-774ecccd2355.webp?1783915654"
+  },
+  "keywords": [
+    "Equip"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}",
+  "mtgo_id": 114669,
+  "multiverse_ids": [
+    627685
+  ],
+  "name": "Fiendlash",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2d21dc80-2900-4dc3-9657-f17b50716481",
+  "oracle_text": "Equipped creature gets +2/+0 and has reach.\nWhenever equipped creature is dealt damage, it deals damage equal to its power to target player or planeswalker.\nEquip {2}{R}",
+  "oversized": false,
+  "prices": {
+    "eur": "0.24",
+    "eur_foil": "0.37",
+    "tix": "0.53",
+    "usd": "0.38",
+    "usd_etched": null,
+    "usd_foil": "0.68"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2d21dc80-2900-4dc3-9657-f17b50716481&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/114669?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=723727&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F507507%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Fiendlash",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=627685&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFiendlash",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFiendlash"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7ff6fab0-7872-445d-a514-774ecccd2355/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/221/fiendlash?utm_source=api",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 507507,
+  "textless": false,
+  "type_line": "Artifact — Equipment",
+  "uri": "https://api.scryfall.com/cards/7ff6fab0-7872-445d-a514-774ecccd2355",
+  "variation": false
+}
