@@ -9,6 +9,7 @@
 - [3 — Alania — Divergent Laughter](decks/3_alania-divergent-storm/README.md)
 - [3+ — Bartolomé — Graveyard Shift](decks/3+_bartolome-graveyard-shift/README.md)
 - [3+ — Iname — Death Aspect](decks/3+_iname-death-aspect/README.md)
+- [Unrated — Jon Irenicus — Unwanted Presents](decks/unrated_jon-irenicus/README.md)
 
 A conversation-driven workspace for importing, resolving, categorizing, assessing, and improving Magic: The Gathering Commander decks.
 
