@@ -697,27 +697,6 @@
       "submitted_name": "Pyromancer's Goggles"
     },
     {
-      "cache": "cards/e744dbb6-2d56-462a-8d49-d79c73944048.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "{U}",
-        "oracle_text": "Look at the top three cards of target player's library, then put them back in any order. You may have that player shuffle.\nDraw a card at the beginning of the next turn's upkeep.",
-        "type_line": "Sorcery"
-      },
-      "categories": [
-        "Card Selection"
-      ],
-      "category_source": "decklist",
-      "name": "Portent",
-      "oracle_id": "e744dbb6-2d56-462a-8d49-d79c73944048",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/dsc/74/portent?utm_source=api",
-      "submitted_categories": [
-        "Card Selection"
-      ],
-      "submitted_name": "Portent"
-    },
-    {
       "cache": "cards/56956afd-db53-4542-816b-490c8b0bbcf7.json",
       "card": {
         "keywords": [
@@ -1089,29 +1068,6 @@
       "submitted_name": "Return the Favor"
     },
     {
-      "cache": "cards/3d177c04-9aa3-44b8-bbe4-df5de23a4ce6.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "{1}{R}{R}",
-        "oracle_text": "Gain control of target spell that targets only a single permanent or player. Copy it, then reselect the targets at random for the spell and the copy. The new targets can't be you or a permanent you control.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Interaction",
-        "Redirection"
-      ],
-      "category_source": "decklist",
-      "name": "Chef's Kiss",
-      "oracle_id": "3d177c04-9aa3-44b8-bbe4-df5de23a4ce6",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mh2/120/chefs-kiss?utm_source=api",
-      "submitted_categories": [
-        "Interaction",
-        "Redirection"
-      ],
-      "submitted_name": "Chef's Kiss"
-    },
-    {
       "cache": "cards/8c35fd11-be45-4984-bd83-6e4f3fbc47a9.json",
       "card": {
         "keywords": [],
@@ -1391,29 +1347,6 @@
       "submitted_name": "Amphibian Downpour"
     },
     {
-      "cache": "cards/7c779721-cd1b-4696-9ae9-68ccc284ed2a.json",
-      "card": {
-        "keywords": [],
-        "mana_cost": "{3}{U}",
-        "oracle_text": "Return all attacking creatures to their owner's hand.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Interaction",
-        "Board Wipe"
-      ],
-      "category_source": "decklist",
-      "name": "Aetherize",
-      "oracle_id": "7c779721-cd1b-4696-9ae9-68ccc284ed2a",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/fdn/151/aetherize?utm_source=api",
-      "submitted_categories": [
-        "Interaction",
-        "Board Wipe"
-      ],
-      "submitted_name": "Aetherize"
-    },
-    {
       "cache": "cards/6e3b3a3f-e32f-4c72-a9fb-dd1e877876b6.json",
       "card": {
         "keywords": [],
@@ -1575,6 +1508,73 @@
         "Land"
       ],
       "submitted_name": "Exotic Orchard"
+    },
+    {
+      "cache": "cards/17039058-822d-409f-938c-b727a366ba63.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "type_line": "Land — Island Mountain"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Steam Vents",
+      "oracle_id": "17039058-822d-409f-938c-b727a366ba63",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/298/steam-vents?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Steam Vents"
+    },
+    {
+      "cache": "cards/f1603384-4361-49c9-98aa-7785fc3504c4.json",
+      "card": {
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{U/R}, {T}: Add {U}{U}, {U}{R}, or {R}{R}.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Cascade Bluffs",
+      "oracle_id": "f1603384-4361-49c9-98aa-7785fc3504c4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/364/cascade-bluffs?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Cascade Bluffs"
+    },
+    {
+      "cache": "cards/e9b6a394-691c-425a-9307-76d8edc7375e.json",
+      "card": {
+        "keywords": [
+          "Channel"
+        ],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {U}.\nChannel — {3}{U}, Discard this card: Return target artifact, creature, enchantment, or planeswalker to its owner's hand. This ability costs {1} less to activate for each legendary creature you control.",
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "Land",
+        "Interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Otawara, Soaring City",
+      "oracle_id": "e9b6a394-691c-425a-9307-76d8edc7375e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/271/otawara-soaring-city?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Interaction"
+      ],
+      "submitted_name": "Otawara, Soaring City"
     },
     {
       "cache": "cards/0fe16212-66c3-4e45-a641-7391e9b2e304.json",
@@ -1823,7 +1823,7 @@
     }
   ],
   "categorized_cards": 78,
-  "generated_at": "2026-08-23T21:04:37.898793+00:00",
+  "generated_at": "2026-08-23T21:32:20.994270+00:00",
   "schema_version": 3,
   "source": "decks/3_alania-divergent-storm/decklist.txt",
   "total_cards": 100,
