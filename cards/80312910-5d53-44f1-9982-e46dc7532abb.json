@@ -1,0 +1,159 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "fd0474f3-682d-4c6d-b902-84f3250aa269",
+      "name": "Squirrel",
+      "object": "related_card",
+      "type_line": "Token Creature — Squirrel",
+      "uri": "https://api.scryfall.com/cards/fd0474f3-682d-4c6d-b902-84f3250aa269"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ef518e5b-7942-4e66-aee0-a1c2aa1f9754",
+      "name": "The Unbeatable Squirrel Girl",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Squirrel Human Hero",
+      "uri": "https://api.scryfall.com/cards/ef518e5b-7942-4e66-aee0-a1c2aa1f9754"
+    }
+  ],
+  "arena_id": 105088,
+  "artist": "Kim Dingwall",
+  "artist_ids": [
+    "655a32a2-ace0-4692-9e22-aa360c3a750a"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 890571,
+  "cmc": 4.0,
+  "collector_number": "193",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 7588,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"We're here to eat nuts and kick butts!\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "d8b94ebb-0b3a-4e68-8c0c-3a61ac32f3ef",
+  "illustration_id": "d57ec1c4-0615-4229-ba66-771531536be0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:35:11Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/8/d8b94ebb-0b3a-4e68-8c0c-3a61ac32f3ef.webp?1783902911",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/8/d8b94ebb-0b3a-4e68-8c0c-3a61ac32f3ef.jpg?1783902911",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/8/d8b94ebb-0b3a-4e68-8c0c-3a61ac32f3ef.jpg?1783902911",
+    "crop": "https://cards.scryfall.io/crop/front/d/8/d8b94ebb-0b3a-4e68-8c0c-3a61ac32f3ef.webp?1783902911",
+    "display": "https://cards.scryfall.io/display/front/d/8/d8b94ebb-0b3a-4e68-8c0c-3a61ac32f3ef.webp?1783902911",
+    "grid": "https://cards.scryfall.io/grid/front/d/8/d8b94ebb-0b3a-4e68-8c0c-3a61ac32f3ef.webp?1783902911",
+    "large": "https://cards.scryfall.io/large/front/d/8/d8b94ebb-0b3a-4e68-8c0c-3a61ac32f3ef.jpg?1783902911",
+    "normal": "https://cards.scryfall.io/normal/front/d/8/d8b94ebb-0b3a-4e68-8c0c-3a61ac32f3ef.jpg?1783902911",
+    "png": "https://cards.scryfall.io/png/front/d/8/d8b94ebb-0b3a-4e68-8c0c-3a61ac32f3ef.png?1783902911",
+    "small": "https://cards.scryfall.io/small/front/d/8/d8b94ebb-0b3a-4e68-8c0c-3a61ac32f3ef.jpg?1783902911",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/8/d8b94ebb-0b3a-4e68-8c0c-3a61ac32f3ef.webp?1783902911"
+  },
+  "keywords": [
+    "I LOVE Squirrels!"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}{G}{G}",
+  "mtgo_id": 152573,
+  "multiverse_ids": [],
+  "name": "The Unbeatable Squirrel Girl",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "80312910-5d53-44f1-9982-e46dc7532abb",
+  "oracle_text": "Do You Like Squirrels? — Whenever The Unbeatable Squirrel Girl enters or attacks, create a 1/1 green Squirrel creature token.\nI LOVE Squirrels! — {1}{G}{G}{G}: Create X 1/1 green Squirrel creature tokens, where X is the number of Squirrels you control.",
+  "oversized": false,
+  "power": "4",
+  "prices": {
+    "eur": "3.37",
+    "eur_foil": "5.09",
+    "tix": "0.02",
+    "usd": "1.80",
+    "usd_etched": null,
+    "usd_foil": "6.84"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A80312910-5d53-44f1-9982-e46dc7532abb&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/152573?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=890571&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F696312%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+Unbeatable+Squirrel+Girl",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BUnbeatable%2BSquirrel%2BGirl",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BUnbeatable%2BSquirrel%2BGirl"
+  },
+  "released_at": "2026-06-26",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "438F618092E152A83C43AD943B98EF4E7DDD9E5A1CF7594E3CB6D1CA7A0886B5",
+  "rulings_uri": "https://api.scryfall.com/cards/d8b94ebb-0b3a-4e68-8c0c-3a61ac32f3ef/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msh?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msh/193/the-unbeatable-squirrel-girl?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msh",
+  "set_id": "ba9bf625-681c-4a4e-ab48-399b2fecac6b",
+  "set_name": "Marvel Super Heroes",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsh&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/ba9bf625-681c-4a4e-ab48-399b2fecac6b",
+  "story_spotlight": false,
+  "tcgplayer_id": 696312,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Squirrel Human Hero",
+  "uri": "https://api.scryfall.com/cards/d8b94ebb-0b3a-4e68-8c0c-3a61ac32f3ef",
+  "variation": false
+}

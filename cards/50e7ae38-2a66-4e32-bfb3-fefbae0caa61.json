@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "0ce5e24a-84e3-4ecb-924d-1a92b0da914a",
+      "name": "Swarmyard Massacre",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/0ce5e24a-84e3-4ecb-924d-1a92b0da914a"
+    },
+    {
+      "component": "token",
+      "id": "5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0",
+      "name": "Squirrel",
+      "object": "related_card",
+      "type_line": "Token Creature — Squirrel",
+      "uri": "https://api.scryfall.com/cards/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0"
+    }
+  ],
+  "artist": "Michael Phillippi",
+  "artist_ids": [
+    "3bda7dbe-1d9f-47c6-95ce-d283859ffab1"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 778952,
+  "cmc": 5.0,
+  "collector_number": "20",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2148,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Life and death are a cycle, and it is I who keeps it spinning.\"\n—Decai, squirrelfolk rotmaster",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "8486f472-afad-4fdd-a57a-d20d8871b543",
+  "illustration_id": "38712164-6e07-4521-b413-5276bb25b56d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:45:32Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/4/8486f472-afad-4fdd-a57a-d20d8871b543.webp?1783910732",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/4/8486f472-afad-4fdd-a57a-d20d8871b543.jpg?1783910732",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/4/8486f472-afad-4fdd-a57a-d20d8871b543.jpg?1783910732",
+    "crop": "https://cards.scryfall.io/crop/front/8/4/8486f472-afad-4fdd-a57a-d20d8871b543.webp?1783910732",
+    "display": "https://cards.scryfall.io/display/front/8/4/8486f472-afad-4fdd-a57a-d20d8871b543.webp?1783910732",
+    "grid": "https://cards.scryfall.io/grid/front/8/4/8486f472-afad-4fdd-a57a-d20d8871b543.webp?1783910732",
+    "large": "https://cards.scryfall.io/large/front/8/4/8486f472-afad-4fdd-a57a-d20d8871b543.jpg?1783910732",
+    "normal": "https://cards.scryfall.io/normal/front/8/4/8486f472-afad-4fdd-a57a-d20d8871b543.jpg?1783910732",
+    "png": "https://cards.scryfall.io/png/front/8/4/8486f472-afad-4fdd-a57a-d20d8871b543.png?1783910732",
+    "small": "https://cards.scryfall.io/small/front/8/4/8486f472-afad-4fdd-a57a-d20d8871b543.jpg?1783910732",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/4/8486f472-afad-4fdd-a57a-d20d8871b543.webp?1783910732"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_id": 128939,
+  "multiverse_ids": [
+    671137
+  ],
+  "name": "Swarmyard Massacre",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "50e7ae38-2a66-4e32-bfb3-fefbae0caa61",
+  "oracle_text": "Create two 1/1 green Squirrel creature tokens. Then each creature that isn't an Insect, Rat, Spider, or Squirrel gets -1/-1 until end of turn for each creature you control that's an Insect, Rat, Spider, or Squirrel.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-07-18",
+    "source": "The Command Zone",
+    "source_uri": "https://www.youtube.com/watch?v=gkwO1W3YU6Q"
+  },
+  "prices": {
+    "eur": "3.07",
+    "eur_foil": null,
+    "tix": "6.35",
+    "usd": "4.12",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A50e7ae38-2a66-4e32-bfb3-fefbae0caa61&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/128939?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=778952&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F560007%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Swarmyard+Massacre",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=671137&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSwarmyard%2BMassacre",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSwarmyard%2BMassacre"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8486f472-afad-4fdd-a57a-d20d8871b543/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blc/20/swarmyard-massacre?utm_source=api",
+  "security_stamp": "oval",
+  "set": "blc",
+  "set_id": "c0f860b9-a2d0-4fd7-bfac-a49ac60c84f1",
+  "set_name": "Bloomburrow Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c0f860b9-a2d0-4fd7-bfac-a49ac60c84f1",
+  "story_spotlight": false,
+  "tcgplayer_id": 560007,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/8486f472-afad-4fdd-a57a-d20d8871b543",
+  "variation": false
+}

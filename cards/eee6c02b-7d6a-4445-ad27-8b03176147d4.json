@@ -1,0 +1,157 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "977ddd05-1aae-46fc-95ce-866710d1c5c6",
+      "name": "Squirrel",
+      "object": "related_card",
+      "type_line": "Token Creature — Squirrel",
+      "uri": "https://api.scryfall.com/cards/977ddd05-1aae-46fc-95ce-866710d1c5c6"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0fb48c2e-ee0f-4fae-9c22-247870c10d5b",
+      "name": "Scurry Oak",
+      "object": "related_card",
+      "type_line": "Creature — Treefolk",
+      "uri": "https://api.scryfall.com/cards/0fb48c2e-ee0f-4fae-9c22-247870c10d5b"
+    }
+  ],
+  "artist": "Mark Zug",
+  "artist_ids": [
+    "48e2b98c-5467-4671-bd42-4c3746115117"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 566182,
+  "cmc": 3.0,
+  "collector_number": "172",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 2253,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "0fb48c2e-ee0f-4fae-9c22-247870c10d5b",
+  "illustration_id": "d22e2d35-1696-4a22-ac81-c0299ed357ce",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:13:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/f/0fb48c2e-ee0f-4fae-9c22-247870c10d5b.webp?1783926825",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/f/0fb48c2e-ee0f-4fae-9c22-247870c10d5b.jpg?1783926825",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/f/0fb48c2e-ee0f-4fae-9c22-247870c10d5b.jpg?1783926825",
+    "crop": "https://cards.scryfall.io/crop/front/0/f/0fb48c2e-ee0f-4fae-9c22-247870c10d5b.webp?1783926825",
+    "display": "https://cards.scryfall.io/display/front/0/f/0fb48c2e-ee0f-4fae-9c22-247870c10d5b.webp?1783926825",
+    "grid": "https://cards.scryfall.io/grid/front/0/f/0fb48c2e-ee0f-4fae-9c22-247870c10d5b.webp?1783926825",
+    "large": "https://cards.scryfall.io/large/front/0/f/0fb48c2e-ee0f-4fae-9c22-247870c10d5b.jpg?1783926825",
+    "normal": "https://cards.scryfall.io/normal/front/0/f/0fb48c2e-ee0f-4fae-9c22-247870c10d5b.jpg?1783926825",
+    "png": "https://cards.scryfall.io/png/front/0/f/0fb48c2e-ee0f-4fae-9c22-247870c10d5b.png?1783926825",
+    "small": "https://cards.scryfall.io/small/front/0/f/0fb48c2e-ee0f-4fae-9c22-247870c10d5b.jpg?1783926825",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/f/0fb48c2e-ee0f-4fae-9c22-247870c10d5b.webp?1783926825"
+  },
+  "keywords": [
+    "Evolve"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "mtgo_id": 90721,
+  "multiverse_ids": [
+    522248
+  ],
+  "name": "Scurry Oak",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "eee6c02b-7d6a-4445-ad27-8b03176147d4",
+  "oracle_text": "Evolve (Whenever a creature you control enters, if that creature has greater power or toughness than this creature, put a +1/+1 counter on this creature.)\nWhenever one or more +1/+1 counters are put on this creature, you may create a 1/1 green Squirrel creature token.",
+  "oversized": false,
+  "penny_rank": 3866,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2021-05-26",
+    "source": "MTGRocks",
+    "source_uri": "https://mtgrocks.com/exclusive-modern-horizons-2-previews-abundant-harvest-sylvan-anthem-scurry-oak/"
+  },
+  "prices": {
+    "eur": "0.89",
+    "eur_foil": "1.59",
+    "tix": "0.03",
+    "usd": "3.02",
+    "usd_etched": null,
+    "usd_foil": "3.81"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aeee6c02b-7d6a-4445-ad27-8b03176147d4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/90721?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=566182&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F239695%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Scurry+Oak",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=522248&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DScurry%2BOak",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DScurry%2BOak"
+  },
+  "released_at": "2021-06-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0fb48c2e-ee0f-4fae-9c22-247870c10d5b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh2/172/scurry-oak?utm_source=api",
+  "set": "mh2",
+  "set_id": "c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "set_name": "Modern Horizons 2",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh2&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "story_spotlight": false,
+  "tcgplayer_id": 239695,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Treefolk",
+  "uri": "https://api.scryfall.com/cards/0fb48c2e-ee0f-4fae-9c22-247870c10d5b",
+  "variation": false
+}

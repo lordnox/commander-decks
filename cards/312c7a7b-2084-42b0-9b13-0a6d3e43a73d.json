@@ -1,0 +1,166 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "44f59ece-1ba5-422b-820d-e80c83f46290",
+      "name": "Camellia, the Seedmiser",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Squirrel Warlock",
+      "uri": "https://api.scryfall.com/cards/44f59ece-1ba5-422b-820d-e80c83f46290"
+    },
+    {
+      "component": "token",
+      "id": "5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0",
+      "name": "Squirrel",
+      "object": "related_card",
+      "type_line": "Token Creature — Squirrel",
+      "uri": "https://api.scryfall.com/cards/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0"
+    }
+  ],
+  "arena_id": 91743,
+  "artist": "Steve Prescott",
+  "artist_ids": [
+    "a1139fb8-41f5-4a9e-9a74-f662e1a23b35"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 777659,
+  "cmc": 3.0,
+  "collector_number": "207",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [
+    "B",
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 2608,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "2c16eaec-924c-42f6-9fea-07edd7ed93b9",
+  "illustration_id": "9da16d35-aa5b-40db-badf-78e6f77c96df",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:46:39Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/c/2c16eaec-924c-42f6-9fea-07edd7ed93b9.webp?1783910799",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/c/2c16eaec-924c-42f6-9fea-07edd7ed93b9.jpg?1783910799",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/c/2c16eaec-924c-42f6-9fea-07edd7ed93b9.jpg?1783910799",
+    "crop": "https://cards.scryfall.io/crop/front/2/c/2c16eaec-924c-42f6-9fea-07edd7ed93b9.webp?1783910799",
+    "display": "https://cards.scryfall.io/display/front/2/c/2c16eaec-924c-42f6-9fea-07edd7ed93b9.webp?1783910799",
+    "grid": "https://cards.scryfall.io/grid/front/2/c/2c16eaec-924c-42f6-9fea-07edd7ed93b9.webp?1783910799",
+    "large": "https://cards.scryfall.io/large/front/2/c/2c16eaec-924c-42f6-9fea-07edd7ed93b9.jpg?1783910799",
+    "normal": "https://cards.scryfall.io/normal/front/2/c/2c16eaec-924c-42f6-9fea-07edd7ed93b9.jpg?1783910799",
+    "png": "https://cards.scryfall.io/png/front/2/c/2c16eaec-924c-42f6-9fea-07edd7ed93b9.png?1783910799",
+    "small": "https://cards.scryfall.io/small/front/2/c/2c16eaec-924c-42f6-9fea-07edd7ed93b9.jpg?1783910799",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/c/2c16eaec-924c-42f6-9fea-07edd7ed93b9.webp?1783910799"
+  },
+  "keywords": [
+    "Forage",
+    "Menace"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}{G}",
+  "mtgo_id": 129659,
+  "multiverse_ids": [
+    669121
+  ],
+  "name": "Camellia, the Seedmiser",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "312c7a7b-2084-42b0-9b13-0a6d3e43a73d",
+  "oracle_text": "Menace\nOther Squirrels you control have menace.\nWhenever you sacrifice one or more Foods, create a 1/1 green Squirrel creature token.\n{2}, Forage: Put a +1/+1 counter on each other Squirrel you control. (To forage, exile three cards from your graveyard or sacrifice a Food.)",
+  "oversized": false,
+  "penny_rank": 6975,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2024-07-09",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/products/bloomburrow/card-image-gallery"
+  },
+  "prices": {
+    "eur": "1.17",
+    "eur_foil": "1.75",
+    "tix": "0.02",
+    "usd": "2.67",
+    "usd_etched": null,
+    "usd_foil": "2.47"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A312c7a7b-2084-42b0-9b13-0a6d3e43a73d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/129659?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=777659&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F558320%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Camellia%2C+the+Seedmiser",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=669121&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCamellia%252C%2Bthe%2BSeedmiser",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCamellia%252C%2Bthe%2BSeedmiser"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2c16eaec-924c-42f6-9fea-07edd7ed93b9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/207/camellia-the-seedmiser?utm_source=api",
+  "security_stamp": "oval",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": false,
+  "tcgplayer_id": 558320,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Legendary Creature — Squirrel Warlock",
+  "uri": "https://api.scryfall.com/cards/2c16eaec-924c-42f6-9fea-07edd7ed93b9",
+  "variation": false
+}

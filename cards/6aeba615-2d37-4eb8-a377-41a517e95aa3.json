@@ -1,0 +1,154 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "fd0474f3-682d-4c6d-b902-84f3250aa269",
+      "name": "Squirrel",
+      "object": "related_card",
+      "type_line": "Token Creature — Squirrel",
+      "uri": "https://api.scryfall.com/cards/fd0474f3-682d-4c6d-b902-84f3250aa269"
+    },
+    {
+      "component": "combo_piece",
+      "id": "32987720-cc0c-416b-b79b-217d3b37542d",
+      "name": "Acorn Harvest",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/32987720-cc0c-416b-b79b-217d3b37542d"
+    }
+  ],
+  "artist": "Edward P. Beard, Jr.",
+  "artist_ids": [
+    "b845b8ee-aeea-4822-bcf9-7230625ac95c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 2387,
+  "cmc": 4.0,
+  "collector_number": "118",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 11893,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "frame_effects": [
+    "tombstone"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "32987720-cc0c-416b-b79b-217d3b37542d",
+  "illustration_id": "52cb6339-2e95-4e04-85d8-74fb3a375948",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:19:04Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/2/32987720-cc0c-416b-b79b-217d3b37542d.webp?1783945144",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/2/32987720-cc0c-416b-b79b-217d3b37542d.jpg?1783945144",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/2/32987720-cc0c-416b-b79b-217d3b37542d.jpg?1783945144",
+    "crop": "https://cards.scryfall.io/crop/front/3/2/32987720-cc0c-416b-b79b-217d3b37542d.webp?1783945144",
+    "display": "https://cards.scryfall.io/display/front/3/2/32987720-cc0c-416b-b79b-217d3b37542d.webp?1783945144",
+    "grid": "https://cards.scryfall.io/grid/front/3/2/32987720-cc0c-416b-b79b-217d3b37542d.webp?1783945144",
+    "large": "https://cards.scryfall.io/large/front/3/2/32987720-cc0c-416b-b79b-217d3b37542d.jpg?1783945144",
+    "normal": "https://cards.scryfall.io/normal/front/3/2/32987720-cc0c-416b-b79b-217d3b37542d.jpg?1783945144",
+    "png": "https://cards.scryfall.io/png/front/3/2/32987720-cc0c-416b-b79b-217d3b37542d.png?1783945144",
+    "small": "https://cards.scryfall.io/small/front/3/2/32987720-cc0c-416b-b79b-217d3b37542d.jpg?1783945144",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/2/32987720-cc0c-416b-b79b-217d3b37542d.webp?1783945144"
+  },
+  "keywords": [
+    "Flashback"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{G}",
+  "mtgo_foil_id": 17296,
+  "mtgo_id": 17295,
+  "multiverse_ids": [
+    29873
+  ],
+  "name": "Acorn Harvest",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6aeba615-2d37-4eb8-a377-41a517e95aa3",
+  "oracle_text": "Create two 1/1 green Squirrel creature tokens.\nFlashback—{1}{G}, Pay 3 life. (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+  "oversized": false,
+  "penny_rank": 2338,
+  "prices": {
+    "eur": "0.92",
+    "eur_foil": "9.60",
+    "tix": "0.31",
+    "usd": "1.31",
+    "usd_etched": null,
+    "usd_foil": "16.56"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6aeba615-2d37-4eb8-a377-41a517e95aa3&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/17295?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=2387&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F9641%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Acorn+Harvest",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=29873&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAcorn%2BHarvest",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAcorn%2BHarvest"
+  },
+  "released_at": "2002-02-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/32987720-cc0c-416b-b79b-217d3b37542d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tor?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tor/118/acorn-harvest?utm_source=api",
+  "set": "tor",
+  "set_id": "e0b3fda1-a6ca-4996-849b-08b463d39484",
+  "set_name": "Torment",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ator&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e0b3fda1-a6ca-4996-849b-08b463d39484",
+  "story_spotlight": false,
+  "tcgplayer_id": 9641,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/32987720-cc0c-416b-b79b-217d3b37542d",
+  "variation": false
+}

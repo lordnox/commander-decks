@@ -1,0 +1,151 @@
+{
+  "artist": "Anna Pavleeva",
+  "artist_ids": [
+    "32223955-c0eb-49b2-a323-4eec2e067acf"
+  ],
+  "booster": false,
+  "border_color": "borderless",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 778265,
+  "cmc": 4.0,
+  "collector_number": "2",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [
+    "B",
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 3038,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"May all your caches be full.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary",
+    "inverted"
+  ],
+  "full_art": true,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "1269ca79-907e-4932-9e77-a9a5d2929060",
+  "illustration_id": "019a2b87-257e-43bd-ab98-556d421bd96c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:45:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/2/1269ca79-907e-4932-9e77-a9a5d2929060.webp?1783910738",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/2/1269ca79-907e-4932-9e77-a9a5d2929060.jpg?1783910738",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/2/1269ca79-907e-4932-9e77-a9a5d2929060.jpg?1783910738",
+    "crop": "https://cards.scryfall.io/crop/front/1/2/1269ca79-907e-4932-9e77-a9a5d2929060.webp?1783910738",
+    "display": "https://cards.scryfall.io/display/front/1/2/1269ca79-907e-4932-9e77-a9a5d2929060.webp?1783910738",
+    "grid": "https://cards.scryfall.io/grid/front/1/2/1269ca79-907e-4932-9e77-a9a5d2929060.webp?1783910738",
+    "large": "https://cards.scryfall.io/large/front/1/2/1269ca79-907e-4932-9e77-a9a5d2929060.jpg?1783910738",
+    "normal": "https://cards.scryfall.io/normal/front/1/2/1269ca79-907e-4932-9e77-a9a5d2929060.jpg?1783910738",
+    "png": "https://cards.scryfall.io/png/front/1/2/1269ca79-907e-4932-9e77-a9a5d2929060.png?1783910738",
+    "small": "https://cards.scryfall.io/small/front/1/2/1269ca79-907e-4932-9e77-a9a5d2929060.jpg?1783910738",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/2/1269ca79-907e-4932-9e77-a9a5d2929060.webp?1783910738"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{G}",
+  "mtgo_id": 128993,
+  "multiverse_ids": [
+    670837
+  ],
+  "name": "Hazel of the Rootbloom",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "845b40b1-dc09-44fa-9910-22544c1424ba",
+  "oracle_text": "{T}, Pay 2 life, Tap X untapped tokens you control: Add X mana in any combination of colors.\nAt the beginning of your end step, create a token that's a copy of target token you control. If that token is a Squirrel, instead create two tokens that are copies of it.",
+  "oversized": false,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2024-07-09",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/products/bloomburrow/card-image-gallery"
+  },
+  "prices": {
+    "eur": "5.98",
+    "eur_foil": "1.99",
+    "tix": "3.51",
+    "usd": "6.45",
+    "usd_etched": null,
+    "usd_foil": "2.29"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A845b40b1-dc09-44fa-9910-22544c1424ba&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/128993?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=778265&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F558383%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hazel+of+the+Rootbloom",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=670837&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHazel%2Bof%2Bthe%2BRootbloom",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHazel%2Bof%2Bthe%2BRootbloom"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1269ca79-907e-4932-9e77-a9a5d2929060/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blc/2/hazel-of-the-rootbloom?utm_source=api",
+  "security_stamp": "oval",
+  "set": "blc",
+  "set_id": "c0f860b9-a2d0-4fd7-bfac-a49ac60c84f1",
+  "set_name": "Bloomburrow Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c0f860b9-a2d0-4fd7-bfac-a49ac60c84f1",
+  "story_spotlight": false,
+  "tcgplayer_id": 558383,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Legendary Creature — Squirrel Druid",
+  "uri": "https://api.scryfall.com/cards/1269ca79-907e-4932-9e77-a9a5d2929060",
+  "variation": false
+}

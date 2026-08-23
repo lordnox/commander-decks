@@ -1,0 +1,149 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "f5f18431-64c0-4ae5-bdc1-1e953313f086",
+      "name": "Arachnogenesis",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/f5f18431-64c0-4ae5-bdc1-1e953313f086"
+    },
+    {
+      "component": "token",
+      "id": "f4c74e1e-5ea5-4915-9c11-cb589e86cc00",
+      "name": "Spider",
+      "object": "related_card",
+      "type_line": "Token Creature — Spider",
+      "uri": "https://api.scryfall.com/cards/f4c74e1e-5ea5-4915-9c11-cb589e86cc00"
+    }
+  ],
+  "artist": "Johannes Voss",
+  "artist_ids": [
+    "3593dd7e-c547-4a32-81cd-7da725f60118"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 788830,
+  "cmc": 3.0,
+  "collector_number": "169",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1234,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Every movement is a summons—even your screams.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f5f18431-64c0-4ae5-bdc1-1e953313f086",
+  "illustration_id": "25b7fbd9-0446-487b-aa10-dc8898087d2d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:26:50Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/5/f5f18431-64c0-4ae5-bdc1-1e953313f086.webp?1783909610",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/5/f5f18431-64c0-4ae5-bdc1-1e953313f086.jpg?1783909610",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/5/f5f18431-64c0-4ae5-bdc1-1e953313f086.jpg?1783909610",
+    "crop": "https://cards.scryfall.io/crop/front/f/5/f5f18431-64c0-4ae5-bdc1-1e953313f086.webp?1783909610",
+    "display": "https://cards.scryfall.io/display/front/f/5/f5f18431-64c0-4ae5-bdc1-1e953313f086.webp?1783909610",
+    "grid": "https://cards.scryfall.io/grid/front/f/5/f5f18431-64c0-4ae5-bdc1-1e953313f086.webp?1783909610",
+    "large": "https://cards.scryfall.io/large/front/f/5/f5f18431-64c0-4ae5-bdc1-1e953313f086.jpg?1783909610",
+    "normal": "https://cards.scryfall.io/normal/front/f/5/f5f18431-64c0-4ae5-bdc1-1e953313f086.jpg?1783909610",
+    "png": "https://cards.scryfall.io/png/front/f/5/f5f18431-64c0-4ae5-bdc1-1e953313f086.png?1783909610",
+    "small": "https://cards.scryfall.io/small/front/f/5/f5f18431-64c0-4ae5-bdc1-1e953313f086.jpg?1783909610",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/5/f5f18431-64c0-4ae5-bdc1-1e953313f086.webp?1783909610"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "mtgo_id": 130961,
+  "multiverse_ids": [
+    676042
+  ],
+  "name": "Arachnogenesis",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b655bee5-52d3-467e-b16c-cfc2edf2b1a1",
+  "oracle_text": "Create X 1/2 green Spider creature tokens with reach, where X is the number of creatures attacking you. Prevent all combat damage that would be dealt this turn by non-Spider creatures.",
+  "oversized": false,
+  "penny_rank": 312,
+  "prices": {
+    "eur": "6.44",
+    "eur_foil": null,
+    "tix": "0.33",
+    "usd": "7.04",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab655bee5-52d3-467e-b16c-cfc2edf2b1a1&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130961?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=788830&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F579005%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Arachnogenesis",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676042&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DArachnogenesis",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DArachnogenesis"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f5f18431-64c0-4ae5-bdc1-1e953313f086/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/169/arachnogenesis?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 579005,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/f5f18431-64c0-4ae5-bdc1-1e953313f086",
+  "variation": false
+}

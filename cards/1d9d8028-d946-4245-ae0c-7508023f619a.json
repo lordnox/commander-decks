@@ -1,0 +1,145 @@
+{
+  "artist": "Omar Rayyan",
+  "artist_ids": [
+    "256b61a2-b9af-4ff5-b485-47a61818f818"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 779411,
+  "cmc": 5.0,
+  "collector_number": "7",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [
+    "B",
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 4480,
+  "finishes": [
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "791d9ea0-c70a-47a6-b8a3-0f5d36a5c44d",
+  "illustration_id": "ab687937-bbc0-49a8-be21-80aa643deafe",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:45:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/9/791d9ea0-c70a-47a6-b8a3-0f5d36a5c44d.webp?1783910735",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/9/791d9ea0-c70a-47a6-b8a3-0f5d36a5c44d.jpg?1783910735",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/9/791d9ea0-c70a-47a6-b8a3-0f5d36a5c44d.jpg?1783910735",
+    "crop": "https://cards.scryfall.io/crop/front/7/9/791d9ea0-c70a-47a6-b8a3-0f5d36a5c44d.webp?1783910735",
+    "display": "https://cards.scryfall.io/display/front/7/9/791d9ea0-c70a-47a6-b8a3-0f5d36a5c44d.webp?1783910735",
+    "grid": "https://cards.scryfall.io/grid/front/7/9/791d9ea0-c70a-47a6-b8a3-0f5d36a5c44d.webp?1783910735",
+    "large": "https://cards.scryfall.io/large/front/7/9/791d9ea0-c70a-47a6-b8a3-0f5d36a5c44d.jpg?1783910735",
+    "normal": "https://cards.scryfall.io/normal/front/7/9/791d9ea0-c70a-47a6-b8a3-0f5d36a5c44d.jpg?1783910735",
+    "png": "https://cards.scryfall.io/png/front/7/9/791d9ea0-c70a-47a6-b8a3-0f5d36a5c44d.png?1783910735",
+    "small": "https://cards.scryfall.io/small/front/7/9/791d9ea0-c70a-47a6-b8a3-0f5d36a5c44d.jpg?1783910735",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/9/791d9ea0-c70a-47a6-b8a3-0f5d36a5c44d.webp?1783910735"
+  },
+  "keywords": [
+    "Reach",
+    "Trample",
+    "Menace"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{G}",
+  "mtgo_id": 128987,
+  "multiverse_ids": [
+    671104
+  ],
+  "name": "The Odd Acorn Gang",
+  "nonfoil": false,
+  "object": "card",
+  "oracle_id": "1d9d8028-d946-4245-ae0c-7508023f619a",
+  "oracle_text": "Reach, menace, trample\nSquirrels you control have \"{T}: Target Squirrel gets +2/+2 and gains trample until end of turn. Activate only as a sorcery.\"\nWhenever one or more Squirrels you control deal combat damage to a player, draw a card.",
+  "oversized": false,
+  "power": "5",
+  "preview": {
+    "previewed_at": "2024-07-18",
+    "source": "The Command Zone",
+    "source_uri": "https://www.youtube.com/watch?v=gkwO1W3YU6Q"
+  },
+  "prices": {
+    "eur": null,
+    "eur_foil": "0.68",
+    "tix": "2.00",
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": "0.49"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1d9d8028-d946-4245-ae0c-7508023f619a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/128987?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=779411&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F560000%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+Odd+Acorn+Gang",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=671104&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BOdd%2BAcorn%2BGang",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BOdd%2BAcorn%2BGang"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/791d9ea0-c70a-47a6-b8a3-0f5d36a5c44d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blc/7/the-odd-acorn-gang?utm_source=api",
+  "security_stamp": "oval",
+  "set": "blc",
+  "set_id": "c0f860b9-a2d0-4fd7-bfac-a49ac60c84f1",
+  "set_name": "Bloomburrow Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c0f860b9-a2d0-4fd7-bfac-a49ac60c84f1",
+  "story_spotlight": false,
+  "tcgplayer_id": 560000,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Legendary Creature — Squirrel Warrior",
+  "uri": "https://api.scryfall.com/cards/791d9ea0-c70a-47a6-b8a3-0f5d36a5c44d",
+  "variation": false
+}

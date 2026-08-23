@@ -1,0 +1,140 @@
+{
+  "arena_id": 84787,
+  "artist": "John Tedrick",
+  "artist_ids": [
+    "4da667fd-a4ad-4aea-ba20-db542810e01b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 715904,
+  "cmc": 4.0,
+  "collector_number": "95",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 228,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"The enemy has many spies and many ways of hearing.\"\n—Gandalf",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": false,
+  "id": "15f035df-784a-4dc8-b7f5-77139a4e6e99",
+  "illustration_id": "00c37187-6376-4627-a608-650b25486006",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T04:18:23Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/5/15f035df-784a-4dc8-b7f5-77139a4e6e99.webp?1783916303",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/5/15f035df-784a-4dc8-b7f5-77139a4e6e99.jpg?1783916303",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/5/15f035df-784a-4dc8-b7f5-77139a4e6e99.jpg?1783916303",
+    "crop": "https://cards.scryfall.io/crop/front/1/5/15f035df-784a-4dc8-b7f5-77139a4e6e99.webp?1783916303",
+    "display": "https://cards.scryfall.io/display/front/1/5/15f035df-784a-4dc8-b7f5-77139a4e6e99.webp?1783916303",
+    "grid": "https://cards.scryfall.io/grid/front/1/5/15f035df-784a-4dc8-b7f5-77139a4e6e99.webp?1783916303",
+    "large": "https://cards.scryfall.io/large/front/1/5/15f035df-784a-4dc8-b7f5-77139a4e6e99.jpg?1783916303",
+    "normal": "https://cards.scryfall.io/normal/front/1/5/15f035df-784a-4dc8-b7f5-77139a4e6e99.jpg?1783916303",
+    "png": "https://cards.scryfall.io/png/front/1/5/15f035df-784a-4dc8-b7f5-77139a4e6e99.png?1783916303",
+    "small": "https://cards.scryfall.io/small/front/1/5/15f035df-784a-4dc8-b7f5-77139a4e6e99.jpg?1783916303",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/5/15f035df-784a-4dc8-b7f5-77139a4e6e99.webp?1783916303"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "mtgo_id": 112100,
+  "multiverse_ids": [
+    616925
+  ],
+  "name": "Mirkwood Bats",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0636b6c3-0662-420a-b30d-f0a14e7c512d",
+  "oracle_text": "Flying\nWhenever you create or sacrifice a token, each opponent loses 1 life.",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "0.33",
+    "eur_foil": "0.62",
+    "tix": "0.03",
+    "usd": "1.68",
+    "usd_etched": null,
+    "usd_foil": "3.84"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0636b6c3-0662-420a-b30d-f0a14e7c512d&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/112100?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=715904&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F498352%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mirkwood+Bats",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=616925&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMirkwood%2BBats",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMirkwood%2BBats"
+  },
+  "released_at": "2023-06-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/15f035df-784a-4dc8-b7f5-77139a4e6e99/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ltr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ltr/95/mirkwood-bats?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "ltr",
+  "set_id": "08078706-ac5d-439b-8f01-894d38751367",
+  "set_name": "The Lord of the Rings: Tales of Middle-earth",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Altr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/08078706-ac5d-439b-8f01-894d38751367",
+  "story_spotlight": false,
+  "tcgplayer_id": 498352,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Bat",
+  "uri": "https://api.scryfall.com/cards/15f035df-784a-4dc8-b7f5-77139a4e6e99",
+  "variation": false
+}

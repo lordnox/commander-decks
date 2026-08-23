@@ -1,0 +1,144 @@
+{
+  "arena_id": 79718,
+  "artist": "Sam Burley",
+  "artist_ids": [
+    "f89f4b78-cefb-41f7-b7cb-4f4d28de0c4f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 607525,
+  "cmc": 0.0,
+  "collector_number": "278",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 247,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "499037cc-a577-41cb-8ca2-5e117945634f",
+  "illustration_id": "12be7a1e-dfa7-4160-8fb1-fc068b0facc9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:23:32Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/9/499037cc-a577-41cb-8ca2-5e117945634f.webp?1783923812",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/9/499037cc-a577-41cb-8ca2-5e117945634f.jpg?1783923812",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/9/499037cc-a577-41cb-8ca2-5e117945634f.jpg?1783923812",
+    "crop": "https://cards.scryfall.io/crop/front/4/9/499037cc-a577-41cb-8ca2-5e117945634f.webp?1783923812",
+    "display": "https://cards.scryfall.io/display/front/4/9/499037cc-a577-41cb-8ca2-5e117945634f.webp?1783923812",
+    "grid": "https://cards.scryfall.io/grid/front/4/9/499037cc-a577-41cb-8ca2-5e117945634f.webp?1783923812",
+    "large": "https://cards.scryfall.io/large/front/4/9/499037cc-a577-41cb-8ca2-5e117945634f.jpg?1783923812",
+    "normal": "https://cards.scryfall.io/normal/front/4/9/499037cc-a577-41cb-8ca2-5e117945634f.jpg?1783923812",
+    "png": "https://cards.scryfall.io/png/front/4/9/499037cc-a577-41cb-8ca2-5e117945634f.png?1783923812",
+    "small": "https://cards.scryfall.io/small/front/4/9/499037cc-a577-41cb-8ca2-5e117945634f.jpg?1783923812",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/9/499037cc-a577-41cb-8ca2-5e117945634f.webp?1783923812"
+  },
+  "keywords": [
+    "Mill",
+    "Channel"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 97506,
+  "multiverse_ids": [
+    548591
+  ],
+  "name": "Takenuma, Abandoned Mire",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ac2dd694-d2f1-4025-8400-12332bdc882a",
+  "oracle_text": "{T}: Add {B}.\nChannel — {3}{B}, Discard this card: Mill three cards, then return a creature or planeswalker card from your graveyard to your hand. This ability costs {1} less to activate for each legendary creature you control.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2022-02-01",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/card-preview/takenuma-abandoned-mire-2022-02-01"
+  },
+  "prices": {
+    "eur": "8.93",
+    "eur_foil": "10.14",
+    "tix": "0.13",
+    "usd": "10.41",
+    "usd_etched": null,
+    "usd_foil": "12.77"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aac2dd694-d2f1-4025-8400-12332bdc882a&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/97506?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=607525&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F262420%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Takenuma%2C+Abandoned+Mire",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=548591&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTakenuma%252C%2BAbandoned%2BMire",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTakenuma%252C%2BAbandoned%2BMire"
+  },
+  "released_at": "2022-02-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/499037cc-a577-41cb-8ca2-5e117945634f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/neo?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/neo/278/takenuma-abandoned-mire?utm_source=api",
+  "security_stamp": "oval",
+  "set": "neo",
+  "set_id": "59a2059f-5482-433f-8761-eb2e17859b71",
+  "set_name": "Kamigawa: Neon Dynasty",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aneo&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/59a2059f-5482-433f-8761-eb2e17859b71",
+  "story_spotlight": false,
+  "tcgplayer_id": 262420,
+  "textless": false,
+  "type_line": "Legendary Land",
+  "uri": "https://api.scryfall.com/cards/499037cc-a577-41cb-8ca2-5e117945634f",
+  "variation": false
+}

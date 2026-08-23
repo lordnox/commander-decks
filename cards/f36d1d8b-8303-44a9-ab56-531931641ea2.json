@@ -1,0 +1,166 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "7ec6f053-96f7-4e57-b2eb-4e7699a40a4f",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/7ec6f053-96f7-4e57-b2eb-4e7699a40a4f"
+    },
+    {
+      "component": "token",
+      "id": "764a906c-8b27-4ffa-bdc3-7825c6919d3e",
+      "name": "Clue",
+      "object": "related_card",
+      "type_line": "Token Artifact — Clue",
+      "uri": "https://api.scryfall.com/cards/764a906c-8b27-4ffa-bdc3-7825c6919d3e"
+    },
+    {
+      "component": "token",
+      "id": "600d5d22-62a0-49c9-b050-90a2566e8caf",
+      "name": "Food",
+      "object": "related_card",
+      "type_line": "Token Artifact — Food",
+      "uri": "https://api.scryfall.com/cards/600d5d22-62a0-49c9-b050-90a2566e8caf"
+    },
+    {
+      "component": "combo_piece",
+      "id": "76480f4d-ad6d-4ed6-82c6-fa12abc22557",
+      "name": "Academy Manufactor",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Assembly-Worker",
+      "uri": "https://api.scryfall.com/cards/76480f4d-ad6d-4ed6-82c6-fa12abc22557"
+    }
+  ],
+  "artist": "Campbell White",
+  "artist_ids": [
+    "d281eab4-463a-4ba8-9039-8943737960a0"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764937,
+  "cmc": 3.0,
+  "collector_number": "251",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 262,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Automated systems at the Tolarian Academy sort new acquisitions for optimal use, determining which should be studied, eaten, or sold.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "76480f4d-ad6d-4ed6-82c6-fa12abc22557",
+  "illustration_id": "a83da466-e02b-45b1-8982-fb657de020cf",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:04:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/6/76480f4d-ad6d-4ed6-82c6-fa12abc22557.webp?1783911891",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/6/76480f4d-ad6d-4ed6-82c6-fa12abc22557.jpg?1783911891",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/6/76480f4d-ad6d-4ed6-82c6-fa12abc22557.jpg?1783911891",
+    "crop": "https://cards.scryfall.io/crop/front/7/6/76480f4d-ad6d-4ed6-82c6-fa12abc22557.webp?1783911891",
+    "display": "https://cards.scryfall.io/display/front/7/6/76480f4d-ad6d-4ed6-82c6-fa12abc22557.webp?1783911891",
+    "grid": "https://cards.scryfall.io/grid/front/7/6/76480f4d-ad6d-4ed6-82c6-fa12abc22557.webp?1783911891",
+    "large": "https://cards.scryfall.io/large/front/7/6/76480f4d-ad6d-4ed6-82c6-fa12abc22557.jpg?1783911891",
+    "normal": "https://cards.scryfall.io/normal/front/7/6/76480f4d-ad6d-4ed6-82c6-fa12abc22557.jpg?1783911891",
+    "png": "https://cards.scryfall.io/png/front/7/6/76480f4d-ad6d-4ed6-82c6-fa12abc22557.png?1783911891",
+    "small": "https://cards.scryfall.io/small/front/7/6/76480f4d-ad6d-4ed6-82c6-fa12abc22557.jpg?1783911891",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/6/76480f4d-ad6d-4ed6-82c6-fa12abc22557.webp?1783911891"
+  },
+  "keywords": [
+    "Treasure",
+    "Food"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}",
+  "mtgo_id": 124965,
+  "multiverse_ids": [
+    658695
+  ],
+  "name": "Academy Manufactor",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f36d1d8b-8303-44a9-ab56-531931641ea2",
+  "oracle_text": "If you would create a Clue, Food, or Treasure token, instead create one of each.",
+  "oversized": false,
+  "penny_rank": 2668,
+  "power": "1",
+  "prices": {
+    "eur": "5.20",
+    "eur_foil": null,
+    "tix": "0.08",
+    "usd": "7.76",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af36d1d8b-8303-44a9-ab56-531931641ea2&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124965?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764937&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F545341%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Academy+Manufactor",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=658695&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAcademy%2BManufactor",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAcademy%2BManufactor"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/76480f4d-ad6d-4ed6-82c6-fa12abc22557/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otc/251/academy-manufactor?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otc",
+  "set_id": "d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "set_name": "Outlaws of Thunder Junction Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "story_spotlight": false,
+  "tcgplayer_id": 545341,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Artifact Creature — Assembly-Worker",
+  "uri": "https://api.scryfall.com/cards/76480f4d-ad6d-4ed6-82c6-fa12abc22557",
+  "variation": false
+}

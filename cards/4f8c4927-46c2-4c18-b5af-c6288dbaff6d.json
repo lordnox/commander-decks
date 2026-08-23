@@ -1,0 +1,161 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "859e34b4-6762-465f-a5c7-24e42e112fbe",
+      "name": "Iridescent Vinelasher",
+      "object": "related_card",
+      "type_line": "Creature — Lizard Assassin",
+      "uri": "https://api.scryfall.com/cards/859e34b4-6762-465f-a5c7-24e42e112fbe"
+    },
+    {
+      "component": "token",
+      "id": "2f55c677-dc14-4ae3-9518-0d80b528c3fb",
+      "name": "Iridescent Vinelasher",
+      "object": "related_card",
+      "type_line": "Token Creature — Lizard Assassin",
+      "uri": "https://api.scryfall.com/cards/2f55c677-dc14-4ae3-9518-0d80b528c3fb"
+    }
+  ],
+  "arena_id": 91635,
+  "artist": "Aaron Miller",
+  "artist_ids": [
+    "fc021f3d-773a-4706-bbe7-f602324f511f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 777758,
+  "cmc": 1.0,
+  "collector_number": "99",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2918,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "b2bc854c-4e72-48e0-a098-e3451d6e511d",
+  "illustration_id": "1f248876-5e2d-4ac1-bcbc-f780ded3e4bd",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:47:13Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/2/b2bc854c-4e72-48e0-a098-e3451d6e511d.webp?1783910833",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/2/b2bc854c-4e72-48e0-a098-e3451d6e511d.jpg?1783910833",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/2/b2bc854c-4e72-48e0-a098-e3451d6e511d.jpg?1783910833",
+    "crop": "https://cards.scryfall.io/crop/front/b/2/b2bc854c-4e72-48e0-a098-e3451d6e511d.webp?1783910833",
+    "display": "https://cards.scryfall.io/display/front/b/2/b2bc854c-4e72-48e0-a098-e3451d6e511d.webp?1783910833",
+    "grid": "https://cards.scryfall.io/grid/front/b/2/b2bc854c-4e72-48e0-a098-e3451d6e511d.webp?1783910833",
+    "large": "https://cards.scryfall.io/large/front/b/2/b2bc854c-4e72-48e0-a098-e3451d6e511d.jpg?1783910833",
+    "normal": "https://cards.scryfall.io/normal/front/b/2/b2bc854c-4e72-48e0-a098-e3451d6e511d.jpg?1783910833",
+    "png": "https://cards.scryfall.io/png/front/b/2/b2bc854c-4e72-48e0-a098-e3451d6e511d.png?1783910833",
+    "small": "https://cards.scryfall.io/small/front/b/2/b2bc854c-4e72-48e0-a098-e3451d6e511d.jpg?1783910833",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/2/b2bc854c-4e72-48e0-a098-e3451d6e511d.webp?1783910833"
+  },
+  "keywords": [
+    "Offspring",
+    "Landfall"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 129443,
+  "multiverse_ids": [
+    669013
+  ],
+  "name": "Iridescent Vinelasher",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4f8c4927-46c2-4c18-b5af-c6288dbaff6d",
+  "oracle_text": "Offspring {2} (You may pay an additional {2} as you cast this spell. If you do, when this creature enters, create a 1/1 token copy of it.)\nLandfall — Whenever a land you control enters, this creature deals 1 damage to target opponent.",
+  "oversized": false,
+  "penny_rank": 2829,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2024-07-10",
+    "source": "ChannelFireball",
+    "source_uri": "https://www.channelfireball.com/article/ChannelFireball-s-Exclusive-Bloomburrow-Preview-Card-Iridescent-Vinelasher/c35bfdc7-1bae-41c9-b791-bd665aba17e2/"
+  },
+  "prices": {
+    "eur": "1.03",
+    "eur_foil": "1.37",
+    "tix": "0.02",
+    "usd": "1.21",
+    "usd_etched": null,
+    "usd_foil": "1.86"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4f8c4927-46c2-4c18-b5af-c6288dbaff6d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/129443?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=777758&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F558625%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Iridescent+Vinelasher",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=669013&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIridescent%2BVinelasher",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIridescent%2BVinelasher"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b2bc854c-4e72-48e0-a098-e3451d6e511d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/99/iridescent-vinelasher?utm_source=api",
+  "security_stamp": "oval",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": false,
+  "tcgplayer_id": 558625,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Lizard Assassin",
+  "uri": "https://api.scryfall.com/cards/b2bc854c-4e72-48e0-a098-e3451d6e511d",
+  "variation": false
+}

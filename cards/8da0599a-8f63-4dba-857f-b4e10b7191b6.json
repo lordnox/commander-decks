@@ -1,0 +1,143 @@
+{
+  "arena_id": 91655,
+  "artist": "Valera Lutfullina",
+  "artist_ids": [
+    "76bc57c7-47c6-40c5-8797-8ffcce430ac7"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 777605,
+  "cmc": 2.0,
+  "collector_number": "119",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2405,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "We all share one life and one death.\n—Rotcaller saying",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "4da80a9a-b1d5-4fc5-92f7-36946195d0c7",
+  "illustration_id": "23e74699-28b6-4da4-b809-72fd07aa312e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:47:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/d/4da80a9a-b1d5-4fc5-92f7-36946195d0c7.webp?1783910826",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/d/4da80a9a-b1d5-4fc5-92f7-36946195d0c7.jpg?1783910826",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/d/4da80a9a-b1d5-4fc5-92f7-36946195d0c7.jpg?1783910826",
+    "crop": "https://cards.scryfall.io/crop/front/4/d/4da80a9a-b1d5-4fc5-92f7-36946195d0c7.webp?1783910826",
+    "display": "https://cards.scryfall.io/display/front/4/d/4da80a9a-b1d5-4fc5-92f7-36946195d0c7.webp?1783910826",
+    "grid": "https://cards.scryfall.io/grid/front/4/d/4da80a9a-b1d5-4fc5-92f7-36946195d0c7.webp?1783910826",
+    "large": "https://cards.scryfall.io/large/front/4/d/4da80a9a-b1d5-4fc5-92f7-36946195d0c7.jpg?1783910826",
+    "normal": "https://cards.scryfall.io/normal/front/4/d/4da80a9a-b1d5-4fc5-92f7-36946195d0c7.jpg?1783910826",
+    "png": "https://cards.scryfall.io/png/front/4/d/4da80a9a-b1d5-4fc5-92f7-36946195d0c7.png?1783910826",
+    "small": "https://cards.scryfall.io/small/front/4/d/4da80a9a-b1d5-4fc5-92f7-36946195d0c7.jpg?1783910826",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/d/4da80a9a-b1d5-4fc5-92f7-36946195d0c7.webp?1783910826"
+  },
+  "keywords": [
+    "Menace"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 129483,
+  "multiverse_ids": [
+    669033
+  ],
+  "name": "Valley Rotcaller",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8da0599a-8f63-4dba-857f-b4e10b7191b6",
+  "oracle_text": "Menace\nWhenever this creature attacks, each opponent loses X life and you gain X life, where X is the number of other Squirrels, Bats, Lizards, and Rats you control.",
+  "oversized": false,
+  "penny_rank": 7014,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2024-07-09",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/products/bloomburrow/card-image-gallery"
+  },
+  "prices": {
+    "eur": "1.51",
+    "eur_foil": "1.94",
+    "tix": "0.02",
+    "usd": "3.00",
+    "usd_etched": null,
+    "usd_foil": "3.14"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8da0599a-8f63-4dba-857f-b4e10b7191b6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/129483?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=777605&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F558437%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Valley+Rotcaller",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=669033&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DValley%2BRotcaller",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DValley%2BRotcaller"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4da80a9a-b1d5-4fc5-92f7-36946195d0c7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/119/valley-rotcaller?utm_source=api",
+  "security_stamp": "oval",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": false,
+  "tcgplayer_id": 558437,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Squirrel Warlock",
+  "uri": "https://api.scryfall.com/cards/4da80a9a-b1d5-4fc5-92f7-36946195d0c7",
+  "variation": false
+}

@@ -1,0 +1,130 @@
+{
+  "artist": "Kristina Carroll",
+  "artist_ids": [
+    "81124442-0305-458b-a4c8-f74be2dcc365"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 705746,
+  "cmc": 2.0,
+  "collector_number": "250",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 372,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "When Titania offered peace, Urza merely turned her down. Mishra made her people pay for the insult.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5446e1ba-c745-45b2-ad05-b22abf04daec",
+  "illustration_id": "93caf961-199b-46ab-9cfe-3189392c5044",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:32:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/4/5446e1ba-c745-45b2-ad05-b22abf04daec.webp?1783917160",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/4/5446e1ba-c745-45b2-ad05-b22abf04daec.jpg?1783917160",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/4/5446e1ba-c745-45b2-ad05-b22abf04daec.jpg?1783917160",
+    "crop": "https://cards.scryfall.io/crop/front/5/4/5446e1ba-c745-45b2-ad05-b22abf04daec.webp?1783917160",
+    "display": "https://cards.scryfall.io/display/front/5/4/5446e1ba-c745-45b2-ad05-b22abf04daec.webp?1783917160",
+    "grid": "https://cards.scryfall.io/grid/front/5/4/5446e1ba-c745-45b2-ad05-b22abf04daec.webp?1783917160",
+    "large": "https://cards.scryfall.io/large/front/5/4/5446e1ba-c745-45b2-ad05-b22abf04daec.jpg?1783917160",
+    "normal": "https://cards.scryfall.io/normal/front/5/4/5446e1ba-c745-45b2-ad05-b22abf04daec.jpg?1783917160",
+    "png": "https://cards.scryfall.io/png/front/5/4/5446e1ba-c745-45b2-ad05-b22abf04daec.png?1783917160",
+    "small": "https://cards.scryfall.io/small/front/5/4/5446e1ba-c745-45b2-ad05-b22abf04daec.jpg?1783917160",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/4/5446e1ba-c745-45b2-ad05-b22abf04daec.webp?1783917160"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 110950,
+  "multiverse_ids": [
+    612498
+  ],
+  "name": "Go for the Throat",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2f092562-9e17-43cd-aeb8-d0567f99363e",
+  "oracle_text": "Destroy target nonartifact creature.",
+  "oversized": false,
+  "penny_rank": 370,
+  "prices": {
+    "eur": "1.08",
+    "eur_foil": null,
+    "tix": "0.28",
+    "usd": "0.57",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2f092562-9e17-43cd-aeb8-d0567f99363e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/110950?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=705746&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F491422%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Go+for+the+Throat",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=612498&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGo%2Bfor%2Bthe%2BThroat",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGo%2Bfor%2Bthe%2BThroat"
+  },
+  "released_at": "2023-04-21",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5446e1ba-c745-45b2-ad05-b22abf04daec/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/moc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/moc/250/go-for-the-throat?utm_source=api",
+  "set": "moc",
+  "set_id": "6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "set_name": "March of the Machine Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "story_spotlight": false,
+  "tcgplayer_id": 491422,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/5446e1ba-c745-45b2-ad05-b22abf04daec",
+  "variation": false
+}
