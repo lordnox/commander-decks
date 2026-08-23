@@ -30,7 +30,6 @@
 - **Fellwar Stone** — Usually produces blue or red in multiplayer while accelerating Alania by a turn.
 - **Midnight Clock** — Supplies blue mana early and eventually refills a hand depleted by setup and interaction.
 - **Pyromancer's Goggles** — Provides red mana and automatically copies red setup spells such as Repeated Reverberation.
-- **Portent** — An uncommon one-mana selection spell that can also manipulate an opponent's next draws before a combo turn.
 - **Serum Visions** — Cheap sorcery-speed selection that improves land drops without consuming the first instant of a future combo turn.
 - **Lat-Nam's Legacy** — Hides a redundant card in the library and produces delayed card advantage at instant speed.
 - **Strategic Planning** — Selects the best of three cards while placing flashback and recursion targets into the graveyard.
@@ -47,7 +46,6 @@
 - **Invoke Calamity** — Casts two modestly priced spells from hand or graveyard at instant speed, rebuilding a disrupted copy chain.
 - **Narset's Reversal** — Protects the stack by returning a spell while creating a useful copy under the deck's control.
 - **Return the Favor** — An esoteric modal answer that can redirect a target or copy a spell, activated ability, or triggered ability.
-- **Chef's Kiss** — Steals and copies a narrowly targeted spell, turning opposing removal or pump into unpredictable disruption.
 - **Wild Ricochet** — Redirects an opposing instant or sorcery and adds a copy, providing both defense and value.
 - **Invert Polarity** — A flavorful coin-flip counterspell whose successful flip takes control of the threatening spell instead.
 - **Reinterpret** — Counters a spell and converts its mana value into a free spell from hand, creating a large tempo swing.
@@ -59,7 +57,6 @@
 - **Resculpt** — Exiles a creature or artifact cleanly; the 4/4 token is usually less dangerous than the removed permanent.
 - **Reality Shift** — Efficiently exiles a creature and replaces it with an uncertain face-down card.
 - **Amphibian Downpour** — Uses storm to neutralize several creatures during a busy turn without destroying them.
-- **Aetherize** — Punishes a wide attack while preserving the deck's sparse board and leaving mana for a later combo.
 - **Ill-Timed Explosion** — Filters the hand and can clear creatures according to the discarded card's mana value.
 - **Volcanic Offering** — Removes two creatures and two nonbasic lands while forcing an opponent to help choose the collateral damage.
 - **Release to the Wind** — Temporarily answers any nonland permanent or protects Alania for a later free recast.
@@ -67,6 +64,9 @@
 - **March of Swirling Mist** — Scales from single-creature protection to phasing out an entire threatening board.
 - **Command Tower** — The most reliable untapped source of either commander color.
 - **Exotic Orchard** — Usually produces both blue and red in a four-player Commander game.
+- **Steam Vents** — Untapped dual for two life, the cleanest way to hit both colors on a setup turn.
+- **Cascade Bluffs** — Filters a spare mana into {U}{U} or {R}{R}, the exact colored requirement the copy turns keep failing.
+- **Otawara, Soaring City** — A near-free blue source whose channel ability answers a permanent without occupying a spell slot.
 - **Shivan Reef** — Enters untapped and fixes either color when the deck cannot afford tempo loss.
 - **Stormcarved Coast** — An untapped dual land from turn three onward, matching the deck's setup curve.
 - **Sulfur Falls** — Frequently enters untapped because the mana base contains many Islands and Mountains.
@@ -78,3 +78,7 @@
 - **Ferrous Lake** — Converts one mana into both blue and red, helping pay color-heavy copy turns.
 - **Island** — The larger basic allocation supports blue interaction, double-blue Tasha, and Mystic Sanctuary.
 - **Mountain** — Supplies the repeated red requirements in Repeated Reverberation, copy spells, and damage finishers.
+
+## 2026-08-23 — Mana base correction
+
+The deck ran 35 true lands, which is below the floor for a five-mana commander with double-colored copy spells. Cut **Portent**, **Chef's Kiss**, and **Aetherize** for **Steam Vents**, **Cascade Bluffs**, and **Otawara, Soaring City** to reach 38 lands while keeping interaction density: Otawara replaces a narrow redirect with repeatable removal on a land.
