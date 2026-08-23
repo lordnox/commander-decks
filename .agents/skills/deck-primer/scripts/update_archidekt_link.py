@@ -24,14 +24,42 @@ def parse_overrides(values: list[str]) -> dict[str, str]:
         name, printing_id = (part.strip() for part in value.split("=", 1))
         if not name:
             raise ValueError(f"invalid printing override: {value!r}")
-        try:
-            uuid.UUID(printing_id)
-        except ValueError as error:
-            raise ValueError(
-                f"invalid Scryfall printing UUID for {name}: {printing_id}"
-            ) from error
-        overrides[name.casefold()] = printing_id
+        overrides[name.casefold()] = validate_printing_id(name, printing_id)
     return overrides
+
+
+def validate_printing_id(name: str, printing_id: str) -> str:
+    try:
+        uuid.UUID(printing_id)
+    except ValueError as error:
+        raise ValueError(
+            f"invalid Scryfall printing UUID for {name}: {printing_id}"
+        ) from error
+    return printing_id
+
+
+def load_file_overrides(deck_dir: Path) -> dict[str, str]:
+    path = deck_dir / "printing-overrides.json"
+    if not path.is_file():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError(f"invalid printing overrides: {path}")
+    cards = data.get("cards", data)
+    if "schema_version" in cards:
+        cards = {key: value for key, value in cards.items() if key != "schema_version"}
+    if not isinstance(cards, dict):
+        raise ValueError(f"invalid printing overrides: {path}")
+    overrides: dict[str, str] = {}
+    for name, printing_id in cards.items():
+        if not isinstance(name, str) or not isinstance(printing_id, str):
+            raise ValueError(f"invalid printing override for {name!r}")
+        overrides[name.casefold()] = validate_printing_id(name, printing_id)
+    return overrides
+
+
+def merged_overrides(deck_dir: Path, cli_overrides: dict[str, str]) -> dict[str, str]:
+    return {**load_file_overrides(deck_dir), **cli_overrides}
 
 
 def repository_root(deck_dir: Path) -> Path:
@@ -70,9 +98,12 @@ def archidekt_payload(
             if not cache_path.is_file():
                 raise FileNotFoundError(f"missing cache for {name}: {cache_path}")
             card = json.loads(cache_path.read_text(encoding="utf-8"))
-            if card.get("digital") or "paper" not in card.get("games", []):
+            games = card.get("games")
+            paper = not card.get("digital") and (not games or "paper" in games)
+            if not paper:
                 raise ValueError(
-                    f"{name} uses a digital-only cached printing; provide "
+                    f"{name} uses a digital-only cached printing; add it to "
+                    "printing-overrides.json or pass "
                     f"--printing-override '{name}=paper-scryfall-printing-uuid'"
                 )
             printing_id = card.get("id")
@@ -106,6 +137,30 @@ def link_line(payload: list[dict[str, object]]) -> str:
     return f"[**Open this deck in Archidekt**]({url})"
 
 
+def insert_after_assessment(original: str, expected: str) -> str:
+    body = LINK_PATTERN.sub("", original)
+    lines = body.splitlines(keepends=True)
+    if not lines or not lines[0].startswith("# "):
+        raise ValueError("primer must begin with a Markdown H1 title")
+    newline = "\r\n" if lines[0].endswith("\r\n") else "\n"
+    index = 1
+    while index < len(lines) and not lines[index].strip():
+        index += 1
+    quotes = []
+    while index < len(lines) and lines[index].lstrip().startswith(">"):
+        quotes.append(lines[index].rstrip())
+        index += 1
+    prefix_parts = [lines[0].rstrip()]
+    if quotes:
+        prefix_parts.extend(["", *quotes])
+    prefix = newline.join(prefix_parts)
+    suffix = "".join(lines[index:]).lstrip()
+    parts = [prefix, "", expected, ""]
+    if suffix:
+        parts.append(suffix if suffix.endswith(("\n", "\r\n")) else suffix + newline)
+    return newline.join(parts)
+
+
 def update_primer(
     deck_dir: Path, overrides: dict[str, str], *, check: bool = False
 ) -> int:
@@ -116,16 +171,7 @@ def update_primer(
     payload, total = archidekt_payload(deck_dir, overrides)
     expected = link_line(payload)
     original = readme_path.read_text(encoding="utf-8")
-    match = LINK_PATTERN.search(original)
-
-    if match:
-        updated = original[: match.start()] + expected + original[match.end() :]
-    else:
-        lines = original.splitlines(keepends=True)
-        if not lines or not lines[0].startswith("# "):
-            raise ValueError("primer must begin with a Markdown H1 title")
-        newline = "\r\n" if lines[0].endswith("\r\n") else "\n"
-        updated = lines[0] + newline + expected + newline + "".join(lines[1:])
+    updated = insert_after_assessment(original, expected)
 
     if check and updated != original:
         print(f"{readme_path}: Archidekt link is missing or stale")
@@ -159,7 +205,7 @@ def main() -> int:
     target = args.deck.resolve()
     deck_dir = target.parent if target.is_file() else target
     try:
-        overrides = parse_overrides(args.printing_override)
+        overrides = merged_overrides(deck_dir, parse_overrides(args.printing_override))
         return update_primer(deck_dir, overrides, check=args.check)
     except (FileNotFoundError, json.JSONDecodeError, ValueError) as error:
         parser.error(str(error))

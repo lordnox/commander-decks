@@ -1,48 +1,48 @@
 {
-  "artist": "Cliff Childs",
+  "artist": "Rob Alexander",
   "artist_ids": [
-    "ed6f7e03-20ba-4c73-bdda-4a4928480721"
+    "35906871-6c78-4ab2-9ed1-e6792c8efb74"
   ],
-  "booster": true,
+  "booster": false,
   "border_color": "black",
-  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "card_back_id": "049a6229-ace9-4363-816a-60cb8773e95d",
+  "cardmarket_id": 686019,
   "cmc": 0.0,
-  "collector_number": "323",
+  "collector_number": "578",
   "color_identity": [
     "B",
     "U"
   ],
   "colors": [],
-  "digital": true,
+  "digital": false,
   "edhrec_rank": 297,
   "finishes": [
-    "nonfoil",
-    "foil"
+    "nonfoil"
   ],
-  "foil": true,
-  "frame": "2015",
+  "foil": false,
+  "frame": "1997",
   "full_art": false,
   "game_changer": false,
   "games": [
-    "mtgo"
+    "paper"
   ],
-  "highres_image": true,
-  "id": "26cee543-6eab-494e-a803-33a5d48d7d74",
-  "illustration_id": "c82bd9c4-0886-4797-b185-624c3c332741",
-  "image_status": "highres_scan",
-  "image_updated_at": "2026-07-13T10:40:14Z",
+  "highres_image": false,
+  "id": "28dee88a-8961-4bf7-8eb2-3d9ae2dab5de",
+  "illustration_id": "a30dfb84-032e-4c89-94df-ed63afd32377",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T05:07:19Z",
   "image_uris": {
-    "art": "https://cards.scryfall.io/art/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.webp?1783939214",
-    "art_crop": "https://cards.scryfall.io/art_crop/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.jpg?1783939214",
-    "border_crop": "https://cards.scryfall.io/border_crop/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.jpg?1783939214",
-    "crop": "https://cards.scryfall.io/crop/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.webp?1783939214",
-    "display": "https://cards.scryfall.io/display/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.webp?1783939214",
-    "grid": "https://cards.scryfall.io/grid/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.webp?1783939214",
-    "large": "https://cards.scryfall.io/large/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.jpg?1783939214",
-    "normal": "https://cards.scryfall.io/normal/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.jpg?1783939214",
-    "png": "https://cards.scryfall.io/png/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.png?1783939214",
-    "small": "https://cards.scryfall.io/small/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.jpg?1783939214",
-    "thumb": "https://cards.scryfall.io/thumb/front/2/6/26cee543-6eab-494e-a803-33a5d48d7d74.webp?1783939214"
+    "art": "https://cards.scryfall.io/art/front/2/8/28dee88a-8961-4bf7-8eb2-3d9ae2dab5de.webp?1783919239",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/8/28dee88a-8961-4bf7-8eb2-3d9ae2dab5de.jpg?1783919239",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/8/28dee88a-8961-4bf7-8eb2-3d9ae2dab5de.jpg?1783919239",
+    "crop": "https://cards.scryfall.io/crop/front/2/8/28dee88a-8961-4bf7-8eb2-3d9ae2dab5de.webp?1783919239",
+    "display": "https://cards.scryfall.io/display/front/2/8/28dee88a-8961-4bf7-8eb2-3d9ae2dab5de.webp?1783919239",
+    "grid": "https://cards.scryfall.io/grid/front/2/8/28dee88a-8961-4bf7-8eb2-3d9ae2dab5de.webp?1783919239",
+    "large": "https://cards.scryfall.io/large/front/2/8/28dee88a-8961-4bf7-8eb2-3d9ae2dab5de.jpg?1783919239",
+    "normal": "https://cards.scryfall.io/normal/front/2/8/28dee88a-8961-4bf7-8eb2-3d9ae2dab5de.jpg?1783919239",
+    "png": "https://cards.scryfall.io/png/front/2/8/28dee88a-8961-4bf7-8eb2-3d9ae2dab5de.png?1783919239",
+    "small": "https://cards.scryfall.io/small/front/2/8/28dee88a-8961-4bf7-8eb2-3d9ae2dab5de.jpg?1783919239",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/8/28dee88a-8961-4bf7-8eb2-3d9ae2dab5de.webp?1783919239"
   },
   "keywords": [],
   "lang": "en",
@@ -73,11 +73,7 @@
     "vintage": "legal"
   },
   "mana_cost": "",
-  "mtgo_foil_id": 53098,
-  "mtgo_id": 53097,
-  "multiverse_ids": [
-    383142
-  ],
+  "multiverse_ids": [],
   "name": "Underground Sea",
   "nonfoil": true,
   "object": "card",
@@ -85,9 +81,9 @@
   "oracle_text": "({T}: Add {U} or {B}.)",
   "oversized": false,
   "prices": {
-    "eur": null,
+    "eur": "651.91",
     "eur_foil": null,
-    "tix": "13.28",
+    "tix": null,
     "usd": null,
     "usd_etched": null,
     "usd_foil": null
@@ -99,33 +95,32 @@
   ],
   "promo": false,
   "purchase_uris": {
-    "cardhoarder": "https://www.cardhoarder.com/cards/53097?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
-    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Underground+Sea&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
-    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DUnderground%2BSea%26view%3Dgrid"
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Underground+Sea&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=686019&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F449482%3Fpage%3D1"
   },
   "rarity": "rare",
   "related_uris": {
     "edhrec": "https://edhrec.com/route/?cc=Underground+Sea",
-    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=383142&printed=false",
     "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DUnderground%2BSea",
     "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DUnderground%2BSea"
   },
-  "released_at": "2014-06-16",
+  "released_at": "2022-11-28",
   "reprint": true,
   "reserved": true,
-  "rulings_uri": "https://api.scryfall.com/cards/26cee543-6eab-494e-a803-33a5d48d7d74/rulings",
-  "scryfall_set_uri": "https://scryfall.com/sets/vma?utm_source=api",
-  "scryfall_uri": "https://scryfall.com/card/vma/323/underground-sea?utm_source=api",
-  "security_stamp": "oval",
-  "set": "vma",
-  "set_id": "a944551a-73fa-41cd-9159-e8d0e4674403",
-  "set_name": "Vintage Masters",
-  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Avma&unique=prints",
-  "set_type": "masters",
-  "set_uri": "https://api.scryfall.com/sets/a944551a-73fa-41cd-9159-e8d0e4674403",
+  "rulings_uri": "https://api.scryfall.com/cards/28dee88a-8961-4bf7-8eb2-3d9ae2dab5de/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/30a?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/30a/578/underground-sea?utm_source=api",
+  "set": "30a",
+  "set_id": "c3cddb17-44d9-4abd-8d19-666f6c5171fe",
+  "set_name": "30th Anniversary Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A30a&unique=prints",
+  "set_type": "memorabilia",
+  "set_uri": "https://api.scryfall.com/sets/c3cddb17-44d9-4abd-8d19-666f6c5171fe",
   "story_spotlight": false,
+  "tcgplayer_id": 449482,
   "textless": false,
   "type_line": "Land — Island Swamp",
-  "uri": "https://api.scryfall.com/cards/26cee543-6eab-494e-a803-33a5d48d7d74",
+  "uri": "https://api.scryfall.com/cards/28dee88a-8961-4bf7-8eb2-3d9ae2dab5de",
   "variation": false
 }

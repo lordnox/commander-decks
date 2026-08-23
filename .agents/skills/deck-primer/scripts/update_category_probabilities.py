@@ -16,6 +16,8 @@ SECTION_PATTERN = re.compile(
     rf"{re.escape(START_MARKER)}.*?{re.escape(END_MARKER)}",
     re.DOTALL,
 )
+KEY_CARDS_HEADING = re.compile(r"^## Key cards\s*$", re.MULTILINE)
+HEADING = re.compile(r"^## ", re.MULTILINE)
 
 
 def choose(population: int, count: int) -> int:
@@ -130,6 +132,26 @@ def render_section(
     return "\n".join(lines)
 
 
+def insert_category_section(original: str, section: str) -> str:
+    body = SECTION_PATTERN.sub("", original)
+    key_match = KEY_CARDS_HEADING.search(body)
+    if key_match:
+        next_heading = HEADING.search(body, key_match.end())
+        insert_at = next_heading.start() if next_heading else len(body)
+    else:
+        heading = "## How the deck works"
+        insert_at = body.find(heading)
+        if insert_at < 0:
+            return body.rstrip() + "\n\n" + section + "\n"
+    return (
+        body[:insert_at].rstrip()
+        + "\n\n"
+        + section
+        + "\n\n"
+        + body[insert_at:].lstrip()
+    )
+
+
 def update_primer(
     deck_dir: Path,
     *,
@@ -148,22 +170,7 @@ def update_primer(
     library_size, counts = category_counts(manifest)
     section = render_section(library_size, counts, draws, thresholds)
     original = readme_path.read_text(encoding="utf-8")
-
-    if SECTION_PATTERN.search(original):
-        updated = SECTION_PATTERN.sub(lambda _match: section, original, count=1)
-    else:
-        heading = "## How the deck works"
-        index = original.find(heading)
-        if index < 0:
-            updated = original.rstrip() + "\n\n" + section + "\n"
-        else:
-            updated = (
-                original[:index].rstrip()
-                + "\n\n"
-                + section
-                + "\n\n"
-                + original[index:].lstrip()
-            )
+    updated = insert_category_section(original, section)
 
     if check and updated != original:
         print(f"{readme_path}: category probability table is missing or stale")

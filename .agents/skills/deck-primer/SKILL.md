@@ -5,7 +5,7 @@ description: Analyze a resolved Commander deck and create or update its deck-spe
 
 # Deck Primer
 
-Create a practical play guide at `decks/<slug>/README.md`.
+Create a practical play guide at `decks/<prefix><slug>/README.md`.
 
 ## 1. Load the deck
 
@@ -41,57 +41,62 @@ Do not call a line infinite when it is delayed, resource-limited, fails to resto
 
 ## 4. Write the README
 
-Use concise Markdown. Write every card mention as a bold link to its manifest `scryfall_uri`, for example `[**Hedge Shredder**](https://scryfall.com/card/...)`. Include only sections supported by the deck:
+Use concise Markdown. Write every card mention as a bold link to its manifest `scryfall_uri`, for example `[**Hedge Shredder**](https://scryfall.com/card/...)`. Keep this top-of-file order, then include only later sections the deck supports:
 
-1. Title and short identity
-2. Archidekt deck-creation link
-3. Deck summary
-4. Key-card image gallery
-5. Category access by turn three
-6. How the deck works
-7. Core engine or role table
-8. Main combo or synergy patterns
-9. Win conditions
-10. Early, mid, and late game
-11. Mulligan guide
-12. Tutor priorities
-13. Important sequencing and rules notes
-14. Weaknesses and what to protect
+1. Title (H1)
+2. Assessment blockquote (`N−` / `N` / `N+`), when the deck has been assessed
+3. Archidekt deck-creation link
+4. Short identity or summary
+5. `## Key cards`
+6. Category access by turn three
+7. How the deck works
+8. Core engine or role table
+9. Main combo or synergy patterns
+10. Win conditions
+11. Early, mid, and late game
+12. Mulligan guide
+13. Tutor priorities
+14. Important sequencing and rules notes
+15. Weaknesses and what to protect
 
 Prefer a table for interchangeable roles and tutor decisions. Explain representative cards rather than listing every card. Make the primer useful during actual play.
 
 ### Archidekt deck-creation link
 
-Every primer must contain an `Open this deck in Archidekt` link near the top. The link must open Archidekt's sandbox with the full resolved deck preloaded, including quantities and the commander designation. Exclude cards marked `{noDeck}`, such as maybeboard entries.
+Every primer must contain an `Open this deck in Archidekt` link immediately after the assessment blockquote, or immediately after the H1 when the deck is unrated. The link must open Archidekt's sandbox with the full resolved deck preloaded, including quantities and the commander designation. Exclude cards marked `{noDeck}`, such as maybeboard entries.
 
 After resolving the deck, create or refresh the link with:
 
 ```bash
-python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<slug>
+python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<prefix><slug>
 ```
 
-The script uses the exact Scryfall printing IDs in the cache. Archidekt does not accept digital-only printings. If the script identifies one, use the Scryfall lookup workflow to select a paper printing and rerun with one or more overrides:
+The cache script stores paper printings when Scryfall has one. Archidekt does not accept digital-only printings. If a cached object is still digital-only, add a paper Scryfall printing UUID to `decks/<prefix><slug>/printing-overrides.json` and rerun:
 
-```bash
-python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<slug> \
-  --printing-override "Card Name=paper-scryfall-printing-uuid"
+```json
+{
+  "schema_version": 1,
+  "cards": {
+    "Card Name": "paper-scryfall-printing-uuid"
+  }
+}
 ```
 
-Rerun this script whenever the deck list or resolved manifest changes. Never copy an Archidekt URL from an older deck revision.
+`--printing-override Card Name=uuid` still works for a one-off run and overrides the file. `update_archidekt_link.py --check` must succeed from the cache and that file alone; do not require a human to rediscover UUIDs. Rerun the script whenever the deck list or resolved manifest changes. Never copy an Archidekt URL from an older deck revision.
 
 ### Category access by turn three
 
 Every primer must contain a hypergeometric probability table calculated from the resolved manifest. Use a 99-card library and 10 cards seen by turn three: the opening seven plus three normal draw steps, with no mulligans or additional draw. Exclude commanders and cards marked `{noDeck}`. Categories overlap, so present each category's probability independently.
 
-Require at least one card from each category except `Land`, which requires at least three. Create or refresh the section with:
+Require at least one card from each category except `Land`, which requires at least three. Place the table immediately after the Key cards gallery, before the first play-guide heading. Create or refresh the section with:
 
 ```bash
-python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py decks/<slug>
+python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py decks/<prefix><slug>
 ```
 
-Rerun this script whenever the deck list, quantities, categories, or resolved manifest changes. Do not multiply the individual category probabilities to claim a combined opening-hand probability.
+Rerun this script whenever the deck list, quantities, categories, or resolved manifest changes. `--check` must fail when the table is missing, stale, or later than Key cards. Do not multiply the individual category probabilities to claim a combined opening-hand probability.
 
-### Key-card images
+### Key cards
 
 Add a compact `## Key cards` gallery near the top of every primer:
 
@@ -108,15 +113,16 @@ Add a compact `## Key cards` gallery near the top of every primer:
 Before saving:
 
 - confirm every named card is present in the manifest;
-- run `python3 .agents/skills/deck-primer/scripts/link_card_mentions.py decks/<slug>` after drafting so plain or bold card mentions become Scryfall links;
+- run `python3 .agents/skills/deck-primer/scripts/link_card_mentions.py decks/<prefix><slug>` after drafting so plain or bold card mentions become Scryfall links;
 - rerun the linker after every primer edit; it preserves existing links, images, HTML, URLs, and code;
-- run `python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<slug> --check`, including the same printing overrides used to generate the link;
+- run `python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<prefix><slug> --check`;
 - confirm the Archidekt payload contains every resolved card, the deck's total quantity, and exactly one commander entry;
-- run `python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py decks/<slug> --check`;
+- run `python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py decks/<prefix><slug> --check`;
 - confirm the category table uses 10 cards seen, excludes commanders and `{noDeck}` extras, and requires three Lands but one card from other categories;
 - recheck each described line against Oracle text;
 - ensure the primary plan reflects the deck as built rather than a generic archetype;
 - ensure delayed or finite interactions are described accurately;
-- confirm no source deck files changed unintentionally.
+- confirm no source deck files changed unintentionally;
+- run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<prefix><slug>` after the primer scripts.
 
 Report the deck name, total and unique cards, unresolved count, README path, and that the Archidekt link and category probability table are current.

@@ -17,6 +17,7 @@ DECISION_LINE = re.compile(
     r"^-\s+\*\*(?P<name>.+?)\*\*\s*(?:—|-)\s+(?P<decision>\S.+)$",
     re.MULTILINE,
 )
+PRIMER_LINK = re.compile(r"^- \[([^\]]+)\]\((decks/[^)]+/README\.md)\)\s*$")
 QUANTITY_SUFFIX = re.compile(r"\s+[×x]\s*\d+\s*$", re.IGNORECASE)
 
 
@@ -62,6 +63,76 @@ def decision_names(path: Path) -> list[str]:
     for match in DECISION_LINE.finditer(path.read_text(encoding="utf-8")):
         names.append(QUANTITY_SUFFIX.sub("", match.group("name")).strip())
     return names
+
+
+def primer_sort_key(label: str) -> tuple[int, int, str]:
+    if label.startswith("Unrated"):
+        name = label.split(" — ", 1)[1] if " — " in label else label
+        return (99, 2, name.casefold())
+    match = re.match(r"^(\d+)([−+-]?) — (.+)$", label)
+    if not match:
+        return (98, 9, label.casefold())
+    modifier = match.group(2)
+    rank = 1
+    if modifier in {"−", "-"}:
+        rank = 0
+    elif modifier == "+":
+        rank = 2
+    return (int(match.group(1)), rank, match.group(3).casefold())
+
+
+def primer_links(text: str) -> list[tuple[str, str]]:
+    start = text.find("## Deck primers")
+    if start < 0:
+        return []
+    rest = text[start:]
+    next_heading = rest.find("\n## ", 1)
+    section = rest if next_heading < 0 else rest[:next_heading]
+    links = []
+    for line in section.splitlines():
+        match = PRIMER_LINK.match(line)
+        if match:
+            links.append((match.group(1), match.group(2)))
+    return links
+
+
+def unsorted_primer_error(root_readme: Path) -> str | None:
+    if not root_readme.is_file():
+        return None
+    labels = [label for label, _ in primer_links(root_readme.read_text(encoding="utf-8"))]
+    if not labels:
+        return None
+    expected = sorted(labels, key=primer_sort_key)
+    if labels != expected:
+        return "root README Deck primers section is unsorted"
+    return None
+
+
+def assessment_error(primer_text: str, *, unrated: bool) -> str | None:
+    lines = primer_text.splitlines()
+    if not lines or not lines[0].startswith("# "):
+        return "primer must begin with a Markdown H1 title"
+    if unrated:
+        return None
+    index = 1
+    while index < len(lines) and not lines[index].strip():
+        index += 1
+    if index >= len(lines) or not lines[index].lstrip().startswith(">"):
+        return "primer assessment blockquote must sit directly below the H1 title"
+    return None
+
+
+def primer_script(name: str) -> Path:
+    return Path(__file__).resolve().parents[2] / "deck-primer/scripts" / name
+
+
+def run_primer_check(script: Path, deck_dir: Path) -> subprocess.CompletedProcess:
+    return subprocess.run(
+        [sys.executable, str(script), str(deck_dir), "--check"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
 
 
 def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = False) -> tuple[list[str], list[str]]:
@@ -172,26 +243,45 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = False
     if not primer_path.is_file() or not primer_path.read_text(encoding="utf-8").strip():
         errors.append("missing or empty README.md primer")
     elif primer_path.is_file():
-        linker_path = (
-            Path(__file__).resolve().parents[2]
-            / "deck-primer/scripts/link_card_mentions.py"
+        primer_text = primer_path.read_text(encoding="utf-8")
+        assessment = assessment_error(
+            primer_text,
+            unrated=deck_dir.name.startswith("unrated_"),
         )
-        link_check = subprocess.run(
-            [sys.executable, str(linker_path), str(deck_dir), "--check"],
-            capture_output=True,
-            text=True,
-            check=False,
-        )
+        if assessment:
+            errors.append(assessment)
+        linker_path = primer_script("link_card_mentions.py")
+        link_check = run_primer_check(linker_path, deck_dir)
         if link_check.returncode:
             errors.append(
                 "primer has unlinked card mentions; run "
                 "python3 .agents/skills/deck-primer/scripts/link_card_mentions.py "
                 f"{deck_dir.relative_to(repo_root)}"
             )
+        archidekt_check = run_primer_check(primer_script("update_archidekt_link.py"), deck_dir)
+        if archidekt_check.returncode:
+            errors.append(
+                "primer Archidekt link is missing or stale; run "
+                "python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py "
+                f"{deck_dir.relative_to(repo_root)}"
+            )
+        category_check = run_primer_check(
+            primer_script("update_category_probabilities.py"),
+            deck_dir,
+        )
+        if category_check.returncode:
+            errors.append(
+                "primer category probability table is missing, stale, or misplaced; run "
+                "python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py "
+                f"{deck_dir.relative_to(repo_root)}"
+            )
     root_readme = repo_root / "README.md"
     primer_link = f"({primer_path.relative_to(repo_root)})"
     if not root_readme.is_file() or primer_link not in root_readme.read_text(encoding="utf-8"):
         errors.append("root README does not link to this primer")
+    sort_error = unsorted_primer_error(root_readme)
+    if sort_error:
+        errors.append(sort_error)
 
     decision_path = deck_dir / "decisions.json"
     if not decision_path.is_file():

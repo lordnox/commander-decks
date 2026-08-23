@@ -2,11 +2,9 @@
 
 ## Deck primers
 
-- [3− — Mishra — Racecar Driver](decks/3-_mishra-racecar-driver/README.md)
-- [3 — Bartolomé — Funeral Director](decks/3_bartolome-funeral-director/README.md)
-- [3+ — Bartolomé — Graveyard Shift](decks/3+_bartolome-graveyard-shift/README.md)
 - [3− — Homer — Dumpster-Diver Crab](decks/3-_homer-dumpster-diver-crab/README.md)
-- [3+ — Ozox — Bone Recycler](decks/3+_ozox-bone-recycler/README.md)
+- [3− — Mishra — Racecar Driver](decks/3-_mishra-racecar-driver/README.md)
+- [3+ — Bartolomé — Graveyard Shift](decks/3+_bartolome-graveyard-shift/README.md)
 
 A conversation-driven workspace for importing, resolving, categorizing, assessing, and improving Magic: The Gathering Commander decks.
 
@@ -78,6 +76,14 @@ I want to work on this Commander deck:
 
 If ChatGPT is working from a local folder in the desktop app, open the repository folder and select Codex for full repository-aware behavior.
 
+## Start with Cursor
+
+1. Clone or open this repository as the working folder.
+2. Start a new Cursor agent chat from the repository root.
+3. Paste a deck list or name an existing deck.
+
+Cursor reads `AGENTS.md` automatically and discovers the skills in `.agents/skills/`. You do not need to copy them into `.cursor/skills/`.
+
 ## What the agent should do
 
 When a deck list is submitted, the agent must:
@@ -93,7 +99,7 @@ When a deck list is submitted, the agent must:
 9. Create the deck primer at `decks/<bracket>_<deck-name>/README.md`.
 10. Add or update its link in the `Deck primers` section at the top of this README.
 11. Add a card-by-card decision log when requested.
-12. Validate deck size, legality, categories, cache coverage, primer linkage, and decision-log coverage.
+12. Validate deck size, legality, categories, cache coverage, primer contract, and decision-log coverage.
 13. Report unresolved names before analyzing the deck.
 
 ## Card categories
@@ -163,7 +169,7 @@ python3 .agents/skills/deck-workspace/scripts/validate_deck.py \
   decks/<bracket>_<deck-name>
 ```
 
-Add `--require-decisions` when the deck must include a card-by-card decision log. Run the test suite for workflow changes with `python3 -m unittest discover -s tests -v`.
+Add `--require-decisions` when the deck must include a card-by-card decision log. The validator also checks primer sort, assessment placement, Archidekt currency, and category-table placement. Run the test suite for workflow changes with `python3 -m unittest discover -s tests -v`.
 
 ## Repository layout
 
@@ -174,6 +180,7 @@ decks/
     decklist.txt
     cards.json
     category-overrides.json
+    printing-overrides.json
     README.md
 cards/
   index.json

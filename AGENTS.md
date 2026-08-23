@@ -18,7 +18,7 @@ Whenever the user posts a deck list or asks to begin work on a deck:
 6. Run one resolver process to resolve every card through Scryfall and update the repository cache and deck manifest. Wait for a running resolver instead of starting it again.
 7. Assign one or more useful categories to every resolved card. Use universal categories unless the card has a deck-specific role.
 8. Create or refresh the deck's `README.md` by following the `deck-primer` skill.
-9. Add or update the deck's primer link in the `Deck primers` section immediately below the root README title. Prefix the label with its bracket and sort the section by bracket, then deck name.
+9. Add or update the deck's primer link in the `Deck primers` section immediately below the root README title. Prefix the label with its bracket and sort by numeric bracket, then `−` / plain / `+`, then deck name; keep unrated last.
 10. If a card-by-card decision log was requested, add `DECISIONS.md` or `decisions.json` with one entry per unique deck card.
 11. Run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<deck-name>`; add `--require-decisions` when a decision log is required.
 12. Do not analyze or recommend changes until resolution or validation errors are reported or fixed.

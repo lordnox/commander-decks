@@ -1,48 +1,48 @@
 {
-  "artist": "Daarken",
+  "artist": "Rob Alexander",
   "artist_ids": [
-    "e607a0d4-fc12-4c01-9e3f-501f5269b9cb"
+    "35906871-6c78-4ab2-9ed1-e6792c8efb74"
   ],
-  "booster": true,
+  "booster": false,
   "border_color": "black",
-  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "card_back_id": "049a6229-ace9-4363-816a-60cb8773e95d",
+  "cardmarket_id": 686011,
   "cmc": 0.0,
-  "collector_number": "291",
+  "collector_number": "570",
   "color_identity": [
     "B",
     "R"
   ],
   "colors": [],
-  "digital": true,
+  "digital": false,
   "edhrec_rank": 384,
   "finishes": [
-    "nonfoil",
-    "foil"
+    "nonfoil"
   ],
-  "foil": true,
-  "frame": "2015",
+  "foil": false,
+  "frame": "1997",
   "full_art": false,
   "game_changer": false,
   "games": [
-    "mtgo"
+    "paper"
   ],
-  "highres_image": true,
-  "id": "73403d04-fe97-4830-8b80-16dd1a1a6cc1",
-  "illustration_id": "d141b166-38a3-4dfc-80f8-778538da7927",
-  "image_status": "highres_scan",
-  "image_updated_at": "2026-07-13T10:40:27Z",
+  "highres_image": false,
+  "id": "4800a492-cc37-40f1-9686-3c36f3410ec1",
+  "illustration_id": "669aded5-981a-45ab-9e4e-5864a91c71e5",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T05:07:22Z",
   "image_uris": {
-    "art": "https://cards.scryfall.io/art/front/7/3/73403d04-fe97-4830-8b80-16dd1a1a6cc1.webp?1783939227",
-    "art_crop": "https://cards.scryfall.io/art_crop/front/7/3/73403d04-fe97-4830-8b80-16dd1a1a6cc1.jpg?1783939227",
-    "border_crop": "https://cards.scryfall.io/border_crop/front/7/3/73403d04-fe97-4830-8b80-16dd1a1a6cc1.jpg?1783939227",
-    "crop": "https://cards.scryfall.io/crop/front/7/3/73403d04-fe97-4830-8b80-16dd1a1a6cc1.webp?1783939227",
-    "display": "https://cards.scryfall.io/display/front/7/3/73403d04-fe97-4830-8b80-16dd1a1a6cc1.webp?1783939227",
-    "grid": "https://cards.scryfall.io/grid/front/7/3/73403d04-fe97-4830-8b80-16dd1a1a6cc1.webp?1783939227",
-    "large": "https://cards.scryfall.io/large/front/7/3/73403d04-fe97-4830-8b80-16dd1a1a6cc1.jpg?1783939227",
-    "normal": "https://cards.scryfall.io/normal/front/7/3/73403d04-fe97-4830-8b80-16dd1a1a6cc1.jpg?1783939227",
-    "png": "https://cards.scryfall.io/png/front/7/3/73403d04-fe97-4830-8b80-16dd1a1a6cc1.png?1783939227",
-    "small": "https://cards.scryfall.io/small/front/7/3/73403d04-fe97-4830-8b80-16dd1a1a6cc1.jpg?1783939227",
-    "thumb": "https://cards.scryfall.io/thumb/front/7/3/73403d04-fe97-4830-8b80-16dd1a1a6cc1.webp?1783939227"
+    "art": "https://cards.scryfall.io/art/front/4/8/4800a492-cc37-40f1-9686-3c36f3410ec1.webp?1783919242",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/8/4800a492-cc37-40f1-9686-3c36f3410ec1.jpg?1783919242",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/8/4800a492-cc37-40f1-9686-3c36f3410ec1.jpg?1783919242",
+    "crop": "https://cards.scryfall.io/crop/front/4/8/4800a492-cc37-40f1-9686-3c36f3410ec1.webp?1783919242",
+    "display": "https://cards.scryfall.io/display/front/4/8/4800a492-cc37-40f1-9686-3c36f3410ec1.webp?1783919242",
+    "grid": "https://cards.scryfall.io/grid/front/4/8/4800a492-cc37-40f1-9686-3c36f3410ec1.webp?1783919242",
+    "large": "https://cards.scryfall.io/large/front/4/8/4800a492-cc37-40f1-9686-3c36f3410ec1.jpg?1783919242",
+    "normal": "https://cards.scryfall.io/normal/front/4/8/4800a492-cc37-40f1-9686-3c36f3410ec1.jpg?1783919242",
+    "png": "https://cards.scryfall.io/png/front/4/8/4800a492-cc37-40f1-9686-3c36f3410ec1.png?1783919242",
+    "small": "https://cards.scryfall.io/small/front/4/8/4800a492-cc37-40f1-9686-3c36f3410ec1.jpg?1783919242",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/8/4800a492-cc37-40f1-9686-3c36f3410ec1.webp?1783919242"
   },
   "keywords": [],
   "lang": "en",
@@ -73,11 +73,7 @@
     "vintage": "legal"
   },
   "mana_cost": "",
-  "mtgo_foil_id": 53078,
-  "mtgo_id": 53077,
-  "multiverse_ids": [
-    382852
-  ],
+  "multiverse_ids": [],
   "name": "Badlands",
   "nonfoil": true,
   "object": "card",
@@ -85,10 +81,10 @@
   "oracle_text": "({T}: Add {B} or {R}.)",
   "oversized": false,
   "prices": {
-    "eur": null,
+    "eur": "331.48",
     "eur_foil": null,
-    "tix": "8.43",
-    "usd": null,
+    "tix": null,
+    "usd": "480.41",
     "usd_etched": null,
     "usd_foil": null
   },
@@ -99,33 +95,32 @@
   ],
   "promo": false,
   "purchase_uris": {
-    "cardhoarder": "https://www.cardhoarder.com/cards/53077?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
-    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Badlands&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
-    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DBadlands%26view%3Dgrid"
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Badlands&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=686011&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F449474%3Fpage%3D1"
   },
   "rarity": "rare",
   "related_uris": {
     "edhrec": "https://edhrec.com/route/?cc=Badlands",
-    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=382852&printed=false",
     "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBadlands",
     "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBadlands"
   },
-  "released_at": "2014-06-16",
+  "released_at": "2022-11-28",
   "reprint": true,
   "reserved": true,
-  "rulings_uri": "https://api.scryfall.com/cards/73403d04-fe97-4830-8b80-16dd1a1a6cc1/rulings",
-  "scryfall_set_uri": "https://scryfall.com/sets/vma?utm_source=api",
-  "scryfall_uri": "https://scryfall.com/card/vma/291/badlands?utm_source=api",
-  "security_stamp": "oval",
-  "set": "vma",
-  "set_id": "a944551a-73fa-41cd-9159-e8d0e4674403",
-  "set_name": "Vintage Masters",
-  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Avma&unique=prints",
-  "set_type": "masters",
-  "set_uri": "https://api.scryfall.com/sets/a944551a-73fa-41cd-9159-e8d0e4674403",
+  "rulings_uri": "https://api.scryfall.com/cards/4800a492-cc37-40f1-9686-3c36f3410ec1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/30a?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/30a/570/badlands?utm_source=api",
+  "set": "30a",
+  "set_id": "c3cddb17-44d9-4abd-8d19-666f6c5171fe",
+  "set_name": "30th Anniversary Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A30a&unique=prints",
+  "set_type": "memorabilia",
+  "set_uri": "https://api.scryfall.com/sets/c3cddb17-44d9-4abd-8d19-666f6c5171fe",
   "story_spotlight": false,
+  "tcgplayer_id": 449474,
   "textless": false,
   "type_line": "Land — Swamp Mountain",
-  "uri": "https://api.scryfall.com/cards/73403d04-fe97-4830-8b80-16dd1a1a6cc1",
+  "uri": "https://api.scryfall.com/cards/4800a492-cc37-40f1-9686-3c36f3410ec1",
   "variation": false
 }

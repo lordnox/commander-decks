@@ -5,11 +5,11 @@ description: Assess a resolved Commander deck's current Commander Bracket and ex
 
 # Assess Deck
 
-Assess the deck as built. Do not modify it unless the user separately asks for changes.
+Assess the deck as built. Do not modify it unless the user separately asks for changes. Run this skill only when the user asks for an assessment; do not assess a newly imported deck automatically.
 
 ## 1. Load and validate the deck
 
-1. Read `AGENTS.md`, `decks/<slug>/decklist.txt`, and `decks/<slug>/cards.json`.
+1. Read `AGENTS.md`, `decks/<prefix><slug>/decklist.txt`, and `decks/<prefix><slug>/cards.json`.
 2. Confirm the requested deck matches the directory.
 3. Stop and report unresolved cards, a non-Commander deck size, or missing commander data.
 4. Use embedded Oracle details in `cards.json`. Read shared cache files only when required data is absent.
@@ -17,25 +17,22 @@ Assess the deck as built. Do not modify it unless the user separately asks for c
 
 ## 2. Refresh the bracket rules
 
-Commander Brackets and the Game Changers list can change.
+Commander Brackets and the Game Changers list can change. Fetch these pages on every assessment, then prefer them over memory and over the baseline in this skill:
 
-1. Check the current official Wizards Commander bracket page and the latest official bracket update.
-2. Prefer current official guidance over remembered thresholds.
-3. Record the current restrictions and intent for each relevant bracket:
-   - permitted Game Changers;
-   - game-ending two-card combos;
-   - extra turns;
-   - mass land denial;
-   - expected game pace and turn window.
-4. Count the deck's current Game Changers by exact card name.
-5. Cite the official source in the assessment.
+- https://magic.wizards.com/en/formats/commander (live Brackets and Game Changers)
+- the latest official Commander Brackets announcement on magic.wizards.com
 
-Do not classify a deck solely by counting Game Changers. Use restrictions as hard boundaries and bracket intent as the primary classification.
+1. Record whatever the current official page lists as hard limits versus expected barometers for each relevant bracket. Do not treat two-card combos, extra turns, or mass land denial as a fixed restriction checklist.
+2. Confirm Game Changer caps on that fetch. The live-page baseline is 0 in Brackets 1–2, up to 3 in Bracket 3, and unlimited in Brackets 4–5.
+3. Query current Game Changers with the `scryfall-lookup` skill using `is:gamechanger`, then match those names against the deck manifest. Cite the Wizards page, not a third-party list.
+4. Cite the official source in the assessment.
+
+Do not classify a deck solely by counting Game Changers. Use the official page's hard limits as boundaries and bracket intent as the primary classification.
 
 
 ### Bracket definitions and expected pace
 
-Use these definitions as the evaluation baseline, refreshed against the latest official guidance:
+Use these definitions as a baseline only. Official pages win if they disagree:
 
 #### Bracket 1: Exhibition
 
@@ -163,10 +160,11 @@ The sentence must state the bracket position using `N−`, `N`, or `N+`, the dec
 
 Whenever an assessment is performed or refreshed:
 
-1. Write this pregame sentence as a Markdown blockquote directly below the deck README's H1 title, before every other paragraph or section. Replace an existing assessment sentence instead of adding another.
+1. Write this pregame sentence as a Markdown blockquote directly below the deck README's H1 title, before the Archidekt link and every other paragraph or section. Replace an existing assessment sentence instead of adding another.
 2. Rename the deck directory to `decks/<N><modifier>_<slug>/`. Use ASCII `-`, no modifier, or `+` for positions `N−`, `N`, or `N+`; for example, Bracket 3− maps to `3-_`, Bracket 3 to `3_`, and Bracket 3+ to `3+_`.
 3. Preserve the slug after removing any existing bracket or `unrated_` prefix.
 4. Update the root README link, the `source` path in `cards.json`, and every other repository reference to the old directory.
 5. Keep the sentence and prefix current when the deck changes.
+6. Run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<N><modifier>_<slug>` and fix path, README, and `source` errors before reporting.
 
 Mention the specific cards or packages that materially determine the result. Avoid generic numerical power scales unless the user asks for one.

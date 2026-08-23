@@ -3,47 +3,47 @@
   "artist_ids": [
     "770b4e16-de76-49ed-949f-84e6d2e06d25"
   ],
-  "booster": true,
-  "border_color": "black",
-  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "booster": false,
+  "border_color": "gold",
+  "card_back_id": "407ed11d-7b6f-4e1c-ab00-f49c25f170e3",
+  "cardmarket_id": 249774,
   "cmc": 3.0,
-  "collector_number": "89",
+  "collector_number": "js116",
   "color_identity": [
     "B"
   ],
   "colors": [
     "B"
   ],
-  "digital": true,
-  "edhrec_rank": 11502,
+  "digital": false,
+  "edhrec_rank": 11504,
   "finishes": [
-    "nonfoil",
-    "foil"
+    "nonfoil"
   ],
-  "foil": true,
-  "frame": "2015",
+  "foil": false,
+  "frame": "1997",
   "full_art": false,
   "game_changer": false,
   "games": [
-    "mtgo"
+    "paper"
   ],
   "highres_image": true,
-  "id": "aaed9b00-f6a1-4023-b9b9-22d904fe5271",
+  "id": "de839585-564e-4d5c-9782-8ca6b021fc7b",
   "illustration_id": "45d27b1b-9d3b-4309-b0f6-7ae9434554fe",
   "image_status": "highres_scan",
-  "image_updated_at": "2026-07-13T10:28:05Z",
+  "image_updated_at": "2026-07-13T12:33:24Z",
   "image_uris": {
-    "art": "https://cards.scryfall.io/art/front/a/a/aaed9b00-f6a1-4023-b9b9-22d904fe5271.webp?1783938485",
-    "art_crop": "https://cards.scryfall.io/art_crop/front/a/a/aaed9b00-f6a1-4023-b9b9-22d904fe5271.jpg?1783938485",
-    "border_crop": "https://cards.scryfall.io/border_crop/front/a/a/aaed9b00-f6a1-4023-b9b9-22d904fe5271.jpg?1783938485",
-    "crop": "https://cards.scryfall.io/crop/front/a/a/aaed9b00-f6a1-4023-b9b9-22d904fe5271.webp?1783938485",
-    "display": "https://cards.scryfall.io/display/front/a/a/aaed9b00-f6a1-4023-b9b9-22d904fe5271.webp?1783938485",
-    "grid": "https://cards.scryfall.io/grid/front/a/a/aaed9b00-f6a1-4023-b9b9-22d904fe5271.webp?1783938485",
-    "large": "https://cards.scryfall.io/large/front/a/a/aaed9b00-f6a1-4023-b9b9-22d904fe5271.jpg?1783938485",
-    "normal": "https://cards.scryfall.io/normal/front/a/a/aaed9b00-f6a1-4023-b9b9-22d904fe5271.jpg?1783938485",
-    "png": "https://cards.scryfall.io/png/front/a/a/aaed9b00-f6a1-4023-b9b9-22d904fe5271.png?1783938485",
-    "small": "https://cards.scryfall.io/small/front/a/a/aaed9b00-f6a1-4023-b9b9-22d904fe5271.jpg?1783938485",
-    "thumb": "https://cards.scryfall.io/thumb/front/a/a/aaed9b00-f6a1-4023-b9b9-22d904fe5271.webp?1783938485"
+    "art": "https://cards.scryfall.io/art/front/d/e/de839585-564e-4d5c-9782-8ca6b021fc7b.webp?1783946004",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/e/de839585-564e-4d5c-9782-8ca6b021fc7b.jpg?1783946004",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/e/de839585-564e-4d5c-9782-8ca6b021fc7b.jpg?1783946004",
+    "crop": "https://cards.scryfall.io/crop/front/d/e/de839585-564e-4d5c-9782-8ca6b021fc7b.webp?1783946004",
+    "display": "https://cards.scryfall.io/display/front/d/e/de839585-564e-4d5c-9782-8ca6b021fc7b.webp?1783946004",
+    "grid": "https://cards.scryfall.io/grid/front/d/e/de839585-564e-4d5c-9782-8ca6b021fc7b.webp?1783946004",
+    "large": "https://cards.scryfall.io/large/front/d/e/de839585-564e-4d5c-9782-8ca6b021fc7b.jpg?1783946004",
+    "normal": "https://cards.scryfall.io/normal/front/d/e/de839585-564e-4d5c-9782-8ca6b021fc7b.jpg?1783946004",
+    "png": "https://cards.scryfall.io/png/front/d/e/de839585-564e-4d5c-9782-8ca6b021fc7b.png?1783946004",
+    "small": "https://cards.scryfall.io/small/front/d/e/de839585-564e-4d5c-9782-8ca6b021fc7b.jpg?1783946004",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/e/de839585-564e-4d5c-9782-8ca6b021fc7b.webp?1783946004"
   },
   "keywords": [
     "Buyback"
@@ -76,11 +76,7 @@
     "vintage": "legal"
   },
   "mana_cost": "{2}{B}",
-  "mtgo_foil_id": 56611,
-  "mtgo_id": 56610,
-  "multiverse_ids": [
-    397625
-  ],
+  "multiverse_ids": [],
   "name": "Corpse Dance",
   "nonfoil": true,
   "object": "card",
@@ -88,43 +84,42 @@
   "oracle_text": "Buyback {2} (You may pay an additional {2} as you cast this spell. If you do, put this card into your hand as it resolves.)\nReturn the top creature card of your graveyard to the battlefield. That creature gains haste until end of turn. Exile it at the beginning of the next end step.",
   "oversized": false,
   "prices": {
-    "eur": null,
+    "eur": "6.44",
     "eur_foil": null,
-    "tix": "3.06",
-    "usd": null,
+    "tix": null,
+    "usd": "10.49",
     "usd_etched": null,
     "usd_foil": null
   },
   "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A59b02ca7-e7bd-4820-ac32-87ea1a8c64c0&unique=prints",
   "promo": false,
   "purchase_uris": {
-    "cardhoarder": "https://www.cardhoarder.com/cards/56610?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
-    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Corpse+Dance&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
-    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DCorpse%2BDance%26view%3Dgrid"
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Corpse+Dance&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=249774&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F164923%3Fpage%3D1"
   },
   "rarity": "rare",
   "related_uris": {
     "edhrec": "https://edhrec.com/route/?cc=Corpse+Dance",
-    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=397625&printed=false",
     "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCorpse%2BDance",
     "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCorpse%2BDance"
   },
-  "released_at": "2015-05-06",
+  "released_at": "1999-08-04",
   "reprint": true,
   "reserved": true,
-  "rulings_uri": "https://api.scryfall.com/cards/aaed9b00-f6a1-4023-b9b9-22d904fe5271/rulings",
-  "scryfall_set_uri": "https://scryfall.com/sets/tpr?utm_source=api",
-  "scryfall_uri": "https://scryfall.com/card/tpr/89/corpse-dance?utm_source=api",
-  "security_stamp": "oval",
-  "set": "tpr",
-  "set_id": "41b3e002-ab58-46a0-8024-056ee843e267",
-  "set_name": "Tempest Remastered",
-  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atpr&unique=prints",
-  "set_type": "masters",
-  "set_uri": "https://api.scryfall.com/sets/41b3e002-ab58-46a0-8024-056ee843e267",
+  "rulings_uri": "https://api.scryfall.com/cards/de839585-564e-4d5c-9782-8ca6b021fc7b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/wc99?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/wc99/js116/corpse-dance?utm_source=api",
+  "set": "wc99",
+  "set_id": "8bc653e3-56ce-4cd1-9590-a6134ec28b3a",
+  "set_name": "World Championship Decks 1999",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awc99&unique=prints",
+  "set_type": "memorabilia",
+  "set_uri": "https://api.scryfall.com/sets/8bc653e3-56ce-4cd1-9590-a6134ec28b3a",
   "story_spotlight": false,
+  "tcgplayer_id": 164923,
   "textless": false,
   "type_line": "Instant",
-  "uri": "https://api.scryfall.com/cards/aaed9b00-f6a1-4023-b9b9-22d904fe5271",
+  "uri": "https://api.scryfall.com/cards/de839585-564e-4d5c-9782-8ca6b021fc7b",
   "variation": false
 }

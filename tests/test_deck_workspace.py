@@ -4,15 +4,17 @@ import io
 import json
 import tempfile
 import unittest
+import uuid
 from pathlib import Path
 from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / ".agents/skills/deck-workspace/scripts"
+PRIMER_SCRIPTS = ROOT / ".agents/skills/deck-primer/scripts"
 
 
-def load_script(name):
-    spec = importlib.util.spec_from_file_location(name, SCRIPTS / f"{name}.py")
+def load_script(name, directory=SCRIPTS):
+    spec = importlib.util.spec_from_file_location(name, directory / f"{name}.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -20,18 +22,32 @@ def load_script(name):
 
 cache_deck = load_script("cache_deck")
 validate_deck = load_script("validate_deck")
+archidekt = load_script("update_archidekt_link", PRIMER_SCRIPTS)
+category_probs = load_script("update_category_probabilities", PRIMER_SCRIPTS)
 
 
-def card(name, oracle_id, *, type_line="Creature", color_identity=None):
+def card(
+    name,
+    oracle_id,
+    *,
+    type_line="Creature",
+    color_identity=None,
+    printing_id=None,
+    digital=False,
+    games=None,
+):
     return {
         "name": name,
         "oracle_id": oracle_id,
+        "id": printing_id or str(uuid.uuid5(uuid.NAMESPACE_URL, oracle_id)),
         "type_line": type_line,
         "oracle_text": "",
         "keywords": [],
         "color_identity": color_identity or [],
         "legalities": {"commander": "legal"},
         "released_at": "2020-01-01",
+        "digital": digital,
+        "games": ["mtgo"] if digital else (games if games is not None else ["paper", "mtgo"]),
         "scryfall_uri": f"https://scryfall.com/card/test/1/{name.lower().replace(' ', '-')}",
     }
 
@@ -116,6 +132,50 @@ class CacheDeckTests(unittest.TestCase):
             self.assertTrue((cards_dir / "exact-id.json").is_file())
             self.assertTrue((cards_dir / "typo-id.json").is_file())
 
+    def test_resolver_replaces_digital_collection_hits_with_paper_printings(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            repo = Path(temporary)
+            deck_dir = repo / "decks/test"
+            cards_dir = repo / "cards"
+            deck_dir.mkdir(parents=True)
+            cards_dir.mkdir()
+            (deck_dir / "decklist.txt").write_text("1 Exact Card\n", encoding="utf-8")
+            (cards_dir / "index.json").write_text(
+                json.dumps({"schema_version": 1, "names": {}}),
+                encoding="utf-8",
+            )
+            (cards_dir / "categories.json").write_text(
+                json.dumps({"schema_version": 1, "cards": {}}),
+                encoding="utf-8",
+            )
+
+            digital = card("Exact Card", "exact-id", digital=True)
+            paper = card(
+                "Exact Card",
+                "exact-id",
+                printing_id="aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+            )
+
+            def fake_json(path, params):
+                self.assertEqual(path, "/cards/search")
+                self.assertIn("oracleid:exact-id", params["q"])
+                return {"data": [paper]}
+
+            with mock.patch.object(
+                cache_deck,
+                "api_post_json",
+                return_value={"data": [digital], "not_found": []},
+            ), mock.patch.object(cache_deck, "api_json", side_effect=fake_json), \
+               mock.patch.object(cache_deck.time, "sleep"), \
+               contextlib.redirect_stdout(io.StringIO()):
+                result = cache_deck.resolve_deck(deck_dir / "decklist.txt", repo)
+
+            self.assertEqual(result, 0)
+            cached = json.loads((cards_dir / "exact-id.json").read_text(encoding="utf-8"))
+            self.assertEqual(cached["id"], paper["id"])
+            self.assertFalse(cached["digital"])
+            self.assertIn("paper", cached["games"])
+
     def test_repository_lock_rejects_a_second_resolver(self):
         with tempfile.TemporaryDirectory() as temporary:
             repo = Path(temporary)
@@ -172,14 +232,22 @@ class ValidateDeckTests(unittest.TestCase):
             "1 Green Commander [Commander{top}]\n99 Forest [land]\n",
             encoding="utf-8",
         )
-        (deck_dir / "README.md").write_text("# Test primer\n", encoding="utf-8")
+        (deck_dir / "README.md").write_text(
+            "# Test primer\n\n"
+            "> Bracket 2 core deck. Usually threatens a win around turn eight.\n\n"
+            "## Key cards\n\n"
+            "## How the deck works\n\n"
+            "The deck ramps and attacks.\n",
+            encoding="utf-8",
+        )
         (deck_dir / "DECISIONS.md").write_text(
             "# Decisions\n\n- **Green Commander** — Leads the deck.\n"
             "- **Forest ×99** — Supplies green mana.\n",
             encoding="utf-8",
         )
         (repo / "README.md").write_text(
-            "- [Test](decks/test/README.md)\n",
+            "## Deck primers\n\n"
+            "- [2 — Test](decks/test/README.md)\n",
             encoding="utf-8",
         )
 
@@ -226,6 +294,13 @@ class ValidateDeckTests(unittest.TestCase):
             "cards": cards,
         }
         (deck_dir / "cards.json").write_text(json.dumps(manifest), encoding="utf-8")
+        with contextlib.redirect_stdout(io.StringIO()):
+            archidekt.update_primer(deck_dir, {})
+            category_probs.update_primer(
+                deck_dir,
+                draws=10,
+                thresholds={"land": 3},
+            )
         return repo, deck_dir
 
     def test_valid_workspace_with_decision_log_passes(self):
@@ -265,6 +340,39 @@ class ValidateDeckTests(unittest.TestCase):
             errors, _ = validate_deck.validate(deck_dir, repo)
 
             self.assertTrue(any("primer has unlinked card mentions" in error for error in errors))
+
+    def test_validator_rejects_unsorted_primer_links(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            repo, deck_dir = self.make_workspace(temporary)
+            (repo / "README.md").write_text(
+                "## Deck primers\n\n"
+                "- [3 — Zebra](decks/test/README.md)\n"
+                "- [3− — Apple](decks/other/README.md)\n",
+                encoding="utf-8",
+            )
+            errors, _ = validate_deck.validate(deck_dir, repo)
+            self.assertTrue(
+                any("Deck primers section is unsorted" in error for error in errors)
+            )
+
+    def test_validator_rejects_assessment_below_archidekt(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            repo, deck_dir = self.make_workspace(temporary)
+            (deck_dir / "README.md").write_text(
+                "# Test primer\n\n"
+                "[**Open this deck in Archidekt**](https://archidekt.com/sandbox?deck=x)\n\n"
+                "> Bracket 2 core deck. Usually threatens a win around turn eight.\n\n"
+                "## Key cards\n\n"
+                "## How the deck works\n",
+                encoding="utf-8",
+            )
+            errors, _ = validate_deck.validate(deck_dir, repo)
+            self.assertTrue(
+                any(
+                    "assessment blockquote must sit directly below the H1" in error
+                    for error in errors
+                )
+            )
 
 
 if __name__ == "__main__":

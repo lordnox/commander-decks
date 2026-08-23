@@ -142,6 +142,42 @@ def card_names(card: dict) -> list[str]:
     return [name for name in names if name]
 
 
+def is_paper_printing(card: dict) -> bool:
+    """True when the cached object is usable as a paper Archidekt printing."""
+    if not isinstance(card, dict) or card.get("digital"):
+        return False
+    games = card.get("games")
+    if not games:
+        return True
+    return "paper" in games
+
+
+def fetch_paper_printing(card: dict) -> dict:
+    """Replace a digital-only Scryfall object with a paper printing when one exists."""
+    if is_paper_printing(card):
+        return card
+    oracle_id = card.get("oracle_id")
+    if not oracle_id:
+        return card
+    try:
+        response = api_json(
+            "/cards/search",
+            {
+                "q": f"oracleid:{oracle_id} game:paper -is:digital",
+                "unique": "prints",
+                "order": "released",
+                "dir": "desc",
+            },
+        )
+        time.sleep(REQUEST_DELAY)
+    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, json.JSONDecodeError):
+        return card
+    for printing in response.get("data") or []:
+        if is_paper_printing(printing):
+            return printing
+    return card
+
+
 def lookup_collection(names: list[str]) -> tuple[dict[str, dict], list[str], int]:
     """Resolve exact names in Scryfall collection batches of at most 75."""
     resolved: dict[str, dict] = {}
@@ -317,6 +353,7 @@ def resolve_deck(decklist: Path, repo_root: Path, *, refresh: bool = False) -> i
         "collection_resolved": 0,
         "fuzzy_requests": 0,
         "fuzzy_resolved": 0,
+        "paper_upgrades": 0,
     }
 
     for entry in submitted:
@@ -377,6 +414,13 @@ def resolve_deck(decklist: Path, repo_root: Path, *, refresh: bool = False) -> i
         if card is None:
             continue
 
+        paper = fetch_paper_printing(card)
+        upgraded = paper.get("id") != card.get("id")
+        if upgraded:
+            stats["paper_upgrades"] += 1
+            cards_by_key[key] = paper
+            card = paper
+
         oracle_id = card.get("oracle_id")
         if not oracle_id:
             unresolved.append({
@@ -386,7 +430,7 @@ def resolve_deck(decklist: Path, repo_root: Path, *, refresh: bool = False) -> i
             })
             continue
         cache_path = cache_dir / f"{oracle_id}.json"
-        if refresh or not cache_path.exists():
+        if refresh or upgraded or not cache_path.exists():
             write_json(cache_path, card)
 
         canonical_name = card["name"]
@@ -452,7 +496,9 @@ def resolve_deck(decklist: Path, repo_root: Path, *, refresh: bool = False) -> i
         f"Cache: {stats['cache_hits']} hit(s); "
         f"Scryfall: {stats['collection_resolved']} exact in "
         f"{stats['collection_requests']} collection request(s), "
-        f"{stats['fuzzy_resolved']}/{stats['fuzzy_requests']} fuzzy."
+        f"{stats['fuzzy_resolved']}/{stats['fuzzy_requests']} fuzzy"
+        + (f"; paper upgrades: {stats['paper_upgrades']}" if stats["paper_upgrades"] else "")
+        + "."
     )
     if unresolved:
         for item in unresolved:

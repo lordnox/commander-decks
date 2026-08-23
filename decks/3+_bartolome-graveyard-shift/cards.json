@@ -1031,7 +1031,7 @@
       "name": "Corpse Dance",
       "oracle_id": "59b02ca7-e7bd-4820-ac32-87ea1a8c64c0",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/tpr/89/corpse-dance?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/wc99/js116/corpse-dance?utm_source=api",
       "submitted_name": "Corpse Dance"
     },
     {
@@ -1324,9 +1324,9 @@
         "keywords": [],
         "mana_cost": "{1}{B}",
         "oracle_text": "{T}, Sacrifice a black or artifact creature: Add an amount of {B} equal to the sacrificed creature's mana value.",
-        "type_line": "Creature — Human Cleric",
         "power": "1",
-        "toughness": "2"
+        "toughness": "2",
+        "type_line": "Creature — Human Cleric"
       },
       "categories": [
         "Ramp",

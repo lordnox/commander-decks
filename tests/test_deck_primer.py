@@ -5,10 +5,24 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / ".agents/skills/deck-primer/scripts/link_card_mentions.py"
-SPEC = importlib.util.spec_from_file_location("link_card_mentions", SCRIPT)
+LINKER_SCRIPT = ROOT / ".agents/skills/deck-primer/scripts/link_card_mentions.py"
+ARCHIDEKT_SCRIPT = ROOT / ".agents/skills/deck-primer/scripts/update_archidekt_link.py"
+CATEGORY_SCRIPT = ROOT / ".agents/skills/deck-primer/scripts/update_category_probabilities.py"
+SPEC = importlib.util.spec_from_file_location("link_card_mentions", LINKER_SCRIPT)
 linker = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(linker)
+ARCHIDEKT_SPEC = importlib.util.spec_from_file_location(
+    "update_archidekt_link",
+    ARCHIDEKT_SCRIPT,
+)
+archidekt = importlib.util.module_from_spec(ARCHIDEKT_SPEC)
+ARCHIDEKT_SPEC.loader.exec_module(archidekt)
+CATEGORY_SPEC = importlib.util.spec_from_file_location(
+    "update_category_probabilities",
+    CATEGORY_SCRIPT,
+)
+category_probs = importlib.util.module_from_spec(CATEGORY_SPEC)
+CATEGORY_SPEC.loader.exec_module(category_probs)
 
 
 class LinkCardMentionsTests(unittest.TestCase):
@@ -120,6 +134,115 @@ class LinkCardMentionsTests(unittest.TestCase):
                 readme.read_text(encoding="utf-8"),
                 "Homer meets Roaming Throne.\n",
             )
+
+
+class ArchidektLinkTests(unittest.TestCase):
+    def test_uses_printing_overrides_file(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            deck_dir = root / "decks/test"
+            cards_dir = root / "cards"
+            deck_dir.mkdir(parents=True)
+            cards_dir.mkdir()
+            printing = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+            (cards_dir / "commander-id.json").write_text(
+                json.dumps({
+                    "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+                    "digital": True,
+                    "games": ["mtgo"],
+                }),
+                encoding="utf-8",
+            )
+            (deck_dir / "cards.json").write_text(
+                json.dumps({
+                    "cards": [{
+                        "name": "Green Commander",
+                        "quantity": 1,
+                        "cache": "cards/commander-id.json",
+                        "categories": ["Commander{top}"],
+                    }],
+                }),
+                encoding="utf-8",
+            )
+            (deck_dir / "printing-overrides.json").write_text(
+                json.dumps({
+                    "schema_version": 1,
+                    "cards": {"Green Commander": printing},
+                }),
+                encoding="utf-8",
+            )
+            (deck_dir / "README.md").write_text(
+                "# Test primer\n\n> Bracket 2 core deck.\n",
+                encoding="utf-8",
+            )
+
+            result = archidekt.update_primer(
+                deck_dir,
+                archidekt.merged_overrides(deck_dir, {}),
+            )
+            primer = (deck_dir / "README.md").read_text(encoding="utf-8")
+            lines = [line for line in primer.splitlines() if line.strip()]
+
+            self.assertEqual(result, 0)
+            self.assertIn(printing, primer)
+            self.assertTrue(lines[1].startswith("> "))
+            self.assertIn("Open this deck in Archidekt", lines[2])
+
+
+class CategoryProbabilityTests(unittest.TestCase):
+    def test_moves_table_after_key_cards(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            deck_dir = Path(temporary)
+            (deck_dir / "cards.json").write_text(
+                json.dumps({
+                    "cards": [
+                        {
+                            "name": "Green Commander",
+                            "quantity": 1,
+                            "categories": ["Commander{top}"],
+                        },
+                        {
+                            "name": "Forest",
+                            "quantity": 99,
+                            "categories": ["Land"],
+                        },
+                    ],
+                }),
+                encoding="utf-8",
+            )
+            (deck_dir / "README.md").write_text(
+                "# Test primer\n\n"
+                "## Key cards\n\n"
+                "gallery\n\n"
+                "## How the deck works\n\n"
+                "plan\n\n"
+                "<!-- category-probabilities:start -->\n"
+                "## Category access by turn three\n"
+                "stale\n"
+                "<!-- category-probabilities:end -->\n",
+                encoding="utf-8",
+            )
+
+            result = category_probs.update_primer(
+                deck_dir,
+                draws=10,
+                thresholds={"land": 3},
+            )
+            primer = (deck_dir / "README.md").read_text(encoding="utf-8")
+            key_at = primer.index("## Key cards")
+            table_at = primer.index("## Category access by turn three")
+            play_at = primer.index("## How the deck works")
+
+            self.assertEqual(result, 0)
+            self.assertLess(key_at, table_at)
+            self.assertLess(table_at, play_at)
+            check = category_probs.update_primer(
+                deck_dir,
+                draws=10,
+                thresholds={"land": 3},
+                check=True,
+            )
+            self.assertEqual(check, 0)
 
 
 if __name__ == "__main__":

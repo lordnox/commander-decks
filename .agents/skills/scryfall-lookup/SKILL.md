@@ -11,6 +11,10 @@ Use Scryfall as the source of truth for current Magic card data. Read the search
 
 Query the API rather than scraping Scryfall HTML.
 
+For a known card name, check `cards/index.json` and `cards/<oracle-id>.json` first. Hit the API only on a miss or when the user asked for current or live data.
+
+Every API request must send `User-Agent: commander-decks/1.0` and `Accept: application/json`. Wait about 100ms between requests. On HTTP 429, wait and retry once; do not tight-loop.
+
 ## Exact or approximate card lookup
 
 For a known card name, call:
@@ -81,6 +85,7 @@ Use the narrowest accurate filters. Common operators include:
 - `commander:` for cards legal in a commander's color identity
 - `format:` or `f:` for format legality
 - `is:commander` for cards usable as commanders
+- `is:gamechanger` for the current Commander Game Changers list (used by `assess-deck`)
 
 Do not silently broaden a restrictive request. If zero results are returned, explain the query and then try one clearly identified broader query when useful.
 
