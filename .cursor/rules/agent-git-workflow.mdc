@@ -1,0 +1,32 @@
+---
+description: Isolated git worktrees, incremental commits, and PRs for agent work
+alwaysApply: true
+---
+
+# Agent git workflow
+
+Never edit on `main`. At the start of a task, create a dedicated branch and worktree, then do all remaining work there.
+
+```bash
+git fetch origin
+git worktree add -b agent/<short-task-slug> ../commander-decks-<short-task-slug> origin/main
+```
+
+Reuse that worktree for the rest of the session. Do not share a branch or worktree with another agent. If already inside a unique `agent/*` worktree for this task, keep using it.
+
+## Commits
+
+Commit without waiting for the user to ask. After each coherent step (for example: save decklist, resolve cards, primer + README link), create a commit with a 1–2 sentence message focused on why.
+
+- Do not amend published commits
+- Do not commit secrets or unrelated shared-cache noise
+
+## Finish
+
+When the task is done:
+
+1. Inspect the full diff; drop unrelated cache or registry files
+2. `git push -u origin HEAD`
+3. Open a ready-for-review PR (`draft: false`) summarizing what changed
+
+Return the PR URL.
