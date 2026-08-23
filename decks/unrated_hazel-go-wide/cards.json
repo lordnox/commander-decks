@@ -1216,7 +1216,7 @@
       "name": "Triumph of the Hordes",
       "oracle_id": "3ded0c0c-40ce-4d14-a9a6-b023bc19ee0e",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/soa/189/ja/%E5%A4%A7%E8%BB%8D%E3%81%AE%E5%8A%9F%E7%B8%BE-(triumph-of-the-hordes)?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/nph/123/triumph-of-the-hordes?utm_source=api",
       "submitted_categories": [
         "finisher"
       ],
@@ -2126,7 +2126,7 @@
     }
   ],
   "categorized_cards": 90,
-  "generated_at": "2026-08-23T22:03:31.587271+00:00",
+  "generated_at": "2026-08-23T22:07:20.461972+00:00",
   "schema_version": 3,
   "source": "decks/unrated_hazel-go-wide/decklist.txt",
   "total_cards": 100,
