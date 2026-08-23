@@ -675,27 +675,27 @@
       "submitted_name": "Pyromancer's Goggles"
     },
     {
-      "cache": "cards/56956afd-db53-4542-816b-490c8b0bbcf7.json",
+      "cache": "cards/4c9bcba6-87b5-4fb3-97ee-6fe5b739337d.json",
       "card": {
         "keywords": [
-          "Scry"
+          "Surveil"
         ],
         "mana_cost": "{U}",
-        "oracle_text": "Draw a card. Scry 2.",
-        "type_line": "Sorcery"
+        "oracle_text": "Surveil 1. (Look at the top card of your library. You may put it into your graveyard.)\nDraw a card.",
+        "type_line": "Instant"
       },
       "categories": [
         "Card Selection"
       ],
       "category_source": "decklist",
-      "name": "Serum Visions",
-      "oracle_id": "56956afd-db53-4542-816b-490c8b0bbcf7",
+      "name": "Consider",
+      "oracle_id": "4c9bcba6-87b5-4fb3-97ee-6fe5b739337d",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/otc/112/serum-visions?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/tle/157/consider?utm_source=api",
       "submitted_categories": [
         "Card Selection"
       ],
-      "submitted_name": "Serum Visions"
+      "submitted_name": "Consider"
     },
     {
       "cache": "cards/f885ee54-3b26-4d61-9783-3930b0e625aa.json",
@@ -721,25 +721,25 @@
       "submitted_name": "Lat-Nam's Legacy"
     },
     {
-      "cache": "cards/02b5acf3-47cb-4d39-9307-e02656f1879b.json",
+      "cache": "cards/f6bd2902-7f8b-419e-bbc7-bcab0c1b7e01.json",
       "card": {
         "keywords": [],
         "mana_cost": "{1}{U}",
-        "oracle_text": "Look at the top three cards of your library. Put one of them into your hand and the rest into your graveyard.",
-        "type_line": "Sorcery"
+        "oracle_text": "Look at the top four cards of your library. Put one of them into your hand and the rest on the bottom of your library in any order.",
+        "type_line": "Instant"
       },
       "categories": [
         "Card Selection"
       ],
       "category_source": "decklist",
-      "name": "Strategic Planning",
-      "oracle_id": "02b5acf3-47cb-4d39-9307-e02656f1879b",
+      "name": "Impulse",
+      "oracle_id": "f6bd2902-7f8b-419e-bbc7-bcab0c1b7e01",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/khm/77/strategic-planning?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/dmr/56/impulse?utm_source=api",
       "submitted_categories": [
         "Card Selection"
       ],
-      "submitted_name": "Strategic Planning"
+      "submitted_name": "Impulse"
     },
     {
       "cache": "cards/a61f5100-aa38-4996-b23c-3ce4ed25ed09.json",
@@ -809,27 +809,27 @@
       "submitted_name": "Big Score"
     },
     {
-      "cache": "cards/7b599b4d-95bc-4ed2-a167-84a697944747.json",
+      "cache": "cards/7bff8d4a-1c7d-48b8-b3e3-737dd6f01823.json",
       "card": {
         "keywords": [],
         "mana_cost": "{2}{U}",
-        "oracle_text": "Reveal the top five cards of your library. Put up to two instant and/or sorcery cards from among them into your hand and the rest into your graveyard.",
-        "type_line": "Sorcery"
+        "oracle_text": "Draw two cards.",
+        "type_line": "Instant"
       },
       "categories": [
         "Card Advantage",
         "Card Selection"
       ],
       "category_source": "decklist",
-      "name": "Pieces of the Puzzle",
-      "oracle_id": "7b599b4d-95bc-4ed2-a167-84a697944747",
+      "name": "Quick Study",
+      "oracle_id": "7bff8d4a-1c7d-48b8-b3e3-737dd6f01823",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/soi/78/pieces-of-the-puzzle?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/sos/65/quick-study?utm_source=api",
       "submitted_categories": [
         "Card Advantage",
         "Card Selection"
       ],
-      "submitted_name": "Pieces of the Puzzle"
+      "submitted_name": "Quick Study"
     },
     {
       "cache": "cards/f02682f0-26c0-4032-9df3-273b6a45d0a8.json",
@@ -1821,7 +1821,7 @@
     }
   ],
   "categorized_cards": 78,
-  "generated_at": "2026-08-23T22:20:17.145547+00:00",
+  "generated_at": "2026-08-23T22:25:33.628257+00:00",
   "schema_version": 3,
   "source": "decks/3_alania-divergent-storm/decklist.txt",
   "total_cards": 100,

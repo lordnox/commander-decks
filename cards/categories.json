@@ -3241,8 +3241,26 @@
         "card-draw",
         "sacrifice"
       ]
+    },
+    "4c9bcba6-87b5-4fb3-97ee-6fe5b739337d": {
+      "name": "Consider",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "f6bd2902-7f8b-419e-bbc7-bcab0c1b7e01": {
+      "name": "Impulse",
+      "categories": [
+        "other"
+      ]
+    },
+    "7bff8d4a-1c7d-48b8-b3e3-737dd6f01823": {
+      "name": "Quick Study",
+      "categories": [
+        "card-draw"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-23T22:16:03.699127+00:00"
+  "updated_at": "2026-08-23T22:25:33.628257+00:00"
 }
