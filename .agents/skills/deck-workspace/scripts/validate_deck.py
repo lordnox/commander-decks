@@ -135,7 +135,7 @@ def run_primer_check(script: Path, deck_dir: Path) -> subprocess.CompletedProces
     )
 
 
-def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = False) -> tuple[list[str], list[str]]:
+def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True) -> tuple[list[str], list[str]]:
     errors: list[str] = []
     warnings: list[str] = []
     manifest_path = deck_dir / "cards.json"
@@ -326,8 +326,9 @@ def main() -> int:
     parser.add_argument("deck", type=Path, help="deck directory or decklist.txt path")
     parser.add_argument(
         "--require-decisions",
-        action="store_true",
-        help="require one decision-log entry for every deck card",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="require one decision-log entry for every deck card (default: true)",
     )
     args = parser.parse_args()
 

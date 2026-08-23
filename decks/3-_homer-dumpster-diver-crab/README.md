@@ -153,13 +153,13 @@ The finishers are not limited to normal land plays:
 - [**Ghost Town**](https://scryfall.com/card/tmp/318/ghost-town?utm_source=api), [**Oboro, Palace in the Clouds**](https://scryfall.com/card/sok/164/oboro-palace-in-the-clouds?utm_source=api), the three bounce lands, and [**Trade Routes**](https://scryfall.com/card/9ed/108/trade-routes?utm_source=api) return lands to hand for reuse.
 - [**Deathsprout**](https://scryfall.com/card/c20/208/deathsprout?utm_source=api) removes a creature at instant speed and puts a basic land directly onto the battlefield, turning interaction into another [Homer](https://scryfall.com/card/mbc/40/homer-the-hermit?utm_source=api) trigger.
 
-The mana base now contains 40 lands, including eleven basics: five Forests, four Islands, and two Swamps. The larger basic package keeps [**Harrow**](https://scryfall.com/card/eoc/98/harrow?utm_source=api), [**Entish Restoration**](https://scryfall.com/card/ltr/163/entish-restoration?utm_source=api), [**Myriad Landscape**](https://scryfall.com/card/mkc/278/myriad-landscape?utm_source=api), and the sacrifice lands supplied with targets during longer games.
+The mana base now contains 40 lands, including eleven basics: five Forests, four Islands, and two Swamps. The larger basic package keeps [**Harrow**](https://scryfall.com/card/eoc/98/harrow?utm_source=api), [**Entish Restoration**](https://scryfall.com/card/ltr/163/entish-restoration?utm_source=api), [**Myriad Landscape**](https://scryfall.com/card/eoc/169/myriad-landscape?utm_source=api), and the sacrifice lands supplied with targets during longer games.
 
 ### 6. Protect the engine
 
 [**Keep Safe**](https://scryfall.com/card/iko/56/keep-safe?utm_source=api) counters a spell targeting one of our permanents and draws a card, making it efficient protection against spot removal. [**You Find the Villains' Lair**](https://scryfall.com/card/afr/84/you-find-the-villains-lair?utm_source=api) is a deliberately fair three-mana hard counter whose other mode draws two and discards two into the graveyard. [**Pile On**](https://scryfall.com/card/mkc/134/pile-on?utm_source=api) removes a creature or planeswalker and surveils two. [**Awaken the Honored Dead**](https://scryfall.com/card/tdm/170/awaken-the-honored-dead?utm_source=api) trades instant speed for broad nonland removal, then mills three and can discard a card to recover a creature or land.
 
-[**Keep Safe**](https://scryfall.com/card/iko/56/keep-safe?utm_source=api) does not stop untargeted sweepers. Hold [**Arcane Denial**](https://scryfall.com/card/dmc/99/arcane-denial?utm_source=api) or [**You Find the Villains' Lair**](https://scryfall.com/card/afr/84/you-find-the-villains-lair?utm_source=api) when a board wipe would be especially damaging.
+[**Keep Safe**](https://scryfall.com/card/iko/56/keep-safe?utm_source=api) does not stop untargeted sweepers. Hold [**Arcane Denial**](https://scryfall.com/card/msc/147/arcane-denial?utm_source=api) or [**You Find the Villains' Lair**](https://scryfall.com/card/afr/84/you-find-the-villains-lair?utm_source=api) when a board wipe would be especially damaging.
 
 ## Main synergy patterns
 
