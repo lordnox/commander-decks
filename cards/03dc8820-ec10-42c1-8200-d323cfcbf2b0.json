@@ -1,0 +1,128 @@
+{
+  "artist": "Richard Kane Ferguson",
+  "artist_ids": [
+    "191620ed-2361-444e-96a6-1fe7ce32ef3b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 7871,
+  "cmc": 1.0,
+  "collector_number": "56",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 19205,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"When you cannot rely on your sources, trust your own senses. When you cannot trust those, you must follow your instincts.\"\n—Lovisa Coldeyes, Balduvian Chieftain",
+  "foil": false,
+  "frame": "1993",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "2f8638df-7915-4867-882a-95439486bd7b",
+  "illustration_id": "91ef52df-5aa2-46a8-ad94-254f243e8ba8",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:53:04Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/f/2f8638df-7915-4867-882a-95439486bd7b.webp?1783947184",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/f/2f8638df-7915-4867-882a-95439486bd7b.jpg?1783947184",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/f/2f8638df-7915-4867-882a-95439486bd7b.jpg?1783947184",
+    "crop": "https://cards.scryfall.io/crop/front/2/f/2f8638df-7915-4867-882a-95439486bd7b.webp?1783947184",
+    "display": "https://cards.scryfall.io/display/front/2/f/2f8638df-7915-4867-882a-95439486bd7b.webp?1783947184",
+    "grid": "https://cards.scryfall.io/grid/front/2/f/2f8638df-7915-4867-882a-95439486bd7b.webp?1783947184",
+    "large": "https://cards.scryfall.io/large/front/2/f/2f8638df-7915-4867-882a-95439486bd7b.jpg?1783947184",
+    "normal": "https://cards.scryfall.io/normal/front/2/f/2f8638df-7915-4867-882a-95439486bd7b.jpg?1783947184",
+    "png": "https://cards.scryfall.io/png/front/2/f/2f8638df-7915-4867-882a-95439486bd7b.png?1783947184",
+    "small": "https://cards.scryfall.io/small/front/2/f/2f8638df-7915-4867-882a-95439486bd7b.jpg?1783947184",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/f/2f8638df-7915-4867-882a-95439486bd7b.webp?1783947184"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "multiverse_ids": [
+    3084
+  ],
+  "name": "Misinformation",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "03dc8820-ec10-42c1-8200-d323cfcbf2b0",
+  "oracle_text": "Put up to three target cards from an opponent's graveyard on top of their library in any order.",
+  "oversized": false,
+  "penny_rank": 9385,
+  "prices": {
+    "eur": "0.34",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.78",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A03dc8820-ec10-42c1-8200-d323cfcbf2b0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Misinformation&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=7871&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F4197%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Misinformation",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=3084&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMisinformation",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMisinformation"
+  },
+  "released_at": "1996-06-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2f8638df-7915-4867-882a-95439486bd7b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/all?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/all/56/misinformation?utm_source=api",
+  "set": "all",
+  "set_id": "64987b06-4a5c-443d-b560-ff5691744582",
+  "set_name": "Alliances",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aall&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/64987b06-4a5c-443d-b560-ff5691744582",
+  "story_spotlight": false,
+  "tcgplayer_id": 4197,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/2f8638df-7915-4867-882a-95439486bd7b",
+  "variation": false
+}

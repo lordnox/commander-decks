@@ -1,0 +1,159 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "3557b3c7-98c6-4362-9a89-b71f0feaaaec",
+      "name": "Mystic Reflection",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/3557b3c7-98c6-4362-9a89-b71f0feaaaec"
+    },
+    {
+      "component": "combo_piece",
+      "id": "fb02637f-1385-4d3d-8dc0-de513db7633a",
+      "name": "Foretell",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/fb02637f-1385-4d3d-8dc0-de513db7633a"
+    }
+  ],
+  "arena_id": 75108,
+  "artist": "YW Tang",
+  "artist_ids": [
+    "63b2909b-7102-49c5-8f9d-6116a1913308"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 531132,
+  "cmc": 2.0,
+  "collector_number": "69",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 3840,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f7b877e2-60eb-46cd-acd7-8555b9e7e993",
+  "illustration_id": "aec14483-b6e6-4547-8c93-72cce380cd4b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:37:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/7/f7b877e2-60eb-46cd-acd7-8555b9e7e993.webp?1783928260",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/7/f7b877e2-60eb-46cd-acd7-8555b9e7e993.jpg?1783928260",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/7/f7b877e2-60eb-46cd-acd7-8555b9e7e993.jpg?1783928260",
+    "crop": "https://cards.scryfall.io/crop/front/f/7/f7b877e2-60eb-46cd-acd7-8555b9e7e993.webp?1783928260",
+    "display": "https://cards.scryfall.io/display/front/f/7/f7b877e2-60eb-46cd-acd7-8555b9e7e993.webp?1783928260",
+    "grid": "https://cards.scryfall.io/grid/front/f/7/f7b877e2-60eb-46cd-acd7-8555b9e7e993.webp?1783928260",
+    "large": "https://cards.scryfall.io/large/front/f/7/f7b877e2-60eb-46cd-acd7-8555b9e7e993.jpg?1783928260",
+    "normal": "https://cards.scryfall.io/normal/front/f/7/f7b877e2-60eb-46cd-acd7-8555b9e7e993.jpg?1783928260",
+    "png": "https://cards.scryfall.io/png/front/f/7/f7b877e2-60eb-46cd-acd7-8555b9e7e993.png?1783928260",
+    "small": "https://cards.scryfall.io/small/front/f/7/f7b877e2-60eb-46cd-acd7-8555b9e7e993.jpg?1783928260",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/7/f7b877e2-60eb-46cd-acd7-8555b9e7e993.webp?1783928260"
+  },
+  "keywords": [
+    "Foretell"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 87465,
+  "multiverse_ids": [
+    503677
+  ],
+  "name": "Mystic Reflection",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "491dc110-b459-412e-8a0b-45e5744ee8d1",
+  "oracle_text": "Choose target nonlegendary creature. The next time one or more creatures or planeswalkers enter this turn, they enter as copies of the chosen creature.\nForetell {U} (During your turn, you may pay {2} and exile this card from your hand face down. Cast it on a later turn for its foretell cost.)",
+  "oversized": false,
+  "penny_rank": 7899,
+  "preview": {
+    "previewed_at": "2021-01-13",
+    "source": "Dagoba",
+    "source_uri": "https://twitter.com/DAGOBA1/status/1349387707148070914"
+  },
+  "prices": {
+    "eur": "1.19",
+    "eur_foil": "1.50",
+    "tix": "0.02",
+    "usd": "1.48",
+    "usd_etched": null,
+    "usd_foil": "2.37"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A491dc110-b459-412e-8a0b-45e5744ee8d1&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/87465?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=531132&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F230497%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mystic+Reflection",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=503677&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMystic%2BReflection",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMystic%2BReflection"
+  },
+  "released_at": "2021-02-05",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f7b877e2-60eb-46cd-acd7-8555b9e7e993/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/khm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/khm/69/mystic-reflection?utm_source=api",
+  "security_stamp": "oval",
+  "set": "khm",
+  "set_id": "43057fad-b1c1-437f-bc48-0045bce6d8c9",
+  "set_name": "Kaldheim",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Akhm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/43057fad-b1c1-437f-bc48-0045bce6d8c9",
+  "story_spotlight": false,
+  "tcgplayer_id": 230497,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/f7b877e2-60eb-46cd-acd7-8555b9e7e993",
+  "variation": false,
+  "watermark": "foretell"
+}

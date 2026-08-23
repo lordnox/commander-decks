@@ -1,0 +1,133 @@
+{
+  "artist": "Steve Argyle",
+  "artist_ids": [
+    "a44ddda4-5331-4f83-aac9-3e00ed36bd7b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 245900,
+  "cmc": 3.0,
+  "collector_number": "71",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1659,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Sheoldred weaves every thread of information into a noose to hang her enemies.",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9588be49-d9b5-4491-a5a0-10bcadc9f8b3",
+  "illustration_id": "31fc3f1f-e8f2-4c5a-b9dc-97f257dc45d3",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:15:11Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/5/9588be49-d9b5-4491-a5a0-10bcadc9f8b3.webp?1783941311",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/5/9588be49-d9b5-4491-a5a0-10bcadc9f8b3.jpg?1783941311",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/5/9588be49-d9b5-4491-a5a0-10bcadc9f8b3.jpg?1783941311",
+    "crop": "https://cards.scryfall.io/crop/front/9/5/9588be49-d9b5-4491-a5a0-10bcadc9f8b3.webp?1783941311",
+    "display": "https://cards.scryfall.io/display/front/9/5/9588be49-d9b5-4491-a5a0-10bcadc9f8b3.webp?1783941311",
+    "grid": "https://cards.scryfall.io/grid/front/9/5/9588be49-d9b5-4491-a5a0-10bcadc9f8b3.webp?1783941311",
+    "large": "https://cards.scryfall.io/large/front/9/5/9588be49-d9b5-4491-a5a0-10bcadc9f8b3.jpg?1783941311",
+    "normal": "https://cards.scryfall.io/normal/front/9/5/9588be49-d9b5-4491-a5a0-10bcadc9f8b3.jpg?1783941311",
+    "png": "https://cards.scryfall.io/png/front/9/5/9588be49-d9b5-4491-a5a0-10bcadc9f8b3.png?1783941311",
+    "small": "https://cards.scryfall.io/small/front/9/5/9588be49-d9b5-4491-a5a0-10bcadc9f8b3.jpg?1783941311",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/5/9588be49-d9b5-4491-a5a0-10bcadc9f8b3.webp?1783941311"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}{B}",
+  "mtgo_foil_id": 39839,
+  "mtgo_id": 39838,
+  "multiverse_ids": [
+    218050
+  ],
+  "name": "Praetor's Grasp",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6d56aeb1-0a50-46b6-abdb-cd6575a98dc3",
+  "oracle_text": "Search target opponent's library for a card and exile it face down. Then that player shuffles. You may play that card for as long as it remains exiled.",
+  "oversized": false,
+  "penny_rank": 6818,
+  "prices": {
+    "eur": "7.80",
+    "eur_foil": "44.59",
+    "tix": "0.02",
+    "usd": "10.78",
+    "usd_etched": null,
+    "usd_foil": "69.85"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6d56aeb1-0a50-46b6-abdb-cd6575a98dc3&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/39838?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=245900&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F39423%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Praetor%27s+Grasp",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=218050&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPraetor%2527s%2BGrasp",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPraetor%2527s%2BGrasp"
+  },
+  "released_at": "2011-05-13",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9588be49-d9b5-4491-a5a0-10bcadc9f8b3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/nph?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/nph/71/praetors-grasp?utm_source=api",
+  "set": "nph",
+  "set_id": "e8e356d8-6d01-4dab-aa07-d0999dc9359f",
+  "set_name": "New Phyrexia",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Anph&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e8e356d8-6d01-4dab-aa07-d0999dc9359f",
+  "story_spotlight": false,
+  "tcgplayer_id": 39423,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/9588be49-d9b5-4491-a5a0-10bcadc9f8b3",
+  "variation": false,
+  "watermark": "phyrexian"
+}

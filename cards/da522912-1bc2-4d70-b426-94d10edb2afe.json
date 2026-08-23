@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "ba64ed3e-93c5-406f-a38d-65cc68472122",
+      "name": "City's Blessing",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/ba64ed3e-93c5-406f-a38d-65cc68472122"
+    },
+    {
+      "component": "combo_piece",
+      "id": "aab958d5-9c1f-420f-b358-ec0325f22f84",
+      "name": "Vona's Hunger",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/aab958d5-9c1f-420f-b358-ec0325f22f84"
+    }
+  ],
+  "arena_id": 66797,
+  "artist": "Zack Stella",
+  "artist_ids": [
+    "17bc7f55-958b-43f4-bb40-09746d05b3f9"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 315264,
+  "cmc": 3.0,
+  "collector_number": "90",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3839,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "aab958d5-9c1f-420f-b358-ec0325f22f84",
+  "illustration_id": "df0aefcf-1b15-4286-a0bc-2e7030917aa1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:35:04Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/a/aab958d5-9c1f-420f-b358-ec0325f22f84.webp?1783935304",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/a/aab958d5-9c1f-420f-b358-ec0325f22f84.jpg?1783935304",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/a/aab958d5-9c1f-420f-b358-ec0325f22f84.jpg?1783935304",
+    "crop": "https://cards.scryfall.io/crop/front/a/a/aab958d5-9c1f-420f-b358-ec0325f22f84.webp?1783935304",
+    "display": "https://cards.scryfall.io/display/front/a/a/aab958d5-9c1f-420f-b358-ec0325f22f84.webp?1783935304",
+    "grid": "https://cards.scryfall.io/grid/front/a/a/aab958d5-9c1f-420f-b358-ec0325f22f84.webp?1783935304",
+    "large": "https://cards.scryfall.io/large/front/a/a/aab958d5-9c1f-420f-b358-ec0325f22f84.jpg?1783935304",
+    "normal": "https://cards.scryfall.io/normal/front/a/a/aab958d5-9c1f-420f-b358-ec0325f22f84.jpg?1783935304",
+    "png": "https://cards.scryfall.io/png/front/a/a/aab958d5-9c1f-420f-b358-ec0325f22f84.png?1783935304",
+    "small": "https://cards.scryfall.io/small/front/a/a/aab958d5-9c1f-420f-b358-ec0325f22f84.jpg?1783935304",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/a/aab958d5-9c1f-420f-b358-ec0325f22f84.webp?1783935304"
+  },
+  "keywords": [
+    "Ascend"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 66633,
+  "multiverse_ids": [
+    439747
+  ],
+  "name": "Vona's Hunger",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "da522912-1bc2-4d70-b426-94d10edb2afe",
+  "oracle_text": "Ascend (If you control ten or more permanents, you get the city's blessing for the rest of the game.)\nEach opponent sacrifices a creature of their choice. If you have the city's blessing, instead each opponent sacrifices half the creatures they control of their choice, rounded up.",
+  "oversized": false,
+  "penny_rank": 11005,
+  "prices": {
+    "eur": "5.33",
+    "eur_foil": "8.88",
+    "tix": "0.02",
+    "usd": "5.32",
+    "usd_etched": null,
+    "usd_foil": "9.61"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ada522912-1bc2-4d70-b426-94d10edb2afe&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/66633?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=315264&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F155570%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vona%27s+Hunger",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=439747&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVona%2527s%2BHunger",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVona%2527s%2BHunger"
+  },
+  "released_at": "2018-01-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/aab958d5-9c1f-420f-b358-ec0325f22f84/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rix?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rix/90/vonas-hunger?utm_source=api",
+  "security_stamp": "oval",
+  "set": "rix",
+  "set_id": "2f7e40fc-772d-4a85-bfdd-01653c41d0fa",
+  "set_name": "Rivals of Ixalan",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arix&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/2f7e40fc-772d-4a85-bfdd-01653c41d0fa",
+  "story_spotlight": false,
+  "tcgplayer_id": 155570,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/aab958d5-9c1f-420f-b358-ec0325f22f84",
+  "variation": false
+}

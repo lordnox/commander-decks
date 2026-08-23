@@ -1,0 +1,142 @@
+{
+  "arena_id": 83782,
+  "artist": "Lie Setiawan",
+  "artist_ids": [
+    "6f771d3f-310e-4aa4-841f-5ba4ba9f025a"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 692768,
+  "cmc": 4.0,
+  "collector_number": "82",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 6772,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "86b0edaf-8cfd-4508-9554-6f0fddc2dfc4",
+  "illustration_id": "b9d6487e-47d8-4786-bbf3-ad7757d10155",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:47:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/6/86b0edaf-8cfd-4508-9554-6f0fddc2dfc4.webp?1783918050",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/6/86b0edaf-8cfd-4508-9554-6f0fddc2dfc4.jpg?1783918050",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/6/86b0edaf-8cfd-4508-9554-6f0fddc2dfc4.jpg?1783918050",
+    "crop": "https://cards.scryfall.io/crop/front/8/6/86b0edaf-8cfd-4508-9554-6f0fddc2dfc4.webp?1783918050",
+    "display": "https://cards.scryfall.io/display/front/8/6/86b0edaf-8cfd-4508-9554-6f0fddc2dfc4.webp?1783918050",
+    "grid": "https://cards.scryfall.io/grid/front/8/6/86b0edaf-8cfd-4508-9554-6f0fddc2dfc4.webp?1783918050",
+    "large": "https://cards.scryfall.io/large/front/8/6/86b0edaf-8cfd-4508-9554-6f0fddc2dfc4.jpg?1783918050",
+    "normal": "https://cards.scryfall.io/normal/front/8/6/86b0edaf-8cfd-4508-9554-6f0fddc2dfc4.jpg?1783918050",
+    "png": "https://cards.scryfall.io/png/front/8/6/86b0edaf-8cfd-4508-9554-6f0fddc2dfc4.png?1783918050",
+    "small": "https://cards.scryfall.io/small/front/8/6/86b0edaf-8cfd-4508-9554-6f0fddc2dfc4.jpg?1783918050",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/6/86b0edaf-8cfd-4508-9554-6f0fddc2dfc4.webp?1783918050"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "mtgo_id": 106379,
+  "multiverse_ids": [
+    602612
+  ],
+  "name": "Archfiend of the Dross",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9188031e-1c24-4981-a3d2-461a2bf917b6",
+  "oracle_text": "Flying\nThis creature enters with four oil counters on it.\nAt the beginning of your upkeep, remove an oil counter from this creature. Then if it has no oil counters on it, you lose the game.\nWhenever a creature an opponent controls dies, its controller loses 2 life.",
+  "oversized": false,
+  "penny_rank": 2401,
+  "power": "6",
+  "preview": {
+    "previewed_at": "2023-01-12",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.49",
+    "eur_foil": "1.32",
+    "tix": "0.03",
+    "usd": "0.44",
+    "usd_etched": null,
+    "usd_foil": "0.38"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9188031e-1c24-4981-a3d2-461a2bf917b6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/106379?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=692768&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F478438%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Archfiend+of+the+Dross",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=602612&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DArchfiend%2Bof%2Bthe%2BDross",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DArchfiend%2Bof%2Bthe%2BDross"
+  },
+  "released_at": "2023-02-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/86b0edaf-8cfd-4508-9554-6f0fddc2dfc4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/one?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/one/82/archfiend-of-the-dross?utm_source=api",
+  "security_stamp": "oval",
+  "set": "one",
+  "set_id": "04bef644-343f-4230-95ee-255f29aa67a2",
+  "set_name": "Phyrexia: All Will Be One",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aone&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/04bef644-343f-4230-95ee-255f29aa67a2",
+  "story_spotlight": false,
+  "tcgplayer_id": 478438,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Creature — Phyrexian Demon",
+  "uri": "https://api.scryfall.com/cards/86b0edaf-8cfd-4508-9554-6f0fddc2dfc4",
+  "variation": false
+}

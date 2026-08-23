@@ -1,0 +1,136 @@
+{
+  "artist": "Jeremy Enecio",
+  "artist_ids": [
+    "f9e1fab6-f366-4dae-a5c7-736d475312b8"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 504070,
+  "cmc": 2.0,
+  "collector_number": "103",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "colors": [
+    "B",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 3802,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"It's not a matter of deserving. It's a matter of strength. The power to hold versus the power to take.\"",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "1b10e23a-7cf5-47dc-9c51-5cbe444a99c7",
+  "illustration_id": "d2e2fdce-b3c7-413f-b7b0-3bc9e99f5bb2",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:57:34Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/b/1b10e23a-7cf5-47dc-9c51-5cbe444a99c7.webp?1783929454",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/b/1b10e23a-7cf5-47dc-9c51-5cbe444a99c7.jpg?1783929454",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/b/1b10e23a-7cf5-47dc-9c51-5cbe444a99c7.jpg?1783929454",
+    "crop": "https://cards.scryfall.io/crop/front/1/b/1b10e23a-7cf5-47dc-9c51-5cbe444a99c7.webp?1783929454",
+    "display": "https://cards.scryfall.io/display/front/1/b/1b10e23a-7cf5-47dc-9c51-5cbe444a99c7.webp?1783929454",
+    "grid": "https://cards.scryfall.io/grid/front/1/b/1b10e23a-7cf5-47dc-9c51-5cbe444a99c7.webp?1783929454",
+    "large": "https://cards.scryfall.io/large/front/1/b/1b10e23a-7cf5-47dc-9c51-5cbe444a99c7.jpg?1783929454",
+    "normal": "https://cards.scryfall.io/normal/front/1/b/1b10e23a-7cf5-47dc-9c51-5cbe444a99c7.jpg?1783929454",
+    "png": "https://cards.scryfall.io/png/front/1/b/1b10e23a-7cf5-47dc-9c51-5cbe444a99c7.png?1783929454",
+    "small": "https://cards.scryfall.io/small/front/1/b/1b10e23a-7cf5-47dc-9c51-5cbe444a99c7.jpg?1783929454",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/b/1b10e23a-7cf5-47dc-9c51-5cbe444a99c7.webp?1783929454"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U/B}{U/B}",
+  "multiverse_ids": [
+    496041
+  ],
+  "name": "Sygg, River Cutthroat",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cd4db500-0017-46c6-be94-1bf48f686b6a",
+  "oracle_text": "At the beginning of each end step, if an opponent lost 3 or more life this turn, you may draw a card. (Damage causes loss of life.)",
+  "oversized": false,
+  "penny_rank": 3746,
+  "power": "1",
+  "prices": {
+    "eur": "6.86",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "3.91",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acd4db500-0017-46c6-be94-1bf48f686b6a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Sygg%2C+River+Cutthroat&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=504070&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F222376%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sygg%2C+River+Cutthroat",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=496041&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSygg%252C%2BRiver%2BCutthroat",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSygg%252C%2BRiver%2BCutthroat"
+  },
+  "released_at": "2020-09-25",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1b10e23a-7cf5-47dc-9c51-5cbe444a99c7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/znc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/znc/103/sygg-river-cutthroat?utm_source=api",
+  "security_stamp": "oval",
+  "set": "znc",
+  "set_id": "25c6bd9b-4e10-40a4-b9b5-0f4d9b5852a1",
+  "set_name": "Zendikar Rising Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aznc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/25c6bd9b-4e10-40a4-b9b5-0f4d9b5852a1",
+  "story_spotlight": false,
+  "tcgplayer_id": 222376,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Legendary Creature — Merfolk Rogue",
+  "uri": "https://api.scryfall.com/cards/1b10e23a-7cf5-47dc-9c51-5cbe444a99c7",
+  "variation": false
+}

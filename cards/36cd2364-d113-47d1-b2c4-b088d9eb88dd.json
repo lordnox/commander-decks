@@ -1,0 +1,133 @@
+{
+  "arena_id": 98300,
+  "artist": "Arthur Yuan",
+  "artist_ids": [
+    "0c066852-6fdb-42d0-aab9-db4038850da0"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 857917,
+  "cmc": 1.0,
+  "collector_number": "155",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 72,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Now I get it. Something awful happened on that day. I don't know what, but I do know why. Firebenders lose their bending during a solar eclipse!\"\n—Sokka",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b5545882-6963-4729-b2c6-fb4bdc75ffcc",
+  "illustration_id": "e8a70f8a-ea24-43e2-9a1f-8a4f9dd4f709",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:06:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/5/b5545882-6963-4729-b2c6-fb4bdc75ffcc.webp?1783904806",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/5/b5545882-6963-4729-b2c6-fb4bdc75ffcc.jpg?1783904806",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/5/b5545882-6963-4729-b2c6-fb4bdc75ffcc.jpg?1783904806",
+    "crop": "https://cards.scryfall.io/crop/front/b/5/b5545882-6963-4729-b2c6-fb4bdc75ffcc.webp?1783904806",
+    "display": "https://cards.scryfall.io/display/front/b/5/b5545882-6963-4729-b2c6-fb4bdc75ffcc.webp?1783904806",
+    "grid": "https://cards.scryfall.io/grid/front/b/5/b5545882-6963-4729-b2c6-fb4bdc75ffcc.webp?1783904806",
+    "large": "https://cards.scryfall.io/large/front/b/5/b5545882-6963-4729-b2c6-fb4bdc75ffcc.jpg?1783904806",
+    "normal": "https://cards.scryfall.io/normal/front/b/5/b5545882-6963-4729-b2c6-fb4bdc75ffcc.jpg?1783904806",
+    "png": "https://cards.scryfall.io/png/front/b/5/b5545882-6963-4729-b2c6-fb4bdc75ffcc.png?1783904806",
+    "small": "https://cards.scryfall.io/small/front/b/5/b5545882-6963-4729-b2c6-fb4bdc75ffcc.jpg?1783904806",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/5/b5545882-6963-4729-b2c6-fb4bdc75ffcc.webp?1783904806"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "banned",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "banned",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "restricted"
+  },
+  "mana_cost": "{U}",
+  "multiverse_ids": [],
+  "name": "Brainstorm",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "36cd2364-d113-47d1-b2c4-b088d9eb88dd",
+  "oracle_text": "Draw three cards, then put two cards from your hand on top of your library in any order.",
+  "oversized": false,
+  "penny_rank": 9,
+  "prices": {
+    "eur": "2.72",
+    "eur_foil": "2.51",
+    "tix": null,
+    "usd": "1.44",
+    "usd_etched": null,
+    "usd_foil": "3.16"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A36cd2364-d113-47d1-b2c4-b088d9eb88dd&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Brainstorm&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=857917&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F662458%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Brainstorm",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBrainstorm",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBrainstorm"
+  },
+  "released_at": "2025-11-21",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "D4F41D5E97D986A6C175CC6AE4C320FE438C1F96062CBAAEC89D557EB926F79A",
+  "rulings_uri": "https://api.scryfall.com/cards/b5545882-6963-4729-b2c6-fb4bdc75ffcc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tle?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tle/155/brainstorm?utm_source=api",
+  "set": "tle",
+  "set_id": "a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "set_name": "Avatar: The Last Airbender Eternal",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atle&unique=prints",
+  "set_type": "eternal",
+  "set_uri": "https://api.scryfall.com/sets/a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "story_spotlight": false,
+  "tcgplayer_id": 662458,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/b5545882-6963-4729-b2c6-fb4bdc75ffcc",
+  "variation": false
+}

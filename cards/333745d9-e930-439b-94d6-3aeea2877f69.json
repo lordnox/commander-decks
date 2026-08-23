@@ -1,0 +1,129 @@
+{
+  "artist": "Zoltan Boros",
+  "artist_ids": [
+    "1885e6cb-c827-4896-994e-3d0a027d602f"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 264731,
+  "cmc": 4.0,
+  "collector_number": "47",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 3804,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a00cc6ab-e97c-4eba-bc7e-49d77690433b",
+  "illustration_id": "715a6ca5-0913-40c4-99a5-6f132104ca59",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:48:02Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/0/a00cc6ab-e97c-4eba-bc7e-49d77690433b.webp?1783939682",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/0/a00cc6ab-e97c-4eba-bc7e-49d77690433b.jpg?1783939682",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/0/a00cc6ab-e97c-4eba-bc7e-49d77690433b.jpg?1783939682",
+    "crop": "https://cards.scryfall.io/crop/front/a/0/a00cc6ab-e97c-4eba-bc7e-49d77690433b.webp?1783939682",
+    "display": "https://cards.scryfall.io/display/front/a/0/a00cc6ab-e97c-4eba-bc7e-49d77690433b.webp?1783939682",
+    "grid": "https://cards.scryfall.io/grid/front/a/0/a00cc6ab-e97c-4eba-bc7e-49d77690433b.webp?1783939682",
+    "large": "https://cards.scryfall.io/large/front/a/0/a00cc6ab-e97c-4eba-bc7e-49d77690433b.jpg?1783939682",
+    "normal": "https://cards.scryfall.io/normal/front/a/0/a00cc6ab-e97c-4eba-bc7e-49d77690433b.jpg?1783939682",
+    "png": "https://cards.scryfall.io/png/front/a/0/a00cc6ab-e97c-4eba-bc7e-49d77690433b.png?1783939682",
+    "small": "https://cards.scryfall.io/small/front/a/0/a00cc6ab-e97c-4eba-bc7e-49d77690433b.jpg?1783939682",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/0/a00cc6ab-e97c-4eba-bc7e-49d77690433b.webp?1783939682"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}{U}",
+  "mtgo_foil_id": 51351,
+  "mtgo_id": 51350,
+  "multiverse_ids": [
+    376369
+  ],
+  "name": "Illusionist's Gambit",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "333745d9-e930-439b-94d6-3aeea2877f69",
+  "oracle_text": "Cast this spell only during the declare blockers step on an opponent's turn.\nRemove all attacking creatures from combat and untap them. After this phase, there is an additional combat phase. Each of those creatures attacks that combat if able. They can't attack you or planeswalkers you control that combat.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.48",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.41",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A333745d9-e930-439b-94d6-3aeea2877f69&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/51350?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=264731&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F71851%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Illusionist%27s+Gambit",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=376369&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIllusionist%2527s%2BGambit",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIllusionist%2527s%2BGambit"
+  },
+  "released_at": "2013-11-01",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a00cc6ab-e97c-4eba-bc7e-49d77690433b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c13?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c13/47/illusionists-gambit?utm_source=api",
+  "set": "c13",
+  "set_id": "c62e6d4f-af8c-4f27-9bc8-361291890146",
+  "set_name": "Commander 2013",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac13&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c62e6d4f-af8c-4f27-9bc8-361291890146",
+  "story_spotlight": false,
+  "tcgplayer_id": 71851,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/a00cc6ab-e97c-4eba-bc7e-49d77690433b",
+  "variation": false
+}

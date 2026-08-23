@@ -1,0 +1,134 @@
+{
+  "artist": "Julian Kok Joon Wen",
+  "artist_ids": [
+    "7f1868e3-325f-4df9-8f27-a381fed4f0fc"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 730120,
+  "cmc": 3.0,
+  "collector_number": "11",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 3232,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c15dfe35-c570-4aaf-b82d-270c15464fe2",
+  "illustration_id": "b793ac7d-6d52-42d9-bee6-e4ca1de13dea",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:56:28Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/1/c15dfe35-c570-4aaf-b82d-270c15464fe2.webp?1783914988",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/1/c15dfe35-c570-4aaf-b82d-270c15464fe2.jpg?1783914988",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/1/c15dfe35-c570-4aaf-b82d-270c15464fe2.jpg?1783914988",
+    "crop": "https://cards.scryfall.io/crop/front/c/1/c15dfe35-c570-4aaf-b82d-270c15464fe2.webp?1783914988",
+    "display": "https://cards.scryfall.io/display/front/c/1/c15dfe35-c570-4aaf-b82d-270c15464fe2.webp?1783914988",
+    "grid": "https://cards.scryfall.io/grid/front/c/1/c15dfe35-c570-4aaf-b82d-270c15464fe2.webp?1783914988",
+    "large": "https://cards.scryfall.io/large/front/c/1/c15dfe35-c570-4aaf-b82d-270c15464fe2.jpg?1783914988",
+    "normal": "https://cards.scryfall.io/normal/front/c/1/c15dfe35-c570-4aaf-b82d-270c15464fe2.jpg?1783914988",
+    "png": "https://cards.scryfall.io/png/front/c/1/c15dfe35-c570-4aaf-b82d-270c15464fe2.png?1783914988",
+    "small": "https://cards.scryfall.io/small/front/c/1/c15dfe35-c570-4aaf-b82d-270c15464fe2.jpg?1783914988",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/1/c15dfe35-c570-4aaf-b82d-270c15464fe2.webp?1783914988"
+  },
+  "keywords": [
+    "Flash"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 117278,
+  "multiverse_ids": [
+    633179
+  ],
+  "name": "Misleading Signpost",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "eaffdf95-8e20-408d-99fa-3adc9e19523d",
+  "oracle_text": "Flash\nWhen this artifact enters during the declare attackers step, you may reselect which player or permanent target attacking creature is attacking. (It can't attack its controller or their permanents.)\n{T}: Add {U}.",
+  "oversized": false,
+  "prices": {
+    "eur": "10.08",
+    "eur_foil": null,
+    "tix": "2.97",
+    "usd": "14.03",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aeaffdf95-8e20-408d-99fa-3adc9e19523d&unique=prints",
+  "produced_mana": [
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/117278?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=730120&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F513861%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Misleading+Signpost",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=633179&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMisleading%2BSignpost",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMisleading%2BSignpost"
+  },
+  "released_at": "2023-09-08",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c15dfe35-c570-4aaf-b82d-270c15464fe2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/woc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/woc/11/misleading-signpost?utm_source=api",
+  "security_stamp": "oval",
+  "set": "woc",
+  "set_id": "51c0814a-2db2-4182-9aac-77340e9a540d",
+  "set_name": "Wilds of Eldraine Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/51c0814a-2db2-4182-9aac-77340e9a540d",
+  "story_spotlight": false,
+  "tcgplayer_id": 513861,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/c15dfe35-c570-4aaf-b82d-270c15464fe2",
+  "variation": false
+}

@@ -1,0 +1,139 @@
+{
+  "artist": "Chris Rahn",
+  "artist_ids": [
+    "7742047e-0f80-4c0f-a530-d07460165e86"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 266629,
+  "cmc": 3.0,
+  "collector_number": "75",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 4555,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Any pleasure, when taken to excess, becomes torment. It's a formula that demons have perfected.",
+  "foil": true,
+  "frame": "2003",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d528f7a3-0a7b-42e3-8e4f-f1eeab02e23a",
+  "illustration_id": "397eb86d-0042-46a7-a82e-e490aa1c4915",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:43:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/5/d528f7a3-0a7b-42e3-8e4f-f1eeab02e23a.webp?1783939433",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/5/d528f7a3-0a7b-42e3-8e4f-f1eeab02e23a.jpg?1783939433",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/5/d528f7a3-0a7b-42e3-8e4f-f1eeab02e23a.jpg?1783939433",
+    "crop": "https://cards.scryfall.io/crop/front/d/5/d528f7a3-0a7b-42e3-8e4f-f1eeab02e23a.webp?1783939433",
+    "display": "https://cards.scryfall.io/display/front/d/5/d528f7a3-0a7b-42e3-8e4f-f1eeab02e23a.webp?1783939433",
+    "grid": "https://cards.scryfall.io/grid/front/d/5/d528f7a3-0a7b-42e3-8e4f-f1eeab02e23a.webp?1783939433",
+    "large": "https://cards.scryfall.io/large/front/d/5/d528f7a3-0a7b-42e3-8e4f-f1eeab02e23a.jpg?1783939433",
+    "normal": "https://cards.scryfall.io/normal/front/d/5/d528f7a3-0a7b-42e3-8e4f-f1eeab02e23a.jpg?1783939433",
+    "png": "https://cards.scryfall.io/png/front/d/5/d528f7a3-0a7b-42e3-8e4f-f1eeab02e23a.png?1783939433",
+    "small": "https://cards.scryfall.io/small/front/d/5/d528f7a3-0a7b-42e3-8e4f-f1eeab02e23a.jpg?1783939433",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/5/d528f7a3-0a7b-42e3-8e4f-f1eeab02e23a.webp?1783939433"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}{B}",
+  "mtgo_foil_id": 52189,
+  "mtgo_id": 52188,
+  "multiverse_ids": [
+    380455
+  ],
+  "name": "Master of the Feast",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "01dc86f3-5ebb-4b10-bf68-8fc9f232c724",
+  "oracle_text": "Flying\nAt the beginning of your upkeep, each opponent draws a card.",
+  "oversized": false,
+  "penny_rank": 6304,
+  "power": "5",
+  "prices": {
+    "eur": "3.97",
+    "eur_foil": "7.43",
+    "tix": "0.02",
+    "usd": "5.36",
+    "usd_etched": null,
+    "usd_foil": "10.39"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A01dc86f3-5ebb-4b10-bf68-8fc9f232c724&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/52188?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=266629&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F82235%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Master+of+the+Feast",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=380455&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMaster%2Bof%2Bthe%2BFeast",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMaster%2Bof%2Bthe%2BFeast"
+  },
+  "released_at": "2014-05-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d528f7a3-0a7b-42e3-8e4f-f1eeab02e23a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/jou?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/jou/75/master-of-the-feast?utm_source=api",
+  "set": "jou",
+  "set_id": "204d2dca-1887-4721-9558-164aa7bbeb4f",
+  "set_name": "Journey into Nyx",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ajou&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/204d2dca-1887-4721-9558-164aa7bbeb4f",
+  "story_spotlight": false,
+  "tcgplayer_id": 82235,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Enchantment Creature — Demon",
+  "uri": "https://api.scryfall.com/cards/d528f7a3-0a7b-42e3-8e4f-f1eeab02e23a",
+  "variation": false
+}
