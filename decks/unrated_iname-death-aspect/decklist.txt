@@ -1,32 +1,31 @@
 Commander
 1x Iname, Death Aspect [Commander{top}]
 
-+1 Mana
++1 Mana:
 1x Blood Pet [+1 Mana]
 1x Cabal Ritual [+1 Mana]
 1x Jeweled Amulet [+1 Mana]
 1x Lotus Petal [+1 Mana]
 
-+2 Mana
++2 Mana:
 1x Basal Thrull [+2 Mana]
 1x Dark Ritual [+2 Mana]
 1x Sol Ring [+2 Mana]
 1x Soldevi Adnate [+2 Mana]
 
-+3 Mana
++3 Mana:
 1x Expedition Map [+3 Mana]
 
-Draw
+Draw:
 1x Doom Weaver [Draw]
 
-Enable Delirium
+Enable Delirium:
 1x Nameless Inversion [Enable Delirium]
 
-Finisher
+Finisher:
 1x Mortal Combat [Finisher]
 
-Land
-1x Agadeem's Awakening // Agadeem, the Undercrypt [Land]
+Land:1x Agadeem's Awakening // Agadeem, the Undercrypt [Land]
 1x Bloodstained Mire [Land]
 1x Castle Locthwain [Land]
 1x Cavern of Souls [Land]
@@ -45,18 +44,17 @@ Land
 1x Vault of Whispers [Land]
 1x Verdant Catacombs [Land]
 
-Late-Game Ramp
+Late-Game Ramp:
 1x Songs of the Damned [Late-Game Ramp]
 
-Lifelink
+Lifelink:
 1x Osseous Sticktwister [Lifelink]
 
-Ramp
+Ramp:
 1x Crypt Ghast [Ramp]
 1x Jet Medallion [Ramp]
 
-Recursion
-1x Bloodghast [Recursion,Swarm]
+Recursion:1x Bloodghast [Recursion,Swarm]
 1x Chthonian Nightmare [Recursion]
 1x Eerie Soultender [Recursion]
 1x Junji, the Midnight Sky [Recursion,Those Who Came Before]
@@ -67,18 +65,17 @@ Recursion
 1x Patriarch's Bidding [Recursion]
 1x Yawgmoth's Will [Recursion]
 
-Removal
+Removal:
 1x Toxic Deluge [Removal]
 1x Ugin, Eye of the Storms [Removal]
 
-Secret Commander
+Secret Commander:
 1x The Capitoline Triad [Secret Commander]
 
-Swarm
+Swarm:
 1x Nested Shambler [Swarm]
 
-Those Who Came Before
-1x Akuta, Born of Ash [Those Who Came Before]
+Those Who Came Before:1x Akuta, Born of Ash [Those Who Came Before]
 1x Kagemaro, First to Suffer [Those Who Came Before]
 1x Kokusho, the Evening Star [Those Who Came Before]
 1x Kuro, Pitlord [Those Who Came Before]
@@ -92,7 +89,7 @@ Those Who Came Before
 1x Sorcerer's Broom [Those Who Came Before,Enable Delirium]
 1x Spirit of the Night [Those Who Came Before]
 
-Tutor
+Tutor:
 1x Beseech the Mirror [Tutor]
 1x Dark Petition [Tutor]
 1x Demonic Collusion [Tutor]
@@ -108,7 +105,7 @@ Tutor
 1x Scheming Symmetry [Tutor,+3 Mana]
 1x Sidisi, Undead Vizier [Tutor]
 
-Tokens & Extras
+Tokens & Extras:
 2x Construct [Tokens & Extras{noDeck}]
 2x Manifest [Tokens & Extras{noDeck}]
 3x Squirrel [Tokens & Extras{noDeck}]
