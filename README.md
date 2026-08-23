@@ -2,11 +2,11 @@
 
 ## Deck primers
 
+- [3− — Hazel — Misty Critters](decks/3-_hazel-misty-critters/README.md)
 - [3− — Homer — Dumpster-Diver Crab](decks/3-_homer-dumpster-diver-crab/README.md)
 - [3− — Mishra — Racecar Driver](decks/3-_mishra-racecar-driver/README.md)
 - [3 — Alania — Divergent Laughter](decks/3_alania-divergent-storm/README.md)
 - [3+ — Bartolomé — Graveyard Shift](decks/3+_bartolome-graveyard-shift/README.md)
-- [Unrated — Hazel — Misty Critters](decks/unrated_hazel-misty-critters/README.md)
 
 A conversation-driven workspace for importing, resolving, categorizing, assessing, and improving Magic: The Gathering Commander decks.
 
