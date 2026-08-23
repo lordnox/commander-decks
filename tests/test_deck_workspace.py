@@ -22,6 +22,7 @@ def load_script(name, directory=SCRIPTS):
 
 cache_deck = load_script("cache_deck")
 validate_deck = load_script("validate_deck")
+change_table = load_script("deck_change_table")
 archidekt = load_script("update_archidekt_link", PRIMER_SCRIPTS)
 category_probs = load_script("update_category_probabilities", PRIMER_SCRIPTS)
 
@@ -219,6 +220,46 @@ class CacheDeckTests(unittest.TestCase):
             self.assertEqual(result, 0)
             self.assertEqual(index_path.read_bytes(), before_index)
             self.assertEqual(categories_path.read_bytes(), before_categories)
+
+
+class DeckChangeTableTests(unittest.TestCase):
+    def render(self, base_list, head_list):
+        lists = {"base": base_list, "head": head_list}
+        links = {
+            "steam vents": "https://scryfall.com/card/grn/257/steam-vents",
+            "portent": "https://scryfall.com/card/dsc/74/portent",
+            "island": "https://scryfall.com/card/blb/278/island",
+        }
+        with mock.patch.object(change_table, "read_ref", lambda ref, path: lists[ref or "head"]), \
+             mock.patch.object(change_table, "scryfall_links", lambda wanted, refs: links):
+            return change_table.render(ROOT / "decks/test", "base", "head")
+
+    def test_pairs_added_and_removed_cards_with_links(self):
+        table = self.render(
+            "1x Portent [Card Selection]\n14x Island [Land]\n",
+            "1x Steam Vents [Land]\n14x Island [Land]\n",
+        )
+
+        self.assertIn("| In | Out |", table)
+        self.assertIn(
+            "| [Steam Vents](https://scryfall.com/card/grn/257/steam-vents) "
+            "| [Portent](https://scryfall.com/card/dsc/74/portent) |",
+            table,
+        )
+
+    def test_reports_quantity_changes_and_pads_uneven_columns(self):
+        table = self.render(
+            "14x Island [Land]\n1x Portent [Card Selection]\n1x Aetherize [Interaction]\n",
+            "16x Island [Land]\n",
+        )
+
+        self.assertIn("[Island](https://scryfall.com/card/blb/278/island) ×2", table)
+        self.assertIn("| — |", table)
+
+    def test_reports_when_nothing_changed(self):
+        table = self.render("14x Island [Land]\n", "14x Island [Land]\n")
+
+        self.assertIn("No card changes", table)
 
 
 class ValidateDeckTests(unittest.TestCase):

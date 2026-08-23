@@ -29,4 +29,16 @@ When the task is done:
 2. `git push -u origin HEAD`
 3. Open a ready-for-review PR (`draft: false`) summarizing what changed
 
+Create the PR with `gh pr create --base main --head <branch>` and confirm it is not a draft. If `gh` is missing or unauthenticated, say so and return `https://github.com/<owner>/<repo>/compare/main...<branch>?expand=1` instead.
+
 Return the PR URL.
+
+## Deck modification PRs
+
+When a PR changes an existing `decks/<deck>/decklist.txt`, the body must include a Cards in / Cards out table with every card linked to Scryfall. Generate it rather than writing it by hand:
+
+```bash
+python3 .agents/skills/deck-workspace/scripts/deck_change_table.py decks/<deck> --base origin/main
+```
+
+Place the table under a `## Cards in / Cards out` heading, one row per swap, and explain the reasoning in prose around it. A deck PR that only adds a new deck does not need the table.

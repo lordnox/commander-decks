@@ -170,7 +170,14 @@ python3 .agents/skills/deck-workspace/scripts/validate_deck.py \
   decks/<bracket>_<deck-name>
 ```
 
-Add `--require-decisions` when the deck must include a card-by-card decision log. The validator also checks primer sort, assessment placement, Archidekt currency, and category-table placement. Run the test suite for workflow changes with `python3 -m unittest discover -s tests -v`.
+Decision logs are required by default; pass `--no-require-decisions` only for a temporary import. The validator also checks primer sort, assessment placement, Archidekt currency, and category-table placement. Run the test suite for workflow changes with `python3 -m unittest discover -s tests -v`.
+
+When a change swaps cards in an existing deck, generate the Scryfall-linked table for the pull request body:
+
+```bash
+python3 .agents/skills/deck-workspace/scripts/deck_change_table.py \
+  decks/<bracket>_<deck-name> --base origin/main
+```
 
 ## Repository layout
 
