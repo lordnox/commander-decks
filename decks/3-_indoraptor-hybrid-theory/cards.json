@@ -3,6 +3,7 @@
     {
       "cache": "cards/0dd4bc7b-2ddf-4ca4-912c-59685c41c3b5.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Enrage",
           "Bloodthirst",
@@ -30,6 +31,7 @@
     {
       "cache": "cards/e3d82066-d8b9-47bf-8821-1370c506970b.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Indestructible",
           "Suspect"
@@ -56,6 +58,7 @@
     {
       "cache": "cards/cf8a0782-f545-445e-abac-d9063dad696b.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{2}{G}",
         "oracle_text": "Choose target creature you control. Whenever that creature deals combat damage to a player or planeswalker this turn, draw that many cards.",
@@ -77,6 +80,7 @@
     {
       "cache": "cards/8d47b78b-11cc-4351-91d6-c891eb63dd98.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [
           "Enchant"
         ],
@@ -100,6 +104,7 @@
     {
       "cache": "cards/13a8b19b-23bd-4e45-81ff-23371665e4fc.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{2}{B}",
         "oracle_text": "{T}: Until end of turn, target creature gains \"Whenever this creature is dealt damage, you draw that many cards and lose that much life.\" That creature's controller may have this artifact deal 1 damage to it. Activate only as a sorcery.",
@@ -121,6 +126,7 @@
     {
       "cache": "cards/80bb9ce4-1f3c-42ca-b75f-9a6b2f42073b.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Enrage"
         ],
@@ -146,6 +152,7 @@
     {
       "cache": "cards/70ed2052-f03c-461d-b32a-8835c97c559f.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Umbra armor",
           "Enchant"
@@ -172,6 +179,7 @@
     {
       "cache": "cards/4d60dae0-7be4-4859-99ac-781a27bcfd93.json",
       "card": {
+        "cmc": 5.0,
         "keywords": [],
         "mana_cost": "{3}{G}{G}",
         "oracle_text": "When this enchantment enters, put X +1/+1 counters on target creature, where X is that creature's power.\nAt the beginning of your end step, draw two cards if you control the creature with the greatest power or tied for the greatest power.",
@@ -193,6 +201,7 @@
     {
       "cache": "cards/c91b0dd5-4c63-49a5-95bf-c342b6ff2076.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{B}{G}",
         "oracle_text": "When Vraska Joins Up enters, put a deathtouch counter on each creature you control.\nWhenever a legendary creature you control deals combat damage to a player, draw a card.",
@@ -214,6 +223,7 @@
     {
       "cache": "cards/4b23a89c-89ba-41ad-b894-ec02221689eb.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{R}",
         "oracle_text": "Death Spark deals 1 damage to any target.\nAt the beginning of your upkeep, if this card is in your graveyard with a creature card directly above it, you may pay {1}. If you do, return this card to your hand.",
@@ -235,6 +245,7 @@
     {
       "cache": "cards/a4374baa-a846-4b34-afbf-6bb7feb4648c.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Haste",
           "Defender"
@@ -261,6 +272,7 @@
     {
       "cache": "cards/3c22e031-4804-4c31-bd3c-c3f29d456b34.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{2}{R}{R}",
         "oracle_text": "Choose three. You may choose the same mode more than once.\n• Fiery Confluence deals 1 damage to each creature.\n• Fiery Confluence deals 2 damage to each opponent.\n• Destroy target artifact.",
@@ -282,8 +294,37 @@
       "submitted_name": "Fiery Confluence"
     },
     {
+      "cache": "cards/113c3024-c3bd-4c3a-8c08-3828646d9ca2.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{R}",
+        "oracle_text": "When this creature enters, you may search your library for a Dinosaur card, reveal it, then shuffle and put that card on top.\nWhenever a Dinosaur you control enters, you may have this creature deal 1 damage to each creature.",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Creature — Human Soldier"
+      },
+      "categories": [
+        "Cuts",
+        "Rooaarrr!",
+        "Utility"
+      ],
+      "category_source": "decklist",
+      "name": "Forerunner of the Empire",
+      "oracle_id": "113c3024-c3bd-4c3a-8c08-3828646d9ca2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rix/102/forerunner-of-the-empire?utm_source=api",
+      "submitted_categories": [
+        "Cuts",
+        "Rooaarrr!",
+        "Utility"
+      ],
+      "submitted_name": "Forerunner of the Empire"
+    },
+    {
       "cache": "cards/6f6ac768-4c97-44db-933a-f2d442e7f665.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{R}",
         "oracle_text": "Sacrifice this creature: It deals 1 damage to target creature.",
@@ -307,6 +348,7 @@
     {
       "cache": "cards/9afb3b6e-4909-4efa-aa79-81c0229411c9.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{R/P}",
         "oracle_text": "({R/P} can be paid with either {R} or 2 life.)\nGut Shot deals 1 damage to any target.",
@@ -328,6 +370,7 @@
     {
       "cache": "cards/5facb256-b993-43f8-b971-b3a59a7434bf.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{2}{B}{B}",
         "oracle_text": "Whenever a permanent other than this enchantment is put into a graveyard from the battlefield, this enchantment deals 1 damage to each creature and each player.\nWhen no creatures are on the battlefield, sacrifice this enchantment.",
@@ -349,6 +392,7 @@
     {
       "cache": "cards/6f9bc0c6-1792-4771-a839-95a22d9c699a.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [
           "Fight",
           "Enchant"
@@ -375,6 +419,7 @@
     {
       "cache": "cards/7efd5d62-6da2-428a-98e3-5b842f668656.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{R}",
         "oracle_text": "Sacrifice this creature: It deals 1 damage to any target.",
@@ -398,6 +443,7 @@
     {
       "cache": "cards/c75ec3c6-2786-4386-b758-ac03610f2a99.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Enchant"
         ],
@@ -421,6 +467,7 @@
     {
       "cache": "cards/dafe63ef-f3d6-45e7-877a-573da92ba85e.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{2}{B}{B}",
         "oracle_text": "At the beginning of the end step, if no creatures are on the battlefield, sacrifice this enchantment.\n{B}: This enchantment deals 1 damage to each creature and each player.",
@@ -442,6 +489,7 @@
     {
       "cache": "cards/5feedfb0-30e6-400d-9e28-d541ea1aa14e.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{2}{B}",
         "oracle_text": "At the beginning of your upkeep, this creature deals 1 damage to each creature and each player.\nWhen this creature dies, it deals 1 damage to each creature and each player.",
@@ -465,6 +513,7 @@
     {
       "cache": "cards/9ac57a10-3402-4656-9079-f713884cde35.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{2}{R}{R}",
         "oracle_text": "At the beginning of the end step, if no creatures are on the battlefield, sacrifice this enchantment.\n{R}: This enchantment deals 1 damage to each creature and each player.",
@@ -486,6 +535,7 @@
     {
       "cache": "cards/81036c9f-fe0a-45a7-bcd5-0d344f31055a.json",
       "card": {
+        "cmc": 1.0,
         "faces": [
           {
             "mana_cost": "{R}",
@@ -501,6 +551,9 @@
           }
         ],
         "keywords": [],
+        "produced_mana": [
+          "R"
+        ],
         "type_line": "Instant // Land"
       },
       "categories": [
@@ -519,6 +572,7 @@
     {
       "cache": "cards/7eaf3fd0-e141-42c2-874d-b471f4a94ad2.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{2}{B}",
         "oracle_text": "Swift Demise deals 1 damage to target creature. Then destroy each creature you don't control that was dealt damage this turn.",
@@ -542,6 +596,7 @@
     {
       "cache": "cards/ce65c6ed-e5d4-48d8-b569-4e2774b2912c.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{1}{B}{B}",
         "oracle_text": "At the beginning of the end step, if no creatures are on the battlefield, sacrifice this enchantment.\n{B}: This enchantment deals 1 damage to each creature and each player. Activate no more times each turn than the number of snow Swamps you control.",
@@ -563,6 +618,7 @@
     {
       "cache": "cards/f5f4dd28-f4ae-4d39-b9b8-6ebfd63c93fe.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [
           "Equip"
         ],
@@ -588,6 +644,7 @@
     {
       "cache": "cards/a1b66fbf-14a3-4582-8414-53f432f96dad.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Enchant"
         ],
@@ -613,6 +670,7 @@
     {
       "cache": "cards/8b27326f-e7b8-4a4d-b589-df459246d19a.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [
           "Equip"
         ],
@@ -640,6 +698,7 @@
     {
       "cache": "cards/1943cbb0-2b12-4450-90af-060b8c8627c3.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{R}{G}",
         "oracle_text": "Choose two —\n• Your opponents can't gain life this turn.\n• Atarka's Command deals 3 damage to each opponent.\n• You may put a land card from your hand onto the battlefield.\n• Creatures you control get +1/+1 and gain reach until end of turn.",
@@ -663,6 +722,7 @@
     {
       "cache": "cards/bb8cccc8-e56f-42fa-a0d7-fc889b5e1c7b.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{R}",
         "oracle_text": "Boltwave deals 3 damage to each opponent.",
@@ -684,6 +744,7 @@
     {
       "cache": "cards/28479aa8-d1cd-421a-8bbb-0594bb4dd410.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{R}",
         "oracle_text": "Flame Rift deals 4 damage to each player.",
@@ -705,6 +766,7 @@
     {
       "cache": "cards/88cd43ce-b168-45a4-8d29-6cac5ab42857.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Enchant",
           "Double"
@@ -729,6 +791,7 @@
     {
       "cache": "cards/bdfcf7df-8c06-4abe-af41-eccabb9fc2c8.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Equip"
         ],
@@ -752,6 +815,7 @@
     {
       "cache": "cards/4b8d7d30-a97f-4169-a860-02783ca622ea.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{2}{G}",
         "oracle_text": "Whenever a creature you control is dealt damage, put a +1/+1 counter on it. (It must survive the damage to get the counter.)",
@@ -773,6 +837,7 @@
     {
       "cache": "cards/929117cd-caa6-402b-9d7b-1f684d75695c.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Trample",
           "Double",
@@ -800,6 +865,7 @@
     {
       "cache": "cards/fc0707c7-d504-4ccf-a0d2-3eb6e26e7a57.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle.",
@@ -821,9 +887,13 @@
     {
       "cache": "cards/04b7362d-0490-4cb0-b5d7-2a7732f659ce.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped.\nWhen this land enters, exile target player's graveyard.\n{T}: Add {B}.",
+        "produced_mana": [
+          "B"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -844,9 +914,14 @@
     {
       "cache": "cards/dfac0258-e148-4d7d-8ded-fc2466d9caa6.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {R} or {G}.)\nThis land enters tapped unless you control two or more basic lands.",
+        "produced_mana": [
+          "G",
+          "R"
+        ],
         "type_line": "Land — Mountain Forest"
       },
       "categories": [
@@ -865,9 +940,17 @@
     {
       "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -886,9 +969,14 @@
     {
       "cache": "cards/f6d24565-5b32-4eff-b2e0-6e2c25516ff0.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped unless you control two or more other lands.\n{T}: Add {B} or {G}.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -907,9 +995,14 @@
     {
       "cache": "cards/e2a37967-4212-4553-9f77-bcb613405807.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped unless you control two or more other lands.\n{T}: Add {B} or {R}.",
+        "produced_mana": [
+          "B",
+          "R"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -928,9 +1021,14 @@
     {
       "cache": "cards/819e1765-8325-4e6f-89c1-63ea86de369f.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {B} or {R}.",
+        "produced_mana": [
+          "B",
+          "R"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -949,6 +1047,7 @@
     {
       "cache": "cards/5548ff43-e5f6-4a63-8562-a2b1de06d6f5.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "When this land enters, sacrifice it. When you do, search your library for a basic Swamp, Mountain, or Forest card, put it onto the battlefield tapped, then shuffle and you gain 1 life.",
@@ -970,9 +1069,14 @@
     {
       "cache": "cards/185c70c1-8403-4ae5-b45d-3679d4ee092a.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped unless you control two or more other lands.\n{T}: Add {R} or {G}.",
+        "produced_mana": [
+          "G",
+          "R"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -991,9 +1095,14 @@
     {
       "cache": "cards/9516c4c1-d72d-434f-97e1-6a862434a169.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped unless you control a Mountain or a Forest.\n{T}: Add {R} or {G}.",
+        "produced_mana": [
+          "G",
+          "R"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1012,9 +1121,15 @@
     {
       "cache": "cards/a3292406-3f49-42d6-a547-e43dd5797f84.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped.\n{T}: Add {B}, {R}, or {G}.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1033,9 +1148,14 @@
     {
       "cache": "cards/390f1b56-264e-4336-83be-dc1fe79bfdcf.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {B} or {R}.)\nThis land enters tapped unless you control two or more basic lands.",
+        "produced_mana": [
+          "B",
+          "R"
+        ],
         "type_line": "Land — Swamp Mountain"
       },
       "categories": [
@@ -1054,9 +1174,13 @@
     {
       "cache": "cards/5f0d3be8-e63e-4ade-ae58-6b0c14f2ce6d.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {G}.)",
+        "produced_mana": [
+          "G"
+        ],
         "type_line": "Basic Snow Land — Forest"
       },
       "categories": [
@@ -1075,9 +1199,13 @@
     {
       "cache": "cards/ca9f660b-e07d-4f42-a46e-abd0ca72510c.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {R}.)",
+        "produced_mana": [
+          "R"
+        ],
         "type_line": "Basic Snow Land — Mountain"
       },
       "categories": [
@@ -1096,9 +1224,13 @@
     {
       "cache": "cards/d8239a86-7184-4005-ba1e-2dddcd756c47.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {B}.)",
+        "produced_mana": [
+          "B"
+        ],
         "type_line": "Basic Snow Land — Swamp"
       },
       "categories": [
@@ -1117,9 +1249,14 @@
     {
       "cache": "cards/45fe016e-1a09-410c-bbe3-4663ba06c5b7.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {R} or {G}.",
+        "produced_mana": [
+          "G",
+          "R"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1138,9 +1275,14 @@
     {
       "cache": "cards/7c69f718-acc8-4851-8e5d-0cbaaa86192c.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {B} or {G}.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -1159,9 +1301,13 @@
     {
       "cache": "cards/db6174d7-211d-4817-b8e4-8384594c83f9.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "Each land is a Swamp in addition to its other land types.",
+        "produced_mana": [
+          "B"
+        ],
         "type_line": "Legendary Land"
       },
       "categories": [
@@ -1180,9 +1326,14 @@
     {
       "cache": "cards/40544d12-0391-4a61-af95-9b8ec01ed8fc.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {B} or {G}.)\nThis land enters tapped unless you control two or more basic lands.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Land — Swamp Forest"
       },
       "categories": [
@@ -1201,6 +1352,7 @@
     {
       "cache": "cards/6587a463-a108-4854-b6d1-944e89b8c8a4.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Forest card, put it onto the battlefield, then shuffle.",
@@ -1222,11 +1374,17 @@
     {
       "cache": "cards/f7e7b78c-c769-4720-8585-1874773eb342.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [
           "Cycling"
         ],
         "mana_cost": "",
         "oracle_text": "({T}: Add {B}, {R}, or {G}.)\nThis land enters tapped.\nCycling {3} ({3}, Discard this card: Draw a card.)",
+        "produced_mana": [
+          "B",
+          "G",
+          "R"
+        ],
         "type_line": "Land — Swamp Mountain Forest"
       },
       "categories": [
@@ -1245,9 +1403,17 @@
     {
       "cache": "cards/0bc7f093-bef0-4f1a-852c-4b75ebf54838.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{2}",
         "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "type_line": "Artifact"
       },
       "categories": [
@@ -1266,12 +1432,20 @@
     {
       "cache": "cards/7c06a368-3306-48e0-825e-a8fdc81fa343.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Genomic Enhancement"
         ],
         "mana_cost": "{1}{G}",
         "oracle_text": "Genomic Enhancement — {T}: Add one mana of any color. If this mana is spent to cast a creature spell, that creature enters with an additional +1/+1 counter on it.",
         "power": "1",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "toughness": "3",
         "type_line": "Creature — Human Tyranid Wizard"
       },
@@ -1293,12 +1467,20 @@
     {
       "cache": "cards/d3a0b660-358c-41bd-9cd2-41fbf3491b1a.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [
           "Flying"
         ],
         "mana_cost": "{G}",
         "oracle_text": "Flying\n{T}: Add one mana of any color.",
         "power": "0",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "toughness": "1",
         "type_line": "Creature — Bird"
       },
@@ -1318,10 +1500,18 @@
     {
       "cache": "cards/6deba6e8-077b-4602-86af-64db766fbbd9.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{G}",
         "oracle_text": "This creature gets +2/+2 as long as you control a Dinosaur.\n{T}: Add one mana of any color.",
         "power": "1",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "toughness": "1",
         "type_line": "Creature — Human Druid"
       },
@@ -1341,6 +1531,7 @@
     {
       "cache": "cards/495e52e6-4c2b-4574-9474-eadbdcc8b4ac.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{G}",
         "oracle_text": "Search your library for a Plains, Island, Swamp, or Mountain card, put it onto the battlefield tapped, then shuffle.",
@@ -1362,6 +1553,7 @@
     {
       "cache": "cards/e9319f13-1f2b-429c-9d61-e58a3cbec86a.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{R}{G}",
         "oracle_text": "Each spell you cast that's red or green costs {1} less to cast.",
@@ -1385,9 +1577,14 @@
     {
       "cache": "cards/1cf51f50-24e4-48d0-95b3-1dad3ffa4bf5.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{2}",
         "oracle_text": "{1}, {T}: Add {B}{G}.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Artifact"
       },
       "categories": [
@@ -1406,9 +1603,14 @@
     {
       "cache": "cards/d36e0c9f-c025-4dfe-9644-9cad2461ce38.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{2}",
         "oracle_text": "{1}, {T}: Add {R}{G}.",
+        "produced_mana": [
+          "G",
+          "R"
+        ],
         "type_line": "Artifact"
       },
       "categories": [
@@ -1427,6 +1629,7 @@
     {
       "cache": "cards/78826359-fe63-44ad-adc4-a17ffcd710e4.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{G}",
         "oracle_text": "Search your library for a Forest card, put that card onto the battlefield, then shuffle.",
@@ -1448,9 +1651,14 @@
     {
       "cache": "cards/3adb7681-977f-4a32-9ec8-51481b958268.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{2}",
         "oracle_text": "{1}, {T}: Add {B}{R}.",
+        "produced_mana": [
+          "B",
+          "R"
+        ],
         "type_line": "Artifact"
       },
       "categories": [
@@ -1469,6 +1677,7 @@
     {
       "cache": "cards/8539f295-5d58-4436-a73a-b9277c4c7795.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{G}",
         "oracle_text": "Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.",
@@ -1490,6 +1699,7 @@
     {
       "cache": "cards/2a86b70b-34ca-45df-8aa1-c3fb2da72dc3.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Enrage"
         ],
@@ -1515,11 +1725,19 @@
     {
       "cache": "cards/00d8efa6-a2d9-4249-8da7-b45173675329.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [
           "Enchant"
         ],
         "mana_cost": "{G}",
         "oracle_text": "Enchant Forest\nAs this Aura enters, choose a color.\nWhenever enchanted Forest is tapped for mana, its controller adds an additional one mana of the chosen color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "type_line": "Enchantment — Aura"
       },
       "categories": [
@@ -1538,11 +1756,15 @@
     {
       "cache": "cards/706ae742-1807-44b7-a4fa-f2e26f61519a.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [
           "Enchant"
         ],
         "mana_cost": "{G}",
         "oracle_text": "Enchant land\nWhenever enchanted land is tapped for mana, its controller adds an additional {G}.",
+        "produced_mana": [
+          "G"
+        ],
         "type_line": "Enchantment — Aura"
       },
       "categories": [
@@ -1561,6 +1783,7 @@
     {
       "cache": "cards/7e10c141-dfb0-409b-b8c9-cdfe93b42a06.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Flashback",
           "Mill"
@@ -1587,6 +1810,7 @@
     {
       "cache": "cards/bffdfe7b-f17a-41b6-a460-80280fe497d4.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Escalate"
         ],
@@ -1610,6 +1834,7 @@
     {
       "cache": "cards/2da232d8-580f-4116-b977-2c59cd21b5a4.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{R}{G}",
         "oracle_text": "Choose one —\n• Destroy target artifact.\n• Destroy target enchantment.\n• Destroy target artifact and target enchantment.",
@@ -1631,6 +1856,7 @@
     {
       "cache": "cards/8bd6dea2-2fdd-482f-9fe8-6f3eeed13872.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Enrage"
         ],
@@ -1656,6 +1882,7 @@
     {
       "cache": "cards/2d21dc80-2900-4dc3-9657-f17b50716481.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Equip"
         ],
@@ -1681,6 +1908,7 @@
     {
       "cache": "cards/acfa77fd-3610-4f12-9c3c-bd860ce91700.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{1}{R}{G}",
         "oracle_text": "Creature spells you control can't be countered.\nNontoken creatures you control have riot. (They enter with your choice of a +1/+1 counter or haste.)",
@@ -1704,6 +1932,7 @@
     {
       "cache": "cards/95a53dd7-76dc-46f1-8833-fafd02ba49c4.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{B}",
         "oracle_text": "Target creature gets +1/+0 and gains infect until end of turn. (It deals damage to creatures in the form of -1/-1 counters and to players in the form of poison counters.)",
@@ -1727,6 +1956,7 @@
     {
       "cache": "cards/64de050c-7167-4ebd-8584-f064d8be3302.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{B}",
         "oracle_text": "Until end of turn, target creature gets +1/+0 and gains indestructible. (Damage and effects that say \"destroy\" don't destroy it.)",
@@ -1750,6 +1980,7 @@
     {
       "cache": "cards/c4614b6c-5e77-465f-996f-504121ea8eff.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Equip",
           "Flash"
@@ -1776,6 +2007,7 @@
     {
       "cache": "cards/2cb95721-56c8-4008-8055-579a5a97fc8b.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{G}",
         "oracle_text": "Put a +1/+1 counter on target creature you control. It gains reach, trample, hexproof, and indestructible until end of turn. (It can't be the target of spells or abilities your opponents control. Damage and effects that say \"destroy\" don't destroy it.)",
@@ -1797,6 +2029,7 @@
     {
       "cache": "cards/96c2d71e-0fc9-42aa-bc6b-6d0ae3f66f8b.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Ward"
         ],
@@ -1822,6 +2055,7 @@
     {
       "cache": "cards/8dd6d060-d023-48a6-85cb-7a5521b6257b.json",
       "card": {
+        "cmc": 1.0,
         "faces": [
           {
             "mana_cost": "{B/G}",
@@ -1837,6 +2071,10 @@
           }
         ],
         "keywords": [],
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Instant // Land"
       },
       "categories": [
@@ -1855,6 +2093,7 @@
     {
       "cache": "cards/bb2b324c-970a-4920-884e-c92ba49669f0.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{G}",
         "oracle_text": "Target permanent you control gains hexproof and indestructible until end of turn. You gain 2 life. (A permanent with hexproof and indestructible can't be the target of spells or abilities your opponents control. Damage and effects that say \"destroy\" don't destroy it.)",
@@ -1876,6 +2115,7 @@
     {
       "cache": "cards/fffa9334-3576-4f70-9605-2ad062cdbc69.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Cycling"
         ],
@@ -1899,6 +2139,7 @@
     {
       "cache": "cards/9d581188-ce80-494e-bd38-f411e1f4efb5.json",
       "card": {
+        "cmc": 3.0,
         "faces": [
           {
             "mana_cost": "{2}{G}",
@@ -1915,6 +2156,9 @@
         ],
         "keywords": [
           "Fight"
+        ],
+        "produced_mana": [
+          "G"
         ],
         "type_line": "Sorcery // Land"
       },
@@ -1936,6 +2180,7 @@
     {
       "cache": "cards/ce148a0c-6c63-49d5-a156-99efae4e367a.json",
       "card": {
+        "cmc": 1.0,
         "faces": [
           {
             "mana_cost": "{G}",
@@ -1951,6 +2196,9 @@
           }
         ],
         "keywords": [],
+        "produced_mana": [
+          "G"
+        ],
         "type_line": "Instant // Land"
       },
       "categories": [
@@ -1969,6 +2217,7 @@
     {
       "cache": "cards/d2075f58-b0e9-4e85-b7e6-0523a27a1d5b.json",
       "card": {
+        "cmc": 3.0,
         "faces": [
           {
             "mana_cost": "{2}{G}",
@@ -1984,6 +2233,9 @@
           }
         ],
         "keywords": [],
+        "produced_mana": [
+          "G"
+        ],
         "type_line": "Sorcery // Land"
       },
       "categories": [
@@ -2002,6 +2254,7 @@
     {
       "cache": "cards/727f3201-1cfc-4ab2-9dfe-be4f7251f42f.json",
       "card": {
+        "cmc": 3.0,
         "faces": [
           {
             "mana_cost": "{2}{B}",
@@ -2019,6 +2272,9 @@
           }
         ],
         "keywords": [],
+        "produced_mana": [
+          "B"
+        ],
         "type_line": "Creature — Goblin // Land"
       },
       "categories": [
@@ -2037,6 +2293,7 @@
     {
       "cache": "cards/fd2617fe-1bf3-40c3-9da5-841e63f4d62d.json",
       "card": {
+        "cmc": 0.0,
         "faces": [
           {
             "mana_cost": "",
@@ -2056,6 +2313,13 @@
         "keywords": [
           "Trample"
         ],
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "type_line": "Token Creature — Dinosaur // Token Artifact — Treasure"
       },
       "categories": [
@@ -2072,14 +2336,14 @@
       "submitted_name": "Treasure"
     }
   ],
-  "categorized_cards": 88,
-  "generated_at": "2026-08-23T23:24:44.687232+00:00",
+  "categorized_cards": 89,
+  "generated_at": "2026-08-23T23:51:41.265740+00:00",
   "maybeboard_cards": 1,
   "maybeboard_unique_cards": 1,
-  "resolved_unique_cards": 88,
+  "resolved_unique_cards": 89,
   "schema_version": 3,
-  "source": "decks/unrated_indoraptor-hybrid-theory/decklist.txt",
-  "total_cards": 99,
-  "unique_cards": 87,
+  "source": "decks/3-_indoraptor-hybrid-theory/decklist.txt",
+  "total_cards": 100,
+  "unique_cards": 88,
   "unresolved": []
 }

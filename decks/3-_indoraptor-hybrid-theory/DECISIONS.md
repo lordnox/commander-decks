@@ -10,8 +10,9 @@
 - **Thickest in the Thicket** — Doubles a creature's power in counters on entry and draws two per turn while you control the largest creature.
 - **Vraska Joins Up** — Deathtouch counters make the deck's 1-damage pings lethal to any creature, and legendary combat damage draws.
 - **Death Spark** — One-mana ping that recurs from the graveyard, giving a repeatable enrage trigger without a permanent on board.
-- **Electric Seaweed** — Untapped ping outlet that combos with Cacophodon and Rite of Passage into an arbitrarily large damage loop.
+- **Electric Seaweed** — Untapped ping outlet that combos with Cacophodon and Rite of Passage to put arbitrarily many counters on Cacophodon.
 - **Fiery Confluence** — Flexible: bloodthirst fuel before the commander, artifact removal, or a one-sided sweep alongside Rite of Passage.
+- **Forerunner of the Empire** — Puts Cacophodon, Ripjaw Raptor, or Ranging Raptors on top of the library, then turns later Dinosaur entries into optional one-damage triggers across the board.
 - **Frostling** — Cheap sacrificial ping for an early enrage trigger or to finish a small creature.
 - **Gut Shot** — Free enrage trigger, which matters for the turn you cast the commander with no mana left.
 - **Last Laugh** — Punishing repeatable sweeper that grows your board through Rite of Passage while shrinking everyone else's.
