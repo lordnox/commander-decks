@@ -237,18 +237,36 @@ def write_json(path: Path, value: object, *, sort_keys: bool = True) -> None:
     temporary.replace(path)
 
 
+def plays_as_land(card: dict) -> bool:
+    """Report whether a card can be played as a land from hand.
+
+    A modal double-faced card counts because either face may be played; a
+    transforming card such as Primal Amulet does not, because its land face is
+    only reachable after it enters as a spell.
+    """
+    faces = card.get("card_faces")
+    if not faces:
+        return "Land" in (card.get("type_line") or "")
+    if card.get("layout") == "modal_dfc":
+        return any("Land" in (face.get("type_line") or "") for face in faces)
+    return "Land" in (faces[0].get("type_line") or "")
+
+
+def has_land_category(categories: list[str]) -> bool:
+    return any(category.casefold() == "land" for category in categories)
+
+
 def infer_categories(card: dict) -> list[str]:
     """Provide conservative universal defaults for later agent review."""
     faces = card.get("card_faces") or [card]
     text = " ".join(face.get("oracle_text", "") for face in faces).casefold()
-    type_line = " ".join(face.get("type_line", "") for face in faces)
     categories: list[str] = []
 
     def add(category: str) -> None:
         if category not in categories:
             categories.append(category)
 
-    if "Land" in type_line:
+    if plays_as_land(card):
         add("land")
     if re.search(r"\b(add [\{a-z]|search your library for (?:a basic|up to .* land|a .* land))", text):
         add("ramp")
@@ -319,6 +337,25 @@ def category_list(value: object) -> list[str]:
     return categories or ["other"]
 
 
+def deck_land_label(resolved: list[dict]) -> str:
+    """Reuse the capitalization this deck already gives its land category."""
+    for entry in resolved:
+        for category in entry["categories"]:
+            if category.casefold() == "land":
+                return category
+    return "Land"
+
+
+def apply_land_categories(resolved: list[dict], cards_by_oracle: dict[str, dict]) -> None:
+    """Count every card playable as a land, including modal faces, as a land."""
+    label = deck_land_label(resolved)
+    for entry in resolved:
+        card = cards_by_oracle.get(entry["oracle_id"], {})
+        if not plays_as_land(card) or has_land_category(entry["categories"]):
+            continue
+        entry["categories"] = [*entry["categories"], label]
+
+
 @contextlib.contextmanager
 def repository_lock(repo_root: Path):
     """Prevent concurrent resolver runs from racing on shared registries."""
@@ -362,6 +399,7 @@ def resolve_deck(decklist: Path, repo_root: Path, *, refresh: bool = False) -> i
 
     submitted, ignored = parse_decklist(decklist)
     resolved: list[dict] = []
+    cards_by_oracle: dict[str, dict] = {}
     unresolved: list[dict] = list(ignored)
     cards_by_key: dict[str, dict] = {}
     pending: list[dict] = []
@@ -461,6 +499,8 @@ def resolve_deck(decklist: Path, repo_root: Path, *, refresh: bool = False) -> i
         })
         universal["name"] = canonical_name
         universal["categories"] = category_list(universal.get("categories"))
+        if plays_as_land(card) and not has_land_category(universal["categories"]):
+            universal["categories"].append("land")
 
         override = override_cards.get(oracle_id)
         if override is not None:
@@ -473,6 +513,7 @@ def resolve_deck(decklist: Path, repo_root: Path, *, refresh: bool = False) -> i
             categories = universal["categories"]
             category_source = "universal"
 
+        cards_by_oracle[oracle_id] = card
         resolved.append({
             "quantity": entry["quantity"],
             "name": canonical_name,
@@ -485,6 +526,8 @@ def resolve_deck(decklist: Path, repo_root: Path, *, refresh: bool = False) -> i
             "scryfall_uri": card.get("scryfall_uri"),
             "card": compact_card_details(card),
         })
+
+    apply_land_categories(resolved, cards_by_oracle)
 
     now = datetime.now(timezone.utc).isoformat()
     if index != original_index:

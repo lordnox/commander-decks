@@ -73,6 +73,7 @@ Every card must have one or more categories.
 - Multiple categories are allowed, such as `["ramp", "artifact-synergy"]`.
 - Reuse concise kebab-case category names.
 - Categories may describe universal functions such as `ramp`, `card-draw`, `removal`, `board-wipe`, `protection`, `recursion`, `tutor`, `counterspell`, `token-production`, `land`, or `win-condition`.
+- Any card playable as a land keeps a land category, including a modal double-faced card whose back face is a land: it counts toward the deck's land total alongside its spell role. The resolver adds the missing label and the validator rejects a deck without it. A transforming card such as Primal Amulet is not a land, because its land face is only reachable after it enters as a spell.
 - Do not force a global taxonomy when a clearer functional label is useful.
 
 When a card has a different role in one deck, create or edit `decks/<prefix><slug>/category-overrides.json`:
