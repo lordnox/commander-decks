@@ -21,7 +21,7 @@ PRIMER_LINK = re.compile(
     r"^- `(?P<badge>[^`]+)` \[(?P<label>[^\]]+)\]\((?P<path>decks/[^)]+/README\.md)\)\s*$"
 )
 PRIMER_LINE = re.compile(r"^- .*\]\(decks/[^)]+/README\.md\)\s*$")
-PRIMER_BADGE = re.compile(r"^B(?P<bracket>\d+)(?P<modifier>[−+-]?)$")
+PRIMER_BADGE = re.compile(r"^(?P<bracket>\d+)(?P<modifier>[−+-]?)$")
 QUANTITY_SUFFIX = re.compile(r"\s+[×x]\s*\d+\s*$", re.IGNORECASE)
 
 
@@ -117,7 +117,7 @@ def primer_errors(root_readme: Path) -> list[str]:
     if unbadged:
         errors.append(
             "root README Deck primers entries must start with a bracket badge, "
-            "for example - `B3+` [Deck name](decks/3+_deck-name/README.md)"
+            "for example - `3+` [Deck name](decks/3+_deck-name/README.md)"
         )
     entries = primer_links(text)
     if entries and entries != sorted(entries, key=primer_sort_key):
