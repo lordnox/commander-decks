@@ -289,7 +289,7 @@ class ValidateDeckTests(unittest.TestCase):
         )
         (repo / "README.md").write_text(
             "## Deck primers\n\n"
-            "- `B2` [Test](decks/test/README.md)\n",
+            "- `2` [Test](decks/test/README.md)\n",
             encoding="utf-8",
         )
 
@@ -392,8 +392,8 @@ class ValidateDeckTests(unittest.TestCase):
             repo, deck_dir = self.make_workspace(temporary)
             (repo / "README.md").write_text(
                 "## Deck primers\n\n"
-                "- `B3` [Zebra](decks/test/README.md)\n"
-                "- `B3-` [Apple](decks/other/README.md)\n",
+                "- `3` [Zebra](decks/test/README.md)\n"
+                "- `3-` [Apple](decks/other/README.md)\n",
                 encoding="utf-8",
             )
             errors, _ = validate_deck.validate(deck_dir, repo)
