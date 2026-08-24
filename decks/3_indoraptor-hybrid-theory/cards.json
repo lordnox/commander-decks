@@ -2342,7 +2342,7 @@
   "maybeboard_unique_cards": 1,
   "resolved_unique_cards": 89,
   "schema_version": 3,
-  "source": "decks/3-_indoraptor-hybrid-theory/decklist.txt",
+  "source": "decks/3_indoraptor-hybrid-theory/decklist.txt",
   "total_cards": 100,
   "unique_cards": 88,
   "unresolved": []
