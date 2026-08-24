@@ -17,6 +17,8 @@ DECISION_LINE = re.compile(
     r"^-\s+\*\*(?P<name>.+?)\*\*\s*(?:—|-)\s+(?P<decision>\S.+)$",
     re.MULTILINE,
 )
+CARDS_IN_HEADING = re.compile(r"^##\s+Cards in\s*$", re.IGNORECASE | re.MULTILINE)
+MARKDOWN_HEADING = re.compile(r"^##\s+", re.MULTILINE)
 PRIMER_LINK = re.compile(
     r"^- `(?P<badge>[^`]+)` \[(?P<label>[^\]]+)\]\((?P<path>decks/[^)]+/README\.md)\)\s*$"
 )
@@ -51,6 +53,15 @@ def allows_multiple(card: dict) -> bool:
     )
 
 
+def cards_in_markdown(text: str) -> str:
+    match = CARDS_IN_HEADING.search(text)
+    if not match:
+        return text
+    start = match.end()
+    next_heading = MARKDOWN_HEADING.search(text, start)
+    return text[start : next_heading.start()] if next_heading else text[start:]
+
+
 def decision_names(path: Path) -> list[str]:
     if path.suffix == ".json":
         data = read_json(path)
@@ -64,7 +75,7 @@ def decision_names(path: Path) -> list[str]:
         return []
 
     names = []
-    for match in DECISION_LINE.finditer(path.read_text(encoding="utf-8")):
+    for match in DECISION_LINE.finditer(cards_in_markdown(path.read_text(encoding="utf-8"))):
         names.append(QUANTITY_SUFFIX.sub("", match.group("name")).strip())
     return names
 

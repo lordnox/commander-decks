@@ -166,5 +166,6 @@ Whenever an assessment is performed or refreshed:
 4. Update the root README link, the `source` path in `cards.json`, and every other repository reference to the old directory.
 5. Keep the sentence and prefix current when the deck changes.
 6. Run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<N><modifier>_<slug>` and fix path, README, and `source` errors before reporting.
+7. Record the assessment argument in `DECISIONS.md` under `## Talks` or `## Primer`: why this bracket, which lines set the exceptional turn, and which Oracle readings were checked.
 
 Mention the specific cards or packages that materially determine the result. Avoid generic numerical power scales unless the user asks for one.
