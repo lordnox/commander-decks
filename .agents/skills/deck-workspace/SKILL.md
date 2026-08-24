@@ -112,10 +112,10 @@ For JSON, use `{"schema_version": 1, "cards": {"<oracle-id>": {"name": "Card Nam
 
 Maintain a `## Deck primers` section immediately after the root README title.
 
-- Add a relative Markdown link to `decks/<prefix><slug>/README.md`.
-- Prefix the human-readable link label with its assessed bracket, using `<bracket> — <deck name>`, for example `3+ — Bartolomé del Skeleton 🦴`.
+- Write one entry per deck as `` - `<badge>` [<deck name>](decks/<prefix><slug>/README.md) ``, for example ``- `B3+` [Bartolomé del Skeleton 🦴](decks/3+_bartolome-graveyard-shift/README.md)``.
+- Build the badge as `B<bracket>` with an ASCII `-` or `+` modifier, so `B3-`, `B3`, and `B3+`. Keep the bracket in the code span and out of the link label.
 - Read the bracket from the primer's assessment blockquote. Prefer `N−`, `N`, or `N+`; when migrating legacy wording, map Low/Mid/High Bracket N to `N−`/`N`/`N+`.
-- Use `Unrated — <deck name>` when the deck has no assessment.
+- Use the `Unrated` badge when the deck has no assessment.
 - Sort entries by numeric bracket ascending, then `−`, plain, `+`, and finally alphabetically by deck name. Keep unrated decks last, alphabetically. The validator rejects an unsorted primer list.
 - Keep one entry per deck and preserve all existing primer links.
 - When a deck is renamed, update its link rather than adding a duplicate.
