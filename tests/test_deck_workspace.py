@@ -375,6 +375,28 @@ class ValidateDeckTests(unittest.TestCase):
             self.assertTrue(any("singleton violation" in error for error in errors))
             self.assertTrue(any("decision log is missing: Sol Ring" in error for error in errors))
 
+    def test_decision_log_ignores_notes_outside_cards_in(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            repo, deck_dir = self.make_workspace(temporary)
+            (deck_dir / "DECISIONS.md").write_text(
+                "# Decisions\n\n"
+                "## Cards in\n\n"
+                "- **Green Commander** — Leads the deck.\n"
+                "- **Forest ×99** — Supplies green mana.\n\n"
+                "## Cards out\n\n"
+                "- **Sol Ring** — Cut as too fast for the intended bracket.\n\n"
+                "## Rules\n\n"
+                "Checked that Forest is a basic land.\n",
+                encoding="utf-8",
+            )
+            errors, warnings = validate_deck.validate(
+                deck_dir,
+                repo,
+                require_decisions=True,
+            )
+            self.assertEqual(errors, [])
+            self.assertEqual(warnings, [])
+
     def test_validator_catches_unlinked_primer_mentions(self):
         with tempfile.TemporaryDirectory() as temporary:
             repo, deck_dir = self.make_workspace(temporary)

@@ -100,13 +100,28 @@ After all cards resolve and have useful categories:
 3. Do not leave a newly created deck without a primer.
 4. If the primer cannot be completed, report the blocker and treat deck creation as incomplete.
 
-Create `DECISIONS.md` or `decisions.json` with exactly one substantive entry for every unique deck card. Decision logs are required for every deck. Include the card's submitted or canonical name in each entry. For Markdown, use this machine-checkable form:
+Create `DECISIONS.md` or `decisions.json`. Decision logs are required for every deck.
+
+The required part is still one inclusion reason per unique deck card. Put those under `## Cards in` so later notes do not fail coverage checks. For Markdown:
 
 ```markdown
+# Decisions
+
+## Cards in
+
 - **Card Name** — Why this card is included and what role it serves.
 ```
 
-For JSON, use `{"schema_version": 1, "cards": {"<oracle-id>": {"name": "Card Name", "decision": "Reason"}}}`.
+After a swap, primer rewrite, assessment change, or rules argument, append the talk to the same file instead of leaving it in chat. Use these optional headings when they have content:
+
+- `## Cards out` — why a card left, and what replaced it if anything
+- `## Primer` — why a line, section, or win-turn claim is written the way it is
+- `## Rules` — Oracle readings and stack/order checks that were verified
+- `## Talks` — dated notes from a session (bracket, math, rejected lines)
+
+Do not put cut cards under `## Cards in`. The validator only treats `- **Name** — reason.` lines in that section as coverage; extra sections may name cards freely. A file without `## Cards in` is parsed in full, which is the legacy form.
+
+For JSON, use `{"schema_version": 1, "cards": {"<oracle-id>": {"name": "Card Name", "decision": "Reason"}}}` for inclusion coverage. Extra keys such as `cards_out`, `primer`, `rules`, and `talks` are allowed and ignored by the validator.
 
 ## 6. Link the primer from the root README
 

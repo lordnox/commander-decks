@@ -1,4 +1,6 @@
-# Card decisions
+# Decisions
+
+## Cards in
 
 - **Indoraptor, the Perfect Hybrid** — Commands the deck: a cheap menace threat that grows on entry from prior burn and converts every point of self-inflicted damage into a forced sacrifice or direct damage.
 - **Barbed Servitor** — Indestructible pinger target that drains an opponent for each damage instance it takes, so it survives every sweeper the deck runs.
@@ -15,7 +17,7 @@
 - **Forerunner of the Empire** — Puts Cacophodon, Ripjaw Raptor, or Ranging Raptors on top of the library, then turns later Dinosaur entries into optional one-damage triggers across the board.
 - **Frostling** — Cheap sacrificial ping for an early enrage trigger or to finish a small creature.
 - **Gut Shot** — Free enrage trigger, which matters for the turn you cast the commander with no mana left.
-- **Last Laugh** — Punishing repeatable sweeper that grows your board through Rite of Passage while shrinking everyone else's.
+- **Last Laugh** — Board-wipe engine that also buries Indoraptor enrage triggers under its own death cascade, so the random hits resolve only after opponents have no creature left to sacrifice.
 - **Meltstrider's Resolve** — Fight effect that deals damage to your own creature, so it removes a blocker and triggers enrage at once.
 - **Mogg Fanatic** — Sacrificial ping that can trigger enrage at instant speed in response to removal.
 - **Noxious Field** — Repeatable land-based ping that loops with Cacophodon; symmetrical, so it is best when your life total is ahead.
@@ -88,3 +90,37 @@
 - **Vastwood Fortification // Vastwood Thicket** — A counter to survive the first ping, or a land drop.
 - **Bala Ged Recovery // Bala Ged Sanctuary** — The deck's only recursion, returning a lost engine piece, or a land when not needed.
 - **Boggart Trawler // Boggart Bog** — Graveyard hate on a body, or an untapped black source for three life.
+
+## Cards out
+
+No cuts were recorded in the 2026-08-24 primer and assessment pass. Add a line here when a card leaves the 99.
+
+## Primer
+
+The pregame sentence names a real turn-four single-player kill and a deterministic mid-game Last Laugh table kill because those lines exist in the 99 and have happened in play. The usual pace stays turn eight or nine: the turn-four hands need four specific nonlands plus Rhythm of the Wild already down, and Last Laugh needs a wide board to feed the cascade.
+
+Turn-four kills and Last Laugh trigger burial live as their own primer subsections so the Electric Seaweed loop is not the only table-kill write-up. The win-condition bullets and sequencing notes repeat the same lines in short form for play.
+
+## Rules
+
+- Indoraptor's enrage text is "choose an opponent at random," not a targeted ability. The opponent is chosen on resolution. A player already removed by state-based actions is not an opponent, so later triggers never pick a dead player and no enrage trigger is wasted.
+- Last Laugh and Indoraptor's enrage are both controlled by the same player. When they would go on the stack together, the enrage triggers can sit underneath the Last Laugh cascade. After the cascade, the sacrifice clause has no out if no opponent has a nontoken creature.
+- Enrage already on the stack uses last known information, so it still deals the commander's last power if the commander died in the cascade.
+- Without growth or indestructibility, 10 toughness caps the cascade at ten enrage triggers. Rite of Passage counters must resolve before the next Last Laugh damage, or marked damage catches toughness and state-based actions still kill the commander.
+- Rite of Passage also keeps your own creatures alive, which removes them as cascade fuel. Pestilence, Pyrohemia, and Withering Wisps can supply extra deaths and extra enrage triggers.
+- A Last Laugh cascade continues only while at least one permanent dies per resolution.
+- Rhythm of the Wild is the only haste enabler, so it gates every line that wins the turn the commander lands.
+- Boltwave deals 3 to each opponent (9 damage in a four-player game), so a hasty Indoraptor enters as 12/10. Tainted Strike then deals 13 poison on one connection.
+- Goblin Anarchomancer reduces both Fiery Confluence and the commander because the hybrid pip makes Indoraptor red and green. Three modes of "2 damage to each opponent" are 18 damage, so the commander enters as 21/19.
+
+## Talks
+
+### 2026-08-24 — Turn-four kills, Last Laugh math, Bracket 3
+
+The primer had claimed an exceptional turn-five player kill and no reliable early table kill. Play had already produced a turn-four kill, so that understated both speed and table-kill potential.
+
+Two goldfish hands kill one player on turn four if Rhythm of the Wild is already in play: Boltwave plus Tainted Strike for 13 poison, or Goblin Anarchomancer plus Fiery Confluence for exactly 21 commander damage. Neither is the expected pace, and neither kills the table.
+
+Last Laugh plus a stacked board is the table kill. Putting enrage under the death cascade is legal. An early write-up treated the random opponent as a multinomial split that needed 12–18 triggers to be likely. That was wrong: because the choice is made on resolution among remaining opponents, the kill is a count, not a probability. After Boltwave, nine cascade deaths leave opponents on 28 and give nine 12-damage hits, which is three each with certainty. Eight deaths leave the third player on 5. Rite of Passage drops the threshold to six deaths (18/16 against opponents on 31). Monte Carlo of the resolution order is a step function: 0% below the threshold, 100% at or above.
+
+The deck moved from Bracket 3− to Bracket 3 on that evidence. The minus came off because the turn-four kill is real in play, not because Last Laugh is an early two-card combo. The table kill stays board-dependent and mid-game.

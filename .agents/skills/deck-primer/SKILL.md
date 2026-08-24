@@ -143,6 +143,7 @@ Before saving:
 - ensure the primary plan reflects the deck as built rather than a generic archetype;
 - ensure delayed or finite interactions are described accurately;
 - confirm no source deck files changed unintentionally;
+- append primer, rules, and talk notes to `DECISIONS.md` when a line, win-turn claim, or Oracle reading was argued rather than obvious from the list;
 - run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<prefix><slug>` after the primer scripts.
 
 Report the deck name, total and unique cards, unresolved count, README path, and that the Archidekt link, category probability table, and mana stats are current.
