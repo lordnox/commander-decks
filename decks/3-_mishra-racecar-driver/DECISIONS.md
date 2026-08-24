@@ -1,8 +1,22 @@
 # Mishra — Racecar Driver: Decision Log
 
+## How to use
+
+This file is the deck's memory. The primer is how to play the deck. This file is why the list, the primer, and the assessment look the way they do.
+
+- **Cards in** — why each unique card is here and what job a replacement must keep doing.
+- **Cards out** — why a card left and what replaced it. Read this before bringing a cut back.
+- **Primer** — why a line, section, or win-turn claim is written that way.
+- **Rules** — Oracle readings and stack order that were checked.
+- **Talks** — dated session notes so an argument does not live only in chat.
+
+Every unique card needs a Cards in line. The other headings appear when there is something to record.
+
+## Cards in
+
 This log records why every card entered the list. Future changes should append a dated entry identifying the card added, the card removed, and the reason.
 
-## 2026-08-23 — Backfill
+### 2026-08-23 — Backfill
 
 ### Commander and copy engines
 

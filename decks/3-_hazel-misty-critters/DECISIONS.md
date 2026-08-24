@@ -1,4 +1,18 @@
-# Card decisions
+# Decisions
+
+## How to use
+
+This file is the deck's memory. The primer is how to play the deck. This file is why the list, the primer, and the assessment look the way they do.
+
+- **Cards in** — why each unique card is here and what job a replacement must keep doing.
+- **Cards out** — why a card left and what replaced it. Read this before bringing a cut back.
+- **Primer** — why a line, section, or win-turn claim is written that way.
+- **Rules** — Oracle readings and stack order that were checked.
+- **Talks** — dated session notes so an argument does not live only in chat.
+
+Every unique card needs a Cards in line. The other headings appear when there is something to record.
+
+## Cards in
 
 - **Hazel of the Rootbloom** — Commands the deck by turning expendable tokens into mana and copying the best Squirrel token twice each end step.
 - **Valley Rotcaller** — Converts a wide Squirrel, Bat, Lizard, and Rat board into attack-trigger drain before combat damage matters.
@@ -91,4 +105,6 @@
 - **Forest** — Eight copies provide reliable green mana and enough basic targets for land-search effects.
 - **Swamp** — Four copies provide resilient black mana and basic targets without overloading the green-heavy curve.
 
-Seedborn Muse previously filled the extra-untap slot: it untapped the token board on opponents' turns so Hazel mana and defensive interaction could coexist without erasing the own-turn combat decision. It left the 99 because it is a Game Changer; Quest for Renewal is the replacement.
+## Cards out
+
+- **Seedborn Muse** — Previously filled the extra-untap slot: it untapped the token board on opponents' turns so Hazel mana and defensive interaction could coexist without erasing the own-turn combat decision. It left the 99 because it is a Game Changer; Quest for Renewal is the replacement.

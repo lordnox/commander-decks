@@ -11,6 +11,8 @@ An Orzhov graveyard-combo deck built around Bartolomé's free sacrifice outlet, 
 **Primary plan:** assemble one of several repeatable death loops  
 **Backup plan:** grind with recursive creatures, self-mill, reanimation, and a growing Bartolomé
 
+Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).
+
 ## Key cards
 
 <p align="center">

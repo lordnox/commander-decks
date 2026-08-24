@@ -8,6 +8,8 @@ A Sultai self-mill combo deck that throws lands into the graveyard, drags them b
 
 > **Card-status note:** Scryfall lists [**Homer, the Hermit**](https://scryfall.com/card/mbc/40/homer-the-hermit?utm_source=api) with a release date of 9 November 2026 and currently marks it not legal in Commander. The remaining 99 cards are Commander-legal.
 
+Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).
+
 ## Key cards
 
 <p align="center">
@@ -100,8 +102,6 @@ This is not Crab typal. The deck uses four independent multipliers:
 4. Create several land entries at once, including on opponents' turns and directly from the graveyard.
 
 Early [Homer](https://scryfall.com/card/mbc/40/homer-the-hermit?utm_source=api) triggers target us. Once the graveyard contains enough lands and the battlefield contains enough Homers, the same triggers target every opponent.
-
-The full card-by-card rationale is recorded in [DECISIONS.md](DECISIONS.md).
 
 ## The mill math
 

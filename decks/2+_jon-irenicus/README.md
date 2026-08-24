@@ -6,6 +6,8 @@
 
 A Dimir politics deck that builds creatures too painful to keep, then hands them to other players. [**Jon Irenicus, Shattered One**](https://scryfall.com/card/clb/278/jon-irenicus-shattered-one?utm_source=api) goads the gift, pads it with two +1/+1 counters, and draws whenever a creature you own but do not control attacks.
 
+Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).
+
 ## Key cards
 
 <p align="center">

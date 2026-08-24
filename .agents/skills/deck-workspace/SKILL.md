@@ -108,10 +108,24 @@ The required part is still one inclusion reason per unique deck card. Put those 
 ```markdown
 # Decisions
 
+## How to use
+
+This file is the deck's memory. The primer is how to play the deck. This file is why the list, the primer, and the assessment look the way they do.
+
+- **Cards in** — why each unique card is here and what job a replacement must keep doing.
+- **Cards out** — why a card left and what replaced it. Read this before bringing a cut back.
+- **Primer** — why a line, section, or win-turn claim is written that way.
+- **Rules** — Oracle readings and stack order that were checked.
+- **Talks** — dated session notes so an argument does not live only in chat.
+
+Every unique card needs a Cards in line. The other headings appear when there is something to record.
+
 ## Cards in
 
 - **Card Name** — Why this card is included and what role it serves.
 ```
+
+The primer must link that file. Place `Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).` after the short identity paragraph and before Key cards.
 
 After a swap, primer rewrite, assessment change, or rules argument, append the talk to the same file instead of leaving it in chat. Use these optional headings when they have content:
 
@@ -120,7 +134,7 @@ After a swap, primer rewrite, assessment change, or rules argument, append the t
 - `## Rules` — Oracle readings and stack/order checks that were verified
 - `## Talks` — dated notes from a session (bracket, math, rejected lines)
 
-Do not put cut cards under `## Cards in`. The validator only treats `- **Name** — reason.` lines in that section as coverage; extra sections may name cards freely. A file without `## Cards in` is parsed in full, which is the legacy form.
+Do not put cut cards under `## Cards in`. The validator only treats `- **Name** — reason.` lines in that section as coverage; extra sections may name cards freely. A later `##` heading ends Cards in, so dated session notes belong under `## Talks` as `###` headings. A file without `## Cards in` is parsed in full, which is the legacy form.
 
 For JSON, use `{"schema_version": 1, "cards": {"<oracle-id>": {"name": "Card Name", "decision": "Reason"}}}` for inclusion coverage. Extra keys such as `cards_out`, `primer`, `rules`, and `talks` are allowed and ignored by the validator.
 

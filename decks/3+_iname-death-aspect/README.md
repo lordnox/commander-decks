@@ -11,6 +11,8 @@ Mono-black Spirit graveyard deck: dump the legend suite with [**Iname, Death Asp
 **Primary plan:** mill every Spirit, resolve [Mortal Combat](https://scryfall.com/card/10e/160/mortal-combat?utm_source=api), win on the next upkeep  
 **Backup plan:** [Living Death](https://scryfall.com/card/tdc/185/living-death?utm_source=api) / [Patriarch's Bidding](https://scryfall.com/card/mh2/275/patriarchs-bidding?utm_source=api), [The Capitoline Triad](https://scryfall.com/card/acr/1/the-capitoline-triad?utm_source=api) emblem, or drain with [Kokusho, the Evening Star](https://scryfall.com/card/ima/95/kokusho-the-evening-star?utm_source=api)
 
+Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).
+
 ## Key cards
 
 <p align="center">

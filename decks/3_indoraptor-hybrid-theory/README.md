@@ -6,6 +6,8 @@
 
 A Jund enrage deck that hurts its own creatures on purpose. [**Indoraptor, the Perfect Hybrid**](https://scryfall.com/card/rex/15/indoraptor-the-perfect-hybrid?utm_source=api) is a 3/1 for three that grows on the way in and punishes every point of damage it takes, so the deck pairs cheap repeatable pingers with counters, indestructibility, and damage-triggered payoffs.
 
+Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).
+
 ## Key cards
 
 <p align="center">
