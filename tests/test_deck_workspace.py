@@ -277,13 +277,18 @@ class ValidateDeckTests(unittest.TestCase):
         (deck_dir / "README.md").write_text(
             "# Test primer\n\n"
             "> Bracket 2 core deck. Usually threatens a win around turn eight.\n\n"
+            "Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).\n\n"
             "## Key cards\n\n"
             "## How the deck works\n\n"
             "The deck ramps and attacks.\n",
             encoding="utf-8",
         )
         (deck_dir / "DECISIONS.md").write_text(
-            "# Decisions\n\n- **Green Commander** — Leads the deck.\n"
+            "# Decisions\n\n"
+            "## How to use\n\n"
+            "This file is the deck's memory.\n\n"
+            "## Cards in\n\n"
+            "- **Green Commander** — Leads the deck.\n"
             "- **Forest ×99** — Supplies green mana.\n",
             encoding="utf-8",
         )
@@ -380,6 +385,8 @@ class ValidateDeckTests(unittest.TestCase):
             repo, deck_dir = self.make_workspace(temporary)
             (deck_dir / "DECISIONS.md").write_text(
                 "# Decisions\n\n"
+                "## How to use\n\n"
+                "This file is the deck's memory.\n\n"
                 "## Cards in\n\n"
                 "- **Green Commander** — Leads the deck.\n"
                 "- **Forest ×99** — Supplies green mana.\n\n"

@@ -30,7 +30,7 @@ Stop and wait when a constraint or Oracle reading would change the 99. Do not "j
 Once commander, finishers, constraints, and math are agreed:
 
 1. Follow `.agents/skills/deck-workspace/SKILL.md` (save list, resolve, categorize, primer, root README link).
-2. Write `DECISIONS.md` with a `## Cards in` list of one `- **Card Name** — reason.` line per unique deck card. Record grill outcomes that are not inclusion reasons under `## Cards out`, `## Primer`, `## Rules`, or `## Talks`. Decisions are required, not optional.
+2. Write `DECISIONS.md` with `## How to use`, then a `## Cards in` list of one `- **Card Name** — reason.` line per unique deck card. Record grill outcomes that are not inclusion reasons under `## Cards out`, `## Primer`, `## Rules`, or `## Talks`. Link the file from the primer. Decisions are required, not optional.
 3. Run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<deck-name>` (decisions are required by default).
 4. Use `assess-deck` only when the user asks for bracket or win-turn.
 

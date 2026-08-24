@@ -6,6 +6,8 @@
 
 An Izzet spell-copy deck that spends the early game reducing costs and controlling the table, then resolves one sorcery six times. The primary win is a stack of [Tasha's Hideous Laughter](https://scryfall.com/card/afr/78/tashas-hideous-laughter?utm_source=api) copies; [Crackle with Power](https://scryfall.com/card/stx/95/crackle-with-power?utm_source=api) and [Jaya's Immolating Inferno](https://scryfall.com/card/cmr/415/jayas-immolating-inferno?utm_source=api) provide deterministic damage alternatives. The list contains three tutors and no current Game Changers.
 
+Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).
+
 ## Key cards
 
 <p align="center">

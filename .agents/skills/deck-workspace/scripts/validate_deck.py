@@ -18,6 +18,7 @@ DECISION_LINE = re.compile(
     re.MULTILINE,
 )
 CARDS_IN_HEADING = re.compile(r"^##\s+Cards in\s*$", re.IGNORECASE | re.MULTILINE)
+HOW_TO_USE_HEADING = re.compile(r"^##\s+How to use\s*$", re.IGNORECASE | re.MULTILINE)
 MARKDOWN_HEADING = re.compile(r"^##\s+", re.MULTILINE)
 PRIMER_LINK = re.compile(
     r"^- `(?P<badge>[^`]+)` \[(?P<label>[^\]]+)\]\((?P<path>decks/[^)]+/README\.md)\)\s*$"
@@ -370,6 +371,16 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
         unknown = [name for name in names if normalized_name(name) not in known_aliases]
         if unknown:
             errors.append("decision log has unknown cards: " + ", ".join(unknown))
+        if decision_path.suffix == ".md":
+            decision_text = decision_path.read_text(encoding="utf-8")
+            if not HOW_TO_USE_HEADING.search(decision_text):
+                errors.append("decision log is missing a ## How to use section")
+            if not CARDS_IN_HEADING.search(decision_text):
+                errors.append("decision log is missing a ## Cards in section")
+        if primer_path.is_file():
+            primer_text = primer_path.read_text(encoding="utf-8")
+            if f"]({decision_path.name})" not in primer_text:
+                errors.append(f"primer does not link to {decision_path.name}")
     elif require_decisions:
         errors.append("missing decisions.json or DECISIONS.md")
 

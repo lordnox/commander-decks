@@ -1,8 +1,22 @@
 # Homer — Dumpster-Diver Crab: Decision Log
 
+## How to use
+
+This file is the deck's memory. The primer is how to play the deck. This file is why the list, the primer, and the assessment look the way they do.
+
+- **Cards in** — why each unique card is here and what job a replacement must keep doing.
+- **Cards out** — why a card left and what replaced it. Read this before bringing a cut back.
+- **Primer** — why a line, section, or win-turn claim is written that way.
+- **Rules** — Oracle readings and stack order that were checked.
+- **Talks** — dated session notes so an argument does not live only in chat.
+
+Every unique card needs a Cards in line. The other headings appear when there is something to record.
+
+## Cards in
+
 This log records why every card entered the initial list. Future changes should append a dated entry identifying the card added, the card removed, and the reason.
 
-## 2026-08-22 — Initial build
+### 2026-08-22 — Initial build
 
 ### Commander and Homer factory
 
@@ -106,23 +120,38 @@ This log records why every card entered the initial list. Future changes should 
 - **Forest ×5** — Supports green-heavy setup spells, Harrow, fetch lands, and Myriad Landscape.
 - **Island ×4** — Supports Homer, clone spells, and blue interaction.
 - **Swamp ×2** — Supplies fetchable black sources for recursion and interaction.
+- **Deathsprout** — Instant-speed creature removal that also fetches a basic and makes a landfall trigger, replacing Crop Rotation without a Game Changer.
+- **Stitch Together** — Cheap threshold reanimation that turns a milled Yarok or clone into a battlefield piece.
+- **Diregraf Rebirth** — Direct reanimation with flashback, so milling it is still useful.
+- **Incarnation Technique** — Mills five then reanimates, with demonstrate as a political extra body.
+- **Fact or Fiction** — Instant card advantage that also stocks the graveyard.
+- **Fortune's Favor** — Hidden-information Fact or Fiction that sends the unchosen pile to the graveyard.
+- **Keep Safe** — Protects a key permanent, counters the removal spell, and replaces itself.
+- **Pile On** — Instant creature or planeswalker removal whose surveil fills the graveyard.
+- **You Find the Villains' Lair** — Fair three-mana counterspell whose other mode draws two and discards two into the graveyard.
+- **Awaken the Honored Dead** — Removal into self-mill into creature-or-land recovery after a discard.
+- **Zimone and Dina** — Sacrifice, draw, and off-turn landfall engine.
+- **Mole Man, Moloid Master** — Recurring graveyard land plays plus a disposable self-milling Moloid on every landfall.
+- **Crawling Sensation** — Deliberate self-mill and Insect fodder whenever lands enter the graveyard.
 
-## 2026-08-22 — Remove the Game Changers
+## Talks
+
+### 2026-08-22 — Remove the Game Changers
 
 - **Deathsprout** — Replaces Crop Rotation, removing a Game Changer while turning instant-speed creature removal into a landfall trigger by fetching a basic land.
 
-## 2026-08-22 — Retire the Helm
+### 2026-08-22 — Retire the Helm
 
 - **Stitch Together** — Replaces Helm of the Host. Threshold is natural in the self-mill plan, turning a milled Yarok or clone directly back into a battlefield piece for two mana.
 
-## 2026-08-22 — Trade Clones for Recovery and Cards
+### 2026-08-22 — Trade Clones for Recovery and Cards
 
 - **Diregraf Rebirth** — Replaces Auton Soldier. Direct reanimation remains useful from hand, and flashback makes it safe to mill.
 - **Incarnation Technique** — Replaces Progenitor Mimic. It mills five before reanimating and can use demonstrate for table politics.
 - **Fact or Fiction** — Replaces Mirror Box. Instant-speed card advantage also stocks the graveyard.
 - **Fortune's Favor** — Replaces Conspiracy. This second Fact or Fiction-style instant creates a hidden-information choice while sending the unchosen pile to the graveyard.
 
-## 2026-08-22 — More Basics, More Answers
+### 2026-08-22 — More Basics, More Answers
 
 - **Keep Safe** — Replaces Machine God's Effigy with targeted protection that counters the removal spell and replaces itself.
 - **Pile On** — Replaces Arcane Adaptation with instant-speed creature or planeswalker removal whose surveil fills the graveyard.
@@ -130,7 +159,7 @@ This log records why every card entered the initial list. Future changes should 
 
 Meloku the Clouded Mirror became the fortieth land. Command Tower and the three original duals became basics, raising the basic package to eleven cards so repeated searches are less likely to run out of targets.
 
-## 2026-08-22 — Moloids in the Dumpster
+### 2026-08-22 — Moloids in the Dumpster
 
 - **Awaken the Honored Dead** — Replaces Resculpt with slower, broader removal followed by self-mill and, after discarding a card, creature-or-land recovery.
 - **Zimone and Dina** — Replaces Dryad of the Ilysian Grove with a less consistent but more interesting sacrifice, draw, and off-turn landfall engine.

@@ -6,6 +6,8 @@
 
 A Golgari swarm of squirrels, rats, bats, and lizards. Spend the board through Hazel, tap squirrels to load one attacker with the Odd Acorn Gang, or swing and decide whether combat is real or whether the mist comes down. It has no Game Changers; the Bracket 3− call comes from [Chatterfang, Squirrel General](https://scryfall.com/card/mh2/151/chatterfang-squirrel-general?utm_source=api), [Parallel Lives](https://scryfall.com/card/isd/199/parallel-lives?utm_source=api), [Skullclamp](https://scryfall.com/card/msc/210/skullclamp?utm_source=api), fourteen paid interaction spells, and [Triumph of the Hordes](https://scryfall.com/card/nph/123/triumph-of-the-hordes?utm_source=api). It can win through ordinary combat, a [Valley Rotcaller](https://scryfall.com/card/blb/119/valley-rotcaller?utm_source=api) attack trigger, or one explosive Triumph turn.
 
+Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).
+
 ## Key cards
 
 <p align="center">
@@ -90,8 +92,6 @@ Avg mana value: **2.97** · Total mana value: **190.00** · Nonland cards: **64*
 ## Deck summary
 
 The deck first establishes cheap Squirrel or Rat tokens, then lets Hazel turn those tokens into mana and two extra copies of the best Squirrel token each end step. Chatterfang makes every token spell contribute additional Squirrels, while [Maskwood Nexus](https://scryfall.com/card/clb/865/maskwood-nexus?utm_source=api) and [Springleaf Parade](https://scryfall.com/card/ecc/19/springleaf-parade?utm_source=api) let the mixed swarm count for [Valley Rotcaller](https://scryfall.com/card/blb/119/valley-rotcaller?utm_source=api).
-
-The full card-by-card rationale is recorded in [DECISIONS.md](DECISIONS.md).
 
 ## The central decision
 

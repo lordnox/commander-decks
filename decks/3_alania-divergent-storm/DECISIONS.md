@@ -1,4 +1,18 @@
-# Card decisions
+# Decisions
+
+## How to use
+
+This file is the deck's memory. The primer is how to play the deck. This file is why the list, the primer, and the assessment look the way they do.
+
+- **Cards in** — why each unique card is here and what job a replacement must keep doing.
+- **Cards out** — why a card left and what replaced it. Read this before bringing a cut back.
+- **Primer** — why a line, section, or win-turn claim is written that way.
+- **Rules** — Oracle readings and stack order that were checked.
+- **Talks** — dated session notes so an argument does not live only in chat.
+
+Every unique card needs a Cards in line. The other headings appear when there is something to record.
+
+## Cards in
 
 - **Alania, Divergent Storm** — The commander copies both halves of the primary turn: first Repeated Reverberation, then the first sorcery finisher, producing five copies without relying on an infinite loop.
 - **Tasha's Hideous Laughter** — The only library-exile finisher; each copy independently exiles until mana value 20, so copy count is not a mill-out.
@@ -79,20 +93,22 @@
 - **Island** — The larger basic allocation supports blue interaction, double-blue Tasha, and Mystic Sanctuary.
 - **Mountain** — Supplies the repeated red requirements in Repeated Reverberation, copy spells, and damage finishers.
 
-## 2026-08-23 — Mana base correction
+## Talks
+
+### 2026-08-23 — Mana base correction
 
 The deck ran 35 true lands, which is below the floor for a five-mana commander with double-colored copy spells. The manifest read 36 only because **Primal Amulet** was counted as a land it reaches after four casts. Cut **Portent**, **Chef's Kiss**, and **Aetherize** for **Steam Vents**, **Cascade Bluffs**, and **Otawara, Soaring City** to reach 38 lands while keeping interaction density: Otawara replaces a narrow redirect with repeatable removal on a land.
 
-## 2026-08-24 — Interaction rework
+### 2026-08-24 — Interaction rework
 
 The land fix left the deck thin on answers: four dedicated removal spells, three protection spells, and a single sweeper, with the primer's "interaction" figure inflated by counting counterspells and copy effects. There is no Otter-themed removal worth running — the only real candidate, Frolicking Familiar // Blow Off Steam, deals two damage for two mana — so the package is built from efficient Izzet interaction instead.
 
 Cut the five slowest or most redundant cards for five answers. **Invoke Calamity** demands `{R}{R}{R}{R}` and its combined mana value six ceiling cannot rebuild Repeated Reverberation plus a finisher. **Pyromancer's Goggles** costs five and copies only red spells. **Invert // Invent** was a six-mana fourth tutor; three tutors is still enough. **Primal Amulet** wants four casts before it does the interesting half. **Shreds of Sanity** was the least efficient recursion spell. In return the deck gains **Into the Flood Maw**, **Flame of Anor**, **Prismari Command**, **Aetherize** back, and **Mizzium Skin**, moving to seven dedicated removal spells, two sweepers, and four protection spells while the counterspell suite stays at seven.
 
-## 2026-08-24 — Copy permanents restored by pilot preference
+### 2026-08-24 — Copy permanents restored by pilot preference
 
 The pilot wants **Pyromancer's Goggles** and **Primal Amulet** back, cutting **Chandra, Hope's Beacon** and **Sublime Epiphany**. Both returning cards produce mana that copies the spell it pays for, which stacks with Alania's own copy rather than competing with it, and both survive the creature sweepers that answer the reducer package. The cost is real and deliberate: the counterspell suite drops from seven to six and loses its most flexible answer, since Sublime Epiphany could counter, bounce, copy a reducer, and draw in one resolution. Chandra was the easier cut of the two, as six mana for one guaranteed copy per turn is slower than the deck's other multipliers.
 
-## 2026-08-24 — Instant-speed card draw
+### 2026-08-24 — Instant-speed card draw
 
 Move the dedicated selection package to instants so the deck can hold up interaction like a blue-go list. Finishers and setup remain sorceries. Cut **Serum Visions**, **Strategic Planning**, and **Pieces of the Puzzle** for **Consider**, **Impulse**, and **Quick Study**. Memory Deluge was the first draw-two candidate, but copies look at X=0 because they were not cast, so Alania would not actually find cards with it.

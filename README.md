@@ -103,7 +103,7 @@ When a deck list is submitted, the agent must:
 8. Cache shared card data and universal categories under `cards/`.
 9. Create the deck primer at `decks/<bracket>_<deck-name>/README.md`.
 10. Add or update its link in the `Deck primers` section at the top of this README.
-11. Add a decision log: inclusion reasons for every unique card, plus cuts, primer notes, rules checks, and talks when those come up.
+11. Add a decision log with a How to use section, inclusion reasons for every unique card, a primer link to that file, plus cuts, primer notes, rules checks, and talks when those come up.
 12. Validate deck size, legality, categories, cache coverage, primer contract, and decision-log coverage.
 13. Report unresolved names before analyzing the deck.
 

@@ -1,5 +1,17 @@
 # Decisions
 
+## How to use
+
+This file is the deck's memory. The primer is how to play the deck. This file is why the list, the primer, and the assessment look the way they do.
+
+- **Cards in** — why each unique card is here and what job a replacement must keep doing.
+- **Cards out** — why a card left and what replaced it. Read this before bringing a cut back.
+- **Primer** — why a line, section, or win-turn claim is written that way.
+- **Rules** — Oracle readings and stack order that were checked.
+- **Talks** — dated session notes so an argument does not live only in chat.
+
+Every unique card needs a Cards in line. The other headings appear when there is something to record.
+
 ## Cards in
 
 - **Indoraptor, the Perfect Hybrid** — Commands the deck: a cheap menace threat that grows on entry from prior burn and converts every point of self-inflicted damage into a forced sacrifice or direct damage.

@@ -47,18 +47,19 @@ Use concise Markdown. Write every card mention as a bold link to its manifest `s
 2. Assessment blockquote (`N−` / `N` / `N+`), when the deck has been assessed
 3. Archidekt deck-creation link
 4. Short identity or summary
-5. `## Key cards`
-6. Category access by turn three
-7. Mana (color cost and production, average and total mana value, mana curve)
-8. How the deck works
-9. Core engine or role table
-10. Main combo or synergy patterns
-11. Win conditions
-12. Early, mid, and late game
-13. Mulligan guide
-14. Tutor priorities
-15. Important sequencing and rules notes
-16. Weaknesses and what to protect
+5. Link to `DECISIONS.md` (`Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).`)
+6. `## Key cards`
+7. Category access by turn three
+8. Mana (color cost and production, average and total mana value, mana curve)
+9. How the deck works
+10. Core engine or role table
+11. Main combo or synergy patterns
+12. Win conditions
+13. Early, mid, and late game
+14. Mulligan guide
+15. Tutor priorities
+16. Important sequencing and rules notes
+17. Weaknesses and what to protect
 
 Prefer a table for interchangeable roles and tutor decisions. Explain representative cards rather than listing every card. Make the primer useful during actual play.
 

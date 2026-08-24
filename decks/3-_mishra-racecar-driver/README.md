@@ -6,6 +6,8 @@
 
 A Grixis artifact-and-Vehicles deck that turns utility artifacts into disposable 4/4 racers, repeatedly reusing their enters-the-battlefield and attack abilities.
 
+Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).
+
 ## Key cards
 
 <p align="center">
