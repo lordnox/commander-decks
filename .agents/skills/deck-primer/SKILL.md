@@ -89,7 +89,7 @@ The cache script stores paper printings when Scryfall has one. Archidekt does no
 
 Every primer must contain a hypergeometric probability table calculated from the resolved manifest. Use a 99-card library and 10 cards seen by turn three: the opening seven plus three normal draw steps, with no mulligans or additional draw. Exclude commanders and cards marked `{noDeck}`. Categories overlap, so present each category's probability independently.
 
-Require at least one card from each category except `Land`, which requires at least three. Place the table immediately after the Key cards gallery, before the first play-guide heading. Create or refresh the section with:
+Require at least one card from each category except `Land`, which requires at least three. Modal double-faced cards carry the land category as well as their spell role, so the `Land` row counts them while the curve still counts their front face; the land count and the nonland count therefore overlap. Place the table immediately after the Key cards gallery, before the first play-guide heading. Create or refresh the section with:
 
 ```bash
 python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py decks/<prefix><slug>

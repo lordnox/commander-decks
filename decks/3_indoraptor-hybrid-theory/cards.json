@@ -557,7 +557,8 @@
         "type_line": "Instant // Land"
       },
       "categories": [
-        "Cuts"
+        "Cuts",
+        "Land"
       ],
       "category_source": "decklist",
       "name": "Spikefield Hazard // Spikefield Cave",
@@ -2078,7 +2079,8 @@
         "type_line": "Instant // Land"
       },
       "categories": [
-        "Shields"
+        "Shields",
+        "Land"
       ],
       "category_source": "decklist",
       "name": "Revitalizing Repast // Old-Growth Grove",
@@ -2164,7 +2166,8 @@
       },
       "categories": [
         "Swords",
-        "Removal"
+        "Removal",
+        "Land"
       ],
       "category_source": "decklist",
       "name": "Bridgeworks Battle // Tanglespan Bridgeworks",
@@ -2202,7 +2205,8 @@
         "type_line": "Instant // Land"
       },
       "categories": [
-        "Swords"
+        "Swords",
+        "Land"
       ],
       "category_source": "decklist",
       "name": "Vastwood Fortification // Vastwood Thicket",
@@ -2239,7 +2243,8 @@
         "type_line": "Sorcery // Land"
       },
       "categories": [
-        "Utility"
+        "Utility",
+        "Land"
       ],
       "category_source": "decklist",
       "name": "Bala Ged Recovery // Bala Ged Sanctuary",
@@ -2278,7 +2283,8 @@
         "type_line": "Creature — Goblin // Land"
       },
       "categories": [
-        "Utility"
+        "Utility",
+        "Land"
       ],
       "category_source": "decklist",
       "name": "Boggart Trawler // Boggart Bog",
@@ -2337,7 +2343,7 @@
     }
   ],
   "categorized_cards": 89,
-  "generated_at": "2026-08-23T23:51:41.265740+00:00",
+  "generated_at": "2026-08-24T07:48:41.843678+00:00",
   "maybeboard_cards": 1,
   "maybeboard_unique_cards": 1,
   "resolved_unique_cards": 89,

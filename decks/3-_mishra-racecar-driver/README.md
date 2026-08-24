@@ -48,7 +48,7 @@ All categories require at least one card except Land, which requires at least th
 <!-- mana-stats:start -->
 ## Mana
 
-Color cost counts mana symbols in card costs: generic numerals and `{X}` are ignored, and hybrid symbols split evenly. Production counts each color in a card's Scryfall `produced_mana`. Lands are omitted from the curve and mana-value totals. The commander is included; `{noDeck}` extras are not.
+Color cost counts mana symbols in card costs: generic numerals and `{X}` are ignored, and hybrid symbols split evenly. Production counts each color in a card's Scryfall `produced_mana`. Lands are omitted from the curve and mana-value totals, but a modal double-faced card counts as its front face, so it appears here as a spell and in the category table as a land. The commander is included; `{noDeck}` extras are not.
 
 | Color | Cost | Prod |
 |---|---:|---:|

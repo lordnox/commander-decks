@@ -45,6 +45,19 @@ def oracle_text(card: dict) -> str:
     return " ".join(face.get("oracle_text", "") for face in faces)
 
 
+def plays_as_land(card: dict) -> bool:
+    faces = card.get("card_faces")
+    if not faces:
+        return "Land" in (card.get("type_line") or "")
+    if card.get("layout") == "modal_dfc":
+        return any("Land" in (face.get("type_line") or "") for face in faces)
+    return "Land" in (faces[0].get("type_line") or "")
+
+
+def has_land_category(card: dict) -> bool:
+    return any(category.casefold() == "land" for category in card.get("categories", []))
+
+
 def allows_multiple(card: dict) -> bool:
     text = oracle_text(card).casefold()
     return (
@@ -248,11 +261,14 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
         commander_identity.update(cached.get("color_identity", []))
 
     today = date.today().isoformat()
+    missing_land_category = []
     for entry in deck_cards:
         name = entry.get("name", "?")
         cached = cache_by_oracle.get(entry.get("oracle_id"))
         if not cached:
             continue
+        if plays_as_land(cached) and not has_land_category(entry):
+            missing_land_category.append(name)
         if entry.get("quantity", 0) > 1:
             basic = cached.get("type_line", "").startswith("Basic ")
             if not basic and not allows_multiple(cached):
@@ -267,6 +283,12 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
                 warnings.append(f"{name} is not Commander-legal before its {cached['released_at']} release")
             else:
                 errors.append(f"Commander legality is {legality or 'unknown'}: {name}")
+
+    if missing_land_category:
+        errors.append(
+            "cards playable as a land without a land category: "
+            + ", ".join(missing_land_category)
+        )
 
     if not primer_path.is_file() or not primer_path.read_text(encoding="utf-8").strip():
         errors.append("missing or empty README.md primer")

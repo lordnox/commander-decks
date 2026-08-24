@@ -124,3 +124,9 @@ Two goldfish hands kill one player on turn four if Rhythm of the Wild is already
 Last Laugh plus a stacked board is the table kill. Putting enrage under the death cascade is legal. An early write-up treated the random opponent as a multinomial split that needed 12–18 triggers to be likely. That was wrong: because the choice is made on resolution among remaining opponents, the kill is a count, not a probability. After Boltwave, nine cascade deaths leave opponents on 28 and give nine 12-damage hits, which is three each with certainty. Eight deaths leave the third player on 5. Rite of Passage drops the threshold to six deaths (18/16 against opponents on 31). Monte Carlo of the resolution order is a step function: 0% below the threshold, 100% at or above.
 
 The deck moved from Bracket 3− to Bracket 3 on that evidence. The minus came off because the turn-four kill is real in play, not because Last Laugh is an early two-card combo. The table kill stays board-dependent and mid-game.
+
+### 2026-08-24 — Archidekt mana-value gap and MDFC land count
+
+Archidekt reported 151.00 total and 2.25 average mana value against the primer's 152.00 and 2.27. Both use the same 67 nonland cards, so the whole gap is one mana value: Gut Shot. Its cost is `{R/P}`, and a Phyrexian symbol is still one mana symbol, so its mana value is 1 in the Comprehensive Rules and on Scryfall. The Archidekt copy has it recorded as 0. The primer numbers stand.
+
+The six modal double-faced cards (Spikefield Hazard, Revitalizing Repast, Bridgeworks Battle, Vastwood Fortification, Bala Ged Recovery, Boggart Trawler) now carry `Land` next to their spell role, so the category table shows 39 lands like Archidekt. They stay on the curve as their front face, which is why the land count and the 67 nonland cards overlap.
