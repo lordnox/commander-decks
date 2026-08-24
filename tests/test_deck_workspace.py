@@ -289,7 +289,7 @@ class ValidateDeckTests(unittest.TestCase):
         )
         (repo / "README.md").write_text(
             "## Deck primers\n\n"
-            "- [2 — Test](decks/test/README.md)\n",
+            "- `B2` [Test](decks/test/README.md)\n",
             encoding="utf-8",
         )
 
@@ -392,13 +392,27 @@ class ValidateDeckTests(unittest.TestCase):
             repo, deck_dir = self.make_workspace(temporary)
             (repo / "README.md").write_text(
                 "## Deck primers\n\n"
-                "- [3 — Zebra](decks/test/README.md)\n"
-                "- [3− — Apple](decks/other/README.md)\n",
+                "- `B3` [Zebra](decks/test/README.md)\n"
+                "- `B3-` [Apple](decks/other/README.md)\n",
                 encoding="utf-8",
             )
             errors, _ = validate_deck.validate(deck_dir, repo)
             self.assertTrue(
                 any("Deck primers section is unsorted" in error for error in errors)
+            )
+
+    def test_validator_rejects_primer_links_without_bracket_badge(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            repo, deck_dir = self.make_workspace(temporary)
+            (repo / "README.md").write_text(
+                "## Deck primers\n\n"
+                "- [3− — Apple](decks/other/README.md)\n"
+                "- [3 — Zebra](decks/test/README.md)\n",
+                encoding="utf-8",
+            )
+            errors, _ = validate_deck.validate(deck_dir, repo)
+            self.assertTrue(
+                any("must start with a bracket badge" in error for error in errors)
             )
 
     def test_validator_rejects_assessment_below_archidekt(self):

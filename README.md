@@ -2,14 +2,14 @@
 
 ## Deck primers
 
-- [2+ — Jon Irenicus — Unwanted Presents](decks/2+_jon-irenicus/README.md)
-- [3− — Hazel — Misty Critters](decks/3-_hazel-misty-critters/README.md)
-- [3− — Homer — Dumpster-Diver Crab](decks/3-_homer-dumpster-diver-crab/README.md)
-- [3− — Indoraptor — Hybrid Theory](decks/3-_indoraptor-hybrid-theory/README.md)
-- [3− — Mishra — Racecar Driver](decks/3-_mishra-racecar-driver/README.md)
-- [3 — Alania — Divergent Laughter](decks/3_alania-divergent-storm/README.md)
-- [3+ — Bartolomé — Graveyard Shift](decks/3+_bartolome-graveyard-shift/README.md)
-- [3+ — Iname — Death Aspect](decks/3+_iname-death-aspect/README.md)
+- `B2+` [Jon Irenicus — Unwanted Presents](decks/2+_jon-irenicus/README.md)
+- `B3-` [Hazel — Misty Critters](decks/3-_hazel-misty-critters/README.md)
+- `B3-` [Homer — Dumpster-Diver Crab](decks/3-_homer-dumpster-diver-crab/README.md)
+- `B3-` [Indoraptor — Hybrid Theory](decks/3-_indoraptor-hybrid-theory/README.md)
+- `B3-` [Mishra — Racecar Driver](decks/3-_mishra-racecar-driver/README.md)
+- `B3` [Alania — Divergent Laughter](decks/3_alania-divergent-storm/README.md)
+- `B3+` [Bartolomé — Graveyard Shift](decks/3+_bartolome-graveyard-shift/README.md)
+- `B3+` [Iname — Death Aspect](decks/3+_iname-death-aspect/README.md)
 
 A conversation-driven workspace for importing, resolving, categorizing, assessing, and improving Magic: The Gathering Commander decks.
 

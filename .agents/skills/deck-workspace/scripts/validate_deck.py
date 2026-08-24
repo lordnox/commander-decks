@@ -17,7 +17,11 @@ DECISION_LINE = re.compile(
     r"^-\s+\*\*(?P<name>.+?)\*\*\s*(?:—|-)\s+(?P<decision>\S.+)$",
     re.MULTILINE,
 )
-PRIMER_LINK = re.compile(r"^- \[([^\]]+)\]\((decks/[^)]+/README\.md)\)\s*$")
+PRIMER_LINK = re.compile(
+    r"^- `(?P<badge>[^`]+)` \[(?P<label>[^\]]+)\]\((?P<path>decks/[^)]+/README\.md)\)\s*$"
+)
+PRIMER_LINE = re.compile(r"^- .*\]\(decks/[^)]+/README\.md\)\s*$")
+PRIMER_BADGE = re.compile(r"^B(?P<bracket>\d+)(?P<modifier>[−+-]?)$")
 QUANTITY_SUFFIX = re.compile(r"\s+[×x]\s*\d+\s*$", re.IGNORECASE)
 
 
@@ -65,47 +69,60 @@ def decision_names(path: Path) -> list[str]:
     return names
 
 
-def primer_sort_key(label: str) -> tuple[int, int, str]:
-    if label.startswith("Unrated"):
-        name = label.split(" — ", 1)[1] if " — " in label else label
-        return (99, 2, name.casefold())
-    match = re.match(r"^(\d+)([−+-]?) — (.+)$", label)
+def primer_sort_key(entry: tuple[str, str, str]) -> tuple[int, int, str]:
+    badge, label, _ = entry
+    if badge.casefold() == "unrated":
+        return (99, 2, label.casefold())
+    match = PRIMER_BADGE.match(badge)
     if not match:
         return (98, 9, label.casefold())
-    modifier = match.group(2)
+    modifier = match.group("modifier")
     rank = 1
     if modifier in {"−", "-"}:
         rank = 0
     elif modifier == "+":
         rank = 2
-    return (int(match.group(1)), rank, match.group(3).casefold())
+    return (int(match.group("bracket")), rank, label.casefold())
 
 
-def primer_links(text: str) -> list[tuple[str, str]]:
+def primer_section(text: str) -> list[str]:
     start = text.find("## Deck primers")
     if start < 0:
         return []
     rest = text[start:]
     next_heading = rest.find("\n## ", 1)
     section = rest if next_heading < 0 else rest[:next_heading]
+    return section.splitlines()
+
+
+def primer_links(text: str) -> list[tuple[str, str, str]]:
     links = []
-    for line in section.splitlines():
+    for line in primer_section(text):
         match = PRIMER_LINK.match(line)
         if match:
-            links.append((match.group(1), match.group(2)))
+            links.append((match.group("badge"), match.group("label"), match.group("path")))
     return links
 
 
-def unsorted_primer_error(root_readme: Path) -> str | None:
+def primer_errors(root_readme: Path) -> list[str]:
     if not root_readme.is_file():
-        return None
-    labels = [label for label, _ in primer_links(root_readme.read_text(encoding="utf-8"))]
-    if not labels:
-        return None
-    expected = sorted(labels, key=primer_sort_key)
-    if labels != expected:
-        return "root README Deck primers section is unsorted"
-    return None
+        return []
+    text = root_readme.read_text(encoding="utf-8")
+    errors = []
+    unbadged = [
+        line
+        for line in primer_section(text)
+        if PRIMER_LINE.match(line) and not PRIMER_LINK.match(line)
+    ]
+    if unbadged:
+        errors.append(
+            "root README Deck primers entries must start with a bracket badge, "
+            "for example - `B3+` [Deck name](decks/3+_deck-name/README.md)"
+        )
+    entries = primer_links(text)
+    if entries and entries != sorted(entries, key=primer_sort_key):
+        errors.append("root README Deck primers section is unsorted")
+    return errors
 
 
 def assessment_error(primer_text: str, *, unrated: bool) -> str | None:
@@ -286,9 +303,7 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
     primer_link = f"({primer_path.relative_to(repo_root)})"
     if not root_readme.is_file() or primer_link not in root_readme.read_text(encoding="utf-8"):
         errors.append("root README does not link to this primer")
-    sort_error = unsorted_primer_error(root_readme)
-    if sort_error:
-        errors.append(sort_error)
+    errors.extend(primer_errors(root_readme))
 
     decision_path = deck_dir / "decisions.json"
     if not decision_path.is_file():
