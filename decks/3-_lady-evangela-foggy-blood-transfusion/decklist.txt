@@ -78,7 +78,7 @@ Swamp Engine:
 1x Rings of Brighthearth [Swamp Engine]
 
 Ramp:
-1x Sol Ring [Ramp]
+1x Phial of Galadriel [Ramp,Draw]
 1x Arcane Signet [Ramp]
 1x Orzhov Signet [Ramp]
 1x Dimir Signet [Ramp]
@@ -120,6 +120,7 @@ Land:
 1x Island [Land]
 
 Maybeboard:
+1x Sol Ring [Maybeboard{noDeck}{noPrice},Ramp]
 1x Mana Drain [Maybeboard{noDeck}{noPrice},Counterspell]
 1x Hatred [Maybeboard{noDeck}{noPrice},Life Payment]
 1x Desertion [Maybeboard{noDeck}{noPrice},Counterspell]
