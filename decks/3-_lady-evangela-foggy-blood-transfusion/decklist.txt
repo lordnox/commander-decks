@@ -126,3 +126,5 @@ Maybeboard:
 1x Wedding Ring [Maybeboard{noDeck}{noPrice},Draw,Politics]
 1x Breena, the Demagogue [Maybeboard{noDeck}{noPrice},Politics]
 1x Infernal Contract [Maybeboard{noDeck}{noPrice},Draw,Life Payment]
+1x Everybody Lives! [Maybeboard{noDeck}{noPrice},Fog]
+1x Kuroki, Thief of Talents [Maybeboard{noDeck}{noPrice},Politics]

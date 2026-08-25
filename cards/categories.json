@@ -5529,8 +5529,20 @@
       "categories": [
         "other"
       ]
+    },
+    "39213de3-6a4a-4879-a7f9-70f45013765e": {
+      "name": "Everybody Lives!",
+      "categories": [
+        "protection"
+      ]
+    },
+    "ce70f16c-ea45-4f1d-aafb-34a5d05d31e7": {
+      "name": "Kuroki, Thief of Talents",
+      "categories": [
+        "other"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-25T21:56:34.991247+00:00"
+  "updated_at": "2026-08-25T22:02:48.287986+00:00"
 }

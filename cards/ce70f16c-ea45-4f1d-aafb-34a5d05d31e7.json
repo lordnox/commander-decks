@@ -1,0 +1,132 @@
+{
+  "artist": "Adam Vehige",
+  "artist_ids": [
+    "c371d756-2c5d-46f1-aa3a-f70b831d4fbc"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 5.0,
+  "collector_number": "15",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 26120,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Ever seeking a voice all its own.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "95a0a609-216b-42e1-83fa-6570c08a4a11",
+  "illustration_id": "2d979516-5764-4c9e-afeb-9a197c819674",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-08-03T12:08:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/5/95a0a609-216b-42e1-83fa-6570c08a4a11.webp?1785758897",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/5/95a0a609-216b-42e1-83fa-6570c08a4a11.jpg?1785758897",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/5/95a0a609-216b-42e1-83fa-6570c08a4a11.jpg?1785758897",
+    "crop": "https://cards.scryfall.io/crop/front/9/5/95a0a609-216b-42e1-83fa-6570c08a4a11.webp?1785758897",
+    "display": "https://cards.scryfall.io/display/front/9/5/95a0a609-216b-42e1-83fa-6570c08a4a11.webp?1785758897",
+    "grid": "https://cards.scryfall.io/grid/front/9/5/95a0a609-216b-42e1-83fa-6570c08a4a11.webp?1785758897",
+    "large": "https://cards.scryfall.io/large/front/9/5/95a0a609-216b-42e1-83fa-6570c08a4a11.jpg?1785758897",
+    "normal": "https://cards.scryfall.io/normal/front/9/5/95a0a609-216b-42e1-83fa-6570c08a4a11.jpg?1785758897",
+    "png": "https://cards.scryfall.io/png/front/9/5/95a0a609-216b-42e1-83fa-6570c08a4a11.png?1785758897",
+    "small": "https://cards.scryfall.io/small/front/9/5/95a0a609-216b-42e1-83fa-6570c08a4a11.jpg?1785758897",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/5/95a0a609-216b-42e1-83fa-6570c08a4a11.webp?1785758897"
+  },
+  "keywords": [
+    "Menace"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "{4}{B}",
+  "multiverse_ids": [],
+  "name": "Kuroki, Thief of Talents",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ce70f16c-ea45-4f1d-aafb-34a5d05d31e7",
+  "oracle_text": "Menace\nAt the beginning of your end step, target opponent may draw four cards. If they do, look at that player's hand and you may cast a spell from their hand without paying its mana cost. If they don't, put two +1/+1 counters on Kuroki.",
+  "oversized": false,
+  "power": "4",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ace70f16c-ea45-4f1d-aafb-34a5d05d31e7&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Kuroki%2C+Thief+of+Talents&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Kuroki%2C+Thief+of+Talents&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F709769%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Kuroki%2C+Thief+of+Talents",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKuroki%252C%2BThief%2Bof%2BTalents",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKuroki%252C%2BThief%2Bof%2BTalents"
+  },
+  "released_at": "2026-11-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/95a0a609-216b-42e1-83fa-6570c08a4a11/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mbc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mbc/15/kuroki-thief-of-talents?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mbc",
+  "set_id": "a4135564-9f37-4aaf-963a-90666f843e0d",
+  "set_name": "Mystery Booster Commander Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ambc&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/a4135564-9f37-4aaf-963a-90666f843e0d",
+  "story_spotlight": false,
+  "tcgplayer_id": 709769,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Spirit",
+  "uri": "https://api.scryfall.com/cards/95a0a609-216b-42e1-83fa-6570c08a4a11",
+  "variation": false
+}

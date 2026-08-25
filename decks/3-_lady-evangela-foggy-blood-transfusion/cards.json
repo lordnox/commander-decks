@@ -2497,13 +2497,65 @@
         "Life Payment"
       ],
       "submitted_name": "Infernal Contract"
+    },
+    {
+      "cache": "cards/39213de3-6a4a-4879-a7f9-70f45013765e.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "All creatures gain hexproof and indestructible until end of turn. Players gain hexproof until end of turn. Players can't lose life this turn and players can't lose the game or win the game this turn.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Fog"
+      ],
+      "category_source": "decklist",
+      "name": "Everybody Lives!",
+      "oracle_id": "39213de3-6a4a-4879-a7f9-70f45013765e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/who/18/everybody-lives!?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Fog"
+      ],
+      "submitted_name": "Everybody Lives!"
+    },
+    {
+      "cache": "cards/ce70f16c-ea45-4f1d-aafb-34a5d05d31e7.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Menace"
+        ],
+        "mana_cost": "{4}{B}",
+        "oracle_text": "Menace\nAt the beginning of your end step, target opponent may draw four cards. If they do, look at that player's hand and you may cast a spell from their hand without paying its mana cost. If they don't, put two +1/+1 counters on Kuroki.",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Spirit"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Politics"
+      ],
+      "category_source": "decklist",
+      "name": "Kuroki, Thief of Talents",
+      "oracle_id": "ce70f16c-ea45-4f1d-aafb-34a5d05d31e7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/15/kuroki-thief-of-talents?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Politics"
+      ],
+      "submitted_name": "Kuroki, Thief of Talents"
     }
   ],
-  "categorized_cards": 97,
-  "generated_at": "2026-08-25T21:56:34.991247+00:00",
-  "maybeboard_cards": 8,
-  "maybeboard_unique_cards": 8,
-  "resolved_unique_cards": 97,
+  "categorized_cards": 99,
+  "generated_at": "2026-08-25T22:02:48.287986+00:00",
+  "maybeboard_cards": 10,
+  "maybeboard_unique_cards": 10,
+  "resolved_unique_cards": 99,
   "schema_version": 3,
   "source": "decks/3-_lady-evangela-foggy-blood-transfusion/decklist.txt",
   "total_cards": 100,
