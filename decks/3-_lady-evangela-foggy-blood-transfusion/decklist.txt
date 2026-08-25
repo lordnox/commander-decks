@@ -17,7 +17,6 @@ Drain Finisher:
 Life Payment:
 1x Wall of Blood [Life Payment]
 1x Selenia, Dark Angel [Life Payment]
-1x Hatred [Life Payment]
 1x Blood Celebrant [Life Payment,Ramp]
 
 Draw:
@@ -27,7 +26,6 @@ Draw:
 1x Dark Confidant [Draw,Life Payment]
 1x Dark Tutelage [Draw,Life Payment]
 1x Necrologia [Draw,Life Payment]
-1x Blue Sun's Zenith [Draw]
 1x Mulldrifter [Draw]
 
 Fog:
@@ -63,7 +61,6 @@ Counterspell:
 1x Swan Song [Counterspell]
 1x Dovin's Veto [Counterspell]
 1x An Offer You Can't Refuse [Counterspell]
-1x Arcane Denial [Counterspell]
 1x Cryptic Command [Counterspell,Draw]
 
 Blink:
@@ -85,7 +82,6 @@ Ramp:
 1x Talisman of Dominance [Ramp,Life Payment]
 1x Talisman of Progress [Ramp,Life Payment]
 1x Fellwar Stone [Ramp]
-1x Lotho, Corrupt Shirriff [Ramp,Life Payment]
 
 Land Search:
 1x Expedition Map [Land Search]
@@ -106,8 +102,8 @@ Land:
 1x Godless Shrine [Land]
 1x Watery Grave [Land]
 1x Hallowed Fountain [Land]
-1x Isolated Chapel [Land]
-1x Drowned Catacomb [Land]
+1x Shadowy Backstreet [Land,Swamp Engine]
+1x Undercity Sewers [Land,Swamp Engine]
 1x Glacial Fortress [Land]
 1x Caves of Koilos [Land,Life Payment]
 1x Underground River [Land,Life Payment]
@@ -119,10 +115,11 @@ Land:
 1x Prismatic Vista [Land,Land Search]
 1x Esper Panorama [Land,Land Search]
 1x Orzhov Basilica [Land]
-5x Swamp [Land]
+9x Swamp [Land]
 2x Plains [Land]
 1x Island [Land]
 
 Maybeboard:
+1x Hatred [Maybeboard{noDeck}{noPrice},Life Payment]
 1x Desertion [Maybeboard{noDeck}{noPrice},Counterspell]
 1x Arcanis the Omnipotent [Maybeboard{noDeck}{noPrice},Draw]

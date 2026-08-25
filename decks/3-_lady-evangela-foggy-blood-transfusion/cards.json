@@ -283,28 +283,6 @@
       "submitted_name": "Selenia, Dark Angel"
     },
     {
-      "cache": "cards/40601061-1b25-4db8-8b99-33324ce945cf.json",
-      "card": {
-        "cmc": 5.0,
-        "keywords": [],
-        "mana_cost": "{3}{B}{B}",
-        "oracle_text": "As an additional cost to cast this spell, pay X life.\nTarget creature gets +X/+0 until end of turn.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Life Payment"
-      ],
-      "category_source": "decklist",
-      "name": "Hatred",
-      "oracle_id": "40601061-1b25-4db8-8b99-33324ce945cf",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/exo/64/hatred?utm_source=api",
-      "submitted_categories": [
-        "Life Payment"
-      ],
-      "submitted_name": "Hatred"
-    },
-    {
       "cache": "cards/695ce90b-a5a2-4d8c-ac05-07f04010603e.json",
       "card": {
         "cmc": 1.0,
@@ -486,28 +464,6 @@
         "Life Payment"
       ],
       "submitted_name": "Necrologia"
-    },
-    {
-      "cache": "cards/613a41b8-0b4f-4995-bf1e-ca41f96e6438.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{X}{U}{U}{U}",
-        "oracle_text": "Target player draws X cards. Shuffle Blue Sun's Zenith into its owner's library.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Draw"
-      ],
-      "category_source": "decklist",
-      "name": "Blue Sun's Zenith",
-      "oracle_id": "613a41b8-0b4f-4995-bf1e-ca41f96e6438",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/a25/44/blue-suns-zenith?utm_source=api",
-      "submitted_categories": [
-        "Draw"
-      ],
-      "submitted_name": "Blue Sun's Zenith"
     },
     {
       "cache": "cards/24d0f5e7-0d9e-4b76-900e-a7274e80312d.json",
@@ -1104,28 +1060,6 @@
       "submitted_name": "An Offer You Can't Refuse"
     },
     {
-      "cache": "cards/ab1cc360-b9de-48d9-9983-4dfe4a7d2a37.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{1}{U}",
-        "oracle_text": "Counter target spell. Its controller may draw up to two cards at the beginning of the next turn's upkeep.\nYou draw a card at the beginning of the next turn's upkeep.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Counterspell"
-      ],
-      "category_source": "decklist",
-      "name": "Arcane Denial",
-      "oracle_id": "ab1cc360-b9de-48d9-9983-4dfe4a7d2a37",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/msc/147/arcane-denial?utm_source=api",
-      "submitted_categories": [
-        "Counterspell"
-      ],
-      "submitted_name": "Arcane Denial"
-    },
-    {
       "cache": "cards/a3e51a35-09df-4189-b131-08a21e6a557d.json",
       "card": {
         "cmc": 4.0,
@@ -1527,41 +1461,6 @@
         "Ramp"
       ],
       "submitted_name": "Fellwar Stone"
-    },
-    {
-      "cache": "cards/135cc078-1c45-465e-b0b9-7168c89f56f4.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [
-          "Treasure"
-        ],
-        "mana_cost": "{W}{B}",
-        "oracle_text": "Whenever a player casts their second spell each turn, you lose 1 life and create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
-        "power": "2",
-        "produced_mana": [
-          "B",
-          "G",
-          "R",
-          "U",
-          "W"
-        ],
-        "toughness": "1",
-        "type_line": "Legendary Creature — Halfling Rogue"
-      },
-      "categories": [
-        "Ramp",
-        "Life Payment"
-      ],
-      "category_source": "decklist",
-      "name": "Lotho, Corrupt Shirriff",
-      "oracle_id": "135cc078-1c45-465e-b0b9-7168c89f56f4",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/ltr/213/lotho-corrupt-shirriff?utm_source=api",
-      "submitted_categories": [
-        "Ramp",
-        "Life Payment"
-      ],
-      "submitted_name": "Lotho, Corrupt Shirriff"
     },
     {
       "cache": "cards/8fcf50cd-e6d0-4516-850f-d42ee75dcc3a.json",
@@ -1991,56 +1890,64 @@
       "submitted_name": "Hallowed Fountain"
     },
     {
-      "cache": "cards/7e5d9efe-48a9-434b-bb09-056e0e09cc9a.json",
+      "cache": "cards/216a2a92-9ca3-4ca3-8af7-686c13b04290.json",
       "card": {
         "cmc": 0.0,
-        "keywords": [],
+        "keywords": [
+          "Surveil"
+        ],
         "mana_cost": "",
-        "oracle_text": "This land enters tapped unless you control a Plains or a Swamp.\n{T}: Add {W} or {B}.",
+        "oracle_text": "({T}: Add {W} or {B}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
         "produced_mana": [
           "B",
           "W"
         ],
-        "type_line": "Land"
+        "type_line": "Land — Plains Swamp"
       },
       "categories": [
-        "Land"
+        "Land",
+        "Swamp Engine"
       ],
       "category_source": "decklist",
-      "name": "Isolated Chapel",
-      "oracle_id": "7e5d9efe-48a9-434b-bb09-056e0e09cc9a",
+      "name": "Shadowy Backstreet",
+      "oracle_id": "216a2a92-9ca3-4ca3-8af7-686c13b04290",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/soc/382/isolated-chapel?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mkm/268/shadowy-backstreet?utm_source=api",
       "submitted_categories": [
-        "Land"
+        "Land",
+        "Swamp Engine"
       ],
-      "submitted_name": "Isolated Chapel"
+      "submitted_name": "Shadowy Backstreet"
     },
     {
-      "cache": "cards/819fc966-434e-470f-91e9-a38df974ad17.json",
+      "cache": "cards/08d80efc-9542-4ba2-824c-c8615d8d07f2.json",
       "card": {
         "cmc": 0.0,
-        "keywords": [],
+        "keywords": [
+          "Surveil"
+        ],
         "mana_cost": "",
-        "oracle_text": "This land enters tapped unless you control an Island or a Swamp.\n{T}: Add {U} or {B}.",
+        "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
         "produced_mana": [
           "B",
           "U"
         ],
-        "type_line": "Land"
+        "type_line": "Land — Island Swamp"
       },
       "categories": [
-        "Land"
+        "Land",
+        "Swamp Engine"
       ],
       "category_source": "decklist",
-      "name": "Drowned Catacomb",
-      "oracle_id": "819fc966-434e-470f-91e9-a38df974ad17",
+      "name": "Undercity Sewers",
+      "oracle_id": "08d80efc-9542-4ba2-824c-c8615d8d07f2",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/msc/239/drowned-catacomb?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mkm/270/undercity-sewers?utm_source=api",
       "submitted_categories": [
-        "Land"
+        "Land",
+        "Swamp Engine"
       ],
-      "submitted_name": "Drowned Catacomb"
+      "submitted_name": "Undercity Sewers"
     },
     {
       "cache": "cards/027dd013-baa7-4111-b3c9-f4d1414e9c45.json",
@@ -2360,7 +2267,7 @@
       "category_source": "decklist",
       "name": "Swamp",
       "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
-      "quantity": 5,
+      "quantity": 9,
       "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
       "submitted_categories": [
         "Land"
@@ -2418,6 +2325,30 @@
       "submitted_name": "Island"
     },
     {
+      "cache": "cards/40601061-1b25-4db8-8b99-33324ce945cf.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "As an additional cost to cast this spell, pay X life.\nTarget creature gets +X/+0 until end of turn.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Life Payment"
+      ],
+      "category_source": "decklist",
+      "name": "Hatred",
+      "oracle_id": "40601061-1b25-4db8-8b99-33324ce945cf",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/exo/64/hatred?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Life Payment"
+      ],
+      "submitted_name": "Hatred"
+    },
+    {
       "cache": "cards/ee3d1f44-e0ca-4ce9-be76-4b675a115156.json",
       "card": {
         "cmc": 5.0,
@@ -2468,14 +2399,14 @@
       "submitted_name": "Arcanis the Omnipotent"
     }
   ],
-  "categorized_cards": 97,
-  "generated_at": "2026-08-25T20:56:07.005222+00:00",
-  "maybeboard_cards": 2,
-  "maybeboard_unique_cards": 2,
-  "resolved_unique_cards": 97,
+  "categorized_cards": 94,
+  "generated_at": "2026-08-25T21:09:03.492269+00:00",
+  "maybeboard_cards": 3,
+  "maybeboard_unique_cards": 3,
+  "resolved_unique_cards": 94,
   "schema_version": 3,
   "source": "decks/3-_lady-evangela-foggy-blood-transfusion/decklist.txt",
   "total_cards": 100,
-  "unique_cards": 95,
+  "unique_cards": 91,
   "unresolved": []
 }
