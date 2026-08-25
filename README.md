@@ -44,6 +44,7 @@ Orzhov aristocrats combo: free sac outlet, recursive creatures, and overlapping 
 Mono-black Spirit graveyard combo: dump the legend suite with Iname, then Mortal Combat or reanimate the pile.
 [![combo 5](https://img.shields.io/static/v1?label=5&message=combo&color=0e7c66&style=flat-square)](https://archidekt.com/tags/combo) [![graveyard 5](https://img.shields.io/static/v1?label=5&message=graveyard&color=0e7c66&style=flat-square)](https://archidekt.com/tags/graveyard) [![spirits 5](https://img.shields.io/static/v1?label=5&message=spirits&color=0e7c66&style=flat-square)](https://archidekt.com/tags/spirits) [![reanimator 4](https://img.shields.io/static/v1?label=4&message=reanimator&color=0e7c66&style=flat-square)](https://archidekt.com/tags/reanimator) [![self-mill 4](https://img.shields.io/static/v1?label=4&message=self-mill&color=0e7c66&style=flat-square)](https://archidekt.com/tags/self-mill) [![alternate wincon 3](https://img.shields.io/static/v1?label=3&message=alternate%20wincon&color=0e7c66&style=flat-square)](https://archidekt.com/tags/alternate_wincon)
 <!-- deck-overview:end -->
+- `Unrated` [Sin — Sin-fall](decks/unrated_sin-fall/README.md)
 A conversation-driven workspace for importing, resolving, categorizing, assessing, and improving Magic: The Gathering Commander decks.
 
 The repository keeps each submitted deck list unchanged and caches card data from Scryfall for reuse across decks.
