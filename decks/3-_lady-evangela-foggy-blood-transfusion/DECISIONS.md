@@ -37,9 +37,8 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 ### Life payment
 
-- **Wall of Blood** — Pays any amount of life at instant speed with no other cost. It is the cleanest way to get to a low total before an exchange, and with Hatred or a swap it also just kills someone.
+- **Wall of Blood** — Pays any amount of life at instant speed with no other cost, repeatedly, for `{1}` a point. It is the cleanest way to get to a low total before an exchange, and it is the reason Hatred was cuttable.
 - **Selenia, Dark Angel** — Pays 2 life to bounce itself, so it is a repeatable life sink that also protects itself and re-enters for another cycle.
-- **Hatred** — Pays X life for X power until end of turn. Kept because it doubles as removal on a lifelinker or a political strike, and because dumping life is upside here.
 - **Blood Celebrant** — Pays 1 life to fix any color, which matters for `{W}{W}{W}` and `{W}{W}{B}{B}` costs, and it is a mana ability so it cannot be responded to.
 - **Dark Confidant** — Random life loss that is a benefit rather than a cost in this deck, which is exactly why it is here and Phyrexian Arena is not.
 - **Dark Tutelage** — A second Confidant on an enchantment. The deck wants both the cards and the life loss.
@@ -48,7 +47,6 @@ Every unique card needs a Cards in line. The other headings appear when there is
 ### Draw
 
 - **Esper Sentinel** — Taxes the whole table's first noncreature spell each turn and grows with a big mana turn. It is draw that also fits the pillow-fort posture.
-- **Blue Sun's Zenith** — Scalable refill that shuffles back in, so a huge black-mana turn can point at draw instead of at damage.
 - **Mulldrifter** — Two cards attached to a body, and the best repeatable blink target after Mister Negative.
 
 ### Fog and aikido
@@ -89,7 +87,6 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Swan Song** — One-mana protection for the exchange spell; the 2/2 Bird is a fine price behind a fog wall.
 - **Dovin's Veto** — Uncounterable answer to the noncreature spells that actually threaten the plan.
 - **An Offer You Can't Refuse** — One mana; giving two Treasures matters less than resolving the swap.
-- **Arcane Denial** — Cheap and politically soft: the opponent gets cards, so the counter reads as a trade rather than an attack.
 - **Cryptic Command** — Four modes including counter-plus-draw and the fog-adjacent tap-all-creatures mode.
 
 ### Blink
@@ -99,7 +96,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 ### Swamp engine
 
-- **Blanket of Night** — The second `a Swamp in addition` effect. Every land in the game becomes a Swamp, which feeds Coffers and Crypt Ghast.
+- **Blanket of Night** — The second `a Swamp in addition` effect. Every land in the game becomes a Swamp, which feeds Coffers and Crypt Ghast. After the land base was rebuilt to fourteen real Swamps it is an amplifier rather than the on-switch it used to be.
 - **Crypt Ghast** — Adds an extra `{B}` every time you tap a Swamp for mana, so under Urborg every land you tap produces two black. Extort is a bonus drain outlet.
 - **Nirkana Revenant** — A second copy of that trigger on a bigger body that can also pump itself with spare black.
 - **Magus of the Coffers** — A second Cabal Coffers on a creature, which means it dodges land hate and can be blinked or protected by Adept Watershaper.
@@ -115,7 +112,6 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Talisman of Dominance** — `{U}` or `{B}` for 1 life.
 - **Talisman of Progress** — `{W}` or `{U}` for 1 life.
 - **Fellwar Stone** — Usually produces exactly the color a three-opponent pod already has.
-- **Lotho, Corrupt Shirriff** — Makes a Treasure whenever an opponent casts their second spell, and the 1 life it costs each time is upside here.
 
 ### Land search
 
@@ -129,7 +125,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Cabal Stronghold** — Backup Coffers at `{3}` that counts basic Swamps only, which is why the basic Swamp count is deliberately high for a three-color deck.
 - **Deserted Temple** — Untaps Cabal Coffers, and with Rings of Brighthearth the untap is copied.
 - **Myriad Landscape** — Sacrifices for two basics that share a type, meaning two Swamps.
-- **Minamo, School at Water's Edge** — `{U}`, tap: untap a legendary permanent, which gives Lady Evangela or Sokrates a second activation in a turn. Neither Magus is legendary, so she, Sokrates, and Lotho are the real targets.
+- **Minamo, School at Water's Edge** — `{U}`, tap: untap a legendary permanent, which gives Lady Evangela or Sokrates a second activation in a turn. It also untaps Deserted Temple, which is a second Coffers untap. Neither Magus is legendary.
 - **Command Tower** — Free three-color fixing.
 - **Exotic Orchard** — Usually produces the deck's colors in a three-opponent pod.
 - **Reflecting Pool** — Fixes off the deck's own duals.
@@ -137,20 +133,20 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Godless Shrine** — `W/B` shock land, fetchable.
 - **Watery Grave** — `U/B` shock land, fetchable.
 - **Hallowed Fountain** — `W/U` shock land, fetchable.
-- **Isolated Chapel** — `W/B` check land.
-- **Drowned Catacomb** — `U/B` check land.
-- **Glacial Fortress** — `W/U` check land.
+- **Shadowy Backstreet** — `W/B` surveil land, chosen over Isolated Chapel because it is a Plains Swamp. It always enters tapped, and that is the price paid for a Coffers counter, a Crypt Ghast trigger, and a Marsh Flats target.
+- **Undercity Sewers** — `U/B` surveil land, chosen over Drowned Catacomb for the same reason: it is an Island Swamp.
+- **Glacial Fortress** — `W/U` check land. No `W/U` land can carry the Swamp type, so this slot stays a check land.
 - **Caves of Koilos** — Pain land; the life cost is fuel.
 - **Underground River** — Pain land.
 - **Adarkar Wastes** — Pain land.
 - **City of Brass** — Any color for 1 life, which the deck is happy to pay.
 - **Mana Confluence** — Any color for 1 life.
-- **Marsh Flats** — Fetches Godless Shrine or a basic Swamp.
-- **Polluted Delta** — Fetches Watery Grave or a basic Swamp.
+- **Marsh Flats** — Fetches Godless Shrine, Shadowy Backstreet, Raffine's Tower, or a basic Swamp.
+- **Polluted Delta** — Fetches Watery Grave, Undercity Sewers, Raffine's Tower, or a basic Swamp.
 - **Prismatic Vista** — Fetches any basic, so it is a Swamp when Coffers is out.
 - **Esper Panorama** — Slow fixing that still counts as a Swamp under Urborg and finds the third color.
 - **Orzhov Basilica** — Bounce land; two mana from one land helps a deck that wants to hold up interaction.
-- **Swamp** — Cabal Coffers and Cabal Stronghold both count Swamps, so the basic count is deliberately high for a three-color deck.
+- **Swamp** — Nine copies. Cabal Stronghold counts *basic* Swamps only, Myriad Landscape fetches two of a shared basic type, and all three fetch lands want basics in the library, so the basic Swamp count is deliberately high for a three-color deck.
 - **Plains** — Kept so Archangel of Tithes and Promise of Loyalty are castable without relying on Urborg-affected duals.
 - **Island** — Minimum blue basic so the counterspell suite has a fetchable source.
 
@@ -170,14 +166,18 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Card tutors** — Rejected as a category. The plan is to draw into the finishers, so the only searching in the deck finds lands.
 - **Game Changers** — Zero by request. Verified programmatically against the cached Scryfall `game_changer` flag.
 - **Umbral Mantle** — Trimmed as a redundant second loop enabler; **Rings of Brighthearth** with **Deserted Temple** is the primary line.
-- **Smuggler's Share**, **Monologue Tax**, **Discerning Financier**, **Beza, the Bounding Spring** — The Treasure package was approved but trimmed to **Lotho, Corrupt Shirriff** so the counterspell count could reach eight.
+- **Smuggler's Share**, **Monologue Tax**, **Discerning Financier**, **Beza, the Bounding Spring**, **Lotho, Corrupt Shirriff** — The whole Treasure package is out. It was trimmed to Lotho for the counterspell count, then Lotho was cut for a land: a Treasure trickle off other players' second spells is the lowest-impact card in a deck that would rather just have a Swamp.
 - **Knight-Captain of Eos**, **Holy Day**, **Riot Control** — Trimmed from the fog suite as the most expensive or most redundant copies.
 - **Painful Truths**, **Fact or Fiction**, **Burnished Hart** — Trimmed for interaction slots.
 - **Arcanis the Omnipotent** — Maybeboard only. A seven-mana draw engine competes with the finishers for the big mana turn.
 - **Desertion** — Maybeboard only. Counter-and-steal is aikido, but `{3}{U}{U}` is a lot to hold when the job is protecting a six-or-seven-mana exchange, and taking their creature makes the deck look greedy. Cryptic Command stays in the 99 for the same mana band.
 - **Orzhov Advokist** — Cut for **Sokrates, Athenian Teacher**. Advokist only asks people not to attack you; Sokrates converts their attack into cards for the table.
 - **Dawn Charm** — Cut for **Energy Arc**. Charm's extra modes are real, but Energy Arc can fog a selected subset of the combat *and* untap Evangela or Sokrates in the same spell.
-- **Night's Whisper** — Cut for **Scapegoat**. The deck still has Confidant, Tutelage, Necrologia, Sentinel, Mulldrifter, and Blue Sun's Zenith; a one-mana board-save is rarer.
+- **Night's Whisper** — Cut for **Scapegoat**. The deck still has Confidant, Tutelage, Necrologia, Sentinel, and Mulldrifter; a one-mana board-save is rarer.
+- **Hatred** — Cut to the maybeboard for a land. It was approved as a life dump, but **Wall of Blood** dumps any amount at instant speed for `{1}` a point and does it every turn, and the deck fields about five creatures that ever attack, so the `+X/+0` half is close to blank. Five mana was the wrong price for a redundant effect.
+- **Blue Sun's Zenith** — Cut for a land. `{U}{U}{U}` off fourteen blue sources is the hardest cost in the deck, and its best turn is the same big-black-mana turn Exsanguinate wants. Necrologia and Cryptic Command cover the draw-burst role, including the Psychosis Crawler kill.
+- **Arcane Denial** — Cut for a land. It was the softest of eight counterspells and the only one that hands an opponent two cards; seven counters is still a full draw-go suite.
+- **Isolated Chapel**, **Drowned Catacomb** — Replaced by **Shadowy Backstreet** and **Undercity Sewers**. Same colors, same slots, but the surveil lands carry the Swamp type. Always entering tapped is a real cost that a draw-go deck feels, and it was paid deliberately.
 
 ## Rules
 
@@ -200,6 +200,8 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Energy Arc prevents combat damage to *and* from the chosen creatures**, so targeting only the attacking team is a fog that also stops chump-block damage, and targeting your own tapped utility creatures untaps them without fogging the rest of combat unless you include the attackers too.
 - **Scapegoat's additional cost is sacrificing a creature you control**, then it bounces any number of *your* creatures, including zero others. It cannot bounce an opponent's attacker.
 - **Mana Drain is not on the Game Changer list**, so it stays despite the zero-Game-Changer constraint. Verified against the cached Scryfall flag rather than from memory.
+- **Cabal Coffers counts Swamps; Cabal Stronghold counts *basic* Swamps.** They are not the same number. Urborg and Blanket of Night raise the Coffers count but do nothing for Stronghold, which is why the deck needs real basics and not just Swamp-granting effects.
+- **A dual land with the Swamp subtype is a Swamp for every purpose.** Godless Shrine, Watery Grave, Raffine's Tower, Shadowy Backstreet, and Undercity Sewers all count for Cabal Coffers, trigger Crypt Ghast and Nirkana Revenant when tapped for mana, untap to Bubbling Muck, and are fetchable by Marsh Flats or Polluted Delta. None of them count for Cabal Stronghold.
 
 ## Talks
 
@@ -208,6 +210,9 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **2026-08-25 — Land search.** An initial "no land tutors" instruction was clarified to mean "I do not know of any in these colors." Land search was then added deliberately, weighted toward effects that find Swamps, because every Swamp raises the Coffers and Stronghold ceiling.
 - **2026-08-25 — Name.** Settled on *Foggy Blood Transfusion*: fog for the aikido shell, blood for the life payment, transfusion for the exchange.
 - **2026-08-25 — Aikido extras.** Sokrates, Energy Arc, and Scapegoat entered the 99. Desertion and Arcanis went to the maybeboard. Cuts were Orzhov Advokist, Dawn Charm, and Night's Whisper.
+- **2026-08-25 — Land base rebuild.** The pilot caught that 34 lands contained only 8 Swamp-typed lands and 5 basic Swamps, which meant the entire Swamp engine — Cabal Coffers, Cabal Stronghold, Crypt Ghast, Nirkana Revenant, Bubbling Muck — was effectively switched off unless Urborg or Blanket of Night was on the battlefield, roughly a 1-in-4 proposition by turn eight even counting Expedition Map. Three fixes were applied together: two check lands were swapped for the Swamp-typed surveil lands at no color cost, four nonlands became basic Swamps, and the deck went to 38 lands. Swamp-typed lands went 8 → 14 and basic Swamps 5 → 9, so Cabal Stronghold is live on its own and Coffers has a real floor without Urborg. White and blue land sources were held at 15 and 14 so `{1}{W}{W}{W}` and the counterspells did not get worse. The bracket is unchanged at 3−: the deck got more consistent, not faster or more compact, and it lost three spells to gain four lands.
+
+  White remains the tightest color. Cost is 38% white symbols against 19% white production, and Archangel of Tithes at `{1}{W}{W}{W}` is the only triple-pip card in the deck. Blood Celebrant, Arcane Signet, Talisman of Hierarchy, Talisman of Progress, and Fellwar Stone carry it in practice, but Archangel is the first card to cut if the mana proves too greedy.
 - **2026-08-25 — Assessment.** First bracket pass: Bracket 3−. Zero Game Changers versus the live Scryfall `is:gamechanger` list (53 cards, including Farewell and Biorhythm from the [February 9, 2026 update](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-february-9-2026)). No card tutors, no two-card win combo. Rings of Brighthearth plus Deserted Temple is a mana engine, not a kill. Sokrates / Energy Arc / Scapegoat did not change Game Changer count, compactness, or expected win turn versus Advokist / Dawn Charm / Night's Whisper.
 
 ## Primer

@@ -5447,8 +5447,15 @@
       "categories": [
         "card-draw"
       ]
+    },
+    "216a2a92-9ca3-4ca3-8af7-686c13b04290": {
+      "name": "Shadowy Backstreet",
+      "categories": [
+        "land",
+        "ramp"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-25T20:56:07.005222+00:00"
+  "updated_at": "2026-08-25T21:09:03.492269+00:00"
 }
