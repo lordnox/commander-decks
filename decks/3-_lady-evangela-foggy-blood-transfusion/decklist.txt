@@ -16,6 +16,7 @@ Life Payment:
 1x Selenia, Dark Angel [Life Payment]
 1x Blood Celebrant [Life Payment,Ramp]
 1x Children of Korlis [Life Payment]
+1x Tainted Sigil [Life Payment]
 1x Pain's Reward [Draw,Life Payment,Politics]
 
 Draw:
@@ -38,7 +39,6 @@ Fog:
 1x Energy Arc [Fog]
 1x Kami of False Hope [Fog]
 1x Everybody Lives! [Fog]
-1x Scapegoat [Blink]
 1x Settle the Wreckage [Fog,Removal]
 
 Tax:
@@ -120,6 +120,7 @@ Land:
 1x Island [Land]
 
 Maybeboard:
+1x Scapegoat [Maybeboard{noDeck}{noPrice},Blink]
 1x Sol Ring [Maybeboard{noDeck}{noPrice},Ramp]
 1x Mana Drain [Maybeboard{noDeck}{noPrice},Counterspell]
 1x Hatred [Maybeboard{noDeck}{noPrice},Life Payment]
