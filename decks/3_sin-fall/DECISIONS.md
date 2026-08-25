@@ -130,3 +130,7 @@ The 99 contains two Game Changers: **Crop Rotation** and **Field of the Dead**. 
 Usual goldfish: ramp into Sin on turn five or six with a planted jackpot, then win on the following combat or X-spell turn (around seven). Credible high roll: **Burgeoning** / extra land drops plus **Entomb** **Portal to Phyrexia**, Sin on turn five. Interactive games stall on graveyard hate or commander tax.
 
 Not Bracket 2: two Game Changers, yard tutors (**Entomb**, **Buried Alive**, **Unmarked Grave**), and a tuned fetch/dual mana base. Not Bracket 4: no Mox/Vault/Cradle package, no free counters, and the commander is not an instantaneous win. Mid Bracket 3 rather than 3+ because the exceptional line presents a jackpot, it does not reliably end the game on turn four or five.
+
+### 2026-08-25 — Drop the clones tag
+
+Sin makes tapped token copies, but that is not a Clone/Sakashima package. Keep the copies under **tokens** and drop **clones** so the Archidekt badge does not imply a clone deck.
