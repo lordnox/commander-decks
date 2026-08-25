@@ -59,9 +59,10 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Inkshield** — Prevents the damage and converts it into flying Spirit tokens, turning the biggest attack of the game into a board.
 - **Comeuppance** — Reflects combat and noncombat damage back at its source, which punishes the alpha strike the pillow fort invites.
 - **Energy Arc** — Untap any number of creatures and prevent combat damage they would deal *and* take. Aimed at the attacking team it is a two-mana fog; aimed at your own tapped clerics it untaps Lady Evangela or Sokrates for a second activation in the same combat.
-- **Kami of False Hope** — Sacrifices for a fog, so the effect is on the battlefield where nobody counts it as interaction.
+- **Kami of False Hope** — Sacrifices for a fog, so the effect is on the battlefield where nobody counts it as interaction. It is also the cheapest Scapegoat fodder in the list.
 - **Everybody Lives!** — `{1}{W}`: creatures get hexproof and indestructible, players get hexproof, nobody can lose life, and nobody can win or lose the game this turn. It is the cheap answer to an opposing Exsanguinate, which combat fogs miss. Cast it as a panic button, never on this deck's own drain or dump turn. It occupies the other extra Swamp slot ahead of Infernal Contract (redundant with Necrologia) and Kuroki (not Commander-legal until 2026-11-09, and too greedy).
 - **Settle the Wreckage** — Instant-speed one-sided exile of an attacking army. Kept because it looks like defense and is actually the game's biggest swing.
+- **Scapegoat** — `{W}`, sacrifice a creature: bounce any number of your creatures. It saves the board from a wipe, rebuys Mister Negative and Mulldrifter, and reads as panic rather than as a combo.
 
 ### Tax
 
@@ -83,7 +84,6 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 ### Counterspells
 
-- **Counterspell** — The reason blue is in the deck: the exchange or the drain must resolve.
 - **Absorb** — Counter plus 3 life, which is both protection and payment fuel.
 - **Swan Song** — One-mana protection for the exchange spell; the 2/2 Bird is a fine price behind a fog wall.
 - **Dovin's Veto** — Uncounterable answer to the noncreature spells that actually threaten the plan.
@@ -98,7 +98,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 ### Swamp engine
 
-- **Blanket of Night** — The second `a Swamp in addition` effect. Every land in the game becomes a Swamp, which feeds Coffers and Crypt Ghast. After the land base was rebuilt to fourteen real Swamps it is an amplifier rather than the on-switch it used to be.
+- **Blanket of Night** — The second `a Swamp in addition` effect. Every land in the game becomes a Swamp, which feeds Coffers and Crypt Ghast. After the land base was rebuilt to sixteen real Swamps it is an amplifier rather than the on-switch it used to be.
 - **Crypt Ghast** — Adds an extra `{B}` every time you tap a Swamp for mana, so under Urborg every land you tap produces two black. Extort is a bonus drain outlet.
 - **Nirkana Revenant** — A second copy of that trigger on a bigger body that can also pump itself with spare black.
 - **Magus of the Coffers** — A second Cabal Coffers on a creature, which means it dodges land hate and can be blinked.
@@ -125,7 +125,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Cabal Stronghold** — Backup Coffers at `{3}` that counts basic Swamps only, which is why the basic Swamp count is deliberately high for a three-color deck.
 - **Deserted Temple** — Untaps Cabal Coffers, and with Rings of Brighthearth the untap is copied.
 - **Myriad Landscape** — Sacrifices for two basics that share a type, meaning two Swamps.
-- **Minamo, School at Water's Edge** — `{U}`, tap: untap a legendary permanent, which gives Lady Evangela or Sokrates a second activation in a turn. It also untaps Deserted Temple, which is a second Coffers untap. Magus of the Coffers is not legendary.
+- **Minamo, School at Water's Edge** — `{U}`, tap: untap target *legendary* permanent. The only real targets are Lady Evangela, Sokrates, and Loran, so it buys a second prevention, fog-draw, or shared draw. It does **not** untap Deserted Temple, Cabal Coffers, Magus of the Coffers, or Mirror Universe, none of which are legendary. Kept mainly as a blue source that also does this; it is the weakest utility land in the list.
 - **Command Tower** — Free three-color fixing.
 - **Exotic Orchard** — Usually produces the deck's colors in a three-opponent pod.
 - **Reflecting Pool** — Fixes off the deck's own duals.
@@ -139,8 +139,8 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Caves of Koilos** — Pain land; the life cost is fuel.
 - **Underground River** — Pain land.
 - **Adarkar Wastes** — Pain land.
-- **City of Brass** — Any color for 1 life, which the deck is happy to pay.
-- **Mana Confluence** — Any color for 1 life.
+- **Eclipsed Steppe** — `Plains Swamp` that enters untapped with two or more basic lands, which twelve basics make routine. Replaces City of Brass: same white source, no repeated damage, and it counts for Cabal Coffers, Crypt Ghast, Nirkana Revenant, and Bubbling Muck.
+- **Sunken Hollow** — `Island Swamp` on the same condition. Replaces Mana Confluence as the blue source that also raises the Swamp count.
 - **Marsh Flats** — Fetches Godless Shrine, Shadowy Backstreet, Raffine's Tower, or a basic Swamp.
 - **Polluted Delta** — Fetches Watery Grave, Undercity Sewers, Raffine's Tower, or a basic Swamp.
 - **Prismatic Vista** — Fetches any basic, so it is a Swamp when Coffers is out.
@@ -174,7 +174,9 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Orzhov Advokist** — Cut for **Sokrates, Athenian Teacher**. Advokist only asks people not to attack you; Sokrates converts their attack into cards for the table.
 - **Dawn Charm** — Cut for **Energy Arc**. Charm's extra modes are real, but Energy Arc can fog a selected subset of the combat *and* untap Evangela or Sokrates in the same spell.
 - **Night's Whisper** — Cut for **Scapegoat**. The deck still has Confidant, Tutelage, Necrologia, and Mulldrifter; a one-mana board-save is rarer.
-- **Scapegoat** — Left the 99 for **Tainted Sigil**. Needs a creature to sacrifice and only bounces your board; Ghostly Flicker still blinks two permanents. The slot is a second life-lost-this-turn refund.
+- **Counterspell** — Left the 99 for **Tainted Sigil**. `{U}{U}` is the hardest counter cost to hold in a deck with thirteen blue lands and a black-heavy engine. Arcane Denial does the same job for `{1}{U}` and fits the group-hug disguise, so the double-blue copy was the cut.
+- **City of Brass**, **Mana Confluence** — Cut for **Eclipsed Steppe** and **Sunken Hollow**. Their any-color fixing was real, but the life they charge is untargeted chip damage rather than a payment the deck chooses, and neither is a Swamp. The replacements cost nothing, raise the number Cabal Coffers multiplies from 14 to 16, and hold white and blue at twenty sources each once the rocks and Blood Celebrant are counted; only the land-only count slips by one per color.
+- **MDFCs** — Reviewed as land replacements and rejected. Every modal double-faced land back in Esper identity (Hagra Broodpit, Malakir Mire, Agadeem the Undercrypt, Sea Gate Reborn, Emeria Shattered Skyclave, Silundi Isle, Zof Bloodbog) is a plain `Land` producing one color, so none of them count for Cabal Coffers and all of them are worse fixing than a Swamp-typed dual.
 - **Hatred** — Maybeboard, not rejected. Unlike Wall of Blood, Hatred can turn *any* creature into an instant-speed political assassination: after two opponents arrange harmless attacks to trade the monarch or another combat reward, paying life can make the nominal 1/1 lethal without this deck ever attacking. It can also enlarge an opponent's attacker aimed at the archenemy or turn this deck's lifelinker into a life-total reset. The tension is its `{3}{B}{B}` cost and the risk of losing both life and spell to removal; it competes with holding up a fog plus counterspell.
 - **Necromancer's Covenant** — Cut because six mana for graveyard hate, Zombies, and lifelink asks the deck to commit visibly to the battlefield. The deck prefers to remain reactive and spend that mana after opponents reveal what matters.
 - **Wayfarer's Bauble** — Cut because 38 lands and nine basic Swamps give the mana engine a functional floor already. Spending three mana to put one tapped Swamp into play is lower leverage than Lotho generating Treasures while the deck holds up interaction.
@@ -215,6 +217,8 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Lady Evangela prevents all combat damage dealt by one target creature.** It is not a table-wide fog and it does not redirect anything — it switches off the single biggest attacker completely, for `{W}{B}` and a tap, every turn. Combat fogs cover armies; Everybody Lives! covers mass life loss.
 - **Sokrates only stops combat damage to players**, not to creatures or planeswalkers, and the card draw is half the prevented damage rounded down. A 5-power attacker draws two cards each; a 1-power attacker draws nothing.
 - **Sokrates has hexproof only while untapped.** Without Watershaper, Minamo or Energy Arc is how a tapped Sokrates stands back up before removal.
+- **Scapegoat's additional cost is sacrificing a creature you control**, then it bounces any number of *your* creatures, including zero others. It cannot bounce an opponent's attacker.
+- **Minamo only untaps legendary permanents.** Deserted Temple, Cabal Coffers, Magus of the Coffers, and Mirror Universe are all nonlegendary, so Minamo is not a second Coffers untap. Its targets are Lady Evangela, Sokrates, and Loran. An earlier primer line claiming the Temple untap was wrong.
 - **Energy Arc prevents combat damage to *and* from the chosen creatures**, so targeting only the attacking team is a fog that also stops chump-block damage, and targeting your own tapped utility creatures untaps them without fogging the rest of combat unless you include the attackers too.
 - **Tainted Sigil counts life lost by all players this turn**, including paid life, combat, and drains. `{T}`, sacrifice. It has to be in play already. Do not activate it when you still need a low total for Mirror Universe or Repay in Kind. After a table drain it refunds everyone else's loss as well as yours; Phial of Galadriel doubles that gain at 5 life or less.
 - **Simulacrum only counts damage**, not paid life. Official ruling 2004-10-04. It was rejected as a Korlis copy.
@@ -253,7 +257,8 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **2026-08-25 — Assessment.** First bracket pass: Bracket 3−. Zero Game Changers versus the live Scryfall `is:gamechanger` list (53 cards, including Farewell and Biorhythm from the [February 9, 2026 update](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-february-9-2026)). No card tutors, no two-card win combo. Rings of Brighthearth plus Deserted Temple is a mana engine, not a kill. Sokrates / Energy Arc / Scapegoat did not change Game Changer count, compactness, or expected win turn versus Advokist / Dawn Charm / Night's Whisper.
 - **2026-08-26 — Reassessment after the slow-package cuts.** Still Bracket 3−. Rechecked the live Commander page ([magic.wizards.com/en/formats/commander](https://magic.wizards.com/en/formats/commander)): Brackets 1–2 exclude Game Changers, Bracket 3 allows up to three, 4–5 unlimited. Live Scryfall `is:gamechanger` is still 53 names including Farewell and Biorhythm from the [February 9, 2026 update](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-february-9-2026); this 99 hits none. Mana Drain is still not on that list. Cutting Axis of Mortality, Soul Conduit, Magus of the Mirror, Liliana, and Adept Watershaper made the transfusion package thinner (three exchanges left), which is slower to assemble, not faster. Children of Korlis, Bender's Waterskin, Pain's Reward, Wall of Shards, and Everybody Lives! add resilience, draw-go mana, and a panic button against opposing mass drain; none of them compact the Coffers drain or create an early two-card kill. Lands are back at 38 with 14 Swamp-typed lands and 9 basics. Usual threat remains a turn-nine drain; the turn-seven X-spell is still a high-roll *threat* that needs Coffers already online, not a table kill from 40. Folder stays `3-_`.
 - **2026-08-26 — Bracket after the Snuff Out and Phial swaps.** Both swaps postdate the reassessment above and neither changes it. Snuff Out and Phial of Galadriel are not Game Changers, are not tutors, and do not compact the drain. Dropping Sol Ring makes the turn-seven high roll slightly less likely, so the deck is a touch slower, not faster. Still Bracket 3−.
-- **2026-08-26 — Tainted Sigil over Simulacrum.** The Korlis refund is wanted in duplicate. Simulacrum only refunds damage and needs a creature that can eat the same hit; Tainted Sigil refunds all life lost by all players this turn. Scapegoat left as the most situational remaining card.
+- **2026-08-26 — Tainted Sigil over Simulacrum.** The Korlis refund is wanted in duplicate. Simulacrum only refunds damage and needs a creature that can eat the same hit; Tainted Sigil refunds all life lost by all players this turn.
+- **2026-08-26 — Sigil slot corrected, and the rainbow pain lands cut.** Scapegoat was briefly cut for the Sigil and came straight back; Counterspell paid the slot instead, because `{U}{U}` is the awkward cost here and Arcane Denial covers the same window for `{1}{U}`. Separately, the pilot caught that Minamo cannot untap Deserted Temple — Temple is not legendary — so the "second Coffers untap" line was false and Minamo is now documented as the weakest utility land rather than an engine piece. City of Brass and Mana Confluence left for Eclipsed Steppe and Sunken Hollow: same white and blue availability, no chip damage, and two more lands that Cabal Coffers counts. Swamp-typed lands go 14 → 16. MDFCs were considered and rejected because their land backs are colorless-typed single-color lands that Coffers ignores.
 
 ## Primer
 

@@ -5560,8 +5560,15 @@
       "categories": [
         "sacrifice"
       ]
+    },
+    "6216635f-8e6e-40a3-9659-ef6352ab92ce": {
+      "name": "Eclipsed Steppe",
+      "categories": [
+        "land",
+        "ramp"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-25T23:19:42.257875+00:00"
+  "updated_at": "2026-08-25T23:25:36.251527+00:00"
 }
