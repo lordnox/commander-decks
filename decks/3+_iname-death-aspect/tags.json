@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Mono-black Spirit graveyard combo: dump the legend suite with Iname, then Mortal Combat or reanimate the pile.",
+  "tags": [
+    {
+      "name": "combo",
+      "score": 5,
+      "reason": "Mortal Combat after a dumped yard is the primary win."
+    },
+    {
+      "name": "graveyard",
+      "score": 5,
+      "reason": "The plan is to put the whole Spirit suite in the yard at once."
+    },
+    {
+      "name": "spirits",
+      "score": 5,
+      "reason": "Iname only mills Spirits; the creature base is a Spirit pile."
+    },
+    {
+      "name": "reanimator",
+      "score": 4,
+      "reason": "Living Death and Bidding are the backup if Combat is not online."
+    },
+    {
+      "name": "self-mill",
+      "score": 4,
+      "reason": "Iname and helpers fill your yard rather than milling opponents."
+    },
+    {
+      "name": "alternate wincon",
+      "score": 3,
+      "reason": "Mortal Combat is an explicit alternate win condition."
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Sultai self-mill landfall combo: dump lands, replay them, and copy Homers into quadratic mill.",
+  "tags": [
+    {
+      "name": "combo",
+      "score": 5,
+      "reason": "The deck is built to assemble a repeatable Homer mill loop."
+    },
+    {
+      "name": "graveyard",
+      "score": 5,
+      "reason": "The yard is the resource engine, not a side path."
+    },
+    {
+      "name": "mill",
+      "score": 5,
+      "reason": "Copied Homers mill opponents as the actual win."
+    },
+    {
+      "name": "self-mill",
+      "score": 5,
+      "reason": "Filling its own graveyard is how lands and Homers get into play."
+    },
+    {
+      "name": "landfall",
+      "score": 4,
+      "reason": "Replaying milled lands is the other half of the engine."
+    },
+    {
+      "name": "crabs",
+      "score": 2,
+      "reason": "Homer is a Crab, but there is no crab tribal package."
+    },
+    {
+      "name": "dredge",
+      "score": 2,
+      "reason": "A couple of dredge cards help the mill plan."
+    }
+  ]
+}

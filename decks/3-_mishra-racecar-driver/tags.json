@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Grixis artifact Vehicles: copy utility artifacts into 4/4 racers and reuse their enters and attack triggers.",
+  "tags": [
+    {
+      "name": "artifacts",
+      "score": 5,
+      "reason": "Almost every payoff is an artifact Mishra can copy."
+    },
+    {
+      "name": "vehicles",
+      "score": 5,
+      "reason": "The finishers and the racecar joke are Vehicle-heavy."
+    },
+    {
+      "name": "clones",
+      "score": 3,
+      "reason": "Mishra and several cards exist to copy artifacts each combat."
+    },
+    {
+      "name": "affinity",
+      "score": 2,
+      "reason": "A few affinity cards discount off the artifact count."
+    }
+  ]
+}

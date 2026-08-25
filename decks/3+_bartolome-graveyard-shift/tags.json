@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Orzhov aristocrats combo: free sac outlet, recursive creatures, and overlapping death loops.",
+  "tags": [
+    {
+      "name": "aristocrats",
+      "score": 5,
+      "reason": "Sac outlets plus death triggers are the whole engine."
+    },
+    {
+      "name": "combo",
+      "score": 5,
+      "reason": "Several two- and three-card death loops are the primary wins."
+    },
+    {
+      "name": "sacrifice",
+      "score": 5,
+      "reason": "Bartolom\u00e9, altars, and outlets exist to keep dying on purpose."
+    },
+    {
+      "name": "graveyard",
+      "score": 3,
+      "reason": "The yard is where loop pieces wait, secondary to dying in play."
+    },
+    {
+      "name": "reanimator",
+      "score": 3,
+      "reason": "Sun Titan, Animate Dead, and recursion bring the loop pieces back."
+    },
+    {
+      "name": "skeletons",
+      "score": 3,
+      "reason": "Ozox, Reassembling Skeleton, and skeleton-shaped recursion are a real package."
+    }
+  ]
+}

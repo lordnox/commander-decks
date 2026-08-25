@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Izzet spell-copy control: hold up answers, then resolve one big sorcery many times for mill-adjacent exile or burn.",
+  "tags": [
+    {
+      "name": "spell copy",
+      "score": 5,
+      "reason": "Alania and the stack toys exist to copy one spell into a kill."
+    },
+    {
+      "name": "spellslinger",
+      "score": 5,
+      "reason": "The 99 is instants and sorceries with copy and control support."
+    },
+    {
+      "name": "control",
+      "score": 4,
+      "reason": "The early game is answers and wait, not aggro."
+    },
+    {
+      "name": "combo",
+      "score": 3,
+      "reason": "A copied Tasha or Inferno chain is the finish, not a two-card loop."
+    },
+    {
+      "name": "otters",
+      "score": 2,
+      "reason": "Alania and Stormcatch Mentor are otters, not an otter tribal deck."
+    }
+  ]
+}
