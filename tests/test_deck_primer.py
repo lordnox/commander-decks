@@ -417,7 +417,7 @@ class DeckTagTests(unittest.TestCase):
             )
             (root / "README.md").write_text(
                 "## Deck primers\n\n"
-                "- `3` [Test](decks/test/README.md)\n",
+                "<!-- deck-index:start -->\n<!-- deck-index:end -->\n",
                 encoding="utf-8",
             )
 
@@ -436,7 +436,9 @@ class DeckTagTests(unittest.TestCase):
             self.assertIn("combo", primer)
             self.assertNotIn("crabs", primer.split("deck-tags:start", 1)[1].split("deck-tags:end", 1)[0])
             self.assertIn("A mill combo that happens to be a crab.", overview)
+            self.assertIn("[Test primer](decks/test/README.md)", overview)
             self.assertIn("combo", overview)
+            self.assertNotIn("crabs", overview)
             self.assertEqual(update_deck_tags.update_surfaces(deck_dir, check=True), 0)
 
 

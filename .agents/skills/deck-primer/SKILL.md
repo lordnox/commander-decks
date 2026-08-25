@@ -95,7 +95,7 @@ Follow `.agents/skills/tag-deck/SKILL.md` after the list is resolved. Score ever
 python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<prefix><slug>
 ```
 
-Badges sit immediately after the Archidekt sandbox link. The same visible tags and one-line summary appear under the deck's root README primer entry. `--check` must succeed. Card categories stay separate from these deck tags.
+Badges sit immediately after the Archidekt sandbox link. The same run regenerates the bracket-grouped deck index in the root README, where the deck shows its summary and top badges. `--check` must succeed. Card categories stay separate from these deck tags.
 
 ### Category access by turn three
 

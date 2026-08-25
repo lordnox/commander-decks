@@ -35,6 +35,7 @@ Write a one-sentence `summary` of what the deck actually does.
 {
   "schema_version": 1,
   "cutoff": 3,
+  "title": "Jon Irenicus — Unwanted Presents",
   "summary": "Donate politics: gift unkeepable creatures and draw when they attack.",
   "tags": [
     {
@@ -48,13 +49,17 @@ Write a one-sentence `summary` of what the deck actually does.
 
 `name` must match the catalog exactly. Sort tags by score descending, then name.
 
+`title` is optional and only sets the root index label. Leave it out unless the primer's H1 is too long there; the default is the H1 with its card links flattened.
+
 ## 3. Render badges
 
 ```bash
 python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<prefix><slug>
 ```
 
-This writes the visible badges into the primer (after the Archidekt link) and the one-line overview plus badges under that deck's root README primer link. `--check` must succeed afterward.
+This writes the visible badges into the primer (after the Archidekt link) and regenerates the whole root README deck index between the `<!-- deck-index:start -->` and `<!-- deck-index:end -->` markers. `--check` must succeed afterward.
+
+The index is generated, so never edit it by hand. It groups decks under `### Bracket N · Name` headings, sorts them by bracket, then `−` / plain / `+`, then title, and shows each deck's summary plus its top four badges with a `+N more` badge linking to the primer. Badge color darkens with the score. Every deck needs a valid `tags.json`, or it silently drops out of the index.
 
 ## 4. When to run
 

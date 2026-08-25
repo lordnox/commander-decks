@@ -17,20 +17,29 @@ PRIMER_SECTION = re.compile(
     rf"{re.escape(PRIMER_START)}.*?{re.escape(PRIMER_END)}",
     re.DOTALL,
 )
-OVERVIEW_START = "<!-- deck-overview:start -->"
-OVERVIEW_END = "<!-- deck-overview:end -->"
-OVERVIEW_SECTION = re.compile(
-    rf"{re.escape(OVERVIEW_START)}.*?{re.escape(OVERVIEW_END)}",
+INDEX_START = "<!-- deck-index:start -->"
+INDEX_END = "<!-- deck-index:end -->"
+INDEX_SECTION = re.compile(
+    rf"{re.escape(INDEX_START)}.*?{re.escape(INDEX_END)}",
     re.DOTALL,
-)
-PRIMER_LINK = re.compile(
-    r"^- `(?P<badge>[^`]+)` \[(?P<label>[^\]]+)\]\((?P<path>decks/[^)]+/README\.md)\)\s*$"
 )
 ARCHIDEKT_LINK = re.compile(
     r"^\[\*\*Open this deck in Archidekt\*\*\]\(https://archidekt\.com/sandbox\?deck=.*\)$",
     re.MULTILINE,
 )
-SHIELD_COLOR = "0e7c66"
+MARKDOWN_LINK = re.compile(r"\[(?P<label>[^\]]+)\]\([^)]*\)")
+DECK_PREFIX = re.compile(r"^(?P<bracket>\d+)(?P<modifier>[+-]?)_")
+SHIELD_COLORS = {5: "0b6b58", 4: "2f7d6a", 3: "5f8b84"}
+SHIELD_FALLBACK_COLOR = "6b7f7a"
+OVERFLOW_COLOR = "6b7280"
+INDEX_BADGE_LIMIT = 4
+BRACKET_NAMES = {
+    1: "Exhibition",
+    2: "Core",
+    3: "Upgraded",
+    4: "Optimized",
+    5: "cEDH",
+}
 
 
 def repository_root(start: Path) -> Path:
@@ -130,9 +139,10 @@ def validate_deck_tags(deck: dict, catalog: dict) -> list[str]:
 def shield_url(name: str, score: int) -> str:
     label = quote(str(score), safe="")
     message = quote(name, safe="")
+    color = SHIELD_COLORS.get(score, SHIELD_FALLBACK_COLOR)
     return (
         f"https://img.shields.io/static/v1?label={label}&message={message}"
-        f"&color={SHIELD_COLOR}&style=flat-square"
+        f"&color={color}&style=flat-square"
     )
 
 
@@ -149,12 +159,13 @@ def primer_section(tags: list[dict]) -> str:
     return f"{PRIMER_START}\n{body}\n{PRIMER_END}"
 
 
-def overview_section(summary: str, tags: list[dict]) -> str:
-    lines = [OVERVIEW_START, summary.strip()]
-    if tags:
-        lines.append(" ".join(badge_markdown(tag) for tag in tags))
-    lines.append(OVERVIEW_END)
-    return "\n".join(lines)
+def overflow_badge(count: int, primer_path: str) -> str:
+    message = quote(f"+{count} more", safe="")
+    url = (
+        f"https://img.shields.io/static/v1?label=&message={message}"
+        f"&color={OVERFLOW_COLOR}&style=flat-square"
+    )
+    return f"[![+{count} more tags]({url})]({primer_path})"
 
 
 def insert_primer_section(original: str, section: str) -> str:
@@ -181,49 +192,105 @@ def insert_primer_section(original: str, section: str) -> str:
     return newline.join(parts)
 
 
-def primer_entries(text: str) -> list[tuple[str, str, str, int]]:
-    start = text.find("## Deck primers")
-    if start < 0:
-        return []
-    rest = text[start:]
-    next_heading = rest.find("\n## ", 1)
-    section = rest if next_heading < 0 else rest[:next_heading]
+def deck_title(deck_dir: Path, deck: dict) -> str:
+    title = deck.get("title")
+    if isinstance(title, str) and title.strip():
+        return title.strip()
+    primer = deck_dir / "README.md"
+    first_line = primer.read_text(encoding="utf-8").splitlines()[0] if primer.is_file() else ""
+    if not first_line.startswith("# "):
+        return deck_dir.name
+    return MARKDOWN_LINK.sub(lambda match: match.group("label"), first_line[2:]).strip()
+
+
+def bracket_position(deck_dir_name: str) -> tuple[int, int]:
+    """Sort position of a deck directory: bracket number, then −, plain, +."""
+    match = DECK_PREFIX.match(deck_dir_name)
+    if not match:
+        return (99, 2)
+    modifier = match.group("modifier")
+    rank = {"-": 0, "+": 2}.get(modifier, 1)
+    return (int(match.group("bracket")), rank)
+
+
+def bracket_badge(deck_dir_name: str) -> str:
+    match = DECK_PREFIX.match(deck_dir_name)
+    if not match:
+        return "Unrated"
+    return match.group("bracket") + match.group("modifier").replace("-", "−")
+
+
+def bracket_heading(bracket: int) -> str:
+    if bracket not in BRACKET_NAMES:
+        return "Unrated"
+    return f"Bracket {bracket} · {BRACKET_NAMES[bracket]}"
+
+
+def index_entries(root: Path, catalog: dict) -> list[dict]:
+    """Collect one root-README index entry per deck that has renderable tags."""
     entries = []
-    offset = start
-    for line in section.splitlines(keepends=True):
-        match = PRIMER_LINK.match(line.rstrip("\n"))
-        if match:
-            entries.append(
-                (
-                    match.group("badge"),
-                    match.group("label"),
-                    match.group("path"),
-                    offset,
-                )
-            )
-        offset += len(line)
+    for deck_dir in sorted((root / "decks").iterdir()):
+        if not (deck_dir / "tags.json").is_file() or not (deck_dir / "README.md").is_file():
+            continue
+        try:
+            deck = load_deck_tags(deck_dir)
+            if validate_deck_tags(deck, catalog):
+                continue
+            visible = visible_tags(deck, catalog)
+        except (ValueError, json.JSONDecodeError, OSError):
+            continue
+        bracket, rank = bracket_position(deck_dir.name)
+        entries.append(
+            {
+                "bracket": bracket,
+                "rank": rank,
+                "badge": bracket_badge(deck_dir.name),
+                "title": deck_title(deck_dir, deck),
+                "path": relative_primer_path(deck_dir, root),
+                "summary": str(deck["summary"]).strip(),
+                "tags": visible,
+            }
+        )
+    entries.sort(key=lambda entry: (entry["bracket"], entry["rank"], entry["title"].casefold()))
     return entries
 
 
-def replace_root_overview(text: str, primer_path: str, section: str) -> str:
-    entries = primer_entries(text)
-    match = next((entry for entry in entries if entry[2] == primer_path), None)
-    if match is None:
-        raise ValueError(f"root README has no primer link for {primer_path}")
-    _, _, _, start = match
-    line_end = text.find("\n", start)
-    if line_end < 0:
-        line_end = len(text)
-    after = text[line_end:]
-    overview = OVERVIEW_SECTION.match(after.lstrip("\n"))
-    prefix = text[: line_end + 1] if line_end < len(text) else text + "\n"
-    if overview:
-        stripped = after.lstrip("\n")
-        rest = stripped[overview.end() :]
-        if rest.startswith("\n"):
-            rest = rest[1:]
-        return prefix + section + "\n" + rest
-    return prefix + section + "\n" + after.lstrip("\n")
+def index_entry_lines(entry: dict) -> list[str]:
+    shown = entry["tags"][:INDEX_BADGE_LIMIT]
+    badges = [badge_markdown(tag) for tag in shown]
+    hidden = len(entry["tags"]) - len(shown)
+    if hidden > 0:
+        badges.append(overflow_badge(hidden, entry["path"]))
+    lines = [f"- **[{entry['title']}]({entry['path']})** `{entry['badge']}`<br>"]
+    lines.append(f"  {entry['summary']}" + ("<br>" if badges else ""))
+    if badges:
+        lines.append("  " + " ".join(badges))
+    return lines
+
+
+def index_section(entries: list[dict]) -> str:
+    lines = [INDEX_START]
+    current: int | None = None
+    for entry in entries:
+        if entry["bracket"] != current:
+            current = entry["bracket"]
+            if len(lines) > 1:
+                lines.append("")
+            lines.append(f"### {bracket_heading(current)}")
+            lines.append("")
+        lines.extend(index_entry_lines(entry))
+    if len(lines) == 1:
+        lines.append("_No deck primers yet._")
+    lines.append(INDEX_END)
+    return "\n".join(lines)
+
+
+def replace_primer_index(text: str, section: str) -> str:
+    if not INDEX_SECTION.search(text):
+        raise ValueError(
+            f"root README is missing the {INDEX_START} / {INDEX_END} deck index markers"
+        )
+    return INDEX_SECTION.sub(lambda _: section, text, count=1)
 
 
 def relative_primer_path(deck_dir: Path, root: Path) -> str:

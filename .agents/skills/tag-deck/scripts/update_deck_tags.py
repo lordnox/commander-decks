@@ -23,7 +23,6 @@ def update_surfaces(deck_dir: Path, *, check: bool = False) -> int:
         raise ValueError("; ".join(errors))
     visible = deck_tags.visible_tags(data, catalog)
     primer_block = deck_tags.primer_section(visible)
-    overview_block = deck_tags.overview_section(data["summary"], visible)
 
     primer_path = deck_dir / "README.md"
     if not primer_path.is_file():
@@ -35,12 +34,12 @@ def update_surfaces(deck_dir: Path, *, check: bool = False) -> int:
     if not root_readme.is_file():
         raise FileNotFoundError(f"missing root README: {root_readme}")
     original_root = root_readme.read_text(encoding="utf-8")
-    primer_rel = deck_tags.relative_primer_path(deck_dir, root)
-    updated_root = deck_tags.replace_root_overview(original_root, primer_rel, overview_block)
+    index_block = deck_tags.index_section(deck_tags.index_entries(root, catalog))
+    updated_root = deck_tags.replace_primer_index(original_root, index_block)
 
     changed = updated_primer != original_primer or updated_root != original_root
     if check and changed:
-        print(f"{deck_dir}: Archidekt tag badges or root overview are missing or stale")
+        print(f"{deck_dir}: Archidekt tag badges or the root deck index are missing or stale")
         return 1
     if updated_primer != original_primer:
         primer_path.write_text(updated_primer, encoding="utf-8")
