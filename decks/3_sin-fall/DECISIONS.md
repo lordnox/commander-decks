@@ -116,3 +116,17 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - Avoid-with-Sin cards stay in the 99 as engines; the tag means do not leave them in the graveyard when you intend to resolve a Sin trigger.
 - Copies enter tapped. Haste from Finale of Devastation does not let those tokens attack until they untap.
 - Copy, Hero, and Insect lines on the submitted list are token extras. Dig Through Time is maybeboard. None of them are Cards in coverage for the 99.
+
+## Talks
+
+### 2026-08-25 — Bracket 3 assessment
+
+Sources: the live [Commander format page](https://magic.wizards.com/en/formats/commander) (0 Game Changers in Brackets 1–2, up to 3 in Bracket 3), the [October 21, 2025](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-october-21-2025) turn expectations, the [February 9, 2026](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-february-9-2026) Game Changer additions, and Scryfall `is:gamechanger`.
+
+The 99 contains two Game Changers: **Crop Rotation** and **Field of the Dead**. That is a hard exclude from Brackets 1–2 and is inside Bracket 3's cap of three. There is no two-card infinite, extra-turn package, or mass land denial of opponents' lands.
+
+**Crop Rotation** and **Field of the Dead** are value/engine Game Changers, not fast mana or free interaction. **Sin, Spira's Punishment** costs seven. Copies enter tapped, so a turn-five Portal token is a blowout, not a table kill. Oracle on Sin: exile a random graveyard permanent, make a tapped copy, and repeat only if that card is a land.
+
+Usual goldfish: ramp into Sin on turn five or six with a planted jackpot, then win on the following combat or X-spell turn (around seven). Credible high roll: **Burgeoning** / extra land drops plus **Entomb** **Portal to Phyrexia**, Sin on turn five. Interactive games stall on graveyard hate or commander tax.
+
+Not Bracket 2: two Game Changers, yard tutors (**Entomb**, **Buried Alive**, **Unmarked Grave**), and a tuned fetch/dual mana base. Not Bracket 4: no Mox/Vault/Cradle package, no free counters, and the commander is not an instantaneous win. Mid Bracket 3 rather than 3+ because the exceptional line presents a jackpot, it does not reliably end the game on turn four or five.
