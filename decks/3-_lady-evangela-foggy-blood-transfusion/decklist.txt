@@ -26,6 +26,8 @@ Draw:
 1x Dark Tutelage [Draw,Life Payment]
 1x Necrologia [Draw,Life Payment]
 1x Blue Sun's Zenith [Draw]
+1x Skeletal Scrying [Draw,Life Payment]
+1x Fact or Fiction [Draw,Politics]
 1x Mulldrifter [Draw]
 
 Fog:
@@ -78,10 +80,8 @@ Swamp Engine:
 Ramp:
 1x Sol Ring [Ramp]
 1x Arcane Signet [Ramp]
-1x Talisman of Hierarchy [Ramp,Life Payment]
-1x Talisman of Dominance [Ramp,Life Payment]
-1x Talisman of Progress [Ramp,Life Payment]
-1x Fellwar Stone [Ramp]
+1x Orzhov Signet [Ramp]
+1x Dimir Signet [Ramp]
 1x Lotho, Corrupt Shirriff [Ramp,Life Payment,Politics]
 
 Land Search:

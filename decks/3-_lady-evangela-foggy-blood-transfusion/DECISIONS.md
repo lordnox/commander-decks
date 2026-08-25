@@ -47,6 +47,8 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 - **Esper Sentinel** — Taxes the whole table's first noncreature spell each turn and grows with a big mana turn. It is draw that also fits the pillow-fort posture.
 - **Blue Sun's Zenith** — Chosen over Psychosis Crawler because the deck wants to draw into its finishers rather than announce a five-mana draw-damage threat. It is instant-speed, scales with the Coffers engine, can refill another player as a political deal, and shuffles back for a later draw.
+- **Skeletal Scrying** — Instant-speed draw that converts both spare black mana and life into cards. Exiling cards from the graveyard is a real ceiling, but this deck has little recursion and does not otherwise use that resource.
+- **Fact or Fiction** — Instant-speed selection with a political decision attached. Choosing the opponent who divides the piles creates a deal, and even the rejected pile stocks Skeletal Scrying's exile cost.
 - **Mulldrifter** — Two cards attached to a body, and the best repeatable blink target after Mister Negative.
 
 ### Fog and aikido
@@ -65,7 +67,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Baird, Steward of Argive** — Creature-based attack tax instead of Ghostly Prison, chosen because a creature can be answered by every color and therefore draws less hate than a permanent enchantment.
 - **Archangel of Tithes** — Taxes both attacking and blocking, and unlike an enchantment it can be killed, which is the point.
 - **Adept Watershaper** — Other tapped creatures you control have indestructible. This deck taps its creatures on purpose: Lady Evangela and Sokrates both tap to prevent damage, and the Watershaper covers the window when Sokrates loses hexproof. It also protects a tapped Magus of the Coffers and any blocker that has already been used.
-- **Pendrell Mists** — The one sticky tax kept. It hits opposing creature decks hardest and slows the fast starts a draw-go deck fears; the cost of upkeeping our own bodies is accepted.
+- **Pendrell Mists** — The least coherent tax card, retained provisionally for creature-heavy tables. It is a sticky enchantment in a deck that deliberately preferred answerable creature taxes, gives Lady Evangela, Sokrates, Lotho, Blood Celebrant, Dark Confidant, Esper Sentinel, and the other utility creatures upkeep pressure, and consumes mana before the draw-go player knows what must be answered. Keep it only if it asymmetrically punishes wider opposing boards; otherwise it should be the next cut.
 
 ### Politics
 
@@ -108,10 +110,8 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 - **Sol Ring** — Fast colorless that accelerates the tax and counter shell.
 - **Arcane Signet** — Any color of the identity, on turn two.
-- **Talisman of Hierarchy** — `{W}` or `{B}` for 1 life, which is a cost the deck likes.
-- **Talisman of Dominance** — `{U}` or `{B}` for 1 life.
-- **Talisman of Progress** — `{W}` or `{U}` for 1 life.
-- **Fellwar Stone** — Usually produces exactly the color a three-opponent pod already has.
+- **Orzhov Signet** — Turns one generic mana into `{W}{B}` without spending life. It supports the deck's black base and the demanding white costs simultaneously.
+- **Dimir Signet** — Turns one generic mana into `{U}{B}` without spending life. It supports the black engine while leaving blue available for interaction.
 - **Lotho, Corrupt Shirriff** — Chosen over Wayfarer's Bauble because it rewards the draw-go posture throughout the game instead of spending three mana for one tapped basic. Every player's second spell can make a Treasure, including deals where opponents deliberately sequence into it, while the 1 life payment advances the exchange plan.
 
 ### Land search
@@ -178,6 +178,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Necromancer's Covenant** — Cut because six mana for graveyard hate, Zombies, and lifelink asks the deck to commit visibly to the battlefield. The deck prefers to remain reactive and spend that mana after opponents reveal what matters.
 - **Wayfarer's Bauble** — Cut because 38 lands and nine basic Swamps give the mana engine a functional floor already. Spending three mana to put one tapped Swamp into play is lower leverage than Lotho generating Treasures while the deck holds up interaction.
 - **Psychosis Crawler** — Cut because it advertises the draw-damage plan, costs five before providing value, and dies to creature or artifact removal. Blue Sun's Zenith keeps the cards hidden until the end step and finds the actual drain or exchange finishers.
+- **Talisman of Hierarchy**, **Talisman of Dominance**, **Talisman of Progress**, **Fellwar Stone** — Cut as a package. Two black-producing Signets preserve the most important fixing without incidental life loss, while the other two slots become instant-speed draw. Fellwar Stone was the least predictable fixer; the Talismans were efficient, but their flexibility mattered less after the land base reached 38.
 - **Isolated Chapel**, **Drowned Catacomb** — Replaced by **Shadowy Backstreet** and **Undercity Sewers**. Same colors, same slots, but the surveil lands carry the Swamp type. Always entering tapped is a real cost that a draw-go deck feels, and it was paid deliberately.
 
 ## Rules
@@ -213,10 +214,11 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **2026-08-25 — Aikido extras.** Sokrates, Energy Arc, and Scapegoat entered the 99. Desertion and Arcanis went to the maybeboard. Cuts were Orzhov Advokist, Dawn Charm, and Night's Whisper.
 - **2026-08-25 — Land base rebuild.** The pilot caught that 34 lands contained only 8 Swamp-typed lands and 5 basic Swamps, which meant the entire Swamp engine — Cabal Coffers, Cabal Stronghold, Crypt Ghast, Nirkana Revenant, Bubbling Muck — was effectively switched off unless Urborg or Blanket of Night was on the battlefield, roughly a 1-in-4 proposition by turn eight even counting Expedition Map. Three fixes were applied together: two check lands were swapped for the Swamp-typed surveil lands at no color cost, four nonlands became basic Swamps, and the deck went to 38 lands. Swamp-typed lands went 8 → 14 and basic Swamps 5 → 9, so Cabal Stronghold is live on its own and Coffers has a real floor without Urborg. White and blue land sources were held at 15 and 14 so `{1}{W}{W}{W}` and the counterspells did not get worse. The bracket is unchanged at 3−: the deck got more consistent, not faster or more compact, and it lost three spells to gain four lands.
 
-  White remains the tightest color. Cost is 38% white symbols against 19% white production, and Archangel of Tithes at `{1}{W}{W}{W}` is the only triple-pip card in the deck. Blood Celebrant, Arcane Signet, Talisman of Hierarchy, Talisman of Progress, and Fellwar Stone carry it in practice, but Archangel is the first card to cut if the mana proves too greedy.
+  White remains the tightest color, and Archangel of Tithes at `{1}{W}{W}{W}` is the only triple-pip card in the deck. Blood Celebrant, Arcane Signet, and Orzhov Signet carry it in practice, but Archangel is the first card to cut if the mana proves too greedy.
 - **2026-08-25 — Reactive package restored.** Necromancer's Covenant, Wayfarer's Bauble, and Psychosis Crawler left for Blue Sun's Zenith, Arcane Denial, and Lotho. The choice favors cards that can be used while holding up interaction, make political deals, and conceal the eventual kill instead of placing a visible payoff on the battlefield.
 
   Hatred and Blood Celebrant solve different problems. Blood Celebrant stays because it is a one-mana creature that fixes the deck's difficult white and blue costs, turns surplus black into the needed color, pays life one point at a time, and uses a mana ability that cannot be responded to. It is support, not a finisher. Hatred is a five-mana ambush and a much faster life dump: its best case is political aikido, making an opponent's apparently harmless attacker lethal against another opponent. Its ceiling is much higher, but so is its risk. Keep Hatred in the maybeboard until play shows whether the deck can reliably hold `{3}{B}{B}` while still representing protection; if it returns, the most natural test cut is Blood Celebrant only if color fixing has proved unnecessary.
+- **2026-08-25 — Rocks into cards.** The three Talismans and Fellwar Stone became Orzhov Signet, Dimir Signet, Skeletal Scrying, and Fact or Fiction. The deck accepts two fewer mana rocks because 38 lands and Lotho already improved its mana floor; in return it gets two more instant-speed ways to find exchange pieces, protection, or a drain. Pendrell Mists was reviewed at the same time and left in provisionally, but it is the leading future cut because it taxes both the deck's creatures and the mana reserved for interaction.
 - **2026-08-25 — Assessment.** First bracket pass: Bracket 3−. Zero Game Changers versus the live Scryfall `is:gamechanger` list (53 cards, including Farewell and Biorhythm from the [February 9, 2026 update](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-february-9-2026)). No card tutors, no two-card win combo. Rings of Brighthearth plus Deserted Temple is a mana engine, not a kill. Sokrates / Energy Arc / Scapegoat did not change Game Changer count, compactness, or expected win turn versus Advokist / Dawn Charm / Night's Whisper.
 
 ## Primer

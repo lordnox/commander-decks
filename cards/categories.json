@@ -5454,8 +5454,14 @@
         "land",
         "ramp"
       ]
+    },
+    "561c68d8-b727-48d8-a832-2e42d1345fac": {
+      "name": "Skeletal Scrying",
+      "categories": [
+        "card-draw"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-25T21:09:03.492269+00:00"
+  "updated_at": "2026-08-25T21:19:57.933122+00:00"
 }
