@@ -9,11 +9,6 @@
       "reason": "Fogs, Sokrates, taxes, and Settle the Wreckage turn other players' attacks into defense, cards, or a Batwing Brume drain."
     },
     {
-      "name": "life exchange",
-      "score": 5,
-      "reason": "Mirror Universe, Magus of the Mirror, Soul Conduit, Axis of Mortality, Mister Negative, and Repay in Kind are the namesake package."
-    },
-    {
       "name": "lifedrain",
       "score": 5,
       "reason": "Exsanguinate, Debt to the Deathless, and Drain Life are the win conditions, backed by Queza."
@@ -24,9 +19,14 @@
       "reason": "Eight counterspells, instant-speed removal, and a draw-go posture defend the engine until the drain turn."
     },
     {
+      "name": "life exchange",
+      "score": 4,
+      "reason": "Mirror Universe, Mister Negative, and Repay in Kind are the remaining transfusion package after the slow six-drops left."
+    },
+    {
       "name": "life paying",
       "score": 4,
-      "reason": "Wall of Blood, Selenia, Necrologia, Dark Confidant, and the pain lands intentionally dump life before an exchange."
+      "reason": "Wall of Blood, Selenia, Necrologia, Dark Confidant, Pain's Reward, and the pain lands intentionally dump life before an exchange."
     },
     {
       "name": "pillow fort",
@@ -36,7 +36,7 @@
     {
       "name": "politics",
       "score": 4,
-      "reason": "Sokrates, Tenuous Truce, Secret Rendezvous, Loran, Promise of Loyalty, and Council's Judgment let the table's own choices decide who takes damage."
+      "reason": "Sokrates, Tenuous Truce, Secret Rendezvous, Loran, Pain's Reward, Promise of Loyalty, and Council's Judgment let the table's own choices decide who takes damage."
     },
     {
       "name": "big mana",
