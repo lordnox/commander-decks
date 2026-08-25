@@ -47,6 +47,10 @@ A newly created deck is incomplete until its primer exists and is linked from th
 
 Use `design-deck` when brewing from a theme, `deck-workspace` for import and validation, `scryfall-lookup` for card searches, `deck-primer` when creating or updating a play guide, `tag-deck` for Archidekt deck tags, and `assess-deck` for bracket, power, or expected-win-turn analysis.
 
+## Chat card presentation
+
+In conversation (not primers or `decklist.txt`), featured card lists should show small Scryfall images that link to the card page. Keep names as Scryfall links in the text. After a sentence that groups several cards, append a Scryfall search (`"Name A" or "Name B"`, `unique=cards&as=grid&order=name`). Details: `.cursor/rules/card-chat-images.mdc`.
+
 ## Repository structure
 
 - `decks/<bracket>_<deck-name>/decklist.txt`: original user-supplied deck list

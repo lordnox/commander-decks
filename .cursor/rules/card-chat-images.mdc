@@ -1,0 +1,28 @@
+---
+description: Show small Scryfall-linked card images in chat lists; keep prose as links
+alwaysApply: true
+---
+
+# Card images in chat
+
+When discussing Magic cards in this repo, chat replies (not committed primers or `decklist.txt`) should show **small card images** for featured lists. Leave names as Scryfall links in the surrounding text.
+
+## Lists
+
+After a heading or numbered option that names cards, render each **main** card as a small image wrapped in its Scryfall page link. Keep the existing bullet/numbered prose with `[Card Name](https://scryfall.com/card/...)` links.
+
+```html
+<a href="https://scryfall.com/card/me3/158/lady-evangela"><img src="https://cards.scryfall.io/small/front/a/0/a01adcbd-0ebd-4f18-9942-4638fa0de358.jpg" alt="Lady Evangela" width="146" /></a>
+```
+
+Use `image_uris.small` (or the matching face’s `small` on DFCs). Prefer cached `cards/<oracle-id>.json`, else Scryfall `named` / `collection`. Do not dump a 99-card gallery unless asked; image the candidates being compared, not every incidental mention.
+
+## Prose groups
+
+Leave inline mentions as links. After a sentence that names several cards together, add a Scryfall grid search:
+
+```text
+https://scryfall.com/search?q=%22Cabal+Coffers%22+or+%22Deserted+Temple%22+or+%22Rings+of+Brighthearth%22&unique=cards&as=grid&order=name
+```
+
+Quote each exact name, join with ` or `, and append `&unique=cards&as=grid&order=name`. Label it briefly, e.g. `[view on Scryfall](...)`.
