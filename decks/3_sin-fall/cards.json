@@ -2634,7 +2634,7 @@
   "maybeboard_unique_cards": 4,
   "resolved_unique_cards": 99,
   "schema_version": 3,
-  "source": "decks/unrated_sin-fall/decklist.txt",
+  "source": "decks/3_sin-fall/decklist.txt",
   "total_cards": 100,
   "unique_cards": 95,
   "unresolved": []
