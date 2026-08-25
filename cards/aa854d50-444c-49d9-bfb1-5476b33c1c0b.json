@@ -1,0 +1,161 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "b19112b9-1583-445d-bc48-5ca3325fab48",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/b19112b9-1583-445d-bc48-5ca3325fab48"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ea630ba1-22f9-4a10-bdc6-0d03128214f4",
+      "name": "Scute Swarm",
+      "object": "related_card",
+      "type_line": "Creature — Insect",
+      "uri": "https://api.scryfall.com/cards/ea630ba1-22f9-4a10-bdc6-0d03128214f4"
+    },
+    {
+      "component": "token",
+      "id": "7dab2339-52d8-4e66-87a8-181a87ab0fd3",
+      "name": "Insect",
+      "object": "related_card",
+      "type_line": "Token Creature — Insect",
+      "uri": "https://api.scryfall.com/cards/7dab2339-52d8-4e66-87a8-181a87ab0fd3"
+    }
+  ],
+  "artist": "Alex Konstad",
+  "artist_ids": [
+    "58b2a57c-50ca-4047-b4e7-efb28cb22851"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 788905,
+  "cmc": 3.0,
+  "collector_number": "197",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 234,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Survival rule 782: There are *always* more scute bugs.\"\n—Zurdi, goblin shortcutter",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ea630ba1-22f9-4a10-bdc6-0d03128214f4",
+  "illustration_id": "0102c697-88c8-417b-b734-463458284119",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:26:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/a/ea630ba1-22f9-4a10-bdc6-0d03128214f4.webp?1783909601",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/a/ea630ba1-22f9-4a10-bdc6-0d03128214f4.jpg?1783909601",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/a/ea630ba1-22f9-4a10-bdc6-0d03128214f4.jpg?1783909601",
+    "crop": "https://cards.scryfall.io/crop/front/e/a/ea630ba1-22f9-4a10-bdc6-0d03128214f4.webp?1783909601",
+    "display": "https://cards.scryfall.io/display/front/e/a/ea630ba1-22f9-4a10-bdc6-0d03128214f4.webp?1783909601",
+    "grid": "https://cards.scryfall.io/grid/front/e/a/ea630ba1-22f9-4a10-bdc6-0d03128214f4.webp?1783909601",
+    "large": "https://cards.scryfall.io/large/front/e/a/ea630ba1-22f9-4a10-bdc6-0d03128214f4.jpg?1783909601",
+    "normal": "https://cards.scryfall.io/normal/front/e/a/ea630ba1-22f9-4a10-bdc6-0d03128214f4.jpg?1783909601",
+    "png": "https://cards.scryfall.io/png/front/e/a/ea630ba1-22f9-4a10-bdc6-0d03128214f4.png?1783909601",
+    "small": "https://cards.scryfall.io/small/front/e/a/ea630ba1-22f9-4a10-bdc6-0d03128214f4.jpg?1783909601",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/a/ea630ba1-22f9-4a10-bdc6-0d03128214f4.webp?1783909601"
+  },
+  "keywords": [
+    "Landfall"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "mtgo_id": 131019,
+  "multiverse_ids": [
+    676070
+  ],
+  "name": "Scute Swarm",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "aa854d50-444c-49d9-bfb1-5476b33c1c0b",
+  "oracle_text": "Landfall — Whenever a land you control enters, create a 1/1 green Insect creature token. If you control six or more lands, create a token that's a copy of this creature instead.",
+  "oversized": false,
+  "penny_rank": 3438,
+  "power": "1",
+  "prices": {
+    "eur": "7.37",
+    "eur_foil": null,
+    "tix": "0.52",
+    "usd": "8.67",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aaa854d50-444c-49d9-bfb1-5476b33c1c0b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/131019?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=788905&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F577829%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Scute+Swarm",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676070&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DScute%2BSwarm",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DScute%2BSwarm"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ea630ba1-22f9-4a10-bdc6-0d03128214f4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/197/scute-swarm?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 577829,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Insect",
+  "uri": "https://api.scryfall.com/cards/ea630ba1-22f9-4a10-bdc6-0d03128214f4",
+  "variation": false
+}

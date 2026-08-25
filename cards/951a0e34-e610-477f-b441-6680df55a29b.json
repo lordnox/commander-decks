@@ -1,0 +1,132 @@
+{
+  "artist": "Cristi Balanescu",
+  "artist_ids": [
+    "c09ede88-a1b5-4a18-9895-dc8a965d28a5"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818705,
+  "cmc": 5.0,
+  "collector_number": "49",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 2991,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "37155f69-1d72-4fcb-80b3-548b7d78f9ec",
+  "illustration_id": "0a6d9e6a-bcd8-40ba-bcf3-3c777a0a6322",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:46:05Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/7/37155f69-1d72-4fcb-80b3-548b7d78f9ec.webp?1783907165",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/7/37155f69-1d72-4fcb-80b3-548b7d78f9ec.jpg?1783907165",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/7/37155f69-1d72-4fcb-80b3-548b7d78f9ec.jpg?1783907165",
+    "crop": "https://cards.scryfall.io/crop/front/3/7/37155f69-1d72-4fcb-80b3-548b7d78f9ec.webp?1783907165",
+    "display": "https://cards.scryfall.io/display/front/3/7/37155f69-1d72-4fcb-80b3-548b7d78f9ec.webp?1783907165",
+    "grid": "https://cards.scryfall.io/grid/front/3/7/37155f69-1d72-4fcb-80b3-548b7d78f9ec.webp?1783907165",
+    "large": "https://cards.scryfall.io/large/front/3/7/37155f69-1d72-4fcb-80b3-548b7d78f9ec.jpg?1783907165",
+    "normal": "https://cards.scryfall.io/normal/front/3/7/37155f69-1d72-4fcb-80b3-548b7d78f9ec.jpg?1783907165",
+    "png": "https://cards.scryfall.io/png/front/3/7/37155f69-1d72-4fcb-80b3-548b7d78f9ec.png?1783907165",
+    "small": "https://cards.scryfall.io/small/front/3/7/37155f69-1d72-4fcb-80b3-548b7d78f9ec.jpg?1783907165",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/7/37155f69-1d72-4fcb-80b3-548b7d78f9ec.webp?1783907165"
+  },
+  "keywords": [
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{G}",
+  "mtgo_id": 138115,
+  "multiverse_ids": [
+    695978
+  ],
+  "name": "Will of the Sultai",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "951a0e34-e610-477f-b441-6680df55a29b",
+  "oracle_text": "Choose one. If you control a commander as you cast this spell, you may choose both instead.\n• Target player mills three cards. Return all land cards from your graveyard to the battlefield tapped.\n• Put X +1/+1 counters on target creature, where X is the number of lands you control. It gains trample until end of turn.",
+  "oversized": false,
+  "prices": {
+    "eur": "2.10",
+    "eur_foil": null,
+    "tix": "3.20",
+    "usd": "1.25",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A951a0e34-e610-477f-b441-6680df55a29b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138115?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818705&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624480%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Will+of+the+Sultai",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=695978&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWill%2Bof%2Bthe%2BSultai",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWill%2Bof%2Bthe%2BSultai"
+  },
+  "released_at": "2025-04-11",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/37155f69-1d72-4fcb-80b3-548b7d78f9ec/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/49/will-of-the-sultai?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624480,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/37155f69-1d72-4fcb-80b3-548b7d78f9ec",
+  "variation": false,
+  "watermark": "sultai"
+}

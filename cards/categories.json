@@ -4619,8 +4619,372 @@
       "categories": [
         "sacrifice"
       ]
+    },
+    "eccc9a54-2b56-4a02-9926-258d5b2e25fb": {
+      "name": "Abundance",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "6511f317-bd38-46d0-b800-7125a3f420da": {
+      "name": "Aesi, Tyrant of Gyre Strait",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "ec7d550b-9e13-4249-89c7-6ad43f71ea11": {
+      "name": "Analyze the Pollen",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "6f1bfe50-b61a-4fdd-963c-40d59117bdf4": {
+      "name": "Animist's Awakening",
+      "categories": [
+        "other"
+      ]
+    },
+    "3c1ef404-e2c6-486d-a5a2-d5779c71d498": {
+      "name": "Archdruid's Charm",
+      "categories": [
+        "ramp",
+        "removal"
+      ]
+    },
+    "858e12e9-3eaa-40cf-9e22-f9ccdfe485b3": {
+      "name": "Broken Bond",
+      "categories": [
+        "removal"
+      ]
+    },
+    "88cf4c1a-5863-45fc-b76d-7ad33b175b2b": {
+      "name": "Burgeoning",
+      "categories": [
+        "other"
+      ]
+    },
+    "8203c621-a1a0-4865-8c9a-0d4064c86107": {
+      "name": "Buried Alive",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "9c44e556-4c7a-48bf-a108-c584f69c2cfa": {
+      "name": "Cling to Dust",
+      "categories": [
+        "card-draw",
+        "removal"
+      ]
+    },
+    "05c5ee65-651b-4bfb-b57f-305026507135": {
+      "name": "Colossification",
+      "categories": [
+        "other"
+      ]
+    },
+    "88c78601-87f0-45e7-b2e0-e7ffcfb1cb70": {
+      "name": "Copy",
+      "categories": [
+        "other"
+      ]
+    },
+    "f8b17b89-26ce-4208-874a-9e1d66514640": {
+      "name": "Dig Through Time",
+      "categories": [
+        "other"
+      ]
+    },
+    "e996cd67-739c-40f4-b276-0042acf26c71": {
+      "name": "Dryad Arbor",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "299fc083-0834-4064-8344-f895aff68867": {
+      "name": "Entomb",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "b8f566ea-8283-4afa-9ac8-737e26419283": {
+      "name": "Explore",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "8164b1e8-3350-465e-8a17-75f57d326344": {
+      "name": "Exsanguinate",
+      "categories": [
+        "other"
+      ]
+    },
+    "e7f53928-a4cc-41ed-877d-b72d786e77d9": {
+      "name": "Famished Worldsire",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "69872a9a-fe54-4e58-940c-89395af71acd": {
+      "name": "Finale of Devastation",
+      "categories": [
+        "other"
+      ]
+    },
+    "37783ce6-af58-4ef6-8ab4-587079970307": {
+      "name": "Hagra Mauling // Hagra Broodpit",
+      "categories": [
+        "land",
+        "ramp",
+        "removal"
+      ]
+    },
+    "087c8c0e-a91c-4e3c-8387-9312db01f343": {
+      "name": "Hall of Storm Giants",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "7216f974-3c84-40ef-b904-82019900c204": {
+      "name": "Hedron Crab",
+      "categories": [
+        "other"
+      ]
+    },
+    "16f6438d-2a29-41cb-bf0c-4d02bd66112b": {
+      "name": "Hermit Druid",
+      "categories": [
+        "other"
+      ]
+    },
+    "fcf819ef-28e4-46be-a28d-5865ff90e15a": {
+      "name": "Hero",
+      "categories": [
+        "other"
+      ]
+    },
+    "59a82f57-fe2f-4834-a4ee-4b948eef1e12": {
+      "name": "Horizon of Progress",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "c5cbd852-c42f-4592-a0bb-a8bffa2dd2f4": {
+      "name": "Hostile Negotiations",
+      "categories": [
+        "other"
+      ]
+    },
+    "109cdefd-e8cc-4ac7-b6ba-2cfdef8d780f": {
+      "name": "Icetill Explorer",
+      "categories": [
+        "other"
+      ]
+    },
+    "5a083e51-d23c-4670-b046-60771a9b518e": {
+      "name": "Insect",
+      "categories": [
+        "other"
+      ]
+    },
+    "9eba1789-6e58-4d78-8a0d-b54a8be76ec5": {
+      "name": "Joint Exploration",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "37a55560-6e32-4f54-b9a8-fd157aea6eb5": {
+      "name": "Khalni Ambush // Khalni Territory",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "126e9140-2c05-4c00-8b01-5653456c736a": {
+      "name": "Lair of the Hydra",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "134d5b82-7940-4b33-a922-7f9d1f403e50": {
+      "name": "Lotus Field",
+      "categories": [
+        "land",
+        "ramp",
+        "protection",
+        "sacrifice"
+      ]
+    },
+    "84122d81-9634-4d3f-85a5-f6cf4303691a": {
+      "name": "Mossborn Hydra",
+      "categories": [
+        "other"
+      ]
+    },
+    "044d2788-6daa-4849-a813-1f577eef9295": {
+      "name": "Pit of Offerings",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "186bfdac-ce9c-476f-89b6-ef467487fca5": {
+      "name": "Pitiless Carnage",
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "b368121b-9984-4a01-8d35-d1e4a8a87539": {
+      "name": "Planar Genesis",
+      "categories": [
+        "other"
+      ]
+    },
+    "301d1d8e-d3fc-4010-8b29-4724fa0b31cd": {
+      "name": "Portal to Phyrexia",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "6f9ecfc4-85bd-4171-9031-dbe0e39e0135": {
+      "name": "Profane Command",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "aa77980d-0434-40f0-990f-1c8c50610174": {
+      "name": "Rain of Filth",
+      "categories": [
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "27177cb0-1670-488e-82be-4610da5a7de3": {
+      "name": "Reprocess",
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "73cbb4f0-90d6-4228-9341-791e3e9c4b48": {
+      "name": "Retreat to Hagra",
+      "categories": [
+        "other"
+      ]
+    },
+    "aa854d50-444c-49d9-bfb1-5476b33c1c0b": {
+      "name": "Scute Swarm",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "3bcc378c-4470-4757-a0d5-025a32c918ea": {
+      "name": "Sin, Spira's Punishment",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "e1976b6c-7e43-4f4a-b082-f95495a1b260": {
+      "name": "Singularity Rupture",
+      "categories": [
+        "board-wipe"
+      ]
+    },
+    "bcc6eece-75ea-494c-b33a-d4477d504e0b": {
+      "name": "Sink into Stupor // Soporific Springs",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "e5df4597-1647-4ac2-bdb3-a517598d1431": {
+      "name": "Summer Bloom",
+      "categories": [
+        "other"
+      ]
+    },
+    "b38d1811-64d7-4a35-a86c-3291eecd8391": {
+      "name": "Summon: Leviathan",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "66ce0c60-f406-4ece-915f-675da4e8b16d": {
+      "name": "Summon: Titan",
+      "categories": [
+        "ramp",
+        "recursion",
+        "sacrifice"
+      ]
+    },
+    "8c45bf9d-a017-43bf-9e32-67810a8a217b": {
+      "name": "Talon Gates of Madara",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "cfdd5dc6-593e-495a-8cfe-3a56b3c4c7df": {
+      "name": "Temple of the False God",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "eecb3047-a563-441a-9175-200421981ac3": {
+      "name": "Ugin, the Spirit Dragon",
+      "categories": [
+        "other"
+      ]
+    },
+    "134dfb35-0c32-4143-aa63-7701f406b59e": {
+      "name": "Unmarked Grave",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "cae3ec72-436d-4086-9dcb-17b3d92ad5c4": {
+      "name": "Valgavoth, Terror Eater",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "e6ad1be9-f13d-4590-b3db-e2d0fff46f03": {
+      "name": "Waterlogged Teachings // Inundated Archive",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "951a0e34-e610-477f-b441-6680df55a29b": {
+      "name": "Will of the Sultai",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "08becc07-28bc-4a2f-a6b0-28a2998d2f50": {
+      "name": "Windfall",
+      "categories": [
+        "discard"
+      ]
+    },
+    "5f2b3ea8-99ee-47a4-8a1c-4b27478d524c": {
+      "name": "Zanarkand, Ancient Metropolis // Lasting Fayth",
+      "categories": [
+        "land",
+        "ramp",
+        "token-production"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-23T23:48:05.795640+00:00"
+  "updated_at": "2026-08-25T15:17:20.954212+00:00"
 }

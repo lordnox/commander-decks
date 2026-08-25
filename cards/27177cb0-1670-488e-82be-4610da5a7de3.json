@@ -1,0 +1,133 @@
+{
+  "artist": "Ian Permana",
+  "artist_ids": [
+    "11c0dfc6-2f2d-4b41-a569-f09c585b8262"
+  ],
+  "booster": false,
+  "border_color": "borderless",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 839907,
+  "cmc": 4.0,
+  "collector_number": "2107",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 9842,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "For a colony to survive, even waste can't go to waste.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "inverted"
+  ],
+  "full_art": true,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "0a4cb4f4-046c-4efd-a53f-48003526444c",
+  "illustration_id": "3431cb62-5a0e-424e-9697-979727410fae",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:27:49Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/a/0a4cb4f4-046c-4efd-a53f-48003526444c.webp?1783906069",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/a/0a4cb4f4-046c-4efd-a53f-48003526444c.jpg?1783906069",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/a/0a4cb4f4-046c-4efd-a53f-48003526444c.jpg?1783906069",
+    "crop": "https://cards.scryfall.io/crop/front/0/a/0a4cb4f4-046c-4efd-a53f-48003526444c.webp?1783906069",
+    "display": "https://cards.scryfall.io/display/front/0/a/0a4cb4f4-046c-4efd-a53f-48003526444c.webp?1783906069",
+    "grid": "https://cards.scryfall.io/grid/front/0/a/0a4cb4f4-046c-4efd-a53f-48003526444c.webp?1783906069",
+    "large": "https://cards.scryfall.io/large/front/0/a/0a4cb4f4-046c-4efd-a53f-48003526444c.jpg?1783906069",
+    "normal": "https://cards.scryfall.io/normal/front/0/a/0a4cb4f4-046c-4efd-a53f-48003526444c.jpg?1783906069",
+    "png": "https://cards.scryfall.io/png/front/0/a/0a4cb4f4-046c-4efd-a53f-48003526444c.png?1783906069",
+    "small": "https://cards.scryfall.io/small/front/0/a/0a4cb4f4-046c-4efd-a53f-48003526444c.jpg?1783906069",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/a/0a4cb4f4-046c-4efd-a53f-48003526444c.webp?1783906069"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "multiverse_ids": [],
+  "name": "Reprocess",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "27177cb0-1670-488e-82be-4610da5a7de3",
+  "oracle_text": "Sacrifice any number of artifacts, creatures, and/or lands. Draw a card for each permanent sacrificed this way.",
+  "oversized": false,
+  "penny_rank": 9162,
+  "prices": {
+    "eur": "4.53",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "4.94",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A27177cb0-1670-488e-82be-4610da5a7de3&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "galaxyfoil"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Reprocess&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=839907&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F646813%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Reprocess",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DReprocess",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DReprocess"
+  },
+  "released_at": "2025-07-28",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0a4cb4f4-046c-4efd-a53f-48003526444c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/sld?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/sld/2107/reprocess?utm_source=api",
+  "security_stamp": "oval",
+  "set": "sld",
+  "set_id": "4d92a8a7-ccb0-437d-abdc-9d70fc5ed672",
+  "set_name": "Secret Lair Drop",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asld&unique=prints",
+  "set_type": "box",
+  "set_uri": "https://api.scryfall.com/sets/4d92a8a7-ccb0-437d-abdc-9d70fc5ed672",
+  "story_spotlight": false,
+  "tcgplayer_id": 646813,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/0a4cb4f4-046c-4efd-a53f-48003526444c",
+  "variation": false
+}

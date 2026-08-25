@@ -1,0 +1,141 @@
+{
+  "arena_id": 92200,
+  "artist": "Antonio José Manzanedo",
+  "artist_ids": [
+    "74986d28-0001-4a78-827c-e490b325d0e3"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 786501,
+  "cmc": 9.0,
+  "collector_number": "120",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1308,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "7740ff55-67bb-409e-90f7-2c2c8b8c770a",
+  "illustration_id": "7111e6eb-1b38-4f8b-9281-5e538329bddf",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:24:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/7/7740ff55-67bb-409e-90f7-2c2c8b8c770a.webp?1783909475",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/7/7740ff55-67bb-409e-90f7-2c2c8b8c770a.jpg?1783909475",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/7/7740ff55-67bb-409e-90f7-2c2c8b8c770a.jpg?1783909475",
+    "crop": "https://cards.scryfall.io/crop/front/7/7/7740ff55-67bb-409e-90f7-2c2c8b8c770a.webp?1783909475",
+    "display": "https://cards.scryfall.io/display/front/7/7/7740ff55-67bb-409e-90f7-2c2c8b8c770a.webp?1783909475",
+    "grid": "https://cards.scryfall.io/grid/front/7/7/7740ff55-67bb-409e-90f7-2c2c8b8c770a.webp?1783909475",
+    "large": "https://cards.scryfall.io/large/front/7/7/7740ff55-67bb-409e-90f7-2c2c8b8c770a.jpg?1783909475",
+    "normal": "https://cards.scryfall.io/normal/front/7/7/7740ff55-67bb-409e-90f7-2c2c8b8c770a.jpg?1783909475",
+    "png": "https://cards.scryfall.io/png/front/7/7/7740ff55-67bb-409e-90f7-2c2c8b8c770a.png?1783909475",
+    "small": "https://cards.scryfall.io/small/front/7/7/7740ff55-67bb-409e-90f7-2c2c8b8c770a.jpg?1783909475",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/7/7740ff55-67bb-409e-90f7-2c2c8b8c770a.webp?1783909475"
+  },
+  "keywords": [
+    "Flying",
+    "Lifelink",
+    "Ward"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{6}{B}{B}{B}",
+  "mtgo_id": 130371,
+  "multiverse_ids": [
+    673525
+  ],
+  "name": "Valgavoth, Terror Eater",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cae3ec72-436d-4086-9dcb-17b3d92ad5c4",
+  "oracle_text": "Flying, lifelink\nWard—Sacrifice three nonland permanents.\nIf a card you didn't control would be put into an opponent's graveyard from anywhere, exile it instead.\nDuring your turn, you may play cards exiled with Valgavoth. If you cast a spell this way, pay life equal to its mana value rather than pay its mana cost.",
+  "oversized": false,
+  "power": "9",
+  "prices": {
+    "eur": "15.20",
+    "eur_foil": "17.97",
+    "tix": "0.17",
+    "usd": "15.54",
+    "usd_etched": null,
+    "usd_foil": "20.53"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acae3ec72-436d-4086-9dcb-17b3d92ad5c4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130371?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=786501&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F575065%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Valgavoth%2C+Terror+Eater",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=673525&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DValgavoth%252C%2BTerror%2BEater",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DValgavoth%252C%2BTerror%2BEater"
+  },
+  "released_at": "2024-09-27",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7740ff55-67bb-409e-90f7-2c2c8b8c770a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsk/120/valgavoth-terror-eater?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsk",
+  "set_id": "a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "set_name": "Duskmourn: House of Horror",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "story_spotlight": false,
+  "tcgplayer_id": 575065,
+  "textless": false,
+  "toughness": "9",
+  "type_line": "Legendary Creature — Elder Demon",
+  "uri": "https://api.scryfall.com/cards/7740ff55-67bb-409e-90f7-2c2c8b8c770a",
+  "variation": false
+}

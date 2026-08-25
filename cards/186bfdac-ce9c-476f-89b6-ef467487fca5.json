@@ -1,0 +1,159 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "2bea6391-e70d-4f36-86b7-fd08440b4976",
+      "name": "Pitiless Carnage",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/2bea6391-e70d-4f36-86b7-fd08440b4976"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f07677af-88a4-4ff5-b591-e1e3ac05235d",
+      "name": "Plot",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/f07677af-88a4-4ff5-b591-e1e3ac05235d"
+    }
+  ],
+  "arena_id": 90444,
+  "artist": "Richard Kane Ferguson",
+  "artist_ids": [
+    "191620ed-2361-444e-96a6-1fe7ce32ef3b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764018,
+  "cmc": 4.0,
+  "collector_number": "98",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 6198,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Akul saw his Hellspur followers as little more than ammunition to be expended.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "fa76fc45-a106-4dc9-9d44-a005eaa2784d",
+  "illustration_id": "9c4a48f7-ccee-4455-8bbf-b0f24c27400f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:03:50Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/a/fa76fc45-a106-4dc9-9d44-a005eaa2784d.webp?1783911830",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/a/fa76fc45-a106-4dc9-9d44-a005eaa2784d.jpg?1783911830",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/a/fa76fc45-a106-4dc9-9d44-a005eaa2784d.jpg?1783911830",
+    "crop": "https://cards.scryfall.io/crop/front/f/a/fa76fc45-a106-4dc9-9d44-a005eaa2784d.webp?1783911830",
+    "display": "https://cards.scryfall.io/display/front/f/a/fa76fc45-a106-4dc9-9d44-a005eaa2784d.webp?1783911830",
+    "grid": "https://cards.scryfall.io/grid/front/f/a/fa76fc45-a106-4dc9-9d44-a005eaa2784d.webp?1783911830",
+    "large": "https://cards.scryfall.io/large/front/f/a/fa76fc45-a106-4dc9-9d44-a005eaa2784d.jpg?1783911830",
+    "normal": "https://cards.scryfall.io/normal/front/f/a/fa76fc45-a106-4dc9-9d44-a005eaa2784d.jpg?1783911830",
+    "png": "https://cards.scryfall.io/png/front/f/a/fa76fc45-a106-4dc9-9d44-a005eaa2784d.png?1783911830",
+    "small": "https://cards.scryfall.io/small/front/f/a/fa76fc45-a106-4dc9-9d44-a005eaa2784d.jpg?1783911830",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/a/fa76fc45-a106-4dc9-9d44-a005eaa2784d.webp?1783911830"
+  },
+  "keywords": [
+    "Plot"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "mtgo_id": 124107,
+  "multiverse_ids": [
+    655039
+  ],
+  "name": "Pitiless Carnage",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "186bfdac-ce9c-476f-89b6-ef467487fca5",
+  "oracle_text": "Sacrifice any number of permanents you control, then draw that many cards.\nPlot {1}{B}{B} (You may pay {1}{B}{B} and exile this card from your hand. Cast it as a sorcery on a later turn without paying its mana cost. Plot only as a sorcery.)",
+  "oversized": false,
+  "penny_rank": 6735,
+  "preview": {
+    "previewed_at": "2024-03-29",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://twitter.com/MTGArenaJP/status/1773636464280224000/photo/1"
+  },
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": "0.46",
+    "tix": "0.02",
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": "0.37"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A186bfdac-ce9c-476f-89b6-ef467487fca5&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124107?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764018&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544635%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Pitiless+Carnage",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=655039&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPitiless%2BCarnage",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPitiless%2BCarnage"
+  },
+  "released_at": "2024-04-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/fa76fc45-a106-4dc9-9d44-a005eaa2784d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otj?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otj/98/pitiless-carnage?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otj",
+  "set_id": "55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "set_name": "Outlaws of Thunder Junction",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotj&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "story_spotlight": false,
+  "tcgplayer_id": 544635,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/fa76fc45-a106-4dc9-9d44-a005eaa2784d",
+  "variation": false
+}

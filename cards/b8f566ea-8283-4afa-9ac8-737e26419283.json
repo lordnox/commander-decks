@@ -1,0 +1,138 @@
+{
+  "arena_id": 98610,
+  "artist": "Maojin Lee",
+  "artist_ids": [
+    "aa40e688-7c3b-4242-b2d3-4bc7b722fbb5"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 844400,
+  "cmc": 2.0,
+  "collector_number": "259",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 233,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Sky bison know no boundaries by land or sea, for the sky above them is boundless.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ab9dbf0b-2c1d-463c-b675-ff711c282e56",
+  "illustration_id": "ace4f5dd-28b1-4f7b-b1ad-f66f8850a61f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:06:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/b/ab9dbf0b-2c1d-463c-b675-ff711c282e56.webp?1783904770",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/b/ab9dbf0b-2c1d-463c-b675-ff711c282e56.jpg?1783904770",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/b/ab9dbf0b-2c1d-463c-b675-ff711c282e56.jpg?1783904770",
+    "crop": "https://cards.scryfall.io/crop/front/a/b/ab9dbf0b-2c1d-463c-b675-ff711c282e56.webp?1783904770",
+    "display": "https://cards.scryfall.io/display/front/a/b/ab9dbf0b-2c1d-463c-b675-ff711c282e56.webp?1783904770",
+    "grid": "https://cards.scryfall.io/grid/front/a/b/ab9dbf0b-2c1d-463c-b675-ff711c282e56.webp?1783904770",
+    "large": "https://cards.scryfall.io/large/front/a/b/ab9dbf0b-2c1d-463c-b675-ff711c282e56.jpg?1783904770",
+    "normal": "https://cards.scryfall.io/normal/front/a/b/ab9dbf0b-2c1d-463c-b675-ff711c282e56.jpg?1783904770",
+    "png": "https://cards.scryfall.io/png/front/a/b/ab9dbf0b-2c1d-463c-b675-ff711c282e56.png?1783904770",
+    "small": "https://cards.scryfall.io/small/front/a/b/ab9dbf0b-2c1d-463c-b675-ff711c282e56.jpg?1783904770",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/b/ab9dbf0b-2c1d-463c-b675-ff711c282e56.webp?1783904770"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "multiverse_ids": [],
+  "name": "Explore",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b8f566ea-8283-4afa-9ac8-737e26419283",
+  "oracle_text": "You may play an additional land this turn.\nDraw a card.",
+  "oversized": false,
+  "penny_rank": 372,
+  "preview": {
+    "previewed_at": "2025-08-14",
+    "source": "IGN",
+    "source_uri": "https://www.ign.com/articles/avatar-the-last-airbender-magic-the-gathering-beginner-box-card-reveal-spoilers"
+  },
+  "prices": {
+    "eur": "0.28",
+    "eur_foil": "0.44",
+    "tix": null,
+    "usd": "0.21",
+    "usd_etched": null,
+    "usd_foil": "1.66"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab8f566ea-8283-4afa-9ac8-737e26419283&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Explore&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=844400&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F649611%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Explore",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DExplore",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DExplore"
+  },
+  "released_at": "2025-11-21",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "05733BB914E82F782E5BD6CE47825BC261F1722CC8FB50CD0BC179F37917A5CC",
+  "rulings_uri": "https://api.scryfall.com/cards/ab9dbf0b-2c1d-463c-b675-ff711c282e56/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tle?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tle/259/explore?utm_source=api",
+  "set": "tle",
+  "set_id": "a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "set_name": "Avatar: The Last Airbender Eternal",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atle&unique=prints",
+  "set_type": "eternal",
+  "set_uri": "https://api.scryfall.com/sets/a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "story_spotlight": false,
+  "tcgplayer_id": 649611,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/ab9dbf0b-2c1d-463c-b675-ff711c282e56",
+  "variation": false
+}

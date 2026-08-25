@@ -1,0 +1,176 @@
+{
+  "arena_id": 73302,
+  "artist": "Victor Adame Minguez",
+  "artist_ids": [
+    "bd8f7368-5b10-4554-b6b8-d052c6aca89f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Victor Adame Minguez",
+      "artist_id": "bd8f7368-5b10-4554-b6b8-d052c6aca89f",
+      "colors": [
+        "B"
+      ],
+      "flavor_text": "\"Din, turn around! Now!\"\n—Doros, expedition guide",
+      "illustration_id": "b179decf-543e-4666-bbf0-1a5902e04b12",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/7/c/7c04c734-354d-4925-8161-7052110951df.webp?1783929380",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/7/c/7c04c734-354d-4925-8161-7052110951df.jpg?1783929380",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/7/c/7c04c734-354d-4925-8161-7052110951df.jpg?1783929380",
+        "crop": "https://cards.scryfall.io/crop/front/7/c/7c04c734-354d-4925-8161-7052110951df.webp?1783929380",
+        "display": "https://cards.scryfall.io/display/front/7/c/7c04c734-354d-4925-8161-7052110951df.webp?1783929380",
+        "grid": "https://cards.scryfall.io/grid/front/7/c/7c04c734-354d-4925-8161-7052110951df.webp?1783929380",
+        "large": "https://cards.scryfall.io/large/front/7/c/7c04c734-354d-4925-8161-7052110951df.jpg?1783929380",
+        "normal": "https://cards.scryfall.io/normal/front/7/c/7c04c734-354d-4925-8161-7052110951df.jpg?1783929380",
+        "png": "https://cards.scryfall.io/png/front/7/c/7c04c734-354d-4925-8161-7052110951df.png?1783929380",
+        "small": "https://cards.scryfall.io/small/front/7/c/7c04c734-354d-4925-8161-7052110951df.jpg?1783929380",
+        "thumb": "https://cards.scryfall.io/thumb/front/7/c/7c04c734-354d-4925-8161-7052110951df.webp?1783929380"
+      },
+      "mana_cost": "{2}{B}{B}",
+      "name": "Hagra Mauling",
+      "object": "card_face",
+      "oracle_text": "This spell costs {1} less to cast if an opponent controls no basic lands.\nDestroy target creature.",
+      "type_line": "Instant"
+    },
+    {
+      "artist": "Victor Adame Minguez",
+      "artist_id": "bd8f7368-5b10-4554-b6b8-d052c6aca89f",
+      "colors": [],
+      "flavor_text": "\"I think we somehow got turned around.\"\n—Doros, expedition guide",
+      "illustration_id": "91935dad-4f41-42a3-97e7-8a32d543bbb1",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/7/c/7c04c734-354d-4925-8161-7052110951df.webp?1783929380",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/7/c/7c04c734-354d-4925-8161-7052110951df.jpg?1783929380",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/7/c/7c04c734-354d-4925-8161-7052110951df.jpg?1783929380",
+        "crop": "https://cards.scryfall.io/crop/back/7/c/7c04c734-354d-4925-8161-7052110951df.webp?1783929380",
+        "display": "https://cards.scryfall.io/display/back/7/c/7c04c734-354d-4925-8161-7052110951df.webp?1783929380",
+        "grid": "https://cards.scryfall.io/grid/back/7/c/7c04c734-354d-4925-8161-7052110951df.webp?1783929380",
+        "large": "https://cards.scryfall.io/large/back/7/c/7c04c734-354d-4925-8161-7052110951df.jpg?1783929380",
+        "normal": "https://cards.scryfall.io/normal/back/7/c/7c04c734-354d-4925-8161-7052110951df.jpg?1783929380",
+        "png": "https://cards.scryfall.io/png/back/7/c/7c04c734-354d-4925-8161-7052110951df.png?1783929380",
+        "small": "https://cards.scryfall.io/small/back/7/c/7c04c734-354d-4925-8161-7052110951df.jpg?1783929380",
+        "thumb": "https://cards.scryfall.io/thumb/back/7/c/7c04c734-354d-4925-8161-7052110951df.webp?1783929380"
+      },
+      "mana_cost": "",
+      "name": "Hagra Broodpit",
+      "object": "card_face",
+      "oracle_text": "This land enters tapped.\n{T}: Add {B}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 496405,
+  "cmc": 4.0,
+  "collector_number": "106",
+  "color_identity": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2064,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7c04c734-354d-4925-8161-7052110951df",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:56:20Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 83175,
+  "multiverse_ids": [
+    491741,
+    491742
+  ],
+  "name": "Hagra Mauling // Hagra Broodpit",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "37783ce6-af58-4ef6-8ab4-587079970307",
+  "oversized": false,
+  "penny_rank": 368,
+  "preview": {
+    "previewed_at": "2020-09-04",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.facebook.com/MagicTheGathering.ct/photos/a.1580720992154464/3032431983650017/?type=3&theater"
+  },
+  "prices": {
+    "eur": "1.62",
+    "eur_foil": "2.51",
+    "tix": "0.02",
+    "usd": "2.57",
+    "usd_etched": null,
+    "usd_foil": "1.03"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A37783ce6-af58-4ef6-8ab4-587079970307&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/83175?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=496405&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F222096%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hagra+Mauling",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=491741&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHagra%2BMauling%2B%252F%252F%2BHagra%2BBroodpit",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHagra%2BMauling%2B%252F%252F%2BHagra%2BBroodpit"
+  },
+  "released_at": "2020-09-25",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7c04c734-354d-4925-8161-7052110951df/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/znr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/znr/106/hagra-mauling-hagra-broodpit?utm_source=api",
+  "security_stamp": "oval",
+  "set": "znr",
+  "set_id": "f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "set_name": "Zendikar Rising",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aznr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "story_spotlight": false,
+  "tcgplayer_id": 222096,
+  "textless": false,
+  "type_line": "Instant // Land",
+  "uri": "https://api.scryfall.com/cards/7c04c734-354d-4925-8161-7052110951df",
+  "variation": false
+}

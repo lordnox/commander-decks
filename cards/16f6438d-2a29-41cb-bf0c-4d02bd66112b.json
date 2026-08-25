@@ -1,0 +1,139 @@
+{
+  "artist": "Bryan Sola",
+  "artist_ids": [
+    "e6879299-a28b-48bc-8db1-9cafcf36de09"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 804996,
+  "cmc": 2.0,
+  "collector_number": "202",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 2280,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"The woods are not unknowable. Certainty and order are woven with the roots.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "39c66895-9c2d-49db-8261-e300a69b6cd5",
+  "illustration_id": "2ec306f0-5bed-4e3b-ba9d-f3e21dd57a22",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:01:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/9/39c66895-9c2d-49db-8261-e300a69b6cd5.webp?1783908097",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/9/39c66895-9c2d-49db-8261-e300a69b6cd5.jpg?1783908097",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/9/39c66895-9c2d-49db-8261-e300a69b6cd5.jpg?1783908097",
+    "crop": "https://cards.scryfall.io/crop/front/3/9/39c66895-9c2d-49db-8261-e300a69b6cd5.webp?1783908097",
+    "display": "https://cards.scryfall.io/display/front/3/9/39c66895-9c2d-49db-8261-e300a69b6cd5.webp?1783908097",
+    "grid": "https://cards.scryfall.io/grid/front/3/9/39c66895-9c2d-49db-8261-e300a69b6cd5.webp?1783908097",
+    "large": "https://cards.scryfall.io/large/front/3/9/39c66895-9c2d-49db-8261-e300a69b6cd5.jpg?1783908097",
+    "normal": "https://cards.scryfall.io/normal/front/3/9/39c66895-9c2d-49db-8261-e300a69b6cd5.jpg?1783908097",
+    "png": "https://cards.scryfall.io/png/front/3/9/39c66895-9c2d-49db-8261-e300a69b6cd5.png?1783908097",
+    "small": "https://cards.scryfall.io/small/front/3/9/39c66895-9c2d-49db-8261-e300a69b6cd5.jpg?1783908097",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/9/39c66895-9c2d-49db-8261-e300a69b6cd5.webp?1783908097"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "banned",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "banned",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "banned",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 135820,
+  "multiverse_ids": [
+    686045
+  ],
+  "name": "Hermit Druid",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "16f6438d-2a29-41cb-bf0c-4d02bd66112b",
+  "oracle_text": "{G}, {T}: Reveal cards from the top of your library until you reveal a basic land card. Put that card into your hand and all other cards revealed this way into your graveyard.",
+  "oversized": false,
+  "penny_rank": 545,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2025-01-07",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "8.06",
+    "eur_foil": "8.13",
+    "tix": "0.56",
+    "usd": "8.87",
+    "usd_etched": null,
+    "usd_foil": "8.84"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A16f6438d-2a29-41cb-bf0c-4d02bd66112b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/135820?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=804996&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F609647%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hermit+Druid",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=686045&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHermit%2BDruid",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHermit%2BDruid"
+  },
+  "released_at": "2025-01-24",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/39c66895-9c2d-49db-8261-e300a69b6cd5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/inr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/inr/202/hermit-druid?utm_source=api",
+  "security_stamp": "oval",
+  "set": "inr",
+  "set_id": "b9618c8c-9f31-4b42-9798-2991893c27bf",
+  "set_name": "Innistrad Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ainr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/b9618c8c-9f31-4b42-9798-2991893c27bf",
+  "story_spotlight": false,
+  "tcgplayer_id": 609647,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Druid",
+  "uri": "https://api.scryfall.com/cards/39c66895-9c2d-49db-8261-e300a69b6cd5",
+  "variation": false
+}

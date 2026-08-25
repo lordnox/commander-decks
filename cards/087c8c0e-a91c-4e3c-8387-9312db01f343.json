@@ -1,0 +1,139 @@
+{
+  "arena_id": 77362,
+  "artist": "Johannes Voss",
+  "artist_ids": [
+    "3593dd7e-c547-4a32-81cd-7da725f60118"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 571261,
+  "cmc": 0.0,
+  "collector_number": "257",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 5522,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "bf8f052d-8840-4905-a807-9a305f4fd8f7",
+  "illustration_id": "dafd4798-005f-48b8-b8e3-7af95ec12c97",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:07:14Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/f/bf8f052d-8840-4905-a807-9a305f4fd8f7.webp?1783926434",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/f/bf8f052d-8840-4905-a807-9a305f4fd8f7.jpg?1783926434",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/f/bf8f052d-8840-4905-a807-9a305f4fd8f7.jpg?1783926434",
+    "crop": "https://cards.scryfall.io/crop/front/b/f/bf8f052d-8840-4905-a807-9a305f4fd8f7.webp?1783926434",
+    "display": "https://cards.scryfall.io/display/front/b/f/bf8f052d-8840-4905-a807-9a305f4fd8f7.webp?1783926434",
+    "grid": "https://cards.scryfall.io/grid/front/b/f/bf8f052d-8840-4905-a807-9a305f4fd8f7.webp?1783926434",
+    "large": "https://cards.scryfall.io/large/front/b/f/bf8f052d-8840-4905-a807-9a305f4fd8f7.jpg?1783926434",
+    "normal": "https://cards.scryfall.io/normal/front/b/f/bf8f052d-8840-4905-a807-9a305f4fd8f7.jpg?1783926434",
+    "png": "https://cards.scryfall.io/png/front/b/f/bf8f052d-8840-4905-a807-9a305f4fd8f7.png?1783926434",
+    "small": "https://cards.scryfall.io/small/front/b/f/bf8f052d-8840-4905-a807-9a305f4fd8f7.jpg?1783926434",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/f/bf8f052d-8840-4905-a807-9a305f4fd8f7.webp?1783926434"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 92016,
+  "multiverse_ids": [
+    527544
+  ],
+  "name": "Hall of Storm Giants",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "087c8c0e-a91c-4e3c-8387-9312db01f343",
+  "oracle_text": "If you control two or more other lands, this land enters tapped.\n{T}: Add {U}.\n{5}{U}: Until end of turn, this land becomes a 7/7 blue Giant creature with ward {3}. It's still a land. (Whenever it becomes the target of a spell or ability an opponent controls, counter it unless that player pays {3}.)",
+  "oversized": false,
+  "penny_rank": 241,
+  "preview": {
+    "previewed_at": "2021-06-29",
+    "source": "cafe.daum.net",
+    "source_uri": "https://m.cafe.daum.net/magin/9Uu6/5298?"
+  },
+  "prices": {
+    "eur": "0.80",
+    "eur_foil": "1.44",
+    "tix": "0.02",
+    "usd": "0.38",
+    "usd_etched": null,
+    "usd_foil": "0.67"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A087c8c0e-a91c-4e3c-8387-9312db01f343&unique=prints",
+  "produced_mana": [
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/92016?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=571261&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243193%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hall+of+Storm+Giants",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=527544&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHall%2Bof%2BStorm%2BGiants",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHall%2Bof%2BStorm%2BGiants"
+  },
+  "released_at": "2021-07-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/bf8f052d-8840-4905-a807-9a305f4fd8f7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afr/257/hall-of-storm-giants?utm_source=api",
+  "security_stamp": "oval",
+  "set": "afr",
+  "set_id": "e1ef87ba-ba92-4573-817f-543b996d2851",
+  "set_name": "Adventures in the Forgotten Realms",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e1ef87ba-ba92-4573-817f-543b996d2851",
+  "story_spotlight": false,
+  "tcgplayer_id": 243193,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/bf8f052d-8840-4905-a807-9a305f4fd8f7",
+  "variation": false
+}

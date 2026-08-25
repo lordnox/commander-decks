@@ -1,0 +1,130 @@
+{
+  "artist": "Rebecca Guay",
+  "artist_ids": [
+    "f8f662fa-d597-46a3-afb2-91d6e13243e2"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 723069,
+  "cmc": 4.0,
+  "collector_number": "884",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1862,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9bc359b0-8886-415b-a497-e98a2241084e",
+  "illustration_id": "4be12219-df08-4a40-b32f-69737db62615",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:03:48Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/b/9bc359b0-8886-415b-a497-e98a2241084e.webp?1783915428",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/b/9bc359b0-8886-415b-a497-e98a2241084e.jpg?1783915428",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/b/9bc359b0-8886-415b-a497-e98a2241084e.jpg?1783915428",
+    "crop": "https://cards.scryfall.io/crop/front/9/b/9bc359b0-8886-415b-a497-e98a2241084e.webp?1783915428",
+    "display": "https://cards.scryfall.io/display/front/9/b/9bc359b0-8886-415b-a497-e98a2241084e.webp?1783915428",
+    "grid": "https://cards.scryfall.io/grid/front/9/b/9bc359b0-8886-415b-a497-e98a2241084e.webp?1783915428",
+    "large": "https://cards.scryfall.io/large/front/9/b/9bc359b0-8886-415b-a497-e98a2241084e.jpg?1783915428",
+    "normal": "https://cards.scryfall.io/normal/front/9/b/9bc359b0-8886-415b-a497-e98a2241084e.jpg?1783915428",
+    "png": "https://cards.scryfall.io/png/front/9/b/9bc359b0-8886-415b-a497-e98a2241084e.png?1783915428",
+    "small": "https://cards.scryfall.io/small/front/9/b/9bc359b0-8886-415b-a497-e98a2241084e.jpg?1783915428",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/b/9bc359b0-8886-415b-a497-e98a2241084e.webp?1783915428"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}{G}",
+  "mtgo_id": 114109,
+  "multiverse_ids": [
+    625289
+  ],
+  "name": "Abundance",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "eccc9a54-2b56-4a02-9926-258d5b2e25fb",
+  "oracle_text": "If you would draw a card, you may instead choose land or nonland and reveal cards from the top of your library until you reveal a card of the chosen kind. Put that card into your hand and put all other cards revealed this way on the bottom of your library in any order.",
+  "oversized": false,
+  "penny_rank": 5784,
+  "prices": {
+    "eur": "0.92",
+    "eur_foil": null,
+    "tix": "0.07",
+    "usd": "2.22",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aeccc9a54-2b56-4a02-9926-258d5b2e25fb&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/114109?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=723069&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F505997%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Abundance",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=625289&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAbundance",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAbundance"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9bc359b0-8886-415b-a497-e98a2241084e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/884/abundance?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 505997,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/9bc359b0-8886-415b-a497-e98a2241084e",
+  "variation": false
+}

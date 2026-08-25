@@ -1,0 +1,358 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "59c4a1a2-623c-43b2-8005-ecb5c6436c10",
+      "name": "Magitek Armor",
+      "object": "related_card",
+      "type_line": "Artifact — Vehicle",
+      "uri": "https://api.scryfall.com/cards/59c4a1a2-623c-43b2-8005-ecb5c6436c10"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3123d16c-e1e6-4659-a7a3-2ec6efc6bf08",
+      "name": "Aerith Rescue Mission",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/3123d16c-e1e6-4659-a7a3-2ec6efc6bf08"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8952beec-fd8e-481c-aea7-e3105fb5bcc9",
+      "name": "Tellah, Great Sage",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Wizard",
+      "uri": "https://api.scryfall.com/cards/8952beec-fd8e-481c-aea7-e3105fb5bcc9"
+    },
+    {
+      "component": "combo_piece",
+      "id": "995033f0-873d-4e46-b0c9-98ec8ef270ff",
+      "name": "Monk's Fist",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/995033f0-873d-4e46-b0c9-98ec8ef270ff"
+    },
+    {
+      "component": "combo_piece",
+      "id": "446506c5-5e1d-4b42-aef3-ea247d7881ef",
+      "name": "Paladin's Arms",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/446506c5-5e1d-4b42-aef3-ea247d7881ef"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e0579955-75f9-47a9-8b03-e287d120826a",
+      "name": "Red Mage's Rapier",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/e0579955-75f9-47a9-8b03-e287d120826a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "2ac03e90-1e16-453f-88e4-a0448db73403",
+      "name": "Bard's Bow",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/2ac03e90-1e16-453f-88e4-a0448db73403"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c2dcfd0a-3f52-4616-a09a-fd2db8b6b93e",
+      "name": "Thief's Knife",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/c2dcfd0a-3f52-4616-a09a-fd2db8b6b93e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "89e3ef53-ccb6-4b8e-a512-c9debf87eecf",
+      "name": "Astrologian's Planisphere",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/89e3ef53-ccb6-4b8e-a512-c9debf87eecf"
+    },
+    {
+      "component": "combo_piece",
+      "id": "92ef9285-e2dc-40fc-86fa-6913bbc405db",
+      "name": "Champions from Beyond",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/92ef9285-e2dc-40fc-86fa-6913bbc405db"
+    },
+    {
+      "component": "combo_piece",
+      "id": "42788e7f-6db5-4a62-882d-0f8f74a94e32",
+      "name": "Zanarkand, Ancient Metropolis // Lasting Fayth",
+      "object": "related_card",
+      "type_line": "Land — Town // Sorcery — Adventure",
+      "uri": "https://api.scryfall.com/cards/42788e7f-6db5-4a62-882d-0f8f74a94e32"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1b3188ab-feb9-4486-bda0-1b80f128f7d2",
+      "name": "Blue Mage's Cane",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/1b3188ab-feb9-4486-bda0-1b80f128f7d2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "13764c53-57cc-4418-8a15-cdb72f6f3b0e",
+      "name": "Dancer's Chakrams",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/13764c53-57cc-4418-8a15-cdb72f6f3b0e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "35e8f140-055f-4fc7-a765-fb030d828214",
+      "name": "Black Mage's Rod",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/35e8f140-055f-4fc7-a765-fb030d828214"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ace9baac-4aa6-49ef-b85d-514de6e77043",
+      "name": "Sage's Nouliths",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/ace9baac-4aa6-49ef-b85d-514de6e77043"
+    },
+    {
+      "component": "combo_piece",
+      "id": "11f1d378-c78c-402a-ac46-2d32598c23e7",
+      "name": "Samurai's Katana",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/11f1d378-c78c-402a-ac46-2d32598c23e7"
+    },
+    {
+      "component": "combo_piece",
+      "id": "cb98a7dd-542e-4448-b3bb-ff5d67a36535",
+      "name": "Warrior's Sword",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/cb98a7dd-542e-4448-b3bb-ff5d67a36535"
+    },
+    {
+      "component": "combo_piece",
+      "id": "96630531-8eb7-4e3e-8d63-60c562a5571b",
+      "name": "Dragoon's Lance",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/96630531-8eb7-4e3e-8d63-60c562a5571b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "30db372e-0b4c-4e16-9667-bf3fda666f72",
+      "name": "White Mage's Staff",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/30db372e-0b4c-4e16-9667-bf3fda666f72"
+    },
+    {
+      "component": "combo_piece",
+      "id": "723d9139-d75e-42e9-8ffc-5df053096839",
+      "name": "Reaper's Scythe",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/723d9139-d75e-42e9-8ffc-5df053096839"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e17c0d27-e88d-4ba9-acbb-3f916cee3d7e",
+      "name": "Dwarven Castle Guard",
+      "object": "related_card",
+      "type_line": "Creature — Dwarf Soldier",
+      "uri": "https://api.scryfall.com/cards/e17c0d27-e88d-4ba9-acbb-3f916cee3d7e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d75917b1-0ffb-4bff-b75f-973e26e172df",
+      "name": "Ninja's Blades",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/d75917b1-0ffb-4bff-b75f-973e26e172df"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f9b9c711-9525-4206-8582-d9f12cdaa876",
+      "name": "Summoner's Grimoire",
+      "object": "related_card",
+      "type_line": "Artifact — Book Equipment",
+      "uri": "https://api.scryfall.com/cards/f9b9c711-9525-4206-8582-d9f12cdaa876"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d4df4373-0ee6-44e3-81c6-0881c070014c",
+      "name": "The Crystal's Chosen",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/d4df4373-0ee6-44e3-81c6-0881c070014c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a9b212fb-4666-40d5-bd81-ca4446561725",
+      "name": "Machinist's Arsenal",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/a9b212fb-4666-40d5-bd81-ca4446561725"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b50dcc7c-260f-4d8c-9a9e-9244ec23a91e",
+      "name": "Dark Knight's Greatsword",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/b50dcc7c-260f-4d8c-9a9e-9244ec23a91e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d92bce20-308e-4841-aaf8-8e20698292e7",
+      "name": "Dragoon's Wyvern",
+      "object": "related_card",
+      "type_line": "Creature — Drake",
+      "uri": "https://api.scryfall.com/cards/d92bce20-308e-4841-aaf8-8e20698292e7"
+    },
+    {
+      "component": "combo_piece",
+      "id": "214453a2-9dcb-4bab-853f-5b56bbcbe4f8",
+      "name": "G'raha Tia, Scion Reborn",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Cat Wizard",
+      "uri": "https://api.scryfall.com/cards/214453a2-9dcb-4bab-853f-5b56bbcbe4f8"
+    },
+    {
+      "component": "token",
+      "id": "17fa0c1f-6737-487c-9101-0bec2e586795",
+      "name": "Hero",
+      "object": "related_card",
+      "type_line": "Token Creature — Hero",
+      "uri": "https://api.scryfall.com/cards/17fa0c1f-6737-487c-9101-0bec2e586795"
+    }
+  ],
+  "artist": "Josephine Chang",
+  "artist_ids": [
+    "95f381e8-b7fb-4719-865d-f818511fa331"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "2",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "d0657ce1-bf75-4007-ac1b-0623eb263357",
+  "illustration_id": "397ce92d-0743-4c1f-9a0d-31703e56eeb0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:28:58Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/0/d0657ce1-bf75-4007-ac1b-0623eb263357.webp?1783906138",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/0/d0657ce1-bf75-4007-ac1b-0623eb263357.jpg?1783906138",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/0/d0657ce1-bf75-4007-ac1b-0623eb263357.jpg?1783906138",
+    "crop": "https://cards.scryfall.io/crop/front/d/0/d0657ce1-bf75-4007-ac1b-0623eb263357.webp?1783906138",
+    "display": "https://cards.scryfall.io/display/front/d/0/d0657ce1-bf75-4007-ac1b-0623eb263357.webp?1783906138",
+    "grid": "https://cards.scryfall.io/grid/front/d/0/d0657ce1-bf75-4007-ac1b-0623eb263357.webp?1783906138",
+    "large": "https://cards.scryfall.io/large/front/d/0/d0657ce1-bf75-4007-ac1b-0623eb263357.jpg?1783906138",
+    "normal": "https://cards.scryfall.io/normal/front/d/0/d0657ce1-bf75-4007-ac1b-0623eb263357.jpg?1783906138",
+    "png": "https://cards.scryfall.io/png/front/d/0/d0657ce1-bf75-4007-ac1b-0623eb263357.png?1783906138",
+    "small": "https://cards.scryfall.io/small/front/d/0/d0657ce1-bf75-4007-ac1b-0623eb263357.jpg?1783906138",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/0/d0657ce1-bf75-4007-ac1b-0623eb263357.webp?1783906138"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Hero",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "fcf819ef-28e4-46be-a28d-5865ff90e15a",
+  "oracle_text": "",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Afcf819ef-28e4-46be-a28d-5865ff90e15a&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "ffxiv",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Hero&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Hero&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DHero%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hero",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHero",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHero"
+  },
+  "released_at": "2025-06-13",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d0657ce1-bf75-4007-ac1b-0623eb263357/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tfin?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tfin/2/hero?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "tfin",
+  "set_id": "e6f97941-6b02-4951-966f-522722cb6339",
+  "set_name": "Final Fantasy Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atfin&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/e6f97941-6b02-4951-966f-522722cb6339",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Token Creature — Hero",
+  "uri": "https://api.scryfall.com/cards/d0657ce1-bf75-4007-ac1b-0623eb263357",
+  "variation": false
+}

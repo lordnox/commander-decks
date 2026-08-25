@@ -1,0 +1,136 @@
+{
+  "artist": "Bayard Wu",
+  "artist_ids": [
+    "b089963c-610a-4d50-9206-d64b7caedef1"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 721925,
+  "cmc": 2.0,
+  "collector_number": "289",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 316,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Some spells sing a quiet tune. Others roar.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b10d99bf-b2ce-4443-b924-ff0eb8be1033",
+  "illustration_id": "705ca760-e619-4625-9774-76e0d188908f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:07:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/1/b10d99bf-b2ce-4443-b924-ff0eb8be1033.webp?1783915632",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/1/b10d99bf-b2ce-4443-b924-ff0eb8be1033.jpg?1783915632",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/1/b10d99bf-b2ce-4443-b924-ff0eb8be1033.jpg?1783915632",
+    "crop": "https://cards.scryfall.io/crop/front/b/1/b10d99bf-b2ce-4443-b924-ff0eb8be1033.webp?1783915632",
+    "display": "https://cards.scryfall.io/display/front/b/1/b10d99bf-b2ce-4443-b924-ff0eb8be1033.webp?1783915632",
+    "grid": "https://cards.scryfall.io/grid/front/b/1/b10d99bf-b2ce-4443-b924-ff0eb8be1033.webp?1783915632",
+    "large": "https://cards.scryfall.io/large/front/b/1/b10d99bf-b2ce-4443-b924-ff0eb8be1033.jpg?1783915632",
+    "normal": "https://cards.scryfall.io/normal/front/b/1/b10d99bf-b2ce-4443-b924-ff0eb8be1033.jpg?1783915632",
+    "png": "https://cards.scryfall.io/png/front/b/1/b10d99bf-b2ce-4443-b924-ff0eb8be1033.png?1783915632",
+    "small": "https://cards.scryfall.io/small/front/b/1/b10d99bf-b2ce-4443-b924-ff0eb8be1033.jpg?1783915632",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/1/b10d99bf-b2ce-4443-b924-ff0eb8be1033.webp?1783915632"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{X}{G}{G}",
+  "mtgo_id": 114807,
+  "multiverse_ids": [
+    627753
+  ],
+  "name": "Finale of Devastation",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "69872a9a-fe54-4e58-940c-89395af71acd",
+  "oracle_text": "Search your library and/or graveyard for a creature card with mana value X or less and put it onto the battlefield. If you search your library this way, shuffle. If X is 10 or more, creatures you control get +X/+X and gain haste until end of turn.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-07-12",
+    "source": "Dorasuta",
+    "source_uri": "https://dorasuta.jp/column/detail?aid=10806"
+  },
+  "prices": {
+    "eur": "26.94",
+    "eur_foil": "34.25",
+    "tix": "2.54",
+    "usd": "43.18",
+    "usd_etched": null,
+    "usd_foil": "61.23"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A69872a9a-fe54-4e58-940c-89395af71acd&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/114807?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=721925&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F504142%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Finale+of+Devastation",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=627753&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFinale%2Bof%2BDevastation",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFinale%2Bof%2BDevastation"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b10d99bf-b2ce-4443-b924-ff0eb8be1033/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/289/finale-of-devastation?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 504142,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/b10d99bf-b2ce-4443-b924-ff0eb8be1033",
+  "variation": false
+}
