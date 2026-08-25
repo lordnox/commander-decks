@@ -21,7 +21,7 @@ Ask only the questions that are still open. Challenge guesses instead of filling
 4. **Math.** If the pitch is "N copies," walk one representative stack with Alania-style replacement, delayed triggers, and independent resolutions. If the pitch is mill/exile, estimate cards removed against cheap libraries; a stripped library is not always a win.
 5. **Constraints.** Lock Game Changer count, tutor count, interaction density, cost reducers, and whether the user wants esoteric cards versus staples. Reject color-identity illegal suggestions immediately.
 6. **Speed versus high roll.** Separate the gold-fish high roll from the expected win turn. A turn-four line that does not end the game is not a turn-four win.
-7. **Name.** Infer `unrated_<kebab>` from the commander. Confirm only if identity is ambiguous.
+7. **Name.** Lock a brew title and a short commander slug. Folder is `unrated_<commander>-<name>` in kebab-case (see AGENTS.md). Confirm when the title is a joke or otherwise ambiguous. Primer H1: `# [Commander](scryfall) — Title`.
 
 Stop and wait when a constraint or Oracle reading would change the 99. Do not "just build it" to keep moving.
 

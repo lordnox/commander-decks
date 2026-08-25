@@ -13,11 +13,10 @@ Inspect the immediate subdirectories of `decks/` and their `cards.json` manifest
 
 - If one existing deck plausibly matches the named commander, deck name, or submitted list, ask: “Are we working on `<deck-name>`?”
 - If several decks plausibly match, present the short list and ask the user to select one.
-- If none matches, infer a short name from the commander first, otherwise from the deck theme.
-- Use `decks/unrated_<slug>/` for a new deck, where `<slug>` is lowercase kebab-case.
-- Assessed decks use `decks/<N><modifier>_<slug>/`, with ASCII `-`, no modifier, or `+` for positions `N−`, `N`, or `N+`. Examples: `3-_homer-dumpster-diver-crab`, `3-_mishra-racecar-driver`, and `3+_bartolome-graveyard-shift`.
-- Ignore these prefixes when matching a user's deck name or commander.
-- Ask for the name only if no clear commander or theme can be inferred.
+- If none matches, the slug is `<commander>-<name>`: short legendary name, then the brew title, both kebab-case (see AGENTS.md Directory names).
+- Use `decks/unrated_<commander>-<name>/` for a new deck.
+- Assessed decks use `decks/<N><modifier>_<commander>-<name>/`, with ASCII `-`, no modifier, or `+` for positions `N−`, `N`, or `N+`. Examples: `3-_homer-dumpster-diver-crab`, `2+_jon-irenicus-unwanted-presents`, `unrated_lady-evangela-foggy-blood-transfusion`.
+- Ignore the rating prefix when matching a user's commander or deck title.
 
 Do not overwrite an existing deck until its identity is confirmed.
 

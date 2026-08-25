@@ -43,7 +43,7 @@ Do not call a line infinite when it is delayed, resource-limited, fails to resto
 
 Use concise Markdown. Write every card mention as a bold link to its manifest `scryfall_uri`, for example `[**Hedge Shredder**](https://scryfall.com/card/...)`. Keep this top-of-file order, then include only later sections the deck supports:
 
-1. Title (H1)
+1. Title (H1): `# [Short commander name](scryfall_uri) — Brew title` (same commander slug and title as the folder).
 2. Assessment blockquote (`N−` / `N` / `N+`), when the deck has been assessed
 3. Archidekt deck-creation link
 4. Archidekt tag badges (from `tag-deck`)
