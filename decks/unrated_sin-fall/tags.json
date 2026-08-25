@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Sultai graveyard clones: stock lands plus one jackpot, then let Sin copy the pile as tapped tokens.",
+  "tags": [
+    {
+      "name": "clones",
+      "score": 5,
+      "reason": "Sin's enter and attack triggers create token copies of graveyard permanents; that is the namesake plan."
+    },
+    {
+      "name": "graveyard",
+      "score": 5,
+      "reason": "The yard is the lottery: land density plus one jackpot decides what Sin copies."
+    },
+    {
+      "name": "lands",
+      "score": 5,
+      "reason": "Half the 99 is lands, and Sin repeats its copy loop only while it keeps exiling lands."
+    },
+    {
+      "name": "lands matter",
+      "score": 5,
+      "reason": "Scapeshift, bounce lands, and unique names (Field of the Dead) are the other win axis."
+    },
+    {
+      "name": "landfall",
+      "score": 4,
+      "reason": "Field of the Dead, Scute Swarm, Aesi, and several Avoid-with-Sin cards pay off extra land drops."
+    },
+    {
+      "name": "ramp",
+      "score": 4,
+      "reason": "The list is built to hit Sin's seven mana and to flood extra lands in a turn."
+    },
+    {
+      "name": "tokens",
+      "score": 4,
+      "reason": "Wins come from Sin copy tokens plus Field zombies and Scute Swarm insects."
+    },
+    {
+      "name": "commander matters",
+      "score": 4,
+      "reason": "Without Sin on the battlefield the copy lottery and Will of the Sultai both modes do not exist."
+    },
+    {
+      "name": "big mana",
+      "score": 3,
+      "reason": "Lotus Field, Rain of Filth, and X spells (Exsanguinate, Finale, Profane Command) spend the extra mana."
+    },
+    {
+      "name": "sacrifice",
+      "score": 3,
+      "reason": "Land-sac spells load the yard for Sin and find unique names with Scapeshift."
+    },
+    {
+      "name": "self-mill",
+      "score": 3,
+      "reason": "Hermit Druid, Loam dredge, Hedron Crab, and Hostile Negotiations stock the yard as setup."
+    },
+    {
+      "name": "adventures",
+      "score": 2,
+      "reason": "Zanarkand // Lasting Fayth is a land with an adventure, not an adventure deck."
+    },
+    {
+      "name": "auras",
+      "score": 2,
+      "reason": "Colossification is a jackpot, not an aura theme."
+    },
+    {
+      "name": "dredge",
+      "score": 2,
+      "reason": "Life from the Loam loops lands into the yard without dumping extra permanents."
+    },
+    {
+      "name": "go-wide",
+      "score": 2,
+      "reason": "Field of the Dead and Scute Swarm can swarm if the Sin lottery is slow."
+    },
+    {
+      "name": "lifedrain",
+      "score": 2,
+      "reason": "Exsanguinate and Retreat to Hagra close games but are not the main plan."
+    },
+    {
+      "name": "mill",
+      "score": 2,
+      "reason": "Mill is fuel for the yard, not how the table dies."
+    },
+    {
+      "name": "reanimator",
+      "score": 2,
+      "reason": "Portal to Phyrexia and Profane Command can steal or return creatures, but the engine is copies, not mass reanimation."
+    },
+    {
+      "name": "summons",
+      "score": 2,
+      "reason": "Summon: Titan and Summon: Leviathan are jackpots, not a Summon tribal list."
+    },
+    {
+      "name": "avatars",
+      "score": 1,
+      "reason": "Sin is an Avatar, with no avatar tribal package."
+    },
+    {
+      "name": "combo",
+      "score": 1,
+      "reason": "The land-copy loop is a single trigger, not a two-card infinite."
+    },
+    {
+      "name": "hydras",
+      "score": 1,
+      "reason": "Mossborn Hydra is a landfall beater tagged Avoid with Sin."
+    },
+    {
+      "name": "insects",
+      "score": 1,
+      "reason": "Scute Swarm makes Insects; there is no insect tribal payoff."
+    }
+  ]
+}
