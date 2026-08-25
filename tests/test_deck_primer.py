@@ -9,6 +9,8 @@ LINKER_SCRIPT = ROOT / ".agents/skills/deck-primer/scripts/link_card_mentions.py
 ARCHIDEKT_SCRIPT = ROOT / ".agents/skills/deck-primer/scripts/update_archidekt_link.py"
 CATEGORY_SCRIPT = ROOT / ".agents/skills/deck-primer/scripts/update_category_probabilities.py"
 MANA_SCRIPT = ROOT / ".agents/skills/deck-primer/scripts/update_mana_stats.py"
+TAG_SCRIPT = ROOT / ".agents/skills/tag-deck/scripts/update_deck_tags.py"
+TAG_LIB = ROOT / ".agents/skills/tag-deck/scripts/deck_tags.py"
 SPEC = importlib.util.spec_from_file_location("link_card_mentions", LINKER_SCRIPT)
 linker = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(linker)
@@ -30,6 +32,12 @@ MANA_SPEC = importlib.util.spec_from_file_location(
 )
 mana_stats = importlib.util.module_from_spec(MANA_SPEC)
 MANA_SPEC.loader.exec_module(mana_stats)
+TAG_SPEC = importlib.util.spec_from_file_location("update_deck_tags", TAG_SCRIPT)
+update_deck_tags = importlib.util.module_from_spec(TAG_SPEC)
+TAG_SPEC.loader.exec_module(update_deck_tags)
+TAG_LIB_SPEC = importlib.util.spec_from_file_location("deck_tags", TAG_LIB)
+deck_tags = importlib.util.module_from_spec(TAG_LIB_SPEC)
+TAG_LIB_SPEC.loader.exec_module(deck_tags)
 
 
 class LinkCardMentionsTests(unittest.TestCase):
@@ -359,6 +367,77 @@ class ManaStatsTests(unittest.TestCase):
             self.assertIn("| 1 | 1 |", primer)
             self.assertIn("| 3 | 1 |", primer)
             self.assertEqual(mana_stats.update_primer(deck_dir, check=True), 0)
+
+
+class DeckTagTests(unittest.TestCase):
+    def test_hides_tags_below_cutoff_and_renders_badges(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            deck_dir = root / "decks/test"
+            catalog_dir = root / ".agents/skills/tag-deck"
+            deck_dir.mkdir(parents=True)
+            catalog_dir.mkdir(parents=True)
+            (root / "cards").mkdir()
+            (catalog_dir / "archidekt-tags.json").write_text(
+                json.dumps({
+                    "schema_version": 1,
+                    "default_cutoff": 3,
+                    "tags": [
+                        {
+                            "name": "combo",
+                            "slug": "combo",
+                            "url": "https://archidekt.com/tags/combo",
+                        },
+                        {
+                            "name": "crabs",
+                            "slug": "crabs",
+                            "url": "https://archidekt.com/tags/crabs",
+                        },
+                    ],
+                }),
+                encoding="utf-8",
+            )
+            (deck_dir / "tags.json").write_text(
+                json.dumps({
+                    "schema_version": 1,
+                    "cutoff": 3,
+                    "summary": "A mill combo that happens to be a crab.",
+                    "tags": [
+                        {"name": "combo", "score": 5, "reason": "Primary plan."},
+                        {"name": "crabs", "score": 2, "reason": "Commander type only."},
+                    ],
+                }),
+                encoding="utf-8",
+            )
+            (deck_dir / "README.md").write_text(
+                "# Test primer\n\n"
+                "> Bracket 3 combo deck.\n\n"
+                "[**Open this deck in Archidekt**](https://archidekt.com/sandbox?deck=%5B%5D)\n",
+                encoding="utf-8",
+            )
+            (root / "README.md").write_text(
+                "## Deck primers\n\n"
+                "- `3` [Test](decks/test/README.md)\n",
+                encoding="utf-8",
+            )
+
+            result = update_deck_tags.update_surfaces(deck_dir)
+            primer = (deck_dir / "README.md").read_text(encoding="utf-8")
+            overview = (root / "README.md").read_text(encoding="utf-8")
+            catalog = deck_tags.load_catalog(root)
+            visible = deck_tags.visible_tags(
+                json.loads((deck_dir / "tags.json").read_text(encoding="utf-8")),
+                catalog,
+            )
+
+            self.assertEqual(result, 0)
+            self.assertEqual([tag["name"] for tag in visible], ["combo"])
+            self.assertIn("deck-tags:start", primer)
+            self.assertIn("combo", primer)
+            self.assertNotIn("crabs", primer.split("deck-tags:start", 1)[1].split("deck-tags:end", 1)[0])
+            self.assertIn("A mill combo that happens to be a crab.", overview)
+            self.assertIn("combo", overview)
+            self.assertEqual(update_deck_tags.update_surfaces(deck_dir, check=True), 0)
 
 
 if __name__ == "__main__":

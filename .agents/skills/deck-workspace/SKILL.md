@@ -1,6 +1,6 @@
 ---
 name: deck-workspace
-description: Create, identify, import, categorize, and update Commander deck workspaces in this repository. Use whenever the user posts a Magic deck list, names a deck they want to work on, asks to import or save a deck, or begins deck analysis that requires resolving the submitted list. Check existing decks first, preserve the original list, resolve every card with Scryfall, assign card categories, create a deck primer, link it near the top of the root README, and maintain the shared card cache.
+description: Create, identify, import, categorize, and update Commander deck workspaces in this repository. Use whenever the user posts a Magic deck list, names a deck they want to work on, asks to import or save a deck, or begins deck analysis that requires resolving the submitted list. Check existing decks first, preserve the original list, resolve every card with Scryfall, assign card categories, create a deck primer, score Archidekt deck tags, link it near the top of the root README, and maintain the shared card cache.
 ---
 
 # Deck Workspace
@@ -98,8 +98,9 @@ After all cards resolve and have useful categories:
 
 1. Read and follow `.agents/skills/deck-primer/SKILL.md`.
 2. Create or refresh `decks/<prefix><slug>/README.md` from the resolved manifest.
-3. Do not leave a newly created deck without a primer.
-4. If the primer cannot be completed, report the blocker and treat deck creation as incomplete.
+3. Follow `.agents/skills/tag-deck/SKILL.md`: score official Archidekt tags, write `tags.json`, and render badges.
+4. Do not leave a newly created deck without a primer.
+5. If the primer cannot be completed, report the blocker and treat deck creation as incomplete.
 
 Create `DECISIONS.md` or `decisions.json`. Decision logs are required for every deck.
 
@@ -143,6 +144,7 @@ For JSON, use `{"schema_version": 1, "cards": {"<oracle-id>": {"name": "Card Nam
 Maintain a `## Deck primers` section immediately after the root README title.
 
 - Write one entry per deck as `` - `<badge>` [<deck name>](decks/<prefix><slug>/README.md) ``, for example ``- `3+` [Bartolomé del Skeleton 🦴](decks/3+_bartolome-graveyard-shift/README.md)``.
+- Directly under that line, keep the `tag-deck` overview block: one-sentence summary and Archidekt tag badges from `tags.json`.
 - Build the badge as the numeric bracket with an ASCII `-` or `+` modifier, so `3-`, `3`, and `3+`. Keep the bracket in the code span and out of the link label.
 - Read the bracket from the primer's assessment blockquote. Prefer `N−`, `N`, or `N+`; when migrating legacy wording, map Low/Mid/High Bracket N to `N−`/`N`/`N+`.
 - Use the `Unrated` badge when the deck has no assessment.
@@ -159,7 +161,7 @@ Run:
 python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<prefix><slug>
 ```
 
-Decision logs are required by default. Pass `--no-require-decisions` only for a temporary import. Fix every error before review. The validator checks deck size, manifest consistency, categories, commander designation, singleton and color-identity rules, cached Commander legality, primer linkage and sort, assessment placement, Archidekt, category-table, and mana-stats currency, card-mention links, and decision-log coverage. A prerelease commander produces a warning until its release date.
+Decision logs are required by default. Pass `--no-require-decisions` only for a temporary import. Fix every error before review. The validator checks deck size, manifest consistency, categories, commander designation, singleton and color-identity rules, cached Commander legality, primer linkage and sort, assessment placement, Archidekt, tag badges, category-table, and mana-stats currency, card-mention links, and decision-log coverage. A prerelease commander produces a warning until its release date.
 
 Inspect the final diff after validation. Shared registries preserve their existing order, so unrelated global reordering or cache changes indicate a workflow problem and should be removed.
 

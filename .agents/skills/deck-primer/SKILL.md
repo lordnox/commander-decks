@@ -1,6 +1,6 @@
 ---
 name: deck-primer
-description: Analyze a resolved Commander deck and create or update its deck-specific README primer. Use when the user asks how a stored deck works, requests a primer or play guide, or wants the deck's game plan, engines, combos, mulligans, tutors, sequencing, win conditions, category draw probabilities, mana curve, color cost and production, or direct Archidekt deck-creation link documented.
+description: Analyze a resolved Commander deck and create or update its deck-specific README primer. Use when the user asks how a stored deck works, requests a primer or play guide, or wants the deck's game plan, engines, combos, mulligans, tutors, sequencing, win conditions, category draw probabilities, mana curve, color cost and production, Archidekt tags, or direct Archidekt deck-creation link documented.
 ---
 
 # Deck Primer
@@ -46,20 +46,21 @@ Use concise Markdown. Write every card mention as a bold link to its manifest `s
 1. Title (H1)
 2. Assessment blockquote (`N−` / `N` / `N+`), when the deck has been assessed
 3. Archidekt deck-creation link
-4. Short identity or summary
-5. Link to `DECISIONS.md` (`Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).`)
-6. `## Key cards`
-7. Category access by turn three
-8. Mana (color cost and production, average and total mana value, mana curve)
-9. How the deck works
-10. Core engine or role table
-11. Main combo or synergy patterns
-12. Win conditions
-13. Early, mid, and late game
-14. Mulligan guide
-15. Tutor priorities
-16. Important sequencing and rules notes
-17. Weaknesses and what to protect
+4. Archidekt tag badges (from `tag-deck`)
+5. Short identity or summary
+6. Link to `DECISIONS.md` (`Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).`)
+7. `## Key cards`
+8. Category access by turn three
+9. Mana (color cost and production, average and total mana value, mana curve)
+10. How the deck works
+11. Core engine or role table
+12. Main combo or synergy patterns
+13. Win conditions
+14. Early, mid, and late game
+15. Mulligan guide
+16. Tutor priorities
+17. Important sequencing and rules notes
+18. Weaknesses and what to protect
 
 Prefer a table for interchangeable roles and tutor decisions. Explain representative cards rather than listing every card. Make the primer useful during actual play.
 
@@ -85,6 +86,16 @@ The cache script stores paper printings when Scryfall has one. Archidekt does no
 ```
 
 `--printing-override Card Name=uuid` still works for a one-off run and overrides the file. `update_archidekt_link.py --check` must succeed from the cache and that file alone; do not require a human to rediscover UUIDs. Rerun the script whenever the deck list or resolved manifest changes. Never copy an Archidekt URL from an older deck revision.
+
+### Archidekt deck tags
+
+Follow `.agents/skills/tag-deck/SKILL.md` after the list is resolved. Score every official catalog tag that applies, write `tags.json`, then render badges:
+
+```bash
+python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<prefix><slug>
+```
+
+Badges sit immediately after the Archidekt sandbox link. The same visible tags and one-line summary appear under the deck's root README primer entry. `--check` must succeed. Card categories stay separate from these deck tags.
 
 ### Category access by turn three
 
@@ -136,6 +147,7 @@ Before saving:
 - rerun the linker after every primer edit; it rewrites incorrect Scryfall hrefs to the manifest URI and preserves code, images, and non-card URLs;
 - run `python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<prefix><slug> --check`;
 - confirm the Archidekt payload contains every resolved card, the deck's total quantity, and exactly one commander entry;
+- follow `.agents/skills/tag-deck/SKILL.md`, then run `python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<prefix><slug> --check`;
 - run `python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py decks/<prefix><slug> --check`;
 - confirm the category table uses 10 cards seen, excludes commanders and `{noDeck}` extras, and requires three Lands but one card from other categories;
 - run `python3 .agents/skills/deck-primer/scripts/update_mana_stats.py decks/<prefix><slug> --check`;
@@ -147,4 +159,4 @@ Before saving:
 - append primer, rules, and talk notes to `DECISIONS.md` when a line, win-turn claim, or Oracle reading was argued rather than obvious from the list;
 - run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<prefix><slug>` after the primer scripts.
 
-Report the deck name, total and unique cards, unresolved count, README path, and that the Archidekt link, category probability table, and mana stats are current.
+Report the deck name, total and unique cards, unresolved count, README path, and that the Archidekt link, tag badges, category probability table, and mana stats are current.

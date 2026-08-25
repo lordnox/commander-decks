@@ -1,0 +1,2190 @@
+{
+  "schema_version": 1,
+  "source": "Archidekt",
+  "source_url": "https://archidekt.com/tags",
+  "copied_at": "2026-08-25",
+  "note": "Official Archidekt deck-tag catalog, copied locally so tagging does not depend on live site HTML. Names and slugs must match this file. Do not invent tags.",
+  "default_cutoff": 3,
+  "tags": [
+    {
+      "name": "-1/-1 counters",
+      "slug": "minus-counters",
+      "url": "https://archidekt.com/tags/minus-counters"
+    },
+    {
+      "name": "+1/+1 counters",
+      "slug": "plus-counters",
+      "url": "https://archidekt.com/tags/plus-counters"
+    },
+    {
+      "name": "activated abilities",
+      "slug": "activated_abilities",
+      "url": "https://archidekt.com/tags/activated_abilities"
+    },
+    {
+      "name": "ad nauseam",
+      "slug": "ad_nauseam",
+      "url": "https://archidekt.com/tags/ad_nauseam"
+    },
+    {
+      "name": "adventures",
+      "slug": "adventures",
+      "url": "https://archidekt.com/tags/adventures"
+    },
+    {
+      "name": "advisors",
+      "slug": "advisors",
+      "url": "https://archidekt.com/tags/advisors"
+    },
+    {
+      "name": "affinity",
+      "slug": "affinity",
+      "url": "https://archidekt.com/tags/affinity"
+    },
+    {
+      "name": "aggro",
+      "slug": "aggro",
+      "url": "https://archidekt.com/tags/aggro"
+    },
+    {
+      "name": "aikido",
+      "slug": "aikido",
+      "url": "https://archidekt.com/tags/aikido"
+    },
+    {
+      "name": "airbending",
+      "slug": "airbending",
+      "url": "https://archidekt.com/tags/airbending"
+    },
+    {
+      "name": "allies",
+      "slug": "allies",
+      "url": "https://archidekt.com/tags/allies"
+    },
+    {
+      "name": "all spells",
+      "slug": "all_spells",
+      "url": "https://archidekt.com/tags/all_spells"
+    },
+    {
+      "name": "alternate wincon",
+      "slug": "alternate_wincon",
+      "url": "https://archidekt.com/tags/alternate_wincon"
+    },
+    {
+      "name": "amass",
+      "slug": "amass",
+      "url": "https://archidekt.com/tags/amass"
+    },
+    {
+      "name": "angels",
+      "slug": "angels",
+      "url": "https://archidekt.com/tags/angels"
+    },
+    {
+      "name": "annihilator",
+      "slug": "annihilator",
+      "url": "https://archidekt.com/tags/annihilator"
+    },
+    {
+      "name": "anthems",
+      "slug": "anthems",
+      "url": "https://archidekt.com/tags/anthems"
+    },
+    {
+      "name": "apes",
+      "slug": "apes",
+      "url": "https://archidekt.com/tags/apes"
+    },
+    {
+      "name": "arcane",
+      "slug": "arcane",
+      "url": "https://archidekt.com/tags/arcane"
+    },
+    {
+      "name": "archers",
+      "slug": "archers",
+      "url": "https://archidekt.com/tags/archers"
+    },
+    {
+      "name": "aristocrats",
+      "slug": "aristocrats",
+      "url": "https://archidekt.com/tags/aristocrats"
+    },
+    {
+      "name": "artifacts",
+      "slug": "artifacts",
+      "url": "https://archidekt.com/tags/artifacts"
+    },
+    {
+      "name": "artificers",
+      "slug": "artificers",
+      "url": "https://archidekt.com/tags/artificers"
+    },
+    {
+      "name": "artisan",
+      "slug": "artisan",
+      "url": "https://archidekt.com/tags/artisan"
+    },
+    {
+      "name": "assassins",
+      "slug": "assassins",
+      "url": "https://archidekt.com/tags/assassins"
+    },
+    {
+      "name": "astartes",
+      "slug": "astartes",
+      "url": "https://archidekt.com/tags/astartes"
+    },
+    {
+      "name": "atogs",
+      "slug": "atogs",
+      "url": "https://archidekt.com/tags/atogs"
+    },
+    {
+      "name": "attack triggers",
+      "slug": "attack_triggers",
+      "url": "https://archidekt.com/tags/attack_triggers"
+    },
+    {
+      "name": "attractions",
+      "slug": "attractions",
+      "url": "https://archidekt.com/tags/attractions"
+    },
+    {
+      "name": "auras",
+      "slug": "auras",
+      "url": "https://archidekt.com/tags/auras"
+    },
+    {
+      "name": "avatars",
+      "slug": "avatars",
+      "url": "https://archidekt.com/tags/avatars"
+    },
+    {
+      "name": "banding",
+      "slug": "banding",
+      "url": "https://archidekt.com/tags/banding"
+    },
+    {
+      "name": "barbarians",
+      "slug": "barbarians",
+      "url": "https://archidekt.com/tags/barbarians"
+    },
+    {
+      "name": "bards",
+      "slug": "bards",
+      "url": "https://archidekt.com/tags/bards"
+    },
+    {
+      "name": "bats",
+      "slug": "bats",
+      "url": "https://archidekt.com/tags/bats"
+    },
+    {
+      "name": "battles",
+      "slug": "battles",
+      "url": "https://archidekt.com/tags/battles"
+    },
+    {
+      "name": "bears",
+      "slug": "bears",
+      "url": "https://archidekt.com/tags/bears"
+    },
+    {
+      "name": "beasts",
+      "slug": "beasts",
+      "url": "https://archidekt.com/tags/beasts"
+    },
+    {
+      "name": "berserkers",
+      "slug": "berserkers",
+      "url": "https://archidekt.com/tags/berserkers"
+    },
+    {
+      "name": "big mana",
+      "slug": "big_mana",
+      "url": "https://archidekt.com/tags/big_mana"
+    },
+    {
+      "name": "birds",
+      "slug": "birds",
+      "url": "https://archidekt.com/tags/birds"
+    },
+    {
+      "name": "blight",
+      "slug": "blight",
+      "url": "https://archidekt.com/tags/blight"
+    },
+    {
+      "name": "blink",
+      "slug": "blink",
+      "url": "https://archidekt.com/tags/blink"
+    },
+    {
+      "name": "blood",
+      "slug": "blood",
+      "url": "https://archidekt.com/tags/blood"
+    },
+    {
+      "name": "bloodthirst",
+      "slug": "bloodthirst",
+      "url": "https://archidekt.com/tags/bloodthirst"
+    },
+    {
+      "name": "blue moon",
+      "slug": "blue_moon",
+      "url": "https://archidekt.com/tags/blue_moon"
+    },
+    {
+      "name": "boardwipes",
+      "slug": "boardwipes",
+      "url": "https://archidekt.com/tags/boardwipes"
+    },
+    {
+      "name": "bobbleheads",
+      "slug": "bobbleheads",
+      "url": "https://archidekt.com/tags/bobbleheads"
+    },
+    {
+      "name": "books",
+      "slug": "books",
+      "url": "https://archidekt.com/tags/books"
+    },
+    {
+      "name": "bounce",
+      "slug": "bounce",
+      "url": "https://archidekt.com/tags/bounce"
+    },
+    {
+      "name": "budget",
+      "slug": "budget",
+      "url": "https://archidekt.com/tags/budget"
+    },
+    {
+      "name": "burn",
+      "slug": "burn",
+      "url": "https://archidekt.com/tags/burn"
+    },
+    {
+      "name": "cantrips",
+      "slug": "cantrips",
+      "url": "https://archidekt.com/tags/cantrips"
+    },
+    {
+      "name": "cascade",
+      "slug": "cascade",
+      "url": "https://archidekt.com/tags/cascade"
+    },
+    {
+      "name": "casual",
+      "slug": "casual",
+      "url": "https://archidekt.com/tags/casual"
+    },
+    {
+      "name": "cats",
+      "slug": "cats",
+      "url": "https://archidekt.com/tags/cats"
+    },
+    {
+      "name": "caves",
+      "slug": "caves",
+      "url": "https://archidekt.com/tags/caves"
+    },
+    {
+      "name": "cedh",
+      "slug": "cedh",
+      "url": "https://archidekt.com/tags/cedh"
+    },
+    {
+      "name": "cephalid",
+      "slug": "cephalid",
+      "url": "https://archidekt.com/tags/cephalid"
+    },
+    {
+      "name": "changelings",
+      "slug": "changelings",
+      "url": "https://archidekt.com/tags/changelings"
+    },
+    {
+      "name": "chaos",
+      "slug": "chaos",
+      "url": "https://archidekt.com/tags/chaos"
+    },
+    {
+      "name": "charge counters",
+      "slug": "charge_counters",
+      "url": "https://archidekt.com/tags/charge_counters"
+    },
+    {
+      "name": "cheerios",
+      "slug": "cheerios",
+      "url": "https://archidekt.com/tags/cheerios"
+    },
+    {
+      "name": "cid",
+      "slug": "cid",
+      "url": "https://archidekt.com/tags/cid"
+    },
+    {
+      "name": "clash",
+      "slug": "clash",
+      "url": "https://archidekt.com/tags/clash"
+    },
+    {
+      "name": "clerics",
+      "slug": "clerics",
+      "url": "https://archidekt.com/tags/clerics"
+    },
+    {
+      "name": "clones",
+      "slug": "clones",
+      "url": "https://archidekt.com/tags/clones"
+    },
+    {
+      "name": "clues",
+      "slug": "clues",
+      "url": "https://archidekt.com/tags/clues"
+    },
+    {
+      "name": "coin flip",
+      "slug": "coin_flip",
+      "url": "https://archidekt.com/tags/coin_flip"
+    },
+    {
+      "name": "color hack",
+      "slug": "color_hack",
+      "url": "https://archidekt.com/tags/color_hack"
+    },
+    {
+      "name": "combo",
+      "slug": "combo",
+      "url": "https://archidekt.com/tags/combo"
+    },
+    {
+      "name": "commander matters",
+      "slug": "commander_matters",
+      "url": "https://archidekt.com/tags/commander_matters"
+    },
+    {
+      "name": "competitive oathbreaker",
+      "slug": "competitive_oathbreaker",
+      "url": "https://archidekt.com/tags/competitive_oathbreaker"
+    },
+    {
+      "name": "competitive pdh",
+      "slug": "competitive_pdh",
+      "url": "https://archidekt.com/tags/competitive_pdh"
+    },
+    {
+      "name": "competitive predh",
+      "slug": "competitive_predh",
+      "url": "https://archidekt.com/tags/competitive_predh"
+    },
+    {
+      "name": "connive",
+      "slug": "connive",
+      "url": "https://archidekt.com/tags/connive"
+    },
+    {
+      "name": "constructs",
+      "slug": "constructs",
+      "url": "https://archidekt.com/tags/constructs"
+    },
+    {
+      "name": "control",
+      "slug": "control",
+      "url": "https://archidekt.com/tags/control"
+    },
+    {
+      "name": "convoke",
+      "slug": "convoke",
+      "url": "https://archidekt.com/tags/convoke"
+    },
+    {
+      "name": "counters",
+      "slug": "counters",
+      "url": "https://archidekt.com/tags/counters"
+    },
+    {
+      "name": "counters matter",
+      "slug": "counters_matter",
+      "url": "https://archidekt.com/tags/counters_matter"
+    },
+    {
+      "name": "counterspells",
+      "slug": "counterspells",
+      "url": "https://archidekt.com/tags/counterspells"
+    },
+    {
+      "name": "crabs",
+      "slug": "crabs",
+      "url": "https://archidekt.com/tags/crabs"
+    },
+    {
+      "name": "craft",
+      "slug": "craft",
+      "url": "https://archidekt.com/tags/craft"
+    },
+    {
+      "name": "creatureless",
+      "slug": "creatureless",
+      "url": "https://archidekt.com/tags/creatureless"
+    },
+    {
+      "name": "creatures",
+      "slug": "creatures",
+      "url": "https://archidekt.com/tags/creatures"
+    },
+    {
+      "name": "crime",
+      "slug": "crime",
+      "url": "https://archidekt.com/tags/crime"
+    },
+    {
+      "name": "crocodiles",
+      "slug": "crocodiles",
+      "url": "https://archidekt.com/tags/crocodiles"
+    },
+    {
+      "name": "curses",
+      "slug": "curses",
+      "url": "https://archidekt.com/tags/curses"
+    },
+    {
+      "name": "custom cards",
+      "slug": "custom_cards",
+      "url": "https://archidekt.com/tags/custom_cards"
+    },
+    {
+      "name": "cybermen",
+      "slug": "cybermen",
+      "url": "https://archidekt.com/tags/cybermen"
+    },
+    {
+      "name": "cycling",
+      "slug": "cycling",
+      "url": "https://archidekt.com/tags/cycling"
+    },
+    {
+      "name": "daleks",
+      "slug": "daleks",
+      "url": "https://archidekt.com/tags/daleks"
+    },
+    {
+      "name": "dandan",
+      "slug": "dandan",
+      "url": "https://archidekt.com/tags/dandan"
+    },
+    {
+      "name": "dash",
+      "slug": "dash",
+      "url": "https://archidekt.com/tags/dash"
+    },
+    {
+      "name": "day / night",
+      "slug": "day_/_night",
+      "url": "https://archidekt.com/tags/day_/_night"
+    },
+    {
+      "name": "deathtouch",
+      "slug": "deathtouch",
+      "url": "https://archidekt.com/tags/deathtouch"
+    },
+    {
+      "name": "defenders",
+      "slug": "defenders",
+      "url": "https://archidekt.com/tags/defenders"
+    },
+    {
+      "name": "delirium",
+      "slug": "delirium",
+      "url": "https://archidekt.com/tags/delirium"
+    },
+    {
+      "name": "delver",
+      "slug": "delver",
+      "url": "https://archidekt.com/tags/delver"
+    },
+    {
+      "name": "demons",
+      "slug": "demons",
+      "url": "https://archidekt.com/tags/demons"
+    },
+    {
+      "name": "descend",
+      "slug": "descend",
+      "url": "https://archidekt.com/tags/descend"
+    },
+    {
+      "name": "deserts",
+      "slug": "deserts",
+      "url": "https://archidekt.com/tags/deserts"
+    },
+    {
+      "name": "detectives",
+      "slug": "detectives",
+      "url": "https://archidekt.com/tags/detectives"
+    },
+    {
+      "name": "devils",
+      "slug": "devils",
+      "url": "https://archidekt.com/tags/devils"
+    },
+    {
+      "name": "devoid",
+      "slug": "devoid",
+      "url": "https://archidekt.com/tags/devoid"
+    },
+    {
+      "name": "devotion",
+      "slug": "devotion",
+      "url": "https://archidekt.com/tags/devotion"
+    },
+    {
+      "name": "die roll",
+      "slug": "die_roll",
+      "url": "https://archidekt.com/tags/die_roll"
+    },
+    {
+      "name": "dinosaurs",
+      "slug": "dinosaurs",
+      "url": "https://archidekt.com/tags/dinosaurs"
+    },
+    {
+      "name": "discard",
+      "slug": "discard",
+      "url": "https://archidekt.com/tags/discard"
+    },
+    {
+      "name": "discover",
+      "slug": "discover",
+      "url": "https://archidekt.com/tags/discover"
+    },
+    {
+      "name": "dogs",
+      "slug": "dogs",
+      "url": "https://archidekt.com/tags/dogs"
+    },
+    {
+      "name": "donate",
+      "slug": "donate",
+      "url": "https://archidekt.com/tags/donate"
+    },
+    {
+      "name": "doomsday",
+      "slug": "doomsday",
+      "url": "https://archidekt.com/tags/doomsday"
+    },
+    {
+      "name": "dragons",
+      "slug": "dragons",
+      "url": "https://archidekt.com/tags/dragons"
+    },
+    {
+      "name": "dragon's approach",
+      "slug": "dragon&#x27;s_approach",
+      "url": "https://archidekt.com/tags/dragon&#x27;s_approach"
+    },
+    {
+      "name": "drakes",
+      "slug": "drakes",
+      "url": "https://archidekt.com/tags/drakes"
+    },
+    {
+      "name": "draw",
+      "slug": "draw",
+      "url": "https://archidekt.com/tags/draw"
+    },
+    {
+      "name": "dredge",
+      "slug": "dredge",
+      "url": "https://archidekt.com/tags/dredge"
+    },
+    {
+      "name": "druids",
+      "slug": "druids",
+      "url": "https://archidekt.com/tags/druids"
+    },
+    {
+      "name": "dungeon",
+      "slug": "dungeon",
+      "url": "https://archidekt.com/tags/dungeon"
+    },
+    {
+      "name": "dwarves",
+      "slug": "dwarves",
+      "url": "https://archidekt.com/tags/dwarves"
+    },
+    {
+      "name": "earthbending",
+      "slug": "earthbending",
+      "url": "https://archidekt.com/tags/earthbending"
+    },
+    {
+      "name": "eggs",
+      "slug": "eggs",
+      "url": "https://archidekt.com/tags/eggs"
+    },
+    {
+      "name": "elders",
+      "slug": "elders",
+      "url": "https://archidekt.com/tags/elders"
+    },
+    {
+      "name": "eldrazi",
+      "slug": "eldrazi",
+      "url": "https://archidekt.com/tags/eldrazi"
+    },
+    {
+      "name": "elementals",
+      "slug": "elementals",
+      "url": "https://archidekt.com/tags/elementals"
+    },
+    {
+      "name": "elephants",
+      "slug": "elephants",
+      "url": "https://archidekt.com/tags/elephants"
+    },
+    {
+      "name": "elves",
+      "slug": "elves",
+      "url": "https://archidekt.com/tags/elves"
+    },
+    {
+      "name": "enchantments",
+      "slug": "enchantments",
+      "url": "https://archidekt.com/tags/enchantments"
+    },
+    {
+      "name": "enchantress",
+      "slug": "enchantress",
+      "url": "https://archidekt.com/tags/enchantress"
+    },
+    {
+      "name": "energy",
+      "slug": "energy",
+      "url": "https://archidekt.com/tags/energy"
+    },
+    {
+      "name": "enrage",
+      "slug": "enrage",
+      "url": "https://archidekt.com/tags/enrage"
+    },
+    {
+      "name": "equipment",
+      "slug": "equipment",
+      "url": "https://archidekt.com/tags/equipment"
+    },
+    {
+      "name": "etb effects",
+      "slug": "etb_effects",
+      "url": "https://archidekt.com/tags/etb_effects"
+    },
+    {
+      "name": "european highlander",
+      "slug": "european_highlander",
+      "url": "https://archidekt.com/tags/european_highlander"
+    },
+    {
+      "name": "evoke",
+      "slug": "evoke",
+      "url": "https://archidekt.com/tags/evoke"
+    },
+    {
+      "name": "exalted",
+      "slug": "exalted",
+      "url": "https://archidekt.com/tags/exalted"
+    },
+    {
+      "name": "exile",
+      "slug": "exile",
+      "url": "https://archidekt.com/tags/exile"
+    },
+    {
+      "name": "experience counters",
+      "slug": "experience_counters",
+      "url": "https://archidekt.com/tags/experience_counters"
+    },
+    {
+      "name": "exploit",
+      "slug": "exploit",
+      "url": "https://archidekt.com/tags/exploit"
+    },
+    {
+      "name": "explore",
+      "slug": "explore",
+      "url": "https://archidekt.com/tags/explore"
+    },
+    {
+      "name": "extra combats",
+      "slug": "extra_combats",
+      "url": "https://archidekt.com/tags/extra_combats"
+    },
+    {
+      "name": "extra turns",
+      "slug": "extra_turns",
+      "url": "https://archidekt.com/tags/extra_turns"
+    },
+    {
+      "name": "extra upkeeps",
+      "slug": "extra_upkeeps",
+      "url": "https://archidekt.com/tags/extra_upkeeps"
+    },
+    {
+      "name": "face-down",
+      "slug": "face-down",
+      "url": "https://archidekt.com/tags/face-down"
+    },
+    {
+      "name": "faeries",
+      "slug": "faeries",
+      "url": "https://archidekt.com/tags/faeries"
+    },
+    {
+      "name": "fight",
+      "slug": "fight",
+      "url": "https://archidekt.com/tags/fight"
+    },
+    {
+      "name": "firebending",
+      "slug": "firebending",
+      "url": "https://archidekt.com/tags/firebending"
+    },
+    {
+      "name": "flash",
+      "slug": "flash",
+      "url": "https://archidekt.com/tags/flash"
+    },
+    {
+      "name": "flashback",
+      "slug": "flashback",
+      "url": "https://archidekt.com/tags/flashback"
+    },
+    {
+      "name": "flavor",
+      "slug": "flavor",
+      "url": "https://archidekt.com/tags/flavor"
+    },
+    {
+      "name": "fling",
+      "slug": "fling",
+      "url": "https://archidekt.com/tags/fling"
+    },
+    {
+      "name": "flying",
+      "slug": "flying",
+      "url": "https://archidekt.com/tags/flying"
+    },
+    {
+      "name": "food",
+      "slug": "food",
+      "url": "https://archidekt.com/tags/food"
+    },
+    {
+      "name": "forced combat",
+      "slug": "forced_combat",
+      "url": "https://archidekt.com/tags/forced_combat"
+    },
+    {
+      "name": "foretell",
+      "slug": "foretell",
+      "url": "https://archidekt.com/tags/foretell"
+    },
+    {
+      "name": "foxes",
+      "slug": "foxes",
+      "url": "https://archidekt.com/tags/foxes"
+    },
+    {
+      "name": "fractals",
+      "slug": "fractals",
+      "url": "https://archidekt.com/tags/fractals"
+    },
+    {
+      "name": "freerunning",
+      "slug": "freerunning",
+      "url": "https://archidekt.com/tags/freerunning"
+    },
+    {
+      "name": "frogs",
+      "slug": "frogs",
+      "url": "https://archidekt.com/tags/frogs"
+    },
+    {
+      "name": "fungi",
+      "slug": "fungi",
+      "url": "https://archidekt.com/tags/fungi"
+    },
+    {
+      "name": "gates",
+      "slug": "gates",
+      "url": "https://archidekt.com/tags/gates"
+    },
+    {
+      "name": "giants",
+      "slug": "giants",
+      "url": "https://archidekt.com/tags/giants"
+    },
+    {
+      "name": "glass cannon",
+      "slug": "glass_cannon",
+      "url": "https://archidekt.com/tags/glass_cannon"
+    },
+    {
+      "name": "gnomes",
+      "slug": "gnomes",
+      "url": "https://archidekt.com/tags/gnomes"
+    },
+    {
+      "name": "goats",
+      "slug": "goats",
+      "url": "https://archidekt.com/tags/goats"
+    },
+    {
+      "name": "goblins",
+      "slug": "goblins",
+      "url": "https://archidekt.com/tags/goblins"
+    },
+    {
+      "name": "gods",
+      "slug": "gods",
+      "url": "https://archidekt.com/tags/gods"
+    },
+    {
+      "name": "golems",
+      "slug": "golems",
+      "url": "https://archidekt.com/tags/golems"
+    },
+    {
+      "name": "good stuff",
+      "slug": "good_stuff",
+      "url": "https://archidekt.com/tags/good_stuff"
+    },
+    {
+      "name": "gorgons",
+      "slug": "gorgons",
+      "url": "https://archidekt.com/tags/gorgons"
+    },
+    {
+      "name": "go-wide",
+      "slug": "go-wide",
+      "url": "https://archidekt.com/tags/go-wide"
+    },
+    {
+      "name": "graveyard",
+      "slug": "graveyard",
+      "url": "https://archidekt.com/tags/graveyard"
+    },
+    {
+      "name": "griffins",
+      "slug": "griffins",
+      "url": "https://archidekt.com/tags/griffins"
+    },
+    {
+      "name": "group hug",
+      "slug": "group_hug",
+      "url": "https://archidekt.com/tags/group_hug"
+    },
+    {
+      "name": "group slug",
+      "slug": "group_slug",
+      "url": "https://archidekt.com/tags/group_slug"
+    },
+    {
+      "name": "gyruda companion",
+      "slug": "gyruda_companion",
+      "url": "https://archidekt.com/tags/gyruda_companion"
+    },
+    {
+      "name": "halflings",
+      "slug": "halflings",
+      "url": "https://archidekt.com/tags/halflings"
+    },
+    {
+      "name": "hand size",
+      "slug": "hand_size",
+      "url": "https://archidekt.com/tags/hand_size"
+    },
+    {
+      "name": "hare apparent",
+      "slug": "hare_apparent",
+      "url": "https://archidekt.com/tags/hare_apparent"
+    },
+    {
+      "name": "haste",
+      "slug": "haste",
+      "url": "https://archidekt.com/tags/haste"
+    },
+    {
+      "name": "hatebears",
+      "slug": "hatebears",
+      "url": "https://archidekt.com/tags/hatebears"
+    },
+    {
+      "name": "hellbent",
+      "slug": "hellbent",
+      "url": "https://archidekt.com/tags/hellbent"
+    },
+    {
+      "name": "heroes",
+      "slug": "heroes",
+      "url": "https://archidekt.com/tags/heroes"
+    },
+    {
+      "name": "heroic",
+      "slug": "heroic",
+      "url": "https://archidekt.com/tags/heroic"
+    },
+    {
+      "name": "hidden commander",
+      "slug": "hidden_commander",
+      "url": "https://archidekt.com/tags/hidden_commander"
+    },
+    {
+      "name": "hippos",
+      "slug": "hippos",
+      "url": "https://archidekt.com/tags/hippos"
+    },
+    {
+      "name": "historic",
+      "slug": "historic",
+      "url": "https://archidekt.com/tags/historic"
+    },
+    {
+      "name": "horrors",
+      "slug": "horrors",
+      "url": "https://archidekt.com/tags/horrors"
+    },
+    {
+      "name": "horsemanship",
+      "slug": "horsemanship",
+      "url": "https://archidekt.com/tags/horsemanship"
+    },
+    {
+      "name": "horses",
+      "slug": "horses",
+      "url": "https://archidekt.com/tags/horses"
+    },
+    {
+      "name": "humans",
+      "slug": "humans",
+      "url": "https://archidekt.com/tags/humans"
+    },
+    {
+      "name": "hydras",
+      "slug": "hydras",
+      "url": "https://archidekt.com/tags/hydras"
+    },
+    {
+      "name": "illusions",
+      "slug": "illusions",
+      "url": "https://archidekt.com/tags/illusions"
+    },
+    {
+      "name": "improvise",
+      "slug": "improvise",
+      "url": "https://archidekt.com/tags/improvise"
+    },
+    {
+      "name": "impulse draw",
+      "slug": "impulse_draw",
+      "url": "https://archidekt.com/tags/impulse_draw"
+    },
+    {
+      "name": "incarnations",
+      "slug": "incarnations",
+      "url": "https://archidekt.com/tags/incarnations"
+    },
+    {
+      "name": "incomplete",
+      "slug": "incomplete",
+      "url": "https://archidekt.com/tags/incomplete"
+    },
+    {
+      "name": "increment",
+      "slug": "increment",
+      "url": "https://archidekt.com/tags/increment"
+    },
+    {
+      "name": "incubate",
+      "slug": "incubate",
+      "url": "https://archidekt.com/tags/incubate"
+    },
+    {
+      "name": "indestructible",
+      "slug": "indestructible",
+      "url": "https://archidekt.com/tags/indestructible"
+    },
+    {
+      "name": "infect",
+      "slug": "infect",
+      "url": "https://archidekt.com/tags/infect"
+    },
+    {
+      "name": "insects",
+      "slug": "insects",
+      "url": "https://archidekt.com/tags/insects"
+    },
+    {
+      "name": "jank",
+      "slug": "jank",
+      "url": "https://archidekt.com/tags/jank"
+    },
+    {
+      "name": "jegantha companion",
+      "slug": "jegantha_companion",
+      "url": "https://archidekt.com/tags/jegantha_companion"
+    },
+    {
+      "name": "job select",
+      "slug": "job_select",
+      "url": "https://archidekt.com/tags/job_select"
+    },
+    {
+      "name": "kaheera companion",
+      "slug": "kaheera_companion",
+      "url": "https://archidekt.com/tags/kaheera_companion"
+    },
+    {
+      "name": "kavu",
+      "slug": "kavu",
+      "url": "https://archidekt.com/tags/kavu"
+    },
+    {
+      "name": "keruga companion",
+      "slug": "keruga_companion",
+      "url": "https://archidekt.com/tags/keruga_companion"
+    },
+    {
+      "name": "keywords",
+      "slug": "keywords",
+      "url": "https://archidekt.com/tags/keywords"
+    },
+    {
+      "name": "kicker",
+      "slug": "kicker",
+      "url": "https://archidekt.com/tags/kicker"
+    },
+    {
+      "name": "kithkin",
+      "slug": "kithkin",
+      "url": "https://archidekt.com/tags/kithkin"
+    },
+    {
+      "name": "knights",
+      "slug": "knights",
+      "url": "https://archidekt.com/tags/knights"
+    },
+    {
+      "name": "kor",
+      "slug": "kor",
+      "url": "https://archidekt.com/tags/kor"
+    },
+    {
+      "name": "land animation",
+      "slug": "land_animation",
+      "url": "https://archidekt.com/tags/land_animation"
+    },
+    {
+      "name": "land destruction",
+      "slug": "land_destruction",
+      "url": "https://archidekt.com/tags/land_destruction"
+    },
+    {
+      "name": "landfall",
+      "slug": "landfall",
+      "url": "https://archidekt.com/tags/landfall"
+    },
+    {
+      "name": "lands",
+      "slug": "lands",
+      "url": "https://archidekt.com/tags/lands"
+    },
+    {
+      "name": "lands matter",
+      "slug": "lands_matter",
+      "url": "https://archidekt.com/tags/lands_matter"
+    },
+    {
+      "name": "landwalk",
+      "slug": "landwalk",
+      "url": "https://archidekt.com/tags/landwalk"
+    },
+    {
+      "name": "legends",
+      "slug": "legends",
+      "url": "https://archidekt.com/tags/legends"
+    },
+    {
+      "name": "lessons",
+      "slug": "lessons",
+      "url": "https://archidekt.com/tags/lessons"
+    },
+    {
+      "name": "level up",
+      "slug": "level_up",
+      "url": "https://archidekt.com/tags/level_up"
+    },
+    {
+      "name": "lhurgoyfs",
+      "slug": "lhurgoyfs",
+      "url": "https://archidekt.com/tags/lhurgoyfs"
+    },
+    {
+      "name": "lifedrain",
+      "slug": "lifedrain",
+      "url": "https://archidekt.com/tags/lifedrain"
+    },
+    {
+      "name": "life exchange",
+      "slug": "life_exchange",
+      "url": "https://archidekt.com/tags/life_exchange"
+    },
+    {
+      "name": "lifegain",
+      "slug": "lifegain",
+      "url": "https://archidekt.com/tags/lifegain"
+    },
+    {
+      "name": "life paying",
+      "slug": "life_paying",
+      "url": "https://archidekt.com/tags/life_paying"
+    },
+    {
+      "name": "limited",
+      "slug": "limited",
+      "url": "https://archidekt.com/tags/limited"
+    },
+    {
+      "name": "lizards",
+      "slug": "lizards",
+      "url": "https://archidekt.com/tags/lizards"
+    },
+    {
+      "name": "looting",
+      "slug": "looting",
+      "url": "https://archidekt.com/tags/looting"
+    },
+    {
+      "name": "ltb effects",
+      "slug": "ltb_effects",
+      "url": "https://archidekt.com/tags/ltb_effects"
+    },
+    {
+      "name": "lure",
+      "slug": "lure",
+      "url": "https://archidekt.com/tags/lure"
+    },
+    {
+      "name": "lurrus companion",
+      "slug": "lurrus_companion",
+      "url": "https://archidekt.com/tags/lurrus_companion"
+    },
+    {
+      "name": "lutri companion",
+      "slug": "lutri_companion",
+      "url": "https://archidekt.com/tags/lutri_companion"
+    },
+    {
+      "name": "madness",
+      "slug": "madness",
+      "url": "https://archidekt.com/tags/madness"
+    },
+    {
+      "name": "mana dorks",
+      "slug": "mana_dorks",
+      "url": "https://archidekt.com/tags/mana_dorks"
+    },
+    {
+      "name": "mana rocks",
+      "slug": "mana_rocks",
+      "url": "https://archidekt.com/tags/mana_rocks"
+    },
+    {
+      "name": "mayhem",
+      "slug": "mayhem",
+      "url": "https://archidekt.com/tags/mayhem"
+    },
+    {
+      "name": "menace",
+      "slug": "menace",
+      "url": "https://archidekt.com/tags/menace"
+    },
+    {
+      "name": "mercenaries",
+      "slug": "mercenaries",
+      "url": "https://archidekt.com/tags/mercenaries"
+    },
+    {
+      "name": "merfolk",
+      "slug": "merfolk",
+      "url": "https://archidekt.com/tags/merfolk"
+    },
+    {
+      "name": "mice",
+      "slug": "mice",
+      "url": "https://archidekt.com/tags/mice"
+    },
+    {
+      "name": "midrange",
+      "slug": "midrange",
+      "url": "https://archidekt.com/tags/midrange"
+    },
+    {
+      "name": "mill",
+      "slug": "mill",
+      "url": "https://archidekt.com/tags/mill"
+    },
+    {
+      "name": "minions",
+      "slug": "minions",
+      "url": "https://archidekt.com/tags/minions"
+    },
+    {
+      "name": "minotaurs",
+      "slug": "minotaurs",
+      "url": "https://archidekt.com/tags/minotaurs"
+    },
+    {
+      "name": "miracle",
+      "slug": "miracle",
+      "url": "https://archidekt.com/tags/miracle"
+    },
+    {
+      "name": "modified creatures",
+      "slug": "modified_creatures",
+      "url": "https://archidekt.com/tags/modified_creatures"
+    },
+    {
+      "name": "modular",
+      "slug": "modular",
+      "url": "https://archidekt.com/tags/modular"
+    },
+    {
+      "name": "monarch",
+      "slug": "monarch",
+      "url": "https://archidekt.com/tags/monarch"
+    },
+    {
+      "name": "monkeys",
+      "slug": "monkeys",
+      "url": "https://archidekt.com/tags/monkeys"
+    },
+    {
+      "name": "monks",
+      "slug": "monks",
+      "url": "https://archidekt.com/tags/monks"
+    },
+    {
+      "name": "moonfolk",
+      "slug": "moonfolk",
+      "url": "https://archidekt.com/tags/moonfolk"
+    },
+    {
+      "name": "morph",
+      "slug": "morph",
+      "url": "https://archidekt.com/tags/morph"
+    },
+    {
+      "name": "mounts",
+      "slug": "mounts",
+      "url": "https://archidekt.com/tags/mounts"
+    },
+    {
+      "name": "multicolor matters",
+      "slug": "multicolor_matters",
+      "url": "https://archidekt.com/tags/multicolor_matters"
+    },
+    {
+      "name": "mutants",
+      "slug": "mutants",
+      "url": "https://archidekt.com/tags/mutants"
+    },
+    {
+      "name": "mutate",
+      "slug": "mutate",
+      "url": "https://archidekt.com/tags/mutate"
+    },
+    {
+      "name": "myr",
+      "slug": "myr",
+      "url": "https://archidekt.com/tags/myr"
+    },
+    {
+      "name": "myriad",
+      "slug": "myriad",
+      "url": "https://archidekt.com/tags/myriad"
+    },
+    {
+      "name": "necrons",
+      "slug": "necrons",
+      "url": "https://archidekt.com/tags/necrons"
+    },
+    {
+      "name": "nightmares",
+      "slug": "nightmares",
+      "url": "https://archidekt.com/tags/nightmares"
+    },
+    {
+      "name": "ninjas",
+      "slug": "ninjas",
+      "url": "https://archidekt.com/tags/ninjas"
+    },
+    {
+      "name": "ninjutsu",
+      "slug": "ninjutsu",
+      "url": "https://archidekt.com/tags/ninjutsu"
+    },
+    {
+      "name": "nobles",
+      "slug": "nobles",
+      "url": "https://archidekt.com/tags/nobles"
+    },
+    {
+      "name": "obosh companion",
+      "slug": "obosh_companion",
+      "url": "https://archidekt.com/tags/obosh_companion"
+    },
+    {
+      "name": "offspring",
+      "slug": "offspring",
+      "url": "https://archidekt.com/tags/offspring"
+    },
+    {
+      "name": "ogres",
+      "slug": "ogres",
+      "url": "https://archidekt.com/tags/ogres"
+    },
+    {
+      "name": "oil counters",
+      "slug": "oil_counters",
+      "url": "https://archidekt.com/tags/oil_counters"
+    },
+    {
+      "name": "old school",
+      "slug": "old_school",
+      "url": "https://archidekt.com/tags/old_school"
+    },
+    {
+      "name": "oozes",
+      "slug": "oozes",
+      "url": "https://archidekt.com/tags/oozes"
+    },
+    {
+      "name": "opus",
+      "slug": "opus",
+      "url": "https://archidekt.com/tags/opus"
+    },
+    {
+      "name": "orcs",
+      "slug": "orcs",
+      "url": "https://archidekt.com/tags/orcs"
+    },
+    {
+      "name": "otters",
+      "slug": "otters",
+      "url": "https://archidekt.com/tags/otters"
+    },
+    {
+      "name": "outlaws",
+      "slug": "outlaws",
+      "url": "https://archidekt.com/tags/outlaws"
+    },
+    {
+      "name": "paradigm",
+      "slug": "paradigm",
+      "url": "https://archidekt.com/tags/paradigm"
+    },
+    {
+      "name": "paradox",
+      "slug": "paradox",
+      "url": "https://archidekt.com/tags/paradox"
+    },
+    {
+      "name": "party",
+      "slug": "party",
+      "url": "https://archidekt.com/tags/party"
+    },
+    {
+      "name": "pegasi",
+      "slug": "pegasi",
+      "url": "https://archidekt.com/tags/pegasi"
+    },
+    {
+      "name": "persistent petitioners",
+      "slug": "persistent_petitioners",
+      "url": "https://archidekt.com/tags/persistent_petitioners"
+    },
+    {
+      "name": "phasing",
+      "slug": "phasing",
+      "url": "https://archidekt.com/tags/phasing"
+    },
+    {
+      "name": "phoenixes",
+      "slug": "phoenixes",
+      "url": "https://archidekt.com/tags/phoenixes"
+    },
+    {
+      "name": "phyrexians",
+      "slug": "phyrexians",
+      "url": "https://archidekt.com/tags/phyrexians"
+    },
+    {
+      "name": "pillow fort",
+      "slug": "pillow_fort",
+      "url": "https://archidekt.com/tags/pillow_fort"
+    },
+    {
+      "name": "pingers",
+      "slug": "pingers",
+      "url": "https://archidekt.com/tags/pingers"
+    },
+    {
+      "name": "pirates",
+      "slug": "pirates",
+      "url": "https://archidekt.com/tags/pirates"
+    },
+    {
+      "name": "planechase",
+      "slug": "planechase",
+      "url": "https://archidekt.com/tags/planechase"
+    },
+    {
+      "name": "planeswalkers",
+      "slug": "planeswalkers",
+      "url": "https://archidekt.com/tags/planeswalkers"
+    },
+    {
+      "name": "plants",
+      "slug": "plants",
+      "url": "https://archidekt.com/tags/plants"
+    },
+    {
+      "name": "plot",
+      "slug": "plot",
+      "url": "https://archidekt.com/tags/plot"
+    },
+    {
+      "name": "pod",
+      "slug": "pod",
+      "url": "https://archidekt.com/tags/pod"
+    },
+    {
+      "name": "politics",
+      "slug": "politics",
+      "url": "https://archidekt.com/tags/politics"
+    },
+    {
+      "name": "polymorph",
+      "slug": "polymorph",
+      "url": "https://archidekt.com/tags/polymorph"
+    },
+    {
+      "name": "populate",
+      "slug": "populate",
+      "url": "https://archidekt.com/tags/populate"
+    },
+    {
+      "name": "power",
+      "slug": "power",
+      "url": "https://archidekt.com/tags/power"
+    },
+    {
+      "name": "power matters",
+      "slug": "power_matters",
+      "url": "https://archidekt.com/tags/power_matters"
+    },
+    {
+      "name": "praetors",
+      "slug": "praetors",
+      "url": "https://archidekt.com/tags/praetors"
+    },
+    {
+      "name": "premodern",
+      "slug": "premodern",
+      "url": "https://archidekt.com/tags/premodern"
+    },
+    {
+      "name": "pride partner event",
+      "slug": "pride_partner_event",
+      "url": "https://archidekt.com/tags/pride_partner_event"
+    },
+    {
+      "name": "primal surge",
+      "slug": "primal_surge",
+      "url": "https://archidekt.com/tags/primal_surge"
+    },
+    {
+      "name": "prison",
+      "slug": "prison",
+      "url": "https://archidekt.com/tags/prison"
+    },
+    {
+      "name": "proliferate",
+      "slug": "proliferate",
+      "url": "https://archidekt.com/tags/proliferate"
+    },
+    {
+      "name": "prowess",
+      "slug": "prowess",
+      "url": "https://archidekt.com/tags/prowess"
+    },
+    {
+      "name": "rabbits",
+      "slug": "rabbits",
+      "url": "https://archidekt.com/tags/rabbits"
+    },
+    {
+      "name": "raccoons",
+      "slug": "raccoons",
+      "url": "https://archidekt.com/tags/raccoons"
+    },
+    {
+      "name": "rad counters",
+      "slug": "rad_counters",
+      "url": "https://archidekt.com/tags/rad_counters"
+    },
+    {
+      "name": "ramp",
+      "slug": "ramp",
+      "url": "https://archidekt.com/tags/ramp"
+    },
+    {
+      "name": "rat colony",
+      "slug": "rat_colony",
+      "url": "https://archidekt.com/tags/rat_colony"
+    },
+    {
+      "name": "rats",
+      "slug": "rats",
+      "url": "https://archidekt.com/tags/rats"
+    },
+    {
+      "name": "reach",
+      "slug": "reach",
+      "url": "https://archidekt.com/tags/reach"
+    },
+    {
+      "name": "reanimator",
+      "slug": "reanimator",
+      "url": "https://archidekt.com/tags/reanimator"
+    },
+    {
+      "name": "rebels",
+      "slug": "rebels",
+      "url": "https://archidekt.com/tags/rebels"
+    },
+    {
+      "name": "relentless rats",
+      "slug": "relentless_rats",
+      "url": "https://archidekt.com/tags/relentless_rats"
+    },
+    {
+      "name": "repartee",
+      "slug": "repartee",
+      "url": "https://archidekt.com/tags/repartee"
+    },
+    {
+      "name": "retrace",
+      "slug": "retrace",
+      "url": "https://archidekt.com/tags/retrace"
+    },
+    {
+      "name": "robots",
+      "slug": "robots",
+      "url": "https://archidekt.com/tags/robots"
+    },
+    {
+      "name": "rock",
+      "slug": "rock",
+      "url": "https://archidekt.com/tags/rock"
+    },
+    {
+      "name": "rogues",
+      "slug": "rogues",
+      "url": "https://archidekt.com/tags/rogues"
+    },
+    {
+      "name": "rooms",
+      "slug": "rooms",
+      "url": "https://archidekt.com/tags/rooms"
+    },
+    {
+      "name": "rotated standard",
+      "slug": "rotated_standard",
+      "url": "https://archidekt.com/tags/rotated_standard"
+    },
+    {
+      "name": "rube goldberg",
+      "slug": "rube_goldberg",
+      "url": "https://archidekt.com/tags/rube_goldberg"
+    },
+    {
+      "name": "rule zero",
+      "slug": "rule_zero",
+      "url": "https://archidekt.com/tags/rule_zero"
+    },
+    {
+      "name": "saboteurs",
+      "slug": "saboteurs",
+      "url": "https://archidekt.com/tags/saboteurs"
+    },
+    {
+      "name": "sacrifice",
+      "slug": "sacrifice",
+      "url": "https://archidekt.com/tags/sacrifice"
+    },
+    {
+      "name": "sagas",
+      "slug": "sagas",
+      "url": "https://archidekt.com/tags/sagas"
+    },
+    {
+      "name": "salty",
+      "slug": "salty",
+      "url": "https://archidekt.com/tags/salty"
+    },
+    {
+      "name": "samurai",
+      "slug": "samurai",
+      "url": "https://archidekt.com/tags/samurai"
+    },
+    {
+      "name": "saprolings",
+      "slug": "saprolings",
+      "url": "https://archidekt.com/tags/saprolings"
+    },
+    {
+      "name": "satyrs",
+      "slug": "satyrs",
+      "url": "https://archidekt.com/tags/satyrs"
+    },
+    {
+      "name": "scarecrows",
+      "slug": "scarecrows",
+      "url": "https://archidekt.com/tags/scarecrows"
+    },
+    {
+      "name": "scry",
+      "slug": "scry",
+      "url": "https://archidekt.com/tags/scry"
+    },
+    {
+      "name": "sea creatures",
+      "slug": "sea_creatures",
+      "url": "https://archidekt.com/tags/sea_creatures"
+    },
+    {
+      "name": "self-damage",
+      "slug": "self-damage",
+      "url": "https://archidekt.com/tags/self-damage"
+    },
+    {
+      "name": "self-destruct",
+      "slug": "self-destruct",
+      "url": "https://archidekt.com/tags/self-destruct"
+    },
+    {
+      "name": "self-discard",
+      "slug": "self-discard",
+      "url": "https://archidekt.com/tags/self-discard"
+    },
+    {
+      "name": "self-mill",
+      "slug": "self-mill",
+      "url": "https://archidekt.com/tags/self-mill"
+    },
+    {
+      "name": "servos",
+      "slug": "servos",
+      "url": "https://archidekt.com/tags/servos"
+    },
+    {
+      "name": "shades",
+      "slug": "shades",
+      "url": "https://archidekt.com/tags/shades"
+    },
+    {
+      "name": "shadowborn apostle",
+      "slug": "shadowborn_apostle",
+      "url": "https://archidekt.com/tags/shadowborn_apostle"
+    },
+    {
+      "name": "shamans",
+      "slug": "shamans",
+      "url": "https://archidekt.com/tags/shamans"
+    },
+    {
+      "name": "shapeshifters",
+      "slug": "shapeshifters",
+      "url": "https://archidekt.com/tags/shapeshifters"
+    },
+    {
+      "name": "sharks",
+      "slug": "sharks",
+      "url": "https://archidekt.com/tags/sharks"
+    },
+    {
+      "name": "shrines",
+      "slug": "shrines",
+      "url": "https://archidekt.com/tags/shrines"
+    },
+    {
+      "name": "skeletons",
+      "slug": "skeletons",
+      "url": "https://archidekt.com/tags/skeletons"
+    },
+    {
+      "name": "skulk",
+      "slug": "skulk",
+      "url": "https://archidekt.com/tags/skulk"
+    },
+    {
+      "name": "slime against humanity",
+      "slug": "slime_against_humanity",
+      "url": "https://archidekt.com/tags/slime_against_humanity"
+    },
+    {
+      "name": "slivers",
+      "slug": "slivers",
+      "url": "https://archidekt.com/tags/slivers"
+    },
+    {
+      "name": "snakes",
+      "slug": "snakes",
+      "url": "https://archidekt.com/tags/snakes"
+    },
+    {
+      "name": "sneak",
+      "slug": "sneak",
+      "url": "https://archidekt.com/tags/sneak"
+    },
+    {
+      "name": "sneak attack",
+      "slug": "sneak_attack",
+      "url": "https://archidekt.com/tags/sneak_attack"
+    },
+    {
+      "name": "snow",
+      "slug": "snow",
+      "url": "https://archidekt.com/tags/snow"
+    },
+    {
+      "name": "soldiers",
+      "slug": "soldiers",
+      "url": "https://archidekt.com/tags/soldiers"
+    },
+    {
+      "name": "spacecraft",
+      "slug": "spacecraft",
+      "url": "https://archidekt.com/tags/spacecraft"
+    },
+    {
+      "name": "specters",
+      "slug": "specters",
+      "url": "https://archidekt.com/tags/specters"
+    },
+    {
+      "name": "speed",
+      "slug": "speed",
+      "url": "https://archidekt.com/tags/speed"
+    },
+    {
+      "name": "spell copy",
+      "slug": "spell_copy",
+      "url": "https://archidekt.com/tags/spell_copy"
+    },
+    {
+      "name": "spellslinger",
+      "slug": "spellslinger",
+      "url": "https://archidekt.com/tags/spellslinger"
+    },
+    {
+      "name": "sphinxes",
+      "slug": "sphinxes",
+      "url": "https://archidekt.com/tags/sphinxes"
+    },
+    {
+      "name": "spiders",
+      "slug": "spiders",
+      "url": "https://archidekt.com/tags/spiders"
+    },
+    {
+      "name": "spirits",
+      "slug": "spirits",
+      "url": "https://archidekt.com/tags/spirits"
+    },
+    {
+      "name": "spore counters",
+      "slug": "spore_counters",
+      "url": "https://archidekt.com/tags/spore_counters"
+    },
+    {
+      "name": "squad",
+      "slug": "squad",
+      "url": "https://archidekt.com/tags/squad"
+    },
+    {
+      "name": "squirrels",
+      "slug": "squirrels",
+      "url": "https://archidekt.com/tags/squirrels"
+    },
+    {
+      "name": "stax",
+      "slug": "stax",
+      "url": "https://archidekt.com/tags/stax"
+    },
+    {
+      "name": "stickers",
+      "slug": "stickers",
+      "url": "https://archidekt.com/tags/stickers"
+    },
+    {
+      "name": "stompy",
+      "slug": "stompy",
+      "url": "https://archidekt.com/tags/stompy"
+    },
+    {
+      "name": "stoneblade",
+      "slug": "stoneblade",
+      "url": "https://archidekt.com/tags/stoneblade"
+    },
+    {
+      "name": "storied",
+      "slug": "storied",
+      "url": "https://archidekt.com/tags/storied"
+    },
+    {
+      "name": "storm",
+      "slug": "storm",
+      "url": "https://archidekt.com/tags/storm"
+    },
+    {
+      "name": "stun",
+      "slug": "stun",
+      "url": "https://archidekt.com/tags/stun"
+    },
+    {
+      "name": "summons",
+      "slug": "summons",
+      "url": "https://archidekt.com/tags/summons"
+    },
+    {
+      "name": "sunburst",
+      "slug": "sunburst",
+      "url": "https://archidekt.com/tags/sunburst"
+    },
+    {
+      "name": "sunforger",
+      "slug": "sunforger",
+      "url": "https://archidekt.com/tags/sunforger"
+    },
+    {
+      "name": "surveil",
+      "slug": "surveil",
+      "url": "https://archidekt.com/tags/surveil"
+    },
+    {
+      "name": "suspend",
+      "slug": "suspend",
+      "url": "https://archidekt.com/tags/suspend"
+    },
+    {
+      "name": "symbiotes",
+      "slug": "symbiotes",
+      "url": "https://archidekt.com/tags/symbiotes"
+    },
+    {
+      "name": "tap/untap",
+      "slug": "tap-untap",
+      "url": "https://archidekt.com/tags/tap-untap"
+    },
+    {
+      "name": "tempest hawk",
+      "slug": "tempest_hawk",
+      "url": "https://archidekt.com/tags/tempest_hawk"
+    },
+    {
+      "name": "templar knights",
+      "slug": "templar_knights",
+      "url": "https://archidekt.com/tags/templar_knights"
+    },
+    {
+      "name": "tempo",
+      "slug": "tempo",
+      "url": "https://archidekt.com/tags/tempo"
+    },
+    {
+      "name": "theft",
+      "slug": "theft",
+      "url": "https://archidekt.com/tags/theft"
+    },
+    {
+      "name": "the ring",
+      "slug": "the_ring",
+      "url": "https://archidekt.com/tags/the_ring"
+    },
+    {
+      "name": "thopters",
+      "slug": "thopters",
+      "url": "https://archidekt.com/tags/thopters"
+    },
+    {
+      "name": "time counters",
+      "slug": "time_counters",
+      "url": "https://archidekt.com/tags/time_counters"
+    },
+    {
+      "name": "time lords",
+      "slug": "time_lords",
+      "url": "https://archidekt.com/tags/time_lords"
+    },
+    {
+      "name": "tiny leaders",
+      "slug": "tiny_leaders",
+      "url": "https://archidekt.com/tags/tiny_leaders"
+    },
+    {
+      "name": "tokens",
+      "slug": "tokens",
+      "url": "https://archidekt.com/tags/tokens"
+    },
+    {
+      "name": "toolbox",
+      "slug": "toolbox",
+      "url": "https://archidekt.com/tags/toolbox"
+    },
+    {
+      "name": "topdeck",
+      "slug": "topdeck",
+      "url": "https://archidekt.com/tags/topdeck"
+    },
+    {
+      "name": "toughness",
+      "slug": "toughness",
+      "url": "https://archidekt.com/tags/toughness"
+    },
+    {
+      "name": "toughness matters",
+      "slug": "toughness_matters",
+      "url": "https://archidekt.com/tags/toughness_matters"
+    },
+    {
+      "name": "towns",
+      "slug": "towns",
+      "url": "https://archidekt.com/tags/towns"
+    },
+    {
+      "name": "toys",
+      "slug": "toys",
+      "url": "https://archidekt.com/tags/toys"
+    },
+    {
+      "name": "transform",
+      "slug": "transform",
+      "url": "https://archidekt.com/tags/transform"
+    },
+    {
+      "name": "treasure",
+      "slug": "treasure",
+      "url": "https://archidekt.com/tags/treasure"
+    },
+    {
+      "name": "treefolk",
+      "slug": "treefolk",
+      "url": "https://archidekt.com/tags/treefolk"
+    },
+    {
+      "name": "triggered abilities",
+      "slug": "triggered_abilities",
+      "url": "https://archidekt.com/tags/triggered_abilities"
+    },
+    {
+      "name": "tron",
+      "slug": "tron",
+      "url": "https://archidekt.com/tags/tron"
+    },
+    {
+      "name": "turbo",
+      "slug": "turbo",
+      "url": "https://archidekt.com/tags/turbo"
+    },
+    {
+      "name": "turbo fog",
+      "slug": "turbo_fog",
+      "url": "https://archidekt.com/tags/turbo_fog"
+    },
+    {
+      "name": "turtles",
+      "slug": "turtles",
+      "url": "https://archidekt.com/tags/turtles"
+    },
+    {
+      "name": "two-headed giant",
+      "slug": "two-headed_giant",
+      "url": "https://archidekt.com/tags/two-headed_giant"
+    },
+    {
+      "name": "type hack",
+      "slug": "type_hack",
+      "url": "https://archidekt.com/tags/type_hack"
+    },
+    {
+      "name": "tyranids",
+      "slug": "tyranids",
+      "url": "https://archidekt.com/tags/tyranids"
+    },
+    {
+      "name": "umori companion",
+      "slug": "umori_companion",
+      "url": "https://archidekt.com/tags/umori_companion"
+    },
+    {
+      "name": "unblockable",
+      "slug": "unblockable",
+      "url": "https://archidekt.com/tags/unblockable"
+    },
+    {
+      "name": "unicorns",
+      "slug": "unicorns",
+      "url": "https://archidekt.com/tags/unicorns"
+    },
+    {
+      "name": "unmodified precon",
+      "slug": "unmodified_precon",
+      "url": "https://archidekt.com/tags/unmodified_precon"
+    },
+    {
+      "name": "upgraded precon",
+      "slug": "upgraded_precon",
+      "url": "https://archidekt.com/tags/upgraded_precon"
+    },
+    {
+      "name": "value vintage",
+      "slug": "value_vintage",
+      "url": "https://archidekt.com/tags/value_vintage"
+    },
+    {
+      "name": "vampires",
+      "slug": "vampires",
+      "url": "https://archidekt.com/tags/vampires"
+    },
+    {
+      "name": "vanilla",
+      "slug": "vanilla",
+      "url": "https://archidekt.com/tags/vanilla"
+    },
+    {
+      "name": "vehicles",
+      "slug": "vehicles",
+      "url": "https://archidekt.com/tags/vehicles"
+    },
+    {
+      "name": "villainous choice",
+      "slug": "villainous_choice",
+      "url": "https://archidekt.com/tags/villainous_choice"
+    },
+    {
+      "name": "villains",
+      "slug": "villains",
+      "url": "https://archidekt.com/tags/villains"
+    },
+    {
+      "name": "voltron",
+      "slug": "voltron",
+      "url": "https://archidekt.com/tags/voltron"
+    },
+    {
+      "name": "voting",
+      "slug": "voting",
+      "url": "https://archidekt.com/tags/voting"
+    },
+    {
+      "name": "warp",
+      "slug": "warp",
+      "url": "https://archidekt.com/tags/warp"
+    },
+    {
+      "name": "warriors",
+      "slug": "warriors",
+      "url": "https://archidekt.com/tags/warriors"
+    },
+    {
+      "name": "waterbending",
+      "slug": "waterbending",
+      "url": "https://archidekt.com/tags/waterbending"
+    },
+    {
+      "name": "web-slinging",
+      "slug": "web-slinging",
+      "url": "https://archidekt.com/tags/web-slinging"
+    },
+    {
+      "name": "weenies",
+      "slug": "weenies",
+      "url": "https://archidekt.com/tags/weenies"
+    },
+    {
+      "name": "werewolves",
+      "slug": "werewolves",
+      "url": "https://archidekt.com/tags/werewolves"
+    },
+    {
+      "name": "whales",
+      "slug": "whales",
+      "url": "https://archidekt.com/tags/whales"
+    },
+    {
+      "name": "wheels",
+      "slug": "wheels",
+      "url": "https://archidekt.com/tags/wheels"
+    },
+    {
+      "name": "wizards",
+      "slug": "wizards",
+      "url": "https://archidekt.com/tags/wizards"
+    },
+    {
+      "name": "wolves",
+      "slug": "wolves",
+      "url": "https://archidekt.com/tags/wolves"
+    },
+    {
+      "name": "wraiths",
+      "slug": "wraiths",
+      "url": "https://archidekt.com/tags/wraiths"
+    },
+    {
+      "name": "wurms",
+      "slug": "wurms",
+      "url": "https://archidekt.com/tags/wurms"
+    },
+    {
+      "name": "x spells",
+      "slug": "x_spells",
+      "url": "https://archidekt.com/tags/x_spells"
+    },
+    {
+      "name": "yorion companion",
+      "slug": "yorion_companion",
+      "url": "https://archidekt.com/tags/yorion_companion"
+    },
+    {
+      "name": "zirda companion",
+      "slug": "zirda_companion",
+      "url": "https://archidekt.com/tags/zirda_companion"
+    },
+    {
+      "name": "zombies",
+      "slug": "zombies",
+      "url": "https://archidekt.com/tags/zombies"
+    },
+    {
+      "name": "zoo",
+      "slug": "zoo",
+      "url": "https://archidekt.com/tags/zoo"
+    }
+  ]
+}
