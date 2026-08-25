@@ -296,7 +296,7 @@ class ValidateDeckTests(unittest.TestCase):
         )
         (repo / "README.md").write_text(
             "## Deck primers\n\n"
-            "- `2` [Test](decks/test/README.md)\n",
+            "<!-- deck-index:start -->\n<!-- deck-index:end -->\n",
             encoding="utf-8",
         )
         catalog_dir = repo / ".agents/skills/tag-deck"
@@ -446,18 +446,19 @@ class ValidateDeckTests(unittest.TestCase):
 
             self.assertTrue(any("primer has unlinked card mentions" in error for error in errors))
 
-    def test_validator_rejects_unsorted_primer_links(self):
+    def test_validator_rejects_hand_edited_deck_index(self):
         with tempfile.TemporaryDirectory() as temporary:
             repo, deck_dir = self.make_workspace(temporary)
             (repo / "README.md").write_text(
                 "## Deck primers\n\n"
-                "- `3` [Zebra](decks/test/README.md)\n"
-                "- `3-` [Apple](decks/other/README.md)\n",
+                "<!-- deck-index:start -->\n"
+                "- **[Test](decks/test/README.md)** `3`\n"
+                "<!-- deck-index:end -->\n",
                 encoding="utf-8",
             )
             errors, _ = validate_deck.validate(deck_dir, repo)
             self.assertTrue(
-                any("Deck primers section is unsorted" in error for error in errors)
+                any("root deck index are missing or stale" in error for error in errors)
             )
 
     def test_validator_requires_tags_json(self):
@@ -467,18 +468,17 @@ class ValidateDeckTests(unittest.TestCase):
             errors, _ = validate_deck.validate(deck_dir, repo)
             self.assertTrue(any("missing tags.json" in error for error in errors))
 
-    def test_validator_rejects_primer_links_without_bracket_badge(self):
+    def test_validator_requires_a_root_link_to_the_primer(self):
         with tempfile.TemporaryDirectory() as temporary:
             repo, deck_dir = self.make_workspace(temporary)
             (repo / "README.md").write_text(
                 "## Deck primers\n\n"
-                "- [3− — Apple](decks/other/README.md)\n"
-                "- [3 — Zebra](decks/test/README.md)\n",
+                "<!-- deck-index:start -->\n<!-- deck-index:end -->\n",
                 encoding="utf-8",
             )
             errors, _ = validate_deck.validate(deck_dir, repo)
             self.assertTrue(
-                any("must start with a bracket badge" in error for error in errors)
+                any("root README does not link to this primer" in error for error in errors)
             )
 
     def test_validator_rejects_assessment_below_archidekt(self):

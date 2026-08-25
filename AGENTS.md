@@ -38,7 +38,7 @@ Whenever the user posts a deck list or asks to begin work on a stored list:
 7. Assign one or more useful categories to every resolved card. Use universal categories unless the card has a deck-specific role.
 8. Create or refresh the deck's `README.md` by following the `deck-primer` skill.
 9. Follow `tag-deck`: score official Archidekt tags into `tags.json` and show cutoff badges on the primer and root README.
-10. Add or update the deck's primer link in the `Deck primers` section immediately below the root README title. Write each entry as `` - `3+` [Deck name](decks/3+_deck-name/README.md) `` with the bracket badge in a code span (`Unrated` when unassessed), and sort by numeric bracket, then `-` / plain / `+`, then deck name; keep unrated last. Keep the tag-deck overview block under each link.
+10. Regenerate the `Deck primers` index in the root README with `python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<deck-name>`. The whole block between the `deck-index` markers is generated from every deck's directory prefix, primer title, and `tags.json`; never hand-edit it.
 11. Add `DECISIONS.md` with a `## How to use` definition, one inclusion entry per unique deck card under `## Cards in`, and a primer link to that file. After swaps, primer rewrites, assessments, or rules arguments, append `## Cards out`, `## Primer`, `## Rules`, or `## Talks`.
 12. Run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<deck-name>` (decision logs are required by default).
 13. Do not analyze or recommend changes until resolution or validation errors are reported or fixed.

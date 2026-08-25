@@ -141,17 +141,16 @@ For JSON, use `{"schema_version": 1, "cards": {"<oracle-id>": {"name": "Card Nam
 
 ## 6. Link the primer from the root README
 
-Maintain a `## Deck primers` section immediately after the root README title.
+The `## Deck primers` section after the root README title holds a generated index between `<!-- deck-index:start -->` and `<!-- deck-index:end -->`. Refresh it with the `tag-deck` script instead of editing it:
 
-- Write one entry per deck as `` - `<badge>` [<deck name>](decks/<prefix><slug>/README.md) ``, for example ``- `3+` [Bartolomé del Skeleton 🦴](decks/3+_bartolome-graveyard-shift/README.md)``.
-- Directly under that line, keep the `tag-deck` overview block: one-sentence summary and Archidekt tag badges from `tags.json`.
-- Build the badge as the numeric bracket with an ASCII `-` or `+` modifier, so `3-`, `3`, and `3+`. Keep the bracket in the code span and out of the link label.
-- Read the bracket from the primer's assessment blockquote. Prefer `N−`, `N`, or `N+`; when migrating legacy wording, map Low/Mid/High Bracket N to `N−`/`N`/`N+`.
-- Use the `Unrated` badge when the deck has no assessment.
-- Sort entries by numeric bracket ascending, then `−`, plain, `+`, and finally alphabetically by deck name. Keep unrated decks last, alphabetically. The validator rejects an unsorted primer list.
-- Keep one entry per deck and preserve all existing primer links.
-- When a deck is renamed, update its link rather than adding a duplicate.
-- After `assess-deck` changes a bracket or directory prefix, update the root README label and order, every stored path, and the manifest's `source` field.
+```bash
+python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<prefix><slug>
+```
+
+- Every entry comes from the deck directory prefix (bracket badge), the primer H1 or the optional `title` in `tags.json` (label), and `tags.json` (summary and badges). A deck without a valid `tags.json` never reaches the index.
+- Set the directory prefix from the primer's assessment blockquote: the numeric bracket plus an ASCII `-` or `+`, so `3-`, `3`, `3+`, or `unrated_` with no assessment. When migrating legacy wording, map Low/Mid/High Bracket N to `N−`/`N`/`N+`.
+- Grouping, ordering, and badge cutoffs are the script's job; the validator fails when the checked-in index differs from a fresh render.
+- After `assess-deck` changes a bracket or directory prefix, rerun the script and update every stored path plus the manifest's `source` field.
 
 ## 7. Validate the workspace
 
@@ -161,7 +160,7 @@ Run:
 python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<prefix><slug>
 ```
 
-Decision logs are required by default. Pass `--no-require-decisions` only for a temporary import. Fix every error before review. The validator checks deck size, manifest consistency, categories, commander designation, singleton and color-identity rules, cached Commander legality, primer linkage and sort, assessment placement, Archidekt, tag badges, category-table, and mana-stats currency, card-mention links, and decision-log coverage. A prerelease commander produces a warning until its release date.
+Decision logs are required by default. Pass `--no-require-decisions` only for a temporary import. Fix every error before review. The validator checks deck size, manifest consistency, categories, commander designation, singleton and color-identity rules, cached Commander legality, primer linkage, root deck index currency, assessment placement, Archidekt, tag badges, category-table, and mana-stats currency, card-mention links, and decision-log coverage. A prerelease commander produces a warning until its release date.
 
 Inspect the final diff after validation. Shared registries preserve their existing order, so unrelated global reordering or cache changes indicate a workflow problem and should be removed.
 
