@@ -54,10 +54,10 @@ Removal:
 1x Swords to Plowshares [Removal]
 1x Anguished Unmaking [Removal]
 1x Council's Judgment [Removal,Politics]
+1x Snuff Out [Removal,Life Payment]
 
 Counterspell:
 1x Counterspell [Counterspell]
-1x Mana Drain [Counterspell]
 1x Absorb [Counterspell]
 1x Swan Song [Counterspell]
 1x Dovin's Veto [Counterspell]
@@ -120,6 +120,7 @@ Land:
 1x Island [Land]
 
 Maybeboard:
+1x Mana Drain [Maybeboard{noDeck}{noPrice},Counterspell]
 1x Hatred [Maybeboard{noDeck}{noPrice},Life Payment]
 1x Desertion [Maybeboard{noDeck}{noPrice},Counterspell]
 1x Arcanis the Omnipotent [Maybeboard{noDeck}{noPrice},Draw]

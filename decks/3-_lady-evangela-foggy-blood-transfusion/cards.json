@@ -958,6 +958,30 @@
       "submitted_name": "Council's Judgment"
     },
     {
+      "cache": "cards/324824cb-f938-401c-b9b5-d8908b431ef0.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "If you control a Swamp, you may pay 4 life rather than pay this spell's mana cost.\nDestroy target nonblack creature. It can't be regenerated.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Removal",
+        "Life Payment"
+      ],
+      "category_source": "decklist",
+      "name": "Snuff Out",
+      "oracle_id": "324824cb-f938-401c-b9b5-d8908b431ef0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/gvl/53/snuff-out?utm_source=api",
+      "submitted_categories": [
+        "Removal",
+        "Life Payment"
+      ],
+      "submitted_name": "Snuff Out"
+    },
+    {
       "cache": "cards/cc187110-1148-4090-bbb8-e205694a39f5.json",
       "card": {
         "cmc": 2.0,
@@ -978,31 +1002,6 @@
         "Counterspell"
       ],
       "submitted_name": "Counterspell"
-    },
-    {
-      "cache": "cards/74d3277a-38e5-4732-afed-084a56148f20.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{U}{U}",
-        "oracle_text": "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.",
-        "produced_mana": [
-          "C"
-        ],
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Counterspell"
-      ],
-      "category_source": "decklist",
-      "name": "Mana Drain",
-      "oracle_id": "74d3277a-38e5-4732-afed-084a56148f20",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/2x2/57/mana-drain?utm_source=api",
-      "submitted_categories": [
-        "Counterspell"
-      ],
-      "submitted_name": "Mana Drain"
     },
     {
       "cache": "cards/132ca99a-a3c7-4ed6-b4d0-0edcd7140ca2.json",
@@ -2341,6 +2340,33 @@
       "submitted_name": "Island"
     },
     {
+      "cache": "cards/74d3277a-38e5-4732-afed-084a56148f20.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{U}{U}",
+        "oracle_text": "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Counterspell"
+      ],
+      "category_source": "decklist",
+      "name": "Mana Drain",
+      "oracle_id": "74d3277a-38e5-4732-afed-084a56148f20",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2x2/57/mana-drain?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Counterspell"
+      ],
+      "submitted_name": "Mana Drain"
+    },
+    {
       "cache": "cards/40601061-1b25-4db8-8b99-33324ce945cf.json",
       "card": {
         "cmc": 5.0,
@@ -2547,11 +2573,11 @@
       "submitted_name": "Kuroki, Thief of Talents"
     }
   ],
-  "categorized_cards": 99,
-  "generated_at": "2026-08-25T22:07:53.657227+00:00",
-  "maybeboard_cards": 8,
-  "maybeboard_unique_cards": 8,
-  "resolved_unique_cards": 99,
+  "categorized_cards": 100,
+  "generated_at": "2026-08-25T22:30:16.807241+00:00",
+  "maybeboard_cards": 9,
+  "maybeboard_unique_cards": 9,
+  "resolved_unique_cards": 100,
   "schema_version": 3,
   "source": "decks/3-_lady-evangela-foggy-blood-transfusion/decklist.txt",
   "total_cards": 100,

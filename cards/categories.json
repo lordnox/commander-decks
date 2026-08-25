@@ -5541,8 +5541,14 @@
       "categories": [
         "other"
       ]
+    },
+    "324824cb-f938-401c-b9b5-d8908b431ef0": {
+      "name": "Snuff Out",
+      "categories": [
+        "removal"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-25T22:02:48.287986+00:00"
+  "updated_at": "2026-08-25T22:30:16.807241+00:00"
 }
