@@ -1,0 +1,129 @@
+{
+  "artist": "Igor Krstic",
+  "artist_ids": [
+    "44cdd332-50f6-4cab-b606-c4565fc5efeb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753423,
+  "cmc": 4.0,
+  "collector_number": "58",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 3058,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b63d828d-4f62-424b-969a-00dcc4651b56",
+  "illustration_id": "55354868-2558-4a01-aa47-3d73be9321e1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:23:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/6/b63d828d-4f62-424b-969a-00dcc4651b56.webp?1783913033",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/6/b63d828d-4f62-424b-969a-00dcc4651b56.jpg?1783913033",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/6/b63d828d-4f62-424b-969a-00dcc4651b56.jpg?1783913033",
+    "crop": "https://cards.scryfall.io/crop/front/b/6/b63d828d-4f62-424b-969a-00dcc4651b56.webp?1783913033",
+    "display": "https://cards.scryfall.io/display/front/b/6/b63d828d-4f62-424b-969a-00dcc4651b56.webp?1783913033",
+    "grid": "https://cards.scryfall.io/grid/front/b/6/b63d828d-4f62-424b-969a-00dcc4651b56.webp?1783913033",
+    "large": "https://cards.scryfall.io/large/front/b/6/b63d828d-4f62-424b-969a-00dcc4651b56.jpg?1783913033",
+    "normal": "https://cards.scryfall.io/normal/front/b/6/b63d828d-4f62-424b-969a-00dcc4651b56.jpg?1783913033",
+    "png": "https://cards.scryfall.io/png/front/b/6/b63d828d-4f62-424b-969a-00dcc4651b56.png?1783913033",
+    "small": "https://cards.scryfall.io/small/front/b/6/b63d828d-4f62-424b-969a-00dcc4651b56.jpg?1783913033",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/6/b63d828d-4f62-424b-969a-00dcc4651b56.webp?1783913033"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}",
+  "mtgo_id": 122252,
+  "multiverse_ids": [
+    650152
+  ],
+  "name": "Comeuppance",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "01f29158-2dc9-4b9d-b726-add5d3fd5782",
+  "oracle_text": "Prevent all damage that would be dealt to you and planeswalkers you control this turn by sources you don't control. If damage from a creature source is prevented this way, Comeuppance deals that much damage to that creature. If damage from a noncreature source is prevented this way, Comeuppance deals that much damage to the source's controller.",
+  "oversized": false,
+  "prices": {
+    "eur": "1.84",
+    "eur_foil": null,
+    "tix": "1.80",
+    "usd": "5.10",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A01f29158-2dc9-4b9d-b726-add5d3fd5782&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122252?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753423&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535584%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Comeuppance",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=650152&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DComeuppance",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DComeuppance"
+  },
+  "released_at": "2024-02-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b63d828d-4f62-424b-969a-00dcc4651b56/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkc/58/comeuppance?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkc",
+  "set_id": "286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "set_name": "Murders at Karlov Manor Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "story_spotlight": false,
+  "tcgplayer_id": 535584,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/b63d828d-4f62-424b-969a-00dcc4651b56",
+  "variation": false
+}

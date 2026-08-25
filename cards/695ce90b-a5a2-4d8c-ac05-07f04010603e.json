@@ -1,0 +1,141 @@
+{
+  "artist": "Ben Thompson",
+  "artist_ids": [
+    "f3116c88-57f4-4fd1-95f3-cfd163977661"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 2042,
+  "cmc": 1.0,
+  "collector_number": "61",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 5831,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Their blood is the nectar that nourishes the Cabal.\"\n—Phage the Untouchable",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "805de325-6f14-4a52-bb85-f9a9545d82a4",
+  "illustration_id": "6a92ee2a-abd6-4d0f-887c-36677e01db1e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:15:16Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/0/805de325-6f14-4a52-bb85-f9a9545d82a4.webp?1783944916",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/0/805de325-6f14-4a52-bb85-f9a9545d82a4.jpg?1783944916",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/0/805de325-6f14-4a52-bb85-f9a9545d82a4.jpg?1783944916",
+    "crop": "https://cards.scryfall.io/crop/front/8/0/805de325-6f14-4a52-bb85-f9a9545d82a4.webp?1783944916",
+    "display": "https://cards.scryfall.io/display/front/8/0/805de325-6f14-4a52-bb85-f9a9545d82a4.webp?1783944916",
+    "grid": "https://cards.scryfall.io/grid/front/8/0/805de325-6f14-4a52-bb85-f9a9545d82a4.webp?1783944916",
+    "large": "https://cards.scryfall.io/large/front/8/0/805de325-6f14-4a52-bb85-f9a9545d82a4.jpg?1783944916",
+    "normal": "https://cards.scryfall.io/normal/front/8/0/805de325-6f14-4a52-bb85-f9a9545d82a4.jpg?1783944916",
+    "png": "https://cards.scryfall.io/png/front/8/0/805de325-6f14-4a52-bb85-f9a9545d82a4.png?1783944916",
+    "small": "https://cards.scryfall.io/small/front/8/0/805de325-6f14-4a52-bb85-f9a9545d82a4.jpg?1783944916",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/0/805de325-6f14-4a52-bb85-f9a9545d82a4.webp?1783944916"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_foil_id": 18560,
+  "mtgo_id": 18559,
+  "multiverse_ids": [
+    44206
+  ],
+  "name": "Blood Celebrant",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "695ce90b-a5a2-4d8c-ac05-07f04010603e",
+  "oracle_text": "{B}, Pay 1 life: Add one mana of any color.",
+  "oversized": false,
+  "penny_rank": 10254,
+  "power": "1",
+  "prices": {
+    "eur": "0.62",
+    "eur_foil": "10.71",
+    "tix": "0.04",
+    "usd": "0.75",
+    "usd_etched": null,
+    "usd_foil": "23.67"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A695ce90b-a5a2-4d8c-ac05-07f04010603e&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/18559?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=2042&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10746%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Blood+Celebrant",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=44206&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBlood%2BCelebrant",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBlood%2BCelebrant"
+  },
+  "released_at": "2003-02-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/805de325-6f14-4a52-bb85-f9a9545d82a4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lgn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lgn/61/blood-celebrant?utm_source=api",
+  "set": "lgn",
+  "set_id": "c2d60a18-1a81-4784-8e0c-e1de2f43c5cf",
+  "set_name": "Legions",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Algn&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/c2d60a18-1a81-4784-8e0c-e1de2f43c5cf",
+  "story_spotlight": false,
+  "tcgplayer_id": 10746,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Cleric",
+  "uri": "https://api.scryfall.com/cards/805de325-6f14-4a52-bb85-f9a9545d82a4",
+  "variation": false
+}

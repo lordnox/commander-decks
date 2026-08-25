@@ -1,0 +1,148 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "3559d8f2-eed2-425f-b9de-a18ad6fddcb5",
+      "name": "Necromancer's Covenant",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/3559d8f2-eed2-425f-b9de-a18ad6fddcb5"
+    },
+    {
+      "component": "token",
+      "id": "8ffaa67e-32fa-4843-8858-feed2ebb40df",
+      "name": "Zombie",
+      "object": "related_card",
+      "type_line": "Token Creature — Zombie",
+      "uri": "https://api.scryfall.com/cards/8ffaa67e-32fa-4843-8858-feed2ebb40df"
+    }
+  ],
+  "artist": "Thomas M. Baxa",
+  "artist_ids": [
+    "ff346569-557d-4043-ae44-97c2c7cabd7d"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 285992,
+  "cmc": 6.0,
+  "collector_number": "229",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 15056,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "3559d8f2-eed2-425f-b9de-a18ad6fddcb5",
+  "illustration_id": "0e2981ce-3eeb-4b09-b4a6-89ab7dad1d12",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:20:59Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/5/3559d8f2-eed2-425f-b9de-a18ad6fddcb5.webp?1783938059",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/5/3559d8f2-eed2-425f-b9de-a18ad6fddcb5.jpg?1783938059",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/5/3559d8f2-eed2-425f-b9de-a18ad6fddcb5.jpg?1783938059",
+    "crop": "https://cards.scryfall.io/crop/front/3/5/3559d8f2-eed2-425f-b9de-a18ad6fddcb5.webp?1783938059",
+    "display": "https://cards.scryfall.io/display/front/3/5/3559d8f2-eed2-425f-b9de-a18ad6fddcb5.webp?1783938059",
+    "grid": "https://cards.scryfall.io/grid/front/3/5/3559d8f2-eed2-425f-b9de-a18ad6fddcb5.webp?1783938059",
+    "large": "https://cards.scryfall.io/large/front/3/5/3559d8f2-eed2-425f-b9de-a18ad6fddcb5.jpg?1783938059",
+    "normal": "https://cards.scryfall.io/normal/front/3/5/3559d8f2-eed2-425f-b9de-a18ad6fddcb5.jpg?1783938059",
+    "png": "https://cards.scryfall.io/png/front/3/5/3559d8f2-eed2-425f-b9de-a18ad6fddcb5.png?1783938059",
+    "small": "https://cards.scryfall.io/small/front/3/5/3559d8f2-eed2-425f-b9de-a18ad6fddcb5.jpg?1783938059",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/5/3559d8f2-eed2-425f-b9de-a18ad6fddcb5.webp?1783938059"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}{B}{B}",
+  "multiverse_ids": [
+    405317
+  ],
+  "name": "Necromancer's Covenant",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9103f01f-e60b-4cda-9102-edc4aef74cc3",
+  "oracle_text": "When this enchantment enters, exile all creature cards from target player's graveyard, then create a 2/2 black Zombie creature token for each card exiled this way.\nZombies you control have lifelink.",
+  "oversized": false,
+  "penny_rank": 11970,
+  "prices": {
+    "eur": "0.62",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "1.35",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9103f01f-e60b-4cda-9102-edc4aef74cc3&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Necromancer%27s+Covenant&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=285992&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F107998%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Necromancer%27s+Covenant",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=405317&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DNecromancer%2527s%2BCovenant",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DNecromancer%2527s%2BCovenant"
+  },
+  "released_at": "2015-11-13",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3559d8f2-eed2-425f-b9de-a18ad6fddcb5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c15?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c15/229/necromancers-covenant?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c15",
+  "set_id": "ea6c99f9-5489-4504-b30c-c819fa3b1fd3",
+  "set_name": "Commander 2015",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac15&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/ea6c99f9-5489-4504-b30c-c819fa3b1fd3",
+  "story_spotlight": false,
+  "tcgplayer_id": 107998,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/3559d8f2-eed2-425f-b9de-a18ad6fddcb5",
+  "variation": false
+}

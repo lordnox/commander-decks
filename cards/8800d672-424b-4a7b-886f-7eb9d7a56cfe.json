@@ -1,0 +1,133 @@
+{
+  "artist": "Mark Poole",
+  "artist_ids": [
+    "bfdeaf09-f915-4058-8e8b-bcac3bc43c33"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 7251,
+  "cmc": 3.0,
+  "collector_number": "240",
+  "color_identity": [
+    "B",
+    "U",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "U",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 28170,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"When milady was young, the sight of a rainbow would fill her soul with peace. As she grew, she learned to share her rapture with others.\" —*Lady Gabriella*",
+  "foil": false,
+  "frame": "1993",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "f3e122e9-ffa3-48dd-94d6-8f2886668e59",
+  "illustration_id": "c64b6348-aaad-48b7-997f-a02bfd2f576f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T13:07:16Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/3/f3e122e9-ffa3-48dd-94d6-8f2886668e59.webp?1783948036",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/3/f3e122e9-ffa3-48dd-94d6-8f2886668e59.jpg?1783948036",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/3/f3e122e9-ffa3-48dd-94d6-8f2886668e59.jpg?1783948036",
+    "crop": "https://cards.scryfall.io/crop/front/f/3/f3e122e9-ffa3-48dd-94d6-8f2886668e59.webp?1783948036",
+    "display": "https://cards.scryfall.io/display/front/f/3/f3e122e9-ffa3-48dd-94d6-8f2886668e59.webp?1783948036",
+    "grid": "https://cards.scryfall.io/grid/front/f/3/f3e122e9-ffa3-48dd-94d6-8f2886668e59.webp?1783948036",
+    "large": "https://cards.scryfall.io/large/front/f/3/f3e122e9-ffa3-48dd-94d6-8f2886668e59.jpg?1783948036",
+    "normal": "https://cards.scryfall.io/normal/front/f/3/f3e122e9-ffa3-48dd-94d6-8f2886668e59.jpg?1783948036",
+    "png": "https://cards.scryfall.io/png/front/f/3/f3e122e9-ffa3-48dd-94d6-8f2886668e59.png?1783948036",
+    "small": "https://cards.scryfall.io/small/front/f/3/f3e122e9-ffa3-48dd-94d6-8f2886668e59.jpg?1783948036",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/3/f3e122e9-ffa3-48dd-94d6-8f2886668e59.webp?1783948036"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}{U}{B}",
+  "multiverse_ids": [
+    1666
+  ],
+  "name": "Lady Evangela",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8800d672-424b-4a7b-886f-7eb9d7a56cfe",
+  "oracle_text": "{W}{B}, {T}: Prevent all combat damage that would be dealt by target creature this turn.",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": "39.04",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "35.54",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8800d672-424b-4a7b-886f-7eb9d7a56cfe&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Lady+Evangela&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=7251&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F3938%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Lady+Evangela",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=1666&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLady%2BEvangela",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLady%2BEvangela"
+  },
+  "released_at": "1994-06-01",
+  "reprint": false,
+  "reserved": true,
+  "rulings_uri": "https://api.scryfall.com/cards/f3e122e9-ffa3-48dd-94d6-8f2886668e59/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/leg?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/leg/240/lady-evangela?utm_source=api",
+  "set": "leg",
+  "set_id": "78c50b4b-b220-455b-a2d5-cee458fa56f3",
+  "set_name": "Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aleg&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/78c50b4b-b220-455b-a2d5-cee458fa56f3",
+  "story_spotlight": false,
+  "tcgplayer_id": 3938,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Human Cleric",
+  "uri": "https://api.scryfall.com/cards/f3e122e9-ffa3-48dd-94d6-8f2886668e59",
+  "variation": false
+}

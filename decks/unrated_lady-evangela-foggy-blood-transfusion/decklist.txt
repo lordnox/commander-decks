@@ -1,0 +1,124 @@
+Commander
+1x Lady Evangela [Commander{top}]
+
+Life Exchange:
+1x Mirror Universe [Life Exchange]
+1x Magus of the Mirror [Life Exchange]
+1x Soul Conduit [Life Exchange]
+1x Axis of Mortality [Life Exchange]
+1x Mister Negative [Life Exchange]
+1x Repay in Kind [Life Exchange]
+
+Drain Finisher:
+1x Exsanguinate [Drain Finisher]
+1x Debt to the Deathless [Drain Finisher]
+1x Drain Life [Drain Finisher]
+
+Life Payment:
+1x Wall of Blood [Life Payment]
+1x Selenia, Dark Angel [Life Payment]
+1x Hatred [Life Payment]
+1x Blood Celebrant [Life Payment,Ramp]
+
+Draw:
+1x Queza, Augur of Agonies [Draw,Drain Finisher]
+1x Psychosis Crawler [Draw,Drain Finisher]
+1x Esper Sentinel [Draw]
+1x Dark Confidant [Draw,Life Payment]
+1x Dark Tutelage [Draw,Life Payment]
+1x Necrologia [Draw,Life Payment]
+1x Night's Whisper [Draw,Life Payment]
+1x Blue Sun's Zenith [Draw]
+1x Mulldrifter [Draw]
+
+Fog:
+1x Darkness [Fog]
+1x Batwing Brume [Fog]
+1x Inkshield [Fog]
+1x Comeuppance [Fog]
+1x Dawn Charm [Fog]
+1x Kami of False Hope [Fog]
+1x Settle the Wreckage [Fog,Removal]
+
+Tax:
+1x Baird, Steward of Argive [Tax]
+1x Archangel of Tithes [Tax]
+1x Adept Watershaper [Tax]
+1x Pendrell Mists [Tax]
+
+Politics:
+1x Orzhov Advokist [Politics]
+1x Promise of Loyalty [Politics,Removal]
+1x Necromancer's Covenant [Politics]
+
+Removal:
+1x Swords to Plowshares [Removal]
+1x Anguished Unmaking [Removal]
+1x Council's Judgment [Removal,Politics]
+
+Counterspell:
+1x Counterspell [Counterspell]
+1x Mana Drain [Counterspell]
+1x Absorb [Counterspell]
+1x Swan Song [Counterspell]
+1x Dovin's Veto [Counterspell]
+1x An Offer You Can't Refuse [Counterspell]
+1x Arcane Denial [Counterspell]
+1x Cryptic Command [Counterspell,Draw]
+
+Blink:
+1x Ephemerate [Blink]
+1x Ghostly Flicker [Blink]
+
+Swamp Engine:
+1x Blanket of Night [Swamp Engine]
+1x Crypt Ghast [Swamp Engine,Ramp]
+1x Nirkana Revenant [Swamp Engine,Ramp]
+1x Magus of the Coffers [Swamp Engine,Ramp]
+1x Bubbling Muck [Swamp Engine,Ramp]
+1x Rings of Brighthearth [Swamp Engine]
+
+Ramp:
+1x Sol Ring [Ramp]
+1x Arcane Signet [Ramp]
+1x Talisman of Hierarchy [Ramp,Life Payment]
+1x Talisman of Dominance [Ramp,Life Payment]
+1x Talisman of Progress [Ramp,Life Payment]
+1x Fellwar Stone [Ramp]
+1x Lotho, Corrupt Shirriff [Ramp,Life Payment]
+
+Land Search:
+1x Expedition Map [Land Search]
+1x Wayfarer's Bauble [Land Search]
+1x Liliana of the Dark Realms [Land Search,Swamp Engine]
+
+Land:
+1x Urborg, Tomb of Yawgmoth [Land,Swamp Engine]
+1x Cabal Coffers [Land,Swamp Engine]
+1x Cabal Stronghold [Land,Swamp Engine]
+1x Deserted Temple [Land,Swamp Engine]
+1x Myriad Landscape [Land,Land Search]
+1x Minamo, School at Water's Edge [Land]
+1x Command Tower [Land]
+1x Exotic Orchard [Land]
+1x Reflecting Pool [Land]
+1x Raffine's Tower [Land]
+1x Godless Shrine [Land]
+1x Watery Grave [Land]
+1x Hallowed Fountain [Land]
+1x Isolated Chapel [Land]
+1x Drowned Catacomb [Land]
+1x Glacial Fortress [Land]
+1x Caves of Koilos [Land,Life Payment]
+1x Underground River [Land,Life Payment]
+1x Adarkar Wastes [Land,Life Payment]
+1x City of Brass [Land,Life Payment]
+1x Mana Confluence [Land,Life Payment]
+1x Marsh Flats [Land,Land Search]
+1x Polluted Delta [Land,Land Search]
+1x Prismatic Vista [Land,Land Search]
+1x Esper Panorama [Land,Land Search]
+1x Orzhov Basilica [Land]
+5x Swamp [Land]
+2x Plains [Land]
+1x Island [Land]

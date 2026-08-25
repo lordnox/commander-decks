@@ -1,0 +1,133 @@
+{
+  "artist": "Kev Walker",
+  "artist_ids": [
+    "f366a0ee-a0cd-466d-ba6a-90058c7a31a6"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764867,
+  "cmc": 3.0,
+  "collector_number": "79",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 3539,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "When its power is threatened, the council speaks with a unified voice.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "4005e82f-0b30-4165-87e2-51250c00adb0",
+  "illustration_id": "471877f0-4a77-40c2-9eba-401e19870034",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:05:48Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/0/4005e82f-0b30-4165-87e2-51250c00adb0.webp?1783911948",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/0/4005e82f-0b30-4165-87e2-51250c00adb0.jpg?1783911948",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/0/4005e82f-0b30-4165-87e2-51250c00adb0.jpg?1783911948",
+    "crop": "https://cards.scryfall.io/crop/front/4/0/4005e82f-0b30-4165-87e2-51250c00adb0.webp?1783911948",
+    "display": "https://cards.scryfall.io/display/front/4/0/4005e82f-0b30-4165-87e2-51250c00adb0.webp?1783911948",
+    "grid": "https://cards.scryfall.io/grid/front/4/0/4005e82f-0b30-4165-87e2-51250c00adb0.webp?1783911948",
+    "large": "https://cards.scryfall.io/large/front/4/0/4005e82f-0b30-4165-87e2-51250c00adb0.jpg?1783911948",
+    "normal": "https://cards.scryfall.io/normal/front/4/0/4005e82f-0b30-4165-87e2-51250c00adb0.jpg?1783911948",
+    "png": "https://cards.scryfall.io/png/front/4/0/4005e82f-0b30-4165-87e2-51250c00adb0.png?1783911948",
+    "small": "https://cards.scryfall.io/small/front/4/0/4005e82f-0b30-4165-87e2-51250c00adb0.jpg?1783911948",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/0/4005e82f-0b30-4165-87e2-51250c00adb0.webp?1783911948"
+  },
+  "keywords": [
+    "Will of the council"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}{W}",
+  "mtgo_id": 124617,
+  "multiverse_ids": [
+    658523
+  ],
+  "name": "Council's Judgment",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "acf4d685-a718-42f7-9a7a-dee069ae8db2",
+  "oracle_text": "Will of the council — Starting with you, each player votes for a nonland permanent you don't control. Exile each permanent with the most votes or tied for most votes.",
+  "oversized": false,
+  "penny_rank": 212,
+  "prices": {
+    "eur": "0.38",
+    "eur_foil": null,
+    "tix": "0.51",
+    "usd": "0.73",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aacf4d685-a718-42f7-9a7a-dee069ae8db2&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124617?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764867&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F545281%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Council%27s+Judgment",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=658523&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCouncil%2527s%2BJudgment",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCouncil%2527s%2BJudgment"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4005e82f-0b30-4165-87e2-51250c00adb0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otc/79/councils-judgment?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otc",
+  "set_id": "d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "set_name": "Outlaws of Thunder Junction Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "story_spotlight": false,
+  "tcgplayer_id": 545281,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/4005e82f-0b30-4165-87e2-51250c00adb0",
+  "variation": false
+}

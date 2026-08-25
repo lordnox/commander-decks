@@ -1,0 +1,142 @@
+{
+  "arena_id": 90348,
+  "artist": "Denys Tsiperko",
+  "artist_ids": [
+    "5d145909-04a3-442d-a664-c7fdb166e2b0"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 763910,
+  "cmc": 4.0,
+  "collector_number": "2",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 2200,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "c853d04c-864b-491c-8c6f-72d2d4874d2f",
+  "illustration_id": "c53fc1ee-b14b-4f28-aec0-bd8572ade5c4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:04:21Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/8/c853d04c-864b-491c-8c6f-72d2d4874d2f.webp?1783911861",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/8/c853d04c-864b-491c-8c6f-72d2d4874d2f.jpg?1783911861",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/8/c853d04c-864b-491c-8c6f-72d2d4874d2f.jpg?1783911861",
+    "crop": "https://cards.scryfall.io/crop/front/c/8/c853d04c-864b-491c-8c6f-72d2d4874d2f.webp?1783911861",
+    "display": "https://cards.scryfall.io/display/front/c/8/c853d04c-864b-491c-8c6f-72d2d4874d2f.webp?1783911861",
+    "grid": "https://cards.scryfall.io/grid/front/c/8/c853d04c-864b-491c-8c6f-72d2d4874d2f.webp?1783911861",
+    "large": "https://cards.scryfall.io/large/front/c/8/c853d04c-864b-491c-8c6f-72d2d4874d2f.jpg?1783911861",
+    "normal": "https://cards.scryfall.io/normal/front/c/8/c853d04c-864b-491c-8c6f-72d2d4874d2f.jpg?1783911861",
+    "png": "https://cards.scryfall.io/png/front/c/8/c853d04c-864b-491c-8c6f-72d2d4874d2f.png?1783911861",
+    "small": "https://cards.scryfall.io/small/front/c/8/c853d04c-864b-491c-8c6f-72d2d4874d2f.jpg?1783911861",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/8/c853d04c-864b-491c-8c6f-72d2d4874d2f.webp?1783911861"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}{W}{W}",
+  "mtgo_id": 123915,
+  "multiverse_ids": [
+    654943
+  ],
+  "name": "Archangel of Tithes",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ff5caed4-0276-476d-8fae-edae2536df7f",
+  "oracle_text": "Flying\nAs long as this creature is untapped, creatures can't attack you or planeswalkers you control unless their controller pays {1} for each of those creatures.\nAs long as this creature is attacking, creatures can't block unless their controller pays {1} for each of those creatures.",
+  "oversized": false,
+  "penny_rank": 6709,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2024-03-27",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://twitter.com/mtgjp/status/1772949378887557580"
+  },
+  "prices": {
+    "eur": "3.16",
+    "eur_foil": "4.43",
+    "tix": "0.03",
+    "usd": "5.27",
+    "usd_etched": null,
+    "usd_foil": "5.50"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aff5caed4-0276-476d-8fae-edae2536df7f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/123915?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=763910&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544425%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Archangel+of+Tithes",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=654943&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DArchangel%2Bof%2BTithes",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DArchangel%2Bof%2BTithes"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c853d04c-864b-491c-8c6f-72d2d4874d2f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otj?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otj/2/archangel-of-tithes?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otj",
+  "set_id": "55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "set_name": "Outlaws of Thunder Junction",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotj&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "story_spotlight": false,
+  "tcgplayer_id": 544425,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Creature — Angel",
+  "uri": "https://api.scryfall.com/cards/c853d04c-864b-491c-8c6f-72d2d4874d2f",
+  "variation": false
+}

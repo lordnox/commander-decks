@@ -1,0 +1,132 @@
+{
+  "artist": "James Ryman",
+  "artist_ids": [
+    "3852bbc9-11c0-4fe3-8722-a06ad7e2bcc5"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 241969,
+  "cmc": 3.0,
+  "collector_number": "90",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 5885,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"It is a rough road that leads to the heights of greatness.\"\n—Seneca, *Epistles*, trans. Gummere",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9ec3dd9f-3969-4fd7-97f7-e9868eb19a64",
+  "illustration_id": "fe0f4f70-e508-4922-a422-6369b9ce2de1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:23:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/e/9ec3dd9f-3969-4fd7-97f7-e9868eb19a64.webp?1783941817",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/e/9ec3dd9f-3969-4fd7-97f7-e9868eb19a64.jpg?1783941817",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/e/9ec3dd9f-3969-4fd7-97f7-e9868eb19a64.jpg?1783941817",
+    "crop": "https://cards.scryfall.io/crop/front/9/e/9ec3dd9f-3969-4fd7-97f7-e9868eb19a64.webp?1783941817",
+    "display": "https://cards.scryfall.io/display/front/9/e/9ec3dd9f-3969-4fd7-97f7-e9868eb19a64.webp?1783941817",
+    "grid": "https://cards.scryfall.io/grid/front/9/e/9ec3dd9f-3969-4fd7-97f7-e9868eb19a64.webp?1783941817",
+    "large": "https://cards.scryfall.io/large/front/9/e/9ec3dd9f-3969-4fd7-97f7-e9868eb19a64.jpg?1783941817",
+    "normal": "https://cards.scryfall.io/normal/front/9/e/9ec3dd9f-3969-4fd7-97f7-e9868eb19a64.jpg?1783941817",
+    "png": "https://cards.scryfall.io/png/front/9/e/9ec3dd9f-3969-4fd7-97f7-e9868eb19a64.png?1783941817",
+    "small": "https://cards.scryfall.io/small/front/9/e/9ec3dd9f-3969-4fd7-97f7-e9868eb19a64.jpg?1783941817",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/e/9ec3dd9f-3969-4fd7-97f7-e9868eb19a64.webp?1783941817"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_foil_id": 37321,
+  "mtgo_id": 37320,
+  "multiverse_ids": [
+    204979
+  ],
+  "name": "Dark Tutelage",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0c6ce7c9-316b-4171-a8fa-ca26af1eecb7",
+  "oracle_text": "At the beginning of your upkeep, reveal the top card of your library and put that card into your hand. You lose life equal to its mana value.",
+  "oversized": false,
+  "penny_rank": 4846,
+  "prices": {
+    "eur": "0.30",
+    "eur_foil": "1.13",
+    "tix": "0.02",
+    "usd": "0.24",
+    "usd_etched": null,
+    "usd_foil": "2.38"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0c6ce7c9-316b-4171-a8fa-ca26af1eecb7&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/37320?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=241969&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F35568%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dark+Tutelage",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=204979&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDark%2BTutelage",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDark%2BTutelage"
+  },
+  "released_at": "2010-07-16",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9ec3dd9f-3969-4fd7-97f7-e9868eb19a64/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/m11?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/m11/90/dark-tutelage?utm_source=api",
+  "set": "m11",
+  "set_id": "485d2468-18c8-42a4-9482-ca1c51e0470e",
+  "set_name": "Magic 2011",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Am11&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/485d2468-18c8-42a4-9482-ca1c51e0470e",
+  "story_spotlight": false,
+  "tcgplayer_id": 35568,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/9ec3dd9f-3969-4fd7-97f7-e9868eb19a64",
+  "variation": false
+}

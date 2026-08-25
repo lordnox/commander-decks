@@ -1,0 +1,131 @@
+{
+  "artist": "Harold McNeill",
+  "artist_ids": [
+    "8aadc8a8-df50-45b3-bd88-449e709df482"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 14076,
+  "cmc": 1.0,
+  "collector_number": "40",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1889,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"If I must die, I will encounter darkness as a bride, / And hug it in mine arms.\"\n—William Shakespeare,\n*Measure for Measure*",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "584834fb-b7b6-40eb-9fec-8df17172ce5f",
+  "illustration_id": "fbe957f8-ff71-4bf3-b3cc-4c328ac4ad57",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:47:56Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/8/584834fb-b7b6-40eb-9fec-8df17172ce5f.webp?1783943276",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/8/584834fb-b7b6-40eb-9fec-8df17172ce5f.jpg?1783943276",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/8/584834fb-b7b6-40eb-9fec-8df17172ce5f.jpg?1783943276",
+    "crop": "https://cards.scryfall.io/crop/front/5/8/584834fb-b7b6-40eb-9fec-8df17172ce5f.webp?1783943276",
+    "display": "https://cards.scryfall.io/display/front/5/8/584834fb-b7b6-40eb-9fec-8df17172ce5f.webp?1783943276",
+    "grid": "https://cards.scryfall.io/grid/front/5/8/584834fb-b7b6-40eb-9fec-8df17172ce5f.webp?1783943276",
+    "large": "https://cards.scryfall.io/large/front/5/8/584834fb-b7b6-40eb-9fec-8df17172ce5f.jpg?1783943276",
+    "normal": "https://cards.scryfall.io/normal/front/5/8/584834fb-b7b6-40eb-9fec-8df17172ce5f.jpg?1783943276",
+    "png": "https://cards.scryfall.io/png/front/5/8/584834fb-b7b6-40eb-9fec-8df17172ce5f.png?1783943276",
+    "small": "https://cards.scryfall.io/small/front/5/8/584834fb-b7b6-40eb-9fec-8df17172ce5f.jpg?1783943276",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/8/584834fb-b7b6-40eb-9fec-8df17172ce5f.webp?1783943276"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_foil_id": 26006,
+  "mtgo_id": 26005,
+  "multiverse_ids": [
+    108919
+  ],
+  "name": "Darkness",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "932708ae-9d5c-4561-aa8b-0d2222d37fdc",
+  "oracle_text": "Prevent all combat damage that would be dealt this turn.",
+  "oversized": false,
+  "prices": {
+    "eur": "13.50",
+    "eur_foil": "35.69",
+    "tix": "2.59",
+    "usd": "24.18",
+    "usd_etched": null,
+    "usd_foil": "99.66"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A932708ae-9d5c-4561-aa8b-0d2222d37fdc&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/26005?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=14076&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F14575%3Fpage%3D1"
+  },
+  "rarity": "special",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Darkness",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=108919&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDarkness",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDarkness"
+  },
+  "released_at": "2006-10-06",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/584834fb-b7b6-40eb-9fec-8df17172ce5f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tsb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tsb/40/darkness?utm_source=api",
+  "set": "tsb",
+  "set_id": "6519be58-b8cb-4cd7-9f5b-4db23364715b",
+  "set_name": "Time Spiral Timeshifted",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atsb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/6519be58-b8cb-4cd7-9f5b-4db23364715b",
+  "story_spotlight": false,
+  "tcgplayer_id": 14575,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/584834fb-b7b6-40eb-9fec-8df17172ce5f",
+  "variation": false
+}

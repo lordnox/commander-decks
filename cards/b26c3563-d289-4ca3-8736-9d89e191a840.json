@@ -1,0 +1,136 @@
+{
+  "artist": "Tony Szczudlo",
+  "artist_ids": [
+    "1952c90b-a5a7-4328-9f7c-e11064f59daf"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 82,
+  "cmc": 3.0,
+  "collector_number": "82",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 6065,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Blood is thicker than mortar.",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "17320043-f81c-4e14-b9ba-c1309972c22b",
+  "illustration_id": "605d2255-a3e4-4df6-b9a2-dee9a8a692d9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:09:02Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/7/17320043-f81c-4e14-b9ba-c1309972c22b.webp?1783944542",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/7/17320043-f81c-4e14-b9ba-c1309972c22b.jpg?1783944542",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/7/17320043-f81c-4e14-b9ba-c1309972c22b.jpg?1783944542",
+    "crop": "https://cards.scryfall.io/crop/front/1/7/17320043-f81c-4e14-b9ba-c1309972c22b.webp?1783944542",
+    "display": "https://cards.scryfall.io/display/front/1/7/17320043-f81c-4e14-b9ba-c1309972c22b.webp?1783944542",
+    "grid": "https://cards.scryfall.io/grid/front/1/7/17320043-f81c-4e14-b9ba-c1309972c22b.webp?1783944542",
+    "large": "https://cards.scryfall.io/large/front/1/7/17320043-f81c-4e14-b9ba-c1309972c22b.jpg?1783944542",
+    "normal": "https://cards.scryfall.io/normal/front/1/7/17320043-f81c-4e14-b9ba-c1309972c22b.jpg?1783944542",
+    "png": "https://cards.scryfall.io/png/front/1/7/17320043-f81c-4e14-b9ba-c1309972c22b.png?1783944542",
+    "small": "https://cards.scryfall.io/small/front/1/7/17320043-f81c-4e14-b9ba-c1309972c22b.jpg?1783944542",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/7/17320043-f81c-4e14-b9ba-c1309972c22b.webp?1783944542"
+  },
+  "keywords": [
+    "Defender"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_foil_id": 19890,
+  "mtgo_id": 19889,
+  "multiverse_ids": [
+    48184
+  ],
+  "name": "Wall of Blood",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b26c3563-d289-4ca3-8736-9d89e191a840",
+  "oracle_text": "Defender (This creature can't attack.)\nPay 1 life: This creature gets +1/+1 until end of turn.",
+  "oversized": false,
+  "penny_rank": 7602,
+  "power": "0",
+  "prices": {
+    "eur": "0.82",
+    "eur_foil": "6.31",
+    "tix": "0.03",
+    "usd": "2.21",
+    "usd_etched": null,
+    "usd_foil": "12.12"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab26c3563-d289-4ca3-8736-9d89e191a840&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/19889?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=82&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F11403%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wall+of+Blood",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=48184&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWall%2Bof%2BBlood",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWall%2Bof%2BBlood"
+  },
+  "released_at": "2003-10-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/17320043-f81c-4e14-b9ba-c1309972c22b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mrd?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mrd/82/wall-of-blood?utm_source=api",
+  "set": "mrd",
+  "set_id": "1d4f90ba-8d4a-4ee5-bc2f-e2d6bffe4955",
+  "set_name": "Mirrodin",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amrd&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/1d4f90ba-8d4a-4ee5-bc2f-e2d6bffe4955",
+  "story_spotlight": false,
+  "tcgplayer_id": 11403,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Wall",
+  "uri": "https://api.scryfall.com/cards/17320043-f81c-4e14-b9ba-c1309972c22b",
+  "variation": false
+}

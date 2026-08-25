@@ -1,0 +1,138 @@
+{
+  "artist": "Eric Deschamps",
+  "artist_ids": [
+    "37970e22-9cee-44c1-af44-5ee27cf26b76"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 566525,
+  "cmc": 1.0,
+  "collector_number": "12",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 76,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The more Esper changes, the more he refuses to.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f3537373-ef54-4578-9d05-6216420ee349",
+  "illustration_id": "8d3ca6cd-98d6-4b2c-88ff-f8532548de32",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:14:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/3/f3537373-ef54-4578-9d05-6216420ee349.webp?1783926893",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/3/f3537373-ef54-4578-9d05-6216420ee349.jpg?1783926893",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/3/f3537373-ef54-4578-9d05-6216420ee349.jpg?1783926893",
+    "crop": "https://cards.scryfall.io/crop/front/f/3/f3537373-ef54-4578-9d05-6216420ee349.webp?1783926893",
+    "display": "https://cards.scryfall.io/display/front/f/3/f3537373-ef54-4578-9d05-6216420ee349.webp?1783926893",
+    "grid": "https://cards.scryfall.io/grid/front/f/3/f3537373-ef54-4578-9d05-6216420ee349.webp?1783926893",
+    "large": "https://cards.scryfall.io/large/front/f/3/f3537373-ef54-4578-9d05-6216420ee349.jpg?1783926893",
+    "normal": "https://cards.scryfall.io/normal/front/f/3/f3537373-ef54-4578-9d05-6216420ee349.jpg?1783926893",
+    "png": "https://cards.scryfall.io/png/front/f/3/f3537373-ef54-4578-9d05-6216420ee349.png?1783926893",
+    "small": "https://cards.scryfall.io/small/front/f/3/f3537373-ef54-4578-9d05-6216420ee349.jpg?1783926893",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/3/f3537373-ef54-4578-9d05-6216420ee349.webp?1783926893"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}",
+  "mtgo_id": 90393,
+  "multiverse_ids": [
+    522088
+  ],
+  "name": "Esper Sentinel",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5def9f38-0a0b-4e8d-9f9d-29dcb46520b4",
+  "oracle_text": "Whenever an opponent casts their first noncreature spell each turn, draw a card unless that player pays {X}, where X is this creature's power.",
+  "oversized": false,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2021-05-27",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/1037333841"
+  },
+  "prices": {
+    "eur": "38.20",
+    "eur_foil": "48.96",
+    "tix": "1.08",
+    "usd": "57.59",
+    "usd_etched": null,
+    "usd_foil": "81.66"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5def9f38-0a0b-4e8d-9f9d-29dcb46520b4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/90393?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=566525&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F240035%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Esper+Sentinel",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=522088&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEsper%2BSentinel",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEsper%2BSentinel"
+  },
+  "released_at": "2021-06-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f3537373-ef54-4578-9d05-6216420ee349/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh2/12/esper-sentinel?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh2",
+  "set_id": "c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "set_name": "Modern Horizons 2",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh2&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "story_spotlight": false,
+  "tcgplayer_id": 240035,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Artifact Creature — Human Soldier",
+  "uri": "https://api.scryfall.com/cards/f3537373-ef54-4578-9d05-6216420ee349",
+  "variation": false
+}

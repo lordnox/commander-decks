@@ -1,0 +1,150 @@
+{
+  "arena_id": 97953,
+  "artist": "Thanh Tuấn",
+  "artist_ids": [
+    "4092d03e-ede3-4946-bfdc-888fff30cfdf"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 847083,
+  "cmc": 7.0,
+  "collector_number": "135",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 8876,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Light and dark. They are in opposition, but both are necessary. I am both, and so I am all.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "2c9cb13d-55ff-4e26-aa49-755f8bcebc11",
+  "illustration_id": "6c965ec9-f636-4148-9a0d-563f459f3478",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:15:15Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/c/2c9cb13d-55ff-4e26-aa49-755f8bcebc11.webp?1783905315",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/c/2c9cb13d-55ff-4e26-aa49-755f8bcebc11.jpg?1783905315",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/c/2c9cb13d-55ff-4e26-aa49-755f8bcebc11.jpg?1783905315",
+    "crop": "https://cards.scryfall.io/crop/front/2/c/2c9cb13d-55ff-4e26-aa49-755f8bcebc11.webp?1783905315",
+    "display": "https://cards.scryfall.io/display/front/2/c/2c9cb13d-55ff-4e26-aa49-755f8bcebc11.webp?1783905315",
+    "grid": "https://cards.scryfall.io/grid/front/2/c/2c9cb13d-55ff-4e26-aa49-755f8bcebc11.webp?1783905315",
+    "large": "https://cards.scryfall.io/large/front/2/c/2c9cb13d-55ff-4e26-aa49-755f8bcebc11.jpg?1783905315",
+    "normal": "https://cards.scryfall.io/normal/front/2/c/2c9cb13d-55ff-4e26-aa49-755f8bcebc11.jpg?1783905315",
+    "png": "https://cards.scryfall.io/png/front/2/c/2c9cb13d-55ff-4e26-aa49-755f8bcebc11.png?1783905315",
+    "small": "https://cards.scryfall.io/small/front/2/c/2c9cb13d-55ff-4e26-aa49-755f8bcebc11.jpg?1783905315",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/c/2c9cb13d-55ff-4e26-aa49-755f8bcebc11.webp?1783905315"
+  },
+  "keywords": [
+    "Lifelink",
+    "Vigilance",
+    "Darkforce Inversion"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{W}{B}",
+  "mtgo_id": 153513,
+  "multiverse_ids": [],
+  "name": "Mister Negative",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c8da3262-826d-4ea8-bb22-06374bebefe5",
+  "oracle_text": "Vigilance, lifelink\nDarkforce Inversion — When Mister Negative enters, you may exchange life totals with target opponent. If you lost life this way, draw that many cards.",
+  "oversized": false,
+  "power": "5",
+  "preview": {
+    "previewed_at": "2025-09-04",
+    "source": "GameWith",
+    "source_uri": "https://gamewith.jp/gamedb/article/show/517323?from=ios"
+  },
+  "prices": {
+    "eur": "0.95",
+    "eur_foil": "2.01",
+    "tix": "0.31",
+    "usd": "1.17",
+    "usd_etched": null,
+    "usd_foil": "1.69"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac8da3262-826d-4ea8-bb22-06374bebefe5&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/153513?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=847083&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F652469%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mister+Negative",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMister%2BNegative",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMister%2BNegative"
+  },
+  "released_at": "2025-09-26",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "73DE24EE502A6E7DAF851834AF340DC9FE9587CE476D22264753315EE463EB3F",
+  "rulings_uri": "https://api.scryfall.com/cards/2c9cb13d-55ff-4e26-aa49-755f8bcebc11/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/spm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/spm/135/mister-negative?utm_source=api",
+  "security_stamp": "oval",
+  "set": "spm",
+  "set_id": "a1c7b891-9e96-434c-9994-be58b62b27f1",
+  "set_name": "Marvel's Spider-Man",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aspm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a1c7b891-9e96-434c-9994-be58b62b27f1",
+  "story_spotlight": false,
+  "tcgplayer_id": 652469,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Legendary Creature — Human Villain",
+  "uri": "https://api.scryfall.com/cards/2c9cb13d-55ff-4e26-aa49-755f8bcebc11",
+  "variation": false
+}

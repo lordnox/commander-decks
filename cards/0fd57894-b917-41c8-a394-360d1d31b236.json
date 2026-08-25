@@ -1,0 +1,137 @@
+{
+  "artist": "Bastien L. Deharme",
+  "artist_ids": [
+    "798f63ec-41ad-474e-9708-df08193345c6"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 375405,
+  "cmc": 1.0,
+  "collector_number": "7",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 439,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2da5f3f8-5eef-498f-ba2c-2f3fbc3745aa",
+  "illustration_id": "5d67871c-44c1-43f8-95f0-1e06e3a3e92c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:59:24Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/d/2da5f3f8-5eef-498f-ba2c-2f3fbc3745aa.webp?1783933164",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/d/2da5f3f8-5eef-498f-ba2c-2f3fbc3745aa.jpg?1783933164",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/d/2da5f3f8-5eef-498f-ba2c-2f3fbc3745aa.jpg?1783933164",
+    "crop": "https://cards.scryfall.io/crop/front/2/d/2da5f3f8-5eef-498f-ba2c-2f3fbc3745aa.webp?1783933164",
+    "display": "https://cards.scryfall.io/display/front/2/d/2da5f3f8-5eef-498f-ba2c-2f3fbc3745aa.webp?1783933164",
+    "grid": "https://cards.scryfall.io/grid/front/2/d/2da5f3f8-5eef-498f-ba2c-2f3fbc3745aa.webp?1783933164",
+    "large": "https://cards.scryfall.io/large/front/2/d/2da5f3f8-5eef-498f-ba2c-2f3fbc3745aa.jpg?1783933164",
+    "normal": "https://cards.scryfall.io/normal/front/2/d/2da5f3f8-5eef-498f-ba2c-2f3fbc3745aa.jpg?1783933164",
+    "png": "https://cards.scryfall.io/png/front/2/d/2da5f3f8-5eef-498f-ba2c-2f3fbc3745aa.png?1783933164",
+    "small": "https://cards.scryfall.io/small/front/2/d/2da5f3f8-5eef-498f-ba2c-2f3fbc3745aa.jpg?1783933164",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/d/2da5f3f8-5eef-498f-ba2c-2f3fbc3745aa.webp?1783933164"
+  },
+  "keywords": [
+    "Rebound"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}",
+  "mtgo_id": 72386,
+  "multiverse_ids": [
+    463956
+  ],
+  "name": "Ephemerate",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0fd57894-b917-41c8-a394-360d1d31b236",
+  "oracle_text": "Exile target creature you control, then return it to the battlefield under its owner's control.\nRebound (If you cast this spell from your hand, exile it as it resolves. At the beginning of your next upkeep, you may cast this card from exile without paying its mana cost.)",
+  "oversized": false,
+  "penny_rank": 267,
+  "preview": {
+    "previewed_at": "2019-05-30",
+    "source": "Tolarian Community College",
+    "source_uri": "https://www.youtube.com/watch?v=KUE_nI7dRRc"
+  },
+  "prices": {
+    "eur": "5.14",
+    "eur_foil": "11.93",
+    "tix": "4.70",
+    "usd": "5.19",
+    "usd_etched": null,
+    "usd_foil": "10.92"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0fd57894-b917-41c8-a394-360d1d31b236&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/72386?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=375405&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F191568%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ephemerate",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=463956&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEphemerate",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEphemerate"
+  },
+  "released_at": "2019-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2da5f3f8-5eef-498f-ba2c-2f3fbc3745aa/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh1?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh1/7/ephemerate?utm_source=api",
+  "set": "mh1",
+  "set_id": "d7efccd6-55bc-4fb8-9138-e72577510a99",
+  "set_name": "Modern Horizons",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh1&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/d7efccd6-55bc-4fb8-9138-e72577510a99",
+  "story_spotlight": false,
+  "tcgplayer_id": 191568,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/2da5f3f8-5eef-498f-ba2c-2f3fbc3745aa",
+  "variation": false
+}

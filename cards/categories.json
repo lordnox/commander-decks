@@ -4983,8 +4983,442 @@
         "ramp",
         "token-production"
       ]
+    },
+    "8800d672-424b-4a7b-886f-7eb9d7a56cfe": {
+      "name": "Lady Evangela",
+      "categories": [
+        "other"
+      ]
+    },
+    "8d231d2f-5274-4b55-8262-9eb95654d183": {
+      "name": "Mirror Universe",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "f587676e-d45f-4b1d-be2c-b404d8f55fb3": {
+      "name": "Magus of the Mirror",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "b48befc5-a9f2-4a64-a16d-c883b034ea9c": {
+      "name": "Soul Conduit",
+      "categories": [
+        "other"
+      ]
+    },
+    "158cb888-a115-4d50-a82f-746622f0578e": {
+      "name": "Axis of Mortality",
+      "categories": [
+        "other"
+      ]
+    },
+    "c8da3262-826d-4ea8-bb22-06374bebefe5": {
+      "name": "Mister Negative",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "24b8177f-5697-4465-9305-cb84307972ae": {
+      "name": "Repay in Kind",
+      "categories": [
+        "other"
+      ]
+    },
+    "6130f22d-7901-4f9f-b777-27bb0dacc063": {
+      "name": "Debt to the Deathless",
+      "categories": [
+        "other"
+      ]
+    },
+    "e75ba79f-4cc2-4ede-8641-559ab94e7e36": {
+      "name": "Drain Life",
+      "categories": [
+        "other"
+      ]
+    },
+    "b26c3563-d289-4ca3-8736-9d89e191a840": {
+      "name": "Wall of Blood",
+      "categories": [
+        "other"
+      ]
+    },
+    "3db1ac09-e35a-4f50-97c4-f65dbc28daef": {
+      "name": "Selenia, Dark Angel",
+      "categories": [
+        "other"
+      ]
+    },
+    "40601061-1b25-4db8-8b99-33324ce945cf": {
+      "name": "Hatred",
+      "categories": [
+        "other"
+      ]
+    },
+    "695ce90b-a5a2-4d8c-ac05-07f04010603e": {
+      "name": "Blood Celebrant",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "c983338d-ae6b-4a15-9931-daa20fca8269": {
+      "name": "Queza, Augur of Agonies",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "2876e74f-a242-4995-9702-0b737a1ab67a": {
+      "name": "Psychosis Crawler",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "5def9f38-0a0b-4e8d-9f9d-29dcb46520b4": {
+      "name": "Esper Sentinel",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "2068185c-1b50-47d0-aa3f-bf505d199428": {
+      "name": "Dark Confidant",
+      "categories": [
+        "other"
+      ]
+    },
+    "0c6ce7c9-316b-4171-a8fa-ca26af1eecb7": {
+      "name": "Dark Tutelage",
+      "categories": [
+        "other"
+      ]
+    },
+    "925f11c3-fd32-4aa7-a130-6554b81ad3eb": {
+      "name": "Necrologia",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "613a41b8-0b4f-4995-bf1e-ca41f96e6438": {
+      "name": "Blue Sun's Zenith",
+      "categories": [
+        "other"
+      ]
+    },
+    "24d0f5e7-0d9e-4b76-900e-a7274e80312d": {
+      "name": "Mulldrifter",
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "932708ae-9d5c-4561-aa8b-0d2222d37fdc": {
+      "name": "Darkness",
+      "categories": [
+        "other"
+      ]
+    },
+    "fc8247f5-f7b2-4fc4-a9ea-90babad5fa42": {
+      "name": "Batwing Brume",
+      "categories": [
+        "other"
+      ]
+    },
+    "da93264e-4e04-401a-9809-e4e1056cf604": {
+      "name": "Inkshield",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "01f29158-2dc9-4b9d-b726-add5d3fd5782": {
+      "name": "Comeuppance",
+      "categories": [
+        "other"
+      ]
+    },
+    "a8f5cfa7-4956-4182-8e44-acf3493239f0": {
+      "name": "Dawn Charm",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "49984248-4800-4f46-933a-fedd970ae910": {
+      "name": "Kami of False Hope",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "2a2ea189-b663-4f4a-bb23-ff7a4af25f71": {
+      "name": "Settle the Wreckage",
+      "categories": [
+        "board-wipe"
+      ]
+    },
+    "69aa6809-5468-413a-94c9-562e6de93957": {
+      "name": "Baird, Steward of Argive",
+      "categories": [
+        "other"
+      ]
+    },
+    "ff5caed4-0276-476d-8fae-edae2536df7f": {
+      "name": "Archangel of Tithes",
+      "categories": [
+        "other"
+      ]
+    },
+    "602cce3e-7033-47d6-aec1-d755f234f270": {
+      "name": "Adept Watershaper",
+      "categories": [
+        "protection"
+      ]
+    },
+    "b18b8415-a0b1-459d-8c6b-896381184935": {
+      "name": "Pendrell Mists",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "d5e9942e-096f-433f-8668-4b594f3c1b02": {
+      "name": "Orzhov Advokist",
+      "categories": [
+        "other"
+      ]
+    },
+    "e1d294e8-67b1-4a4a-86b8-f98f28a327d9": {
+      "name": "Promise of Loyalty",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "9103f01f-e60b-4cda-9102-edc4aef74cc3": {
+      "name": "Necromancer's Covenant",
+      "categories": [
+        "board-wipe",
+        "token-production"
+      ]
+    },
+    "b1544f21-7e98-461b-aed5-e748b0168c52": {
+      "name": "Swords to Plowshares",
+      "categories": [
+        "removal"
+      ]
+    },
+    "ad09b3c3-c8e7-481c-8c45-e7f234935117": {
+      "name": "Anguished Unmaking",
+      "categories": [
+        "removal"
+      ]
+    },
+    "acf4d685-a718-42f7-9a7a-dee069ae8db2": {
+      "name": "Council's Judgment",
+      "categories": [
+        "other"
+      ]
+    },
+    "74d3277a-38e5-4732-afed-084a56148f20": {
+      "name": "Mana Drain",
+      "categories": [
+        "ramp",
+        "counterspell"
+      ]
+    },
+    "132ca99a-a3c7-4ed6-b4d0-0edcd7140ca2": {
+      "name": "Absorb",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "8ddfc283-c9b4-41a5-af88-cf0068e986cc": {
+      "name": "Swan Song",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "1b388371-f9ef-45b4-82a3-ca20a8cd7807": {
+      "name": "Dovin's Veto",
+      "categories": [
+        "other"
+      ]
+    },
+    "a3e51a35-09df-4189-b131-08a21e6a557d": {
+      "name": "Cryptic Command",
+      "categories": [
+        "card-draw",
+        "counterspell"
+      ]
+    },
+    "0fd57894-b917-41c8-a394-360d1d31b236": {
+      "name": "Ephemerate",
+      "categories": [
+        "removal",
+        "blink"
+      ]
+    },
+    "ad0070db-6454-41cb-861f-8f5b8fc2a3b8": {
+      "name": "Ghostly Flicker",
+      "categories": [
+        "blink"
+      ]
+    },
+    "10e95489-a94d-4523-964c-ec9753103a62": {
+      "name": "Blanket of Night",
+      "categories": [
+        "other"
+      ]
+    },
+    "6dff1def-5b94-40c8-a942-dea8743ab47c": {
+      "name": "Nirkana Revenant",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "23dd895c-92bd-4af0-8b1a-7d76ca49178f": {
+      "name": "Magus of the Coffers",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "3c7f2b29-9f42-41ab-a2d4-7a450fb0242d": {
+      "name": "Bubbling Muck",
+      "categories": [
+        "other"
+      ]
+    },
+    "bbf9494c-c4bb-4d36-98fe-8387846b342e": {
+      "name": "Rings of Brighthearth",
+      "categories": [
+        "other"
+      ]
+    },
+    "00e35322-1a9a-41e3-9ce1-359c8eaa3bc7": {
+      "name": "Talisman of Progress",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "135cc078-1c45-465e-b0b9-7168c89f56f4": {
+      "name": "Lotho, Corrupt Shirriff",
+      "categories": [
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "92301066-8904-41bc-84bd-4aa286cbab9c": {
+      "name": "Liliana of the Dark Realms",
+      "categories": [
+        "ramp",
+        "tutor"
+      ]
+    },
+    "066cd584-773c-4623-be53-8f6feda5a26a": {
+      "name": "Cabal Stronghold",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "9f12bf9a-6e1a-4377-b4af-e8cabd3ee58a": {
+      "name": "Deserted Temple",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "17784f90-89a1-47a5-83ef-ae60dfc30bd1": {
+      "name": "Minamo, School at Water's Edge",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "67f43ac6-2a58-4b53-b5d7-0330e2a252e2": {
+      "name": "Reflecting Pool",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "6e9ef5ef-6aed-4d3e-a59b-9e3dc8740b1b": {
+      "name": "Raffine's Tower",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "73864fcc-1bde-4bc0-831e-2b93e546e417": {
+      "name": "Godless Shrine",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "f1750962-a87c-49f6-b731-02ae971ac6ea": {
+      "name": "Hallowed Fountain",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "7e5d9efe-48a9-434b-bb09-056e0e09cc9a": {
+      "name": "Isolated Chapel",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "027dd013-baa7-4111-b3c9-f4d1414e9c45": {
+      "name": "Glacial Fortress",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "33de01e9-ce5a-42d4-afcb-343cd54a6d80": {
+      "name": "Caves of Koilos",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "857febd9-cdd7-4f8e-a852-d88084b0cfbc": {
+      "name": "Underground River",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "d5ad26cc-2bdb-46b7-b8bf-dd099d5fa09b": {
+      "name": "Adarkar Wastes",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "f25351e3-539b-4bbc-b92d-6480acf4d722": {
+      "name": "City of Brass",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "d0ee5bdc-2b69-4b73-9a20-ffcc18783b29": {
+      "name": "Mana Confluence",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "6b9cd3d0-4316-4945-b960-12f51052d260": {
+      "name": "Esper Panorama",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-25T15:17:20.954212+00:00"
+  "updated_at": "2026-08-25T20:37:15.657181+00:00"
 }

@@ -1,0 +1,176 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "b1634891-9113-4679-ad30-afc2c4e31d80",
+      "name": "Lotho, Corrupt Shirriff",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Halfling Rogue",
+      "uri": "https://api.scryfall.com/cards/b1634891-9113-4679-ad30-afc2c4e31d80"
+    },
+    {
+      "component": "token",
+      "id": "b29d7556-9051-4451-812e-91513ef10e62",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/b29d7556-9051-4451-812e-91513ef10e62"
+    }
+  ],
+  "arena_id": 84905,
+  "artist": "Ilker Yildiz",
+  "artist_ids": [
+    "304b49a5-1469-469f-888f-870acea0883d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 717061,
+  "cmc": 2.0,
+  "collector_number": "213",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 408,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Whatever is wrong in the Shire, Lotho will be at the bottom of it: you can be sure of that.\"\n—Pippin",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "mtgo",
+    "paper",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "ce01ff8f-a037-484f-9148-c847ffaabc5a",
+  "illustration_id": "ddb79958-32f7-475b-809a-0f65d9619de9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:17:31Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/e/ce01ff8f-a037-484f-9148-c847ffaabc5a.webp?1783916251",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/e/ce01ff8f-a037-484f-9148-c847ffaabc5a.jpg?1783916251",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/e/ce01ff8f-a037-484f-9148-c847ffaabc5a.jpg?1783916251",
+    "crop": "https://cards.scryfall.io/crop/front/c/e/ce01ff8f-a037-484f-9148-c847ffaabc5a.webp?1783916251",
+    "display": "https://cards.scryfall.io/display/front/c/e/ce01ff8f-a037-484f-9148-c847ffaabc5a.webp?1783916251",
+    "grid": "https://cards.scryfall.io/grid/front/c/e/ce01ff8f-a037-484f-9148-c847ffaabc5a.webp?1783916251",
+    "large": "https://cards.scryfall.io/large/front/c/e/ce01ff8f-a037-484f-9148-c847ffaabc5a.jpg?1783916251",
+    "normal": "https://cards.scryfall.io/normal/front/c/e/ce01ff8f-a037-484f-9148-c847ffaabc5a.jpg?1783916251",
+    "png": "https://cards.scryfall.io/png/front/c/e/ce01ff8f-a037-484f-9148-c847ffaabc5a.png?1783916251",
+    "small": "https://cards.scryfall.io/small/front/c/e/ce01ff8f-a037-484f-9148-c847ffaabc5a.jpg?1783916251",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/e/ce01ff8f-a037-484f-9148-c847ffaabc5a.webp?1783916251"
+  },
+  "keywords": [
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}{B}",
+  "mtgo_id": 112336,
+  "multiverse_ids": [
+    617043
+  ],
+  "name": "Lotho, Corrupt Shirriff",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "135cc078-1c45-465e-b0b9-7168c89f56f4",
+  "oracle_text": "Whenever a player casts their second spell each turn, you lose 1 life and create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+  "oversized": false,
+  "penny_rank": 6684,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2023-06-02",
+    "source": "Linternaute",
+    "source_uri": "https://www.linternaute.com/livre/roman-litterature/3061709-magic-decouvrez-en-exclusivite-mondiale-une-carte-inedite-du-set-le-seigneur-des-anneaux/"
+  },
+  "prices": {
+    "eur": "9.35",
+    "eur_foil": "12.07",
+    "tix": "0.02",
+    "usd": "11.42",
+    "usd_etched": null,
+    "usd_foil": "12.72"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A135cc078-1c45-465e-b0b9-7168c89f56f4&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/112336?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=717061&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F498682%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Lotho%2C+Corrupt+Shirriff",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=617043&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLotho%252C%2BCorrupt%2BShirriff",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLotho%252C%2BCorrupt%2BShirriff"
+  },
+  "released_at": "2023-06-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ce01ff8f-a037-484f-9148-c847ffaabc5a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ltr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ltr/213/lotho-corrupt-shirriff?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "ltr",
+  "set_id": "08078706-ac5d-439b-8f01-894d38751367",
+  "set_name": "The Lord of the Rings: Tales of Middle-earth",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Altr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/08078706-ac5d-439b-8f01-894d38751367",
+  "story_spotlight": false,
+  "tcgplayer_id": 498682,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Legendary Creature — Halfling Rogue",
+  "uri": "https://api.scryfall.com/cards/ce01ff8f-a037-484f-9148-c847ffaabc5a",
+  "variation": false
+}

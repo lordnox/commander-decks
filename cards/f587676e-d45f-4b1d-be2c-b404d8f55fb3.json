@@ -1,0 +1,131 @@
+{
+  "artist": "Christopher Moeller",
+  "artist_ids": [
+    "21e10012-06ae-44f2-b38d-3824dd2e73d4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 267076,
+  "cmc": 6.0,
+  "collector_number": "117",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 12087,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Behold! The image of the enemy and all that she has. Trust your envy, and take it.\"",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "81357a2a-e436-469f-8610-3572c29fef15",
+  "illustration_id": "5d3f79dd-2152-4bdf-8e4e-555f02432d57",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:42:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/1/81357a2a-e436-469f-8610-3572c29fef15.webp?1783939355",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/1/81357a2a-e436-469f-8610-3572c29fef15.jpg?1783939355",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/1/81357a2a-e436-469f-8610-3572c29fef15.jpg?1783939355",
+    "crop": "https://cards.scryfall.io/crop/front/8/1/81357a2a-e436-469f-8610-3572c29fef15.webp?1783939355",
+    "display": "https://cards.scryfall.io/display/front/8/1/81357a2a-e436-469f-8610-3572c29fef15.webp?1783939355",
+    "grid": "https://cards.scryfall.io/grid/front/8/1/81357a2a-e436-469f-8610-3572c29fef15.webp?1783939355",
+    "large": "https://cards.scryfall.io/large/front/8/1/81357a2a-e436-469f-8610-3572c29fef15.jpg?1783939355",
+    "normal": "https://cards.scryfall.io/normal/front/8/1/81357a2a-e436-469f-8610-3572c29fef15.jpg?1783939355",
+    "png": "https://cards.scryfall.io/png/front/8/1/81357a2a-e436-469f-8610-3572c29fef15.png?1783939355",
+    "small": "https://cards.scryfall.io/small/front/8/1/81357a2a-e436-469f-8610-3572c29fef15.jpg?1783939355",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/1/81357a2a-e436-469f-8610-3572c29fef15.webp?1783939355"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{B}{B}",
+  "multiverse_ids": [
+    382301
+  ],
+  "name": "Magus of the Mirror",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f587676e-d45f-4b1d-be2c-b404d8f55fb3",
+  "oracle_text": "{T}, Sacrifice this creature: Exchange life totals with target opponent. Activate only during your upkeep.",
+  "oversized": false,
+  "penny_rank": 15790,
+  "power": "4",
+  "prices": {
+    "eur": "0.27",
+    "eur_foil": "0.48",
+    "tix": null,
+    "usd": "0.70",
+    "usd_etched": null,
+    "usd_foil": "1.10"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af587676e-d45f-4b1d-be2c-b404d8f55fb3&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Magus+of+the+Mirror&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=267076&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F83237%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Magus+of+the+Mirror",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=382301&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMagus%2Bof%2Bthe%2BMirror",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMagus%2Bof%2Bthe%2BMirror"
+  },
+  "released_at": "2014-06-06",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/81357a2a-e436-469f-8610-3572c29fef15/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cns?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cns/117/magus-of-the-mirror?utm_source=api",
+  "set": "cns",
+  "set_id": "7d4ebb59-a50b-45b8-8fff-ab70767819a5",
+  "set_name": "Conspiracy",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acns&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/7d4ebb59-a50b-45b8-8fff-ab70767819a5",
+  "story_spotlight": false,
+  "tcgplayer_id": 83237,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Human Wizard",
+  "uri": "https://api.scryfall.com/cards/81357a2a-e436-469f-8610-3572c29fef15",
+  "variation": false
+}
