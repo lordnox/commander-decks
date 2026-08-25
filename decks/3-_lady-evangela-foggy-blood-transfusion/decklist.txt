@@ -37,12 +37,14 @@ Fog:
 1x Comeuppance [Fog]
 1x Energy Arc [Fog]
 1x Kami of False Hope [Fog]
+1x Everybody Lives! [Fog]
 1x Scapegoat [Blink]
 1x Settle the Wreckage [Fog,Removal]
 
 Tax:
 1x Baird, Steward of Argive [Tax]
 1x Archangel of Tithes [Tax]
+1x Wall of Shards [Tax,Politics]
 
 Politics:
 1x Sokrates, Athenian Teacher [Politics,Fog]
@@ -113,7 +115,7 @@ Land:
 1x Prismatic Vista [Land,Land Search]
 1x Esper Panorama [Land,Land Search]
 1x Orzhov Basilica [Land]
-11x Swamp [Land]
+9x Swamp [Land]
 2x Plains [Land]
 1x Island [Land]
 
@@ -122,9 +124,7 @@ Maybeboard:
 1x Desertion [Maybeboard{noDeck}{noPrice},Counterspell]
 1x Arcanis the Omnipotent [Maybeboard{noDeck}{noPrice},Draw]
 1x Condemn [Maybeboard{noDeck}{noPrice},Removal]
-1x Wall of Shards [Maybeboard{noDeck}{noPrice},Tax,Politics]
 1x Wedding Ring [Maybeboard{noDeck}{noPrice},Draw,Politics]
 1x Breena, the Demagogue [Maybeboard{noDeck}{noPrice},Politics]
 1x Infernal Contract [Maybeboard{noDeck}{noPrice},Draw,Life Payment]
-1x Everybody Lives! [Maybeboard{noDeck}{noPrice},Fog]
 1x Kuroki, Thief of Talents [Maybeboard{noDeck}{noPrice},Politics]
