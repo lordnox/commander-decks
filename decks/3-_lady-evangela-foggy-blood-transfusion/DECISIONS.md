@@ -59,6 +59,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Comeuppance** — Reflects combat and noncombat damage back at its source, which punishes the alpha strike the pillow fort invites.
 - **Energy Arc** — Untap any number of creatures and prevent combat damage they would deal *and* take. Aimed at the attacking team it is a two-mana fog; aimed at your own tapped clerics it untaps Lady Evangela or Sokrates for a second activation in the same combat.
 - **Kami of False Hope** — Sacrifices for a fog, so the effect is on the battlefield where nobody counts it as interaction. It is also the cheapest Scapegoat fodder in the list.
+- **Everybody Lives!** — `{1}{W}`: creatures get hexproof and indestructible, players get hexproof, nobody can lose life, and nobody can win or lose the game this turn. It is the cheap answer to an opposing Exsanguinate, which combat fogs miss. Cast it as a panic button, never on this deck's own drain or dump turn. It occupies the other extra Swamp slot ahead of Infernal Contract (redundant with Necrologia) and Kuroki (not Commander-legal until 2026-11-09, and too greedy).
 - **Settle the Wreckage** — Instant-speed one-sided exile of an attacking army. Kept because it looks like defense and is actually the game's biggest swing.
 - **Scapegoat** — `{W}`, sacrifice a creature: bounce any number of your creatures. It saves the board from a wipe, rebuys Mister Negative and Mulldrifter, and reads as panic rather than as a combo.
 
@@ -66,6 +67,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 - **Baird, Steward of Argive** — Creature-based attack tax instead of Ghostly Prison, chosen because a creature can be answered by every color and therefore draws less hate than a permanent enchantment.
 - **Archangel of Tithes** — Taxes both attacking and blocking, and unlike an enchantment it can be killed, which is the point.
+- **Wall of Shards** — A 1/8 flying wall whose cumulative upkeep is "an opponent gains 1 life." It is a political pillow that fattens a total for a later exchange, and it occupies one of the two extra Swamp slots.
 
 ### Politics
 
@@ -144,7 +146,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Prismatic Vista** — Fetches any basic, so it is a Swamp when Coffers is out.
 - **Esper Panorama** — Slow fixing that still counts as a Swamp under Urborg and finds the third color.
 - **Orzhov Basilica** — Bounce land; two mana from one land helps a deck that wants to hold up interaction.
-- **Swamp** — Eleven copies. Cabal Stronghold counts *basic* Swamps only, Myriad Landscape fetches two of a shared basic type, and all three fetch lands want basics in the library. Two extra basics occupy the slots opened by cutting Magus of the Mirror plus Liliana, so Stronghold stays live without her +1.
+- **Swamp** — Nine copies. Cabal Stronghold counts *basic* Swamps only, Myriad Landscape fetches two of a shared basic type, and all three fetch lands want basics in the library. Two extras from the Liliana cut became Wall of Shards and Everybody Lives!
 - **Plains** — Kept so Archangel of Tithes and Promise of Loyalty are castable without relying on Urborg-affected duals.
 - **Island** — Minimum blue basic so the counterspell suite has a fetchable source.
 
@@ -186,12 +188,12 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Magus of the Mirror** — Cut for **Pain's Reward**. Same life-as-currency job at three mana instead of a six-mana 5/3 that has to survive a turn cycle and tap during upkeep.
 - **Liliana of the Dark Realms** — Cut because the +1 puts a Swamp in hand, not on the battlefield, which a 40-land list does not need. Two extra basic Swamps replace the search.
 - **Condemn** — Maybeboard. One-mana aikido exile of an attacker, but Swords to Plowshares already exiles at `{W}` without the attacking restriction, and the toughness-life is a gift this deck does not need to give.
-- **Wall of Shards** — Maybeboard. Cheap flying wall whose cumulative upkeep gifts an opponent life, which is a political pillow and a fatter total to steal. It stays out of the 99 until the tax package proves thin.
+- **Wall of Shards** — Entered the 99 from the maybeboard for a Swamp. Cheap flying wall whose cumulative upkeep gifts an opponent life, which is a political pillow and a fatter total to steal.
+- **Everybody Lives!** — Entered the 99 from the maybeboard for a Swamp, chosen over Infernal Contract and Kuroki. Unique cheap answer to opposing mass drain; blanks this deck's own life payments and win for the turn, so it is a panic button.
 - **Wedding Ring** — Maybeboard. Four-mana shared-draw and lifegain engine that copies itself onto an opponent. Strong group-hug disguise, but it is another four-drop competing with Loran and Tenuous Truce.
 - **Breena, the Demagogue** — Maybeboard. Pays opponents to attack each other and grows a creature. The draw bribe fits; the +1/+1 counters do not, and Lady Evangela is already the 3-mana legend.
-- **Infernal Contract** — Maybeboard. Draw four, lose half your life rounded up. Same dump-and-draw as Necrologia with a `{B}{B}{B}` tax and no X flexibility.
-- **Everybody Lives!** — Maybeboard. `{1}{W}` instant: creatures get hexproof and indestructible, players get hexproof, nobody can lose life, and nobody can win or lose the game this turn. It is the only cheap answer to an opposing Exsanguinate, which none of the combat fogs stop. It also blanks this deck's own drain, Wall of Blood, Confidant, and any downward life exchange for the turn, so it stays out of the 99 until a combat-only fog is the card we miss least. The test cut is **Kami of False Hope**.
-- **Kuroki, Thief of Talents** — Maybeboard and not Commander-legal until 2026-11-09. End step: an opponent may draw four; if they do, you may cast a spell from their hand for free, and if they don't, Kuroki gets two +1/+1 counters. The draw offer is politics, but the steal-cast is greedy, the body wants to attack, and five mana is a finisher slot. Leave him here until he is legal and the table is willing to be stolen from.
+- **Infernal Contract** — Maybeboard. Draw four, lose half your life rounded up. Same dump-and-draw as Necrologia with a `{B}{B}{B}` tax and no X flexibility. Lost the second Swamp slot to Everybody Lives!.
+- **Kuroki, Thief of Talents** — Maybeboard and not Commander-legal until 2026-11-09. End step: an opponent may draw four; if they do, you may cast a spell from their hand for free, and if they don't, Kuroki gets two +1/+1 counters. The draw offer is politics, but the steal-cast is greedy. Lost the second Swamp slot because he is not legal yet.
 - **Isolated Chapel**, **Drowned Catacomb** — Replaced by **Shadowy Backstreet** and **Undercity Sewers**. Same colors, same slots, but the surveil lands carry the Swamp type. Always entering tapped is a real cost that a draw-go deck feels, and it was paid deliberately.
 
 ## Rules
@@ -207,7 +209,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Repay in Kind sets, it does not distribute.** Every player's total becomes the lowest total among all players, including yours, so casting it while you are the low player is the whole trick.
 - **Selenia, Dark Angel returns itself to your hand for 2 life** at instant speed, which makes it a life sink with no limit other than mana to recast.
 - **Wall of Blood's pump has no cap** and is instant speed, so life can be dumped to any total at the last possible moment before an exchange resolves.
-- **Lady Evangela prevents all combat damage dealt by one target creature.** It is not a table-wide fog and it does not redirect anything — it switches off the single biggest attacker completely, for `{W}{B}` and a tap, every turn. The deck still runs seven real fogs for the turns when the problem is an army rather than one creature.
+- **Lady Evangela prevents all combat damage dealt by one target creature.** It is not a table-wide fog and it does not redirect anything — it switches off the single biggest attacker completely, for `{W}{B}` and a tap, every turn. Combat fogs cover armies; Everybody Lives! covers mass life loss.
 - **Sokrates only stops combat damage to players**, not to creatures or planeswalkers, and the card draw is half the prevented damage rounded down. A 5-power attacker draws two cards each; a 1-power attacker draws nothing.
 - **Sokrates has hexproof only while untapped.** Without Watershaper, Minamo or Energy Arc is how a tapped Sokrates stands back up before removal.
 - **Energy Arc prevents combat damage to *and* from the chosen creatures**, so targeting only the attacking team is a fog that also stops chump-block damage, and targeting your own tapped utility creatures untaps them without fogging the rest of combat unless you include the attackers too.
@@ -238,7 +240,8 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **2026-08-25 — Rocks into cards.** The three Talismans and Fellwar Stone became Orzhov Signet, Dimir Signet, Skeletal Scrying, and Fact or Fiction. The deck accepts two fewer mana rocks because 38 lands and Lotho already improved its mana floor; in return it gets two more instant-speed ways to find exchange pieces, protection, or a drain. Pendrell Mists was reviewed at the same time and left in provisionally.
 - **2026-08-25 — Group-hug disguise.** Secret Rendezvous and Tenuous Truce entered so the deck can look like a "do not attack, we share cards" vampire rather than a tax engine. Esper Sentinel and Skeletal Scrying came out because one is a visible tax and the other is private, graveyard-eating draw. Pendrell Mists finally left; Loran of the Third Path took its slot as a repeatable shared-draw tap plus incidental artifact or enchantment removal. The matching card for "ETB, choose an opponent, both draw on their end step" is Tenuous Truce.
 - **2026-08-25 — Thin the slow package.** Adept Watershaper, Axis of Mortality, Soul Conduit, Liliana of the Dark Realms, and Magus of the Mirror left as the weakest on-theme cards. Children of Korlis, Bender's Waterskin, and Pain's Reward entered; the two leftover slots became basic Swamps so Cabal Stronghold still scales after Liliana left. Condemn, Wall of Shards, Wedding Ring, Breena, and Infernal Contract went to the maybeboard rather than into the 99.
-- **2026-08-26 — Everybody Lives! and Kuroki.** Everybody Lives! went to the maybeboard instead of the 99: it uniquely answers opposing mass drain, but it also turns off this deck's life payments, exchanges, and win for a turn. If it enters the 99, Kami of False Hope is the combat-fog cut. Kuroki, Thief of Talents is not Commander-legal until 2026-11-09; even after that he is a maybe because the free cast from an opponent's hand fights the harmless-cleric disguise.
+- **2026-08-26 — Everybody Lives! and Kuroki.** Everybody Lives! went to the maybeboard first: it uniquely answers opposing mass drain, but it also turns off this deck's life payments, exchanges, and win for a turn. Kuroki, Thief of Talents is not Commander-legal until 2026-11-09; even after that he is a maybe because the free cast from an opponent's hand fights the harmless-cleric disguise.
+- **2026-08-26 — Two Swamps become spells.** Wall of Shards and Everybody Lives! entered for two basic Swamps (11 → 9, lands 40 → 38). Infernal Contract stayed maybe as a worse Necrologia; Kuroki stayed maybe as illegal and greedy.
 - **2026-08-25 — Assessment.** First bracket pass: Bracket 3−. Zero Game Changers versus the live Scryfall `is:gamechanger` list (53 cards, including Farewell and Biorhythm from the [February 9, 2026 update](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-february-9-2026)). No card tutors, no two-card win combo. Rings of Brighthearth plus Deserted Temple is a mana engine, not a kill. Sokrates / Energy Arc / Scapegoat did not change Game Changer count, compactness, or expected win turn versus Advokist / Dawn Charm / Night's Whisper.
 
 ## Primer

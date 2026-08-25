@@ -685,6 +685,28 @@
       "submitted_name": "Kami of False Hope"
     },
     {
+      "cache": "cards/39213de3-6a4a-4879-a7f9-70f45013765e.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "All creatures gain hexproof and indestructible until end of turn. Players gain hexproof until end of turn. Players can't lose life this turn and players can't lose the game or win the game this turn.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Fog"
+      ],
+      "category_source": "decklist",
+      "name": "Everybody Lives!",
+      "oracle_id": "39213de3-6a4a-4879-a7f9-70f45013765e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/who/18/everybody-lives!?utm_source=api",
+      "submitted_categories": [
+        "Fog"
+      ],
+      "submitted_name": "Everybody Lives!"
+    },
+    {
       "cache": "cards/04eb4fc0-0cc5-44f1-af5a-44579125d5c2.json",
       "card": {
         "cmc": 1.0,
@@ -781,6 +803,36 @@
         "Tax"
       ],
       "submitted_name": "Archangel of Tithes"
+    },
+    {
+      "cache": "cards/8fab68ad-169d-46d3-93c4-5bdee4eea2ce.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Cumulative upkeep",
+          "Flying",
+          "Defender"
+        ],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Defender, flying\nCumulative upkeep—An opponent gains 1 life. (At the beginning of your upkeep, put an age counter on this permanent, then sacrifice it unless you pay its upkeep cost for each age counter on it.)",
+        "power": "1",
+        "toughness": "8",
+        "type_line": "Snow Creature — Wall"
+      },
+      "categories": [
+        "Tax",
+        "Politics"
+      ],
+      "category_source": "decklist",
+      "name": "Wall of Shards",
+      "oracle_id": "8fab68ad-169d-46d3-93c4-5bdee4eea2ce",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/csp/23/wall-of-shards?utm_source=api",
+      "submitted_categories": [
+        "Tax",
+        "Politics"
+      ],
+      "submitted_name": "Wall of Shards"
     },
     {
       "cache": "cards/f4a9d567-513b-487e-afed-c6e6513a7862.json",
@@ -2231,7 +2283,7 @@
       "category_source": "decklist",
       "name": "Swamp",
       "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
-      "quantity": 11,
+      "quantity": 9,
       "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
       "submitted_categories": [
         "Land"
@@ -2387,38 +2439,6 @@
       "submitted_name": "Condemn"
     },
     {
-      "cache": "cards/8fab68ad-169d-46d3-93c4-5bdee4eea2ce.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [
-          "Cumulative upkeep",
-          "Flying",
-          "Defender"
-        ],
-        "mana_cost": "{1}{W}",
-        "oracle_text": "Defender, flying\nCumulative upkeep—An opponent gains 1 life. (At the beginning of your upkeep, put an age counter on this permanent, then sacrifice it unless you pay its upkeep cost for each age counter on it.)",
-        "power": "1",
-        "toughness": "8",
-        "type_line": "Snow Creature — Wall"
-      },
-      "categories": [
-        "Maybeboard{noDeck}{noPrice}",
-        "Tax",
-        "Politics"
-      ],
-      "category_source": "decklist",
-      "name": "Wall of Shards",
-      "oracle_id": "8fab68ad-169d-46d3-93c4-5bdee4eea2ce",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/csp/23/wall-of-shards?utm_source=api",
-      "submitted_categories": [
-        "Maybeboard{noDeck}{noPrice}",
-        "Tax",
-        "Politics"
-      ],
-      "submitted_name": "Wall of Shards"
-    },
-    {
       "cache": "cards/0c34e962-99d9-4163-b852-4f61886546aa.json",
       "card": {
         "cmc": 4.0,
@@ -2499,30 +2519,6 @@
       "submitted_name": "Infernal Contract"
     },
     {
-      "cache": "cards/39213de3-6a4a-4879-a7f9-70f45013765e.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{1}{W}",
-        "oracle_text": "All creatures gain hexproof and indestructible until end of turn. Players gain hexproof until end of turn. Players can't lose life this turn and players can't lose the game or win the game this turn.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Maybeboard{noDeck}{noPrice}",
-        "Fog"
-      ],
-      "category_source": "decklist",
-      "name": "Everybody Lives!",
-      "oracle_id": "39213de3-6a4a-4879-a7f9-70f45013765e",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/who/18/everybody-lives!?utm_source=api",
-      "submitted_categories": [
-        "Maybeboard{noDeck}{noPrice}",
-        "Fog"
-      ],
-      "submitted_name": "Everybody Lives!"
-    },
-    {
       "cache": "cards/ce70f16c-ea45-4f1d-aafb-34a5d05d31e7.json",
       "card": {
         "cmc": 5.0,
@@ -2552,13 +2548,13 @@
     }
   ],
   "categorized_cards": 99,
-  "generated_at": "2026-08-25T22:02:48.287986+00:00",
-  "maybeboard_cards": 10,
-  "maybeboard_unique_cards": 10,
+  "generated_at": "2026-08-25T22:07:53.657227+00:00",
+  "maybeboard_cards": 8,
+  "maybeboard_unique_cards": 8,
   "resolved_unique_cards": 99,
   "schema_version": 3,
   "source": "decks/3-_lady-evangela-foggy-blood-transfusion/decklist.txt",
   "total_cards": 100,
-  "unique_cards": 89,
+  "unique_cards": 91,
   "unresolved": []
 }
