@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Golgari go-wide squirrel tokens: flood the board, copy the tokens, and overrun or Triumph for the kill.",
+  "tags": [
+    {
+      "name": "go-wide",
+      "score": 5,
+      "reason": "Combat and Triumph both need a wide board."
+    },
+    {
+      "name": "squirrels",
+      "score": 5,
+      "reason": "Commander, lords, anthems, and token makers are squirrel-native."
+    },
+    {
+      "name": "tokens",
+      "score": 5,
+      "reason": "The deck wins by making and copying a critical mass of tokens."
+    },
+    {
+      "name": "infect",
+      "score": 3,
+      "reason": "Triumph of the Hordes is a real poison finish once the swarm exists."
+    },
+    {
+      "name": "food",
+      "score": 2,
+      "reason": "Food is a Hazel byproduct, not the primary plan."
+    },
+    {
+      "name": "rats",
+      "score": 2,
+      "reason": "A few rat payoffs sit next to the squirrel core."
+    },
+    {
+      "name": "bats",
+      "score": 1,
+      "reason": "Incidental Bat creatures, not a bat deck."
+    },
+    {
+      "name": "lizards",
+      "score": 1,
+      "reason": "Incidental lizard types, not a lizard deck."
+    }
+  ]
+}

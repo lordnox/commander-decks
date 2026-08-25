@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Jund enrage dinosaurs: ping your own creatures, grow +1/+1 counters, and burn the table with Pestilence-style chaos.",
+  "tags": [
+    {
+      "name": "enrage",
+      "score": 5,
+      "reason": "Damage-to-your-creatures is the repeating action and the commander payoff."
+    },
+    {
+      "name": "+1/+1 counters",
+      "score": 4,
+      "reason": "Rite of Passage, Level Up, Scythecat Cub, and Indoraptor itself grow from the pings."
+    },
+    {
+      "name": "burn",
+      "score": 4,
+      "reason": "Boltwave, Flame Rift, Pestilence, Pyrohemia, and Last Laugh point at faces."
+    },
+    {
+      "name": "dinosaurs",
+      "score": 4,
+      "reason": "Indoraptor plus several enrage dinosaurs and dino ramp."
+    },
+    {
+      "name": "pingers",
+      "score": 4,
+      "reason": "Repeatable pings are how enrage, Last Laugh, and the commander fire."
+    },
+    {
+      "name": "chaos",
+      "score": 3,
+      "reason": "Symmetric Pestilence/Pyrohemia/Last Laugh turns the table into a damage lottery."
+    },
+    {
+      "name": "combo",
+      "score": 3,
+      "reason": "Last Laugh plus a wide or dying board is a deterministic table kill, not the only plan."
+    },
+    {
+      "name": "group slug",
+      "score": 3,
+      "reason": "The same damage engines tax every opponent while you grow."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Donate politics: build creatures nobody wants to keep, gift them, and draw when they attack.",
+  "tags": [
+    {
+      "name": "donate",
+      "score": 5,
+      "reason": "The plan is handing opponents unkeepable creatures and curses."
+    },
+    {
+      "name": "politics",
+      "score": 5,
+      "reason": "Gifts, goads, and table deals are how the deck chooses who suffers."
+    },
+    {
+      "name": "forced combat",
+      "score": 3,
+      "reason": "Jon goads the donated creature so it has to attack each combat."
+    },
+    {
+      "name": "group slug",
+      "score": 2,
+      "reason": "A few gifted attackers and upkeeps ping the table without being the win."
+    },
+    {
+      "name": "life exchange",
+      "score": 2,
+      "reason": "Illusions of Grandeur is a donated life pile, not a dedicated exchange engine."
+    }
+  ]
+}
