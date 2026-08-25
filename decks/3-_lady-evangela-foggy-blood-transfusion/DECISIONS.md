@@ -33,7 +33,6 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Debt to the Deathless** — Doubles per opponent, so in a four-player pod it drains 6 per X paid. `{W}{W}{B}{B}` fits the Esper base.
 - **Drain Life** — The old-school one the brew was built around. It hits a single target rather than the table, and X may only be paid with black mana, which is precisely why the Swamp package exists. It is the card that kills the one opponent an exchange just handed a low life total.
 - **Queza, Augur of Agonies** — Turns the draw suite into reach: each draw past the first is a drain, so the deck can win while doing nothing but holding up counterspells.
-- **Psychosis Crawler** — Same conversion as Queza from a different card type, and it grows as the hand fills.
 
 ### Life payment
 
@@ -47,6 +46,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 ### Draw
 
 - **Esper Sentinel** — Taxes the whole table's first noncreature spell each turn and grows with a big mana turn. It is draw that also fits the pillow-fort posture.
+- **Blue Sun's Zenith** — Chosen over Psychosis Crawler because the deck wants to draw into its finishers rather than announce a five-mana draw-damage threat. It is instant-speed, scales with the Coffers engine, can refill another player as a political deal, and shuffles back for a later draw.
 - **Mulldrifter** — Two cards attached to a body, and the best repeatable blink target after Mister Negative.
 
 ### Fog and aikido
@@ -71,7 +71,6 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 - **Sokrates, Athenian Teacher** — `{T}`: target creature deals no combat damage to players this turn, and both its controller and the defending player draw half that damage, rounded down. Pointed at someone else's attacker it is a political gift of cards; pointed at a creature attacking you it is a fog that draws. Hexproof while untapped, and Minamo untaps him because he is legendary.
 - **Promise of Loyalty** — Every player keeps one creature under a vow counter and sacrifices the rest, and the kept creatures cannot attack you while the counter is on them. A one-sided-feeling wipe that leaves everyone a body, so it reads as fair rather than as an attack.
-- **Necromancer's Covenant** — Exiles a graveyard and builds a Zombie board with lifelink, so it is graveyard hate, a defensive wall, and a lifegain engine that refills after a dump.
 - **Council's Judgment** — Removal the table votes on, which answers anything including hexproof without making you the only aggressor.
 
 ### Removal
@@ -87,6 +86,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Swan Song** — One-mana protection for the exchange spell; the 2/2 Bird is a fine price behind a fog wall.
 - **Dovin's Veto** — Uncounterable answer to the noncreature spells that actually threaten the plan.
 - **An Offer You Can't Refuse** — One mana; giving two Treasures matters less than resolving the swap.
+- **Arcane Denial** — Chosen because it protects the exchange or drain for only two mana while fitting the deck's political posture. The two cards it gives the countered player make the intervention look like compensation rather than domination, and the delayed card draw replaces itself.
 - **Cryptic Command** — Four modes including counter-plus-draw and the fog-adjacent tap-all-creatures mode.
 
 ### Blink
@@ -112,11 +112,11 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Talisman of Dominance** — `{U}` or `{B}` for 1 life.
 - **Talisman of Progress** — `{W}` or `{U}` for 1 life.
 - **Fellwar Stone** — Usually produces exactly the color a three-opponent pod already has.
+- **Lotho, Corrupt Shirriff** — Chosen over Wayfarer's Bauble because it rewards the draw-go posture throughout the game instead of spending three mana for one tapped basic. Every player's second spell can make a Treasure, including deals where opponents deliberately sequence into it, while the 1 life payment advances the exchange plan.
 
 ### Land search
 
 - **Expedition Map** — Finds Cabal Coffers, Urborg, or Deserted Temple, which is the closest thing the deck runs to a tutor and it only finds lands.
-- **Wayfarer's Bauble** — Two-mana ramp that puts a Swamp onto the battlefield, raising the Coffers count.
 
 ### Lands
 
@@ -166,7 +166,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Card tutors** — Rejected as a category. The plan is to draw into the finishers, so the only searching in the deck finds lands.
 - **Game Changers** — Zero by request. Verified programmatically against the cached Scryfall `game_changer` flag.
 - **Umbral Mantle** — Trimmed as a redundant second loop enabler; **Rings of Brighthearth** with **Deserted Temple** is the primary line.
-- **Smuggler's Share**, **Monologue Tax**, **Discerning Financier**, **Beza, the Bounding Spring**, **Lotho, Corrupt Shirriff** — The whole Treasure package is out. It was trimmed to Lotho for the counterspell count, then Lotho was cut for a land: a Treasure trickle off other players' second spells is the lowest-impact card in a deck that would rather just have a Swamp.
+- **Smuggler's Share**, **Monologue Tax**, **Discerning Financier**, **Beza, the Bounding Spring** — The broader Treasure package remains out. Lotho is the exception because it is cheap, repeatable, political, and pays life while making mana.
 - **Knight-Captain of Eos**, **Holy Day**, **Riot Control** — Trimmed from the fog suite as the most expensive or most redundant copies.
 - **Painful Truths**, **Fact or Fiction**, **Burnished Hart** — Trimmed for interaction slots.
 - **Arcanis the Omnipotent** — Maybeboard only. A seven-mana draw engine competes with the finishers for the big mana turn.
@@ -174,9 +174,10 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Orzhov Advokist** — Cut for **Sokrates, Athenian Teacher**. Advokist only asks people not to attack you; Sokrates converts their attack into cards for the table.
 - **Dawn Charm** — Cut for **Energy Arc**. Charm's extra modes are real, but Energy Arc can fog a selected subset of the combat *and* untap Evangela or Sokrates in the same spell.
 - **Night's Whisper** — Cut for **Scapegoat**. The deck still has Confidant, Tutelage, Necrologia, Sentinel, and Mulldrifter; a one-mana board-save is rarer.
-- **Hatred** — Cut to the maybeboard for a land. It was approved as a life dump, but **Wall of Blood** dumps any amount at instant speed for `{1}` a point and does it every turn, and the deck fields about five creatures that ever attack, so the `+X/+0` half is close to blank. Five mana was the wrong price for a redundant effect.
-- **Blue Sun's Zenith** — Cut for a land. `{U}{U}{U}` off fourteen blue sources is the hardest cost in the deck, and its best turn is the same big-black-mana turn Exsanguinate wants. Necrologia and Cryptic Command cover the draw-burst role, including the Psychosis Crawler kill.
-- **Arcane Denial** — Cut for a land. It was the softest of eight counterspells and the only one that hands an opponent two cards; seven counters is still a full draw-go suite.
+- **Hatred** — Maybeboard, not rejected. Unlike Wall of Blood, Hatred can turn *any* creature into an instant-speed political assassination: after two opponents arrange harmless attacks to trade the monarch or another combat reward, paying life can make the nominal 1/1 lethal without this deck ever attacking. It can also enlarge an opponent's attacker aimed at the archenemy or turn this deck's lifelinker into a life-total reset. The tension is its `{3}{B}{B}` cost and the risk of losing both life and spell to removal; it competes with holding up a fog plus counterspell.
+- **Necromancer's Covenant** — Cut because six mana for graveyard hate, Zombies, and lifelink asks the deck to commit visibly to the battlefield. The deck prefers to remain reactive and spend that mana after opponents reveal what matters.
+- **Wayfarer's Bauble** — Cut because 38 lands and nine basic Swamps give the mana engine a functional floor already. Spending three mana to put one tapped Swamp into play is lower leverage than Lotho generating Treasures while the deck holds up interaction.
+- **Psychosis Crawler** — Cut because it advertises the draw-damage plan, costs five before providing value, and dies to creature or artifact removal. Blue Sun's Zenith keeps the cards hidden until the end step and finds the actual drain or exchange finishers.
 - **Isolated Chapel**, **Drowned Catacomb** — Replaced by **Shadowy Backstreet** and **Undercity Sewers**. Same colors, same slots, but the surveil lands carry the Swamp type. Always entering tapped is a real cost that a draw-go deck feels, and it was paid deliberately.
 
 ## Rules
@@ -188,7 +189,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Drain Life hits one target, not the table.** It is the follow-up to an exchange, not a mass finisher; Exsanguinate and Debt to the Deathless are the mass finishers.
 - **Both Mirrors only work during your upkeep.** Mirror Universe and Magus of the Mirror say "activate only during your upkeep," so the Wall of Blood dump has to happen in your upkeep in response to the sacrifice ability, not on the previous turn.
 - **Mister Negative only draws when you lose life.** The exchange draws you cards equal to the life you lost, so it draws nothing when you are the low player. Blinking it while ahead on life is the draw mode; casting it while behind is the exchange mode.
-- **Queza targets one opponent per draw.** "Target opponent loses 1 life and you gain 1 life" is single-target, so a six-card draw is six separate triggers that may be spread across the table. Psychosis Crawler is the one that hits each opponent.
+- **Queza targets one opponent per draw.** "Target opponent loses 1 life and you gain 1 life" is single-target, so a six-card draw is six separate triggers that may be spread across the table.
 - **Liliana's +1 puts the Swamp in your hand**, not onto the battlefield, so it is card advantage plus a guaranteed land drop rather than ramp.
 - **Mister Negative's exchange is an entry trigger**, so it can be countered or its target can be changed, but blinking it with Ephemerate creates a fresh trigger. Ephemerate's rebound gives a second exchange on the following turn.
 - **Repay in Kind sets, it does not distribute.** Every player's total becomes the lowest total among all players, including yours, so casting it while you are the low player is the whole trick.
@@ -213,6 +214,9 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **2026-08-25 — Land base rebuild.** The pilot caught that 34 lands contained only 8 Swamp-typed lands and 5 basic Swamps, which meant the entire Swamp engine — Cabal Coffers, Cabal Stronghold, Crypt Ghast, Nirkana Revenant, Bubbling Muck — was effectively switched off unless Urborg or Blanket of Night was on the battlefield, roughly a 1-in-4 proposition by turn eight even counting Expedition Map. Three fixes were applied together: two check lands were swapped for the Swamp-typed surveil lands at no color cost, four nonlands became basic Swamps, and the deck went to 38 lands. Swamp-typed lands went 8 → 14 and basic Swamps 5 → 9, so Cabal Stronghold is live on its own and Coffers has a real floor without Urborg. White and blue land sources were held at 15 and 14 so `{1}{W}{W}{W}` and the counterspells did not get worse. The bracket is unchanged at 3−: the deck got more consistent, not faster or more compact, and it lost three spells to gain four lands.
 
   White remains the tightest color. Cost is 38% white symbols against 19% white production, and Archangel of Tithes at `{1}{W}{W}{W}` is the only triple-pip card in the deck. Blood Celebrant, Arcane Signet, Talisman of Hierarchy, Talisman of Progress, and Fellwar Stone carry it in practice, but Archangel is the first card to cut if the mana proves too greedy.
+- **2026-08-25 — Reactive package restored.** Necromancer's Covenant, Wayfarer's Bauble, and Psychosis Crawler left for Blue Sun's Zenith, Arcane Denial, and Lotho. The choice favors cards that can be used while holding up interaction, make political deals, and conceal the eventual kill instead of placing a visible payoff on the battlefield.
+
+  Hatred and Blood Celebrant solve different problems. Blood Celebrant stays because it is a one-mana creature that fixes the deck's difficult white and blue costs, turns surplus black into the needed color, pays life one point at a time, and uses a mana ability that cannot be responded to. It is support, not a finisher. Hatred is a five-mana ambush and a much faster life dump: its best case is political aikido, making an opponent's apparently harmless attacker lethal against another opponent. Its ceiling is much higher, but so is its risk. Keep Hatred in the maybeboard until play shows whether the deck can reliably hold `{3}{B}{B}` while still representing protection; if it returns, the most natural test cut is Blood Celebrant only if color fixing has proved unnecessary.
 - **2026-08-25 — Assessment.** First bracket pass: Bracket 3−. Zero Game Changers versus the live Scryfall `is:gamechanger` list (53 cards, including Farewell and Biorhythm from the [February 9, 2026 update](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-february-9-2026)). No card tutors, no two-card win combo. Rings of Brighthearth plus Deserted Temple is a mana engine, not a kill. Sokrates / Energy Arc / Scapegoat did not change Game Changer count, compactness, or expected win turn versus Advokist / Dawn Charm / Night's Whisper.
 
 ## Primer
