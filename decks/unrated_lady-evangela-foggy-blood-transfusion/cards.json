@@ -488,30 +488,6 @@
       "submitted_name": "Necrologia"
     },
     {
-      "cache": "cards/7ffae8f8-3006-4969-a339-6d30678f87ea.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{1}{B}",
-        "oracle_text": "You draw two cards and lose 2 life.",
-        "type_line": "Sorcery"
-      },
-      "categories": [
-        "Draw",
-        "Life Payment"
-      ],
-      "category_source": "decklist",
-      "name": "Night's Whisper",
-      "oracle_id": "7ffae8f8-3006-4969-a339-6d30678f87ea",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/hoc/189/nights-whisper?utm_source=api",
-      "submitted_categories": [
-        "Draw",
-        "Life Payment"
-      ],
-      "submitted_name": "Night's Whisper"
-    },
-    {
       "cache": "cards/613a41b8-0b4f-4995-bf1e-ca41f96e6438.json",
       "card": {
         "cmc": 3.0,
@@ -649,28 +625,26 @@
       "submitted_name": "Comeuppance"
     },
     {
-      "cache": "cards/a8f5cfa7-4956-4182-8e44-acf3493239f0.json",
+      "cache": "cards/959bcf99-3c9a-4f99-98b2-13514d3dac16.json",
       "card": {
         "cmc": 2.0,
-        "keywords": [
-          "Regenerate"
-        ],
-        "mana_cost": "{1}{W}",
-        "oracle_text": "Choose one —\n• Prevent all combat damage that would be dealt this turn.\n• Regenerate target creature.\n• Counter target spell that targets you.",
+        "keywords": [],
+        "mana_cost": "{W}{U}",
+        "oracle_text": "Untap any number of target creatures. Prevent all combat damage that would be dealt to and dealt by those creatures this turn.",
         "type_line": "Instant"
       },
       "categories": [
         "Fog"
       ],
       "category_source": "decklist",
-      "name": "Dawn Charm",
-      "oracle_id": "a8f5cfa7-4956-4182-8e44-acf3493239f0",
+      "name": "Energy Arc",
+      "oracle_id": "959bcf99-3c9a-4f99-98b2-13514d3dac16",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cmr/371/dawn-charm?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/all/106/energy-arc?utm_source=api",
       "submitted_categories": [
         "Fog"
       ],
-      "submitted_name": "Dawn Charm"
+      "submitted_name": "Energy Arc"
     },
     {
       "cache": "cards/49984248-4800-4f46-933a-fedd970ae910.json",
@@ -695,6 +669,28 @@
         "Fog"
       ],
       "submitted_name": "Kami of False Hope"
+    },
+    {
+      "cache": "cards/04eb4fc0-0cc5-44f1-af5a-44579125d5c2.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{W}",
+        "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nReturn any number of target creatures you control to their owner's hand.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Scapegoat",
+      "oracle_id": "04eb4fc0-0cc5-44f1-af5a-44579125d5c2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sth/14/scapegoat?utm_source=api",
+      "submitted_categories": [
+        "Blink"
+      ],
+      "submitted_name": "Scapegoat"
     },
     {
       "cache": "cards/2a2ea189-b663-4f4a-bb23-ff7a4af25f71.json",
@@ -819,28 +815,33 @@
       "submitted_name": "Pendrell Mists"
     },
     {
-      "cache": "cards/d5e9942e-096f-433f-8668-4b594f3c1b02.json",
+      "cache": "cards/f4a9d567-513b-487e-afed-c6e6513a7862.json",
       "card": {
         "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{2}{W}",
-        "oracle_text": "At the beginning of your upkeep, each player may put two +1/+1 counters on a creature they control. If a player does, creatures that player controls can't attack you or planeswalkers you control until your next turn.",
-        "power": "1",
+        "keywords": [
+          "Sokratic Dialogue",
+          "Defender"
+        ],
+        "mana_cost": "{1}{W}{U}",
+        "oracle_text": "Defender\nSokrates has hexproof as long as it's untapped.\nSokratic Dialogue — {T}: Until end of turn, target creature gains \"If this creature would deal combat damage to a player, prevent that damage. This creature's controller and that player each draw half that many cards, rounded down.\"",
+        "power": "0",
         "toughness": "4",
-        "type_line": "Creature — Human Advisor"
+        "type_line": "Legendary Creature — Human Advisor"
       },
       "categories": [
-        "Politics"
+        "Politics",
+        "Fog"
       ],
       "category_source": "decklist",
-      "name": "Orzhov Advokist",
-      "oracle_id": "d5e9942e-096f-433f-8668-4b594f3c1b02",
+      "name": "Sokrates, Athenian Teacher",
+      "oracle_id": "f4a9d567-513b-487e-afed-c6e6513a7862",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mkc/77/orzhov-advokist?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/acr/67/sokrates-athenian-teacher?utm_source=api",
       "submitted_categories": [
-        "Politics"
+        "Politics",
+        "Fog"
       ],
-      "submitted_name": "Orzhov Advokist"
+      "submitted_name": "Sokrates, Athenian Teacher"
     },
     {
       "cache": "cards/e1d294e8-67b1-4a4a-86b8-f98f28a327d9.json",
@@ -2415,13 +2416,63 @@
         "Land"
       ],
       "submitted_name": "Island"
+    },
+    {
+      "cache": "cards/ee3d1f44-e0ca-4ce9-be76-4b675a115156.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{U}{U}",
+        "oracle_text": "Counter target spell. If an artifact or creature spell is countered this way, put that card onto the battlefield under your control instead of into its owner's graveyard.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Counterspell"
+      ],
+      "category_source": "decklist",
+      "name": "Desertion",
+      "oracle_id": "ee3d1f44-e0ca-4ce9-be76-4b675a115156",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cn2/107/desertion?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Counterspell"
+      ],
+      "submitted_name": "Desertion"
+    },
+    {
+      "cache": "cards/8a7183cc-161c-444d-a889-a17519c8061b.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{3}{U}{U}{U}",
+        "oracle_text": "{T}: Draw three cards.\n{2}{U}{U}: Return Arcanis to its owner's hand.",
+        "power": "3",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Wizard"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Arcanis the Omnipotent",
+      "oracle_id": "8a7183cc-161c-444d-a889-a17519c8061b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/741/arcanis-the-omnipotent?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Draw"
+      ],
+      "submitted_name": "Arcanis the Omnipotent"
     }
   ],
-  "categorized_cards": 95,
-  "generated_at": "2026-08-25T20:37:15.657181+00:00",
-  "maybeboard_cards": 0,
-  "maybeboard_unique_cards": 0,
-  "resolved_unique_cards": 95,
+  "categorized_cards": 97,
+  "generated_at": "2026-08-25T20:56:07.005222+00:00",
+  "maybeboard_cards": 2,
+  "maybeboard_unique_cards": 2,
+  "resolved_unique_cards": 97,
   "schema_version": 3,
   "source": "decks/unrated_lady-evangela-foggy-blood-transfusion/decklist.txt",
   "total_cards": 100,

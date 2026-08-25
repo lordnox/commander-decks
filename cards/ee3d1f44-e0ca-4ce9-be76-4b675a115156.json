@@ -1,0 +1,130 @@
+{
+  "artist": "Richard Kane Ferguson",
+  "artist_ids": [
+    "191620ed-2361-444e-96a6-1fe7ce32ef3b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 291760,
+  "cmc": 5.0,
+  "collector_number": "107",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 7211,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "First the insult, then the injury.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "b362151e-4ad6-4ae9-91e5-0e4a69d53ca5",
+  "illustration_id": "69476d3b-c63b-48b2-998a-674f2476a17f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:08:47Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/3/b362151e-4ad6-4ae9-91e5-0e4a69d53ca5.webp?1783937327",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/3/b362151e-4ad6-4ae9-91e5-0e4a69d53ca5.jpg?1783937327",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/3/b362151e-4ad6-4ae9-91e5-0e4a69d53ca5.jpg?1783937327",
+    "crop": "https://cards.scryfall.io/crop/front/b/3/b362151e-4ad6-4ae9-91e5-0e4a69d53ca5.webp?1783937327",
+    "display": "https://cards.scryfall.io/display/front/b/3/b362151e-4ad6-4ae9-91e5-0e4a69d53ca5.webp?1783937327",
+    "grid": "https://cards.scryfall.io/grid/front/b/3/b362151e-4ad6-4ae9-91e5-0e4a69d53ca5.webp?1783937327",
+    "large": "https://cards.scryfall.io/large/front/b/3/b362151e-4ad6-4ae9-91e5-0e4a69d53ca5.jpg?1783937327",
+    "normal": "https://cards.scryfall.io/normal/front/b/3/b362151e-4ad6-4ae9-91e5-0e4a69d53ca5.jpg?1783937327",
+    "png": "https://cards.scryfall.io/png/front/b/3/b362151e-4ad6-4ae9-91e5-0e4a69d53ca5.png?1783937327",
+    "small": "https://cards.scryfall.io/small/front/b/3/b362151e-4ad6-4ae9-91e5-0e4a69d53ca5.jpg?1783937327",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/3/b362151e-4ad6-4ae9-91e5-0e4a69d53ca5.webp?1783937327"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{U}",
+  "multiverse_ids": [
+    416864
+  ],
+  "name": "Desertion",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ee3d1f44-e0ca-4ce9-be76-4b675a115156",
+  "oracle_text": "Counter target spell. If an artifact or creature spell is countered this way, put that card onto the battlefield under your control instead of into its owner's graveyard.",
+  "oversized": false,
+  "penny_rank": 13896,
+  "prices": {
+    "eur": "0.96",
+    "eur_foil": "3.72",
+    "tix": null,
+    "usd": "0.94",
+    "usd_etched": null,
+    "usd_foil": "5.15"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aee3d1f44-e0ca-4ce9-be76-4b675a115156&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Desertion&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=291760&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F121447%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Desertion",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=416864&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDesertion",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDesertion"
+  },
+  "released_at": "2016-08-26",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b362151e-4ad6-4ae9-91e5-0e4a69d53ca5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cn2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cn2/107/desertion?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cn2",
+  "set_id": "ad1b8847-1905-4080-9e26-80691ea7c1ef",
+  "set_name": "Conspiracy: Take the Crown",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acn2&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/ad1b8847-1905-4080-9e26-80691ea7c1ef",
+  "story_spotlight": false,
+  "tcgplayer_id": 121447,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/b362151e-4ad6-4ae9-91e5-0e4a69d53ca5",
+  "variation": false
+}

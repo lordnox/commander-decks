@@ -44,7 +44,6 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Dark Confidant** — Random life loss that is a benefit rather than a cost in this deck, which is exactly why it is here and Phyrexian Arena is not.
 - **Dark Tutelage** — A second Confidant on an enchantment. The deck wants both the cards and the life loss.
 - **Necrologia** — The chosen Necropotence replacement: one-shot, end-of-turn, pay 2 life per card, no hand-size or discard rules to track.
-- **Night's Whisper** — Two cards for 2 life at two mana; the cheapest instance of the pattern.
 
 ### Draw
 
@@ -58,20 +57,21 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Batwing Brume** — Fog that also drains for each attacking creature, so the deflection is itself progress toward the drain plan.
 - **Inkshield** — Prevents the damage and converts it into flying Spirit tokens, turning the biggest attack of the game into a board.
 - **Comeuppance** — Reflects combat and noncombat damage back at its source, which punishes the alpha strike the pillow fort invites.
-- **Dawn Charm** — Modal: fog, regenerate, or counter a spell that targets you. Three of the deck's needs on one card.
-- **Kami of False Hope** — Sacrifices for a fog, so the effect is on the battlefield where nobody counts it as interaction.
+- **Energy Arc** — Untap any number of creatures and prevent combat damage they would deal *and* take. Aimed at the attacking team it is a two-mana fog; aimed at your own tapped clerics it untaps Lady Evangela or Sokrates for a second activation in the same combat.
+- **Kami of False Hope** — Sacrifices for a fog, so the effect is on the battlefield where nobody counts it as interaction. It is also the cheapest Scapegoat fodder in the list.
 - **Settle the Wreckage** — Instant-speed one-sided exile of an attacking army. Kept because it looks like defense and is actually the game's biggest swing.
+- **Scapegoat** — `{W}`, sacrifice a creature: bounce any number of your creatures. It saves the board from a wipe, rebuys Mister Negative and Mulldrifter, and reads as panic rather than as a combo.
 
 ### Tax
 
 - **Baird, Steward of Argive** — Creature-based attack tax instead of Ghostly Prison, chosen because a creature can be answered by every color and therefore draws less hate than a permanent enchantment.
 - **Archangel of Tithes** — Taxes both attacking and blocking, and unlike an enchantment it can be killed, which is the point.
-- **Adept Watershaper** — Other tapped creatures you control have indestructible. This deck taps its creatures on purpose: Lady Evangela taps to prevent damage, and the Watershaper makes her survive the removal that follows. It also protects a tapped Magus of the Coffers and any blocker that has already been used.
+- **Adept Watershaper** — Other tapped creatures you control have indestructible. This deck taps its creatures on purpose: Lady Evangela and Sokrates both tap to prevent damage, and the Watershaper covers the window when Sokrates loses hexproof. It also protects a tapped Magus of the Coffers and any blocker that has already been used.
 - **Pendrell Mists** — The one sticky tax kept. It hits opposing creature decks hardest and slows the fast starts a draw-go deck fears; the cost of upkeeping our own bodies is accepted.
 
 ### Politics
 
-- **Orzhov Advokist** — Gives an opponent +1/+1 counters in exchange for not attacking you for a turn. Pure aikido: it makes somebody else the threat.
+- **Sokrates, Athenian Teacher** — `{T}`: target creature deals no combat damage to players this turn, and both its controller and the defending player draw half that damage, rounded down. Pointed at someone else's attacker it is a political gift of cards; pointed at a creature attacking you it is a fog that draws. Hexproof while untapped, and Minamo untaps him because he is legendary.
 - **Promise of Loyalty** — Every player keeps one creature under a vow counter and sacrifices the rest, and the kept creatures cannot attack you while the counter is on them. A one-sided-feeling wipe that leaves everyone a body, so it reads as fair rather than as an attack.
 - **Necromancer's Covenant** — Exiles a graveyard and builds a Zombie board with lifelink, so it is graveyard hate, a defensive wall, and a lifegain engine that refills after a dump.
 - **Council's Judgment** — Removal the table votes on, which answers anything including hexproof without making you the only aggressor.
@@ -129,7 +129,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Cabal Stronghold** — Backup Coffers at `{3}` that counts basic Swamps only, which is why the basic Swamp count is deliberately high for a three-color deck.
 - **Deserted Temple** — Untaps Cabal Coffers, and with Rings of Brighthearth the untap is copied.
 - **Myriad Landscape** — Sacrifices for two basics that share a type, meaning two Swamps.
-- **Minamo, School at Water's Edge** — `{U}`, tap: untap a legendary permanent, which gives Lady Evangela a second prevention activation in a turn. Neither Magus is legendary, so she and Lotho are the real targets.
+- **Minamo, School at Water's Edge** — `{U}`, tap: untap a legendary permanent, which gives Lady Evangela or Sokrates a second activation in a turn. Neither Magus is legendary, so she, Sokrates, and Lotho are the real targets.
 - **Command Tower** — Free three-color fixing.
 - **Exotic Orchard** — Usually produces the deck's colors in a three-opponent pod.
 - **Reflecting Pool** — Fixes off the deck's own duals.
@@ -173,7 +173,11 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Smuggler's Share**, **Monologue Tax**, **Discerning Financier**, **Beza, the Bounding Spring** — The Treasure package was approved but trimmed to **Lotho, Corrupt Shirriff** so the counterspell count could reach eight.
 - **Knight-Captain of Eos**, **Holy Day**, **Riot Control** — Trimmed from the fog suite as the most expensive or most redundant copies.
 - **Painful Truths**, **Fact or Fiction**, **Burnished Hart** — Trimmed for interaction slots.
-- **Arcanis the Omnipotent** — Parked here rather than in the 99: a seven-mana draw engine competes with the finishers for the big mana turn.
+- **Arcanis the Omnipotent** — Maybeboard only. A seven-mana draw engine competes with the finishers for the big mana turn.
+- **Desertion** — Maybeboard only. Counter-and-steal is aikido, but `{3}{U}{U}` is a lot to hold when the job is protecting a six-or-seven-mana exchange, and taking their creature makes the deck look greedy. Cryptic Command stays in the 99 for the same mana band.
+- **Orzhov Advokist** — Cut for **Sokrates, Athenian Teacher**. Advokist only asks people not to attack you; Sokrates converts their attack into cards for the table.
+- **Dawn Charm** — Cut for **Energy Arc**. Charm's extra modes are real, but Energy Arc can fog a selected subset of the combat *and* untap Evangela or Sokrates in the same spell.
+- **Night's Whisper** — Cut for **Scapegoat**. The deck still has Confidant, Tutelage, Necrologia, Sentinel, Mulldrifter, and Blue Sun's Zenith; a one-mana board-save is rarer.
 
 ## Rules
 
@@ -191,6 +195,10 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Selenia, Dark Angel returns itself to your hand for 2 life** at instant speed, which makes it a life sink with no limit other than mana to recast.
 - **Wall of Blood's pump has no cap** and is instant speed, so life can be dumped to any total at the last possible moment before an exchange resolves.
 - **Lady Evangela prevents all combat damage dealt by one target creature.** It is not a table-wide fog and it does not redirect anything — it switches off the single biggest attacker completely, for `{W}{B}` and a tap, every turn. The deck still runs seven real fogs for the turns when the problem is an army rather than one creature.
+- **Sokrates only stops combat damage to players**, not to creatures or planeswalkers, and the card draw is half the prevented damage rounded down. A 5-power attacker draws two cards each; a 1-power attacker draws nothing.
+- **Sokrates has hexproof only while untapped.** Adept Watershaper covers the tapped window by giving other tapped creatures indestructible.
+- **Energy Arc prevents combat damage to *and* from the chosen creatures**, so targeting only the attacking team is a fog that also stops chump-block damage, and targeting your own tapped utility creatures untaps them without fogging the rest of combat unless you include the attackers too.
+- **Scapegoat's additional cost is sacrificing a creature you control**, then it bounces any number of *your* creatures, including zero others. It cannot bounce an opponent's attacker.
 - **Mana Drain is not on the Game Changer list**, so it stays despite the zero-Game-Changer constraint. Verified against the cached Scryfall flag rather than from memory.
 
 ## Talks
@@ -199,3 +207,4 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **2026-08-25 — Package sizing.** The life-exchange package was trimmed from nine candidates to six so the deck had room for eight counterspells and real removal; the argument was that an exchange you cannot protect is worse than one fewer exchange.
 - **2026-08-25 — Land search.** An initial "no land tutors" instruction was clarified to mean "I do not know of any in these colors." Land search was then added deliberately, weighted toward effects that find Swamps, because every Swamp raises the Coffers and Stronghold ceiling.
 - **2026-08-25 — Name.** Settled on *Foggy Blood Transfusion*: fog for the aikido shell, blood for the life payment, transfusion for the exchange.
+- **2026-08-25 — Aikido extras.** Sokrates, Energy Arc, and Scapegoat entered the 99. Desertion and Arcanis went to the maybeboard. Cuts were Orzhov Advokist, Dawn Charm, and Night's Whisper.

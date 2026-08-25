@@ -27,7 +27,6 @@ Draw:
 1x Dark Confidant [Draw,Life Payment]
 1x Dark Tutelage [Draw,Life Payment]
 1x Necrologia [Draw,Life Payment]
-1x Night's Whisper [Draw,Life Payment]
 1x Blue Sun's Zenith [Draw]
 1x Mulldrifter [Draw]
 
@@ -36,8 +35,9 @@ Fog:
 1x Batwing Brume [Fog]
 1x Inkshield [Fog]
 1x Comeuppance [Fog]
-1x Dawn Charm [Fog]
+1x Energy Arc [Fog]
 1x Kami of False Hope [Fog]
+1x Scapegoat [Blink]
 1x Settle the Wreckage [Fog,Removal]
 
 Tax:
@@ -47,7 +47,7 @@ Tax:
 1x Pendrell Mists [Tax]
 
 Politics:
-1x Orzhov Advokist [Politics]
+1x Sokrates, Athenian Teacher [Politics,Fog]
 1x Promise of Loyalty [Politics,Removal]
 1x Necromancer's Covenant [Politics]
 
@@ -122,3 +122,7 @@ Land:
 5x Swamp [Land]
 2x Plains [Land]
 1x Island [Land]
+
+Maybeboard:
+1x Desertion [Maybeboard{noDeck}{noPrice},Counterspell]
+1x Arcanis the Omnipotent [Maybeboard{noDeck}{noPrice},Draw]
