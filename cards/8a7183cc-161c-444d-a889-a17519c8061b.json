@@ -1,0 +1,136 @@
+{
+  "artist": "Justin Sweet",
+  "artist_ids": [
+    "bb15780e-8f96-4823-b258-a7a9fd79b02c"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 904193,
+  "cmc": 6.0,
+  "collector_number": "741",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2996,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "He has journeyed where none have been before. Now he returns to ensure that none follow.",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9d31e3e3-f398-4c0e-a2c9-4c614a4d41de",
+  "illustration_id": "3db3caa5-2448-4c82-8d7e-45350b147019",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-08-24T09:18:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/d/9d31e3e3-f398-4c0e-a2c9-4c614a4d41de.webp?1787563087",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/d/9d31e3e3-f398-4c0e-a2c9-4c614a4d41de.jpg?1787563087",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/d/9d31e3e3-f398-4c0e-a2c9-4c614a4d41de.jpg?1787563087",
+    "crop": "https://cards.scryfall.io/crop/front/9/d/9d31e3e3-f398-4c0e-a2c9-4c614a4d41de.webp?1787563087",
+    "display": "https://cards.scryfall.io/display/front/9/d/9d31e3e3-f398-4c0e-a2c9-4c614a4d41de.webp?1787563087",
+    "grid": "https://cards.scryfall.io/grid/front/9/d/9d31e3e3-f398-4c0e-a2c9-4c614a4d41de.webp?1787563087",
+    "large": "https://cards.scryfall.io/large/front/9/d/9d31e3e3-f398-4c0e-a2c9-4c614a4d41de.jpg?1787563087",
+    "normal": "https://cards.scryfall.io/normal/front/9/d/9d31e3e3-f398-4c0e-a2c9-4c614a4d41de.jpg?1787563087",
+    "png": "https://cards.scryfall.io/png/front/9/d/9d31e3e3-f398-4c0e-a2c9-4c614a4d41de.png?1787563087",
+    "small": "https://cards.scryfall.io/small/front/9/d/9d31e3e3-f398-4c0e-a2c9-4c614a4d41de.jpg?1787563087",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/d/9d31e3e3-f398-4c0e-a2c9-4c614a4d41de.webp?1787563087"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{U}{U}",
+  "multiverse_ids": [],
+  "name": "Arcanis the Omnipotent",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8a7183cc-161c-444d-a889-a17519c8061b",
+  "oracle_text": "{T}: Draw three cards.\n{2}{U}{U}: Return Arcanis to its owner's hand.",
+  "oversized": false,
+  "penny_rank": 7429,
+  "power": "3",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.28",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8a7183cc-161c-444d-a889-a17519c8061b&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "setextension"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Arcanis+the+Omnipotent&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=904193&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F695525%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Arcanis+the+Omnipotent",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DArcanis%2Bthe%2BOmnipotent",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DArcanis%2Bthe%2BOmnipotent"
+  },
+  "released_at": "2026-04-24",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9d31e3e3-f398-4c0e-a2c9-4c614a4d41de/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fdn/741/arcanis-the-omnipotent?utm_source=api",
+  "security_stamp": "oval",
+  "set": "fdn",
+  "set_id": "a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "set_name": "Foundations",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afdn&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "story_spotlight": false,
+  "tcgplayer_id": 695525,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Wizard",
+  "uri": "https://api.scryfall.com/cards/9d31e3e3-f398-4c0e-a2c9-4c614a4d41de",
+  "variation": false
+}

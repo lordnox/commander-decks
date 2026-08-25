@@ -5417,8 +5417,38 @@
         "ramp",
         "sacrifice"
       ]
+    },
+    "959bcf99-3c9a-4f99-98b2-13514d3dac16": {
+      "name": "Energy Arc",
+      "categories": [
+        "other"
+      ]
+    },
+    "04eb4fc0-0cc5-44f1-af5a-44579125d5c2": {
+      "name": "Scapegoat",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "f4a9d567-513b-487e-afed-c6e6513a7862": {
+      "name": "Sokrates, Athenian Teacher",
+      "categories": [
+        "protection"
+      ]
+    },
+    "ee3d1f44-e0ca-4ce9-be76-4b675a115156": {
+      "name": "Desertion",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "8a7183cc-161c-444d-a889-a17519c8061b": {
+      "name": "Arcanis the Omnipotent",
+      "categories": [
+        "card-draw"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-25T20:37:15.657181+00:00"
+  "updated_at": "2026-08-25T20:56:07.005222+00:00"
 }
