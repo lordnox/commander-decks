@@ -16,14 +16,14 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 ### Commander
 
-- **Lady Evangela** — Old-school Esper cleric whose `{1}{W}{B}`, tap: prevent all combat damage between a creature and another creature or player reads as defensive, so the table stops watching. It is a repeatable single-creature fog that lets one attacker through to somebody else, which is the aikido plan in one activation.
+- **Lady Evangela** — Old-school Esper cleric. `{W}{B}`, tap: prevent all combat damage that would be dealt by target creature this turn. That is a repeatable, cheap, permanent answer to the single scariest attacker in the pod — a Voltron commander, a big trampler, a lifelink threat — and because it reads as pure defense nobody treats her as a problem.
 
 ### Life exchange
 
 - **Mirror Universe** — The namesake. Sitting at 3 life after a full dump and swapping with the table's leader turns the whole life-payment suite into a resource conversion instead of a risk.
 - **Magus of the Mirror** — A creature copy of Mirror Universe, which means it is blinkable, it can be replayed from a wipe, and the sacrifice cost dodges enchantment removal that never gets pointed at a 5/5.
 - **Soul Conduit** — Repeatable and symmetrical. It swaps any two players' totals for `{6}`, so it can also be pointed at two opponents as a political favour, and with a big black mana turn it can be activated more than once.
-- **Axis of Mortality** — Upkeep-triggered swap with any opponent, so it survives being answered on the turn it lands and is the only exchange that keeps happening on its own.
+- **Axis of Mortality** — Upkeep trigger that has any two target players exchange life totals, so it survives being answered on the turn it lands and is the only exchange that keeps happening on its own. It can also be aimed at two opponents as a favour.
 - **Mister Negative** — In the 99 rather than in the command zone, exactly as asked. Its entry exchange plus Ephemerate or Ghostly Flicker is the repeatable version of the plan.
 - **Repay in Kind** — Kept over Reverse the Sands. It sets every player to the lowest total, which means it does not hand a specific opponent your good total; after a dump it is a table-wide reset that leaves everyone in Exsanguinate range.
 
@@ -31,7 +31,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 - **Exsanguinate** — The intended kill. With Cabal Coffers active, X is large enough to close three opponents at once and gains the life back, which resets the payment suite.
 - **Debt to the Deathless** — Doubles per opponent, so in a four-player pod it drains 6 per X paid. `{W}{W}{B}{B}` fits the Esper base.
-- **Drain Life** — The old-school one the brew was built around. Capped by black mana specifically, which is why the Swamp package exists.
+- **Drain Life** — The old-school one the brew was built around. It hits a single target rather than the table, and X may only be paid with black mana, which is precisely why the Swamp package exists. It is the card that kills the one opponent an exchange just handed a low life total.
 - **Queza, Augur of Agonies** — Turns the draw suite into reach: each draw past the first is a drain, so the deck can win while doing nothing but holding up counterspells.
 - **Psychosis Crawler** — Same conversion as Queza from a different card type, and it grows as the hand fills.
 
@@ -66,13 +66,13 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 - **Baird, Steward of Argive** — Creature-based attack tax instead of Ghostly Prison, chosen because a creature can be answered by every color and therefore draws less hate than a permanent enchantment.
 - **Archangel of Tithes** — Taxes both attacking and blocking, and unlike an enchantment it can be killed, which is the point.
-- **Adept Watershaper** — Repeatable tap-down and untap on a body, so it defends and unlocks Deserted Temple or a mana creature.
+- **Adept Watershaper** — Other tapped creatures you control have indestructible. This deck taps its creatures on purpose: Lady Evangela taps to prevent damage, and the Watershaper makes her survive the removal that follows. It also protects a tapped Magus of the Coffers and any blocker that has already been used.
 - **Pendrell Mists** — The one sticky tax kept. It hits opposing creature decks hardest and slows the fast starts a draw-go deck fears; the cost of upkeeping our own bodies is accepted.
 
 ### Politics
 
 - **Orzhov Advokist** — Gives an opponent +1/+1 counters in exchange for not attacking you for a turn. Pure aikido: it makes somebody else the threat.
-- **Promise of Loyalty** — Everybody sacrifices except the players who chose to keep a vigilance counter with you. A wipe that reads as a negotiation.
+- **Promise of Loyalty** — Every player keeps one creature under a vow counter and sacrifices the rest, and the kept creatures cannot attack you while the counter is on them. A one-sided-feeling wipe that leaves everyone a body, so it reads as fair rather than as an attack.
 - **Necromancer's Covenant** — Exiles a graveyard and builds a Zombie board with lifelink, so it is graveyard hate, a defensive wall, and a lifegain engine that refills after a dump.
 - **Council's Judgment** — Removal the table votes on, which answers anything including hexproof without making you the only aggressor.
 
@@ -100,12 +100,12 @@ Every unique card needs a Cards in line. The other headings appear when there is
 ### Swamp engine
 
 - **Blanket of Night** — The second `a Swamp in addition` effect. Every land in the game becomes a Swamp, which feeds Coffers and Crypt Ghast.
-- **Crypt Ghast** — Doubles black mana from Swamps and adds extort; the core of the X-spell plan.
-- **Nirkana Revenant** — Doubles black from Swamps and grows itself; its `{B}` pump is copyable by Rings.
-- **Magus of the Coffers** — A second Coffers on a body, and the Rings of Brighthearth partner: `{2}{T}` for black equal to Swamps, copied.
-- **Bubbling Muck** — High Tide for Swamps. It is the burst that turns a normal land drop into a lethal Exsanguinate turn.
-- **Rings of Brighthearth** — Copies activated abilities, which is the loop enabler with Deserted Temple and Magus of the Coffers.
-- **Liliana of the Dark Realms** — Repeatable Swamp search that also ultimates into a huge black mana boost, and the search puts the land onto the battlefield.
+- **Crypt Ghast** — Adds an extra `{B}` every time you tap a Swamp for mana, so under Urborg every land you tap produces two black. Extort is a bonus drain outlet.
+- **Nirkana Revenant** — A second copy of that trigger on a bigger body that can also pump itself with spare black.
+- **Magus of the Coffers** — A second Cabal Coffers on a creature, which means it dodges land hate and can be blinked or protected by Adept Watershaper.
+- **Bubbling Muck** — A one-mana third copy of the Crypt Ghast trigger for a single turn. It is symmetrical, but only this deck is set up to tap eight Swamps in one turn, and it is often what turns a survivable drain into a lethal one.
+- **Rings of Brighthearth** — Copies activated abilities that are not mana abilities. It cannot copy Cabal Coffers, but it copies Deserted Temple's untap, which is the scaling engine.
+- **Liliana of the Dark Realms** — Puts a Swamp into your hand every turn, which raises the Coffers count each land drop, and her emblem turns every Swamp into four black.
 
 ### Ramp
 
@@ -126,10 +126,10 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 - **Urborg, Tomb of Yawgmoth** — Makes every land a Swamp, which is what turns Coffers, Crypt Ghast, Nirkana Revenant, and Bubbling Muck on.
 - **Cabal Coffers** — `{2}{T}` for black equal to your Swamps; the engine the X-spells are pointed at.
-- **Cabal Stronghold** — Backup Coffers that counts basic Swamps only, so the basics are kept high enough to matter.
+- **Cabal Stronghold** — Backup Coffers at `{3}` that counts basic Swamps only, which is why the basic Swamp count is deliberately high for a three-color deck.
 - **Deserted Temple** — Untaps Cabal Coffers, and with Rings of Brighthearth the untap is copied.
 - **Myriad Landscape** — Sacrifices for two basics that share a type, meaning two Swamps.
-- **Minamo, School at Water's Edge** — Untaps a legendary creature, which recharges Lady Evangela, Magus of the Coffers, or Magus of the Mirror.
+- **Minamo, School at Water's Edge** — `{U}`, tap: untap a legendary permanent, which gives Lady Evangela a second prevention activation in a turn. Neither Magus is legendary, so she and Lotho are the real targets.
 - **Command Tower** — Free three-color fixing.
 - **Exotic Orchard** — Usually produces the deck's colors in a three-opponent pod.
 - **Reflecting Pool** — Fixes off the deck's own duals.
@@ -177,14 +177,20 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 ## Rules
 
-- **Cabal Coffers + Deserted Temple + Rings of Brighthearth is not infinite by itself.** Rings copies Deserted Temple's untap ability, so one Temple activation untaps Coffers twice. Coffers is a mana ability, but Temple's untap is an activated ability that costs `{1}`, and Rings costs `{2}` per copy, so each loop iteration costs `{3}` and yields two Coffers activations. It is only net positive once you control roughly four or more Swamps, and it is arbitrarily large rather than free — with enough Swamps each cycle nets more mana than it spends, which is all the X-spells need.
-- **Rings copies Magus of the Coffers too.** `{2}`, tap: add `{B}` for each Swamp. Rings pays `{2}` to copy it, so a single tap produces two payouts. This does not untap the Magus, so it is once per turn unless Minamo or Adept Watershaper untaps it.
+- **Rings of Brighthearth cannot copy Cabal Coffers or Magus of the Coffers.** Rings only triggers on an activated ability that *is not a mana ability*, and both Coffers abilities are mana abilities. Any plan that assumed a copied Coffers activation is wrong.
+- **The real Rings loop is Deserted Temple.** Temple's `{1}`, tap: untap target land is not a mana ability, so Rings sees it. Activate Temple targeting Cabal Coffers, pay `{2}` to copy, and point the copy at Deserted Temple itself. Both Temple and Coffers end up untapped, so the cycle repeats. Each iteration costs `{1}` + `{2}` for the untaps and `{2}` for the Coffers activation, so you pay `{5}` and receive black equal to your Swamp count. It is net positive from six Swamps and arbitrarily large after that — a mana engine, not a win on its own.
+- **Crypt Ghast and Nirkana Revenant do not double Cabal Coffers.** Both read "whenever you tap a Swamp for mana, add an additional `{B}`." Tapping Coffers is one Swamp tap, so it gets exactly one extra black per trigger, not double. The doubling is real on every *other* Swamp you tap, which is where most of the mana actually comes from. Bubbling Muck is a third, temporary, symmetrical copy of the same trigger.
 - **Mana abilities cannot be responded to.** Blood Celebrant, Cabal Coffers, and Magus of the Coffers all resolve without using the stack, which is why the deck can build a lethal X-spell with counterspell mana still up.
+- **Drain Life hits one target, not the table.** It is the follow-up to an exchange, not a mass finisher; Exsanguinate and Debt to the Deathless are the mass finishers.
+- **Both Mirrors only work during your upkeep.** Mirror Universe and Magus of the Mirror say "activate only during your upkeep," so the Wall of Blood dump has to happen in your upkeep in response to the sacrifice ability, not on the previous turn.
+- **Mister Negative only draws when you lose life.** The exchange draws you cards equal to the life you lost, so it draws nothing when you are the low player. Blinking it while ahead on life is the draw mode; casting it while behind is the exchange mode.
+- **Queza targets one opponent per draw.** "Target opponent loses 1 life and you gain 1 life" is single-target, so a six-card draw is six separate triggers that may be spread across the table. Psychosis Crawler is the one that hits each opponent.
+- **Liliana's +1 puts the Swamp in your hand**, not onto the battlefield, so it is card advantage plus a guaranteed land drop rather than ramp.
 - **Mister Negative's exchange is an entry trigger**, so it can be countered or its target can be changed, but blinking it with Ephemerate creates a fresh trigger. Ephemerate's rebound gives a second exchange on the following turn.
 - **Repay in Kind sets, it does not distribute.** Every player's total becomes the lowest total among all players, including yours, so casting it while you are the low player is the whole trick.
 - **Selenia, Dark Angel returns itself to your hand for 2 life** at instant speed, which makes it a life sink with no limit other than mana to recast.
 - **Wall of Blood's pump has no cap** and is instant speed, so life can be dumped to any total at the last possible moment before an exchange resolves.
-- **Lady Evangela prevents damage between one creature and one creature or player.** It is not a table-wide fog; it redirects the problem rather than solving it, which is why the deck also runs seven real fogs.
+- **Lady Evangela prevents all combat damage dealt by one target creature.** It is not a table-wide fog and it does not redirect anything — it switches off the single biggest attacker completely, for `{W}{B}` and a tap, every turn. The deck still runs seven real fogs for the turns when the problem is an army rather than one creature.
 - **Mana Drain is not on the Game Changer list**, so it stays despite the zero-Game-Changer constraint. Verified against the cached Scryfall flag rather than from memory.
 
 ## Talks

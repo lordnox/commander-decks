@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Esper aikido control that dumps its own life to draw, swaps totals with the leader, then drains the table off Cabal Coffers.",
+  "tags": [
+    {
+      "name": "aikido",
+      "score": 5,
+      "reason": "Fogs, taxes, and Settle the Wreckage turn other players' attacks into the deck's defense and its Batwing Brume drain."
+    },
+    {
+      "name": "life exchange",
+      "score": 5,
+      "reason": "Mirror Universe, Magus of the Mirror, Soul Conduit, Axis of Mortality, Mister Negative, and Repay in Kind are the namesake package."
+    },
+    {
+      "name": "lifedrain",
+      "score": 5,
+      "reason": "Exsanguinate, Debt to the Deathless, and Drain Life are the win conditions, backed by Queza and Psychosis Crawler."
+    },
+    {
+      "name": "control",
+      "score": 4,
+      "reason": "Eight counterspells, instant-speed removal, and a draw-go posture defend the engine until the drain turn."
+    },
+    {
+      "name": "life paying",
+      "score": 4,
+      "reason": "Wall of Blood, Selenia, Hatred, Necrologia, Dark Confidant, and the pain lands intentionally dump life before an exchange."
+    },
+    {
+      "name": "pillow fort",
+      "score": 4,
+      "reason": "Baird, Archangel of Tithes, Pendrell Mists, and Lady Evangela herself make attacking into this deck unattractive."
+    },
+    {
+      "name": "politics",
+      "score": 4,
+      "reason": "Orzhov Advokist, Promise of Loyalty, Council's Judgment, and Soul Conduit let the table's own choices decide who takes damage."
+    },
+    {
+      "name": "big mana",
+      "score": 3,
+      "reason": "Cabal Coffers, Crypt Ghast, Nirkana Revenant, Magus of the Coffers, and Bubbling Muck build the black mana the finishers need."
+    },
+    {
+      "name": "counterspells",
+      "score": 3,
+      "reason": "Blue exists in the deck specifically so the exchange or the drain cannot be answered at low life."
+    },
+    {
+      "name": "draw",
+      "score": 3,
+      "reason": "The deck refuses tutors and finds its finishers by drawing, mostly by paying life for cards."
+    },
+    {
+      "name": "ramp",
+      "score": 3,
+      "reason": "Rocks, land search, and Swamp doublers are all pointed at casting a lethal X spell."
+    },
+    {
+      "name": "turbo fog",
+      "score": 3,
+      "reason": "Seven instant-speed fogs plus Kami of False Hope and a repeatable commander prevention ability."
+    },
+    {
+      "name": "x spells",
+      "score": 3,
+      "reason": "Exsanguinate, Debt to the Deathless, Drain Life, Hatred, Necrologia, and Blue Sun's Zenith all scale with the mana engine."
+    },
+    {
+      "name": "blink",
+      "score": 2,
+      "reason": "Ephemerate and Ghostly Flicker exist to repeat Mister Negative's exchange and Mulldrifter."
+    },
+    {
+      "name": "combo",
+      "score": 2,
+      "reason": "Rings of Brighthearth with Deserted Temple or Magus of the Coffers scales black mana arbitrarily, but it is a mana engine rather than the primary plan."
+    },
+    {
+      "name": "lands matter",
+      "score": 2,
+      "reason": "Urborg and Blanket of Night make every land a Swamp so Cabal Coffers and Cabal Stronghold count higher."
+    },
+    {
+      "name": "lifegain",
+      "score": 2,
+      "reason": "Absorb, Necromancer's Covenant, and the drains refill the life total that the payment suite spends."
+    },
+    {
+      "name": "stax",
+      "score": 1,
+      "reason": "Pendrell Mists is the only symmetric upkeep tax."
+    },
+    {
+      "name": "tokens",
+      "score": 1,
+      "reason": "Inkshield and Necromancer's Covenant make incidental bodies."
+    }
+  ]
+}
