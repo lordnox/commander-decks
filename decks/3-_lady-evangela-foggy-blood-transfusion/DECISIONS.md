@@ -21,9 +21,6 @@ Every unique card needs a Cards in line. The other headings appear when there is
 ### Life exchange
 
 - **Mirror Universe** — The namesake. Sitting at 3 life after a full dump and swapping with the table's leader turns the whole life-payment suite into a resource conversion instead of a risk.
-- **Magus of the Mirror** — A creature copy of Mirror Universe, which means it is blinkable, it can be replayed from a wipe, and the sacrifice cost dodges enchantment removal that never gets pointed at a 5/5.
-- **Soul Conduit** — Repeatable and symmetrical. It swaps any two players' totals for `{6}`, so it can also be pointed at two opponents as a political favour, and with a big black mana turn it can be activated more than once.
-- **Axis of Mortality** — Upkeep trigger that has any two target players exchange life totals, so it survives being answered on the turn it lands and is the only exchange that keeps happening on its own. It can also be aimed at two opponents as a favour.
 - **Mister Negative** — In the 99 rather than in the command zone, exactly as asked. Its entry exchange plus Ephemerate or Ghostly Flicker is the repeatable version of the plan.
 - **Repay in Kind** — Kept over Reverse the Sands. It sets every player to the lowest total, which means it does not hand a specific opponent your good total; after a dump it is a table-wide reset that leaves everyone in Exsanguinate range.
 
@@ -42,6 +39,8 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Dark Confidant** — Random life loss that is a benefit rather than a cost in this deck, which is exactly why it is here and Phyrexian Arena is not.
 - **Dark Tutelage** — A second Confidant on an enchantment. The deck wants both the cards and the life loss.
 - **Necrologia** — The chosen Necropotence replacement: one-shot, end-of-turn, pay 2 life per card, no hand-size or discard rules to track.
+- **Children of Korlis** — Sacrifice: gain life equal to the life lost this turn. It is the refund valve for a dump that did not get an exchange, or for combat damage that slipped a fog. Do not sacrifice it when the plan is to stay low for Mirror Universe or Repay in Kind.
+- **Pain's Reward** — Each player may bid life; the high bidder loses that much life and draws four. Magus of the Mirror's slot: same life-as-currency theme at three mana instead of six, with a political auction attached. Bid when you want the cards and the dump; let an opponent win when they overpay.
 
 ### Draw
 
@@ -67,7 +66,6 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 - **Baird, Steward of Argive** — Creature-based attack tax instead of Ghostly Prison, chosen because a creature can be answered by every color and therefore draws less hate than a permanent enchantment.
 - **Archangel of Tithes** — Taxes both attacking and blocking, and unlike an enchantment it can be killed, which is the point.
-- **Adept Watershaper** — Other tapped creatures you control have indestructible. This deck taps its creatures on purpose: Lady Evangela and Sokrates both tap to prevent damage, and the Watershaper covers the window when Sokrates loses hexproof. It also protects a tapped Magus of the Coffers and any blocker that has already been used.
 
 ### Politics
 
@@ -101,10 +99,9 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Blanket of Night** — The second `a Swamp in addition` effect. Every land in the game becomes a Swamp, which feeds Coffers and Crypt Ghast. After the land base was rebuilt to fourteen real Swamps it is an amplifier rather than the on-switch it used to be.
 - **Crypt Ghast** — Adds an extra `{B}` every time you tap a Swamp for mana, so under Urborg every land you tap produces two black. Extort is a bonus drain outlet.
 - **Nirkana Revenant** — A second copy of that trigger on a bigger body that can also pump itself with spare black.
-- **Magus of the Coffers** — A second Cabal Coffers on a creature, which means it dodges land hate and can be blinked or protected by Adept Watershaper.
+- **Magus of the Coffers** — A second Cabal Coffers on a creature, which means it dodges land hate and can be blinked.
 - **Bubbling Muck** — A one-mana third copy of the Crypt Ghast trigger for a single turn. It is symmetrical, but only this deck is set up to tap eight Swamps in one turn, and it is often what turns a survivable drain into a lethal one.
 - **Rings of Brighthearth** — Copies activated abilities that are not mana abilities. It cannot copy Cabal Coffers, but it copies Deserted Temple's untap, which is the scaling engine.
-- **Liliana of the Dark Realms** — Puts a Swamp into your hand every turn, which raises the Coffers count each land drop, and her emblem turns every Swamp into four black.
 
 ### Ramp
 
@@ -112,6 +109,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Arcane Signet** — Any color of the identity, on turn two.
 - **Orzhov Signet** — Turns one generic mana into `{W}{B}` without spending life. It supports the deck's black base and the demanding white costs simultaneously.
 - **Dimir Signet** — Turns one generic mana into `{U}{B}` without spending life. It supports the black engine while leaving blue available for interaction.
+- **Bender's Waterskin** — `{3}` rock that untaps during each other player's untap step, then taps for any color. In a four-player game it produces four mana per round, which is what a draw-go deck actually spends: one point on your turn and three held for fogs and counters.
 - **Lotho, Corrupt Shirriff** — Chosen over Wayfarer's Bauble because it rewards the draw-go posture throughout the game instead of spending three mana for one tapped basic. Every player's second spell can make a Treasure, including deals where opponents deliberately sequence into it, while the 1 life payment advances the exchange plan.
 
 ### Land search
@@ -125,7 +123,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Cabal Stronghold** — Backup Coffers at `{3}` that counts basic Swamps only, which is why the basic Swamp count is deliberately high for a three-color deck.
 - **Deserted Temple** — Untaps Cabal Coffers, and with Rings of Brighthearth the untap is copied.
 - **Myriad Landscape** — Sacrifices for two basics that share a type, meaning two Swamps.
-- **Minamo, School at Water's Edge** — `{U}`, tap: untap a legendary permanent, which gives Lady Evangela or Sokrates a second activation in a turn. It also untaps Deserted Temple, which is a second Coffers untap. Neither Magus is legendary.
+- **Minamo, School at Water's Edge** — `{U}`, tap: untap a legendary permanent, which gives Lady Evangela or Sokrates a second activation in a turn. It also untaps Deserted Temple, which is a second Coffers untap. Magus of the Coffers is not legendary.
 - **Command Tower** — Free three-color fixing.
 - **Exotic Orchard** — Usually produces the deck's colors in a three-opponent pod.
 - **Reflecting Pool** — Fixes off the deck's own duals.
@@ -146,7 +144,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Prismatic Vista** — Fetches any basic, so it is a Swamp when Coffers is out.
 - **Esper Panorama** — Slow fixing that still counts as a Swamp under Urborg and finds the third color.
 - **Orzhov Basilica** — Bounce land; two mana from one land helps a deck that wants to hold up interaction.
-- **Swamp** — Nine copies. Cabal Stronghold counts *basic* Swamps only, Myriad Landscape fetches two of a shared basic type, and all three fetch lands want basics in the library, so the basic Swamp count is deliberately high for a three-color deck.
+- **Swamp** — Eleven copies. Cabal Stronghold counts *basic* Swamps only, Myriad Landscape fetches two of a shared basic type, and all three fetch lands want basics in the library. Two extra basics occupy the slots opened by cutting Magus of the Mirror plus Liliana, so Stronghold stays live without her +1.
 - **Plains** — Kept so Archangel of Tithes and Promise of Loyalty are castable without relying on Urborg-affected duals.
 - **Island** — Minimum blue basic so the counterspell suite has a fetchable source.
 
@@ -182,6 +180,16 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Esper Sentinel** — Cut because it is a visible tax creature that grows and draws hate, which fights the "harmless group hug" disguise. Shared-draw politics replaced it.
 - **Skeletal Scrying** — Cut because it is a private, graveyard-eating draw spell. The deck would rather look generous. Secret Rendezvous draws the same three cards and also bribes an opponent.
 - **Pendrell Mists** — Cut after sitting on the fence. It is a sticky enchantment tax that bills this deck's own utility creatures during upkeep, exactly when mana should be held for fogs and counters. Loran occupies the slot: cards and a political tap instead of a board-wide upkeep tax.
+- **Adept Watershaper** — Cut as off-theme protection. Indestructible on tapped creatures does not stop exile, bounce, sacrifice, or -X/-X, and too few creatures in this list tap on purpose for the clause to matter.
+- **Axis of Mortality** — Cut as the slowest exchange. Six mana that does nothing until the next upkeep advertises the win condition for a full rotation.
+- **Soul Conduit** — Cut as twelve mana for one swap. With Coffers online that mana casts Exsanguinate instead.
+- **Magus of the Mirror** — Cut for **Pain's Reward**. Same life-as-currency job at three mana instead of a six-mana 5/3 that has to survive a turn cycle and tap during upkeep.
+- **Liliana of the Dark Realms** — Cut because the +1 puts a Swamp in hand, not on the battlefield, which a 40-land list does not need. Two extra basic Swamps replace the search.
+- **Condemn** — Maybeboard. One-mana aikido exile of an attacker, but Swords to Plowshares already exiles at `{W}` without the attacking restriction, and the toughness-life is a gift this deck does not need to give.
+- **Wall of Shards** — Maybeboard. Cheap flying wall whose cumulative upkeep gifts an opponent life, which is a political pillow and a fatter total to steal. It stays out of the 99 until the tax package proves thin.
+- **Wedding Ring** — Maybeboard. Four-mana shared-draw and lifegain engine that copies itself onto an opponent. Strong group-hug disguise, but it is another four-drop competing with Loran and Tenuous Truce.
+- **Breena, the Demagogue** — Maybeboard. Pays opponents to attack each other and grows a creature. The draw bribe fits; the +1/+1 counters do not, and Lady Evangela is already the 3-mana legend.
+- **Infernal Contract** — Maybeboard. Draw four, lose half your life rounded up. Same dump-and-draw as Necrologia with a `{B}{B}{B}` tax and no X flexibility.
 - **Isolated Chapel**, **Drowned Catacomb** — Replaced by **Shadowy Backstreet** and **Undercity Sewers**. Same colors, same slots, but the surveil lands carry the Swamp type. Always entering tapped is a real cost that a draw-go deck feels, and it was paid deliberately.
 
 ## Rules
@@ -191,17 +199,15 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Crypt Ghast and Nirkana Revenant do not double Cabal Coffers.** Both read "whenever you tap a Swamp for mana, add an additional `{B}`." Tapping Coffers is one Swamp tap, so it gets exactly one extra black per trigger, not double. The doubling is real on every *other* Swamp you tap, which is where most of the mana actually comes from. Bubbling Muck is a third, temporary, symmetrical copy of the same trigger.
 - **Mana abilities cannot be responded to.** Blood Celebrant, Cabal Coffers, and Magus of the Coffers all resolve without using the stack, which is why the deck can build a lethal X-spell with counterspell mana still up.
 - **Drain Life hits one target, not the table.** It is the follow-up to an exchange, not a mass finisher; Exsanguinate and Debt to the Deathless are the mass finishers.
-- **Both Mirrors only work during your upkeep.** Mirror Universe and Magus of the Mirror say "activate only during your upkeep," so the Wall of Blood dump has to happen in your upkeep in response to the sacrifice ability, not on the previous turn.
-- **Mister Negative only draws when you lose life.** The exchange draws you cards equal to the life you lost, so it draws nothing when you are the low player. Blinking it while ahead on life is the draw mode; casting it while behind is the exchange mode.
+- **Both Mirrors only work during your upkeep.** Mirror Universe says "activate only during your upkeep," so the Wall of Blood dump has to happen in your upkeep in response to the sacrifice ability, not on the previous turn. Magus of the Mirror used to share this restriction; it is no longer in the 99.
+- **Mister Negative only draws when you lose life.** The exchange draws you cards equal to the life you lost, so it draws nothing when you are the low player. Blinking it while ahead on life is the draw mode; casting it while behind is the exchange mode. The exchange is an entry trigger, so it can be countered or retargeted; Ephemerate's rebound gives a second trigger the following turn.
 - **Queza targets one opponent per draw.** "Target opponent loses 1 life and you gain 1 life" is single-target, so a six-card draw is six separate triggers that may be spread across the table.
-- **Liliana's +1 puts the Swamp in your hand**, not onto the battlefield, so it is card advantage plus a guaranteed land drop rather than ramp.
-- **Mister Negative's exchange is an entry trigger**, so it can be countered or its target can be changed, but blinking it with Ephemerate creates a fresh trigger. Ephemerate's rebound gives a second exchange on the following turn.
 - **Repay in Kind sets, it does not distribute.** Every player's total becomes the lowest total among all players, including yours, so casting it while you are the low player is the whole trick.
 - **Selenia, Dark Angel returns itself to your hand for 2 life** at instant speed, which makes it a life sink with no limit other than mana to recast.
 - **Wall of Blood's pump has no cap** and is instant speed, so life can be dumped to any total at the last possible moment before an exchange resolves.
 - **Lady Evangela prevents all combat damage dealt by one target creature.** It is not a table-wide fog and it does not redirect anything — it switches off the single biggest attacker completely, for `{W}{B}` and a tap, every turn. The deck still runs seven real fogs for the turns when the problem is an army rather than one creature.
 - **Sokrates only stops combat damage to players**, not to creatures or planeswalkers, and the card draw is half the prevented damage rounded down. A 5-power attacker draws two cards each; a 1-power attacker draws nothing.
-- **Sokrates has hexproof only while untapped.** Adept Watershaper covers the tapped window by giving other tapped creatures indestructible.
+- **Sokrates has hexproof only while untapped.** Without Watershaper, Minamo or Energy Arc is how a tapped Sokrates stands back up before removal.
 - **Energy Arc prevents combat damage to *and* from the chosen creatures**, so targeting only the attacking team is a fog that also stops chump-block damage, and targeting your own tapped utility creatures untaps them without fogging the rest of combat unless you include the attackers too.
 - **Scapegoat's additional cost is sacrificing a creature you control**, then it bounces any number of *your* creatures, including zero others. It cannot bounce an opponent's attacker.
 - **Mana Drain is not on the Game Changer list**, so it stays despite the zero-Game-Changer constraint. Verified against the cached Scryfall flag rather than from memory.
@@ -209,6 +215,9 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **A dual land with the Swamp subtype is a Swamp for every purpose.** Godless Shrine, Watery Grave, Raffine's Tower, Shadowy Backstreet, and Undercity Sewers all count for Cabal Coffers, trigger Crypt Ghast and Nirkana Revenant when tapped for mana, untap to Bubbling Muck, and are fetchable by Marsh Flats or Polluted Delta. None of them count for Cabal Stronghold.
 - **Tenuous Truce is sacrificed if either of you attacks the other**, including attacking a planeswalker the other controls. It does not stop third parties from attacking, and it does not care about blocking. Point it at the player most likely to leave you alone, not at the archenemy you still need to fog.
 - **Loran's tap is not a mana ability**, so Rings of Brighthearth can copy it: you and the chosen opponent each draw two. That is still a deal, not a kill.
+- **Children of Korlis refunds life lost this turn**, including from Wall of Blood, Confidant, and combat damage. Sacrificing it after a dump restores the old total, which fights Mirror Universe and Repay in Kind. Use it when the exchange missed or when you need to survive the turn.
+- **Pain's Reward is a life bid, not a set life total.** The winner loses life equal to the winning bid and draws four. You can start at 0 and let someone else take it, or bid high to dump and draw in one spell.
+- **Bender's Waterskin untaps during each other player's untap step**, at the same time as that player's permanents. You cannot choose to leave it tapped. Effects that stop artifacts from untapping on *your* untap step do not stop those extra untaps.
 
 ## Talks
 
@@ -225,6 +234,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
   Hatred and Blood Celebrant solve different problems. Blood Celebrant stays because it is a one-mana creature that fixes the deck's difficult white and blue costs, turns surplus black into the needed color, pays life one point at a time, and uses a mana ability that cannot be responded to. It is support, not a finisher. Hatred is a five-mana ambush and a much faster life dump: its best case is political aikido, making an opponent's apparently harmless attacker lethal against another opponent. Its ceiling is much higher, but so is its risk. Keep Hatred in the maybeboard until play shows whether the deck can reliably hold `{3}{B}{B}` while still representing protection; if it returns, the most natural test cut is Blood Celebrant only if color fixing has proved unnecessary.
 - **2026-08-25 — Rocks into cards.** The three Talismans and Fellwar Stone became Orzhov Signet, Dimir Signet, Skeletal Scrying, and Fact or Fiction. The deck accepts two fewer mana rocks because 38 lands and Lotho already improved its mana floor; in return it gets two more instant-speed ways to find exchange pieces, protection, or a drain. Pendrell Mists was reviewed at the same time and left in provisionally.
 - **2026-08-25 — Group-hug disguise.** Secret Rendezvous and Tenuous Truce entered so the deck can look like a "do not attack, we share cards" vampire rather than a tax engine. Esper Sentinel and Skeletal Scrying came out because one is a visible tax and the other is private, graveyard-eating draw. Pendrell Mists finally left; Loran of the Third Path took its slot as a repeatable shared-draw tap plus incidental artifact or enchantment removal. The matching card for "ETB, choose an opponent, both draw on their end step" is Tenuous Truce.
+- **2026-08-25 — Thin the slow package.** Adept Watershaper, Axis of Mortality, Soul Conduit, Liliana of the Dark Realms, and Magus of the Mirror left as the weakest on-theme cards. Children of Korlis, Bender's Waterskin, and Pain's Reward entered; the two leftover slots became basic Swamps so Cabal Stronghold still scales after Liliana left. Condemn, Wall of Shards, Wedding Ring, Breena, and Infernal Contract went to the maybeboard rather than into the 99.
 - **2026-08-25 — Assessment.** First bracket pass: Bracket 3−. Zero Game Changers versus the live Scryfall `is:gamechanger` list (53 cards, including Farewell and Biorhythm from the [February 9, 2026 update](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-february-9-2026)). No card tutors, no two-card win combo. Rings of Brighthearth plus Deserted Temple is a mana engine, not a kill. Sokrates / Energy Arc / Scapegoat did not change Game Changer count, compactness, or expected win turn versus Advokist / Dawn Charm / Night's Whisper.
 
 ## Primer

@@ -1,0 +1,152 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "b3df33ee-0db7-4240-a6fe-9a9e130353ce",
+      "name": "Wedding Ring",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/b3df33ee-0db7-4240-a6fe-9a9e130353ce"
+    },
+    {
+      "component": "token",
+      "id": "dd2942a8-68e8-4f73-956f-f19c690fa512",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/dd2942a8-68e8-4f73-956f-f19c690fa512"
+    }
+  ],
+  "artist": "Olena Richards",
+  "artist_ids": [
+    "fad4282c-49d1-4b5b-be1d-713369fc8bc8"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 581382,
+  "cmc": 4.0,
+  "collector_number": "32",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 1923,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7f0b1400-0608-47fd-9c73-b7730bcf6b7f",
+  "illustration_id": "818d4307-14ab-484d-81d7-f9381c4b3ef6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:43:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/f/7f0b1400-0608-47fd-9c73-b7730bcf6b7f.webp?1783924997",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/f/7f0b1400-0608-47fd-9c73-b7730bcf6b7f.jpg?1783924997",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/f/7f0b1400-0608-47fd-9c73-b7730bcf6b7f.jpg?1783924997",
+    "crop": "https://cards.scryfall.io/crop/front/7/f/7f0b1400-0608-47fd-9c73-b7730bcf6b7f.webp?1783924997",
+    "display": "https://cards.scryfall.io/display/front/7/f/7f0b1400-0608-47fd-9c73-b7730bcf6b7f.webp?1783924997",
+    "grid": "https://cards.scryfall.io/grid/front/7/f/7f0b1400-0608-47fd-9c73-b7730bcf6b7f.webp?1783924997",
+    "large": "https://cards.scryfall.io/large/front/7/f/7f0b1400-0608-47fd-9c73-b7730bcf6b7f.jpg?1783924997",
+    "normal": "https://cards.scryfall.io/normal/front/7/f/7f0b1400-0608-47fd-9c73-b7730bcf6b7f.jpg?1783924997",
+    "png": "https://cards.scryfall.io/png/front/7/f/7f0b1400-0608-47fd-9c73-b7730bcf6b7f.png?1783924997",
+    "small": "https://cards.scryfall.io/small/front/7/f/7f0b1400-0608-47fd-9c73-b7730bcf6b7f.jpg?1783924997",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/f/7f0b1400-0608-47fd-9c73-b7730bcf6b7f.webp?1783924997"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}{W}",
+  "mtgo_id": 95154,
+  "multiverse_ids": [
+    547270
+  ],
+  "name": "Wedding Ring",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0c34e962-99d9-4163-b852-4f61886546aa",
+  "oracle_text": "When this artifact enters, if it was cast, target opponent creates a token that's a copy of it.\nWhenever an opponent who controls an artifact named Wedding Ring draws a card during their turn, you draw a card.\nWhenever an opponent who controls an artifact named Wedding Ring gains life during their turn, you gain that much life.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2021-10-28",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/1189365133"
+  },
+  "prices": {
+    "eur": "7.46",
+    "eur_foil": null,
+    "tix": "1.70",
+    "usd": "9.76",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0c34e962-99d9-4163-b852-4f61886546aa&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/95154?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=581382&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F253800%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wedding+Ring",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=547270&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWedding%2BRing",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWedding%2BRing"
+  },
+  "released_at": "2021-11-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7f0b1400-0608-47fd-9c73-b7730bcf6b7f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/voc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/voc/32/wedding-ring?utm_source=api",
+  "security_stamp": "oval",
+  "set": "voc",
+  "set_id": "b2e444f7-41e6-4172-ba01-47d91d5e7bbc",
+  "set_name": "Crimson Vow Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Avoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/b2e444f7-41e6-4172-ba01-47d91d5e7bbc",
+  "story_spotlight": false,
+  "tcgplayer_id": 253800,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/7f0b1400-0608-47fd-9c73-b7730bcf6b7f",
+  "variation": false
+}

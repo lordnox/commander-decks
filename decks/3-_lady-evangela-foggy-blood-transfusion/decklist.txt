@@ -3,9 +3,6 @@ Commander
 
 Life Exchange:
 1x Mirror Universe [Life Exchange]
-1x Magus of the Mirror [Life Exchange]
-1x Soul Conduit [Life Exchange]
-1x Axis of Mortality [Life Exchange]
 1x Mister Negative [Life Exchange]
 1x Repay in Kind [Life Exchange]
 
@@ -18,6 +15,8 @@ Life Payment:
 1x Wall of Blood [Life Payment]
 1x Selenia, Dark Angel [Life Payment]
 1x Blood Celebrant [Life Payment,Ramp]
+1x Children of Korlis [Life Payment]
+1x Pain's Reward [Draw,Life Payment,Politics]
 
 Draw:
 1x Queza, Augur of Agonies [Draw,Drain Finisher]
@@ -44,7 +43,6 @@ Fog:
 Tax:
 1x Baird, Steward of Argive [Tax]
 1x Archangel of Tithes [Tax]
-1x Adept Watershaper [Tax]
 
 Politics:
 1x Sokrates, Athenian Teacher [Politics,Fog]
@@ -82,11 +80,11 @@ Ramp:
 1x Arcane Signet [Ramp]
 1x Orzhov Signet [Ramp]
 1x Dimir Signet [Ramp]
+1x Bender's Waterskin [Ramp]
 1x Lotho, Corrupt Shirriff [Ramp,Life Payment,Politics]
 
 Land Search:
 1x Expedition Map [Land Search]
-1x Liliana of the Dark Realms [Land Search,Swamp Engine]
 
 Land:
 1x Urborg, Tomb of Yawgmoth [Land,Swamp Engine]
@@ -115,7 +113,7 @@ Land:
 1x Prismatic Vista [Land,Land Search]
 1x Esper Panorama [Land,Land Search]
 1x Orzhov Basilica [Land]
-9x Swamp [Land]
+11x Swamp [Land]
 2x Plains [Land]
 1x Island [Land]
 
@@ -123,3 +121,8 @@ Maybeboard:
 1x Hatred [Maybeboard{noDeck}{noPrice},Life Payment]
 1x Desertion [Maybeboard{noDeck}{noPrice},Counterspell]
 1x Arcanis the Omnipotent [Maybeboard{noDeck}{noPrice},Draw]
+1x Condemn [Maybeboard{noDeck}{noPrice},Removal]
+1x Wall of Shards [Maybeboard{noDeck}{noPrice},Tax,Politics]
+1x Wedding Ring [Maybeboard{noDeck}{noPrice},Draw,Politics]
+1x Breena, the Demagogue [Maybeboard{noDeck}{noPrice},Politics]
+1x Infernal Contract [Maybeboard{noDeck}{noPrice},Draw,Life Payment]

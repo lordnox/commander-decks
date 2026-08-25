@@ -1,0 +1,130 @@
+{
+  "artist": "Pete Venters",
+  "artist_ids": [
+    "d54c4a1a-c0c5-4834-84db-125d341f3ad8"
+  ],
+  "booster": true,
+  "border_color": "white",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 2905,
+  "cmc": 3.0,
+  "collector_number": "143",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 17922,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"East and West meet and angels cry.\nUnholy power darkens the sky.\"\n—\"The Ballad of the Paladins\"",
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f451a70f-1f1c-4fd6-ab0c-4b77a043c324",
+  "illustration_id": "8040c2d9-9576-4780-9ee1-632fba320de5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:24:58Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/4/f451a70f-1f1c-4fd6-ab0c-4b77a043c324.webp?1783945498",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/4/f451a70f-1f1c-4fd6-ab0c-4b77a043c324.jpg?1783945498",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/4/f451a70f-1f1c-4fd6-ab0c-4b77a043c324.jpg?1783945498",
+    "crop": "https://cards.scryfall.io/crop/front/f/4/f451a70f-1f1c-4fd6-ab0c-4b77a043c324.webp?1783945498",
+    "display": "https://cards.scryfall.io/display/front/f/4/f451a70f-1f1c-4fd6-ab0c-4b77a043c324.webp?1783945498",
+    "grid": "https://cards.scryfall.io/grid/front/f/4/f451a70f-1f1c-4fd6-ab0c-4b77a043c324.webp?1783945498",
+    "large": "https://cards.scryfall.io/large/front/f/4/f451a70f-1f1c-4fd6-ab0c-4b77a043c324.jpg?1783945498",
+    "normal": "https://cards.scryfall.io/normal/front/f/4/f451a70f-1f1c-4fd6-ab0c-4b77a043c324.jpg?1783945498",
+    "png": "https://cards.scryfall.io/png/front/f/4/f451a70f-1f1c-4fd6-ab0c-4b77a043c324.png?1783945498",
+    "small": "https://cards.scryfall.io/small/front/f/4/f451a70f-1f1c-4fd6-ab0c-4b77a043c324.jpg?1783945498",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/4/f451a70f-1f1c-4fd6-ab0c-4b77a043c324.webp?1783945498"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}{B}{B}",
+  "mtgo_foil_id": 15613,
+  "mtgo_id": 15612,
+  "multiverse_ids": [
+    12957
+  ],
+  "name": "Infernal Contract",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4372205f-45e6-49c7-b1fd-13a41e20d4de",
+  "oracle_text": "Draw four cards. You lose half your life, rounded up.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.62",
+    "eur_foil": null,
+    "tix": "1.88",
+    "usd": "0.70",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4372205f-45e6-49c7-b1fd-13a41e20d4de&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/15612?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=2905&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F2953%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Infernal+Contract",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=12957&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DInfernal%2BContract",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DInfernal%2BContract"
+  },
+  "released_at": "2001-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f451a70f-1f1c-4fd6-ab0c-4b77a043c324/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/7ed?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/7ed/143/infernal-contract?utm_source=api",
+  "set": "7ed",
+  "set_id": "230f38aa-9511-4db8-a3aa-aeddbc3f7bb9",
+  "set_name": "Seventh Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A7ed&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/230f38aa-9511-4db8-a3aa-aeddbc3f7bb9",
+  "story_spotlight": false,
+  "tcgplayer_id": 2953,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/f451a70f-1f1c-4fd6-ab0c-4b77a043c324",
+  "variation": false
+}

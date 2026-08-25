@@ -47,74 +47,6 @@
       "submitted_name": "Mirror Universe"
     },
     {
-      "cache": "cards/f587676e-d45f-4b1d-be2c-b404d8f55fb3.json",
-      "card": {
-        "cmc": 6.0,
-        "keywords": [],
-        "mana_cost": "{4}{B}{B}",
-        "oracle_text": "{T}, Sacrifice this creature: Exchange life totals with target opponent. Activate only during your upkeep.",
-        "power": "4",
-        "toughness": "2",
-        "type_line": "Creature — Human Wizard"
-      },
-      "categories": [
-        "Life Exchange"
-      ],
-      "category_source": "decklist",
-      "name": "Magus of the Mirror",
-      "oracle_id": "f587676e-d45f-4b1d-be2c-b404d8f55fb3",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cns/117/magus-of-the-mirror?utm_source=api",
-      "submitted_categories": [
-        "Life Exchange"
-      ],
-      "submitted_name": "Magus of the Mirror"
-    },
-    {
-      "cache": "cards/b48befc5-a9f2-4a64-a16d-c883b034ea9c.json",
-      "card": {
-        "cmc": 6.0,
-        "keywords": [],
-        "mana_cost": "{6}",
-        "oracle_text": "{6}, {T}: Two target players exchange life totals.",
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Life Exchange"
-      ],
-      "category_source": "decklist",
-      "name": "Soul Conduit",
-      "oracle_id": "b48befc5-a9f2-4a64-a16d-c883b034ea9c",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/nph/158/soul-conduit?utm_source=api",
-      "submitted_categories": [
-        "Life Exchange"
-      ],
-      "submitted_name": "Soul Conduit"
-    },
-    {
-      "cache": "cards/158cb888-a115-4d50-a82f-746622f0578e.json",
-      "card": {
-        "cmc": 6.0,
-        "keywords": [],
-        "mana_cost": "{4}{W}{W}",
-        "oracle_text": "At the beginning of your upkeep, you may have two target players exchange life totals.",
-        "type_line": "Enchantment"
-      },
-      "categories": [
-        "Life Exchange"
-      ],
-      "category_source": "decklist",
-      "name": "Axis of Mortality",
-      "oracle_id": "158cb888-a115-4d50-a82f-746622f0578e",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/xln/3/axis-of-mortality?utm_source=api",
-      "submitted_categories": [
-        "Life Exchange"
-      ],
-      "submitted_name": "Axis of Mortality"
-    },
-    {
       "cache": "cards/c8da3262-826d-4ea8-bb22-06374bebefe5.json",
       "card": {
         "cmc": 7.0,
@@ -314,6 +246,56 @@
         "Ramp"
       ],
       "submitted_name": "Blood Celebrant"
+    },
+    {
+      "cache": "cards/d44a8f89-b9c0-4e8a-9179-baa0c448a3c9.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{W}",
+        "oracle_text": "Sacrifice this creature: You gain life equal to the life you've lost this turn. (Damage causes loss of life.)",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Rebel Cleric"
+      },
+      "categories": [
+        "Life Payment"
+      ],
+      "category_source": "decklist",
+      "name": "Children of Korlis",
+      "oracle_id": "d44a8f89-b9c0-4e8a-9179-baa0c448a3c9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsr/14/children-of-korlis?utm_source=api",
+      "submitted_categories": [
+        "Life Payment"
+      ],
+      "submitted_name": "Children of Korlis"
+    },
+    {
+      "cache": "cards/4608c663-e088-40ca-a915-b6e39253eb98.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Each player may bid life. You start the bidding with a bid of any number. In turn order, each player may top the high bid. The bidding ends if the high bid stands. The high bidder loses life equal to the high bid and draws four cards.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Draw",
+        "Life Payment",
+        "Politics"
+      ],
+      "category_source": "decklist",
+      "name": "Pain's Reward",
+      "oracle_id": "4608c663-e088-40ca-a915-b6e39253eb98",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sok/85/pains-reward?utm_source=api",
+      "submitted_categories": [
+        "Draw",
+        "Life Payment",
+        "Politics"
+      ],
+      "submitted_name": "Pain's Reward"
     },
     {
       "cache": "cards/c983338d-ae6b-4a15-9931-daa20fca8269.json",
@@ -799,30 +781,6 @@
         "Tax"
       ],
       "submitted_name": "Archangel of Tithes"
-    },
-    {
-      "cache": "cards/602cce3e-7033-47d6-aec1-d755f234f270.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{2}{W}",
-        "oracle_text": "Other tapped creatures you control have indestructible.",
-        "power": "3",
-        "toughness": "4",
-        "type_line": "Creature — Merfolk Cleric"
-      },
-      "categories": [
-        "Tax"
-      ],
-      "category_source": "decklist",
-      "name": "Adept Watershaper",
-      "oracle_id": "602cce3e-7033-47d6-aec1-d755f234f270",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/ecl/3/adept-watershaper?utm_source=api",
-      "submitted_categories": [
-        "Tax"
-      ],
-      "submitted_name": "Adept Watershaper"
     },
     {
       "cache": "cards/f4a9d567-513b-487e-afed-c6e6513a7862.json",
@@ -1453,6 +1411,35 @@
       "submitted_name": "Dimir Signet"
     },
     {
+      "cache": "cards/3bc46467-323f-4cbf-9d0a-f3d2ae3c3a34.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "Untap this artifact during each other player's untap step.\n{T}: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Bender's Waterskin",
+      "oracle_id": "3bc46467-323f-4cbf-9d0a-f3d2ae3c3a34",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tla/255/benders-waterskin?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Bender's Waterskin"
+    },
+    {
       "cache": "cards/135cc078-1c45-465e-b0b9-7168c89f56f4.json",
       "card": {
         "cmc": 2.0,
@@ -1510,34 +1497,6 @@
         "Land Search"
       ],
       "submitted_name": "Expedition Map"
-    },
-    {
-      "cache": "cards/92301066-8904-41bc-84bd-4aa286cbab9c.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "loyalty": "3",
-        "mana_cost": "{2}{B}{B}",
-        "oracle_text": "+1: Search your library for a Swamp card, reveal it, put it into your hand, then shuffle.\n−3: Target creature gets +X/+X or -X/-X until end of turn, where X is the number of Swamps you control.\n−6: You get an emblem with \"Swamps you control have '{T}: Add {B}{B}{B}{B}.'\"",
-        "produced_mana": [
-          "B"
-        ],
-        "type_line": "Legendary Planeswalker — Liliana"
-      },
-      "categories": [
-        "Land Search",
-        "Swamp Engine"
-      ],
-      "category_source": "decklist",
-      "name": "Liliana of the Dark Realms",
-      "oracle_id": "92301066-8904-41bc-84bd-4aa286cbab9c",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/m14/102/liliana-of-the-dark-realms?utm_source=api",
-      "submitted_categories": [
-        "Land Search",
-        "Swamp Engine"
-      ],
-      "submitted_name": "Liliana of the Dark Realms"
     },
     {
       "cache": "cards/db6174d7-211d-4817-b8e4-8384594c83f9.json",
@@ -2272,7 +2231,7 @@
       "category_source": "decklist",
       "name": "Swamp",
       "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
-      "quantity": 9,
+      "quantity": 11,
       "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
       "submitted_categories": [
         "Land"
@@ -2402,16 +2361,152 @@
         "Draw"
       ],
       "submitted_name": "Arcanis the Omnipotent"
+    },
+    {
+      "cache": "cards/377d31b5-0a48-4d5b-91bd-b5a62d4f7899.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{W}",
+        "oracle_text": "Put target attacking creature on the bottom of its owner's library. Its controller gains life equal to its toughness.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "Condemn",
+      "oracle_id": "377d31b5-0a48-4d5b-91bd-b5a62d4f7899",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rvr/14/condemn?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Removal"
+      ],
+      "submitted_name": "Condemn"
+    },
+    {
+      "cache": "cards/8fab68ad-169d-46d3-93c4-5bdee4eea2ce.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Cumulative upkeep",
+          "Flying",
+          "Defender"
+        ],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Defender, flying\nCumulative upkeep—An opponent gains 1 life. (At the beginning of your upkeep, put an age counter on this permanent, then sacrifice it unless you pay its upkeep cost for each age counter on it.)",
+        "power": "1",
+        "toughness": "8",
+        "type_line": "Snow Creature — Wall"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Tax",
+        "Politics"
+      ],
+      "category_source": "decklist",
+      "name": "Wall of Shards",
+      "oracle_id": "8fab68ad-169d-46d3-93c4-5bdee4eea2ce",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/csp/23/wall-of-shards?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Tax",
+        "Politics"
+      ],
+      "submitted_name": "Wall of Shards"
+    },
+    {
+      "cache": "cards/0c34e962-99d9-4163-b852-4f61886546aa.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{W}{W}",
+        "oracle_text": "When this artifact enters, if it was cast, target opponent creates a token that's a copy of it.\nWhenever an opponent who controls an artifact named Wedding Ring draws a card during their turn, you draw a card.\nWhenever an opponent who controls an artifact named Wedding Ring gains life during their turn, you gain that much life.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Draw",
+        "Politics"
+      ],
+      "category_source": "decklist",
+      "name": "Wedding Ring",
+      "oracle_id": "0c34e962-99d9-4163-b852-4f61886546aa",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/voc/32/wedding-ring?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Draw",
+        "Politics"
+      ],
+      "submitted_name": "Wedding Ring"
+    },
+    {
+      "cache": "cards/d11e627b-8a48-411d-a261-2c9a02a758ba.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{1}{W}{B}",
+        "oracle_text": "Flying\nWhenever a player attacks one of your opponents, if that opponent has more life than another of your opponents, that attacking player draws a card and you put two +1/+1 counters on a creature you control.",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Bird Warlock"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Politics"
+      ],
+      "category_source": "decklist",
+      "name": "Breena, the Demagogue",
+      "oracle_id": "d11e627b-8a48-411d-a261-2c9a02a758ba",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/298/breena-the-demagogue?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Politics"
+      ],
+      "submitted_name": "Breena, the Demagogue"
+    },
+    {
+      "cache": "cards/4372205f-45e6-49c7-b1fd-13a41e20d4de.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{B}{B}{B}",
+        "oracle_text": "Draw four cards. You lose half your life, rounded up.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Draw",
+        "Life Payment"
+      ],
+      "category_source": "decklist",
+      "name": "Infernal Contract",
+      "oracle_id": "4372205f-45e6-49c7-b1fd-13a41e20d4de",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/7ed/143/infernal-contract?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Draw",
+        "Life Payment"
+      ],
+      "submitted_name": "Infernal Contract"
     }
   ],
-  "categorized_cards": 94,
-  "generated_at": "2026-08-25T21:33:42.527683+00:00",
-  "maybeboard_cards": 3,
-  "maybeboard_unique_cards": 3,
-  "resolved_unique_cards": 94,
+  "categorized_cards": 97,
+  "generated_at": "2026-08-25T21:56:34.991247+00:00",
+  "maybeboard_cards": 8,
+  "maybeboard_unique_cards": 8,
+  "resolved_unique_cards": 97,
   "schema_version": 3,
   "source": "decks/3-_lady-evangela-foggy-blood-transfusion/decklist.txt",
   "total_cards": 100,
-  "unique_cards": 91,
+  "unique_cards": 89,
   "unresolved": []
 }

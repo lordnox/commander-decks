@@ -886,8 +886,16 @@
     "skeletal scrying": "561c68d8-b727-48d8-a832-2e42d1345fac",
     "secret rendezvous": "34b90d3e-f48c-41ff-b3e4-5cab7a9cd597",
     "tenuous truce": "f0bf2923-aea2-4bac-b061-64bc84437ef1",
-    "loran of the third path": "b3d81980-76f2-44e2-b1c9-01e30c726312"
+    "loran of the third path": "b3d81980-76f2-44e2-b1c9-01e30c726312",
+    "children of korlis": "d44a8f89-b9c0-4e8a-9179-baa0c448a3c9",
+    "pain's reward": "4608c663-e088-40ca-a915-b6e39253eb98",
+    "bender's waterskin": "3bc46467-323f-4cbf-9d0a-f3d2ae3c3a34",
+    "condemn": "377d31b5-0a48-4d5b-91bd-b5a62d4f7899",
+    "wall of shards": "8fab68ad-169d-46d3-93c4-5bdee4eea2ce",
+    "wedding ring": "0c34e962-99d9-4163-b852-4f61886546aa",
+    "breena, the demagogue": "d11e627b-8a48-411d-a261-2c9a02a758ba",
+    "infernal contract": "4372205f-45e6-49c7-b1fd-13a41e20d4de"
   },
   "schema_version": 1,
-  "updated_at": "2026-08-25T21:33:42.527683+00:00"
+  "updated_at": "2026-08-25T21:56:34.991247+00:00"
 }
