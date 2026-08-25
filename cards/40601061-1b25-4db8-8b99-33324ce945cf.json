@@ -1,0 +1,130 @@
+{
+  "artist": "Brom",
+  "artist_ids": [
+    "bd79c951-2552-45dd-aae7-a333c2b7c1ef"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 9292,
+  "cmc": 5.0,
+  "collector_number": "64",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 7727,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"I will flay the skin from your flesh and the flesh from your bones and scrape your bones dry. And still you will not have suffered enough.\"\n—Greven *il*-Vec, to Gerrard",
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2383a8d9-96fd-4f9a-bcf9-eb81fdb15ead",
+  "illustration_id": "b44d5067-4648-4557-b9df-39f4c9593eec",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:41:57Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/3/2383a8d9-96fd-4f9a-bcf9-eb81fdb15ead.webp?1783946517",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/3/2383a8d9-96fd-4f9a-bcf9-eb81fdb15ead.jpg?1783946517",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/3/2383a8d9-96fd-4f9a-bcf9-eb81fdb15ead.jpg?1783946517",
+    "crop": "https://cards.scryfall.io/crop/front/2/3/2383a8d9-96fd-4f9a-bcf9-eb81fdb15ead.webp?1783946517",
+    "display": "https://cards.scryfall.io/display/front/2/3/2383a8d9-96fd-4f9a-bcf9-eb81fdb15ead.webp?1783946517",
+    "grid": "https://cards.scryfall.io/grid/front/2/3/2383a8d9-96fd-4f9a-bcf9-eb81fdb15ead.webp?1783946517",
+    "large": "https://cards.scryfall.io/large/front/2/3/2383a8d9-96fd-4f9a-bcf9-eb81fdb15ead.jpg?1783946517",
+    "normal": "https://cards.scryfall.io/normal/front/2/3/2383a8d9-96fd-4f9a-bcf9-eb81fdb15ead.jpg?1783946517",
+    "png": "https://cards.scryfall.io/png/front/2/3/2383a8d9-96fd-4f9a-bcf9-eb81fdb15ead.png?1783946517",
+    "small": "https://cards.scryfall.io/small/front/2/3/2383a8d9-96fd-4f9a-bcf9-eb81fdb15ead.jpg?1783946517",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/3/2383a8d9-96fd-4f9a-bcf9-eb81fdb15ead.webp?1783946517"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_foil_id": 10700,
+  "mtgo_id": 10699,
+  "multiverse_ids": [
+    6104
+  ],
+  "name": "Hatred",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "40601061-1b25-4db8-8b99-33324ce945cf",
+  "oracle_text": "As an additional cost to cast this spell, pay X life.\nTarget creature gets +X/+0 until end of turn.",
+  "oversized": false,
+  "prices": {
+    "eur": "26.12",
+    "eur_foil": null,
+    "tix": "13.24",
+    "usd": "64.60",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A40601061-1b25-4db8-8b99-33324ce945cf&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/10699?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=9292&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F4332%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hatred",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=6104&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHatred",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHatred"
+  },
+  "released_at": "1998-06-15",
+  "reprint": false,
+  "reserved": true,
+  "rulings_uri": "https://api.scryfall.com/cards/2383a8d9-96fd-4f9a-bcf9-eb81fdb15ead/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/exo?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/exo/64/hatred?utm_source=api",
+  "set": "exo",
+  "set_id": "1401f7af-2e71-476d-9813-991084ed0bb9",
+  "set_name": "Exodus",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aexo&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/1401f7af-2e71-476d-9813-991084ed0bb9",
+  "story_spotlight": false,
+  "tcgplayer_id": 4332,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/2383a8d9-96fd-4f9a-bcf9-eb81fdb15ead",
+  "variation": false
+}

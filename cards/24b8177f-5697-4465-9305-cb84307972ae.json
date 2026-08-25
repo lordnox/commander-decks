@@ -1,0 +1,132 @@
+{
+  "artist": "Vance Kovacs",
+  "artist_ids": [
+    "b5516011-4722-4fc8-8542-102cecc52b71"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 22567,
+  "cmc": 7.0,
+  "collector_number": "125",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 7721,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Sorin has gathered grudges for centuries, patiently awaiting the day he can exact the perfect vengeance.",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "90d1db4c-1e79-410a-92ab-c9d58c5e58a6",
+  "illustration_id": "46d4c27b-d30e-41de-a9ff-ececb8b3212f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:26:21Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/0/90d1db4c-1e79-410a-92ab-c9d58c5e58a6.webp?1783941981",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/0/90d1db4c-1e79-410a-92ab-c9d58c5e58a6.jpg?1783941981",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/0/90d1db4c-1e79-410a-92ab-c9d58c5e58a6.jpg?1783941981",
+    "crop": "https://cards.scryfall.io/crop/front/9/0/90d1db4c-1e79-410a-92ab-c9d58c5e58a6.webp?1783941981",
+    "display": "https://cards.scryfall.io/display/front/9/0/90d1db4c-1e79-410a-92ab-c9d58c5e58a6.webp?1783941981",
+    "grid": "https://cards.scryfall.io/grid/front/9/0/90d1db4c-1e79-410a-92ab-c9d58c5e58a6.webp?1783941981",
+    "large": "https://cards.scryfall.io/large/front/9/0/90d1db4c-1e79-410a-92ab-c9d58c5e58a6.jpg?1783941981",
+    "normal": "https://cards.scryfall.io/normal/front/9/0/90d1db4c-1e79-410a-92ab-c9d58c5e58a6.jpg?1783941981",
+    "png": "https://cards.scryfall.io/png/front/9/0/90d1db4c-1e79-410a-92ab-c9d58c5e58a6.png?1783941981",
+    "small": "https://cards.scryfall.io/small/front/9/0/90d1db4c-1e79-410a-92ab-c9d58c5e58a6.jpg?1783941981",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/0/90d1db4c-1e79-410a-92ab-c9d58c5e58a6.webp?1783941981"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{B}{B}",
+  "mtgo_foil_id": 36653,
+  "mtgo_id": 36652,
+  "multiverse_ids": [
+    193657
+  ],
+  "name": "Repay in Kind",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "24b8177f-5697-4465-9305-cb84307972ae",
+  "oracle_text": "Each player's life total becomes the lowest life total among all players.",
+  "oversized": false,
+  "penny_rank": 15965,
+  "prices": {
+    "eur": "2.10",
+    "eur_foil": "7.32",
+    "tix": "0.02",
+    "usd": "4.05",
+    "usd_etched": null,
+    "usd_foil": "15.63"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A24b8177f-5697-4465-9305-cb84307972ae&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/36652?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=22567&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F34819%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Repay+in+Kind",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=193657&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRepay%2Bin%2BKind",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRepay%2Bin%2BKind"
+  },
+  "released_at": "2010-04-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/90d1db4c-1e79-410a-92ab-c9d58c5e58a6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/roe?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/roe/125/repay-in-kind?utm_source=api",
+  "set": "roe",
+  "set_id": "eadb8a82-ec56-4623-b50e-42e7e60cb535",
+  "set_name": "Rise of the Eldrazi",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aroe&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/eadb8a82-ec56-4623-b50e-42e7e60cb535",
+  "story_spotlight": false,
+  "tcgplayer_id": 34819,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/90d1db4c-1e79-410a-92ab-c9d58c5e58a6",
+  "variation": false
+}

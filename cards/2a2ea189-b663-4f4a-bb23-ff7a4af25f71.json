@@ -1,0 +1,139 @@
+{
+  "artist": "Chris Cold",
+  "artist_ids": [
+    "2622d22b-3fd8-4831-9b2b-adc5fac01b85"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 900600,
+  "cmc": 4.0,
+  "collector_number": "26",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 3230,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "There was a hiss, a gushing whirl, and then silence. And that was the end of Smaug and Esgaroth.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "31a7a5e2-4cb8-48fc-8351-18344b4a7560",
+  "illustration_id": "e0f36656-c907-4b55-bb72-65fab94d127b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-31T11:12:29Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/1/31a7a5e2-4cb8-48fc-8351-18344b4a7560.webp?1785496349",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/1/31a7a5e2-4cb8-48fc-8351-18344b4a7560.jpg?1785496349",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/1/31a7a5e2-4cb8-48fc-8351-18344b4a7560.jpg?1785496349",
+    "crop": "https://cards.scryfall.io/crop/front/3/1/31a7a5e2-4cb8-48fc-8351-18344b4a7560.webp?1785496349",
+    "display": "https://cards.scryfall.io/display/front/3/1/31a7a5e2-4cb8-48fc-8351-18344b4a7560.webp?1785496349",
+    "grid": "https://cards.scryfall.io/grid/front/3/1/31a7a5e2-4cb8-48fc-8351-18344b4a7560.webp?1785496349",
+    "large": "https://cards.scryfall.io/large/front/3/1/31a7a5e2-4cb8-48fc-8351-18344b4a7560.jpg?1785496349",
+    "normal": "https://cards.scryfall.io/normal/front/3/1/31a7a5e2-4cb8-48fc-8351-18344b4a7560.jpg?1785496349",
+    "png": "https://cards.scryfall.io/png/front/3/1/31a7a5e2-4cb8-48fc-8351-18344b4a7560.png?1785496349",
+    "small": "https://cards.scryfall.io/small/front/3/1/31a7a5e2-4cb8-48fc-8351-18344b4a7560.jpg?1785496349",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/1/31a7a5e2-4cb8-48fc-8351-18344b4a7560.webp?1785496349"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}{W}",
+  "mtgo_id": 153966,
+  "multiverse_ids": [],
+  "name": "Settle the Wreckage",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2a2ea189-b663-4f4a-bb23-ff7a4af25f71",
+  "oracle_text": "Exile all attacking creatures target player controls. That player may search their library for that many basic land cards, put those cards onto the battlefield tapped, then shuffle.",
+  "oversized": false,
+  "penny_rank": 827,
+  "preview": {
+    "previewed_at": "2026-07-29",
+    "source": "ZBexx",
+    "source_uri": "https://www.instagram.com/zbexx/reel/DbZTYbOPboj/"
+  },
+  "prices": {
+    "eur": "0.15",
+    "eur_foil": "0.32",
+    "tix": "0.01",
+    "usd": "0.51",
+    "usd_etched": null,
+    "usd_foil": "0.69"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2a2ea189-b663-4f4a-bb23-ff7a4af25f71&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/153966?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=900600&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F709463%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Settle+the+Wreckage",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSettle%2Bthe%2BWreckage",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSettle%2Bthe%2BWreckage"
+  },
+  "released_at": "2026-08-14",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "F86DCFB5118D2A1328050E310E384B03DB7B2443490603FE15FDEFD5F92DE0E9",
+  "rulings_uri": "https://api.scryfall.com/cards/31a7a5e2-4cb8-48fc-8351-18344b4a7560/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/hob?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/hob/26/settle-the-wreckage?utm_source=api",
+  "security_stamp": "oval",
+  "set": "hob",
+  "set_id": "59218c23-cb7a-4fde-9cff-3f2f71af1308",
+  "set_name": "The Hobbit",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ahob&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/59218c23-cb7a-4fde-9cff-3f2f71af1308",
+  "story_spotlight": false,
+  "tcgplayer_id": 709463,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/31a7a5e2-4cb8-48fc-8351-18344b4a7560",
+  "variation": false
+}

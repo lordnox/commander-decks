@@ -1,0 +1,131 @@
+{
+  "artist": "John Avon",
+  "artist_ids": [
+    "798f3932-30e0-4420-aa3f-db4d613f89ca"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 514409,
+  "cmc": 2.0,
+  "collector_number": "371",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 2094,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "fc47e26a-2ba6-4b7a-bb03-43f7ecb9012e",
+  "illustration_id": "7a6e9d8f-3669-42ce-b197-d96e7b9840e9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:45:34Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/c/fc47e26a-2ba6-4b7a-bb03-43f7ecb9012e.webp?1783928734",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/c/fc47e26a-2ba6-4b7a-bb03-43f7ecb9012e.jpg?1783928734",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/c/fc47e26a-2ba6-4b7a-bb03-43f7ecb9012e.jpg?1783928734",
+    "crop": "https://cards.scryfall.io/crop/front/f/c/fc47e26a-2ba6-4b7a-bb03-43f7ecb9012e.webp?1783928734",
+    "display": "https://cards.scryfall.io/display/front/f/c/fc47e26a-2ba6-4b7a-bb03-43f7ecb9012e.webp?1783928734",
+    "grid": "https://cards.scryfall.io/grid/front/f/c/fc47e26a-2ba6-4b7a-bb03-43f7ecb9012e.webp?1783928734",
+    "large": "https://cards.scryfall.io/large/front/f/c/fc47e26a-2ba6-4b7a-bb03-43f7ecb9012e.jpg?1783928734",
+    "normal": "https://cards.scryfall.io/normal/front/f/c/fc47e26a-2ba6-4b7a-bb03-43f7ecb9012e.jpg?1783928734",
+    "png": "https://cards.scryfall.io/png/front/f/c/fc47e26a-2ba6-4b7a-bb03-43f7ecb9012e.png?1783928734",
+    "small": "https://cards.scryfall.io/small/front/f/c/fc47e26a-2ba6-4b7a-bb03-43f7ecb9012e.jpg?1783928734",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/c/fc47e26a-2ba6-4b7a-bb03-43f7ecb9012e.webp?1783928734"
+  },
+  "keywords": [
+    "Regenerate"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "mtgo_id": 85558,
+  "multiverse_ids": [
+    500851
+  ],
+  "name": "Dawn Charm",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a8f5cfa7-4956-4182-8e44-acf3493239f0",
+  "oracle_text": "Choose one —\n• Prevent all combat damage that would be dealt this turn.\n• Regenerate target creature.\n• Counter target spell that targets you.",
+  "oversized": false,
+  "penny_rank": 3972,
+  "prices": {
+    "eur": "0.61",
+    "eur_foil": null,
+    "tix": "0.09",
+    "usd": "3.10",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa8f5cfa7-4956-4182-8e44-acf3493239f0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/85558?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=514409&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F227259%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dawn+Charm",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=500851&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDawn%2BCharm",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDawn%2BCharm"
+  },
+  "released_at": "2020-11-20",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/fc47e26a-2ba6-4b7a-bb03-43f7ecb9012e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmr/371/dawn-charm?utm_source=api",
+  "set": "cmr",
+  "set_id": "39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "set_name": "Commander Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "story_spotlight": false,
+  "tcgplayer_id": 227259,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/fc47e26a-2ba6-4b7a-bb03-43f7ecb9012e",
+  "variation": false
+}

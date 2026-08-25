@@ -1,0 +1,129 @@
+{
+  "artist": "Richard Kane Ferguson",
+  "artist_ids": [
+    "191620ed-2361-444e-96a6-1fe7ce32ef3b"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 240542,
+  "cmc": 2.0,
+  "collector_number": "80",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 6598,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "279450ca-29df-430d-b803-7ce18196260e",
+  "illustration_id": "95e31bea-e386-4451-b573-8ea101a20d0b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:24:58Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/7/279450ca-29df-430d-b803-7ce18196260e.webp?1783941898",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/7/279450ca-29df-430d-b803-7ce18196260e.jpg?1783941898",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/7/279450ca-29df-430d-b803-7ce18196260e.jpg?1783941898",
+    "crop": "https://cards.scryfall.io/crop/front/2/7/279450ca-29df-430d-b803-7ce18196260e.webp?1783941898",
+    "display": "https://cards.scryfall.io/display/front/2/7/279450ca-29df-430d-b803-7ce18196260e.webp?1783941898",
+    "grid": "https://cards.scryfall.io/grid/front/2/7/279450ca-29df-430d-b803-7ce18196260e.webp?1783941898",
+    "large": "https://cards.scryfall.io/large/front/2/7/279450ca-29df-430d-b803-7ce18196260e.jpg?1783941898",
+    "normal": "https://cards.scryfall.io/normal/front/2/7/279450ca-29df-430d-b803-7ce18196260e.jpg?1783941898",
+    "png": "https://cards.scryfall.io/png/front/2/7/279450ca-29df-430d-b803-7ce18196260e.png?1783941898",
+    "small": "https://cards.scryfall.io/small/front/2/7/279450ca-29df-430d-b803-7ce18196260e.jpg?1783941898",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/7/279450ca-29df-430d-b803-7ce18196260e.webp?1783941898"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W/B}",
+  "multiverse_ids": [
+    220573
+  ],
+  "name": "Batwing Brume",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "fc8247f5-f7b2-4fc4-a9ea-90babad5fa42",
+  "oracle_text": "Prevent all combat damage that would be dealt this turn if {W} was spent to cast this spell. Each player loses 1 life for each attacking creature they control if {B} was spent to cast this spell. (Do both if {W}{B} was spent.)",
+  "oversized": false,
+  "penny_rank": 8094,
+  "prices": {
+    "eur": "5.80",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "7.35",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Afc8247f5-f7b2-4fc4-a9ea-90babad5fa42&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Batwing+Brume&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=240542&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F37100%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Batwing+Brume",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=220573&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBatwing%2BBrume",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBatwing%2BBrume"
+  },
+  "released_at": "2010-06-18",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/279450ca-29df-430d-b803-7ce18196260e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/arc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/arc/80/batwing-brume?utm_source=api",
+  "set": "arc",
+  "set_id": "8bc5ec64-18d5-4c81-96a1-8f619d81a019",
+  "set_name": "Archenemy",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aarc&unique=prints",
+  "set_type": "archenemy",
+  "set_uri": "https://api.scryfall.com/sets/8bc5ec64-18d5-4c81-96a1-8f619d81a019",
+  "story_spotlight": false,
+  "tcgplayer_id": 37100,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/279450ca-29df-430d-b803-7ce18196260e",
+  "variation": false
+}

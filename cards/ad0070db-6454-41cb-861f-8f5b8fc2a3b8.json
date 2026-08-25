@@ -1,0 +1,131 @@
+{
+  "artist": "Raymond Swanland",
+  "artist_ids": [
+    "e956bacc-077d-4c12-b6bc-ba798b718af9"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 723634,
+  "cmc": 3.0,
+  "collector_number": "98",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 584,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Sometimes it's useful to take a break from existence.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "dc143ba3-2a58-4980-9fa0-a05a9e9ed082",
+  "illustration_id": "e4671eb9-f3b3-4fca-982f-3881bec0a612",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:08:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/c/dc143ba3-2a58-4980-9fa0-a05a9e9ed082.webp?1783915697",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/c/dc143ba3-2a58-4980-9fa0-a05a9e9ed082.jpg?1783915697",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/c/dc143ba3-2a58-4980-9fa0-a05a9e9ed082.jpg?1783915697",
+    "crop": "https://cards.scryfall.io/crop/front/d/c/dc143ba3-2a58-4980-9fa0-a05a9e9ed082.webp?1783915697",
+    "display": "https://cards.scryfall.io/display/front/d/c/dc143ba3-2a58-4980-9fa0-a05a9e9ed082.webp?1783915697",
+    "grid": "https://cards.scryfall.io/grid/front/d/c/dc143ba3-2a58-4980-9fa0-a05a9e9ed082.webp?1783915697",
+    "large": "https://cards.scryfall.io/large/front/d/c/dc143ba3-2a58-4980-9fa0-a05a9e9ed082.jpg?1783915697",
+    "normal": "https://cards.scryfall.io/normal/front/d/c/dc143ba3-2a58-4980-9fa0-a05a9e9ed082.jpg?1783915697",
+    "png": "https://cards.scryfall.io/png/front/d/c/dc143ba3-2a58-4980-9fa0-a05a9e9ed082.png?1783915697",
+    "small": "https://cards.scryfall.io/small/front/d/c/dc143ba3-2a58-4980-9fa0-a05a9e9ed082.jpg?1783915697",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/c/dc143ba3-2a58-4980-9fa0-a05a9e9ed082.webp?1783915697"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 115295,
+  "multiverse_ids": [
+    622706
+  ],
+  "name": "Ghostly Flicker",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ad0070db-6454-41cb-861f-8f5b8fc2a3b8",
+  "oracle_text": "Exile two target artifacts, creatures, and/or lands you control, then return those cards to the battlefield under your control.",
+  "oversized": false,
+  "penny_rank": 2279,
+  "prices": {
+    "eur": "1.37",
+    "eur_foil": "2.07",
+    "tix": "0.40",
+    "usd": "2.09",
+    "usd_etched": null,
+    "usd_foil": "3.10"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aad0070db-6454-41cb-861f-8f5b8fc2a3b8&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/115295?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=723634&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F507400%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ghostly+Flicker",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=622706&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGhostly%2BFlicker",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGhostly%2BFlicker"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/dc143ba3-2a58-4980-9fa0-a05a9e9ed082/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/98/ghostly-flicker?utm_source=api",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 507400,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/dc143ba3-2a58-4980-9fa0-a05a9e9ed082",
+  "variation": false
+}

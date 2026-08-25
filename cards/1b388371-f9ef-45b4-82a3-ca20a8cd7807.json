@@ -1,0 +1,140 @@
+{
+  "arena_id": 69643,
+  "artist": "Izzy",
+  "artist_ids": [
+    "2c3d2473-ff5d-4309-8194-e0b2def2ab65"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 371836,
+  "cmc": 2.0,
+  "collector_number": "193",
+  "color_identity": [
+    "U",
+    "W"
+  ],
+  "colors": [
+    "U",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 240,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"I see you've learned nothing, Chandra. You'd still put a match to something rather than understand it.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5d6b5054-2224-4f68-9d82-3ed17c5dacc4",
+  "illustration_id": "e8b7deab-a698-4b8a-b175-dfcda2d2b9a3",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:03:20Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/d/5d6b5054-2224-4f68-9d82-3ed17c5dacc4.webp?1783933400",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/d/5d6b5054-2224-4f68-9d82-3ed17c5dacc4.jpg?1783933400",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/d/5d6b5054-2224-4f68-9d82-3ed17c5dacc4.jpg?1783933400",
+    "crop": "https://cards.scryfall.io/crop/front/5/d/5d6b5054-2224-4f68-9d82-3ed17c5dacc4.webp?1783933400",
+    "display": "https://cards.scryfall.io/display/front/5/d/5d6b5054-2224-4f68-9d82-3ed17c5dacc4.webp?1783933400",
+    "grid": "https://cards.scryfall.io/grid/front/5/d/5d6b5054-2224-4f68-9d82-3ed17c5dacc4.webp?1783933400",
+    "large": "https://cards.scryfall.io/large/front/5/d/5d6b5054-2224-4f68-9d82-3ed17c5dacc4.jpg?1783933400",
+    "normal": "https://cards.scryfall.io/normal/front/5/d/5d6b5054-2224-4f68-9d82-3ed17c5dacc4.jpg?1783933400",
+    "png": "https://cards.scryfall.io/png/front/5/d/5d6b5054-2224-4f68-9d82-3ed17c5dacc4.png?1783933400",
+    "small": "https://cards.scryfall.io/small/front/5/d/5d6b5054-2224-4f68-9d82-3ed17c5dacc4.jpg?1783933400",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/d/5d6b5054-2224-4f68-9d82-3ed17c5dacc4.webp?1783933400"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}{U}",
+  "mtgo_id": 71992,
+  "multiverse_ids": [
+    461120
+  ],
+  "name": "Dovin's Veto",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1b388371-f9ef-45b4-82a3-ca20a8cd7807",
+  "oracle_text": "This spell can't be countered.\nCounter target noncreature spell.",
+  "oversized": false,
+  "penny_rank": 446,
+  "preview": {
+    "previewed_at": "2019-04-01",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/card-preview/war-spark-promos-and-packaging-2019-04-01"
+  },
+  "prices": {
+    "eur": "1.42",
+    "eur_foil": "3.31",
+    "tix": "0.03",
+    "usd": "3.86",
+    "usd_etched": null,
+    "usd_foil": "4.17"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1b388371-f9ef-45b4-82a3-ca20a8cd7807&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/71992?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=371836&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F187186%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dovin%27s+Veto",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=461120&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDovin%2527s%2BVeto",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDovin%2527s%2BVeto"
+  },
+  "released_at": "2019-05-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5d6b5054-2224-4f68-9d82-3ed17c5dacc4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/war?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/war/193/dovins-veto?utm_source=api",
+  "set": "war",
+  "set_id": "ee044f0b-e101-4ead-8d0e-aa510aad4277",
+  "set_name": "War of the Spark",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awar&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/ee044f0b-e101-4ead-8d0e-aa510aad4277",
+  "story_spotlight": false,
+  "tcgplayer_id": 187186,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/5d6b5054-2224-4f68-9d82-3ed17c5dacc4",
+  "variation": false
+}

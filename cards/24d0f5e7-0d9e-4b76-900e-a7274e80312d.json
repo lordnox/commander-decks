@@ -1,0 +1,132 @@
+{
+  "artist": "Eric Fortune",
+  "artist_ids": [
+    "c5562592-3387-495a-96fb-618a6a424a45"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 864999,
+  "cmc": 5.0,
+  "collector_number": "67",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 588,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "3de308cc-14ac-407e-99e7-568572ecd0e7",
+  "illustration_id": "4573d05e-485c-43d1-83d0-d2bd0a90005e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:02:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/d/3de308cc-14ac-407e-99e7-568572ecd0e7.webp?1783904564",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/d/3de308cc-14ac-407e-99e7-568572ecd0e7.jpg?1783904564",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/d/3de308cc-14ac-407e-99e7-568572ecd0e7.jpg?1783904564",
+    "crop": "https://cards.scryfall.io/crop/front/3/d/3de308cc-14ac-407e-99e7-568572ecd0e7.webp?1783904564",
+    "display": "https://cards.scryfall.io/display/front/3/d/3de308cc-14ac-407e-99e7-568572ecd0e7.webp?1783904564",
+    "grid": "https://cards.scryfall.io/grid/front/3/d/3de308cc-14ac-407e-99e7-568572ecd0e7.webp?1783904564",
+    "large": "https://cards.scryfall.io/large/front/3/d/3de308cc-14ac-407e-99e7-568572ecd0e7.jpg?1783904564",
+    "normal": "https://cards.scryfall.io/normal/front/3/d/3de308cc-14ac-407e-99e7-568572ecd0e7.jpg?1783904564",
+    "png": "https://cards.scryfall.io/png/front/3/d/3de308cc-14ac-407e-99e7-568572ecd0e7.png?1783904564",
+    "small": "https://cards.scryfall.io/small/front/3/d/3de308cc-14ac-407e-99e7-568572ecd0e7.jpg?1783904564",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/d/3de308cc-14ac-407e-99e7-568572ecd0e7.webp?1783904564"
+  },
+  "keywords": [
+    "Flying",
+    "Evoke"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{U}",
+  "mtgo_id": 146069,
+  "multiverse_ids": [],
+  "name": "Mulldrifter",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "24d0f5e7-0d9e-4b76-900e-a7274e80312d",
+  "oracle_text": "Flying\nWhen this creature enters, draw two cards.\nEvoke {2}{U} (You may cast this spell for its evoke cost. If you do, it's sacrificed when it enters.)",
+  "oversized": false,
+  "penny_rank": 598,
+  "power": "2",
+  "prices": {
+    "eur": "0.35",
+    "eur_foil": null,
+    "tix": "0.07",
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A24d0f5e7-0d9e-4b76-900e-a7274e80312d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/146069?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=864999&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F671151%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mulldrifter",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMulldrifter",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMulldrifter"
+  },
+  "released_at": "2026-01-23",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "79A18B62104C73E572D9F5F721238ED3B2B63EA4D5154CA1EF952C3DB333973D",
+  "rulings_uri": "https://api.scryfall.com/cards/3de308cc-14ac-407e-99e7-568572ecd0e7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ecc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ecc/67/mulldrifter?utm_source=api",
+  "set": "ecc",
+  "set_id": "805b5a0c-f8bb-4555-86ea-eb9ec36a011a",
+  "set_name": "Lorwyn Eclipsed Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aecc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/805b5a0c-f8bb-4555-86ea-eb9ec36a011a",
+  "story_spotlight": false,
+  "tcgplayer_id": 671151,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Elemental",
+  "uri": "https://api.scryfall.com/cards/3de308cc-14ac-407e-99e7-568572ecd0e7",
+  "variation": false
+}

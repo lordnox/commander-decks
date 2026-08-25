@@ -1,0 +1,166 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "6c3da27e-4fdd-46ce-bb81-0b2dfec1c6ed",
+      "name": "A-Queza, Augur of Agonies",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Octopus Advisor",
+      "uri": "https://api.scryfall.com/cards/6c3da27e-4fdd-46ce-bb81-0b2dfec1c6ed"
+    },
+    {
+      "component": "combo_piece",
+      "id": "064a84dd-bb7c-4980-a031-23c778e37f73",
+      "name": "Queza, Augur of Agonies",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Octopus Advisor",
+      "uri": "https://api.scryfall.com/cards/064a84dd-bb7c-4980-a031-23c778e37f73"
+    }
+  ],
+  "arena_id": 80363,
+  "artist": "Josh Hass",
+  "artist_ids": [
+    "8fa1fdf0-96d6-46f4-a7ff-b1c0257c3735"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 651710,
+  "cmc": 4.0,
+  "collector_number": "212",
+  "color_identity": [
+    "B",
+    "U",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "U",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 4565,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Some try to unravel the tangled skeins of fate. She reweaves them to her own deadly design.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "7edb7a26-82be-4efd-9a5c-a3816e1ee2d6",
+  "illustration_id": "aed8af59-466c-4d1d-a131-13064f40a348",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:11:13Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/e/7edb7a26-82be-4efd-9a5c-a3816e1ee2d6.webp?1783923073",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/e/7edb7a26-82be-4efd-9a5c-a3816e1ee2d6.jpg?1783923073",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/e/7edb7a26-82be-4efd-9a5c-a3816e1ee2d6.jpg?1783923073",
+    "crop": "https://cards.scryfall.io/crop/front/7/e/7edb7a26-82be-4efd-9a5c-a3816e1ee2d6.webp?1783923073",
+    "display": "https://cards.scryfall.io/display/front/7/e/7edb7a26-82be-4efd-9a5c-a3816e1ee2d6.webp?1783923073",
+    "grid": "https://cards.scryfall.io/grid/front/7/e/7edb7a26-82be-4efd-9a5c-a3816e1ee2d6.webp?1783923073",
+    "large": "https://cards.scryfall.io/large/front/7/e/7edb7a26-82be-4efd-9a5c-a3816e1ee2d6.jpg?1783923073",
+    "normal": "https://cards.scryfall.io/normal/front/7/e/7edb7a26-82be-4efd-9a5c-a3816e1ee2d6.jpg?1783923073",
+    "png": "https://cards.scryfall.io/png/front/7/e/7edb7a26-82be-4efd-9a5c-a3816e1ee2d6.png?1783923073",
+    "small": "https://cards.scryfall.io/small/front/7/e/7edb7a26-82be-4efd-9a5c-a3816e1ee2d6.jpg?1783923073",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/e/7edb7a26-82be-4efd-9a5c-a3816e1ee2d6.webp?1783923073"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}{U}{B}",
+  "mtgo_id": 98643,
+  "multiverse_ids": [
+    555413
+  ],
+  "name": "Queza, Augur of Agonies",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c983338d-ae6b-4a15-9931-daa20fca8269",
+  "oracle_text": "Whenever you draw a card, target opponent loses 1 life and you gain 1 life.",
+  "oversized": false,
+  "penny_rank": 11153,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2022-04-11",
+    "source": "Bigweb",
+    "source_uri": "https://mtg.bigweb.co.jp/article/preview/SNC"
+  },
+  "prices": {
+    "eur": "0.09",
+    "eur_foil": "0.47",
+    "tix": "0.03",
+    "usd": "0.33",
+    "usd_etched": null,
+    "usd_foil": "0.37"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac983338d-ae6b-4a15-9931-daa20fca8269&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/98643?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=651710&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F268804%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Queza%2C+Augur+of+Agonies",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=555413&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DQueza%252C%2BAugur%2Bof%2BAgonies",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DQueza%252C%2BAugur%2Bof%2BAgonies"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7edb7a26-82be-4efd-9a5c-a3816e1ee2d6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/snc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/snc/212/queza-augur-of-agonies?utm_source=api",
+  "set": "snc",
+  "set_id": "df837242-8c15-42e4-b049-c933a02dc501",
+  "set_name": "Streets of New Capenna",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asnc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/df837242-8c15-42e4-b049-c933a02dc501",
+  "story_spotlight": false,
+  "tcgplayer_id": 268804,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Octopus Advisor",
+  "uri": "https://api.scryfall.com/cards/7edb7a26-82be-4efd-9a5c-a3816e1ee2d6",
+  "variation": false,
+  "watermark": "obscura"
+}

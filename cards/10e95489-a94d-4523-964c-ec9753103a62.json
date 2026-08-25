@@ -1,0 +1,134 @@
+{
+  "artist": "Cliff Nielsen",
+  "artist_ids": [
+    "7416bbed-fa7f-426b-b712-8b3ccd9fd858"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 8403,
+  "cmc": 3.0,
+  "collector_number": "52",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 16543,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Kaervek imprisoned Mangara out of jealousy, but he taints Jamuraa simply out of spite.\"\n—Asmira, Holy Avenger",
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "fe012fd0-9ff0-4436-a890-3ab436e42201",
+  "illustration_id": "d232e009-b2d1-47f4-9440-796669fce079",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:49:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/e/fe012fd0-9ff0-4436-a890-3ab436e42201.webp?1783946995",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/e/fe012fd0-9ff0-4436-a890-3ab436e42201.jpg?1783946995",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/e/fe012fd0-9ff0-4436-a890-3ab436e42201.jpg?1783946995",
+    "crop": "https://cards.scryfall.io/crop/front/f/e/fe012fd0-9ff0-4436-a890-3ab436e42201.webp?1783946995",
+    "display": "https://cards.scryfall.io/display/front/f/e/fe012fd0-9ff0-4436-a890-3ab436e42201.webp?1783946995",
+    "grid": "https://cards.scryfall.io/grid/front/f/e/fe012fd0-9ff0-4436-a890-3ab436e42201.webp?1783946995",
+    "large": "https://cards.scryfall.io/large/front/f/e/fe012fd0-9ff0-4436-a890-3ab436e42201.jpg?1783946995",
+    "normal": "https://cards.scryfall.io/normal/front/f/e/fe012fd0-9ff0-4436-a890-3ab436e42201.jpg?1783946995",
+    "png": "https://cards.scryfall.io/png/front/f/e/fe012fd0-9ff0-4436-a890-3ab436e42201.png?1783946995",
+    "small": "https://cards.scryfall.io/small/front/f/e/fe012fd0-9ff0-4436-a890-3ab436e42201.jpg?1783946995",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/e/fe012fd0-9ff0-4436-a890-3ab436e42201.webp?1783946995"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}{B}",
+  "mtgo_foil_id": 7482,
+  "mtgo_id": 7481,
+  "multiverse_ids": [
+    3609
+  ],
+  "name": "Blanket of Night",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "10e95489-a94d-4523-964c-ec9753103a62",
+  "oracle_text": "Each land is a Swamp in addition to its other land types.",
+  "oversized": false,
+  "penny_rank": 12840,
+  "prices": {
+    "eur": "0.39",
+    "eur_foil": null,
+    "tix": "0.07",
+    "usd": "1.15",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A10e95489-a94d-4523-964c-ec9753103a62&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/7481?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=8403&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F5806%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Blanket+of+Night",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=3609&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBlanket%2Bof%2BNight",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBlanket%2Bof%2BNight"
+  },
+  "released_at": "1997-02-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/fe012fd0-9ff0-4436-a890-3ab436e42201/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/vis?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/vis/52/blanket-of-night?utm_source=api",
+  "set": "vis",
+  "set_id": "2c32f1a9-7921-4826-bea0-80bbac70532c",
+  "set_name": "Visions",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Avis&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/2c32f1a9-7921-4826-bea0-80bbac70532c",
+  "story_spotlight": false,
+  "tcgplayer_id": 5806,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/fe012fd0-9ff0-4436-a890-3ab436e42201",
+  "variation": false
+}

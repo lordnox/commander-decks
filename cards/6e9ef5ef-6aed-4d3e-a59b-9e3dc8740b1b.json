@@ -1,0 +1,141 @@
+{
+  "arena_id": 80405,
+  "artist": "Sam White",
+  "artist_ids": [
+    "66756146-32f8-4513-9aae-75a8e5117585"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 611270,
+  "cmc": 0.0,
+  "collector_number": "254",
+  "color_identity": [
+    "B",
+    "U",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 424,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The Obscura's Cloud Spire dominates the skyline, its eye a beacon of progress that sees all.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a2c56479-4bee-4edb-80d7-4af010b7c793",
+  "illustration_id": "166e22e4-10ab-4212-954b-54d9f671a967",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:10:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/2/a2c56479-4bee-4edb-80d7-4af010b7c793.webp?1783923055",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/2/a2c56479-4bee-4edb-80d7-4af010b7c793.jpg?1783923055",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/2/a2c56479-4bee-4edb-80d7-4af010b7c793.jpg?1783923055",
+    "crop": "https://cards.scryfall.io/crop/front/a/2/a2c56479-4bee-4edb-80d7-4af010b7c793.webp?1783923055",
+    "display": "https://cards.scryfall.io/display/front/a/2/a2c56479-4bee-4edb-80d7-4af010b7c793.webp?1783923055",
+    "grid": "https://cards.scryfall.io/grid/front/a/2/a2c56479-4bee-4edb-80d7-4af010b7c793.webp?1783923055",
+    "large": "https://cards.scryfall.io/large/front/a/2/a2c56479-4bee-4edb-80d7-4af010b7c793.jpg?1783923055",
+    "normal": "https://cards.scryfall.io/normal/front/a/2/a2c56479-4bee-4edb-80d7-4af010b7c793.jpg?1783923055",
+    "png": "https://cards.scryfall.io/png/front/a/2/a2c56479-4bee-4edb-80d7-4af010b7c793.png?1783923055",
+    "small": "https://cards.scryfall.io/small/front/a/2/a2c56479-4bee-4edb-80d7-4af010b7c793.jpg?1783923055",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/2/a2c56479-4bee-4edb-80d7-4af010b7c793.webp?1783923055"
+  },
+  "keywords": [
+    "Cycling"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 98727,
+  "multiverse_ids": [
+    555455
+  ],
+  "name": "Raffine's Tower",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6e9ef5ef-6aed-4d3e-a59b-9e3dc8740b1b",
+  "oracle_text": "({T}: Add {W}, {U}, or {B}.)\nThis land enters tapped.\nCycling {3} ({3}, Discard this card: Draw a card.)",
+  "oversized": false,
+  "prices": {
+    "eur": "12.77",
+    "eur_foil": "13.22",
+    "tix": "0.17",
+    "usd": "13.72",
+    "usd_etched": null,
+    "usd_foil": "14.80"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6e9ef5ef-6aed-4d3e-a59b-9e3dc8740b1b&unique=prints",
+  "produced_mana": [
+    "B",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/98727?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=611270&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F265349%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Raffine%27s+Tower",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=555455&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRaffine%2527s%2BTower",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRaffine%2527s%2BTower"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a2c56479-4bee-4edb-80d7-4af010b7c793/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/snc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/snc/254/raffines-tower?utm_source=api",
+  "security_stamp": "oval",
+  "set": "snc",
+  "set_id": "df837242-8c15-42e4-b049-c933a02dc501",
+  "set_name": "Streets of New Capenna",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asnc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/df837242-8c15-42e4-b049-c933a02dc501",
+  "story_spotlight": false,
+  "tcgplayer_id": 265349,
+  "textless": false,
+  "type_line": "Land — Plains Island Swamp",
+  "uri": "https://api.scryfall.com/cards/a2c56479-4bee-4edb-80d7-4af010b7c793",
+  "variation": false,
+  "watermark": "obscura"
+}

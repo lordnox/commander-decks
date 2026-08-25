@@ -1,0 +1,136 @@
+{
+  "artist": "Greg Hildebrandt & Tim Hildebrandt",
+  "artist_ids": [
+    "020f967b-0d2f-4166-aabe-901dba8bc7ec",
+    "caa7228c-f74c-4145-91fb-1af8d623c353"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 10754,
+  "cmc": 1.0,
+  "collector_number": "54",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2264,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The muck claims a hundred living things for each meager treasure it spews forth.",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "6ca76614-78a1-4535-9162-70469d1e8a13",
+  "illustration_id": "17dced44-4230-4f2f-a25f-b2a1c3896ed1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:34:34Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/c/6ca76614-78a1-4535-9162-70469d1e8a13.webp?1783946074",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/c/6ca76614-78a1-4535-9162-70469d1e8a13.jpg?1783946074",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/c/6ca76614-78a1-4535-9162-70469d1e8a13.jpg?1783946074",
+    "crop": "https://cards.scryfall.io/crop/front/6/c/6ca76614-78a1-4535-9162-70469d1e8a13.webp?1783946074",
+    "display": "https://cards.scryfall.io/display/front/6/c/6ca76614-78a1-4535-9162-70469d1e8a13.webp?1783946074",
+    "grid": "https://cards.scryfall.io/grid/front/6/c/6ca76614-78a1-4535-9162-70469d1e8a13.webp?1783946074",
+    "large": "https://cards.scryfall.io/large/front/6/c/6ca76614-78a1-4535-9162-70469d1e8a13.jpg?1783946074",
+    "normal": "https://cards.scryfall.io/normal/front/6/c/6ca76614-78a1-4535-9162-70469d1e8a13.jpg?1783946074",
+    "png": "https://cards.scryfall.io/png/front/6/c/6ca76614-78a1-4535-9162-70469d1e8a13.png?1783946074",
+    "small": "https://cards.scryfall.io/small/front/6/c/6ca76614-78a1-4535-9162-70469d1e8a13.jpg?1783946074",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/c/6ca76614-78a1-4535-9162-70469d1e8a13.webp?1783946074"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_foil_id": 13020,
+  "mtgo_id": 13019,
+  "multiverse_ids": [
+    15179
+  ],
+  "name": "Bubbling Muck",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3c7f2b29-9f42-41ab-a2d4-7a450fb0242d",
+  "oracle_text": "Until end of turn, whenever a player taps a Swamp for mana, that player adds an additional {B}.",
+  "oversized": false,
+  "penny_rank": 1923,
+  "prices": {
+    "eur": "1.84",
+    "eur_foil": "25.94",
+    "tix": "0.04",
+    "usd": "3.40",
+    "usd_etched": null,
+    "usd_foil": "54.71"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3c7f2b29-9f42-41ab-a2d4-7a450fb0242d&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/13019?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=10754&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F6149%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bubbling+Muck",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=15179&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBubbling%2BMuck",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBubbling%2BMuck"
+  },
+  "released_at": "1999-06-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/6ca76614-78a1-4535-9162-70469d1e8a13/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/uds?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/uds/54/bubbling-muck?utm_source=api",
+  "set": "uds",
+  "set_id": "44f17b37-dcf8-4239-baab-1efc00cd3480",
+  "set_name": "Urza's Destiny",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Auds&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/44f17b37-dcf8-4239-baab-1efc00cd3480",
+  "story_spotlight": false,
+  "tcgplayer_id": 6149,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/6ca76614-78a1-4535-9162-70469d1e8a13",
+  "variation": false
+}

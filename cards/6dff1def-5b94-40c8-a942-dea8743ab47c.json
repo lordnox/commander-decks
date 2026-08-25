@@ -1,0 +1,135 @@
+{
+  "artist": "Livia Prima",
+  "artist_ids": [
+    "0f41e561-bc26-4d85-aab6-66c384e01b74"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 584114,
+  "cmc": 6.0,
+  "collector_number": "134",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2884,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Hate is an everlasting wellspring from which she is eternally sustained.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "96da0a4c-2865-4383-875a-9f5d6503baee",
+  "illustration_id": "1b6561c6-055d-42f1-860a-47e4600905c0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:42:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/6/96da0a4c-2865-4383-875a-9f5d6503baee.webp?1783924955",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/6/96da0a4c-2865-4383-875a-9f5d6503baee.jpg?1783924955",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/6/96da0a4c-2865-4383-875a-9f5d6503baee.jpg?1783924955",
+    "crop": "https://cards.scryfall.io/crop/front/9/6/96da0a4c-2865-4383-875a-9f5d6503baee.webp?1783924955",
+    "display": "https://cards.scryfall.io/display/front/9/6/96da0a4c-2865-4383-875a-9f5d6503baee.webp?1783924955",
+    "grid": "https://cards.scryfall.io/grid/front/9/6/96da0a4c-2865-4383-875a-9f5d6503baee.webp?1783924955",
+    "large": "https://cards.scryfall.io/large/front/9/6/96da0a4c-2865-4383-875a-9f5d6503baee.jpg?1783924955",
+    "normal": "https://cards.scryfall.io/normal/front/9/6/96da0a4c-2865-4383-875a-9f5d6503baee.jpg?1783924955",
+    "png": "https://cards.scryfall.io/png/front/9/6/96da0a4c-2865-4383-875a-9f5d6503baee.png?1783924955",
+    "small": "https://cards.scryfall.io/small/front/9/6/96da0a4c-2865-4383-875a-9f5d6503baee.jpg?1783924955",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/6/96da0a4c-2865-4383-875a-9f5d6503baee.webp?1783924955"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{B}{B}",
+  "mtgo_id": 95042,
+  "multiverse_ids": [
+    545754
+  ],
+  "name": "Nirkana Revenant",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6dff1def-5b94-40c8-a942-dea8743ab47c",
+  "oracle_text": "Whenever you tap a Swamp for mana, add an additional {B}.\n{B}: This creature gets +1/+1 until end of turn.",
+  "oversized": false,
+  "power": "4",
+  "prices": {
+    "eur": "5.39",
+    "eur_foil": null,
+    "tix": "1.82",
+    "usd": "7.09",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6dff1def-5b94-40c8-a942-dea8743ab47c&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/95042?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=584114&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F254145%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Nirkana+Revenant",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=545754&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DNirkana%2BRevenant",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DNirkana%2BRevenant"
+  },
+  "released_at": "2021-11-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/96da0a4c-2865-4383-875a-9f5d6503baee/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/voc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/voc/134/nirkana-revenant?utm_source=api",
+  "security_stamp": "oval",
+  "set": "voc",
+  "set_id": "b2e444f7-41e6-4172-ba01-47d91d5e7bbc",
+  "set_name": "Crimson Vow Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Avoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/b2e444f7-41e6-4172-ba01-47d91d5e7bbc",
+  "story_spotlight": false,
+  "tcgplayer_id": 254145,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Vampire Shade",
+  "uri": "https://api.scryfall.com/cards/96da0a4c-2865-4383-875a-9f5d6503baee",
+  "variation": false
+}

@@ -1,0 +1,137 @@
+{
+  "artist": "Don Hazeltine",
+  "artist_ids": [
+    "b4117364-73af-47e5-8cf0-901eeea09e01"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 270606,
+  "cmc": 5.0,
+  "collector_number": "148",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 5467,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "All that remains of the Cabal are the echoes in its deepest vault. Yet those who hear the echoes feel a power undiminished by the dust of ages.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "962a16bb-516c-4e74-b8dd-edd4c63c5fff",
+  "illustration_id": "65140640-3000-4e26-a3d1-c8d66fd2592c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:34:03Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/6/962a16bb-516c-4e74-b8dd-edd4c63c5fff.webp?1783938843",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/6/962a16bb-516c-4e74-b8dd-edd4c63c5fff.jpg?1783938843",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/6/962a16bb-516c-4e74-b8dd-edd4c63c5fff.jpg?1783938843",
+    "crop": "https://cards.scryfall.io/crop/front/9/6/962a16bb-516c-4e74-b8dd-edd4c63c5fff.webp?1783938843",
+    "display": "https://cards.scryfall.io/display/front/9/6/962a16bb-516c-4e74-b8dd-edd4c63c5fff.webp?1783938843",
+    "grid": "https://cards.scryfall.io/grid/front/9/6/962a16bb-516c-4e74-b8dd-edd4c63c5fff.webp?1783938843",
+    "large": "https://cards.scryfall.io/large/front/9/6/962a16bb-516c-4e74-b8dd-edd4c63c5fff.jpg?1783938843",
+    "normal": "https://cards.scryfall.io/normal/front/9/6/962a16bb-516c-4e74-b8dd-edd4c63c5fff.jpg?1783938843",
+    "png": "https://cards.scryfall.io/png/front/9/6/962a16bb-516c-4e74-b8dd-edd4c63c5fff.png?1783938843",
+    "small": "https://cards.scryfall.io/small/front/9/6/962a16bb-516c-4e74-b8dd-edd4c63c5fff.jpg?1783938843",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/6/962a16bb-516c-4e74-b8dd-edd4c63c5fff.webp?1783938843"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{B}",
+  "mtgo_foil_id": 54642,
+  "mtgo_id": 54641,
+  "multiverse_ids": [
+    389586
+  ],
+  "name": "Magus of the Coffers",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "23dd895c-92bd-4af0-8b1a-7d76ca49178f",
+  "oracle_text": "{2}, {T}: Add {B} for each Swamp you control.",
+  "oversized": false,
+  "penny_rank": 17223,
+  "power": "4",
+  "prices": {
+    "eur": "2.60",
+    "eur_foil": null,
+    "tix": "0.15",
+    "usd": "4.87",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A23dd895c-92bd-4af0-8b1a-7d76ca49178f&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/54641?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=270606&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F94310%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Magus+of+the+Coffers",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=389586&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMagus%2Bof%2Bthe%2BCoffers",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMagus%2Bof%2Bthe%2BCoffers"
+  },
+  "released_at": "2014-11-07",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/962a16bb-516c-4e74-b8dd-edd4c63c5fff/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c14?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c14/148/magus-of-the-coffers?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c14",
+  "set_id": "0980a6e2-eb78-4ad2-8396-cef08fce365e",
+  "set_name": "Commander 2014",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac14&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/0980a6e2-eb78-4ad2-8396-cef08fce365e",
+  "story_spotlight": false,
+  "tcgplayer_id": 94310,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Human Wizard",
+  "uri": "https://api.scryfall.com/cards/962a16bb-516c-4e74-b8dd-edd4c63c5fff",
+  "variation": false
+}
