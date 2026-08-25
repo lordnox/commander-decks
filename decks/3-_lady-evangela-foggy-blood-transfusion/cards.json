@@ -462,6 +462,54 @@
       "submitted_name": "Blue Sun's Zenith"
     },
     {
+      "cache": "cards/561c68d8-b727-48d8-a832-2e42d1345fac.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{X}{B}",
+        "oracle_text": "As an additional cost to cast this spell, exile X cards from your graveyard.\nYou draw X cards and you lose X life.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Draw",
+        "Life Payment"
+      ],
+      "category_source": "decklist",
+      "name": "Skeletal Scrying",
+      "oracle_id": "561c68d8-b727-48d8-a832-2e42d1345fac",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c17/125/skeletal-scrying?utm_source=api",
+      "submitted_categories": [
+        "Draw",
+        "Life Payment"
+      ],
+      "submitted_name": "Skeletal Scrying"
+    },
+    {
+      "cache": "cards/437b2dab-15e0-4b9a-a204-58622d37a3b3.json",
+      "card": {
+        "cmc": 4,
+        "keywords": [],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Draw",
+        "Politics"
+      ],
+      "category_source": "decklist",
+      "name": "Fact or Fiction",
+      "oracle_id": "437b2dab-15e0-4b9a-a204-58622d37a3b3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/91/fact-or-fiction?utm_source=api",
+      "submitted_categories": [
+        "Draw",
+        "Politics"
+      ],
+      "submitted_name": "Fact or Fiction"
+    },
+    {
       "cache": "cards/24d0f5e7-0d9e-4b76-900e-a7274e80312d.json",
       "card": {
         "cmc": 5.0,
@@ -1343,120 +1391,56 @@
       "submitted_name": "Arcane Signet"
     },
     {
-      "cache": "cards/b693c3de-2eaf-4850-b405-e79d00adefda.json",
+      "cache": "cards/de3dcb5d-775a-479f-99f5-d1883ed9b1b5.json",
       "card": {
         "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{2}",
-        "oracle_text": "{T}: Add {C}.\n{T}: Add {W} or {B}. This artifact deals 1 damage to you.",
+        "oracle_text": "{1}, {T}: Add {W}{B}.",
         "produced_mana": [
           "B",
-          "C",
           "W"
         ],
         "type_line": "Artifact"
       },
       "categories": [
-        "Ramp",
-        "Life Payment"
+        "Ramp"
       ],
       "category_source": "decklist",
-      "name": "Talisman of Hierarchy",
-      "oracle_id": "b693c3de-2eaf-4850-b405-e79d00adefda",
+      "name": "Orzhov Signet",
+      "oracle_id": "de3dcb5d-775a-479f-99f5-d1883ed9b1b5",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/soc/358/talisman-of-hierarchy?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/tdc/323/orzhov-signet?utm_source=api",
       "submitted_categories": [
-        "Ramp",
-        "Life Payment"
+        "Ramp"
       ],
-      "submitted_name": "Talisman of Hierarchy"
+      "submitted_name": "Orzhov Signet"
     },
     {
-      "cache": "cards/4c0a0448-b9d6-43a0-8549-64066dac63f0.json",
+      "cache": "cards/7d881c57-0bd9-4c57-aa4a-b10808b86143.json",
       "card": {
         "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{2}",
-        "oracle_text": "{T}: Add {C}.\n{T}: Add {U} or {B}. This artifact deals 1 damage to you.",
+        "oracle_text": "{1}, {T}: Add {U}{B}.",
         "produced_mana": [
           "B",
-          "C",
           "U"
         ],
         "type_line": "Artifact"
       },
       "categories": [
-        "Ramp",
-        "Life Payment"
-      ],
-      "category_source": "decklist",
-      "name": "Talisman of Dominance",
-      "oracle_id": "4c0a0448-b9d6-43a0-8549-64066dac63f0",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/msc/219/talisman-of-dominance?utm_source=api",
-      "submitted_categories": [
-        "Ramp",
-        "Life Payment"
-      ],
-      "submitted_name": "Talisman of Dominance"
-    },
-    {
-      "cache": "cards/00e35322-1a9a-41e3-9ce1-359c8eaa3bc7.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{2}",
-        "oracle_text": "{T}: Add {C}.\n{T}: Add {W} or {U}. This artifact deals 1 damage to you.",
-        "produced_mana": [
-          "C",
-          "U",
-          "W"
-        ],
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Ramp",
-        "Life Payment"
-      ],
-      "category_source": "decklist",
-      "name": "Talisman of Progress",
-      "oracle_id": "00e35322-1a9a-41e3-9ce1-359c8eaa3bc7",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/msc/221/talisman-of-progress?utm_source=api",
-      "submitted_categories": [
-        "Ramp",
-        "Life Payment"
-      ],
-      "submitted_name": "Talisman of Progress"
-    },
-    {
-      "cache": "cards/95560508-7ac9-4be9-8a3f-3c7d5b52807b.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{2}",
-        "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce.",
-        "produced_mana": [
-          "B",
-          "G",
-          "R",
-          "U",
-          "W"
-        ],
-        "type_line": "Artifact"
-      },
-      "categories": [
         "Ramp"
       ],
       "category_source": "decklist",
-      "name": "Fellwar Stone",
-      "oracle_id": "95560508-7ac9-4be9-8a3f-3c7d5b52807b",
+      "name": "Dimir Signet",
+      "oracle_id": "7d881c57-0bd9-4c57-aa4a-b10808b86143",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mbc/74/fellwar-stone?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/clu/221/dimir-signet?utm_source=api",
       "submitted_categories": [
         "Ramp"
       ],
-      "submitted_name": "Fellwar Stone"
+      "submitted_name": "Dimir Signet"
     },
     {
       "cache": "cards/135cc078-1c45-465e-b0b9-7168c89f56f4.json",
@@ -2411,7 +2395,7 @@
     }
   ],
   "categorized_cards": 94,
-  "generated_at": "2026-08-25T21:15:31.187929+00:00",
+  "generated_at": "2026-08-25T21:19:57.933122+00:00",
   "maybeboard_cards": 3,
   "maybeboard_unique_cards": 3,
   "resolved_unique_cards": 94,

@@ -1,0 +1,127 @@
+{
+  "artist": "Bob Petillo",
+  "artist_ids": [
+    "a2e47e0e-68e6-4b7a-b91e-0ded197b94d1"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 300442,
+  "cmc": 1.0,
+  "collector_number": "125",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 12646,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "6653ed3b-2a82-4e22-a9ca-18da5da94990",
+  "illustration_id": "422270b1-c435-400f-8bed-564d9bda14a5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:45:02Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/6/6653ed3b-2a82-4e22-a9ca-18da5da94990.webp?1783935902",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/6/6653ed3b-2a82-4e22-a9ca-18da5da94990.jpg?1783935902",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/6/6653ed3b-2a82-4e22-a9ca-18da5da94990.jpg?1783935902",
+    "crop": "https://cards.scryfall.io/crop/front/6/6/6653ed3b-2a82-4e22-a9ca-18da5da94990.webp?1783935902",
+    "display": "https://cards.scryfall.io/display/front/6/6/6653ed3b-2a82-4e22-a9ca-18da5da94990.webp?1783935902",
+    "grid": "https://cards.scryfall.io/grid/front/6/6/6653ed3b-2a82-4e22-a9ca-18da5da94990.webp?1783935902",
+    "large": "https://cards.scryfall.io/large/front/6/6/6653ed3b-2a82-4e22-a9ca-18da5da94990.jpg?1783935902",
+    "normal": "https://cards.scryfall.io/normal/front/6/6/6653ed3b-2a82-4e22-a9ca-18da5da94990.jpg?1783935902",
+    "png": "https://cards.scryfall.io/png/front/6/6/6653ed3b-2a82-4e22-a9ca-18da5da94990.png?1783935902",
+    "small": "https://cards.scryfall.io/small/front/6/6/6653ed3b-2a82-4e22-a9ca-18da5da94990.jpg?1783935902",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/6/6653ed3b-2a82-4e22-a9ca-18da5da94990.webp?1783935902"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{X}{B}",
+  "multiverse_ids": [
+    433057
+  ],
+  "name": "Skeletal Scrying",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "561c68d8-b727-48d8-a832-2e42d1345fac",
+  "oracle_text": "As an additional cost to cast this spell, exile X cards from your graveyard.\nYou draw X cards and you lose X life.",
+  "oversized": false,
+  "penny_rank": 4305,
+  "prices": {
+    "eur": "0.32",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.46",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A561c68d8-b727-48d8-a832-2e42d1345fac&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Skeletal+Scrying&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=300442&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F140036%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Skeletal+Scrying",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=433057&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSkeletal%2BScrying",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSkeletal%2BScrying"
+  },
+  "released_at": "2017-08-25",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/6653ed3b-2a82-4e22-a9ca-18da5da94990/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c17?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c17/125/skeletal-scrying?utm_source=api",
+  "set": "c17",
+  "set_id": "5caec427-0c78-4c37-b4ec-30f7e0ba9abf",
+  "set_name": "Commander 2017",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac17&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/5caec427-0c78-4c37-b4ec-30f7e0ba9abf",
+  "story_spotlight": false,
+  "tcgplayer_id": 140036,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/6653ed3b-2a82-4e22-a9ca-18da5da94990",
+  "variation": false
+}
