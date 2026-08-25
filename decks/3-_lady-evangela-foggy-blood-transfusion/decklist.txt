@@ -39,6 +39,7 @@ Fog:
 1x Energy Arc [Fog]
 1x Kami of False Hope [Fog]
 1x Everybody Lives! [Fog]
+1x Scapegoat [Blink]
 1x Settle the Wreckage [Fog,Removal]
 
 Tax:
@@ -57,7 +58,6 @@ Removal:
 1x Snuff Out [Removal,Life Payment]
 
 Counterspell:
-1x Counterspell [Counterspell]
 1x Absorb [Counterspell]
 1x Swan Song [Counterspell]
 1x Dovin's Veto [Counterspell]
@@ -108,8 +108,8 @@ Land:
 1x Caves of Koilos [Land,Life Payment]
 1x Underground River [Land,Life Payment]
 1x Adarkar Wastes [Land,Life Payment]
-1x City of Brass [Land,Life Payment]
-1x Mana Confluence [Land,Life Payment]
+1x Eclipsed Steppe [Land,Swamp Engine]
+1x Sunken Hollow [Land,Swamp Engine]
 1x Marsh Flats [Land,Land Search]
 1x Polluted Delta [Land,Land Search]
 1x Prismatic Vista [Land,Land Search]
@@ -120,7 +120,9 @@ Land:
 1x Island [Land]
 
 Maybeboard:
-1x Scapegoat [Maybeboard{noDeck}{noPrice},Blink]
+1x Counterspell [Maybeboard{noDeck}{noPrice},Counterspell]
+1x City of Brass [Maybeboard{noDeck}{noPrice},Land,Life Payment]
+1x Mana Confluence [Maybeboard{noDeck}{noPrice},Land,Life Payment]
 1x Sol Ring [Maybeboard{noDeck}{noPrice},Ramp]
 1x Mana Drain [Maybeboard{noDeck}{noPrice},Counterspell]
 1x Hatred [Maybeboard{noDeck}{noPrice},Life Payment]

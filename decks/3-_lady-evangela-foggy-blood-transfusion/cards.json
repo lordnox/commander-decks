@@ -729,6 +729,28 @@
       "submitted_name": "Everybody Lives!"
     },
     {
+      "cache": "cards/04eb4fc0-0cc5-44f1-af5a-44579125d5c2.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{W}",
+        "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nReturn any number of target creatures you control to their owner's hand.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Scapegoat",
+      "oracle_id": "04eb4fc0-0cc5-44f1-af5a-44579125d5c2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sth/14/scapegoat?utm_source=api",
+      "submitted_categories": [
+        "Blink"
+      ],
+      "submitted_name": "Scapegoat"
+    },
+    {
       "cache": "cards/2a2ea189-b663-4f4a-bb23-ff7a4af25f71.json",
       "card": {
         "cmc": 4.0,
@@ -980,28 +1002,6 @@
         "Life Payment"
       ],
       "submitted_name": "Snuff Out"
-    },
-    {
-      "cache": "cards/cc187110-1148-4090-bbb8-e205694a39f5.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{U}{U}",
-        "oracle_text": "Counter target spell.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Counterspell"
-      ],
-      "category_source": "decklist",
-      "name": "Counterspell",
-      "oracle_id": "cc187110-1148-4090-bbb8-e205694a39f5",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/dsc/114/counterspell?utm_source=api",
-      "submitted_categories": [
-        "Counterspell"
-      ],
-      "submitted_name": "Counterspell"
     },
     {
       "cache": "cards/132ca99a-a3c7-4ed6-b4d0-0edcd7140ca2.json",
@@ -2084,66 +2084,60 @@
       "submitted_name": "Adarkar Wastes"
     },
     {
-      "cache": "cards/f25351e3-539b-4bbc-b92d-6480acf4d722.json",
+      "cache": "cards/6216635f-8e6e-40a3-9659-ef6352ab92ce.json",
       "card": {
         "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
-        "oracle_text": "Whenever this land becomes tapped, it deals 1 damage to you.\n{T}: Add one mana of any color.",
+        "oracle_text": "({T}: Add {W} or {B}.)\nThis land enters tapped unless you control two or more basic lands.",
         "produced_mana": [
           "B",
-          "G",
-          "R",
-          "U",
           "W"
         ],
-        "type_line": "Land"
+        "type_line": "Land — Plains Swamp"
       },
       "categories": [
         "Land",
-        "Life Payment"
+        "Swamp Engine"
       ],
       "category_source": "decklist",
-      "name": "City of Brass",
-      "oracle_id": "f25351e3-539b-4bbc-b92d-6480acf4d722",
+      "name": "Eclipsed Steppe",
+      "oracle_id": "6216635f-8e6e-40a3-9659-ef6352ab92ce",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/tmc/62/city-of-brass?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/soc/53/eclipsed-steppe?utm_source=api",
       "submitted_categories": [
         "Land",
-        "Life Payment"
+        "Swamp Engine"
       ],
-      "submitted_name": "City of Brass"
+      "submitted_name": "Eclipsed Steppe"
     },
     {
-      "cache": "cards/d0ee5bdc-2b69-4b73-9a20-ffcc18783b29.json",
+      "cache": "cards/cd2c90ac-2b04-461c-92f3-939871b6b6a3.json",
       "card": {
         "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
-        "oracle_text": "{T}, Pay 1 life: Add one mana of any color.",
+        "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped unless you control two or more basic lands.",
         "produced_mana": [
           "B",
-          "G",
-          "R",
-          "U",
-          "W"
+          "U"
         ],
-        "type_line": "Land"
+        "type_line": "Land — Island Swamp"
       },
       "categories": [
         "Land",
-        "Life Payment"
+        "Swamp Engine"
       ],
       "category_source": "decklist",
-      "name": "Mana Confluence",
-      "oracle_id": "d0ee5bdc-2b69-4b73-9a20-ffcc18783b29",
+      "name": "Sunken Hollow",
+      "oracle_id": "cd2c90ac-2b04-461c-92f3-939871b6b6a3",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/jou/163/mana-confluence?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/msc/271/sunken-hollow?utm_source=api",
       "submitted_categories": [
         "Land",
-        "Life Payment"
+        "Swamp Engine"
       ],
-      "submitted_name": "Mana Confluence"
+      "submitted_name": "Sunken Hollow"
     },
     {
       "cache": "cards/dab520d0-20b4-4273-ba6b-eb07f85ea433.json",
@@ -2346,28 +2340,94 @@
       "submitted_name": "Island"
     },
     {
-      "cache": "cards/04eb4fc0-0cc5-44f1-af5a-44579125d5c2.json",
+      "cache": "cards/cc187110-1148-4090-bbb8-e205694a39f5.json",
       "card": {
-        "cmc": 1.0,
+        "cmc": 2.0,
         "keywords": [],
-        "mana_cost": "{W}",
-        "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nReturn any number of target creatures you control to their owner's hand.",
+        "mana_cost": "{U}{U}",
+        "oracle_text": "Counter target spell.",
         "type_line": "Instant"
       },
       "categories": [
         "Maybeboard{noDeck}{noPrice}",
-        "Blink"
+        "Counterspell"
       ],
       "category_source": "decklist",
-      "name": "Scapegoat",
-      "oracle_id": "04eb4fc0-0cc5-44f1-af5a-44579125d5c2",
+      "name": "Counterspell",
+      "oracle_id": "cc187110-1148-4090-bbb8-e205694a39f5",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/sth/14/scapegoat?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/dsc/114/counterspell?utm_source=api",
       "submitted_categories": [
         "Maybeboard{noDeck}{noPrice}",
-        "Blink"
+        "Counterspell"
       ],
-      "submitted_name": "Scapegoat"
+      "submitted_name": "Counterspell"
+    },
+    {
+      "cache": "cards/f25351e3-539b-4bbc-b92d-6480acf4d722.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "Whenever this land becomes tapped, it deals 1 damage to you.\n{T}: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Land",
+        "Life Payment"
+      ],
+      "category_source": "decklist",
+      "name": "City of Brass",
+      "oracle_id": "f25351e3-539b-4bbc-b92d-6480acf4d722",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmc/62/city-of-brass?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Land",
+        "Life Payment"
+      ],
+      "submitted_name": "City of Brass"
+    },
+    {
+      "cache": "cards/d0ee5bdc-2b69-4b73-9a20-ffcc18783b29.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Land",
+        "Life Payment"
+      ],
+      "category_source": "decklist",
+      "name": "Mana Confluence",
+      "oracle_id": "d0ee5bdc-2b69-4b73-9a20-ffcc18783b29",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/jou/163/mana-confluence?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Land",
+        "Life Payment"
+      ],
+      "submitted_name": "Mana Confluence"
     },
     {
       "cache": "cards/6ad8011d-3471-4369-9d68-b264cc027487.json",
@@ -2630,11 +2690,11 @@
       "submitted_name": "Kuroki, Thief of Talents"
     }
   ],
-  "categorized_cards": 102,
-  "generated_at": "2026-08-25T23:19:42.257875+00:00",
-  "maybeboard_cards": 11,
-  "maybeboard_unique_cards": 11,
-  "resolved_unique_cards": 102,
+  "categorized_cards": 104,
+  "generated_at": "2026-08-25T23:25:36.251527+00:00",
+  "maybeboard_cards": 13,
+  "maybeboard_unique_cards": 13,
+  "resolved_unique_cards": 104,
   "schema_version": 3,
   "source": "decks/3-_lady-evangela-foggy-blood-transfusion/decklist.txt",
   "total_cards": 100,
