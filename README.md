@@ -12,7 +12,7 @@ Grouped by [Commander bracket](https://mtgcommander.net/index.php/brackets/), wi
 <!-- deck-index:start -->
 ### Bracket 2 · Core
 
-- **[Jon Irenicus — Unwanted Presents](decks/2+_jon-irenicus/README.md)** `2+`<br>
+- **[Jon Irenicus — Unwanted Presents](decks/2+_jon-irenicus-unwanted-presents/README.md)** `2+`<br>
   Donate politics: build creatures nobody wants to keep, gift them, and draw when they attack.<br>
   [![donate 5](https://img.shields.io/static/v1?label=5&message=donate&color=0b6b58&style=flat-square)](https://archidekt.com/tags/donate) [![politics 5](https://img.shields.io/static/v1?label=5&message=politics&color=0b6b58&style=flat-square)](https://archidekt.com/tags/politics) [![forced combat 3](https://img.shields.io/static/v1?label=3&message=forced%20combat&color=5f8b84&style=flat-square)](https://archidekt.com/tags/forced_combat)
 
@@ -27,7 +27,7 @@ Grouped by [Commander bracket](https://mtgcommander.net/index.php/brackets/), wi
 - **[Mishra — Racecar Driver](decks/3-_mishra-racecar-driver/README.md)** `3−`<br>
   Grixis artifact Vehicles: copy utility artifacts into 4/4 racers and reuse their enters and attack triggers.<br>
   [![artifacts 5](https://img.shields.io/static/v1?label=5&message=artifacts&color=0b6b58&style=flat-square)](https://archidekt.com/tags/artifacts) [![vehicles 5](https://img.shields.io/static/v1?label=5&message=vehicles&color=0b6b58&style=flat-square)](https://archidekt.com/tags/vehicles) [![clones 3](https://img.shields.io/static/v1?label=3&message=clones&color=5f8b84&style=flat-square)](https://archidekt.com/tags/clones)
-- **[Alania — Divergent Laughter](decks/3_alania-divergent-storm/README.md)** `3`<br>
+- **[Alania — Divergent Laughter](decks/3_alania-divergent-laughter/README.md)** `3`<br>
   Izzet spell-copy control: hold up answers, then resolve one big sorcery many times for mill-adjacent exile or burn.<br>
   [![spell copy 5](https://img.shields.io/static/v1?label=5&message=spell%20copy&color=0b6b58&style=flat-square)](https://archidekt.com/tags/spell_copy) [![spellslinger 5](https://img.shields.io/static/v1?label=5&message=spellslinger&color=0b6b58&style=flat-square)](https://archidekt.com/tags/spellslinger) [![control 4](https://img.shields.io/static/v1?label=4&message=control&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/control) [![combo 3](https://img.shields.io/static/v1?label=3&message=combo&color=5f8b84&style=flat-square)](https://archidekt.com/tags/combo)
 - **[Indoraptor — Hybrid Theory](decks/3_indoraptor-hybrid-theory/README.md)** `3`<br>

@@ -32,8 +32,8 @@ Whenever the user posts a deck list or asks to begin work on a stored list:
 1. Inspect the directories directly under `decks/`.
 2. Compare the request, commander, and deck contents with existing deck names and manifests.
 3. If a likely deck exists, ask whether that is the deck being worked on before changing it.
-4. If no deck matches, infer a concise kebab-case name from the commander or theme and prefix it with `unrated_`. Ask for a name only when the identity is ambiguous.
-5. Create `decks/unrated_<deck-name>/` and save the submitted list unchanged as `decklist.txt`.
+4. If no deck matches, lock a **deck name** (the brew title, not the commander card) and a short commander slug. Ask when either is ambiguous.
+5. Create `decks/unrated_<commander>-<name>/` (kebab-case) and save the submitted list unchanged as `decklist.txt`.
 6. Run one resolver process to resolve every card through Scryfall and update the repository cache and deck manifest. Wait for a running resolver instead of starting it again.
 7. Assign one or more useful categories to every resolved card. Use universal categories unless the card has a deck-specific role.
 8. Create or refresh the deck's `README.md` by following the `deck-primer` skill.
@@ -43,7 +43,17 @@ Whenever the user posts a deck list or asks to begin work on a stored list:
 12. Run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<deck-name>` (decision logs are required by default).
 13. Do not analyze or recommend changes until resolution or validation errors are reported or fixed.
 
-A newly created deck is incomplete until its primer exists and is linked from the root README. Use `decks/<N><modifier>_<deck-name>/` for assessed decks, where `<modifier>` is ASCII `-`, empty, or `+` for positions `N−`, `N`, or `N+`; for example, Bracket 3− uses `3-_`, Bracket 3 uses `3_`, and Bracket 3+ uses `3+_`. Use `unrated_` until assessment.
+A newly created deck is incomplete until its primer exists and is linked from the root README.
+
+### Directory names
+
+Every deck folder is `decks/<rating>_<commander>-<name>/` in kebab-case.
+
+- `<rating>` is `unrated` until assessment, then the bracket prefix: `3-`, `3`, or `3+` (ASCII `-` / none / `+` for `N−` / `N` / `N+`).
+- `<commander>` is the short legendary name people say (`lady-evangela`, `jon-irenicus`, `alania`), not the full typeline.
+- `<name>` is the brew title (`foggy-blood-transfusion`, `unwanted-presents`). The primer H1 and root index use `Commander — Name`.
+- If the title slug already starts with the commander slug, do not double it (`sin` + `sin-fall` stays `sin-fall`).
+- Example: Lady Evangela, deck name Foggy Blood Transfusion → `unrated_lady-evangela-foggy-blood-transfusion`.
 
 Use `design-deck` when brewing from a theme, `deck-workspace` for import and validation, `scryfall-lookup` for card searches, `deck-primer` when creating or updating a play guide, `tag-deck` for Archidekt deck tags, and `assess-deck` for bracket, power, or expected-win-turn analysis.
 
@@ -53,15 +63,15 @@ In conversation (not primers or `decklist.txt`), featured card lists should show
 
 ## Repository structure
 
-- `decks/<bracket>_<deck-name>/decklist.txt`: original user-supplied deck list
-- `decks/<bracket>_<deck-name>/cards.json`: resolved quantities, effective categories, and compact embedded Oracle details
-- `decks/<bracket>_<deck-name>/README.md`: deck primer
-- `decks/<bracket>_<deck-name>/tags.json`: scored Archidekt deck tags and one-line summary
-- `decks/<bracket>_<deck-name>/DECISIONS.md`: how to use the log, required card-by-card inclusion reasons, plus optional cuts, primer notes, rules checks, and session talks
+- `decks/<rating>_<commander>-<name>/decklist.txt`: original user-supplied deck list
+- `decks/<rating>_<commander>-<name>/cards.json`: resolved quantities, effective categories, and compact embedded Oracle details
+- `decks/<rating>_<commander>-<name>/README.md`: deck primer (`# [Commander](scryfall) — Deck Name`)
+- `decks/<rating>_<commander>-<name>/tags.json`: scored Archidekt deck tags and one-line summary
+- `decks/<rating>_<commander>-<name>/DECISIONS.md`: how to use the log, required card-by-card inclusion reasons, plus optional cuts, primer notes, rules checks, and session talks
 - `cards/<oracle-id>.json`: shared Scryfall card object, one per Oracle card
 - `cards/index.json`: normalized card-name aliases mapped to Oracle IDs
 - `cards/categories.json`: universal categories keyed by Oracle ID
-- `decks/<bracket>_<deck-name>/category-overrides.json`: optional deck-specific category replacements
+- `decks/<rating>_<commander>-<name>/category-overrides.json`: optional deck-specific category replacements
 
 Every card must have at least one category. Deck-specific categories replace, rather than merge with, universal categories for that deck.
 

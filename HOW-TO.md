@@ -80,13 +80,13 @@ When a deck list is submitted, the agent must:
 
 1. Check the existing directories under `decks/`.
 2. Ask whether a likely existing deck is the intended deck.
-3. Otherwise infer a deck name, asking only when unclear.
-4. Save the original list as `decks/<bracket>_<deck-name>/decklist.txt`.
+3. Otherwise lock commander slug plus brew title (see AGENTS.md Directory names), asking when unclear.
+4. Save the original list as `decks/<rating>_<commander>-<name>/decklist.txt`.
 5. Resolve every card using Scryfall.
 6. Assign one or more categories to every card.
-7. Write the deck manifest to `decks/<bracket>_<deck-name>/cards.json`.
+7. Write the deck manifest to `decks/<rating>_<commander>-<name>/cards.json`.
 8. Cache shared card data and universal categories under `cards/`.
-9. Create the deck primer at `decks/<bracket>_<deck-name>/README.md`.
+9. Create the deck primer at `decks/<rating>_<commander>-<name>/README.md`.
 10. Score official Archidekt tags into `tags.json` and show cutoff badges on the primer and the root README.
 11. Regenerate the `Deck primers` index in the root README, which is grouped by bracket and built from every deck's `tags.json`.
 12. Add a decision log with a How to use section, inclusion reasons for every unique card, a primer link to that file, plus cuts, primer notes, rules checks, and talks when those come up.
@@ -108,7 +108,7 @@ Example:
 }
 ```
 
-When a card serves a different purpose in one deck, add it to `decks/<bracket>_<deck-name>/category-overrides.json`:
+When a card serves a different purpose in one deck, add it to `decks/<rating>_<commander>-<name>/category-overrides.json`:
 
 ```json
 {
@@ -149,7 +149,7 @@ To resolve a saved list manually:
 
 ```bash
 python3 .agents/skills/deck-workspace/scripts/cache_deck.py \
-  decks/<bracket>_<deck-name>/decklist.txt
+  decks/<rating>_<commander>-<name>/decklist.txt
 ```
 
 Use `--refresh` to retrieve fresh data for cards already present in the cache. Rerun the command after editing categories or deck overrides to regenerate effective categories.
@@ -158,7 +158,7 @@ Validate the completed workspace before review:
 
 ```bash
 python3 .agents/skills/deck-workspace/scripts/validate_deck.py \
-  decks/<bracket>_<deck-name>
+  decks/<rating>_<commander>-<name>
 ```
 
 Decision logs are required by default; pass `--no-require-decisions` only for a temporary import. The validator also checks that the generated deck index is current, plus assessment placement, Archidekt currency, tag badges, and category-table placement. Run the test suite for workflow changes with `python3 -m unittest discover -s tests -v`.
@@ -167,7 +167,7 @@ When a change swaps cards in an existing deck, generate the Scryfall-linked tabl
 
 ```bash
 python3 .agents/skills/deck-workspace/scripts/deck_change_table.py \
-  decks/<bracket>_<deck-name> --base origin/main
+  decks/<rating>_<commander>-<name> --base origin/main
 ```
 
 ## Repository layout
@@ -177,7 +177,7 @@ AGENTS.md
 HOW-TO.md
 SKILLS.md
 decks/
-  <deck-name>/
+  <rating>_<commander>-<name>/
     decklist.txt
     cards.json
     tags.json
