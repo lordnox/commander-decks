@@ -1,13 +1,8 @@
 {
   "schema_version": 1,
   "cutoff": 3,
-  "summary": "Sultai graveyard clones: stock lands plus one jackpot, then let Sin copy the pile as tapped tokens.",
+  "summary": "Sultai graveyard land-copy: stock lands plus one jackpot, then let Sin print tapped token copies of the pile.",
   "tags": [
-    {
-      "name": "clones",
-      "score": 5,
-      "reason": "Sin's enter and attack triggers create token copies of graveyard permanents; that is the namesake plan."
-    },
     {
       "name": "graveyard",
       "score": 5,
@@ -36,7 +31,7 @@
     {
       "name": "tokens",
       "score": 4,
-      "reason": "Wins come from Sin copy tokens plus Field zombies and Scute Swarm insects."
+      "reason": "Sin's trigger makes tapped token copies of the exiled cards; Field of the Dead and Scute Swarm add more tokens."
     },
     {
       "name": "commander matters",
