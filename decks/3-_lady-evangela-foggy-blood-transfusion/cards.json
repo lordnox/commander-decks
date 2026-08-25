@@ -1356,29 +1356,35 @@
       "submitted_name": "Rings of Brighthearth"
     },
     {
-      "cache": "cards/6ad8011d-3471-4369-9d68-b264cc027487.json",
+      "cache": "cards/08f17ebc-c0fd-493f-84b3-e9250694543e.json",
       "card": {
-        "cmc": 1.0,
+        "cmc": 3.0,
         "keywords": [],
-        "mana_cost": "{1}",
-        "oracle_text": "{T}: Add {C}{C}.",
+        "mana_cost": "{3}",
+        "oracle_text": "If you would draw a card while you have no cards in hand, draw two cards instead.\nIf you would gain life while you have 5 or less life, you gain twice that much life instead.\n{T}: Add one mana of any color.",
         "produced_mana": [
-          "C"
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
         ],
-        "type_line": "Artifact"
+        "type_line": "Legendary Artifact"
       },
       "categories": [
-        "Ramp"
+        "Ramp",
+        "Draw"
       ],
       "category_source": "decklist",
-      "name": "Sol Ring",
-      "oracle_id": "6ad8011d-3471-4369-9d68-b264cc027487",
+      "name": "Phial of Galadriel",
+      "oracle_id": "08f17ebc-c0fd-493f-84b3-e9250694543e",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/msc/211/sol-ring?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/ltr/248/phial-of-galadriel?utm_source=api",
       "submitted_categories": [
-        "Ramp"
+        "Ramp",
+        "Draw"
       ],
-      "submitted_name": "Sol Ring"
+      "submitted_name": "Phial of Galadriel"
     },
     {
       "cache": "cards/0bc7f093-bef0-4f1a-852c-4b75ebf54838.json",
@@ -2340,6 +2346,33 @@
       "submitted_name": "Island"
     },
     {
+      "cache": "cards/6ad8011d-3471-4369-9d68-b264cc027487.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "{T}: Add {C}{C}.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Sol Ring",
+      "oracle_id": "6ad8011d-3471-4369-9d68-b264cc027487",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/211/sol-ring?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Ramp"
+      ],
+      "submitted_name": "Sol Ring"
+    },
+    {
       "cache": "cards/74d3277a-38e5-4732-afed-084a56148f20.json",
       "card": {
         "cmc": 2.0,
@@ -2573,11 +2606,11 @@
       "submitted_name": "Kuroki, Thief of Talents"
     }
   ],
-  "categorized_cards": 100,
-  "generated_at": "2026-08-25T22:30:16.807241+00:00",
-  "maybeboard_cards": 9,
-  "maybeboard_unique_cards": 9,
-  "resolved_unique_cards": 100,
+  "categorized_cards": 101,
+  "generated_at": "2026-08-25T22:34:15.649691+00:00",
+  "maybeboard_cards": 10,
+  "maybeboard_unique_cards": 10,
+  "resolved_unique_cards": 101,
   "schema_version": 3,
   "source": "decks/3-_lady-evangela-foggy-blood-transfusion/decklist.txt",
   "total_cards": 100,
