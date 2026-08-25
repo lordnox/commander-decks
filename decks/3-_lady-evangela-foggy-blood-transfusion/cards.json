@@ -342,32 +342,6 @@
       "submitted_name": "Queza, Augur of Agonies"
     },
     {
-      "cache": "cards/2876e74f-a242-4995-9702-0b737a1ab67a.json",
-      "card": {
-        "cmc": 5.0,
-        "keywords": [],
-        "mana_cost": "{5}",
-        "oracle_text": "Psychosis Crawler's power and toughness are each equal to the number of cards in your hand.\nWhenever you draw a card, each opponent loses 1 life.",
-        "power": "*",
-        "toughness": "*",
-        "type_line": "Artifact Creature — Phyrexian Horror"
-      },
-      "categories": [
-        "Draw",
-        "Drain Finisher"
-      ],
-      "category_source": "decklist",
-      "name": "Psychosis Crawler",
-      "oracle_id": "2876e74f-a242-4995-9702-0b737a1ab67a",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mkc/234/psychosis-crawler?utm_source=api",
-      "submitted_categories": [
-        "Draw",
-        "Drain Finisher"
-      ],
-      "submitted_name": "Psychosis Crawler"
-    },
-    {
       "cache": "cards/5def9f38-0a0b-4e8d-9f9d-29dcb46520b4.json",
       "card": {
         "cmc": 1.0,
@@ -464,6 +438,28 @@
         "Life Payment"
       ],
       "submitted_name": "Necrologia"
+    },
+    {
+      "cache": "cards/613a41b8-0b4f-4995-bf1e-ca41f96e6438.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{X}{U}{U}{U}",
+        "oracle_text": "Target player draws X cards. Shuffle Blue Sun's Zenith into its owner's library.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Blue Sun's Zenith",
+      "oracle_id": "613a41b8-0b4f-4995-bf1e-ca41f96e6438",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/a25/44/blue-suns-zenith?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Blue Sun's Zenith"
     },
     {
       "cache": "cards/24d0f5e7-0d9e-4b76-900e-a7274e80312d.json",
@@ -824,28 +820,6 @@
       "submitted_name": "Promise of Loyalty"
     },
     {
-      "cache": "cards/9103f01f-e60b-4cda-9102-edc4aef74cc3.json",
-      "card": {
-        "cmc": 6.0,
-        "keywords": [],
-        "mana_cost": "{3}{W}{B}{B}",
-        "oracle_text": "When this enchantment enters, exile all creature cards from target player's graveyard, then create a 2/2 black Zombie creature token for each card exiled this way.\nZombies you control have lifelink.",
-        "type_line": "Enchantment"
-      },
-      "categories": [
-        "Politics"
-      ],
-      "category_source": "decklist",
-      "name": "Necromancer's Covenant",
-      "oracle_id": "9103f01f-e60b-4cda-9102-edc4aef74cc3",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/c15/229/necromancers-covenant?utm_source=api",
-      "submitted_categories": [
-        "Politics"
-      ],
-      "submitted_name": "Necromancer's Covenant"
-    },
-    {
       "cache": "cards/b1544f21-7e98-461b-aed5-e748b0168c52.json",
       "card": {
         "cmc": 1.0,
@@ -1058,6 +1032,28 @@
         "Counterspell"
       ],
       "submitted_name": "An Offer You Can't Refuse"
+    },
+    {
+      "cache": "cards/ab1cc360-b9de-48d9-9983-4dfe4a7d2a37.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Counter target spell. Its controller may draw up to two cards at the beginning of the next turn's upkeep.\nYou draw a card at the beginning of the next turn's upkeep.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Counterspell"
+      ],
+      "category_source": "decklist",
+      "name": "Arcane Denial",
+      "oracle_id": "ab1cc360-b9de-48d9-9983-4dfe4a7d2a37",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/147/arcane-denial?utm_source=api",
+      "submitted_categories": [
+        "Counterspell"
+      ],
+      "submitted_name": "Arcane Denial"
     },
     {
       "cache": "cards/a3e51a35-09df-4189-b131-08a21e6a557d.json",
@@ -1463,6 +1459,43 @@
       "submitted_name": "Fellwar Stone"
     },
     {
+      "cache": "cards/135cc078-1c45-465e-b0b9-7168c89f56f4.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Treasure"
+        ],
+        "mana_cost": "{W}{B}",
+        "oracle_text": "Whenever a player casts their second spell each turn, you lose 1 life and create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+        "power": "2",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "toughness": "1",
+        "type_line": "Legendary Creature — Halfling Rogue"
+      },
+      "categories": [
+        "Ramp",
+        "Life Payment",
+        "Politics"
+      ],
+      "category_source": "decklist",
+      "name": "Lotho, Corrupt Shirriff",
+      "oracle_id": "135cc078-1c45-465e-b0b9-7168c89f56f4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ltr/213/lotho-corrupt-shirriff?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Life Payment",
+        "Politics"
+      ],
+      "submitted_name": "Lotho, Corrupt Shirriff"
+    },
+    {
       "cache": "cards/8fcf50cd-e6d0-4516-850f-d42ee75dcc3a.json",
       "card": {
         "cmc": 1.0,
@@ -1483,28 +1516,6 @@
         "Land Search"
       ],
       "submitted_name": "Expedition Map"
-    },
-    {
-      "cache": "cards/31f15274-301b-47c5-ba19-0ced04520878.json",
-      "card": {
-        "cmc": 1.0,
-        "keywords": [],
-        "mana_cost": "{1}",
-        "oracle_text": "{2}, {T}, Sacrifice this artifact: Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.",
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Land Search"
-      ],
-      "category_source": "decklist",
-      "name": "Wayfarer's Bauble",
-      "oracle_id": "31f15274-301b-47c5-ba19-0ced04520878",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/hoc/211/wayfarers-bauble?utm_source=api",
-      "submitted_categories": [
-        "Land Search"
-      ],
-      "submitted_name": "Wayfarer's Bauble"
     },
     {
       "cache": "cards/92301066-8904-41bc-84bd-4aa286cbab9c.json",
@@ -2400,7 +2411,7 @@
     }
   ],
   "categorized_cards": 94,
-  "generated_at": "2026-08-25T21:09:03.492269+00:00",
+  "generated_at": "2026-08-25T21:15:31.187929+00:00",
   "maybeboard_cards": 3,
   "maybeboard_unique_cards": 3,
   "resolved_unique_cards": 94,

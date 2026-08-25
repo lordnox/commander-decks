@@ -21,11 +21,11 @@ Life Payment:
 
 Draw:
 1x Queza, Augur of Agonies [Draw,Drain Finisher]
-1x Psychosis Crawler [Draw,Drain Finisher]
 1x Esper Sentinel [Draw]
 1x Dark Confidant [Draw,Life Payment]
 1x Dark Tutelage [Draw,Life Payment]
 1x Necrologia [Draw,Life Payment]
+1x Blue Sun's Zenith [Draw]
 1x Mulldrifter [Draw]
 
 Fog:
@@ -47,7 +47,6 @@ Tax:
 Politics:
 1x Sokrates, Athenian Teacher [Politics,Fog]
 1x Promise of Loyalty [Politics,Removal]
-1x Necromancer's Covenant [Politics]
 
 Removal:
 1x Swords to Plowshares [Removal]
@@ -61,6 +60,7 @@ Counterspell:
 1x Swan Song [Counterspell]
 1x Dovin's Veto [Counterspell]
 1x An Offer You Can't Refuse [Counterspell]
+1x Arcane Denial [Counterspell]
 1x Cryptic Command [Counterspell,Draw]
 
 Blink:
@@ -82,10 +82,10 @@ Ramp:
 1x Talisman of Dominance [Ramp,Life Payment]
 1x Talisman of Progress [Ramp,Life Payment]
 1x Fellwar Stone [Ramp]
+1x Lotho, Corrupt Shirriff [Ramp,Life Payment,Politics]
 
 Land Search:
 1x Expedition Map [Land Search]
-1x Wayfarer's Bauble [Land Search]
 1x Liliana of the Dark Realms [Land Search,Swamp Engine]
 
 Land:
