@@ -11,6 +11,7 @@ from unittest import mock
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / ".agents/skills/deck-workspace/scripts"
 PRIMER_SCRIPTS = ROOT / ".agents/skills/deck-primer/scripts"
+TAG_SCRIPTS = ROOT / ".agents/skills/tag-deck/scripts"
 
 
 def load_script(name, directory=SCRIPTS):
@@ -26,6 +27,7 @@ change_table = load_script("deck_change_table")
 archidekt = load_script("update_archidekt_link", PRIMER_SCRIPTS)
 category_probs = load_script("update_category_probabilities", PRIMER_SCRIPTS)
 mana_stats = load_script("update_mana_stats", PRIMER_SCRIPTS)
+update_deck_tags = load_script("update_deck_tags", TAG_SCRIPTS)
 
 
 def card(
@@ -297,6 +299,33 @@ class ValidateDeckTests(unittest.TestCase):
             "- `2` [Test](decks/test/README.md)\n",
             encoding="utf-8",
         )
+        catalog_dir = repo / ".agents/skills/tag-deck"
+        catalog_dir.mkdir(parents=True)
+        (catalog_dir / "archidekt-tags.json").write_text(
+            json.dumps({
+                "schema_version": 1,
+                "default_cutoff": 3,
+                "tags": [{
+                    "name": "tokens",
+                    "slug": "tokens",
+                    "url": "https://archidekt.com/tags/tokens",
+                }],
+            }),
+            encoding="utf-8",
+        )
+        (deck_dir / "tags.json").write_text(
+            json.dumps({
+                "schema_version": 1,
+                "cutoff": 3,
+                "summary": "A token deck for tests.",
+                "tags": [{
+                    "name": "tokens",
+                    "score": 5,
+                    "reason": "The test deck is tagged tokens.",
+                }],
+            }),
+            encoding="utf-8",
+        )
 
         commander = card("Green Commander", "commander-id", color_identity=["G"])
         commander["mana_cost"] = "{2}{G}"
@@ -352,6 +381,7 @@ class ValidateDeckTests(unittest.TestCase):
                 thresholds={"land": 3},
             )
             mana_stats.update_primer(deck_dir)
+            update_deck_tags.update_surfaces(deck_dir)
         return repo, deck_dir
 
     def test_valid_workspace_with_decision_log_passes(self):
@@ -429,6 +459,13 @@ class ValidateDeckTests(unittest.TestCase):
             self.assertTrue(
                 any("Deck primers section is unsorted" in error for error in errors)
             )
+
+    def test_validator_requires_tags_json(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            repo, deck_dir = self.make_workspace(temporary)
+            (deck_dir / "tags.json").unlink()
+            errors, _ = validate_deck.validate(deck_dir, repo)
+            self.assertTrue(any("missing tags.json" in error for error in errors))
 
     def test_validator_rejects_primer_links_without_bracket_badge(self):
         with tempfile.TemporaryDirectory() as temporary:

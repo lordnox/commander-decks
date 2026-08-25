@@ -168,6 +168,10 @@ def primer_script(name: str) -> Path:
     return Path(__file__).resolve().parents[2] / "deck-primer/scripts" / name
 
 
+def tag_script(name: str) -> Path:
+    return Path(__file__).resolve().parents[2] / "tag-deck/scripts" / name
+
+
 def run_primer_check(script: Path, deck_dir: Path) -> subprocess.CompletedProcess:
     return subprocess.run(
         [sys.executable, str(script), str(deck_dir), "--check"],
@@ -333,6 +337,17 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
                 "python3 .agents/skills/deck-primer/scripts/update_mana_stats.py "
                 f"{deck_dir.relative_to(repo_root)}"
             )
+        tags_path = deck_dir / "tags.json"
+        if not tags_path.is_file():
+            errors.append("missing tags.json; follow .agents/skills/tag-deck/SKILL.md")
+        else:
+            tag_check = run_primer_check(tag_script("update_deck_tags.py"), deck_dir)
+            if tag_check.returncode:
+                errors.append(
+                    "Archidekt tag badges or root overview are missing or stale; run "
+                    "python3 .agents/skills/tag-deck/scripts/update_deck_tags.py "
+                    f"{deck_dir.relative_to(repo_root)}"
+                )
     root_readme = repo_root / "README.md"
     primer_link = f"({primer_path.relative_to(repo_root)})"
     if not root_readme.is_file() or primer_link not in root_readme.read_text(encoding="utf-8"):
