@@ -1,0 +1,142 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "9af00a97-9938-4ab2-938a-669cdfe4332a",
+      "name": "Insect",
+      "object": "related_card",
+      "type_line": "Token Artifact Creature — Insect",
+      "uri": "https://api.scryfall.com/cards/9af00a97-9938-4ab2-938a-669cdfe4332a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b5025282-7bce-41fc-9af9-5f1e6704d69d",
+      "name": "Canoptek Scarab Swarm",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Insect",
+      "uri": "https://api.scryfall.com/cards/b5025282-7bce-41fc-9af9-5f1e6704d69d"
+    }
+  ],
+  "artist": "Bartek Fedyczak",
+  "artist_ids": [
+    "70b1ba71-4ee1-4087-8a9e-ea919f20ebff"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "22",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "9af00a97-9938-4ab2-938a-669cdfe4332a",
+  "illustration_id": "65dae11b-a6d8-4fd0-8a56-34879ae4c954",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:30:58Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/a/9af00a97-9938-4ab2-938a-669cdfe4332a.webp?1783920658",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/a/9af00a97-9938-4ab2-938a-669cdfe4332a.jpg?1783920658",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/a/9af00a97-9938-4ab2-938a-669cdfe4332a.jpg?1783920658",
+    "crop": "https://cards.scryfall.io/crop/front/9/a/9af00a97-9938-4ab2-938a-669cdfe4332a.webp?1783920658",
+    "display": "https://cards.scryfall.io/display/front/9/a/9af00a97-9938-4ab2-938a-669cdfe4332a.webp?1783920658",
+    "grid": "https://cards.scryfall.io/grid/front/9/a/9af00a97-9938-4ab2-938a-669cdfe4332a.webp?1783920658",
+    "large": "https://cards.scryfall.io/large/front/9/a/9af00a97-9938-4ab2-938a-669cdfe4332a.jpg?1783920658",
+    "normal": "https://cards.scryfall.io/normal/front/9/a/9af00a97-9938-4ab2-938a-669cdfe4332a.jpg?1783920658",
+    "png": "https://cards.scryfall.io/png/front/9/a/9af00a97-9938-4ab2-938a-669cdfe4332a.png?1783920658",
+    "small": "https://cards.scryfall.io/small/front/9/a/9af00a97-9938-4ab2-938a-669cdfe4332a.jpg?1783920658",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/a/9af00a97-9938-4ab2-938a-669cdfe4332a.webp?1783920658"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Insect",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5a083e51-d23c-4670-b046-60771a9b518e",
+  "oracle_text": "Flying",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5a083e51-d23c-4670-b046-60771a9b518e&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Insect&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Insect&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DInsect%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Insect",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DInsect",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DInsect"
+  },
+  "released_at": "2022-10-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9af00a97-9938-4ab2-938a-669cdfe4332a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/t40k?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/t40k/22/insect?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "t40k",
+  "set_id": "671f2e10-501c-42ef-a1e3-9aa63ec3ec6c",
+  "set_name": "Warhammer 40,000 Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3At40k&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/671f2e10-501c-42ef-a1e3-9aa63ec3ec6c",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Token Artifact Creature — Insect",
+  "uri": "https://api.scryfall.com/cards/9af00a97-9938-4ab2-938a-669cdfe4332a",
+  "variation": false
+}

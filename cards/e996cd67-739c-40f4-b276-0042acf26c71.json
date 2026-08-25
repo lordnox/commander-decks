@@ -1,0 +1,138 @@
+{
+  "artist": "Eric Fortune",
+  "artist_ids": [
+    "c5562592-3387-495a-96fb-618a6a424a45"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 789011,
+  "cmc": 0.0,
+  "collector_number": "273",
+  "color_identity": [
+    "G"
+  ],
+  "color_indicator": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 764,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Touch no tree, break no branch, and speak only the question you wish answered.\"\n—Von Yomm, elder druid, to her initiates",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "e3ddbebf-72cd-4d1b-ba0d-d94934654ab7",
+  "illustration_id": "80a2053e-3199-4ff4-968c-a3d30b419afa",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:26:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/3/e3ddbebf-72cd-4d1b-ba0d-d94934654ab7.webp?1783909577",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/3/e3ddbebf-72cd-4d1b-ba0d-d94934654ab7.jpg?1783909577",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/3/e3ddbebf-72cd-4d1b-ba0d-d94934654ab7.jpg?1783909577",
+    "crop": "https://cards.scryfall.io/crop/front/e/3/e3ddbebf-72cd-4d1b-ba0d-d94934654ab7.webp?1783909577",
+    "display": "https://cards.scryfall.io/display/front/e/3/e3ddbebf-72cd-4d1b-ba0d-d94934654ab7.webp?1783909577",
+    "grid": "https://cards.scryfall.io/grid/front/e/3/e3ddbebf-72cd-4d1b-ba0d-d94934654ab7.webp?1783909577",
+    "large": "https://cards.scryfall.io/large/front/e/3/e3ddbebf-72cd-4d1b-ba0d-d94934654ab7.jpg?1783909577",
+    "normal": "https://cards.scryfall.io/normal/front/e/3/e3ddbebf-72cd-4d1b-ba0d-d94934654ab7.jpg?1783909577",
+    "png": "https://cards.scryfall.io/png/front/e/3/e3ddbebf-72cd-4d1b-ba0d-d94934654ab7.png?1783909577",
+    "small": "https://cards.scryfall.io/small/front/e/3/e3ddbebf-72cd-4d1b-ba0d-d94934654ab7.jpg?1783909577",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/3/e3ddbebf-72cd-4d1b-ba0d-d94934654ab7.webp?1783909577"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 131171,
+  "multiverse_ids": [
+    676146
+  ],
+  "name": "Dryad Arbor",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e996cd67-739c-40f4-b276-0042acf26c71",
+  "oracle_text": "(This land isn't a spell, it's affected by summoning sickness, and it has \"{T}: Add {G}.\")",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": "3.00",
+    "eur_foil": null,
+    "tix": "7.59",
+    "usd": "3.89",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae996cd67-739c-40f4-b276-0042acf26c71&unique=prints",
+  "produced_mana": [
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/131171?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=789011&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F579308%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dryad+Arbor",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676146&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDryad%2BArbor",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDryad%2BArbor"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e3ddbebf-72cd-4d1b-ba0d-d94934654ab7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/273/dryad-arbor?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 579308,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Land Creature — Forest Dryad",
+  "uri": "https://api.scryfall.com/cards/e3ddbebf-72cd-4d1b-ba0d-d94934654ab7",
+  "variation": false
+}

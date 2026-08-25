@@ -1,0 +1,135 @@
+{
+  "arena_id": 89064,
+  "artist": "Anna Christenson",
+  "artist_ids": [
+    "4db0516b-e162-444f-ba7d-73f7d17fe66c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 750893,
+  "cmc": 1.0,
+  "collector_number": "150",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 7305,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5563967f-09fd-4ccf-8892-4dd0c2544c98",
+  "illustration_id": "f7e9e1bc-6104-4818-9bfd-1ea338a9cedf",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:21:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/5/5563967f-09fd-4ccf-8892-4dd0c2544c98.webp?1783912872",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/5/5563967f-09fd-4ccf-8892-4dd0c2544c98.jpg?1783912872",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/5/5563967f-09fd-4ccf-8892-4dd0c2544c98.jpg?1783912872",
+    "crop": "https://cards.scryfall.io/crop/front/5/5/5563967f-09fd-4ccf-8892-4dd0c2544c98.webp?1783912872",
+    "display": "https://cards.scryfall.io/display/front/5/5/5563967f-09fd-4ccf-8892-4dd0c2544c98.webp?1783912872",
+    "grid": "https://cards.scryfall.io/grid/front/5/5/5563967f-09fd-4ccf-8892-4dd0c2544c98.webp?1783912872",
+    "large": "https://cards.scryfall.io/large/front/5/5/5563967f-09fd-4ccf-8892-4dd0c2544c98.jpg?1783912872",
+    "normal": "https://cards.scryfall.io/normal/front/5/5/5563967f-09fd-4ccf-8892-4dd0c2544c98.jpg?1783912872",
+    "png": "https://cards.scryfall.io/png/front/5/5/5563967f-09fd-4ccf-8892-4dd0c2544c98.png?1783912872",
+    "small": "https://cards.scryfall.io/small/front/5/5/5563967f-09fd-4ccf-8892-4dd0c2544c98.jpg?1783912872",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/5/5563967f-09fd-4ccf-8892-4dd0c2544c98.webp?1783912872"
+  },
+  "keywords": [
+    "Collect evidence"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "mtgo_id": 121776,
+  "multiverse_ids": [
+    646707
+  ],
+  "name": "Analyze the Pollen",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ec7d550b-9e13-4249-89c7-6ad43f71ea11",
+  "oracle_text": "As an additional cost to cast this spell, you may collect evidence 8. (Exile cards with total mana value 8 or greater from your graveyard.)\nSearch your library for a basic land card. If evidence was collected, instead search your library for a creature or land card. Reveal that card, put it into your hand, then shuffle.",
+  "oversized": false,
+  "penny_rank": 3333,
+  "prices": {
+    "eur": "0.50",
+    "eur_foil": "0.80",
+    "tix": "0.02",
+    "usd": "0.34",
+    "usd_etched": null,
+    "usd_foil": "0.45"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aec7d550b-9e13-4249-89c7-6ad43f71ea11&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/121776?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=750893&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F532883%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Analyze+the+Pollen",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=646707&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAnalyze%2Bthe%2BPollen",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAnalyze%2Bthe%2BPollen"
+  },
+  "released_at": "2024-02-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5563967f-09fd-4ccf-8892-4dd0c2544c98/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkm/150/analyze-the-pollen?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkm",
+  "set_id": "2b17794b-15c3-4796-ad6f-0887a0eceeca",
+  "set_name": "Murders at Karlov Manor",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/2b17794b-15c3-4796-ad6f-0887a0eceeca",
+  "story_spotlight": true,
+  "tcgplayer_id": 532883,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/5563967f-09fd-4ccf-8892-4dd0c2544c98",
+  "variation": false
+}

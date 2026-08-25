@@ -1,0 +1,129 @@
+{
+  "artist": "Kieran Yanner",
+  "artist_ids": [
+    "aa7e89ed-d294-4633-9057-ce04dacfcfa4"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 362024,
+  "cmc": 3.0,
+  "collector_number": "116",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2719,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "c80046c2-021f-448c-9f54-2a1a100ec0aa",
+  "illustration_id": "f1ac690e-6222-4660-9a51-dfc278315b30",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:18:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/8/c80046c2-021f-448c-9f54-2a1a100ec0aa.webp?1783934298",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/8/c80046c2-021f-448c-9f54-2a1a100ec0aa.jpg?1783934298",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/8/c80046c2-021f-448c-9f54-2a1a100ec0aa.jpg?1783934298",
+    "crop": "https://cards.scryfall.io/crop/front/c/8/c80046c2-021f-448c-9f54-2a1a100ec0aa.webp?1783934298",
+    "display": "https://cards.scryfall.io/display/front/c/8/c80046c2-021f-448c-9f54-2a1a100ec0aa.webp?1783934298",
+    "grid": "https://cards.scryfall.io/grid/front/c/8/c80046c2-021f-448c-9f54-2a1a100ec0aa.webp?1783934298",
+    "large": "https://cards.scryfall.io/large/front/c/8/c80046c2-021f-448c-9f54-2a1a100ec0aa.jpg?1783934298",
+    "normal": "https://cards.scryfall.io/normal/front/c/8/c80046c2-021f-448c-9f54-2a1a100ec0aa.jpg?1783934298",
+    "png": "https://cards.scryfall.io/png/front/c/8/c80046c2-021f-448c-9f54-2a1a100ec0aa.png?1783934298",
+    "small": "https://cards.scryfall.io/small/front/c/8/c80046c2-021f-448c-9f54-2a1a100ec0aa.jpg?1783934298",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/8/c80046c2-021f-448c-9f54-2a1a100ec0aa.webp?1783934298"
+  },
+  "keywords": [
+    "Landfall"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "multiverse_ids": [
+    451071
+  ],
+  "name": "Retreat to Hagra",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "73cbb4f0-90d6-4228-9341-791e3e9c4b48",
+  "oracle_text": "Landfall — Whenever a land you control enters, choose one —\n• Target creature gets +1/+0 and gains deathtouch until end of turn.\n• Each opponent loses 1 life and you gain 1 life.",
+  "oversized": false,
+  "penny_rank": 7794,
+  "prices": {
+    "eur": "0.54",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "2.05",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A73cbb4f0-90d6-4228-9341-791e3e9c4b48&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Retreat+to+Hagra&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=362024&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F171128%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Retreat+to+Hagra",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=451071&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRetreat%2Bto%2BHagra",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRetreat%2Bto%2BHagra"
+  },
+  "released_at": "2018-08-10",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c80046c2-021f-448c-9f54-2a1a100ec0aa/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c18?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c18/116/retreat-to-hagra?utm_source=api",
+  "set": "c18",
+  "set_id": "06ce6bc2-85cd-4cca-85b1-8c620d3e0902",
+  "set_name": "Commander 2018",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac18&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/06ce6bc2-85cd-4cca-85b1-8c620d3e0902",
+  "story_spotlight": false,
+  "tcgplayer_id": 171128,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/c80046c2-021f-448c-9f54-2a1a100ec0aa",
+  "variation": false
+}

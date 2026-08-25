@@ -1,0 +1,139 @@
+{
+  "arena_id": 76060,
+  "artist": "James Paick",
+  "artist_ids": [
+    "1a7be0a2-d8ac-45c7-b0a0-eb0886f47b5f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 565733,
+  "cmc": 2.0,
+  "collector_number": "106",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1601,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"I'm sure they were once someone important, but I couldn't tell you who they were.\"\n—Doros, expedition guide",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "492b368b-de32-45c1-8459-238aae54f9fc",
+  "illustration_id": "5a36389f-248a-4d6a-864a-31b3f229e73d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:14:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/9/492b368b-de32-45c1-8459-238aae54f9fc.webp?1783926852",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/9/492b368b-de32-45c1-8459-238aae54f9fc.jpg?1783926852",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/9/492b368b-de32-45c1-8459-238aae54f9fc.jpg?1783926852",
+    "crop": "https://cards.scryfall.io/crop/front/4/9/492b368b-de32-45c1-8459-238aae54f9fc.webp?1783926852",
+    "display": "https://cards.scryfall.io/display/front/4/9/492b368b-de32-45c1-8459-238aae54f9fc.webp?1783926852",
+    "grid": "https://cards.scryfall.io/grid/front/4/9/492b368b-de32-45c1-8459-238aae54f9fc.webp?1783926852",
+    "large": "https://cards.scryfall.io/large/front/4/9/492b368b-de32-45c1-8459-238aae54f9fc.jpg?1783926852",
+    "normal": "https://cards.scryfall.io/normal/front/4/9/492b368b-de32-45c1-8459-238aae54f9fc.jpg?1783926852",
+    "png": "https://cards.scryfall.io/png/front/4/9/492b368b-de32-45c1-8459-238aae54f9fc.png?1783926852",
+    "small": "https://cards.scryfall.io/small/front/4/9/492b368b-de32-45c1-8459-238aae54f9fc.jpg?1783926852",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/9/492b368b-de32-45c1-8459-238aae54f9fc.webp?1783926852"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 90585,
+  "multiverse_ids": [
+    522182
+  ],
+  "name": "Unmarked Grave",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "134dfb35-0c32-4143-aa63-7701f406b59e",
+  "oracle_text": "Search your library for a nonlegendary card, put that card into your graveyard, then shuffle.",
+  "oversized": false,
+  "penny_rank": 1204,
+  "preview": {
+    "previewed_at": "2021-05-20",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/1029499176"
+  },
+  "prices": {
+    "eur": "2.05",
+    "eur_foil": "4.41",
+    "tix": "0.02",
+    "usd": "3.38",
+    "usd_etched": null,
+    "usd_foil": "4.59"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A134dfb35-0c32-4143-aa63-7701f406b59e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/90585?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=565733&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F239388%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Unmarked+Grave",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=522182&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DUnmarked%2BGrave",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DUnmarked%2BGrave"
+  },
+  "released_at": "2021-06-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/492b368b-de32-45c1-8459-238aae54f9fc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh2/106/unmarked-grave?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh2",
+  "set_id": "c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "set_name": "Modern Horizons 2",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh2&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "story_spotlight": false,
+  "tcgplayer_id": 239388,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/492b368b-de32-45c1-8459-238aae54f9fc",
+  "variation": false
+}

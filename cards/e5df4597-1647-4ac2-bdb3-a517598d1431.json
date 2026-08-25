@@ -1,0 +1,136 @@
+{
+  "artist": "Ernanda Souza",
+  "artist_ids": [
+    "e87a8b19-f97f-4df0-9dda-1310ab0257bb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 665414,
+  "cmc": 2.0,
+  "collector_number": "160",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 2894,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"All the treasures of this world are grown, not made.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7383f71d-3f51-4632-9ea0-27d47fa2fa50",
+  "illustration_id": "e3769ebf-6bbd-4ced-8b70-2242ee3c97f1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:51:02Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/3/7383f71d-3f51-4632-9ea0-27d47fa2fa50.webp?1783921862",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/3/7383f71d-3f51-4632-9ea0-27d47fa2fa50.jpg?1783921862",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/3/7383f71d-3f51-4632-9ea0-27d47fa2fa50.jpg?1783921862",
+    "crop": "https://cards.scryfall.io/crop/front/7/3/7383f71d-3f51-4632-9ea0-27d47fa2fa50.webp?1783921862",
+    "display": "https://cards.scryfall.io/display/front/7/3/7383f71d-3f51-4632-9ea0-27d47fa2fa50.webp?1783921862",
+    "grid": "https://cards.scryfall.io/grid/front/7/3/7383f71d-3f51-4632-9ea0-27d47fa2fa50.webp?1783921862",
+    "large": "https://cards.scryfall.io/large/front/7/3/7383f71d-3f51-4632-9ea0-27d47fa2fa50.jpg?1783921862",
+    "normal": "https://cards.scryfall.io/normal/front/7/3/7383f71d-3f51-4632-9ea0-27d47fa2fa50.jpg?1783921862",
+    "png": "https://cards.scryfall.io/png/front/7/3/7383f71d-3f51-4632-9ea0-27d47fa2fa50.png?1783921862",
+    "small": "https://cards.scryfall.io/small/front/7/3/7383f71d-3f51-4632-9ea0-27d47fa2fa50.jpg?1783921862",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/3/7383f71d-3f51-4632-9ea0-27d47fa2fa50.webp?1783921862"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "banned",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 101804,
+  "multiverse_ids": [
+    571493
+  ],
+  "name": "Summer Bloom",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e5df4597-1647-4ac2-bdb3-a517598d1431",
+  "oracle_text": "You may play up to three additional lands this turn.",
+  "oversized": false,
+  "penny_rank": 1650,
+  "preview": {
+    "previewed_at": "2022-06-24",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/feature/double-masters-2022-release-notes-2022-06-24"
+  },
+  "prices": {
+    "eur": "0.62",
+    "eur_foil": "0.69",
+    "tix": "0.04",
+    "usd": "1.74",
+    "usd_etched": null,
+    "usd_foil": "1.85"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae5df4597-1647-4ac2-bdb3-a517598d1431&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/101804?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=665414&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F276924%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Summer+Bloom",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=571493&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSummer%2BBloom",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSummer%2BBloom"
+  },
+  "released_at": "2022-07-08",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7383f71d-3f51-4632-9ea0-27d47fa2fa50/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/2x2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/2x2/160/summer-bloom?utm_source=api",
+  "set": "2x2",
+  "set_id": "5a645837-b050-449f-ac90-1e7ccbf45031",
+  "set_name": "Double Masters 2022",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A2x2&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/5a645837-b050-449f-ac90-1e7ccbf45031",
+  "story_spotlight": false,
+  "tcgplayer_id": 276924,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/7383f71d-3f51-4632-9ea0-27d47fa2fa50",
+  "variation": false
+}

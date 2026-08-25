@@ -1,0 +1,141 @@
+{
+  "artist": "Steven Belledin",
+  "artist_ids": [
+    "f07d73b9-52a0-4fe5-858b-61f7b42174a5"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 774790,
+  "cmc": 0.0,
+  "collector_number": "82",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 577,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "extendedart"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "de92facf-762b-4a23-8d5e-bb673b0500c0",
+  "illustration_id": "d6078090-e1f6-46b2-a406-275fb4b8ae3d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:56:54Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/e/de92facf-762b-4a23-8d5e-bb673b0500c0.webp?1783911414",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/e/de92facf-762b-4a23-8d5e-bb673b0500c0.jpg?1783911414",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/e/de92facf-762b-4a23-8d5e-bb673b0500c0.jpg?1783911414",
+    "crop": "https://cards.scryfall.io/crop/front/d/e/de92facf-762b-4a23-8d5e-bb673b0500c0.webp?1783911414",
+    "display": "https://cards.scryfall.io/display/front/d/e/de92facf-762b-4a23-8d5e-bb673b0500c0.webp?1783911414",
+    "grid": "https://cards.scryfall.io/grid/front/d/e/de92facf-762b-4a23-8d5e-bb673b0500c0.webp?1783911414",
+    "large": "https://cards.scryfall.io/large/front/d/e/de92facf-762b-4a23-8d5e-bb673b0500c0.jpg?1783911414",
+    "normal": "https://cards.scryfall.io/normal/front/d/e/de92facf-762b-4a23-8d5e-bb673b0500c0.jpg?1783911414",
+    "png": "https://cards.scryfall.io/png/front/d/e/de92facf-762b-4a23-8d5e-bb673b0500c0.png?1783911414",
+    "small": "https://cards.scryfall.io/small/front/d/e/de92facf-762b-4a23-8d5e-bb673b0500c0.jpg?1783911414",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/e/de92facf-762b-4a23-8d5e-bb673b0500c0.webp?1783911414"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 126727,
+  "multiverse_ids": [
+    665092
+  ],
+  "name": "Talon Gates of Madara",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8c45bf9d-a017-43bf-9e32-67810a8a217b",
+  "oracle_text": "When this land enters, up to one target creature phases out.\n{T}: Add {C}.\n{1}, {T}: Add one mana of any color.\n{4}: Put this card from your hand onto the battlefield.",
+  "oversized": false,
+  "prices": {
+    "eur": null,
+    "eur_foil": "107.04",
+    "tix": "21.62",
+    "usd": "39.06",
+    "usd_etched": null,
+    "usd_foil": "121.53"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8c45bf9d-a017-43bf-9e32-67810a8a217b&unique=prints",
+  "produced_mana": [
+    "B",
+    "C",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "promo_types": [
+    "ripplefoil",
+    "boosterfun"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126727?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=774790&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F553519%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Talon+Gates+of+Madara",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=665092&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTalon%2BGates%2Bof%2BMadara",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTalon%2BGates%2Bof%2BMadara"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/de92facf-762b-4a23-8d5e-bb673b0500c0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/m3c?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/m3c/82/talon-gates-of-madara?utm_source=api",
+  "security_stamp": "oval",
+  "set": "m3c",
+  "set_id": "f5e00721-cf99-43ba-bf16-b22d56d12c73",
+  "set_name": "Modern Horizons 3 Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Am3c&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/f5e00721-cf99-43ba-bf16-b22d56d12c73",
+  "story_spotlight": false,
+  "tcgplayer_id": 553519,
+  "textless": false,
+  "type_line": "Land — Gate",
+  "uri": "https://api.scryfall.com/cards/de92facf-762b-4a23-8d5e-bb673b0500c0",
+  "variation": false
+}

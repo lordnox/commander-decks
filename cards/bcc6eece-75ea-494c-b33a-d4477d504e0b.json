@@ -1,0 +1,173 @@
+{
+  "arena_id": 90808,
+  "artist": "Peter Polach",
+  "artist_ids": [
+    "3cb68fd9-a9e9-425d-85a3-c116318a880f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Peter Polach",
+      "artist_id": "3cb68fd9-a9e9-425d-85a3-c116318a880f",
+      "colors": [
+        "U"
+      ],
+      "flavor_text": "The kami help travelers find profound relief, by freeing them from their mortal concerns.",
+      "illustration_id": "92db1618-f22a-4b78-a144-e53260f6d698",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.webp?1783911236",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.jpg?1783911236",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.jpg?1783911236",
+        "crop": "https://cards.scryfall.io/crop/front/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.webp?1783911236",
+        "display": "https://cards.scryfall.io/display/front/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.webp?1783911236",
+        "grid": "https://cards.scryfall.io/grid/front/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.webp?1783911236",
+        "large": "https://cards.scryfall.io/large/front/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.jpg?1783911236",
+        "normal": "https://cards.scryfall.io/normal/front/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.jpg?1783911236",
+        "png": "https://cards.scryfall.io/png/front/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.png?1783911236",
+        "small": "https://cards.scryfall.io/small/front/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.jpg?1783911236",
+        "thumb": "https://cards.scryfall.io/thumb/front/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.webp?1783911236"
+      },
+      "mana_cost": "{1}{U}{U}",
+      "name": "Sink into Stupor",
+      "object": "card_face",
+      "oracle_text": "Return target spell or nonland permanent an opponent controls to its owner's hand.",
+      "type_line": "Instant"
+    },
+    {
+      "artist": "Peter Polach",
+      "artist_id": "3cb68fd9-a9e9-425d-85a3-c116318a880f",
+      "colors": [],
+      "flavor_text": "Desperate travelers journey from across Kamigawa, drawn by rumors of relief from all their troubles.",
+      "illustration_id": "efc076c4-815f-4909-8ff7-229572c3ef49",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.webp?1783911236",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.jpg?1783911236",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.jpg?1783911236",
+        "crop": "https://cards.scryfall.io/crop/back/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.webp?1783911236",
+        "display": "https://cards.scryfall.io/display/back/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.webp?1783911236",
+        "grid": "https://cards.scryfall.io/grid/back/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.webp?1783911236",
+        "large": "https://cards.scryfall.io/large/back/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.jpg?1783911236",
+        "normal": "https://cards.scryfall.io/normal/back/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.jpg?1783911236",
+        "png": "https://cards.scryfall.io/png/back/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.png?1783911236",
+        "small": "https://cards.scryfall.io/small/back/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.jpg?1783911236",
+        "thumb": "https://cards.scryfall.io/thumb/back/5/3/5358b87a-1a29-426d-b165-40c97da2c14d.webp?1783911236"
+      },
+      "mana_cost": "",
+      "name": "Soporific Springs",
+      "object": "card_face",
+      "oracle_text": "As this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {U}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 771811,
+  "cmc": 3.0,
+  "collector_number": "241",
+  "color_identity": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 172,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "5358b87a-1a29-426d-b165-40c97da2c14d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:53:56Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 126509,
+  "multiverse_ids": [
+    661761
+  ],
+  "name": "Sink into Stupor // Soporific Springs",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "bcc6eece-75ea-494c-b33a-d4477d504e0b",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-05-23",
+    "source": "ChannelFireball",
+    "source_uri": "https://www.channelfireball.com/article/Our-EXCLUSIVE-Modern-Horizons-3-Preview-Card/f16a095e-4a0c-4b98-b99a-0ef94a09f369/"
+  },
+  "prices": {
+    "eur": "7.93",
+    "eur_foil": "10.30",
+    "tix": "8.75",
+    "usd": "6.91",
+    "usd_etched": null,
+    "usd_foil": "9.86"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abcc6eece-75ea-494c-b33a-d4477d504e0b&unique=prints",
+  "produced_mana": [
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126509?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=771811&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552582%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sink+into+Stupor",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=661761&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSink%2Binto%2BStupor%2B%252F%252F%2BSoporific%2BSprings",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSink%2Binto%2BStupor%2B%252F%252F%2BSoporific%2BSprings"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5358b87a-1a29-426d-b165-40c97da2c14d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/241/sink-into-stupor-soporific-springs?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552582,
+  "textless": false,
+  "type_line": "Instant // Land",
+  "uri": "https://api.scryfall.com/cards/5358b87a-1a29-426d-b165-40c97da2c14d",
+  "variation": false
+}

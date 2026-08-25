@@ -1,0 +1,143 @@
+{
+  "arena_id": 91805,
+  "artist": "Johan Grenier",
+  "artist_ids": [
+    "465e38b8-7eed-4d22-a6d2-d3603ee0c00b"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 778537,
+  "cmc": 7.0,
+  "collector_number": "392",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 4005,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Turns out the case of the flattened outpost and the case of the missing kitten *were* related.\"\n—Endris, Drannith magistrate",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "c2cad902-ffd2-4bab-b114-b4b6df2ac6b3",
+  "illustration_id": "c7b82a6a-f727-44b2-a8a8-a4444e98a5c6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:45:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/2/c2cad902-ffd2-4bab-b114-b4b6df2ac6b3.webp?1783910740",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/2/c2cad902-ffd2-4bab-b114-b4b6df2ac6b3.jpg?1783910740",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/2/c2cad902-ffd2-4bab-b114-b4b6df2ac6b3.jpg?1783910740",
+    "crop": "https://cards.scryfall.io/crop/front/c/2/c2cad902-ffd2-4bab-b114-b4b6df2ac6b3.webp?1783910740",
+    "display": "https://cards.scryfall.io/display/front/c/2/c2cad902-ffd2-4bab-b114-b4b6df2ac6b3.webp?1783910740",
+    "grid": "https://cards.scryfall.io/grid/front/c/2/c2cad902-ffd2-4bab-b114-b4b6df2ac6b3.webp?1783910740",
+    "large": "https://cards.scryfall.io/large/front/c/2/c2cad902-ffd2-4bab-b114-b4b6df2ac6b3.jpg?1783910740",
+    "normal": "https://cards.scryfall.io/normal/front/c/2/c2cad902-ffd2-4bab-b114-b4b6df2ac6b3.jpg?1783910740",
+    "png": "https://cards.scryfall.io/png/front/c/2/c2cad902-ffd2-4bab-b114-b4b6df2ac6b3.png?1783910740",
+    "small": "https://cards.scryfall.io/small/front/c/2/c2cad902-ffd2-4bab-b114-b4b6df2ac6b3.jpg?1783910740",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/2/c2cad902-ffd2-4bab-b114-b4b6df2ac6b3.webp?1783910740"
+  },
+  "keywords": [
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{G}{G}",
+  "mtgo_id": 137672,
+  "multiverse_ids": [
+    670767
+  ],
+  "name": "Colossification",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "05c5ee65-651b-4bfb-b57f-305026507135",
+  "oracle_text": "Enchant creature\nWhen this Aura enters, tap enchanted creature.\nEnchanted creature gets +20/+20.",
+  "oversized": false,
+  "penny_rank": 4155,
+  "preview": {
+    "previewed_at": "2024-07-16",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/news/announcements/bloomburrow-starter-kit-decklists"
+  },
+  "prices": {
+    "eur": "0.41",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.87",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A05c5ee65-651b-4bfb-b57f-305026507135&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "starterdeck"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/137672?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=778537&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F559540%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Colossification",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=670767&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DColossification",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DColossification"
+  },
+  "released_at": "2024-08-02",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c2cad902-ffd2-4bab-b114-b4b6df2ac6b3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/392/colossification?utm_source=api",
+  "security_stamp": "oval",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": false,
+  "tcgplayer_id": 559540,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/c2cad902-ffd2-4bab-b114-b4b6df2ac6b3",
+  "variation": false
+}

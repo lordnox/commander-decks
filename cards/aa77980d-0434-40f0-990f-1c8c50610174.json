@@ -1,0 +1,133 @@
+{
+  "artist": "Stephen Daniele",
+  "artist_ids": [
+    "a267f9bb-072b-410a-a704-50f4d19020d8"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 10358,
+  "cmc": 1.0,
+  "collector_number": "151",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3291,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"When I say it rained, it was not small drops, but a thick, greasy drool pouring from the heavens.\"\n—Urza, journal",
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "1cf07d5a-6618-48e2-a9f0-669b75bb6e85",
+  "illustration_id": "4aaa15ed-e0ac-4859-ae35-1bcf9c91ed75",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:39:00Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/c/1cf07d5a-6618-48e2-a9f0-669b75bb6e85.webp?1783946340",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/c/1cf07d5a-6618-48e2-a9f0-669b75bb6e85.jpg?1783946340",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/c/1cf07d5a-6618-48e2-a9f0-669b75bb6e85.jpg?1783946340",
+    "crop": "https://cards.scryfall.io/crop/front/1/c/1cf07d5a-6618-48e2-a9f0-669b75bb6e85.webp?1783946340",
+    "display": "https://cards.scryfall.io/display/front/1/c/1cf07d5a-6618-48e2-a9f0-669b75bb6e85.webp?1783946340",
+    "grid": "https://cards.scryfall.io/grid/front/1/c/1cf07d5a-6618-48e2-a9f0-669b75bb6e85.webp?1783946340",
+    "large": "https://cards.scryfall.io/large/front/1/c/1cf07d5a-6618-48e2-a9f0-669b75bb6e85.jpg?1783946340",
+    "normal": "https://cards.scryfall.io/normal/front/1/c/1cf07d5a-6618-48e2-a9f0-669b75bb6e85.jpg?1783946340",
+    "png": "https://cards.scryfall.io/png/front/1/c/1cf07d5a-6618-48e2-a9f0-669b75bb6e85.png?1783946340",
+    "small": "https://cards.scryfall.io/small/front/1/c/1cf07d5a-6618-48e2-a9f0-669b75bb6e85.jpg?1783946340",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/c/1cf07d5a-6618-48e2-a9f0-669b75bb6e85.webp?1783946340"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "banned",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_foil_id": 11930,
+  "mtgo_id": 11929,
+  "multiverse_ids": [
+    5831
+  ],
+  "name": "Rain of Filth",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "aa77980d-0434-40f0-990f-1c8c50610174",
+  "oracle_text": "Until end of turn, lands you control gain \"Sacrifice this land: Add {B}.\"",
+  "oversized": false,
+  "prices": {
+    "eur": "4.66",
+    "eur_foil": null,
+    "tix": "0.68",
+    "usd": "8.21",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aaa77980d-0434-40f0-990f-1c8c50610174&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/11929?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=10358&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F6992%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rain+of+Filth",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=5831&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRain%2Bof%2BFilth",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRain%2Bof%2BFilth"
+  },
+  "released_at": "1998-10-12",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1cf07d5a-6618-48e2-a9f0-669b75bb6e85/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/usg?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/usg/151/rain-of-filth?utm_source=api",
+  "set": "usg",
+  "set_id": "c330df40-51db-4caf-bde6-48df6c181001",
+  "set_name": "Urza's Saga",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ausg&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/c330df40-51db-4caf-bde6-48df6c181001",
+  "story_spotlight": false,
+  "tcgplayer_id": 6992,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/1cf07d5a-6618-48e2-a9f0-669b75bb6e85",
+  "variation": false
+}

@@ -1,0 +1,139 @@
+{
+  "artist": "Viktor Titov",
+  "artist_ids": [
+    "2270c0b0-afb4-42b0-bcb6-25fe4ad6eef2"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 788947,
+  "cmc": 6.0,
+  "collector_number": "210",
+  "color_identity": [
+    "G",
+    "U"
+  ],
+  "colors": [
+    "G",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 835,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"To sail through those waters is to offer oneself as tribute.\"\n—Captain Hoyrik",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "673c21f8-02b6-4ac4-b2fc-df065b4ac662",
+  "illustration_id": "0caa1404-6496-4b85-b122-0eb2addb88f4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:26:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/7/673c21f8-02b6-4ac4-b2fc-df065b4ac662.webp?1783909597",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/7/673c21f8-02b6-4ac4-b2fc-df065b4ac662.jpg?1783909597",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/7/673c21f8-02b6-4ac4-b2fc-df065b4ac662.jpg?1783909597",
+    "crop": "https://cards.scryfall.io/crop/front/6/7/673c21f8-02b6-4ac4-b2fc-df065b4ac662.webp?1783909597",
+    "display": "https://cards.scryfall.io/display/front/6/7/673c21f8-02b6-4ac4-b2fc-df065b4ac662.webp?1783909597",
+    "grid": "https://cards.scryfall.io/grid/front/6/7/673c21f8-02b6-4ac4-b2fc-df065b4ac662.webp?1783909597",
+    "large": "https://cards.scryfall.io/large/front/6/7/673c21f8-02b6-4ac4-b2fc-df065b4ac662.jpg?1783909597",
+    "normal": "https://cards.scryfall.io/normal/front/6/7/673c21f8-02b6-4ac4-b2fc-df065b4ac662.jpg?1783909597",
+    "png": "https://cards.scryfall.io/png/front/6/7/673c21f8-02b6-4ac4-b2fc-df065b4ac662.png?1783909597",
+    "small": "https://cards.scryfall.io/small/front/6/7/673c21f8-02b6-4ac4-b2fc-df065b4ac662.jpg?1783909597",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/7/673c21f8-02b6-4ac4-b2fc-df065b4ac662.webp?1783909597"
+  },
+  "keywords": [
+    "Landfall"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{G}{U}",
+  "mtgo_id": 131045,
+  "multiverse_ids": [
+    676083
+  ],
+  "name": "Aesi, Tyrant of Gyre Strait",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6511f317-bd38-46d0-b800-7125a3f420da",
+  "oracle_text": "You may play an additional land on each of your turns.\nLandfall — Whenever a land you control enters, you may draw a card.",
+  "oversized": false,
+  "power": "5",
+  "prices": {
+    "eur": "13.61",
+    "eur_foil": null,
+    "tix": "10.39",
+    "usd": "11.60",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6511f317-bd38-46d0-b800-7125a3f420da&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/131045?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=788947&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F577847%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Aesi%2C+Tyrant+of+Gyre+Strait",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676083&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAesi%252C%2BTyrant%2Bof%2BGyre%2BStrait",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAesi%252C%2BTyrant%2Bof%2BGyre%2BStrait"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/673c21f8-02b6-4ac4-b2fc-df065b4ac662/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/210/aesi-tyrant-of-gyre-strait?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 577847,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Legendary Creature — Serpent",
+  "uri": "https://api.scryfall.com/cards/673c21f8-02b6-4ac4-b2fc-df065b4ac662",
+  "variation": false
+}

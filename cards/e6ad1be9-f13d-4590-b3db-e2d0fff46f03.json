@@ -1,0 +1,176 @@
+{
+  "arena_id": 90848,
+  "artist": "Douglas Shuler",
+  "artist_ids": [
+    "a9ddb513-51c7-455c-ab8f-5b90aae9f75b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Douglas Shuler",
+      "artist_id": "a9ddb513-51c7-455c-ab8f-5b90aae9f75b",
+      "colors": [
+        "B",
+        "U"
+      ],
+      "flavor_text": "The long-dead librarians are still on hand to recommend selected titles.",
+      "illustration_id": "c1883941-5bcb-44a8-a885-326a78ff77f1",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.webp?1783911223",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.jpg?1783911223",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.jpg?1783911223",
+        "crop": "https://cards.scryfall.io/crop/front/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.webp?1783911223",
+        "display": "https://cards.scryfall.io/display/front/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.webp?1783911223",
+        "grid": "https://cards.scryfall.io/grid/front/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.webp?1783911223",
+        "large": "https://cards.scryfall.io/large/front/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.jpg?1783911223",
+        "normal": "https://cards.scryfall.io/normal/front/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.jpg?1783911223",
+        "png": "https://cards.scryfall.io/png/front/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.png?1783911223",
+        "small": "https://cards.scryfall.io/small/front/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.jpg?1783911223",
+        "thumb": "https://cards.scryfall.io/thumb/front/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.webp?1783911223"
+      },
+      "mana_cost": "{3}{U/B}",
+      "name": "Waterlogged Teachings",
+      "object": "card_face",
+      "oracle_text": "Search your library for an instant card or a card with flash, reveal it, put it into your hand, then shuffle.",
+      "type_line": "Instant"
+    },
+    {
+      "artist": "Douglas Shuler",
+      "artist_id": "a9ddb513-51c7-455c-ab8f-5b90aae9f75b",
+      "colors": [],
+      "flavor_text": "Moldering tomes line rotting shelves. Generations of priceless knowledge fade from memory beneath the waves.",
+      "illustration_id": "3e04deb8-c74b-467c-8f8f-1aa354bec171",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.webp?1783911223",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.jpg?1783911223",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.jpg?1783911223",
+        "crop": "https://cards.scryfall.io/crop/back/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.webp?1783911223",
+        "display": "https://cards.scryfall.io/display/back/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.webp?1783911223",
+        "grid": "https://cards.scryfall.io/grid/back/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.webp?1783911223",
+        "large": "https://cards.scryfall.io/large/back/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.jpg?1783911223",
+        "normal": "https://cards.scryfall.io/normal/back/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.jpg?1783911223",
+        "png": "https://cards.scryfall.io/png/back/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.png?1783911223",
+        "small": "https://cards.scryfall.io/small/back/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.jpg?1783911223",
+        "thumb": "https://cards.scryfall.io/thumb/back/0/6/060f9675-4921-4cbb-bae2-54c85c679fd4.webp?1783911223"
+      },
+      "mana_cost": "",
+      "name": "Inundated Archive",
+      "object": "card_face",
+      "oracle_text": "This land enters tapped.\n{T}: Add {U} or {B}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 771549,
+  "cmc": 4.0,
+  "collector_number": "261",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1384,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "060f9675-4921-4cbb-bae2-54c85c679fd4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:53:43Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 126589,
+  "multiverse_ids": [
+    661801
+  ],
+  "name": "Waterlogged Teachings // Inundated Archive",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e6ad1be9-f13d-4590-b3db-e2d0fff46f03",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-05-22",
+    "source": "IGN",
+    "source_uri": "https://www.ign.com/articles/magic-the-gathering-modern-horizons-3-spoilers-mdfc-dual-land"
+  },
+  "prices": {
+    "eur": "0.54",
+    "eur_foil": "0.89",
+    "tix": "0.03",
+    "usd": "0.36",
+    "usd_etched": null,
+    "usd_foil": "1.37"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae6ad1be9-f13d-4590-b3db-e2d0fff46f03&unique=prints",
+  "produced_mana": [
+    "B",
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126589?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=771549&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552646%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Waterlogged+Teachings",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=661801&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWaterlogged%2BTeachings%2B%252F%252F%2BInundated%2BArchive",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWaterlogged%2BTeachings%2B%252F%252F%2BInundated%2BArchive"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/060f9675-4921-4cbb-bae2-54c85c679fd4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/261/waterlogged-teachings-inundated-archive?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552646,
+  "textless": false,
+  "type_line": "Instant // Land",
+  "uri": "https://api.scryfall.com/cards/060f9675-4921-4cbb-bae2-54c85c679fd4",
+  "variation": false
+}

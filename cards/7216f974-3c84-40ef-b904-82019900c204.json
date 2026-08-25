@@ -1,0 +1,134 @@
+{
+  "artist": "Jesper Ejsing",
+  "artist_ids": [
+    "a5f8354a-8b51-4e59-96b2-0e3aeae4fa1d"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818768,
+  "cmc": 1.0,
+  "collector_number": "155",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1447,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Hedrons perplex minds both great and small.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "d109b70e-862f-4d8a-8b40-ef6dc904868f",
+  "illustration_id": "4c117e20-c6f0-4aff-8f6e-f5e95541ebe6",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:45:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/1/d109b70e-862f-4d8a-8b40-ef6dc904868f.webp?1783907106",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/1/d109b70e-862f-4d8a-8b40-ef6dc904868f.jpg?1783907106",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/1/d109b70e-862f-4d8a-8b40-ef6dc904868f.jpg?1783907106",
+    "crop": "https://cards.scryfall.io/crop/front/d/1/d109b70e-862f-4d8a-8b40-ef6dc904868f.webp?1783907106",
+    "display": "https://cards.scryfall.io/display/front/d/1/d109b70e-862f-4d8a-8b40-ef6dc904868f.webp?1783907106",
+    "grid": "https://cards.scryfall.io/grid/front/d/1/d109b70e-862f-4d8a-8b40-ef6dc904868f.webp?1783907106",
+    "large": "https://cards.scryfall.io/large/front/d/1/d109b70e-862f-4d8a-8b40-ef6dc904868f.jpg?1783907106",
+    "normal": "https://cards.scryfall.io/normal/front/d/1/d109b70e-862f-4d8a-8b40-ef6dc904868f.jpg?1783907106",
+    "png": "https://cards.scryfall.io/png/front/d/1/d109b70e-862f-4d8a-8b40-ef6dc904868f.png?1783907106",
+    "small": "https://cards.scryfall.io/small/front/d/1/d109b70e-862f-4d8a-8b40-ef6dc904868f.jpg?1783907106",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/1/d109b70e-862f-4d8a-8b40-ef6dc904868f.webp?1783907106"
+  },
+  "keywords": [
+    "Mill",
+    "Landfall"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_id": 138247,
+  "multiverse_ids": [
+    696311
+  ],
+  "name": "Hedron Crab",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7216f974-3c84-40ef-b904-82019900c204",
+  "oracle_text": "Landfall — Whenever a land you control enters, target player mills three cards. (They put the top three cards of their library into their graveyard.)",
+  "oversized": false,
+  "power": "0",
+  "prices": {
+    "eur": "2.77",
+    "eur_foil": null,
+    "tix": "0.13",
+    "usd": "2.87",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7216f974-3c84-40ef-b904-82019900c204&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138247?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818768&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624438%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hedron+Crab",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696311&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHedron%2BCrab",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHedron%2BCrab"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d109b70e-862f-4d8a-8b40-ef6dc904868f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/155/hedron-crab?utm_source=api",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624438,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Crab",
+  "uri": "https://api.scryfall.com/cards/d109b70e-862f-4d8a-8b40-ef6dc904868f",
+  "variation": false
+}
