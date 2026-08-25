@@ -342,30 +342,6 @@
       "submitted_name": "Queza, Augur of Agonies"
     },
     {
-      "cache": "cards/5def9f38-0a0b-4e8d-9f9d-29dcb46520b4.json",
-      "card": {
-        "cmc": 1.0,
-        "keywords": [],
-        "mana_cost": "{W}",
-        "oracle_text": "Whenever an opponent casts their first noncreature spell each turn, draw a card unless that player pays {X}, where X is this creature's power.",
-        "power": "1",
-        "toughness": "1",
-        "type_line": "Artifact Creature — Human Soldier"
-      },
-      "categories": [
-        "Draw"
-      ],
-      "category_source": "decklist",
-      "name": "Esper Sentinel",
-      "oracle_id": "5def9f38-0a0b-4e8d-9f9d-29dcb46520b4",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mh2/12/esper-sentinel?utm_source=api",
-      "submitted_categories": [
-        "Draw"
-      ],
-      "submitted_name": "Esper Sentinel"
-    },
-    {
       "cache": "cards/2068185c-1b50-47d0-aa3f-bf505d199428.json",
       "card": {
         "cmc": 2.0,
@@ -462,28 +438,84 @@
       "submitted_name": "Blue Sun's Zenith"
     },
     {
-      "cache": "cards/561c68d8-b727-48d8-a832-2e42d1345fac.json",
+      "cache": "cards/34b90d3e-f48c-41ff-b3e4-5cab7a9cd597.json",
       "card": {
-        "cmc": 1.0,
+        "cmc": 3.0,
         "keywords": [],
-        "mana_cost": "{X}{B}",
-        "oracle_text": "As an additional cost to cast this spell, exile X cards from your graveyard.\nYou draw X cards and you lose X life.",
-        "type_line": "Instant"
+        "mana_cost": "{1}{W}{W}",
+        "oracle_text": "You and target opponent each draw three cards.",
+        "type_line": "Sorcery"
       },
       "categories": [
         "Draw",
-        "Life Payment"
+        "Politics"
       ],
       "category_source": "decklist",
-      "name": "Skeletal Scrying",
-      "oracle_id": "561c68d8-b727-48d8-a832-2e42d1345fac",
+      "name": "Secret Rendezvous",
+      "oracle_id": "34b90d3e-f48c-41ff-b3e4-5cab7a9cd597",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/c17/125/skeletal-scrying?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/soc/166/secret-rendezvous?utm_source=api",
       "submitted_categories": [
         "Draw",
-        "Life Payment"
+        "Politics"
       ],
-      "submitted_name": "Skeletal Scrying"
+      "submitted_name": "Secret Rendezvous"
+    },
+    {
+      "cache": "cards/f0bf2923-aea2-4bac-b061-64bc84437ef1.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Enchant opponent\nAt the beginning of enchanted opponent's end step, you and that player each draw a card.\nWhen you attack enchanted opponent or a planeswalker they control or when they attack you or a planeswalker you control, sacrifice this Aura.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "Draw",
+        "Politics"
+      ],
+      "category_source": "decklist",
+      "name": "Tenuous Truce",
+      "oracle_id": "f0bf2923-aea2-4bac-b061-64bc84437ef1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ncc/87/tenuous-truce?utm_source=api",
+      "submitted_categories": [
+        "Draw",
+        "Politics"
+      ],
+      "submitted_name": "Tenuous Truce"
+    },
+    {
+      "cache": "cards/b3d81980-76f2-44e2-b1c9-01e30c726312.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Vigilance"
+        ],
+        "mana_cost": "{2}{W}",
+        "oracle_text": "Vigilance\nWhen Loran enters, destroy up to one target artifact or enchantment.\n{T}: You and target opponent each draw a card.",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Legendary Creature — Human Artificer"
+      },
+      "categories": [
+        "Draw",
+        "Politics",
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "Loran of the Third Path",
+      "oracle_id": "b3d81980-76f2-44e2-b1c9-01e30c726312",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/71/loran-of-the-third-path?utm_source=api",
+      "submitted_categories": [
+        "Draw",
+        "Politics",
+        "Removal"
+      ],
+      "submitted_name": "Loran of the Third Path"
     },
     {
       "cache": "cards/437b2dab-15e0-4b9a-a204-58622d37a3b3.json",
@@ -791,28 +823,6 @@
         "Tax"
       ],
       "submitted_name": "Adept Watershaper"
-    },
-    {
-      "cache": "cards/b18b8415-a0b1-459d-8c6b-896381184935.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "mana_cost": "{3}{U}",
-        "oracle_text": "All creatures have \"At the beginning of your upkeep, sacrifice this creature unless you pay {1}.\"",
-        "type_line": "Enchantment"
-      },
-      "categories": [
-        "Tax"
-      ],
-      "category_source": "decklist",
-      "name": "Pendrell Mists",
-      "oracle_id": "b18b8415-a0b1-459d-8c6b-896381184935",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/wth/47/pendrell-mists?utm_source=api",
-      "submitted_categories": [
-        "Tax"
-      ],
-      "submitted_name": "Pendrell Mists"
     },
     {
       "cache": "cards/f4a9d567-513b-487e-afed-c6e6513a7862.json",
@@ -2395,7 +2405,7 @@
     }
   ],
   "categorized_cards": 94,
-  "generated_at": "2026-08-25T21:19:57.933122+00:00",
+  "generated_at": "2026-08-25T21:33:42.527683+00:00",
   "maybeboard_cards": 3,
   "maybeboard_unique_cards": 3,
   "resolved_unique_cards": 94,

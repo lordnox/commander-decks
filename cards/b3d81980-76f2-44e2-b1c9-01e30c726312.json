@@ -1,0 +1,137 @@
+{
+  "artist": "Steven Belledin",
+  "artist_ids": [
+    "f07d73b9-52a0-4fe5-858b-61f7b42174a5"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753304,
+  "cmc": 3.0,
+  "collector_number": "71",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 345,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "As a scholar, she saw the sylex not as a weapon, but as a key to the past.",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9e83a0ef-4fea-45ba-86c0-130d6687f7fe",
+  "illustration_id": "68a145a5-f907-4efe-a563-e17d33333e44",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:23:48Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/e/9e83a0ef-4fea-45ba-86c0-130d6687f7fe.webp?1783913028",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/e/9e83a0ef-4fea-45ba-86c0-130d6687f7fe.jpg?1783913028",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/e/9e83a0ef-4fea-45ba-86c0-130d6687f7fe.jpg?1783913028",
+    "crop": "https://cards.scryfall.io/crop/front/9/e/9e83a0ef-4fea-45ba-86c0-130d6687f7fe.webp?1783913028",
+    "display": "https://cards.scryfall.io/display/front/9/e/9e83a0ef-4fea-45ba-86c0-130d6687f7fe.webp?1783913028",
+    "grid": "https://cards.scryfall.io/grid/front/9/e/9e83a0ef-4fea-45ba-86c0-130d6687f7fe.webp?1783913028",
+    "large": "https://cards.scryfall.io/large/front/9/e/9e83a0ef-4fea-45ba-86c0-130d6687f7fe.jpg?1783913028",
+    "normal": "https://cards.scryfall.io/normal/front/9/e/9e83a0ef-4fea-45ba-86c0-130d6687f7fe.jpg?1783913028",
+    "png": "https://cards.scryfall.io/png/front/9/e/9e83a0ef-4fea-45ba-86c0-130d6687f7fe.png?1783913028",
+    "small": "https://cards.scryfall.io/small/front/9/e/9e83a0ef-4fea-45ba-86c0-130d6687f7fe.jpg?1783913028",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/e/9e83a0ef-4fea-45ba-86c0-130d6687f7fe.webp?1783913028"
+  },
+  "keywords": [
+    "Vigilance"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 122282,
+  "multiverse_ids": [
+    650165
+  ],
+  "name": "Loran of the Third Path",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b3d81980-76f2-44e2-b1c9-01e30c726312",
+  "oracle_text": "Vigilance\nWhen Loran enters, destroy up to one target artifact or enchantment.\n{T}: You and target opponent each draw a card.",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "3.65",
+    "eur_foil": null,
+    "tix": "0.47",
+    "usd": "5.35",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab3d81980-76f2-44e2-b1c9-01e30c726312&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122282?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753304&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535561%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Loran+of+the+Third+Path",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=650165&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLoran%2Bof%2Bthe%2BThird%2BPath",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLoran%2Bof%2Bthe%2BThird%2BPath"
+  },
+  "released_at": "2024-02-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9e83a0ef-4fea-45ba-86c0-130d6687f7fe/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkc/71/loran-of-the-third-path?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkc",
+  "set_id": "286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "set_name": "Murders at Karlov Manor Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "story_spotlight": false,
+  "tcgplayer_id": 535561,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Legendary Creature — Human Artificer",
+  "uri": "https://api.scryfall.com/cards/9e83a0ef-4fea-45ba-86c0-130d6687f7fe",
+  "variation": false
+}
