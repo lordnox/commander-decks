@@ -42,4 +42,10 @@ Grouped by [Commander bracket](https://mtgcommander.net/index.php/brackets/), wi
 - **[Iname — Death Aspect](decks/3+_iname-death-aspect/README.md)** `3+`<br>
   Mono-black Spirit graveyard combo: dump the legend suite with Iname, then Mortal Combat or reanimate the pile.<br>
   [![combo 5](https://img.shields.io/static/v1?label=5&message=combo&color=0b6b58&style=flat-square)](https://archidekt.com/tags/combo) [![graveyard 5](https://img.shields.io/static/v1?label=5&message=graveyard&color=0b6b58&style=flat-square)](https://archidekt.com/tags/graveyard) [![spirits 5](https://img.shields.io/static/v1?label=5&message=spirits&color=0b6b58&style=flat-square)](https://archidekt.com/tags/spirits) [![reanimator 4](https://img.shields.io/static/v1?label=4&message=reanimator&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/reanimator) [![+2 more tags](https://img.shields.io/static/v1?label=&message=%2B2%20more&color=6b7280&style=flat-square)](decks/3+_iname-death-aspect/README.md)
+
+### Unrated
+
+- **[Lady Evangela — Foggy Blood Transfusion](decks/unrated_lady-evangela-foggy-blood-transfusion/README.md)** `Unrated`<br>
+  Esper aikido control that dumps its own life to draw, swaps totals with the leader, then drains the table off Cabal Coffers.<br>
+  [![aikido 5](https://img.shields.io/static/v1?label=5&message=aikido&color=0b6b58&style=flat-square)](https://archidekt.com/tags/aikido) [![life exchange 5](https://img.shields.io/static/v1?label=5&message=life%20exchange&color=0b6b58&style=flat-square)](https://archidekt.com/tags/life_exchange) [![lifedrain 5](https://img.shields.io/static/v1?label=5&message=lifedrain&color=0b6b58&style=flat-square)](https://archidekt.com/tags/lifedrain) [![control 4](https://img.shields.io/static/v1?label=4&message=control&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/control) [![+9 more tags](https://img.shields.io/static/v1?label=&message=%2B9%20more&color=6b7280&style=flat-square)](decks/unrated_lady-evangela-foggy-blood-transfusion/README.md)
 <!-- deck-index:end -->
