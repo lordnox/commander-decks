@@ -1,0 +1,136 @@
+{
+  "artist": "Kari Christensen",
+  "artist_ids": [
+    "77f6cd9e-e625-4526-bfc5-97039f21375e"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 652135,
+  "cmc": 2.0,
+  "collector_number": "87",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 3259,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f511555a-09aa-41f8-b240-c21f911a57b4",
+  "illustration_id": "e8829403-e8d6-442d-833f-5511b4b8027d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:15:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/5/f511555a-09aa-41f8-b240-c21f911a57b4.webp?1783923346",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/5/f511555a-09aa-41f8-b240-c21f911a57b4.jpg?1783923346",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/5/f511555a-09aa-41f8-b240-c21f911a57b4.jpg?1783923346",
+    "crop": "https://cards.scryfall.io/crop/front/f/5/f511555a-09aa-41f8-b240-c21f911a57b4.webp?1783923346",
+    "display": "https://cards.scryfall.io/display/front/f/5/f511555a-09aa-41f8-b240-c21f911a57b4.webp?1783923346",
+    "grid": "https://cards.scryfall.io/grid/front/f/5/f511555a-09aa-41f8-b240-c21f911a57b4.webp?1783923346",
+    "large": "https://cards.scryfall.io/large/front/f/5/f511555a-09aa-41f8-b240-c21f911a57b4.jpg?1783923346",
+    "normal": "https://cards.scryfall.io/normal/front/f/5/f511555a-09aa-41f8-b240-c21f911a57b4.jpg?1783923346",
+    "png": "https://cards.scryfall.io/png/front/f/5/f511555a-09aa-41f8-b240-c21f911a57b4.png?1783923346",
+    "small": "https://cards.scryfall.io/small/front/f/5/f511555a-09aa-41f8-b240-c21f911a57b4.jpg?1783923346",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/5/f511555a-09aa-41f8-b240-c21f911a57b4.webp?1783923346"
+  },
+  "keywords": [
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "multiverse_ids": [
+    559566
+  ],
+  "name": "Tenuous Truce",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f0bf2923-aea2-4bac-b061-64bc84437ef1",
+  "oracle_text": "Enchant opponent\nAt the beginning of enchanted opponent's end step, you and that player each draw a card.\nWhen you attack enchanted opponent or a planeswalker they control or when they attack you or a planeswalker you control, sacrifice this Aura.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2022-04-15",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/1456061046"
+  },
+  "prices": {
+    "eur": "0.37",
+    "eur_foil": "0.72",
+    "tix": null,
+    "usd": "0.39",
+    "usd_etched": null,
+    "usd_foil": "1.14"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af0bf2923-aea2-4bac-b061-64bc84437ef1&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Tenuous+Truce&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=652135&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F268978%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Tenuous+Truce",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=559566&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTenuous%2BTruce",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTenuous%2BTruce"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f511555a-09aa-41f8-b240-c21f911a57b4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ncc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ncc/87/tenuous-truce?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ncc",
+  "set_id": "c51de34b-d4d6-4179-a432-573744ded119",
+  "set_name": "New Capenna Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ancc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c51de34b-d4d6-4179-a432-573744ded119",
+  "story_spotlight": false,
+  "tcgplayer_id": 268978,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/f511555a-09aa-41f8-b240-c21f911a57b4",
+  "variation": false
+}

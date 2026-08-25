@@ -16,7 +16,7 @@
     {
       "name": "lifedrain",
       "score": 5,
-      "reason": "Exsanguinate, Debt to the Deathless, and Drain Life are the win conditions, backed by Queza and Psychosis Crawler."
+      "reason": "Exsanguinate, Debt to the Deathless, and Drain Life are the win conditions, backed by Queza."
     },
     {
       "name": "control",
@@ -26,17 +26,17 @@
     {
       "name": "life paying",
       "score": 4,
-      "reason": "Wall of Blood, Selenia, Hatred, Necrologia, Dark Confidant, and the pain lands intentionally dump life before an exchange."
+      "reason": "Wall of Blood, Selenia, Necrologia, Dark Confidant, and the pain lands intentionally dump life before an exchange."
     },
     {
       "name": "pillow fort",
       "score": 4,
-      "reason": "Baird, Archangel of Tithes, Pendrell Mists, and Lady Evangela herself make attacking into this deck unattractive."
+      "reason": "Baird, Archangel of Tithes, and Lady Evangela herself make attacking into this deck unattractive."
     },
     {
       "name": "politics",
       "score": 4,
-      "reason": "Sokrates, Promise of Loyalty, Council's Judgment, and Soul Conduit let the table's own choices decide who takes damage."
+      "reason": "Sokrates, Tenuous Truce, Secret Rendezvous, Loran, Promise of Loyalty, and Council's Judgment let the table's own choices decide who takes damage."
     },
     {
       "name": "big mana",
@@ -51,7 +51,7 @@
     {
       "name": "draw",
       "score": 3,
-      "reason": "The deck refuses tutors and finds its finishers by drawing, mostly by paying life for cards."
+      "reason": "The deck refuses tutors and finds its finishers by drawing: life-for-cards plus shared-draw politics."
     },
     {
       "name": "ramp",
@@ -66,7 +66,7 @@
     {
       "name": "x spells",
       "score": 3,
-      "reason": "Exsanguinate, Debt to the Deathless, Drain Life, Hatred, Necrologia, and Blue Sun's Zenith all scale with the mana engine."
+      "reason": "Exsanguinate, Debt to the Deathless, Drain Life, Necrologia, and Blue Sun's Zenith all scale with the mana engine."
     },
     {
       "name": "blink",
@@ -86,17 +86,17 @@
     {
       "name": "lifegain",
       "score": 2,
-      "reason": "Absorb, Necromancer's Covenant, and the drains refill the life total that the payment suite spends."
+      "reason": "Absorb and the drains refill the life total that the payment suite spends."
     },
     {
       "name": "stax",
       "score": 1,
-      "reason": "Pendrell Mists is the only symmetric upkeep tax."
+      "reason": "Creature attack taxes remain, but the only symmetric upkeep tax left the list."
     },
     {
       "name": "tokens",
       "score": 1,
-      "reason": "Inkshield and Necromancer's Covenant make incidental bodies."
+      "reason": "Inkshield makes incidental bodies."
     }
   ]
 }

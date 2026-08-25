@@ -21,12 +21,13 @@ Life Payment:
 
 Draw:
 1x Queza, Augur of Agonies [Draw,Drain Finisher]
-1x Esper Sentinel [Draw]
 1x Dark Confidant [Draw,Life Payment]
 1x Dark Tutelage [Draw,Life Payment]
 1x Necrologia [Draw,Life Payment]
 1x Blue Sun's Zenith [Draw]
-1x Skeletal Scrying [Draw,Life Payment]
+1x Secret Rendezvous [Draw,Politics]
+1x Tenuous Truce [Draw,Politics]
+1x Loran of the Third Path [Draw,Politics,Removal]
 1x Fact or Fiction [Draw,Politics]
 1x Mulldrifter [Draw]
 
@@ -44,7 +45,6 @@ Tax:
 1x Baird, Steward of Argive [Tax]
 1x Archangel of Tithes [Tax]
 1x Adept Watershaper [Tax]
-1x Pendrell Mists [Tax]
 
 Politics:
 1x Sokrates, Athenian Teacher [Politics,Fog]
