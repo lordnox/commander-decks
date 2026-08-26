@@ -3,6 +3,7 @@
 A conversation-driven workspace for importing, resolving, categorizing, assessing, and improving Magic: The Gathering Commander decks. Submitted lists stay unchanged; card data is cached from Scryfall for reuse.
 
 - [How to](HOW-TO.md)
+- [House rules](DECISIONS.md)
 - [Skills](SKILLS.md)
 
 ## Deck primers

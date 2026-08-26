@@ -221,12 +221,8 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
         if commanders and extra_colors:
             errors.append(f"color-identity violation: {name} adds {''.join(sorted(extra_colors))}")
         legality = cached.get("legalities", {}).get("commander")
-        if legality != "legal":
-            is_commander = entry in commanders
-            if is_commander and cached.get("released_at", "") > today:
-                warnings.append(f"{name} is not Commander-legal before its {cached['released_at']} release")
-            else:
-                errors.append(f"Commander legality is {legality or 'unknown'}: {name}")
+        if legality != "legal" and cached.get("released_at", "") <= today:
+            errors.append(f"Commander legality is {legality or 'unknown'}: {name}")
 
     if missing_land_category:
         errors.append(

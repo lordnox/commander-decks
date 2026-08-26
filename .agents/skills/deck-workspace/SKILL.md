@@ -159,7 +159,7 @@ Run:
 python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<prefix><slug>
 ```
 
-Decision logs are required by default. Pass `--no-require-decisions` only for a temporary import. Fix every error before review. The validator checks deck size, manifest consistency, categories, commander designation, singleton and color-identity rules, cached Commander legality, primer linkage, root deck index currency, assessment placement, Archidekt, tag badges, category-table, and mana-stats currency, card-mention links, and decision-log coverage. A prerelease commander produces a warning until its release date.
+Decision logs are required by default. Pass `--no-require-decisions` only for a temporary import. Fix every error before review. The validator checks deck size, manifest consistency, categories, commander designation, singleton and color-identity rules, cached Commander legality for already-released cards, primer linkage, root deck index currency, assessment placement, Archidekt, tag badges, category-table, and mana-stats currency, card-mention links, and decision-log coverage. Unreleased cards are allowed; see the root `DECISIONS.md`.
 
 Inspect the final diff after validation. Shared registries preserve their existing order, so unrelated global reordering or cache changes indicate a workflow problem and should be removed.
 

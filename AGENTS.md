@@ -63,6 +63,7 @@ In conversation (not primers or `decklist.txt`), featured card lists should show
 
 ## Repository structure
 
+- `DECISIONS.md`: kitchen-table house rules that apply to every deck
 - `decks/<rating>_<commander>-<name>/decklist.txt`: original user-supplied deck list
 - `decks/<rating>_<commander>-<name>/cards.json`: resolved quantities, effective categories, and compact embedded Oracle details
 - `decks/<rating>_<commander>-<name>/README.md`: deck primer (`# [Commander](scryfall) — Deck Name`)
