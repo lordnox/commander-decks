@@ -10,6 +10,7 @@ Drain Finisher:
 1x Exsanguinate [Drain Finisher]
 1x Debt to the Deathless [Drain Finisher]
 1x Drain Life [Drain Finisher]
+1x Test of Endurance [Drain Finisher]
 
 Life Payment:
 1x Wall of Blood [Life Payment]
@@ -63,7 +64,6 @@ Counterspell:
 1x Dovin's Veto [Counterspell]
 1x An Offer You Can't Refuse [Counterspell]
 1x Arcane Denial [Counterspell]
-1x Cryptic Command [Counterspell,Draw]
 
 Blink:
 1x Ephemerate [Blink]
@@ -120,6 +120,7 @@ Land:
 1x Island [Land]
 
 Maybeboard:
+1x Cryptic Command [Maybeboard{noDeck}{noPrice},Counterspell,Draw]
 1x Minamo, School at Water's Edge [Maybeboard{noDeck}{noPrice},Land]
 1x Counterspell [Maybeboard{noDeck}{noPrice},Counterspell]
 1x City of Brass [Maybeboard{noDeck}{noPrice},Land,Life Payment]

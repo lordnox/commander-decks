@@ -5573,8 +5573,14 @@
       "categories": [
         "card-draw"
       ]
+    },
+    "ffdad8fb-69ee-40d3-b2eb-b0aee0a5becc": {
+      "name": "Test of Endurance",
+      "categories": [
+        "other"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-26T00:01:32.670544+00:00"
+  "updated_at": "2026-08-26T06:20:29.627921+00:00"
 }
