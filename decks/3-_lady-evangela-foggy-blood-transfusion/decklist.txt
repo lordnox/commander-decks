@@ -76,6 +76,7 @@ Swamp Engine:
 1x Magus of the Coffers [Swamp Engine,Ramp]
 1x Bubbling Muck [Swamp Engine,Ramp]
 1x Rings of Brighthearth [Swamp Engine]
+1x Teferi, Who Slows the Sunset [Swamp Engine,Draw]
 
 Ramp:
 1x Phial of Galadriel [Ramp,Draw]
@@ -94,7 +95,6 @@ Land:
 1x Cabal Stronghold [Land,Swamp Engine]
 1x Deserted Temple [Land,Swamp Engine]
 1x Myriad Landscape [Land,Land Search]
-1x Minamo, School at Water's Edge [Land]
 1x Command Tower [Land]
 1x Exotic Orchard [Land]
 1x Reflecting Pool [Land]
@@ -120,6 +120,7 @@ Land:
 1x Island [Land]
 
 Maybeboard:
+1x Minamo, School at Water's Edge [Maybeboard{noDeck}{noPrice},Land]
 1x Counterspell [Maybeboard{noDeck}{noPrice},Counterspell]
 1x City of Brass [Maybeboard{noDeck}{noPrice},Land,Life Payment]
 1x Mana Confluence [Maybeboard{noDeck}{noPrice},Land,Life Payment]
