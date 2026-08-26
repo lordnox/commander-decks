@@ -21,6 +21,18 @@ CARDS_IN_HEADING = re.compile(r"^##\s+Cards in\s*$", re.IGNORECASE | re.MULTILIN
 HOW_TO_USE_HEADING = re.compile(r"^##\s+How to use\s*$", re.IGNORECASE | re.MULTILINE)
 MARKDOWN_HEADING = re.compile(r"^##\s+", re.MULTILINE)
 QUANTITY_SUFFIX = re.compile(r"\s+[×x]\s*\d+\s*$", re.IGNORECASE)
+CHANGE_LOG_PHRASES = re.compile(
+    r"\bleft (?:the 99|the list|for |so )"
+    r"|\b(?:was|were) (?:cut|trimmed|replaced|removed)\b"
+    r"|\bcut (?:for|from the 99|as a package)\b"
+    r"|\b(?:replaces?|replaced) the\b"
+    r"|\bno longer in the (?:99|deck|list)\b"
+    r"|\bused to (?:be|run)\b"
+    r"|\bearlier (?:build|version|list|revision)\b"
+    r"|\bpreviously\b"
+    r"|\b\d+\s*(?:→|->)\s*\d+\b",
+    re.IGNORECASE,
+)
 
 
 def normalized_name(name: str) -> str:
@@ -87,6 +99,16 @@ def decision_names(path: Path) -> list[str]:
     for match in DECISION_LINE.finditer(cards_in_markdown(path.read_text(encoding="utf-8"))):
         names.append(QUANTITY_SUFFIX.sub("", match.group("name")).strip())
     return names
+
+
+def change_log_lines(primer_text: str) -> list[str]:
+    """Primer prose that reads like an edit history instead of the current deck."""
+    hits = []
+    for number, line in enumerate(primer_text.splitlines(), start=1):
+        match = CHANGE_LOG_PHRASES.search(line)
+        if match:
+            hits.append(f"line {number}: \"{match.group(0).strip()}\"")
+    return hits
 
 
 def assessment_error(primer_text: str, *, unrated: bool) -> str | None:
@@ -240,6 +262,12 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
         )
         if assessment:
             errors.append(assessment)
+        history = change_log_lines(primer_text)
+        if history:
+            warnings.append(
+                "primer reads like a change log; move swap and cut rationale to the "
+                "decision log: " + "; ".join(history)
+            )
         linker_path = primer_script("link_card_mentions.py")
         link_check = run_primer_check(linker_path, deck_dir)
         if link_check.returncode:

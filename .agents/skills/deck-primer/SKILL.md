@@ -63,6 +63,18 @@ Use concise Markdown. Write every card mention as a bold link to its manifest `s
 
 Prefer a table for interchangeable roles and tutor decisions. Explain representative cards rather than listing every card. Make the primer useful during actual play.
 
+### Describe the deck as it stands
+
+The primer documents the current 100 cards for someone about to pilot them. It is not a change log.
+
+- Do not write swap history: no "X replaces Y", "Z left for W", "the Talismans were cut", or land or slot counts as `38 → 37`.
+- Do not compare a current card against a card that is no longer in the deck, and do not justify a card by what it beat.
+- Do not name a card that is neither in the 100 nor a `{noDeck}` maybeboard entry.
+- A maybeboard section, when present, says what each card outside the 99 would do and what currently keeps it out, in the present tense.
+- Past tense is fine for rules facts and play narration ("the trigger already resolved"), not for the deck's edit history.
+
+Every rejected candidate, cut, and swap rationale belongs in `DECISIONS.md` under `## Cards out`. When trimming history out of a primer, confirm the reasoning exists there first and add it if it does not.
+
 ### Action buttons
 
 Every primer must contain a single row of shields.io badge buttons immediately after the assessment blockquote, or immediately after the H1 when the deck is unrated: `Open in Archidekt`, then `Decisions` linking to the deck's decision log. Do not add a prose sentence pointing at `DECISIONS.md`; the button replaces it. The Archidekt button must open Archidekt's sandbox with the full resolved deck preloaded, including quantities and the commander designation. Exclude cards marked `{noDeck}`, such as maybeboard entries.
@@ -152,6 +164,7 @@ Before saving:
 - run `python3 .agents/skills/deck-primer/scripts/update_mana_stats.py decks/<prefix><slug> --check`;
 - confirm mana stats sit after the category table and use nonland cards for the curve;
 - recheck each described line against Oracle text;
+- confirm the primer contains no swap history, cut rationale, or comparison against cards no longer in the deck, and that any such reasoning lives in `DECISIONS.md`;
 - ensure the primary plan reflects the deck as built rather than a generic archetype;
 - ensure delayed or finite interactions are described accurately;
 - confirm no source deck files changed unintentionally;
