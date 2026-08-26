@@ -21,11 +21,11 @@ This is a **discussion**. The job is the right questions and evidence-backed ans
 - A right answer is Oracle (or `is:gamechanger`) plus the user's lock, not vibe.
 - Stop and wait when a constraint or Oracle reading would change the 99.
 - Do not "just build it" to keep moving.
-- After lock-in, dump the argument into that deck's `DECISIONS.md` (`## Talks`, `## Rules`, maybeboard under `## Primer` or `## Cards out`). If the brew is parked instead of built, dump it into root `DECK-IDEAS.md`. Do not leave the grill only in chat.
+- After lock-in, dump the argument into that deck's `DECISIONS.md` (`## Talks`, `## Rules`, maybeboard under `## Primer` or `## Cards out`). If the brew is parked instead of built, follow `deck-ideas`. Do not leave the grill only in chat.
 
 ## 0. Existing decks first
 
-Inspect `decks/` and root `DECK-IDEAS.md`. If a stored deck already matches the commander or theme, ask whether that is the deck before brewing a new one. If the idea is already parked (especially under Currently not viable), do not rebuild it unless the user explicitly reopens it.
+Inspect `decks/` and follow `deck-ideas` (root `DECK-IDEAS.md`). If a stored deck already matches the commander or theme, ask whether that is the deck before brewing a new one. If the idea is already parked (especially under Currently not viable), do not rebuild it unless the user explicitly reopens it.
 
 ## 1. Grill, in this order
 
@@ -44,6 +44,7 @@ Inspect `decks/` and root `DECK-IDEAS.md`. If a stored deck already matches the 
 2. Write `DECISIONS.md` as required by `deck-workspace` (How to use, Cards in, Talks for this grill). Put cards that lost the 99 but might return in a **Maybe** note, not under Cards in.
 3. Validate with `validate_deck.py`.
 4. Use `assess-deck` only when the user asks for bracket or win-turn.
+5. If the user parks the brew instead, stop here and follow `deck-ideas`. Do not write a 99 to keep moving.
 
 ## Lessons
 

@@ -45,6 +45,7 @@ You can explicitly invoke a skill when needed:
 $deck-workspace import this deck list
 $scryfall-lookup find red cards that blink things
 $assess-deck assess Mishra's bracket and expected win turn
+$deck-ideas park this brew as currently not viable
 ```
 
 ### Codex cloud
@@ -138,11 +139,12 @@ Before making changes:
 4. For a deck README or play guide, read .agents/skills/deck-primer/SKILL.md.
 5. For Archidekt deck tags and README badges, read .agents/skills/tag-deck/SKILL.md.
 6. For bracket, power, or win-turn analysis, read .agents/skills/assess-deck/SKILL.md.
-7. Follow those workflows exactly.
-8. Preserve submitted deck lists and never overwrite a likely existing deck
+7. For parking an unbuilt brew in DECK-IDEAS.md, read .agents/skills/deck-ideas/SKILL.md.
+8. Follow those workflows exactly.
+9. Preserve submitted deck lists and never overwrite a likely existing deck
    without confirmation.
-9. Ensure every resolved card has one or more categories.
-10. Ensure every deck has a primer linked near the top of the root README.
+10. Ensure every resolved card has one or more categories.
+11. Ensure every deck has a primer linked near the top of the root README.
 ```
 
 To resolve a saved list manually:
@@ -176,6 +178,8 @@ python3 .agents/skills/deck-workspace/scripts/deck_change_table.py \
 AGENTS.md
 HOW-TO.md
 SKILLS.md
+DECK-IDEAS.md
+DECISIONS.md
 decks/
   <rating>_<commander>-<name>/
     decklist.txt
@@ -192,6 +196,7 @@ cards/
 .agents/
   skills/
     assess-deck/
+    deck-ideas/
     deck-workspace/
     design-deck/
     scryfall-lookup/
@@ -219,4 +224,8 @@ Assess Mishra's Commander bracket and expected win turn.
 
 ```text
 Compare this new list with the stored version of my Mishra deck.
+```
+
+```text
+Park the Unbound/Mirror proliferate idea as currently not viable.
 ```
