@@ -66,7 +66,7 @@ In conversation (not primers or `decklist.txt`), featured card lists should show
 - `DECISIONS.md`: kitchen-table house rules that apply to every deck
 - `decks/<rating>_<commander>-<name>/decklist.txt`: original user-supplied deck list
 - `decks/<rating>_<commander>-<name>/cards.json`: resolved quantities, effective categories, and compact embedded Oracle details
-- `decks/<rating>_<commander>-<name>/README.md`: deck primer (`# [Commander](scryfall) — Deck Name`)
+- `decks/<rating>_<commander>-<name>/README.md`: deck primer (`# [Commander](scryfall) — Deck Name`), describing only the deck as it currently stands
 - `decks/<rating>_<commander>-<name>/tags.json`: scored Archidekt deck tags and one-line summary
 - `decks/<rating>_<commander>-<name>/DECISIONS.md`: how to use the log, required card-by-card inclusion reasons, plus optional cuts, primer notes, rules checks, and session talks
 - `cards/<oracle-id>.json`: shared Scryfall card object, one per Oracle card
@@ -75,5 +75,7 @@ In conversation (not primers or `decklist.txt`), featured card lists should show
 - `decks/<rating>_<commander>-<name>/category-overrides.json`: optional deck-specific category replacements
 
 Every card must have at least one category. Deck-specific categories replace, rather than merge with, universal categories for that deck.
+
+A primer is a play guide, never a change log: swap history, cut rationale, and comparisons against cards no longer in the deck belong in the deck's `DECISIONS.md`. `validate_deck.py` warns when primer prose reads like an edit history.
 
 Do not duplicate card JSON inside deck directories. Preserve the user's deck-list formatting unless they ask for normalization.
