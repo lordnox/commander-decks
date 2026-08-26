@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create or verify an Archidekt sandbox link in a deck primer."""
+"""Create or verify a deck primer's action buttons."""
 
 from __future__ import annotations
 
@@ -10,8 +10,22 @@ import uuid
 from pathlib import Path
 from urllib.parse import quote
 
-LINK_PATTERN = re.compile(
+BADGE_BUTTON = "https://img.shields.io/badge/{label}-{color}?style=for-the-badge"
+ARCHIDEKT_COLOR = "0b6b58"
+DECISIONS_COLOR = "4b5563"
+DECISION_FILES = ("DECISIONS.md", "decisions.json")
+
+ACTIONS_PATTERN = re.compile(
+    r"^\[!\[Open in Archidekt\]\([^)]*\)\]\(https://archidekt\.com/sandbox\?deck=[^)]*\)"
+    r"(?: \[!\[[^\]]*\]\([^)]*\)\]\([^)]*\))*$",
+    re.MULTILINE,
+)
+LEGACY_LINK_PATTERN = re.compile(
     r"^\[\*\*Open this deck in Archidekt\*\*\]\(https://archidekt\.com/sandbox\?deck=.*\)$",
+    re.MULTILINE,
+)
+LEGACY_DECISIONS_HINT = re.compile(
+    r"^Reasons for the list, cuts, and rules checks are in \[[^\]]+\]\([^)]+\)\.\n+",
     re.MULTILINE,
 )
 
@@ -135,14 +149,32 @@ def archidekt_payload(
     return payload, total
 
 
-def link_line(payload: list[dict[str, object]]) -> str:
+def badge_button(label: str, color: str, href: str) -> str:
+    badge = BADGE_BUTTON.format(label=quote(label, safe=""), color=color)
+    return f"[![{label}]({badge})]({href})"
+
+
+def decision_file(deck_dir: Path) -> str | None:
+    for name in DECISION_FILES:
+        if (deck_dir / name).is_file():
+            return name
+    return None
+
+
+def actions_line(deck_dir: Path, payload: list[dict[str, object]]) -> str:
     compact = json.dumps(payload, separators=(",", ":"))
     url = "https://archidekt.com/sandbox?deck=" + quote(compact, safe="")
-    return f"[**Open this deck in Archidekt**]({url})"
+    buttons = [badge_button("Open in Archidekt", ARCHIDEKT_COLOR, url)]
+    decisions = decision_file(deck_dir)
+    if decisions:
+        buttons.append(badge_button("Decisions", DECISIONS_COLOR, decisions))
+    return " ".join(buttons)
 
 
 def insert_after_assessment(original: str, expected: str) -> str:
-    body = LINK_PATTERN.sub("", original)
+    body = LEGACY_DECISIONS_HINT.sub("", original)
+    body = LEGACY_LINK_PATTERN.sub("", body)
+    body = ACTIONS_PATTERN.sub("", body)
     lines = body.splitlines(keepends=True)
     if not lines or not lines[0].startswith("# "):
         raise ValueError("primer must begin with a Markdown H1 title")
@@ -173,17 +205,17 @@ def update_primer(
         raise FileNotFoundError(f"missing primer: {readme_path}")
 
     payload, total = archidekt_payload(deck_dir, overrides)
-    expected = link_line(payload)
+    expected = actions_line(deck_dir, payload)
     original = readme_path.read_text(encoding="utf-8")
     updated = insert_after_assessment(original, expected)
 
     if check and updated != original:
-        print(f"{readme_path}: Archidekt link is missing or stale")
+        print(f"{readme_path}: action buttons are missing or stale")
         return 1
     if updated != original:
         readme_path.write_text(updated, encoding="utf-8")
     print(
-        f"{readme_path}: Archidekt link current "
+        f"{readme_path}: action buttons current "
         f"({len(payload)} unique, {total} total, 1 commander)"
     )
     return 0
@@ -202,7 +234,7 @@ def main() -> int:
     parser.add_argument(
         "--check",
         action="store_true",
-        help="report a missing or stale Archidekt link without changing the README",
+        help="report missing or stale action buttons without changing the README",
     )
     args = parser.parse_args()
 

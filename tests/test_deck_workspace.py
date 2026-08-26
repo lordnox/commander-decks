@@ -279,7 +279,9 @@ class ValidateDeckTests(unittest.TestCase):
         (deck_dir / "README.md").write_text(
             "# Test primer\n\n"
             "> Bracket 2 core deck. Usually threatens a win around turn eight.\n\n"
-            "Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).\n\n"
+            "[![Decisions]"
+            "(https://img.shields.io/badge/Decisions-4b5563?style=for-the-badge)]"
+            "(DECISIONS.md)\n\n"
             "## Key cards\n\n"
             "## How the deck works\n\n"
             "The deck ramps and attacks.\n",
@@ -486,7 +488,9 @@ class ValidateDeckTests(unittest.TestCase):
             repo, deck_dir = self.make_workspace(temporary)
             (deck_dir / "README.md").write_text(
                 "# Test primer\n\n"
-                "[**Open this deck in Archidekt**](https://archidekt.com/sandbox?deck=x)\n\n"
+                "[![Open in Archidekt]"
+                "(https://img.shields.io/badge/Open%20in%20Archidekt-0b6b58?style=for-the-badge)]"
+                "(https://archidekt.com/sandbox?deck=x)\n\n"
                 "> Bracket 2 core deck. Usually threatens a win around turn eight.\n\n"
                 "## Key cards\n\n"
                 "## How the deck works\n",

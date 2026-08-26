@@ -24,7 +24,8 @@ INDEX_SECTION = re.compile(
     re.DOTALL,
 )
 ARCHIDEKT_LINK = re.compile(
-    r"^\[\*\*Open this deck in Archidekt\*\*\]\(https://archidekt\.com/sandbox\?deck=.*\)$",
+    r"^\[!\[Open in Archidekt\]\([^)]*\)\]\(https://archidekt\.com/sandbox\?deck=[^)]*\)"
+    r"(?: \[!\[[^\]]*\]\([^)]*\)\]\([^)]*\))*$",
     re.MULTILINE,
 )
 MARKDOWN_LINK = re.compile(r"\[(?P<label>[^\]]+)\]\([^)]*\)")

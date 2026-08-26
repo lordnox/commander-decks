@@ -125,7 +125,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Card Name** — Why this card is included and what role it serves.
 ```
 
-The primer must link that file. Place `Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).` after the short identity paragraph and before Key cards.
+The primer must link that file. The `Decisions` action button next to the Archidekt button is that link; `update_archidekt_link.py` writes it, so do not add a prose sentence pointing at the file.
 
 After a swap, primer rewrite, assessment change, or rules argument, append the talk to the same file instead of leaving it in chat. Use these optional headings when they have content:
 

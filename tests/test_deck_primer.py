@@ -218,7 +218,83 @@ class ArchidektLinkTests(unittest.TestCase):
             self.assertEqual(result, 0)
             self.assertIn(printing, primer)
             self.assertTrue(lines[1].startswith("> "))
-            self.assertIn("Open this deck in Archidekt", lines[2])
+            self.assertIn("[![Open in Archidekt](", lines[2])
+
+    def test_replaces_legacy_link_and_decisions_hint(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            deck_dir = root / "decks/test"
+            cards_dir = root / "cards"
+            deck_dir.mkdir(parents=True)
+            cards_dir.mkdir()
+            (cards_dir / "commander-id.json").write_text(
+                json.dumps({"id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"}),
+                encoding="utf-8",
+            )
+            (deck_dir / "cards.json").write_text(
+                json.dumps({
+                    "cards": [{
+                        "name": "Green Commander",
+                        "quantity": 1,
+                        "cache": "cards/commander-id.json",
+                        "categories": ["Commander{top}"],
+                    }],
+                }),
+                encoding="utf-8",
+            )
+            (deck_dir / "DECISIONS.md").write_text("## How to use\n", encoding="utf-8")
+            (deck_dir / "README.md").write_text(
+                "# Test primer\n\n"
+                "> Bracket 2 core deck.\n\n"
+                "[**Open this deck in Archidekt**](https://archidekt.com/sandbox?deck=%5B%5D)\n\n"
+                "A short identity paragraph.\n\n"
+                "Reasons for the list, cuts, and rules checks are in "
+                "[DECISIONS.md](DECISIONS.md).\n\n"
+                "## Key cards\n",
+                encoding="utf-8",
+            )
+
+            archidekt.update_primer(deck_dir, {})
+            primer = (deck_dir / "README.md").read_text(encoding="utf-8")
+
+            self.assertNotIn("Open this deck in Archidekt", primer)
+            self.assertNotIn("Reasons for the list", primer)
+            self.assertIn("[![Decisions](", primer)
+            self.assertIn("](DECISIONS.md)", primer)
+            self.assertIn("A short identity paragraph.\n\n## Key cards\n", primer)
+
+    def test_actions_line_is_idempotent(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            deck_dir = root / "decks/test"
+            cards_dir = root / "cards"
+            deck_dir.mkdir(parents=True)
+            cards_dir.mkdir()
+            (cards_dir / "commander-id.json").write_text(
+                json.dumps({"id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"}),
+                encoding="utf-8",
+            )
+            (deck_dir / "cards.json").write_text(
+                json.dumps({
+                    "cards": [{
+                        "name": "Green Commander",
+                        "quantity": 1,
+                        "cache": "cards/commander-id.json",
+                        "categories": ["Commander{top}"],
+                    }],
+                }),
+                encoding="utf-8",
+            )
+            (deck_dir / "DECISIONS.md").write_text("## How to use\n", encoding="utf-8")
+            (deck_dir / "README.md").write_text(
+                "# Test primer\n\n> Bracket 2 core deck.\n\n## Key cards\n",
+                encoding="utf-8",
+            )
+
+            archidekt.update_primer(deck_dir, {})
+            first = (deck_dir / "README.md").read_text(encoding="utf-8")
+            self.assertEqual(archidekt.update_primer(deck_dir, {}, check=True), 0)
+            self.assertEqual((deck_dir / "README.md").read_text(encoding="utf-8"), first)
 
 
 class CategoryProbabilityTests(unittest.TestCase):
@@ -412,7 +488,9 @@ class DeckTagTests(unittest.TestCase):
             (deck_dir / "README.md").write_text(
                 "# Test primer\n\n"
                 "> Bracket 3 combo deck.\n\n"
-                "[**Open this deck in Archidekt**](https://archidekt.com/sandbox?deck=%5B%5D)\n",
+                "[![Open in Archidekt]"
+                "(https://img.shields.io/badge/Open%20in%20Archidekt-0b6b58?style=for-the-badge)]"
+                "(https://archidekt.com/sandbox?deck=%5B%5D)\n",
                 encoding="utf-8",
             )
             (root / "README.md").write_text(
