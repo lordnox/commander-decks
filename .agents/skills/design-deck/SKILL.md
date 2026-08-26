@@ -21,11 +21,11 @@ This is a **discussion**. The job is the right questions and evidence-backed ans
 - A right answer is Oracle (or `is:gamechanger`) plus the user's lock, not vibe.
 - Stop and wait when a constraint or Oracle reading would change the 99.
 - Do not "just build it" to keep moving.
-- After lock-in, dump the argument into `DECISIONS.md` (`## Talks`, `## Rules`, maybeboard under `## Primer` or `## Cards out`). Do not leave the grill only in chat.
+- After lock-in, dump the argument into that deck's `DECISIONS.md` (`## Talks`, `## Rules`, maybeboard under `## Primer` or `## Cards out`). If the brew is parked instead of built, dump it into root `DECK-IDEAS.md`. Do not leave the grill only in chat.
 
 ## 0. Existing decks first
 
-Inspect `decks/`. If a stored deck already matches the commander or theme, ask whether that is the deck before brewing a new one.
+Inspect `decks/` and root `DECK-IDEAS.md`. If a stored deck already matches the commander or theme, ask whether that is the deck before brewing a new one. If the idea is already parked (especially under Currently not viable), do not rebuild it unless the user explicitly reopens it.
 
 ## 1. Grill, in this order
 

@@ -4,6 +4,7 @@ A conversation-driven workspace for importing, resolving, categorizing, assessin
 
 - [How to](HOW-TO.md)
 - [House rules](DECISIONS.md)
+- [Deck ideas](DECK-IDEAS.md)
 - [Skills](SKILLS.md)
 
 ## Deck primers
