@@ -25,7 +25,7 @@ python3 .agents/skills/deck-workspace/scripts/deck_change_table.py decks/<deck-n
 
 ## Required deck workflow
 
-When the user wants to brew a new Commander deck from a theme or commander, follow `.agents/skills/design-deck/SKILL.md` and grill the plan before writing a 99.
+When the user wants to brew a new Commander deck from a theme or commander, follow `.agents/skills/design-deck/SKILL.md` and grill the plan before writing a 99. When they park the brew, call it not viable, or want it on the unbuilt list instead of a folder, follow `.agents/skills/deck-ideas/SKILL.md`.
 
 Whenever the user posts a deck list or asks to begin work on a stored list:
 
@@ -55,7 +55,7 @@ Every deck folder is `decks/<rating>_<commander>-<name>/` in kebab-case.
 - If the title slug already starts with the commander slug, do not double it (`sin` + `sin-fall` stays `sin-fall`).
 - Example: Lady Evangela, deck name Foggy Blood Transfusion → `unrated_lady-evangela-foggy-blood-transfusion`.
 
-Use `design-deck` when brewing from a theme, `deck-workspace` for import and validation, `scryfall-lookup` for card searches, `deck-primer` when creating or updating a play guide, `tag-deck` for Archidekt deck tags, and `assess-deck` for bracket, power, or expected-win-turn analysis.
+Use `design-deck` when brewing from a theme, `deck-ideas` when parking a brew that is not a 99, `deck-workspace` for import and validation, `scryfall-lookup` for card searches, `deck-primer` when creating or updating a play guide, `tag-deck` for Archidekt deck tags, and `assess-deck` for bracket, power, or expected-win-turn analysis.
 
 ## Chat card presentation
 
@@ -64,6 +64,7 @@ In conversation (not primers or `decklist.txt`), featured card lists should show
 ## Repository structure
 
 - `DECISIONS.md`: kitchen-table house rules that apply to every deck
+- `DECK-IDEAS.md`: grilled brews that are queued or parked, not a `decks/` folder yet
 - `decks/<rating>_<commander>-<name>/decklist.txt`: original user-supplied deck list
 - `decks/<rating>_<commander>-<name>/cards.json`: resolved quantities, effective categories, and compact embedded Oracle details
 - `decks/<rating>_<commander>-<name>/README.md`: deck primer (`# [Commander](scryfall) — Deck Name`), describing only the deck as it currently stands
