@@ -7,6 +7,7 @@ Kitchen-table house rules for this repository. Each deck still has its own `DECI
 - **Play** — these decks are for friends, not tournaments.
 - **Cards** — esoteric old cards, avoid staples, no Game Changers.
 - **Per-deck logs** — why a card is in a 99 lives under `decks/<deck>/DECISIONS.md`.
+- **[Deck ideas](DECK-IDEAS.md)** — grilled brews that are queued or parked, not a folder yet.
 - **This file** — repo-wide rules that should not be rediscovered in chat.
 
 ## Play
