@@ -6,7 +6,7 @@ Agent skills live in `.agents/skills/`. Codex and Cursor discover them automatic
 
 Grill a Commander brew before writing a 99. Use this when the request is a theme, commander, or constraint rather than a complete list.
 
-The skill is a discussion: ask only open questions, verify Oracle and current Game Changers, and do not fill in guesses. It challenges commander choice, named finishers, loop math (including what Rings can copy), how finishers are found (draw vs tutors), constraints, and the brew title. It does not write `decklist.txt` until that plan is locked. If the user already posted a complete list, skip this skill and use `deck-workspace`.
+The skill is a discussion: ask only open questions, verify Oracle and current Game Changers, and do not fill in guesses. It challenges commander choice, named finishers, loop math (including what Rings can copy), how finishers are found (draw vs tutors), constraints (root `DECISIONS.md`: old esoteric cards, avoid staples, no Game Changers), and the brew title. It does not write `decklist.txt` until that plan is locked. If the user already posted a complete list, skip this skill and use `deck-workspace`.
 
 After lock-in, it hands off to `deck-workspace` for save, resolve, categorize, primer, tags, and validation.
 

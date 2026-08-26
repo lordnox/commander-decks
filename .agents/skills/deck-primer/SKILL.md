@@ -45,30 +45,29 @@ Use concise Markdown. Write every card mention as a bold link to its manifest `s
 
 1. Title (H1): `# [Short commander name](scryfall_uri) — Brew title` (same commander slug and title as the folder).
 2. Assessment blockquote (`N−` / `N` / `N+`), when the deck has been assessed
-3. Archidekt deck-creation link
+3. Action buttons: Archidekt deck-creation link and `DECISIONS.md`
 4. Archidekt tag badges (from `tag-deck`)
 5. Short identity or summary
-6. Link to `DECISIONS.md` (`Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).`)
-7. `## Key cards`
-8. Category access by turn three
-9. Mana (color cost and production, average and total mana value, mana curve)
-10. How the deck works
-11. Core engine or role table
-12. Main combo or synergy patterns
-13. Win conditions
-14. Early, mid, and late game
-15. Mulligan guide
-16. Tutor priorities
-17. Important sequencing and rules notes
-18. Weaknesses and what to protect
+6. `## Key cards`
+7. Category access by turn three
+8. Mana (color cost and production, average and total mana value, mana curve)
+9. How the deck works
+10. Core engine or role table
+11. Main combo or synergy patterns
+12. Win conditions
+13. Early, mid, and late game
+14. Mulligan guide
+15. Tutor priorities
+16. Important sequencing and rules notes
+17. Weaknesses and what to protect
 
 Prefer a table for interchangeable roles and tutor decisions. Explain representative cards rather than listing every card. Make the primer useful during actual play.
 
-### Archidekt deck-creation link
+### Action buttons
 
-Every primer must contain an `Open this deck in Archidekt` link immediately after the assessment blockquote, or immediately after the H1 when the deck is unrated. The link must open Archidekt's sandbox with the full resolved deck preloaded, including quantities and the commander designation. Exclude cards marked `{noDeck}`, such as maybeboard entries.
+Every primer must contain a single row of shields.io badge buttons immediately after the assessment blockquote, or immediately after the H1 when the deck is unrated: `Open in Archidekt`, then `Decisions` linking to the deck's decision log. Do not add a prose sentence pointing at `DECISIONS.md`; the button replaces it. The Archidekt button must open Archidekt's sandbox with the full resolved deck preloaded, including quantities and the commander designation. Exclude cards marked `{noDeck}`, such as maybeboard entries.
 
-After resolving the deck, create or refresh the link with:
+After resolving the deck, create or refresh the row with:
 
 ```bash
 python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<prefix><slug>

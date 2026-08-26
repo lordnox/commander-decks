@@ -163,6 +163,28 @@
       "submitted_name": "Drain Life"
     },
     {
+      "cache": "cards/ffdad8fb-69ee-40d3-b2eb-b0aee0a5becc.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{W}{W}",
+        "oracle_text": "At the beginning of your upkeep, if you have 50 or more life, you win the game.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Drain Finisher"
+      ],
+      "category_source": "decklist",
+      "name": "Test of Endurance",
+      "oracle_id": "ffdad8fb-69ee-40d3-b2eb-b0aee0a5becc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmr/32/test-of-endurance?utm_source=api",
+      "submitted_categories": [
+        "Drain Finisher"
+      ],
+      "submitted_name": "Test of Endurance"
+    },
+    {
       "cache": "cards/b26c3563-d289-4ca3-8736-9d89e191a840.json",
       "card": {
         "cmc": 3.0,
@@ -1121,30 +1143,6 @@
         "Counterspell"
       ],
       "submitted_name": "Arcane Denial"
-    },
-    {
-      "cache": "cards/a3e51a35-09df-4189-b131-08a21e6a557d.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "mana_cost": "{1}{U}{U}{U}",
-        "oracle_text": "Choose two —\n• Counter target spell.\n• Return target permanent to its owner's hand.\n• Tap all creatures your opponents control.\n• Draw a card.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Counterspell",
-        "Draw"
-      ],
-      "category_source": "decklist",
-      "name": "Cryptic Command",
-      "oracle_id": "a3e51a35-09df-4189-b131-08a21e6a557d",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/ima/48/cryptic-command?utm_source=api",
-      "submitted_categories": [
-        "Counterspell",
-        "Draw"
-      ],
-      "submitted_name": "Cryptic Command"
     },
     {
       "cache": "cards/0fd57894-b917-41c8-a394-360d1d31b236.json",
@@ -2340,6 +2338,32 @@
       "submitted_name": "Island"
     },
     {
+      "cache": "cards/a3e51a35-09df-4189-b131-08a21e6a557d.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}{U}{U}",
+        "oracle_text": "Choose two —\n• Counter target spell.\n• Return target permanent to its owner's hand.\n• Tap all creatures your opponents control.\n• Draw a card.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Counterspell",
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Cryptic Command",
+      "oracle_id": "a3e51a35-09df-4189-b131-08a21e6a557d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ima/48/cryptic-command?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Counterspell",
+        "Draw"
+      ],
+      "submitted_name": "Cryptic Command"
+    },
+    {
       "cache": "cards/17784f90-89a1-47a5-83ef-ae60dfc30bd1.json",
       "card": {
         "cmc": 0.0,
@@ -2717,13 +2741,13 @@
       "submitted_name": "Kuroki, Thief of Talents"
     }
   ],
-  "categorized_cards": 105,
-  "generated_at": "2026-08-26T00:19:54.985868+00:00",
-  "maybeboard_cards": 14,
-  "maybeboard_unique_cards": 14,
-  "resolved_unique_cards": 105,
+  "categorized_cards": 106,
+  "generated_at": "2026-08-26T06:20:29.627921+00:00",
+  "maybeboard_cards": 15,
+  "maybeboard_unique_cards": 15,
+  "resolved_unique_cards": 106,
   "schema_version": 3,
-  "source": "decks/3-_lady-evangela-foggy-blood-transfusion/decklist.txt",
+  "source": "decks/2+_lady-evangela-foggy-blood-transfusion/decklist.txt",
   "total_cards": 100,
   "unique_cards": 91,
   "unresolved": []

@@ -125,7 +125,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Card Name** — Why this card is included and what role it serves.
 ```
 
-The primer must link that file. Place `Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).` after the short identity paragraph and before Key cards.
+The primer must link that file. The `Decisions` action button next to the Archidekt button is that link; `update_archidekt_link.py` writes it, so do not add a prose sentence pointing at the file.
 
 After a swap, primer rewrite, assessment change, or rules argument, append the talk to the same file instead of leaving it in chat. Use these optional headings when they have content:
 
@@ -159,7 +159,7 @@ Run:
 python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<prefix><slug>
 ```
 
-Decision logs are required by default. Pass `--no-require-decisions` only for a temporary import. Fix every error before review. The validator checks deck size, manifest consistency, categories, commander designation, singleton and color-identity rules, cached Commander legality, primer linkage, root deck index currency, assessment placement, Archidekt, tag badges, category-table, and mana-stats currency, card-mention links, and decision-log coverage. A prerelease commander produces a warning until its release date.
+Decision logs are required by default. Pass `--no-require-decisions` only for a temporary import. Fix every error before review. The validator checks deck size, manifest consistency, categories, commander designation, singleton and color-identity rules, cached Commander legality for already-released cards, primer linkage, root deck index currency, assessment placement, Archidekt, tag badges, category-table, and mana-stats currency, card-mention links, and decision-log coverage. Unreleased cards are allowed; see the root `DECISIONS.md`.
 
 Inspect the final diff after validation. Shared registries preserve their existing order, so unrelated global reordering or cache changes indicate a workflow problem and should be removed.
 
@@ -176,5 +176,7 @@ Its columns are sorted alphabetically and zipped, so treat the output as a check
 ## 8. Continue deck work
 
 Use `cards.json` as the deck inventory and prefer its embedded `card` details for analysis. Load referenced cache files only for fields not embedded in the manifest. Use the `scryfall-lookup` skill for searches or to refresh current card information. Use the `deck-primer` skill when updating how a deck plays.
+
+When recommending swaps, follow the root `DECISIONS.md` card preferences: esoteric old cards over staples, zero Game Changers unless that deck is excepted.
 
 When reporting completion, state the deck name, total cards, unique cards, category coverage, unresolved entries, primer path, and whether the root README link was added or updated.

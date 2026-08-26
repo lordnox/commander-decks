@@ -279,7 +279,9 @@ class ValidateDeckTests(unittest.TestCase):
         (deck_dir / "README.md").write_text(
             "# Test primer\n\n"
             "> Bracket 2 core deck. Usually threatens a win around turn eight.\n\n"
-            "Reasons for the list, cuts, and rules checks are in [DECISIONS.md](DECISIONS.md).\n\n"
+            "[![Decisions]"
+            "(https://img.shields.io/badge/Decisions-4b5563?style=for-the-badge)]"
+            "(DECISIONS.md)\n\n"
             "## Key cards\n\n"
             "## How the deck works\n\n"
             "The deck ramps and attacks.\n",
@@ -395,6 +397,38 @@ class ValidateDeckTests(unittest.TestCase):
             self.assertEqual(errors, [])
             self.assertEqual(warnings, [])
 
+    def test_validator_allows_unreleased_cards(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            repo, deck_dir = self.make_workspace(temporary)
+            cache_path = repo / "cards/commander-id.json"
+            cached = json.loads(cache_path.read_text(encoding="utf-8"))
+            cached["legalities"] = {"commander": "not_legal"}
+            cached["released_at"] = "2099-01-01"
+            cache_path.write_text(json.dumps(cached), encoding="utf-8")
+            errors, warnings = validate_deck.validate(
+                deck_dir,
+                repo,
+                require_decisions=True,
+            )
+            self.assertEqual(errors, [])
+            self.assertEqual(warnings, [])
+
+    def test_validator_still_rejects_released_banned_cards(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            repo, deck_dir = self.make_workspace(temporary)
+            cache_path = repo / "cards/commander-id.json"
+            cached = json.loads(cache_path.read_text(encoding="utf-8"))
+            cached["legalities"] = {"commander": "banned"}
+            cache_path.write_text(json.dumps(cached), encoding="utf-8")
+            errors, _ = validate_deck.validate(
+                deck_dir,
+                repo,
+                require_decisions=True,
+            )
+            self.assertTrue(
+                any("Commander legality is banned" in error for error in errors)
+            )
+
     def test_validator_catches_decision_and_singleton_errors(self):
         with tempfile.TemporaryDirectory() as temporary:
             repo, deck_dir = self.make_workspace(temporary)
@@ -486,7 +520,9 @@ class ValidateDeckTests(unittest.TestCase):
             repo, deck_dir = self.make_workspace(temporary)
             (deck_dir / "README.md").write_text(
                 "# Test primer\n\n"
-                "[**Open this deck in Archidekt**](https://archidekt.com/sandbox?deck=x)\n\n"
+                "[![Open in Archidekt]"
+                "(https://img.shields.io/badge/Open%20in%20Archidekt-0b6b58?style=for-the-badge)]"
+                "(https://archidekt.com/sandbox?deck=x)\n\n"
                 "> Bracket 2 core deck. Usually threatens a win around turn eight.\n\n"
                 "## Key cards\n\n"
                 "## How the deck works\n",

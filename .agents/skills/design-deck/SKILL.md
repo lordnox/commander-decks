@@ -34,7 +34,7 @@ Inspect `decks/`. If a stored deck already matches the commander or theme, ask w
 3. **Finishers.** Name the cards that win. Read Oracle for each. Watch replacement effects, "this spell", mill vs exile, life-total **set** vs damage, and "your life total can't change" vs exchange.
 4. **Math.** Walk one real stack or loop (costs, what Rings can copy, what is a mana ability). Fat-once is not infinite. A high-roll that does not end the game is not a win turn.
 5. **How you find the finishers.** Tutors vs draw. Card tutors and land search are different locks. Game Changers: query `is:gamechanger`, do not trust memory (`Ancient Tomb`, `Mystical Tutor`, `Enlightened Tutor`, `Bolas's Citadel` have been GCs).
-6. **Constraints.** Colors, GC cap, silence vs draw-go, sticky enchantments vs creatures, politics vs pillowfort, maybeboard vs 99. Reject color-identity illegal cards immediately.
+6. **Constraints.** Read the root `DECISIONS.md` card preferences first: esoteric old cards over staples, zero Game Changers unless this deck is excepted. Then colors, silence vs draw-go, sticky enchantments vs creatures, politics vs pillowfort, maybeboard vs 99. Reject color-identity illegal cards immediately.
 7. **Speed versus high roll.** Gold-fish high roll vs expected win turn.
 8. **Name.** Brew title and short commander slug. Folder `unrated_<commander>-<name>` (see AGENTS.md). Primer H1: `# [Commander](scryfall) — Title`. Confirm jokes and subtitles.
 

@@ -11,9 +11,9 @@ Oracle and Scryfall win over memory. These are failure modes this skill exists t
 
 ## Game Changers
 
-Query `is:gamechanger` (and the live Wizards page when assessing). Do not recite an old list. Cards that have been GCs include `Necropotence`, `Bolas's Citadel`, `Ad Nauseam`, `Demonic Tutor`, `Vampiric Tutor`, `Imperial Seal`, `Mystical Tutor`, `Enlightened Tutor`, `Rhystic Study`, `Smothering Tithe`, `Cyclonic Rift`, `Teferi's Protection`, `Fierce Guardianship`, `Ancient Tomb`, `Mana Vault`, `Grim Monolith`. `Mana Drain` has not always been on that list — check.
+Default is **zero** Game Changers. Query `is:gamechanger` (and the live Wizards page when assessing). Do not recite an old list. Cards that have been GCs include `Necropotence`, `Bolas's Citadel`, `Ad Nauseam`, `Demonic Tutor`, `Vampiric Tutor`, `Imperial Seal`, `Mystical Tutor`, `Enlightened Tutor`, `Rhystic Study`, `Smothering Tithe`, `Cyclonic Rift`, `Teferi's Protection`, `Fierce Guardianship`, `Ancient Tomb`, `Mana Vault`, `Grim Monolith`. `Mana Drain` has not always been on that list — check.
 
-Card tutors and land search are separate locks. "No tutors" often still allows `Wayfarer's Bauble`, `Expedition Map`, and fetchlands.
+Card tutors and land search are separate locks. "No tutors" often still allows `Wayfarer's Bauble`, `Expedition Map`, and fetchlands. Staples still need an argument; prefer Ice Age / Alliances-era and other overlooked cards. Root `DECISIONS.md` is the taste lock.
 
 ## Life totals
 

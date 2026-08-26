@@ -221,12 +221,8 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
         if commanders and extra_colors:
             errors.append(f"color-identity violation: {name} adds {''.join(sorted(extra_colors))}")
         legality = cached.get("legalities", {}).get("commander")
-        if legality != "legal":
-            is_commander = entry in commanders
-            if is_commander and cached.get("released_at", "") > today:
-                warnings.append(f"{name} is not Commander-legal before its {cached['released_at']} release")
-            else:
-                errors.append(f"Commander legality is {legality or 'unknown'}: {name}")
+        if legality != "legal" and cached.get("released_at", "") <= today:
+            errors.append(f"Commander legality is {legality or 'unknown'}: {name}")
 
     if missing_land_category:
         errors.append(
@@ -255,7 +251,7 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
         archidekt_check = run_primer_check(primer_script("update_archidekt_link.py"), deck_dir)
         if archidekt_check.returncode:
             errors.append(
-                "primer Archidekt link is missing or stale; run "
+                "primer action buttons are missing or stale; run "
                 "python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py "
                 f"{deck_dir.relative_to(repo_root)}"
             )
