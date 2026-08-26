@@ -3,6 +3,7 @@
     {
       "cache": "cards/a13aa603-8709-43aa-b69a-ee74de79561f.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Mill",
           "Landfall"
@@ -29,6 +30,7 @@
     {
       "cache": "cards/8ecdaf4b-4442-42da-9714-4257a83faf50.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Partner"
         ],
@@ -56,6 +58,7 @@
     {
       "cache": "cards/8dcb35e5-ae44-455f-86e3-4a77d496ff34.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{3}{U}",
         "oracle_text": "You may have this creature enter as a copy of a creature or planeswalker you control, except it enters with an additional +1/+1 counter on it if it's a creature, it enters with an additional loyalty counter on it if it's a planeswalker, and it isn't legendary.",
@@ -81,6 +84,7 @@
     {
       "cache": "cards/a3faf698-1dac-45ef-9c43-c8cead489ffc.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{3}{U}",
         "oracle_text": "Create a token that's a copy of target creature you control, except the token has flying and it isn't legendary.",
@@ -104,6 +108,7 @@
     {
       "cache": "cards/197582b9-4c86-41a3-ad0c-789a0db8e087.json",
       "card": {
+        "cmc": 5.0,
         "keywords": [
           "Rebound"
         ],
@@ -129,6 +134,7 @@
     {
       "cache": "cards/c06d1127-a269-453f-9c06-e9c424998eb7.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{3}{U}",
         "oracle_text": "Choose target creature you control. Each other creature becomes a copy of that creature until end of turn, except it isn't legendary.",
@@ -152,6 +158,7 @@
     {
       "cache": "cards/5602c14d-cc22-47d7-a1b0-6491749f00dd.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{U}",
         "oracle_text": "Counter target spell that targets a permanent you control.\nDraw a card.",
@@ -177,6 +184,7 @@
     {
       "cache": "cards/8a3ad2ef-8bcb-40c0-85de-f03328c2b644.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Bestow",
           "Landfall"
@@ -205,6 +213,7 @@
     {
       "cache": "cards/3640c29b-1534-4952-b297-619ade948431.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Ward"
         ],
@@ -232,6 +241,7 @@
     {
       "cache": "cards/95b53836-18aa-451a-992d-2a111deeeab2.json",
       "card": {
+        "cmc": 5.0,
         "keywords": [
           "Lifelink",
           "Deathtouch"
@@ -260,6 +270,7 @@
     {
       "cache": "cards/3bcf090c-e890-4a9f-a8aa-6079e4ec9947.json",
       "card": {
+        "cmc": 6.0,
         "keywords": [
           "Reach"
         ],
@@ -287,6 +298,7 @@
     {
       "cache": "cards/f0bbcabf-29e7-4c7e-893f-86b64d3620a9.json",
       "card": {
+        "cmc": 5.0,
         "faces": [
           {
             "mana_cost": "{4}{U}",
@@ -323,6 +335,7 @@
     {
       "cache": "cards/cf751552-156f-4f81-ac94-9814dce099f9.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{2}",
         "oracle_text": "{2}, {T}: Copy target triggered ability you control. You may choose new targets for the copy. (A triggered ability uses the words \"when,\" \"whenever,\" or \"at.\")",
@@ -346,11 +359,19 @@
     {
       "cache": "cards/126c75c0-414b-4e55-8747-2b5566ce716f.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Changeling"
         ],
         "mana_cost": "{3}",
         "oracle_text": "Changeling (This card is every creature type.)\n{T}: Add one mana of any color.\n{4}: This artifact becomes a 4/4 artifact creature until end of turn.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "type_line": "Kindred Artifact — Shapeshifter"
       },
       "categories": [
@@ -371,6 +392,7 @@
     {
       "cache": "cards/9b2cdbed-c733-409b-b0e4-2c8960c25111.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{4}",
         "oracle_text": "Creatures you control are every creature type. The same is true for creature spells you control and creature cards you own that aren't on the battlefield.\n{3}, {T}: Create a 2/2 blue Shapeshifter creature token with changeling. (It is every creature type.)",
@@ -394,6 +416,7 @@
     {
       "cache": "cards/361b0d7f-1e43-45c5-92c2-92baacaf326f.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Surveil",
           "Convoke"
@@ -422,6 +445,7 @@
     {
       "cache": "cards/210940f1-3c11-4877-bbfc-2429c03f98ee.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Changeling"
         ],
@@ -449,6 +473,7 @@
     {
       "cache": "cards/b81eaa2f-0554-41c6-bdf6-d1cb73b8f56f.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Changeling"
         ],
@@ -476,6 +501,7 @@
     {
       "cache": "cards/98441834-7da0-4d9f-88a4-a342a9b2a4c3.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Mill"
         ],
@@ -501,33 +527,38 @@
       "submitted_name": "Crawling Sensation"
     },
     {
-      "cache": "cards/17b4778b-82b1-4845-ad08-00f3ff66877b.json",
+      "cache": "cards/d30d8968-ec24-4155-97e2-28efd52c8810.json",
       "card": {
-        "keywords": [
-          "Mill"
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Reveal the top four cards of your library. You may put a permanent card from among them into your hand. Put the rest into your graveyard. Create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\"",
+        "produced_mana": [
+          "C"
         ],
-        "mana_cost": "{2}",
-        "oracle_text": "{T}: Mill two cards. (Put the top two cards of your library into your graveyard.)\n{2}, Exile this artifact: Shuffle any number of target cards from your graveyard into your library.",
-        "type_line": "Artifact"
+        "type_line": "Sorcery"
       },
       "categories": [
         "Dumpster Diving",
-        "Graveyard Safety"
+        "Card Selection",
+        "Token Production"
       ],
       "category_source": "decklist",
-      "name": "Perpetual Timepiece",
-      "oracle_id": "17b4778b-82b1-4845-ad08-00f3ff66877b",
+      "name": "Malevolent Rumble",
+      "oracle_id": "d30d8968-ec24-4155-97e2-28efd52c8810",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/soc/354/perpetual-timepiece?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mh3/161/malevolent-rumble?utm_source=api",
       "submitted_categories": [
         "Dumpster Diving",
-        "Graveyard Safety"
+        "Card Selection",
+        "Token Production"
       ],
-      "submitted_name": "Perpetual Timepiece"
+      "submitted_name": "Malevolent Rumble"
     },
     {
       "cache": "cards/ac8fba34-512c-4f24-999a-ab72f1ce4acb.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Dredge",
           "Mill"
@@ -554,6 +585,7 @@
     {
       "cache": "cards/2acf8e34-9215-4a72-a24f-09d3bdd0083a.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Mill"
         ],
@@ -579,6 +611,7 @@
     {
       "cache": "cards/ead4c01a-e2ae-49c9-95d9-651d81005907.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{G}",
         "oracle_text": "When this creature enters, reveal the top four cards of your library. You may put a land card from among them into your hand. Put the rest into your graveyard.",
@@ -604,12 +637,17 @@
     {
       "cache": "cards/39b51f62-8421-42d1-86d3-74fd6e6f31a2.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Mill"
         ],
         "mana_cost": "{B}{G}",
         "oracle_text": "{T}: Add {B} or {G}.\n{T}: Mill two cards. (Put the top two cards of your library into your graveyard.)",
         "power": "3",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "toughness": "1",
         "type_line": "Creature — Human Druid"
       },
@@ -631,12 +669,16 @@
     {
       "cache": "cards/fa4dffda-6f04-4d0b-829d-28a1a5794dee.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Mill"
         ],
         "mana_cost": "{2}",
         "oracle_text": "{T}, Mill a card: Add {C}. (Activate only as an instant. To mill a card, put the top card of your library into your graveyard.)",
         "power": "0",
+        "produced_mana": [
+          "C"
+        ],
         "toughness": "1",
         "type_line": "Artifact Creature — Construct"
       },
@@ -658,6 +700,7 @@
     {
       "cache": "cards/f22665cd-4710-48df-83c1-3c9081097cb5.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Crew",
           "Mill"
@@ -686,6 +729,7 @@
     {
       "cache": "cards/dbcbdf37-c40f-4068-b4a7-a849cab1056c.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Reach",
           "Mill"
@@ -714,6 +758,7 @@
     {
       "cache": "cards/5e1bf23b-7fb0-45ff-8544-fce9fa3eba00.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Mill"
         ],
@@ -741,6 +786,7 @@
     {
       "cache": "cards/3c075bb6-1831-4521-bd8d-4ed2825ae796.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Mill"
         ],
@@ -768,6 +814,7 @@
     {
       "cache": "cards/374e54d8-8e73-4268-9dde-c28c77bbbf32.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Mill"
         ],
@@ -795,6 +842,7 @@
     {
       "cache": "cards/97a84e9d-bfc4-4ca2-b1e8-908dba56ccdb.json",
       "card": {
+        "cmc": 6.0,
         "keywords": [
           "Reach",
           "Vigilance",
@@ -824,6 +872,7 @@
     {
       "cache": "cards/13fe5e46-77a6-45d8-ac0b-c3d740eccf86.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{3}{G}",
         "oracle_text": "Return all land cards from your graveyard to the battlefield tapped.",
@@ -847,6 +896,7 @@
     {
       "cache": "cards/52e77cc3-f8e9-4a20-811b-fe1e46a96ad7.json",
       "card": {
+        "cmc": 8.0,
         "faces": [
           {
             "mana_cost": "{2}{G}",
@@ -883,6 +933,7 @@
     {
       "cache": "cards/34994475-b914-44f6-8ca1-c2747b6d5956.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Mill",
           "Landfall"
@@ -915,6 +966,7 @@
     {
       "cache": "cards/41cdeb52-e90f-44f8-94d2-23aa032c4870.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{1}{U}{U}",
         "oracle_text": "Choose one —\n• Foil Their Scheme — Counter target spell.\n• Learn Their Secrets — Draw two cards, then discard two cards.",
@@ -942,6 +994,7 @@
     {
       "cache": "cards/0c319f45-cb0f-4641-acd8-145768acb3fc.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{G}",
         "oracle_text": "{T}: You may put a land card from your hand onto the battlefield.",
@@ -967,6 +1020,7 @@
     {
       "cache": "cards/5bc66b18-22ac-4138-b527-fa711116e298.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{B}{G}{U}",
         "oracle_text": "Whenever you draw your second card each turn, target opponent loses 2 life and you gain 2 life.\n{T}, Sacrifice another creature: Draw a card. You may put a land card from your hand onto the battlefield tapped. If you control eight or more lands, repeat this process once.",
@@ -992,6 +1046,7 @@
     {
       "cache": "cards/c2550f1a-b662-43e7-a0b2-843025739a8f.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{U}",
         "oracle_text": "{2}{U}, {T}, Discard a card, Sacrifice a land: Search your library for up to two basic land cards, put them onto the battlefield, then shuffle.",
@@ -1017,6 +1072,7 @@
     {
       "cache": "cards/120fa67e-e5e0-4c23-9a78-d6171d357aee.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{U}",
         "oracle_text": "{1}: Return target land you control to its owner's hand.\n{1}, Discard a land card: Draw a card.",
@@ -1040,6 +1096,7 @@
     {
       "cache": "cards/705509e9-a034-4a5a-9c65-66f58748b8a2.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{2}{G}",
         "oracle_text": "As an additional cost to cast this spell, sacrifice a land.\nSearch your library for up to two basic land cards, put them onto the battlefield, then shuffle.",
@@ -1063,6 +1120,7 @@
     {
       "cache": "cards/736017e2-bc33-49e8-812d-1639443fdb51.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{2}{G}",
         "oracle_text": "Sacrifice a land. Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle. If you control a creature with power 4 or greater, instead search your library for up to three basic land cards, put them onto the battlefield tapped, then shuffle.",
@@ -1086,6 +1144,7 @@
     {
       "cache": "cards/34bcc217-dd91-45a0-90d7-a94d02f1f317.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{G}{U}",
         "oracle_text": "Draw a card. You may put a land card from your hand onto the battlefield.",
@@ -1109,6 +1168,7 @@
     {
       "cache": "cards/c235015e-a7a9-4f8d-bf4a-cf68b3847f83.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{2}{G}{G}",
         "oracle_text": "Sacrifice any number of lands. Search your library for up to that many land cards, put them onto the battlefield tapped, then shuffle.",
@@ -1132,6 +1192,7 @@
     {
       "cache": "cards/3cc79d36-1a24-4395-8ad1-915a65db8a60.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{X}{G}{G}",
         "oracle_text": "Create X 1/1 green Forest Dryad land creature tokens. (They're affected by summoning sickness.)",
@@ -1155,6 +1216,7 @@
     {
       "cache": "cards/334c284e-7bc3-4c18-9f8d-4d846f80008e.json",
       "card": {
+        "cmc": 6.0,
         "keywords": [
           "Foretell"
         ],
@@ -1180,6 +1242,7 @@
     {
       "cache": "cards/352b64d2-2ae5-44ee-a64f-94932ef545d3.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [
           "Flashback"
         ],
@@ -1205,6 +1268,7 @@
     {
       "cache": "cards/240e85d3-e495-4877-8609-4b4056c402f7.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{2}{B}",
         "oracle_text": "Choose two target creature cards in your graveyard. Sacrifice a creature. If you do, return the chosen cards to the battlefield tapped.",
@@ -1228,6 +1292,7 @@
     {
       "cache": "cards/bc3d5911-3580-4132-9daf-2826495b5739.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Threshold"
         ],
@@ -1251,6 +1316,7 @@
     {
       "cache": "cards/1920254f-0f65-4426-aabc-f3807476b67b.json",
       "card": {
+        "cmc": 5,
         "keywords": [
           "Flashback"
         ],
@@ -1276,6 +1342,7 @@
     {
       "cache": "cards/0ab9539d-3461-4936-95cd-4c229308c4a4.json",
       "card": {
+        "cmc": 5,
         "keywords": [
           "Mill",
           "Demonstrate"
@@ -1302,6 +1369,7 @@
     {
       "cache": "cards/437b2dab-15e0-4b9a-a204-58622d37a3b3.json",
       "card": {
+        "cmc": 4,
         "keywords": [],
         "mana_cost": "{3}{U}",
         "oracle_text": "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.",
@@ -1325,6 +1393,7 @@
     {
       "cache": "cards/9baff93e-4ef9-404d-884b-f651a11f3742.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{3}{U}",
         "oracle_text": "Target opponent looks at the top four cards of your library and separates them into a face-down pile and a face-up pile. Put one pile into your hand and the other into your graveyard.",
@@ -1348,6 +1417,7 @@
     {
       "cache": "cards/d2075f58-b0e9-4e85-b7e6-0523a27a1d5b.json",
       "card": {
+        "cmc": 3.0,
         "faces": [
           {
             "mana_cost": "{2}{G}",
@@ -1363,6 +1433,9 @@
           }
         ],
         "keywords": [],
+        "produced_mana": [
+          "G"
+        ],
         "type_line": "Sorcery // Land"
       },
       "categories": [
@@ -1383,6 +1456,7 @@
     {
       "cache": "cards/bb2b324c-970a-4920-884e-c92ba49669f0.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{G}",
         "oracle_text": "Target permanent you control gains hexproof and indestructible until end of turn. You gain 2 life. (A permanent with hexproof and indestructible can't be the target of spells or abilities your opponents control. Damage and effects that say \"destroy\" don't destroy it.)",
@@ -1406,6 +1480,7 @@
     {
       "cache": "cards/debc69ea-372a-4720-838a-16856cd50b07.json",
       "card": {
+        "cmc": 1.0,
         "keywords": [],
         "mana_cost": "{X}{U}",
         "oracle_text": "As an additional cost to cast this spell, you may exile any number of blue cards from your hand. This spell costs {2} less to cast for each card exiled this way.\nUp to X target creatures phase out. (While they're phased out, they're treated as though they don't exist. Each one phases in before its controller untaps during their next untap step.)",
@@ -1429,6 +1504,7 @@
     {
       "cache": "cards/ab1cc360-b9de-48d9-9983-4dfe4a7d2a37.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{1}{U}",
         "oracle_text": "Counter target spell. Its controller may draw up to two cards at the beginning of the next turn's upkeep.\nYou draw a card at the beginning of the next turn's upkeep.",
@@ -1452,6 +1528,7 @@
     {
       "cache": "cards/5f694917-f434-4459-bc86-caf9ac1c80e7.json",
       "card": {
+        "cmc": 3.0,
         "keywords": [
           "Mill"
         ],
@@ -1481,6 +1558,7 @@
     {
       "cache": "cards/610af0f7-b5e3-43fb-9d02-7c59bd99034c.json",
       "card": {
+        "cmc": 2.0,
         "keywords": [
           "Kicker"
         ],
@@ -1506,6 +1584,7 @@
     {
       "cache": "cards/793b0c73-601c-41dc-b49a-45fee4970d52.json",
       "card": {
+        "cmc": 4.0,
         "keywords": [],
         "mana_cost": "{1}{B}{B}{G}",
         "oracle_text": "Destroy target creature. Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
@@ -1531,6 +1610,7 @@
     {
       "cache": "cards/f55a3781-fe33-4301-9bb5-6a54b9c13c4f.json",
       "card": {
+        "cmc": 5.0,
         "keywords": [],
         "mana_cost": "{4}{U}",
         "oracle_text": "Choose a creature type. Return all creatures that aren't of the chosen type to their owners' hands.",
@@ -1554,6 +1634,7 @@
     {
       "cache": "cards/ccaa44f2-96be-44e2-884f-c31baa3908d5.json",
       "card": {
+        "cmc": 7.0,
         "keywords": [],
         "mana_cost": "{5}{B}{B}",
         "oracle_text": "Choose a creature type. Destroy all creatures that aren't of the chosen type.",
@@ -1577,6 +1658,7 @@
     {
       "cache": "cards/a731e87b-8d99-4b64-8ee3-8e540d652366.json",
       "card": {
+        "cmc": 1.0,
         "faces": [
           {
             "mana_cost": "{B}",
@@ -1592,6 +1674,9 @@
           }
         ],
         "keywords": [],
+        "produced_mana": [
+          "B"
+        ],
         "type_line": "Instant // Land"
       },
       "categories": [
@@ -1612,9 +1697,14 @@
     {
       "cache": "cards/fc9ec820-4245-4a96-b009-5308a818ca58.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
         "type_line": "Land — Island Swamp"
       },
       "categories": [
@@ -1633,9 +1723,14 @@
     {
       "cache": "cards/20283c4a-f1f0-42f0-bc08-6da87474426b.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {G} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "produced_mana": [
+          "G",
+          "U"
+        ],
         "type_line": "Land — Forest Island"
       },
       "categories": [
@@ -1654,9 +1749,14 @@
     {
       "cache": "cards/975ec9a3-6f20-4177-8211-82526e092538.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {B} or {G}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Land — Swamp Forest"
       },
       "categories": [
@@ -1675,11 +1775,16 @@
     {
       "cache": "cards/08d80efc-9542-4ba2-824c-c8615d8d07f2.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [
           "Surveil"
         ],
         "mana_cost": "",
         "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
         "type_line": "Land — Island Swamp"
       },
       "categories": [
@@ -1700,11 +1805,16 @@
     {
       "cache": "cards/ca4b6689-04ee-4227-9bdc-cb5a9590c745.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [
           "Surveil"
         ],
         "mana_cost": "",
         "oracle_text": "({T}: Add {G} or {U}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+        "produced_mana": [
+          "G",
+          "U"
+        ],
         "type_line": "Land — Forest Island"
       },
       "categories": [
@@ -1725,11 +1835,16 @@
     {
       "cache": "cards/840119bf-e60f-4ff7-9c9b-d420d09df545.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [
           "Surveil"
         ],
         "mana_cost": "",
         "oracle_text": "({T}: Add {B} or {G}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Land — Swamp Forest"
       },
       "categories": [
@@ -1750,11 +1865,17 @@
     {
       "cache": "cards/fdd46004-eaba-4024-8687-39b23dc6a58c.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [
           "Cycling"
         ],
         "mana_cost": "",
         "oracle_text": "({T}: Add {B}, {G}, or {U}.)\nThis land enters tapped.\nCycling {3} ({3}, Discard this card: Draw a card.)",
+        "produced_mana": [
+          "B",
+          "G",
+          "U"
+        ],
         "type_line": "Land — Swamp Forest Island"
       },
       "categories": [
@@ -1773,6 +1894,7 @@
     {
       "cache": "cards/09dd85aa-47bc-4713-a9b9-8b52ff2285ed.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Forest or Island card, put it onto the battlefield, then shuffle.",
@@ -1796,6 +1918,7 @@
     {
       "cache": "cards/ef86989d-ce80-4e55-aece-7d11710eeffa.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Swamp card, put it onto the battlefield, then shuffle.",
@@ -1819,6 +1942,7 @@
     {
       "cache": "cards/67d60b24-d429-4ded-90d9-06e49f28c396.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Forest card, put it onto the battlefield, then shuffle.",
@@ -1842,6 +1966,7 @@
     {
       "cache": "cards/032b8a0d-491a-4a12-ab9f-689010054d5b.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield, then shuffle.",
@@ -1865,6 +1990,7 @@
     {
       "cache": "cards/0c85b8f7-0bd0-4680-9ec5-d4b110460a54.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle. Then if you control four or more lands, untap that land.",
@@ -1888,6 +2014,7 @@
     {
       "cache": "cards/a75445d3-1303-4bb5-89ad-26ea93fecd48.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
@@ -1911,6 +2038,7 @@
     {
       "cache": "cards/1bd3e453-aa21-4ee6-95c2-d6d920ee8e7a.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
@@ -1934,6 +2062,7 @@
     {
       "cache": "cards/bd002797-a545-4bee-88bf-b878436e7cca.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "When this land enters, sacrifice it. When you do, search your library for a basic Forest, Plains, or Island card, put it onto the battlefield tapped, then shuffle and you gain 1 life.",
@@ -1957,6 +2086,7 @@
     {
       "cache": "cards/dc31a6f8-6228-4a25-b937-5d8d78514333.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "When this land enters, sacrifice it. When you do, search your library for a basic Plains, Island, or Swamp card, put it onto the battlefield tapped, then shuffle and you gain 1 life.",
@@ -1980,6 +2110,7 @@
     {
       "cache": "cards/5548ff43-e5f6-4a63-8562-a2b1de06d6f5.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "When this land enters, sacrifice it. When you do, search your library for a basic Swamp, Mountain, or Forest card, put it onto the battlefield tapped, then shuffle and you gain 1 life.",
@@ -2003,9 +2134,13 @@
     {
       "cache": "cards/2549bc57-9ffb-4053-9f10-f2a5f792b845.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Search your library for up to two basic land cards that share a land type, put them onto the battlefield tapped, then shuffle.",
+        "produced_mana": [
+          "C"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -2026,9 +2161,13 @@
     {
       "cache": "cards/02679a2e-303d-412f-87d8-0a37a8ca259c.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}: Add {C}.\n{3}{G}, {T}, Sacrifice this land: Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle.",
+        "produced_mana": [
+          "C"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -2049,6 +2188,7 @@
     {
       "cache": "cards/c6792d9f-8b74-43c4-814f-ba4adab2fdea.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped.\n{1}, {T}: Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle. Return this land to its owner's hand at the beginning of the next cleanup step.",
@@ -2072,9 +2212,13 @@
     {
       "cache": "cards/f2c861d3-b302-4e84-b647-099551007269.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}: Add {C}.\n{0}: Return this land to its owner's hand. Activate only if it's not your turn.",
+        "produced_mana": [
+          "C"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -2095,9 +2239,13 @@
     {
       "cache": "cards/645fb11b-d684-4bec-8532-8fa97e8f7b28.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "{T}: Add {U}.\n{1}: Return Oboro to its owner's hand.",
+        "produced_mana": [
+          "U"
+        ],
         "type_line": "Legendary Land"
       },
       "categories": [
@@ -2118,9 +2266,14 @@
     {
       "cache": "cards/046f5783-cc7b-416a-8cf6-2bcef9c2cc1a.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {G}{U}.",
+        "produced_mana": [
+          "G",
+          "U"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -2141,9 +2294,14 @@
     {
       "cache": "cards/378a1d57-e2f1-4b84-9692-1564602e9e99.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {U}{B}.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -2164,9 +2322,14 @@
     {
       "cache": "cards/1b301478-b14f-4ef8-94e6-9647d582eabe.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {B}{G}.",
+        "produced_mana": [
+          "B",
+          "G"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -2187,11 +2350,15 @@
     {
       "cache": "cards/c733873e-77db-471f-8061-139db24f7e7c.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [
           "Threshold"
         ],
         "mana_cost": "",
         "oracle_text": "{T}: Add {U}. This land deals 1 damage to you.\nThreshold — {U}, {T}, Sacrifice this land: Target player draws three cards, then discards three cards. Activate only if there are seven or more cards in your graveyard.",
+        "produced_mana": [
+          "U"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -2212,12 +2379,16 @@
     {
       "cache": "cards/cdc4048a-73ec-4ec1-a179-2b36c397bf1a.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [
           "Dredge",
           "Mill"
         ],
         "mana_cost": "",
         "oracle_text": "This land enters tapped.\n{T}: Add {B}.\nDredge 2 (If you would draw a card, you may mill two cards instead. If you do, return this card from your graveyard to your hand.)",
+        "produced_mana": [
+          "B"
+        ],
         "type_line": "Land"
       },
       "categories": [
@@ -2238,9 +2409,13 @@
     {
       "cache": "cards/b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {G}.)",
+        "produced_mana": [
+          "G"
+        ],
         "type_line": "Basic Land — Forest"
       },
       "categories": [
@@ -2259,9 +2434,13 @@
     {
       "cache": "cards/b2c6aa39-2d2a-459c-a555-fb48ba993373.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {U}.)",
+        "produced_mana": [
+          "U"
+        ],
         "type_line": "Basic Land — Island"
       },
       "categories": [
@@ -2280,9 +2459,13 @@
     {
       "cache": "cards/56719f6a-1a6c-4c0a-8d21-18f7d7350b68.json",
       "card": {
+        "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
         "oracle_text": "({T}: Add {B}.)",
+        "produced_mana": [
+          "B"
+        ],
         "type_line": "Basic Land — Swamp"
       },
       "categories": [
@@ -2300,7 +2483,10 @@
     }
   ],
   "categorized_cards": 92,
-  "generated_at": "2026-08-22T12:38:28.090948+00:00",
+  "generated_at": "2026-08-26T09:23:02.619587+00:00",
+  "maybeboard_cards": 0,
+  "maybeboard_unique_cards": 0,
+  "resolved_unique_cards": 92,
   "schema_version": 3,
   "source": "decks/3-_homer-dumpster-diver-crab/decklist.txt",
   "total_cards": 100,

@@ -902,8 +902,12 @@
     "tainted sigil": "f39fd4bd-3157-42da-9a39-94e094b5f681",
     "eclipsed steppe": "6216635f-8e6e-40a3-9659-ef6352ab92ce",
     "teferi, who slows the sunset": "98c389ed-b960-42e2-9c76-a062f77c9a78",
-    "test of endurance": "ffdad8fb-69ee-40d3-b2eb-b0aee0a5becc"
+    "test of endurance": "ffdad8fb-69ee-40d3-b2eb-b0aee0a5becc",
+    "vantress visions": "f0bbcabf-29e7-4c7e-893f-86b64d3620a9",
+    "malevolent rumble": "d30d8968-ec24-4155-97e2-28efd52c8810",
+    "walk-in closet": "52e77cc3-f8e9-4a20-811b-fe1e46a96ad7",
+    "forgotten cellar": "52e77cc3-f8e9-4a20-811b-fe1e46a96ad7"
   },
   "schema_version": 1,
-  "updated_at": "2026-08-26T06:20:29.627921+00:00"
+  "updated_at": "2026-08-26T09:23:02.619587+00:00"
 }
