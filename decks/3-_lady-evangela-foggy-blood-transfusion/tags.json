@@ -11,12 +11,12 @@
     {
       "name": "lifedrain",
       "score": 5,
-      "reason": "Exsanguinate, Debt to the Deathless, and Drain Life are the win conditions, backed by Queza."
+      "reason": "Exsanguinate, Debt to the Deathless, and Drain Life are the X wins, backed by Queza; Test of Endurance is the 50-life upkeep close."
     },
     {
       "name": "control",
       "score": 4,
-      "reason": "Seven counterspells, instant-speed removal, and a draw-go posture defend the engine until the drain turn."
+      "reason": "Five counterspells, instant-speed removal, and a draw-go posture defend the engine until the drain turn."
     },
     {
       "name": "life exchange",
