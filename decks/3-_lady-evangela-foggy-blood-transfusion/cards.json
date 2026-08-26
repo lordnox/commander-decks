@@ -40,7 +40,7 @@
       "name": "Mirror Universe",
       "oracle_id": "8d231d2f-5274-4b55-8262-9eb95654d183",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/olep/16/mirror-universe?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/leg/287/mirror-universe?utm_source=api",
       "submitted_categories": [
         "Life Exchange"
       ],
@@ -2691,7 +2691,7 @@
     }
   ],
   "categorized_cards": 104,
-  "generated_at": "2026-08-25T23:25:36.251527+00:00",
+  "generated_at": "2026-08-26T00:01:20.377401+00:00",
   "maybeboard_cards": 13,
   "maybeboard_unique_cards": 13,
   "resolved_unique_cards": 104,

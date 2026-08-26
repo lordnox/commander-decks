@@ -45,7 +45,7 @@ The script writes:
 - `cards/index.json`
 - `cards/categories.json`
 
-It reuses local cache objects first, resolves remaining exact names through Scryfall's collection endpoint in batches of at most 75, and retries only collection misses with the fuzzy endpoint. Digital-only printings are replaced with a paper printing when Scryfall has one. Its summary reports cache hits, collection requests, fuzzy requests, paper upgrades, and unresolved names. If Archidekt still rejects a digital-only cache object, add a paper Scryfall UUID to `decks/<prefix><slug>/printing-overrides.json`; the primer skill covers the file format and Archidekt script.
+It reuses local cache objects first, resolves remaining exact names through Scryfall's collection endpoint in batches of at most 75, and retries only collection misses with the fuzzy endpoint. Digital-only and oversized printings are replaced with a playable paper printing when Scryfall has one. Its summary reports cache hits, collection requests, fuzzy requests, paper upgrades, and unresolved names. If Archidekt still rejects a cache object, add a paper Scryfall UUID to `decks/<prefix><slug>/printing-overrides.json`; the primer skill covers the file format and Archidekt script.
 
 - Run one resolver process at a time. If a command is still running, wait for that process; do not start the resolver again. A repository lock rejects concurrent runs.
 - In a partial or connector-backed workspace, `cards/index.json` alone is not a cache hit. Hydrate the referenced `cards/<oracle-id>.json` objects before running the resolver, or those names will be fetched again.
