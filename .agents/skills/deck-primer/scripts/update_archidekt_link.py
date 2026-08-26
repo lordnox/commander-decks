@@ -99,10 +99,14 @@ def archidekt_payload(
                 raise FileNotFoundError(f"missing cache for {name}: {cache_path}")
             card = json.loads(cache_path.read_text(encoding="utf-8"))
             games = card.get("games")
-            paper = not card.get("digital") and (not games or "paper" in games)
+            paper = (
+                not card.get("digital")
+                and not card.get("oversized")
+                and (not games or "paper" in games)
+            )
             if not paper:
                 raise ValueError(
-                    f"{name} uses a digital-only cached printing; add it to "
+                    f"{name} uses a digital-only or oversized cached printing; add it to "
                     "printing-overrides.json or pass "
                     f"--printing-override '{name}=paper-scryfall-printing-uuid'"
                 )

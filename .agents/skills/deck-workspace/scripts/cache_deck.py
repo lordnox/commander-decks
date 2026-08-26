@@ -160,7 +160,7 @@ def card_names(card: dict) -> list[str]:
 
 def is_paper_printing(card: dict) -> bool:
     """True when the cached object is usable as a paper Archidekt printing."""
-    if not isinstance(card, dict) or card.get("digital"):
+    if not isinstance(card, dict) or card.get("digital") or card.get("oversized"):
         return False
     games = card.get("games")
     if not games:
@@ -169,7 +169,7 @@ def is_paper_printing(card: dict) -> bool:
 
 
 def fetch_paper_printing(card: dict) -> dict:
-    """Replace a digital-only Scryfall object with a paper printing when one exists."""
+    """Replace a digital-only or oversized Scryfall object with a playable printing."""
     if is_paper_printing(card):
         return card
     oracle_id = card.get("oracle_id")
@@ -179,7 +179,7 @@ def fetch_paper_printing(card: dict) -> dict:
         response = api_json(
             "/cards/search",
             {
-                "q": f"oracleid:{oracle_id} game:paper -is:digital",
+                "q": f"oracleid:{oracle_id} game:paper -is:digital -is:oversized",
                 "unique": "prints",
                 "order": "released",
                 "dir": "desc",

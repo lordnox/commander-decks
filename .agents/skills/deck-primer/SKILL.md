@@ -74,7 +74,7 @@ After resolving the deck, create or refresh the link with:
 python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<prefix><slug>
 ```
 
-The cache script stores paper printings when Scryfall has one. Archidekt does not accept digital-only printings. If a cached object is still digital-only, add a paper Scryfall printing UUID to `decks/<prefix><slug>/printing-overrides.json` and rerun:
+The cache script stores playable paper printings when Scryfall has one. Archidekt silently drops digital-only and oversized printings, which is how a 100-card link imports as 99. If a cached object is still one of those, add a paper Scryfall printing UUID to `decks/<prefix><slug>/printing-overrides.json` and rerun:
 
 ```json
 {
