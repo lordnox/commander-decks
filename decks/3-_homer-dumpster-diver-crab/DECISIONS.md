@@ -45,7 +45,7 @@ This log records why every card entered the initial list. Future changes should 
 
 ### Dumpster diving
 
-- **Perpetual Timepiece** — Self-mill during setup and a graveyard-to-library safety valve before decking.
+- **Malevolent Rumble** — Two-mana dumpster spell: a permanent to hand, the rest into the yard, and a Spawn for Zimone, Dread Return, or Maskwood Nexus.
 - **Life from the Loam** — Dredges repeatedly and returns lands for discard, replay, or bounce-land engines.
 - **Ripples of Undeath** — Mills each turn and converts the best permanent into a card in hand.
 - **Satyr Wayfinder** — Cheap self-mill that helps hit early land drops.
@@ -134,6 +134,10 @@ This log records why every card entered the initial list. Future changes should 
 - **Mole Man, Moloid Master** — Recurring graveyard land plays plus a disposable self-milling Moloid on every landfall.
 - **Crawling Sensation** — Deliberate self-mill and Insect fodder whenever lands enter the graveyard.
 
+## Cards out
+
+- **Perpetual Timepiece** — Replaced by Malevolent Rumble. Repeatable mill-two and the graveyard-shuffle safety valve were slower than a two-mana permanent-plus-yard dump with a Spawn.
+
 ## Talks
 
 ### 2026-08-22 — Remove the Game Changers
@@ -165,3 +169,7 @@ Meloku the Clouded Mirror became the fortieth land. Command Tower and the three 
 - **Zimone and Dina** — Replaces Dryad of the Ilysian Grove with a less consistent but more interesting sacrifice, draw, and off-turn landfall engine.
 - **Mole Man, Moloid Master** — Replaces Ramunap Excavator while retaining graveyard land plays and creating a disposable, self-milling Moloid for every landfall.
 - **Crawling Sensation** — Replaces Mesmeric Orb with deliberately slower self-mill and recurring Insect fodder whenever lands enter the graveyard.
+
+### 2026-08-26 — Rumble over the clock
+
+- **Malevolent Rumble** — Replaces Perpetual Timepiece. Same dumpster job at two mana, with a permanent to hand and a Spawn, instead of mill-two-a-turn and a library-shuffle valve. The Hedge Shredder chain can still empty the library; finish by pointing Homer triggers at opponents rather than shuffling back.

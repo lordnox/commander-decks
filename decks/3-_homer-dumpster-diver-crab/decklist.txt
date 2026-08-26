@@ -17,7 +17,7 @@
 1x Masked Vandal [Seafood Disguise,Removal]
 1x Realmwalker [Seafood Disguise,Card Advantage]
 1x Crawling Sensation [Dumpster Diving,Self Mill,Token Production]
-1x Perpetual Timepiece [Dumpster Diving,Graveyard Safety]
+1x Malevolent Rumble [Dumpster Diving,Card Selection,Token Production]
 1x Life from the Loam [Dumpster Diving,Land Recursion]
 1x Ripples of Undeath [Dumpster Diving,Card Selection]
 1x Satyr Wayfinder [Dumpster Diving,Land Selection]

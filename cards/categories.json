@@ -5579,8 +5579,16 @@
       "categories": [
         "other"
       ]
+    },
+    "d30d8968-ec24-4155-97e2-28efd52c8810": {
+      "name": "Malevolent Rumble",
+      "categories": [
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-26T06:20:29.627921+00:00"
+  "updated_at": "2026-08-26T09:23:02.619587+00:00"
 }
