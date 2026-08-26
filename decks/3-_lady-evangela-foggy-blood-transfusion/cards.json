@@ -1356,6 +1356,31 @@
       "submitted_name": "Rings of Brighthearth"
     },
     {
+      "cache": "cards/98c389ed-b960-42e2-9c76-a062f77c9a78.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "loyalty": "4",
+        "mana_cost": "{2}{W}{U}",
+        "oracle_text": "+1: Choose up to one target artifact, up to one target creature, and up to one target land. Untap the chosen permanents you control. Tap the chosen permanents you don't control. You gain 2 life.\n−2: Look at the top three cards of your library. Put one of them into your hand and the rest on the bottom of your library in any order.\n−7: You get an emblem with \"Untap all permanents you control during each opponent's untap step\" and \"You draw a card during each opponent's draw step.\"",
+        "type_line": "Legendary Planeswalker — Teferi"
+      },
+      "categories": [
+        "Swamp Engine",
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Teferi, Who Slows the Sunset",
+      "oracle_id": "98c389ed-b960-42e2-9c76-a062f77c9a78",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mid/245/teferi-who-slows-the-sunset?utm_source=api",
+      "submitted_categories": [
+        "Swamp Engine",
+        "Draw"
+      ],
+      "submitted_name": "Teferi, Who Slows the Sunset"
+    },
+    {
       "cache": "cards/08f17ebc-c0fd-493f-84b3-e9250694543e.json",
       "card": {
         "cmc": 3.0,
@@ -1690,31 +1715,6 @@
         "Land Search"
       ],
       "submitted_name": "Myriad Landscape"
-    },
-    {
-      "cache": "cards/17784f90-89a1-47a5-83ef-ae60dfc30bd1.json",
-      "card": {
-        "cmc": 0.0,
-        "keywords": [],
-        "mana_cost": "",
-        "oracle_text": "{T}: Add {U}.\n{U}, {T}: Untap target legendary permanent.",
-        "produced_mana": [
-          "U"
-        ],
-        "type_line": "Legendary Land"
-      },
-      "categories": [
-        "Land"
-      ],
-      "category_source": "decklist",
-      "name": "Minamo, School at Water's Edge",
-      "oracle_id": "17784f90-89a1-47a5-83ef-ae60dfc30bd1",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/chk/279/minamo-school-at-waters-edge?utm_source=api",
-      "submitted_categories": [
-        "Land"
-      ],
-      "submitted_name": "Minamo, School at Water's Edge"
     },
     {
       "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
@@ -2340,6 +2340,33 @@
       "submitted_name": "Island"
     },
     {
+      "cache": "cards/17784f90-89a1-47a5-83ef-ae60dfc30bd1.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {U}.\n{U}, {T}: Untap target legendary permanent.",
+        "produced_mana": [
+          "U"
+        ],
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Minamo, School at Water's Edge",
+      "oracle_id": "17784f90-89a1-47a5-83ef-ae60dfc30bd1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/chk/279/minamo-school-at-waters-edge?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Land"
+      ],
+      "submitted_name": "Minamo, School at Water's Edge"
+    },
+    {
       "cache": "cards/cc187110-1148-4090-bbb8-e205694a39f5.json",
       "card": {
         "cmc": 2.0,
@@ -2690,11 +2717,11 @@
       "submitted_name": "Kuroki, Thief of Talents"
     }
   ],
-  "categorized_cards": 104,
-  "generated_at": "2026-08-26T00:01:20.377401+00:00",
-  "maybeboard_cards": 13,
-  "maybeboard_unique_cards": 13,
-  "resolved_unique_cards": 104,
+  "categorized_cards": 105,
+  "generated_at": "2026-08-26T00:19:54.985868+00:00",
+  "maybeboard_cards": 14,
+  "maybeboard_unique_cards": 14,
+  "resolved_unique_cards": 105,
   "schema_version": 3,
   "source": "decks/3-_lady-evangela-foggy-blood-transfusion/decklist.txt",
   "total_cards": 100,

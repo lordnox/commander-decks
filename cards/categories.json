@@ -5567,8 +5567,14 @@
         "land",
         "ramp"
       ]
+    },
+    "98c389ed-b960-42e2-9c76-a062f77c9a78": {
+      "name": "Teferi, Who Slows the Sunset",
+      "categories": [
+        "card-draw"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-25T23:25:36.251527+00:00"
+  "updated_at": "2026-08-26T00:01:32.670544+00:00"
 }
