@@ -6402,7 +6402,8 @@
     "e1a2bd31-b800-47cd-8866-1b849a601b09": {
       "name": "Agate Instigator",
       "categories": [
-        "token-production"
+        "token-production",
+        "pinger"
       ]
     },
     "60c77b18-c111-4e16-ad19-2ef32582cd9e": {
@@ -6415,7 +6416,8 @@
     "a383ef16-1af8-4b3a-956c-c10a93768617": {
       "name": "Arbaaz Mir",
       "categories": [
-        "other"
+        "pinger",
+        "lifegain"
       ]
     },
     "8d03d050-391c-4311-8c42-4ee632d40fdc": {
@@ -6433,13 +6435,14 @@
     "7a2484a9-04fd-41a0-8224-610c1c07ed10": {
       "name": "Blasphemous Act",
       "categories": [
-        "other"
+        "board-wipe"
       ]
     },
     "1b70d7fa-ba2c-4945-b8fd-23623b88c036": {
       "name": "Blessed Sanctuary",
       "categories": [
-        "token-production"
+        "token-production",
+        "protection"
       ]
     },
     "8fa3ac81-3dfe-4565-be99-5554f7597b4b": {
@@ -6465,13 +6468,13 @@
     "07a0cba9-8768-4fd9-a3d5-b0f83b4bf8e8": {
       "name": "Chaos Warp",
       "categories": [
-        "other"
+        "removal"
       ]
     },
     "e477abb9-9b99-48a8-8c09-07b120b72540": {
       "name": "Confusion in the Ranks",
       "categories": [
-        "other"
+        "theft"
       ]
     },
     "2987c385-011a-4032-a516-a46d1e9dc9e8": {
@@ -6490,7 +6493,8 @@
     "69b52907-8aff-4f2a-a391-7d1ab2669b5c": {
       "name": "End-Raze Forerunners",
       "categories": [
-        "other"
+        "finisher",
+        "anthem"
       ]
     },
     "98a389f4-2905-47f3-b60e-3d4afb3e5cb0": {
@@ -6502,13 +6506,13 @@
     "6ca2a89e-7032-4864-b4e9-66f3178f90ab": {
       "name": "Essence Warden",
       "categories": [
-        "other"
+        "lifegain"
       ]
     },
     "27e9db49-7af7-4bef-ad4c-bf5dfb92030d": {
       "name": "Fog",
       "categories": [
-        "other"
+        "protection"
       ]
     },
     "56f1a16a-9f41-41fb-b580-c200bca27cd6": {
@@ -6521,7 +6525,7 @@
     "b7d3e234-0954-4422-96c0-cda91101faa3": {
       "name": "Freestrider Lookout",
       "categories": [
-        "other"
+        "ramp"
       ]
     },
     "651dea9c-2375-4e44-8e65-ba8e40f0c0ef": {
@@ -6534,7 +6538,9 @@
     "cce081eb-8820-415a-a7b2-3c5b9d4a2601": {
       "name": "Gala Greeters",
       "categories": [
-        "token-production"
+        "token-production",
+        "ramp",
+        "lifegain"
       ]
     },
     "00de57d2-7cb6-4337-9bc6-f6711e4dfabf": {
@@ -6547,7 +6553,7 @@
     "5b3b5f6a-375e-4479-9384-a942eda83f9b": {
       "name": "Gandalf the White",
       "categories": [
-        "other"
+        "trigger-doubling"
       ]
     },
     "da1c1c70-c2fa-4ba7-89fe-d9af3fb353b9": {
@@ -6584,7 +6590,7 @@
     "9242cd3e-1a71-4700-8182-9c1005616033": {
       "name": "Impact Tremors",
       "categories": [
-        "other"
+        "pinger"
       ]
     },
     "44594004-52e7-4ce6-8eb0-61f72fd9c73b": {
@@ -6604,7 +6610,7 @@
     "cb1afab6-b9c8-4b9c-840b-24106523a783": {
       "name": "Kodama of the East Tree",
       "categories": [
-        "other"
+        "ramp"
       ]
     },
     "1593ea18-2f2f-4ab4-83fb-6ccc0bec8a90": {
@@ -6628,7 +6634,8 @@
     "90fdfba8-f29e-44f9-91d2-7bf3c458a9c1": {
       "name": "Molten Gatekeeper",
       "categories": [
-        "recursion"
+        "recursion",
+        "pinger"
       ]
     },
     "71e28800-c42c-48c0-95e5-0296be54a4e8": {
@@ -6648,19 +6655,21 @@
     "ebb24fc7-dc71-4712-8c2a-b5920f78e55d": {
       "name": "Outpost Siege",
       "categories": [
-        "other"
+        "card-draw",
+        "pinger"
       ]
     },
     "76678885-3674-443d-b9a2-2a460cf6aac0": {
       "name": "Panharmonicon",
       "categories": [
-        "other"
+        "trigger-doubling"
       ]
     },
     "52714c3c-6821-44dd-88ba-813554df9914": {
       "name": "Path of Discovery",
       "categories": [
-        "other"
+        "card-selection",
+        "counters"
       ]
     },
     "d683d985-9888-4d21-8b5f-69e69ce4a03b": {
@@ -6672,7 +6681,8 @@
     "f0449cbd-855c-4c20-a1f5-f76a395d8d39": {
       "name": "Reprieve",
       "categories": [
-        "card-draw"
+        "card-draw",
+        "counterspell"
       ]
     },
     "41c765a4-a9c9-4169-a9f1-74ededeb793c": {
@@ -6703,7 +6713,7 @@
     "831e9f71-9664-4dbb-94f5-935d7cf95d77": {
       "name": "Saltskitter",
       "categories": [
-        "other"
+        "blink"
       ]
     },
     "7ce37c26-91ea-493f-bfc3-a890d4538bc1": {
@@ -6760,7 +6770,7 @@
     "f3fad295-1af2-4ecc-8546-b121ad6be27b": {
       "name": "Soul Warden",
       "categories": [
-        "other"
+        "lifegain"
       ]
     },
     "9a107e48-3d50-4941-95b1-10f2b29a4245": {
@@ -6818,7 +6828,7 @@
     "8c3495bf-02e7-4ad9-949d-92eb3d2b662a": {
       "name": "Torbran, Thane of Red Fell",
       "categories": [
-        "other"
+        "damage-amplifier"
       ]
     },
     "ef4d5fb3-70a3-433d-a9d3-18b2beb8d79f": {
@@ -6836,7 +6846,7 @@
     "42fb1a1c-ab3d-4cdc-a6ff-a591f7481583": {
       "name": "Warstorm Surge",
       "categories": [
-        "other"
+        "pinger"
       ]
     },
     "605c1ee0-5e8a-4e0a-a99b-42a38873f822": {
@@ -6848,7 +6858,7 @@
     "34edbf1b-0826-49f1-a04d-15cc8c543b22": {
       "name": "Witty Roastmaster",
       "categories": [
-        "other"
+        "pinger"
       ]
     },
     "271d8db6-8606-46d7-9812-75aa22fcfd8e": {
@@ -7289,5 +7299,5 @@
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-27T17:10:14.397166+00:00"
+  "updated_at": "2026-08-27T17:11:52.965219+00:00"
 }
