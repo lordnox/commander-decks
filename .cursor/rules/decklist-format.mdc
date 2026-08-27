@@ -1,0 +1,19 @@
+---
+description: Keep Commander deck lists ready for Archidekt printing imports
+globs: decks/**/decklist.txt
+alwaysApply: false
+---
+
+# Deck-list format
+
+When creating or intentionally reformatting a deck list, use one flat, alphabetized Archidekt-compatible list:
+
+```text
+1 Card Name (set) collector-number [Category,Other Category]
+```
+
+- Use quantities without `x`, such as `1` or `9`.
+- Include the lowercase set code and exact collector number so Archidekt selects the intended card image.
+- Keep categories and directives such as `Commander{top}` and `Maybeboard{noDeck}{noPrice}`.
+- Do not add section headings or blank category groups.
+- Preserve a user-submitted list exactly unless they explicitly request normalization or this format.
