@@ -588,6 +588,33 @@
       "submitted_name": "Dryad Arbor"
     },
     {
+      "cache": "cards/3aaf906a-e749-4e86-ac79-97650b92f271.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "Sacrifice this creature: Add {C}.",
+        "power": "0",
+        "produced_mana": [
+          "C"
+        ],
+        "toughness": "1",
+        "type_line": "Token Creature — Eldrazi Spawn"
+      },
+      "categories": [
+        "Tokens & Extras{noDeck}"
+      ],
+      "category_source": "decklist",
+      "name": "Eldrazi Spawn",
+      "oracle_id": "3aaf906a-e749-4e86-ac79-97650b92f271",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsoc/1/eldrazi-spawn?utm_source=api",
+      "submitted_categories": [
+        "Tokens & Extras{noDeck}"
+      ],
+      "submitted_name": "Eldrazi Spawn"
+    },
+    {
       "cache": "cards/299fc083-0834-4064-8344-f895aff68867.json",
       "card": {
         "cmc": 1.0,
@@ -789,28 +816,6 @@
         "Land"
       ],
       "submitted_name": "Field of the Dead"
-    },
-    {
-      "cache": "cards/a5852994-d816-4e62-8a03-254223714544.json",
-      "card": {
-        "cmc": 5.0,
-        "keywords": [],
-        "mana_cost": "{3}{B}{B}",
-        "oracle_text": "Search your library for two cards. Put one into your hand and the other into your graveyard. Then shuffle.",
-        "type_line": "Sorcery"
-      },
-      "categories": [
-        "Tutors"
-      ],
-      "category_source": "decklist",
-      "name": "Final Parting",
-      "oracle_id": "a5852994-d816-4e62-8a03-254223714544",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cmm/160/final-parting?utm_source=api",
-      "submitted_categories": [
-        "Tutors"
-      ],
-      "submitted_name": "Final Parting"
     },
     {
       "cache": "cards/69872a9a-fe54-4e58-940c-89395af71acd.json",
@@ -1416,6 +1421,35 @@
         "Land"
       ],
       "submitted_name": "Malakir Rebirth // Malakir Mire"
+    },
+    {
+      "cache": "cards/d30d8968-ec24-4155-97e2-28efd52c8810.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Reveal the top four cards of your library. You may put a permanent card from among them into your hand. Put the rest into your graveyard. Create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\"",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Draw",
+        "Graveyard Filter",
+        "Mill"
+      ],
+      "category_source": "decklist",
+      "name": "Malevolent Rumble",
+      "oracle_id": "d30d8968-ec24-4155-97e2-28efd52c8810",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/161/malevolent-rumble?utm_source=api",
+      "submitted_categories": [
+        "Draw",
+        "Graveyard Filter",
+        "Mill"
+      ],
+      "submitted_name": "Malevolent Rumble"
     },
     {
       "cache": "cards/09dd85aa-47bc-4713-a9b9-8b52ff2285ed.json",
@@ -2628,11 +2662,11 @@
       "submitted_name": "Zanarkand, Ancient Metropolis // Lasting Fayth"
     }
   ],
-  "categorized_cards": 99,
-  "generated_at": "2026-08-25T15:17:20.954212+00:00",
-  "maybeboard_cards": 12,
-  "maybeboard_unique_cards": 4,
-  "resolved_unique_cards": 99,
+  "categorized_cards": 100,
+  "generated_at": "2026-08-27T06:03:38.000277+00:00",
+  "maybeboard_cards": 13,
+  "maybeboard_unique_cards": 5,
+  "resolved_unique_cards": 100,
   "schema_version": 3,
   "source": "decks/3_sin-fall/decklist.txt",
   "total_cards": 100,

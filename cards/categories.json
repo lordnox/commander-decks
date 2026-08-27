@@ -5587,8 +5587,15 @@
         "token-production",
         "sacrifice"
       ]
+    },
+    "3aaf906a-e749-4e86-ac79-97650b92f271": {
+      "name": "Eldrazi Spawn",
+      "categories": [
+        "ramp",
+        "sacrifice"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-26T09:23:02.619587+00:00"
+  "updated_at": "2026-08-27T06:03:38.000277+00:00"
 }

@@ -42,7 +42,6 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Farseek** — Ramp that can find Overgrown Tomb, Breeding Pool, Watery Grave, or Zagoth Triome.
 - **Fell the Profane // Fell Mire** — Instant removal or a swamp.
 - **Field of the Dead** — Payoff for the many unique land names; Sin land copies still count as those names.
-- **Final Parting** — One card to hand, one to yard; typical split is a ramp/interaction spell and a jackpot.
 - **Finale of Devastation** — X creature tutor from library or yard; X of 10 pumps the team and gives haste to untapped creatures, not to Sin's tapped tokens.
 - **Forest** — Basic green and Hermit Druid off-switch.
 - **Frantic Search** — Draw-discard to feed the yard and untap three lands for another Sin or X spell.
@@ -63,6 +62,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Life from the Loam** — Dredge mill plus land recursion; loop lands into the yard for Sin without putting extra permanents there.
 - **Lotus Field** — Three mana of one color after sacrificing two lands into the yard.
 - **Malakir Rebirth // Malakir Mire** — Protects Sin through a removal spell, or a swamp.
+- **Malevolent Rumble** — Two mana to look at four and split them the way Sin wants: the permanent goes to hand (an extra land drop, a jackpot saved for later, or an Avoid-with-Sin card pulled out of the yard's way) and the rest becomes chain fuel. The Spawn pays one of Sin's four generic mana. A replacement must be a cheap card that chooses what reaches the graveyard, not a tutor.
 - **Misty Rainforest** — Simic fetch that stocks the yard.
 - **Mossborn Hydra** — Landfall doubler that is a bad random Sin hit next to Portal or Worldsire.
 - **Mystic Sanctuary** — Recursion for an instant or sorcery once you have three Islands, including Yavimaya Forests.
@@ -110,12 +110,24 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Zagoth Triome** — Fetches as a Sultai land and cycles.
 - **Zanarkand, Ancient Metropolis // Lasting Fayth** — Green town, or an adventure that makes a Hero scaled to land count.
 
+## Cards out
+
+- **Final Parting** — Out for **Malevolent Rumble**. Its split (one card to hand, one to the graveyard) is genuinely shaped for this commander, and it is the only card that assembled both halves of a turn at once. It cost five mana and `{B}{B}` to do it, which is a whole turn that is not Sin, and **Entomb** already plants a jackpot for `{B}` at instant speed while **Unmarked Grave** covers Portal, Worldsire, and Colossification for two. Bring it back if the deck ever wants a slower, more deliberate assemble turn rather than speed.
+
 ## Primer
 
 - Sin copies the exiled card as a tapped token and repeats only if that card is a land. A mixed yard can hit a nonland first and stop, so the primer treats land density plus graveyard filtering as the real engine, not "mill everything."
 - Avoid-with-Sin cards stay in the 99 as engines; the tag means do not leave them in the graveyard when you intend to resolve a Sin trigger.
 - Copies enter tapped. Haste from Finale of Devastation does not let those tokens attack until they untap.
-- Copy, Hero, and Insect lines on the submitted list are token extras. Dig Through Time is maybeboard. None of them are Cards in coverage for the 99.
+- Copy, Hero, Insect, and Eldrazi Spawn lines on the submitted list are token extras. Dig Through Time is maybeboard. None of them are Cards in coverage for the 99.
+- The land count and the chain-fuel count are different numbers, so the primer states both. The category table counts modal double-faced spell // land cards as lands, per the repository convention, but they are not Sin fuel.
+
+## Rules
+
+- **Modal double-faced cards are not chain fuel.** Outside the battlefield and the stack an MDFC has only its front-face characteristics, so Malakir Rebirth, Bala Ged Recovery, Bridgeworks Battle, Fell the Profane, Hagra Mauling, Khalni Ambush, Revitalizing Repast, Sink into Stupor, and Waterlogged Teachings are all instants or sorceries in the graveyard. Sin exiles a *permanent card*, so it cannot see them and they never extend the chain. Zanarkand, Ancient Metropolis is the exception, because its front face is the land. Real fuel is 41 land cards against 16 nonland permanents and 42 cards the trigger ignores, not the 50 the category table shows.
+- **A lands-plus-exactly-one-nonland yard reaches that nonland every time.** The trigger only ends on a nonland or an empty graveyard, so with a single nonland present the chain must eventually pick it. Expected land tokens before it is roughly the land count divided by two. With N bad nonlands alongside the jackpot, expected lands first is L/(N+1) and the jackpot becomes a 1-in-(N+1) pick, which is why filtering matters more than milling.
+- **Colossification on the attack trigger.** Holding Entomb with Sin's attack trigger on the stack and planting Colossification gives a token Aura that attaches as it enters, pumping before blockers are declared. Its "tap enchanted creature" clause is irrelevant because Sin is already an attacker. That is 27 flying commander damage, but Oracle text is `+20/+20` with no trample, so a flier or reach blocker absorbs it. On the *enter* trigger the same Aura taps Sin and wastes the turn.
+- **The Eldrazi Spawn cannot pollute the lottery.** It is a token, so it is not a card Sin could exile, and a token in a graveyard ceases to exist regardless.
 
 ## Talks
 
@@ -130,6 +142,16 @@ The 99 contains two Game Changers: **Crop Rotation** and **Field of the Dead**. 
 Usual goldfish: ramp into Sin on turn five or six with a planted jackpot, then win on the following combat or X-spell turn (around seven). Credible high roll: **Burgeoning** / extra land drops plus **Entomb** **Portal to Phyrexia**, Sin on turn five. Interactive games stall on graveyard hate or commander tax.
 
 Not Bracket 2: two Game Changers, yard tutors (**Entomb**, **Buried Alive**, **Unmarked Grave**), and a tuned fetch/dual mana base. Not Bracket 4: no Mox/Vault/Cradle package, no free counters, and the commander is not an instantaneous win. Mid Bracket 3 rather than 3+ because the exceptional line presents a jackpot, it does not reliably end the game on turn four or five.
+
+### 2026-08-27 — Malevolent Rumble over Final Parting
+
+Rumble was first argued down on three counts that were all wrong. It takes any **permanent** card, not just a land, so a revealed Hedron Crab or Scute Swarm is rescued to hand rather than dumped — the opposite of polluting the yard. Its Spawn is a token, so it can never end a chain. And Sin's cost is `{4}{B}{G}{U}`, so the Spawn's `{C}` does pay toward it.
+
+The second argument against it, that the deck does not need cheap yard-filling because Rain of Filth converts battlefield lands into graveyard lands while paying for Sin, was also rejected, and correctly: that reasoning only describes the deck's best line. Rumble is included for **normal** games, where the four cards resolve into a land drop, a jackpot planted for later, or an Avoid-with-Sin card pulled to hand. The Rain of Filth line neither needs nor is hurt by it.
+
+What Rumble genuinely cannot do stays on the record: it takes only permanent cards, so it never finds Rain of Filth, Entomb, Farseek, or Scapeshift, and at two mana for a token worth one it is card selection rather than acceleration.
+
+Categories are `Draw`, `Graveyard Filter`, and `Mill`. `Ramp` was left off deliberately: the Spawn refunds half of Rumble's own cost a turn later, so counting it as acceleration would overstate the Ramp row in the category table. Bracket 3 is unchanged — a two-mana selection spell replacing a five-mana tutor does not move the deck's ceiling.
 
 ### 2026-08-25 — Drop the clones tag
 
