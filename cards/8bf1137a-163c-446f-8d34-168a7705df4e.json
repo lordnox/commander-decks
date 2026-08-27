@@ -1,0 +1,326 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "ccd2fc83-7fbe-45c4-a5f3-18a105ce6f09",
+      "name": "Dreadhorde Invasion",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/ccd2fc83-7fbe-45c4-a5f3-18a105ce6f09"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ac82422c-8ac8-4fbb-b9b9-d0aa23dded61",
+      "name": "Bleeding Edge",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/ac82422c-8ac8-4fbb-b9b9-d0aa23dded61"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ab5b3aba-8542-4157-b6b6-265611a2a52f",
+      "name": "Eternal Skylord",
+      "object": "related_card",
+      "type_line": "Creature — Zombie Wizard",
+      "uri": "https://api.scryfall.com/cards/ab5b3aba-8542-4157-b6b6-265611a2a52f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "96b358db-f798-42c7-9666-ab9fe112dc6c",
+      "name": "Widespread Brutality",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/96b358db-f798-42c7-9666-ab9fe112dc6c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4471c2a5-aa2c-47e2-8238-1eb366c8adc9",
+      "name": "Toll of the Invasion",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/4471c2a5-aa2c-47e2-8238-1eb366c8adc9"
+    },
+    {
+      "component": "combo_piece",
+      "id": "cfc67c6d-ba1e-4e30-a5a4-5672ec146cbd",
+      "name": "Crush Dissent",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/cfc67c6d-ba1e-4e30-a5a4-5672ec146cbd"
+    },
+    {
+      "component": "combo_piece",
+      "id": "82017bf6-352f-4e81-8fd5-c1b0daf05b01",
+      "name": "Dreadhorde Twins",
+      "object": "related_card",
+      "type_line": "Creature — Zombie Jackal Warrior",
+      "uri": "https://api.scryfall.com/cards/82017bf6-352f-4e81-8fd5-c1b0daf05b01"
+    },
+    {
+      "component": "combo_piece",
+      "id": "90f422c7-622a-42d2-bfaa-df6fdbf45789",
+      "name": "Invade the City",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/90f422c7-622a-42d2-bfaa-df6fdbf45789"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b30fd369-68db-41f1-bb1e-eabfe4eb5356",
+      "name": "Honor the God-Pharaoh",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/b30fd369-68db-41f1-bb1e-eabfe4eb5356"
+    },
+    {
+      "component": "combo_piece",
+      "id": "db9beaff-8253-49d9-b57f-20b8cf14c802",
+      "name": "Vizier of the Scorpion",
+      "object": "related_card",
+      "type_line": "Creature — Zombie Wizard",
+      "uri": "https://api.scryfall.com/cards/db9beaff-8253-49d9-b57f-20b8cf14c802"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d1da08b8-08c2-44e8-874b-eb93b535e90b",
+      "name": "Enter the God-Eternals",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/d1da08b8-08c2-44e8-874b-eb93b535e90b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "674e408b-f052-451c-9bf9-ac6f98753a9d",
+      "name": "Invading Manticore",
+      "object": "related_card",
+      "type_line": "Creature — Zombie Manticore",
+      "uri": "https://api.scryfall.com/cards/674e408b-f052-451c-9bf9-ac6f98753a9d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8eebe9a9-b25e-4cf6-a438-cbf794d9c791",
+      "name": "Lazotep Reaver",
+      "object": "related_card",
+      "type_line": "Creature — Zombie Beast",
+      "uri": "https://api.scryfall.com/cards/8eebe9a9-b25e-4cf6-a438-cbf794d9c791"
+    },
+    {
+      "component": "token",
+      "id": "505a3bc6-deab-410e-a58e-e3b5f0f21e3d",
+      "name": "Zombie Army",
+      "object": "related_card",
+      "type_line": "Token Creature — Zombie Army",
+      "uri": "https://api.scryfall.com/cards/505a3bc6-deab-410e-a58e-e3b5f0f21e3d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "66cef326-339c-49e5-9905-21a1603a46ae",
+      "name": "Callous Dismissal",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/66cef326-339c-49e5-9905-21a1603a46ae"
+    },
+    {
+      "component": "combo_piece",
+      "id": "29b6ec9d-3861-48bf-a198-dc7efba5d89c",
+      "name": "Grim Initiate",
+      "object": "related_card",
+      "type_line": "Creature — Zombie Warrior",
+      "uri": "https://api.scryfall.com/cards/29b6ec9d-3861-48bf-a198-dc7efba5d89c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d7ae9cb7-a3af-4224-89a5-a72f4d09dacf",
+      "name": "Herald of the Dreadhorde",
+      "object": "related_card",
+      "type_line": "Creature — Zombie Warrior",
+      "uri": "https://api.scryfall.com/cards/d7ae9cb7-a3af-4224-89a5-a72f4d09dacf"
+    },
+    {
+      "component": "combo_piece",
+      "id": "548a76ed-8dd1-4e1c-8cfe-d37f1b4b0376",
+      "name": "Lazotep Plating",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/548a76ed-8dd1-4e1c-8cfe-d37f1b4b0376"
+    },
+    {
+      "component": "combo_piece",
+      "id": "fe479484-a827-4d3c-8e35-e905e4f6664a",
+      "name": "Aven Eternal",
+      "object": "related_card",
+      "type_line": "Creature — Zombie Bird Warrior",
+      "uri": "https://api.scryfall.com/cards/fe479484-a827-4d3c-8e35-e905e4f6664a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1af5b195-101a-4265-98a7-522a968cf218",
+      "name": "Mindless Conscription",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/1af5b195-101a-4265-98a7-522a968cf218"
+    },
+    {
+      "component": "combo_piece",
+      "id": "604d4c94-c73f-423b-8dc0-86a92674adf7",
+      "name": "Lazotep Chancellor",
+      "object": "related_card",
+      "type_line": "Creature — Zombie Wizard",
+      "uri": "https://api.scryfall.com/cards/604d4c94-c73f-423b-8dc0-86a92674adf7"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d4d21c37-c468-4501-8d75-e8a7ad85153b",
+      "name": "Angrath, Captain of Chaos",
+      "object": "related_card",
+      "type_line": "Legendary Planeswalker — Angrath",
+      "uri": "https://api.scryfall.com/cards/d4d21c37-c468-4501-8d75-e8a7ad85153b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4258e242-91c6-4b30-86ec-7759705aa97c",
+      "name": "Relentless Advance",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/4258e242-91c6-4b30-86ec-7759705aa97c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6369ff49-0b82-4722-b04f-ca5f529d1e82",
+      "name": "Gleaming Overseer",
+      "object": "related_card",
+      "type_line": "Creature — Zombie Wizard",
+      "uri": "https://api.scryfall.com/cards/6369ff49-0b82-4722-b04f-ca5f529d1e82"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4ed00cef-17e0-4d21-97b7-2f7e31c7d752",
+      "name": "Commence the Endgame",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/4ed00cef-17e0-4d21-97b7-2f7e31c7d752"
+    }
+  ],
+  "artist": "Warren Mahy",
+  "artist_ids": [
+    "002c739e-aa1f-4c1d-921b-37cb2d1b1c5b"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 773460,
+  "cmc": 0.0,
+  "collector_number": "22",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "505a3bc6-deab-410e-a58e-e3b5f0f21e3d",
+  "illustration_id": "f592e138-a3ac-485f-9d82-feec2aa2fc1d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:51:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/0/505a3bc6-deab-410e-a58e-e3b5f0f21e3d.webp?1783911112",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/0/505a3bc6-deab-410e-a58e-e3b5f0f21e3d.jpg?1783911112",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/0/505a3bc6-deab-410e-a58e-e3b5f0f21e3d.jpg?1783911112",
+    "crop": "https://cards.scryfall.io/crop/front/5/0/505a3bc6-deab-410e-a58e-e3b5f0f21e3d.webp?1783911112",
+    "display": "https://cards.scryfall.io/display/front/5/0/505a3bc6-deab-410e-a58e-e3b5f0f21e3d.webp?1783911112",
+    "grid": "https://cards.scryfall.io/grid/front/5/0/505a3bc6-deab-410e-a58e-e3b5f0f21e3d.webp?1783911112",
+    "large": "https://cards.scryfall.io/large/front/5/0/505a3bc6-deab-410e-a58e-e3b5f0f21e3d.jpg?1783911112",
+    "normal": "https://cards.scryfall.io/normal/front/5/0/505a3bc6-deab-410e-a58e-e3b5f0f21e3d.jpg?1783911112",
+    "png": "https://cards.scryfall.io/png/front/5/0/505a3bc6-deab-410e-a58e-e3b5f0f21e3d.png?1783911112",
+    "small": "https://cards.scryfall.io/small/front/5/0/505a3bc6-deab-410e-a58e-e3b5f0f21e3d.jpg?1783911112",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/0/505a3bc6-deab-410e-a58e-e3b5f0f21e3d.webp?1783911112"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Zombie Army",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8bf1137a-163c-446f-8d34-168a7705df4e",
+  "oracle_text": "",
+  "oversized": false,
+  "power": "0",
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": "3.68",
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8bf1137a-163c-446f-8d34-168a7705df4e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Zombie+Army&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=773460&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DZombie%2BArmy%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Zombie+Army",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DZombie%2BArmy",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DZombie%2BArmy"
+  },
+  "released_at": "2024-06-14",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/505a3bc6-deab-410e-a58e-e3b5f0f21e3d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tmh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tmh3/22/zombie-army?utm_source=api",
+  "set": "tmh3",
+  "set_id": "7aa71d91-3b45-4a2f-a183-0b3c1918c285",
+  "set_name": "Modern Horizons 3 Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atmh3&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/7aa71d91-3b45-4a2f-a183-0b3c1918c285",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "0",
+  "type_line": "Token Creature — Zombie Army",
+  "uri": "https://api.scryfall.com/cards/505a3bc6-deab-410e-a58e-e3b5f0f21e3d",
+  "variation": false
+}

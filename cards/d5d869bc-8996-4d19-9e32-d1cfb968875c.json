@@ -1,0 +1,151 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "6adb8607-1066-451d-a719-74ad32358278",
+      "name": "Zombie",
+      "object": "related_card",
+      "type_line": "Token Creature — Zombie",
+      "uri": "https://api.scryfall.com/cards/6adb8607-1066-451d-a719-74ad32358278"
+    },
+    {
+      "component": "combo_piece",
+      "id": "93be7d72-927a-40ce-8de4-04a3f21c134b",
+      "name": "Revenge of the Drowned",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/93be7d72-927a-40ce-8de4-04a3f21c134b"
+    }
+  ],
+  "arena_id": 78409,
+  "artist": "Chris Cold",
+  "artist_ids": [
+    "2622d22b-3fd8-4831-9b2b-adc5fac01b85"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 575027,
+  "cmc": 4.0,
+  "collector_number": "72",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 21889,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "A heavy net doesn't always mean a good catch.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "93be7d72-927a-40ce-8de4-04a3f21c134b",
+  "illustration_id": "96a547f8-6428-48b7-abf1-a4a0530e48f7",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:53:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/3/93be7d72-927a-40ce-8de4-04a3f21c134b.webp?1783925632",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/3/93be7d72-927a-40ce-8de4-04a3f21c134b.jpg?1783925632",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/3/93be7d72-927a-40ce-8de4-04a3f21c134b.jpg?1783925632",
+    "crop": "https://cards.scryfall.io/crop/front/9/3/93be7d72-927a-40ce-8de4-04a3f21c134b.webp?1783925632",
+    "display": "https://cards.scryfall.io/display/front/9/3/93be7d72-927a-40ce-8de4-04a3f21c134b.webp?1783925632",
+    "grid": "https://cards.scryfall.io/grid/front/9/3/93be7d72-927a-40ce-8de4-04a3f21c134b.webp?1783925632",
+    "large": "https://cards.scryfall.io/large/front/9/3/93be7d72-927a-40ce-8de4-04a3f21c134b.jpg?1783925632",
+    "normal": "https://cards.scryfall.io/normal/front/9/3/93be7d72-927a-40ce-8de4-04a3f21c134b.jpg?1783925632",
+    "png": "https://cards.scryfall.io/png/front/9/3/93be7d72-927a-40ce-8de4-04a3f21c134b.png?1783925632",
+    "small": "https://cards.scryfall.io/small/front/9/3/93be7d72-927a-40ce-8de4-04a3f21c134b.jpg?1783925632",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/3/93be7d72-927a-40ce-8de4-04a3f21c134b.webp?1783925632"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "mtgo_id": 93090,
+  "multiverse_ids": [
+    534838
+  ],
+  "name": "Revenge of the Drowned",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d5d869bc-8996-4d19-9e32-d1cfb968875c",
+  "oracle_text": "Target creature's owner puts it on their choice of the top or bottom of their library. You create a 2/2 black Zombie creature token with decayed. (It can't block. When it attacks, sacrifice it at end of combat.)",
+  "oversized": false,
+  "prices": {
+    "eur": "0.05",
+    "eur_foil": "0.14",
+    "tix": "0.03",
+    "usd": "0.16",
+    "usd_etched": null,
+    "usd_foil": "0.23"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad5d869bc-8996-4d19-9e32-d1cfb968875c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/93090?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=575027&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F248295%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Revenge+of+the+Drowned",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=534838&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRevenge%2Bof%2Bthe%2BDrowned",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRevenge%2Bof%2Bthe%2BDrowned"
+  },
+  "released_at": "2021-09-24",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "B36B172FF87FE8915CD4D55F1E6FC8F37E783AEDEBA2AA52E8A450B9C73A0706",
+  "rulings_uri": "https://api.scryfall.com/cards/93be7d72-927a-40ce-8de4-04a3f21c134b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mid?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mid/72/revenge-of-the-drowned?utm_source=api",
+  "set": "mid",
+  "set_id": "44b8eb8f-fa23-401a-98b5-1fbb9871128e",
+  "set_name": "Innistrad: Midnight Hunt",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amid&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/44b8eb8f-fa23-401a-98b5-1fbb9871128e",
+  "story_spotlight": false,
+  "tcgplayer_id": 248295,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/93be7d72-927a-40ce-8de4-04a3f21c134b",
+  "variation": false
+}

@@ -1,0 +1,139 @@
+{
+  "arena_id": 83687,
+  "artist": "Diego Gisbert",
+  "artist_ids": [
+    "3f4e975d-092c-40e4-b850-2d582bf4b5cb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 683396,
+  "cmc": 9.0,
+  "collector_number": "79",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 8035,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "420f0b81-8b87-4854-9dc4-6da84cc38623",
+  "illustration_id": "cf12fafa-7bf7-4c02-aee1-68cab5c1c3e6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:21:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/2/420f0b81-8b87-4854-9dc4-6da84cc38623.webp?1783920097",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/2/420f0b81-8b87-4854-9dc4-6da84cc38623.jpg?1783920097",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/2/420f0b81-8b87-4854-9dc4-6da84cc38623.jpg?1783920097",
+    "crop": "https://cards.scryfall.io/crop/front/4/2/420f0b81-8b87-4854-9dc4-6da84cc38623.webp?1783920097",
+    "display": "https://cards.scryfall.io/display/front/4/2/420f0b81-8b87-4854-9dc4-6da84cc38623.webp?1783920097",
+    "grid": "https://cards.scryfall.io/grid/front/4/2/420f0b81-8b87-4854-9dc4-6da84cc38623.webp?1783920097",
+    "large": "https://cards.scryfall.io/large/front/4/2/420f0b81-8b87-4854-9dc4-6da84cc38623.jpg?1783920097",
+    "normal": "https://cards.scryfall.io/normal/front/4/2/420f0b81-8b87-4854-9dc4-6da84cc38623.jpg?1783920097",
+    "png": "https://cards.scryfall.io/png/front/4/2/420f0b81-8b87-4854-9dc4-6da84cc38623.png?1783920097",
+    "small": "https://cards.scryfall.io/small/front/4/2/420f0b81-8b87-4854-9dc4-6da84cc38623.jpg?1783920097",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/2/420f0b81-8b87-4854-9dc4-6da84cc38623.webp?1783920097"
+  },
+  "keywords": [
+    "Prototype"
+  ],
+  "lang": "en",
+  "layout": "prototype",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{9}",
+  "mtgo_id": 104776,
+  "multiverse_ids": [
+    583664
+  ],
+  "name": "Hulking Metamorph",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b2b09dc3-8239-4f3b-91d2-e7cbbdc062f7",
+  "oracle_text": "Prototype {2}{U}{U} — 3/3 (You may cast this spell with different mana cost, color, and size. It keeps its abilities and types.)\nYou may have this creature enter as a copy of an artifact or creature you control, except it's an artifact creature in addition to its other types, and its power and toughness are equal to this creature's power and toughness.",
+  "oversized": false,
+  "penny_rank": 8819,
+  "power": "7",
+  "preview": {
+    "previewed_at": "2022-11-03",
+    "source": "Eurogamer",
+    "source_uri": "https://www.eurogamer.es/desvelamos-en-exclusiva-una-carta-de-the-brothers-war-la-nueva-expansion-de-magic-the-gathering"
+  },
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": "0.28",
+    "tix": "0.03",
+    "usd": "0.23",
+    "usd_etched": null,
+    "usd_foil": "0.32"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab2b09dc3-8239-4f3b-91d2-e7cbbdc062f7&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/104776?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=683396&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F452920%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hulking+Metamorph",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=583664&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHulking%2BMetamorph",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHulking%2BMetamorph"
+  },
+  "released_at": "2022-11-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/420f0b81-8b87-4854-9dc4-6da84cc38623/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/bro?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/bro/79/hulking-metamorph?utm_source=api",
+  "set": "bro",
+  "set_id": "4219a14e-6701-4ddd-a185-21dc054ab19b",
+  "set_name": "The Brothers' War",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abro&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4219a14e-6701-4ddd-a185-21dc054ab19b",
+  "story_spotlight": false,
+  "tcgplayer_id": 452920,
+  "textless": false,
+  "toughness": "7",
+  "type_line": "Artifact Creature — Shapeshifter",
+  "uri": "https://api.scryfall.com/cards/420f0b81-8b87-4854-9dc4-6da84cc38623",
+  "variation": false
+}

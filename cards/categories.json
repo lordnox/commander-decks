@@ -5930,8 +5930,476 @@
         "removal",
         "token-production"
       ]
+    },
+    "e8ebf5cb-3a26-4bbd-812b-414c129e4bb7": {
+      "name": "Abstruse Interference",
+      "categories": [
+        "ramp",
+        "counterspell",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "939556c8-e363-4453-a624-ca52b151467e": {
+      "name": "Ancient Silver Dragon",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "5f981cca-5cd9-49e4-ab1a-bbbf6fc7e737": {
+      "name": "Ancient Stone Idol",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "6736e171-ed7d-4259-8a42-f5936ebad532": {
+      "name": "Ape",
+      "categories": [
+        "other"
+      ]
+    },
+    "85cbb035-25df-43bb-ae06-ab098f448b02": {
+      "name": "Archmage's Charm",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "a20e2e1a-90d8-4073-96e9-efce86f0178e": {
+      "name": "Astral Dragon",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "11e637b4-6ce0-4514-98d6-02a2d073f73b": {
+      "name": "Blue Sun's Twilight",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "46c727cb-1f47-4775-8af4-0230ef53966b": {
+      "name": "Brainsurge",
+      "categories": [
+        "other"
+      ]
+    },
+    "9219b7d5-642d-4470-a7c4-f3e56bfae8c7": {
+      "name": "Callous Dismissal",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "496e1083-c792-40a4-adf4-fec1d559cd5e": {
+      "name": "Clue",
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "21d700e8-0255-418e-96a0-6fe05b3f836d": {
+      "name": "Coldsteel Heart",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "f7e9f009-c52f-4d32-a52d-22e1b193f342": {
+      "name": "Crab",
+      "categories": [
+        "other"
+      ]
+    },
+    "a9720545-37f4-42f1-932f-13ef88c9ea72": {
+      "name": "Deceive the Messenger",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "f21ce158-2925-4658-ab7b-b73718d31965": {
+      "name": "Diluvian Primordial",
+      "categories": [
+        "other"
+      ]
+    },
+    "81338d64-8fc3-41ac-afc8-e2a79df1159b": {
+      "name": "Dream Cache",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "f1aec82d-0b78-4bca-8cef-d309e71d9b98": {
+      "name": "Eldrazi",
+      "categories": [
+        "other"
+      ]
+    },
+    "0eb3cd4b-c34e-448c-a9ab-e7b0b4524833": {
+      "name": "Eldrazi Scion",
+      "categories": [
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "07bd569f-d14f-4cd7-9614-5131234a032a": {
+      "name": "City's Blessing // Elemental",
+      "categories": [
+        "recursion",
+        "sacrifice"
+      ]
+    },
+    "7dda40f2-7b5f-479c-86b6-8bc11fff9f4a": {
+      "name": "Faerie Artisans",
+      "categories": [
+        "board-wipe",
+        "token-production"
+      ]
+    },
+    "bdb03306-355c-41e5-96bc-f60483e59b2a": {
+      "name": "Fish",
+      "categories": [
+        "other"
+      ]
+    },
+    "a28eb946-c7f2-4c90-ab6c-b194e290e33d": {
+      "name": "Flip the Switch",
+      "categories": [
+        "counterspell",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "94e8b0a9-44a1-4dce-8d44-78681ae638a1": {
+      "name": "Fountainport",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "8653c69b-99a9-4881-a14c-68ba928c34d5": {
+      "name": "Frog Lizard",
+      "categories": [
+        "other"
+      ]
+    },
+    "c18a5b24-7458-43c9-9a1f-186eb282c82e": {
+      "name": "Glimmer",
+      "categories": [
+        "other"
+      ]
+    },
+    "a26820b9-3bec-41b2-9812-99e4a2211297": {
+      "name": "Glimmerburst",
+      "categories": [
+        "card-draw",
+        "token-production"
+      ]
+    },
+    "f62b776a-d4de-455a-ae5a-ca07982974db": {
+      "name": "Goat",
+      "categories": [
+        "other"
+      ]
+    },
+    "d1683ad9-cad0-4e22-8313-701276e7dbaf": {
+      "name": "Golem",
+      "categories": [
+        "other"
+      ]
+    },
+    "829d2e11-192f-4093-99f8-e13767b321a2": {
+      "name": "Guardian Idol",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "0728b195-2dfe-4d73-91ae-e658a97b0b9a": {
+      "name": "Hard Evidence",
+      "categories": [
+        "card-draw",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "b2b09dc3-8239-4f3b-91d2-e7cbbdc062f7": {
+      "name": "Hulking Metamorph",
+      "categories": [
+        "other"
+      ]
+    },
+    "d4a84e78-d9b9-4c67-8a4b-4329e65f0f15": {
+      "name": "Hullbreaker Horror",
+      "categories": [
+        "other"
+      ]
+    },
+    "b30d583b-e770-47e8-9f26-fca7ef43285c": {
+      "name": "Idol of False Gods",
+      "categories": [
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "1d1d78af-7982-419d-b9be-2bf4c149d97d": {
+      "name": "Illusionist's Bracers",
+      "categories": [
+        "other"
+      ]
+    },
+    "61cceb14-9568-4a5e-9b56-07afa6407df2": {
+      "name": "Inspired Sphinx",
+      "categories": [
+        "card-draw",
+        "token-production"
+      ]
+    },
+    "b11187ab-f8a8-422b-b550-4495f96de0f2": {
+      "name": "It That Betrays",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "62ad15f1-ee51-4991-8e52-06a3cbd8f395": {
+      "name": "Jalira, Master Polymorphist",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "ba0082fb-2d4c-489e-8140-93a6fa693fd0": {
+      "name": "Lazotep Plating",
+      "categories": [
+        "protection",
+        "token-production"
+      ]
+    },
+    "b575fb16-c3c3-4cad-857f-122257a4b32f": {
+      "name": "Lord of Change",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "8dd473c7-afd9-40f1-bb8e-0a00f4687318": {
+      "name": "Mind Flayer",
+      "categories": [
+        "other"
+      ]
+    },
+    "5502741a-e3b9-454e-8121-4360a6db6750": {
+      "name": "Mirrex",
+      "categories": [
+        "land",
+        "ramp",
+        "token-production"
+      ]
+    },
+    "b4d23acf-ff1f-4a6a-9ede-2667a99e9665": {
+      "name": "Multiple Choice",
+      "categories": [
+        "card-draw",
+        "token-production"
+      ]
+    },
+    "620159f8-eb7f-4756-a136-8ad9728adbad": {
+      "name": "Orc Army",
+      "categories": [
+        "other"
+      ]
+    },
+    "ad95eac2-5b48-4102-9988-a6d7b1ec30e0": {
+      "name": "Patriar's Seal",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "ec9c35f2-6a68-45e7-a86e-9f5af9fe28fc": {
+      "name": "Phyrexian Ingester",
+      "categories": [
+        "removal"
+      ]
+    },
+    "2667d723-01c8-4ea3-ac17-cedb3b842c3b": {
+      "name": "Phyrexian Mite",
+      "categories": [
+        "other"
+      ]
+    },
+    "bcd2f70c-36c2-44b2-9d4b-1000e9bb62b6": {
+      "name": "Platinum Emperion",
+      "categories": [
+        "other"
+      ]
+    },
+    "039115f2-6322-4674-bc64-f21883ed375a": {
+      "name": "Polymorph",
+      "categories": [
+        "removal"
+      ]
+    },
+    "05849bd6-8f38-4031-be2b-e2aa03beb8cc": {
+      "name": "Pongify",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "97024e8e-dfde-4769-bc27-c3d6fad19e7c": {
+      "name": "Proteus Staff",
+      "categories": [
+        "other"
+      ]
+    },
+    "06692cd9-ac2f-4a32-8fd1-043ba3c0fe71": {
+      "name": "Rapid Hybridization",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "adf41d29-403d-4936-9689-3148d103e700": {
+      "name": "Ray of Command",
+      "categories": [
+        "other"
+      ]
+    },
+    "d5d869bc-8996-4d19-9e32-d1cfb968875c": {
+      "name": "Revenge of the Drowned",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "1b415806-a3e3-4d87-b4c1-ccd11a8ee589": {
+      "name": "Saruman's Trickery",
+      "categories": [
+        "counterspell",
+        "token-production"
+      ]
+    },
+    "4f9942ee-d3fd-4c01-93eb-870d642ebd83": {
+      "name": "See Beyond",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "a15547d0-bbcb-41ee-a9ae-8325a9e7fe1f": {
+      "name": "Sire of Seven Deaths",
+      "categories": [
+        "other"
+      ]
+    },
+    "9eaadbbc-818b-4c21-9d4b-1bba48504d38": {
+      "name": "Springjack Pasture",
+      "categories": [
+        "land",
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "b5e9599f-9561-4e3f-9904-9a4dab98cabb": {
+      "name": "Star Compass",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "3e84d719-bb76-43a4-b61a-fee30c3aac68": {
+      "name": "Star Whale",
+      "categories": [
+        "other"
+      ]
+    },
+    "fe9f6825-597b-4d80-ab7c-f4ee4e824b6f": {
+      "name": "Summon: Bahamut",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "304450b0-bde6-4d69-bcaf-fb9b9bae2e4b": {
+      "name": "Tempted by the Oriq",
+      "categories": [
+        "other"
+      ]
+    },
+    "2fb4053a-e7a4-4be9-ad34-51cdee0b3c75": {
+      "name": "Servo // Thopter",
+      "categories": [
+        "other"
+      ]
+    },
+    "9965d9c5-2ebf-4a6c-930e-55c5890979be": {
+      "name": "Thought Vessel",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "4dc5726e-2f7e-4c2b-9616-c3301d212f78": {
+      "name": "Thousand-Year Elixir",
+      "categories": [
+        "other"
+      ]
+    },
+    "1b25e262-e2df-4768-b55e-1b7b8d3ee993": {
+      "name": "Tidal Force",
+      "categories": [
+        "other"
+      ]
+    },
+    "8de3eabe-9a8f-4865-beef-a4888c081d39": {
+      "name": "Training Grounds",
+      "categories": [
+        "other"
+      ]
+    },
+    "b04ef0bd-5e96-45d4-afa8-1f3bc8544e1a": {
+      "name": "Treason of Isengard",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "56e05b17-aa1d-483d-857c-4cab4f12aa8a": {
+      "name": "Triplicate Titan",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "2afefaab-c614-4fca-afba-d8d206d9a8b9": {
+      "name": "Ulamog's Dreadsire",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "70ac902e-1eb5-4f83-a5a6-00ac89cfe50f": {
+      "name": "Void Winnower",
+      "categories": [
+        "other"
+      ]
+    },
+    "71c52bf5-2a5d-488e-8b15-7ef290e4b77d": {
+      "name": "War Room",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw"
+      ]
+    },
+    "814a99c8-0b64-4492-8c9f-088915a970a6": {
+      "name": "Snake // Zombie",
+      "categories": [
+        "other"
+      ]
+    },
+    "8bf1137a-163c-446f-8d34-168a7705df4e": {
+      "name": "Zombie Army",
+      "categories": [
+        "other"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-27T16:50:53.661495+00:00"
+  "updated_at": "2026-08-27T17:11:52.965219+00:00"
 }

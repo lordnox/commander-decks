@@ -1,0 +1,157 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "ac7a6f3e-4e9f-4e50-ab60-17dc1b494fa5",
+      "name": "Blue Sun's Twilight",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/ac7a6f3e-4e9f-4e50-ab60-17dc1b494fa5"
+    },
+    {
+      "component": "token",
+      "id": "f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c"
+    }
+  ],
+  "arena_id": 83743,
+  "artist": "Piotr Dura",
+  "artist_ids": [
+    "aff176e8-1d15-432e-ad1d-207a474decba"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 689722,
+  "cmc": 2.0,
+  "collector_number": "43",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 4196,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Where once there was ignorance, Jin-Gitaxias brought knowledge, and an age of progress dawned.\"\n—Monument inscription",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "3a836e6b-6854-4f6f-bc78-2da1fd4dd224",
+  "illustration_id": "010d1379-d4fd-4299-b921-8a24b6ede6d2",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:47:48Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/a/3a836e6b-6854-4f6f-bc78-2da1fd4dd224.webp?1783918068",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/a/3a836e6b-6854-4f6f-bc78-2da1fd4dd224.jpg?1783918068",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/a/3a836e6b-6854-4f6f-bc78-2da1fd4dd224.jpg?1783918068",
+    "crop": "https://cards.scryfall.io/crop/front/3/a/3a836e6b-6854-4f6f-bc78-2da1fd4dd224.webp?1783918068",
+    "display": "https://cards.scryfall.io/display/front/3/a/3a836e6b-6854-4f6f-bc78-2da1fd4dd224.webp?1783918068",
+    "grid": "https://cards.scryfall.io/grid/front/3/a/3a836e6b-6854-4f6f-bc78-2da1fd4dd224.webp?1783918068",
+    "large": "https://cards.scryfall.io/large/front/3/a/3a836e6b-6854-4f6f-bc78-2da1fd4dd224.jpg?1783918068",
+    "normal": "https://cards.scryfall.io/normal/front/3/a/3a836e6b-6854-4f6f-bc78-2da1fd4dd224.jpg?1783918068",
+    "png": "https://cards.scryfall.io/png/front/3/a/3a836e6b-6854-4f6f-bc78-2da1fd4dd224.png?1783918068",
+    "small": "https://cards.scryfall.io/small/front/3/a/3a836e6b-6854-4f6f-bc78-2da1fd4dd224.jpg?1783918068",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/a/3a836e6b-6854-4f6f-bc78-2da1fd4dd224.webp?1783918068"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{X}{U}{U}",
+  "mtgo_id": 106301,
+  "multiverse_ids": [
+    602573
+  ],
+  "name": "Blue Sun's Twilight",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "11e637b4-6ce0-4514-98d6-02a2d073f73b",
+  "oracle_text": "Gain control of target creature with mana value X or less. If X is 5 or more, create a token that's a copy of that creature.",
+  "oversized": false,
+  "penny_rank": 7775,
+  "preview": {
+    "previewed_at": "2022-12-13",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/1678101037"
+  },
+  "prices": {
+    "eur": "0.43",
+    "eur_foil": "0.73",
+    "tix": "0.02",
+    "usd": "0.57",
+    "usd_etched": null,
+    "usd_foil": "0.59"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A11e637b4-6ce0-4514-98d6-02a2d073f73b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/106301?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=689722&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F475510%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Blue+Sun%27s+Twilight",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=602573&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBlue%2BSun%2527s%2BTwilight",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBlue%2BSun%2527s%2BTwilight"
+  },
+  "released_at": "2023-02-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3a836e6b-6854-4f6f-bc78-2da1fd4dd224/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/one?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/one/43/blue-suns-twilight?utm_source=api",
+  "security_stamp": "oval",
+  "set": "one",
+  "set_id": "04bef644-343f-4230-95ee-255f29aa67a2",
+  "set_name": "Phyrexia: All Will Be One",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aone&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/04bef644-343f-4230-95ee-255f29aa67a2",
+  "story_spotlight": false,
+  "tcgplayer_id": 475510,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/3a836e6b-6854-4f6f-bc78-2da1fd4dd224",
+  "variation": false
+}

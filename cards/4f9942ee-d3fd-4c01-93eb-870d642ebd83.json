@@ -1,0 +1,128 @@
+{
+  "artist": "Andrew Robinson",
+  "artist_ids": [
+    "cb577db7-7f47-4f78-8682-6eaef8a77bd1"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 294263,
+  "cmc": 2.0,
+  "collector_number": "25",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 13831,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Ancient lore locked in a mind driven mad is just as safe as when it was locked deep underground.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "6f3b8171-8bf0-40eb-8ea1-9519b9d9425d",
+  "illustration_id": "283b2cbe-1d4a-4fa7-a62e-481abc8b6a54",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:00:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/f/6f3b8171-8bf0-40eb-8ea1-9519b9d9425d.webp?1783936838",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/f/6f3b8171-8bf0-40eb-8ea1-9519b9d9425d.jpg?1783936838",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/f/6f3b8171-8bf0-40eb-8ea1-9519b9d9425d.jpg?1783936838",
+    "crop": "https://cards.scryfall.io/crop/front/6/f/6f3b8171-8bf0-40eb-8ea1-9519b9d9425d.webp?1783936838",
+    "display": "https://cards.scryfall.io/display/front/6/f/6f3b8171-8bf0-40eb-8ea1-9519b9d9425d.webp?1783936838",
+    "grid": "https://cards.scryfall.io/grid/front/6/f/6f3b8171-8bf0-40eb-8ea1-9519b9d9425d.webp?1783936838",
+    "large": "https://cards.scryfall.io/large/front/6/f/6f3b8171-8bf0-40eb-8ea1-9519b9d9425d.jpg?1783936838",
+    "normal": "https://cards.scryfall.io/normal/front/6/f/6f3b8171-8bf0-40eb-8ea1-9519b9d9425d.jpg?1783936838",
+    "png": "https://cards.scryfall.io/png/front/6/f/6f3b8171-8bf0-40eb-8ea1-9519b9d9425d.png?1783936838",
+    "small": "https://cards.scryfall.io/small/front/6/f/6f3b8171-8bf0-40eb-8ea1-9519b9d9425d.jpg?1783936838",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/f/6f3b8171-8bf0-40eb-8ea1-9519b9d9425d.webp?1783936838"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "multiverse_ids": [
+    423450
+  ],
+  "name": "See Beyond",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4f9942ee-d3fd-4c01-93eb-870d642ebd83",
+  "oracle_text": "Draw two cards, then shuffle a card from your hand into your library.",
+  "oversized": false,
+  "penny_rank": 3479,
+  "prices": {
+    "eur": "0.34",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4f9942ee-d3fd-4c01-93eb-870d642ebd83&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=See+Beyond&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=294263&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F125497%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=See+Beyond",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=423450&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSee%2BBeyond",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSee%2BBeyond"
+  },
+  "released_at": "2016-11-25",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/6f3b8171-8bf0-40eb-8ea1-9519b9d9425d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/pca?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/pca/25/see-beyond?utm_source=api",
+  "set": "pca",
+  "set_id": "ceadd605-dfba-4998-b96d-e8e8138aa20f",
+  "set_name": "Planechase Anthology",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Apca&unique=prints",
+  "set_type": "planechase",
+  "set_uri": "https://api.scryfall.com/sets/ceadd605-dfba-4998-b96d-e8e8138aa20f",
+  "story_spotlight": false,
+  "tcgplayer_id": 125497,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/6f3b8171-8bf0-40eb-8ea1-9519b9d9425d",
+  "variation": false
+}

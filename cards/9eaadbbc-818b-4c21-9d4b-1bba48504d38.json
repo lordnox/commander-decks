@@ -1,0 +1,152 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "035438b1-f794-41e5-9e2b-bc5136766cd5",
+      "name": "Springjack Pasture",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/035438b1-f794-41e5-9e2b-bc5136766cd5"
+    },
+    {
+      "component": "token",
+      "id": "fa815976-a443-4d8b-acd5-cd3b5202654e",
+      "name": "Goat",
+      "object": "related_card",
+      "type_line": "Token Creature — Goat",
+      "uri": "https://api.scryfall.com/cards/fa815976-a443-4d8b-acd5-cd3b5202654e"
+    }
+  ],
+  "artist": "Terese Nielsen",
+  "artist_ids": [
+    "eb55171c-2342-45f4-a503-2d5a75baf752"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 265060,
+  "cmc": 0.0,
+  "collector_number": "326",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 12235,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "035438b1-f794-41e5-9e2b-bc5136766cd5",
+  "illustration_id": "35cb81ec-8480-41b8-8b9e-b8a08a75300b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:47:01Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/3/035438b1-f794-41e5-9e2b-bc5136766cd5.webp?1783939621",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/3/035438b1-f794-41e5-9e2b-bc5136766cd5.jpg?1783939621",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/3/035438b1-f794-41e5-9e2b-bc5136766cd5.jpg?1783939621",
+    "crop": "https://cards.scryfall.io/crop/front/0/3/035438b1-f794-41e5-9e2b-bc5136766cd5.webp?1783939621",
+    "display": "https://cards.scryfall.io/display/front/0/3/035438b1-f794-41e5-9e2b-bc5136766cd5.webp?1783939621",
+    "grid": "https://cards.scryfall.io/grid/front/0/3/035438b1-f794-41e5-9e2b-bc5136766cd5.webp?1783939621",
+    "large": "https://cards.scryfall.io/large/front/0/3/035438b1-f794-41e5-9e2b-bc5136766cd5.jpg?1783939621",
+    "normal": "https://cards.scryfall.io/normal/front/0/3/035438b1-f794-41e5-9e2b-bc5136766cd5.jpg?1783939621",
+    "png": "https://cards.scryfall.io/png/front/0/3/035438b1-f794-41e5-9e2b-bc5136766cd5.png?1783939621",
+    "small": "https://cards.scryfall.io/small/front/0/3/035438b1-f794-41e5-9e2b-bc5136766cd5.jpg?1783939621",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/3/035438b1-f794-41e5-9e2b-bc5136766cd5.webp?1783939621"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_foil_id": 50919,
+  "mtgo_id": 50918,
+  "multiverse_ids": [
+    376518
+  ],
+  "name": "Springjack Pasture",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9eaadbbc-818b-4c21-9d4b-1bba48504d38",
+  "oracle_text": "{T}: Add {C}.\n{4}, {T}: Create a 0/1 white Goat creature token.\n{T}, Sacrifice X Goats: Add X mana of any one color. You gain X life.",
+  "oversized": false,
+  "penny_rank": 7484,
+  "prices": {
+    "eur": "0.76",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.92",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9eaadbbc-818b-4c21-9d4b-1bba48504d38&unique=prints",
+  "produced_mana": [
+    "B",
+    "C",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/50918?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=265060&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F72304%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Springjack+Pasture",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=376518&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSpringjack%2BPasture",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSpringjack%2BPasture"
+  },
+  "released_at": "2013-11-01",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/035438b1-f794-41e5-9e2b-bc5136766cd5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c13?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c13/326/springjack-pasture?utm_source=api",
+  "set": "c13",
+  "set_id": "c62e6d4f-af8c-4f27-9bc8-361291890146",
+  "set_name": "Commander 2013",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac13&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c62e6d4f-af8c-4f27-9bc8-361291890146",
+  "story_spotlight": false,
+  "tcgplayer_id": 72304,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/035438b1-f794-41e5-9e2b-bc5136766cd5",
+  "variation": false
+}

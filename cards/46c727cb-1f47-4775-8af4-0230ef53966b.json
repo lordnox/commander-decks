@@ -1,0 +1,137 @@
+{
+  "arena_id": 90902,
+  "artist": "Liiga Smilshkalne",
+  "artist_ids": [
+    "5a50ced2-b301-4195-8af4-f7e1bae07d28"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 771184,
+  "cmc": 3.0,
+  "collector_number": "53",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1336,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "In the Cosmos, secrets swirl and spark like windborne embers, and only Alrund can capture them.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "ed48f805-b57c-4d7f-a3c2-d16ae71bce2d",
+  "illustration_id": "f154379b-1583-4c37-976c-b11ce13ed3ff",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/d/ed48f805-b57c-4d7f-a3c2-d16ae71bce2d.webp?1783911293",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/d/ed48f805-b57c-4d7f-a3c2-d16ae71bce2d.jpg?1783911293",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/d/ed48f805-b57c-4d7f-a3c2-d16ae71bce2d.jpg?1783911293",
+    "crop": "https://cards.scryfall.io/crop/front/e/d/ed48f805-b57c-4d7f-a3c2-d16ae71bce2d.webp?1783911293",
+    "display": "https://cards.scryfall.io/display/front/e/d/ed48f805-b57c-4d7f-a3c2-d16ae71bce2d.webp?1783911293",
+    "grid": "https://cards.scryfall.io/grid/front/e/d/ed48f805-b57c-4d7f-a3c2-d16ae71bce2d.webp?1783911293",
+    "large": "https://cards.scryfall.io/large/front/e/d/ed48f805-b57c-4d7f-a3c2-d16ae71bce2d.jpg?1783911293",
+    "normal": "https://cards.scryfall.io/normal/front/e/d/ed48f805-b57c-4d7f-a3c2-d16ae71bce2d.jpg?1783911293",
+    "png": "https://cards.scryfall.io/png/front/e/d/ed48f805-b57c-4d7f-a3c2-d16ae71bce2d.png?1783911293",
+    "small": "https://cards.scryfall.io/small/front/e/d/ed48f805-b57c-4d7f-a3c2-d16ae71bce2d.jpg?1783911293",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/d/ed48f805-b57c-4d7f-a3c2-d16ae71bce2d.webp?1783911293"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 126123,
+  "multiverse_ids": [
+    662205
+  ],
+  "name": "Brainsurge",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "46c727cb-1f47-4775-8af4-0230ef53966b",
+  "oracle_text": "Draw four cards, then put two cards from your hand on top of your library in any order.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-05-21",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.43",
+    "eur_foil": "0.49",
+    "tix": "0.03",
+    "usd": "0.35",
+    "usd_etched": null,
+    "usd_foil": "1.66"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A46c727cb-1f47-4775-8af4-0230ef53966b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126123?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=771184&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552298%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Brainsurge",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662205&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBrainsurge",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBrainsurge"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ed48f805-b57c-4d7f-a3c2-d16ae71bce2d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/53/brainsurge?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552298,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/ed48f805-b57c-4d7f-a3c2-d16ae71bce2d",
+  "variation": false
+}

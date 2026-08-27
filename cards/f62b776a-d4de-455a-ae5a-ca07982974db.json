@@ -1,0 +1,208 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "308fbcf8-0475-4c0b-a365-418588f84b5a",
+      "name": "Springjack Shepherd",
+      "object": "related_card",
+      "type_line": "Creature — Kithkin Wizard",
+      "uri": "https://api.scryfall.com/cards/308fbcf8-0475-4c0b-a365-418588f84b5a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f458ae68-5cda-4c40-a348-47b4196fba02",
+      "name": "Woe Strider",
+      "object": "related_card",
+      "type_line": "Creature — Horror",
+      "uri": "https://api.scryfall.com/cards/f458ae68-5cda-4c40-a348-47b4196fba02"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8aac8890-6475-43eb-9c6e-a1d806af3e54",
+      "name": "Trading Post",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/8aac8890-6475-43eb-9c6e-a1d806af3e54"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e9600f0b-c182-40fc-a0da-77f7758c94a9",
+      "name": "Everythingamajig",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/e9600f0b-c182-40fc-a0da-77f7758c94a9"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3e20bdb7-2b29-4a67-83e4-de01138fb043",
+      "name": "Clackbridge Troll",
+      "object": "related_card",
+      "type_line": "Creature — Troll",
+      "uri": "https://api.scryfall.com/cards/3e20bdb7-2b29-4a67-83e4-de01138fb043"
+    },
+    {
+      "component": "combo_piece",
+      "id": "035438b1-f794-41e5-9e2b-bc5136766cd5",
+      "name": "Springjack Pasture",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/035438b1-f794-41e5-9e2b-bc5136766cd5"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a8cce294-f6ee-4b18-8b65-7d01d0317b00",
+      "name": "Discordant Piper",
+      "object": "related_card",
+      "type_line": "Creature — Zombie Satyr",
+      "uri": "https://api.scryfall.com/cards/a8cce294-f6ee-4b18-8b65-7d01d0317b00"
+    },
+    {
+      "component": "combo_piece",
+      "id": "830c7c81-335e-4f0b-81b9-209732408093",
+      "name": "Goldmeadow",
+      "object": "related_card",
+      "type_line": "Plane — Lorwyn",
+      "uri": "https://api.scryfall.com/cards/830c7c81-335e-4f0b-81b9-209732408093"
+    },
+    {
+      "component": "token",
+      "id": "fa815976-a443-4d8b-acd5-cd3b5202654e",
+      "name": "Goat",
+      "object": "related_card",
+      "type_line": "Token Creature — Goat",
+      "uri": "https://api.scryfall.com/cards/fa815976-a443-4d8b-acd5-cd3b5202654e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d170361f-11f6-480e-8927-c63f00c7f331",
+      "name": "Contraband Livestock",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/d170361f-11f6-480e-8927-c63f00c7f331"
+    }
+  ],
+  "artist": "Brooklyn Smith",
+  "artist_ids": [
+    "96edae9b-b40b-47cc-82fd-9e45e43a8bec"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "6",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "72387c9a-e50b-4606-a3e1-b640b9eaaf6c",
+  "illustration_id": "5e010cf1-910e-4b7e-9380-59cbaf9fe4d2",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:33:33Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/2/72387c9a-e50b-4606-a3e1-b640b9eaaf6c.webp?1783902813",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/2/72387c9a-e50b-4606-a3e1-b640b9eaaf6c.jpg?1783902813",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/2/72387c9a-e50b-4606-a3e1-b640b9eaaf6c.jpg?1783902813",
+    "crop": "https://cards.scryfall.io/crop/front/7/2/72387c9a-e50b-4606-a3e1-b640b9eaaf6c.webp?1783902813",
+    "display": "https://cards.scryfall.io/display/front/7/2/72387c9a-e50b-4606-a3e1-b640b9eaaf6c.webp?1783902813",
+    "grid": "https://cards.scryfall.io/grid/front/7/2/72387c9a-e50b-4606-a3e1-b640b9eaaf6c.webp?1783902813",
+    "large": "https://cards.scryfall.io/large/front/7/2/72387c9a-e50b-4606-a3e1-b640b9eaaf6c.jpg?1783902813",
+    "normal": "https://cards.scryfall.io/normal/front/7/2/72387c9a-e50b-4606-a3e1-b640b9eaaf6c.jpg?1783902813",
+    "png": "https://cards.scryfall.io/png/front/7/2/72387c9a-e50b-4606-a3e1-b640b9eaaf6c.png?1783902813",
+    "small": "https://cards.scryfall.io/small/front/7/2/72387c9a-e50b-4606-a3e1-b640b9eaaf6c.jpg?1783902813",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/2/72387c9a-e50b-4606-a3e1-b640b9eaaf6c.webp?1783902813"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Goat",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f62b776a-d4de-455a-ae5a-ca07982974db",
+  "oracle_text": "",
+  "oversized": false,
+  "power": "0",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af62b776a-d4de-455a-ae5a-ca07982974db&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Goat&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Goat&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DGoat%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Goat",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGoat",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGoat"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/72387c9a-e50b-4606-a3e1-b640b9eaaf6c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tmsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tmsc/6/goat?utm_source=api",
+  "set": "tmsc",
+  "set_id": "1a555c51-d5da-4f1d-ac1c-5cce81d5d8dc",
+  "set_name": "Marvel Super Heroes Commander Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atmsc&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/1a555c51-d5da-4f1d-ac1c-5cce81d5d8dc",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Token Creature — Goat",
+  "uri": "https://api.scryfall.com/cards/72387c9a-e50b-4606-a3e1-b640b9eaaf6c",
+  "variation": false
+}

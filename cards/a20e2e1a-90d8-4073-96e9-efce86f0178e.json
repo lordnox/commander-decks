@@ -1,0 +1,152 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "51d7dc49-7116-489b-a719-7b293a513cdc",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/51d7dc49-7116-489b-a719-7b293a513cdc"
+    },
+    {
+      "component": "combo_piece",
+      "id": "670fbc63-4c9b-4e57-b53e-4ca4d7a224ba",
+      "name": "Astral Dragon",
+      "object": "related_card",
+      "type_line": "Creature — Dragon",
+      "uri": "https://api.scryfall.com/cards/670fbc63-4c9b-4e57-b53e-4ca4d7a224ba"
+    }
+  ],
+  "artist": "Anastasia Ovchinnikova",
+  "artist_ids": [
+    "3605d81f-5c97-4958-9dcc-d44a85e10305"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 661290,
+  "cmc": 8.0,
+  "collector_number": "664",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2525,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "670fbc63-4c9b-4e57-b53e-4ca4d7a224ba",
+  "illustration_id": "a648d905-348d-4b26-8673-e257f38b1a46",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:01:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/7/670fbc63-4c9b-4e57-b53e-4ca4d7a224ba.webp?1783922511",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/7/670fbc63-4c9b-4e57-b53e-4ca4d7a224ba.jpg?1783922511",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/7/670fbc63-4c9b-4e57-b53e-4ca4d7a224ba.jpg?1783922511",
+    "crop": "https://cards.scryfall.io/crop/front/6/7/670fbc63-4c9b-4e57-b53e-4ca4d7a224ba.webp?1783922511",
+    "display": "https://cards.scryfall.io/display/front/6/7/670fbc63-4c9b-4e57-b53e-4ca4d7a224ba.webp?1783922511",
+    "grid": "https://cards.scryfall.io/grid/front/6/7/670fbc63-4c9b-4e57-b53e-4ca4d7a224ba.webp?1783922511",
+    "large": "https://cards.scryfall.io/large/front/6/7/670fbc63-4c9b-4e57-b53e-4ca4d7a224ba.jpg?1783922511",
+    "normal": "https://cards.scryfall.io/normal/front/6/7/670fbc63-4c9b-4e57-b53e-4ca4d7a224ba.jpg?1783922511",
+    "png": "https://cards.scryfall.io/png/front/6/7/670fbc63-4c9b-4e57-b53e-4ca4d7a224ba.png?1783922511",
+    "small": "https://cards.scryfall.io/small/front/6/7/670fbc63-4c9b-4e57-b53e-4ca4d7a224ba.jpg?1783922511",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/7/670fbc63-4c9b-4e57-b53e-4ca4d7a224ba.webp?1783922511"
+  },
+  "keywords": [
+    "Flying",
+    "Project Image"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{6}{U}{U}",
+  "mtgo_id": 101424,
+  "multiverse_ids": [
+    567229
+  ],
+  "name": "Astral Dragon",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a20e2e1a-90d8-4073-96e9-efce86f0178e",
+  "oracle_text": "Flying\nProject Image — When this creature enters, create two tokens that are copies of target noncreature permanent, except they're 3/3 Dragon creatures in addition to their other types, and they have flying.",
+  "oversized": false,
+  "power": "4",
+  "prices": {
+    "eur": "18.24",
+    "eur_foil": null,
+    "tix": "10.43",
+    "usd": "18.95",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa20e2e1a-90d8-4073-96e9-efce86f0178e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/101424?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=661290&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F273532%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Astral+Dragon",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=567229&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAstral%2BDragon",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAstral%2BDragon"
+  },
+  "released_at": "2022-06-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/670fbc63-4c9b-4e57-b53e-4ca4d7a224ba/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/664/astral-dragon?utm_source=api",
+  "security_stamp": "oval",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 273532,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Dragon",
+  "uri": "https://api.scryfall.com/cards/670fbc63-4c9b-4e57-b53e-4ca4d7a224ba",
+  "variation": false
+}

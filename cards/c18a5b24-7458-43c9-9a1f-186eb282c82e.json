@@ -1,0 +1,188 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "1933e212-213f-461f-aeb5-4a86a4dae003",
+      "name": "Soaring Lightbringer",
+      "object": "related_card",
+      "type_line": "Enchantment Creature — Bird Glimmer",
+      "uri": "https://api.scryfall.com/cards/1933e212-213f-461f-aeb5-4a86a4dae003"
+    },
+    {
+      "component": "combo_piece",
+      "id": "12ee2690-f464-4a38-81e1-6dd2053a3327",
+      "name": "Tunnel Surveyor",
+      "object": "related_card",
+      "type_line": "Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/12ee2690-f464-4a38-81e1-6dd2053a3327"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1071691c-5c65-42d4-ac96-d302185ca678",
+      "name": "Glimmerlight",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/1071691c-5c65-42d4-ac96-d302185ca678"
+    },
+    {
+      "component": "combo_piece",
+      "id": "fe1ab8db-3994-4b6d-9eaf-75243a78b715",
+      "name": "Glimmerburst",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/fe1ab8db-3994-4b6d-9eaf-75243a78b715"
+    },
+    {
+      "component": "token",
+      "id": "475c7449-2c95-4873-94de-68a5e06cdfb8",
+      "name": "Glimmer",
+      "object": "related_card",
+      "type_line": "Token Enchantment Creature — Glimmer",
+      "uri": "https://api.scryfall.com/cards/475c7449-2c95-4873-94de-68a5e06cdfb8"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7f06bbb1-0c7d-4803-9b35-8a2206803eed",
+      "name": "Glimmer Seeker",
+      "object": "related_card",
+      "type_line": "Creature — Human Survivor",
+      "uri": "https://api.scryfall.com/cards/7f06bbb1-0c7d-4803-9b35-8a2206803eed"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6ef39d0e-4caa-4808-949f-1d75e160dbc3",
+      "name": "Grand Entryway // Elegant Rotunda",
+      "object": "related_card",
+      "type_line": "Enchantment — Room // Enchantment — Room",
+      "uri": "https://api.scryfall.com/cards/6ef39d0e-4caa-4808-949f-1d75e160dbc3"
+    }
+  ],
+  "artist": "Michele Giorgi",
+  "artist_ids": [
+    "60ff7459-c81d-41e6-bec1-4264c2161014"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "4",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "475c7449-2c95-4873-94de-68a5e06cdfb8",
+  "illustration_id": "90a33871-0e43-4f89-9df3-417ad8df0e9e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:21:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/7/475c7449-2c95-4873-94de-68a5e06cdfb8.webp?1783909267",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/7/475c7449-2c95-4873-94de-68a5e06cdfb8.jpg?1783909267",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/7/475c7449-2c95-4873-94de-68a5e06cdfb8.jpg?1783909267",
+    "crop": "https://cards.scryfall.io/crop/front/4/7/475c7449-2c95-4873-94de-68a5e06cdfb8.webp?1783909267",
+    "display": "https://cards.scryfall.io/display/front/4/7/475c7449-2c95-4873-94de-68a5e06cdfb8.webp?1783909267",
+    "grid": "https://cards.scryfall.io/grid/front/4/7/475c7449-2c95-4873-94de-68a5e06cdfb8.webp?1783909267",
+    "large": "https://cards.scryfall.io/large/front/4/7/475c7449-2c95-4873-94de-68a5e06cdfb8.jpg?1783909267",
+    "normal": "https://cards.scryfall.io/normal/front/4/7/475c7449-2c95-4873-94de-68a5e06cdfb8.jpg?1783909267",
+    "png": "https://cards.scryfall.io/png/front/4/7/475c7449-2c95-4873-94de-68a5e06cdfb8.png?1783909267",
+    "small": "https://cards.scryfall.io/small/front/4/7/475c7449-2c95-4873-94de-68a5e06cdfb8.jpg?1783909267",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/7/475c7449-2c95-4873-94de-68a5e06cdfb8.webp?1783909267"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Glimmer",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c18a5b24-7458-43c9-9a1f-186eb282c82e",
+  "oracle_text": "",
+  "oversized": false,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2024-09-10",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac18a5b24-7458-43c9-9a1f-186eb282c82e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Glimmer&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Glimmer&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DGlimmer%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Glimmer",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGlimmer",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGlimmer"
+  },
+  "released_at": "2024-09-27",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/475c7449-2c95-4873-94de-68a5e06cdfb8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdsk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdsk/4/glimmer?utm_source=api",
+  "set": "tdsk",
+  "set_id": "756a7010-a91f-46fd-be50-f4ff9aa741d0",
+  "set_name": "Duskmourn: House of Horror Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdsk&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/756a7010-a91f-46fd-be50-f4ff9aa741d0",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Token Enchantment Creature — Glimmer",
+  "uri": "https://api.scryfall.com/cards/475c7449-2c95-4873-94de-68a5e06cdfb8",
+  "variation": false
+}

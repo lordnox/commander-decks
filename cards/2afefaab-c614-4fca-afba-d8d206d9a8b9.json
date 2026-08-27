@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "b5821c21-8133-40f7-a28d-addf64b1e35f",
+      "name": "Ulamog's Dreadsire",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi",
+      "uri": "https://api.scryfall.com/cards/b5821c21-8133-40f7-a28d-addf64b1e35f"
+    },
+    {
+      "component": "token",
+      "id": "209a3cfb-2c5a-4a9f-87f8-f9f6e290a88b",
+      "name": "Eldrazi",
+      "object": "related_card",
+      "type_line": "Token Creature — Eldrazi",
+      "uri": "https://api.scryfall.com/cards/209a3cfb-2c5a-4a9f-87f8-f9f6e290a88b"
+    }
+  ],
+  "artist": "Alexander Mokhov",
+  "artist_ids": [
+    "3a6a9d37-e62c-44bd-90f2-f5126324e3f0"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 772924,
+  "cmc": 10.0,
+  "collector_number": "38",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 3423,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"A general is only as good as their army. Maybe Ulamog is a better leader than I thought.\"\n—Gideon Jura",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b5821c21-8133-40f7-a28d-addf64b1e35f",
+  "illustration_id": "96420219-eecd-46f6-87fd-83f7d3df0dc7",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:57:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/5/b5821c21-8133-40f7-a28d-addf64b1e35f.webp?1783911427",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/5/b5821c21-8133-40f7-a28d-addf64b1e35f.jpg?1783911427",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/5/b5821c21-8133-40f7-a28d-addf64b1e35f.jpg?1783911427",
+    "crop": "https://cards.scryfall.io/crop/front/b/5/b5821c21-8133-40f7-a28d-addf64b1e35f.webp?1783911427",
+    "display": "https://cards.scryfall.io/display/front/b/5/b5821c21-8133-40f7-a28d-addf64b1e35f.webp?1783911427",
+    "grid": "https://cards.scryfall.io/grid/front/b/5/b5821c21-8133-40f7-a28d-addf64b1e35f.webp?1783911427",
+    "large": "https://cards.scryfall.io/large/front/b/5/b5821c21-8133-40f7-a28d-addf64b1e35f.jpg?1783911427",
+    "normal": "https://cards.scryfall.io/normal/front/b/5/b5821c21-8133-40f7-a28d-addf64b1e35f.jpg?1783911427",
+    "png": "https://cards.scryfall.io/png/front/b/5/b5821c21-8133-40f7-a28d-addf64b1e35f.png?1783911427",
+    "small": "https://cards.scryfall.io/small/front/b/5/b5821c21-8133-40f7-a28d-addf64b1e35f.jpg?1783911427",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/5/b5821c21-8133-40f7-a28d-addf64b1e35f.webp?1783911427"
+  },
+  "keywords": [
+    "Vigilance",
+    "Ward"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{10}",
+  "mtgo_id": 126639,
+  "multiverse_ids": [
+    665048
+  ],
+  "name": "Ulamog's Dreadsire",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2afefaab-c614-4fca-afba-d8d206d9a8b9",
+  "oracle_text": "Vigilance\nWard—Sacrifice a permanent with mana value 1 or greater.\n{T}: Create a 10/10 colorless Eldrazi creature token.",
+  "oversized": false,
+  "power": "10",
+  "prices": {
+    "eur": "1.43",
+    "eur_foil": "1.74",
+    "tix": "1.84",
+    "usd": "4.05",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2afefaab-c614-4fca-afba-d8d206d9a8b9&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "ripplefoil"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126639?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=772924&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F553176%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ulamog%27s+Dreadsire",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=665048&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DUlamog%2527s%2BDreadsire",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DUlamog%2527s%2BDreadsire"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b5821c21-8133-40f7-a28d-addf64b1e35f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/m3c?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/m3c/38/ulamogs-dreadsire?utm_source=api",
+  "security_stamp": "oval",
+  "set": "m3c",
+  "set_id": "f5e00721-cf99-43ba-bf16-b22d56d12c73",
+  "set_name": "Modern Horizons 3 Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Am3c&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/f5e00721-cf99-43ba-bf16-b22d56d12c73",
+  "story_spotlight": false,
+  "tcgplayer_id": 553176,
+  "textless": false,
+  "toughness": "10",
+  "type_line": "Creature — Eldrazi",
+  "uri": "https://api.scryfall.com/cards/b5821c21-8133-40f7-a28d-addf64b1e35f",
+  "variation": false
+}

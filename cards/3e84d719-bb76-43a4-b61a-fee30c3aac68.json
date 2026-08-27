@@ -1,0 +1,142 @@
+{
+  "artist": "Simon Dominic",
+  "artist_ids": [
+    "b0e80135-db5a-4b88-a0bc-815a0e94faa1"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 738579,
+  "cmc": 8.0,
+  "collector_number": "55",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 5963,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "82dca4c3-efd6-4b6b-ac49-5a916135a592",
+  "illustration_id": "4d1ca986-419c-4881-ac38-c79f1815c146",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:51:08Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/2/82dca4c3-efd6-4b6b-ac49-5a916135a592.webp?1783914668",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/2/82dca4c3-efd6-4b6b-ac49-5a916135a592.jpg?1783914668",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/2/82dca4c3-efd6-4b6b-ac49-5a916135a592.jpg?1783914668",
+    "crop": "https://cards.scryfall.io/crop/front/8/2/82dca4c3-efd6-4b6b-ac49-5a916135a592.webp?1783914668",
+    "display": "https://cards.scryfall.io/display/front/8/2/82dca4c3-efd6-4b6b-ac49-5a916135a592.webp?1783914668",
+    "grid": "https://cards.scryfall.io/grid/front/8/2/82dca4c3-efd6-4b6b-ac49-5a916135a592.webp?1783914668",
+    "large": "https://cards.scryfall.io/large/front/8/2/82dca4c3-efd6-4b6b-ac49-5a916135a592.jpg?1783914668",
+    "normal": "https://cards.scryfall.io/normal/front/8/2/82dca4c3-efd6-4b6b-ac49-5a916135a592.jpg?1783914668",
+    "png": "https://cards.scryfall.io/png/front/8/2/82dca4c3-efd6-4b6b-ac49-5a916135a592.png?1783914668",
+    "small": "https://cards.scryfall.io/small/front/8/2/82dca4c3-efd6-4b6b-ac49-5a916135a592.jpg?1783914668",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/2/82dca4c3-efd6-4b6b-ac49-5a916135a592.webp?1783914668"
+  },
+  "keywords": [
+    "Flying",
+    "Vigilance",
+    "Suspend"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{6}{U}{U}",
+  "multiverse_ids": [
+    634750
+  ],
+  "name": "Star Whale",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3e84d719-bb76-43a4-b61a-fee30c3aac68",
+  "oracle_text": "Flying, vigilance\nOther creatures you control have ward {2}.\nSuspend 6—{1}{U} (Rather than cast this card from your hand, you may pay {1}{U} and exile it with six time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost. It has haste.)",
+  "oversized": false,
+  "power": "8",
+  "preview": {
+    "previewed_at": "2023-10-03",
+    "source": "bilibili",
+    "source_uri": "https://t.bilibili.com/848316166241779783"
+  },
+  "prices": {
+    "eur": "0.70",
+    "eur_foil": "3.72",
+    "tix": null,
+    "usd": "1.66",
+    "usd_etched": null,
+    "usd_foil": "3.55"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3e84d719-bb76-43a4-b61a-fee30c3aac68&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Star+Whale&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=738579&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F519334%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Star+Whale",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=634750&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DStar%2BWhale",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DStar%2BWhale"
+  },
+  "released_at": "2023-10-13",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/82dca4c3-efd6-4b6b-ac49-5a916135a592/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/who?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/who/55/star-whale?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "who",
+  "set_id": "efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "set_name": "Doctor Who",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awho&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "story_spotlight": false,
+  "tcgplayer_id": 519334,
+  "textless": false,
+  "toughness": "8",
+  "type_line": "Creature — Alien Whale",
+  "uri": "https://api.scryfall.com/cards/82dca4c3-efd6-4b6b-ac49-5a916135a592",
+  "variation": false
+}

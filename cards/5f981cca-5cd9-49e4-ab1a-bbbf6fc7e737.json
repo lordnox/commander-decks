@@ -1,0 +1,148 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "333f6334-f027-4bec-95d7-7af80508c4ca",
+      "name": "Ancient Stone Idol",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Golem",
+      "uri": "https://api.scryfall.com/cards/333f6334-f027-4bec-95d7-7af80508c4ca"
+    },
+    {
+      "component": "token",
+      "id": "6627cf40-5f2d-4f5c-8511-5e6db8b56ebb",
+      "name": "Construct",
+      "object": "related_card",
+      "type_line": "Token Artifact Creature — Construct",
+      "uri": "https://api.scryfall.com/cards/6627cf40-5f2d-4f5c-8511-5e6db8b56ebb"
+    }
+  ],
+  "artist": "Josh Hass",
+  "artist_ids": [
+    "8fa1fdf0-96d6-46f4-a7ff-b1c0257c3735"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753501,
+  "cmc": 10.0,
+  "collector_number": "222",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 2512,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "333f6334-f027-4bec-95d7-7af80508c4ca",
+  "illustration_id": "a6c95c24-c0c6-4384-a5cf-82402bd517da",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:22:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/3/333f6334-f027-4bec-95d7-7af80508c4ca.webp?1783912975",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/3/333f6334-f027-4bec-95d7-7af80508c4ca.jpg?1783912975",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/3/333f6334-f027-4bec-95d7-7af80508c4ca.jpg?1783912975",
+    "crop": "https://cards.scryfall.io/crop/front/3/3/333f6334-f027-4bec-95d7-7af80508c4ca.webp?1783912975",
+    "display": "https://cards.scryfall.io/display/front/3/3/333f6334-f027-4bec-95d7-7af80508c4ca.webp?1783912975",
+    "grid": "https://cards.scryfall.io/grid/front/3/3/333f6334-f027-4bec-95d7-7af80508c4ca.webp?1783912975",
+    "large": "https://cards.scryfall.io/large/front/3/3/333f6334-f027-4bec-95d7-7af80508c4ca.jpg?1783912975",
+    "normal": "https://cards.scryfall.io/normal/front/3/3/333f6334-f027-4bec-95d7-7af80508c4ca.jpg?1783912975",
+    "png": "https://cards.scryfall.io/png/front/3/3/333f6334-f027-4bec-95d7-7af80508c4ca.png?1783912975",
+    "small": "https://cards.scryfall.io/small/front/3/3/333f6334-f027-4bec-95d7-7af80508c4ca.jpg?1783912975",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/3/333f6334-f027-4bec-95d7-7af80508c4ca.webp?1783912975"
+  },
+  "keywords": [
+    "Trample",
+    "Flash"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{10}",
+  "mtgo_id": 122592,
+  "multiverse_ids": [
+    650316
+  ],
+  "name": "Ancient Stone Idol",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5f981cca-5cd9-49e4-ab1a-bbbf6fc7e737",
+  "oracle_text": "Flash\nThis spell costs {1} less to cast for each attacking creature.\nTrample\nWhen this creature dies, create a 6/12 colorless Construct artifact creature token with trample.",
+  "oversized": false,
+  "power": "12",
+  "prices": {
+    "eur": "0.34",
+    "eur_foil": null,
+    "tix": "0.81",
+    "usd": "1.10",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5f981cca-5cd9-49e4-ab1a-bbbf6fc7e737&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122592?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753501&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535579%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ancient+Stone+Idol",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=650316&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAncient%2BStone%2BIdol",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAncient%2BStone%2BIdol"
+  },
+  "released_at": "2024-02-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/333f6334-f027-4bec-95d7-7af80508c4ca/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkc/222/ancient-stone-idol?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkc",
+  "set_id": "286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "set_name": "Murders at Karlov Manor Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "story_spotlight": false,
+  "tcgplayer_id": 535579,
+  "textless": false,
+  "toughness": "12",
+  "type_line": "Artifact Creature — Golem",
+  "uri": "https://api.scryfall.com/cards/333f6334-f027-4bec-95d7-7af80508c4ca",
+  "variation": false
+}

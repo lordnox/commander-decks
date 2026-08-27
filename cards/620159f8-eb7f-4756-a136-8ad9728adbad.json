@@ -1,0 +1,386 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "6a7d1982-d87d-418f-8cfa-740fae6bf3fd",
+      "name": "Easterling Vanguard",
+      "object": "related_card",
+      "type_line": "Creature — Human Warrior",
+      "uri": "https://api.scryfall.com/cards/6a7d1982-d87d-418f-8cfa-740fae6bf3fd"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1989b9b6-b482-4a86-b7d4-ef1926ecbe13",
+      "name": "Saruman's Trickery",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/1989b9b6-b482-4a86-b7d4-ef1926ecbe13"
+    },
+    {
+      "component": "combo_piece",
+      "id": "dbb4187d-5706-48cd-bbaa-f5cd80bfff2b",
+      "name": "Grishnákh, Brash Instigator",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Goblin Soldier",
+      "uri": "https://api.scryfall.com/cards/dbb4187d-5706-48cd-bbaa-f5cd80bfff2b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b1428f74-cde4-47d7-9dd6-788fe117645e",
+      "name": "Shagrat, Loot Bearer",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Orc Soldier",
+      "uri": "https://api.scryfall.com/cards/b1428f74-cde4-47d7-9dd6-788fe117645e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8341e90d-fe5f-4307-a31d-a8db99f5c667",
+      "name": "Saruman, the White Hand",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Avatar Wizard",
+      "uri": "https://api.scryfall.com/cards/8341e90d-fe5f-4307-a31d-a8db99f5c667"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9f9b4236-85a8-43e9-9be2-efb20a190235",
+      "name": "Orcish Medicine",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/9f9b4236-85a8-43e9-9be2-efb20a190235"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4dcfd032-ab7f-48e1-a02a-7611aa7354e1",
+      "name": "Fall of Cair Andros",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/4dcfd032-ab7f-48e1-a02a-7611aa7354e1"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ec73bc43-aae6-499f-bb48-b88c375f0ce3",
+      "name": "Warg Rider",
+      "object": "related_card",
+      "type_line": "Creature — Orc Warrior",
+      "uri": "https://api.scryfall.com/cards/ec73bc43-aae6-499f-bb48-b88c375f0ce3"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ff4812a7-363a-4b36-9704-7a0695e718c3",
+      "name": "Book of Mazarbul",
+      "object": "related_card",
+      "type_line": "Enchantment — Saga",
+      "uri": "https://api.scryfall.com/cards/ff4812a7-363a-4b36-9704-7a0695e718c3"
+    },
+    {
+      "component": "combo_piece",
+      "id": "2e47cc57-b7bb-4056-a0bc-451b36388e1c",
+      "name": "Mordor Muster",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/2e47cc57-b7bb-4056-a0bc-451b36388e1c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "162c20ae-0055-494f-8923-b3ec130d6ea1",
+      "name": "The Mouth of Sauron",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Advisor",
+      "uri": "https://api.scryfall.com/cards/162c20ae-0055-494f-8923-b3ec130d6ea1"
+    },
+    {
+      "component": "combo_piece",
+      "id": "43cddad8-b5ca-4b8f-a73c-38809ef279d6",
+      "name": "Foray of Orcs",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/43cddad8-b5ca-4b8f-a73c-38809ef279d6"
+    },
+    {
+      "component": "token",
+      "id": "6943f966-fd21-427c-a13f-44727edcaa4b",
+      "name": "Orc Army",
+      "object": "related_card",
+      "type_line": "Token Creature — Orc Army",
+      "uri": "https://api.scryfall.com/cards/6943f966-fd21-427c-a13f-44727edcaa4b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "aeacbeae-b9cd-4622-b686-cfa85e184e12",
+      "name": "Surrounded by Orcs",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/aeacbeae-b9cd-4622-b686-cfa85e184e12"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d25f45b1-64be-489d-aa25-6163ef74a938",
+      "name": "Sauron, Lord of the Rings",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Avatar Horror",
+      "uri": "https://api.scryfall.com/cards/d25f45b1-64be-489d-aa25-6163ef74a938"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ec3cd5f2-1b57-42cf-8c20-ba7e3de2d0a6",
+      "name": "Warbeast of Gorgoroth",
+      "object": "related_card",
+      "type_line": "Creature — Beast",
+      "uri": "https://api.scryfall.com/cards/ec3cd5f2-1b57-42cf-8c20-ba7e3de2d0a6"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8306fe9f-e6c2-4875-958c-e79c0513e254",
+      "name": "Barad-dûr",
+      "object": "related_card",
+      "type_line": "Legendary Land",
+      "uri": "https://api.scryfall.com/cards/8306fe9f-e6c2-4875-958c-e79c0513e254"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1534de90-562d-4d97-be26-a03067e185e0",
+      "name": "The Torment of Gollum",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/1534de90-562d-4d97-be26-a03067e185e0"
+    },
+    {
+      "component": "combo_piece",
+      "id": "64a5787a-fc14-4758-8dea-828cd22daa04",
+      "name": "Saruman the White",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Avatar Wizard",
+      "uri": "https://api.scryfall.com/cards/64a5787a-fc14-4758-8dea-828cd22daa04"
+    },
+    {
+      "component": "combo_piece",
+      "id": "03f5aa29-4943-4fda-b539-3e521f50ac55",
+      "name": "Gríma Wormtongue",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Advisor",
+      "uri": "https://api.scryfall.com/cards/03f5aa29-4943-4fda-b539-3e521f50ac55"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8f7cb67b-3c36-4436-946a-5f8515a6bd78",
+      "name": "March from the Black Gate",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/8f7cb67b-3c36-4436-946a-5f8515a6bd78"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e47b5e64-6f0c-4951-9ddb-f4773836d465",
+      "name": "Dunland Crebain",
+      "object": "related_card",
+      "type_line": "Creature — Bird Horror",
+      "uri": "https://api.scryfall.com/cards/e47b5e64-6f0c-4951-9ddb-f4773836d465"
+    },
+    {
+      "component": "combo_piece",
+      "id": "2a845583-5698-4650-9493-ad264d7674d2",
+      "name": "Sauron, the Dark Lord",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Avatar Horror",
+      "uri": "https://api.scryfall.com/cards/2a845583-5698-4650-9493-ad264d7674d2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a292be65-3324-4ec2-89cb-27852a777535",
+      "name": "Moria Scavenger",
+      "object": "related_card",
+      "type_line": "Creature — Orc Rogue",
+      "uri": "https://api.scryfall.com/cards/a292be65-3324-4ec2-89cb-27852a777535"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3382b1de-6d45-443c-a837-f3cd3e86233d",
+      "name": "Deceive the Messenger",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/3382b1de-6d45-443c-a837-f3cd3e86233d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "693ee4bd-b4cb-42d2-a968-d23f98fe4773",
+      "name": "Summons of Saruman",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/693ee4bd-b4cb-42d2-a968-d23f98fe4773"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8072a918-3f1a-42e1-8971-fd20ce6710de",
+      "name": "Treason of Isengard",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/8072a918-3f1a-42e1-8971-fd20ce6710de"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3566bdae-a99f-4423-a9d6-f189b928d1c3",
+      "name": "Swarming of Moria",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/3566bdae-a99f-4423-a9d6-f189b928d1c3"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3e2c07f3-5854-4243-b4ac-eed9a9711ce9",
+      "name": "Assault on Osgiliath",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/3e2c07f3-5854-4243-b4ac-eed9a9711ce9"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7cb981e3-2db7-48c8-83fb-f36ac43689e1",
+      "name": "Orcish Bowmasters",
+      "object": "related_card",
+      "type_line": "Creature — Orc Archer",
+      "uri": "https://api.scryfall.com/cards/7cb981e3-2db7-48c8-83fb-f36ac43689e1"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8ea33faa-217e-4ebf-a628-642bc86c6cfa",
+      "name": "Corsairs of Umbar",
+      "object": "related_card",
+      "type_line": "Creature — Human Pirate",
+      "uri": "https://api.scryfall.com/cards/8ea33faa-217e-4ebf-a628-642bc86c6cfa"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c512b83a-8b98-4630-a30f-94b60e433c32",
+      "name": "Gothmog, Morgul Lieutenant",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Soldier",
+      "uri": "https://api.scryfall.com/cards/c512b83a-8b98-4630-a30f-94b60e433c32"
+    }
+  ],
+  "artist": "Veli Nyström",
+  "artist_ids": [
+    "96cd183c-bfca-4e48-9a5b-a4acd82f8364"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 718493,
+  "cmc": 0.0,
+  "collector_number": "5",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "2f8b43e8-dd89-452e-b572-8559e19fdea2",
+  "illustration_id": "cdc2af01-370d-41d2-b165-efd5e223a4d5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:14:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/f/2f8b43e8-dd89-452e-b572-8559e19fdea2.webp?1783916049",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/f/2f8b43e8-dd89-452e-b572-8559e19fdea2.jpg?1783916049",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/f/2f8b43e8-dd89-452e-b572-8559e19fdea2.jpg?1783916049",
+    "crop": "https://cards.scryfall.io/crop/front/2/f/2f8b43e8-dd89-452e-b572-8559e19fdea2.webp?1783916049",
+    "display": "https://cards.scryfall.io/display/front/2/f/2f8b43e8-dd89-452e-b572-8559e19fdea2.webp?1783916049",
+    "grid": "https://cards.scryfall.io/grid/front/2/f/2f8b43e8-dd89-452e-b572-8559e19fdea2.webp?1783916049",
+    "large": "https://cards.scryfall.io/large/front/2/f/2f8b43e8-dd89-452e-b572-8559e19fdea2.jpg?1783916049",
+    "normal": "https://cards.scryfall.io/normal/front/2/f/2f8b43e8-dd89-452e-b572-8559e19fdea2.jpg?1783916049",
+    "png": "https://cards.scryfall.io/png/front/2/f/2f8b43e8-dd89-452e-b572-8559e19fdea2.png?1783916049",
+    "small": "https://cards.scryfall.io/small/front/2/f/2f8b43e8-dd89-452e-b572-8559e19fdea2.jpg?1783916049",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/f/2f8b43e8-dd89-452e-b572-8559e19fdea2.webp?1783916049"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Orc Army",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "620159f8-eb7f-4756-a136-8ad9728adbad",
+  "oracle_text": "",
+  "oversized": false,
+  "power": "0",
+  "prices": {
+    "eur": "0.12",
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A620159f8-eb7f-4756-a136-8ad9728adbad&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Orc+Army&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=718493&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DOrc%2BArmy%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Orc+Army",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOrc%2BArmy",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOrc%2BArmy"
+  },
+  "released_at": "2023-06-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2f8b43e8-dd89-452e-b572-8559e19fdea2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tltr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tltr/5/orc-army?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "tltr",
+  "set_id": "f6267b1d-21e9-4a7f-a5b3-7c2af4fc958b",
+  "set_name": "Tales of Middle-earth Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atltr&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/f6267b1d-21e9-4a7f-a5b3-7c2af4fc958b",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "0",
+  "type_line": "Token Creature — Orc Army",
+  "uri": "https://api.scryfall.com/cards/2f8b43e8-dd89-452e-b572-8559e19fdea2",
+  "variation": false
+}

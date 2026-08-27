@@ -1,0 +1,155 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "20b7443e-7eb2-4fcb-8114-23bad3b3bf51",
+      "name": "Eldrazi Scion",
+      "object": "related_card",
+      "type_line": "Token Creature — Eldrazi Scion",
+      "uri": "https://api.scryfall.com/cards/20b7443e-7eb2-4fcb-8114-23bad3b3bf51"
+    },
+    {
+      "component": "combo_piece",
+      "id": "249a7be3-311e-4ce6-97dc-97242463ae23",
+      "name": "Abstruse Interference",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/249a7be3-311e-4ce6-97dc-97242463ae23"
+    }
+  ],
+  "artist": "Igor Kieryluk",
+  "artist_ids": [
+    "9c3e9d17-509f-485c-9360-46d897ce716b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 287341,
+  "cmc": 3.0,
+  "collector_number": "40",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 15709,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "devoid"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "249a7be3-311e-4ce6-97dc-97242463ae23",
+  "illustration_id": "98f9a509-1af6-425c-ad50-62954c745c70",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:18:42Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/4/249a7be3-311e-4ce6-97dc-97242463ae23.webp?1783937922",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/4/249a7be3-311e-4ce6-97dc-97242463ae23.jpg?1783937922",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/4/249a7be3-311e-4ce6-97dc-97242463ae23.jpg?1783937922",
+    "crop": "https://cards.scryfall.io/crop/front/2/4/249a7be3-311e-4ce6-97dc-97242463ae23.webp?1783937922",
+    "display": "https://cards.scryfall.io/display/front/2/4/249a7be3-311e-4ce6-97dc-97242463ae23.webp?1783937922",
+    "grid": "https://cards.scryfall.io/grid/front/2/4/249a7be3-311e-4ce6-97dc-97242463ae23.webp?1783937922",
+    "large": "https://cards.scryfall.io/large/front/2/4/249a7be3-311e-4ce6-97dc-97242463ae23.jpg?1783937922",
+    "normal": "https://cards.scryfall.io/normal/front/2/4/249a7be3-311e-4ce6-97dc-97242463ae23.jpg?1783937922",
+    "png": "https://cards.scryfall.io/png/front/2/4/249a7be3-311e-4ce6-97dc-97242463ae23.png?1783937922",
+    "small": "https://cards.scryfall.io/small/front/2/4/249a7be3-311e-4ce6-97dc-97242463ae23.jpg?1783937922",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/4/249a7be3-311e-4ce6-97dc-97242463ae23.webp?1783937922"
+  },
+  "keywords": [
+    "Devoid"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_foil_id": 59392,
+  "mtgo_id": 59391,
+  "multiverse_ids": [
+    407550
+  ],
+  "name": "Abstruse Interference",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e8ebf5cb-3a26-4bbd-812b-414c129e4bb7",
+  "oracle_text": "Devoid (This card has no color.)\nCounter target spell unless its controller pays {1}. You create a 1/1 colorless Eldrazi Scion creature token. It has \"Sacrifice this token: Add {C}.\" ({C} represents colorless mana.)",
+  "oversized": false,
+  "penny_rank": 14420,
+  "prices": {
+    "eur": "0.12",
+    "eur_foil": "0.22",
+    "tix": "0.03",
+    "usd": "0.09",
+    "usd_etched": null,
+    "usd_foil": "0.47"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae8ebf5cb-3a26-4bbd-812b-414c129e4bb7&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/59391?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=287341&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F111010%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Abstruse+Interference",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=407550&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAbstruse%2BInterference",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAbstruse%2BInterference"
+  },
+  "released_at": "2016-01-22",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/249a7be3-311e-4ce6-97dc-97242463ae23/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ogw?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ogw/40/abstruse-interference?utm_source=api",
+  "set": "ogw",
+  "set_id": "cd51d245-8f95-45b0-ab5f-e2b3a3eb5dfe",
+  "set_name": "Oath of the Gatewatch",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aogw&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/cd51d245-8f95-45b0-ab5f-e2b3a3eb5dfe",
+  "story_spotlight": false,
+  "tcgplayer_id": 111010,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/249a7be3-311e-4ce6-97dc-97242463ae23",
+  "variation": false
+}

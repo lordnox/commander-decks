@@ -1,0 +1,148 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "4131fa63-5afc-4b63-a4b4-f47b4bced87f",
+      "name": "Pongify",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/4131fa63-5afc-4b63-a4b4-f47b4bced87f"
+    },
+    {
+      "component": "token",
+      "id": "4b2ee605-3c7a-4769-978d-3199bdc7c504",
+      "name": "Ape",
+      "object": "related_card",
+      "type_line": "Token Creature — Ape",
+      "uri": "https://api.scryfall.com/cards/4b2ee605-3c7a-4769-978d-3199bdc7c504"
+    }
+  ],
+  "artist": "Heather Hudson",
+  "artist_ids": [
+    "4441fe52-9e41-40c1-9b74-8510426279ab"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818772,
+  "cmc": 1.0,
+  "collector_number": "160",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 155,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Some spellcrafting mistakes go on to become spells of their own.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "4131fa63-5afc-4b63-a4b4-f47b4bced87f",
+  "illustration_id": "579f4ff3-3a01-4af2-9f21-55890cfdac47",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:45:00Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/1/4131fa63-5afc-4b63-a4b4-f47b4bced87f.webp?1783907100",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/1/4131fa63-5afc-4b63-a4b4-f47b4bced87f.jpg?1783907100",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/1/4131fa63-5afc-4b63-a4b4-f47b4bced87f.jpg?1783907100",
+    "crop": "https://cards.scryfall.io/crop/front/4/1/4131fa63-5afc-4b63-a4b4-f47b4bced87f.webp?1783907100",
+    "display": "https://cards.scryfall.io/display/front/4/1/4131fa63-5afc-4b63-a4b4-f47b4bced87f.webp?1783907100",
+    "grid": "https://cards.scryfall.io/grid/front/4/1/4131fa63-5afc-4b63-a4b4-f47b4bced87f.webp?1783907100",
+    "large": "https://cards.scryfall.io/large/front/4/1/4131fa63-5afc-4b63-a4b4-f47b4bced87f.jpg?1783907100",
+    "normal": "https://cards.scryfall.io/normal/front/4/1/4131fa63-5afc-4b63-a4b4-f47b4bced87f.jpg?1783907100",
+    "png": "https://cards.scryfall.io/png/front/4/1/4131fa63-5afc-4b63-a4b4-f47b4bced87f.png?1783907100",
+    "small": "https://cards.scryfall.io/small/front/4/1/4131fa63-5afc-4b63-a4b4-f47b4bced87f.jpg?1783907100",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/1/4131fa63-5afc-4b63-a4b4-f47b4bced87f.webp?1783907100"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_id": 138257,
+  "multiverse_ids": [
+    696316
+  ],
+  "name": "Pongify",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "05849bd6-8f38-4031-be2b-e2aa03beb8cc",
+  "oracle_text": "Destroy target creature. It can't be regenerated. Its controller creates a 3/3 green Ape creature token.",
+  "oversized": false,
+  "penny_rank": 3944,
+  "prices": {
+    "eur": "1.99",
+    "eur_foil": null,
+    "tix": "0.27",
+    "usd": "1.94",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A05849bd6-8f38-4031-be2b-e2aa03beb8cc&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138257?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818772&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624169%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Pongify",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696316&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPongify",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPongify"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4131fa63-5afc-4b63-a4b4-f47b4bced87f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/160/pongify?utm_source=api",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624169,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/4131fa63-5afc-4b63-a4b4-f47b4bced87f",
+  "variation": false
+}

@@ -1,0 +1,324 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "78ee2013-29dc-4879-9d59-1b492996d297",
+      "name": "Eldrazi Confluence",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/78ee2013-29dc-4879-9d59-1b492996d297"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e0855762-7068-4111-a6bf-fe6d5b092c74",
+      "name": "Incubator Drone",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi Drone",
+      "uri": "https://api.scryfall.com/cards/e0855762-7068-4111-a6bf-fe6d5b092c74"
+    },
+    {
+      "component": "token",
+      "id": "c6ee5e2c-d98b-434e-9175-d20f7f713b88",
+      "name": "Eldrazi Scion",
+      "object": "related_card",
+      "type_line": "Token Creature — Eldrazi Scion",
+      "uri": "https://api.scryfall.com/cards/c6ee5e2c-d98b-434e-9175-d20f7f713b88"
+    },
+    {
+      "component": "combo_piece",
+      "id": "bf2d8dab-71f3-4da7-a4b1-ed3309a4c756",
+      "name": "Spawnbed Protector",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi",
+      "uri": "https://api.scryfall.com/cards/bf2d8dab-71f3-4da7-a4b1-ed3309a4c756"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8db1cc35-8901-4528-9100-38f12d89540c",
+      "name": "Blisterpod",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi Drone",
+      "uri": "https://api.scryfall.com/cards/8db1cc35-8901-4528-9100-38f12d89540c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5091396e-a3cb-44a2-ade3-4f3a3bbd1942",
+      "name": "Drowner of Hope",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi",
+      "uri": "https://api.scryfall.com/cards/5091396e-a3cb-44a2-ade3-4f3a3bbd1942"
+    },
+    {
+      "component": "combo_piece",
+      "id": "2da4a670-4544-425b-ac37-c851f8840267",
+      "name": "Blight Herder",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi Processor",
+      "uri": "https://api.scryfall.com/cards/2da4a670-4544-425b-ac37-c851f8840267"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8337191c-180c-41d8-9a03-dcbb887f0841",
+      "name": "From Beyond",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/8337191c-180c-41d8-9a03-dcbb887f0841"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a1a644e0-96e5-4b73-873f-1132948cb21f",
+      "name": "Birthing Hulk",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi Drone",
+      "uri": "https://api.scryfall.com/cards/a1a644e0-96e5-4b73-873f-1132948cb21f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b3ccc905-bd43-4925-8eb9-fb9abcc81e29",
+      "name": "Void Attendant",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi Processor",
+      "uri": "https://api.scryfall.com/cards/b3ccc905-bd43-4925-8eb9-fb9abcc81e29"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c256d8c5-a8e7-4b9a-a330-899301db7f52",
+      "name": "Spawning Bed",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/c256d8c5-a8e7-4b9a-a330-899301db7f52"
+    },
+    {
+      "component": "combo_piece",
+      "id": "fcfb168b-86df-4e60-aee3-5e9976158edb",
+      "name": "Catacomb Sifter",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi Drone",
+      "uri": "https://api.scryfall.com/cards/fcfb168b-86df-4e60-aee3-5e9976158edb"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f824d5b6-259b-467b-93b5-e93db8b15359",
+      "name": "Sifter of Skulls",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi",
+      "uri": "https://api.scryfall.com/cards/f824d5b6-259b-467b-93b5-e93db8b15359"
+    },
+    {
+      "component": "combo_piece",
+      "id": "91526a76-8700-4dd5-ba39-6c28e38bb513",
+      "name": "Call the Scions",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/91526a76-8700-4dd5-ba39-6c28e38bb513"
+    },
+    {
+      "component": "combo_piece",
+      "id": "03d86e0b-294f-41b8-a5cd-d3144a019334",
+      "name": "Adverse Conditions",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/03d86e0b-294f-41b8-a5cd-d3144a019334"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0c6de7f2-fcc2-4a08-b49c-b50bb195a252",
+      "name": "Brood Monitor",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi Drone",
+      "uri": "https://api.scryfall.com/cards/0c6de7f2-fcc2-4a08-b49c-b50bb195a252"
+    },
+    {
+      "component": "combo_piece",
+      "id": "79d8dc86-c027-4852-9266-72316b6c2623",
+      "name": "Brood Butcher",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi Drone",
+      "uri": "https://api.scryfall.com/cards/79d8dc86-c027-4852-9266-72316b6c2623"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7a08e28c-dee2-4ab8-bc72-1498a7dd3a40",
+      "name": "Vile Redeemer",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi",
+      "uri": "https://api.scryfall.com/cards/7a08e28c-dee2-4ab8-bc72-1498a7dd3a40"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0e996a30-3a4d-4a26-8386-f9eb9c999dc0",
+      "name": "Grave Birthing",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/0e996a30-3a4d-4a26-8386-f9eb9c999dc0"
+    },
+    {
+      "component": "combo_piece",
+      "id": "323f2462-187d-479b-9987-b7a81837fa88",
+      "name": "Carrier Thrall",
+      "object": "related_card",
+      "type_line": "Creature — Vampire",
+      "uri": "https://api.scryfall.com/cards/323f2462-187d-479b-9987-b7a81837fa88"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1e1a05a1-8c66-4df9-8b57-f15b5d268973",
+      "name": "Eldrazi Skyspawner",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi Drone",
+      "uri": "https://api.scryfall.com/cards/1e1a05a1-8c66-4df9-8b57-f15b5d268973"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4d949d0e-baf7-4573-bb15-7e30e3e9b202",
+      "name": "Eyeless Watcher",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi Drone",
+      "uri": "https://api.scryfall.com/cards/4d949d0e-baf7-4573-bb15-7e30e3e9b202"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5e3f50c4-2443-4e7a-9d3a-b360037fc94d",
+      "name": "Warping Wail",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/5e3f50c4-2443-4e7a-9d3a-b360037fc94d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "249a7be3-311e-4ce6-97dc-97242463ae23",
+      "name": "Abstruse Interference",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/249a7be3-311e-4ce6-97dc-97242463ae23"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e709bf1f-9bbb-4da7-a1ea-7deb94858b8c",
+      "name": "Scion Summoner",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi Drone",
+      "uri": "https://api.scryfall.com/cards/e709bf1f-9bbb-4da7-a1ea-7deb94858b8c"
+    }
+  ],
+  "artist": "Izzy",
+  "artist_ids": [
+    "2c3d2473-ff5d-4309-8194-e0b2def2ab65"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "3",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "c6ee5e2c-d98b-434e-9175-d20f7f713b88",
+  "illustration_id": "ddcd64a9-54f1-4338-89d8-1722f57d6237",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:52:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/6/c6ee5e2c-d98b-434e-9175-d20f7f713b88.webp?1783911127",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/6/c6ee5e2c-d98b-434e-9175-d20f7f713b88.jpg?1783911127",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/6/c6ee5e2c-d98b-434e-9175-d20f7f713b88.jpg?1783911127",
+    "crop": "https://cards.scryfall.io/crop/front/c/6/c6ee5e2c-d98b-434e-9175-d20f7f713b88.webp?1783911127",
+    "display": "https://cards.scryfall.io/display/front/c/6/c6ee5e2c-d98b-434e-9175-d20f7f713b88.webp?1783911127",
+    "grid": "https://cards.scryfall.io/grid/front/c/6/c6ee5e2c-d98b-434e-9175-d20f7f713b88.webp?1783911127",
+    "large": "https://cards.scryfall.io/large/front/c/6/c6ee5e2c-d98b-434e-9175-d20f7f713b88.jpg?1783911127",
+    "normal": "https://cards.scryfall.io/normal/front/c/6/c6ee5e2c-d98b-434e-9175-d20f7f713b88.jpg?1783911127",
+    "png": "https://cards.scryfall.io/png/front/c/6/c6ee5e2c-d98b-434e-9175-d20f7f713b88.png?1783911127",
+    "small": "https://cards.scryfall.io/small/front/c/6/c6ee5e2c-d98b-434e-9175-d20f7f713b88.jpg?1783911127",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/6/c6ee5e2c-d98b-434e-9175-d20f7f713b88.webp?1783911127"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Eldrazi Scion",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0eb3cd4b-c34e-448c-a9ab-e7b0b4524833",
+  "oracle_text": "Sacrifice this creature: Add {C}.",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0eb3cd4b-c34e-448c-a9ab-e7b0b4524833&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Eldrazi+Scion&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Eldrazi+Scion&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DEldrazi%2BScion%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Eldrazi+Scion",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEldrazi%2BScion",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEldrazi%2BScion"
+  },
+  "released_at": "2024-06-14",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c6ee5e2c-d98b-434e-9175-d20f7f713b88/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tm3c?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tm3c/3/eldrazi-scion?utm_source=api",
+  "set": "tm3c",
+  "set_id": "e912a6f3-790f-4950-bacf-4693f517b469",
+  "set_name": "Modern Horizons 3 Commander Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atm3c&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/e912a6f3-790f-4950-bacf-4693f517b469",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Token Creature — Eldrazi Scion",
+  "uri": "https://api.scryfall.com/cards/c6ee5e2c-d98b-434e-9175-d20f7f713b88",
+  "variation": false
+}
