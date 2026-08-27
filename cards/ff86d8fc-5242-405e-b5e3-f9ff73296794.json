@@ -1,0 +1,223 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "dc687588-9c57-411d-b666-b9699949d48f",
+      "name": "Leering Onlooker",
+      "object": "related_card",
+      "type_line": "Creature — Vampire",
+      "uri": "https://api.scryfall.com/cards/dc687588-9c57-411d-b666-b9699949d48f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f2e78997-6a04-49fe-a306-c76ed3525117",
+      "name": "Desecrated Tomb",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/f2e78997-6a04-49fe-a306-c76ed3525117"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ae4c16a5-993d-4f4f-a702-7c71923abae2",
+      "name": "Skeletal Vampire",
+      "object": "related_card",
+      "type_line": "Creature — Vampire Skeleton",
+      "uri": "https://api.scryfall.com/cards/ae4c16a5-993d-4f4f-a702-7c71923abae2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7b01ecb8-02e2-4da2-8bf3-9c3753b23ba4",
+      "name": "Timothar, Baron of Bats",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Vampire Noble",
+      "uri": "https://api.scryfall.com/cards/7b01ecb8-02e2-4da2-8bf3-9c3753b23ba4"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8d499415-da14-4e44-baff-1a4a28074d22",
+      "name": "Sanguine Evangelist",
+      "object": "related_card",
+      "type_line": "Creature — Vampire Cleric",
+      "uri": "https://api.scryfall.com/cards/8d499415-da14-4e44-baff-1a4a28074d22"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c1f5854d-63cf-419f-990c-6f473e181a68",
+      "name": "Belfry Spirit",
+      "object": "related_card",
+      "type_line": "Creature — Spirit",
+      "uri": "https://api.scryfall.com/cards/c1f5854d-63cf-419f-990c-6f473e181a68"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1c02134c-ec9f-4090-820e-8ba7ae4a8c2b",
+      "name": "Bat Colony",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/1c02134c-ec9f-4090-820e-8ba7ae4a8c2b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9378351d-90fd-4182-96f3-2457c4d02bd3",
+      "name": "Lunar Convocation",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/9378351d-90fd-4182-96f3-2457c4d02bd3"
+    },
+    {
+      "component": "combo_piece",
+      "id": "65a75d3a-58cb-4ee0-88d3-52099cb57ac3",
+      "name": "Regal Bloodlord",
+      "object": "related_card",
+      "type_line": "Creature — Vampire Soldier",
+      "uri": "https://api.scryfall.com/cards/65a75d3a-58cb-4ee0-88d3-52099cb57ac3"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a57d2348-a05c-4d40-bb3e-68ebf396cd62",
+      "name": "Bat Whisperer",
+      "object": "related_card",
+      "type_line": "Creature — Vampire",
+      "uri": "https://api.scryfall.com/cards/a57d2348-a05c-4d40-bb3e-68ebf396cd62"
+    },
+    {
+      "component": "combo_piece",
+      "id": "95775b13-2761-424e-9828-2275ec987368",
+      "name": "Aclazotz, Deepest Betrayal // Temple of the Dead",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Bat God // Land",
+      "uri": "https://api.scryfall.com/cards/95775b13-2761-424e-9828-2275ec987368"
+    },
+    {
+      "component": "token",
+      "id": "100c0127-49dd-4a78-9c88-1881e7923674",
+      "name": "Bat",
+      "object": "related_card",
+      "type_line": "Token Creature — Bat",
+      "uri": "https://api.scryfall.com/cards/100c0127-49dd-4a78-9c88-1881e7923674"
+    }
+  ],
+  "artist": "Josh Hass",
+  "artist_ids": [
+    "8fa1fdf0-96d6-46f4-a7ff-b1c0257c3735"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "10",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "100c0127-49dd-4a78-9c88-1881e7923674",
+  "illustration_id": "33e0868e-a667-418d-9127-a4c36ceb2809",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:29:28Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/0/100c0127-49dd-4a78-9c88-1881e7923674.webp?1783909768",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/0/100c0127-49dd-4a78-9c88-1881e7923674.jpg?1783909768",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/0/100c0127-49dd-4a78-9c88-1881e7923674.jpg?1783909768",
+    "crop": "https://cards.scryfall.io/crop/front/1/0/100c0127-49dd-4a78-9c88-1881e7923674.webp?1783909768",
+    "display": "https://cards.scryfall.io/display/front/1/0/100c0127-49dd-4a78-9c88-1881e7923674.webp?1783909768",
+    "grid": "https://cards.scryfall.io/grid/front/1/0/100c0127-49dd-4a78-9c88-1881e7923674.webp?1783909768",
+    "large": "https://cards.scryfall.io/large/front/1/0/100c0127-49dd-4a78-9c88-1881e7923674.jpg?1783909768",
+    "normal": "https://cards.scryfall.io/normal/front/1/0/100c0127-49dd-4a78-9c88-1881e7923674.jpg?1783909768",
+    "png": "https://cards.scryfall.io/png/front/1/0/100c0127-49dd-4a78-9c88-1881e7923674.png?1783909768",
+    "small": "https://cards.scryfall.io/small/front/1/0/100c0127-49dd-4a78-9c88-1881e7923674.jpg?1783909768",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/0/100c0127-49dd-4a78-9c88-1881e7923674.webp?1783909768"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Bat",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ff86d8fc-5242-405e-b5e3-f9ff73296794",
+  "oracle_text": "Flying",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aff86d8fc-5242-405e-b5e3-f9ff73296794&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Bat&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Bat&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DBat%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bat",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBat",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBat"
+  },
+  "released_at": "2024-08-02",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/100c0127-49dd-4a78-9c88-1881e7923674/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tblb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tblb/10/bat?utm_source=api",
+  "set": "tblb",
+  "set_id": "98ffb0ad-639e-4861-b81d-dd5ae734badf",
+  "set_name": "Bloomburrow Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atblb&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/98ffb0ad-639e-4861-b81d-dd5ae734badf",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Token Creature — Bat",
+  "uri": "https://api.scryfall.com/cards/100c0127-49dd-4a78-9c88-1881e7923674",
+  "variation": false
+}

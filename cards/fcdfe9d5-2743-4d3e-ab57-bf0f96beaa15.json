@@ -1,0 +1,201 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "95775b13-2761-424e-9828-2275ec987368",
+      "name": "Aclazotz, Deepest Betrayal // Temple of the Dead",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Bat God // Land",
+      "uri": "https://api.scryfall.com/cards/95775b13-2761-424e-9828-2275ec987368"
+    },
+    {
+      "component": "token",
+      "id": "00841e4b-0995-4fb5-93d6-e177beba4934",
+      "name": "Bat",
+      "object": "related_card",
+      "type_line": "Token Creature — Bat",
+      "uri": "https://api.scryfall.com/cards/00841e4b-0995-4fb5-93d6-e177beba4934"
+    }
+  ],
+  "arena_id": 87231,
+  "artist": "Steve Prescott",
+  "artist_ids": [
+    "a1139fb8-41f5-4a9e-9a74-f662e1a23b35"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Steve Prescott",
+      "artist_id": "a1139fb8-41f5-4a9e-9a74-f662e1a23b35",
+      "colors": [
+        "B"
+      ],
+      "illustration_id": "d17519eb-412f-4b92-81ea-f93893e35c18",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.webp?1783913789",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.jpg?1783913789",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.jpg?1783913789",
+        "crop": "https://cards.scryfall.io/crop/front/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.webp?1783913789",
+        "display": "https://cards.scryfall.io/display/front/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.webp?1783913789",
+        "grid": "https://cards.scryfall.io/grid/front/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.webp?1783913789",
+        "large": "https://cards.scryfall.io/large/front/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.jpg?1783913789",
+        "normal": "https://cards.scryfall.io/normal/front/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.jpg?1783913789",
+        "png": "https://cards.scryfall.io/png/front/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.png?1783913789",
+        "small": "https://cards.scryfall.io/small/front/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.jpg?1783913789",
+        "thumb": "https://cards.scryfall.io/thumb/front/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.webp?1783913789"
+      },
+      "mana_cost": "{3}{B}{B}",
+      "name": "Aclazotz, Deepest Betrayal",
+      "object": "card_face",
+      "oracle_text": "Flying, lifelink\nWhenever Aclazotz attacks, each opponent discards a card. For each opponent who can't, you draw a card.\nWhenever an opponent discards a land card, create a 1/1 black Bat creature token with flying.\nWhen Aclazotz dies, return it to the battlefield tapped and transformed under its owner's control.",
+      "power": "4",
+      "toughness": "4",
+      "type_line": "Legendary Creature — Bat God"
+    },
+    {
+      "artist": "Steve Prescott",
+      "artist_id": "a1139fb8-41f5-4a9e-9a74-f662e1a23b35",
+      "colors": [],
+      "flavor_text": "Chimil gave the Oltec peace in death. Aclazotz ripped it away.",
+      "illustration_id": "8febd932-8ada-4e95-9868-dbc98d17ff54",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.webp?1783913789",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.jpg?1783913789",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.jpg?1783913789",
+        "crop": "https://cards.scryfall.io/crop/back/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.webp?1783913789",
+        "display": "https://cards.scryfall.io/display/back/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.webp?1783913789",
+        "grid": "https://cards.scryfall.io/grid/back/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.webp?1783913789",
+        "large": "https://cards.scryfall.io/large/back/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.jpg?1783913789",
+        "normal": "https://cards.scryfall.io/normal/back/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.jpg?1783913789",
+        "png": "https://cards.scryfall.io/png/back/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.png?1783913789",
+        "small": "https://cards.scryfall.io/small/back/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.jpg?1783913789",
+        "thumb": "https://cards.scryfall.io/thumb/back/6/2/627c392c-4d18-4eb2-a4e8-c668f61f5487.webp?1783913789"
+      },
+      "mana_cost": "",
+      "name": "Temple of the Dead",
+      "object": "card_face",
+      "oracle_text": "(Transforms from Aclazotz, Deepest Betrayal.)\n{T}: Add {B}.\n{2}{B}, {T}: Transform this land. Activate only if a player has one or fewer cards in hand and only as a sorcery.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 741095,
+  "cmc": 5.0,
+  "collector_number": "88",
+  "color_identity": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2541,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "627c392c-4d18-4eb2-a4e8-c668f61f5487",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:36:29Z",
+  "keywords": [
+    "Flying",
+    "Lifelink",
+    "Transform"
+  ],
+  "lang": "en",
+  "layout": "transform",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 117978,
+  "multiverse_ids": [
+    636791,
+    636792
+  ],
+  "name": "Aclazotz, Deepest Betrayal // Temple of the Dead",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "fcdfe9d5-2743-4d3e-ab57-bf0f96beaa15",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-10-25",
+    "source": "RTGame",
+    "source_uri": "https://vxtwitter.com/RTGameCrowd/status/1717146692363940120"
+  },
+  "prices": {
+    "eur": "6.19",
+    "eur_foil": "8.78",
+    "tix": "0.02",
+    "usd": "9.91",
+    "usd_etched": null,
+    "usd_foil": "11.58"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Afcdfe9d5-2743-4d3e-ab57-bf0f96beaa15&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/117978?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=741095&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F524352%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Aclazotz%2C+Deepest+Betrayal",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=636791&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAclazotz%252C%2BDeepest%2BBetrayal%2B%252F%252F%2BTemple%2Bof%2Bthe%2BDead",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAclazotz%252C%2BDeepest%2BBetrayal%2B%252F%252F%2BTemple%2Bof%2Bthe%2BDead"
+  },
+  "released_at": "2023-11-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/627c392c-4d18-4eb2-a4e8-c668f61f5487/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lci?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lci/88/aclazotz-deepest-betrayal-temple-of-the-dead?utm_source=api",
+  "security_stamp": "oval",
+  "set": "lci",
+  "set_id": "70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "set_name": "The Lost Caverns of Ixalan",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alci&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "story_spotlight": false,
+  "tcgplayer_id": 524352,
+  "textless": false,
+  "type_line": "Legendary Creature — Bat God // Land",
+  "uri": "https://api.scryfall.com/cards/627c392c-4d18-4eb2-a4e8-c668f61f5487",
+  "variation": false
+}

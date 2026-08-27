@@ -1,0 +1,140 @@
+{
+  "artist": "Clint Cearley",
+  "artist_ids": [
+    "03b75350-d5a0-4e3a-b3b4-8d4a5554385b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 284443,
+  "cmc": 2.0,
+  "collector_number": "203",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 17058,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "devoid"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b080ed31-db68-4e3c-8bf6-48b53d3ba622",
+  "illustration_id": "e6cdb8b5-9233-44ed-b5b5-706745e9d961",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:23:02Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/0/b080ed31-db68-4e3c-8bf6-48b53d3ba622.webp?1783938182",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/0/b080ed31-db68-4e3c-8bf6-48b53d3ba622.jpg?1783938182",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/0/b080ed31-db68-4e3c-8bf6-48b53d3ba622.jpg?1783938182",
+    "crop": "https://cards.scryfall.io/crop/front/b/0/b080ed31-db68-4e3c-8bf6-48b53d3ba622.webp?1783938182",
+    "display": "https://cards.scryfall.io/display/front/b/0/b080ed31-db68-4e3c-8bf6-48b53d3ba622.webp?1783938182",
+    "grid": "https://cards.scryfall.io/grid/front/b/0/b080ed31-db68-4e3c-8bf6-48b53d3ba622.webp?1783938182",
+    "large": "https://cards.scryfall.io/large/front/b/0/b080ed31-db68-4e3c-8bf6-48b53d3ba622.jpg?1783938182",
+    "normal": "https://cards.scryfall.io/normal/front/b/0/b080ed31-db68-4e3c-8bf6-48b53d3ba622.jpg?1783938182",
+    "png": "https://cards.scryfall.io/png/front/b/0/b080ed31-db68-4e3c-8bf6-48b53d3ba622.png?1783938182",
+    "small": "https://cards.scryfall.io/small/front/b/0/b080ed31-db68-4e3c-8bf6-48b53d3ba622.jpg?1783938182",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/0/b080ed31-db68-4e3c-8bf6-48b53d3ba622.webp?1783938182"
+  },
+  "keywords": [
+    "Devoid",
+    "Ingest",
+    "Deathtouch"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}{B}",
+  "mtgo_foil_id": 58670,
+  "mtgo_id": 58669,
+  "multiverse_ids": [
+    401876
+  ],
+  "name": "Fathom Feeder",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0767fb65-a621-494b-97a4-f23a4c8b4bec",
+  "oracle_text": "Devoid (This card has no color.)\nDeathtouch\nIngest (Whenever this creature deals combat damage to a player, that player exiles the top card of their library.)\n{3}{U}{B}: Draw a card. Each opponent exiles the top card of their library.",
+  "oversized": false,
+  "penny_rank": 7571,
+  "power": "1",
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": "0.56",
+    "tix": "0.02",
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": "0.60"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0767fb65-a621-494b-97a4-f23a4c8b4bec&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/58669?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=284443&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F104811%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Fathom+Feeder",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=401876&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFathom%2BFeeder",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFathom%2BFeeder"
+  },
+  "released_at": "2015-10-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b080ed31-db68-4e3c-8bf6-48b53d3ba622/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/bfz?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/bfz/203/fathom-feeder?utm_source=api",
+  "security_stamp": "oval",
+  "set": "bfz",
+  "set_id": "91719374-7ac5-4afa-ada8-5da964dcf1d4",
+  "set_name": "Battle for Zendikar",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abfz&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/91719374-7ac5-4afa-ada8-5da964dcf1d4",
+  "story_spotlight": false,
+  "tcgplayer_id": 104811,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Eldrazi Drone",
+  "uri": "https://api.scryfall.com/cards/b080ed31-db68-4e3c-8bf6-48b53d3ba622",
+  "variation": false
+}

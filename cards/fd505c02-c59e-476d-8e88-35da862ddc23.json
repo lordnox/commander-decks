@@ -1,0 +1,139 @@
+{
+  "arena_id": 93771,
+  "artist": "Dmitry Burmak",
+  "artist_ids": [
+    "9872f5c0-274a-48ce-a9ad-6f0d5654e29c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 795105,
+  "cmc": 5.0,
+  "collector_number": "58",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 869,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"This town swims with such exquisite blood. I will take every drop for my own.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ce860ed4-a5bd-4347-9eab-dd716ea84db1",
+  "illustration_id": "8de741a4-aa6e-4ce3-abf9-4e8b5a7b783f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:18:32Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/e/ce860ed4-a5bd-4347-9eab-dd716ea84db1.webp?1783909112",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/e/ce860ed4-a5bd-4347-9eab-dd716ea84db1.jpg?1783909112",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/e/ce860ed4-a5bd-4347-9eab-dd716ea84db1.jpg?1783909112",
+    "crop": "https://cards.scryfall.io/crop/front/c/e/ce860ed4-a5bd-4347-9eab-dd716ea84db1.webp?1783909112",
+    "display": "https://cards.scryfall.io/display/front/c/e/ce860ed4-a5bd-4347-9eab-dd716ea84db1.webp?1783909112",
+    "grid": "https://cards.scryfall.io/grid/front/c/e/ce860ed4-a5bd-4347-9eab-dd716ea84db1.webp?1783909112",
+    "large": "https://cards.scryfall.io/large/front/c/e/ce860ed4-a5bd-4347-9eab-dd716ea84db1.jpg?1783909112",
+    "normal": "https://cards.scryfall.io/normal/front/c/e/ce860ed4-a5bd-4347-9eab-dd716ea84db1.jpg?1783909112",
+    "png": "https://cards.scryfall.io/png/front/c/e/ce860ed4-a5bd-4347-9eab-dd716ea84db1.png?1783909112",
+    "small": "https://cards.scryfall.io/small/front/c/e/ce860ed4-a5bd-4347-9eab-dd716ea84db1.jpg?1783909112",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/e/ce860ed4-a5bd-4347-9eab-dd716ea84db1.webp?1783909112"
+  },
+  "keywords": [
+    "Deathtouch",
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_id": 133684,
+  "multiverse_ids": [
+    679135
+  ],
+  "name": "Bloodthirsty Conqueror",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "fd505c02-c59e-476d-8e88-35da862ddc23",
+  "oracle_text": "Flying, deathtouch\nWhenever an opponent loses life, you gain that much life. (Damage causes loss of life.)",
+  "oversized": false,
+  "penny_rank": 1005,
+  "power": "5",
+  "prices": {
+    "eur": "28.40",
+    "eur_foil": "30.98",
+    "tix": "0.02",
+    "usd": "36.28",
+    "usd_etched": null,
+    "usd_foil": "38.78"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Afd505c02-c59e-476d-8e88-35da862ddc23&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/133684?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=795105&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F589328%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bloodthirsty+Conqueror",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=679135&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBloodthirsty%2BConqueror",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBloodthirsty%2BConqueror"
+  },
+  "released_at": "2024-11-15",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ce860ed4-a5bd-4347-9eab-dd716ea84db1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fdn/58/bloodthirsty-conqueror?utm_source=api",
+  "security_stamp": "oval",
+  "set": "fdn",
+  "set_id": "a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "set_name": "Foundations",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afdn&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "story_spotlight": false,
+  "tcgplayer_id": 589328,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Creature — Vampire Knight",
+  "uri": "https://api.scryfall.com/cards/ce860ed4-a5bd-4347-9eab-dd716ea84db1",
+  "variation": false
+}

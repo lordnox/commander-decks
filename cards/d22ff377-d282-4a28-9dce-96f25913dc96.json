@@ -1,0 +1,134 @@
+{
+  "artist": "Alexander Mokhov",
+  "artist_ids": [
+    "3a6a9d37-e62c-44bd-90f2-f5126324e3f0"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 661800,
+  "cmc": 3.0,
+  "collector_number": "723",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1938,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"You studied hard. How delicious!\"",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "3de11222-c2fa-4544-a501-a02b31797259",
+  "illustration_id": "dda62989-5e08-4bf3-a3c2-89b7ab152227",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:01:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/d/3de11222-c2fa-4544-a501-a02b31797259.webp?1783922472",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/d/3de11222-c2fa-4544-a501-a02b31797259.jpg?1783922472",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/d/3de11222-c2fa-4544-a501-a02b31797259.jpg?1783922472",
+    "crop": "https://cards.scryfall.io/crop/front/3/d/3de11222-c2fa-4544-a501-a02b31797259.webp?1783922472",
+    "display": "https://cards.scryfall.io/display/front/3/d/3de11222-c2fa-4544-a501-a02b31797259.webp?1783922472",
+    "grid": "https://cards.scryfall.io/grid/front/3/d/3de11222-c2fa-4544-a501-a02b31797259.webp?1783922472",
+    "large": "https://cards.scryfall.io/large/front/3/d/3de11222-c2fa-4544-a501-a02b31797259.jpg?1783922472",
+    "normal": "https://cards.scryfall.io/normal/front/3/d/3de11222-c2fa-4544-a501-a02b31797259.jpg?1783922472",
+    "png": "https://cards.scryfall.io/png/front/3/d/3de11222-c2fa-4544-a501-a02b31797259.png?1783922472",
+    "small": "https://cards.scryfall.io/small/front/3/d/3de11222-c2fa-4544-a501-a02b31797259.jpg?1783922472",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/d/3de11222-c2fa-4544-a501-a02b31797259.webp?1783922472"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{U}",
+  "multiverse_ids": [
+    567540
+  ],
+  "name": "Grazilaxx, Illithid Scholar",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d22ff377-d282-4a28-9dce-96f25913dc96",
+  "oracle_text": "Whenever a creature you control becomes blocked, you may return it to its owner's hand.\nWhenever one or more creatures you control deal combat damage to a player, draw a card.",
+  "oversized": false,
+  "penny_rank": 14745,
+  "power": "3",
+  "prices": {
+    "eur": "1.59",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "1.98",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad22ff377-d282-4a28-9dce-96f25913dc96&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Grazilaxx%2C+Illithid+Scholar&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=661800&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F273459%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Grazilaxx%2C+Illithid+Scholar",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=567540&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGrazilaxx%252C%2BIllithid%2BScholar",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGrazilaxx%252C%2BIllithid%2BScholar"
+  },
+  "released_at": "2022-06-10",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3de11222-c2fa-4544-a501-a02b31797259/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/723/grazilaxx-illithid-scholar?utm_source=api",
+  "security_stamp": "oval",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 273459,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Horror",
+  "uri": "https://api.scryfall.com/cards/3de11222-c2fa-4544-a501-a02b31797259",
+  "variation": false
+}

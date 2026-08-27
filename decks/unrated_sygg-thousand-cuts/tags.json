@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Group-slug punishers bleed every opponent each turn so Sygg draws every end step and drain wins the attrition war.",
+  "tags": [
+    {
+      "name": "group slug",
+      "score": 5,
+      "reason": "Iron Maiden, Viseling, Painful Quandary, Soot Imp, Rug of Smothering, Isolation Cell, Vile Consumption, and Titan Hunter bleed the whole table every turn; that bleeding is the deck's engine and clock."
+    },
+    {
+      "name": "lifedrain",
+      "score": 4,
+      "reason": "Exquisite Blood, Bloodthirsty Conqueror, Bloodchief Ascension, Gixian Puppeteer, and Parasitic Impetus convert opponent life loss into gain; attrition drain is the primary win."
+    },
+    {
+      "name": "discard",
+      "score": 4,
+      "reason": "Painful Quandary, Aclazotz, Rankle, Syphon Mind, Windfall, Whispering Madness, and Urza's Guilt force discard with Liliana's Caress and Geth's Grimoire as dedicated payoffs."
+    },
+    {
+      "name": "draw",
+      "score": 3,
+      "reason": "Sygg draws every end step someone bled; Howling Mine, Anvil of Bogardan, Scrawling Crawler, Faerie Mastermind, and Grazilaxx keep cards flowing."
+    },
+    {
+      "name": "forced combat",
+      "score": 3,
+      "reason": "Seven goad effects (Bloodthirsty Blade, Coveted Peacock, three Impetus auras, Eye of Nidhogg, Renegade Silent) point the table at each other every combat."
+    },
+    {
+      "name": "group hug",
+      "score": 2,
+      "reason": "Howling Mine, Anvil of Bogardan, and Scrawling Crawler hand everyone extra cards, but only as fuel for the hand-size punishers."
+    },
+    {
+      "name": "wheels",
+      "score": 2,
+      "reason": "Windfall and Whispering Madness are burst turns with the discard payoffs, not a wheel-every-turn engine."
+    },
+    {
+      "name": "pillow fort",
+      "score": 2,
+      "reason": "A deathtouch flyer wall plus goad redirection discourages attacks, though there are few dedicated fort pieces."
+    },
+    {
+      "name": "politics",
+      "score": 1,
+      "reason": "Curse of Verbosity and the goad suite bribe and redirect, but the deck rarely negotiates."
+    },
+    {
+      "name": "reanimator",
+      "score": 1,
+      "reason": "Reanimate, Likeness Looter, The Soul Stone, and Rise of the Dark Realms recur value, not a reanimation game plan."
+    }
+  ]
+}

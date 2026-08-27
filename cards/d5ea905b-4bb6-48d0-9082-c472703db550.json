@@ -1,0 +1,131 @@
+{
+  "artist": "Adi Granov",
+  "artist_ids": [
+    "cc30857e-acd0-494f-9598-8ec95cd452d9"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 722529,
+  "cmc": 1.0,
+  "collector_number": "139",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 751,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d56d1535-d9de-459f-bc31-0923f621e0e9",
+  "illustration_id": "ab96c2a4-1653-4455-a9dd-b1e9f70eb768",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:08:03Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/5/d56d1535-d9de-459f-bc31-0923f621e0e9.webp?1783915683",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/5/d56d1535-d9de-459f-bc31-0923f621e0e9.jpg?1783915683",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/5/d56d1535-d9de-459f-bc31-0923f621e0e9.jpg?1783915683",
+    "crop": "https://cards.scryfall.io/crop/front/d/5/d56d1535-d9de-459f-bc31-0923f621e0e9.webp?1783915683",
+    "display": "https://cards.scryfall.io/display/front/d/5/d56d1535-d9de-459f-bc31-0923f621e0e9.webp?1783915683",
+    "grid": "https://cards.scryfall.io/grid/front/d/5/d56d1535-d9de-459f-bc31-0923f621e0e9.webp?1783915683",
+    "large": "https://cards.scryfall.io/large/front/d/5/d56d1535-d9de-459f-bc31-0923f621e0e9.jpg?1783915683",
+    "normal": "https://cards.scryfall.io/normal/front/d/5/d56d1535-d9de-459f-bc31-0923f621e0e9.jpg?1783915683",
+    "png": "https://cards.scryfall.io/png/front/d/5/d56d1535-d9de-459f-bc31-0923f621e0e9.png?1783915683",
+    "small": "https://cards.scryfall.io/small/front/d/5/d56d1535-d9de-459f-bc31-0923f621e0e9.jpg?1783915683",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/5/d56d1535-d9de-459f-bc31-0923f621e0e9.webp?1783915683"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 115377,
+  "multiverse_ids": [
+    622747
+  ],
+  "name": "Bloodchief Ascension",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d5ea905b-4bb6-48d0-9082-c472703db550",
+  "oracle_text": "At the beginning of each end step, if an opponent lost 2 or more life this turn, you may put a quest counter on this enchantment. (Damage causes loss of life.)\nWhenever a card is put into an opponent's graveyard from anywhere, if this enchantment has three or more quest counters on it, you may have that player lose 2 life. If you do, you gain 2 life.",
+  "oversized": false,
+  "penny_rank": 4013,
+  "prices": {
+    "eur": "15.43",
+    "eur_foil": "16.99",
+    "tix": "0.12",
+    "usd": "20.96",
+    "usd_etched": null,
+    "usd_foil": "20.77"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad5ea905b-4bb6-48d0-9082-c472703db550&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/115377?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=722529&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F504564%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bloodchief+Ascension",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=622747&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBloodchief%2BAscension",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBloodchief%2BAscension"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d56d1535-d9de-459f-bc31-0923f621e0e9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/139/bloodchief-ascension?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 504564,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/d56d1535-d9de-459f-bc31-0923f621e0e9",
+  "variation": false
+}

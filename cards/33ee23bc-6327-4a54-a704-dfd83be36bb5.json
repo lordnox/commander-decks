@@ -1,0 +1,141 @@
+{
+  "artist": "Mathias Kollros",
+  "artist_ids": [
+    "2ae0dd12-047c-4efb-80d7-bccc3bac5fba"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 566275,
+  "cmc": 0.0,
+  "collector_number": "249",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 1795,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The path to knowledge is forged in hunger.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9f36a6e2-3e51-4a30-a225-10cfe6650b9d",
+  "illustration_id": "dc1b3512-2e5e-4f94-8b5e-a3f5720fb93e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:13:15Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/f/9f36a6e2-3e51-4a30-a225-10cfe6650b9d.webp?1783926795",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/f/9f36a6e2-3e51-4a30-a225-10cfe6650b9d.jpg?1783926795",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/f/9f36a6e2-3e51-4a30-a225-10cfe6650b9d.jpg?1783926795",
+    "crop": "https://cards.scryfall.io/crop/front/9/f/9f36a6e2-3e51-4a30-a225-10cfe6650b9d.webp?1783926795",
+    "display": "https://cards.scryfall.io/display/front/9/f/9f36a6e2-3e51-4a30-a225-10cfe6650b9d.webp?1783926795",
+    "grid": "https://cards.scryfall.io/grid/front/9/f/9f36a6e2-3e51-4a30-a225-10cfe6650b9d.webp?1783926795",
+    "large": "https://cards.scryfall.io/large/front/9/f/9f36a6e2-3e51-4a30-a225-10cfe6650b9d.jpg?1783926795",
+    "normal": "https://cards.scryfall.io/normal/front/9/f/9f36a6e2-3e51-4a30-a225-10cfe6650b9d.jpg?1783926795",
+    "png": "https://cards.scryfall.io/png/front/9/f/9f36a6e2-3e51-4a30-a225-10cfe6650b9d.png?1783926795",
+    "small": "https://cards.scryfall.io/small/front/9/f/9f36a6e2-3e51-4a30-a225-10cfe6650b9d.jpg?1783926795",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/f/9f36a6e2-3e51-4a30-a225-10cfe6650b9d.webp?1783926795"
+  },
+  "keywords": [
+    "Indestructible"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 90879,
+  "multiverse_ids": [
+    522325
+  ],
+  "name": "Mistvault Bridge",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "33ee23bc-6327-4a54-a704-dfd83be36bb5",
+  "oracle_text": "This land enters tapped.\nIndestructible\n{T}: Add {U} or {B}.",
+  "oversized": false,
+  "penny_rank": 453,
+  "preview": {
+    "previewed_at": "2021-05-26",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/card-preview/bridges-limited-modern-2021-05-26"
+  },
+  "prices": {
+    "eur": "0.48",
+    "eur_foil": "0.95",
+    "tix": "0.03",
+    "usd": "0.98",
+    "usd_etched": null,
+    "usd_foil": "0.80"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A33ee23bc-6327-4a54-a704-dfd83be36bb5&unique=prints",
+  "produced_mana": [
+    "B",
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/90879?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=566275&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F239718%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mistvault+Bridge",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=522325&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMistvault%2BBridge",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMistvault%2BBridge"
+  },
+  "released_at": "2021-06-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9f36a6e2-3e51-4a30-a225-10cfe6650b9d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh2/249/mistvault-bridge?utm_source=api",
+  "set": "mh2",
+  "set_id": "c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "set_name": "Modern Horizons 2",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh2&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "story_spotlight": false,
+  "tcgplayer_id": 239718,
+  "textless": false,
+  "type_line": "Artifact Land",
+  "uri": "https://api.scryfall.com/cards/9f36a6e2-3e51-4a30-a225-10cfe6650b9d",
+  "variation": false
+}

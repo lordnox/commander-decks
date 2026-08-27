@@ -1,0 +1,132 @@
+{
+  "artist": "Daarken",
+  "artist_ids": [
+    "e607a0d4-fc12-4c01-9e3f-501f5269b9cb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753377,
+  "cmc": 4.0,
+  "collector_number": "136",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1110,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Opening Orazca unleashed more horrors than just the Immortal Sun.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a4dfbac0-1849-41c5-853a-1fee108d0b01",
+  "illustration_id": "0628dbf7-dcab-4c6c-9d6b-ec2842f0096e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:23:29Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/4/a4dfbac0-1849-41c5-853a-1fee108d0b01.webp?1783913009",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/4/a4dfbac0-1849-41c5-853a-1fee108d0b01.jpg?1783913009",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/4/a4dfbac0-1849-41c5-853a-1fee108d0b01.jpg?1783913009",
+    "crop": "https://cards.scryfall.io/crop/front/a/4/a4dfbac0-1849-41c5-853a-1fee108d0b01.webp?1783913009",
+    "display": "https://cards.scryfall.io/display/front/a/4/a4dfbac0-1849-41c5-853a-1fee108d0b01.webp?1783913009",
+    "grid": "https://cards.scryfall.io/grid/front/a/4/a4dfbac0-1849-41c5-853a-1fee108d0b01.webp?1783913009",
+    "large": "https://cards.scryfall.io/large/front/a/4/a4dfbac0-1849-41c5-853a-1fee108d0b01.jpg?1783913009",
+    "normal": "https://cards.scryfall.io/normal/front/a/4/a4dfbac0-1849-41c5-853a-1fee108d0b01.jpg?1783913009",
+    "png": "https://cards.scryfall.io/png/front/a/4/a4dfbac0-1849-41c5-853a-1fee108d0b01.png?1783913009",
+    "small": "https://cards.scryfall.io/small/front/a/4/a4dfbac0-1849-41c5-853a-1fee108d0b01.jpg?1783913009",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/4/a4dfbac0-1849-41c5-853a-1fee108d0b01.webp?1783913009"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "mtgo_id": 122412,
+  "multiverse_ids": [
+    650230
+  ],
+  "name": "Ravenous Chupacabra",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7b459306-149b-4f43-abc1-2dd70c748c0e",
+  "oracle_text": "When this creature enters, destroy target creature an opponent controls.",
+  "oversized": false,
+  "penny_rank": 1174,
+  "power": "2",
+  "prices": {
+    "eur": "0.50",
+    "eur_foil": null,
+    "tix": "0.07",
+    "usd": "0.88",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7b459306-149b-4f43-abc1-2dd70c748c0e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122412?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753377&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535750%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ravenous+Chupacabra",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=650230&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRavenous%2BChupacabra",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRavenous%2BChupacabra"
+  },
+  "released_at": "2024-02-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a4dfbac0-1849-41c5-853a-1fee108d0b01/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkc/136/ravenous-chupacabra?utm_source=api",
+  "set": "mkc",
+  "set_id": "286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "set_name": "Murders at Karlov Manor Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "story_spotlight": false,
+  "tcgplayer_id": 535750,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Beast Horror",
+  "uri": "https://api.scryfall.com/cards/a4dfbac0-1849-41c5-853a-1fee108d0b01",
+  "variation": false
+}

@@ -1,0 +1,139 @@
+{
+  "arena_id": 72224,
+  "artist": "Martina Pilcerova",
+  "artist_ids": [
+    "30fead7c-da53-4c1b-b514-4be6e5ce487c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 473509,
+  "cmc": 4.0,
+  "collector_number": "162",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 6897,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "It manifests at wizard academies to siphon inspiration from young prodigies.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "61921b05-ee83-4768-a405-4d3355c0ad6e",
+  "illustration_id": "74b0e1ea-a773-4c3e-967c-ba868dd25043",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:14:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/1/61921b05-ee83-4768-a405-4d3355c0ad6e.webp?1783930450",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/1/61921b05-ee83-4768-a405-4d3355c0ad6e.jpg?1783930450",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/1/61921b05-ee83-4768-a405-4d3355c0ad6e.jpg?1783930450",
+    "crop": "https://cards.scryfall.io/crop/front/6/1/61921b05-ee83-4768-a405-4d3355c0ad6e.webp?1783930450",
+    "display": "https://cards.scryfall.io/display/front/6/1/61921b05-ee83-4768-a405-4d3355c0ad6e.webp?1783930450",
+    "grid": "https://cards.scryfall.io/grid/front/6/1/61921b05-ee83-4768-a405-4d3355c0ad6e.webp?1783930450",
+    "large": "https://cards.scryfall.io/large/front/6/1/61921b05-ee83-4768-a405-4d3355c0ad6e.jpg?1783930450",
+    "normal": "https://cards.scryfall.io/normal/front/6/1/61921b05-ee83-4768-a405-4d3355c0ad6e.jpg?1783930450",
+    "png": "https://cards.scryfall.io/png/front/6/1/61921b05-ee83-4768-a405-4d3355c0ad6e.png?1783930450",
+    "small": "https://cards.scryfall.io/small/front/6/1/61921b05-ee83-4768-a405-4d3355c0ad6e.jpg?1783930450",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/1/61921b05-ee83-4768-a405-4d3355c0ad6e.webp?1783930450"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "multiverse_ids": [
+    489319
+  ],
+  "name": "Oneirophage",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "48c97aeb-6591-4175-a24b-d3488bf3ab0b",
+  "oracle_text": "Flying\nWhenever you draw a card, put a +1/+1 counter on this creature.",
+  "oversized": false,
+  "penny_rank": 15893,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2020-06-18",
+    "source": "Sekappy",
+    "source_uri": "https://sekappy.com/blog/1933"
+  },
+  "prices": {
+    "eur": "0.11",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.25",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A48c97aeb-6591-4175-a24b-d3488bf3ab0b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Oneirophage&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=473509&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F216242%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Oneirophage",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=489319&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOneirophage",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOneirophage"
+  },
+  "released_at": "2020-07-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/61921b05-ee83-4768-a405-4d3355c0ad6e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/jmp?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/jmp/162/oneirophage?utm_source=api",
+  "set": "jmp",
+  "set_id": "0f6ccf25-a627-4263-86df-5757137f1696",
+  "set_name": "Jumpstart",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ajmp&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/0f6ccf25-a627-4263-86df-5757137f1696",
+  "story_spotlight": false,
+  "tcgplayer_id": 216242,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Squid Illusion",
+  "uri": "https://api.scryfall.com/cards/61921b05-ee83-4768-a405-4d3355c0ad6e",
+  "variation": false
+}
