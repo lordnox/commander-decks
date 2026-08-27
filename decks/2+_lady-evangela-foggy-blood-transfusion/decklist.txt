@@ -18,7 +18,7 @@ Life Payment:
 1x Blood Celebrant [Life Payment,Ramp]
 1x Children of Korlis [Life Payment]
 1x Tainted Sigil [Life Payment]
-1x Pain's Reward [Draw,Life Payment,Politics]
+1x Fractured Identity [Removal,Politics]
 
 Draw:
 1x Queza, Augur of Agonies [Draw,Drain Finisher]
@@ -26,7 +26,7 @@ Draw:
 1x Dark Tutelage [Draw,Life Payment]
 1x Necrologia [Draw,Life Payment]
 1x Blue Sun's Zenith [Draw]
-1x Secret Rendezvous [Draw,Politics]
+1x Vanish into Memory [Draw,Removal,Fog]
 1x Tenuous Truce [Draw,Politics]
 1x Loran of the Third Path [Draw,Politics,Removal]
 1x Fact or Fiction [Draw,Politics]
@@ -50,7 +50,7 @@ Tax:
 
 Politics:
 1x Sokrates, Athenian Teacher [Politics,Fog]
-1x Promise of Loyalty [Politics,Removal]
+1x Mirrorweave [Politics,Fog,Removal]
 
 Removal:
 1x Swords to Plowshares [Removal]

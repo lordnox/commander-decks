@@ -316,30 +316,28 @@
       "submitted_name": "Tainted Sigil"
     },
     {
-      "cache": "cards/4608c663-e088-40ca-a915-b6e39253eb98.json",
+      "cache": "cards/1515b0c2-1b55-4cd4-ad81-fb6b1f3e8188.json",
       "card": {
-        "cmc": 3.0,
+        "cmc": 5.0,
         "keywords": [],
-        "mana_cost": "{2}{B}",
-        "oracle_text": "Each player may bid life. You start the bidding with a bid of any number. In turn order, each player may top the high bid. The bidding ends if the high bid stands. The high bidder loses life equal to the high bid and draws four cards.",
+        "mana_cost": "{3}{W}{U}",
+        "oracle_text": "Exile target nonland permanent. Each player other than its controller creates a token that's a copy of it.",
         "type_line": "Sorcery"
       },
       "categories": [
-        "Draw",
-        "Life Payment",
+        "Removal",
         "Politics"
       ],
       "category_source": "decklist",
-      "name": "Pain's Reward",
-      "oracle_id": "4608c663-e088-40ca-a915-b6e39253eb98",
+      "name": "Fractured Identity",
+      "oracle_id": "1515b0c2-1b55-4cd4-ad81-fb6b1f3e8188",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/sok/85/pains-reward?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/c17/37/fractured-identity?utm_source=api",
       "submitted_categories": [
-        "Draw",
-        "Life Payment",
+        "Removal",
         "Politics"
       ],
-      "submitted_name": "Pain's Reward"
+      "submitted_name": "Fractured Identity"
     },
     {
       "cache": "cards/c983338d-ae6b-4a15-9931-daa20fca8269.json",
@@ -464,28 +462,30 @@
       "submitted_name": "Blue Sun's Zenith"
     },
     {
-      "cache": "cards/34b90d3e-f48c-41ff-b3e4-5cab7a9cd597.json",
+      "cache": "cards/d3beb624-f589-4ed5-97a0-11ad61481250.json",
       "card": {
-        "cmc": 3.0,
+        "cmc": 4.0,
         "keywords": [],
-        "mana_cost": "{1}{W}{W}",
-        "oracle_text": "You and target opponent each draw three cards.",
-        "type_line": "Sorcery"
+        "mana_cost": "{2}{W}{U}",
+        "oracle_text": "Exile target creature. You draw cards equal to that creature's power. At the beginning of your next upkeep, return that card to the battlefield under its owner's control. If you do, discard cards equal to that creature's toughness.",
+        "type_line": "Instant"
       },
       "categories": [
         "Draw",
-        "Politics"
+        "Removal",
+        "Fog"
       ],
       "category_source": "decklist",
-      "name": "Secret Rendezvous",
-      "oracle_id": "34b90d3e-f48c-41ff-b3e4-5cab7a9cd597",
+      "name": "Vanish into Memory",
+      "oracle_id": "d3beb624-f589-4ed5-97a0-11ad61481250",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/soc/166/secret-rendezvous?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/afc/196/vanish-into-memory?utm_source=api",
       "submitted_categories": [
         "Draw",
-        "Politics"
+        "Removal",
+        "Fog"
       ],
-      "submitted_name": "Secret Rendezvous"
+      "submitted_name": "Vanish into Memory"
     },
     {
       "cache": "cards/f0bf2923-aea2-4bac-b061-64bc84437ef1.json",
@@ -908,28 +908,30 @@
       "submitted_name": "Sokrates, Athenian Teacher"
     },
     {
-      "cache": "cards/e1d294e8-67b1-4a4a-86b8-f98f28a327d9.json",
+      "cache": "cards/026b7221-0caf-4c8b-8c1b-e7de836797b7.json",
       "card": {
-        "cmc": 5.0,
+        "cmc": 4.0,
         "keywords": [],
-        "mana_cost": "{4}{W}",
-        "oracle_text": "Each player puts a vow counter on a creature they control and sacrifices the rest. Each of those creatures can't attack you or planeswalkers you control for as long as it has a vow counter on it.",
-        "type_line": "Sorcery"
+        "mana_cost": "{2}{W/U}{W/U}",
+        "oracle_text": "Each other creature becomes a copy of target nonlegendary creature until end of turn.",
+        "type_line": "Instant"
       },
       "categories": [
         "Politics",
+        "Fog",
         "Removal"
       ],
       "category_source": "decklist",
-      "name": "Promise of Loyalty",
-      "oracle_id": "e1d294e8-67b1-4a4a-86b8-f98f28a327d9",
+      "name": "Mirrorweave",
+      "oracle_id": "026b7221-0caf-4c8b-8c1b-e7de836797b7",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/msc/142/promise-of-loyalty?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/cm2/162/mirrorweave?utm_source=api",
       "submitted_categories": [
         "Politics",
+        "Fog",
         "Removal"
       ],
-      "submitted_name": "Promise of Loyalty"
+      "submitted_name": "Mirrorweave"
     },
     {
       "cache": "cards/b1544f21-7e98-461b-aed5-e748b0168c52.json",
@@ -2742,7 +2744,7 @@
     }
   ],
   "categorized_cards": 106,
-  "generated_at": "2026-08-26T06:20:29.627921+00:00",
+  "generated_at": "2026-08-27T16:50:53.661495+00:00",
   "maybeboard_cards": 15,
   "maybeboard_unique_cards": 15,
   "resolved_unique_cards": 106,
