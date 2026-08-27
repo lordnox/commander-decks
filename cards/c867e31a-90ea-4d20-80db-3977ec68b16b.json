@@ -1,0 +1,132 @@
+{
+  "artist": "Jesper Ejsing",
+  "artist_ids": [
+    "a5f8354a-8b51-4e59-96b2-0e3aeae4fa1d"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 270109,
+  "cmc": 3.0,
+  "collector_number": "37",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 13375,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"If one gets in your chimney, you're going to need a long wick and a barrel of bangstuff to get it out.\"\n—Hob Heddil",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "7df777c3-281b-4a2d-b852-4e2663672c06",
+  "illustration_id": "c6ff966d-927c-4bc4-81f8-3f97b8381d5e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:33:01Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/d/7df777c3-281b-4a2d-b852-4e2663672c06.webp?1783938781",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/d/7df777c3-281b-4a2d-b852-4e2663672c06.jpg?1783938781",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/d/7df777c3-281b-4a2d-b852-4e2663672c06.jpg?1783938781",
+    "crop": "https://cards.scryfall.io/crop/front/7/d/7df777c3-281b-4a2d-b852-4e2663672c06.webp?1783938781",
+    "display": "https://cards.scryfall.io/display/front/7/d/7df777c3-281b-4a2d-b852-4e2663672c06.webp?1783938781",
+    "grid": "https://cards.scryfall.io/grid/front/7/d/7df777c3-281b-4a2d-b852-4e2663672c06.webp?1783938781",
+    "large": "https://cards.scryfall.io/large/front/7/d/7df777c3-281b-4a2d-b852-4e2663672c06.jpg?1783938781",
+    "normal": "https://cards.scryfall.io/normal/front/7/d/7df777c3-281b-4a2d-b852-4e2663672c06.jpg?1783938781",
+    "png": "https://cards.scryfall.io/png/front/7/d/7df777c3-281b-4a2d-b852-4e2663672c06.png?1783938781",
+    "small": "https://cards.scryfall.io/small/front/7/d/7df777c3-281b-4a2d-b852-4e2663672c06.jpg?1783938781",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/d/7df777c3-281b-4a2d-b852-4e2663672c06.webp?1783938781"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}{B}",
+  "multiverse_ids": [
+    394054
+  ],
+  "name": "Soot Imp",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c867e31a-90ea-4d20-80db-3977ec68b16b",
+  "oracle_text": "Flying\nWhenever a player casts a nonblack spell, that player loses 1 life.",
+  "oversized": false,
+  "penny_rank": 11467,
+  "power": "1",
+  "prices": {
+    "eur": "0.80",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "1.42",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac867e31a-90ea-4d20-80db-3977ec68b16b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Soot+Imp&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=270109&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F93603%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Soot+Imp",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=394054&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSoot%2BImp",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSoot%2BImp"
+  },
+  "released_at": "2014-12-05",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7df777c3-281b-4a2d-b852-4e2663672c06/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dvd?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dvd/37/soot-imp?utm_source=api",
+  "set": "dvd",
+  "set_id": "02a67a0d-b4da-4ca9-be01-b0d78dc62ed0",
+  "set_name": "Duel Decks Anthology: Divine vs. Demonic",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Advd&unique=prints",
+  "set_type": "duel_deck",
+  "set_uri": "https://api.scryfall.com/sets/02a67a0d-b4da-4ca9-be01-b0d78dc62ed0",
+  "story_spotlight": false,
+  "tcgplayer_id": 93603,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Imp",
+  "uri": "https://api.scryfall.com/cards/7df777c3-281b-4a2d-b852-4e2663672c06",
+  "variation": false
+}

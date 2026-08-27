@@ -1,0 +1,142 @@
+{
+  "arena_id": 93892,
+  "artist": "David Palumbo",
+  "artist_ids": [
+    "04ce1c75-e30c-4b7a-8cb0-b53e4ecc2f39"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 795579,
+  "cmc": 5.0,
+  "collector_number": "179",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1183,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "In Mishra's desperation to destroy his brother, he allowed Gix to destroy him instead.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "05757669-e8a6-4a2f-8479-d4e2ade822ca",
+  "illustration_id": "6fa267e8-eddd-47fd-817b-29eb05611ca2",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:17:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/5/05757669-e8a6-4a2f-8479-d4e2ade822ca.webp?1783909073",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/5/05757669-e8a6-4a2f-8479-d4e2ade822ca.jpg?1783909073",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/5/05757669-e8a6-4a2f-8479-d4e2ade822ca.jpg?1783909073",
+    "crop": "https://cards.scryfall.io/crop/front/0/5/05757669-e8a6-4a2f-8479-d4e2ade822ca.webp?1783909073",
+    "display": "https://cards.scryfall.io/display/front/0/5/05757669-e8a6-4a2f-8479-d4e2ade822ca.webp?1783909073",
+    "grid": "https://cards.scryfall.io/grid/front/0/5/05757669-e8a6-4a2f-8479-d4e2ade822ca.webp?1783909073",
+    "large": "https://cards.scryfall.io/large/front/0/5/05757669-e8a6-4a2f-8479-d4e2ade822ca.jpg?1783909073",
+    "normal": "https://cards.scryfall.io/normal/front/0/5/05757669-e8a6-4a2f-8479-d4e2ade822ca.jpg?1783909073",
+    "png": "https://cards.scryfall.io/png/front/0/5/05757669-e8a6-4a2f-8479-d4e2ade822ca.png?1783909073",
+    "small": "https://cards.scryfall.io/small/front/0/5/05757669-e8a6-4a2f-8479-d4e2ade822ca.jpg?1783909073",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/5/05757669-e8a6-4a2f-8479-d4e2ade822ca.webp?1783909073"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_id": 133384,
+  "multiverse_ids": [
+    679921
+  ],
+  "name": "Painful Quandary",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c37051cc-6683-4dbb-b5ff-5c3a5bdab1df",
+  "oracle_text": "Whenever an opponent casts a spell, that player loses 5 life unless they discard a card.",
+  "oversized": false,
+  "penny_rank": 7517,
+  "preview": {
+    "previewed_at": "2024-10-28",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://x.com/wizards_magic/status/1850960730280894861"
+  },
+  "prices": {
+    "eur": "0.80",
+    "eur_foil": "1.33",
+    "tix": "0.02",
+    "usd": "1.79",
+    "usd_etched": null,
+    "usd_foil": "1.56"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac37051cc-6683-4dbb-b5ff-5c3a5bdab1df&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/133384?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=795579&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F590846%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Painful+Quandary",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=679921&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPainful%2BQuandary",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPainful%2BQuandary"
+  },
+  "released_at": "2024-11-15",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/05757669-e8a6-4a2f-8479-d4e2ade822ca/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fdn/179/painful-quandary?utm_source=api",
+  "security_stamp": "oval",
+  "set": "fdn",
+  "set_id": "a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "set_name": "Foundations",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afdn&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "story_spotlight": false,
+  "tcgplayer_id": 590846,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/05757669-e8a6-4a2f-8479-d4e2ade822ca",
+  "variation": false
+}

@@ -1,0 +1,131 @@
+{
+  "artist": "Cynthia Sheppard",
+  "artist_ids": [
+    "9dfbdd58-65e6-40cf-951a-80e141061939"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 743547,
+  "cmc": 5.0,
+  "collector_number": "195",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 512,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Even as humans regained the upper hand, some still willingly traded their lives for a chance at immortality.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "0e8ccfa7-4178-476a-a155-0ca1c98556c9",
+  "illustration_id": "a7ca3865-64dd-4bab-b93d-98cb5a32947b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:37:54Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/e/0e8ccfa7-4178-476a-a155-0ca1c98556c9.webp?1783913874",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/e/0e8ccfa7-4178-476a-a155-0ca1c98556c9.jpg?1783913874",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/e/0e8ccfa7-4178-476a-a155-0ca1c98556c9.jpg?1783913874",
+    "crop": "https://cards.scryfall.io/crop/front/0/e/0e8ccfa7-4178-476a-a155-0ca1c98556c9.webp?1783913874",
+    "display": "https://cards.scryfall.io/display/front/0/e/0e8ccfa7-4178-476a-a155-0ca1c98556c9.webp?1783913874",
+    "grid": "https://cards.scryfall.io/grid/front/0/e/0e8ccfa7-4178-476a-a155-0ca1c98556c9.webp?1783913874",
+    "large": "https://cards.scryfall.io/large/front/0/e/0e8ccfa7-4178-476a-a155-0ca1c98556c9.jpg?1783913874",
+    "normal": "https://cards.scryfall.io/normal/front/0/e/0e8ccfa7-4178-476a-a155-0ca1c98556c9.jpg?1783913874",
+    "png": "https://cards.scryfall.io/png/front/0/e/0e8ccfa7-4178-476a-a155-0ca1c98556c9.png?1783913874",
+    "small": "https://cards.scryfall.io/small/front/0/e/0e8ccfa7-4178-476a-a155-0ca1c98556c9.jpg?1783913874",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/e/0e8ccfa7-4178-476a-a155-0ca1c98556c9.webp?1783913874"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{B}",
+  "mtgo_id": 118790,
+  "multiverse_ids": [
+    640491
+  ],
+  "name": "Exquisite Blood",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8f933fae-6c0c-42d7-a817-14760d8285cd",
+  "oracle_text": "Whenever an opponent loses life, you gain that much life.",
+  "oversized": false,
+  "penny_rank": 8620,
+  "prices": {
+    "eur": "28.27",
+    "eur_foil": null,
+    "tix": "0.79",
+    "usd": "38.35",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8f933fae-6c0c-42d7-a817-14760d8285cd&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/118790?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=743547&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F525752%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Exquisite+Blood",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=640491&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DExquisite%2BBlood",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DExquisite%2BBlood"
+  },
+  "released_at": "2023-11-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0e8ccfa7-4178-476a-a155-0ca1c98556c9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lcc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lcc/195/exquisite-blood?utm_source=api",
+  "security_stamp": "oval",
+  "set": "lcc",
+  "set_id": "d253edc3-5bc7-4cf1-9446-a8540dedffa5",
+  "set_name": "The Lost Caverns of Ixalan Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alcc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d253edc3-5bc7-4cf1-9446-a8540dedffa5",
+  "story_spotlight": false,
+  "tcgplayer_id": 525752,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/0e8ccfa7-4178-476a-a155-0ca1c98556c9",
+  "variation": false
+}

@@ -1,0 +1,134 @@
+{
+  "artist": "Christopher Burdett",
+  "artist_ids": [
+    "ff32a9e2-54fd-4d6a-97b5-1070e692833b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 723645,
+  "cmc": 5.0,
+  "collector_number": "82",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 18883,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "15935478-c2e1-4fb5-b6ba-0969ea5a0e81",
+  "illustration_id": "750a7a4a-8cc8-444e-8061-454aaa5c49ab",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:08:23Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/5/15935478-c2e1-4fb5-b6ba-0969ea5a0e81.webp?1783915703",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/5/15935478-c2e1-4fb5-b6ba-0969ea5a0e81.jpg?1783915703",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/5/15935478-c2e1-4fb5-b6ba-0969ea5a0e81.jpg?1783915703",
+    "crop": "https://cards.scryfall.io/crop/front/1/5/15935478-c2e1-4fb5-b6ba-0969ea5a0e81.webp?1783915703",
+    "display": "https://cards.scryfall.io/display/front/1/5/15935478-c2e1-4fb5-b6ba-0969ea5a0e81.webp?1783915703",
+    "grid": "https://cards.scryfall.io/grid/front/1/5/15935478-c2e1-4fb5-b6ba-0969ea5a0e81.webp?1783915703",
+    "large": "https://cards.scryfall.io/large/front/1/5/15935478-c2e1-4fb5-b6ba-0969ea5a0e81.jpg?1783915703",
+    "normal": "https://cards.scryfall.io/normal/front/1/5/15935478-c2e1-4fb5-b6ba-0969ea5a0e81.jpg?1783915703",
+    "png": "https://cards.scryfall.io/png/front/1/5/15935478-c2e1-4fb5-b6ba-0969ea5a0e81.png?1783915703",
+    "small": "https://cards.scryfall.io/small/front/1/5/15935478-c2e1-4fb5-b6ba-0969ea5a0e81.jpg?1783915703",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/5/15935478-c2e1-4fb5-b6ba-0969ea5a0e81.webp?1783915703"
+  },
+  "keywords": [
+    "Flying",
+    "Goad"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{U}",
+  "mtgo_id": 115263,
+  "multiverse_ids": [
+    622690
+  ],
+  "name": "Coveted Peacock",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e6ad5e92-c1ab-4c91-95ca-1af295e71b23",
+  "oracle_text": "Flying\nWhenever this creature attacks, you may goad target creature defending player controls. (Until your next turn, that creature attacks each combat if able and attacks a player other than you if able.)",
+  "oversized": false,
+  "power": "3",
+  "prices": {
+    "eur": "0.09",
+    "eur_foil": "0.29",
+    "tix": "0.04",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": "0.31"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae6ad5e92-c1ab-4c91-95ca-1af295e71b23&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/115263?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=723645&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F507426%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Coveted+Peacock",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=622690&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCoveted%2BPeacock",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCoveted%2BPeacock"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/15935478-c2e1-4fb5-b6ba-0969ea5a0e81/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/82/coveted-peacock?utm_source=api",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 507426,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Bird",
+  "uri": "https://api.scryfall.com/cards/15935478-c2e1-4fb5-b6ba-0969ea5a0e81",
+  "variation": false
+}

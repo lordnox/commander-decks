@@ -1,0 +1,132 @@
+{
+  "artist": "Eliz Roxs",
+  "artist_ids": [
+    "17e629f2-3465-44cc-82f6-4e2386341bd7"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 738610,
+  "cmc": 4.0,
+  "collector_number": "70",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 8437,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"There's a gravestone here for someone with the same name as me.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "250f6265-c0c8-4f51-bea8-408caf0a58d8",
+  "illustration_id": "86f53dfc-0dcf-4fc2-9a35-42e5bc1673f2",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:50:57Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/5/250f6265-c0c8-4f51-bea8-408caf0a58d8.webp?1783914657",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/5/250f6265-c0c8-4f51-bea8-408caf0a58d8.jpg?1783914657",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/5/250f6265-c0c8-4f51-bea8-408caf0a58d8.jpg?1783914657",
+    "crop": "https://cards.scryfall.io/crop/front/2/5/250f6265-c0c8-4f51-bea8-408caf0a58d8.webp?1783914657",
+    "display": "https://cards.scryfall.io/display/front/2/5/250f6265-c0c8-4f51-bea8-408caf0a58d8.webp?1783914657",
+    "grid": "https://cards.scryfall.io/grid/front/2/5/250f6265-c0c8-4f51-bea8-408caf0a58d8.webp?1783914657",
+    "large": "https://cards.scryfall.io/large/front/2/5/250f6265-c0c8-4f51-bea8-408caf0a58d8.jpg?1783914657",
+    "normal": "https://cards.scryfall.io/normal/front/2/5/250f6265-c0c8-4f51-bea8-408caf0a58d8.jpg?1783914657",
+    "png": "https://cards.scryfall.io/png/front/2/5/250f6265-c0c8-4f51-bea8-408caf0a58d8.png?1783914657",
+    "small": "https://cards.scryfall.io/small/front/2/5/250f6265-c0c8-4f51-bea8-408caf0a58d8.jpg?1783914657",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/5/250f6265-c0c8-4f51-bea8-408caf0a58d8.webp?1783914657"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "multiverse_ids": [
+    634765
+  ],
+  "name": "This Is How It Ends",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "53467cf4-5db2-4b9c-af2b-03b044c558cd",
+  "oracle_text": "Target creature's owner shuffles it into their library, then faces a villainous choice — They lose 5 life, or they shuffle another creature they own into their library.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": "0.55",
+    "tix": null,
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": "0.42"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A53467cf4-5db2-4b9c-af2b-03b044c558cd&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=This+Is+How+It+Ends&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=738610&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F519910%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=This+Is+How+It+Ends",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=634765&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThis%2BIs%2BHow%2BIt%2BEnds",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThis%2BIs%2BHow%2BIt%2BEnds"
+  },
+  "released_at": "2023-10-13",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/250f6265-c0c8-4f51-bea8-408caf0a58d8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/who?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/who/70/this-is-how-it-ends?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "who",
+  "set_id": "efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "set_name": "Doctor Who",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awho&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "story_spotlight": false,
+  "tcgplayer_id": 519910,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/250f6265-c0c8-4f51-bea8-408caf0a58d8",
+  "variation": false
+}

@@ -1,0 +1,139 @@
+{
+  "arena_id": 91594,
+  "artist": "Raph Lomotan",
+  "artist_ids": [
+    "7da5333c-6b1e-48ba-ab42-1b41f09920ee"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 778344,
+  "cmc": 2.0,
+  "collector_number": "58",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1443,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "1c81d0fa-81a1-4f9b-a5fd-5a648fd01dea",
+  "illustration_id": "cde19d9f-1907-459a-9712-0ff6e70ffd8f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:47:27Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/c/1c81d0fa-81a1-4f9b-a5fd-5a648fd01dea.webp?1783910847",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/c/1c81d0fa-81a1-4f9b-a5fd-5a648fd01dea.jpg?1783910847",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/c/1c81d0fa-81a1-4f9b-a5fd-5a648fd01dea.jpg?1783910847",
+    "crop": "https://cards.scryfall.io/crop/front/1/c/1c81d0fa-81a1-4f9b-a5fd-5a648fd01dea.webp?1783910847",
+    "display": "https://cards.scryfall.io/display/front/1/c/1c81d0fa-81a1-4f9b-a5fd-5a648fd01dea.webp?1783910847",
+    "grid": "https://cards.scryfall.io/grid/front/1/c/1c81d0fa-81a1-4f9b-a5fd-5a648fd01dea.webp?1783910847",
+    "large": "https://cards.scryfall.io/large/front/1/c/1c81d0fa-81a1-4f9b-a5fd-5a648fd01dea.jpg?1783910847",
+    "normal": "https://cards.scryfall.io/normal/front/1/c/1c81d0fa-81a1-4f9b-a5fd-5a648fd01dea.jpg?1783910847",
+    "png": "https://cards.scryfall.io/png/front/1/c/1c81d0fa-81a1-4f9b-a5fd-5a648fd01dea.png?1783910847",
+    "small": "https://cards.scryfall.io/small/front/1/c/1c81d0fa-81a1-4f9b-a5fd-5a648fd01dea.jpg?1783910847",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/c/1c81d0fa-81a1-4f9b-a5fd-5a648fd01dea.webp?1783910847"
+  },
+  "keywords": [
+    "Gift"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}{U}",
+  "mtgo_id": 129361,
+  "multiverse_ids": [
+    668972
+  ],
+  "name": "Long River's Pull",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f1993767-1d07-49c8-b8dc-04ec9840a999",
+  "oracle_text": "Gift a card (You may promise an opponent a gift as you cast this spell. If you do, they draw a card before its other effects.)\nCounter target creature spell. If the gift was promised, instead counter target spell.",
+  "oversized": false,
+  "penny_rank": 365,
+  "preview": {
+    "previewed_at": "2024-07-12",
+    "source": "VeggieWagon",
+    "source_uri": "https://vxtwitter.com/VeggieWagonYee/status/1811840449671229702"
+  },
+  "prices": {
+    "eur": "0.32",
+    "eur_foil": "0.67",
+    "tix": "0.03",
+    "usd": "0.35",
+    "usd_etched": null,
+    "usd_foil": "0.38"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af1993767-1d07-49c8-b8dc-04ec9840a999&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/129361?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=778344&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F559139%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Long+River%27s+Pull",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=668972&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLong%2BRiver%2527s%2BPull",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLong%2BRiver%2527s%2BPull"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1c81d0fa-81a1-4f9b-a5fd-5a648fd01dea/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/58/long-rivers-pull?utm_source=api",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": false,
+  "tcgplayer_id": 559139,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/1c81d0fa-81a1-4f9b-a5fd-5a648fd01dea",
+  "variation": false
+}

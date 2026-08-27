@@ -1,0 +1,142 @@
+{
+  "arena_id": 95605,
+  "artist": "Lorenzo Mastroianni",
+  "artist_ids": [
+    "70213e7d-47e0-4543-a1ae-451009053e2d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 817835,
+  "cmc": 3.0,
+  "collector_number": "86",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2447,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Evil wears many faces. Keep your windows closed at night, or it might wear yours.\"\n—Sultai warning",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "8c93a0f6-5e50-4dda-9ff6-da741fb839ff",
+  "illustration_id": "c3518746-d5f6-4167-9449-3909d96935ca",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:49:33Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/c/8c93a0f6-5e50-4dda-9ff6-da741fb839ff.webp?1783907373",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/c/8c93a0f6-5e50-4dda-9ff6-da741fb839ff.jpg?1783907373",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/c/8c93a0f6-5e50-4dda-9ff6-da741fb839ff.jpg?1783907373",
+    "crop": "https://cards.scryfall.io/crop/front/8/c/8c93a0f6-5e50-4dda-9ff6-da741fb839ff.webp?1783907373",
+    "display": "https://cards.scryfall.io/display/front/8/c/8c93a0f6-5e50-4dda-9ff6-da741fb839ff.webp?1783907373",
+    "grid": "https://cards.scryfall.io/grid/front/8/c/8c93a0f6-5e50-4dda-9ff6-da741fb839ff.webp?1783907373",
+    "large": "https://cards.scryfall.io/large/front/8/c/8c93a0f6-5e50-4dda-9ff6-da741fb839ff.jpg?1783907373",
+    "normal": "https://cards.scryfall.io/normal/front/8/c/8c93a0f6-5e50-4dda-9ff6-da741fb839ff.jpg?1783907373",
+    "png": "https://cards.scryfall.io/png/front/8/c/8c93a0f6-5e50-4dda-9ff6-da741fb839ff.png?1783907373",
+    "small": "https://cards.scryfall.io/small/front/8/c/8c93a0f6-5e50-4dda-9ff6-da741fb839ff.jpg?1783907373",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/c/8c93a0f6-5e50-4dda-9ff6-da741fb839ff.webp?1783907373"
+  },
+  "keywords": [
+    "Deathtouch",
+    "Flying",
+    "Lifelink",
+    "Renew"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}{B}",
+  "mtgo_id": 139123,
+  "multiverse_ids": [
+    693566
+  ],
+  "name": "Qarsi Revenant",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "bbea79bc-71d4-4100-92f4-783c2c4b46da",
+  "oracle_text": "Flying, deathtouch, lifelink\nRenew — {2}{B}, Exile this card from your graveyard: Put a flying counter, a deathtouch counter, and a lifelink counter on target creature. Activate only as a sorcery.",
+  "oversized": false,
+  "penny_rank": 958,
+  "power": "3",
+  "prices": {
+    "eur": "1.31",
+    "eur_foil": "1.63",
+    "tix": "0.02",
+    "usd": "2.93",
+    "usd_etched": null,
+    "usd_foil": "3.33"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abbea79bc-71d4-4100-92f4-783c2c4b46da&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/139123?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=817835&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F623889%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Qarsi+Revenant",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=693566&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DQarsi%2BRevenant",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DQarsi%2BRevenant"
+  },
+  "released_at": "2025-04-11",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8c93a0f6-5e50-4dda-9ff6-da741fb839ff/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdm/86/qarsi-revenant?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tdm",
+  "set_id": "1361ca81-1304-49a8-b2e6-e76a4aa4a8c3",
+  "set_name": "Tarkir: Dragonstorm",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/1361ca81-1304-49a8-b2e6-e76a4aa4a8c3",
+  "story_spotlight": false,
+  "tcgplayer_id": 623889,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Vampire",
+  "uri": "https://api.scryfall.com/cards/8c93a0f6-5e50-4dda-9ff6-da741fb839ff",
+  "variation": false,
+  "watermark": "sultai"
+}

@@ -1,0 +1,2060 @@
+{
+  "cards": [
+    {
+      "cache": "cards/fcdfe9d5-2743-4d3e-ab57-bf0f96beaa15.json",
+      "card": {
+        "cmc": 5.0,
+        "faces": [
+          {
+            "mana_cost": "{3}{B}{B}",
+            "name": "Aclazotz, Deepest Betrayal",
+            "oracle_text": "Flying, lifelink\nWhenever Aclazotz attacks, each opponent discards a card. For each opponent who can't, you draw a card.\nWhenever an opponent discards a land card, create a 1/1 black Bat creature token with flying.\nWhen Aclazotz dies, return it to the battlefield tapped and transformed under its owner's control.",
+            "power": "4",
+            "toughness": "4",
+            "type_line": "Legendary Creature — Bat God"
+          },
+          {
+            "mana_cost": "",
+            "name": "Temple of the Dead",
+            "oracle_text": "(Transforms from Aclazotz, Deepest Betrayal.)\n{T}: Add {B}.\n{2}{B}, {T}: Transform this land. Activate only if a player has one or fewer cards in hand and only as a sorcery.",
+            "type_line": "Land"
+          }
+        ],
+        "keywords": [
+          "Flying",
+          "Lifelink",
+          "Transform"
+        ],
+        "produced_mana": [
+          "B"
+        ],
+        "type_line": "Legendary Creature — Bat God // Land"
+      },
+      "categories": [
+        "Discard",
+        "Lifegain"
+      ],
+      "category_source": "decklist",
+      "name": "Aclazotz, Deepest Betrayal // Temple of the Dead",
+      "oracle_id": "fcdfe9d5-2743-4d3e-ab57-bf0f96beaa15",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lci/88/aclazotz-deepest-betrayal-temple-of-the-dead?utm_source=api",
+      "submitted_categories": [
+        "Discard",
+        "Lifegain"
+      ],
+      "submitted_name": "Aclazotz, Deepest Betrayal // Temple of the Dead"
+    },
+    {
+      "cache": "cards/7c779721-cd1b-4696-9ae9-68ccc284ed2a.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Return all attacking creatures to their owner's hand.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "Aetherize",
+      "oracle_id": "7c779721-cd1b-4696-9ae9-68ccc284ed2a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/151/aetherize?utm_source=api",
+      "submitted_categories": [
+        "Removal"
+      ],
+      "submitted_name": "Aetherize"
+    },
+    {
+      "cache": "cards/9deb2a0b-f40c-4d13-8321-41dc41448d24.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "Players have no maximum hand size.\nAt the beginning of each player's draw step, that player draws an additional card, then discards a card.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Anvil of Bogardan",
+      "oracle_id": "9deb2a0b-f40c-4d13-8321-41dc41448d24",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/vis/141/anvil-of-bogardan?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Anvil of Bogardan"
+    },
+    {
+      "cache": "cards/0bc7f093-bef0-4f1a-852c-4b75ebf54838.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Arcane Signet",
+      "oracle_id": "0bc7f093-bef0-4f1a-852c-4b75ebf54838",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/192/arcane-signet?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Arcane Signet"
+    },
+    {
+      "cache": "cards/37688720-03de-4eca-a82d-a0afe8d58adc.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Deathtouch",
+          "Flying"
+        ],
+        "mana_cost": "{U}{B}",
+        "oracle_text": "Flying, deathtouch\nWhen this creature enters, draw a card.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Artifact Creature — Bird"
+      },
+      "categories": [
+        "Draw",
+        "Don't touch me"
+      ],
+      "category_source": "decklist",
+      "name": "Baleful Strix",
+      "oracle_id": "37688720-03de-4eca-a82d-a0afe8d58adc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/215/baleful-strix?utm_source=api",
+      "submitted_categories": [
+        "Draw",
+        "Don't touch me"
+      ],
+      "submitted_name": "Baleful Strix"
+    },
+    {
+      "cache": "cards/ff86d8fc-5242-405e-b5e3-f9ff73296794.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "",
+        "oracle_text": "Flying",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Token Creature — Bat"
+      },
+      "categories": [
+        "Tokens & Extras{noDeck}"
+      ],
+      "category_source": "decklist",
+      "name": "Bat",
+      "oracle_id": "ff86d8fc-5242-405e-b5e3-f9ff73296794",
+      "quantity": 5,
+      "scryfall_uri": "https://scryfall.com/card/tblb/10/bat?utm_source=api",
+      "submitted_categories": [
+        "Tokens & Extras{noDeck}"
+      ],
+      "submitted_name": "Bat"
+    },
+    {
+      "cache": "cards/d5ea905b-4bb6-48d0-9082-c472703db550.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{B}",
+        "oracle_text": "At the beginning of each end step, if an opponent lost 2 or more life this turn, you may put a quest counter on this enchantment. (Damage causes loss of life.)\nWhenever a card is put into an opponent's graveyard from anywhere, if this enchantment has three or more quest counters on it, you may have that player lose 2 life. If you do, you gain 2 life.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Lifegain"
+      ],
+      "category_source": "decklist",
+      "name": "Bloodchief Ascension",
+      "oracle_id": "d5ea905b-4bb6-48d0-9082-c472703db550",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/139/bloodchief-ascension?utm_source=api",
+      "submitted_categories": [
+        "Lifegain"
+      ],
+      "submitted_name": "Bloodchief Ascension"
+    },
+    {
+      "cache": "cards/b2747459-05ec-42a6-81be-e97e182bc778.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Goad"
+        ],
+        "mana_cost": "{2}",
+        "oracle_text": "Equipped creature gets +2/+0 and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\n{1}: Attach this Equipment to target creature an opponent controls. Activate only as a sorcery.",
+        "type_line": "Artifact — Equipment"
+      },
+      "categories": [
+        "Removal",
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Bloodthirsty Blade",
+      "oracle_id": "b2747459-05ec-42a6-81be-e97e182bc778",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/225/bloodthirsty-blade?utm_source=api",
+      "submitted_categories": [
+        "Removal",
+        "Protection"
+      ],
+      "submitted_name": "Bloodthirsty Blade"
+    },
+    {
+      "cache": "cards/fd505c02-c59e-476d-8e88-35da862ddc23.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Deathtouch",
+          "Flying"
+        ],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Flying, deathtouch\nWhenever an opponent loses life, you gain that much life. (Damage causes loss of life.)",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Creature — Vampire Knight"
+      },
+      "categories": [
+        "Lifegain"
+      ],
+      "category_source": "decklist",
+      "name": "Bloodthirsty Conqueror",
+      "oracle_id": "fd505c02-c59e-476d-8e88-35da862ddc23",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/58/bloodthirsty-conqueror?utm_source=api",
+      "submitted_categories": [
+        "Lifegain"
+      ],
+      "submitted_name": "Bloodthirsty Conqueror"
+    },
+    {
+      "cache": "cards/c9a9550c-e6bb-4fe3-930f-6266024dbead.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}{B}",
+        "oracle_text": "If a player would draw a card, instead they draw a card and reveal it. If it's a creature card, that player discards it unless they pay 3 life.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Discard"
+      ],
+      "category_source": "decklist",
+      "name": "Breathstealer's Crypt",
+      "oracle_id": "c9a9550c-e6bb-4fe3-930f-6266024dbead",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/vis/127/breathstealers-crypt?utm_source=api",
+      "submitted_categories": [
+        "Discard"
+      ],
+      "submitted_name": "Breathstealer's Crypt"
+    },
+    {
+      "cache": "cards/1386d111-a2a7-4df1-91d7-947664126989.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "This artifact enters tapped.\n{T}: Add {B}.",
+        "produced_mana": [
+          "B"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Charcoal Diamond",
+      "oracle_id": "1386d111-a2a7-4df1-91d7-947664126989",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/305/charcoal-diamond?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Charcoal Diamond"
+    },
+    {
+      "cache": "cards/d473b507-8c33-4118-bc10-b0a268776074.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "As this land enters, you may reveal an Island or Swamp card from your hand. If you don't, this land enters tapped.\n{T}: Add {U} or {B}.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Choked Estuary",
+      "oracle_id": "d473b507-8c33-4118-bc10-b0a268776074",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/229/choked-estuary?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Choked Estuary"
+    },
+    {
+      "cache": "cards/144119bc-7fd1-45c5-9e29-f742e7c255ac.json",
+      "card": {
+        "cmc": 0.0,
+        "faces": [
+          {
+            "mana_cost": "",
+            "name": "Clearwater Pathway",
+            "oracle_text": "{T}: Add {U}.",
+            "type_line": "Land"
+          },
+          {
+            "mana_cost": "",
+            "name": "Murkwater Pathway",
+            "oracle_text": "{T}: Add {B}.",
+            "type_line": "Land"
+          }
+        ],
+        "keywords": [],
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land // Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Clearwater Pathway // Murkwater Pathway",
+      "oracle_id": "144119bc-7fd1-45c5-9e29-f742e7c255ac",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/znr/260/clearwater-pathway-murkwater-pathway?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Clearwater Pathway // Murkwater Pathway"
+    },
+    {
+      "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Command Tower",
+      "oracle_id": "0895c9b7-ae7d-4bb3-af17-3b75deb50a25",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/233/command-tower?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Command Tower"
+    },
+    {
+      "cache": "cards/6df620b8-1e54-4f63-8556-12c75e5679af.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{U}{B}",
+        "oracle_text": "Counter target noncreature spell. Its controller loses 2 life.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "Countersquall",
+      "oracle_id": "6df620b8-1e54-4f63-8556-12c75e5679af",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/uma/198/countersquall?utm_source=api",
+      "submitted_categories": [
+        "Removal"
+      ],
+      "submitted_name": "Countersquall"
+    },
+    {
+      "cache": "cards/e6ad5e92-c1ab-4c91-95ca-1af295e71b23.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Flying",
+          "Goad"
+        ],
+        "mana_cost": "{3}{U}{U}",
+        "oracle_text": "Flying\nWhenever this creature attacks, you may goad target creature defending player controls. (Until your next turn, that creature attacks each combat if able and attacks a player other than you if able.)",
+        "power": "3",
+        "toughness": "4",
+        "type_line": "Creature — Bird"
+      },
+      "categories": [
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Coveted Peacock",
+      "oracle_id": "e6ad5e92-c1ab-4c91-95ca-1af295e71b23",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/82/coveted-peacock?utm_source=api",
+      "submitted_categories": [
+        "Protection"
+      ],
+      "submitted_name": "Coveted Peacock"
+    },
+    {
+      "cache": "cards/c6f76fa7-095e-4bfe-a38c-5c4531880880.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Enchant player\nWhenever enchanted player is attacked, you draw a card. Each opponent attacking that player does the same.",
+        "type_line": "Enchantment — Aura Curse"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Curse of Verbosity",
+      "oracle_id": "c6f76fa7-095e-4bfe-a38c-5c4531880880",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/717/curse-of-verbosity?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Curse of Verbosity"
+    },
+    {
+      "cache": "cards/4869a530-757f-4364-8d8e-4dc8001f433c.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{1}, {T}: Add {U}{B}.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Darkwater Catacombs",
+      "oracle_id": "4869a530-757f-4364-8d8e-4dc8001f433c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/355/darkwater-catacombs?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Darkwater Catacombs"
+    },
+    {
+      "cache": "cards/7d881c57-0bd9-4c57-aa4a-b10808b86143.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{1}, {T}: Add {U}{B}.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Dimir Signet",
+      "oracle_id": "7d881c57-0bd9-4c57-aa4a-b10808b86143",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clu/221/dimir-signet?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Dimir Signet"
+    },
+    {
+      "cache": "cards/819fc966-434e-470f-91e9-a38df974ad17.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control an Island or a Swamp.\n{T}: Add {U} or {B}.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Drowned Catacomb",
+      "oracle_id": "819fc966-434e-470f-91e9-a38df974ad17",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/239/drowned-catacomb?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Drowned Catacomb"
+    },
+    {
+      "cache": "cards/8f933fae-6c0c-42d7-a817-14760d8285cd.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{4}{B}",
+        "oracle_text": "Whenever an opponent loses life, you gain that much life.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Lifegain"
+      ],
+      "category_source": "decklist",
+      "name": "Exquisite Blood",
+      "oracle_id": "8f933fae-6c0c-42d7-a817-14760d8285cd",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lcc/195/exquisite-blood?utm_source=api",
+      "submitted_categories": [
+        "Lifegain"
+      ],
+      "submitted_name": "Exquisite Blood"
+    },
+    {
+      "cache": "cards/c288f184-0beb-4cc9-9b0a-5f3c4b9e70d7.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Goad",
+          "Enchant"
+        ],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Enchant creature\nEnchanted creature is a black Dragon with base power and toughness 4/2, has flying and deathtouch, and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\nWhen Eye of Nidhogg is put into a graveyard from the battlefield, return it to its owner's hand.",
+        "type_line": "Legendary Enchantment — Aura"
+      },
+      "categories": [
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Eye of Nidhogg",
+      "oracle_id": "c288f184-0beb-4cc9-9b0a-5f3c4b9e70d7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fic/44/eye-of-nidhogg?utm_source=api",
+      "submitted_categories": [
+        "Protection"
+      ],
+      "submitted_name": "Eye of Nidhogg"
+    },
+    {
+      "cache": "cards/a984db23-40ea-428d-829f-e944267280f8.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Flying",
+          "Flash"
+        ],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Flash\nFlying\nWhenever an opponent draws their second card each turn, you draw a card.\n{3}{U}: Each player draws a card.",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Creature — Faerie Rogue"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Faerie Mastermind",
+      "oracle_id": "a984db23-40ea-428d-829f-e944267280f8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/114/faerie-mastermind?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Faerie Mastermind"
+    },
+    {
+      "cache": "cards/0767fb65-a621-494b-97a4-f23a4c8b4bec.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Devoid",
+          "Ingest",
+          "Deathtouch"
+        ],
+        "mana_cost": "{U}{B}",
+        "oracle_text": "Devoid (This card has no color.)\nDeathtouch\nIngest (Whenever this creature deals combat damage to a player, that player exiles the top card of their library.)\n{3}{U}{B}: Draw a card. Each opponent exiles the top card of their library.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Eldrazi Drone"
+      },
+      "categories": [
+        "Draw",
+        "Don't touch me"
+      ],
+      "category_source": "decklist",
+      "name": "Fathom Feeder",
+      "oracle_id": "0767fb65-a621-494b-97a4-f23a4c8b4bec",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/bfz/203/fathom-feeder?utm_source=api",
+      "submitted_categories": [
+        "Draw",
+        "Don't touch me"
+      ],
+      "submitted_name": "Fathom Feeder"
+    },
+    {
+      "cache": "cards/5825997b-10d7-4a36-972c-a80ddd90b8ed.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Destroy target creature or enchantment an opponent controls. You lose life equal to that permanent's mana value.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "Feed the Swarm",
+      "oracle_id": "5825997b-10d7-4a36-972c-a80ddd90b8ed",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tle/257/feed-the-swarm?utm_source=api",
+      "submitted_categories": [
+        "Removal"
+      ],
+      "submitted_name": "Feed the Swarm"
+    },
+    {
+      "cache": "cards/95560508-7ac9-4be9-8a3f-3c7d5b52807b.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Fellwar Stone",
+      "oracle_id": "95560508-7ac9-4be9-8a3f-3c7d5b52807b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/74/fellwar-stone?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Fellwar Stone"
+    },
+    {
+      "cache": "cards/10c0f814-e302-49ff-aded-1b8d8424fd60.json",
+      "card": {
+        "cmc": 1.0,
+        "faces": [
+          {
+            "mana_cost": "{B}",
+            "name": "Foulmire Knight",
+            "oracle_text": "Deathtouch",
+            "power": "1",
+            "toughness": "1",
+            "type_line": "Creature — Zombie Knight"
+          },
+          {
+            "mana_cost": "{2}{B}",
+            "name": "Profane Insight",
+            "oracle_text": "You draw a card and you lose 1 life. (Then exile this card. You may cast the creature later from exile.)",
+            "type_line": "Instant — Adventure"
+          }
+        ],
+        "keywords": [
+          "Deathtouch"
+        ],
+        "mana_cost": "{B} // {2}{B}",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Zombie Knight // Instant — Adventure"
+      },
+      "categories": [
+        "Draw",
+        "Don't touch me"
+      ],
+      "category_source": "decklist",
+      "name": "Foulmire Knight // Profane Insight",
+      "oracle_id": "10c0f814-e302-49ff-aded-1b8d8424fd60",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/moc/249/foulmire-knight-profane-insight?utm_source=api",
+      "submitted_categories": [
+        "Draw",
+        "Don't touch me"
+      ],
+      "submitted_name": "Foulmire Knight // Profane Insight"
+    },
+    {
+      "cache": "cards/ef809e99-34a2-4471-8269-f56bf8037686.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "Whenever an opponent discards a card, you may draw a card.",
+        "type_line": "Artifact — Book"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Geth's Grimoire",
+      "oracle_id": "ef809e99-34a2-4471-8269-f56bf8037686",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dst/123/geths-grimoire?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Geth's Grimoire"
+    },
+    {
+      "cache": "cards/276eccd6-4a76-46e8-b604-94472e618115.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Goad",
+          "Enchant"
+        ],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Enchant creature\nEnchanted creature gets +1/+1, has deathtouch, and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\nWhen enchanted creature dies, return this card to the battlefield at the beginning of the next end step.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "Removal",
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Ghoulish Impetus",
+      "oracle_id": "276eccd6-4a76-46e8-b604-94472e618115",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/214/ghoulish-impetus?utm_source=api",
+      "submitted_categories": [
+        "Removal",
+        "Protection"
+      ],
+      "submitted_name": "Ghoulish Impetus"
+    },
+    {
+      "cache": "cards/9d6a9a37-a245-4503-baeb-9488553798ab.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "Whenever you draw your second card each turn, each opponent loses 2 life and you gain 2 life.\nWhen this creature dies, return another target creature card with mana value 3 or less from your graveyard to the battlefield.",
+        "power": "4",
+        "toughness": "3",
+        "type_line": "Creature — Phyrexian Warlock"
+      },
+      "categories": [
+        "Burn",
+        "Lifegain"
+      ],
+      "category_source": "decklist",
+      "name": "Gixian Puppeteer",
+      "oracle_id": "9d6a9a37-a245-4503-baeb-9488553798ab",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/bro/99/gixian-puppeteer?utm_source=api",
+      "submitted_categories": [
+        "Burn",
+        "Lifegain"
+      ],
+      "submitted_name": "Gixian Puppeteer"
+    },
+    {
+      "cache": "cards/d22ff377-d282-4a28-9dce-96f25913dc96.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}{U}",
+        "oracle_text": "Whenever a creature you control becomes blocked, you may return it to its owner's hand.\nWhenever one or more creatures you control deal combat damage to a player, draw a card.",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Horror"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Grazilaxx, Illithid Scholar",
+      "oracle_id": "d22ff377-d282-4a28-9dce-96f25913dc96",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/723/grazilaxx-illithid-scholar?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Grazilaxx, Illithid Scholar"
+    },
+    {
+      "cache": "cards/d26b27db-a567-4631-b4b6-7294222fbdd1.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "At the beginning of each player's draw step, if this artifact is untapped, that player draws an additional card.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Howling Mine",
+      "oracle_id": "d26b27db-a567-4631-b4b6-7294222fbdd1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c16/257/howling-mine?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Howling Mine"
+    },
+    {
+      "cache": "cards/e0351638-9224-4779-8f7c-f2b11d134a5f.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "At the beginning of each opponent's upkeep, this artifact deals X damage to that player, where X is the number of cards in their hand minus 4.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Burn"
+      ],
+      "category_source": "decklist",
+      "name": "Iron Maiden",
+      "oracle_id": "e0351638-9224-4779-8f7c-f2b11d134a5f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ulg/127/iron-maiden?utm_source=api",
+      "submitted_categories": [
+        "Burn"
+      ],
+      "submitted_name": "Iron Maiden"
+    },
+    {
+      "cache": "cards/b2c6aa39-2d2a-459c-a555-fb48ba993373.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U}.)",
+        "produced_mana": [
+          "U"
+        ],
+        "type_line": "Basic Land — Island"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Island",
+      "oracle_id": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
+      "quantity": 9,
+      "scryfall_uri": "https://scryfall.com/card/trk/319/island?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Island"
+    },
+    {
+      "cache": "cards/56c558f3-535d-49aa-a2de-54e0bb598483.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "Whenever an opponent casts a creature spell, that player loses 2 life unless they pay {2}.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Burn"
+      ],
+      "category_source": "decklist",
+      "name": "Isolation Cell",
+      "oracle_id": "56c558f3-535d-49aa-a2de-54e0bb598483",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/nph/141/isolation-cell?utm_source=api",
+      "submitted_categories": [
+        "Burn"
+      ],
+      "submitted_name": "Isolation Cell"
+    },
+    {
+      "cache": "cards/d416a4ed-9f16-4a8b-8aee-03c630e1eb6c.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "At the beginning of your upkeep, you gain X life, where X is the number of cards in your hand minus 4.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Lifegain"
+      ],
+      "category_source": "decklist",
+      "name": "Ivory Tower",
+      "oracle_id": "d416a4ed-9f16-4a8b-8aee-03c630e1eb6c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/brr/86z/ivory-tower?utm_source=api",
+      "submitted_categories": [
+        "Lifegain"
+      ],
+      "submitted_name": "Ivory Tower"
+    },
+    {
+      "cache": "cards/e04560ea-f2bd-4cb7-8f65-3aa0dd58fbdf.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{U}{B}",
+        "oracle_text": "Flying\n{T}: Draw a card, then discard a card.\n{X}: This creature becomes a copy of target creature card in your graveyard with mana value X, except it has flying and this ability. Activate only as a sorcery.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Faerie Shapeshifter"
+      },
+      "categories": [
+        "Reanimate"
+      ],
+      "category_source": "decklist",
+      "name": "Likeness Looter",
+      "oracle_id": "e04560ea-f2bd-4cb7-8f65-3aa0dd58fbdf",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/woe/208/likeness-looter?utm_source=api",
+      "submitted_categories": [
+        "Reanimate"
+      ],
+      "submitted_name": "Likeness Looter"
+    },
+    {
+      "cache": "cards/a4aec0d6-13fa-4709-b1a9-2f483f032744.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Whenever an opponent discards a card, that player loses 2 life.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Discard"
+      ],
+      "category_source": "decklist",
+      "name": "Liliana's Caress",
+      "oracle_id": "a4aec0d6-13fa-4709-b1a9-2f483f032744",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/m11/103/lilianas-caress?utm_source=api",
+      "submitted_categories": [
+        "Discard"
+      ],
+      "submitted_name": "Liliana's Caress"
+    },
+    {
+      "cache": "cards/f1993767-1d07-49c8-b8dc-04ec9840a999.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Gift"
+        ],
+        "mana_cost": "{U}{U}",
+        "oracle_text": "Gift a card (You may promise an opponent a gift as you cast this spell. If you do, they draw a card before its other effects.)\nCounter target creature spell. If the gift was promised, instead counter target spell.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "Long River's Pull",
+      "oracle_id": "f1993767-1d07-49c8-b8dc-04ec9840a999",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blb/58/long-rivers-pull?utm_source=api",
+      "submitted_categories": [
+        "Removal"
+      ],
+      "submitted_name": "Long River's Pull"
+    },
+    {
+      "cache": "cards/36b67014-0507-4976-ad52-a2a36676197d.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{U/B}{U/B}{U/B}{U/B}",
+        "oracle_text": "You may cast target instant or sorcery card from an opponent's graveyard without paying its mana cost.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Reanimate"
+      ],
+      "category_source": "decklist",
+      "name": "Memory Plunder",
+      "oracle_id": "36b67014-0507-4976-ad52-a2a36676197d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/849/memory-plunder?utm_source=api",
+      "submitted_categories": [
+        "Reanimate"
+      ],
+      "submitted_name": "Memory Plunder"
+    },
+    {
+      "cache": "cards/33ee23bc-6327-4a54-a704-dfd83be36bb5.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Indestructible"
+        ],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\nIndestructible\n{T}: Add {U} or {B}.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Artifact Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Mistvault Bridge",
+      "oracle_id": "33ee23bc-6327-4a54-a704-dfd83be36bb5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/249/mistvault-bridge?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Mistvault Bridge"
+    },
+    {
+      "cache": "cards/bd004c9d-771e-4e63-a97d-a2259c096af8.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {U} or {B}.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Morphic Pool",
+      "oracle_id": "bd004c9d-771e-4e63-a97d-a2259c096af8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/357/morphic-pool?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Morphic Pool"
+    },
+    {
+      "cache": "cards/379ed4ec-8f2e-448b-9ed2-a3181e2f877e.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Deathtouch",
+          "Flying",
+          "Lifelink"
+        ],
+        "mana_cost": "{1}{B}{B}",
+        "oracle_text": "Flying, deathtouch, lifelink\nNighthawk Scavenger's power is equal to 1 plus the number of card types among cards in your opponents' graveyards.",
+        "power": "1+*",
+        "toughness": "3",
+        "type_line": "Creature — Vampire Rogue"
+      },
+      "categories": [
+        "Don't touch me",
+        "Lifegain"
+      ],
+      "category_source": "decklist",
+      "name": "Nighthawk Scavenger",
+      "oracle_id": "379ed4ec-8f2e-448b-9ed2-a3181e2f877e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/144/nighthawk-scavenger?utm_source=api",
+      "submitted_categories": [
+        "Don't touch me",
+        "Lifegain"
+      ],
+      "submitted_name": "Nighthawk Scavenger"
+    },
+    {
+      "cache": "cards/48c97aeb-6591-4175-a24b-d3488bf3ab0b.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Flying\nWhenever you draw a card, put a +1/+1 counter on this creature.",
+        "power": "1",
+        "toughness": "2",
+        "type_line": "Creature — Squid Illusion"
+      },
+      "categories": [
+        "Counters"
+      ],
+      "category_source": "decklist",
+      "name": "Oneirophage",
+      "oracle_id": "48c97aeb-6591-4175-a24b-d3488bf3ab0b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/jmp/162/oneirophage?utm_source=api",
+      "submitted_categories": [
+        "Counters"
+      ],
+      "submitted_name": "Oneirophage"
+    },
+    {
+      "cache": "cards/e9b6a394-691c-425a-9307-76d8edc7375e.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Channel"
+        ],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {U}.\nChannel — {3}{U}, Discard this card: Return target artifact, creature, enchantment, or planeswalker to its owner's hand. This ability costs {1} less to activate for each legendary creature you control.",
+        "produced_mana": [
+          "U"
+        ],
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Otawara, Soaring City",
+      "oracle_id": "e9b6a394-691c-425a-9307-76d8edc7375e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/271/otawara-soaring-city?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Otawara, Soaring City"
+    },
+    {
+      "cache": "cards/c37051cc-6683-4dbb-b5ff-5c3a5bdab1df.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Whenever an opponent casts a spell, that player loses 5 life unless they discard a card.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Discard"
+      ],
+      "category_source": "decklist",
+      "name": "Painful Quandary",
+      "oracle_id": "c37051cc-6683-4dbb-b5ff-5c3a5bdab1df",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/179/painful-quandary?utm_source=api",
+      "submitted_categories": [
+        "Discard"
+      ],
+      "submitted_name": "Painful Quandary"
+    },
+    {
+      "cache": "cards/ff3de07d-86c3-49e1-9de0-97c85301ff93.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Goad",
+          "Enchant"
+        ],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2 and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\nWhenever enchanted creature attacks, its controller loses 2 life and you gain 2 life.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "Parasitic Impetus",
+      "oracle_id": "ff3de07d-86c3-49e1-9de0-97c85301ff93",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/222/parasitic-impetus?utm_source=api",
+      "submitted_categories": [
+        "Removal"
+      ],
+      "submitted_name": "Parasitic Impetus"
+    },
+    {
+      "cache": "cards/ef86989d-ce80-4e55-aece-7d11710eeffa.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Swamp card, put it onto the battlefield, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Polluted Delta",
+      "oracle_id": "ef86989d-ce80-4e55-aece-7d11710eeffa",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/224/polluted-delta?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Polluted Delta"
+    },
+    {
+      "cache": "cards/47214acc-08c4-4dcb-9a8b-09196ce41045.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Goad",
+          "Enchant",
+          "Scry"
+        ],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2 and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\nWhenever enchanted creature attacks, you scry 2.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "Removal",
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Psychic Impetus",
+      "oracle_id": "47214acc-08c4-4dcb-9a8b-09196ce41045",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clu/92/psychic-impetus?utm_source=api",
+      "submitted_categories": [
+        "Removal",
+        "Protection"
+      ],
+      "submitted_name": "Psychic Impetus"
+    },
+    {
+      "cache": "cards/bbea79bc-71d4-4100-92f4-783c2c4b46da.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Deathtouch",
+          "Flying",
+          "Lifelink",
+          "Renew"
+        ],
+        "mana_cost": "{1}{B}{B}",
+        "oracle_text": "Flying, deathtouch, lifelink\nRenew — {2}{B}, Exile this card from your graveyard: Put a flying counter, a deathtouch counter, and a lifelink counter on target creature. Activate only as a sorcery.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Creature — Vampire"
+      },
+      "categories": [
+        "Don't touch me",
+        "Lifegain"
+      ],
+      "category_source": "decklist",
+      "name": "Qarsi Revenant",
+      "oracle_id": "bbea79bc-71d4-4100-92f4-783c2c4b46da",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdm/86/qarsi-revenant?utm_source=api",
+      "submitted_categories": [
+        "Don't touch me",
+        "Lifegain"
+      ],
+      "submitted_name": "Qarsi Revenant"
+    },
+    {
+      "cache": "cards/b8619990-9dc2-4fcc-bc7e-457b77cd2a8e.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Flying",
+          "Haste"
+        ],
+        "mana_cost": "{2}{B}{B}",
+        "oracle_text": "Flying, haste\nWhenever Rankle deals combat damage to a player, choose any number —\n• Each player discards a card.\n• Each player loses 1 life and draws a card.\n• Each player sacrifices a creature of their choice.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Faerie Rogue"
+      },
+      "categories": [
+        "Discard"
+      ],
+      "category_source": "decklist",
+      "name": "Rankle, Master of Pranks",
+      "oracle_id": "b8619990-9dc2-4fcc-bc7e-457b77cd2a8e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/148/rankle-master-of-pranks?utm_source=api",
+      "submitted_categories": [
+        "Discard"
+      ],
+      "submitted_name": "Rankle, Master of Pranks"
+    },
+    {
+      "cache": "cards/7b459306-149b-4f43-abc1-2dd70c748c0e.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{B}{B}",
+        "oracle_text": "When this creature enters, destroy target creature an opponent controls.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Beast Horror"
+      },
+      "categories": [
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "Ravenous Chupacabra",
+      "oracle_id": "7b459306-149b-4f43-abc1-2dd70c748c0e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/136/ravenous-chupacabra?utm_source=api",
+      "submitted_categories": [
+        "Removal"
+      ],
+      "submitted_name": "Ravenous Chupacabra"
+    },
+    {
+      "cache": "cards/a044474a-cd72-4e9d-bd8d-a08f2de9cdc0.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{B}",
+        "oracle_text": "Put target creature card from a graveyard onto the battlefield under your control. You lose life equal to that card's mana value.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Reanimate"
+      ],
+      "category_source": "decklist",
+      "name": "Reanimate",
+      "oracle_id": "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/155/reanimate?utm_source=api",
+      "submitted_categories": [
+        "Reanimate"
+      ],
+      "submitted_name": "Reanimate"
+    },
+    {
+      "cache": "cards/6b5565a2-be5c-46b1-99df-8094e77446cc.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Goad"
+        ],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "At the beginning of your end step, goad up to one target creature you don't control and put a +1/+1 counter on this creature. This creature phases out. (Treat it and anything attached to it as though they don't exist until your next turn.)",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Creature — Alien Horror"
+      },
+      "categories": [
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Renegade Silent",
+      "oracle_id": "6b5565a2-be5c-46b1-99df-8094e77446cc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/who/53/renegade-silent?utm_source=api",
+      "submitted_categories": [
+        "Protection"
+      ],
+      "submitted_name": "Renegade Silent"
+    },
+    {
+      "cache": "cards/e5223a09-f732-4747-8914-e6546ab0ef4c.json",
+      "card": {
+        "cmc": 9.0,
+        "keywords": [],
+        "mana_cost": "{7}{B}{B}",
+        "oracle_text": "Put all creature cards from all graveyards onto the battlefield under your control.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Rise of the Dark Realms",
+      "oracle_id": "e5223a09-f732-4747-8914-e6546ab0ef4c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/183/rise-of-the-dark-realms?utm_source=api",
+      "submitted_categories": [
+        "Recursion"
+      ],
+      "submitted_name": "Rise of the Dark Realms"
+    },
+    {
+      "cache": "cards/f29dc596-2121-4421-8463-15f6c2e8b9b3.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{4}, {T}: Target creature can't be blocked this turn.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Rogue's Passage",
+      "oracle_id": "f29dc596-2121-4421-8463-15f6c2e8b9b3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/hoc/212/rogues-passage?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Rogue's Passage"
+    },
+    {
+      "cache": "cards/da1035c4-bafe-434e-b1bd-5b08960d4c91.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{3}",
+        "oracle_text": "Flying\nWhenever a player casts a spell, they lose 1 life for each spell they've cast this turn.",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Artifact Creature — Construct"
+      },
+      "categories": [
+        "Burn"
+      ],
+      "category_source": "decklist",
+      "name": "Rug of Smothering",
+      "oracle_id": "da1035c4-bafe-434e-b1bd-5b08960d4c91",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/336/rug-of-smothering?utm_source=api",
+      "submitted_categories": [
+        "Burn"
+      ],
+      "submitted_name": "Rug of Smothering"
+    },
+    {
+      "cache": "cards/1d60c80d-9a95-4051-bbf7-02ca51ee1be2.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "At the beginning of your upkeep, each player draws a card.\nWhenever an opponent draws a card, that player loses 1 life.",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Artifact Creature — Phyrexian Construct"
+      },
+      "categories": [
+        "Draw",
+        "Burn"
+      ],
+      "category_source": "decklist",
+      "name": "Scrawling Crawler",
+      "oracle_id": "1d60c80d-9a95-4051-bbf7-02ca51ee1be2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/132/scrawling-crawler?utm_source=api",
+      "submitted_categories": [
+        "Draw",
+        "Burn"
+      ],
+      "submitted_name": "Scrawling Crawler"
+    },
+    {
+      "cache": "cards/2224b6e0-c5ff-45d0-84e3-83758c5fc99f.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "This artifact enters tapped.\n{T}: Add {U}.",
+        "produced_mana": [
+          "U"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Sky Diamond",
+      "oracle_id": "2224b6e0-c5ff-45d0-84e3-83758c5fc99f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/337/sky-diamond?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Sky Diamond"
+    },
+    {
+      "cache": "cards/c867e31a-90ea-4d20-80db-3977ec68b16b.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{1}{B}{B}",
+        "oracle_text": "Flying\nWhenever a player casts a nonblack spell, that player loses 1 life.",
+        "power": "1",
+        "toughness": "2",
+        "type_line": "Creature — Imp"
+      },
+      "categories": [
+        "Burn"
+      ],
+      "category_source": "decklist",
+      "name": "Soot Imp",
+      "oracle_id": "c867e31a-90ea-4d20-80db-3977ec68b16b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dvd/37/soot-imp?utm_source=api",
+      "submitted_categories": [
+        "Burn"
+      ],
+      "submitted_name": "Soot Imp"
+    },
+    {
+      "cache": "cards/cd2c90ac-2b04-461c-92f3-939871b6b6a3.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped unless you control two or more basic lands.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land — Island Swamp"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Sunken Hollow",
+      "oracle_id": "cd2c90ac-2b04-461c-92f3-939871b6b6a3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/271/sunken-hollow?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Sunken Hollow"
+    },
+    {
+      "cache": "cards/e6415ffb-8b7a-41c3-bedf-0d4112b7b795.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{U/B}, {T}: Add {U}{U}, {U}{B}, or {B}{B}.",
+        "produced_mana": [
+          "B",
+          "C",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Sunken Ruins",
+      "oracle_id": "e6415ffb-8b7a-41c3-bedf-0d4112b7b795",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/326/sunken-ruins?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Sunken Ruins"
+    },
+    {
+      "cache": "cards/56719f6a-1a6c-4c0a-8d21-18f7d7350b68.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {B}.)",
+        "produced_mana": [
+          "B"
+        ],
+        "type_line": "Basic Land — Swamp"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Swamp",
+      "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
+      "quantity": 14,
+      "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Swamp"
+    },
+    {
+      "cache": "cards/cd4db500-0017-46c6-be94-1bf48f686b6a.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{U/B}{U/B}",
+        "oracle_text": "At the beginning of each end step, if an opponent lost 3 or more life this turn, you may draw a card. (Damage causes loss of life.)",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Merfolk Rogue"
+      },
+      "categories": [
+        "Commander{top}"
+      ],
+      "category_source": "decklist",
+      "name": "Sygg, River Cutthroat",
+      "oracle_id": "cd4db500-0017-46c6-be94-1bf48f686b6a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/znc/103/sygg-river-cutthroat?utm_source=api",
+      "submitted_categories": [
+        "Commander{top}"
+      ],
+      "submitted_name": "Sygg, River Cutthroat"
+    },
+    {
+      "cache": "cards/abc37d6c-6300-47b5-a679-9db5b83eb54f.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "Each other player discards a card. You draw a card for each card discarded this way.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Syphon Mind",
+      "oracle_id": "abc37d6c-6300-47b5-a679-9db5b83eb54f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/159/syphon-mind?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Syphon Mind"
+    },
+    {
+      "cache": "cards/0222414f-98b5-458a-a0fd-831a66cd8b07.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {U} or {B}. Activate only if you control a Swamp.",
+        "produced_mana": [
+          "B",
+          "C",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Tainted Isle",
+      "oracle_id": "0222414f-98b5-458a-a0fd-831a66cd8b07",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/303/tainted-isle?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Tainted Isle"
+    },
+    {
+      "cache": "cards/a019e34d-00c4-4687-9d41-fe550bf1dbdc.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{2}{U}{B}",
+        "oracle_text": "Flying\nAs Talion enters, choose a number between 1 and 10.\nWhenever an opponent casts a spell with mana value, power, or toughness equal to the chosen number, that player loses 2 life and you draw a card.",
+        "power": "3",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Faerie Noble"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Talion, the Kindly Lord",
+      "oracle_id": "a019e34d-00c4-4687-9d41-fe550bf1dbdc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/woe/215/talion-the-kindly-lord?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Talion, the Kindly Lord"
+    },
+    {
+      "cache": "cards/33b9b3bd-33ca-46f3-b8bb-a978bc3d1085.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Scry"
+        ],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {U} or {B}.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Temple of Deceit",
+      "oracle_id": "33b9b3bd-33ca-46f3-b8bb-a978bc3d1085",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/697/temple-of-deceit?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Temple of Deceit"
+    },
+    {
+      "cache": "cards/92cfba68-12f6-4f97-9187-0f6a39656a0f.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Indestructible"
+        ],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Indestructible\n{T}: Add {B}.\n{6}{B}, {T}, Exile a creature you control: Harness The Soul Stone. (Once harnessed, its ∞ ability is active.)\n∞ — At the beginning of your upkeep, return target creature card from your graveyard to the battlefield.",
+        "produced_mana": [
+          "B"
+        ],
+        "type_line": "Legendary Artifact — Infinity Stone"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "The Soul Stone",
+      "oracle_id": "92cfba68-12f6-4f97-9187-0f6a39656a0f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/spm/66/the-soul-stone?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "The Soul Stone"
+    },
+    {
+      "cache": "cards/53467cf4-5db2-4b9c-af2b-03b044c558cd.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "Target creature's owner shuffles it into their library, then faces a villainous choice — They lose 5 life, or they shuffle another creature they own into their library.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "This Is How It Ends",
+      "oracle_id": "53467cf4-5db2-4b9c-af2b-03b044c558cd",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/who/70/this-is-how-it-ends?utm_source=api",
+      "submitted_categories": [
+        "Removal"
+      ],
+      "submitted_name": "This Is How It Ends"
+    },
+    {
+      "cache": "cards/19a39cc5-2134-4dee-932c-81389806c57b.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Deathtouch",
+          "Flying"
+        ],
+        "mana_cost": "{U}{B}",
+        "oracle_text": "Flying\nDeathtouch (Any amount of damage this deals to a creature is enough to destroy it.)",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Artifact Creature — Bird"
+      },
+      "categories": [
+        "Don't touch me"
+      ],
+      "category_source": "decklist",
+      "name": "Tidehollow Strix",
+      "oracle_id": "19a39cc5-2134-4dee-932c-81389806c57b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c13/222/tidehollow-strix?utm_source=api",
+      "submitted_categories": [
+        "Don't touch me"
+      ],
+      "submitted_name": "Tidehollow Strix"
+    },
+    {
+      "cache": "cards/abd9ed47-e3ef-40f3-9c18-769228e68792.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{4}{B}",
+        "oracle_text": "At the beginning of each player's end step, if no creatures died this turn, this creature deals 4 damage to that player.\n{1}{B}, Sacrifice a creature: You gain 4 life.",
+        "power": "4",
+        "toughness": "5",
+        "type_line": "Creature — Human Warrior"
+      },
+      "categories": [
+        "Burn"
+      ],
+      "category_source": "decklist",
+      "name": "Titan Hunter",
+      "oracle_id": "abd9ed47-e3ef-40f3-9c18-769228e68792",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c20/48/titan-hunter?utm_source=api",
+      "submitted_categories": [
+        "Burn"
+      ],
+      "submitted_name": "Titan Hunter"
+    },
+    {
+      "cache": "cards/6bcfe240-c165-49f2-a90a-be05c05498a1.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{U}{U}{B}",
+        "oracle_text": "Counter target spell. Its controller loses 3 life.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "Undermine",
+      "oracle_id": "6bcfe240-c165-49f2-a90a-be05c05498a1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ddh/62/undermine?utm_source=api",
+      "submitted_categories": [
+        "Removal"
+      ],
+      "submitted_name": "Undermine"
+    },
+    {
+      "cache": "cards/b0aeeeb6-490c-4638-a4ad-498e4d85413e.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}{B}",
+        "oracle_text": "Each player draws two cards, then discards three cards, then loses 4 life.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Discard"
+      ],
+      "category_source": "decklist",
+      "name": "Urza's Guilt",
+      "oracle_id": "b0aeeeb6-490c-4638-a4ad-498e4d85413e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/pls/130/urzas-guilt?utm_source=api",
+      "submitted_categories": [
+        "Discard"
+      ],
+      "submitted_name": "Urza's Guilt"
+    },
+    {
+      "cache": "cards/f7907327-4df3-4bb2-a274-03d9e266af2f.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{5}",
+        "oracle_text": "You have no maximum hand size.\nAt the beginning of your upkeep, you gain 1 life for each card in your hand.",
+        "type_line": "Artifact — Book"
+      },
+      "categories": [
+        "Lifegain"
+      ],
+      "category_source": "decklist",
+      "name": "Venser's Journal",
+      "oracle_id": "f7907327-4df3-4bb2-a274-03d9e266af2f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c21/273/vensers-journal?utm_source=api",
+      "submitted_categories": [
+        "Lifegain"
+      ],
+      "submitted_name": "Venser's Journal"
+    },
+    {
+      "cache": "cards/b6a005db-e7e2-4b88-bc8a-c257bcc31cf5.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}{B}",
+        "oracle_text": "All creatures have \"At the beginning of your upkeep, sacrifice this creature unless you pay 1 life.\"",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Burn"
+      ],
+      "category_source": "decklist",
+      "name": "Vile Consumption",
+      "oracle_id": "b6a005db-e7e2-4b88-bc8a-c257bcc31cf5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inv/285/vile-consumption?utm_source=api",
+      "submitted_categories": [
+        "Burn"
+      ],
+      "submitted_name": "Vile Consumption"
+    },
+    {
+      "cache": "cards/05b9dccb-2364-4bca-a12e-8cb54a3f3a0b.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "At the beginning of each opponent's upkeep, this creature deals X damage to that player, where X is the number of cards in their hand minus 4.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Artifact Creature — Phyrexian Construct"
+      },
+      "categories": [
+        "Burn"
+      ],
+      "category_source": "decklist",
+      "name": "Viseling",
+      "oracle_id": "05b9dccb-2364-4bca-a12e-8cb54a3f3a0b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c13/269/viseling?utm_source=api",
+      "submitted_categories": [
+        "Burn"
+      ],
+      "submitted_name": "Viseling"
+    },
+    {
+      "cache": "cards/fc9ec820-4245-4a96-b009-5308a818ca58.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land — Island Swamp"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Watery Grave",
+      "oracle_id": "fc9ec820-4245-4a96-b009-5308a818ca58",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/306/watery-grave?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Watery Grave"
+    },
+    {
+      "cache": "cards/7bbc5f3a-f8fb-47e8-837e-ce319bc489de.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Cipher"
+        ],
+        "mana_cost": "{2}{U}{B}",
+        "oracle_text": "Each player discards their hand, then draws cards equal to the greatest number of cards a player discarded this way.\nCipher (Then you may exile this spell card encoded on a creature you control. Whenever that creature deals combat damage to a player, its controller may cast a copy of the encoded card without paying its mana cost.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Whispering Madness",
+      "oracle_id": "7bbc5f3a-f8fb-47e8-837e-ce319bc489de",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c16/229/whispering-madness?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Whispering Madness"
+    },
+    {
+      "cache": "cards/08becc07-28bc-4a2f-a6b0-28a2998d2f50.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Each player discards their hand, then draws cards equal to the greatest number of cards a player discarded this way.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Windfall",
+      "oracle_id": "08becc07-28bc-4a2f-a6b0-28a2998d2f50",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/123/windfall?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Windfall"
+    }
+  ],
+  "categorized_cards": 80,
+  "generated_at": "2026-08-27T16:16:27.894962+00:00",
+  "maybeboard_cards": 5,
+  "maybeboard_unique_cards": 1,
+  "resolved_unique_cards": 80,
+  "schema_version": 3,
+  "source": "decks/unrated_sygg-thousand-cuts/decklist.txt",
+  "total_cards": 100,
+  "unique_cards": 79,
+  "unresolved": []
+}
