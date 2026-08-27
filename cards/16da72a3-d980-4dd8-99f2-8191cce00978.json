@@ -1,0 +1,141 @@
+{
+  "arena_id": 71164,
+  "artist": "Seb McKinnon",
+  "artist_ids": [
+    "ad4caca0-8d89-44ce-a1a6-d5ca905bd6fb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 451733,
+  "cmc": 3.0,
+  "collector_number": "97",
+  "color_identity": [
+    "B",
+    "G",
+    "W"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 9388,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"And then the shadow took living form, and the shadow devoured the man whole—body, mind, and soul.\"\n—*Tales of the Ozolith*",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "6abc24e1-e721-471a-9efd-547f320675b0",
+  "illustration_id": "e617338a-68e9-43d1-974c-a675f95ec8f9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:24:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/a/6abc24e1-e721-471a-9efd-547f320675b0.webp?1783931058",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/a/6abc24e1-e721-471a-9efd-547f320675b0.jpg?1783931058",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/a/6abc24e1-e721-471a-9efd-547f320675b0.jpg?1783931058",
+    "crop": "https://cards.scryfall.io/crop/front/6/a/6abc24e1-e721-471a-9efd-547f320675b0.webp?1783931058",
+    "display": "https://cards.scryfall.io/display/front/6/a/6abc24e1-e721-471a-9efd-547f320675b0.webp?1783931058",
+    "grid": "https://cards.scryfall.io/grid/front/6/a/6abc24e1-e721-471a-9efd-547f320675b0.webp?1783931058",
+    "large": "https://cards.scryfall.io/large/front/6/a/6abc24e1-e721-471a-9efd-547f320675b0.jpg?1783931058",
+    "normal": "https://cards.scryfall.io/normal/front/6/a/6abc24e1-e721-471a-9efd-547f320675b0.jpg?1783931058",
+    "png": "https://cards.scryfall.io/png/front/6/a/6abc24e1-e721-471a-9efd-547f320675b0.png?1783931058",
+    "small": "https://cards.scryfall.io/small/front/6/a/6abc24e1-e721-471a-9efd-547f320675b0.jpg?1783931058",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/a/6abc24e1-e721-471a-9efd-547f320675b0.webp?1783931058"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 80203,
+  "multiverse_ids": [
+    479617
+  ],
+  "name": "Mythos of Nethroi",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "16da72a3-d980-4dd8-99f2-8191cce00978",
+  "oracle_text": "Destroy target nonland permanent if it's a creature or if {G}{W} was spent to cast this spell.",
+  "oversized": false,
+  "penny_rank": 4326,
+  "preview": {
+    "previewed_at": "2020-04-03",
+    "source": "Seb McKinnon",
+    "source_uri": "https://twitter.com/SebMcKinnon/status/1246081918367604737"
+  },
+  "prices": {
+    "eur": "0.18",
+    "eur_foil": "0.57",
+    "tix": "0.02",
+    "usd": "0.34",
+    "usd_etched": null,
+    "usd_foil": "0.31"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A16da72a3-d980-4dd8-99f2-8191cce00978&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/80203?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=451733&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F212108%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mythos+of+Nethroi",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=479617&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMythos%2Bof%2BNethroi",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMythos%2Bof%2BNethroi"
+  },
+  "released_at": "2020-04-24",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/6abc24e1-e721-471a-9efd-547f320675b0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/iko?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/iko/97/mythos-of-nethroi?utm_source=api",
+  "security_stamp": "oval",
+  "set": "iko",
+  "set_id": "19feda43-15ab-427e-a0e4-148a4bf2b03a",
+  "set_name": "Ikoria: Lair of Behemoths",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aiko&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/19feda43-15ab-427e-a0e4-148a4bf2b03a",
+  "story_spotlight": false,
+  "tcgplayer_id": 212108,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/6abc24e1-e721-471a-9efd-547f320675b0",
+  "variation": false
+}

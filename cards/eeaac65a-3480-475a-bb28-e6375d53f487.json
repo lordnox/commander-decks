@@ -1,0 +1,133 @@
+{
+  "artist": "John Avon",
+  "artist_ids": [
+    "798f3932-30e0-4420-aa3f-db4d613f89ca"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818967,
+  "cmc": 0.0,
+  "collector_number": "410",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 463,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"For centuries my creation kept this world in balance. Now only her shadow remains.\"\n—Sorin Markov",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "8f203f04-bd73-4d88-bb5e-aab63507dbd1",
+  "illustration_id": "a5af8601-d277-40ec-b7db-7c067d95aff1",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:42:39Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/f/8f203f04-bd73-4d88-bb5e-aab63507dbd1.webp?1783906959",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/f/8f203f04-bd73-4d88-bb5e-aab63507dbd1.jpg?1783906959",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/f/8f203f04-bd73-4d88-bb5e-aab63507dbd1.jpg?1783906959",
+    "crop": "https://cards.scryfall.io/crop/front/8/f/8f203f04-bd73-4d88-bb5e-aab63507dbd1.webp?1783906959",
+    "display": "https://cards.scryfall.io/display/front/8/f/8f203f04-bd73-4d88-bb5e-aab63507dbd1.webp?1783906959",
+    "grid": "https://cards.scryfall.io/grid/front/8/f/8f203f04-bd73-4d88-bb5e-aab63507dbd1.webp?1783906959",
+    "large": "https://cards.scryfall.io/large/front/8/f/8f203f04-bd73-4d88-bb5e-aab63507dbd1.jpg?1783906959",
+    "normal": "https://cards.scryfall.io/normal/front/8/f/8f203f04-bd73-4d88-bb5e-aab63507dbd1.jpg?1783906959",
+    "png": "https://cards.scryfall.io/png/front/8/f/8f203f04-bd73-4d88-bb5e-aab63507dbd1.png?1783906959",
+    "small": "https://cards.scryfall.io/small/front/8/f/8f203f04-bd73-4d88-bb5e-aab63507dbd1.jpg?1783906959",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/f/8f203f04-bd73-4d88-bb5e-aab63507dbd1.webp?1783906959"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 138761,
+  "multiverse_ids": [
+    696566
+  ],
+  "name": "Vault of the Archangel",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "eeaac65a-3480-475a-bb28-e6375d53f487",
+  "oracle_text": "{T}: Add {C}.\n{2}{W}{B}, {T}: Creatures you control gain deathtouch and lifelink until end of turn.",
+  "oversized": false,
+  "penny_rank": 2190,
+  "prices": {
+    "eur": "1.52",
+    "eur_foil": null,
+    "tix": "0.30",
+    "usd": "0.75",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aeeaac65a-3480-475a-bb28-e6375d53f487&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138761?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818967&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624323%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vault+of+the+Archangel",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696566&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVault%2Bof%2Bthe%2BArchangel",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVault%2Bof%2Bthe%2BArchangel"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8f203f04-bd73-4d88-bb5e-aab63507dbd1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/410/vault-of-the-archangel?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624323,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/8f203f04-bd73-4d88-bb5e-aab63507dbd1",
+  "variation": false
+}

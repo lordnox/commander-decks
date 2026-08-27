@@ -1,0 +1,143 @@
+{
+  "arena_id": 92171,
+  "artist": "Isis",
+  "artist_ids": [
+    "4d12227a-8657-48b7-884a-ff70cc6428a5"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 786448,
+  "cmc": 4.0,
+  "collector_number": "95",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 815,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "d5756d4b-3068-412c-8643-880d3459151e",
+  "illustration_id": "394f127e-dd29-4b13-b701-7f6d9706796d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:24:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/5/d5756d4b-3068-412c-8643-880d3459151e.webp?1783909481",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/5/d5756d4b-3068-412c-8643-880d3459151e.jpg?1783909481",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/5/d5756d4b-3068-412c-8643-880d3459151e.jpg?1783909481",
+    "crop": "https://cards.scryfall.io/crop/front/d/5/d5756d4b-3068-412c-8643-880d3459151e.webp?1783909481",
+    "display": "https://cards.scryfall.io/display/front/d/5/d5756d4b-3068-412c-8643-880d3459151e.webp?1783909481",
+    "grid": "https://cards.scryfall.io/grid/front/d/5/d5756d4b-3068-412c-8643-880d3459151e.webp?1783909481",
+    "large": "https://cards.scryfall.io/large/front/d/5/d5756d4b-3068-412c-8643-880d3459151e.jpg?1783909481",
+    "normal": "https://cards.scryfall.io/normal/front/d/5/d5756d4b-3068-412c-8643-880d3459151e.jpg?1783909481",
+    "png": "https://cards.scryfall.io/png/front/d/5/d5756d4b-3068-412c-8643-880d3459151e.png?1783909481",
+    "small": "https://cards.scryfall.io/small/front/d/5/d5756d4b-3068-412c-8643-880d3459151e.jpg?1783909481",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/5/d5756d4b-3068-412c-8643-880d3459151e.webp?1783909481"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "mtgo_id": 130321,
+  "multiverse_ids": [
+    673500
+  ],
+  "name": "Enduring Tenacity",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "98e698ae-1a69-469c-9cfb-0e3fedeb71d4",
+  "oracle_text": "Whenever you gain life, target opponent loses that much life.\nWhen Enduring Tenacity dies, if it was a creature, return it to the battlefield under its owner's control. It's an enchantment. (It's not a creature.)",
+  "oversized": false,
+  "penny_rank": 3084,
+  "power": "4",
+  "preview": {
+    "previewed_at": "2024-06-28",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://twitter.com/wizards_magic/status/1806655396624621583/photo/1"
+  },
+  "prices": {
+    "eur": "11.18",
+    "eur_foil": "12.52",
+    "tix": "0.02",
+    "usd": "11.51",
+    "usd_etched": null,
+    "usd_foil": "12.61"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A98e698ae-1a69-469c-9cfb-0e3fedeb71d4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130321?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=786448&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F562746%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Enduring+Tenacity",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=673500&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEnduring%2BTenacity",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEnduring%2BTenacity"
+  },
+  "released_at": "2024-09-27",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d5756d4b-3068-412c-8643-880d3459151e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsk/95/enduring-tenacity?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsk",
+  "set_id": "a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "set_name": "Duskmourn: House of Horror",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "story_spotlight": false,
+  "tcgplayer_id": 562746,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Enchantment Creature — Snake Glimmer",
+  "uri": "https://api.scryfall.com/cards/d5756d4b-3068-412c-8643-880d3459151e",
+  "variation": false
+}

@@ -1,0 +1,137 @@
+{
+  "artist": "Tyler Jacobson",
+  "artist_ids": [
+    "522af130-8db4-4b4b-950c-6e2b246339cf"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 705831,
+  "cmc": 2.0,
+  "collector_number": "300",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 829,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "be573ae7-967a-4b98-9058-ec3ff82ff63f",
+  "illustration_id": "29800fc3-993b-4788-a3dc-10e1b8f4304c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:32:22Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/e/be573ae7-967a-4b98-9058-ec3ff82ff63f.webp?1783917142",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/e/be573ae7-967a-4b98-9058-ec3ff82ff63f.jpg?1783917142",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/e/be573ae7-967a-4b98-9058-ec3ff82ff63f.jpg?1783917142",
+    "crop": "https://cards.scryfall.io/crop/front/b/e/be573ae7-967a-4b98-9058-ec3ff82ff63f.webp?1783917142",
+    "display": "https://cards.scryfall.io/display/front/b/e/be573ae7-967a-4b98-9058-ec3ff82ff63f.webp?1783917142",
+    "grid": "https://cards.scryfall.io/grid/front/b/e/be573ae7-967a-4b98-9058-ec3ff82ff63f.webp?1783917142",
+    "large": "https://cards.scryfall.io/large/front/b/e/be573ae7-967a-4b98-9058-ec3ff82ff63f.jpg?1783917142",
+    "normal": "https://cards.scryfall.io/normal/front/b/e/be573ae7-967a-4b98-9058-ec3ff82ff63f.jpg?1783917142",
+    "png": "https://cards.scryfall.io/png/front/b/e/be573ae7-967a-4b98-9058-ec3ff82ff63f.png?1783917142",
+    "small": "https://cards.scryfall.io/small/front/b/e/be573ae7-967a-4b98-9058-ec3ff82ff63f.jpg?1783917142",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/e/be573ae7-967a-4b98-9058-ec3ff82ff63f.webp?1783917142"
+  },
+  "keywords": [
+    "Evolve"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 111056,
+  "multiverse_ids": [
+    612548
+  ],
+  "name": "Gyre Sage",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e3aa16cf-079b-4737-9ffd-7bfdffef0cb2",
+  "oracle_text": "Evolve (Whenever a creature you control enters, if that creature has greater power or toughness than this creature, put a +1/+1 counter on this creature.)\n{T}: Add {G} for each +1/+1 counter on this creature.",
+  "oversized": false,
+  "penny_rank": 6449,
+  "power": "1",
+  "prices": {
+    "eur": "2.96",
+    "eur_foil": null,
+    "tix": "1.35",
+    "usd": "4.04",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae3aa16cf-079b-4737-9ffd-7bfdffef0cb2&unique=prints",
+  "produced_mana": [
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/111056?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=705831&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F491628%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Gyre+Sage",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=612548&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGyre%2BSage",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGyre%2BSage"
+  },
+  "released_at": "2023-04-21",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/be573ae7-967a-4b98-9058-ec3ff82ff63f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/moc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/moc/300/gyre-sage?utm_source=api",
+  "security_stamp": "oval",
+  "set": "moc",
+  "set_id": "6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "set_name": "March of the Machine Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "story_spotlight": false,
+  "tcgplayer_id": 491628,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Elf Druid",
+  "uri": "https://api.scryfall.com/cards/be573ae7-967a-4b98-9058-ec3ff82ff63f",
+  "variation": false
+}

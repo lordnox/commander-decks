@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Abzan toughness trebuchet: defender mana, self-mill, then fling or mutate the Trees.",
+  "tags": [
+    {
+      "name": "defenders",
+      "score": 5,
+      "reason": "Walls, Trees, and Axebane/Battlement mana exist to count as high-toughness bodies and to transform Catapult Fodder."
+    },
+    {
+      "name": "toughness",
+      "score": 5,
+      "reason": "Combat, Catapult Captain, Tree exchanges, Betor, and Ikra all pay off toughness rather than power."
+    },
+    {
+      "name": "life exchange",
+      "score": 4,
+      "reason": "Tree of Perdition, Tree of Redemption, and Mister Negative are the named kill packages."
+    },
+    {
+      "name": "mutate",
+      "score": 4,
+      "reason": "Nethroi's mutate trigger is the graveyard dump that puts the trebuchet pieces into play."
+    },
+    {
+      "name": "reanimator",
+      "score": 4,
+      "reason": "Nethroi, Eerie Ultimatum, Reveillark, Six, and Shifting Woodland return the ammo from the yard."
+    },
+    {
+      "name": "graveyard",
+      "score": 3,
+      "reason": "The 99 mills itself so Nethroi and the Trees have targets."
+    },
+    {
+      "name": "self-mill",
+      "score": 3,
+      "reason": "Stickfingers, Ripples, Stitcher's Supplier, Underrealm Lich, and Lumra stock the yard on purpose."
+    },
+    {
+      "name": "lifedrain",
+      "score": 3,
+      "reason": "Vito, Enduring Tenacity, Wound Reflection, and Bloodletter turn life swings into table damage."
+    },
+    {
+      "name": "lifegain",
+      "score": 3,
+      "reason": "Nethroi lifelink, Ikra, Children of Korlis, and Tree of Redemption feed the drain engines."
+    }
+  ]
+}

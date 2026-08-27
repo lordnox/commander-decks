@@ -1,0 +1,135 @@
+{
+  "arena_id": 77280,
+  "artist": "Olivier Bernard",
+  "artist_ids": [
+    "11c6f325-68c2-4f2a-972d-98d2ffe6c224"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 571074,
+  "cmc": 3.0,
+  "collector_number": "175",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 10179,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Move it, Varis, or I'll pick one for you!\"\n—Ellywick Tumblestrum",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "213726e4-e2f5-4e52-b05a-21c4bab9927c",
+  "illustration_id": "9406901d-5bce-4774-bf1b-3c3db15c94fb",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:07:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/1/213726e4-e2f5-4e52-b05a-21c4bab9927c.webp?1783926466",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/1/213726e4-e2f5-4e52-b05a-21c4bab9927c.jpg?1783926466",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/1/213726e4-e2f5-4e52-b05a-21c4bab9927c.jpg?1783926466",
+    "crop": "https://cards.scryfall.io/crop/front/2/1/213726e4-e2f5-4e52-b05a-21c4bab9927c.webp?1783926466",
+    "display": "https://cards.scryfall.io/display/front/2/1/213726e4-e2f5-4e52-b05a-21c4bab9927c.webp?1783926466",
+    "grid": "https://cards.scryfall.io/grid/front/2/1/213726e4-e2f5-4e52-b05a-21c4bab9927c.webp?1783926466",
+    "large": "https://cards.scryfall.io/large/front/2/1/213726e4-e2f5-4e52-b05a-21c4bab9927c.jpg?1783926466",
+    "normal": "https://cards.scryfall.io/normal/front/2/1/213726e4-e2f5-4e52-b05a-21c4bab9927c.jpg?1783926466",
+    "png": "https://cards.scryfall.io/png/front/2/1/213726e4-e2f5-4e52-b05a-21c4bab9927c.png?1783926466",
+    "small": "https://cards.scryfall.io/small/front/2/1/213726e4-e2f5-4e52-b05a-21c4bab9927c.jpg?1783926466",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/1/213726e4-e2f5-4e52-b05a-21c4bab9927c.webp?1783926466"
+  },
+  "keywords": [
+    "Double"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "mtgo_id": 91852,
+  "multiverse_ids": [
+    527462
+  ],
+  "name": "Choose Your Weapon",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a3acb58d-3fb1-4602-8575-d78b716b0ea5",
+  "oracle_text": "Choose one —\n• Two-Weapon Fighting — Double target creature's power and toughness until end of turn.\n• Archery — This spell deals 5 damage to target creature with flying.",
+  "oversized": false,
+  "penny_rank": 15413,
+  "prices": {
+    "eur": "0.12",
+    "eur_foil": "0.29",
+    "tix": "0.03",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": "0.33"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa3acb58d-3fb1-4602-8575-d78b716b0ea5&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/91852?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=571074&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243064%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Choose+Your+Weapon",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=527462&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DChoose%2BYour%2BWeapon",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DChoose%2BYour%2BWeapon"
+  },
+  "released_at": "2021-07-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/213726e4-e2f5-4e52-b05a-21c4bab9927c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afr/175/choose-your-weapon?utm_source=api",
+  "set": "afr",
+  "set_id": "e1ef87ba-ba92-4573-817f-543b996d2851",
+  "set_name": "Adventures in the Forgotten Realms",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e1ef87ba-ba92-4573-817f-543b996d2851",
+  "story_spotlight": false,
+  "tcgplayer_id": 243064,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/213726e4-e2f5-4e52-b05a-21c4bab9927c",
+  "variation": false
+}

@@ -1,0 +1,186 @@
+{
+  "arena_id": 78892,
+  "artist": "Jesper Ejsing",
+  "artist_ids": [
+    "a5f8354a-8b51-4e59-96b2-0e3aeae4fa1d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Jesper Ejsing",
+      "artist_id": "a5f8354a-8b51-4e59-96b2-0e3aeae4fa1d",
+      "colors": [
+        "B"
+      ],
+      "flavor_text": "These days, ghouls are the only abundant resource in Thraben.",
+      "illustration_id": "33f2d43b-a1cd-4112-8b44-977cc6d3049a",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.webp?1783924882",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.jpg?1783924882",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.jpg?1783924882",
+        "crop": "https://cards.scryfall.io/crop/front/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.webp?1783924882",
+        "display": "https://cards.scryfall.io/display/front/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.webp?1783924882",
+        "grid": "https://cards.scryfall.io/grid/front/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.webp?1783924882",
+        "large": "https://cards.scryfall.io/large/front/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.jpg?1783924882",
+        "normal": "https://cards.scryfall.io/normal/front/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.jpg?1783924882",
+        "png": "https://cards.scryfall.io/png/front/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.png?1783924882",
+        "small": "https://cards.scryfall.io/small/front/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.jpg?1783924882",
+        "thumb": "https://cards.scryfall.io/thumb/front/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.webp?1783924882"
+      },
+      "mana_cost": "{2}{B}",
+      "name": "Catapult Fodder",
+      "object": "card_face",
+      "oracle_text": "At the beginning of combat on your turn, if you control three or more creatures that each have toughness greater than their power, transform this creature.",
+      "power": "1",
+      "toughness": "5",
+      "type_line": "Creature — Zombie"
+    },
+    {
+      "artist": "Jesper Ejsing",
+      "artist_id": "a5f8354a-8b51-4e59-96b2-0e3aeae4fa1d",
+      "color_indicator": [
+        "B"
+      ],
+      "colors": [
+        "B"
+      ],
+      "flavor_text": "And they're more than happy to share the wealth.",
+      "illustration_id": "8d9be913-b113-4a6e-aff8-f325525b9178",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.webp?1783924882",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.jpg?1783924882",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.jpg?1783924882",
+        "crop": "https://cards.scryfall.io/crop/back/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.webp?1783924882",
+        "display": "https://cards.scryfall.io/display/back/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.webp?1783924882",
+        "grid": "https://cards.scryfall.io/grid/back/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.webp?1783924882",
+        "large": "https://cards.scryfall.io/large/back/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.jpg?1783924882",
+        "normal": "https://cards.scryfall.io/normal/back/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.jpg?1783924882",
+        "png": "https://cards.scryfall.io/png/back/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.png?1783924882",
+        "small": "https://cards.scryfall.io/small/back/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.jpg?1783924882",
+        "thumb": "https://cards.scryfall.io/thumb/back/e/6/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4.webp?1783924882"
+      },
+      "mana_cost": "",
+      "name": "Catapult Captain",
+      "object": "card_face",
+      "oracle_text": "{2}{B}, {T}, Sacrifice another creature: Target opponent loses life equal to the sacrificed creature's toughness.",
+      "power": "2",
+      "toughness": "6",
+      "type_line": "Creature — Zombie"
+    }
+  ],
+  "cardmarket_id": 582942,
+  "cmc": 3.0,
+  "collector_number": "99",
+  "color_identity": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 10860,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "sunmoondfc"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:41:22Z",
+  "keywords": [
+    "Transform"
+  ],
+  "lang": "en",
+  "layout": "transform",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 94516,
+  "multiverse_ids": [
+    540944,
+    540945
+  ],
+  "name": "Catapult Fodder // Catapult Captain",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "aa2c0d23-8df8-408b-a8c0-c4cd005f078d",
+  "oversized": false,
+  "penny_rank": 5327,
+  "preview": {
+    "previewed_at": "2021-11-04",
+    "source": "Lords of Limited",
+    "source_uri": "https://twitter.com/LordsofLimited/status/1456237859816550403"
+  },
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": "0.31",
+    "tix": "0.03",
+    "usd": "0.34",
+    "usd_etched": null,
+    "usd_foil": "0.39"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aaa2c0d23-8df8-408b-a8c0-c4cd005f078d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/94516?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=582942&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F253587%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Catapult+Fodder",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=540944&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCatapult%2BFodder%2B%252F%252F%2BCatapult%2BCaptain",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCatapult%2BFodder%2B%252F%252F%2BCatapult%2BCaptain"
+  },
+  "released_at": "2021-11-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/vow?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/vow/99/catapult-fodder-catapult-captain?utm_source=api",
+  "set": "vow",
+  "set_id": "8144b676-569f-4716-8005-bc8f0778f3fa",
+  "set_name": "Innistrad: Crimson Vow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Avow&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/8144b676-569f-4716-8005-bc8f0778f3fa",
+  "story_spotlight": false,
+  "tcgplayer_id": 253587,
+  "textless": false,
+  "type_line": "Creature — Zombie // Creature — Zombie",
+  "uri": "https://api.scryfall.com/cards/e61b3afa-66e0-4f7b-84bc-7ae2cc6d28d4",
+  "variation": false
+}

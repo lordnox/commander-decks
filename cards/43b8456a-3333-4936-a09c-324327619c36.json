@@ -1,0 +1,141 @@
+{
+  "arena_id": 71287,
+  "artist": "Yigit Koroglu",
+  "artist_ids": [
+    "a24479f8-6d9e-40f9-bede-f29899922b97"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 451898,
+  "cmc": 2.0,
+  "collector_number": "220",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [
+    "B",
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 4354,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "6cd9d800-6d31-42e2-87d2-772db0ff95ed",
+  "illustration_id": "85f7effc-0034-4492-baaf-c3779035b8d4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:23:32Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/c/6cd9d800-6d31-42e2-87d2-772db0ff95ed.webp?1783931012",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/c/6cd9d800-6d31-42e2-87d2-772db0ff95ed.jpg?1783931012",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/c/6cd9d800-6d31-42e2-87d2-772db0ff95ed.jpg?1783931012",
+    "crop": "https://cards.scryfall.io/crop/front/6/c/6cd9d800-6d31-42e2-87d2-772db0ff95ed.webp?1783931012",
+    "display": "https://cards.scryfall.io/display/front/6/c/6cd9d800-6d31-42e2-87d2-772db0ff95ed.webp?1783931012",
+    "grid": "https://cards.scryfall.io/grid/front/6/c/6cd9d800-6d31-42e2-87d2-772db0ff95ed.webp?1783931012",
+    "large": "https://cards.scryfall.io/large/front/6/c/6cd9d800-6d31-42e2-87d2-772db0ff95ed.jpg?1783931012",
+    "normal": "https://cards.scryfall.io/normal/front/6/c/6cd9d800-6d31-42e2-87d2-772db0ff95ed.jpg?1783931012",
+    "png": "https://cards.scryfall.io/png/front/6/c/6cd9d800-6d31-42e2-87d2-772db0ff95ed.png?1783931012",
+    "small": "https://cards.scryfall.io/small/front/6/c/6cd9d800-6d31-42e2-87d2-772db0ff95ed.jpg?1783931012",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/c/6cd9d800-6d31-42e2-87d2-772db0ff95ed.webp?1783931012"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B/G}{B/G}",
+  "mtgo_id": 80449,
+  "multiverse_ids": [
+    479740
+  ],
+  "name": "Fiend Artisan",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "43b8456a-3333-4936-a09c-324327619c36",
+  "oracle_text": "This creature gets +1/+1 for each creature card in your graveyard.\n{X}{B/G}, {T}, Sacrifice another creature: Search your library for a creature card with mana value X or less, put it onto the battlefield, then shuffle. Activate only as a sorcery.",
+  "oversized": false,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2020-04-03",
+    "source": "CoolStuffInc",
+    "source_uri": "https://www.coolstuffinc.com/a/jimdavis-04032020-you-got-your-birthing-pod-in-my-tarmogoyf"
+  },
+  "prices": {
+    "eur": "5.46",
+    "eur_foil": "6.75",
+    "tix": "2.59",
+    "usd": "4.91",
+    "usd_etched": null,
+    "usd_foil": "4.49"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A43b8456a-3333-4936-a09c-324327619c36&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/80449?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=451898&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F212077%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Fiend+Artisan",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=479740&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFiend%2BArtisan",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFiend%2BArtisan"
+  },
+  "released_at": "2020-04-24",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/6cd9d800-6d31-42e2-87d2-772db0ff95ed/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/iko?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/iko/220/fiend-artisan?utm_source=api",
+  "security_stamp": "oval",
+  "set": "iko",
+  "set_id": "19feda43-15ab-427e-a0e4-148a4bf2b03a",
+  "set_name": "Ikoria: Lair of Behemoths",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aiko&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/19feda43-15ab-427e-a0e4-148a4bf2b03a",
+  "story_spotlight": false,
+  "tcgplayer_id": 212077,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Nightmare",
+  "uri": "https://api.scryfall.com/cards/6cd9d800-6d31-42e2-87d2-772db0ff95ed",
+  "variation": false
+}

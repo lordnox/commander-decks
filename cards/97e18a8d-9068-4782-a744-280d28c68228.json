@@ -1,0 +1,147 @@
+{
+  "arena_id": 76512,
+  "artist": "Randy Vargas",
+  "artist_ids": [
+    "d20672ca-0555-4238-a984-fd171d36b247"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 557638,
+  "cmc": 4.0,
+  "collector_number": "119",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 7369,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Tincture of murkroot and lizard feet? Simple. One that doesn't taste like murkroot and lizard feet? I'm working on it.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "0d7b7830-b65e-4c53-98e8-152026764e4b",
+  "illustration_id": "9b2686d1-d607-45f3-9811-152f1c402820",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:22:29Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/d/0d7b7830-b65e-4c53-98e8-152026764e4b.webp?1783927349",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/d/0d7b7830-b65e-4c53-98e8-152026764e4b.jpg?1783927349",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/d/0d7b7830-b65e-4c53-98e8-152026764e4b.jpg?1783927349",
+    "crop": "https://cards.scryfall.io/crop/front/0/d/0d7b7830-b65e-4c53-98e8-152026764e4b.webp?1783927349",
+    "display": "https://cards.scryfall.io/display/front/0/d/0d7b7830-b65e-4c53-98e8-152026764e4b.webp?1783927349",
+    "grid": "https://cards.scryfall.io/grid/front/0/d/0d7b7830-b65e-4c53-98e8-152026764e4b.webp?1783927349",
+    "large": "https://cards.scryfall.io/large/front/0/d/0d7b7830-b65e-4c53-98e8-152026764e4b.jpg?1783927349",
+    "normal": "https://cards.scryfall.io/normal/front/0/d/0d7b7830-b65e-4c53-98e8-152026764e4b.jpg?1783927349",
+    "png": "https://cards.scryfall.io/png/front/0/d/0d7b7830-b65e-4c53-98e8-152026764e4b.png?1783927349",
+    "small": "https://cards.scryfall.io/small/front/0/d/0d7b7830-b65e-4c53-98e8-152026764e4b.jpg?1783927349",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/d/0d7b7830-b65e-4c53-98e8-152026764e4b.webp?1783927349"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{G}",
+  "mtgo_id": 88715,
+  "multiverse_ids": [
+    513596
+  ],
+  "name": "Accomplished Alchemist",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "97e18a8d-9068-4782-a744-280d28c68228",
+  "oracle_text": "{T}: Add one mana of any color.\n{T}: Add X mana of any one color, where X is the amount of life you gained this turn.",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2021-03-31",
+    "source": "Good Luck High Five",
+    "source_uri": "https://www.youtube.com/watch?v=A6pKUACYV7s"
+  },
+  "prices": {
+    "eur": "0.35",
+    "eur_foil": "0.52",
+    "tix": "0.02",
+    "usd": "0.39",
+    "usd_etched": null,
+    "usd_foil": "0.43"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A97e18a8d-9068-4782-a744-280d28c68228&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/88715?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=557638&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F235703%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Accomplished+Alchemist",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=513596&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAccomplished%2BAlchemist",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAccomplished%2BAlchemist"
+  },
+  "released_at": "2021-04-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0d7b7830-b65e-4c53-98e8-152026764e4b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/stx?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/stx/119/accomplished-alchemist?utm_source=api",
+  "security_stamp": "oval",
+  "set": "stx",
+  "set_id": "541c3c28-8747-40e5-a231-8e8f33234859",
+  "set_name": "Strixhaven: School of Mages",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Astx&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/541c3c28-8747-40e5-a231-8e8f33234859",
+  "story_spotlight": false,
+  "tcgplayer_id": 235703,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Creature — Elf Druid",
+  "uri": "https://api.scryfall.com/cards/0d7b7830-b65e-4c53-98e8-152026764e4b",
+  "variation": false
+}

@@ -7296,8 +7296,458 @@
       "categories": [
         "other"
       ]
+    },
+    "97e18a8d-9068-4782-a744-280d28c68228": {
+      "name": "Accomplished Alchemist",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "607a3f5f-4a36-4077-b5cf-40ffd52fa580": {
+      "name": "Altar of Bone",
+      "categories": [
+        "tutor",
+        "sacrifice"
+      ]
+    },
+    "92380c57-0a92-48eb-b562-2be149b5792a": {
+      "name": "Angel of Suffering",
+      "categories": [
+        "other"
+      ]
+    },
+    "9c36760b-57c5-488b-afc9-ef141942c6ab": {
+      "name": "Archfiend of Despair",
+      "categories": [
+        "other"
+      ]
+    },
+    "4d6d3e6d-f958-4c17-b117-960fb8033601": {
+      "name": "Assault Formation",
+      "categories": [
+        "other"
+      ]
+    },
+    "060e0378-e335-4b3d-82aa-ae36639339f6": {
+      "name": "Axebane Guardian",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "826a0db6-195a-4697-9bd6-f544b279e3cf": {
+      "name": "Betor, Kin to All",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "469956a2-7cd4-4695-b8f4-c841526f160d": {
+      "name": "Bloodletter of Aclazotz",
+      "categories": [
+        "other"
+      ]
+    },
+    "0c23fefe-9891-4dd8-9bb1-eebdb3274e31": {
+      "name": "Bloom Tender",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "761cb262-f83b-4a99-9345-b773182a7671": {
+      "name": "Bountiful Promenade",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "aa2c0d23-8df8-408b-a8c0-c4cd005f078d": {
+      "name": "Catapult Fodder // Catapult Captain",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "a3acb58d-3fb1-4602-8575-d78b716b0ea5": {
+      "name": "Choose Your Weapon",
+      "categories": [
+        "other"
+      ]
+    },
+    "90dd050d-f58d-4590-9fc7-af624ee4a13f": {
+      "name": "Colfenor, the Last Yew",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "b4429e71-434e-480c-a8d1-2ad11de8b2d9": {
+      "name": "Convert to Slime",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "956250da-532a-4457-8696-73915be56943": {
+      "name": "Cradle of Vitality",
+      "categories": [
+        "other"
+      ]
+    },
+    "328d5ef0-b25e-4f2a-80fe-35c6ae419e8a": {
+      "name": "Crashing Drawbridge",
+      "categories": [
+        "other"
+      ]
+    },
+    "291c7abf-9d64-4ba0-ae21-e3459edc9a95": {
+      "name": "Crystal Barricade",
+      "categories": [
+        "protection"
+      ]
+    },
+    "b52148c3-fe97-4cc0-a814-a5a0f5d426f6": {
+      "name": "Deathbloom Ritualist",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "1831fe12-dbe0-437f-8fc8-f01bbb701fe1": {
+      "name": "Deceptive Landscape",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "sacrifice",
+        "discard"
+      ]
+    },
+    "c48ce123-bb07-4221-b3b3-0a458e101ca1": {
+      "name": "Djeru's Resolve",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "a46d96d9-8e59-4777-8208-7730b9e33240": {
+      "name": "Doran, the Siege Tower",
+      "categories": [
+        "other"
+      ]
+    },
+    "5674f6ae-ed5d-441e-a534-b5dd415165fd": {
+      "name": "Eerie Ultimatum",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "904b3db5-70bc-4d49-9887-f504aff8666f": {
+      "name": "Emerald Charm",
+      "categories": [
+        "removal"
+      ]
+    },
+    "98e698ae-1a69-469c-9cfb-0e3fedeb71d4": {
+      "name": "Enduring Tenacity",
+      "categories": [
+        "other"
+      ]
+    },
+    "70a6f08e-854d-4e2f-9d8c-c45ec3231157": {
+      "name": "Faeburrow Elder",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "43b8456a-3333-4936-a09c-324327619c36": {
+      "name": "Fiend Artisan",
+      "categories": [
+        "tutor",
+        "sacrifice"
+      ]
+    },
+    "8d579f04-b494-41a1-ba7c-b9779f75b818": {
+      "name": "Fruit of the First Tree",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "e5741c85-cd09-4ccb-ab39-3f3a62f98939": {
+      "name": "Gauntlets of Light",
+      "categories": [
+        "other"
+      ]
+    },
+    "7b1a59db-0ffc-490b-a881-c8192f3747db": {
+      "name": "Gift of the Viper",
+      "categories": [
+        "other"
+      ]
+    },
+    "8859a692-d107-4de2-9110-4681fc2761c7": {
+      "name": "Glissa Sunslayer",
+      "categories": [
+        "card-draw",
+        "removal"
+      ]
+    },
+    "f0ab7166-9fcf-46e5-af2c-b7f628db4789": {
+      "name": "Golgari Charm",
+      "categories": [
+        "removal"
+      ]
+    },
+    "1ff62220-be95-4901-b8d8-812b9a1a1b0a": {
+      "name": "Greed",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "e3aa16cf-079b-4737-9ffd-7bfdffef0cb2": {
+      "name": "Gyre Sage",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "cce328b9-6100-417e-9ddf-808bbe3e3bc5": {
+      "name": "Hushwood Verge",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "a1a1761c-88e5-40b4-ba4c-60735c054b09": {
+      "name": "Ikra Shidiqi, the Usurper",
+      "categories": [
+        "other"
+      ]
+    },
+    "ec2b3779-55f7-4169-aa66-6312fb52721f": {
+      "name": "Indatha Triome",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "8695c3c1-fb4b-4429-ae33-ec186f68796b": {
+      "name": "Instill Energy",
+      "categories": [
+        "other"
+      ]
+    },
+    "4b1874af-4ea5-4e22-a4d4-e718d75fe95e": {
+      "name": "Invasion of Zendikar // Awakened Skyclave",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "59154c04-6bc5-4b95-af1f-6de5fed05649": {
+      "name": "Legolas's Quick Reflexes",
+      "categories": [
+        "protection"
+      ]
+    },
+    "5d27c63e-d1ef-48af-b51d-01ebc6daeac9": {
+      "name": "Mikaeus, the Unhallowed",
+      "categories": [
+        "other"
+      ]
+    },
+    "16da72a3-d980-4dd8-99f2-8191cce00978": {
+      "name": "Mythos of Nethroi",
+      "categories": [
+        "removal"
+      ]
+    },
+    "7f425406-2746-45a1-86bf-f9645015ffc2": {
+      "name": "Nature's Chosen",
+      "categories": [
+        "other"
+      ]
+    },
+    "66bef5a7-79b7-4a9c-98dc-8670f867f04c": {
+      "name": "Nethroi, Apex of Death",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "1d85eec2-80db-466c-bd48-d2a12866e8bd": {
+      "name": "Old Stickfingers",
+      "categories": [
+        "other"
+      ]
+    },
+    "585f62dc-4461-42f1-a3a4-b19a1e550d2d": {
+      "name": "Overgrown Battlement",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "709d2f10-1585-48c3-9058-ddd5f62f0452": {
+      "name": "Overgrown Farmland",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "1be13ede-98f8-497e-800c-03e5802932b3": {
+      "name": "Reveillark",
+      "categories": [
+        "recursion",
+        "sacrifice"
+      ]
+    },
+    "544dbabd-cbfc-40da-a5ba-2fea9cddb453": {
+      "name": "Sandsteppe Citadel",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "0c1e2bb8-0629-466c-b435-c4c71cdc755d": {
+      "name": "Sapling of Colfenor",
+      "categories": [
+        "protection"
+      ]
+    },
+    "4e07a0b3-f340-4ed1-a8a9-c25fe6f37fb3": {
+      "name": "Saryth, the Viper's Fang",
+      "categories": [
+        "protection"
+      ]
+    },
+    "c6dfc91f-bfac-40c2-99e5-0cec981f7f1f": {
+      "name": "Scourge of the Skyclaves",
+      "categories": [
+        "other"
+      ]
+    },
+    "c854ecb0-cc60-4c48-a9aa-7f2348a7a8c6": {
+      "name": "Shattered Sanctum",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "7c2a4fe5-43e8-4e20-bef2-0278d18afc4b": {
+      "name": "Shifting Woodland",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "d16298ac-67bd-4f9d-9979-23c1b7e4b359": {
+      "name": "Starlit Sanctum",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "402ec768-76fb-474e-ae74-babc90d833c4": {
+      "name": "Sunpetal Grove",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "0dfdf1a1-a3a9-490f-bd9d-dcba088c6785": {
+      "name": "Teyo, Geometric Tactician",
+      "categories": [
+        "card-draw",
+        "token-production"
+      ]
+    },
+    "c9dd2bf5-32e0-47f7-9a49-501c262d745b": {
+      "name": "Traverse the Ulvenwald",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "0cdece2a-0bdf-4e6d-9ddc-4a8d58b2ec29": {
+      "name": "Tree of Perdition",
+      "categories": [
+        "other"
+      ]
+    },
+    "1372dd15-cdb9-470c-b3e8-3423697e46e8": {
+      "name": "Tree of Redemption",
+      "categories": [
+        "other"
+      ]
+    },
+    "8b4aa971-b919-4750-8388-33d4f42c9280": {
+      "name": "Tree of Tales",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "848c2b8f-8086-4047-8ad0-24b701dc4d0d": {
+      "name": "Tyvar, Jubilant Brawler",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "e1bce9c3-300c-4a9d-abe0-a1f02d3a1105": {
+      "name": "Underrealm Lich",
+      "categories": [
+        "card-draw",
+        "protection"
+      ]
+    },
+    "7324abaa-48da-439d-9339-b0ea5eea612e": {
+      "name": "Unnatural Growth",
+      "categories": [
+        "other"
+      ]
+    },
+    "ebc5ac83-08d4-4d6b-b840-0c4ba71a38ab": {
+      "name": "Vault of Champions",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "eeaac65a-3480-475a-bb28-e6375d53f487": {
+      "name": "Vault of the Archangel",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "7336a541-3ae9-4ab2-acb8-f574c0a5b3a9": {
+      "name": "Vito, Thorn of the Dusk Rose",
+      "categories": [
+        "other"
+      ]
+    },
+    "94723d61-3e29-4180-91bc-df37c4086a66": {
+      "name": "Willowdusk, Essence Seer",
+      "categories": [
+        "other"
+      ]
+    },
+    "0355249a-8e4e-41db-9cea-1b901faffbe6": {
+      "name": "Witch Enchanter // Witch-Blessed Meadow",
+      "categories": [
+        "land",
+        "ramp",
+        "removal"
+      ]
+    },
+    "b09206a4-8b73-4125-8b79-53f6fd511b16": {
+      "name": "Wound Reflection",
+      "categories": [
+        "other"
+      ]
+    },
+    "b168e4e6-f572-4d9f-b98f-95b2611354cb": {
+      "name": "Zopandrel, Hunger Dominus",
+      "categories": [
+        "protection",
+        "sacrifice"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-27T17:11:52.965219+00:00"
+  "updated_at": "2026-08-27T17:12:26.188925+00:00"
 }

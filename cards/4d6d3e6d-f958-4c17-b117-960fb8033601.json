@@ -1,0 +1,133 @@
+{
+  "artist": "Kieran Yanner",
+  "artist_ids": [
+    "aa7e89ed-d294-4633-9057-ce04dacfcfa4"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818831,
+  "cmc": 2.0,
+  "collector_number": "246",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 2533,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "40452217-9d8c-48e7-b5b4-2740b97bea2a",
+  "illustration_id": "af6f9c22-1e42-491d-bc6f-ed8ffb211411",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:44:11Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/0/40452217-9d8c-48e7-b5b4-2740b97bea2a.webp?1783907051",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/0/40452217-9d8c-48e7-b5b4-2740b97bea2a.jpg?1783907051",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/0/40452217-9d8c-48e7-b5b4-2740b97bea2a.jpg?1783907051",
+    "crop": "https://cards.scryfall.io/crop/front/4/0/40452217-9d8c-48e7-b5b4-2740b97bea2a.webp?1783907051",
+    "display": "https://cards.scryfall.io/display/front/4/0/40452217-9d8c-48e7-b5b4-2740b97bea2a.webp?1783907051",
+    "grid": "https://cards.scryfall.io/grid/front/4/0/40452217-9d8c-48e7-b5b4-2740b97bea2a.webp?1783907051",
+    "large": "https://cards.scryfall.io/large/front/4/0/40452217-9d8c-48e7-b5b4-2740b97bea2a.jpg?1783907051",
+    "normal": "https://cards.scryfall.io/normal/front/4/0/40452217-9d8c-48e7-b5b4-2740b97bea2a.jpg?1783907051",
+    "png": "https://cards.scryfall.io/png/front/4/0/40452217-9d8c-48e7-b5b4-2740b97bea2a.png?1783907051",
+    "small": "https://cards.scryfall.io/small/front/4/0/40452217-9d8c-48e7-b5b4-2740b97bea2a.jpg?1783907051",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/0/40452217-9d8c-48e7-b5b4-2740b97bea2a.webp?1783907051"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 138429,
+  "multiverse_ids": [
+    696402
+  ],
+  "name": "Assault Formation",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4d6d3e6d-f958-4c17-b117-960fb8033601",
+  "oracle_text": "Each creature you control assigns combat damage equal to its toughness rather than its power.\n{G}: Target creature with defender can attack this turn as though it didn't have defender.\n{2}{G}: Creatures you control get +0/+1 until end of turn.",
+  "oversized": false,
+  "penny_rank": 4389,
+  "prices": {
+    "eur": "0.42",
+    "eur_foil": null,
+    "tix": "0.11",
+    "usd": "0.40",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4d6d3e6d-f958-4c17-b117-960fb8033601&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138429?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818831&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624662%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Assault+Formation",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696402&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAssault%2BFormation",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAssault%2BFormation"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/40452217-9d8c-48e7-b5b4-2740b97bea2a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/246/assault-formation?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624662,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/40452217-9d8c-48e7-b5b4-2740b97bea2a",
+  "variation": false
+}

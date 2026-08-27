@@ -1,0 +1,150 @@
+{
+  "arena_id": 82693,
+  "artist": "Taras Susak",
+  "artist_ids": [
+    "db356418-19f5-448f-b5a9-68b9afce3d72"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 682619,
+  "cmc": 5.0,
+  "collector_number": "208",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [
+    "B",
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 11131,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Each fallen friend was a seed of regret, eager to blossom again in Gaea's name.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "45ff816d-1eb7-4985-90ec-f44802a696fc",
+  "illustration_id": "7921ee01-46b4-47bc-875d-8a3c28480663",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:20:33Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/5/45ff816d-1eb7-4985-90ec-f44802a696fc.webp?1783920033",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/5/45ff816d-1eb7-4985-90ec-f44802a696fc.jpg?1783920033",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/5/45ff816d-1eb7-4985-90ec-f44802a696fc.jpg?1783920033",
+    "crop": "https://cards.scryfall.io/crop/front/4/5/45ff816d-1eb7-4985-90ec-f44802a696fc.webp?1783920033",
+    "display": "https://cards.scryfall.io/display/front/4/5/45ff816d-1eb7-4985-90ec-f44802a696fc.webp?1783920033",
+    "grid": "https://cards.scryfall.io/grid/front/4/5/45ff816d-1eb7-4985-90ec-f44802a696fc.webp?1783920033",
+    "large": "https://cards.scryfall.io/large/front/4/5/45ff816d-1eb7-4985-90ec-f44802a696fc.jpg?1783920033",
+    "normal": "https://cards.scryfall.io/normal/front/4/5/45ff816d-1eb7-4985-90ec-f44802a696fc.jpg?1783920033",
+    "png": "https://cards.scryfall.io/png/front/4/5/45ff816d-1eb7-4985-90ec-f44802a696fc.png?1783920033",
+    "small": "https://cards.scryfall.io/small/front/4/5/45ff816d-1eb7-4985-90ec-f44802a696fc.jpg?1783920033",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/5/45ff816d-1eb7-4985-90ec-f44802a696fc.webp?1783920033"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{G}",
+  "mtgo_id": 105036,
+  "multiverse_ids": [
+    583791
+  ],
+  "name": "Deathbloom Ritualist",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b52148c3-fe97-4cc0-a814-a5a0f5d426f6",
+  "oracle_text": "{T}: Add X mana of any one color, where X is the number of creature cards in your graveyard.",
+  "oversized": false,
+  "penny_rank": 14600,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2022-11-01",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.33",
+    "eur_foil": "0.40",
+    "tix": "0.02",
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": "0.44"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab52148c3-fe97-4cc0-a814-a5a0f5d426f6&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/105036?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=682619&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F452396%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Deathbloom+Ritualist",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=583791&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDeathbloom%2BRitualist",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDeathbloom%2BRitualist"
+  },
+  "released_at": "2022-11-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/45ff816d-1eb7-4985-90ec-f44802a696fc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/bro?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/bro/208/deathbloom-ritualist?utm_source=api",
+  "security_stamp": "oval",
+  "set": "bro",
+  "set_id": "4219a14e-6701-4ddd-a185-21dc054ab19b",
+  "set_name": "The Brothers' War",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abro&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4219a14e-6701-4ddd-a185-21dc054ab19b",
+  "story_spotlight": false,
+  "tcgplayer_id": 452396,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Creature — Elf Warlock",
+  "uri": "https://api.scryfall.com/cards/45ff816d-1eb7-4985-90ec-f44802a696fc",
+  "variation": false
+}

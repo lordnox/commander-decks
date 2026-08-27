@@ -1,0 +1,138 @@
+{
+  "artist": "Chris Rahn",
+  "artist_ids": [
+    "7742047e-0f80-4c0f-a530-d07460165e86"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 722537,
+  "cmc": 6.0,
+  "collector_number": "173",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1296,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "bc1f42a2-fe11-45da-9552-069803b4068a",
+  "illustration_id": "c0f59074-7c2e-4bac-b481-b576602b56be",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:07:50Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/c/bc1f42a2-fe11-45da-9552-069803b4068a.webp?1783915670",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/c/bc1f42a2-fe11-45da-9552-069803b4068a.jpg?1783915670",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/c/bc1f42a2-fe11-45da-9552-069803b4068a.jpg?1783915670",
+    "crop": "https://cards.scryfall.io/crop/front/b/c/bc1f42a2-fe11-45da-9552-069803b4068a.webp?1783915670",
+    "display": "https://cards.scryfall.io/display/front/b/c/bc1f42a2-fe11-45da-9552-069803b4068a.webp?1783915670",
+    "grid": "https://cards.scryfall.io/grid/front/b/c/bc1f42a2-fe11-45da-9552-069803b4068a.webp?1783915670",
+    "large": "https://cards.scryfall.io/large/front/b/c/bc1f42a2-fe11-45da-9552-069803b4068a.jpg?1783915670",
+    "normal": "https://cards.scryfall.io/normal/front/b/c/bc1f42a2-fe11-45da-9552-069803b4068a.jpg?1783915670",
+    "png": "https://cards.scryfall.io/png/front/b/c/bc1f42a2-fe11-45da-9552-069803b4068a.png?1783915670",
+    "small": "https://cards.scryfall.io/small/front/b/c/bc1f42a2-fe11-45da-9552-069803b4068a.jpg?1783915670",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/c/bc1f42a2-fe11-45da-9552-069803b4068a.webp?1783915670"
+  },
+  "keywords": [
+    "Intimidate"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}{B}",
+  "mtgo_id": 115445,
+  "multiverse_ids": [
+    622781
+  ],
+  "name": "Mikaeus, the Unhallowed",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5d27c63e-d1ef-48af-b51d-01ebc6daeac9",
+  "oracle_text": "Intimidate (This creature can't be blocked except by artifact creatures and/or creatures that share a color with it.)\nWhenever a Human deals damage to you, destroy it.\nOther non-Human creatures you control get +1/+1 and have undying. (When a creature with undying dies, if it had no +1/+1 counters on it, return it to the battlefield under its owner's control with a +1/+1 counter on it.)",
+  "oversized": false,
+  "penny_rank": 7724,
+  "power": "5",
+  "prices": {
+    "eur": "23.92",
+    "eur_foil": "29.74",
+    "tix": "0.19",
+    "usd": "25.02",
+    "usd_etched": null,
+    "usd_foil": "33.43"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5d27c63e-d1ef-48af-b51d-01ebc6daeac9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/115445?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=722537&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F504569%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mikaeus%2C+the+Unhallowed",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=622781&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMikaeus%252C%2Bthe%2BUnhallowed",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMikaeus%252C%2Bthe%2BUnhallowed"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/bc1f42a2-fe11-45da-9552-069803b4068a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/173/mikaeus-the-unhallowed?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 504569,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Legendary Creature — Zombie Cleric",
+  "uri": "https://api.scryfall.com/cards/bc1f42a2-fe11-45da-9552-069803b4068a",
+  "variation": false
+}

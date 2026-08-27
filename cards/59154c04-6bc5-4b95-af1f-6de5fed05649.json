@@ -1,0 +1,140 @@
+{
+  "artist": "Jason Rainville",
+  "artist_ids": [
+    "6ed7e669-579b-443d-b223-e5cbcb2a7483"
+  ],
+  "booster": false,
+  "border_color": "borderless",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 736501,
+  "cmc": 1.0,
+  "collector_number": "493",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1461,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "inverted"
+  ],
+  "full_art": true,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "851c0167-04ba-4d15-b0fa-c211bd8826f1",
+  "illustration_id": "3602b40d-0d9b-4f6a-8cae-66b53e65de80",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:43:24Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/5/851c0167-04ba-4d15-b0fa-c211bd8826f1.webp?1783914204",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/5/851c0167-04ba-4d15-b0fa-c211bd8826f1.jpg?1783914204",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/5/851c0167-04ba-4d15-b0fa-c211bd8826f1.jpg?1783914204",
+    "crop": "https://cards.scryfall.io/crop/front/8/5/851c0167-04ba-4d15-b0fa-c211bd8826f1.webp?1783914204",
+    "display": "https://cards.scryfall.io/display/front/8/5/851c0167-04ba-4d15-b0fa-c211bd8826f1.webp?1783914204",
+    "grid": "https://cards.scryfall.io/grid/front/8/5/851c0167-04ba-4d15-b0fa-c211bd8826f1.webp?1783914204",
+    "large": "https://cards.scryfall.io/large/front/8/5/851c0167-04ba-4d15-b0fa-c211bd8826f1.jpg?1783914204",
+    "normal": "https://cards.scryfall.io/normal/front/8/5/851c0167-04ba-4d15-b0fa-c211bd8826f1.jpg?1783914204",
+    "png": "https://cards.scryfall.io/png/front/8/5/851c0167-04ba-4d15-b0fa-c211bd8826f1.png?1783914204",
+    "small": "https://cards.scryfall.io/small/front/8/5/851c0167-04ba-4d15-b0fa-c211bd8826f1.jpg?1783914204",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/5/851c0167-04ba-4d15-b0fa-c211bd8826f1.webp?1783914204"
+  },
+  "keywords": [
+    "Split second"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "mtgo_id": 120076,
+  "multiverse_ids": [
+    636337
+  ],
+  "name": "Legolas's Quick Reflexes",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "59154c04-6bc5-4b95-af1f-6de5fed05649",
+  "oracle_text": "Split second (As long as this spell is on the stack, players can't cast spells or activate abilities that aren't mana abilities.)\nUntap target creature. Until end of turn, it gains reach, hexproof, and \"Whenever this creature becomes tapped, it deals damage equal to its power to up to one target creature.\"",
+  "oversized": false,
+  "prices": {
+    "eur": "33.14",
+    "eur_foil": "34.43",
+    "tix": "12.23",
+    "usd": "45.64",
+    "usd_etched": null,
+    "usd_foil": "46.75"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A59154c04-6bc5-4b95-af1f-6de5fed05649&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond",
+    "boosterfun"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/120076?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=736501&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F517256%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Legolas%27s+Quick+Reflexes",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=636337&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLegolas%2527s%2BQuick%2BReflexes",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLegolas%2527s%2BQuick%2BReflexes"
+  },
+  "released_at": "2023-11-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/851c0167-04ba-4d15-b0fa-c211bd8826f1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ltc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ltc/493/legolass-quick-reflexes?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "ltc",
+  "set_id": "e567c19c-0fe4-446e-a7bf-fce8a150cd2e",
+  "set_name": "Tales of Middle-earth Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Altc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/e567c19c-0fe4-446e-a7bf-fce8a150cd2e",
+  "story_spotlight": false,
+  "tcgplayer_id": 517256,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/851c0167-04ba-4d15-b0fa-c211bd8826f1",
+  "variation": false
+}

@@ -1,0 +1,138 @@
+{
+  "arena_id": 93720,
+  "artist": "Rockey Chen",
+  "artist_ids": [
+    "5f92512a-2da0-4d91-8aaf-ac8d2404d776"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 795097,
+  "cmc": 2.0,
+  "collector_number": "7",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 2046,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Good as new!\"\n—Krek, daysquad captain",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "905d3e02-ea06-45e7-9adb-c8e7583323a2",
+  "illustration_id": "c8440ca1-667a-4e68-aecd-79436db4c8e9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:18:49Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/0/905d3e02-ea06-45e7-9adb-c8e7583323a2.webp?1783909129",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/0/905d3e02-ea06-45e7-9adb-c8e7583323a2.jpg?1783909129",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/0/905d3e02-ea06-45e7-9adb-c8e7583323a2.jpg?1783909129",
+    "crop": "https://cards.scryfall.io/crop/front/9/0/905d3e02-ea06-45e7-9adb-c8e7583323a2.webp?1783909129",
+    "display": "https://cards.scryfall.io/display/front/9/0/905d3e02-ea06-45e7-9adb-c8e7583323a2.webp?1783909129",
+    "grid": "https://cards.scryfall.io/grid/front/9/0/905d3e02-ea06-45e7-9adb-c8e7583323a2.webp?1783909129",
+    "large": "https://cards.scryfall.io/large/front/9/0/905d3e02-ea06-45e7-9adb-c8e7583323a2.jpg?1783909129",
+    "normal": "https://cards.scryfall.io/normal/front/9/0/905d3e02-ea06-45e7-9adb-c8e7583323a2.jpg?1783909129",
+    "png": "https://cards.scryfall.io/png/front/9/0/905d3e02-ea06-45e7-9adb-c8e7583323a2.png?1783909129",
+    "small": "https://cards.scryfall.io/small/front/9/0/905d3e02-ea06-45e7-9adb-c8e7583323a2.jpg?1783909129",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/0/905d3e02-ea06-45e7-9adb-c8e7583323a2.webp?1783909129"
+  },
+  "keywords": [
+    "Defender"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "mtgo_id": 133582,
+  "multiverse_ids": [
+    679084
+  ],
+  "name": "Crystal Barricade",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "291c7abf-9d64-4ba0-ae21-e3459edc9a95",
+  "oracle_text": "Defender (This creature can't attack.)\nYou have hexproof. (You can't be the target of spells or abilities your opponents control.)\nPrevent all noncombat damage that would be dealt to other creatures you control.",
+  "oversized": false,
+  "penny_rank": 3977,
+  "power": "0",
+  "prices": {
+    "eur": "1.85",
+    "eur_foil": "1.78",
+    "tix": "0.02",
+    "usd": "2.43",
+    "usd_etched": null,
+    "usd_foil": "2.66"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A291c7abf-9d64-4ba0-ae21-e3459edc9a95&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/133582?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=795097&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F589330%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Crystal+Barricade",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=679084&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCrystal%2BBarricade",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCrystal%2BBarricade"
+  },
+  "released_at": "2024-11-15",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/905d3e02-ea06-45e7-9adb-c8e7583323a2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fdn/7/crystal-barricade?utm_source=api",
+  "security_stamp": "oval",
+  "set": "fdn",
+  "set_id": "a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "set_name": "Foundations",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afdn&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "story_spotlight": false,
+  "tcgplayer_id": 589330,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Artifact Creature — Wall",
+  "uri": "https://api.scryfall.com/cards/905d3e02-ea06-45e7-9adb-c8e7583323a2",
+  "variation": false
+}

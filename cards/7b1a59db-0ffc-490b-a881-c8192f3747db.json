@@ -1,0 +1,133 @@
+{
+  "arena_id": 91006,
+  "artist": "Madeline Boni",
+  "artist_ids": [
+    "2fa2d8ae-dd11-46ab-9ef2-fa1ec0082a45"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 772427,
+  "cmc": 1.0,
+  "collector_number": "156",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1656,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Ohran mages willingly endure the bites of vipers, believing the snakes bestow great power on those who survive their venom.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "17fa0b62-d474-4dc7-9631-9d0a9d99e5e2",
+  "illustration_id": "8d30e582-366e-4f52-8dfd-3a7070e2983e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:20Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/7/17fa0b62-d474-4dc7-9631-9d0a9d99e5e2.webp?1783911260",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/7/17fa0b62-d474-4dc7-9631-9d0a9d99e5e2.jpg?1783911260",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/7/17fa0b62-d474-4dc7-9631-9d0a9d99e5e2.jpg?1783911260",
+    "crop": "https://cards.scryfall.io/crop/front/1/7/17fa0b62-d474-4dc7-9631-9d0a9d99e5e2.webp?1783911260",
+    "display": "https://cards.scryfall.io/display/front/1/7/17fa0b62-d474-4dc7-9631-9d0a9d99e5e2.webp?1783911260",
+    "grid": "https://cards.scryfall.io/grid/front/1/7/17fa0b62-d474-4dc7-9631-9d0a9d99e5e2.webp?1783911260",
+    "large": "https://cards.scryfall.io/large/front/1/7/17fa0b62-d474-4dc7-9631-9d0a9d99e5e2.jpg?1783911260",
+    "normal": "https://cards.scryfall.io/normal/front/1/7/17fa0b62-d474-4dc7-9631-9d0a9d99e5e2.jpg?1783911260",
+    "png": "https://cards.scryfall.io/png/front/1/7/17fa0b62-d474-4dc7-9631-9d0a9d99e5e2.png?1783911260",
+    "small": "https://cards.scryfall.io/small/front/1/7/17fa0b62-d474-4dc7-9631-9d0a9d99e5e2.jpg?1783911260",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/7/17fa0b62-d474-4dc7-9631-9d0a9d99e5e2.webp?1783911260"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "mtgo_id": 126329,
+  "multiverse_ids": [
+    662308
+  ],
+  "name": "Gift of the Viper",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7b1a59db-0ffc-490b-a881-c8192f3747db",
+  "oracle_text": "Put a +1/+1 counter, a reach counter, and a deathtouch counter on target creature. Untap it.",
+  "oversized": false,
+  "penny_rank": 6174,
+  "prices": {
+    "eur": "0.18",
+    "eur_foil": "0.15",
+    "tix": "0.03",
+    "usd": "0.25",
+    "usd_etched": null,
+    "usd_foil": "0.37"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7b1a59db-0ffc-490b-a881-c8192f3747db&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126329?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=772427&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F553321%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Gift+of+the+Viper",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662308&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGift%2Bof%2Bthe%2BViper",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGift%2Bof%2Bthe%2BViper"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/17fa0b62-d474-4dc7-9631-9d0a9d99e5e2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/156/gift-of-the-viper?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 553321,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/17fa0b62-d474-4dc7-9631-9d0a9d99e5e2",
+  "variation": false
+}

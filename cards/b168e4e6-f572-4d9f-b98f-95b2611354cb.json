@@ -1,0 +1,145 @@
+{
+  "arena_id": 83895,
+  "artist": "Antonio José Manzanedo",
+  "artist_ids": [
+    "74986d28-0001-4a78-827c-e490b325d0e3"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 694776,
+  "cmc": 7.0,
+  "collector_number": "195",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1179,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "fb419d9d-e06f-48c8-a4f8-a57f9be39e50",
+  "illustration_id": "cd426e6e-28c7-4902-b502-0ccf80a7e986",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:46:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/b/fb419d9d-e06f-48c8-a4f8-a57f9be39e50.webp?1783918004",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/b/fb419d9d-e06f-48c8-a4f8-a57f9be39e50.jpg?1783918004",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/b/fb419d9d-e06f-48c8-a4f8-a57f9be39e50.jpg?1783918004",
+    "crop": "https://cards.scryfall.io/crop/front/f/b/fb419d9d-e06f-48c8-a4f8-a57f9be39e50.webp?1783918004",
+    "display": "https://cards.scryfall.io/display/front/f/b/fb419d9d-e06f-48c8-a4f8-a57f9be39e50.webp?1783918004",
+    "grid": "https://cards.scryfall.io/grid/front/f/b/fb419d9d-e06f-48c8-a4f8-a57f9be39e50.webp?1783918004",
+    "large": "https://cards.scryfall.io/large/front/f/b/fb419d9d-e06f-48c8-a4f8-a57f9be39e50.jpg?1783918004",
+    "normal": "https://cards.scryfall.io/normal/front/f/b/fb419d9d-e06f-48c8-a4f8-a57f9be39e50.jpg?1783918004",
+    "png": "https://cards.scryfall.io/png/front/f/b/fb419d9d-e06f-48c8-a4f8-a57f9be39e50.png?1783918004",
+    "small": "https://cards.scryfall.io/small/front/f/b/fb419d9d-e06f-48c8-a4f8-a57f9be39e50.jpg?1783918004",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/b/fb419d9d-e06f-48c8-a4f8-a57f9be39e50.webp?1783918004"
+  },
+  "keywords": [
+    "Reach",
+    "Double"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{G}{G}",
+  "mtgo_id": 106605,
+  "multiverse_ids": [
+    602725
+  ],
+  "name": "Zopandrel, Hunger Dominus",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b168e4e6-f572-4d9f-b98f-95b2611354cb",
+  "oracle_text": "Reach\nAt the beginning of each combat, double the power and toughness of each creature you control until end of turn.\n{G/P}{G/P}, Sacrifice two other creatures: Put an indestructible counter on Zopandrel. ({G/P} can be paid with either {G} or 2 life.)",
+  "oversized": false,
+  "power": "4",
+  "preview": {
+    "previewed_at": "2023-01-25",
+    "source": "Fazendo Nerdice",
+    "source_uri": "https://twitter.com/Fazendo_Nerdice/status/1618265662660677638/photo/1"
+  },
+  "prices": {
+    "eur": "9.57",
+    "eur_foil": "9.95",
+    "tix": "0.02",
+    "usd": "11.94",
+    "usd_etched": null,
+    "usd_foil": "13.71"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab168e4e6-f572-4d9f-b98f-95b2611354cb&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/106605?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=694776&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F479577%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Zopandrel%2C+Hunger+Dominus",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=602725&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DZopandrel%252C%2BHunger%2BDominus",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DZopandrel%252C%2BHunger%2BDominus"
+  },
+  "released_at": "2023-02-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/fb419d9d-e06f-48c8-a4f8-a57f9be39e50/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/one?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/one/195/zopandrel-hunger-dominus?utm_source=api",
+  "security_stamp": "oval",
+  "set": "one",
+  "set_id": "04bef644-343f-4230-95ee-255f29aa67a2",
+  "set_name": "Phyrexia: All Will Be One",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aone&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/04bef644-343f-4230-95ee-255f29aa67a2",
+  "story_spotlight": false,
+  "tcgplayer_id": 479577,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Legendary Creature — Phyrexian Horror",
+  "uri": "https://api.scryfall.com/cards/fb419d9d-e06f-48c8-a4f8-a57f9be39e50",
+  "variation": false
+}
