@@ -1,0 +1,135 @@
+{
+  "artist": "Chris Rahn",
+  "artist_ids": [
+    "7742047e-0f80-4c0f-a530-d07460165e86"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818712,
+  "cmc": 4.0,
+  "collector_number": "97",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 3340,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "The Kin-Tree of Anafenza Mevak was the first recovered after Dromoka's reign, and it stands as a symbol of the Abzan's revival.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "4f55dae2-e6b4-4498-8abd-86d9717691f4",
+  "illustration_id": "a250b983-29ef-46e9-beb9-8a669ffa29ab",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:45:39Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/f/4f55dae2-e6b4-4498-8abd-86d9717691f4.webp?1783907139",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/f/4f55dae2-e6b4-4498-8abd-86d9717691f4.jpg?1783907139",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/f/4f55dae2-e6b4-4498-8abd-86d9717691f4.jpg?1783907139",
+    "crop": "https://cards.scryfall.io/crop/front/4/f/4f55dae2-e6b4-4498-8abd-86d9717691f4.webp?1783907139",
+    "display": "https://cards.scryfall.io/display/front/4/f/4f55dae2-e6b4-4498-8abd-86d9717691f4.webp?1783907139",
+    "grid": "https://cards.scryfall.io/grid/front/4/f/4f55dae2-e6b4-4498-8abd-86d9717691f4.webp?1783907139",
+    "large": "https://cards.scryfall.io/large/front/4/f/4f55dae2-e6b4-4498-8abd-86d9717691f4.jpg?1783907139",
+    "normal": "https://cards.scryfall.io/normal/front/4/f/4f55dae2-e6b4-4498-8abd-86d9717691f4.jpg?1783907139",
+    "png": "https://cards.scryfall.io/png/front/4/f/4f55dae2-e6b4-4498-8abd-86d9717691f4.png?1783907139",
+    "small": "https://cards.scryfall.io/small/front/4/f/4f55dae2-e6b4-4498-8abd-86d9717691f4.jpg?1783907139",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/f/4f55dae2-e6b4-4498-8abd-86d9717691f4.webp?1783907139"
+  },
+  "keywords": [
+    "Defender"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{G}",
+  "mtgo_id": 138137,
+  "multiverse_ids": [
+    696186
+  ],
+  "name": "Tree of Redemption",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1372dd15-cdb9-470c-b3e8-3423697e46e8",
+  "oracle_text": "Defender\n{T}: Exchange your life total with this creature's toughness.",
+  "oversized": false,
+  "penny_rank": 11493,
+  "power": "0",
+  "prices": {
+    "eur": "1.02",
+    "eur_foil": null,
+    "tix": "0.03",
+    "usd": "0.62",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1372dd15-cdb9-470c-b3e8-3423697e46e8&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138137?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818712&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624649%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Tree+of+Redemption",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696186&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTree%2Bof%2BRedemption",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTree%2Bof%2BRedemption"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4f55dae2-e6b4-4498-8abd-86d9717691f4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/97/tree-of-redemption?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624649,
+  "textless": false,
+  "toughness": "13",
+  "type_line": "Creature — Plant",
+  "uri": "https://api.scryfall.com/cards/4f55dae2-e6b4-4498-8abd-86d9717691f4",
+  "variation": false
+}

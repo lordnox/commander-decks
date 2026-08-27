@@ -1,0 +1,145 @@
+{
+  "arena_id": 71315,
+  "artist": "Noah Bradley",
+  "artist_ids": [
+    "81995d11-da98-4f8b-89bd-b88ca2ddb06b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 454988,
+  "cmc": 0.0,
+  "collector_number": "248",
+  "color_identity": [
+    "B",
+    "G",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 478,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"These lowlands were formed thousands of years ago by the behemoth Indath—its final footsteps before vanishing into the sea.\"\n—*Tales of the Ozolith*",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2b74bb81-fb9a-40e5-a941-e517430b52f5",
+  "illustration_id": "516194c5-07ea-4ee5-8183-01e3e9ec2c9a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:23:21Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/b/2b74bb81-fb9a-40e5-a941-e517430b52f5.webp?1783931001",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/b/2b74bb81-fb9a-40e5-a941-e517430b52f5.jpg?1783931001",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/b/2b74bb81-fb9a-40e5-a941-e517430b52f5.jpg?1783931001",
+    "crop": "https://cards.scryfall.io/crop/front/2/b/2b74bb81-fb9a-40e5-a941-e517430b52f5.webp?1783931001",
+    "display": "https://cards.scryfall.io/display/front/2/b/2b74bb81-fb9a-40e5-a941-e517430b52f5.webp?1783931001",
+    "grid": "https://cards.scryfall.io/grid/front/2/b/2b74bb81-fb9a-40e5-a941-e517430b52f5.webp?1783931001",
+    "large": "https://cards.scryfall.io/large/front/2/b/2b74bb81-fb9a-40e5-a941-e517430b52f5.jpg?1783931001",
+    "normal": "https://cards.scryfall.io/normal/front/2/b/2b74bb81-fb9a-40e5-a941-e517430b52f5.jpg?1783931001",
+    "png": "https://cards.scryfall.io/png/front/2/b/2b74bb81-fb9a-40e5-a941-e517430b52f5.png?1783931001",
+    "small": "https://cards.scryfall.io/small/front/2/b/2b74bb81-fb9a-40e5-a941-e517430b52f5.jpg?1783931001",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/b/2b74bb81-fb9a-40e5-a941-e517430b52f5.webp?1783931001"
+  },
+  "keywords": [
+    "Cycling"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 80505,
+  "multiverse_ids": [
+    479768
+  ],
+  "name": "Indatha Triome",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ec2b3779-55f7-4169-aa66-6312fb52721f",
+  "oracle_text": "({T}: Add {W}, {B}, or {G}.)\nThis land enters tapped.\nCycling {3} ({3}, Discard this card: Draw a card.)",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2020-04-09",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "17.22",
+    "eur_foil": "16.99",
+    "tix": "7.27",
+    "usd": "18.81",
+    "usd_etched": null,
+    "usd_foil": "22.03"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aec2b3779-55f7-4169-aa66-6312fb52721f&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/80505?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=454988&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F212689%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Indatha+Triome",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=479768&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIndatha%2BTriome",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIndatha%2BTriome"
+  },
+  "released_at": "2020-04-24",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2b74bb81-fb9a-40e5-a941-e517430b52f5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/iko?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/iko/248/indatha-triome?utm_source=api",
+  "security_stamp": "oval",
+  "set": "iko",
+  "set_id": "19feda43-15ab-427e-a0e4-148a4bf2b03a",
+  "set_name": "Ikoria: Lair of Behemoths",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aiko&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/19feda43-15ab-427e-a0e4-148a4bf2b03a",
+  "story_spotlight": false,
+  "tcgplayer_id": 212689,
+  "textless": false,
+  "type_line": "Land — Plains Swamp Forest",
+  "uri": "https://api.scryfall.com/cards/2b74bb81-fb9a-40e5-a941-e517430b52f5",
+  "variation": false
+}

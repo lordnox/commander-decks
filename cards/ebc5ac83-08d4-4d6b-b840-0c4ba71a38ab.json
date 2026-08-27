@@ -1,0 +1,139 @@
+{
+  "artist": "Cliff Childs",
+  "artist_ids": [
+    "ed6f7e03-20ba-4c73-bdda-4a4928480721"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 723527,
+  "cmc": 0.0,
+  "collector_number": "436",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 169,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Where victors are commemorated and moments of glory immortalized.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "cafd7db6-b04e-4fa2-bccd-981211132a93",
+  "illustration_id": "21ded8c7-b96e-49e8-9012-ae418c50b20e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:06:22Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/a/cafd7db6-b04e-4fa2-bccd-981211132a93.webp?1783915582",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/a/cafd7db6-b04e-4fa2-bccd-981211132a93.jpg?1783915582",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/a/cafd7db6-b04e-4fa2-bccd-981211132a93.jpg?1783915582",
+    "crop": "https://cards.scryfall.io/crop/front/c/a/cafd7db6-b04e-4fa2-bccd-981211132a93.webp?1783915582",
+    "display": "https://cards.scryfall.io/display/front/c/a/cafd7db6-b04e-4fa2-bccd-981211132a93.webp?1783915582",
+    "grid": "https://cards.scryfall.io/grid/front/c/a/cafd7db6-b04e-4fa2-bccd-981211132a93.webp?1783915582",
+    "large": "https://cards.scryfall.io/large/front/c/a/cafd7db6-b04e-4fa2-bccd-981211132a93.jpg?1783915582",
+    "normal": "https://cards.scryfall.io/normal/front/c/a/cafd7db6-b04e-4fa2-bccd-981211132a93.jpg?1783915582",
+    "png": "https://cards.scryfall.io/png/front/c/a/cafd7db6-b04e-4fa2-bccd-981211132a93.png?1783915582",
+    "small": "https://cards.scryfall.io/small/front/c/a/cafd7db6-b04e-4fa2-bccd-981211132a93.jpg?1783915582",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/a/cafd7db6-b04e-4fa2-bccd-981211132a93.webp?1783915582"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 115101,
+  "multiverse_ids": [
+    627900
+  ],
+  "name": "Vault of Champions",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ebc5ac83-08d4-4d6b-b840-0c4ba71a38ab",
+  "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {W} or {B}.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-07-18",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/1875252139"
+  },
+  "prices": {
+    "eur": "15.58",
+    "eur_foil": "19.07",
+    "tix": "13.26",
+    "usd": "17.00",
+    "usd_etched": null,
+    "usd_foil": "17.27"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aebc5ac83-08d4-4d6b-b840-0c4ba71a38ab&unique=prints",
+  "produced_mana": [
+    "B",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/115101?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=723527&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F505831%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vault+of+Champions",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=627900&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVault%2Bof%2BChampions",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVault%2Bof%2BChampions"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/cafd7db6-b04e-4fa2-bccd-981211132a93/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/436/vault-of-champions?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 505831,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/cafd7db6-b04e-4fa2-bccd-981211132a93",
+  "variation": false
+}

@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "03f67156-0a79-43ee-8b7d-5a788a2107f6",
+      "name": "Convert to Slime",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/03f67156-0a79-43ee-8b7d-5a788a2107f6"
+    },
+    {
+      "component": "token",
+      "id": "d1821a53-1799-4162-b0b6-f8ab84a55c30",
+      "name": "Ooze",
+      "object": "related_card",
+      "type_line": "Token Creature — Ooze",
+      "uri": "https://api.scryfall.com/cards/d1821a53-1799-4162-b0b6-f8ab84a55c30"
+    }
+  ],
+  "artist": "L.A. Draws",
+  "artist_ids": [
+    "1f22abb8-3873-4e81-93f3-79db5e56dd64"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 788554,
+  "cmc": 5.0,
+  "collector_number": "37",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [
+    "B",
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 8677,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a4dfb147-10f6-49f1-b777-12125e87189b",
+  "illustration_id": "3815fa6b-4cc8-4220-9d1c-742bcf6d1b7b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:27:33Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/4/a4dfb147-10f6-49f1-b777-12125e87189b.webp?1783909653",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/4/a4dfb147-10f6-49f1-b777-12125e87189b.jpg?1783909653",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/4/a4dfb147-10f6-49f1-b777-12125e87189b.jpg?1783909653",
+    "crop": "https://cards.scryfall.io/crop/front/a/4/a4dfb147-10f6-49f1-b777-12125e87189b.webp?1783909653",
+    "display": "https://cards.scryfall.io/display/front/a/4/a4dfb147-10f6-49f1-b777-12125e87189b.webp?1783909653",
+    "grid": "https://cards.scryfall.io/grid/front/a/4/a4dfb147-10f6-49f1-b777-12125e87189b.webp?1783909653",
+    "large": "https://cards.scryfall.io/large/front/a/4/a4dfb147-10f6-49f1-b777-12125e87189b.jpg?1783909653",
+    "normal": "https://cards.scryfall.io/normal/front/a/4/a4dfb147-10f6-49f1-b777-12125e87189b.jpg?1783909653",
+    "png": "https://cards.scryfall.io/png/front/a/4/a4dfb147-10f6-49f1-b777-12125e87189b.png?1783909653",
+    "small": "https://cards.scryfall.io/small/front/a/4/a4dfb147-10f6-49f1-b777-12125e87189b.jpg?1783909653",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/4/a4dfb147-10f6-49f1-b777-12125e87189b.webp?1783909653"
+  },
+  "keywords": [
+    "Delirium"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{G}",
+  "mtgo_id": 131395,
+  "multiverse_ids": [
+    675632
+  ],
+  "name": "Convert to Slime",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b4429e71-434e-480c-a8d1-2ad11de8b2d9",
+  "oracle_text": "Destroy up to one target artifact, up to one target creature, and up to one target enchantment.\nDelirium — Then if there are four or more card types among cards in your graveyard, create an X/X green Ooze creature token, where X is the total mana value of permanents destroyed this way.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-09-12",
+    "source": "The Command Zone",
+    "source_uri": "https://www.youtube.com/watch?v=uZY_rkEpTcQ"
+  },
+  "prices": {
+    "eur": "0.25",
+    "eur_foil": null,
+    "tix": "0.35",
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab4429e71-434e-480c-a8d1-2ad11de8b2d9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/131395?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=788554&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F579025%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Convert+to+Slime",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=675632&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DConvert%2Bto%2BSlime",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DConvert%2Bto%2BSlime"
+  },
+  "released_at": "2024-09-27",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a4dfb147-10f6-49f1-b777-12125e87189b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/37/convert-to-slime?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 579025,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/a4dfb147-10f6-49f1-b777-12125e87189b",
+  "variation": false
+}

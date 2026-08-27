@@ -1,0 +1,144 @@
+{
+  "arena_id": 95695,
+  "artist": "Alexander Ostrowski",
+  "artist_ids": [
+    "3c278fce-4a9d-4b16-8c84-d29addc394f5"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 817856,
+  "cmc": 5.0,
+  "collector_number": "172",
+  "color_identity": [
+    "B",
+    "G",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "G",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 3243,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "b475b071-5545-483e-a397-89451f258602",
+  "illustration_id": "a91bfc57-34bb-4d82-b7ff-bb5003c239f8",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:48:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/4/b475b071-5545-483e-a397-89451f258602.webp?1783907325",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/4/b475b071-5545-483e-a397-89451f258602.jpg?1783907325",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/4/b475b071-5545-483e-a397-89451f258602.jpg?1783907325",
+    "crop": "https://cards.scryfall.io/crop/front/b/4/b475b071-5545-483e-a397-89451f258602.webp?1783907325",
+    "display": "https://cards.scryfall.io/display/front/b/4/b475b071-5545-483e-a397-89451f258602.webp?1783907325",
+    "grid": "https://cards.scryfall.io/grid/front/b/4/b475b071-5545-483e-a397-89451f258602.webp?1783907325",
+    "large": "https://cards.scryfall.io/large/front/b/4/b475b071-5545-483e-a397-89451f258602.jpg?1783907325",
+    "normal": "https://cards.scryfall.io/normal/front/b/4/b475b071-5545-483e-a397-89451f258602.jpg?1783907325",
+    "png": "https://cards.scryfall.io/png/front/b/4/b475b071-5545-483e-a397-89451f258602.png?1783907325",
+    "small": "https://cards.scryfall.io/small/front/b/4/b475b071-5545-483e-a397-89451f258602.jpg?1783907325",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/4/b475b071-5545-483e-a397-89451f258602.webp?1783907325"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}{B}{G}",
+  "mtgo_id": 139303,
+  "multiverse_ids": [
+    693652
+  ],
+  "name": "Betor, Kin to All",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "826a0db6-195a-4697-9bd6-f544b279e3cf",
+  "oracle_text": "Flying\nAt the beginning of your end step, if creatures you control have total toughness 10 or greater, draw a card. Then if creatures you control have total toughness 20 or greater, untap each creature you control. Then if creatures you control have total toughness 40 or greater, each opponent loses half their life, rounded up.",
+  "oversized": false,
+  "power": "5",
+  "prices": {
+    "eur": "6.00",
+    "eur_foil": "5.92",
+    "tix": "0.09",
+    "usd": "5.15",
+    "usd_etched": null,
+    "usd_foil": "6.66"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A826a0db6-195a-4697-9bd6-f544b279e3cf&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/139303?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=817856&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F623880%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Betor%2C+Kin+to+All",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=693652&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBetor%252C%2BKin%2Bto%2BAll",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBetor%252C%2BKin%2Bto%2BAll"
+  },
+  "released_at": "2025-04-11",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b475b071-5545-483e-a397-89451f258602/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdm/172/betor-kin-to-all?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tdm",
+  "set_id": "1361ca81-1304-49a8-b2e6-e76a4aa4a8c3",
+  "set_name": "Tarkir: Dragonstorm",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/1361ca81-1304-49a8-b2e6-e76a4aa4a8c3",
+  "story_spotlight": false,
+  "tcgplayer_id": 623880,
+  "textless": false,
+  "toughness": "7",
+  "type_line": "Legendary Creature — Spirit Dragon",
+  "uri": "https://api.scryfall.com/cards/b475b071-5545-483e-a397-89451f258602",
+  "variation": false,
+  "watermark": "abzan"
+}

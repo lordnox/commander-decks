@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "c66fa93a-6888-4297-b22e-7d69fd25c0d7",
+      "name": "Teyo, Geometric Tactician",
+      "object": "related_card",
+      "type_line": "Legendary Planeswalker — Teyo",
+      "uri": "https://api.scryfall.com/cards/c66fa93a-6888-4297-b22e-7d69fd25c0d7"
+    },
+    {
+      "component": "token",
+      "id": "d08e421a-49ef-448c-9e04-9c5a7e5c071c",
+      "name": "Wall",
+      "object": "related_card",
+      "type_line": "Token Creature — Wall",
+      "uri": "https://api.scryfall.com/cards/d08e421a-49ef-448c-9e04-9c5a7e5c071c"
+    }
+  ],
+  "artist": "Kieran Yanner",
+  "artist_ids": [
+    "aa7e89ed-d294-4633-9057-ce04dacfcfa4"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 723008,
+  "cmc": 3.0,
+  "collector_number": "725",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 5285,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c66fa93a-6888-4297-b22e-7d69fd25c0d7",
+  "illustration_id": "97496ea8-fde3-4c08-a902-57eb1912217b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:04:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/6/c66fa93a-6888-4297-b22e-7d69fd25c0d7.webp?1783915485",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/6/c66fa93a-6888-4297-b22e-7d69fd25c0d7.jpg?1783915485",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/6/c66fa93a-6888-4297-b22e-7d69fd25c0d7.jpg?1783915485",
+    "crop": "https://cards.scryfall.io/crop/front/c/6/c66fa93a-6888-4297-b22e-7d69fd25c0d7.webp?1783915485",
+    "display": "https://cards.scryfall.io/display/front/c/6/c66fa93a-6888-4297-b22e-7d69fd25c0d7.webp?1783915485",
+    "grid": "https://cards.scryfall.io/grid/front/c/6/c66fa93a-6888-4297-b22e-7d69fd25c0d7.webp?1783915485",
+    "large": "https://cards.scryfall.io/large/front/c/6/c66fa93a-6888-4297-b22e-7d69fd25c0d7.jpg?1783915485",
+    "normal": "https://cards.scryfall.io/normal/front/c/6/c66fa93a-6888-4297-b22e-7d69fd25c0d7.jpg?1783915485",
+    "png": "https://cards.scryfall.io/png/front/c/6/c66fa93a-6888-4297-b22e-7d69fd25c0d7.png?1783915485",
+    "small": "https://cards.scryfall.io/small/front/c/6/c66fa93a-6888-4297-b22e-7d69fd25c0d7.jpg?1783915485",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/6/c66fa93a-6888-4297-b22e-7d69fd25c0d7.webp?1783915485"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "loyalty": "3",
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 114481,
+  "multiverse_ids": [
+    625090
+  ],
+  "name": "Teyo, Geometric Tactician",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0dfdf1a1-a3a9-490f-bd9d-dcba088c6785",
+  "oracle_text": "When Teyo enters, create a 0/4 white Wall creature token with defender and flying.\n+1: You and target opponent each draw a card.\n−2: Choose left or right. Until your next turn, each player may attack only the nearest opponent in the last chosen direction and planeswalkers controlled by that opponent.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-07-18",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/1875252139"
+  },
+  "prices": {
+    "eur": "8.92",
+    "eur_foil": null,
+    "tix": "12.66",
+    "usd": "9.05",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0dfdf1a1-a3a9-490f-bd9d-dcba088c6785&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/114481?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=723008&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F505854%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Teyo%2C+Geometric+Tactician",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=625090&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTeyo%252C%2BGeometric%2BTactician",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTeyo%252C%2BGeometric%2BTactician"
+  },
+  "released_at": "2023-08-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c66fa93a-6888-4297-b22e-7d69fd25c0d7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/725/teyo-geometric-tactician?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 505854,
+  "textless": false,
+  "type_line": "Legendary Planeswalker — Teyo",
+  "uri": "https://api.scryfall.com/cards/c66fa93a-6888-4297-b22e-7d69fd25c0d7",
+  "variation": false
+}

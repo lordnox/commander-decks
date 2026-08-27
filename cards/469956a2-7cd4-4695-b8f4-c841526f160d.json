@@ -1,0 +1,137 @@
+{
+  "arena_id": 87489,
+  "artist": "Antonio José Manzanedo",
+  "artist_ids": [
+    "74986d28-0001-4a78-827c-e490b325d0e3"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 741109,
+  "cmc": 4.0,
+  "collector_number": "92",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 850,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Its very presence rips old wounds open to bleed anew.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d4f6027a-003a-4f9d-929a-0b6da1fa42c9",
+  "illustration_id": "4549daa5-461d-44d0-ba9a-a52e09540e10",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:36:22Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.webp?1783913782",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.jpg?1783913782",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.jpg?1783913782",
+    "crop": "https://cards.scryfall.io/crop/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.webp?1783913782",
+    "display": "https://cards.scryfall.io/display/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.webp?1783913782",
+    "grid": "https://cards.scryfall.io/grid/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.webp?1783913782",
+    "large": "https://cards.scryfall.io/large/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.jpg?1783913782",
+    "normal": "https://cards.scryfall.io/normal/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.jpg?1783913782",
+    "png": "https://cards.scryfall.io/png/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.png?1783913782",
+    "small": "https://cards.scryfall.io/small/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.jpg?1783913782",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.webp?1783913782"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}{B}{B}",
+  "mtgo_id": 117988,
+  "multiverse_ids": [
+    636796
+  ],
+  "name": "Bloodletter of Aclazotz",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "469956a2-7cd4-4695-b8f4-c841526f160d",
+  "oracle_text": "Flying\nIf an opponent would lose life during your turn, they lose twice that much life instead. (Damage causes loss of life.)",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "26.33",
+    "eur_foil": "25.23",
+    "tix": "0.91",
+    "usd": "35.90",
+    "usd_etched": null,
+    "usd_foil": "38.73"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A469956a2-7cd4-4695-b8f4-c841526f160d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/117988?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=741109&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F524414%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bloodletter+of+Aclazotz",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=636796&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBloodletter%2Bof%2BAclazotz",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBloodletter%2Bof%2BAclazotz"
+  },
+  "released_at": "2023-11-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d4f6027a-003a-4f9d-929a-0b6da1fa42c9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lci?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lci/92/bloodletter-of-aclazotz?utm_source=api",
+  "security_stamp": "oval",
+  "set": "lci",
+  "set_id": "70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "set_name": "The Lost Caverns of Ixalan",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alci&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "story_spotlight": false,
+  "tcgplayer_id": 524414,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Vampire Demon",
+  "uri": "https://api.scryfall.com/cards/d4f6027a-003a-4f9d-929a-0b6da1fa42c9",
+  "variation": false
+}

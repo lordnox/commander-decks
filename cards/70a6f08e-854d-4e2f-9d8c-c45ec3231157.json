@@ -1,0 +1,142 @@
+{
+  "artist": "Mark Zug",
+  "artist_ids": [
+    "48e2b98c-5467-4671-bd42-4c3746115117"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 864988,
+  "cmc": 3.0,
+  "collector_number": "53",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [
+    "G",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 503,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Faeries trade trinkets for tales, growing their knowledge and his collection.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "145dcac4-2c53-4ae9-9ede-24dc07474b01",
+  "illustration_id": "3a38d54d-6373-4200-87ab-89b91c89f291",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:58:42Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/4/145dcac4-2c53-4ae9-9ede-24dc07474b01.webp?1783911522",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/4/145dcac4-2c53-4ae9-9ede-24dc07474b01.jpg?1783911522",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/4/145dcac4-2c53-4ae9-9ede-24dc07474b01.jpg?1783911522",
+    "crop": "https://cards.scryfall.io/crop/front/1/4/145dcac4-2c53-4ae9-9ede-24dc07474b01.webp?1783911522",
+    "display": "https://cards.scryfall.io/display/front/1/4/145dcac4-2c53-4ae9-9ede-24dc07474b01.webp?1783911522",
+    "grid": "https://cards.scryfall.io/grid/front/1/4/145dcac4-2c53-4ae9-9ede-24dc07474b01.webp?1783911522",
+    "large": "https://cards.scryfall.io/large/front/1/4/145dcac4-2c53-4ae9-9ede-24dc07474b01.jpg?1783911522",
+    "normal": "https://cards.scryfall.io/normal/front/1/4/145dcac4-2c53-4ae9-9ede-24dc07474b01.jpg?1783911522",
+    "png": "https://cards.scryfall.io/png/front/1/4/145dcac4-2c53-4ae9-9ede-24dc07474b01.png?1783911522",
+    "small": "https://cards.scryfall.io/small/front/1/4/145dcac4-2c53-4ae9-9ede-24dc07474b01.jpg?1783911522",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/4/145dcac4-2c53-4ae9-9ede-24dc07474b01.webp?1783911522"
+  },
+  "keywords": [
+    "Vigilance"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}{W}",
+  "mtgo_id": 146041,
+  "multiverse_ids": [],
+  "name": "Faeburrow Elder",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "70a6f08e-854d-4e2f-9d8c-c45ec3231157",
+  "oracle_text": "Vigilance\nThis creature gets +1/+1 for each color among permanents you control.\n{T}: For each color among permanents you control, add one mana of that color.",
+  "oversized": false,
+  "penny_rank": 6066,
+  "power": "0",
+  "prices": {
+    "eur": "0.44",
+    "eur_foil": null,
+    "tix": "0.13",
+    "usd": "0.41",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A70a6f08e-854d-4e2f-9d8c-c45ec3231157&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/146041?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=864988&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F671259%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Faeburrow+Elder",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFaeburrow%2BElder",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFaeburrow%2BElder"
+  },
+  "released_at": "2026-01-23",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "BBFC12F3BF426B6EC9984C0B2984B1BE8A940D82EC9691D3B4562F7870DCDC3E",
+  "rulings_uri": "https://api.scryfall.com/cards/145dcac4-2c53-4ae9-9ede-24dc07474b01/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ecc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ecc/53/faeburrow-elder?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ecc",
+  "set_id": "805b5a0c-f8bb-4555-86ea-eb9ec36a011a",
+  "set_name": "Lorwyn Eclipsed Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aecc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/805b5a0c-f8bb-4555-86ea-eb9ec36a011a",
+  "story_spotlight": false,
+  "tcgplayer_id": 671259,
+  "textless": false,
+  "toughness": "0",
+  "type_line": "Creature — Treefolk Druid",
+  "uri": "https://api.scryfall.com/cards/145dcac4-2c53-4ae9-9ede-24dc07474b01",
+  "variation": false
+}

@@ -1,0 +1,142 @@
+{
+  "arena_id": 92361,
+  "artist": "Kasia 'Kafis' Zielińska",
+  "artist_ids": [
+    "a662cb71-4770-4b49-8b03-2cf8497049a7"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 786836,
+  "cmc": 0.0,
+  "collector_number": "261",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 699,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Here, the Hauntwoods churn like a viper's nest, as monstrous creatures prowl hungrily toward the ghostly light.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "ec288d76-c1f5-471b-8a53-504f88469c1b",
+  "illustration_id": "30724afc-db48-4a23-8dac-d3ab2e9a79a5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:23:48Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/c/ec288d76-c1f5-471b-8a53-504f88469c1b.webp?1783909428",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/c/ec288d76-c1f5-471b-8a53-504f88469c1b.jpg?1783909428",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/c/ec288d76-c1f5-471b-8a53-504f88469c1b.jpg?1783909428",
+    "crop": "https://cards.scryfall.io/crop/front/e/c/ec288d76-c1f5-471b-8a53-504f88469c1b.webp?1783909428",
+    "display": "https://cards.scryfall.io/display/front/e/c/ec288d76-c1f5-471b-8a53-504f88469c1b.webp?1783909428",
+    "grid": "https://cards.scryfall.io/grid/front/e/c/ec288d76-c1f5-471b-8a53-504f88469c1b.webp?1783909428",
+    "large": "https://cards.scryfall.io/large/front/e/c/ec288d76-c1f5-471b-8a53-504f88469c1b.jpg?1783909428",
+    "normal": "https://cards.scryfall.io/normal/front/e/c/ec288d76-c1f5-471b-8a53-504f88469c1b.jpg?1783909428",
+    "png": "https://cards.scryfall.io/png/front/e/c/ec288d76-c1f5-471b-8a53-504f88469c1b.png?1783909428",
+    "small": "https://cards.scryfall.io/small/front/e/c/ec288d76-c1f5-471b-8a53-504f88469c1b.jpg?1783909428",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/c/ec288d76-c1f5-471b-8a53-504f88469c1b.webp?1783909428"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 130653,
+  "multiverse_ids": [
+    673666
+  ],
+  "name": "Hushwood Verge",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cce328b9-6100-417e-9ddf-808bbe3e3bc5",
+  "oracle_text": "{T}: Add {G}.\n{T}: Add {W}. Activate only if you control a Forest or a Plains.",
+  "oversized": false,
+  "penny_rank": 359,
+  "preview": {
+    "previewed_at": "2024-09-03",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.youtube.com/watch?v=8mYQLkstDs8"
+  },
+  "prices": {
+    "eur": "5.38",
+    "eur_foil": "6.56",
+    "tix": "0.03",
+    "usd": "8.46",
+    "usd_etched": null,
+    "usd_foil": "7.45"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acce328b9-6100-417e-9ddf-808bbe3e3bc5&unique=prints",
+  "produced_mana": [
+    "G",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130653?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=786836&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F576520%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hushwood+Verge",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=673666&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHushwood%2BVerge",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHushwood%2BVerge"
+  },
+  "released_at": "2024-09-27",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ec288d76-c1f5-471b-8a53-504f88469c1b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsk/261/hushwood-verge?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsk",
+  "set_id": "a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "set_name": "Duskmourn: House of Horror",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "story_spotlight": false,
+  "tcgplayer_id": 576520,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/ec288d76-c1f5-471b-8a53-504f88469c1b",
+  "variation": false
+}

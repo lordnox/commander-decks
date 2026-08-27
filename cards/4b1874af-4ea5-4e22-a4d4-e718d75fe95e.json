@@ -1,0 +1,190 @@
+{
+  "arena_id": 84485,
+  "artist": "Diego Gisbert",
+  "artist_ids": [
+    "3f4e975d-092c-40e4-b850-2d582bf4b5cb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Diego Gisbert",
+      "artist_id": "3f4e975d-092c-40e4-b850-2d582bf4b5cb",
+      "colors": [
+        "G"
+      ],
+      "defense": "3",
+      "illustration_id": "f66d58dc-39f5-4488-8812-66b00e730468",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.webp?1783916973",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.jpg?1783916973",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.jpg?1783916973",
+        "crop": "https://cards.scryfall.io/crop/front/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.webp?1783916973",
+        "display": "https://cards.scryfall.io/display/front/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.webp?1783916973",
+        "grid": "https://cards.scryfall.io/grid/front/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.webp?1783916973",
+        "large": "https://cards.scryfall.io/large/front/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.jpg?1783916973",
+        "normal": "https://cards.scryfall.io/normal/front/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.jpg?1783916973",
+        "png": "https://cards.scryfall.io/png/front/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.png?1783916973",
+        "small": "https://cards.scryfall.io/small/front/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.jpg?1783916973",
+        "thumb": "https://cards.scryfall.io/thumb/front/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.webp?1783916973"
+      },
+      "mana_cost": "{3}{G}",
+      "name": "Invasion of Zendikar",
+      "object": "card_face",
+      "oracle_text": "(As a Siege enters, choose an opponent to protect it. You and others can attack it. When it's defeated, exile it, then cast it transformed.)\nWhen this Siege enters, search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle.",
+      "type_line": "Battle — Siege"
+    },
+    {
+      "artist": "Diego Gisbert",
+      "artist_id": "3f4e975d-092c-40e4-b850-2d582bf4b5cb",
+      "color_indicator": [
+        "G"
+      ],
+      "colors": [
+        "G"
+      ],
+      "flavor_text": "Nahiri tried to bend Zendikar to Phyrexia's will. In response, the world rose against her.",
+      "illustration_id": "4e2cd51a-4d1b-4652-8c9e-e2735a483cc6",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.webp?1783916973",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.jpg?1783916973",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.jpg?1783916973",
+        "crop": "https://cards.scryfall.io/crop/back/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.webp?1783916973",
+        "display": "https://cards.scryfall.io/display/back/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.webp?1783916973",
+        "grid": "https://cards.scryfall.io/grid/back/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.webp?1783916973",
+        "large": "https://cards.scryfall.io/large/back/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.jpg?1783916973",
+        "normal": "https://cards.scryfall.io/normal/back/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.jpg?1783916973",
+        "png": "https://cards.scryfall.io/png/back/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.png?1783916973",
+        "small": "https://cards.scryfall.io/small/back/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.jpg?1783916973",
+        "thumb": "https://cards.scryfall.io/thumb/back/8/f/8fed056f-a8f5-41ec-a7d2-a80a238872d1.webp?1783916973"
+      },
+      "mana_cost": "",
+      "name": "Awakened Skyclave",
+      "object": "card_face",
+      "oracle_text": "Vigilance, haste\nAs long as this creature is on the battlefield, it's a land in addition to its other types.\n{T}: Add one mana of any color.",
+      "power": "4",
+      "toughness": "4",
+      "type_line": "Creature — Elemental"
+    }
+  ],
+  "cardmarket_id": 703415,
+  "cmc": 4.0,
+  "collector_number": "194",
+  "color_identity": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 3436,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "8fed056f-a8f5-41ec-a7d2-a80a238872d1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:29:33Z",
+  "keywords": [
+    "Vigilance",
+    "Transform",
+    "Haste"
+  ],
+  "lang": "en",
+  "layout": "transform",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 110270,
+  "multiverse_ids": [
+    607249,
+    607250
+  ],
+  "name": "Invasion of Zendikar // Awakened Skyclave",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4b1874af-4ea5-4e22-a4d4-e718d75fe95e",
+  "oversized": false,
+  "penny_rank": 5186,
+  "preview": {
+    "previewed_at": "2023-03-28",
+    "source": "Press Start",
+    "source_uri": "https://press-start.com.au/news/2023/03/29/mtg-march-of-the-machine-preview/"
+  },
+  "prices": {
+    "eur": "0.25",
+    "eur_foil": "0.33",
+    "tix": "0.03",
+    "usd": "0.35",
+    "usd_etched": null,
+    "usd_foil": "0.43"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4b1874af-4ea5-4e22-a4d4-e718d75fe95e&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/110270?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=703415&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F490235%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Invasion+of+Zendikar",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=607249&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DInvasion%2Bof%2BZendikar%2B%252F%252F%2BAwakened%2BSkyclave",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DInvasion%2Bof%2BZendikar%2B%252F%252F%2BAwakened%2BSkyclave"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8fed056f-a8f5-41ec-a7d2-a80a238872d1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/194/invasion-of-zendikar-awakened-skyclave?utm_source=api",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": false,
+  "tcgplayer_id": 490235,
+  "textless": false,
+  "type_line": "Battle — Siege // Creature — Elemental",
+  "uri": "https://api.scryfall.com/cards/8fed056f-a8f5-41ec-a7d2-a80a238872d1",
+  "variation": false
+}

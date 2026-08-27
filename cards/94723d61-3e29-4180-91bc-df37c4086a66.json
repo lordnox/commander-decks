@@ -1,0 +1,140 @@
+{
+  "artist": "Jesper Ejsing",
+  "artist_ids": [
+    "a5f8354a-8b51-4e59-96b2-0e3aeae4fa1d"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 556291,
+  "cmc": 3.0,
+  "collector_number": "6",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [
+    "B",
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 10473,
+  "finishes": [
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "42a97ec1-f613-49a5-9236-7fded1a81f3b",
+  "illustration_id": "ad1f235b-2e19-4a01-894f-70f0f0054796",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:26:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/2/42a97ec1-f613-49a5-9236-7fded1a81f3b.webp?1783927612",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/2/42a97ec1-f613-49a5-9236-7fded1a81f3b.jpg?1783927612",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/2/42a97ec1-f613-49a5-9236-7fded1a81f3b.jpg?1783927612",
+    "crop": "https://cards.scryfall.io/crop/front/4/2/42a97ec1-f613-49a5-9236-7fded1a81f3b.webp?1783927612",
+    "display": "https://cards.scryfall.io/display/front/4/2/42a97ec1-f613-49a5-9236-7fded1a81f3b.webp?1783927612",
+    "grid": "https://cards.scryfall.io/grid/front/4/2/42a97ec1-f613-49a5-9236-7fded1a81f3b.webp?1783927612",
+    "large": "https://cards.scryfall.io/large/front/4/2/42a97ec1-f613-49a5-9236-7fded1a81f3b.jpg?1783927612",
+    "normal": "https://cards.scryfall.io/normal/front/4/2/42a97ec1-f613-49a5-9236-7fded1a81f3b.jpg?1783927612",
+    "png": "https://cards.scryfall.io/png/front/4/2/42a97ec1-f613-49a5-9236-7fded1a81f3b.png?1783927612",
+    "small": "https://cards.scryfall.io/small/front/4/2/42a97ec1-f613-49a5-9236-7fded1a81f3b.jpg?1783927612",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/2/42a97ec1-f613-49a5-9236-7fded1a81f3b.webp?1783927612"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}{G}",
+  "multiverse_ids": [
+    518312
+  ],
+  "name": "Willowdusk, Essence Seer",
+  "nonfoil": false,
+  "object": "card",
+  "oracle_id": "94723d61-3e29-4180-91bc-df37c4086a66",
+  "oracle_text": "{1}, {T}: Choose another target creature. Put a number of +1/+1 counters on it equal to the amount of life you gained this turn or the amount of life you lost this turn, whichever is greater. Activate only as a sorcery.",
+  "oversized": false,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2021-03-25",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/962571609"
+  },
+  "prices": {
+    "eur": null,
+    "eur_foil": "0.59",
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": "1.24"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A94723d61-3e29-4180-91bc-df37c4086a66&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Willowdusk%2C+Essence+Seer&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=556291&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F235130%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Willowdusk%2C+Essence+Seer",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=518312&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWillowdusk%252C%2BEssence%2BSeer",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWillowdusk%252C%2BEssence%2BSeer"
+  },
+  "released_at": "2021-04-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/42a97ec1-f613-49a5-9236-7fded1a81f3b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c21?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c21/6/willowdusk-essence-seer?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c21",
+  "set_id": "27bf6dbd-a9e1-4904-afa7-d28fc7745c4f",
+  "set_name": "Commander 2021",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac21&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/27bf6dbd-a9e1-4904-afa7-d28fc7745c4f",
+  "story_spotlight": false,
+  "tcgplayer_id": 235130,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Legendary Creature — Dryad Druid",
+  "uri": "https://api.scryfall.com/cards/42a97ec1-f613-49a5-9236-7fded1a81f3b",
+  "variation": false,
+  "watermark": "witherbloom"
+}

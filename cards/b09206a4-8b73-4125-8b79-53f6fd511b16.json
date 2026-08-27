@@ -1,0 +1,137 @@
+{
+  "artist": "Chris Seaman",
+  "artist_ids": [
+    "b9c49463-6f55-4039-9d32-c02a658af100"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 486054,
+  "cmc": 6.0,
+  "collector_number": "113",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1949,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The greater the suffering, the sweeter the taste.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2b14a82c-877a-445f-8910-33aaa6fe3d15",
+  "illustration_id": "a63b0674-8b13-49d4-a339-ebee4d00da7c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:09:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/b/2b14a82c-877a-445f-8910-33aaa6fe3d15.webp?1783930170",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/b/2b14a82c-877a-445f-8910-33aaa6fe3d15.jpg?1783930170",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/b/2b14a82c-877a-445f-8910-33aaa6fe3d15.jpg?1783930170",
+    "crop": "https://cards.scryfall.io/crop/front/2/b/2b14a82c-877a-445f-8910-33aaa6fe3d15.webp?1783930170",
+    "display": "https://cards.scryfall.io/display/front/2/b/2b14a82c-877a-445f-8910-33aaa6fe3d15.webp?1783930170",
+    "grid": "https://cards.scryfall.io/grid/front/2/b/2b14a82c-877a-445f-8910-33aaa6fe3d15.webp?1783930170",
+    "large": "https://cards.scryfall.io/large/front/2/b/2b14a82c-877a-445f-8910-33aaa6fe3d15.jpg?1783930170",
+    "normal": "https://cards.scryfall.io/normal/front/2/b/2b14a82c-877a-445f-8910-33aaa6fe3d15.jpg?1783930170",
+    "png": "https://cards.scryfall.io/png/front/2/b/2b14a82c-877a-445f-8910-33aaa6fe3d15.png?1783930170",
+    "small": "https://cards.scryfall.io/small/front/2/b/2b14a82c-877a-445f-8910-33aaa6fe3d15.jpg?1783930170",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/b/2b14a82c-877a-445f-8910-33aaa6fe3d15.webp?1783930170"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{B}",
+  "mtgo_id": 82260,
+  "multiverse_ids": [
+    489786
+  ],
+  "name": "Wound Reflection",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b09206a4-8b73-4125-8b79-53f6fd511b16",
+  "oracle_text": "At the beginning of each end step, each opponent loses life equal to the life they lost this turn. (Damage causes loss of life.)",
+  "oversized": false,
+  "penny_rank": 11242,
+  "preview": {
+    "previewed_at": "2020-07-28",
+    "source": "Shouta Yasooka",
+    "source_uri": "https://twitter.com/yaya3_/status/1288150507370901504"
+  },
+  "prices": {
+    "eur": "5.78",
+    "eur_foil": "7.33",
+    "tix": "0.02",
+    "usd": "14.17",
+    "usd_etched": null,
+    "usd_foil": "17.62"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab09206a4-8b73-4125-8b79-53f6fd511b16&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/82260?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=486054&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F218938%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wound+Reflection",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=489786&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWound%2BReflection",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWound%2BReflection"
+  },
+  "released_at": "2020-08-07",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2b14a82c-877a-445f-8910-33aaa6fe3d15/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/2xm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/2xm/113/wound-reflection?utm_source=api",
+  "security_stamp": "oval",
+  "set": "2xm",
+  "set_id": "372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "set_name": "Double Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A2xm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "story_spotlight": false,
+  "tcgplayer_id": 218938,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/2b14a82c-877a-445f-8910-33aaa6fe3d15",
+  "variation": false
+}
