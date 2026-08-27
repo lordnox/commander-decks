@@ -1,0 +1,1450 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "251e36f1-1bfd-4c04-8c61-1c2bc18beb8a",
+      "name": "Syndicate Heavy",
+      "object": "related_card",
+      "type_line": "Creature — Giant Rogue",
+      "uri": "https://api.scryfall.com/cards/251e36f1-1bfd-4c04-8c61-1c2bc18beb8a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "08877e2c-79ac-4a4d-a7dd-60652c5eb5f6",
+      "name": "Search the Premises",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/08877e2c-79ac-4a4d-a7dd-60652c5eb5f6"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0c7faae5-287e-4a96-9f67-8003404f433b",
+      "name": "No Witnesses",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/0c7faae5-287e-4a96-9f67-8003404f433b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "bebff5cd-3eeb-4ee4-97d6-0ec6c3b82256",
+      "name": "Sharp-Eyed Rookie",
+      "object": "related_card",
+      "type_line": "Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/bebff5cd-3eeb-4ee4-97d6-0ec6c3b82256"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c55901dc-3f5a-490d-8496-5b844530d410",
+      "name": "Hard Evidence",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/c55901dc-3f5a-490d-8496-5b844530d410"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1bf8dcb2-6fe7-4ab3-b290-fb427d116c74",
+      "name": "Dining Room",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/1bf8dcb2-6fe7-4ab3-b290-fb427d116c74"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e0a64924-068e-483f-91a6-d450b67b3c75",
+      "name": "Sophina, Spearsage Deserter",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Soldier",
+      "uri": "https://api.scryfall.com/cards/e0a64924-068e-483f-91a6-d450b67b3c75"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b6541b71-d225-474d-9d07-a13415f9f44f",
+      "name": "Drag the Canal",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/b6541b71-d225-474d-9d07-a13415f9f44f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e786423d-3a49-4318-ac77-791918bcafcb",
+      "name": "Lonis, Cryptozoologist",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Snake Elf Scout",
+      "uri": "https://api.scryfall.com/cards/e786423d-3a49-4318-ac77-791918bcafcb"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0d0cfc0e-6a38-4fa2-8e4b-64a893591fec",
+      "name": "Duggan, Private Detective",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/0d0cfc0e-6a38-4fa2-8e4b-64a893591fec"
+    },
+    {
+      "component": "combo_piece",
+      "id": "74004b11-53dc-475c-8d29-cf52403456cf",
+      "name": "Hold for Questioning",
+      "object": "related_card",
+      "type_line": "Enchantment — Aura",
+      "uri": "https://api.scryfall.com/cards/74004b11-53dc-475c-8d29-cf52403456cf"
+    },
+    {
+      "component": "combo_piece",
+      "id": "bbbf8c3a-6c74-42fd-bb8d-61e3f0a77848",
+      "name": "Loxodon Eavesdropper",
+      "object": "related_card",
+      "type_line": "Creature — Elephant Detective",
+      "uri": "https://api.scryfall.com/cards/bbbf8c3a-6c74-42fd-bb8d-61e3f0a77848"
+    },
+    {
+      "component": "combo_piece",
+      "id": "48dc2162-3350-4fd4-995a-b2080f8fb94e",
+      "name": "Rory Williams",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Soldier",
+      "uri": "https://api.scryfall.com/cards/48dc2162-3350-4fd4-995a-b2080f8fb94e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "148bbaab-bc7b-46ab-8e18-ade69d71d847",
+      "name": "June, Bounty Hunter",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Mercenary",
+      "uri": "https://api.scryfall.com/cards/148bbaab-bc7b-46ab-8e18-ade69d71d847"
+    },
+    {
+      "component": "combo_piece",
+      "id": "47239168-df82-4b54-8400-7a4b6e9cc40f",
+      "name": "Heaven Sent",
+      "object": "related_card",
+      "type_line": "Enchantment — Saga",
+      "uri": "https://api.scryfall.com/cards/47239168-df82-4b54-8400-7a4b6e9cc40f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3489930a-208d-4bb2-b200-58a0dd4f6e81",
+      "name": "Sokka's Sword Training",
+      "object": "related_card",
+      "type_line": "Instant — Lesson",
+      "uri": "https://api.scryfall.com/cards/3489930a-208d-4bb2-b200-58a0dd4f6e81"
+    },
+    {
+      "component": "combo_piece",
+      "id": "cdf8c817-3fdf-4121-96b6-869f9c0e496d",
+      "name": "Tamiyo, Inquisitive Student // Tamiyo, Seasoned Scholar",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Moonfolk Wizard // Legendary Planeswalker — Tamiyo",
+      "uri": "https://api.scryfall.com/cards/cdf8c817-3fdf-4121-96b6-869f9c0e496d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0eda1aff-c1f4-4171-a800-605396cc8168",
+      "name": "Toxin Analysis",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/0eda1aff-c1f4-4171-a800-605396cc8168"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f313db51-fa28-4a66-b96f-f7f2bb4eae9f",
+      "name": "Piper Wright, Publick Reporter",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/f313db51-fa28-4a66-b96f-f7f2bb4eae9f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9602f893-38ad-4a24-be2a-c11c9b6aaf7f",
+      "name": "Tamiyo's Journal",
+      "object": "related_card",
+      "type_line": "Legendary Artifact — Book",
+      "uri": "https://api.scryfall.com/cards/9602f893-38ad-4a24-be2a-c11c9b6aaf7f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "856c3be0-afe1-40c3-b84f-b50235246216",
+      "name": "Confront the Unknown",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/856c3be0-afe1-40c3-b84f-b50235246216"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d7953153-e7da-4e3d-a962-eb57b726aaf0",
+      "name": "Ethereal Investigator",
+      "object": "related_card",
+      "type_line": "Creature — Spirit",
+      "uri": "https://api.scryfall.com/cards/d7953153-e7da-4e3d-a962-eb57b726aaf0"
+    },
+    {
+      "component": "combo_piece",
+      "id": "00c616aa-c0bc-4b55-a259-0258ae023185",
+      "name": "Angelic Sleuth",
+      "object": "related_card",
+      "type_line": "Creature — Angel Advisor",
+      "uri": "https://api.scryfall.com/cards/00c616aa-c0bc-4b55-a259-0258ae023185"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8c55b333-dc8b-4332-895b-eec5eb45543f",
+      "name": "True Ancestry",
+      "object": "related_card",
+      "type_line": "Sorcery — Lesson",
+      "uri": "https://api.scryfall.com/cards/8c55b333-dc8b-4332-895b-eec5eb45543f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8dc3b23b-04d6-4ac0-b698-596ea90b7781",
+      "name": "Hotshot Investigators",
+      "object": "related_card",
+      "type_line": "Creature — Vedalken Detective",
+      "uri": "https://api.scryfall.com/cards/8dc3b23b-04d6-4ac0-b698-596ea90b7781"
+    },
+    {
+      "component": "combo_piece",
+      "id": "88ce4ff5-7b9e-4ef8-9a7e-9d148983b04e",
+      "name": "Osgood, Operation Double",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Alien Shapeshifter",
+      "uri": "https://api.scryfall.com/cards/88ce4ff5-7b9e-4ef8-9a7e-9d148983b04e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f6d25476-cab1-4035-843f-19da73c4dac7",
+      "name": "The Third Doctor",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Time Lord Doctor",
+      "uri": "https://api.scryfall.com/cards/f6d25476-cab1-4035-843f-19da73c4dac7"
+    },
+    {
+      "component": "combo_piece",
+      "id": "aabfada0-3c1b-4237-b06c-573071ccd68d",
+      "name": "Out Cold",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/aabfada0-3c1b-4237-b06c-573071ccd68d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "387f3f54-d26c-4b2c-ab8b-8bdba0b11b1a",
+      "name": "Follow the Bodies",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/387f3f54-d26c-4b2c-ab8b-8bdba0b11b1a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f082111b-9b1c-4a25-8c5d-d6ef77533a9b",
+      "name": "Cold Case Cracker",
+      "object": "related_card",
+      "type_line": "Creature — Spirit Detective",
+      "uri": "https://api.scryfall.com/cards/f082111b-9b1c-4a25-8c5d-d6ef77533a9b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b0caba3d-e2a7-4ea7-8b75-53c63b892029",
+      "name": "Kellan, Inquisitive Prodigy // Tail the Suspect",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Faerie Detective // Sorcery — Adventure",
+      "uri": "https://api.scryfall.com/cards/b0caba3d-e2a7-4ea7-8b75-53c63b892029"
+    },
+    {
+      "component": "combo_piece",
+      "id": "442cf173-8042-40fa-98d6-6ca93caa3e03",
+      "name": "Library",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/442cf173-8042-40fa-98d6-6ca93caa3e03"
+    },
+    {
+      "component": "combo_piece",
+      "id": "266be5bd-71ba-4511-8b71-d0b03885a28d",
+      "name": "Case of the Filched Falcon",
+      "object": "related_card",
+      "type_line": "Enchantment — Case",
+      "uri": "https://api.scryfall.com/cards/266be5bd-71ba-4511-8b71-d0b03885a28d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4e2ed002-abef-439f-b0ac-7f06d6843151",
+      "name": "Nyla, Shirshu Sleuth",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Mole Beast",
+      "uri": "https://api.scryfall.com/cards/4e2ed002-abef-439f-b0ac-7f06d6843151"
+    },
+    {
+      "component": "combo_piece",
+      "id": "685dd4aa-2ceb-4f5e-b7d9-b7d73f17e8c5",
+      "name": "Fateful Absence",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/685dd4aa-2ceb-4f5e-b7d9-b7d73f17e8c5"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1163c6f2-dca1-4d6f-8f0d-7c3c55c6f75e",
+      "name": "Undercover Crocodelf",
+      "object": "related_card",
+      "type_line": "Creature — Elf Crocodile Detective",
+      "uri": "https://api.scryfall.com/cards/1163c6f2-dca1-4d6f-8f0d-7c3c55c6f75e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "db8e88e3-0931-403f-90e7-3c22c0b61dac",
+      "name": "Lost Days",
+      "object": "related_card",
+      "type_line": "Instant — Lesson",
+      "uri": "https://api.scryfall.com/cards/db8e88e3-0931-403f-90e7-3c22c0b61dac"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ee424409-b1bf-4de2-ada6-47b9199cd572",
+      "name": "Unshakable Tail",
+      "object": "related_card",
+      "type_line": "Creature — Zombie Detective",
+      "uri": "https://api.scryfall.com/cards/ee424409-b1bf-4de2-ada6-47b9199cd572"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6a2946c0-0a40-4cdb-92c8-af2bafecca09",
+      "name": "Messenger Hawk",
+      "object": "related_card",
+      "type_line": "Creature — Bird Scout",
+      "uri": "https://api.scryfall.com/cards/6a2946c0-0a40-4cdb-92c8-af2bafecca09"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3ce91239-0003-4e77-91af-a00eab10e98c",
+      "name": "The Seventh Doctor",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Time Lord Doctor",
+      "uri": "https://api.scryfall.com/cards/3ce91239-0003-4e77-91af-a00eab10e98c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "293bd343-f119-4664-b68b-77dd4051f82e",
+      "name": "Dennick, Pious Apprentice // Dennick, Pious Apparition",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Soldier // Legendary Creature — Spirit Soldier",
+      "uri": "https://api.scryfall.com/cards/293bd343-f119-4664-b68b-77dd4051f82e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f8a73bf1-cf14-4a36-97ff-868212e0bfb8",
+      "name": "Madame Vastra",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Lizard Detective",
+      "uri": "https://api.scryfall.com/cards/f8a73bf1-cf14-4a36-97ff-868212e0bfb8"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f4a31d4a-34bc-46b4-b20f-a5460191b35d",
+      "name": "They Went This Way",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/f4a31d4a-34bc-46b4-b20f-a5460191b35d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4388ae8f-a2c4-4e0d-a6a1-0204ff3f469b",
+      "name": "Kitchen",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/4388ae8f-a2c4-4e0d-a6a1-0204ff3f469b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e428acf5-056e-4212-8069-d2b2c095c9f9",
+      "name": "April O'Neil, Live on the Scene",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/e428acf5-056e-4212-8069-d2b2c095c9f9"
+    },
+    {
+      "component": "combo_piece",
+      "id": "99822609-bba8-44da-8f86-54960b566522",
+      "name": "Declaration in Stone",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/99822609-bba8-44da-8f86-54960b566522"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e7854c3f-8c89-4ac6-8cfe-3b5b3b651918",
+      "name": "Press for Answers",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/e7854c3f-8c89-4ac6-8cfe-3b5b3b651918"
+    },
+    {
+      "component": "token",
+      "id": "c321b9e4-ab7e-4e8a-988f-5463c776d685",
+      "name": "Clue",
+      "object": "related_card",
+      "type_line": "Token Artifact — Clue",
+      "uri": "https://api.scryfall.com/cards/c321b9e4-ab7e-4e8a-988f-5463c776d685"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f6fb576e-a4a4-496b-b553-3f81cc651210",
+      "name": "Carnage Interpreter",
+      "object": "related_card",
+      "type_line": "Creature — Devil Detective",
+      "uri": "https://api.scryfall.com/cards/f6fb576e-a4a4-496b-b553-3f81cc651210"
+    },
+    {
+      "component": "combo_piece",
+      "id": "df0d2bca-afe5-48c7-950d-3e867cf86b31",
+      "name": "Lazav, Wearer of Faces",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Shapeshifter Detective",
+      "uri": "https://api.scryfall.com/cards/df0d2bca-afe5-48c7-950d-3e867cf86b31"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7bcc6106-71ad-40e4-8e1f-ddbfd655612b",
+      "name": "Torch the Witness",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/7bcc6106-71ad-40e4-8e1f-ddbfd655612b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "bd61145b-5177-4b7e-8ac2-f07e6cf4863a",
+      "name": "Lord Jyscal Guado",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Spirit Cleric",
+      "uri": "https://api.scryfall.com/cards/bd61145b-5177-4b7e-8ac2-f07e6cf4863a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "59813845-48c9-4af2-8beb-91d58aac09ee",
+      "name": "Lonis, Genetics Expert",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Snake Elf Detective",
+      "uri": "https://api.scryfall.com/cards/59813845-48c9-4af2-8beb-91d58aac09ee"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5a3603c6-92df-45c7-b402-1f0a552ea398",
+      "name": "Curious Inquiry",
+      "object": "related_card",
+      "type_line": "Enchantment — Aura",
+      "uri": "https://api.scryfall.com/cards/5a3603c6-92df-45c7-b402-1f0a552ea398"
+    },
+    {
+      "component": "combo_piece",
+      "id": "899ce2c9-b2aa-47c9-ae6e-480c9733e5bb",
+      "name": "Overencumbered",
+      "object": "related_card",
+      "type_line": "Enchantment — Aura",
+      "uri": "https://api.scryfall.com/cards/899ce2c9-b2aa-47c9-ae6e-480c9733e5bb"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c136e3ee-5134-480e-a322-69c9ed9b4677",
+      "name": "Secrets of the Key",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/c136e3ee-5134-480e-a322-69c9ed9b4677"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f9aba4b8-e830-4a75-8b1f-b0059773dd78",
+      "name": "Nick Valentine, Private Eye",
+      "object": "related_card",
+      "type_line": "Legendary Artifact Creature — Synth Detective",
+      "uri": "https://api.scryfall.com/cards/f9aba4b8-e830-4a75-8b1f-b0059773dd78"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0b5dabb3-5d54-45d4-83b4-024b72b61966",
+      "name": "Elmar, Ulvenwald Informant",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human",
+      "uri": "https://api.scryfall.com/cards/0b5dabb3-5d54-45d4-83b4-024b72b61966"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6335929d-6de3-4278-9f4b-883453ad1dc6",
+      "name": "Martha Jones",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Cleric",
+      "uri": "https://api.scryfall.com/cards/6335929d-6de3-4278-9f4b-883453ad1dc6"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6209b79d-02a4-40d5-9301-98cf97ac095a",
+      "name": "Sally Sparrow",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/6209b79d-02a4-40d5-9301-98cf97ac095a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b17e8bdb-4b91-4a9d-bfe1-8a55f0bd040b",
+      "name": "Jet's Brainwashing",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/b17e8bdb-4b91-4a9d-bfe1-8a55f0bd040b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9090b055-3406-4fed-a8c6-3f6353a9600e",
+      "name": "Zuko's Exile",
+      "object": "related_card",
+      "type_line": "Instant — Lesson",
+      "uri": "https://api.scryfall.com/cards/9090b055-3406-4fed-a8c6-3f6353a9600e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f3f04a9f-959c-4a37-bf01-34b3ac242eb4",
+      "name": "Blu, Mansion Prince",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Noble",
+      "uri": "https://api.scryfall.com/cards/f3f04a9f-959c-4a37-bf01-34b3ac242eb4"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d822b9ad-a787-4355-88c2-07ae2bd3a78e",
+      "name": "Tolls of War",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/d822b9ad-a787-4355-88c2-07ae2bd3a78e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f22610e9-6b14-4914-bb67-bd6723bec9aa",
+      "name": "Callous Inspector",
+      "object": "related_card",
+      "type_line": "Creature — Human Soldier",
+      "uri": "https://api.scryfall.com/cards/f22610e9-6b14-4914-bb67-bd6723bec9aa"
+    },
+    {
+      "component": "combo_piece",
+      "id": "07277df0-d306-4c3a-baa7-d7a49332c7dd",
+      "name": "Disorder in the Court",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/07277df0-d306-4c3a-baa7-d7a49332c7dd"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5c39fa19-ca75-49f4-8e1e-8b59bc9b664a",
+      "name": "Erdwal Illuminator",
+      "object": "related_card",
+      "type_line": "Creature — Spirit",
+      "uri": "https://api.scryfall.com/cards/5c39fa19-ca75-49f4-8e1e-8b59bc9b664a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "bedd5fac-b7b1-46db-99af-41edc28663ef",
+      "name": "Funnel-Web Recluse",
+      "object": "related_card",
+      "type_line": "Creature — Spider",
+      "uri": "https://api.scryfall.com/cards/bedd5fac-b7b1-46db-99af-41edc28663ef"
+    },
+    {
+      "component": "combo_piece",
+      "id": "88a7bf3a-9c87-4937-a6e1-dfbc589c8e35",
+      "name": "Ulvenwald Mysteries",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/88a7bf3a-9c87-4937-a6e1-dfbc589c8e35"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4b4d298d-d273-42ca-84a0-d83d37685415",
+      "name": "Eloise, Nephalia Sleuth",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Rogue",
+      "uri": "https://api.scryfall.com/cards/4b4d298d-d273-42ca-84a0-d83d37685415"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ff084438-2e70-41bc-a208-30ab16c026c1",
+      "name": "Ongoing Investigation",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/ff084438-2e70-41bc-a208-30ab16c026c1"
+    },
+    {
+      "component": "combo_piece",
+      "id": "32927bf2-63c1-4402-99dc-3a0f2f8e0f9c",
+      "name": "Case of the Pilfered Proof",
+      "object": "related_card",
+      "type_line": "Enchantment — Case",
+      "uri": "https://api.scryfall.com/cards/32927bf2-63c1-4402-99dc-3a0f2f8e0f9c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a7e2eed8-9a2d-4a6e-8bb2-53dc3022a4ac",
+      "name": "Daring Sleuth // Bearer of Overwhelming Truths",
+      "object": "related_card",
+      "type_line": "Creature — Human Rogue // Creature — Human Wizard",
+      "uri": "https://api.scryfall.com/cards/a7e2eed8-9a2d-4a6e-8bb2-53dc3022a4ac"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1affba6d-2cca-4cdf-8690-1e23ffbe8462",
+      "name": "Sold Out",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/1affba6d-2cca-4cdf-8690-1e23ffbe8462"
+    },
+    {
+      "component": "combo_piece",
+      "id": "39491011-bdf6-4e61-8534-fe26c1571f8f",
+      "name": "Wernog, Rider's Chaplain",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human",
+      "uri": "https://api.scryfall.com/cards/39491011-bdf6-4e61-8534-fe26c1571f8f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c0ca694c-f0ee-4994-92a2-be2a840c7e07",
+      "name": "Floodhound",
+      "object": "related_card",
+      "type_line": "Creature — Elemental Dog",
+      "uri": "https://api.scryfall.com/cards/c0ca694c-f0ee-4994-92a2-be2a840c7e07"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8e8fd73b-942a-44f1-85e3-bb599bccb05b",
+      "name": "Foul Play",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/8e8fd73b-942a-44f1-85e3-bb599bccb05b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "003b5fe1-4e9e-49ae-9af4-04eefb96398f",
+      "name": "Briarbridge Patrol",
+      "object": "related_card",
+      "type_line": "Creature — Human Warrior",
+      "uri": "https://api.scryfall.com/cards/003b5fe1-4e9e-49ae-9af4-04eefb96398f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "87d5d312-8664-4690-9823-8be4d1c06cd0",
+      "name": "The Chase Is On",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/87d5d312-8664-4690-9823-8be4d1c06cd0"
+    },
+    {
+      "component": "combo_piece",
+      "id": "70ebc5e0-fa70-46c6-8fca-f321e4477b46",
+      "name": "Malcolm, the Eyes",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Siren Pirate",
+      "uri": "https://api.scryfall.com/cards/70ebc5e0-fa70-46c6-8fca-f321e4477b46"
+    },
+    {
+      "component": "combo_piece",
+      "id": "466f6666-f6f7-424b-be1b-41bc56521d01",
+      "name": "Obsessive Pursuit",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/466f6666-f6f7-424b-be1b-41bc56521d01"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c694bc39-3eae-4b40-8f85-34785f9e75f1",
+      "name": "Study",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/c694bc39-3eae-4b40-8f85-34785f9e75f1"
+    },
+    {
+      "component": "combo_piece",
+      "id": "87a9e169-0556-4354-bf9d-76f6a5188118",
+      "name": "Morska, Undersea Sleuth",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Vedalken Fish Detective",
+      "uri": "https://api.scryfall.com/cards/87a9e169-0556-4354-bf9d-76f6a5188118"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f588e0a8-a09d-4d31-8904-3706f4f5760a",
+      "name": "Merchant of Truth",
+      "object": "related_card",
+      "type_line": "Creature — Angel Detective",
+      "uri": "https://api.scryfall.com/cards/f588e0a8-a09d-4d31-8904-3706f4f5760a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4f6fa6db-c216-4973-96e7-4e10348e0aa8",
+      "name": "Jace's Scrutiny",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/4f6fa6db-c216-4973-96e7-4e10348e0aa8"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e8578839-046f-4afd-a0e7-4737ded9e6eb",
+      "name": "Mistway Spy",
+      "object": "related_card",
+      "type_line": "Creature — Merfolk Detective",
+      "uri": "https://api.scryfall.com/cards/e8578839-046f-4afd-a0e7-4737ded9e6eb"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4462f57d-5214-4b0e-a963-e0077741aad1",
+      "name": "Fae Offering",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/4462f57d-5214-4b0e-a963-e0077741aad1"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1335a145-248a-4f1e-8760-9a5d531e14e3",
+      "name": "Azula, On the Hunt",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Noble",
+      "uri": "https://api.scryfall.com/cards/1335a145-248a-4f1e-8760-9a5d531e14e3"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7450fcd7-e373-4122-aff5-73d9e8879c6f",
+      "name": "James, Wandering Dad // Follow Him",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Scientist // Instant — Adventure",
+      "uri": "https://api.scryfall.com/cards/7450fcd7-e373-4122-aff5-73d9e8879c6f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8bab22c5-4742-4f2e-bda1-26c72b09cd9c",
+      "name": "Conservatory",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/8bab22c5-4742-4f2e-bda1-26c72b09cd9c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0df2e28f-fdd8-4272-855a-4d41f4759e82",
+      "name": "Briarbridge Tracker",
+      "object": "related_card",
+      "type_line": "Creature — Human Scout",
+      "uri": "https://api.scryfall.com/cards/0df2e28f-fdd8-4272-855a-4d41f4759e82"
+    },
+    {
+      "component": "combo_piece",
+      "id": "62b26d7a-4ecc-4f08-9276-e7fde1819a18",
+      "name": "Inquisitor Greyfax",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Inquisitor",
+      "uri": "https://api.scryfall.com/cards/62b26d7a-4ecc-4f08-9276-e7fde1819a18"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ab3d0e50-630a-4ccc-aa79-1db912ea801e",
+      "name": "Hall",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/ab3d0e50-630a-4ccc-aa79-1db912ea801e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0ff7c993-ba29-43b0-9639-7c4bc0292fa2",
+      "name": "Cunning Maneuver",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/0ff7c993-ba29-43b0-9639-7c4bc0292fa2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "41ecc1de-353e-4131-b735-d2ce18c9c2d5",
+      "name": "Fire Nation Warship",
+      "object": "related_card",
+      "type_line": "Artifact — Vehicle",
+      "uri": "https://api.scryfall.com/cards/41ecc1de-353e-4131-b735-d2ce18c9c2d5"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4b197079-488d-47c6-a494-8baf36c48667",
+      "name": "Lounge",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/4b197079-488d-47c6-a494-8baf36c48667"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d7d1e216-a150-4f57-bd1c-8c8c86023c6d",
+      "name": "Meddling Youths",
+      "object": "related_card",
+      "type_line": "Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/d7d1e216-a150-4f57-bd1c-8c8c86023c6d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "82e20104-117e-47de-ac0c-cca9250c1f3c",
+      "name": "Weirding Wood",
+      "object": "related_card",
+      "type_line": "Enchantment — Aura",
+      "uri": "https://api.scryfall.com/cards/82e20104-117e-47de-ac0c-cca9250c1f3c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7a9885f1-981a-475c-a29c-c3b5212fa3b7",
+      "name": "Forensic Gadgeteer",
+      "object": "related_card",
+      "type_line": "Creature — Vedalken Artificer Detective",
+      "uri": "https://api.scryfall.com/cards/7a9885f1-981a-475c-a29c-c3b5212fa3b7"
+    },
+    {
+      "component": "combo_piece",
+      "id": "10874416-fa4c-4aa3-b885-4351d011d208",
+      "name": "Air Nomad Legacy",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/10874416-fa4c-4aa3-b885-4351d011d208"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1d1463af-8f22-4771-af19-3799ffe706b8",
+      "name": "Confirm Suspicions",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/1d1463af-8f22-4771-af19-3799ffe706b8"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9bb816aa-8476-4ef6-927e-dfd1592059dd",
+      "name": "Gone Missing",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/9bb816aa-8476-4ef6-927e-dfd1592059dd"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f53a6ee7-86e1-4d2d-994c-214e0ec08dad",
+      "name": "Evidence Examiner",
+      "object": "related_card",
+      "type_line": "Creature — Merfolk Detective",
+      "uri": "https://api.scryfall.com/cards/f53a6ee7-86e1-4d2d-994c-214e0ec08dad"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3fc53890-be06-42f0-9a78-eb0d62d0fffe",
+      "name": "Bygone Bishop",
+      "object": "related_card",
+      "type_line": "Creature — Spirit Cleric",
+      "uri": "https://api.scryfall.com/cards/3fc53890-be06-42f0-9a78-eb0d62d0fffe"
+    },
+    {
+      "component": "combo_piece",
+      "id": "dc2a3de1-01ac-4425-8534-e5019e01f2cd",
+      "name": "Billiard Room",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/dc2a3de1-01ac-4425-8534-e5019e01f2cd"
+    },
+    {
+      "component": "combo_piece",
+      "id": "023e7ad4-6af0-4f29-a716-27a313974227",
+      "name": "Forecasting Fortune Teller",
+      "object": "related_card",
+      "type_line": "Creature — Human Advisor Ally",
+      "uri": "https://api.scryfall.com/cards/023e7ad4-6af0-4f29-a716-27a313974227"
+    },
+    {
+      "component": "combo_piece",
+      "id": "47a2058a-24a7-4b10-a1d5-0b69e94c8688",
+      "name": "Transmutation Font",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/47a2058a-24a7-4b10-a1d5-0b69e94c8688"
+    },
+    {
+      "component": "combo_piece",
+      "id": "97b2df60-f773-4b61-9101-05642a227cf5",
+      "name": "Wojek Investigator",
+      "object": "related_card",
+      "type_line": "Creature — Angel Detective",
+      "uri": "https://api.scryfall.com/cards/97b2df60-f773-4b61-9101-05642a227cf5"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6439d491-1be8-4f70-8385-4da79ae4aef7",
+      "name": "The Rani",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Time Lord Scientist",
+      "uri": "https://api.scryfall.com/cards/6439d491-1be8-4f70-8385-4da79ae4aef7"
+    },
+    {
+      "component": "combo_piece",
+      "id": "00b6cd91-8178-4c5c-9cb1-f3d970fe3b03",
+      "name": "Gleaming Geardrake",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Drake",
+      "uri": "https://api.scryfall.com/cards/00b6cd91-8178-4c5c-9cb1-f3d970fe3b03"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b3ff56c1-4153-4e15-9ac6-06d93fa2ae50",
+      "name": "Chalk Outline",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/b3ff56c1-4153-4e15-9ac6-06d93fa2ae50"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c1500cbf-5619-465e-a97b-75e676ce789b",
+      "name": "Flotsam // Jetsam",
+      "object": "related_card",
+      "type_line": "Instant // Sorcery",
+      "uri": "https://api.scryfall.com/cards/c1500cbf-5619-465e-a97b-75e676ce789b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "fc28a9e8-1a82-4dcc-abcc-feb9d1c4d47e",
+      "name": "Serene Sleuth",
+      "object": "related_card",
+      "type_line": "Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/fc28a9e8-1a82-4dcc-abcc-feb9d1c4d47e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "49598c0a-3b3c-42a2-9358-ff072de9d9f2",
+      "name": "Auspicious Arrival",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/49598c0a-3b3c-42a2-9358-ff072de9d9f2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ede1bbdb-c726-46e3-aaf1-b8cf2be2c341",
+      "name": "Fire Nation Raider",
+      "object": "related_card",
+      "type_line": "Creature — Human Soldier",
+      "uri": "https://api.scryfall.com/cards/ede1bbdb-c726-46e3-aaf1-b8cf2be2c341"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3bdba5b9-235c-411b-b031-7f6ff5368158",
+      "name": "The Fugitive Doctor",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Time Lord Doctor",
+      "uri": "https://api.scryfall.com/cards/3bdba5b9-235c-411b-b031-7f6ff5368158"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6c134956-ba18-415e-b101-c1254415ea04",
+      "name": "Persuasive Interrogators",
+      "object": "related_card",
+      "type_line": "Creature — Gorgon Detective",
+      "uri": "https://api.scryfall.com/cards/6c134956-ba18-415e-b101-c1254415ea04"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9daf962d-f48d-4c93-98d1-ec32d3c758a1",
+      "name": "Armed with Proof",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/9daf962d-f48d-4c93-98d1-ec32d3c758a1"
+    },
+    {
+      "component": "combo_piece",
+      "id": "07ac1d5d-e34d-410e-b4a9-aa7a9f011156",
+      "name": "Expose Evil",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/07ac1d5d-e34d-410e-b4a9-aa7a9f011156"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1f1b47ed-e935-44a4-b654-a32c0bf5dd19",
+      "name": "Lavinia, Foil to Conspiracy",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/1f1b47ed-e935-44a4-b654-a32c0bf5dd19"
+    },
+    {
+      "component": "combo_piece",
+      "id": "366990ed-3ee3-420d-9ed1-811b0e1498c6",
+      "name": "The Mechanist, Aerial Artisan",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Artificer Ally",
+      "uri": "https://api.scryfall.com/cards/366990ed-3ee3-420d-9ed1-811b0e1498c6"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8554e862-f78a-42f5-b876-076aac6c9504",
+      "name": "Knowledge Seeker",
+      "object": "related_card",
+      "type_line": "Creature — Fox Spirit",
+      "uri": "https://api.scryfall.com/cards/8554e862-f78a-42f5-b876-076aac6c9504"
+    },
+    {
+      "component": "combo_piece",
+      "id": "65970840-0c4d-47b1-96d6-7d5c7a3411d9",
+      "name": "Humble the Brute",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/65970840-0c4d-47b1-96d6-7d5c7a3411d9"
+    },
+    {
+      "component": "combo_piece",
+      "id": "228a08f0-6664-407a-a74c-2c32badc0d37",
+      "name": "Root Out",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/228a08f0-6664-407a-a74c-2c32badc0d37"
+    },
+    {
+      "component": "combo_piece",
+      "id": "bb4e2569-7e5c-44d0-8d41-79d4a8e47d1d",
+      "name": "Drownyard Explorers",
+      "object": "related_card",
+      "type_line": "Creature — Human Wizard",
+      "uri": "https://api.scryfall.com/cards/bb4e2569-7e5c-44d0-8d41-79d4a8e47d1d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0ad38866-fc5f-4f62-89c1-afc0f50765aa",
+      "name": "Novice Inspector",
+      "object": "related_card",
+      "type_line": "Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/0ad38866-fc5f-4f62-89c1-afc0f50765aa"
+    },
+    {
+      "component": "combo_piece",
+      "id": "085f4595-4ae5-428e-a934-e918774df6fd",
+      "name": "Innocent Bystander",
+      "object": "related_card",
+      "type_line": "Creature — Goblin Citizen",
+      "uri": "https://api.scryfall.com/cards/085f4595-4ae5-428e-a934-e918774df6fd"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6b35ede8-e882-46fd-9eda-9d6f64c73ea1",
+      "name": "Secret Passage",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/6b35ede8-e882-46fd-9eda-9d6f64c73ea1"
+    },
+    {
+      "component": "combo_piece",
+      "id": "486f1cc2-c162-448e-91a9-577d7d796584",
+      "name": "Eliminate the Impossible",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/486f1cc2-c162-448e-91a9-577d7d796584"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4b03e3d4-aa62-428b-9f99-3ed93506defa",
+      "name": "Thraben Inspector",
+      "object": "related_card",
+      "type_line": "Creature — Human Soldier",
+      "uri": "https://api.scryfall.com/cards/4b03e3d4-aa62-428b-9f99-3ed93506defa"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f836ff17-553c-4545-a132-2e2d6eeeb66e",
+      "name": "Fugitive of the Judoon",
+      "object": "related_card",
+      "type_line": "Enchantment — Saga",
+      "uri": "https://api.scryfall.com/cards/f836ff17-553c-4545-a132-2e2d6eeeb66e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6e982bf8-382f-4987-bc39-28e1ce290340",
+      "name": "Ballroom",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/6e982bf8-382f-4987-bc39-28e1ce290340"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7ca787d2-eee4-4474-9db7-e8efa161ceec",
+      "name": "Wavesifter",
+      "object": "related_card",
+      "type_line": "Creature — Elemental",
+      "uri": "https://api.scryfall.com/cards/7ca787d2-eee4-4474-9db7-e8efa161ceec"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e21c0c32-f770-4012-ae3e-33b1808b3dc4",
+      "name": "Thijarian Witness",
+      "object": "related_card",
+      "type_line": "Creature — Alien Cleric",
+      "uri": "https://api.scryfall.com/cards/e21c0c32-f770-4012-ae3e-33b1808b3dc4"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f515b463-7c58-4429-9560-5b1e92292398",
+      "name": "Teysa, Opulent Oligarch",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Advisor",
+      "uri": "https://api.scryfall.com/cards/f515b463-7c58-4429-9560-5b1e92292398"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ee66a06e-a461-46af-a318-550bc35de5d0",
+      "name": "Tamiyo Meets the Story Circle",
+      "object": "related_card",
+      "type_line": "Enchantment — Saga",
+      "uri": "https://api.scryfall.com/cards/ee66a06e-a461-46af-a318-550bc35de5d0"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3cc61f60-2f9d-4f67-8390-62873b4b8ddb",
+      "name": "Antarctic Research Base",
+      "object": "related_card",
+      "type_line": "Plane — Earth",
+      "uri": "https://api.scryfall.com/cards/3cc61f60-2f9d-4f67-8390-62873b4b8ddb"
+    },
+    {
+      "component": "combo_piece",
+      "id": "dc8f50a0-d5a2-46c1-8f09-4c43f174dca7",
+      "name": "Foreboding Steamboat",
+      "object": "related_card",
+      "type_line": "Artifact — Vehicle",
+      "uri": "https://api.scryfall.com/cards/dc8f50a0-d5a2-46c1-8f09-4c43f174dca7"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ba416ffc-dea7-4272-b391-c66540031366",
+      "name": "Sarah Jane Smith",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/ba416ffc-dea7-4272-b391-c66540031366"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9780ef78-4177-4e19-81d1-a69b8f2dad3d",
+      "name": "Inquisitor Eisenhorn",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Inquisitor",
+      "uri": "https://api.scryfall.com/cards/9780ef78-4177-4e19-81d1-a69b8f2dad3d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "dfdb4045-a402-4346-93b8-6d3911f82ca2",
+      "name": "Homicide Investigator",
+      "object": "related_card",
+      "type_line": "Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/dfdb4045-a402-4346-93b8-6d3911f82ca2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "94e5ee86-0db0-4805-9c33-9df67fcc7ec6",
+      "name": "Alquist Proft, Master Sleuth",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/94e5ee86-0db0-4805-9c33-9df67fcc7ec6"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f257fc85-19e7-4194-b8ca-c588dd84fc96",
+      "name": "Ezrim, Agency Chief",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Archon Detective",
+      "uri": "https://api.scryfall.com/cards/f257fc85-19e7-4194-b8ca-c588dd84fc96"
+    },
+    {
+      "component": "combo_piece",
+      "id": "107cb521-9806-47dc-92d8-b43112b63caa",
+      "name": "Agent 13, Sharon Carter",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Spy Hero",
+      "uri": "https://api.scryfall.com/cards/107cb521-9806-47dc-92d8-b43112b63caa"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0a3c9365-af51-4874-be5b-57d0514825fe",
+      "name": "Hostile Investigator",
+      "object": "related_card",
+      "type_line": "Creature — Ogre Rogue Detective",
+      "uri": "https://api.scryfall.com/cards/0a3c9365-af51-4874-be5b-57d0514825fe"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f42bd4af-3c3a-4750-8e21-03d0aba3116f",
+      "name": "Trail of Evidence",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/f42bd4af-3c3a-4750-8e21-03d0aba3116f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5d705a2b-9370-4f73-829c-823918f55c19",
+      "name": "Byway Courier",
+      "object": "related_card",
+      "type_line": "Creature — Human Scout",
+      "uri": "https://api.scryfall.com/cards/5d705a2b-9370-4f73-829c-823918f55c19"
+    },
+    {
+      "component": "combo_piece",
+      "id": "70a5571e-02cb-4aa4-926d-d04f5ab04f29",
+      "name": "On the Job",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/70a5571e-02cb-4aa4-926d-d04f5ab04f29"
+    },
+    {
+      "component": "combo_piece",
+      "id": "2c05bf2d-7d4f-4717-b1ea-ec4284854f4f",
+      "name": "Detective's Satchel",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/2c05bf2d-7d4f-4717-b1ea-ec4284854f4f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "052d6c65-8d8b-4d88-8458-b8238f1a8d0f",
+      "name": "Officious Interrogation",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/052d6c65-8d8b-4d88-8458-b8238f1a8d0f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "66444549-ad9b-49c6-a7c6-34e977c1085d",
+      "name": "Tireless Tracker",
+      "object": "related_card",
+      "type_line": "Creature — Human Scout",
+      "uri": "https://api.scryfall.com/cards/66444549-ad9b-49c6-a7c6-34e977c1085d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "823b019e-10c0-4712-8167-d4f37a71e782",
+      "name": "Havengul Laboratory // Havengul Mystery",
+      "object": "related_card",
+      "type_line": "Legendary Land // Legendary Land",
+      "uri": "https://api.scryfall.com/cards/823b019e-10c0-4712-8167-d4f37a71e782"
+    },
+    {
+      "component": "combo_piece",
+      "id": "da218add-3891-41c7-86ea-5d655455a8b4",
+      "name": "Thorough Investigation",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/da218add-3891-41c7-86ea-5d655455a8b4"
+    },
+    {
+      "component": "combo_piece",
+      "id": "82f58bb5-5838-4862-a3a3-69c6f05a0cd8",
+      "name": "Flitwing, Lyev Detective",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Faerie Detective",
+      "uri": "https://api.scryfall.com/cards/82f58bb5-5838-4862-a3a3-69c6f05a0cd8"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d032a2b2-81a8-4b4b-a582-5bfa1afda829",
+      "name": "Survive the Night",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/d032a2b2-81a8-4b4b-a582-5bfa1afda829"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4122ae40-800d-4b6b-93c9-aa503c33f1a9",
+      "name": "Panther Pounce",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/4122ae40-800d-4b6b-93c9-aa503c33f1a9"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6c22504f-45a4-41b1-9e75-63712162f55b",
+      "name": "Sophia, Dogged Detective",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/6c22504f-45a4-41b1-9e75-63712162f55b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1e7c9ff3-9db9-41c0-9c8b-067e694973c5",
+      "name": "Resonance Technician",
+      "object": "related_card",
+      "type_line": "Creature — Weird Detective",
+      "uri": "https://api.scryfall.com/cards/1e7c9ff3-9db9-41c0-9c8b-067e694973c5"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a6813cd2-7151-459a-a2f1-52808584de53",
+      "name": "Deduce",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/a6813cd2-7151-459a-a2f1-52808584de53"
+    },
+    {
+      "component": "combo_piece",
+      "id": "32e2a1e7-0f26-4f5e-8206-928c2bf12f12",
+      "name": "Innocuous Researcher",
+      "object": "related_card",
+      "type_line": "Creature — Centaur Detective",
+      "uri": "https://api.scryfall.com/cards/32e2a1e7-0f26-4f5e-8206-928c2bf12f12"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c606a71f-8fb0-486b-955f-727ebf436946",
+      "name": "Magnifying Glass",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/c606a71f-8fb0-486b-955f-727ebf436946"
+    },
+    {
+      "component": "combo_piece",
+      "id": "545f6d3a-5101-407c-acde-168c5097d866",
+      "name": "Academy Manufactor",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Assembly-Worker",
+      "uri": "https://api.scryfall.com/cards/545f6d3a-5101-407c-acde-168c5097d866"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ae959bbb-38ab-48da-a151-b240631dd557",
+      "name": "Tivit, Seller of Secrets",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Sphinx Rogue",
+      "uri": "https://api.scryfall.com/cards/ae959bbb-38ab-48da-a151-b240631dd557"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f73a2404-9400-4628-a799-23b48026f27d",
+      "name": "Blink",
+      "object": "related_card",
+      "type_line": "Enchantment — Saga",
+      "uri": "https://api.scryfall.com/cards/f73a2404-9400-4628-a799-23b48026f27d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0f7c16c7-8b74-45fa-a094-104eb0572cd8",
+      "name": "Raven Eagle",
+      "object": "related_card",
+      "type_line": "Creature — Bird Assassin",
+      "uri": "https://api.scryfall.com/cards/0f7c16c7-8b74-45fa-a094-104eb0572cd8"
+    },
+    {
+      "component": "combo_piece",
+      "id": "14ee271d-f545-4fde-a859-f8a1bb92d512",
+      "name": "Fleeting Memories",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/14ee271d-f545-4fde-a859-f8a1bb92d512"
+    }
+  ],
+  "artist": "Brandon L. Hunt",
+  "artist_ids": [
+    "2d85df8d-50af-4c39-a506-c5c919686b95"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "2",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "c321b9e4-ab7e-4e8a-988f-5463c776d685",
+  "illustration_id": "736350ae-27e9-441f-b7ee-6b6f377d1458",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:53:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/3/c321b9e4-ab7e-4e8a-988f-5463c776d685.webp?1783904017",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/3/c321b9e4-ab7e-4e8a-988f-5463c776d685.jpg?1783904017",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/3/c321b9e4-ab7e-4e8a-988f-5463c776d685.jpg?1783904017",
+    "crop": "https://cards.scryfall.io/crop/front/c/3/c321b9e4-ab7e-4e8a-988f-5463c776d685.webp?1783904017",
+    "display": "https://cards.scryfall.io/display/front/c/3/c321b9e4-ab7e-4e8a-988f-5463c776d685.webp?1783904017",
+    "grid": "https://cards.scryfall.io/grid/front/c/3/c321b9e4-ab7e-4e8a-988f-5463c776d685.webp?1783904017",
+    "large": "https://cards.scryfall.io/large/front/c/3/c321b9e4-ab7e-4e8a-988f-5463c776d685.jpg?1783904017",
+    "normal": "https://cards.scryfall.io/normal/front/c/3/c321b9e4-ab7e-4e8a-988f-5463c776d685.jpg?1783904017",
+    "png": "https://cards.scryfall.io/png/front/c/3/c321b9e4-ab7e-4e8a-988f-5463c776d685.png?1783904017",
+    "small": "https://cards.scryfall.io/small/front/c/3/c321b9e4-ab7e-4e8a-988f-5463c776d685.jpg?1783904017",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/3/c321b9e4-ab7e-4e8a-988f-5463c776d685.webp?1783904017"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Clue",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "496e1083-c792-40a4-adf4-fec1d559cd5e",
+  "oracle_text": "{2}, Sacrifice this token: Draw a card.",
+  "oversized": false,
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A496e1083-c792-40a4-adf4-fec1d559cd5e&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Clue&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Clue&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DClue%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Clue",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DClue",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DClue"
+  },
+  "released_at": "2026-03-06",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c321b9e4-ab7e-4e8a-988f-5463c776d685/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ttmc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ttmc/2/clue?utm_source=api",
+  "set": "ttmc",
+  "set_id": "1b3d029e-609e-44de-a210-8c6a531dffc4",
+  "set_name": "Teenage Mutant Ninja Turtles Eternal Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Attmc&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/1b3d029e-609e-44de-a210-8c6a531dffc4",
+  "story_spotlight": false,
+  "textless": false,
+  "type_line": "Token Artifact — Clue",
+  "uri": "https://api.scryfall.com/cards/c321b9e4-ab7e-4e8a-988f-5463c776d685",
+  "variation": false
+}

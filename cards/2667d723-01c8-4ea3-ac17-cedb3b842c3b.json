@@ -1,0 +1,236 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "28ed0395-9dbf-4b49-bb88-7371dd19ec7d",
+      "name": "Skrelv's Hive",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/28ed0395-9dbf-4b49-bb88-7371dd19ec7d"
+    },
+    {
+      "component": "token",
+      "id": "a0b4b9cc-b0a4-4383-881b-e843e5d8a8c1",
+      "name": "Phyrexian Mite",
+      "object": "related_card",
+      "type_line": "Token Artifact Creature — Phyrexian Mite",
+      "uri": "https://api.scryfall.com/cards/a0b4b9cc-b0a4-4383-881b-e843e5d8a8c1"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c720cb57-7788-4065-9bab-99227606c677",
+      "name": "Mirrex",
+      "object": "related_card",
+      "type_line": "Land — Sphere",
+      "uri": "https://api.scryfall.com/cards/c720cb57-7788-4065-9bab-99227606c677"
+    },
+    {
+      "component": "combo_piece",
+      "id": "40255bfa-0004-45f1-a31b-17d385f09a95",
+      "name": "Poison Counter",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/40255bfa-0004-45f1-a31b-17d385f09a95"
+    },
+    {
+      "component": "combo_piece",
+      "id": "cdbbcbe1-5317-455e-8d71-a4e2ad0addfc",
+      "name": "Stinging Hivemaster",
+      "object": "related_card",
+      "type_line": "Creature — Phyrexian Warlock",
+      "uri": "https://api.scryfall.com/cards/cdbbcbe1-5317-455e-8d71-a4e2ad0addfc"
+    },
+    {
+      "component": "combo_piece",
+      "id": "17c26bdb-46a1-4864-b73b-0f0d05ce206c",
+      "name": "Ria Ivor, Bane of Bladehold",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Phyrexian Knight",
+      "uri": "https://api.scryfall.com/cards/17c26bdb-46a1-4864-b73b-0f0d05ce206c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6d97fa12-b4c0-49fe-98fd-dc560f43a79c",
+      "name": "Vishgraz, the Doomhive",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Phyrexian Insect",
+      "uri": "https://api.scryfall.com/cards/6d97fa12-b4c0-49fe-98fd-dc560f43a79c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "81ef3cfa-63e6-4450-af65-da7f05d13cf3",
+      "name": "Basilica Shepherd",
+      "object": "related_card",
+      "type_line": "Creature — Phyrexian Angel",
+      "uri": "https://api.scryfall.com/cards/81ef3cfa-63e6-4450-af65-da7f05d13cf3"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d051bfc7-b402-444d-896e-c3a9562cdb0d",
+      "name": "Indoctrination Attendant",
+      "object": "related_card",
+      "type_line": "Creature — Phyrexian Cleric",
+      "uri": "https://api.scryfall.com/cards/d051bfc7-b402-444d-896e-c3a9562cdb0d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "aace4c44-7250-414b-aac4-df042a1e2e1d",
+      "name": "Crawling Chorus",
+      "object": "related_card",
+      "type_line": "Creature — Phyrexian Horror",
+      "uri": "https://api.scryfall.com/cards/aace4c44-7250-414b-aac4-df042a1e2e1d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "144bb08b-a289-4bd2-9da6-e42173543918",
+      "name": "White Sun's Twilight",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/144bb08b-a289-4bd2-9da6-e42173543918"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a83a0027-e82d-46ec-b40b-8bf16eb1f379",
+      "name": "Mite Overseer",
+      "object": "related_card",
+      "type_line": "Creature — Phyrexian Soldier",
+      "uri": "https://api.scryfall.com/cards/a83a0027-e82d-46ec-b40b-8bf16eb1f379"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9f03d6bf-cbba-4ad7-8cec-065a47f03dbe",
+      "name": "Infested Fleshcutter",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/9f03d6bf-cbba-4ad7-8cec-065a47f03dbe"
+    },
+    {
+      "component": "combo_piece",
+      "id": "42060b9d-de58-485e-817a-1e64839943aa",
+      "name": "Charge of the Mites",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/42060b9d-de58-485e-817a-1e64839943aa"
+    }
+  ],
+  "artist": "Oriana Menendez",
+  "artist_ids": [
+    "d09f4925-a6b9-48d7-89f7-4db6deab1c7c"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 695478,
+  "cmc": 0.0,
+  "collector_number": "11",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "96ec91a9-659a-455f-98e0-cd30b6c6c2a4",
+  "illustration_id": "c7b0cf7a-f08f-4c2e-928a-493a2d9554bc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:49:26Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/6/96ec91a9-659a-455f-98e0-cd30b6c6c2a4.webp?1783918166",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/6/96ec91a9-659a-455f-98e0-cd30b6c6c2a4.jpg?1783918166",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/6/96ec91a9-659a-455f-98e0-cd30b6c6c2a4.jpg?1783918166",
+    "crop": "https://cards.scryfall.io/crop/front/9/6/96ec91a9-659a-455f-98e0-cd30b6c6c2a4.webp?1783918166",
+    "display": "https://cards.scryfall.io/display/front/9/6/96ec91a9-659a-455f-98e0-cd30b6c6c2a4.webp?1783918166",
+    "grid": "https://cards.scryfall.io/grid/front/9/6/96ec91a9-659a-455f-98e0-cd30b6c6c2a4.webp?1783918166",
+    "large": "https://cards.scryfall.io/large/front/9/6/96ec91a9-659a-455f-98e0-cd30b6c6c2a4.jpg?1783918166",
+    "normal": "https://cards.scryfall.io/normal/front/9/6/96ec91a9-659a-455f-98e0-cd30b6c6c2a4.jpg?1783918166",
+    "png": "https://cards.scryfall.io/png/front/9/6/96ec91a9-659a-455f-98e0-cd30b6c6c2a4.png?1783918166",
+    "small": "https://cards.scryfall.io/small/front/9/6/96ec91a9-659a-455f-98e0-cd30b6c6c2a4.jpg?1783918166",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/6/96ec91a9-659a-455f-98e0-cd30b6c6c2a4.webp?1783918166"
+  },
+  "keywords": [
+    "Toxic"
+  ],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Phyrexian Mite",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2667d723-01c8-4ea3-ac17-cedb3b842c3b",
+  "oracle_text": "Toxic 1 (Players dealt combat damage by this creature also get a poison counter.)\nThis creature can't block.",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": "0.09",
+    "eur_foil": "0.15",
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2667d723-01c8-4ea3-ac17-cedb3b842c3b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Phyrexian+Mite&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=695478&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DPhyrexian%2BMite%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Phyrexian+Mite",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPhyrexian%2BMite",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPhyrexian%2BMite"
+  },
+  "released_at": "2023-02-03",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/96ec91a9-659a-455f-98e0-cd30b6c6c2a4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tone?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tone/11/phyrexian-mite?utm_source=api",
+  "set": "tone",
+  "set_id": "e7b7618d-1fa1-44a8-9cd7-7fe360626917",
+  "set_name": "Phyrexia: All Will Be One Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atone&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/e7b7618d-1fa1-44a8-9cd7-7fe360626917",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Token Artifact Creature — Phyrexian Mite",
+  "uri": "https://api.scryfall.com/cards/96ec91a9-659a-455f-98e0-cd30b6c6c2a4",
+  "variation": false
+}

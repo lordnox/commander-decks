@@ -1,0 +1,158 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "12742d1f-eb2e-4262-88e2-403c9ae6c431",
+      "name": "Zombie Army",
+      "object": "related_card",
+      "type_line": "Token Creature — Zombie Army",
+      "uri": "https://api.scryfall.com/cards/12742d1f-eb2e-4262-88e2-403c9ae6c431"
+    },
+    {
+      "component": "combo_piece",
+      "id": "66cef326-339c-49e5-9905-21a1603a46ae",
+      "name": "Callous Dismissal",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/66cef326-339c-49e5-9905-21a1603a46ae"
+    }
+  ],
+  "arena_id": 69495,
+  "artist": "Mathias Kollros",
+  "artist_ids": [
+    "2ae0dd12-047c-4efb-80d7-bccc3bac5fba"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 372576,
+  "cmc": 2.0,
+  "collector_number": "44",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 14266,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"They make it clear we are nothing to them.\"\n—Lavinia",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "66cef326-339c-49e5-9905-21a1603a46ae",
+  "illustration_id": "61418547-60f0-4b22-ad53-a429287c61c9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:04:27Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/6/66cef326-339c-49e5-9905-21a1603a46ae.webp?1783933467",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/6/66cef326-339c-49e5-9905-21a1603a46ae.jpg?1783933467",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/6/66cef326-339c-49e5-9905-21a1603a46ae.jpg?1783933467",
+    "crop": "https://cards.scryfall.io/crop/front/6/6/66cef326-339c-49e5-9905-21a1603a46ae.webp?1783933467",
+    "display": "https://cards.scryfall.io/display/front/6/6/66cef326-339c-49e5-9905-21a1603a46ae.webp?1783933467",
+    "grid": "https://cards.scryfall.io/grid/front/6/6/66cef326-339c-49e5-9905-21a1603a46ae.webp?1783933467",
+    "large": "https://cards.scryfall.io/large/front/6/6/66cef326-339c-49e5-9905-21a1603a46ae.jpg?1783933467",
+    "normal": "https://cards.scryfall.io/normal/front/6/6/66cef326-339c-49e5-9905-21a1603a46ae.jpg?1783933467",
+    "png": "https://cards.scryfall.io/png/front/6/6/66cef326-339c-49e5-9905-21a1603a46ae.png?1783933467",
+    "small": "https://cards.scryfall.io/small/front/6/6/66cef326-339c-49e5-9905-21a1603a46ae.jpg?1783933467",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/6/66cef326-339c-49e5-9905-21a1603a46ae.webp?1783933467"
+  },
+  "keywords": [
+    "Amass"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 71694,
+  "multiverse_ids": [
+    460971
+  ],
+  "name": "Callous Dismissal",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9219b7d5-642d-4470-a7c4-f3e56bfae8c7",
+  "oracle_text": "Return target nonland permanent to its owner's hand.\nAmass Zombies 1. (Put a +1/+1 counter on an Army you control. It's also a Zombie. If you don't control an Army, create a 0/0 black Zombie Army creature token first.)",
+  "oversized": false,
+  "penny_rank": 7010,
+  "preview": {
+    "previewed_at": "2019-04-18",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/413030102"
+  },
+  "prices": {
+    "eur": "0.15",
+    "eur_foil": "0.35",
+    "tix": "0.03",
+    "usd": "0.19",
+    "usd_etched": null,
+    "usd_foil": "0.42"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9219b7d5-642d-4470-a7c4-f3e56bfae8c7&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/71694?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=372576&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F188899%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Callous+Dismissal",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=460971&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCallous%2BDismissal",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCallous%2BDismissal"
+  },
+  "released_at": "2019-05-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/66cef326-339c-49e5-9905-21a1603a46ae/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/war?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/war/44/callous-dismissal?utm_source=api",
+  "set": "war",
+  "set_id": "ee044f0b-e101-4ead-8d0e-aa510aad4277",
+  "set_name": "War of the Spark",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awar&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/ee044f0b-e101-4ead-8d0e-aa510aad4277",
+  "story_spotlight": false,
+  "tcgplayer_id": 188899,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/66cef326-339c-49e5-9905-21a1603a46ae",
+  "variation": false
+}

@@ -1,0 +1,131 @@
+{
+  "artist": "Robert Bliss",
+  "artist_ids": [
+    "df700ada-8491-4072-a261-e12b3225986d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 21113,
+  "cmc": 4.0,
+  "collector_number": "67",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 8858,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "83d274f4-452b-4ff2-b026-83667e9ba98f",
+  "illustration_id": "898f22f3-e0d1-4adf-b760-423109d3ff35",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:33:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/3/83d274f4-452b-4ff2-b026-83667e9ba98f.webp?1783942389",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/3/83d274f4-452b-4ff2-b026-83667e9ba98f.jpg?1783942389",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/3/83d274f4-452b-4ff2-b026-83667e9ba98f.jpg?1783942389",
+    "crop": "https://cards.scryfall.io/crop/front/8/3/83d274f4-452b-4ff2-b026-83667e9ba98f.webp?1783942389",
+    "display": "https://cards.scryfall.io/display/front/8/3/83d274f4-452b-4ff2-b026-83667e9ba98f.webp?1783942389",
+    "grid": "https://cards.scryfall.io/grid/front/8/3/83d274f4-452b-4ff2-b026-83667e9ba98f.webp?1783942389",
+    "large": "https://cards.scryfall.io/large/front/8/3/83d274f4-452b-4ff2-b026-83667e9ba98f.jpg?1783942389",
+    "normal": "https://cards.scryfall.io/normal/front/8/3/83d274f4-452b-4ff2-b026-83667e9ba98f.jpg?1783942389",
+    "png": "https://cards.scryfall.io/png/front/8/3/83d274f4-452b-4ff2-b026-83667e9ba98f.png?1783942389",
+    "small": "https://cards.scryfall.io/small/front/8/3/83d274f4-452b-4ff2-b026-83667e9ba98f.jpg?1783942389",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/3/83d274f4-452b-4ff2-b026-83667e9ba98f.webp?1783942389"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "mtgo_foil_id": 32618,
+  "mtgo_id": 32617,
+  "multiverse_ids": [
+    191380
+  ],
+  "name": "Polymorph",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "039115f2-6322-4674-bc64-f21883ed375a",
+  "oracle_text": "Destroy target creature. It can't be regenerated. Its controller reveals cards from the top of their library until they reveal a creature card. The player puts that card onto the battlefield, then shuffles all other cards revealed this way into their library.",
+  "oversized": false,
+  "penny_rank": 4289,
+  "prices": {
+    "eur": "0.97",
+    "eur_foil": "7.44",
+    "tix": "0.02",
+    "usd": "1.62",
+    "usd_etched": null,
+    "usd_foil": "14.63"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A039115f2-6322-4674-bc64-f21883ed375a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/32617?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=21113&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F32696%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Polymorph",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=191380&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPolymorph",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPolymorph"
+  },
+  "released_at": "2009-07-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/83d274f4-452b-4ff2-b026-83667e9ba98f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/m10?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/m10/67/polymorph?utm_source=api",
+  "set": "m10",
+  "set_id": "0dba38a9-6b9d-4768-9831-4e03e8970a0b",
+  "set_name": "Magic 2010",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Am10&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/0dba38a9-6b9d-4768-9831-4e03e8970a0b",
+  "story_spotlight": false,
+  "tcgplayer_id": 32696,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/83d274f4-452b-4ff2-b026-83667e9ba98f",
+  "variation": false
+}

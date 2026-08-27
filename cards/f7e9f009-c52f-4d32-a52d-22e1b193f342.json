@@ -1,0 +1,157 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "501599d6-1072-4124-b05d-01f96de153f3",
+      "name": "Hard Evidence",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/501599d6-1072-4124-b05d-01f96de153f3"
+    },
+    {
+      "component": "combo_piece",
+      "id": "38e4ce27-aba2-4a3f-8de7-d442323d8be2",
+      "name": "Scuttletide",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/38e4ce27-aba2-4a3f-8de7-d442323d8be2"
+    },
+    {
+      "component": "token",
+      "id": "7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5",
+      "name": "Crab",
+      "object": "related_card",
+      "type_line": "Token Creature — Crab",
+      "uri": "https://api.scryfall.com/cards/7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5"
+    },
+    {
+      "component": "combo_piece",
+      "id": "bdfaed69-bc4c-4c73-abc3-00dce5e0177e",
+      "name": "Specimen Collector",
+      "object": "related_card",
+      "type_line": "Creature — Vedalken Wizard",
+      "uri": "https://api.scryfall.com/cards/bdfaed69-bc4c-4c73-abc3-00dce5e0177e"
+    }
+  ],
+  "artist": "Yeong-Hao Han",
+  "artist_ids": [
+    "f8e7f8d6-6dde-4059-973c-30f1fd1bbe4e"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "2",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5",
+  "illustration_id": "eb86e922-749a-4016-9938-c6c2db21a674",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:09:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/e/7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5.webp?1783926593",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/e/7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5.jpg?1783926593",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/e/7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5.jpg?1783926593",
+    "crop": "https://cards.scryfall.io/crop/front/7/e/7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5.webp?1783926593",
+    "display": "https://cards.scryfall.io/display/front/7/e/7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5.webp?1783926593",
+    "grid": "https://cards.scryfall.io/grid/front/7/e/7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5.webp?1783926593",
+    "large": "https://cards.scryfall.io/large/front/7/e/7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5.jpg?1783926593",
+    "normal": "https://cards.scryfall.io/normal/front/7/e/7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5.jpg?1783926593",
+    "png": "https://cards.scryfall.io/png/front/7/e/7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5.png?1783926593",
+    "small": "https://cards.scryfall.io/small/front/7/e/7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5.jpg?1783926593",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/e/7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5.webp?1783926593"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Crab",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f7e9f009-c52f-4d32-a52d-22e1b193f342",
+  "oracle_text": "",
+  "oversized": false,
+  "power": "0",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af7e9f009-c52f-4d32-a52d-22e1b193f342&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Crab&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Crab&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DCrab%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Crab",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCrab",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCrab"
+  },
+  "released_at": "2021-06-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tmh2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tmh2/2/crab?utm_source=api",
+  "set": "tmh2",
+  "set_id": "b25a75f7-3f5b-4056-8ab8-a463d18ce818",
+  "set_name": "Modern Horizons 2 Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atmh2&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/b25a75f7-3f5b-4056-8ab8-a463d18ce818",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Token Creature — Crab",
+  "uri": "https://api.scryfall.com/cards/7ef7f37a-b7f5-45a1-8f2b-7097089ca2e5",
+  "variation": false
+}

@@ -1,0 +1,162 @@
+{
+  "artist": "Caroline Gariba & Xavier Ribeiro",
+  "artist_ids": [
+    "61a4c572-3d1b-4b71-aeb0-1a5a6b82c524",
+    "e17c2662-0491-47b2-bf1d-8c111a8ad3f8"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Caroline Gariba",
+      "artist_id": "61a4c572-3d1b-4b71-aeb0-1a5a6b82c524",
+      "colors": [
+        "B"
+      ],
+      "illustration_id": "8384c377-2989-4c65-9814-c777c5a645d0",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.webp?1783924139",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.jpg?1783924139",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.jpg?1783924139",
+        "crop": "https://cards.scryfall.io/crop/front/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.webp?1783924139",
+        "display": "https://cards.scryfall.io/display/front/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.webp?1783924139",
+        "grid": "https://cards.scryfall.io/grid/front/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.webp?1783924139",
+        "large": "https://cards.scryfall.io/large/front/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.jpg?1783924139",
+        "normal": "https://cards.scryfall.io/normal/front/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.jpg?1783924139",
+        "png": "https://cards.scryfall.io/png/front/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.png?1783924139",
+        "small": "https://cards.scryfall.io/small/front/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.jpg?1783924139",
+        "thumb": "https://cards.scryfall.io/thumb/front/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.webp?1783924139"
+      },
+      "mana_cost": "",
+      "name": "Snake",
+      "object": "card_face",
+      "oracle_text": "Deathtouch",
+      "power": "1",
+      "toughness": "1",
+      "type_line": "Token Creature — Snake"
+    },
+    {
+      "artist": "Xavier Ribeiro",
+      "artist_id": "e17c2662-0491-47b2-bf1d-8c111a8ad3f8",
+      "colors": [
+        "B"
+      ],
+      "illustration_id": "881e4722-e8bf-443d-9b6b-8cf23657e8df",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.webp?1783924139",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.jpg?1783924139",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.jpg?1783924139",
+        "crop": "https://cards.scryfall.io/crop/back/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.webp?1783924139",
+        "display": "https://cards.scryfall.io/display/back/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.webp?1783924139",
+        "grid": "https://cards.scryfall.io/grid/back/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.webp?1783924139",
+        "large": "https://cards.scryfall.io/large/back/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.jpg?1783924139",
+        "normal": "https://cards.scryfall.io/normal/back/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.jpg?1783924139",
+        "png": "https://cards.scryfall.io/png/back/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.png?1783924139",
+        "small": "https://cards.scryfall.io/small/back/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.jpg?1783924139",
+        "thumb": "https://cards.scryfall.io/thumb/back/1/3/13e4832d-8530-4b85-b738-51d0c18f28ec.webp?1783924139"
+      },
+      "mana_cost": "",
+      "name": "Zombie",
+      "object": "card_face",
+      "oracle_text": "",
+      "power": "2",
+      "toughness": "2",
+      "type_line": "Token Creature — Zombie"
+    }
+  ],
+  "cmc": 0.0,
+  "collector_number": "9",
+  "color_identity": [
+    "B"
+  ],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "13e4832d-8530-4b85-b738-51d0c18f28ec",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:28:59Z",
+  "keywords": [
+    "Deathtouch"
+  ],
+  "lang": "en",
+  "layout": "double_faced_token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "multiverse_ids": [],
+  "name": "Snake // Zombie",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "814a99c8-0b64-4492-8c9f-088915a970a6",
+  "oversized": false,
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A814a99c8-0b64-4492-8c9f-088915a970a6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Snake+%2F%2F+Zombie&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Snake+%2F%2F+Zombie&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DSnake%2B%252F%252F%2BZombie%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Snake+%2F%2F+Zombie",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSnake%2B%252F%252F%2BZombie",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSnake%2B%252F%252F%2BZombie"
+  },
+  "released_at": "2022-01-28",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/13e4832d-8530-4b85-b738-51d0c18f28ec/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cc2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cc2/9/snake-zombie?utm_source=api",
+  "set": "cc2",
+  "set_id": "78a7f4da-4838-4011-9f58-de8020d1fd2d",
+  "set_name": "Commander Collection: Black",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acc2&unique=prints",
+  "set_type": "arsenal",
+  "set_uri": "https://api.scryfall.com/sets/78a7f4da-4838-4011-9f58-de8020d1fd2d",
+  "story_spotlight": false,
+  "textless": false,
+  "type_line": "Token Creature — Snake // Token Creature — Zombie",
+  "uri": "https://api.scryfall.com/cards/13e4832d-8530-4b85-b738-51d0c18f28ec",
+  "variation": false
+}

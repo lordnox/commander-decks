@@ -1,0 +1,152 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "6adb8607-1066-451d-a719-74ad32358278",
+      "name": "Zombie",
+      "object": "related_card",
+      "type_line": "Token Creature — Zombie",
+      "uri": "https://api.scryfall.com/cards/6adb8607-1066-451d-a719-74ad32358278"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5cdbe4e3-f030-46fa-ae84-edf261b61706",
+      "name": "Flip the Switch",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/5cdbe4e3-f030-46fa-ae84-edf261b61706"
+    }
+  ],
+  "arena_id": 78386,
+  "artist": "Campbell White",
+  "artist_ids": [
+    "d281eab4-463a-4ba8-9039-8943737960a0"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 575022,
+  "cmc": 3.0,
+  "collector_number": "54",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 12773,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Works every time! Well, every time they don't explode, anyway.\"\n—Barton, stitcher",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5cdbe4e3-f030-46fa-ae84-edf261b61706",
+  "illustration_id": "6bac8bd9-0f83-4880-9fc7-65e467fb83d6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:54:00Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/c/5cdbe4e3-f030-46fa-ae84-edf261b61706.webp?1783925640",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/c/5cdbe4e3-f030-46fa-ae84-edf261b61706.jpg?1783925640",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/c/5cdbe4e3-f030-46fa-ae84-edf261b61706.jpg?1783925640",
+    "crop": "https://cards.scryfall.io/crop/front/5/c/5cdbe4e3-f030-46fa-ae84-edf261b61706.webp?1783925640",
+    "display": "https://cards.scryfall.io/display/front/5/c/5cdbe4e3-f030-46fa-ae84-edf261b61706.webp?1783925640",
+    "grid": "https://cards.scryfall.io/grid/front/5/c/5cdbe4e3-f030-46fa-ae84-edf261b61706.webp?1783925640",
+    "large": "https://cards.scryfall.io/large/front/5/c/5cdbe4e3-f030-46fa-ae84-edf261b61706.jpg?1783925640",
+    "normal": "https://cards.scryfall.io/normal/front/5/c/5cdbe4e3-f030-46fa-ae84-edf261b61706.jpg?1783925640",
+    "png": "https://cards.scryfall.io/png/front/5/c/5cdbe4e3-f030-46fa-ae84-edf261b61706.png?1783925640",
+    "small": "https://cards.scryfall.io/small/front/5/c/5cdbe4e3-f030-46fa-ae84-edf261b61706.jpg?1783925640",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/c/5cdbe4e3-f030-46fa-ae84-edf261b61706.webp?1783925640"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 93044,
+  "multiverse_ids": [
+    534815
+  ],
+  "name": "Flip the Switch",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a28eb946-c7f2-4c90-ab6c-b194e290e33d",
+  "oracle_text": "Counter target spell unless its controller pays {4}. Create a 2/2 black Zombie creature token with decayed. (It can't block. When it attacks, sacrifice it at end of combat.)",
+  "oversized": false,
+  "penny_rank": 7150,
+  "prices": {
+    "eur": "0.06",
+    "eur_foil": "0.14",
+    "tix": "0.03",
+    "usd": "0.21",
+    "usd_etched": null,
+    "usd_foil": "0.33"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa28eb946-c7f2-4c90-ab6c-b194e290e33d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/93044?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=575022&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F248285%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Flip+the+Switch",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=534815&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFlip%2Bthe%2BSwitch",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFlip%2Bthe%2BSwitch"
+  },
+  "released_at": "2021-09-24",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "FFF7E3DFB1EA49683C666BD52AE57F3E17F305E6BDF1A5AFA670030625572018",
+  "rulings_uri": "https://api.scryfall.com/cards/5cdbe4e3-f030-46fa-ae84-edf261b61706/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mid?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mid/54/flip-the-switch?utm_source=api",
+  "set": "mid",
+  "set_id": "44b8eb8f-fa23-401a-98b5-1fbb9871128e",
+  "set_name": "Innistrad: Midnight Hunt",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amid&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/44b8eb8f-fa23-401a-98b5-1fbb9871128e",
+  "story_spotlight": false,
+  "tcgplayer_id": 248285,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/5cdbe4e3-f030-46fa-ae84-edf261b61706",
+  "variation": false
+}

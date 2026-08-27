@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "e32795e1-5548-43ef-8cd6-c605a19ef708",
+      "name": "Eldrazi Spawn",
+      "object": "related_card",
+      "type_line": "Token Creature — Eldrazi Spawn",
+      "uri": "https://api.scryfall.com/cards/e32795e1-5548-43ef-8cd6-c605a19ef708"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d5e1ff6d-190a-497f-89c3-35e0979c93b5",
+      "name": "Idol of False Gods",
+      "object": "related_card",
+      "type_line": "Kindred Artifact — Eldrazi",
+      "uri": "https://api.scryfall.com/cards/d5e1ff6d-190a-497f-89c3-35e0979c93b5"
+    }
+  ],
+  "arena_id": 91061,
+  "artist": "Nicholas Gregory",
+  "artist_ids": [
+    "a1bba8ff-63b4-4786-b1c4-f1bfe5d3ab1c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 772228,
+  "cmc": 2.0,
+  "collector_number": "210",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 5056,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "d5e1ff6d-190a-497f-89c3-35e0979c93b5",
+  "illustration_id": "9ea4bbbc-dec9-4096-9298-7a50d23ef004",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:05Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/5/d5e1ff6d-190a-497f-89c3-35e0979c93b5.webp?1783911245",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/5/d5e1ff6d-190a-497f-89c3-35e0979c93b5.jpg?1783911245",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/5/d5e1ff6d-190a-497f-89c3-35e0979c93b5.jpg?1783911245",
+    "crop": "https://cards.scryfall.io/crop/front/d/5/d5e1ff6d-190a-497f-89c3-35e0979c93b5.webp?1783911245",
+    "display": "https://cards.scryfall.io/display/front/d/5/d5e1ff6d-190a-497f-89c3-35e0979c93b5.webp?1783911245",
+    "grid": "https://cards.scryfall.io/grid/front/d/5/d5e1ff6d-190a-497f-89c3-35e0979c93b5.webp?1783911245",
+    "large": "https://cards.scryfall.io/large/front/d/5/d5e1ff6d-190a-497f-89c3-35e0979c93b5.jpg?1783911245",
+    "normal": "https://cards.scryfall.io/normal/front/d/5/d5e1ff6d-190a-497f-89c3-35e0979c93b5.jpg?1783911245",
+    "png": "https://cards.scryfall.io/png/front/d/5/d5e1ff6d-190a-497f-89c3-35e0979c93b5.png?1783911245",
+    "small": "https://cards.scryfall.io/small/front/d/5/d5e1ff6d-190a-497f-89c3-35e0979c93b5.jpg?1783911245",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/5/d5e1ff6d-190a-497f-89c3-35e0979c93b5.webp?1783911245"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}",
+  "mtgo_id": 126439,
+  "multiverse_ids": [
+    662362
+  ],
+  "name": "Idol of False Gods",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b30d583b-e770-47e8-9f26-fca7ef43285c",
+  "oracle_text": "{1}{C}, {T}: Create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\"\nWhenever another Eldrazi you control dies, put a +1/+1 counter on this artifact.\nAs long as this artifact has eight or more +1/+1 counters on it, it's a 0/0 creature in addition to its other types and it has annihilator 2.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-05-27",
+    "source": "LigaMagic",
+    "source_uri": "https://x.com/ligamagicbr/status/1795103918436823365/photo/1"
+  },
+  "prices": {
+    "eur": "0.22",
+    "eur_foil": "0.31",
+    "tix": "0.03",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": "0.36"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab30d583b-e770-47e8-9f26-fca7ef43285c&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126439?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=772228&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552860%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Idol+of+False+Gods",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662362&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIdol%2Bof%2BFalse%2BGods",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIdol%2Bof%2BFalse%2BGods"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d5e1ff6d-190a-497f-89c3-35e0979c93b5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/210/idol-of-false-gods?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552860,
+  "textless": false,
+  "type_line": "Kindred Artifact — Eldrazi",
+  "uri": "https://api.scryfall.com/cards/d5e1ff6d-190a-497f-89c3-35e0979c93b5",
+  "variation": false
+}

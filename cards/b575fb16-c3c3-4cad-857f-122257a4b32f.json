@@ -1,0 +1,144 @@
+{
+  "artist": "Games Workshop",
+  "artist_ids": [
+    "9456da4e-410b-4932-8bf3-a69a2da3cdc9"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 675248,
+  "cmc": 7.0,
+  "collector_number": "24",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 5936,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "The Lords of Change are Tzeentch's greatest servants. The most powerful of them wield fragments of his power over destiny.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f9099d82-c13a-480d-b4bc-ecf8b810427c",
+  "illustration_id": "a53bed08-8940-4371-b418-0c487da7c8d9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:35:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/9/f9099d82-c13a-480d-b4bc-ecf8b810427c.webp?1783920935",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/9/f9099d82-c13a-480d-b4bc-ecf8b810427c.jpg?1783920935",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/9/f9099d82-c13a-480d-b4bc-ecf8b810427c.jpg?1783920935",
+    "crop": "https://cards.scryfall.io/crop/front/f/9/f9099d82-c13a-480d-b4bc-ecf8b810427c.webp?1783920935",
+    "display": "https://cards.scryfall.io/display/front/f/9/f9099d82-c13a-480d-b4bc-ecf8b810427c.webp?1783920935",
+    "grid": "https://cards.scryfall.io/grid/front/f/9/f9099d82-c13a-480d-b4bc-ecf8b810427c.webp?1783920935",
+    "large": "https://cards.scryfall.io/large/front/f/9/f9099d82-c13a-480d-b4bc-ecf8b810427c.jpg?1783920935",
+    "normal": "https://cards.scryfall.io/normal/front/f/9/f9099d82-c13a-480d-b4bc-ecf8b810427c.jpg?1783920935",
+    "png": "https://cards.scryfall.io/png/front/f/9/f9099d82-c13a-480d-b4bc-ecf8b810427c.png?1783920935",
+    "small": "https://cards.scryfall.io/small/front/f/9/f9099d82-c13a-480d-b4bc-ecf8b810427c.jpg?1783920935",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/9/f9099d82-c13a-480d-b4bc-ecf8b810427c.webp?1783920935"
+  },
+  "keywords": [
+    "Flying",
+    "Ward",
+    "Architect of Deception"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{6}{U}",
+  "mtgo_id": 108520,
+  "multiverse_ids": [
+    580846
+  ],
+  "name": "Lord of Change",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b575fb16-c3c3-4cad-857f-122257a4b32f",
+  "oracle_text": "Flying, ward {3}\nArchitect of Deception — When this creature enters, draw three cards.",
+  "oversized": false,
+  "power": "6",
+  "preview": {
+    "previewed_at": "2022-09-14",
+    "source": "LoadingReadyRun",
+    "source_uri": "https://www.youtube.com/watch?v=Dghfv1yptDI"
+  },
+  "prices": {
+    "eur": "3.06",
+    "eur_foil": null,
+    "tix": "2.33",
+    "usd": "3.09",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab575fb16-c3c3-4cad-857f-122257a4b32f&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/108520?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=675248&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F286146%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Lord+of+Change",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=580846&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLord%2Bof%2BChange",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLord%2Bof%2BChange"
+  },
+  "released_at": "2022-10-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f9099d82-c13a-480d-b4bc-ecf8b810427c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/40k?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/40k/24/lord-of-change?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "40k",
+  "set_id": "f35f5dd8-5b95-4f52-bbe7-1c62909a8d08",
+  "set_name": "Warhammer 40,000 Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A40k&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/f35f5dd8-5b95-4f52-bbe7-1c62909a8d08",
+  "story_spotlight": false,
+  "tcgplayer_id": 286146,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Creature — Demon",
+  "uri": "https://api.scryfall.com/cards/f9099d82-c13a-480d-b4bc-ecf8b810427c",
+  "variation": false
+}

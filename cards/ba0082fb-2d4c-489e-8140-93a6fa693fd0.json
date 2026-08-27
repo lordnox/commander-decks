@@ -1,0 +1,157 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "12742d1f-eb2e-4262-88e2-403c9ae6c431",
+      "name": "Zombie Army",
+      "object": "related_card",
+      "type_line": "Token Creature — Zombie Army",
+      "uri": "https://api.scryfall.com/cards/12742d1f-eb2e-4262-88e2-403c9ae6c431"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f03b5405-6016-405b-a504-a454731b9276",
+      "name": "Lazotep Plating",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/f03b5405-6016-405b-a504-a454731b9276"
+    }
+  ],
+  "arena_id": 69510,
+  "artist": "Yeong-Hao Han",
+  "artist_ids": [
+    "f8e7f8d6-6dde-4059-973c-30f1fd1bbe4e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 371911,
+  "cmc": 2.0,
+  "collector_number": "59",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2817,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f03b5405-6016-405b-a504-a454731b9276",
+  "illustration_id": "a2dc721d-c893-4508-a74a-cb5826a27929",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:04:20Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/0/f03b5405-6016-405b-a504-a454731b9276.webp?1783933460",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/0/f03b5405-6016-405b-a504-a454731b9276.jpg?1783933460",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/0/f03b5405-6016-405b-a504-a454731b9276.jpg?1783933460",
+    "crop": "https://cards.scryfall.io/crop/front/f/0/f03b5405-6016-405b-a504-a454731b9276.webp?1783933460",
+    "display": "https://cards.scryfall.io/display/front/f/0/f03b5405-6016-405b-a504-a454731b9276.webp?1783933460",
+    "grid": "https://cards.scryfall.io/grid/front/f/0/f03b5405-6016-405b-a504-a454731b9276.webp?1783933460",
+    "large": "https://cards.scryfall.io/large/front/f/0/f03b5405-6016-405b-a504-a454731b9276.jpg?1783933460",
+    "normal": "https://cards.scryfall.io/normal/front/f/0/f03b5405-6016-405b-a504-a454731b9276.jpg?1783933460",
+    "png": "https://cards.scryfall.io/png/front/f/0/f03b5405-6016-405b-a504-a454731b9276.png?1783933460",
+    "small": "https://cards.scryfall.io/small/front/f/0/f03b5405-6016-405b-a504-a454731b9276.jpg?1783933460",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/0/f03b5405-6016-405b-a504-a454731b9276.webp?1783933460"
+  },
+  "keywords": [
+    "Amass"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 71724,
+  "multiverse_ids": [
+    460986
+  ],
+  "name": "Lazotep Plating",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ba0082fb-2d4c-489e-8140-93a6fa693fd0",
+  "oracle_text": "Amass Zombies 1. (Put a +1/+1 counter on an Army you control. It's also a Zombie. If you don't control an Army, create a 0/0 black Zombie Army creature token first.)\nYou and permanents you control gain hexproof until end of turn. (You and they can't be the targets of spells or abilities your opponents control.)",
+  "oversized": false,
+  "penny_rank": 1857,
+  "preview": {
+    "previewed_at": "2019-04-03",
+    "source": "Ken Yukuhiro",
+    "source_uri": "https://gaming.youtube.com/watch?v=_Y4PLxZdBok"
+  },
+  "prices": {
+    "eur": "0.50",
+    "eur_foil": "3.33",
+    "tix": "0.03",
+    "usd": "0.48",
+    "usd_etched": null,
+    "usd_foil": "4.70"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aba0082fb-2d4c-489e-8140-93a6fa693fd0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/71724?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=371911&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F187248%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Lazotep+Plating",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=460986&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLazotep%2BPlating",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLazotep%2BPlating"
+  },
+  "released_at": "2019-05-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f03b5405-6016-405b-a504-a454731b9276/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/war?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/war/59/lazotep-plating?utm_source=api",
+  "set": "war",
+  "set_id": "ee044f0b-e101-4ead-8d0e-aa510aad4277",
+  "set_name": "War of the Spark",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awar&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/ee044f0b-e101-4ead-8d0e-aa510aad4277",
+  "story_spotlight": false,
+  "tcgplayer_id": 187248,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/f03b5405-6016-405b-a504-a454731b9276",
+  "variation": false
+}

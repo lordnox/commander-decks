@@ -1,0 +1,136 @@
+{
+  "artist": "Alayna Danner",
+  "artist_ids": [
+    "bb677b1a-ce51-4888-83d6-5a94de461ff9"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 374991,
+  "cmc": 3.0,
+  "collector_number": "40",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1746,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "57b852b6-4388-4a41-a5c0-bba37a5c1451",
+  "illustration_id": "bb6843d3-1578-4d27-b443-735c528fd277",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:59:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/7/57b852b6-4388-4a41-a5c0-bba37a5c1451.webp?1783933150",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/7/57b852b6-4388-4a41-a5c0-bba37a5c1451.jpg?1783933150",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/7/57b852b6-4388-4a41-a5c0-bba37a5c1451.jpg?1783933150",
+    "crop": "https://cards.scryfall.io/crop/front/5/7/57b852b6-4388-4a41-a5c0-bba37a5c1451.webp?1783933150",
+    "display": "https://cards.scryfall.io/display/front/5/7/57b852b6-4388-4a41-a5c0-bba37a5c1451.webp?1783933150",
+    "grid": "https://cards.scryfall.io/grid/front/5/7/57b852b6-4388-4a41-a5c0-bba37a5c1451.webp?1783933150",
+    "large": "https://cards.scryfall.io/large/front/5/7/57b852b6-4388-4a41-a5c0-bba37a5c1451.jpg?1783933150",
+    "normal": "https://cards.scryfall.io/normal/front/5/7/57b852b6-4388-4a41-a5c0-bba37a5c1451.jpg?1783933150",
+    "png": "https://cards.scryfall.io/png/front/5/7/57b852b6-4388-4a41-a5c0-bba37a5c1451.png?1783933150",
+    "small": "https://cards.scryfall.io/small/front/5/7/57b852b6-4388-4a41-a5c0-bba37a5c1451.jpg?1783933150",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/7/57b852b6-4388-4a41-a5c0-bba37a5c1451.webp?1783933150"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}{U}{U}",
+  "mtgo_id": 72452,
+  "multiverse_ids": [
+    463989
+  ],
+  "name": "Archmage's Charm",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "85cbb035-25df-43bb-ae06-ab098f448b02",
+  "oracle_text": "Choose one —\n• Counter target spell.\n• Target player draws two cards.\n• Gain control of target nonland permanent with mana value 1 or less.",
+  "oversized": false,
+  "penny_rank": 24,
+  "preview": {
+    "previewed_at": "2019-05-24",
+    "source": "Proven Combatants",
+    "source_uri": "https://twitter.com/CombatantsMTG/status/1131992661487902721"
+  },
+  "prices": {
+    "eur": "1.44",
+    "eur_foil": "3.37",
+    "tix": "0.12",
+    "usd": "1.90",
+    "usd_etched": null,
+    "usd_foil": "3.04"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A85cbb035-25df-43bb-ae06-ab098f448b02&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/72452?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=374991&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F191041%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Archmage%27s+Charm",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=463989&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DArchmage%2527s%2BCharm",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DArchmage%2527s%2BCharm"
+  },
+  "released_at": "2019-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/57b852b6-4388-4a41-a5c0-bba37a5c1451/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh1?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh1/40/archmages-charm?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh1",
+  "set_id": "d7efccd6-55bc-4fb8-9138-e72577510a99",
+  "set_name": "Modern Horizons",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh1&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/d7efccd6-55bc-4fb8-9138-e72577510a99",
+  "story_spotlight": false,
+  "tcgplayer_id": 191041,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/57b852b6-4388-4a41-a5c0-bba37a5c1451",
+  "variation": false
+}

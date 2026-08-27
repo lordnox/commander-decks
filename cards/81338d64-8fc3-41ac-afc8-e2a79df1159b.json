@@ -1,0 +1,128 @@
+{
+  "artist": "D. Alexander Gregory",
+  "artist_ids": [
+    "38433e15-f0f5-4223-a985-2d13c4aa0922"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 362049,
+  "cmc": 3.0,
+  "collector_number": "88",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 9308,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Dreams' riches are easily spent.\n—Suq'Ata adage",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "d7da182c-cde3-40d8-976e-a88427a1edb8",
+  "illustration_id": "ad74be92-882b-4ea9-a8e7-e5fe1642a60d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:18:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/7/d7da182c-cde3-40d8-976e-a88427a1edb8.webp?1783934310",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/7/d7da182c-cde3-40d8-976e-a88427a1edb8.jpg?1783934310",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/7/d7da182c-cde3-40d8-976e-a88427a1edb8.jpg?1783934310",
+    "crop": "https://cards.scryfall.io/crop/front/d/7/d7da182c-cde3-40d8-976e-a88427a1edb8.webp?1783934310",
+    "display": "https://cards.scryfall.io/display/front/d/7/d7da182c-cde3-40d8-976e-a88427a1edb8.webp?1783934310",
+    "grid": "https://cards.scryfall.io/grid/front/d/7/d7da182c-cde3-40d8-976e-a88427a1edb8.webp?1783934310",
+    "large": "https://cards.scryfall.io/large/front/d/7/d7da182c-cde3-40d8-976e-a88427a1edb8.jpg?1783934310",
+    "normal": "https://cards.scryfall.io/normal/front/d/7/d7da182c-cde3-40d8-976e-a88427a1edb8.jpg?1783934310",
+    "png": "https://cards.scryfall.io/png/front/d/7/d7da182c-cde3-40d8-976e-a88427a1edb8.png?1783934310",
+    "small": "https://cards.scryfall.io/small/front/d/7/d7da182c-cde3-40d8-976e-a88427a1edb8.jpg?1783934310",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/7/d7da182c-cde3-40d8-976e-a88427a1edb8.webp?1783934310"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "multiverse_ids": [
+    451043
+  ],
+  "name": "Dream Cache",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "81338d64-8fc3-41ac-afc8-e2a79df1159b",
+  "oracle_text": "Draw three cards, then put two cards from your hand both on top of your library or both on the bottom of your library.",
+  "oversized": false,
+  "penny_rank": 6831,
+  "prices": {
+    "eur": "0.24",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A81338d64-8fc3-41ac-afc8-e2a79df1159b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Dream+Cache&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=362049&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F171458%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dream+Cache",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=451043&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDream%2BCache",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDream%2BCache"
+  },
+  "released_at": "2018-08-10",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d7da182c-cde3-40d8-976e-a88427a1edb8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c18?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c18/88/dream-cache?utm_source=api",
+  "set": "c18",
+  "set_id": "06ce6bc2-85cd-4cca-85b1-8c620d3e0902",
+  "set_name": "Commander 2018",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac18&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/06ce6bc2-85cd-4cca-85b1-8c620d3e0902",
+  "story_spotlight": false,
+  "tcgplayer_id": 171458,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/d7da182c-cde3-40d8-976e-a88427a1edb8",
+  "variation": false
+}

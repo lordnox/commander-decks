@@ -1,0 +1,159 @@
+{
+  "artist": "Victor Adame Minguez & Richard Wright",
+  "artist_ids": [
+    "bd8f7368-5b10-4554-b6b8-d052c6aca89f",
+    "7b1b0ce9-2c58-4321-a2a7-cdc94feae082"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Victor Adame Minguez",
+      "artist_id": "bd8f7368-5b10-4554-b6b8-d052c6aca89f",
+      "colors": [],
+      "illustration_id": "94a5a7f8-b162-4e26-a581-10e852796c82",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.webp?1783937940",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.jpg?1783937940",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.jpg?1783937940",
+        "crop": "https://cards.scryfall.io/crop/front/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.webp?1783937940",
+        "display": "https://cards.scryfall.io/display/front/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.webp?1783937940",
+        "grid": "https://cards.scryfall.io/grid/front/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.webp?1783937940",
+        "large": "https://cards.scryfall.io/large/front/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.jpg?1783937940",
+        "normal": "https://cards.scryfall.io/normal/front/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.jpg?1783937940",
+        "png": "https://cards.scryfall.io/png/front/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.png?1783937940",
+        "small": "https://cards.scryfall.io/small/front/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.jpg?1783937940",
+        "thumb": "https://cards.scryfall.io/thumb/front/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.webp?1783937940"
+      },
+      "mana_cost": "",
+      "name": "Servo",
+      "object": "card_face",
+      "oracle_text": "",
+      "power": "1",
+      "toughness": "1",
+      "type_line": "Token Artifact Creature — Servo"
+    },
+    {
+      "artist": "Richard Wright",
+      "artist_id": "7b1b0ce9-2c58-4321-a2a7-cdc94feae082",
+      "colors": [],
+      "illustration_id": "50117802-a0bf-4b3d-957a-e80fbe23469e",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.webp?1783937940",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.jpg?1783937940",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.jpg?1783937940",
+        "crop": "https://cards.scryfall.io/crop/back/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.webp?1783937940",
+        "display": "https://cards.scryfall.io/display/back/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.webp?1783937940",
+        "grid": "https://cards.scryfall.io/grid/back/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.webp?1783937940",
+        "large": "https://cards.scryfall.io/large/back/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.jpg?1783937940",
+        "normal": "https://cards.scryfall.io/normal/back/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.jpg?1783937940",
+        "png": "https://cards.scryfall.io/png/back/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.png?1783937940",
+        "small": "https://cards.scryfall.io/small/back/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.jpg?1783937940",
+        "thumb": "https://cards.scryfall.io/thumb/back/4/e/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0.webp?1783937940"
+      },
+      "mana_cost": "",
+      "name": "Thopter",
+      "object": "card_face",
+      "oracle_text": "Flying",
+      "power": "1",
+      "toughness": "1",
+      "type_line": "Token Artifact Creature — Thopter"
+    }
+  ],
+  "cmc": 0.0,
+  "collector_number": "5",
+  "color_identity": [],
+  "digital": false,
+  "finishes": [
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:19:00Z",
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "double_faced_token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "multiverse_ids": [],
+  "name": "Servo // Thopter",
+  "nonfoil": false,
+  "object": "card",
+  "oracle_id": "2fb4053a-e7a4-4be9-ad34-51cdee0b3c75",
+  "oversized": false,
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": "15.85"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2fb4053a-e7a4-4be9-ad34-51cdee0b3c75&unique=prints",
+  "promo": true,
+  "promo_types": [
+    "instore"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Servo+%2F%2F+Thopter&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Servo+%2F%2F+Thopter&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F128795%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Servo+%2F%2F+Thopter",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DServo%2B%252F%252F%2BThopter",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DServo%2B%252F%252F%2BThopter"
+  },
+  "released_at": "2016-01-01",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/l16?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/l16/5/servo-thopter?utm_source=api",
+  "set": "l16",
+  "set_id": "8e4b1749-a534-4b6c-b8b5-ec5ab49e276d",
+  "set_name": "League Tokens 2016",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Al16&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/8e4b1749-a534-4b6c-b8b5-ec5ab49e276d",
+  "story_spotlight": false,
+  "tcgplayer_id": 128795,
+  "textless": false,
+  "type_line": "Token Artifact Creature — Servo // Token Artifact Creature — Thopter",
+  "uri": "https://api.scryfall.com/cards/4e3690fa-627e-4b3b-b517-e2cd1b4bbdd0",
+  "variation": false
+}

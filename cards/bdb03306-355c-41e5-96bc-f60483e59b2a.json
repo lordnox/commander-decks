@@ -1,0 +1,237 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "86c65c7f-c440-482d-964d-175c75ca4458",
+      "name": "Beza, the Bounding Spring",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Elemental Elk",
+      "uri": "https://api.scryfall.com/cards/86c65c7f-c440-482d-964d-175c75ca4458"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7e24fe6a-607b-49b8-9fca-cecb1e40de7f",
+      "name": "Mind Spiral",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/7e24fe6a-607b-49b8-9fca-cecb1e40de7f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c95ab836-3277-4223-9aaa-ef2c77256b65",
+      "name": "Fishing Pole",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/c95ab836-3277-4223-9aaa-ef2c77256b65"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c23d8e96-b972-4c6c-b0c4-b6627621f048",
+      "name": "Starforged Sword",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/c23d8e96-b972-4c6c-b0c4-b6627621f048"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1086e826-94b8-4398-8a38-d8eacca56a43",
+      "name": "Parting Gust",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/1086e826-94b8-4398-8a38-d8eacca56a43"
+    },
+    {
+      "component": "combo_piece",
+      "id": "47f0e0b9-d137-46ac-a6e4-13a529e30bb5",
+      "name": "Fisher's Talent",
+      "object": "related_card",
+      "type_line": "Enchantment — Class",
+      "uri": "https://api.scryfall.com/cards/47f0e0b9-d137-46ac-a6e4-13a529e30bb5"
+    },
+    {
+      "component": "combo_piece",
+      "id": "2136c09b-f27d-40f1-b3fd-44a399d1d021",
+      "name": "Frost Fair Lure Fish",
+      "object": "related_card",
+      "type_line": "Creature — Fish",
+      "uri": "https://api.scryfall.com/cards/2136c09b-f27d-40f1-b3fd-44a399d1d021"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b2a1b5b3-8d7a-4614-b7f9-d13db5654d03",
+      "name": "Fishing Gear",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/b2a1b5b3-8d7a-4614-b7f9-d13db5654d03"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e412870c-62bc-4ab7-a3e3-755b6228fa0a",
+      "name": "Into the Flood Maw",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/e412870c-62bc-4ab7-a3e3-755b6228fa0a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c823cedc-8532-4e82-bb92-2c98aa266808",
+      "name": "Fountainport",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/c823cedc-8532-4e82-bb92-2c98aa266808"
+    },
+    {
+      "component": "combo_piece",
+      "id": "67c4be9a-5c29-4e5f-bfab-030bbc1686f4",
+      "name": "Sazacap's Brew",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/67c4be9a-5c29-4e5f-bfab-030bbc1686f4"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c7ef748c-b5e5-4e7d-bf2e-d3e6c08edb42",
+      "name": "Longstalk Brawl",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/c7ef748c-b5e5-4e7d-bf2e-d3e6c08edb42"
+    },
+    {
+      "component": "token",
+      "id": "44057462-40b7-4709-afac-2ce03d53d525",
+      "name": "Fish",
+      "object": "related_card",
+      "type_line": "Token Creature — Fish",
+      "uri": "https://api.scryfall.com/cards/44057462-40b7-4709-afac-2ce03d53d525"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c7fb7f4f-2153-4527-8f11-adbf508d3533",
+      "name": "Knightfisher",
+      "object": "related_card",
+      "type_line": "Creature — Bird Knight",
+      "uri": "https://api.scryfall.com/cards/c7fb7f4f-2153-4527-8f11-adbf508d3533"
+    }
+  ],
+  "artist": "Rhonda Libbey",
+  "artist_ids": [
+    "9b3fac11-04d4-4896-8005-ad255df63704"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "10",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "44057462-40b7-4709-afac-2ce03d53d525",
+  "illustration_id": "9172e740-6666-4480-83c8-9f5c4120046e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:09:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/4/44057462-40b7-4709-afac-2ce03d53d525.webp?1783908592",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/4/44057462-40b7-4709-afac-2ce03d53d525.jpg?1783908592",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/4/44057462-40b7-4709-afac-2ce03d53d525.jpg?1783908592",
+    "crop": "https://cards.scryfall.io/crop/front/4/4/44057462-40b7-4709-afac-2ce03d53d525.webp?1783908592",
+    "display": "https://cards.scryfall.io/display/front/4/4/44057462-40b7-4709-afac-2ce03d53d525.webp?1783908592",
+    "grid": "https://cards.scryfall.io/grid/front/4/4/44057462-40b7-4709-afac-2ce03d53d525.webp?1783908592",
+    "large": "https://cards.scryfall.io/large/front/4/4/44057462-40b7-4709-afac-2ce03d53d525.jpg?1783908592",
+    "normal": "https://cards.scryfall.io/normal/front/4/4/44057462-40b7-4709-afac-2ce03d53d525.jpg?1783908592",
+    "png": "https://cards.scryfall.io/png/front/4/4/44057462-40b7-4709-afac-2ce03d53d525.png?1783908592",
+    "small": "https://cards.scryfall.io/small/front/4/4/44057462-40b7-4709-afac-2ce03d53d525.jpg?1783908592",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/4/44057462-40b7-4709-afac-2ce03d53d525.webp?1783908592"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Fish",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "bdb03306-355c-41e5-96bc-f60483e59b2a",
+  "oracle_text": "",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abdb03306-355c-41e5-96bc-f60483e59b2a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Fish&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Fish&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DFish%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Fish",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFish",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFish"
+  },
+  "released_at": "2024-11-15",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/44057462-40b7-4709-afac-2ce03d53d525/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tfdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tfdn/10/fish?utm_source=api",
+  "set": "tfdn",
+  "set_id": "abb31a61-9d0e-47ed-852a-8c5249396c7d",
+  "set_name": "Foundations Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atfdn&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/abb31a61-9d0e-47ed-852a-8c5249396c7d",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Token Creature — Fish",
+  "uri": "https://api.scryfall.com/cards/44057462-40b7-4709-afac-2ce03d53d525",
+  "variation": false
+}

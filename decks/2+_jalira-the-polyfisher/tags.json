@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Mono-blue Jalira polymorph: interaction that leaves tokens behind, then flip those tokens into random giant monsters.",
+  "tags": [
+    {
+      "name": "polymorph",
+      "score": 5,
+      "reason": "Jalira, Polymorph, and Proteus Staff convert expendable bodies into random monsters; the whole 99 is built around the reveal."
+    },
+    {
+      "name": "tokens",
+      "score": 4,
+      "reason": "Over a dozen spells and lands leave Zombies, Orc Armies, Crabs, Fish, Goats, Mites, and Scions behind purely as polymorph fodder."
+    },
+    {
+      "name": "theft",
+      "score": 3,
+      "reason": "Ray of Command, Domineering Will, Tempted by the Oriq, Blue Sun's Twilight, and Mind Flayer steal creatures that Jalira then sacrifices for keeps."
+    },
+    {
+      "name": "topdeck",
+      "score": 3,
+      "reason": "Brainstorm, Brainsurge, Dream Cache, and See Beyond stack stranded monsters on top of the library to rig the next flip."
+    },
+    {
+      "name": "amass",
+      "score": 2,
+      "reason": "Five amass spells grow a disposable Army while countering or bouncing things."
+    },
+    {
+      "name": "clones",
+      "score": 2,
+      "reason": "Astral Dragon, Hulking Metamorph, Faerie Artisans, and Blue Sun's Twilight copy the best thing on the table."
+    },
+    {
+      "name": "counterspells",
+      "score": 2,
+      "reason": "Swan Song, Saruman's Trickery, Abstruse Interference, Flip the Switch, and Archmage's Charm protect the engine."
+    },
+    {
+      "name": "eldrazi",
+      "score": 2,
+      "reason": "It That Betrays, Void Winnower, Ulamog's Dreadsire, and Sire of Seven Deaths headline the hit list, with Scion and Spawn makers feeding Idol of False Gods."
+    },
+    {
+      "name": "sacrifice",
+      "score": 2,
+      "reason": "Every Jalira activation eats a creature, but there are no aristocrat payoffs beyond the flip itself."
+    },
+    {
+      "name": "stompy",
+      "score": 2,
+      "reason": "The deck wins with oversized bodies and a Rogue's Passage, not with a combo."
+    },
+    {
+      "name": "chaos",
+      "score": 1,
+      "reason": "Unrigged flips are random reveals off a curated list."
+    },
+    {
+      "name": "dragons",
+      "score": 1,
+      "reason": "Ancient Silver Dragon, Astral Dragon, and Summon: Bahamut are hits, not a tribe."
+    },
+    {
+      "name": "golems",
+      "score": 1,
+      "reason": "Ancient Stone Idol, Triplicate Titan, and Platinum Emperion are incidental Golems."
+    },
+    {
+      "name": "sea creatures",
+      "score": 1,
+      "reason": "Hullbreaker Horror, Star Whale, and the Crab token are incidental."
+    }
+  ]
+}

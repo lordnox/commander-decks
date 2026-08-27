@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "6943f966-fd21-427c-a13f-44727edcaa4b",
+      "name": "Orc Army",
+      "object": "related_card",
+      "type_line": "Token Creature — Orc Army",
+      "uri": "https://api.scryfall.com/cards/6943f966-fd21-427c-a13f-44727edcaa4b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3382b1de-6d45-443c-a837-f3cd3e86233d",
+      "name": "Deceive the Messenger",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/3382b1de-6d45-443c-a837-f3cd3e86233d"
+    }
+  ],
+  "arena_id": 84739,
+  "artist": "Tomas Duchek",
+  "artist_ids": [
+    "ceb3ce65-efa6-4bcc-b2a3-33e83a047528"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 717094,
+  "cmc": 1.0,
+  "collector_number": "47",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 14053,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Tell Gandalf that he must seek my aid at once.\"\n—Saruman",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b2984bc6-7c12-46e4-8dd3-b23e29a7a7ec",
+  "illustration_id": "c923b596-49aa-42bb-bc4f-36624de1cc11",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:18:39Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/2/b2984bc6-7c12-46e4-8dd3-b23e29a7a7ec.webp?1783916319",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/2/b2984bc6-7c12-46e4-8dd3-b23e29a7a7ec.jpg?1783916319",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/2/b2984bc6-7c12-46e4-8dd3-b23e29a7a7ec.jpg?1783916319",
+    "crop": "https://cards.scryfall.io/crop/front/b/2/b2984bc6-7c12-46e4-8dd3-b23e29a7a7ec.webp?1783916319",
+    "display": "https://cards.scryfall.io/display/front/b/2/b2984bc6-7c12-46e4-8dd3-b23e29a7a7ec.webp?1783916319",
+    "grid": "https://cards.scryfall.io/grid/front/b/2/b2984bc6-7c12-46e4-8dd3-b23e29a7a7ec.webp?1783916319",
+    "large": "https://cards.scryfall.io/large/front/b/2/b2984bc6-7c12-46e4-8dd3-b23e29a7a7ec.jpg?1783916319",
+    "normal": "https://cards.scryfall.io/normal/front/b/2/b2984bc6-7c12-46e4-8dd3-b23e29a7a7ec.jpg?1783916319",
+    "png": "https://cards.scryfall.io/png/front/b/2/b2984bc6-7c12-46e4-8dd3-b23e29a7a7ec.png?1783916319",
+    "small": "https://cards.scryfall.io/small/front/b/2/b2984bc6-7c12-46e4-8dd3-b23e29a7a7ec.jpg?1783916319",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/2/b2984bc6-7c12-46e4-8dd3-b23e29a7a7ec.webp?1783916319"
+  },
+  "keywords": [
+    "Amass"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_id": 112004,
+  "multiverse_ids": [
+    616877
+  ],
+  "name": "Deceive the Messenger",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a9720545-37f4-42f1-932f-13ef88c9ea72",
+  "oracle_text": "Target creature gets -3/-0 until end of turn.\nAmass Orcs 1. (Put a +1/+1 counter on an Army you control. It's also an Orc. If you don't control an Army, create a 0/0 black Orc Army creature token first.)",
+  "oversized": false,
+  "prices": {
+    "eur": "0.05",
+    "eur_foil": "0.17",
+    "tix": "0.03",
+    "usd": "0.11",
+    "usd_etched": null,
+    "usd_foil": "0.24"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa9720545-37f4-42f1-932f-13ef88c9ea72&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/112004?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=717094&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F499950%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Deceive+the+Messenger",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=616877&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDeceive%2Bthe%2BMessenger",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDeceive%2Bthe%2BMessenger"
+  },
+  "released_at": "2023-06-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b2984bc6-7c12-46e4-8dd3-b23e29a7a7ec/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ltr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ltr/47/deceive-the-messenger?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "ltr",
+  "set_id": "08078706-ac5d-439b-8f01-894d38751367",
+  "set_name": "The Lord of the Rings: Tales of Middle-earth",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Altr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/08078706-ac5d-439b-8f01-894d38751367",
+  "story_spotlight": false,
+  "tcgplayer_id": 499950,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/b2984bc6-7c12-46e4-8dd3-b23e29a7a7ec",
+  "variation": false
+}

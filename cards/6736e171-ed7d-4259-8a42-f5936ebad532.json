@@ -1,0 +1,149 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "cb504714-b034-4938-93ad-7cb2ae320829",
+      "name": "Pongify",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/cb504714-b034-4938-93ad-7cb2ae320829"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a8512b3c-9a44-4c15-8217-0f13898846cd",
+      "name": "Side to Side",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/a8512b3c-9a44-4c15-8217-0f13898846cd"
+    },
+    {
+      "component": "token",
+      "id": "4b2ee605-3c7a-4769-978d-3199bdc7c504",
+      "name": "Ape",
+      "object": "related_card",
+      "type_line": "Token Creature — Ape",
+      "uri": "https://api.scryfall.com/cards/4b2ee605-3c7a-4769-978d-3199bdc7c504"
+    }
+  ],
+  "artist": "Lars Grant-West",
+  "artist_ids": [
+    "21ed6499-c4d3-4965-ab02-6c7228275bec"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "14",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "4b2ee605-3c7a-4769-978d-3199bdc7c504",
+  "illustration_id": "1e7b725b-90bf-45f0-a21c-9f72cc69fc85",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:52:05Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/b/4b2ee605-3c7a-4769-978d-3199bdc7c504.webp?1783911125",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/b/4b2ee605-3c7a-4769-978d-3199bdc7c504.jpg?1783911125",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/b/4b2ee605-3c7a-4769-978d-3199bdc7c504.jpg?1783911125",
+    "crop": "https://cards.scryfall.io/crop/front/4/b/4b2ee605-3c7a-4769-978d-3199bdc7c504.webp?1783911125",
+    "display": "https://cards.scryfall.io/display/front/4/b/4b2ee605-3c7a-4769-978d-3199bdc7c504.webp?1783911125",
+    "grid": "https://cards.scryfall.io/grid/front/4/b/4b2ee605-3c7a-4769-978d-3199bdc7c504.webp?1783911125",
+    "large": "https://cards.scryfall.io/large/front/4/b/4b2ee605-3c7a-4769-978d-3199bdc7c504.jpg?1783911125",
+    "normal": "https://cards.scryfall.io/normal/front/4/b/4b2ee605-3c7a-4769-978d-3199bdc7c504.jpg?1783911125",
+    "png": "https://cards.scryfall.io/png/front/4/b/4b2ee605-3c7a-4769-978d-3199bdc7c504.png?1783911125",
+    "small": "https://cards.scryfall.io/small/front/4/b/4b2ee605-3c7a-4769-978d-3199bdc7c504.jpg?1783911125",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/b/4b2ee605-3c7a-4769-978d-3199bdc7c504.webp?1783911125"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Ape",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6736e171-ed7d-4259-8a42-f5936ebad532",
+  "oracle_text": "",
+  "oversized": false,
+  "power": "3",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6736e171-ed7d-4259-8a42-f5936ebad532&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Ape&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Ape&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DApe%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ape",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DApe",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DApe"
+  },
+  "released_at": "2024-06-14",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4b2ee605-3c7a-4769-978d-3199bdc7c504/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tm3c?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tm3c/14/ape?utm_source=api",
+  "set": "tm3c",
+  "set_id": "e912a6f3-790f-4950-bacf-4693f517b469",
+  "set_name": "Modern Horizons 3 Commander Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atm3c&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/e912a6f3-790f-4950-bacf-4693f517b469",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Token Creature — Ape",
+  "uri": "https://api.scryfall.com/cards/4b2ee605-3c7a-4769-978d-3199bdc7c504",
+  "variation": false
+}
