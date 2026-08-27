@@ -20,6 +20,9 @@ Grouped by [Commander bracket](https://mtgcommander.net/index.php/brackets/), wi
 - **[Lady Evangela — Foggy Blood Transfusion](decks/2+_lady-evangela-foggy-blood-transfusion/README.md)** `2+`<br>
   Esper aikido control that dumps its own life to draw, swaps totals with the leader, then drains the table off Cabal Coffers.<br>
   [![aikido 5](https://img.shields.io/static/v1?label=5&message=aikido&color=0b6b58&style=flat-square)](https://archidekt.com/tags/aikido) [![lifedrain 5](https://img.shields.io/static/v1?label=5&message=lifedrain&color=0b6b58&style=flat-square)](https://archidekt.com/tags/lifedrain) [![control 4](https://img.shields.io/static/v1?label=4&message=control&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/control) [![life exchange 4](https://img.shields.io/static/v1?label=4&message=life%20exchange&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/life_exchange) [![+9 more tags](https://img.shields.io/static/v1?label=&message=%2B9%20more&color=6b7280&style=flat-square)](decks/2+_lady-evangela-foggy-blood-transfusion/README.md)
+- **[Sygg, River Cutthroat — Thousand Cuts](decks/2+_sygg-thousand-cuts/README.md)** `2+`<br>
+  Group-slug punishers bleed every opponent each turn so Sygg draws every end step and drain wins the attrition war.<br>
+  [![group slug 5](https://img.shields.io/static/v1?label=5&message=group%20slug&color=0b6b58&style=flat-square)](https://archidekt.com/tags/group_slug) [![discard 4](https://img.shields.io/static/v1?label=4&message=discard&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/discard) [![lifedrain 4](https://img.shields.io/static/v1?label=4&message=lifedrain&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/lifedrain) [![draw 3](https://img.shields.io/static/v1?label=3&message=draw&color=5f8b84&style=flat-square)](https://archidekt.com/tags/draw) [![+1 more tags](https://img.shields.io/static/v1?label=&message=%2B1%20more&color=6b7280&style=flat-square)](decks/2+_sygg-thousand-cuts/README.md)
 
 ### Bracket 3 · Upgraded
 
@@ -47,10 +50,4 @@ Grouped by [Commander bracket](https://mtgcommander.net/index.php/brackets/), wi
 - **[Iname — Death Aspect](decks/3+_iname-death-aspect/README.md)** `3+`<br>
   Mono-black Spirit graveyard combo: dump the legend suite with Iname, then Mortal Combat or reanimate the pile.<br>
   [![combo 5](https://img.shields.io/static/v1?label=5&message=combo&color=0b6b58&style=flat-square)](https://archidekt.com/tags/combo) [![graveyard 5](https://img.shields.io/static/v1?label=5&message=graveyard&color=0b6b58&style=flat-square)](https://archidekt.com/tags/graveyard) [![spirits 5](https://img.shields.io/static/v1?label=5&message=spirits&color=0b6b58&style=flat-square)](https://archidekt.com/tags/spirits) [![reanimator 4](https://img.shields.io/static/v1?label=4&message=reanimator&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/reanimator) [![+2 more tags](https://img.shields.io/static/v1?label=&message=%2B2%20more&color=6b7280&style=flat-square)](decks/3+_iname-death-aspect/README.md)
-
-### Unrated
-
-- **[Sygg, River Cutthroat — Thousand Cuts](decks/unrated_sygg-thousand-cuts/README.md)** `Unrated`<br>
-  Group-slug punishers bleed every opponent each turn so Sygg draws every end step and drain wins the attrition war.<br>
-  [![group slug 5](https://img.shields.io/static/v1?label=5&message=group%20slug&color=0b6b58&style=flat-square)](https://archidekt.com/tags/group_slug) [![discard 4](https://img.shields.io/static/v1?label=4&message=discard&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/discard) [![lifedrain 4](https://img.shields.io/static/v1?label=4&message=lifedrain&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/lifedrain) [![draw 3](https://img.shields.io/static/v1?label=3&message=draw&color=5f8b84&style=flat-square)](https://archidekt.com/tags/draw) [![+1 more tags](https://img.shields.io/static/v1?label=&message=%2B1%20more&color=6b7280&style=flat-square)](decks/unrated_sygg-thousand-cuts/README.md)
 <!-- deck-index:end -->

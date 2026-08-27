@@ -96,6 +96,10 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 ## Talks
 
+### 2026-08-27 — Assessment: Bracket 2+
+
+Checked against the live Wizards Commander page (Brackets beta: 0 Game Changers in Brackets 1–2, up to 3 in Bracket 3) and a fresh Scryfall `is:gamechanger` query: the 100 contains zero Game Changers, no two-card infinite combo, no extra turns, and no mass land denial. Exquisite Blood and Bloodthirsty Conqueror were read carefully — both trigger on *opponents losing life*, so they stack but cannot loop with each other; the deck has no Sanguine Bond half. The win is incremental, telegraphed, board-based drain that dies to enchantment/artifact sweepers, which is Core behavior, but the engine density, the continuous Sygg draw, and the wheel burst (Windfall or Whispering Madness with Liliana's Caress plus charged Bloodchief Ascension drains roughly 8–14 per opponent in one turn) put it at the top of the bracket. Estimated pace: credible high roll ~turn 8, normal goldfish ~turn 10–12, interactive games later, often via Rise of the Dark Realms. Not Bracket 3: no tutors, no fast mana, and the deck cannot reliably present a win by turn six; the one-large-turn wheel line needs three assembled pieces and a full table of hands.
+
 ### 2026-08-27 — Import
 
 Deck imported from the user's Archidekt export with set codes, collector numbers, and per-card categories. The submitted categories were kept verbatim as deck-source categories. Every printing from the export is pinned in `printing-overrides.json` so the Archidekt link and primer images match the physical copies. The five Bat tokens are `{noDeck}` extras for Aclazotz.
