@@ -1,0 +1,144 @@
+{
+  "arena_id": 70294,
+  "artist": "Grzegorz Rutkowski",
+  "artist_ids": [
+    "b5f49d0d-8056-48e3-b614-090e656b4f9c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 401304,
+  "cmc": 4.0,
+  "collector_number": "147",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 996,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "A dwarf's grudge runs deeper than the mountains' roots.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "79f591cd-d277-4ba5-b1bf-1c09cac9cb8a",
+  "illustration_id": "54703a24-1b9b-45f7-a42e-ab559a1d8b04",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:50:14Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/9/79f591cd-d277-4ba5-b1bf-1c09cac9cb8a.webp?1783932614",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/9/79f591cd-d277-4ba5-b1bf-1c09cac9cb8a.jpg?1783932614",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/9/79f591cd-d277-4ba5-b1bf-1c09cac9cb8a.jpg?1783932614",
+    "crop": "https://cards.scryfall.io/crop/front/7/9/79f591cd-d277-4ba5-b1bf-1c09cac9cb8a.webp?1783932614",
+    "display": "https://cards.scryfall.io/display/front/7/9/79f591cd-d277-4ba5-b1bf-1c09cac9cb8a.webp?1783932614",
+    "grid": "https://cards.scryfall.io/grid/front/7/9/79f591cd-d277-4ba5-b1bf-1c09cac9cb8a.webp?1783932614",
+    "large": "https://cards.scryfall.io/large/front/7/9/79f591cd-d277-4ba5-b1bf-1c09cac9cb8a.jpg?1783932614",
+    "normal": "https://cards.scryfall.io/normal/front/7/9/79f591cd-d277-4ba5-b1bf-1c09cac9cb8a.jpg?1783932614",
+    "png": "https://cards.scryfall.io/png/front/7/9/79f591cd-d277-4ba5-b1bf-1c09cac9cb8a.png?1783932614",
+    "small": "https://cards.scryfall.io/small/front/7/9/79f591cd-d277-4ba5-b1bf-1c09cac9cb8a.jpg?1783932614",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/9/79f591cd-d277-4ba5-b1bf-1c09cac9cb8a.webp?1783932614"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}{R}{R}",
+  "mtgo_id": 78424,
+  "multiverse_ids": [
+    473109
+  ],
+  "name": "Torbran, Thane of Red Fell",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8c3495bf-02e7-4ad9-949d-92eb3d2b662a",
+  "oracle_text": "If a red source you control would deal damage to an opponent or a permanent an opponent controls, it deals that much damage plus 2 instead.",
+  "oversized": false,
+  "penny_rank": 5114,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2019-09-16",
+    "source": "ZiggyD Gaming",
+    "source_uri": "https://twitter.com/ZiggyDStarcraft/status/1173553765070209024"
+  },
+  "prices": {
+    "eur": "2.98",
+    "eur_foil": "4.30",
+    "tix": "0.02",
+    "usd": "5.06",
+    "usd_etched": null,
+    "usd_foil": "6.25"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8c3495bf-02e7-4ad9-949d-92eb3d2b662a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/78424?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=401304&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F199556%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Torbran%2C+Thane+of+Red+Fell",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=473109&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTorbran%252C%2BThane%2Bof%2BRed%2BFell",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTorbran%252C%2BThane%2Bof%2BRed%2BFell"
+  },
+  "released_at": "2019-10-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/79f591cd-d277-4ba5-b1bf-1c09cac9cb8a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eld?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eld/147/torbran-thane-of-red-fell?utm_source=api",
+  "security_stamp": "oval",
+  "set": "eld",
+  "set_id": "a90a7b2f-9dd8-4fc7-9f7d-8ea2797ec782",
+  "set_name": "Throne of Eldraine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeld&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a90a7b2f-9dd8-4fc7-9f7d-8ea2797ec782",
+  "story_spotlight": false,
+  "tcgplayer_id": 199556,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Dwarf Noble",
+  "uri": "https://api.scryfall.com/cards/79f591cd-d277-4ba5-b1bf-1c09cac9cb8a",
+  "variation": false
+}

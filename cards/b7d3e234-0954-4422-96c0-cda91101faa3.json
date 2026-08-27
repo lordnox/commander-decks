@@ -1,0 +1,137 @@
+{
+  "arena_id": 90509,
+  "artist": "Matt Zeilinger",
+  "artist_ids": [
+    "d0d4df3c-4b01-47ac-9e57-d3f96d17cdd7"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 763573,
+  "cmc": 3.0,
+  "collector_number": "163",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 5527,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "32370f05-52a2-405f-b2bb-1b8a9b0b69f8",
+  "illustration_id": "dd4cfd23-c93e-4c6d-a29e-11804f9aa3f1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:03:28Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/2/32370f05-52a2-405f-b2bb-1b8a9b0b69f8.webp?1783911808",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/2/32370f05-52a2-405f-b2bb-1b8a9b0b69f8.jpg?1783911808",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/2/32370f05-52a2-405f-b2bb-1b8a9b0b69f8.jpg?1783911808",
+    "crop": "https://cards.scryfall.io/crop/front/3/2/32370f05-52a2-405f-b2bb-1b8a9b0b69f8.webp?1783911808",
+    "display": "https://cards.scryfall.io/display/front/3/2/32370f05-52a2-405f-b2bb-1b8a9b0b69f8.webp?1783911808",
+    "grid": "https://cards.scryfall.io/grid/front/3/2/32370f05-52a2-405f-b2bb-1b8a9b0b69f8.webp?1783911808",
+    "large": "https://cards.scryfall.io/large/front/3/2/32370f05-52a2-405f-b2bb-1b8a9b0b69f8.jpg?1783911808",
+    "normal": "https://cards.scryfall.io/normal/front/3/2/32370f05-52a2-405f-b2bb-1b8a9b0b69f8.jpg?1783911808",
+    "png": "https://cards.scryfall.io/png/front/3/2/32370f05-52a2-405f-b2bb-1b8a9b0b69f8.png?1783911808",
+    "small": "https://cards.scryfall.io/small/front/3/2/32370f05-52a2-405f-b2bb-1b8a9b0b69f8.jpg?1783911808",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/2/32370f05-52a2-405f-b2bb-1b8a9b0b69f8.webp?1783911808"
+  },
+  "keywords": [
+    "Reach"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "mtgo_id": 124237,
+  "multiverse_ids": [
+    655104
+  ],
+  "name": "Freestrider Lookout",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b7d3e234-0954-4422-96c0-cda91101faa3",
+  "oracle_text": "Reach\nWhenever you commit a crime, look at the top five cards of your library. You may put a land card from among them onto the battlefield tapped. Put the rest on the bottom of your library in a random order. This ability triggers only once each turn. (Targeting opponents, anything they control, and/or cards in their graveyards is a crime.)",
+  "oversized": false,
+  "penny_rank": 1342,
+  "power": "3",
+  "prices": {
+    "eur": "0.52",
+    "eur_foil": "0.68",
+    "tix": "0.02",
+    "usd": "0.39",
+    "usd_etched": null,
+    "usd_foil": "0.44"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab7d3e234-0954-4422-96c0-cda91101faa3&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124237?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=763573&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544266%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Freestrider+Lookout",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=655104&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFreestrider%2BLookout",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFreestrider%2BLookout"
+  },
+  "released_at": "2024-04-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/32370f05-52a2-405f-b2bb-1b8a9b0b69f8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otj?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otj/163/freestrider-lookout?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otj",
+  "set_id": "55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "set_name": "Outlaws of Thunder Junction",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotj&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "story_spotlight": false,
+  "tcgplayer_id": 544266,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Human Rogue",
+  "uri": "https://api.scryfall.com/cards/32370f05-52a2-405f-b2bb-1b8a9b0b69f8",
+  "variation": false
+}

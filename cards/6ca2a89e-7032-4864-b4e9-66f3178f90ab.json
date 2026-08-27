@@ -1,0 +1,129 @@
+{
+  "artist": "Terese Nielsen",
+  "artist_ids": [
+    "eb55171c-2342-45f4-a503-2d5a75baf752"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 298055,
+  "cmc": 1.0,
+  "collector_number": "106",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1184,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"The more our numbers grow, the more I gain hope that Volrath and his cursed stronghold will one day fall.\"\n—Eladamri, Lord of Leaves",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "31ca84d1-30a6-432b-966c-089fb6652a89",
+  "illustration_id": "3a1452d5-bf61-4472-8c1c-8935f463140a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:51:04Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/1/31ca84d1-30a6-432b-966c-089fb6652a89.webp?1783936264",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/1/31ca84d1-30a6-432b-966c-089fb6652a89.jpg?1783936264",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/1/31ca84d1-30a6-432b-966c-089fb6652a89.jpg?1783936264",
+    "crop": "https://cards.scryfall.io/crop/front/3/1/31ca84d1-30a6-432b-966c-089fb6652a89.webp?1783936264",
+    "display": "https://cards.scryfall.io/display/front/3/1/31ca84d1-30a6-432b-966c-089fb6652a89.webp?1783936264",
+    "grid": "https://cards.scryfall.io/grid/front/3/1/31ca84d1-30a6-432b-966c-089fb6652a89.webp?1783936264",
+    "large": "https://cards.scryfall.io/large/front/3/1/31ca84d1-30a6-432b-966c-089fb6652a89.jpg?1783936264",
+    "normal": "https://cards.scryfall.io/normal/front/3/1/31ca84d1-30a6-432b-966c-089fb6652a89.jpg?1783936264",
+    "png": "https://cards.scryfall.io/png/front/3/1/31ca84d1-30a6-432b-966c-089fb6652a89.png?1783936264",
+    "small": "https://cards.scryfall.io/small/front/3/1/31ca84d1-30a6-432b-966c-089fb6652a89.jpg?1783936264",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/1/31ca84d1-30a6-432b-966c-089fb6652a89.webp?1783936264"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "multiverse_ids": [
+    430325
+  ],
+  "name": "Essence Warden",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6ca2a89e-7032-4864-b4e9-66f3178f90ab",
+  "oracle_text": "Whenever another creature enters, you gain 1 life.",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": "3.74",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "7.14",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6ca2a89e-7032-4864-b4e9-66f3178f90ab&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Essence+Warden&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=298055&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F133620%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Essence+Warden",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=430325&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEssence%2BWarden",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEssence%2BWarden"
+  },
+  "released_at": "2017-06-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/31ca84d1-30a6-432b-966c-089fb6652a89/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cma?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cma/106/essence-warden?utm_source=api",
+  "set": "cma",
+  "set_id": "fd4d8463-0156-4c60-a40e-778762bb90e4",
+  "set_name": "Commander Anthology",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acma&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/fd4d8463-0156-4c60-a40e-778762bb90e4",
+  "story_spotlight": false,
+  "tcgplayer_id": 133620,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Elf Shaman",
+  "uri": "https://api.scryfall.com/cards/31ca84d1-30a6-432b-966c-089fb6652a89",
+  "variation": false
+}

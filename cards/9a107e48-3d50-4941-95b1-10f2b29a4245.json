@@ -1,0 +1,148 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "5054bb15-ddd5-4e5e-a9fd-6bdf255f7fd3",
+      "name": "Human",
+      "object": "related_card",
+      "type_line": "Token Creature — Human",
+      "uri": "https://api.scryfall.com/cards/5054bb15-ddd5-4e5e-a9fd-6bdf255f7fd3"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b000f605-177f-459d-a197-fcf54efec2fb",
+      "name": "Stroke of Midnight",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/b000f605-177f-459d-a197-fcf54efec2fb"
+    }
+  ],
+  "artist": "Julia Metzger",
+  "artist_ids": [
+    "6e76edce-99a8-4f87-95d0-e316c378fa8b"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818746,
+  "cmc": 3.0,
+  "collector_number": "132",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 204,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "The assembled partygoers fell silent and stared. As the helmet came to a clattering stop, the only sound was Ash's distant footsteps.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "b000f605-177f-459d-a197-fcf54efec2fb",
+  "illustration_id": "bc65acaa-79f4-4aa0-b0d6-1a253be9b0a4",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:45:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/0/b000f605-177f-459d-a197-fcf54efec2fb.webp?1783907118",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/0/b000f605-177f-459d-a197-fcf54efec2fb.jpg?1783907118",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/0/b000f605-177f-459d-a197-fcf54efec2fb.jpg?1783907118",
+    "crop": "https://cards.scryfall.io/crop/front/b/0/b000f605-177f-459d-a197-fcf54efec2fb.webp?1783907118",
+    "display": "https://cards.scryfall.io/display/front/b/0/b000f605-177f-459d-a197-fcf54efec2fb.webp?1783907118",
+    "grid": "https://cards.scryfall.io/grid/front/b/0/b000f605-177f-459d-a197-fcf54efec2fb.webp?1783907118",
+    "large": "https://cards.scryfall.io/large/front/b/0/b000f605-177f-459d-a197-fcf54efec2fb.jpg?1783907118",
+    "normal": "https://cards.scryfall.io/normal/front/b/0/b000f605-177f-459d-a197-fcf54efec2fb.jpg?1783907118",
+    "png": "https://cards.scryfall.io/png/front/b/0/b000f605-177f-459d-a197-fcf54efec2fb.png?1783907118",
+    "small": "https://cards.scryfall.io/small/front/b/0/b000f605-177f-459d-a197-fcf54efec2fb.jpg?1783907118",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/0/b000f605-177f-459d-a197-fcf54efec2fb.webp?1783907118"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 138201,
+  "multiverse_ids": [
+    696288
+  ],
+  "name": "Stroke of Midnight",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9a107e48-3d50-4941-95b1-10f2b29a4245",
+  "oracle_text": "Destroy target nonland permanent. Its controller creates a 1/1 white Human creature token.",
+  "oversized": false,
+  "penny_rank": 2702,
+  "prices": {
+    "eur": "0.43",
+    "eur_foil": null,
+    "tix": "0.21",
+    "usd": "0.39",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9a107e48-3d50-4941-95b1-10f2b29a4245&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138201?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818746&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624294%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Stroke+of+Midnight",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696288&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DStroke%2Bof%2BMidnight",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DStroke%2Bof%2BMidnight"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b000f605-177f-459d-a197-fcf54efec2fb/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/132/stroke-of-midnight?utm_source=api",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624294,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/b000f605-177f-459d-a197-fcf54efec2fb",
+  "variation": false
+}

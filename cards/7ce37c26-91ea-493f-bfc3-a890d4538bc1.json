@@ -1,0 +1,163 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "cc0fc98e-49ec-4d76-a922-52fe481da88f",
+      "name": "Samwise Gamgee",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Halfling Peasant",
+      "uri": "https://api.scryfall.com/cards/cc0fc98e-49ec-4d76-a922-52fe481da88f"
+    },
+    {
+      "component": "token",
+      "id": "4a029bdc-92e3-4d85-8af5-e33429a5f017",
+      "name": "Food",
+      "object": "related_card",
+      "type_line": "Token Artifact — Food",
+      "uri": "https://api.scryfall.com/cards/4a029bdc-92e3-4d85-8af5-e33429a5f017"
+    }
+  ],
+  "arena_id": 84914,
+  "artist": "Ekaterina Burmak",
+  "artist_ids": [
+    "2a9f3780-fcc8-4ec5-b403-ee1d1370d3b4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 715965,
+  "cmc": 2.0,
+  "collector_number": "222",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [
+    "G",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 2361,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": false,
+  "id": "a1b6f13e-63d0-46bf-aa57-23c2dbdf62dd",
+  "illustration_id": "ea50a39b-42c4-4e82-b931-d8ed49df4f4a",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T04:17:29Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/1/a1b6f13e-63d0-46bf-aa57-23c2dbdf62dd.webp?1783916249",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/1/a1b6f13e-63d0-46bf-aa57-23c2dbdf62dd.jpg?1783916249",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/1/a1b6f13e-63d0-46bf-aa57-23c2dbdf62dd.jpg?1783916249",
+    "crop": "https://cards.scryfall.io/crop/front/a/1/a1b6f13e-63d0-46bf-aa57-23c2dbdf62dd.webp?1783916249",
+    "display": "https://cards.scryfall.io/display/front/a/1/a1b6f13e-63d0-46bf-aa57-23c2dbdf62dd.webp?1783916249",
+    "grid": "https://cards.scryfall.io/grid/front/a/1/a1b6f13e-63d0-46bf-aa57-23c2dbdf62dd.webp?1783916249",
+    "large": "https://cards.scryfall.io/large/front/a/1/a1b6f13e-63d0-46bf-aa57-23c2dbdf62dd.jpg?1783916249",
+    "normal": "https://cards.scryfall.io/normal/front/a/1/a1b6f13e-63d0-46bf-aa57-23c2dbdf62dd.jpg?1783916249",
+    "png": "https://cards.scryfall.io/png/front/a/1/a1b6f13e-63d0-46bf-aa57-23c2dbdf62dd.png?1783916249",
+    "small": "https://cards.scryfall.io/small/front/a/1/a1b6f13e-63d0-46bf-aa57-23c2dbdf62dd.jpg?1783916249",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/1/a1b6f13e-63d0-46bf-aa57-23c2dbdf62dd.webp?1783916249"
+  },
+  "keywords": [
+    "Food"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}{W}",
+  "mtgo_id": 112354,
+  "multiverse_ids": [
+    617052
+  ],
+  "name": "Samwise Gamgee",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7ce37c26-91ea-493f-bfc3-a890d4538bc1",
+  "oracle_text": "Whenever another nontoken creature you control enters, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")\nSacrifice three Foods: Return target historic card from your graveyard to your hand. (Artifacts, legendaries, and Sagas are historic.)",
+  "oversized": false,
+  "penny_rank": 3374,
+  "power": "2",
+  "prices": {
+    "eur": "1.38",
+    "eur_foil": "2.08",
+    "tix": "0.02",
+    "usd": "2.91",
+    "usd_etched": null,
+    "usd_foil": "3.92"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7ce37c26-91ea-493f-bfc3-a890d4538bc1&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/112354?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=715965&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F498378%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Samwise+Gamgee",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=617052&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSamwise%2BGamgee",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSamwise%2BGamgee"
+  },
+  "released_at": "2023-06-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a1b6f13e-63d0-46bf-aa57-23c2dbdf62dd/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ltr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ltr/222/samwise-gamgee?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "ltr",
+  "set_id": "08078706-ac5d-439b-8f01-894d38751367",
+  "set_name": "The Lord of the Rings: Tales of Middle-earth",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Altr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/08078706-ac5d-439b-8f01-894d38751367",
+  "story_spotlight": false,
+  "tcgplayer_id": 498378,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Halfling Peasant",
+  "uri": "https://api.scryfall.com/cards/a1b6f13e-63d0-46bf-aa57-23c2dbdf62dd",
+  "variation": false
+}

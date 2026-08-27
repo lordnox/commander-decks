@@ -1,0 +1,141 @@
+{
+  "artist": "Yigit Koroglu",
+  "artist_ids": [
+    "a24479f8-6d9e-40f9-bede-f29899922b97"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 575427,
+  "cmc": 3.0,
+  "collector_number": "26",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 4713,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"When angels fall, humans must rise.\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "36938a8e-8da0-4f27-86c3-6032aa7642b5",
+  "illustration_id": "fc6a2417-bc42-45ac-89bb-bb1b6cd1bef9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:49:34Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/6/36938a8e-8da0-4f27-86c3-6032aa7642b5.webp?1783925374",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/6/36938a8e-8da0-4f27-86c3-6032aa7642b5.jpg?1783925374",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/6/36938a8e-8da0-4f27-86c3-6032aa7642b5.jpg?1783925374",
+    "crop": "https://cards.scryfall.io/crop/front/3/6/36938a8e-8da0-4f27-86c3-6032aa7642b5.webp?1783925374",
+    "display": "https://cards.scryfall.io/display/front/3/6/36938a8e-8da0-4f27-86c3-6032aa7642b5.webp?1783925374",
+    "grid": "https://cards.scryfall.io/grid/front/3/6/36938a8e-8da0-4f27-86c3-6032aa7642b5.webp?1783925374",
+    "large": "https://cards.scryfall.io/large/front/3/6/36938a8e-8da0-4f27-86c3-6032aa7642b5.jpg?1783925374",
+    "normal": "https://cards.scryfall.io/normal/front/3/6/36938a8e-8da0-4f27-86c3-6032aa7642b5.jpg?1783925374",
+    "png": "https://cards.scryfall.io/png/front/3/6/36938a8e-8da0-4f27-86c3-6032aa7642b5.png?1783925374",
+    "small": "https://cards.scryfall.io/small/front/3/6/36938a8e-8da0-4f27-86c3-6032aa7642b5.jpg?1783925374",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/6/36938a8e-8da0-4f27-86c3-6032aa7642b5.webp?1783925374"
+  },
+  "keywords": [
+    "Vigilance"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "mtgo_id": 93834,
+  "multiverse_ids": [
+    540469
+  ],
+  "name": "Heronblade Elite",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e3e255e0-ab04-4488-bdc1-bb1542f51e16",
+  "oracle_text": "Vigilance\nWhenever another Human you control enters, put a +1/+1 counter on this creature.\n{T}: Add X mana of any one color, where X is this creature's power.",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": "3.72",
+    "eur_foil": null,
+    "tix": "3.06",
+    "usd": "3.02",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae3e255e0-ab04-4488-bdc1-bb1542f51e16&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/93834?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=575427&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F248612%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Heronblade+Elite",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=540469&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHeronblade%2BElite",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHeronblade%2BElite"
+  },
+  "released_at": "2021-09-24",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/36938a8e-8da0-4f27-86c3-6032aa7642b5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mic?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mic/26/heronblade-elite?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mic",
+  "set_id": "7f9a4deb-715e-47d2-afac-3843ef92f39b",
+  "set_name": "Midnight Hunt Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amic&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/7f9a4deb-715e-47d2-afac-3843ef92f39b",
+  "story_spotlight": false,
+  "tcgplayer_id": 248612,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Warrior",
+  "uri": "https://api.scryfall.com/cards/36938a8e-8da0-4f27-86c3-6032aa7642b5",
+  "variation": false
+}

@@ -1,0 +1,140 @@
+{
+  "arena_id": 72494,
+  "artist": "Eytan Zana",
+  "artist_ids": [
+    "0d8d6726-4051-445a-8374-a919aad98f38"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 472709,
+  "cmc": 6.0,
+  "collector_number": "432",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1632,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "It's there when a seed sprouts, when gourds ripen on the vines, and when the reapers cut the grains under the Harvest Moon.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "d7ce9104-0ad3-4d3d-bb2c-c456c25030f6",
+  "illustration_id": "b6843ac1-a968-4951-beea-c98f48c59905",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:12:31Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/7/d7ce9104-0ad3-4d3d-bb2c-c456c25030f6.webp?1783930351",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/7/d7ce9104-0ad3-4d3d-bb2c-c456c25030f6.jpg?1783930351",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/7/d7ce9104-0ad3-4d3d-bb2c-c456c25030f6.jpg?1783930351",
+    "crop": "https://cards.scryfall.io/crop/front/d/7/d7ce9104-0ad3-4d3d-bb2c-c456c25030f6.webp?1783930351",
+    "display": "https://cards.scryfall.io/display/front/d/7/d7ce9104-0ad3-4d3d-bb2c-c456c25030f6.webp?1783930351",
+    "grid": "https://cards.scryfall.io/grid/front/d/7/d7ce9104-0ad3-4d3d-bb2c-c456c25030f6.webp?1783930351",
+    "large": "https://cards.scryfall.io/large/front/d/7/d7ce9104-0ad3-4d3d-bb2c-c456c25030f6.jpg?1783930351",
+    "normal": "https://cards.scryfall.io/normal/front/d/7/d7ce9104-0ad3-4d3d-bb2c-c456c25030f6.jpg?1783930351",
+    "png": "https://cards.scryfall.io/png/front/d/7/d7ce9104-0ad3-4d3d-bb2c-c456c25030f6.png?1783930351",
+    "small": "https://cards.scryfall.io/small/front/d/7/d7ce9104-0ad3-4d3d-bb2c-c456c25030f6.jpg?1783930351",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/7/d7ce9104-0ad3-4d3d-bb2c-c456c25030f6.webp?1783930351"
+  },
+  "keywords": [
+    "Trample"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{G}{G}",
+  "multiverse_ids": [
+    489415
+  ],
+  "name": "Soul of the Harvest",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6b9194dd-2296-4879-ac5e-f89b18431df6",
+  "oracle_text": "Trample\nWhenever another nontoken creature you control enters, you may draw a card.",
+  "oversized": false,
+  "penny_rank": 7962,
+  "power": "6",
+  "preview": {
+    "previewed_at": "2020-06-18",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.facebook.com/story.php?story_fbid=2959083817651501&id=1580235558869674"
+  },
+  "prices": {
+    "eur": "3.23",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "1.17",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6b9194dd-2296-4879-ac5e-f89b18431df6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Soul+of+the+Harvest&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=472709&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F216030%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Soul+of+the+Harvest",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=489415&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSoul%2Bof%2Bthe%2BHarvest",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSoul%2Bof%2Bthe%2BHarvest"
+  },
+  "released_at": "2020-07-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d7ce9104-0ad3-4d3d-bb2c-c456c25030f6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/jmp?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/jmp/432/soul-of-the-harvest?utm_source=api",
+  "security_stamp": "oval",
+  "set": "jmp",
+  "set_id": "0f6ccf25-a627-4263-86df-5757137f1696",
+  "set_name": "Jumpstart",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ajmp&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/0f6ccf25-a627-4263-86df-5757137f1696",
+  "story_spotlight": false,
+  "tcgplayer_id": 216030,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Creature — Elemental",
+  "uri": "https://api.scryfall.com/cards/d7ce9104-0ad3-4d3d-bb2c-c456c25030f6",
+  "variation": false
+}

@@ -1,0 +1,133 @@
+{
+  "artist": "Mike Dringenberg",
+  "artist_ids": [
+    "a1407afa-0f54-43f8-938b-88b268074f91"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753381,
+  "cmc": 2.0,
+  "collector_number": "244",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 1008,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "89e8443d-daf4-4cef-9080-d7568b5c540e",
+  "illustration_id": "ec920093-f947-4b54-b97b-bf580ff9356e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:22:48Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/9/89e8443d-daf4-4cef-9080-d7568b5c540e.webp?1783912968",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/9/89e8443d-daf4-4cef-9080-d7568b5c540e.jpg?1783912968",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/9/89e8443d-daf4-4cef-9080-d7568b5c540e.jpg?1783912968",
+    "crop": "https://cards.scryfall.io/crop/front/8/9/89e8443d-daf4-4cef-9080-d7568b5c540e.webp?1783912968",
+    "display": "https://cards.scryfall.io/display/front/8/9/89e8443d-daf4-4cef-9080-d7568b5c540e.webp?1783912968",
+    "grid": "https://cards.scryfall.io/grid/front/8/9/89e8443d-daf4-4cef-9080-d7568b5c540e.webp?1783912968",
+    "large": "https://cards.scryfall.io/large/front/8/9/89e8443d-daf4-4cef-9080-d7568b5c540e.jpg?1783912968",
+    "normal": "https://cards.scryfall.io/normal/front/8/9/89e8443d-daf4-4cef-9080-d7568b5c540e.jpg?1783912968",
+    "png": "https://cards.scryfall.io/png/front/8/9/89e8443d-daf4-4cef-9080-d7568b5c540e.png?1783912968",
+    "small": "https://cards.scryfall.io/small/front/8/9/89e8443d-daf4-4cef-9080-d7568b5c540e.jpg?1783912968",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/9/89e8443d-daf4-4cef-9080-d7568b5c540e.webp?1783912968"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}",
+  "mtgo_id": 122636,
+  "multiverse_ids": [
+    650338
+  ],
+  "name": "Talisman of Unity",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e5fcc5d7-6a60-4a5b-9d02-6c30041a95b9",
+  "oracle_text": "{T}: Add {C}.\n{T}: Add {G} or {W}. This artifact deals 1 damage to you.",
+  "oversized": false,
+  "penny_rank": 4409,
+  "prices": {
+    "eur": "0.65",
+    "eur_foil": null,
+    "tix": "0.07",
+    "usd": "3.18",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae5fcc5d7-6a60-4a5b-9d02-6c30041a95b9&unique=prints",
+  "produced_mana": [
+    "C",
+    "G",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122636?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753381&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535753%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Talisman+of+Unity",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=650338&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTalisman%2Bof%2BUnity",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTalisman%2Bof%2BUnity"
+  },
+  "released_at": "2024-02-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/89e8443d-daf4-4cef-9080-d7568b5c540e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkc/244/talisman-of-unity?utm_source=api",
+  "set": "mkc",
+  "set_id": "286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "set_name": "Murders at Karlov Manor Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "story_spotlight": false,
+  "tcgplayer_id": 535753,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/89e8443d-daf4-4cef-9080-d7568b5c540e",
+  "variation": false
+}

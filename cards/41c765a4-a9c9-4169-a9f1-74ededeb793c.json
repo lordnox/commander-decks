@@ -1,0 +1,148 @@
+{
+  "arena_id": 80369,
+  "artist": "Chris Seaman",
+  "artist_ids": [
+    "b9c49463-6f55-4039-9d32-c02a658af100"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 651862,
+  "cmc": 3.0,
+  "collector_number": "218",
+  "color_identity": [
+    "G",
+    "R",
+    "W"
+  ],
+  "colors": [
+    "G",
+    "R",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 5913,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "They wouldn't admit it, but some people join the Cabaretti just for the food.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "b6cf8b35-2a81-40fd-b383-becb81bef806",
+  "illustration_id": "9f39ce64-261c-42c4-b4ff-5911abb33581",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:11:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/6/b6cf8b35-2a81-40fd-b383-becb81bef806.webp?1783923072",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/6/b6cf8b35-2a81-40fd-b383-becb81bef806.jpg?1783923072",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/6/b6cf8b35-2a81-40fd-b383-becb81bef806.jpg?1783923072",
+    "crop": "https://cards.scryfall.io/crop/front/b/6/b6cf8b35-2a81-40fd-b383-becb81bef806.webp?1783923072",
+    "display": "https://cards.scryfall.io/display/front/b/6/b6cf8b35-2a81-40fd-b383-becb81bef806.webp?1783923072",
+    "grid": "https://cards.scryfall.io/grid/front/b/6/b6cf8b35-2a81-40fd-b383-becb81bef806.webp?1783923072",
+    "large": "https://cards.scryfall.io/large/front/b/6/b6cf8b35-2a81-40fd-b383-becb81bef806.jpg?1783923072",
+    "normal": "https://cards.scryfall.io/normal/front/b/6/b6cf8b35-2a81-40fd-b383-becb81bef806.jpg?1783923072",
+    "png": "https://cards.scryfall.io/png/front/b/6/b6cf8b35-2a81-40fd-b383-becb81bef806.png?1783923072",
+    "small": "https://cards.scryfall.io/small/front/b/6/b6cf8b35-2a81-40fd-b383-becb81bef806.jpg?1783923072",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/6/b6cf8b35-2a81-40fd-b383-becb81bef806.webp?1783923072"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{X}{R}{G}{W}",
+  "mtgo_id": 98655,
+  "multiverse_ids": [
+    555419
+  ],
+  "name": "Rocco, Cabaretti Caterer",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "41c765a4-a9c9-4169-a9f1-74ededeb793c",
+  "oracle_text": "When Rocco enters, if you cast it, you may search your library for a creature card with mana value X or less, put it onto the battlefield, then shuffle.",
+  "oversized": false,
+  "penny_rank": 7034,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2022-04-12",
+    "source": "Dana Fischer",
+    "source_uri": "https://www.youtube.com/watch?v=yS2isFWmaAY"
+  },
+  "prices": {
+    "eur": "0.08",
+    "eur_foil": "0.42",
+    "tix": "0.03",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": "0.40"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A41c765a4-a9c9-4169-a9f1-74ededeb793c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/98655?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=651862&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F268806%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rocco%2C+Cabaretti+Caterer",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=555419&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRocco%252C%2BCabaretti%2BCaterer",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRocco%252C%2BCabaretti%2BCaterer"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b6cf8b35-2a81-40fd-b383-becb81bef806/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/snc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/snc/218/rocco-cabaretti-caterer?utm_source=api",
+  "set": "snc",
+  "set_id": "df837242-8c15-42e4-b049-c933a02dc501",
+  "set_name": "Streets of New Capenna",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asnc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/df837242-8c15-42e4-b049-c933a02dc501",
+  "story_spotlight": false,
+  "tcgplayer_id": 268806,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Legendary Creature — Elf Druid",
+  "uri": "https://api.scryfall.com/cards/b6cf8b35-2a81-40fd-b383-becb81bef806",
+  "variation": false,
+  "watermark": "cabaretti"
+}

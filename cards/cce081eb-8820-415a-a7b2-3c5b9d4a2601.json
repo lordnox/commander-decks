@@ -1,0 +1,157 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "93116d98-2dad-4b80-a3af-9e36e34da6d4",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/93116d98-2dad-4b80-a3af-9e36e34da6d4"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9746b45a-abd8-4a60-9139-48c1522bfd4b",
+      "name": "Gala Greeters",
+      "object": "related_card",
+      "type_line": "Creature — Elf Druid",
+      "uri": "https://api.scryfall.com/cards/9746b45a-abd8-4a60-9139-48c1522bfd4b"
+    }
+  ],
+  "arena_id": 80299,
+  "artist": "Bud Cook",
+  "artist_ids": [
+    "4c3be2d4-73e6-4005-b897-8ac65b9c8660"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 651262,
+  "cmc": 2.0,
+  "collector_number": "148",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1689,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "3c1baaa2-bd0b-4627-b93a-0753e0acd0f2",
+  "illustration_id": "4420fd61-5555-4dac-8558-ba65d032ed04",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:11:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/c/3c1baaa2-bd0b-4627-b93a-0753e0acd0f2.webp?1783923104",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/c/3c1baaa2-bd0b-4627-b93a-0753e0acd0f2.jpg?1783923104",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/c/3c1baaa2-bd0b-4627-b93a-0753e0acd0f2.jpg?1783923104",
+    "crop": "https://cards.scryfall.io/crop/front/3/c/3c1baaa2-bd0b-4627-b93a-0753e0acd0f2.webp?1783923104",
+    "display": "https://cards.scryfall.io/display/front/3/c/3c1baaa2-bd0b-4627-b93a-0753e0acd0f2.webp?1783923104",
+    "grid": "https://cards.scryfall.io/grid/front/3/c/3c1baaa2-bd0b-4627-b93a-0753e0acd0f2.webp?1783923104",
+    "large": "https://cards.scryfall.io/large/front/3/c/3c1baaa2-bd0b-4627-b93a-0753e0acd0f2.jpg?1783923104",
+    "normal": "https://cards.scryfall.io/normal/front/3/c/3c1baaa2-bd0b-4627-b93a-0753e0acd0f2.jpg?1783923104",
+    "png": "https://cards.scryfall.io/png/front/3/c/3c1baaa2-bd0b-4627-b93a-0753e0acd0f2.png?1783923104",
+    "small": "https://cards.scryfall.io/small/front/3/c/3c1baaa2-bd0b-4627-b93a-0753e0acd0f2.jpg?1783923104",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/c/3c1baaa2-bd0b-4627-b93a-0753e0acd0f2.webp?1783923104"
+  },
+  "keywords": [
+    "Alliance",
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 98515,
+  "multiverse_ids": [
+    555349
+  ],
+  "name": "Gala Greeters",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cce081eb-8820-415a-a7b2-3c5b9d4a2601",
+  "oracle_text": "Alliance — Whenever another creature you control enters, choose one that hasn't been chosen this turn —\n• Put a +1/+1 counter on this creature.\n• Create a tapped Treasure token.\n• You gain 2 life.",
+  "oversized": false,
+  "penny_rank": 2890,
+  "power": "1",
+  "prices": {
+    "eur": "1.06",
+    "eur_foil": "0.78",
+    "tix": "0.02",
+    "usd": "1.67",
+    "usd_etched": null,
+    "usd_foil": "2.31"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acce081eb-8820-415a-a7b2-3c5b9d4a2601&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/98515?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=651262&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F268366%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Gala+Greeters",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=555349&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGala%2BGreeters",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGala%2BGreeters"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3c1baaa2-bd0b-4627-b93a-0753e0acd0f2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/snc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/snc/148/gala-greeters?utm_source=api",
+  "security_stamp": "oval",
+  "set": "snc",
+  "set_id": "df837242-8c15-42e4-b049-c933a02dc501",
+  "set_name": "Streets of New Capenna",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asnc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/df837242-8c15-42e4-b049-c933a02dc501",
+  "story_spotlight": false,
+  "tcgplayer_id": 268366,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Elf Druid",
+  "uri": "https://api.scryfall.com/cards/3c1baaa2-bd0b-4627-b93a-0753e0acd0f2",
+  "variation": false,
+  "watermark": "cabaretti"
+}

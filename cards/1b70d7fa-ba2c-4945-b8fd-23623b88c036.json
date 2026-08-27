@@ -1,0 +1,136 @@
+{
+  "arena_id": 72104,
+  "artist": "Anastasia Ovchinnikova",
+  "artist_ids": [
+    "3605d81f-5c97-4958-9dcc-d44a85e10305"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 473594,
+  "cmc": 5.0,
+  "collector_number": "1",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 5895,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ff80029e-650e-469d-8393-0edf7d9cd695",
+  "illustration_id": "fadcda85-4207-42a0-8da3-5f01439b6d50",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:15:11Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/f/ff80029e-650e-469d-8393-0edf7d9cd695.webp?1783930511",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/f/ff80029e-650e-469d-8393-0edf7d9cd695.jpg?1783930511",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/f/ff80029e-650e-469d-8393-0edf7d9cd695.jpg?1783930511",
+    "crop": "https://cards.scryfall.io/crop/front/f/f/ff80029e-650e-469d-8393-0edf7d9cd695.webp?1783930511",
+    "display": "https://cards.scryfall.io/display/front/f/f/ff80029e-650e-469d-8393-0edf7d9cd695.webp?1783930511",
+    "grid": "https://cards.scryfall.io/grid/front/f/f/ff80029e-650e-469d-8393-0edf7d9cd695.webp?1783930511",
+    "large": "https://cards.scryfall.io/large/front/f/f/ff80029e-650e-469d-8393-0edf7d9cd695.jpg?1783930511",
+    "normal": "https://cards.scryfall.io/normal/front/f/f/ff80029e-650e-469d-8393-0edf7d9cd695.jpg?1783930511",
+    "png": "https://cards.scryfall.io/png/front/f/f/ff80029e-650e-469d-8393-0edf7d9cd695.png?1783930511",
+    "small": "https://cards.scryfall.io/small/front/f/f/ff80029e-650e-469d-8393-0edf7d9cd695.jpg?1783930511",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/f/ff80029e-650e-469d-8393-0edf7d9cd695.webp?1783930511"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}{W}",
+  "mtgo_id": 81749,
+  "multiverse_ids": [
+    489168
+  ],
+  "name": "Blessed Sanctuary",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1b70d7fa-ba2c-4945-b8fd-23623b88c036",
+  "oracle_text": "Prevent all noncombat damage that would be dealt to you and creatures you control.\nWhenever a nontoken creature you control enters, create a 2/2 white Unicorn creature token.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2020-06-18",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "2.50",
+    "eur_foil": null,
+    "tix": "1.68",
+    "usd": "4.53",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1b70d7fa-ba2c-4945-b8fd-23623b88c036&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/81749?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=473594&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F216253%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Blessed+Sanctuary",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=489168&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBlessed%2BSanctuary",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBlessed%2BSanctuary"
+  },
+  "released_at": "2020-07-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ff80029e-650e-469d-8393-0edf7d9cd695/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/jmp?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/jmp/1/blessed-sanctuary?utm_source=api",
+  "security_stamp": "oval",
+  "set": "jmp",
+  "set_id": "0f6ccf25-a627-4263-86df-5757137f1696",
+  "set_name": "Jumpstart",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ajmp&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/0f6ccf25-a627-4263-86df-5757137f1696",
+  "story_spotlight": false,
+  "tcgplayer_id": 216253,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/ff80029e-650e-469d-8393-0edf7d9cd695",
+  "variation": false
+}
