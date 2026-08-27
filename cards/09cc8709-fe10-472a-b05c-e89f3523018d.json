@@ -1,0 +1,133 @@
+{
+  "artist": "Taurin Clarke",
+  "artist_ids": [
+    "2926b954-0985-4306-9fca-3b48e32fad64"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 891653,
+  "cmc": 6.0,
+  "collector_number": "121",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 167,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a8bc7912-e201-468a-b251-140205cb741c",
+  "illustration_id": "676d0d3d-36a0-4312-905c-8cf15f04d33c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:40:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/8/a8bc7912-e201-468a-b251-140205cb741c.webp?1783903253",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/8/a8bc7912-e201-468a-b251-140205cb741c.jpg?1783903253",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/8/a8bc7912-e201-468a-b251-140205cb741c.jpg?1783903253",
+    "crop": "https://cards.scryfall.io/crop/front/a/8/a8bc7912-e201-468a-b251-140205cb741c.webp?1783903253",
+    "display": "https://cards.scryfall.io/display/front/a/8/a8bc7912-e201-468a-b251-140205cb741c.webp?1783903253",
+    "grid": "https://cards.scryfall.io/grid/front/a/8/a8bc7912-e201-468a-b251-140205cb741c.webp?1783903253",
+    "large": "https://cards.scryfall.io/large/front/a/8/a8bc7912-e201-468a-b251-140205cb741c.jpg?1783903253",
+    "normal": "https://cards.scryfall.io/normal/front/a/8/a8bc7912-e201-468a-b251-140205cb741c.jpg?1783903253",
+    "png": "https://cards.scryfall.io/png/front/a/8/a8bc7912-e201-468a-b251-140205cb741c.png?1783903253",
+    "small": "https://cards.scryfall.io/small/front/a/8/a8bc7912-e201-468a-b251-140205cb741c.jpg?1783903253",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/8/a8bc7912-e201-468a-b251-140205cb741c.webp?1783903253"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{W}{W}",
+  "mtgo_id": 150711,
+  "multiverse_ids": [],
+  "name": "Austere Command",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "09cc8709-fe10-472a-b05c-e89f3523018d",
+  "oracle_text": "Choose two —\n• Destroy all artifacts.\n• Destroy all enchantments.\n• Destroy all creatures with mana value 3 or less.\n• Destroy all creatures with mana value 4 or greater.",
+  "oversized": false,
+  "penny_rank": 5078,
+  "prices": {
+    "eur": "0.36",
+    "eur_foil": null,
+    "tix": "0.15",
+    "usd": "0.37",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A09cc8709-fe10-472a-b05c-e89f3523018d&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150711?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891653&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F697102%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Austere+Command",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAustere%2BCommand",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAustere%2BCommand"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "86457D1FCE049930E1B2320CBC88CF90E07CE697053BAA2AE8E0FFB14843E759",
+  "rulings_uri": "https://api.scryfall.com/cards/a8bc7912-e201-468a-b251-140205cb741c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/121/austere-command?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 697102,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/a8bc7912-e201-468a-b251-140205cb741c",
+  "variation": false
+}

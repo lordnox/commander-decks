@@ -1,0 +1,133 @@
+{
+  "artist": "Adam Paquette",
+  "artist_ids": [
+    "89023dad-e6c0-41e0-83fb-eb2bfbbdc3f2"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753483,
+  "cmc": 0.0,
+  "collector_number": "264",
+  "color_identity": [
+    "G",
+    "R"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 389,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2a84a604-7b05-4716-bcd8-40d2acdb76e8",
+  "illustration_id": "c854e843-ceca-4fac-a295-30c17381cd7c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:22:42Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/a/2a84a604-7b05-4716-bcd8-40d2acdb76e8.webp?1783912962",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/a/2a84a604-7b05-4716-bcd8-40d2acdb76e8.jpg?1783912962",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/a/2a84a604-7b05-4716-bcd8-40d2acdb76e8.jpg?1783912962",
+    "crop": "https://cards.scryfall.io/crop/front/2/a/2a84a604-7b05-4716-bcd8-40d2acdb76e8.webp?1783912962",
+    "display": "https://cards.scryfall.io/display/front/2/a/2a84a604-7b05-4716-bcd8-40d2acdb76e8.webp?1783912962",
+    "grid": "https://cards.scryfall.io/grid/front/2/a/2a84a604-7b05-4716-bcd8-40d2acdb76e8.webp?1783912962",
+    "large": "https://cards.scryfall.io/large/front/2/a/2a84a604-7b05-4716-bcd8-40d2acdb76e8.jpg?1783912962",
+    "normal": "https://cards.scryfall.io/normal/front/2/a/2a84a604-7b05-4716-bcd8-40d2acdb76e8.jpg?1783912962",
+    "png": "https://cards.scryfall.io/png/front/2/a/2a84a604-7b05-4716-bcd8-40d2acdb76e8.png?1783912962",
+    "small": "https://cards.scryfall.io/small/front/2/a/2a84a604-7b05-4716-bcd8-40d2acdb76e8.jpg?1783912962",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/a/2a84a604-7b05-4716-bcd8-40d2acdb76e8.webp?1783912962"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 122676,
+  "multiverse_ids": [
+    650358
+  ],
+  "name": "Game Trail",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "00de57d2-7cb6-4337-9bc6-f6711e4dfabf",
+  "oracle_text": "As this land enters, you may reveal a Mountain or Forest card from your hand. If you don't, this land enters tapped.\n{T}: Add {R} or {G}.",
+  "oversized": false,
+  "penny_rank": 663,
+  "prices": {
+    "eur": "0.21",
+    "eur_foil": null,
+    "tix": "0.03",
+    "usd": "0.29",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A00de57d2-7cb6-4337-9bc6-f6711e4dfabf&unique=prints",
+  "produced_mana": [
+    "G",
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122676?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753483&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535869%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Game+Trail",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=650358&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGame%2BTrail",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGame%2BTrail"
+  },
+  "released_at": "2024-02-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2a84a604-7b05-4716-bcd8-40d2acdb76e8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkc/264/game-trail?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkc",
+  "set_id": "286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "set_name": "Murders at Karlov Manor Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "story_spotlight": false,
+  "tcgplayer_id": 535869,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/2a84a604-7b05-4716-bcd8-40d2acdb76e8",
+  "variation": false
+}

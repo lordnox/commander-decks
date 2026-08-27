@@ -1,0 +1,142 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "93bd7e73-63dc-45b2-aaa8-984be8b900ab",
+      "name": "Genesis Chamber",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/93bd7e73-63dc-45b2-aaa8-984be8b900ab"
+    },
+    {
+      "component": "token",
+      "id": "f32ad93f-3fd5-465c-ac6a-6f8fb57c19bd",
+      "name": "Myr",
+      "object": "related_card",
+      "type_line": "Token Artifact Creature — Myr",
+      "uri": "https://api.scryfall.com/cards/f32ad93f-3fd5-465c-ac6a-6f8fb57c19bd"
+    }
+  ],
+  "artist": "Mark Tedin",
+  "artist_ids": [
+    "9ee9a9cc-c09e-486f-918b-69f80cbc4188"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 359049,
+  "cmc": 2.0,
+  "collector_number": "235",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 2820,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"As the experimental population grows, so does the number of myr. It's a perfect equilibrium.\"\n—Memnarch",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "93bd7e73-63dc-45b2-aaa8-984be8b900ab",
+  "illustration_id": "d0f23886-d3ae-4ed7-b44f-fb6a09ce453f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:26:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/3/93bd7e73-63dc-45b2-aaa8-984be8b900ab.webp?1783934790",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/3/93bd7e73-63dc-45b2-aaa8-984be8b900ab.jpg?1783934790",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/3/93bd7e73-63dc-45b2-aaa8-984be8b900ab.jpg?1783934790",
+    "crop": "https://cards.scryfall.io/crop/front/9/3/93bd7e73-63dc-45b2-aaa8-984be8b900ab.webp?1783934790",
+    "display": "https://cards.scryfall.io/display/front/9/3/93bd7e73-63dc-45b2-aaa8-984be8b900ab.webp?1783934790",
+    "grid": "https://cards.scryfall.io/grid/front/9/3/93bd7e73-63dc-45b2-aaa8-984be8b900ab.webp?1783934790",
+    "large": "https://cards.scryfall.io/large/front/9/3/93bd7e73-63dc-45b2-aaa8-984be8b900ab.jpg?1783934790",
+    "normal": "https://cards.scryfall.io/normal/front/9/3/93bd7e73-63dc-45b2-aaa8-984be8b900ab.jpg?1783934790",
+    "png": "https://cards.scryfall.io/png/front/9/3/93bd7e73-63dc-45b2-aaa8-984be8b900ab.png?1783934790",
+    "small": "https://cards.scryfall.io/small/front/9/3/93bd7e73-63dc-45b2-aaa8-984be8b900ab.jpg?1783934790",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/3/93bd7e73-63dc-45b2-aaa8-984be8b900ab.webp?1783934790"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}",
+  "multiverse_ids": [
+    446203
+  ],
+  "name": "Genesis Chamber",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "150ab025-5cc3-4468-a724-bbba8838445d",
+  "oracle_text": "Whenever a nontoken creature enters, if this artifact is untapped, that creature's controller creates a 1/1 colorless Myr artifact creature token.",
+  "oversized": false,
+  "prices": {
+    "eur": "1.16",
+    "eur_foil": "6.76",
+    "tix": null,
+    "usd": "3.56",
+    "usd_etched": null,
+    "usd_foil": "10.64"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A150ab025-5cc3-4468-a724-bbba8838445d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Genesis+Chamber&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=359049&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F167958%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Genesis+Chamber",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=446203&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGenesis%2BChamber",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGenesis%2BChamber"
+  },
+  "released_at": "2018-06-08",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/93bd7e73-63dc-45b2-aaa8-984be8b900ab/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/bbd?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/bbd/235/genesis-chamber?utm_source=api",
+  "set": "bbd",
+  "set_id": "95f97fbc-58ef-4645-982e-43e2db6f1124",
+  "set_name": "Battlebond",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abbd&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/95f97fbc-58ef-4645-982e-43e2db6f1124",
+  "story_spotlight": false,
+  "tcgplayer_id": 167958,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/93bd7e73-63dc-45b2-aaa8-984be8b900ab",
+  "variation": false
+}

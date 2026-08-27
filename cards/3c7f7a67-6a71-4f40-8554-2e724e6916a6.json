@@ -1,0 +1,164 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "cf608ed2-f193-4bcc-99fc-a9cd0cf97993",
+      "name": "Saradoc, Master of Buckland",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Halfling Citizen",
+      "uri": "https://api.scryfall.com/cards/cf608ed2-f193-4bcc-99fc-a9cd0cf97993"
+    },
+    {
+      "component": "token",
+      "id": "bbd9ff58-4d38-4d34-9dfc-6f788830297e",
+      "name": "Halfling",
+      "object": "related_card",
+      "type_line": "Token Creature — Halfling",
+      "uri": "https://api.scryfall.com/cards/bbd9ff58-4d38-4d34-9dfc-6f788830297e"
+    }
+  ],
+  "arena_id": 84975,
+  "artist": "Sean Vo",
+  "artist_ids": [
+    "a6fe588c-5328-4703-8f61-4c6d0e56592d"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 716299,
+  "cmc": 4.0,
+  "collector_number": "282",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 9326,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a65a1fb5-cc2c-4556-b109-05c3d966ded9",
+  "illustration_id": "6c6ecbe2-0f54-4921-b913-2fbd5f6a6368",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:17:00Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/6/a65a1fb5-cc2c-4556-b109-05c3d966ded9.webp?1783916220",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/6/a65a1fb5-cc2c-4556-b109-05c3d966ded9.jpg?1783916220",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/6/a65a1fb5-cc2c-4556-b109-05c3d966ded9.jpg?1783916220",
+    "crop": "https://cards.scryfall.io/crop/front/a/6/a65a1fb5-cc2c-4556-b109-05c3d966ded9.webp?1783916220",
+    "display": "https://cards.scryfall.io/display/front/a/6/a65a1fb5-cc2c-4556-b109-05c3d966ded9.webp?1783916220",
+    "grid": "https://cards.scryfall.io/grid/front/a/6/a65a1fb5-cc2c-4556-b109-05c3d966ded9.webp?1783916220",
+    "large": "https://cards.scryfall.io/large/front/a/6/a65a1fb5-cc2c-4556-b109-05c3d966ded9.jpg?1783916220",
+    "normal": "https://cards.scryfall.io/normal/front/a/6/a65a1fb5-cc2c-4556-b109-05c3d966ded9.jpg?1783916220",
+    "png": "https://cards.scryfall.io/png/front/a/6/a65a1fb5-cc2c-4556-b109-05c3d966ded9.png?1783916220",
+    "small": "https://cards.scryfall.io/small/front/a/6/a65a1fb5-cc2c-4556-b109-05c3d966ded9.jpg?1783916220",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/6/a65a1fb5-cc2c-4556-b109-05c3d966ded9.webp?1783916220"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}",
+  "mtgo_id": 111708,
+  "multiverse_ids": [
+    620037
+  ],
+  "name": "Saradoc, Master of Buckland",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3c7f7a67-6a71-4f40-8554-2e724e6916a6",
+  "oracle_text": "Whenever Saradoc or another nontoken creature you control with power 2 or less enters, create a 1/1 white Halfling creature token.\nTap two other untapped Halflings you control: Saradoc gets +2/+0 and gains lifelink until end of turn.",
+  "oversized": false,
+  "penny_rank": 8671,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2023-06-06",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/1839333853"
+  },
+  "prices": {
+    "eur": "0.34",
+    "eur_foil": "2.63",
+    "tix": "0.02",
+    "usd": "0.34",
+    "usd_etched": null,
+    "usd_foil": "2.43"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3c7f7a67-6a71-4f40-8554-2e724e6916a6&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/111708?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=716299&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F499337%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Saradoc%2C+Master+of+Buckland",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=620037&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSaradoc%252C%2BMaster%2Bof%2BBuckland",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSaradoc%252C%2BMaster%2Bof%2BBuckland"
+  },
+  "released_at": "2023-06-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a65a1fb5-cc2c-4556-b109-05c3d966ded9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ltr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ltr/282/saradoc-master-of-buckland?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "ltr",
+  "set_id": "08078706-ac5d-439b-8f01-894d38751367",
+  "set_name": "The Lord of the Rings: Tales of Middle-earth",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Altr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/08078706-ac5d-439b-8f01-894d38751367",
+  "story_spotlight": false,
+  "tcgplayer_id": 499337,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Halfling Citizen",
+  "uri": "https://api.scryfall.com/cards/a65a1fb5-cc2c-4556-b109-05c3d966ded9",
+  "variation": false
+}

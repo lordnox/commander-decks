@@ -1,0 +1,155 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a9740bce-4c89-4d98-8941-057515999bf9",
+      "name": "Skyclave Relic",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/a9740bce-4c89-4d98-8941-057515999bf9"
+    }
+  ],
+  "artist": "Daniel Ljunggren",
+  "artist_ids": [
+    "0fbd4798-76eb-46d5-a5d4-1e3a25870e34"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 705926,
+  "cmc": 3.0,
+  "collector_number": "380",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 2479,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Skyclaves held the key to reshaping the world.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a9740bce-4c89-4d98-8941-057515999bf9",
+  "illustration_id": "252efbcc-f5db-4dc9-85cc-5e4ba5ba9402",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:31:48Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/9/a9740bce-4c89-4d98-8941-057515999bf9.webp?1783917108",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/9/a9740bce-4c89-4d98-8941-057515999bf9.jpg?1783917108",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/9/a9740bce-4c89-4d98-8941-057515999bf9.jpg?1783917108",
+    "crop": "https://cards.scryfall.io/crop/front/a/9/a9740bce-4c89-4d98-8941-057515999bf9.webp?1783917108",
+    "display": "https://cards.scryfall.io/display/front/a/9/a9740bce-4c89-4d98-8941-057515999bf9.webp?1783917108",
+    "grid": "https://cards.scryfall.io/grid/front/a/9/a9740bce-4c89-4d98-8941-057515999bf9.webp?1783917108",
+    "large": "https://cards.scryfall.io/large/front/a/9/a9740bce-4c89-4d98-8941-057515999bf9.jpg?1783917108",
+    "normal": "https://cards.scryfall.io/normal/front/a/9/a9740bce-4c89-4d98-8941-057515999bf9.jpg?1783917108",
+    "png": "https://cards.scryfall.io/png/front/a/9/a9740bce-4c89-4d98-8941-057515999bf9.png?1783917108",
+    "small": "https://cards.scryfall.io/small/front/a/9/a9740bce-4c89-4d98-8941-057515999bf9.jpg?1783917108",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/9/a9740bce-4c89-4d98-8941-057515999bf9.webp?1783917108"
+  },
+  "keywords": [
+    "Indestructible",
+    "Kicker"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}",
+  "mtgo_id": 111228,
+  "multiverse_ids": [
+    612628
+  ],
+  "name": "Skyclave Relic",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "eb44b65d-6b56-4f20-a4fb-c5dd147a54c4",
+  "oracle_text": "Kicker {3}\nIndestructible\nWhen this artifact enters, if it was kicked, create two tapped tokens that are copies of this artifact.\n{T}: Add one mana of any color.",
+  "oversized": false,
+  "penny_rank": 4912,
+  "prices": {
+    "eur": "1.00",
+    "eur_foil": null,
+    "tix": "0.20",
+    "usd": "1.51",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aeb44b65d-6b56-4f20-a4fb-c5dd147a54c4&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/111228?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=705926&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F491670%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Skyclave+Relic",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=612628&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSkyclave%2BRelic",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSkyclave%2BRelic"
+  },
+  "released_at": "2023-04-21",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a9740bce-4c89-4d98-8941-057515999bf9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/moc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/moc/380/skyclave-relic?utm_source=api",
+  "security_stamp": "oval",
+  "set": "moc",
+  "set_id": "6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "set_name": "March of the Machine Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "story_spotlight": false,
+  "tcgplayer_id": 491670,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/a9740bce-4c89-4d98-8941-057515999bf9",
+  "variation": false
+}

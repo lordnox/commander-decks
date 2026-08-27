@@ -1,0 +1,137 @@
+{
+  "artist": "Mathias Kollros",
+  "artist_ids": [
+    "2ae0dd12-047c-4efb-80d7-bccc3bac5fba"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 662011,
+  "cmc": 8.0,
+  "collector_number": "822",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1583,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Smash this city to pieces.\"\n—Domri Rade",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "47a74813-6d8b-4b11-8a5e-5b83d2d98c34",
+  "illustration_id": "20b8c878-b2d0-4b16-b078-a2dac51b32f4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:00:08Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/7/47a74813-6d8b-4b11-8a5e-5b83d2d98c34.webp?1783922408",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/7/47a74813-6d8b-4b11-8a5e-5b83d2d98c34.jpg?1783922408",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/7/47a74813-6d8b-4b11-8a5e-5b83d2d98c34.jpg?1783922408",
+    "crop": "https://cards.scryfall.io/crop/front/4/7/47a74813-6d8b-4b11-8a5e-5b83d2d98c34.webp?1783922408",
+    "display": "https://cards.scryfall.io/display/front/4/7/47a74813-6d8b-4b11-8a5e-5b83d2d98c34.webp?1783922408",
+    "grid": "https://cards.scryfall.io/grid/front/4/7/47a74813-6d8b-4b11-8a5e-5b83d2d98c34.webp?1783922408",
+    "large": "https://cards.scryfall.io/large/front/4/7/47a74813-6d8b-4b11-8a5e-5b83d2d98c34.jpg?1783922408",
+    "normal": "https://cards.scryfall.io/normal/front/4/7/47a74813-6d8b-4b11-8a5e-5b83d2d98c34.jpg?1783922408",
+    "png": "https://cards.scryfall.io/png/front/4/7/47a74813-6d8b-4b11-8a5e-5b83d2d98c34.png?1783922408",
+    "small": "https://cards.scryfall.io/small/front/4/7/47a74813-6d8b-4b11-8a5e-5b83d2d98c34.jpg?1783922408",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/7/47a74813-6d8b-4b11-8a5e-5b83d2d98c34.webp?1783922408"
+  },
+  "keywords": [
+    "Vigilance",
+    "Haste",
+    "Trample"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{G}{G}{G}",
+  "mtgo_id": 101192,
+  "multiverse_ids": [
+    567639
+  ],
+  "name": "End-Raze Forerunners",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "69b52907-8aff-4f2a-a391-7d1ab2669b5c",
+  "oracle_text": "Vigilance, trample, haste\nWhen this creature enters, other creatures you control get +2/+2 and gain vigilance and trample until end of turn.",
+  "oversized": false,
+  "penny_rank": 2217,
+  "power": "7",
+  "prices": {
+    "eur": "0.28",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.68",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A69b52907-8aff-4f2a-a391-7d1ab2669b5c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/101192?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=662011&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F273766%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=End-Raze+Forerunners",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=567639&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEnd-Raze%2BForerunners",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEnd-Raze%2BForerunners"
+  },
+  "released_at": "2022-06-10",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/47a74813-6d8b-4b11-8a5e-5b83d2d98c34/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/822/end-raze-forerunners?utm_source=api",
+  "security_stamp": "oval",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 273766,
+  "textless": false,
+  "toughness": "7",
+  "type_line": "Creature — Boar",
+  "uri": "https://api.scryfall.com/cards/47a74813-6d8b-4b11-8a5e-5b83d2d98c34",
+  "variation": false
+}

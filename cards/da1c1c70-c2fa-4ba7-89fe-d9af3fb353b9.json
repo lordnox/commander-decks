@@ -1,0 +1,147 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "09faad62-42ff-4e37-b8a5-d8e8a0f6d096",
+      "name": "Goblin",
+      "object": "related_card",
+      "type_line": "Token Creature — Goblin",
+      "uri": "https://api.scryfall.com/cards/09faad62-42ff-4e37-b8a5-d8e8a0f6d096"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b44c7ba3-c90a-436d-a159-89dc9981e0c3",
+      "name": "General Kreat, the Boltbringer",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Goblin Soldier",
+      "uri": "https://api.scryfall.com/cards/b44c7ba3-c90a-436d-a159-89dc9981e0c3"
+    }
+  ],
+  "artist": "Takeuchi Moto",
+  "artist_ids": [
+    "27bd8cb0-58cd-4a82-b6f3-d0253954c846"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 891762,
+  "cmc": 3.0,
+  "collector_number": "J25-48",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 2324,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "To cross swords with her is a shockingly bad idea.",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "b44c7ba3-c90a-436d-a159-89dc9981e0c3",
+  "illustration_id": "794888ed-01e2-4619-a977-05091de26fa6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:44:02Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/4/b44c7ba3-c90a-436d-a159-89dc9981e0c3.webp?1783903442",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/4/b44c7ba3-c90a-436d-a159-89dc9981e0c3.jpg?1783903442",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/4/b44c7ba3-c90a-436d-a159-89dc9981e0c3.jpg?1783903442",
+    "crop": "https://cards.scryfall.io/crop/front/b/4/b44c7ba3-c90a-436d-a159-89dc9981e0c3.webp?1783903442",
+    "display": "https://cards.scryfall.io/display/front/b/4/b44c7ba3-c90a-436d-a159-89dc9981e0c3.webp?1783903442",
+    "grid": "https://cards.scryfall.io/grid/front/b/4/b44c7ba3-c90a-436d-a159-89dc9981e0c3.webp?1783903442",
+    "large": "https://cards.scryfall.io/large/front/b/4/b44c7ba3-c90a-436d-a159-89dc9981e0c3.jpg?1783903442",
+    "normal": "https://cards.scryfall.io/normal/front/b/4/b44c7ba3-c90a-436d-a159-89dc9981e0c3.jpg?1783903442",
+    "png": "https://cards.scryfall.io/png/front/b/4/b44c7ba3-c90a-436d-a159-89dc9981e0c3.png?1783903442",
+    "small": "https://cards.scryfall.io/small/front/b/4/b44c7ba3-c90a-436d-a159-89dc9981e0c3.jpg?1783903442",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/4/b44c7ba3-c90a-436d-a159-89dc9981e0c3.webp?1783903442"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}",
+  "multiverse_ids": [],
+  "name": "General Kreat, the Boltbringer",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "da1c1c70-c2fa-4ba7-89fe-d9af3fb353b9",
+  "oracle_text": "Whenever one or more Goblins you control attack, create a 1/1 red Goblin creature token that's tapped and attacking.\nWhenever another creature you control enters, General Kreat deals 1 damage to each opponent.",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "7.15",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "6.55",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ada1c1c70-c2fa-4ba7-89fe-d9af3fb353b9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=General+Kreat%2C+the+Boltbringer&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891762&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F693641%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=General+Kreat%2C+the+Boltbringer",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGeneral%2BKreat%252C%2Bthe%2BBoltbringer",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGeneral%2BKreat%252C%2Bthe%2BBoltbringer"
+  },
+  "released_at": "2026-05-18",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b44c7ba3-c90a-436d-a159-89dc9981e0c3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/plst?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/plst/J25-48/general-kreat-the-boltbringer?utm_source=api",
+  "set": "plst",
+  "set_id": "67e47ba2-b019-4181-9005-fe9fc021de44",
+  "set_name": "The List",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aplst&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/67e47ba2-b019-4181-9005-fe9fc021de44",
+  "story_spotlight": false,
+  "tcgplayer_id": 693641,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Goblin Soldier",
+  "uri": "https://api.scryfall.com/cards/b44c7ba3-c90a-436d-a159-89dc9981e0c3",
+  "variation": false
+}

@@ -1,0 +1,152 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "e388935b-fc98-476b-8fe4-234fb4d7f105",
+      "name": "Boss's Chauffeur",
+      "object": "related_card",
+      "type_line": "Creature — Elf Citizen",
+      "uri": "https://api.scryfall.com/cards/e388935b-fc98-476b-8fe4-234fb4d7f105"
+    },
+    {
+      "component": "token",
+      "id": "3f03e9fe-cb71-498e-bf16-5af6af37a192",
+      "name": "Citizen",
+      "object": "related_card",
+      "type_line": "Token Creature — Citizen",
+      "uri": "https://api.scryfall.com/cards/3f03e9fe-cb71-498e-bf16-5af6af37a192"
+    }
+  ],
+  "artist": "Yangtian Li",
+  "artist_ids": [
+    "a212599d-0efe-4f3c-b3e1-336611145615"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 652402,
+  "cmc": 5.0,
+  "collector_number": "13",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 6433,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "147a0ccf-3408-48c7-b4a8-6d81aed39f18",
+  "illustration_id": "c76541fc-68da-4fc4-addd-91b1d2e41b45",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:16:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/4/147a0ccf-3408-48c7-b4a8-6d81aed39f18.webp?1783923377",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/4/147a0ccf-3408-48c7-b4a8-6d81aed39f18.jpg?1783923377",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/4/147a0ccf-3408-48c7-b4a8-6d81aed39f18.jpg?1783923377",
+    "crop": "https://cards.scryfall.io/crop/front/1/4/147a0ccf-3408-48c7-b4a8-6d81aed39f18.webp?1783923377",
+    "display": "https://cards.scryfall.io/display/front/1/4/147a0ccf-3408-48c7-b4a8-6d81aed39f18.webp?1783923377",
+    "grid": "https://cards.scryfall.io/grid/front/1/4/147a0ccf-3408-48c7-b4a8-6d81aed39f18.webp?1783923377",
+    "large": "https://cards.scryfall.io/large/front/1/4/147a0ccf-3408-48c7-b4a8-6d81aed39f18.jpg?1783923377",
+    "normal": "https://cards.scryfall.io/normal/front/1/4/147a0ccf-3408-48c7-b4a8-6d81aed39f18.jpg?1783923377",
+    "png": "https://cards.scryfall.io/png/front/1/4/147a0ccf-3408-48c7-b4a8-6d81aed39f18.png?1783923377",
+    "small": "https://cards.scryfall.io/small/front/1/4/147a0ccf-3408-48c7-b4a8-6d81aed39f18.jpg?1783923377",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/4/147a0ccf-3408-48c7-b4a8-6d81aed39f18.webp?1783923377"
+  },
+  "keywords": [
+    "Alliance"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{W}",
+  "mtgo_id": 99357,
+  "multiverse_ids": [
+    598127
+  ],
+  "name": "Boss's Chauffeur",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5a6176cc-98bf-43ac-815a-1f19c4e9329c",
+  "oracle_text": "This creature enters with a number of +1/+1 counters on it equal to one plus the number of other creatures you control.\nAlliance — Whenever another creature you control enters, put a +1/+1 counter on this creature.\nWhen this creature dies, create a 1/1 green and white Citizen creature token for each +1/+1 counter on it.",
+  "oversized": false,
+  "power": "0",
+  "prices": {
+    "eur": "0.22",
+    "eur_foil": null,
+    "tix": "0.47",
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5a6176cc-98bf-43ac-815a-1f19c4e9329c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/99357?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=652402&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F269588%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Boss%27s+Chauffeur",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=598127&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBoss%2527s%2BChauffeur",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBoss%2527s%2BChauffeur"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/147a0ccf-3408-48c7-b4a8-6d81aed39f18/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ncc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ncc/13/bosss-chauffeur?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ncc",
+  "set_id": "c51de34b-d4d6-4179-a432-573744ded119",
+  "set_name": "New Capenna Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ancc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c51de34b-d4d6-4179-a432-573744ded119",
+  "story_spotlight": false,
+  "tcgplayer_id": 269588,
+  "textless": false,
+  "toughness": "0",
+  "type_line": "Creature — Elf Citizen",
+  "uri": "https://api.scryfall.com/cards/147a0ccf-3408-48c7-b4a8-6d81aed39f18",
+  "variation": false,
+  "watermark": "cabaretti"
+}

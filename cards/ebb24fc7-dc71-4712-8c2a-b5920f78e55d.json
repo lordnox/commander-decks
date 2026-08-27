@@ -1,0 +1,130 @@
+{
+  "artist": "Daarken",
+  "artist_ids": [
+    "e607a0d4-fc12-4c01-9e3f-501f5269b9cb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 661945,
+  "cmc": 4.0,
+  "collector_number": "804",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 2342,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a9f75fce-f0a1-4dec-982d-a86925c6e9d4",
+  "illustration_id": "58d2b865-6bca-4b68-8c71-0713246a80e5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:00:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/9/a9f75fce-f0a1-4dec-982d-a86925c6e9d4.webp?1783922418",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/9/a9f75fce-f0a1-4dec-982d-a86925c6e9d4.jpg?1783922418",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/9/a9f75fce-f0a1-4dec-982d-a86925c6e9d4.jpg?1783922418",
+    "crop": "https://cards.scryfall.io/crop/front/a/9/a9f75fce-f0a1-4dec-982d-a86925c6e9d4.webp?1783922418",
+    "display": "https://cards.scryfall.io/display/front/a/9/a9f75fce-f0a1-4dec-982d-a86925c6e9d4.webp?1783922418",
+    "grid": "https://cards.scryfall.io/grid/front/a/9/a9f75fce-f0a1-4dec-982d-a86925c6e9d4.webp?1783922418",
+    "large": "https://cards.scryfall.io/large/front/a/9/a9f75fce-f0a1-4dec-982d-a86925c6e9d4.jpg?1783922418",
+    "normal": "https://cards.scryfall.io/normal/front/a/9/a9f75fce-f0a1-4dec-982d-a86925c6e9d4.jpg?1783922418",
+    "png": "https://cards.scryfall.io/png/front/a/9/a9f75fce-f0a1-4dec-982d-a86925c6e9d4.png?1783922418",
+    "small": "https://cards.scryfall.io/small/front/a/9/a9f75fce-f0a1-4dec-982d-a86925c6e9d4.jpg?1783922418",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/9/a9f75fce-f0a1-4dec-982d-a86925c6e9d4.webp?1783922418"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{R}",
+  "mtgo_id": 101154,
+  "multiverse_ids": [
+    567621
+  ],
+  "name": "Outpost Siege",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ebb24fc7-dc71-4712-8c2a-b5920f78e55d",
+  "oracle_text": "As this enchantment enters, choose Khans or Dragons.\n• Khans — At the beginning of your upkeep, exile the top card of your library. Until end of turn, you may play that card.\n• Dragons — Whenever a creature you control leaves the battlefield, this enchantment deals 1 damage to any target.",
+  "oversized": false,
+  "penny_rank": 7413,
+  "prices": {
+    "eur": "0.26",
+    "eur_foil": null,
+    "tix": "0.03",
+    "usd": "0.28",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aebb24fc7-dc71-4712-8c2a-b5920f78e55d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/101154?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=661945&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F273792%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Outpost+Siege",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=567621&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOutpost%2BSiege",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOutpost%2BSiege"
+  },
+  "released_at": "2022-06-10",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a9f75fce-f0a1-4dec-982d-a86925c6e9d4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/804/outpost-siege?utm_source=api",
+  "security_stamp": "oval",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 273792,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/a9f75fce-f0a1-4dec-982d-a86925c6e9d4",
+  "variation": false
+}

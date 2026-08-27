@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Rocco fetches Norin the Wary, whose constant flickering retriggers ETB pingers, draw, and token engines until the table burns down.",
+  "tags": [
+    {
+      "name": "etb effects",
+      "score": 5,
+      "reason": "Every engine card triggers on a creature entering; Norin, Saltskitter, and the token makers exist to fire Impact Tremors, Gala Greeters, Tocasia's Welcome, and the rest as often as possible, with Panharmonicon and Gandalf the White doubling the triggers."
+    },
+    {
+      "name": "pingers",
+      "score": 4,
+      "reason": "Impact Tremors, Witty Roastmaster, Agate Instigator, Molten Gatekeeper, Arbaaz Mir, and Outpost Siege each drip damage on every entry or exit, and Torbran turns each one-point ping into three; ping attrition is the primary win."
+    },
+    {
+      "name": "burn",
+      "score": 3,
+      "reason": "The deck's clock is noncombat damage to each opponent every turn of the table, amplified by Torbran, Thane of Red Fell."
+    },
+    {
+      "name": "draw",
+      "score": 3,
+      "reason": "Mentor of the Meek, Welcoming Vampire, Tocasia's Welcome, Enduring Innocence, Irreverent Gremlin, Rumor Gatherer, Path of Discovery, and Soul of the Harvest all convert the constant small-creature entries into cards."
+    },
+    {
+      "name": "tokens",
+      "score": 3,
+      "reason": "Genesis Chamber, Blessed Sanctuary, Saradoc, Samwise Gamgee, Gala Greeters, Rose Room Treasurer, and Skyclave Relic produce a steady token stream that retriggers the entry payoffs and fuels an End-Raze Forerunners finish."
+    },
+    {
+      "name": "+1/+1 counters",
+      "score": 2,
+      "reason": "Champion of Lambholt, Heronblade Elite, Gimli, and Legolas grow with every entry, but the counters are a payoff, not the plan."
+    },
+    {
+      "name": "go-wide",
+      "score": 2,
+      "reason": "Myr, Halfling, and Unicorn tokens accumulate into a wide board that End-Raze Forerunners turns into a real swing."
+    },
+    {
+      "name": "legends",
+      "score": 2,
+      "reason": "Norin's re-entries are legendary entries, so Gimli of the Glittering Caves and Legolas Greenleaf grow constantly and Gandalf the White doubles the triggers, but there is no broader legends-matter shell."
+    },
+    {
+      "name": "lifegain",
+      "score": 2,
+      "reason": "Soul Warden, Essence Warden, Arbaaz Mir, and Gala Greeters gain life on every entry as a defensive cushion."
+    },
+    {
+      "name": "ramp",
+      "score": 2,
+      "reason": "Thirteen ramp cards, including Heronblade Elite growing into huge activations, push toward recast Rocco X payments, but ramp only supports the engine."
+    },
+    {
+      "name": "blink",
+      "score": 1,
+      "reason": "Norin the Wary and Saltskitter flicker themselves; the deck plays no blink spells."
+    },
+    {
+      "name": "chaos",
+      "score": 1,
+      "reason": "Confusion in the Ranks and Chaos Warp add swing, but Confusion is played as a targeted steal engine with Norin."
+    },
+    {
+      "name": "theft",
+      "score": 1,
+      "reason": "Confusion in the Ranks with Norin trades him for an opponent's best creature, and Norin comes home at end step anyway."
+    }
+  ]
+}

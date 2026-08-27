@@ -6398,8 +6398,460 @@
       "categories": [
         "other"
       ]
+    },
+    "e1a2bd31-b800-47cd-8866-1b849a601b09": {
+      "name": "Agate Instigator",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "60c77b18-c111-4e16-ad19-2ef32582cd9e": {
+      "name": "Angelic Sell-Sword",
+      "categories": [
+        "card-draw",
+        "token-production"
+      ]
+    },
+    "a383ef16-1af8-4b3a-956c-c10a93768617": {
+      "name": "Arbaaz Mir",
+      "categories": [
+        "other"
+      ]
+    },
+    "8d03d050-391c-4311-8c42-4ee632d40fdc": {
+      "name": "Aura Shards",
+      "categories": [
+        "removal"
+      ]
+    },
+    "09cc8709-fe10-472a-b05c-e89f3523018d": {
+      "name": "Austere Command",
+      "categories": [
+        "board-wipe"
+      ]
+    },
+    "7a2484a9-04fd-41a0-8224-610c1c07ed10": {
+      "name": "Blasphemous Act",
+      "categories": [
+        "other"
+      ]
+    },
+    "1b70d7fa-ba2c-4945-b8fd-23623b88c036": {
+      "name": "Blessed Sanctuary",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "8fa3ac81-3dfe-4565-be99-5554f7597b4b": {
+      "name": "Boros Garrison",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "5a6176cc-98bf-43ac-815a-1f19c4e9329c": {
+      "name": "Boss's Chauffeur",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "dcb7e046-f01b-497c-88e5-57794eb30ce5": {
+      "name": "Canopy Vista",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "07a0cba9-8768-4fd9-a3d5-b0f83b4bf8e8": {
+      "name": "Chaos Warp",
+      "categories": [
+        "other"
+      ]
+    },
+    "e477abb9-9b99-48a8-8c09-07b120b72540": {
+      "name": "Confusion in the Ranks",
+      "categories": [
+        "other"
+      ]
+    },
+    "2987c385-011a-4032-a516-a46d1e9dc9e8": {
+      "name": "Crib Swap",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "8b755881-a72d-4e21-a369-d2924eb4585a": {
+      "name": "Cultivate",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "69b52907-8aff-4f2a-a391-7d1ab2669b5c": {
+      "name": "End-Raze Forerunners",
+      "categories": [
+        "other"
+      ]
+    },
+    "98a389f4-2905-47f3-b60e-3d4afb3e5cb0": {
+      "name": "Enduring Innocence",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "6ca2a89e-7032-4864-b4e9-66f3178f90ab": {
+      "name": "Essence Warden",
+      "categories": [
+        "other"
+      ]
+    },
+    "27e9db49-7af7-4bef-ad4c-bf5dfb92030d": {
+      "name": "Fog",
+      "categories": [
+        "other"
+      ]
+    },
+    "56f1a16a-9f41-41fb-b580-c200bca27cd6": {
+      "name": "Fortified Village",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "b7d3e234-0954-4422-96c0-cda91101faa3": {
+      "name": "Freestrider Lookout",
+      "categories": [
+        "other"
+      ]
+    },
+    "651dea9c-2375-4e44-8e65-ba8e40f0c0ef": {
+      "name": "Furycalm Snarl",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "cce081eb-8820-415a-a7b2-3c5b9d4a2601": {
+      "name": "Gala Greeters",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "00de57d2-7cb6-4337-9bc6-f6711e4dfabf": {
+      "name": "Game Trail",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "5b3b5f6a-375e-4479-9384-a942eda83f9b": {
+      "name": "Gandalf the White",
+      "categories": [
+        "other"
+      ]
+    },
+    "da1c1c70-c2fa-4ba7-89fe-d9af3fb353b9": {
+      "name": "General Kreat, the Boltbringer",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "150ab025-5cc3-4468-a724-bbba8838445d": {
+      "name": "Genesis Chamber",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "f6747295-d21d-40d7-bc70-baa4a37ae668": {
+      "name": "Gimli of the Glittering Caves",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "657243dd-e479-4f4b-99d2-09b55d833a35": {
+      "name": "Gruul Turf",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "e3e255e0-ab04-4488-bdc1-bb1542f51e16": {
+      "name": "Heronblade Elite",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "9242cd3e-1a71-4700-8182-9c1005616033": {
+      "name": "Impact Tremors",
+      "categories": [
+        "other"
+      ]
+    },
+    "44594004-52e7-4ce6-8eb0-61f72fd9c73b": {
+      "name": "Irreverent Gremlin",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "2e69537c-c898-4e13-a72d-ce3957a90304": {
+      "name": "Jungle Shrine",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "cb1afab6-b9c8-4b9c-840b-24106523a783": {
+      "name": "Kodama of the East Tree",
+      "categories": [
+        "other"
+      ]
+    },
+    "1593ea18-2f2f-4ab4-83fb-6ccc0bec8a90": {
+      "name": "Kodama's Reach",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "beacbb51-51fe-47f7-a612-02cd93fbffdd": {
+      "name": "Legolas Greenleaf",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "b9f4f96b-6e54-4fe6-8df7-623e0fc72409": {
+      "name": "Mentor of the Meek",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "90fdfba8-f29e-44f9-91d2-7bf3c458a9c1": {
+      "name": "Molten Gatekeeper",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "71e28800-c42c-48c0-95e5-0296be54a4e8": {
+      "name": "Naya Panorama",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "b8b51a29-a2be-4b97-a73c-ea512d3d5622": {
+      "name": "Norin the Wary",
+      "categories": [
+        "blink"
+      ]
+    },
+    "ebb24fc7-dc71-4712-8c2a-b5920f78e55d": {
+      "name": "Outpost Siege",
+      "categories": [
+        "other"
+      ]
+    },
+    "76678885-3674-443d-b9a2-2a460cf6aac0": {
+      "name": "Panharmonicon",
+      "categories": [
+        "other"
+      ]
+    },
+    "52714c3c-6821-44dd-88ba-813554df9914": {
+      "name": "Path of Discovery",
+      "categories": [
+        "other"
+      ]
+    },
+    "d683d985-9888-4d21-8b5f-69e69ce4a03b": {
+      "name": "Path to Exile",
+      "categories": [
+        "removal"
+      ]
+    },
+    "f0449cbd-855c-4c20-a1f5-f76a395d8d39": {
+      "name": "Reprieve",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "41c765a4-a9c9-4169-a9f1-74ededeb793c": {
+      "name": "Rocco, Cabaretti Caterer",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "d73f02e0-53fa-4437-ab3a-89a9a1db27c5": {
+      "name": "Rose Room Treasurer",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "3ceca713-38de-4428-a4f1-2146f6e98393": {
+      "name": "Rumor Gatherer",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "e3afc704-220f-498f-9eaa-0821b17dc24c": {
+      "name": "Sakura-Tribe Elder",
+      "categories": [
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "831e9f71-9664-4dbb-94f5-935d7cf95d77": {
+      "name": "Saltskitter",
+      "categories": [
+        "other"
+      ]
+    },
+    "7ce37c26-91ea-493f-bfc3-a890d4538bc1": {
+      "name": "Samwise Gamgee",
+      "categories": [
+        "recursion",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "3c7f7a67-6a71-4f40-8554-2e724e6916a6": {
+      "name": "Saradoc, Master of Buckland",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "00ef1c55-dea1-4564-bd57-66de86cba4df": {
+      "name": "Selesnya Sanctuary",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "5b932be0-4dac-41b9-9c59-f79e4cecc31a": {
+      "name": "Sheltering Landscape",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "sacrifice",
+        "discard"
+      ]
+    },
+    "d3d8dd6e-a80b-4063-a542-ff67ef8dad4f": {
+      "name": "Skullwinder",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "eb44b65d-6b56-4f20-a4fb-c5dd147a54c4": {
+      "name": "Skyclave Relic",
+      "categories": [
+        "ramp",
+        "protection",
+        "token-production"
+      ]
+    },
+    "6b9194dd-2296-4879-ac5e-f89b18431df6": {
+      "name": "Soul of the Harvest",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "f3fad295-1af2-4ecc-8546-b121ad6be27b": {
+      "name": "Soul Warden",
+      "categories": [
+        "other"
+      ]
+    },
+    "9a107e48-3d50-4941-95b1-10f2b29a4245": {
+      "name": "Stroke of Midnight",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "6c326439-5620-4ec6-a56a-fe9c3d5d2a46": {
+      "name": "Talisman of Conviction",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "f2ccc9e8-8e92-4f8c-8728-8c748630e0dd": {
+      "name": "Talisman of Impulse",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "e5fcc5d7-6a60-4a5b-9d02-6c30041a95b9": {
+      "name": "Talisman of Unity",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "3baa8e38-ef93-435d-b63e-f781d5bfcc68": {
+      "name": "Temple of Abandon",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "e521322b-0e83-458c-8936-7021a80ee279": {
+      "name": "Temple of Plenty",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "6f0d94d9-64bb-4175-83bc-301e8f79f54f": {
+      "name": "Temple of Triumph",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "25c983e0-a8c9-4784-91a4-8fe04c6df882": {
+      "name": "Tocasia's Welcome",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "8c3495bf-02e7-4ad9-949d-92eb3d2b662a": {
+      "name": "Torbran, Thane of Red Fell",
+      "categories": [
+        "other"
+      ]
+    },
+    "ef4d5fb3-70a3-433d-a9d3-18b2beb8d79f": {
+      "name": "Wall of Blossoms",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "5f601f48-d24b-4883-9fde-b3f620e7c9ea": {
+      "name": "Wall of Omens",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "42fb1a1c-ab3d-4cdc-a6ff-a591f7481583": {
+      "name": "Warstorm Surge",
+      "categories": [
+        "other"
+      ]
+    },
+    "605c1ee0-5e8a-4e0a-a99b-42a38873f822": {
+      "name": "Welcoming Vampire",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "34edbf1b-0826-49f1-a04d-15cc8c543b22": {
+      "name": "Witty Roastmaster",
+      "categories": [
+        "other"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-27T17:11:52.965219+00:00"
+  "updated_at": "2026-08-27T17:27:30.638932+00:00"
 }
