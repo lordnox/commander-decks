@@ -1,0 +1,140 @@
+{
+  "arena_id": 96154,
+  "artist": "Jonas De Ro",
+  "artist_ids": [
+    "561ebf9e-8d93-4b57-8156-8826d0c19601"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 827003,
+  "cmc": 0.0,
+  "collector_number": "275",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 5133,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5e43c36f-b8a2-4b2b-b2ea-57e6fa97521c",
+  "illustration_id": "b7833439-d23f-4970-9a6c-0739851ded47",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:35:50Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/e/5e43c36f-b8a2-4b2b-b2ea-57e6fa97521c.webp?1783906550",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/e/5e43c36f-b8a2-4b2b-b2ea-57e6fa97521c.jpg?1783906550",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/e/5e43c36f-b8a2-4b2b-b2ea-57e6fa97521c.jpg?1783906550",
+    "crop": "https://cards.scryfall.io/crop/front/5/e/5e43c36f-b8a2-4b2b-b2ea-57e6fa97521c.webp?1783906550",
+    "display": "https://cards.scryfall.io/display/front/5/e/5e43c36f-b8a2-4b2b-b2ea-57e6fa97521c.webp?1783906550",
+    "grid": "https://cards.scryfall.io/grid/front/5/e/5e43c36f-b8a2-4b2b-b2ea-57e6fa97521c.webp?1783906550",
+    "large": "https://cards.scryfall.io/large/front/5/e/5e43c36f-b8a2-4b2b-b2ea-57e6fa97521c.jpg?1783906550",
+    "normal": "https://cards.scryfall.io/normal/front/5/e/5e43c36f-b8a2-4b2b-b2ea-57e6fa97521c.jpg?1783906550",
+    "png": "https://cards.scryfall.io/png/front/5/e/5e43c36f-b8a2-4b2b-b2ea-57e6fa97521c.png?1783906550",
+    "small": "https://cards.scryfall.io/small/front/5/e/5e43c36f-b8a2-4b2b-b2ea-57e6fa97521c.jpg?1783906550",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/e/5e43c36f-b8a2-4b2b-b2ea-57e6fa97521c.webp?1783906550"
+  },
+  "keywords": [
+    "Hideaway"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 141519,
+  "multiverse_ids": [],
+  "name": "Clive's Hideaway",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "283f743f-6e79-49de-b7ed-08e6ffb64cc6",
+  "oracle_text": "Hideaway 4 (When this land enters, look at the top four cards of your library, exile one face down, then put the rest on the bottom in a random order.)\n{T}: Add {C}.\n{2}, {T}: You may play the exiled card without paying its mana cost if you control four or more legendary creatures.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2025-05-23",
+    "source": "CGMagazine",
+    "source_uri": "https://www.cgmagonline.com/articles/previews/mtg-final-fantasy-homebases/"
+  },
+  "prices": {
+    "eur": "0.28",
+    "eur_foil": "0.88",
+    "tix": "0.02",
+    "usd": "0.34",
+    "usd_etched": null,
+    "usd_foil": "0.90"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A283f743f-6e79-49de-b7ed-08e6ffb64cc6&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "promo_types": [
+    "ffxvi",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/141519?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=827003&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F634030%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Clive%27s+Hideaway",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DClive%2527s%2BHideaway",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DClive%2527s%2BHideaway"
+  },
+  "released_at": "2025-06-13",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "8D673D27EAA9B1039454B3E4E8AA38F19D26B4914D9059D99DF49D6F1B832235",
+  "rulings_uri": "https://api.scryfall.com/cards/5e43c36f-b8a2-4b2b-b2ea-57e6fa97521c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fin?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fin/275/clives-hideaway?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "fin",
+  "set_id": "d7beb4b7-e1ff-4d35-ab07-5700f17ea1ea",
+  "set_name": "Final Fantasy",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afin&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/d7beb4b7-e1ff-4d35-ab07-5700f17ea1ea",
+  "story_spotlight": false,
+  "tcgplayer_id": 634030,
+  "textless": false,
+  "type_line": "Land — Town",
+  "uri": "https://api.scryfall.com/cards/5e43c36f-b8a2-4b2b-b2ea-57e6fa97521c",
+  "variation": false
+}

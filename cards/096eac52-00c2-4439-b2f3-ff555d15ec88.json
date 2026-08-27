@@ -1,0 +1,141 @@
+{
+  "arena_id": 92130,
+  "artist": "Denys Tsiperko",
+  "artist_ids": [
+    "5d145909-04a3-442d-a664-c7fdb166e2b0"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 788419,
+  "cmc": 6.0,
+  "collector_number": "64",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 7285,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "1ab1aef7-4171-4869-8eb5-fe42e3ca9e45",
+  "illustration_id": "899ca2c3-2952-4b8d-a389-653db579499e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:24:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/a/1ab1aef7-4171-4869-8eb5-fe42e3ca9e45.webp?1783909493",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/a/1ab1aef7-4171-4869-8eb5-fe42e3ca9e45.jpg?1783909493",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/a/1ab1aef7-4171-4869-8eb5-fe42e3ca9e45.jpg?1783909493",
+    "crop": "https://cards.scryfall.io/crop/front/1/a/1ab1aef7-4171-4869-8eb5-fe42e3ca9e45.webp?1783909493",
+    "display": "https://cards.scryfall.io/display/front/1/a/1ab1aef7-4171-4869-8eb5-fe42e3ca9e45.webp?1783909493",
+    "grid": "https://cards.scryfall.io/grid/front/1/a/1ab1aef7-4171-4869-8eb5-fe42e3ca9e45.webp?1783909493",
+    "large": "https://cards.scryfall.io/large/front/1/a/1ab1aef7-4171-4869-8eb5-fe42e3ca9e45.jpg?1783909493",
+    "normal": "https://cards.scryfall.io/normal/front/1/a/1ab1aef7-4171-4869-8eb5-fe42e3ca9e45.jpg?1783909493",
+    "png": "https://cards.scryfall.io/png/front/1/a/1ab1aef7-4171-4869-8eb5-fe42e3ca9e45.png?1783909493",
+    "small": "https://cards.scryfall.io/small/front/1/a/1ab1aef7-4171-4869-8eb5-fe42e3ca9e45.jpg?1783909493",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/a/1ab1aef7-4171-4869-8eb5-fe42e3ca9e45.webp?1783909493"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{U}",
+  "mtgo_id": 130259,
+  "multiverse_ids": [
+    673469
+  ],
+  "name": "Marina Vendrell's Grimoire",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "096eac52-00c2-4439-b2f3-ff555d15ec88",
+  "oracle_text": "When Marina Vendrell's Grimoire enters, if you cast it, draw five cards.\nYou have no maximum hand size and don't lose the game for having 0 or less life.\nWhenever you gain life, draw that many cards.\nWhenever you lose life, discard that many cards. Then if you have no cards in hand, you lose the game.",
+  "oversized": false,
+  "penny_rank": 7652,
+  "preview": {
+    "previewed_at": "2024-09-05",
+    "source": "Polygon",
+    "source_uri": "https://www.polygon.com/mtg-magic-the-gathering/447947/duskmourn-card-previews-marina-vendrells-grimoire-rollercrusher-ride"
+  },
+  "prices": {
+    "eur": "0.18",
+    "eur_foil": "0.25",
+    "tix": "0.02",
+    "usd": "0.30",
+    "usd_etched": null,
+    "usd_foil": "0.34"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A096eac52-00c2-4439-b2f3-ff555d15ec88&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130259?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=788419&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F579309%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Marina+Vendrell%27s+Grimoire",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=673469&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMarina%2BVendrell%2527s%2BGrimoire",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMarina%2BVendrell%2527s%2BGrimoire"
+  },
+  "released_at": "2024-09-27",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1ab1aef7-4171-4869-8eb5-fe42e3ca9e45/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsk/64/marina-vendrells-grimoire?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsk",
+  "set_id": "a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "set_name": "Duskmourn: House of Horror",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "story_spotlight": false,
+  "tcgplayer_id": 579309,
+  "textless": false,
+  "type_line": "Legendary Artifact — Book",
+  "uri": "https://api.scryfall.com/cards/1ab1aef7-4171-4869-8eb5-fe42e3ca9e45",
+  "variation": false
+}

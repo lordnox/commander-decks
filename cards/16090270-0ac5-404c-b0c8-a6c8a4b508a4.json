@@ -1,0 +1,136 @@
+{
+  "artist": "Andrey Kuzinskiy",
+  "artist_ids": [
+    "c04ff0b2-67a1-4238-82f7-6c67de734b56"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 738637,
+  "cmc": 4.0,
+  "collector_number": "84",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 3386,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "11454c82-3f1d-4456-8857-0dcb01d34298",
+  "illustration_id": "7a03331a-e781-434a-8988-8fe93f108ac5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:50:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/1/11454c82-3f1d-4456-8857-0dcb01d34298.webp?1783914651",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/1/11454c82-3f1d-4456-8857-0dcb01d34298.jpg?1783914651",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/1/11454c82-3f1d-4456-8857-0dcb01d34298.jpg?1783914651",
+    "crop": "https://cards.scryfall.io/crop/front/1/1/11454c82-3f1d-4456-8857-0dcb01d34298.webp?1783914651",
+    "display": "https://cards.scryfall.io/display/front/1/1/11454c82-3f1d-4456-8857-0dcb01d34298.webp?1783914651",
+    "grid": "https://cards.scryfall.io/grid/front/1/1/11454c82-3f1d-4456-8857-0dcb01d34298.webp?1783914651",
+    "large": "https://cards.scryfall.io/large/front/1/1/11454c82-3f1d-4456-8857-0dcb01d34298.jpg?1783914651",
+    "normal": "https://cards.scryfall.io/normal/front/1/1/11454c82-3f1d-4456-8857-0dcb01d34298.jpg?1783914651",
+    "png": "https://cards.scryfall.io/png/front/1/1/11454c82-3f1d-4456-8857-0dcb01d34298.png?1783914651",
+    "small": "https://cards.scryfall.io/small/front/1/1/11454c82-3f1d-4456-8857-0dcb01d34298.jpg?1783914651",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/1/11454c82-3f1d-4456-8857-0dcb01d34298.webp?1783914651"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}{R}",
+  "multiverse_ids": [
+    634779
+  ],
+  "name": "Ensnared by the Mara",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "16090270-0ac5-404c-b0c8-a6c8a4b508a4",
+  "oracle_text": "Each opponent faces a villainous choice — They exile cards from the top of their library until they exile a nonland card, then you may cast that card without paying its mana cost, or that player exiles the top four cards of their library and Ensnared by the Mara deals damage equal to the total mana value of those exiled cards to that player.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-10-05",
+    "source": "Drakoniques",
+    "source_uri": "https://twitter.com/Drakoniques/status/1710011032494608427"
+  },
+  "prices": {
+    "eur": "6.25",
+    "eur_foil": "10.24",
+    "tix": null,
+    "usd": "7.92",
+    "usd_etched": null,
+    "usd_foil": "8.12"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A16090270-0ac5-404c-b0c8-a6c8a4b508a4&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Ensnared+by+the+Mara&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=738637&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F519746%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ensnared+by+the+Mara",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=634779&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEnsnared%2Bby%2Bthe%2BMara",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEnsnared%2Bby%2Bthe%2BMara"
+  },
+  "released_at": "2023-10-13",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/11454c82-3f1d-4456-8857-0dcb01d34298/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/who?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/who/84/ensnared-by-the-mara?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "who",
+  "set_id": "efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "set_name": "Doctor Who",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awho&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "story_spotlight": false,
+  "tcgplayer_id": 519746,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/11454c82-3f1d-4456-8857-0dcb01d34298",
+  "variation": false
+}

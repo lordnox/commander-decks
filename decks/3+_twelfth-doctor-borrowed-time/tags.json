@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "title": "The Twelfth Doctor — Borrowed Time",
+  "summary": "Cast lose-the-game spells from anywhere but hand so the Twelfth Doctor demonstrates copies to opponents, then end your own turn before the bill arrives.",
+  "tags": [
+    {
+      "name": "spell copy",
+      "score": 5,
+      "reason": "The Twelfth Doctor's demonstrate is the whole engine, backed by Hive Mind, Jace Reawakened, and Founding the Third Path."
+    },
+    {
+      "name": "extra turns",
+      "score": 4,
+      "reason": "Final Fortune, Last Chance, Warrior's Oath, and Alchemist's Gambit are the payload; copied versions hand opponents fatal turns."
+    },
+    {
+      "name": "impulse draw",
+      "score": 4,
+      "reason": "Prosper, Hidetsugu, Sanar, Jeleva, and the discover caves exile cards to cast from exile and trigger demonstrate."
+    },
+    {
+      "name": "alternate wincon",
+      "score": 3,
+      "reason": "Opponents lose to their own copied pact and extra-turn triggers rather than to damage."
+    },
+    {
+      "name": "spellslinger",
+      "score": 3,
+      "reason": "Instant- and sorcery-dense list with Kess, Johann, Emet-Selch, and Sphinx of Forgotten Lore recasting them."
+    },
+    {
+      "name": "topdeck",
+      "score": 3,
+      "reason": "Scroll Rack, Fblthp, The Reality Chip, Johann, and Scheming Symmetry manage the library top for cast-from-top turns."
+    },
+    {
+      "name": "counterspells",
+      "score": 2,
+      "reason": "Flusterstorm, Double Negative, Pact of Negation, Reverse the Polarity, and Spider-Sense protect the combo turn."
+    },
+    {
+      "name": "foretell",
+      "score": 2,
+      "reason": "Dream Devourer and Bohn grant every card foretell, the cheapest way to cast from exile every turn."
+    },
+    {
+      "name": "graveyard",
+      "score": 2,
+      "reason": "Kess, Vohar, Emet-Selch, and Sphinx of Forgotten Lore recast instants and sorceries from the graveyard."
+    },
+    {
+      "name": "chaos",
+      "score": 2,
+      "reason": "Hive Mind, Ensnared by the Mara, Prisoner's Dilemma, and Mob Verdict make the table play your game."
+    },
+    {
+      "name": "theft",
+      "score": 2,
+      "reason": "Jeleva, Intellect Devourer, Dauthi Voidwalker, Synthesis Pod, and Sudden Substitution play with everyone else's cards."
+    },
+    {
+      "name": "politics",
+      "score": 2,
+      "reason": "Demonstrate picks a beneficiary each copy, and Vislor Turlough plus Bohn goad problem creatures."
+    },
+    {
+      "name": "self-discard",
+      "score": 2,
+      "reason": "Rona, Vohar, Conspiracy Theorist, and One with Nothing dump the hand so the graveyard becomes the real hand."
+    },
+    {
+      "name": "time lords",
+      "score": 1,
+      "reason": "The Twelfth Doctor is the only Time Lord, but Trenzalore Clocktower is here for him."
+    }
+  ]
+}

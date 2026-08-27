@@ -1,0 +1,137 @@
+{
+  "artist": "Randy Gallegos",
+  "artist_ids": [
+    "a5048cc7-438a-4378-98e4-da99b78e1db0"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 738578,
+  "cmc": 3.0,
+  "collector_number": "54",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 5015,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"You see, before you reactivated it, I reversed the polarity of the neutron flow.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "76f3ea66-555c-490d-b34f-12c267bc4e9b",
+  "illustration_id": "865209c3-c403-4090-be13-0ed0864f1801",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:51:03Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/6/76f3ea66-555c-490d-b34f-12c267bc4e9b.webp?1783914663",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/6/76f3ea66-555c-490d-b34f-12c267bc4e9b.jpg?1783914663",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/6/76f3ea66-555c-490d-b34f-12c267bc4e9b.jpg?1783914663",
+    "crop": "https://cards.scryfall.io/crop/front/7/6/76f3ea66-555c-490d-b34f-12c267bc4e9b.webp?1783914663",
+    "display": "https://cards.scryfall.io/display/front/7/6/76f3ea66-555c-490d-b34f-12c267bc4e9b.webp?1783914663",
+    "grid": "https://cards.scryfall.io/grid/front/7/6/76f3ea66-555c-490d-b34f-12c267bc4e9b.webp?1783914663",
+    "large": "https://cards.scryfall.io/large/front/7/6/76f3ea66-555c-490d-b34f-12c267bc4e9b.jpg?1783914663",
+    "normal": "https://cards.scryfall.io/normal/front/7/6/76f3ea66-555c-490d-b34f-12c267bc4e9b.jpg?1783914663",
+    "png": "https://cards.scryfall.io/png/front/7/6/76f3ea66-555c-490d-b34f-12c267bc4e9b.png?1783914663",
+    "small": "https://cards.scryfall.io/small/front/7/6/76f3ea66-555c-490d-b34f-12c267bc4e9b.jpg?1783914663",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/6/76f3ea66-555c-490d-b34f-12c267bc4e9b.webp?1783914663"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{U}",
+  "multiverse_ids": [
+    634749
+  ],
+  "name": "Reverse the Polarity",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4499d8cd-d090-4acc-a1d9-3d9d9b6ef768",
+  "oracle_text": "Choose one —\n• Counter all other spells.\n• Switch each creature's power and toughness until end of turn.\n• Creatures can't be blocked this turn.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-10-03",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.82",
+    "eur_foil": "0.96",
+    "tix": null,
+    "usd": "0.52",
+    "usd_etched": null,
+    "usd_foil": "2.43"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4499d8cd-d090-4acc-a1d9-3d9d9b6ef768&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Reverse+the+Polarity&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=738578&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F518883%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Reverse+the+Polarity",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=634749&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DReverse%2Bthe%2BPolarity",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DReverse%2Bthe%2BPolarity"
+  },
+  "released_at": "2023-10-13",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/76f3ea66-555c-490d-b34f-12c267bc4e9b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/who?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/who/54/reverse-the-polarity?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "who",
+  "set_id": "efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "set_name": "Doctor Who",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awho&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "story_spotlight": false,
+  "tcgplayer_id": 518883,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/76f3ea66-555c-490d-b34f-12c267bc4e9b",
+  "variation": false
+}

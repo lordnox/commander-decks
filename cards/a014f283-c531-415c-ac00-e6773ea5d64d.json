@@ -1,0 +1,137 @@
+{
+  "artist": "Cynthia Sheppard",
+  "artist_ids": [
+    "9dfbdd58-65e6-40cf-951a-80e141061939"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 264382,
+  "cmc": 4.0,
+  "collector_number": "194",
+  "color_identity": [
+    "B",
+    "R",
+    "U"
+  ],
+  "colors": [
+    "B",
+    "R",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 14206,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "83f9aeb8-05ba-49d9-a834-62f42fcd295b",
+  "illustration_id": "dd3dddc5-4480-4923-857b-e9c4173ac93c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:47:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/3/83f9aeb8-05ba-49d9-a834-62f42fcd295b.webp?1783939650",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/3/83f9aeb8-05ba-49d9-a834-62f42fcd295b.jpg?1783939650",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/3/83f9aeb8-05ba-49d9-a834-62f42fcd295b.jpg?1783939650",
+    "crop": "https://cards.scryfall.io/crop/front/8/3/83f9aeb8-05ba-49d9-a834-62f42fcd295b.webp?1783939650",
+    "display": "https://cards.scryfall.io/display/front/8/3/83f9aeb8-05ba-49d9-a834-62f42fcd295b.webp?1783939650",
+    "grid": "https://cards.scryfall.io/grid/front/8/3/83f9aeb8-05ba-49d9-a834-62f42fcd295b.webp?1783939650",
+    "large": "https://cards.scryfall.io/large/front/8/3/83f9aeb8-05ba-49d9-a834-62f42fcd295b.jpg?1783939650",
+    "normal": "https://cards.scryfall.io/normal/front/8/3/83f9aeb8-05ba-49d9-a834-62f42fcd295b.jpg?1783939650",
+    "png": "https://cards.scryfall.io/png/front/8/3/83f9aeb8-05ba-49d9-a834-62f42fcd295b.png?1783939650",
+    "small": "https://cards.scryfall.io/small/front/8/3/83f9aeb8-05ba-49d9-a834-62f42fcd295b.jpg?1783939650",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/3/83f9aeb8-05ba-49d9-a834-62f42fcd295b.webp?1783939650"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{B}{R}",
+  "mtgo_foil_id": 51333,
+  "mtgo_id": 51332,
+  "multiverse_ids": [
+    376382
+  ],
+  "name": "Jeleva, Nephalia's Scourge",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a014f283-c531-415c-ac00-e6773ea5d64d",
+  "oracle_text": "Flying\nWhen Jeleva enters, each player exiles the top X cards of their library, where X is the amount of mana spent to cast Jeleva.\nWhenever Jeleva attacks, you may cast an instant or sorcery spell from among cards exiled with Jeleva without paying its mana cost.",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": "1.68",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "2.37",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa014f283-c531-415c-ac00-e6773ea5d64d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/51332?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=264382&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F71519%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Jeleva%2C+Nephalia%27s+Scourge",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=376382&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DJeleva%252C%2BNephalia%2527s%2BScourge",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DJeleva%252C%2BNephalia%2527s%2BScourge"
+  },
+  "released_at": "2013-11-01",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/83f9aeb8-05ba-49d9-a834-62f42fcd295b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c13?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c13/194/jeleva-nephalias-scourge?utm_source=api",
+  "set": "c13",
+  "set_id": "c62e6d4f-af8c-4f27-9bc8-361291890146",
+  "set_name": "Commander 2013",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac13&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c62e6d4f-af8c-4f27-9bc8-361291890146",
+  "story_spotlight": false,
+  "tcgplayer_id": 71519,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Legendary Creature — Vampire Wizard",
+  "uri": "https://api.scryfall.com/cards/83f9aeb8-05ba-49d9-a834-62f42fcd295b",
+  "variation": false
+}

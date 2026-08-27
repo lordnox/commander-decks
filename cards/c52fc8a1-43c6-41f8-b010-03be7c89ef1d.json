@@ -1,0 +1,175 @@
+{
+  "arena_id": 90830,
+  "artist": "David Álvarez",
+  "artist_ids": [
+    "c3004e2c-d372-4faa-90db-f1274e75ef41"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "David Álvarez",
+      "artist_id": "c3004e2c-d372-4faa-90db-f1274e75ef41",
+      "colors": [
+        "B",
+        "R"
+      ],
+      "illustration_id": "b6d8ee75-8cce-4da0-8b5f-482247745df8",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.webp?1783911225",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.jpg?1783911225",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.jpg?1783911225",
+        "crop": "https://cards.scryfall.io/crop/front/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.webp?1783911225",
+        "display": "https://cards.scryfall.io/display/front/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.webp?1783911225",
+        "grid": "https://cards.scryfall.io/grid/front/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.webp?1783911225",
+        "large": "https://cards.scryfall.io/large/front/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.jpg?1783911225",
+        "normal": "https://cards.scryfall.io/normal/front/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.jpg?1783911225",
+        "png": "https://cards.scryfall.io/png/front/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.png?1783911225",
+        "small": "https://cards.scryfall.io/small/front/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.jpg?1783911225",
+        "thumb": "https://cards.scryfall.io/thumb/front/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.webp?1783911225"
+      },
+      "mana_cost": "{5}{B/R}{B/R}",
+      "name": "Bloodsoaked Insight",
+      "object": "card_face",
+      "oracle_text": "This spell costs {1} less to cast for each 1 life your opponents have lost this turn.\nTarget opponent exiles the top three cards of their library. Until the end of your next turn, you may play those cards. If you cast a spell this way, mana of any type can be spent to cast it.",
+      "type_line": "Sorcery"
+    },
+    {
+      "artist": "David Álvarez",
+      "artist_id": "c3004e2c-d372-4faa-90db-f1274e75ef41",
+      "colors": [],
+      "flavor_text": "All who enter the bog despair, for the first thing it steals is hope.",
+      "illustration_id": "ae684dbe-127e-4374-b362-73f5678f889b",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.webp?1783911225",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.jpg?1783911225",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.jpg?1783911225",
+        "crop": "https://cards.scryfall.io/crop/back/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.webp?1783911225",
+        "display": "https://cards.scryfall.io/display/back/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.webp?1783911225",
+        "grid": "https://cards.scryfall.io/grid/back/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.webp?1783911225",
+        "large": "https://cards.scryfall.io/large/back/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.jpg?1783911225",
+        "normal": "https://cards.scryfall.io/normal/back/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.jpg?1783911225",
+        "png": "https://cards.scryfall.io/png/back/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.png?1783911225",
+        "small": "https://cards.scryfall.io/small/back/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.jpg?1783911225",
+        "thumb": "https://cards.scryfall.io/thumb/back/0/a/0a08e0d2-1e60-47f5-9228-4c11a127089d.webp?1783911225"
+      },
+      "mana_cost": "",
+      "name": "Sanguine Morass",
+      "object": "card_face",
+      "oracle_text": "This land enters tapped.\n{T}: Add {B} or {R}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 771550,
+  "cmc": 7.0,
+  "collector_number": "252",
+  "color_identity": [
+    "B",
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 2683,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "0a08e0d2-1e60-47f5-9228-4c11a127089d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:53:45Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 126553,
+  "multiverse_ids": [
+    661783
+  ],
+  "name": "Bloodsoaked Insight // Sanguine Morass",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c52fc8a1-43c6-41f8-b010-03be7c89ef1d",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-05-22",
+    "source": "IGN",
+    "source_uri": "https://www.ign.com/articles/magic-the-gathering-modern-horizons-3-spoilers-mdfc-dual-land"
+  },
+  "prices": {
+    "eur": "0.22",
+    "eur_foil": "0.37",
+    "tix": "0.03",
+    "usd": "0.29",
+    "usd_etched": null,
+    "usd_foil": "0.39"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac52fc8a1-43c6-41f8-b010-03be7c89ef1d&unique=prints",
+  "produced_mana": [
+    "B",
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126553?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=771550&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552650%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bloodsoaked+Insight",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=661783&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBloodsoaked%2BInsight%2B%252F%252F%2BSanguine%2BMorass",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBloodsoaked%2BInsight%2B%252F%252F%2BSanguine%2BMorass"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0a08e0d2-1e60-47f5-9228-4c11a127089d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/252/bloodsoaked-insight-sanguine-morass?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552650,
+  "textless": false,
+  "type_line": "Sorcery // Land",
+  "uri": "https://api.scryfall.com/cards/0a08e0d2-1e60-47f5-9228-4c11a127089d",
+  "variation": false
+}

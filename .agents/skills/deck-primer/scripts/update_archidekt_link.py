@@ -144,9 +144,9 @@ def archidekt_payload(
 
     if not payload:
         raise ValueError("manifest contains no resolved cards")
-    if commander_count != 1:
-        raise ValueError(f"expected exactly one commander, found {commander_count}")
-    return payload, total
+    if not 1 <= commander_count <= 2:
+        raise ValueError(f"expected one or two commanders, found {commander_count}")
+    return payload, total, commander_count
 
 
 def badge_button(label: str, color: str, href: str) -> str:
@@ -204,7 +204,7 @@ def update_primer(
     if not readme_path.is_file():
         raise FileNotFoundError(f"missing primer: {readme_path}")
 
-    payload, total = archidekt_payload(deck_dir, overrides)
+    payload, total, commander_count = archidekt_payload(deck_dir, overrides)
     expected = actions_line(deck_dir, payload)
     original = readme_path.read_text(encoding="utf-8")
     updated = insert_after_assessment(original, expected)
@@ -216,7 +216,8 @@ def update_primer(
         readme_path.write_text(updated, encoding="utf-8")
     print(
         f"{readme_path}: action buttons current "
-        f"({len(payload)} unique, {total} total, 1 commander)"
+        f"({len(payload)} unique, {total} total, {commander_count} commander"
+        f"{'' if commander_count == 1 else 's'})"
     )
     return 0
 

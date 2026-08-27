@@ -1,0 +1,131 @@
+{
+  "artist": "Greg Hildebrandt & Tim Hildebrandt",
+  "artist_ids": [
+    "020f967b-0d2f-4166-aabe-901dba8bc7ec",
+    "caa7228c-f74c-4145-91fb-1af8d623c353"
+  ],
+  "booster": true,
+  "border_color": "white",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 2944,
+  "cmc": 2.0,
+  "collector_number": "182",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 1514,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "A reward is worthless if you aren't around to enjoy it.",
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "fb80afc3-4887-42a0-afb2-7fa997981fb2",
+  "illustration_id": "9f104caf-3892-4402-b444-1ee5bb125e96",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:24:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/b/fb80afc3-4887-42a0-afb2-7fa997981fb2.webp?1783945470",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/b/fb80afc3-4887-42a0-afb2-7fa997981fb2.jpg?1783945470",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/b/fb80afc3-4887-42a0-afb2-7fa997981fb2.jpg?1783945470",
+    "crop": "https://cards.scryfall.io/crop/front/f/b/fb80afc3-4887-42a0-afb2-7fa997981fb2.webp?1783945470",
+    "display": "https://cards.scryfall.io/display/front/f/b/fb80afc3-4887-42a0-afb2-7fa997981fb2.webp?1783945470",
+    "grid": "https://cards.scryfall.io/grid/front/f/b/fb80afc3-4887-42a0-afb2-7fa997981fb2.webp?1783945470",
+    "large": "https://cards.scryfall.io/large/front/f/b/fb80afc3-4887-42a0-afb2-7fa997981fb2.jpg?1783945470",
+    "normal": "https://cards.scryfall.io/normal/front/f/b/fb80afc3-4887-42a0-afb2-7fa997981fb2.jpg?1783945470",
+    "png": "https://cards.scryfall.io/png/front/f/b/fb80afc3-4887-42a0-afb2-7fa997981fb2.png?1783945470",
+    "small": "https://cards.scryfall.io/small/front/f/b/fb80afc3-4887-42a0-afb2-7fa997981fb2.jpg?1783945470",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/b/fb80afc3-4887-42a0-afb2-7fa997981fb2.webp?1783945470"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{R}{R}",
+  "mtgo_foil_id": 15517,
+  "mtgo_id": 15516,
+  "multiverse_ids": [
+    12970
+  ],
+  "name": "Final Fortune",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8d0adc5c-3fdd-4e22-b783-5651f8e57b65",
+  "oracle_text": "Take an extra turn after this one. At the beginning of that turn's end step, you lose the game.",
+  "oversized": false,
+  "prices": {
+    "eur": "10.58",
+    "eur_foil": null,
+    "tix": "4.27",
+    "usd": "18.15",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8d0adc5c-3fdd-4e22-b783-5651f8e57b65&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/15516?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=2944&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F2900%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Final+Fortune",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=12970&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFinal%2BFortune",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFinal%2BFortune"
+  },
+  "released_at": "2001-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/fb80afc3-4887-42a0-afb2-7fa997981fb2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/7ed?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/7ed/182/final-fortune?utm_source=api",
+  "set": "7ed",
+  "set_id": "230f38aa-9511-4db8-a3aa-aeddbc3f7bb9",
+  "set_name": "Seventh Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A7ed&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/230f38aa-9511-4db8-a3aa-aeddbc3f7bb9",
+  "story_spotlight": false,
+  "tcgplayer_id": 2900,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/fb80afc3-4887-42a0-afb2-7fa997981fb2",
+  "variation": false
+}

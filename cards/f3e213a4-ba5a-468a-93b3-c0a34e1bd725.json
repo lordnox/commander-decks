@@ -1,0 +1,139 @@
+{
+  "artist": "Jason Chan",
+  "artist_ids": [
+    "8062d5a9-51b6-4822-933f-fa9e9dba8416"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 542996,
+  "cmc": 0.0,
+  "collector_number": "77",
+  "color_identity": [
+    "U"
+  ],
+  "color_indicator": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 365,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Those who expect betrayal at every turn are seldom disappointed.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "1ed4c0bb-b710-44a1-b8bc-6bd11c27b8b8",
+  "illustration_id": "6323e279-55fc-45e8-92b3-0c65dcb17f99",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:30:43Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/e/1ed4c0bb-b710-44a1-b8bc-6bd11c27b8b8.webp?1783927843",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/e/1ed4c0bb-b710-44a1-b8bc-6bd11c27b8b8.jpg?1783927843",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/e/1ed4c0bb-b710-44a1-b8bc-6bd11c27b8b8.jpg?1783927843",
+    "crop": "https://cards.scryfall.io/crop/front/1/e/1ed4c0bb-b710-44a1-b8bc-6bd11c27b8b8.webp?1783927843",
+    "display": "https://cards.scryfall.io/display/front/1/e/1ed4c0bb-b710-44a1-b8bc-6bd11c27b8b8.webp?1783927843",
+    "grid": "https://cards.scryfall.io/grid/front/1/e/1ed4c0bb-b710-44a1-b8bc-6bd11c27b8b8.webp?1783927843",
+    "large": "https://cards.scryfall.io/large/front/1/e/1ed4c0bb-b710-44a1-b8bc-6bd11c27b8b8.jpg?1783927843",
+    "normal": "https://cards.scryfall.io/normal/front/1/e/1ed4c0bb-b710-44a1-b8bc-6bd11c27b8b8.jpg?1783927843",
+    "png": "https://cards.scryfall.io/png/front/1/e/1ed4c0bb-b710-44a1-b8bc-6bd11c27b8b8.png?1783927843",
+    "small": "https://cards.scryfall.io/small/front/1/e/1ed4c0bb-b710-44a1-b8bc-6bd11c27b8b8.jpg?1783927843",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/e/1ed4c0bb-b710-44a1-b8bc-6bd11c27b8b8.webp?1783927843"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{0}",
+  "mtgo_id": 86517,
+  "multiverse_ids": [
+    509442
+  ],
+  "name": "Pact of Negation",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f3e213a4-ba5a-468a-93b3-c0a34e1bd725",
+  "oracle_text": "Counter target spell.\nAt the beginning of your next upkeep, pay {3}{U}{U}. If you don't, you lose the game.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2021-02-26",
+    "source": "Gabriel Nassif",
+    "source_uri": "https://twitter.com/gabnassif/status/1365349836510416897"
+  },
+  "prices": {
+    "eur": "14.95",
+    "eur_foil": "46.47",
+    "tix": "2.18",
+    "usd": "17.95",
+    "usd_etched": null,
+    "usd_foil": "44.95"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af3e213a4-ba5a-468a-93b3-c0a34e1bd725&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/86517?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=542996&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F233786%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Pact+of+Negation",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=509442&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPact%2Bof%2BNegation",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPact%2Bof%2BNegation"
+  },
+  "released_at": "2021-03-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1ed4c0bb-b710-44a1-b8bc-6bd11c27b8b8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tsr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tsr/77/pact-of-negation?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tsr",
+  "set_id": "11e90d1b-0502-43e6-b056-e24836523c13",
+  "set_name": "Time Spiral Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atsr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/11e90d1b-0502-43e6-b056-e24836523c13",
+  "story_spotlight": false,
+  "tcgplayer_id": 233786,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/1ed4c0bb-b710-44a1-b8bc-6bd11c27b8b8",
+  "variation": false
+}

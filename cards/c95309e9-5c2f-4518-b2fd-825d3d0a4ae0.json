@@ -1,0 +1,173 @@
+{
+  "arena_id": 90822,
+  "artist": "Yohann Schepacz",
+  "artist_ids": [
+    "c40c8ec8-d8b3-48a5-8de2-a7c96cbded5b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Yohann Schepacz",
+      "artist_id": "c40c8ec8-d8b3-48a5-8de2-a7c96cbded5b",
+      "colors": [
+        "R"
+      ],
+      "flavor_text": "\"Idea: Climbing boots also balanced for running.\"\n—Expedition journal entry, very scorched",
+      "illustration_id": "ee70e72c-ac02-49bd-8acf-7cbd4e0b6ccb",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.webp?1783911228",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.jpg?1783911228",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.jpg?1783911228",
+        "crop": "https://cards.scryfall.io/crop/front/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.webp?1783911228",
+        "display": "https://cards.scryfall.io/display/front/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.webp?1783911228",
+        "grid": "https://cards.scryfall.io/grid/front/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.webp?1783911228",
+        "large": "https://cards.scryfall.io/large/front/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.jpg?1783911228",
+        "normal": "https://cards.scryfall.io/normal/front/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.jpg?1783911228",
+        "png": "https://cards.scryfall.io/png/front/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.png?1783911228",
+        "small": "https://cards.scryfall.io/small/front/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.jpg?1783911228",
+        "thumb": "https://cards.scryfall.io/thumb/front/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.webp?1783911228"
+      },
+      "mana_cost": "{2}{R}",
+      "name": "Sundering Eruption",
+      "object": "card_face",
+      "oracle_text": "Destroy target land. Its controller may search their library for a basic land card, put it onto the battlefield tapped, then shuffle. Creatures without flying can't block this turn.",
+      "type_line": "Sorcery"
+    },
+    {
+      "artist": "Yohann Schepacz",
+      "artist_id": "c40c8ec8-d8b3-48a5-8de2-a7c96cbded5b",
+      "colors": [],
+      "flavor_text": "Even the most seasoned adventurers think twice before testing their fortunes on the volcanic teeth of Akoum.",
+      "illustration_id": "74eea909-d962-47b7-8a6f-754bbfaa1460",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.webp?1783911228",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.jpg?1783911228",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.jpg?1783911228",
+        "crop": "https://cards.scryfall.io/crop/back/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.webp?1783911228",
+        "display": "https://cards.scryfall.io/display/back/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.webp?1783911228",
+        "grid": "https://cards.scryfall.io/grid/back/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.webp?1783911228",
+        "large": "https://cards.scryfall.io/large/back/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.jpg?1783911228",
+        "normal": "https://cards.scryfall.io/normal/back/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.jpg?1783911228",
+        "png": "https://cards.scryfall.io/png/back/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.png?1783911228",
+        "small": "https://cards.scryfall.io/small/back/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.jpg?1783911228",
+        "thumb": "https://cards.scryfall.io/thumb/back/5/0/50686ac7-346c-43d1-bdaa-28d46a12ad93.webp?1783911228"
+      },
+      "mana_cost": "",
+      "name": "Volcanic Fissure",
+      "object": "card_face",
+      "oracle_text": "As this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {R}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 771821,
+  "cmc": 3.0,
+  "collector_number": "248",
+  "color_identity": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 709,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "50686ac7-346c-43d1-bdaa-28d46a12ad93",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:53:48Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 126537,
+  "multiverse_ids": [
+    661775
+  ],
+  "name": "Sundering Eruption // Volcanic Fissure",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c95309e9-5c2f-4518-b2fd-825d3d0a4ae0",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-05-23",
+    "source": "ChannelFireball",
+    "source_uri": "https://www.channelfireball.com/article/Our-EXCLUSIVE-Modern-Horizons-3-Preview-Card/f16a095e-4a0c-4b98-b99a-0ef94a09f369/"
+  },
+  "prices": {
+    "eur": "1.48",
+    "eur_foil": "2.44",
+    "tix": "0.03",
+    "usd": "1.78",
+    "usd_etched": null,
+    "usd_foil": "5.11"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac95309e9-5c2f-4518-b2fd-825d3d0a4ae0&unique=prints",
+  "produced_mana": [
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126537?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=771821&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552583%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sundering+Eruption",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=661775&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSundering%2BEruption%2B%252F%252F%2BVolcanic%2BFissure",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSundering%2BEruption%2B%252F%252F%2BVolcanic%2BFissure"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/50686ac7-346c-43d1-bdaa-28d46a12ad93/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/248/sundering-eruption-volcanic-fissure?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552583,
+  "textless": false,
+  "type_line": "Sorcery // Land",
+  "uri": "https://api.scryfall.com/cards/50686ac7-346c-43d1-bdaa-28d46a12ad93",
+  "variation": false
+}

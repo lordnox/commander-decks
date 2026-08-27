@@ -1,0 +1,140 @@
+{
+  "artist": "Eliz Roxs",
+  "artist_ids": [
+    "17e629f2-3465-44cc-82f6-4e2386341bd7"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 738848,
+  "cmc": 0.0,
+  "collector_number": "190",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 4646,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "64444549-1198-4465-91d5-02a7903691dc",
+  "illustration_id": "64e33bba-4e39-437f-ac9a-0ea11d9e6edc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:50:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/4/64444549-1198-4465-91d5-02a7903691dc.webp?1783914609",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/4/64444549-1198-4465-91d5-02a7903691dc.jpg?1783914609",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/4/64444549-1198-4465-91d5-02a7903691dc.jpg?1783914609",
+    "crop": "https://cards.scryfall.io/crop/front/6/4/64444549-1198-4465-91d5-02a7903691dc.webp?1783914609",
+    "display": "https://cards.scryfall.io/display/front/6/4/64444549-1198-4465-91d5-02a7903691dc.webp?1783914609",
+    "grid": "https://cards.scryfall.io/grid/front/6/4/64444549-1198-4465-91d5-02a7903691dc.webp?1783914609",
+    "large": "https://cards.scryfall.io/large/front/6/4/64444549-1198-4465-91d5-02a7903691dc.jpg?1783914609",
+    "normal": "https://cards.scryfall.io/normal/front/6/4/64444549-1198-4465-91d5-02a7903691dc.jpg?1783914609",
+    "png": "https://cards.scryfall.io/png/front/6/4/64444549-1198-4465-91d5-02a7903691dc.png?1783914609",
+    "small": "https://cards.scryfall.io/small/front/6/4/64444549-1198-4465-91d5-02a7903691dc.jpg?1783914609",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/4/64444549-1198-4465-91d5-02a7903691dc.webp?1783914609"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [
+    634885
+  ],
+  "name": "Trenzalore Clocktower",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "69143645-97b6-4c7c-9fa2-844fb3b99822",
+  "oracle_text": "{T}: Add {U}. Put a time counter on Trenzalore Clocktower.\n{1}{U}, {T}, Remove twelve time counters from Trenzalore Clocktower and exile it: Shuffle your graveyard and hand into your library, then draw seven cards. Activate only if you control a Time Lord.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-10-03",
+    "source": "Commander Rules Committee",
+    "source_uri": "https://mtgcommander.net/index.php/2023/10/03/commander-rc-previews-for-doctor-who/"
+  },
+  "prices": {
+    "eur": "0.29",
+    "eur_foil": "0.46",
+    "tix": null,
+    "usd": "0.33",
+    "usd_etched": null,
+    "usd_foil": "0.47"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A69143645-97b6-4c7c-9fa2-844fb3b99822&unique=prints",
+  "produced_mana": [
+    "U"
+  ],
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Trenzalore+Clocktower&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=738848&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F519267%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Trenzalore+Clocktower",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=634885&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTrenzalore%2BClocktower",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTrenzalore%2BClocktower"
+  },
+  "released_at": "2023-10-13",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/64444549-1198-4465-91d5-02a7903691dc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/who?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/who/190/trenzalore-clocktower?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "who",
+  "set_id": "efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "set_name": "Doctor Who",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awho&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "story_spotlight": false,
+  "tcgplayer_id": 519267,
+  "textless": false,
+  "type_line": "Legendary Land",
+  "uri": "https://api.scryfall.com/cards/64444549-1198-4465-91d5-02a7903691dc",
+  "variation": false
+}

@@ -1,0 +1,137 @@
+{
+  "arena_id": 71830,
+  "artist": "Volkan Baǵa",
+  "artist_ids": [
+    "93bec3c0-0260-4d31-8064-5d01efb4153f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 470884,
+  "cmc": 6.0,
+  "collector_number": "48",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 10847,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b33ba0a8-04e9-4df6-af20-a3ca4470cdcc",
+  "illustration_id": "3101be18-7f77-4040-a2de-79c5cb889f17",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:18:50Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/3/b33ba0a8-04e9-4df6-af20-a3ca4470cdcc.webp?1783930730",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/3/b33ba0a8-04e9-4df6-af20-a3ca4470cdcc.jpg?1783930730",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/3/b33ba0a8-04e9-4df6-af20-a3ca4470cdcc.jpg?1783930730",
+    "crop": "https://cards.scryfall.io/crop/front/b/3/b33ba0a8-04e9-4df6-af20-a3ca4470cdcc.webp?1783930730",
+    "display": "https://cards.scryfall.io/display/front/b/3/b33ba0a8-04e9-4df6-af20-a3ca4470cdcc.webp?1783930730",
+    "grid": "https://cards.scryfall.io/grid/front/b/3/b33ba0a8-04e9-4df6-af20-a3ca4470cdcc.webp?1783930730",
+    "large": "https://cards.scryfall.io/large/front/b/3/b33ba0a8-04e9-4df6-af20-a3ca4470cdcc.jpg?1783930730",
+    "normal": "https://cards.scryfall.io/normal/front/b/3/b33ba0a8-04e9-4df6-af20-a3ca4470cdcc.jpg?1783930730",
+    "png": "https://cards.scryfall.io/png/front/b/3/b33ba0a8-04e9-4df6-af20-a3ca4470cdcc.png?1783930730",
+    "small": "https://cards.scryfall.io/small/front/b/3/b33ba0a8-04e9-4df6-af20-a3ca4470cdcc.jpg?1783930730",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/3/b33ba0a8-04e9-4df6-af20-a3ca4470cdcc.webp?1783930730"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{U}{U}",
+  "mtgo_id": 81323,
+  "multiverse_ids": [
+    485371
+  ],
+  "name": "Discontinuity",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5cfd73ab-8509-4e4b-9704-68d8dad3b301",
+  "oracle_text": "During your turn, this spell costs {2}{U}{U} less to cast.\nEnd the turn. (Exile all spells and abilities from the stack, including this card. The player whose turn it is discards down to their maximum hand size. Damage wears off, and \"this turn\" and \"until end of turn\" effects end.)",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2020-06-12",
+    "source": "MTGGoldfish",
+    "source_uri": "https://www.mtggoldfish.com/articles/stopping-time-exclusive-core-set-2021-preview"
+  },
+  "prices": {
+    "eur": "1.01",
+    "eur_foil": "1.58",
+    "tix": "0.02",
+    "usd": "0.96",
+    "usd_etched": null,
+    "usd_foil": "1.59"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5cfd73ab-8509-4e4b-9704-68d8dad3b301&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/81323?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=470884&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F215672%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Discontinuity",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=485371&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDiscontinuity",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDiscontinuity"
+  },
+  "released_at": "2020-07-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b33ba0a8-04e9-4df6-af20-a3ca4470cdcc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/m21?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/m21/48/discontinuity?utm_source=api",
+  "security_stamp": "oval",
+  "set": "m21",
+  "set_id": "bc94aba1-7376-4e02-a12d-3a2efb66ab0f",
+  "set_name": "Core Set 2021",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Am21&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/bc94aba1-7376-4e02-a12d-3a2efb66ab0f",
+  "story_spotlight": false,
+  "tcgplayer_id": 215672,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/b33ba0a8-04e9-4df6-af20-a3ca4470cdcc",
+  "variation": false
+}

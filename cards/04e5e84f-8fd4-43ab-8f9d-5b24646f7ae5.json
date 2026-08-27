@@ -1,0 +1,137 @@
+{
+  "arena_id": 89188,
+  "artist": "Sergey Glushakov",
+  "artist_ids": [
+    "8df4596a-1d88-4b6a-9ce8-5c8089c3946c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 750916,
+  "cmc": 0.0,
+  "collector_number": "266",
+  "color_identity": [
+    "B",
+    "R"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 565,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b598c93e-dae1-4d71-a9e4-917abf76d2d0",
+  "illustration_id": "9fbfda52-80ce-4b90-8b7a-5d7faacf4cd0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:20:23Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/5/b598c93e-dae1-4d71-a9e4-917abf76d2d0.webp?1783912823",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/5/b598c93e-dae1-4d71-a9e4-917abf76d2d0.jpg?1783912823",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/5/b598c93e-dae1-4d71-a9e4-917abf76d2d0.jpg?1783912823",
+    "crop": "https://cards.scryfall.io/crop/front/b/5/b598c93e-dae1-4d71-a9e4-917abf76d2d0.webp?1783912823",
+    "display": "https://cards.scryfall.io/display/front/b/5/b598c93e-dae1-4d71-a9e4-917abf76d2d0.webp?1783912823",
+    "grid": "https://cards.scryfall.io/grid/front/b/5/b598c93e-dae1-4d71-a9e4-917abf76d2d0.webp?1783912823",
+    "large": "https://cards.scryfall.io/large/front/b/5/b598c93e-dae1-4d71-a9e4-917abf76d2d0.jpg?1783912823",
+    "normal": "https://cards.scryfall.io/normal/front/b/5/b598c93e-dae1-4d71-a9e4-917abf76d2d0.jpg?1783912823",
+    "png": "https://cards.scryfall.io/png/front/b/5/b598c93e-dae1-4d71-a9e4-917abf76d2d0.png?1783912823",
+    "small": "https://cards.scryfall.io/small/front/b/5/b598c93e-dae1-4d71-a9e4-917abf76d2d0.jpg?1783912823",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/5/b598c93e-dae1-4d71-a9e4-917abf76d2d0.webp?1783912823"
+  },
+  "keywords": [
+    "Surveil"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 122024,
+  "multiverse_ids": [
+    646820
+  ],
+  "name": "Raucous Theater",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "04e5e84f-8fd4-43ab-8f9d-5b24646f7ae5",
+  "oracle_text": "({T}: Add {B} or {R}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+  "oversized": false,
+  "prices": {
+    "eur": "10.38",
+    "eur_foil": "12.20",
+    "tix": "0.57",
+    "usd": "10.72",
+    "usd_etched": null,
+    "usd_foil": "11.29"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A04e5e84f-8fd4-43ab-8f9d-5b24646f7ae5&unique=prints",
+  "produced_mana": [
+    "B",
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122024?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=750916&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F532911%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Raucous+Theater",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=646820&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRaucous%2BTheater",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRaucous%2BTheater"
+  },
+  "released_at": "2024-02-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b598c93e-dae1-4d71-a9e4-917abf76d2d0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkm/266/raucous-theater?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkm",
+  "set_id": "2b17794b-15c3-4796-ad6f-0887a0eceeca",
+  "set_name": "Murders at Karlov Manor",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/2b17794b-15c3-4796-ad6f-0887a0eceeca",
+  "story_spotlight": false,
+  "tcgplayer_id": 532911,
+  "textless": false,
+  "type_line": "Land — Swamp Mountain",
+  "uri": "https://api.scryfall.com/cards/b598c93e-dae1-4d71-a9e4-917abf76d2d0",
+  "variation": false
+}

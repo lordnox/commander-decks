@@ -1,0 +1,140 @@
+{
+  "arena_id": 87439,
+  "artist": "Josu Solano",
+  "artist_ids": [
+    "fb7b61a8-13c5-4813-a749-9d3396801906"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 740885,
+  "cmc": 0.0,
+  "collector_number": "273",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 5129,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "69f317fc-f603-45b5-9208-545be4dcbf36",
+  "illustration_id": "35c16b8d-c22f-48f6-a6d6-caf250fb91fa",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:35:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/9/69f317fc-f603-45b5-9208-545be4dcbf36.webp?1783913717",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/9/69f317fc-f603-45b5-9208-545be4dcbf36.jpg?1783913717",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/9/69f317fc-f603-45b5-9208-545be4dcbf36.jpg?1783913717",
+    "crop": "https://cards.scryfall.io/crop/front/6/9/69f317fc-f603-45b5-9208-545be4dcbf36.webp?1783913717",
+    "display": "https://cards.scryfall.io/display/front/6/9/69f317fc-f603-45b5-9208-545be4dcbf36.webp?1783913717",
+    "grid": "https://cards.scryfall.io/grid/front/6/9/69f317fc-f603-45b5-9208-545be4dcbf36.webp?1783913717",
+    "large": "https://cards.scryfall.io/large/front/6/9/69f317fc-f603-45b5-9208-545be4dcbf36.jpg?1783913717",
+    "normal": "https://cards.scryfall.io/normal/front/6/9/69f317fc-f603-45b5-9208-545be4dcbf36.jpg?1783913717",
+    "png": "https://cards.scryfall.io/png/front/6/9/69f317fc-f603-45b5-9208-545be4dcbf36.png?1783913717",
+    "small": "https://cards.scryfall.io/small/front/6/9/69f317fc-f603-45b5-9208-545be4dcbf36.jpg?1783913717",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/9/69f317fc-f603-45b5-9208-545be4dcbf36.webp?1783913717"
+  },
+  "keywords": [
+    "Discover"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 118394,
+  "multiverse_ids": [
+    636998
+  ],
+  "name": "Hidden Cataract",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "927979d7-9b5c-4448-aef0-baf2907a89f1",
+  "oracle_text": "This land enters tapped.\n{T}: Add {U}.\n{4}{U}, {T}, Sacrifice this land: Discover 4. Activate only as a sorcery. (Exile cards from the top of your library until you exile a nonland card with mana value 4 or less. Cast it without paying its mana cost or put it into your hand. Put the rest on the bottom in a random order.)",
+  "oversized": false,
+  "penny_rank": 1747,
+  "preview": {
+    "previewed_at": "2023-10-24",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.youtube.com/watch?v=Szm0yzSUUm0"
+  },
+  "prices": {
+    "eur": "0.12",
+    "eur_foil": "0.26",
+    "tix": "0.03",
+    "usd": "0.18",
+    "usd_etched": null,
+    "usd_foil": "0.27"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A927979d7-9b5c-4448-aef0-baf2907a89f1&unique=prints",
+  "produced_mana": [
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/118394?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=740885&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F524179%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hidden+Cataract",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=636998&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHidden%2BCataract",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHidden%2BCataract"
+  },
+  "released_at": "2023-11-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/69f317fc-f603-45b5-9208-545be4dcbf36/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lci?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lci/273/hidden-cataract?utm_source=api",
+  "set": "lci",
+  "set_id": "70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "set_name": "The Lost Caverns of Ixalan",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alci&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "story_spotlight": false,
+  "tcgplayer_id": 524179,
+  "textless": false,
+  "type_line": "Land — Cave",
+  "uri": "https://api.scryfall.com/cards/69f317fc-f603-45b5-9208-545be4dcbf36",
+  "variation": false
+}

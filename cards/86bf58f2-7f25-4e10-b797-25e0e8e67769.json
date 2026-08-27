@@ -1,0 +1,133 @@
+{
+  "artist": "Erica Yang",
+  "artist_ids": [
+    "fcc15b63-b280-49da-9fee-f862824a2fc8"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 301440,
+  "cmc": 1.0,
+  "collector_number": "55",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 308,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f900eeb7-7c45-44bc-ad3a-0bbe594ecf50",
+  "illustration_id": "6565f15d-208e-4533-9880-2c24623a809e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:39:08Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/9/f900eeb7-7c45-44bc-ad3a-0bbe594ecf50.webp?1783935548",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/9/f900eeb7-7c45-44bc-ad3a-0bbe594ecf50.jpg?1783935548",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/9/f900eeb7-7c45-44bc-ad3a-0bbe594ecf50.jpg?1783935548",
+    "crop": "https://cards.scryfall.io/crop/front/f/9/f900eeb7-7c45-44bc-ad3a-0bbe594ecf50.webp?1783935548",
+    "display": "https://cards.scryfall.io/display/front/f/9/f900eeb7-7c45-44bc-ad3a-0bbe594ecf50.webp?1783935548",
+    "grid": "https://cards.scryfall.io/grid/front/f/9/f900eeb7-7c45-44bc-ad3a-0bbe594ecf50.webp?1783935548",
+    "large": "https://cards.scryfall.io/large/front/f/9/f900eeb7-7c45-44bc-ad3a-0bbe594ecf50.jpg?1783935548",
+    "normal": "https://cards.scryfall.io/normal/front/f/9/f900eeb7-7c45-44bc-ad3a-0bbe594ecf50.jpg?1783935548",
+    "png": "https://cards.scryfall.io/png/front/f/9/f900eeb7-7c45-44bc-ad3a-0bbe594ecf50.png?1783935548",
+    "small": "https://cards.scryfall.io/small/front/f/9/f900eeb7-7c45-44bc-ad3a-0bbe594ecf50.jpg?1783935548",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/9/f900eeb7-7c45-44bc-ad3a-0bbe594ecf50.webp?1783935548"
+  },
+  "keywords": [
+    "Storm"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_foil_id": 65990,
+  "mtgo_id": 65989,
+  "multiverse_ids": [
+    438621
+  ],
+  "name": "Flusterstorm",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "86bf58f2-7f25-4e10-b797-25e0e8e67769",
+  "oracle_text": "Counter target instant or sorcery spell unless its controller pays {1}.\nStorm (When you cast this spell, copy it for each spell cast before it this turn. You may choose new targets for the copies.)",
+  "oversized": false,
+  "prices": {
+    "eur": "4.39",
+    "eur_foil": "15.23",
+    "tix": "2.01",
+    "usd": "8.70",
+    "usd_etched": null,
+    "usd_foil": "18.32"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A86bf58f2-7f25-4e10-b797-25e0e8e67769&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/65989?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=301440&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F145340%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Flusterstorm",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=438621&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFlusterstorm",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFlusterstorm"
+  },
+  "released_at": "2017-11-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f900eeb7-7c45-44bc-ad3a-0bbe594ecf50/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ima?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ima/55/flusterstorm?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ima",
+  "set_id": "741bcd30-7709-4133-8919-f4b46483bed7",
+  "set_name": "Iconic Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aima&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/741bcd30-7709-4133-8919-f4b46483bed7",
+  "story_spotlight": false,
+  "tcgplayer_id": 145340,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/f900eeb7-7c45-44bc-ad3a-0bbe594ecf50",
+  "variation": false
+}

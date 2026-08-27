@@ -1,0 +1,175 @@
+{
+  "arena_id": 73267,
+  "artist": "Adam Paquette",
+  "artist_ids": [
+    "89023dad-e6c0-41e0-83fb-eb2bfbbdc3f2"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Adam Paquette",
+      "artist_id": "89023dad-e6c0-41e0-83fb-eb2bfbbdc3f2",
+      "colors": [
+        "U"
+      ],
+      "flavor_text": "\"We have much to remember ... and much we can never forget.\"\n—Tazri",
+      "illustration_id": "1a61a734-0ecc-450a-b863-77725bc07c37",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.webp?1783929396",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.jpg?1783929396",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.jpg?1783929396",
+        "crop": "https://cards.scryfall.io/crop/front/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.webp?1783929396",
+        "display": "https://cards.scryfall.io/display/front/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.webp?1783929396",
+        "grid": "https://cards.scryfall.io/grid/front/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.webp?1783929396",
+        "large": "https://cards.scryfall.io/large/front/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.jpg?1783929396",
+        "normal": "https://cards.scryfall.io/normal/front/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.jpg?1783929396",
+        "png": "https://cards.scryfall.io/png/front/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.png?1783929396",
+        "small": "https://cards.scryfall.io/small/front/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.jpg?1783929396",
+        "thumb": "https://cards.scryfall.io/thumb/front/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.webp?1783929396"
+      },
+      "mana_cost": "{4}{U}{U}{U}",
+      "name": "Sea Gate Restoration",
+      "object": "card_face",
+      "oracle_text": "Draw cards equal to the number of cards in your hand plus one. You have no maximum hand size for the rest of the game.",
+      "type_line": "Sorcery"
+    },
+    {
+      "artist": "Adam Paquette",
+      "artist_id": "89023dad-e6c0-41e0-83fb-eb2bfbbdc3f2",
+      "colors": [],
+      "flavor_text": "\"We carry on the legacy of those who defended our world by continuing to unearth its secrets.\"\n—Tazri",
+      "illustration_id": "01bb6c56-8fd2-4a42-9fe2-7db130f7d0a1",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.webp?1783929396",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.jpg?1783929396",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.jpg?1783929396",
+        "crop": "https://cards.scryfall.io/crop/back/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.webp?1783929396",
+        "display": "https://cards.scryfall.io/display/back/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.webp?1783929396",
+        "grid": "https://cards.scryfall.io/grid/back/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.webp?1783929396",
+        "large": "https://cards.scryfall.io/large/back/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.jpg?1783929396",
+        "normal": "https://cards.scryfall.io/normal/back/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.jpg?1783929396",
+        "png": "https://cards.scryfall.io/png/back/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.png?1783929396",
+        "small": "https://cards.scryfall.io/small/back/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.jpg?1783929396",
+        "thumb": "https://cards.scryfall.io/thumb/back/1/9/193071fe-180b-4d35-ba78-9c16675c29fc.webp?1783929396"
+      },
+      "mana_cost": "",
+      "name": "Sea Gate, Reborn",
+      "object": "card_face",
+      "oracle_text": "As this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {U}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 495990,
+  "cmc": 7.0,
+  "collector_number": "76",
+  "color_identity": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 665,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "193071fe-180b-4d35-ba78-9c16675c29fc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:56:36Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 83105,
+  "multiverse_ids": [
+    491706,
+    491707
+  ],
+  "name": "Sea Gate Restoration // Sea Gate, Reborn",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4a8d41fe-e04d-484b-a7d1-19be311e6ca7",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2020-09-04",
+    "source": "LegenVD",
+    "source_uri": "https://twitter.com/LegenVD/status/1301918580179525634"
+  },
+  "prices": {
+    "eur": "31.32",
+    "eur_foil": "32.13",
+    "tix": "3.42",
+    "usd": "35.53",
+    "usd_etched": null,
+    "usd_foil": "40.78"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4a8d41fe-e04d-484b-a7d1-19be311e6ca7&unique=prints",
+  "produced_mana": [
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/83105?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=495990&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F222038%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sea+Gate+Restoration",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=491706&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSea%2BGate%2BRestoration%2B%252F%252F%2BSea%2BGate%252C%2BReborn",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSea%2BGate%2BRestoration%2B%252F%252F%2BSea%2BGate%252C%2BReborn"
+  },
+  "released_at": "2020-09-25",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/193071fe-180b-4d35-ba78-9c16675c29fc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/znr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/znr/76/sea-gate-restoration-sea-gate-reborn?utm_source=api",
+  "security_stamp": "oval",
+  "set": "znr",
+  "set_id": "f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "set_name": "Zendikar Rising",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aznr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "story_spotlight": false,
+  "tcgplayer_id": 222038,
+  "textless": false,
+  "type_line": "Sorcery // Land",
+  "uri": "https://api.scryfall.com/cards/193071fe-180b-4d35-ba78-9c16675c29fc",
+  "variation": false
+}
