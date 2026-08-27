@@ -5907,8 +5907,31 @@
       "categories": [
         "discard"
       ]
+    },
+    "d3beb624-f589-4ed5-97a0-11ad61481250": {
+      "name": "Vanish into Memory",
+      "categories": [
+        "card-draw",
+        "removal",
+        "blink",
+        "discard"
+      ]
+    },
+    "026b7221-0caf-4c8b-8c1b-e7de836797b7": {
+      "name": "Mirrorweave",
+      "categories": [
+        "clone",
+        "combat-trick"
+      ]
+    },
+    "1515b0c2-1b55-4cd4-ad81-fb6b1f3e8188": {
+      "name": "Fractured Identity",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-27T16:14:05.248733+00:00"
+  "updated_at": "2026-08-27T16:50:53.661495+00:00"
 }

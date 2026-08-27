@@ -1,0 +1,130 @@
+{
+  "artist": "Rebekah Lynn",
+  "artist_ids": [
+    "e5973ffb-2701-49a9-a9d9-35dcdcec8741"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 572370,
+  "cmc": 4.0,
+  "collector_number": "196",
+  "color_identity": [
+    "U",
+    "W"
+  ],
+  "colors": [
+    "U",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 15838,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Out of sight, into mind.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "60dd9f6e-c848-4670-8de1-06f328ea7f71",
+  "illustration_id": "80f679c9-1c7a-4721-b4fc-ba73d0b6dba8",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:02:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/0/60dd9f6e-c848-4670-8de1-06f328ea7f71.webp?1783926175",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/0/60dd9f6e-c848-4670-8de1-06f328ea7f71.jpg?1783926175",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/0/60dd9f6e-c848-4670-8de1-06f328ea7f71.jpg?1783926175",
+    "crop": "https://cards.scryfall.io/crop/front/6/0/60dd9f6e-c848-4670-8de1-06f328ea7f71.webp?1783926175",
+    "display": "https://cards.scryfall.io/display/front/6/0/60dd9f6e-c848-4670-8de1-06f328ea7f71.webp?1783926175",
+    "grid": "https://cards.scryfall.io/grid/front/6/0/60dd9f6e-c848-4670-8de1-06f328ea7f71.webp?1783926175",
+    "large": "https://cards.scryfall.io/large/front/6/0/60dd9f6e-c848-4670-8de1-06f328ea7f71.jpg?1783926175",
+    "normal": "https://cards.scryfall.io/normal/front/6/0/60dd9f6e-c848-4670-8de1-06f328ea7f71.jpg?1783926175",
+    "png": "https://cards.scryfall.io/png/front/6/0/60dd9f6e-c848-4670-8de1-06f328ea7f71.png?1783926175",
+    "small": "https://cards.scryfall.io/small/front/6/0/60dd9f6e-c848-4670-8de1-06f328ea7f71.jpg?1783926175",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/0/60dd9f6e-c848-4670-8de1-06f328ea7f71.webp?1783926175"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}{U}",
+  "multiverse_ids": [
+    532583
+  ],
+  "name": "Vanish into Memory",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d3beb624-f589-4ed5-97a0-11ad61481250",
+  "oracle_text": "Exile target creature. You draw cards equal to that creature's power. At the beginning of your next upkeep, return that card to the battlefield under its owner's control. If you do, discard cards equal to that creature's toughness.",
+  "oversized": false,
+  "penny_rank": 9619,
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.18",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad3beb624-f589-4ed5-97a0-11ad61481250&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Vanish+into+Memory&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=572370&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243986%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vanish+into+Memory",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=532583&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVanish%2Binto%2BMemory",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVanish%2Binto%2BMemory"
+  },
+  "released_at": "2021-07-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/60dd9f6e-c848-4670-8de1-06f328ea7f71/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afc/196/vanish-into-memory?utm_source=api",
+  "set": "afc",
+  "set_id": "db1b46f9-893c-4623-9465-985ff6e4472c",
+  "set_name": "Forgotten Realms Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/db1b46f9-893c-4623-9465-985ff6e4472c",
+  "story_spotlight": false,
+  "tcgplayer_id": 243986,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/60dd9f6e-c848-4670-8de1-06f328ea7f71",
+  "variation": false
+}
