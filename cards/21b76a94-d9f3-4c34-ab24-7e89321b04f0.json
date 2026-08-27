@@ -1,0 +1,145 @@
+{
+  "artist": "Jesper Ejsing",
+  "artist_ids": [
+    "a5f8354a-8b51-4e59-96b2-0e3aeae4fa1d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 511145,
+  "cmc": 4.0,
+  "collector_number": "289",
+  "color_identity": [
+    "B",
+    "R",
+    "U"
+  ],
+  "colors": [
+    "B",
+    "R",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 7690,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"I'm bored with now.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "dbdb335d-3e45-4dd5-9e3e-c50ca0a4dfb6",
+  "illustration_id": "67225c93-4839-484b-9904-cd07106b978d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:46:08Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/b/dbdb335d-3e45-4dd5-9e3e-c50ca0a4dfb6.webp?1783928768",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/b/dbdb335d-3e45-4dd5-9e3e-c50ca0a4dfb6.jpg?1783928768",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/b/dbdb335d-3e45-4dd5-9e3e-c50ca0a4dfb6.jpg?1783928768",
+    "crop": "https://cards.scryfall.io/crop/front/d/b/dbdb335d-3e45-4dd5-9e3e-c50ca0a4dfb6.webp?1783928768",
+    "display": "https://cards.scryfall.io/display/front/d/b/dbdb335d-3e45-4dd5-9e3e-c50ca0a4dfb6.webp?1783928768",
+    "grid": "https://cards.scryfall.io/grid/front/d/b/dbdb335d-3e45-4dd5-9e3e-c50ca0a4dfb6.webp?1783928768",
+    "large": "https://cards.scryfall.io/large/front/d/b/dbdb335d-3e45-4dd5-9e3e-c50ca0a4dfb6.jpg?1783928768",
+    "normal": "https://cards.scryfall.io/normal/front/d/b/dbdb335d-3e45-4dd5-9e3e-c50ca0a4dfb6.jpg?1783928768",
+    "png": "https://cards.scryfall.io/png/front/d/b/dbdb335d-3e45-4dd5-9e3e-c50ca0a4dfb6.png?1783928768",
+    "small": "https://cards.scryfall.io/small/front/d/b/dbdb335d-3e45-4dd5-9e3e-c50ca0a4dfb6.jpg?1783928768",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/b/dbdb335d-3e45-4dd5-9e3e-c50ca0a4dfb6.webp?1783928768"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{B}{R}",
+  "mtgo_id": 85360,
+  "multiverse_ids": [
+    497809
+  ],
+  "name": "Obeka, Brute Chronologist",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "21b76a94-d9f3-4c34-ab24-7e89321b04f0",
+  "oracle_text": "{T}: The player whose turn it is may end the turn. (Exile all spells and abilities from the stack. The player whose turn it is discards down to their maximum hand size. Damage wears off, and \"this turn\" and \"until end of turn\" effects end.)",
+  "oversized": false,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2020-10-31",
+    "source": "Pinnoel",
+    "source_uri": "https://www.twitch.tv/videos/787632456"
+  },
+  "prices": {
+    "eur": "0.47",
+    "eur_foil": "0.91",
+    "tix": "0.56",
+    "usd": "0.46",
+    "usd_etched": null,
+    "usd_foil": "1.26"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A21b76a94-d9f3-4c34-ab24-7e89321b04f0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/85360?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=511145&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F226870%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Obeka%2C+Brute+Chronologist",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=497809&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DObeka%252C%2BBrute%2BChronologist",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DObeka%252C%2BBrute%2BChronologist"
+  },
+  "released_at": "2020-11-20",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/dbdb335d-3e45-4dd5-9e3e-c50ca0a4dfb6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmr/289/obeka-brute-chronologist?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmr",
+  "set_id": "39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "set_name": "Commander Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "story_spotlight": false,
+  "tcgplayer_id": 226870,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Ogre Wizard",
+  "uri": "https://api.scryfall.com/cards/dbdb335d-3e45-4dd5-9e3e-c50ca0a4dfb6",
+  "variation": false
+}

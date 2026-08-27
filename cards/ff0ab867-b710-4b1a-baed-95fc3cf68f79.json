@@ -1,0 +1,176 @@
+{
+  "arena_id": 73379,
+  "artist": "Campbell White",
+  "artist_ids": [
+    "d281eab4-463a-4ba8-9039-8943737960a0"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Campbell White",
+      "artist_id": "d281eab4-463a-4ba8-9039-8943737960a0",
+      "colors": [
+        "R"
+      ],
+      "flavor_text": "\"My ancestors reshaped the world to their vision. I have a few ideas of my own.\"\n—Tars Olan, stoneforge mystic",
+      "illustration_id": "80241297-0f88-4877-a9b2-8000490e471f",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.webp?1783929350",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.jpg?1783929350",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.jpg?1783929350",
+        "crop": "https://cards.scryfall.io/crop/front/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.webp?1783929350",
+        "display": "https://cards.scryfall.io/display/front/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.webp?1783929350",
+        "grid": "https://cards.scryfall.io/grid/front/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.webp?1783929350",
+        "large": "https://cards.scryfall.io/large/front/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.jpg?1783929350",
+        "normal": "https://cards.scryfall.io/normal/front/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.jpg?1783929350",
+        "png": "https://cards.scryfall.io/png/front/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.png?1783929350",
+        "small": "https://cards.scryfall.io/small/front/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.jpg?1783929350",
+        "thumb": "https://cards.scryfall.io/thumb/front/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.webp?1783929350"
+      },
+      "mana_cost": "{2}{R}",
+      "name": "Valakut Awakening",
+      "object": "card_face",
+      "oracle_text": "Put any number of cards from your hand on the bottom of your library, then draw that many cards plus one.",
+      "type_line": "Instant"
+    },
+    {
+      "artist": "Campbell White",
+      "artist_id": "d281eab4-463a-4ba8-9039-8943737960a0",
+      "colors": [],
+      "flavor_text": "\"I can hear the echo of their hammers, long stilled.\"\n—Tars Olan, stoneforge mystic",
+      "illustration_id": "6ba5d698-299e-4644-bb34-d20709bd56f4",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.webp?1783929350",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.jpg?1783929350",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.jpg?1783929350",
+        "crop": "https://cards.scryfall.io/crop/back/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.webp?1783929350",
+        "display": "https://cards.scryfall.io/display/back/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.webp?1783929350",
+        "grid": "https://cards.scryfall.io/grid/back/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.webp?1783929350",
+        "large": "https://cards.scryfall.io/large/back/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.jpg?1783929350",
+        "normal": "https://cards.scryfall.io/normal/back/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.jpg?1783929350",
+        "png": "https://cards.scryfall.io/png/back/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.png?1783929350",
+        "small": "https://cards.scryfall.io/small/back/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.jpg?1783929350",
+        "thumb": "https://cards.scryfall.io/thumb/back/2/2/228e551e-023a-4c9a-8f32-58dae6ffdf7f.webp?1783929350"
+      },
+      "mana_cost": "",
+      "name": "Valakut Stoneforge",
+      "object": "card_face",
+      "oracle_text": "This land enters tapped.\n{T}: Add {R}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 494569,
+  "cmc": 3.0,
+  "collector_number": "174",
+  "color_identity": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 517,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "228e551e-023a-4c9a-8f32-58dae6ffdf7f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:55:50Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 83329,
+  "multiverse_ids": [
+    491818,
+    491819
+  ],
+  "name": "Valakut Awakening // Valakut Stoneforge",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ff0ab867-b710-4b1a-baed-95fc3cf68f79",
+  "oversized": false,
+  "penny_rank": 842,
+  "preview": {
+    "previewed_at": "2020-09-01",
+    "source": "Wizards of the Coast",
+    "source_uri": "http://twitch.tv/videos/728086792"
+  },
+  "prices": {
+    "eur": "12.66",
+    "eur_foil": "14.56",
+    "tix": "0.45",
+    "usd": "17.55",
+    "usd_etched": null,
+    "usd_foil": "18.23"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aff0ab867-b710-4b1a-baed-95fc3cf68f79&unique=prints",
+  "produced_mana": [
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/83329?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=494569&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F221774%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Valakut+Awakening",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=491818&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DValakut%2BAwakening%2B%252F%252F%2BValakut%2BStoneforge",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DValakut%2BAwakening%2B%252F%252F%2BValakut%2BStoneforge"
+  },
+  "released_at": "2020-09-25",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/228e551e-023a-4c9a-8f32-58dae6ffdf7f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/znr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/znr/174/valakut-awakening-valakut-stoneforge?utm_source=api",
+  "security_stamp": "oval",
+  "set": "znr",
+  "set_id": "f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "set_name": "Zendikar Rising",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aznr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "story_spotlight": false,
+  "tcgplayer_id": 221774,
+  "textless": false,
+  "type_line": "Instant // Land",
+  "uri": "https://api.scryfall.com/cards/228e551e-023a-4c9a-8f32-58dae6ffdf7f",
+  "variation": false
+}

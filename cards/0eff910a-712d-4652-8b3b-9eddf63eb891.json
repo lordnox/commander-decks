@@ -1,0 +1,140 @@
+{
+  "arena_id": 82102,
+  "artist": "Chris Seaman",
+  "artist_ids": [
+    "b9c49463-6f55-4039-9d32-c02a658af100"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 672118,
+  "cmc": 2.0,
+  "collector_number": "50",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 13880,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2d841faa-9e0b-45ff-9dfd-f8a169d9af76",
+  "illustration_id": "02f47cdf-57ad-4e11-8414-8e2dfbaa5199",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:42:31Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/d/2d841faa-9e0b-45ff-9dfd-f8a169d9af76.webp?1783921351",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/d/2d841faa-9e0b-45ff-9dfd-f8a169d9af76.jpg?1783921351",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/d/2d841faa-9e0b-45ff-9dfd-f8a169d9af76.jpg?1783921351",
+    "crop": "https://cards.scryfall.io/crop/front/2/d/2d841faa-9e0b-45ff-9dfd-f8a169d9af76.webp?1783921351",
+    "display": "https://cards.scryfall.io/display/front/2/d/2d841faa-9e0b-45ff-9dfd-f8a169d9af76.webp?1783921351",
+    "grid": "https://cards.scryfall.io/grid/front/2/d/2d841faa-9e0b-45ff-9dfd-f8a169d9af76.webp?1783921351",
+    "large": "https://cards.scryfall.io/large/front/2/d/2d841faa-9e0b-45ff-9dfd-f8a169d9af76.jpg?1783921351",
+    "normal": "https://cards.scryfall.io/normal/front/2/d/2d841faa-9e0b-45ff-9dfd-f8a169d9af76.jpg?1783921351",
+    "png": "https://cards.scryfall.io/png/front/2/d/2d841faa-9e0b-45ff-9dfd-f8a169d9af76.png?1783921351",
+    "small": "https://cards.scryfall.io/small/front/2/d/2d841faa-9e0b-45ff-9dfd-f8a169d9af76.jpg?1783921351",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/d/2d841faa-9e0b-45ff-9dfd-f8a169d9af76.webp?1783921351"
+  },
+  "keywords": [
+    "Read Ahead",
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "saga",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 102576,
+  "multiverse_ids": [
+    574530
+  ],
+  "name": "Founding the Third Path",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0eff910a-712d-4652-8b3b-9eddf63eb891",
+  "oracle_text": "Read ahead (Choose a chapter and start with that many lore counters. Add one after your draw step. Skipped chapters don't trigger. Sacrifice after III.)\nI — You may cast an instant or sorcery spell with mana value 1 or 2 from your hand without paying its mana cost.\nII — Target player mills four cards.\nIII — Exile target instant or sorcery card from your graveyard. Copy it. You may cast the copy.",
+  "oversized": false,
+  "penny_rank": 161,
+  "preview": {
+    "previewed_at": "2022-08-22",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://twitter.com/MTGArenaJP/status/1561555034935988224"
+  },
+  "prices": {
+    "eur": "0.17",
+    "eur_foil": "0.34",
+    "tix": "0.03",
+    "usd": "0.23",
+    "usd_etched": null,
+    "usd_foil": "0.39"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0eff910a-712d-4652-8b3b-9eddf63eb891&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/102576?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=672118&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F283406%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Founding+the+Third+Path",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=574530&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFounding%2Bthe%2BThird%2BPath",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFounding%2Bthe%2BThird%2BPath"
+  },
+  "released_at": "2022-09-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2d841faa-9e0b-45ff-9dfd-f8a169d9af76/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dmu?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dmu/50/founding-the-third-path?utm_source=api",
+  "set": "dmu",
+  "set_id": "4e47a6cd-cdeb-4b0f-8f24-cfe1a0127cb3",
+  "set_name": "Dominaria United",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Admu&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4e47a6cd-cdeb-4b0f-8f24-cfe1a0127cb3",
+  "story_spotlight": false,
+  "tcgplayer_id": 283406,
+  "textless": false,
+  "type_line": "Enchantment — Saga",
+  "uri": "https://api.scryfall.com/cards/2d841faa-9e0b-45ff-9dfd-f8a169d9af76",
+  "variation": false
+}

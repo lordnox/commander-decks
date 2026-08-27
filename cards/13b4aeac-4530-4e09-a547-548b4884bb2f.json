@@ -1,0 +1,147 @@
+{
+  "arena_id": 95917,
+  "artist": "Fiona Hsieh",
+  "artist_ids": [
+    "22211c1d-e15e-4db3-9350-e4a9862928bb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 826880,
+  "cmc": 4.0,
+  "collector_number": "60",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 11013,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ae875471-346c-4a76-b26f-b7205dad5b80",
+  "illustration_id": "ad31f14c-23a7-4687-a22e-a0fba5d64e8c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:37:14Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/e/ae875471-346c-4a76-b26f-b7205dad5b80.webp?1783906634",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/e/ae875471-346c-4a76-b26f-b7205dad5b80.jpg?1783906634",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/e/ae875471-346c-4a76-b26f-b7205dad5b80.jpg?1783906634",
+    "crop": "https://cards.scryfall.io/crop/front/a/e/ae875471-346c-4a76-b26f-b7205dad5b80.webp?1783906634",
+    "display": "https://cards.scryfall.io/display/front/a/e/ae875471-346c-4a76-b26f-b7205dad5b80.webp?1783906634",
+    "grid": "https://cards.scryfall.io/grid/front/a/e/ae875471-346c-4a76-b26f-b7205dad5b80.webp?1783906634",
+    "large": "https://cards.scryfall.io/large/front/a/e/ae875471-346c-4a76-b26f-b7205dad5b80.jpg?1783906634",
+    "normal": "https://cards.scryfall.io/normal/front/a/e/ae875471-346c-4a76-b26f-b7205dad5b80.jpg?1783906634",
+    "png": "https://cards.scryfall.io/png/front/a/e/ae875471-346c-4a76-b26f-b7205dad5b80.png?1783906634",
+    "small": "https://cards.scryfall.io/small/front/a/e/ae875471-346c-4a76-b26f-b7205dad5b80.jpg?1783906634",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/e/ae875471-346c-4a76-b26f-b7205dad5b80.webp?1783906634"
+  },
+  "keywords": [
+    "Flying",
+    "Crew"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "mtgo_id": 141047,
+  "multiverse_ids": [],
+  "name": "The Lunar Whale",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "13b4aeac-4530-4e09-a547-548b4884bb2f",
+  "oracle_text": "Flying\nYou may look at the top card of your library any time.\nAs long as The Lunar Whale attacked this turn, you may play the top card of your library.\nCrew 1",
+  "oversized": false,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2025-05-22",
+    "source": "Gamerant",
+    "source_uri": "https://gamerant.com/magic-the-gathering-final-fantasy-card-reveal-gold-saucer-whale-vayne/"
+  },
+  "prices": {
+    "eur": "0.16",
+    "eur_foil": "0.43",
+    "tix": "0.02",
+    "usd": "0.29",
+    "usd_etched": null,
+    "usd_foil": "0.41"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A13b4aeac-4530-4e09-a547-548b4884bb2f&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "ffiv",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/141047?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=826880&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F633396%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+Lunar+Whale",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BLunar%2BWhale",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BLunar%2BWhale"
+  },
+  "released_at": "2025-06-13",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "61B86EAAAD55A6C9DB5581C96BC51389661E54DBF20005B8FF2CAC134B68D71C",
+  "rulings_uri": "https://api.scryfall.com/cards/ae875471-346c-4a76-b26f-b7205dad5b80/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fin?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fin/60/the-lunar-whale?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "fin",
+  "set_id": "d7beb4b7-e1ff-4d35-ab07-5700f17ea1ea",
+  "set_name": "Final Fantasy",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afin&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/d7beb4b7-e1ff-4d35-ab07-5700f17ea1ea",
+  "story_spotlight": false,
+  "tcgplayer_id": 633396,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Legendary Artifact — Vehicle",
+  "uri": "https://api.scryfall.com/cards/ae875471-346c-4a76-b26f-b7205dad5b80",
+  "variation": false
+}

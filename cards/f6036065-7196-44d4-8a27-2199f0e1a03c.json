@@ -1,0 +1,162 @@
+{
+  "arena_id": 102511,
+  "artist": "Marie Magny",
+  "artist_ids": [
+    "fa463dea-41ba-4c0d-9277-c176d2b2509f"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "card_faces": [
+    {
+      "artist": "Marie Magny",
+      "artist_id": "fa463dea-41ba-4c0d-9277-c176d2b2509f",
+      "illustration_id": "a239ac89-5f88-4136-ac6e-d4bb3c8f7b98",
+      "mana_cost": "{U}",
+      "name": "Harmonized Trio",
+      "object": "card_face",
+      "oracle_text": "{T}, Tap two untapped creatures you control: This creature becomes prepared. (While it's prepared, you may cast a copy of its spell. Doing so unprepares it.)",
+      "power": "1",
+      "toughness": "1",
+      "type_line": "Creature — Merfolk Bard Wizard"
+    },
+    {
+      "artist": "Marie Magny",
+      "artist_id": "fa463dea-41ba-4c0d-9277-c176d2b2509f",
+      "mana_cost": "{U}",
+      "name": "Brainstorm",
+      "object": "card_face",
+      "oracle_text": "Draw three cards, then put two cards from your hand on top of your library in any order.",
+      "type_line": "Instant"
+    }
+  ],
+  "cardmarket_id": 882050,
+  "cmc": 1.0,
+  "collector_number": "52",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 5496,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "617208ff-dd9b-44fd-a740-d3188081e5cc",
+  "illustration_id": "a239ac89-5f88-4136-ac6e-d4bb3c8f7b98",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:48:11Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/1/617208ff-dd9b-44fd-a740-d3188081e5cc.webp?1783903691",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/1/617208ff-dd9b-44fd-a740-d3188081e5cc.jpg?1783903691",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/1/617208ff-dd9b-44fd-a740-d3188081e5cc.jpg?1783903691",
+    "crop": "https://cards.scryfall.io/crop/front/6/1/617208ff-dd9b-44fd-a740-d3188081e5cc.webp?1783903691",
+    "display": "https://cards.scryfall.io/display/front/6/1/617208ff-dd9b-44fd-a740-d3188081e5cc.webp?1783903691",
+    "grid": "https://cards.scryfall.io/grid/front/6/1/617208ff-dd9b-44fd-a740-d3188081e5cc.webp?1783903691",
+    "large": "https://cards.scryfall.io/large/front/6/1/617208ff-dd9b-44fd-a740-d3188081e5cc.jpg?1783903691",
+    "normal": "https://cards.scryfall.io/normal/front/6/1/617208ff-dd9b-44fd-a740-d3188081e5cc.jpg?1783903691",
+    "png": "https://cards.scryfall.io/png/front/6/1/617208ff-dd9b-44fd-a740-d3188081e5cc.png?1783903691",
+    "small": "https://cards.scryfall.io/small/front/6/1/617208ff-dd9b-44fd-a740-d3188081e5cc.jpg?1783903691",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/1/617208ff-dd9b-44fd-a740-d3188081e5cc.webp?1783903691"
+  },
+  "keywords": [
+    "Prepared"
+  ],
+  "lang": "en",
+  "layout": "prepare",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U} // {U}",
+  "mtgo_id": 149603,
+  "multiverse_ids": [],
+  "name": "Harmonized Trio // Brainstorm",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f6036065-7196-44d4-8a27-2199f0e1a03c",
+  "oversized": false,
+  "penny_rank": 2147,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2026-04-06",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/news/making-magic/schools-in-session-part-1"
+  },
+  "prices": {
+    "eur": "0.38",
+    "eur_foil": "0.52",
+    "tix": "0.02",
+    "usd": "0.77",
+    "usd_etched": null,
+    "usd_foil": "0.86"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af6036065-7196-44d4-8a27-2199f0e1a03c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/149603?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=882050&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F688683%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Harmonized+Trio",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHarmonized%2BTrio%2B%252F%252F%2BBrainstorm",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHarmonized%2BTrio%2B%252F%252F%2BBrainstorm"
+  },
+  "released_at": "2026-04-24",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "6AA635EF7475303797DB1F431112ECDF8572A88ED17E2961D0AC13E9E0CE6108",
+  "rulings_uri": "https://api.scryfall.com/cards/617208ff-dd9b-44fd-a740-d3188081e5cc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/sos?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/sos/52/harmonized-trio-brainstorm?utm_source=api",
+  "security_stamp": "oval",
+  "set": "sos",
+  "set_id": "e487c9ce-5e76-4756-bcd0-e4b7db5c38a3",
+  "set_name": "Secrets of Strixhaven",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asos&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e487c9ce-5e76-4756-bcd0-e4b7db5c38a3",
+  "story_spotlight": false,
+  "tcgplayer_id": 688683,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Merfolk Bard Wizard // Instant",
+  "uri": "https://api.scryfall.com/cards/617208ff-dd9b-44fd-a740-d3188081e5cc",
+  "variation": false
+}

@@ -66,8 +66,11 @@ def category_counts(manifest: dict) -> tuple[int, dict[str, int]]:
         for category in entry.get("categories", []):
             counts[category] += quantity
 
-    if library_size != 99:
-        raise ValueError(f"expected a 99-card Commander library, found {library_size}")
+    if library_size not in (98, 99):
+        raise ValueError(
+            f"expected a 99-card Commander library, or 98 with two commanders, "
+            f"found {library_size}"
+        )
     if not counts:
         raise ValueError("manifest contains no library categories")
     return library_size, dict(counts)

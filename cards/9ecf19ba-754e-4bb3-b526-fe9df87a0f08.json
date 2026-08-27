@@ -1,0 +1,143 @@
+{
+  "artist": "Alexander Mokhov",
+  "artist_ids": [
+    "3a6a9d37-e62c-44bd-90f2-f5126324e3f0"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 738796,
+  "cmc": 5.0,
+  "collector_number": "164",
+  "color_identity": [
+    "R",
+    "U"
+  ],
+  "colors": [
+    "R",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 7330,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "2400d681-05ef-43b1-b720-c15ca4226c27",
+  "illustration_id": "bbce166f-9ce4-4342-a533-c4c57456a2bf",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:50:21Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/4/2400d681-05ef-43b1-b720-c15ca4226c27.webp?1783914621",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/4/2400d681-05ef-43b1-b720-c15ca4226c27.jpg?1783914621",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/4/2400d681-05ef-43b1-b720-c15ca4226c27.jpg?1783914621",
+    "crop": "https://cards.scryfall.io/crop/front/2/4/2400d681-05ef-43b1-b720-c15ca4226c27.webp?1783914621",
+    "display": "https://cards.scryfall.io/display/front/2/4/2400d681-05ef-43b1-b720-c15ca4226c27.webp?1783914621",
+    "grid": "https://cards.scryfall.io/grid/front/2/4/2400d681-05ef-43b1-b720-c15ca4226c27.webp?1783914621",
+    "large": "https://cards.scryfall.io/large/front/2/4/2400d681-05ef-43b1-b720-c15ca4226c27.jpg?1783914621",
+    "normal": "https://cards.scryfall.io/normal/front/2/4/2400d681-05ef-43b1-b720-c15ca4226c27.jpg?1783914621",
+    "png": "https://cards.scryfall.io/png/front/2/4/2400d681-05ef-43b1-b720-c15ca4226c27.png?1783914621",
+    "small": "https://cards.scryfall.io/small/front/2/4/2400d681-05ef-43b1-b720-c15ca4226c27.jpg?1783914621",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/4/2400d681-05ef-43b1-b720-c15ca4226c27.webp?1783914621"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{R}",
+  "multiverse_ids": [
+    634859
+  ],
+  "name": "The Twelfth Doctor",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9ecf19ba-754e-4bb3-b526-fe9df87a0f08",
+  "oracle_text": "The first spell you cast from anywhere other than your hand each turn has demonstrate. (When you cast that spell, you may copy it. If you do, choose an opponent to also copy it. A copy of a permanent spell becomes a token.)\nWhenever you copy a spell, put a +1/+1 counter on The Twelfth Doctor.",
+  "oversized": false,
+  "power": "4",
+  "preview": {
+    "previewed_at": "2023-10-03",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": "0.42",
+    "tix": null,
+    "usd": "0.35",
+    "usd_etched": null,
+    "usd_foil": "0.36"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9ecf19ba-754e-4bb3-b526-fe9df87a0f08&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=The+Twelfth+Doctor&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=738796&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F518888%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+Twelfth+Doctor",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=634859&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BTwelfth%2BDoctor",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BTwelfth%2BDoctor"
+  },
+  "released_at": "2023-10-13",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2400d681-05ef-43b1-b720-c15ca4226c27/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/who?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/who/164/the-twelfth-doctor?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "who",
+  "set_id": "efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "set_name": "Doctor Who",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awho&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "story_spotlight": false,
+  "tcgplayer_id": 518888,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Time Lord Doctor",
+  "uri": "https://api.scryfall.com/cards/2400d681-05ef-43b1-b720-c15ca4226c27",
+  "variation": false
+}

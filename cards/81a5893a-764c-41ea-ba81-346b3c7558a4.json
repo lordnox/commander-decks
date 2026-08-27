@@ -1,0 +1,131 @@
+{
+  "artist": "Ron Spears",
+  "artist_ids": [
+    "fce9030b-86bd-4439-b06a-920a1eeb184c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 1746,
+  "cmc": 1.0,
+  "collector_number": "115",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 12954,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "8a4bed3f-845c-4822-b8af-8b511dce6fe2",
+  "illustration_id": "dd089f10-7452-40ed-9059-4fbb13404eca",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:17:57Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/a/8a4bed3f-845c-4822-b8af-8b511dce6fe2.webp?1783945077",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/a/8a4bed3f-845c-4822-b8af-8b511dce6fe2.jpg?1783945077",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/a/8a4bed3f-845c-4822-b8af-8b511dce6fe2.jpg?1783945077",
+    "crop": "https://cards.scryfall.io/crop/front/8/a/8a4bed3f-845c-4822-b8af-8b511dce6fe2.webp?1783945077",
+    "display": "https://cards.scryfall.io/display/front/8/a/8a4bed3f-845c-4822-b8af-8b511dce6fe2.webp?1783945077",
+    "grid": "https://cards.scryfall.io/grid/front/8/a/8a4bed3f-845c-4822-b8af-8b511dce6fe2.webp?1783945077",
+    "large": "https://cards.scryfall.io/large/front/8/a/8a4bed3f-845c-4822-b8af-8b511dce6fe2.jpg?1783945077",
+    "normal": "https://cards.scryfall.io/normal/front/8/a/8a4bed3f-845c-4822-b8af-8b511dce6fe2.jpg?1783945077",
+    "png": "https://cards.scryfall.io/png/front/8/a/8a4bed3f-845c-4822-b8af-8b511dce6fe2.png?1783945077",
+    "small": "https://cards.scryfall.io/small/front/8/a/8a4bed3f-845c-4822-b8af-8b511dce6fe2.jpg?1783945077",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/a/8a4bed3f-845c-4822-b8af-8b511dce6fe2.webp?1783945077"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_foil_id": 18328,
+  "mtgo_id": 18327,
+  "multiverse_ids": [
+    39444
+  ],
+  "name": "Spy Network",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "81a5893a-764c-41ea-ba81-346b3c7558a4",
+  "oracle_text": "Look at target player's hand, the top card of that player's library, and any face-down creatures they control. Look at the top four cards of your library, then put them back in any order.",
+  "oversized": false,
+  "penny_rank": 7826,
+  "prices": {
+    "eur": "0.22",
+    "eur_foil": "3.10",
+    "tix": "0.04",
+    "usd": "0.17",
+    "usd_etched": null,
+    "usd_foil": "7.98"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A81a5893a-764c-41ea-ba81-346b3c7558a4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/18327?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=1746&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10511%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Spy+Network",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=39444&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSpy%2BNetwork",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSpy%2BNetwork"
+  },
+  "released_at": "2002-10-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8a4bed3f-845c-4822-b8af-8b511dce6fe2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ons?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ons/115/spy-network?utm_source=api",
+  "set": "ons",
+  "set_id": "914a6c6d-cb3b-45e8-a2db-9978a2339faf",
+  "set_name": "Onslaught",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aons&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/914a6c6d-cb3b-45e8-a2db-9978a2339faf",
+  "story_spotlight": false,
+  "tcgplayer_id": 10511,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/8a4bed3f-845c-4822-b8af-8b511dce6fe2",
+  "variation": false
+}

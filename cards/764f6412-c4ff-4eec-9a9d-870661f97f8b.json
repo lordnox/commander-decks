@@ -1,0 +1,159 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "51bbf861-448b-455b-8922-38515ba65c40",
+      "name": "Fblthp, Lost on the Range",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Homunculus",
+      "uri": "https://api.scryfall.com/cards/51bbf861-448b-455b-8922-38515ba65c40"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f07677af-88a4-4ff5-b591-e1e3ac05235d",
+      "name": "Plot",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/f07677af-88a4-4ff5-b591-e1e3ac05235d"
+    }
+  ],
+  "arena_id": 90394,
+  "artist": "Brian Valeza",
+  "artist_ids": [
+    "bb2a9339-bbe4-445f-9736-3c43379ee076"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 759031,
+  "cmc": 3.0,
+  "collector_number": "48",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 4998,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "01d3e6ea-4791-4948-af22-c1bd04c34c1e",
+  "illustration_id": "226552ec-233b-4807-93d2-bd53d629503a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:04:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/1/01d3e6ea-4791-4948-af22-c1bd04c34c1e.webp?1783911846",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/1/01d3e6ea-4791-4948-af22-c1bd04c34c1e.jpg?1783911846",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/1/01d3e6ea-4791-4948-af22-c1bd04c34c1e.jpg?1783911846",
+    "crop": "https://cards.scryfall.io/crop/front/0/1/01d3e6ea-4791-4948-af22-c1bd04c34c1e.webp?1783911846",
+    "display": "https://cards.scryfall.io/display/front/0/1/01d3e6ea-4791-4948-af22-c1bd04c34c1e.webp?1783911846",
+    "grid": "https://cards.scryfall.io/grid/front/0/1/01d3e6ea-4791-4948-af22-c1bd04c34c1e.webp?1783911846",
+    "large": "https://cards.scryfall.io/large/front/0/1/01d3e6ea-4791-4948-af22-c1bd04c34c1e.jpg?1783911846",
+    "normal": "https://cards.scryfall.io/normal/front/0/1/01d3e6ea-4791-4948-af22-c1bd04c34c1e.jpg?1783911846",
+    "png": "https://cards.scryfall.io/png/front/0/1/01d3e6ea-4791-4948-af22-c1bd04c34c1e.png?1783911846",
+    "small": "https://cards.scryfall.io/small/front/0/1/01d3e6ea-4791-4948-af22-c1bd04c34c1e.jpg?1783911846",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/1/01d3e6ea-4791-4948-af22-c1bd04c34c1e.webp?1783911846"
+  },
+  "keywords": [
+    "Plot",
+    "Ward"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{U}",
+  "mtgo_id": 124007,
+  "multiverse_ids": [
+    654989
+  ],
+  "name": "Fblthp, Lost on the Range",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "764f6412-c4ff-4eec-9a9d-870661f97f8b",
+  "oracle_text": "Ward {2}\nYou may look at the top card of your library any time.\nThe top card of your library has plot. The plot cost is equal to its mana cost.\nYou may plot nonland cards from the top of your library.",
+  "oversized": false,
+  "penny_rank": 6530,
+  "power": "1",
+  "prices": {
+    "eur": "0.32",
+    "eur_foil": "0.46",
+    "tix": "0.02",
+    "usd": "0.36",
+    "usd_etched": null,
+    "usd_foil": "0.38"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A764f6412-c4ff-4eec-9a9d-870661f97f8b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124007?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=759031&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F541253%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Fblthp%2C+Lost+on+the+Range",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=654989&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFblthp%252C%2BLost%2Bon%2Bthe%2BRange",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFblthp%252C%2BLost%2Bon%2Bthe%2BRange"
+  },
+  "released_at": "2024-04-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/01d3e6ea-4791-4948-af22-c1bd04c34c1e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otj?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otj/48/fblthp-lost-on-the-range?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otj",
+  "set_id": "55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "set_name": "Outlaws of Thunder Junction",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotj&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "story_spotlight": false,
+  "tcgplayer_id": 541253,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Legendary Creature — Homunculus",
+  "uri": "https://api.scryfall.com/cards/01d3e6ea-4791-4948-af22-c1bd04c34c1e",
+  "variation": false
+}

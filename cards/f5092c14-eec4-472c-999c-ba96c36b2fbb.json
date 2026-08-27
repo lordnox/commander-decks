@@ -1,0 +1,140 @@
+{
+  "artist": "Izzy",
+  "artist_ids": [
+    "2c3d2473-ff5d-4309-8194-e0b2def2ab65"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 652928,
+  "cmc": 4.0,
+  "collector_number": "344",
+  "color_identity": [
+    "B",
+    "R",
+    "U"
+  ],
+  "colors": [
+    "B",
+    "R",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 3129,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Loss has no meaning here. You cannot take from those who have nothing.\"",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "e83e6d7a-3af0-4955-8004-2310f051e306",
+  "illustration_id": "866f3c66-a3c5-4dfd-bea8-8de7fd50bb7d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:13:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/8/e83e6d7a-3af0-4955-8004-2310f051e306.webp?1783923225",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/8/e83e6d7a-3af0-4955-8004-2310f051e306.jpg?1783923225",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/8/e83e6d7a-3af0-4955-8004-2310f051e306.jpg?1783923225",
+    "crop": "https://cards.scryfall.io/crop/front/e/8/e83e6d7a-3af0-4955-8004-2310f051e306.webp?1783923225",
+    "display": "https://cards.scryfall.io/display/front/e/8/e83e6d7a-3af0-4955-8004-2310f051e306.webp?1783923225",
+    "grid": "https://cards.scryfall.io/grid/front/e/8/e83e6d7a-3af0-4955-8004-2310f051e306.webp?1783923225",
+    "large": "https://cards.scryfall.io/large/front/e/8/e83e6d7a-3af0-4955-8004-2310f051e306.jpg?1783923225",
+    "normal": "https://cards.scryfall.io/normal/front/e/8/e83e6d7a-3af0-4955-8004-2310f051e306.jpg?1783923225",
+    "png": "https://cards.scryfall.io/png/front/e/8/e83e6d7a-3af0-4955-8004-2310f051e306.png?1783923225",
+    "small": "https://cards.scryfall.io/small/front/e/8/e83e6d7a-3af0-4955-8004-2310f051e306.jpg?1783923225",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/8/e83e6d7a-3af0-4955-8004-2310f051e306.webp?1783923225"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{B}{R}",
+  "multiverse_ids": [
+    559916
+  ],
+  "name": "Kess, Dissident Mage",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f5092c14-eec4-472c-999c-ba96c36b2fbb",
+  "oracle_text": "Flying\nOnce during each of your turns, you may cast an instant or sorcery spell from your graveyard. If a spell cast this way would be put into your graveyard, exile it instead.",
+  "oversized": false,
+  "penny_rank": 4164,
+  "power": "3",
+  "prices": {
+    "eur": "2.95",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "3.59",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af5092c14-eec4-472c-999c-ba96c36b2fbb&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Kess%2C+Dissident+Mage&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=652928&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F269351%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Kess%2C+Dissident+Mage",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=559916&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKess%252C%2BDissident%2BMage",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKess%252C%2BDissident%2BMage"
+  },
+  "released_at": "2022-04-29",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e83e6d7a-3af0-4955-8004-2310f051e306/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ncc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ncc/344/kess-dissident-mage?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ncc",
+  "set_id": "c51de34b-d4d6-4179-a432-573744ded119",
+  "set_name": "New Capenna Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ancc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c51de34b-d4d6-4179-a432-573744ded119",
+  "story_spotlight": false,
+  "tcgplayer_id": 269351,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Human Wizard",
+  "uri": "https://api.scryfall.com/cards/e83e6d7a-3af0-4955-8004-2310f051e306",
+  "variation": false
+}

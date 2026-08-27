@@ -110,7 +110,7 @@ Badges sit immediately after the Archidekt sandbox link. The same run regenerate
 
 ### Category access by turn three
 
-Every primer must contain a hypergeometric probability table calculated from the resolved manifest. Use a 99-card library and 10 cards seen by turn three: the opening seven plus three normal draw steps, with no mulligans or additional draw. Exclude commanders and cards marked `{noDeck}`. Categories overlap, so present each category's probability independently.
+Every primer must contain a hypergeometric probability table calculated from the resolved manifest. Use a 99-card library (98 with two commanders) and 10 cards seen by turn three: the opening seven plus three normal draw steps, with no mulligans or additional draw. Exclude commanders and cards marked `{noDeck}`. Categories overlap, so present each category's probability independently.
 
 Require at least one card from each category except `Land`, which requires at least three. Modal double-faced cards carry the land category as well as their spell role, so the `Land` row counts them while the curve still counts their front face; the land count and the nonland count therefore overlap. Place the table immediately after the Key cards gallery, before the first play-guide heading. Create or refresh the section with:
 
@@ -157,7 +157,7 @@ Before saving:
 - run `python3 .agents/skills/deck-primer/scripts/link_card_mentions.py decks/<prefix><slug>` after drafting so card mentions become Scryfall links to each card's manifest `scryfall_uri`;
 - rerun the linker after every primer edit; it rewrites incorrect Scryfall hrefs to the manifest URI and preserves code, images, and non-card URLs;
 - run `python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<prefix><slug> --check`;
-- confirm the Archidekt payload contains every resolved card, the deck's total quantity, and exactly one commander entry;
+- confirm the Archidekt payload contains every resolved card, the deck's total quantity, and one or two commander entries (partners or Doctor's companion);
 - follow `.agents/skills/tag-deck/SKILL.md`, then run `python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<prefix><slug> --check`;
 - run `python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py decks/<prefix><slug> --check`;
 - confirm the category table uses 10 cards seen, excludes commanders and `{noDeck}` extras, and requires three Lands but one card from other categories;

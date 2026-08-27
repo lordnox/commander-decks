@@ -1,0 +1,132 @@
+{
+  "artist": "Raymond Swanland",
+  "artist_ids": [
+    "e956bacc-077d-4c12-b6bc-ba798b718af9"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 297186,
+  "cmc": 3.0,
+  "collector_number": "133",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 10557,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2922b976-7beb-4c68-b39e-1b66d5c6f65e",
+  "illustration_id": "add0c328-9b4a-4916-89b4-93ba07eeff82",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:54:49Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/9/2922b976-7beb-4c68-b39e-1b66d5c6f65e.webp?1783936489",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/9/2922b976-7beb-4c68-b39e-1b66d5c6f65e.jpg?1783936489",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/9/2922b976-7beb-4c68-b39e-1b66d5c6f65e.jpg?1783936489",
+    "crop": "https://cards.scryfall.io/crop/front/2/9/2922b976-7beb-4c68-b39e-1b66d5c6f65e.webp?1783936489",
+    "display": "https://cards.scryfall.io/display/front/2/9/2922b976-7beb-4c68-b39e-1b66d5c6f65e.webp?1783936489",
+    "grid": "https://cards.scryfall.io/grid/front/2/9/2922b976-7beb-4c68-b39e-1b66d5c6f65e.webp?1783936489",
+    "large": "https://cards.scryfall.io/large/front/2/9/2922b976-7beb-4c68-b39e-1b66d5c6f65e.jpg?1783936489",
+    "normal": "https://cards.scryfall.io/normal/front/2/9/2922b976-7beb-4c68-b39e-1b66d5c6f65e.jpg?1783936489",
+    "png": "https://cards.scryfall.io/png/front/2/9/2922b976-7beb-4c68-b39e-1b66d5c6f65e.png?1783936489",
+    "small": "https://cards.scryfall.io/small/front/2/9/2922b976-7beb-4c68-b39e-1b66d5c6f65e.jpg?1783936489",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/9/2922b976-7beb-4c68-b39e-1b66d5c6f65e.webp?1783936489"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}",
+  "mtgo_foil_id": 63869,
+  "mtgo_id": 63868,
+  "multiverse_ids": [
+    426835
+  ],
+  "name": "Glorious End",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e611a3e0-eb0e-466e-a771-51310eeb34cd",
+  "oracle_text": "End the turn. (Exile all spells and abilities from the stack, including this card. The player whose turn it is discards down to their maximum hand size. Damage wears off, and \"this turn\" and \"until end of turn\" effects end.)\nAt the beginning of your next end step, you lose the game.",
+  "oversized": false,
+  "penny_rank": 5227,
+  "prices": {
+    "eur": "0.58",
+    "eur_foil": "2.14",
+    "tix": "0.02",
+    "usd": "1.40",
+    "usd_etched": null,
+    "usd_foil": "2.73"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae611a3e0-eb0e-466e-a771-51310eeb34cd&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/63868?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=297186&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F130226%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Glorious+End",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=426835&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGlorious%2BEnd",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGlorious%2BEnd"
+  },
+  "released_at": "2017-04-28",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2922b976-7beb-4c68-b39e-1b66d5c6f65e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/akh?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/akh/133/glorious-end?utm_source=api",
+  "security_stamp": "oval",
+  "set": "akh",
+  "set_id": "02d1c536-68bc-4208-9b65-7741ef1f9da8",
+  "set_name": "Amonkhet",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aakh&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/02d1c536-68bc-4208-9b65-7741ef1f9da8",
+  "story_spotlight": false,
+  "tcgplayer_id": 130226,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/2922b976-7beb-4c68-b39e-1b66d5c6f65e",
+  "variation": false
+}

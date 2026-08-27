@@ -1,0 +1,133 @@
+{
+  "artist": "Brian Valeza",
+  "artist_ids": [
+    "bb2a9339-bbe4-445f-9736-3c43379ee076"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 660729,
+  "cmc": 4.0,
+  "collector_number": "132",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 7396,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "a52d30a3-a436-4854-91e9-2c359c40457b",
+  "illustration_id": "86fdad4e-0c2e-4739-bc58-15674c243cdb",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:05:58Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/5/a52d30a3-a436-4854-91e9-2c359c40457b.webp?1783922758",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/5/a52d30a3-a436-4854-91e9-2c359c40457b.jpg?1783922758",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/5/a52d30a3-a436-4854-91e9-2c359c40457b.jpg?1783922758",
+    "crop": "https://cards.scryfall.io/crop/front/a/5/a52d30a3-a436-4854-91e9-2c359c40457b.webp?1783922758",
+    "display": "https://cards.scryfall.io/display/front/a/5/a52d30a3-a436-4854-91e9-2c359c40457b.webp?1783922758",
+    "grid": "https://cards.scryfall.io/grid/front/a/5/a52d30a3-a436-4854-91e9-2c359c40457b.webp?1783922758",
+    "large": "https://cards.scryfall.io/large/front/a/5/a52d30a3-a436-4854-91e9-2c359c40457b.jpg?1783922758",
+    "normal": "https://cards.scryfall.io/normal/front/a/5/a52d30a3-a436-4854-91e9-2c359c40457b.jpg?1783922758",
+    "png": "https://cards.scryfall.io/png/front/a/5/a52d30a3-a436-4854-91e9-2c359c40457b.png?1783922758",
+    "small": "https://cards.scryfall.io/small/front/a/5/a52d30a3-a436-4854-91e9-2c359c40457b.jpg?1783922758",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/5/a52d30a3-a436-4854-91e9-2c359c40457b.webp?1783922758"
+  },
+  "keywords": [
+    "Devour Intellect",
+    "Body Thief"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "multiverse_ids": [
+    563015
+  ],
+  "name": "Intellect Devourer",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a06fa827-900b-46d4-8f48-b4e15964951a",
+  "oracle_text": "Devour Intellect — When this creature enters, each opponent exiles a card from their hand until this creature leaves the battlefield.\nBody Thief — You may play lands and cast spells from among cards exiled with this creature. If you cast a spell this way, you may spend mana as though it were mana of any color to cast it.",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "0.32",
+    "eur_foil": "0.44",
+    "tix": null,
+    "usd": "0.36",
+    "usd_etched": null,
+    "usd_foil": "0.39"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa06fa827-900b-46d4-8f48-b4e15964951a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Intellect+Devourer&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=660729&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F273288%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Intellect+Devourer",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=563015&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIntellect%2BDevourer",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIntellect%2BDevourer"
+  },
+  "released_at": "2022-06-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a52d30a3-a436-4854-91e9-2c359c40457b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/132/intellect-devourer?utm_source=api",
+  "security_stamp": "oval",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 273288,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Horror",
+  "uri": "https://api.scryfall.com/cards/a52d30a3-a436-4854-91e9-2c359c40457b",
+  "variation": false
+}

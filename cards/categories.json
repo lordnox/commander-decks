@@ -6850,8 +6850,444 @@
       "categories": [
         "other"
       ]
+    },
+    "271d8db6-8606-46d7-9812-75aa22fcfd8e": {
+      "name": "Alchemist's Gambit",
+      "categories": [
+        "other"
+      ]
+    },
+    "c52fc8a1-43c6-41f8-b010-03be7c89ef1d": {
+      "name": "Bloodsoaked Insight // Sanguine Morass",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "ab31b652-ddf2-480f-a955-e8b5c87728f9": {
+      "name": "Bohn, Beguiling Balladeer",
+      "categories": [
+        "other"
+      ]
+    },
+    "14fe4531-96cd-415b-aa4a-b41fd271d902": {
+      "name": "Cemetery Illuminator",
+      "categories": [
+        "other"
+      ]
+    },
+    "283f743f-6e79-49de-b7ed-08e6ffb64cc6": {
+      "name": "Clive's Hideaway",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "fa81e7ff-0f2c-40df-9169-c0a22f00cd76": {
+      "name": "Conspiracy Theorist",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "35c60b66-8c85-432e-90fe-99c19d21ed15": {
+      "name": "Cori Mountain Monastery",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "7190debf-708b-4f41-9714-0d0a5bd5a74e": {
+      "name": "Crumbling Necropolis",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "f1c2dbe2-fbe0-4058-bdf1-91d1b1832786": {
+      "name": "Dauthi Voidwalker",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "5cfd73ab-8509-4e4b-9704-68d8dad3b301": {
+      "name": "Discontinuity",
+      "categories": [
+        "board-wipe",
+        "discard"
+      ]
+    },
+    "9fe57d74-0394-4263-a1b1-da9773b485a6": {
+      "name": "Double Negative",
+      "categories": [
+        "other"
+      ]
+    },
+    "0ff7440b-b831-40a9-81c4-99d77bf93b8d": {
+      "name": "Dream Devourer",
+      "categories": [
+        "other"
+      ]
+    },
+    "634475d9-a1d7-4146-9a37-645d3d162af1": {
+      "name": "Emet-Selch of the Third Seat",
+      "categories": [
+        "other"
+      ]
+    },
+    "16090270-0ac5-404c-b0c8-a6c8a4b508a4": {
+      "name": "Ensnared by the Mara",
+      "categories": [
+        "other"
+      ]
+    },
+    "764f6412-c4ff-4eec-9a9d-870661f97f8b": {
+      "name": "Fblthp, Lost on the Range",
+      "categories": [
+        "other"
+      ]
+    },
+    "8d0adc5c-3fdd-4e22-b783-5651f8e57b65": {
+      "name": "Final Fortune",
+      "categories": [
+        "other"
+      ]
+    },
+    "86bf58f2-7f25-4e10-b797-25e0e8e67769": {
+      "name": "Flusterstorm",
+      "categories": [
+        "other"
+      ]
+    },
+    "0eff910a-712d-4652-8b3b-9eddf63eb891": {
+      "name": "Founding the Third Path",
+      "categories": [
+        "ramp",
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "33ec3894-6ec2-4038-bed4-85e5b9cfe182": {
+      "name": "Giant",
+      "categories": [
+        "other"
+      ]
+    },
+    "e611a3e0-eb0e-466e-a771-51310eeb34cd": {
+      "name": "Glorious End",
+      "categories": [
+        "board-wipe",
+        "discard"
+      ]
+    },
+    "f6036065-7196-44d4-8a27-2199f0e1a03c": {
+      "name": "Harmonized Trio // Brainstorm",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "927979d7-9b5c-4448-aef0-baf2907a89f1": {
+      "name": "Hidden Cataract",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "f780ee53-62b0-4c32-b5b7-047651f48e5f": {
+      "name": "Hidden Necropolis",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "a1c7cd7a-0795-4135-b787-effeb981d95b": {
+      "name": "Hidden Volcano",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "d56f24a1-04dc-4769-9941-05bd99508e40": {
+      "name": "Hidetsugu, Devouring Chaos",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "f97e405d-4c24-4d4d-9e19-e349c073113c": {
+      "name": "Hive Mind",
+      "categories": [
+        "other"
+      ]
+    },
+    "a06fa827-900b-46d4-8f48-b4e15964951a": {
+      "name": "Intellect Devourer",
+      "categories": [
+        "other"
+      ]
+    },
+    "cbd483b5-5554-43ed-a729-535d01b0d5d3": {
+      "name": "Jace Reawakened",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "a014f283-c531-415c-ac00-e6773ea5d64d": {
+      "name": "Jeleva, Nephalia's Scourge",
+      "categories": [
+        "other"
+      ]
+    },
+    "8068f80f-88ee-4c0b-a0fb-3a6337f83f22": {
+      "name": "Johann, Apprentice Sorcerer",
+      "categories": [
+        "other"
+      ]
+    },
+    "f5092c14-eec4-472c-999c-ba96c36b2fbb": {
+      "name": "Kess, Dissident Mage",
+      "categories": [
+        "other"
+      ]
+    },
+    "360039a5-1cbd-4ee3-8f94-21b5348e106a": {
+      "name": "Last Chance",
+      "categories": [
+        "other"
+      ]
+    },
+    "785c306c-471c-4699-8ab2-43c253d569cf": {
+      "name": "Lich's Mastery",
+      "categories": [
+        "card-draw",
+        "protection"
+      ]
+    },
+    "096eac52-00c2-4439-b2f3-ff555d15ec88": {
+      "name": "Marina Vendrell's Grimoire",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "cb91e09e-f7fb-44bc-b78f-de29705bd2d6": {
+      "name": "Mob Verdict",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "9c482f1d-08b4-4882-918c-448a556d3fbe": {
+      "name": "Nivix, Aerie of the Firemind",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "d2f9a8a0-509b-4c24-a8cc-f27f77c9eefd": {
+      "name": "Nivmagus Elemental",
+      "categories": [
+        "other"
+      ]
+    },
+    "21b76a94-d9f3-4c34-ab24-7e89321b04f0": {
+      "name": "Obeka, Brute Chronologist",
+      "categories": [
+        "board-wipe",
+        "discard"
+      ]
+    },
+    "ba995901-bb32-45ed-8af8-f98784b5a9b0": {
+      "name": "One with Nothing",
+      "categories": [
+        "discard"
+      ]
+    },
+    "f3e213a4-ba5a-468a-93b3-c0a34e1bd725": {
+      "name": "Pact of Negation",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "cf4959bf-92ae-4c9b-b631-724ce100cbb8": {
+      "name": "Pact of the Titan",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "fecbbc79-2f74-46b3-a049-45736f904f58": {
+      "name": "Prisoner's Dilemma",
+      "categories": [
+        "other"
+      ]
+    },
+    "1e9b0fd6-5aae-401a-8df5-d94ce6442696": {
+      "name": "Prosper, Tome-Bound",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "04e5e84f-8fd4-43ab-8f9d-5b24646f7ae5": {
+      "name": "Raucous Theater",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "4499d8cd-d090-4acc-a1d9-3d9d9b6ef768": {
+      "name": "Reverse the Polarity",
+      "categories": [
+        "other"
+      ]
+    },
+    "cf5bd3a4-3899-4c25-ad1f-f1778c1d9c60": {
+      "name": "Rona, Herald of Invasion // Rona, Tolarian Obliterator",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "2676ba6d-e7a7-48cf-9c86-6e2a11f03096": {
+      "name": "Sanar, Innovative First-Year",
+      "categories": [
+        "other"
+      ]
+    },
+    "648bd03d-247e-4d6f-87a9-12a67688cbf5": {
+      "name": "Scroll Rack",
+      "categories": [
+        "other"
+      ]
+    },
+    "4a8d41fe-e04d-484b-a7d1-19be311e6ca7": {
+      "name": "Sea Gate Restoration // Sea Gate, Reborn",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw"
+      ]
+    },
+    "67c4b1d5-757c-46cf-8bb1-9889d9ed1a1f": {
+      "name": "Slaughter Pact",
+      "categories": [
+        "removal"
+      ]
+    },
+    "ddb7e868-8f1d-4d57-9ee2-ebadb17b398a": {
+      "name": "Sphinx of Forgotten Lore",
+      "categories": [
+        "other"
+      ]
+    },
+    "c4485bf9-e7ff-48b5-a983-02900939ee9d": {
+      "name": "Spider-Sense",
+      "categories": [
+        "other"
+      ]
+    },
+    "690c7f8e-fea2-4920-afa7-02ff120701a1": {
+      "name": "Spinerock Knoll",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "81a5893a-764c-41ea-ba81-346b3c7558a4": {
+      "name": "Spy Network",
+      "categories": [
+        "other"
+      ]
+    },
+    "c95309e9-5c2f-4518-b2fd-825d3d0a4ae0": {
+      "name": "Sundering Eruption // Volcanic Fissure",
+      "categories": [
+        "land",
+        "ramp",
+        "removal"
+      ]
+    },
+    "79d46e09-2548-440f-9c02-3c3dc39a0cd1": {
+      "name": "Sundial of the Infinite",
+      "categories": [
+        "board-wipe",
+        "discard"
+      ]
+    },
+    "55e42539-3fe2-4c84-9978-c071d6fc6aa0": {
+      "name": "Synthesis Pod",
+      "categories": [
+        "other"
+      ]
+    },
+    "9a0c9023-9431-4f98-b167-ab4c7215319c": {
+      "name": "The Belligerent",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "13b4aeac-4530-4e09-a547-548b4884bb2f": {
+      "name": "The Lunar Whale",
+      "categories": [
+        "other"
+      ]
+    },
+    "751f22bc-bcea-4213-a37b-b5f72448a4c4": {
+      "name": "The Reality Chip",
+      "categories": [
+        "other"
+      ]
+    },
+    "9ecf19ba-754e-4bb3-b526-fe9df87a0f08": {
+      "name": "The Twelfth Doctor",
+      "categories": [
+        "other"
+      ]
+    },
+    "d2bcff58-7a8a-46ef-b6b3-39501d4c8e6e": {
+      "name": "Thundering Falls",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "69143645-97b6-4c7c-9fa2-844fb3b99822": {
+      "name": "Trenzalore Clocktower",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "ff0ab867-b710-4b1a-baed-95fc3cf68f79": {
+      "name": "Valakut Awakening // Valakut Stoneforge",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw"
+      ]
+    },
+    "cdf5c31c-c324-471f-b6d7-06a06e91daa3": {
+      "name": "Vislor Turlough",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "4380df08-7be4-48ca-9783-d644fd2ea27d": {
+      "name": "Vohar, Vodalian Desecrator",
+      "categories": [
+        "card-draw",
+        "sacrifice",
+        "discard"
+      ]
+    },
+    "574044cf-2e2f-4b5c-b4d1-cf05ba814ab2": {
+      "name": "Warrior's Oath",
+      "categories": [
+        "other"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-27T17:27:30.638932+00:00"
+  "updated_at": "2026-08-27T17:10:14.397166+00:00"
 }
