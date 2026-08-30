@@ -1,0 +1,133 @@
+{
+  "artist": "Joshua Raphael",
+  "artist_ids": [
+    "553b2a73-780f-414b-b2d7-3b7888821082"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764811,
+  "cmc": 7.0,
+  "collector_number": "127",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2206,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "884d4eea-77c0-4b78-bb83-3f855cc77298",
+  "illustration_id": "72066284-b1d2-4bea-b1f1-ed0008840cdd",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:05:33Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/8/884d4eea-77c0-4b78-bb83-3f855cc77298.webp?1783911933",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/8/884d4eea-77c0-4b78-bb83-3f855cc77298.jpg?1783911933",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/8/884d4eea-77c0-4b78-bb83-3f855cc77298.jpg?1783911933",
+    "crop": "https://cards.scryfall.io/crop/front/8/8/884d4eea-77c0-4b78-bb83-3f855cc77298.webp?1783911933",
+    "display": "https://cards.scryfall.io/display/front/8/8/884d4eea-77c0-4b78-bb83-3f855cc77298.webp?1783911933",
+    "grid": "https://cards.scryfall.io/grid/front/8/8/884d4eea-77c0-4b78-bb83-3f855cc77298.webp?1783911933",
+    "large": "https://cards.scryfall.io/large/front/8/8/884d4eea-77c0-4b78-bb83-3f855cc77298.jpg?1783911933",
+    "normal": "https://cards.scryfall.io/normal/front/8/8/884d4eea-77c0-4b78-bb83-3f855cc77298.jpg?1783911933",
+    "png": "https://cards.scryfall.io/png/front/8/8/884d4eea-77c0-4b78-bb83-3f855cc77298.png?1783911933",
+    "small": "https://cards.scryfall.io/small/front/8/8/884d4eea-77c0-4b78-bb83-3f855cc77298.jpg?1783911933",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/8/884d4eea-77c0-4b78-bb83-3f855cc77298.webp?1783911933"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{B}{B}",
+  "mtgo_id": 124713,
+  "multiverse_ids": [
+    658571
+  ],
+  "name": "Brainstealer Dragon",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "13cb958f-1e66-4219-901a-ff58275c8475",
+  "oracle_text": "Flying\nAt the beginning of your end step, exile the top card of each opponent's library. You may play those cards for as long as they remain exiled. If you cast a spell this way, you may spend mana as though it were mana of any color to cast it.\nWhenever a nonland permanent an opponent owns enters the battlefield under your control, they lose life equal to its mana value.",
+  "oversized": false,
+  "power": "6",
+  "prices": {
+    "eur": "9.69",
+    "eur_foil": null,
+    "tix": "2.37",
+    "usd": "11.20",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A13cb958f-1e66-4219-901a-ff58275c8475&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124713?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764811&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F545182%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Brainstealer+Dragon",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=658571&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBrainstealer%2BDragon",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBrainstealer%2BDragon"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/884d4eea-77c0-4b78-bb83-3f855cc77298/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otc/127/brainstealer-dragon?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otc",
+  "set_id": "d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "set_name": "Outlaws of Thunder Junction Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "story_spotlight": false,
+  "tcgplayer_id": 545182,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Creature — Dragon Horror",
+  "uri": "https://api.scryfall.com/cards/884d4eea-77c0-4b78-bb83-3f855cc77298",
+  "variation": false
+}

@@ -1,0 +1,130 @@
+{
+  "artist": "Chris Cold",
+  "artist_ids": [
+    "2622d22b-3fd8-4831-9b2b-adc5fac01b85"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764945,
+  "cmc": 4.0,
+  "collector_number": "126",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1383,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "579e20e7-1395-4a6c-a836-ae3419fc8808",
+  "illustration_id": "2a5a29cb-9151-48e7-a22d-d05455de2caa",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:05:32Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/7/579e20e7-1395-4a6c-a836-ae3419fc8808.webp?1783911932",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/7/579e20e7-1395-4a6c-a836-ae3419fc8808.jpg?1783911932",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/7/579e20e7-1395-4a6c-a836-ae3419fc8808.jpg?1783911932",
+    "crop": "https://cards.scryfall.io/crop/front/5/7/579e20e7-1395-4a6c-a836-ae3419fc8808.webp?1783911932",
+    "display": "https://cards.scryfall.io/display/front/5/7/579e20e7-1395-4a6c-a836-ae3419fc8808.webp?1783911932",
+    "grid": "https://cards.scryfall.io/grid/front/5/7/579e20e7-1395-4a6c-a836-ae3419fc8808.webp?1783911932",
+    "large": "https://cards.scryfall.io/large/front/5/7/579e20e7-1395-4a6c-a836-ae3419fc8808.jpg?1783911932",
+    "normal": "https://cards.scryfall.io/normal/front/5/7/579e20e7-1395-4a6c-a836-ae3419fc8808.jpg?1783911932",
+    "png": "https://cards.scryfall.io/png/front/5/7/579e20e7-1395-4a6c-a836-ae3419fc8808.png?1783911932",
+    "small": "https://cards.scryfall.io/small/front/5/7/579e20e7-1395-4a6c-a836-ae3419fc8808.jpg?1783911932",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/7/579e20e7-1395-4a6c-a836-ae3419fc8808.webp?1783911932"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "mtgo_id": 124711,
+  "multiverse_ids": [
+    658570
+  ],
+  "name": "Baleful Mastery",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "adfcdadd-ddda-477b-8e72-0cae2430fb63",
+  "oracle_text": "You may pay {1}{B} rather than pay this spell's mana cost.\nIf the {1}{B} cost was paid, an opponent draws a card.\nExile target creature or planeswalker.",
+  "oversized": false,
+  "penny_rank": 3453,
+  "prices": {
+    "eur": "3.20",
+    "eur_foil": null,
+    "tix": "0.11",
+    "usd": "2.96",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aadfcdadd-ddda-477b-8e72-0cae2430fb63&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124711?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764945&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F545214%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Baleful+Mastery",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=658570&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBaleful%2BMastery",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBaleful%2BMastery"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/579e20e7-1395-4a6c-a836-ae3419fc8808/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otc/126/baleful-mastery?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otc",
+  "set_id": "d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "set_name": "Outlaws of Thunder Junction Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "story_spotlight": false,
+  "tcgplayer_id": 545214,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/579e20e7-1395-4a6c-a836-ae3419fc8808",
+  "variation": false
+}

@@ -1,0 +1,133 @@
+{
+  "artist": "Dan Murayama Scott",
+  "artist_ids": [
+    "f852fa13-137e-40f2-bbc1-0f01df09c0e0"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 21914,
+  "cmc": 3.0,
+  "collector_number": "110",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 17114,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f3d82fd7-6af1-4a97-9d51-486a41224b35",
+  "illustration_id": "4cd11f14-32e7-47b0-827b-fccc5a6d3137",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:29:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/3/f3d82fd7-6af1-4a97-9d51-486a41224b35.webp?1783942149",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/3/f3d82fd7-6af1-4a97-9d51-486a41224b35.jpg?1783942149",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/3/f3d82fd7-6af1-4a97-9d51-486a41224b35.jpg?1783942149",
+    "crop": "https://cards.scryfall.io/crop/front/f/3/f3d82fd7-6af1-4a97-9d51-486a41224b35.webp?1783942149",
+    "display": "https://cards.scryfall.io/display/front/f/3/f3d82fd7-6af1-4a97-9d51-486a41224b35.webp?1783942149",
+    "grid": "https://cards.scryfall.io/grid/front/f/3/f3d82fd7-6af1-4a97-9d51-486a41224b35.webp?1783942149",
+    "large": "https://cards.scryfall.io/large/front/f/3/f3d82fd7-6af1-4a97-9d51-486a41224b35.jpg?1783942149",
+    "normal": "https://cards.scryfall.io/normal/front/f/3/f3d82fd7-6af1-4a97-9d51-486a41224b35.jpg?1783942149",
+    "png": "https://cards.scryfall.io/png/front/f/3/f3d82fd7-6af1-4a97-9d51-486a41224b35.png?1783942149",
+    "small": "https://cards.scryfall.io/small/front/f/3/f3d82fd7-6af1-4a97-9d51-486a41224b35.jpg?1783942149",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/3/f3d82fd7-6af1-4a97-9d51-486a41224b35.webp?1783942149"
+  },
+  "keywords": [
+    "Kicker"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}{B}{B}",
+  "mtgo_foil_id": 34775,
+  "mtgo_id": 34774,
+  "multiverse_ids": [
+    195632
+  ],
+  "name": "Sadistic Sacrament",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e3d08582-85ba-48c4-a453-4a5a385a0c3e",
+  "oracle_text": "Kicker {7} (You may pay an additional {7} as you cast this spell.)\nSearch target player's library for up to three cards, exile them, then that player shuffles. If this spell was kicked, instead search that player's library for up to fifteen cards, exile them, then that player shuffles.",
+  "oversized": false,
+  "penny_rank": 5512,
+  "prices": {
+    "eur": "0.47",
+    "eur_foil": "2.18",
+    "tix": "0.02",
+    "usd": "0.79",
+    "usd_etched": null,
+    "usd_foil": "6.84"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae3d08582-85ba-48c4-a453-4a5a385a0c3e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/34774?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=21914&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F33415%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sadistic+Sacrament",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=195632&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSadistic%2BSacrament",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSadistic%2BSacrament"
+  },
+  "released_at": "2009-10-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f3d82fd7-6af1-4a97-9d51-486a41224b35/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/zen?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/zen/110/sadistic-sacrament?utm_source=api",
+  "set": "zen",
+  "set_id": "eb16a2bd-a218-4e4e-8339-4aa1afc0c8d2",
+  "set_name": "Zendikar",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Azen&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/eb16a2bd-a218-4e4e-8339-4aa1afc0c8d2",
+  "story_spotlight": false,
+  "tcgplayer_id": 33415,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/f3d82fd7-6af1-4a97-9d51-486a41224b35",
+  "variation": false
+}

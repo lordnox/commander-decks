@@ -1,0 +1,136 @@
+{
+  "artist": "Steven Belledin",
+  "artist_ids": [
+    "f07d73b9-52a0-4fe5-858b-61f7b42174a5"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 19056,
+  "cmc": 4.0,
+  "collector_number": "42",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 17381,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Most of the Knacksaw clique's skills were hewn from the minds of others.",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "22353590-f248-460e-a1a5-0b7431a4c82d",
+  "illustration_id": "27c823f5-ebba-4878-b4e7-a82b29526ad6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:39:20Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/2/22353590-f248-460e-a1a5-0b7431a4c82d.webp?1783942760",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/2/22353590-f248-460e-a1a5-0b7431a4c82d.jpg?1783942760",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/2/22353590-f248-460e-a1a5-0b7431a4c82d.jpg?1783942760",
+    "crop": "https://cards.scryfall.io/crop/front/2/2/22353590-f248-460e-a1a5-0b7431a4c82d.webp?1783942760",
+    "display": "https://cards.scryfall.io/display/front/2/2/22353590-f248-460e-a1a5-0b7431a4c82d.webp?1783942760",
+    "grid": "https://cards.scryfall.io/grid/front/2/2/22353590-f248-460e-a1a5-0b7431a4c82d.webp?1783942760",
+    "large": "https://cards.scryfall.io/large/front/2/2/22353590-f248-460e-a1a5-0b7431a4c82d.jpg?1783942760",
+    "normal": "https://cards.scryfall.io/normal/front/2/2/22353590-f248-460e-a1a5-0b7431a4c82d.jpg?1783942760",
+    "png": "https://cards.scryfall.io/png/front/2/2/22353590-f248-460e-a1a5-0b7431a4c82d.png?1783942760",
+    "small": "https://cards.scryfall.io/small/front/2/2/22353590-f248-460e-a1a5-0b7431a4c82d.jpg?1783942760",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/2/22353590-f248-460e-a1a5-0b7431a4c82d.webp?1783942760"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "mtgo_foil_id": 29436,
+  "mtgo_id": 29435,
+  "multiverse_ids": [
+    146036
+  ],
+  "name": "Knacksaw Clique",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "06af8e20-6f60-400d-9120-c99311232dde",
+  "oracle_text": "Flying\n{1}{U}, {Q}: Target opponent exiles the top card of their library. Until end of turn, you may play that card. ({Q} is the untap symbol.)",
+  "oversized": false,
+  "penny_rank": 13523,
+  "power": "1",
+  "prices": {
+    "eur": "1.32",
+    "eur_foil": "8.77",
+    "tix": "0.02",
+    "usd": "3.16",
+    "usd_etched": null,
+    "usd_foil": "86.85"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A06af8e20-6f60-400d-9120-c99311232dde&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/29435?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=19056&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F18686%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Knacksaw+Clique",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=146036&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKnacksaw%2BClique",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKnacksaw%2BClique"
+  },
+  "released_at": "2008-05-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/22353590-f248-460e-a1a5-0b7431a4c82d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/shm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/shm/42/knacksaw-clique?utm_source=api",
+  "set": "shm",
+  "set_id": "c18c0ba1-2081-4808-9b2e-549bc3a666f3",
+  "set_name": "Shadowmoor",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ashm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/c18c0ba1-2081-4808-9b2e-549bc3a666f3",
+  "story_spotlight": false,
+  "tcgplayer_id": 18686,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Faerie Rogue",
+  "uri": "https://api.scryfall.com/cards/22353590-f248-460e-a1a5-0b7431a4c82d",
+  "variation": false
+}

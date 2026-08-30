@@ -1,0 +1,133 @@
+{
+  "artist": "Robin Olausson",
+  "artist_ids": [
+    "adb9ad6d-6173-454b-8b50-a102b182548b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 660764,
+  "cmc": 4.0,
+  "collector_number": "338",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 3135,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "It whispers words spoken centuries ago, coaxing wisdom from the ghosts of civilizations past.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "8c99e6e1-3b88-4d2f-bc5d-70439585a063",
+  "illustration_id": "09892476-9015-4d1b-b893-015813a9b0bc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:04:24Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/c/8c99e6e1-3b88-4d2f-bc5d-70439585a063.webp?1783922664",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/c/8c99e6e1-3b88-4d2f-bc5d-70439585a063.jpg?1783922664",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/c/8c99e6e1-3b88-4d2f-bc5d-70439585a063.jpg?1783922664",
+    "crop": "https://cards.scryfall.io/crop/front/8/c/8c99e6e1-3b88-4d2f-bc5d-70439585a063.webp?1783922664",
+    "display": "https://cards.scryfall.io/display/front/8/c/8c99e6e1-3b88-4d2f-bc5d-70439585a063.webp?1783922664",
+    "grid": "https://cards.scryfall.io/grid/front/8/c/8c99e6e1-3b88-4d2f-bc5d-70439585a063.webp?1783922664",
+    "large": "https://cards.scryfall.io/large/front/8/c/8c99e6e1-3b88-4d2f-bc5d-70439585a063.jpg?1783922664",
+    "normal": "https://cards.scryfall.io/normal/front/8/c/8c99e6e1-3b88-4d2f-bc5d-70439585a063.jpg?1783922664",
+    "png": "https://cards.scryfall.io/png/front/8/c/8c99e6e1-3b88-4d2f-bc5d-70439585a063.png?1783922664",
+    "small": "https://cards.scryfall.io/small/front/8/c/8c99e6e1-3b88-4d2f-bc5d-70439585a063.jpg?1783922664",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/c/8c99e6e1-3b88-4d2f-bc5d-70439585a063.webp?1783922664"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}",
+  "multiverse_ids": [
+    563221
+  ],
+  "name": "Stonespeaker Crystal",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a494fcee-6885-434c-aad5-6f83640c4472",
+  "oracle_text": "{T}: Add {C}{C}.\n{2}, {T}, Sacrifice this artifact: Exile any number of target players' graveyards. Draw a card.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2022-05-25",
+    "source": "Flork",
+    "source_uri": "https://twitter.com/FlorkOfCows/status/1529471017281675264"
+  },
+  "prices": {
+    "eur": "0.42",
+    "eur_foil": "0.87",
+    "tix": null,
+    "usd": "0.35",
+    "usd_etched": null,
+    "usd_foil": "4.99"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa494fcee-6885-434c-aad5-6f83640c4472&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Stonespeaker+Crystal&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=660764&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F273087%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Stonespeaker+Crystal",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=563221&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DStonespeaker%2BCrystal",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DStonespeaker%2BCrystal"
+  },
+  "released_at": "2022-06-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8c99e6e1-3b88-4d2f-bc5d-70439585a063/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/338/stonespeaker-crystal?utm_source=api",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 273087,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/8c99e6e1-3b88-4d2f-bc5d-70439585a063",
+  "variation": false
+}

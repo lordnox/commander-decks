@@ -1,0 +1,135 @@
+{
+  "artist": "Nikola Matkovic",
+  "artist_ids": [
+    "cf6c505e-93ef-4a0a-9f22-b516c89b988b"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 788702,
+  "cmc": 7.0,
+  "collector_number": "130",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 4791,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary",
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f81e3110-857c-4074-9c55-7e87c22051c9",
+  "illustration_id": "4d52b414-e9b8-4c0a-acc3-b442fb04e266",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:27:03Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/8/f81e3110-857c-4074-9c55-7e87c22051c9.webp?1783909623",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/8/f81e3110-857c-4074-9c55-7e87c22051c9.jpg?1783909623",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/8/f81e3110-857c-4074-9c55-7e87c22051c9.jpg?1783909623",
+    "crop": "https://cards.scryfall.io/crop/front/f/8/f81e3110-857c-4074-9c55-7e87c22051c9.webp?1783909623",
+    "display": "https://cards.scryfall.io/display/front/f/8/f81e3110-857c-4074-9c55-7e87c22051c9.webp?1783909623",
+    "grid": "https://cards.scryfall.io/grid/front/f/8/f81e3110-857c-4074-9c55-7e87c22051c9.webp?1783909623",
+    "large": "https://cards.scryfall.io/large/front/f/8/f81e3110-857c-4074-9c55-7e87c22051c9.jpg?1783909623",
+    "normal": "https://cards.scryfall.io/normal/front/f/8/f81e3110-857c-4074-9c55-7e87c22051c9.jpg?1783909623",
+    "png": "https://cards.scryfall.io/png/front/f/8/f81e3110-857c-4074-9c55-7e87c22051c9.png?1783909623",
+    "small": "https://cards.scryfall.io/small/front/f/8/f81e3110-857c-4074-9c55-7e87c22051c9.jpg?1783909623",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/8/f81e3110-857c-4074-9c55-7e87c22051c9.webp?1783909623"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{B}{B}{B}",
+  "mtgo_id": 130883,
+  "multiverse_ids": [
+    676003
+  ],
+  "name": "Arvinox, the Mind Flail",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9abecd23-a2d9-43c7-8d01-f8afdc53026e",
+  "oracle_text": "Arvinox isn't a creature unless you control three or more permanents you don't own.\nAt the beginning of your end step, exile the bottom card of each opponent's library face down. For as long as those cards remain exiled, you may look at them, you may cast permanent spells from among them, and you may spend mana as though it were mana of any color to cast those spells.",
+  "oversized": false,
+  "power": "9",
+  "prices": {
+    "eur": "0.46",
+    "eur_foil": null,
+    "tix": "0.45",
+    "usd": "0.38",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9abecd23-a2d9-43c7-8d01-f8afdc53026e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130883?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=788702&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F578993%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Arvinox%2C+the+Mind+Flail",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676003&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DArvinox%252C%2Bthe%2BMind%2BFlail",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DArvinox%252C%2Bthe%2BMind%2BFlail"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f81e3110-857c-4074-9c55-7e87c22051c9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/130/arvinox-the-mind-flail?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 578993,
+  "textless": false,
+  "toughness": "9",
+  "type_line": "Legendary Enchantment Creature — Horror",
+  "uri": "https://api.scryfall.com/cards/f81e3110-857c-4074-9c55-7e87c22051c9",
+  "variation": false
+}

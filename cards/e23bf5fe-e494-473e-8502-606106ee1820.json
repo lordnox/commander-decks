@@ -1,0 +1,131 @@
+{
+  "artist": "Matt Cavotta",
+  "artist_ids": [
+    "2e6a0611-9411-4ba4-98e3-c0e18cbf9f83"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 49,
+  "cmc": 5.0,
+  "collector_number": "49",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 15334,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ad0d5b02-ef38-4dab-8ac6-78814ef27b55",
+  "illustration_id": "f55821c4-cce8-4514-b645-e5a67792feb4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:09:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/d/ad0d5b02-ef38-4dab-8ac6-78814ef27b55.webp?1783944552",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/d/ad0d5b02-ef38-4dab-8ac6-78814ef27b55.jpg?1783944552",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/d/ad0d5b02-ef38-4dab-8ac6-78814ef27b55.jpg?1783944552",
+    "crop": "https://cards.scryfall.io/crop/front/a/d/ad0d5b02-ef38-4dab-8ac6-78814ef27b55.webp?1783944552",
+    "display": "https://cards.scryfall.io/display/front/a/d/ad0d5b02-ef38-4dab-8ac6-78814ef27b55.webp?1783944552",
+    "grid": "https://cards.scryfall.io/grid/front/a/d/ad0d5b02-ef38-4dab-8ac6-78814ef27b55.webp?1783944552",
+    "large": "https://cards.scryfall.io/large/front/a/d/ad0d5b02-ef38-4dab-8ac6-78814ef27b55.jpg?1783944552",
+    "normal": "https://cards.scryfall.io/normal/front/a/d/ad0d5b02-ef38-4dab-8ac6-78814ef27b55.jpg?1783944552",
+    "png": "https://cards.scryfall.io/png/front/a/d/ad0d5b02-ef38-4dab-8ac6-78814ef27b55.png?1783944552",
+    "small": "https://cards.scryfall.io/small/front/a/d/ad0d5b02-ef38-4dab-8ac6-78814ef27b55.jpg?1783944552",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/d/ad0d5b02-ef38-4dab-8ac6-78814ef27b55.webp?1783944552"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{U}",
+  "mtgo_foil_id": 20276,
+  "mtgo_id": 20275,
+  "multiverse_ids": [
+    49764
+  ],
+  "name": "Shared Fate",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e23bf5fe-e494-473e-8502-606106ee1820",
+  "oracle_text": "If a player would draw a card, that player exiles the top card of one of their opponents' libraries face down instead.\nEach player may look at cards they exiled with this enchantment, and they may play lands and cast spells from among those cards.",
+  "oversized": false,
+  "penny_rank": 7752,
+  "prices": {
+    "eur": "0.33",
+    "eur_foil": "2.11",
+    "tix": "0.02",
+    "usd": "0.60",
+    "usd_etched": null,
+    "usd_foil": "9.99"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae23bf5fe-e494-473e-8502-606106ee1820&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/20275?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=49&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F11372%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Shared+Fate",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=49764&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DShared%2BFate",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DShared%2BFate"
+  },
+  "released_at": "2003-10-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ad0d5b02-ef38-4dab-8ac6-78814ef27b55/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mrd?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mrd/49/shared-fate?utm_source=api",
+  "set": "mrd",
+  "set_id": "1d4f90ba-8d4a-4ee5-bc2f-e2d6bffe4955",
+  "set_name": "Mirrodin",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amrd&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/1d4f90ba-8d4a-4ee5-bc2f-e2d6bffe4955",
+  "story_spotlight": false,
+  "tcgplayer_id": 11372,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/ad0d5b02-ef38-4dab-8ac6-78814ef27b55",
+  "variation": false
+}

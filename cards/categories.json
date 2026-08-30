@@ -7746,8 +7746,442 @@
         "protection",
         "sacrifice"
       ]
+    },
+    "af31febb-af53-4b48-b930-9e1f9e5d8f26": {
+      "name": "Umbris, Fear Manifest",
+      "categories": [
+        "exile",
+        "win-condition"
+      ]
+    },
+    "b8510b34-0e5f-4639-9db1-1ba40d84b800": {
+      "name": "Ancient Cellarspawn",
+      "categories": [
+        "cost-reduction",
+        "life-loss"
+      ]
+    },
+    "9abecd23-a2d9-43c7-8d01-f8afdc53026e": {
+      "name": "Arvinox, the Mind Flail",
+      "categories": [
+        "exile",
+        "theft"
+      ]
+    },
+    "8bad4e43-4375-4e7f-897e-d28be72308d7": {
+      "name": "Author of Shadows",
+      "categories": [
+        "exile",
+        "graveyard-hate",
+        "theft"
+      ]
+    },
+    "13cb958f-1e66-4219-901a-ff58275c8475": {
+      "name": "Brainstealer Dragon",
+      "categories": [
+        "exile",
+        "life-loss",
+        "theft"
+      ]
+    },
+    "c87d547b-00a4-4fdd-ade4-f3f032e5ea3b": {
+      "name": "Circu, Dimir Lobotomist",
+      "categories": [
+        "exile",
+        "library-control"
+      ]
+    },
+    "e537bd23-7368-459b-badf-b7b7c112c88a": {
+      "name": "Elder Brain",
+      "categories": [
+        "exile",
+        "theft"
+      ]
+    },
+    "6a0b1b7e-1a93-4c00-be94-8fa56af57468": {
+      "name": "Falthis, Shadowcat Familiar",
+      "categories": [
+        "combat",
+        "evasion"
+      ]
+    },
+    "a067233b-cff0-45ae-89d9-377e94fcf3b3": {
+      "name": "Grimoire Thief",
+      "categories": [
+        "counterspell",
+        "exile"
+      ]
+    },
+    "06af8e20-6f60-400d-9120-c99311232dde": {
+      "name": "Knacksaw Clique",
+      "categories": [
+        "exile",
+        "theft"
+      ]
+    },
+    "4ce83f8c-b27e-4e5b-b19b-76b66aaa904b": {
+      "name": "Nightveil Specter",
+      "categories": [
+        "exile",
+        "theft"
+      ]
+    },
+    "1dfaa773-7cd5-4489-9790-661cef4ed6f3": {
+      "name": "Raven Guild Master",
+      "categories": [
+        "exile"
+      ]
+    },
+    "458800d3-47b7-4f28-8371-25c8d1e60011": {
+      "name": "Scrib Nibblers",
+      "categories": [
+        "exile"
+      ]
+    },
+    "6aea681e-88d2-48df-a717-3ce0bc95205b": {
+      "name": "Silent Hallcreeper",
+      "categories": [
+        "card-draw",
+        "clone",
+        "evasion"
+      ]
+    },
+    "68b51d58-7566-4a26-8c31-8da32799bea7": {
+      "name": "Thief of Sanity",
+      "categories": [
+        "exile",
+        "theft"
+      ]
+    },
+    "b6f52260-9ad5-4024-acf9-d77f3c08c872": {
+      "name": "Ashiok, Nightmare Weaver",
+      "categories": [
+        "exile",
+        "theft"
+      ]
+    },
+    "e7eb7ac8-08ab-419b-8508-987afd0bb93b": {
+      "name": "Cunning Rhetoric",
+      "categories": [
+        "exile",
+        "theft"
+      ]
+    },
+    "b19a7ae7-3af5-4aa6-80e1-8888054427de": {
+      "name": "Dauthi Embrace",
+      "categories": [
+        "evasion"
+      ]
+    },
+    "ff768016-67f8-409e-8359-9ed05bcb46d2": {
+      "name": "Elspeth's Nightmare",
+      "categories": [
+        "removal",
+        "discard",
+        "graveyard-hate"
+      ]
+    },
+    "35c416c6-f522-4b4c-93db-75c4e01843d1": {
+      "name": "King Narfi's Betrayal",
+      "categories": [
+        "exile",
+        "mill",
+        "theft"
+      ]
+    },
+    "d4b5e09b-9ca2-4b51-a4f8-080741810df8": {
+      "name": "Mind's Dilation",
+      "categories": [
+        "exile",
+        "theft"
+      ]
+    },
+    "e23bf5fe-e494-473e-8502-606106ee1820": {
+      "name": "Shared Fate",
+      "categories": [
+        "exile",
+        "theft"
+      ]
+    },
+    "cd2791e8-0b61-49b8-8b72-ff2737df1049": {
+      "name": "Vanishing",
+      "categories": [
+        "protection"
+      ]
+    },
+    "a2529491-7389-4cfa-92d2-145eda779603": {
+      "name": "Darksteel Ingot",
+      "categories": [
+        "ramp",
+        "protection"
+      ]
+    },
+    "2a2f2d6c-3937-4e4b-9e4a-3480e0c787d0": {
+      "name": "Ebony Fly",
+      "categories": [
+        "evasion",
+        "ramp"
+      ]
+    },
+    "fa798a3d-7797-4795-b251-a45f0429d169": {
+      "name": "Grinning Totem",
+      "categories": [
+        "exile",
+        "theft",
+        "tutor"
+      ]
+    },
+    "8783a94a-d0b2-4291-a550-dbcf8e16bf4b": {
+      "name": "Jester's Cap",
+      "categories": [
+        "exile",
+        "library-control"
+      ]
+    },
+    "396b943c-b45d-4e5b-a9c1-f70bc603ee9f": {
+      "name": "Jester's Scepter",
+      "categories": [
+        "counterspell",
+        "exile"
+      ]
+    },
+    "cb53bd72-dee8-46fa-b0f9-1eee3a99379a": {
+      "name": "Knowledge Pool",
+      "categories": [
+        "exile",
+        "theft"
+      ]
+    },
+    "f7dcb605-c48e-4e21-86e2-0d0bd4bd2ec7": {
+      "name": "Muse Vessel",
+      "categories": [
+        "discard",
+        "exile",
+        "theft"
+      ]
+    },
+    "3c41c666-5cf4-4f35-9cb8-c41f1f78f31e": {
+      "name": "Ornate Kanzashi",
+      "categories": [
+        "exile",
+        "theft"
+      ]
+    },
+    "7acd7ef5-0e26-436d-962a-1a391f81c2e8": {
+      "name": "Perilous Vault",
+      "categories": [
+        "board-wipe",
+        "exile"
+      ]
+    },
+    "511b1174-8ef7-4d17-93de-01b9b81bda6a": {
+      "name": "Spectral Searchlight",
+      "categories": [
+        "politics",
+        "ramp"
+      ]
+    },
+    "a494fcee-6885-434c-aad5-6f83640c4472": {
+      "name": "Stonespeaker Crystal",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "graveyard-hate"
+      ]
+    },
+    "bf09b97b-9387-4b94-a3fc-00080881f052": {
+      "name": "Surestrike Trident",
+      "categories": [
+        "win-condition"
+      ]
+    },
+    "8031285b-2add-42da-aa97-03c3f2fff226": {
+      "name": "Vessel of Endless Rest",
+      "categories": [
+        "graveyard-hate",
+        "ramp"
+      ]
+    },
+    "b166b670-febc-4821-855e-f8d465644c03": {
+      "name": "Worn Powerstone",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "944a52d9-bb14-43c5-8d05-2afaf023dc9f": {
+      "name": "Ashes to Ashes",
+      "categories": [
+        "exile",
+        "removal"
+      ]
+    },
+    "adfcdadd-ddda-477b-8e72-0cae2430fb63": {
+      "name": "Baleful Mastery",
+      "categories": [
+        "exile",
+        "removal"
+      ]
+    },
+    "5669ea7c-c4fc-494c-896b-4bce9b494817": {
+      "name": "Curse of the Swine",
+      "categories": [
+        "exile",
+        "removal",
+        "token-production"
+      ]
+    },
+    "983caa3f-7089-4e66-825d-4086a5adb9bb": {
+      "name": "Delay",
+      "categories": [
+        "counterspell",
+        "exile"
+      ]
+    },
+    "ae9a398e-f3a7-4878-a14d-0f6c2dac3d83": {
+      "name": "Essence Harvest",
+      "categories": [
+        "life-gain",
+        "win-condition"
+      ]
+    },
+    "bbe370ba-412b-4052-89d9-2d0ae4928118": {
+      "name": "Faerie Trickery",
+      "categories": [
+        "counterspell",
+        "exile"
+      ]
+    },
+    "444dea65-9be7-4b64-afd1-eebe44b285be": {
+      "name": "Moonlight Bargain",
+      "categories": [
+        "card-advantage",
+        "card-selection"
+      ]
+    },
+    "1eb88d87-e024-47fe-bd63-0eac69c106f6": {
+      "name": "Petals of Insight",
+      "categories": [
+        "card-advantage",
+        "card-selection"
+      ]
+    },
+    "fdb10291-b5e0-4da8-a103-8e7ac7f8177b": {
+      "name": "Psychic Intrusion",
+      "categories": [
+        "exile",
+        "theft"
+      ]
+    },
+    "327121a1-f193-44c6-a834-802095abec84": {
+      "name": "Rite of Consumption",
+      "categories": [
+        "life-gain",
+        "sacrifice",
+        "win-condition"
+      ]
+    },
+    "e3d08582-85ba-48c4-a453-4a5a385a0c3e": {
+      "name": "Sadistic Sacrament",
+      "categories": [
+        "exile",
+        "library-control"
+      ]
+    },
+    "aee82122-d13e-4175-b499-9dde718e4da9": {
+      "name": "Siphon Insight",
+      "categories": [
+        "card-selection",
+        "exile",
+        "theft"
+      ]
+    },
+    "7687b2a7-816d-4416-979b-675e35e235fc": {
+      "name": "Spelljack",
+      "categories": [
+        "counterspell",
+        "exile",
+        "theft"
+      ]
+    },
+    "61c89b11-65c9-4fda-bbcd-d84de25df801": {
+      "name": "Aether Hub",
+      "categories": [
+        "land",
+        "mana-fixing"
+      ]
+    },
+    "d98b4250-3492-4864-9c4c-42db09b3ccd4": {
+      "name": "Cascading Cataracts",
+      "categories": [
+        "land",
+        "mana-fixing"
+      ]
+    },
+    "cfd60d1f-9832-4408-b84e-0fd3018b015b": {
+      "name": "Forbidden Orchard",
+      "categories": [
+        "land",
+        "mana-fixing",
+        "token-production"
+      ]
+    },
+    "75a49bce-ab48-44d6-906d-6f51a30702ba": {
+      "name": "Frost Marsh",
+      "categories": [
+        "land",
+        "mana-fixing"
+      ]
+    },
+    "0c828f10-4775-492f-9224-1e2814ad2cad": {
+      "name": "Gemstone Mine",
+      "categories": [
+        "land",
+        "mana-fixing"
+      ]
+    },
+    "1b340f71-502f-48e9-85ed-9af62f356115": {
+      "name": "Hostile Hostel // Creeping Inn",
+      "categories": [
+        "land",
+        "sacrifice"
+      ]
+    },
+    "ea53adbe-3f9a-4847-87c7-723ac2789918": {
+      "name": "Mirrodin's Core",
+      "categories": [
+        "land",
+        "mana-fixing"
+      ]
+    },
+    "8a83d284-75a0-4901-b7d9-c4b7586ee327": {
+      "name": "River of Tears",
+      "categories": [
+        "land",
+        "mana-fixing"
+      ]
+    },
+    "008f2698-1721-45a3-8353-10f2f400dc8f": {
+      "name": "Shizo, Death's Storehouse",
+      "categories": [
+        "evasion",
+        "land"
+      ]
+    },
+    "9e006a4b-8dde-4416-8cb4-8401562d0fd5": {
+      "name": "Tendo Ice Bridge",
+      "categories": [
+        "land",
+        "mana-fixing"
+      ]
+    },
+    "2daee7cb-6736-4aa6-9921-0371c1abe69f": {
+      "name": "Parallel Thoughts",
+      "categories": [
+        "card-selection",
+        "tutor"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-27T17:12:26.188925+00:00"
+  "updated_at": "2026-08-30T20:50:50.244399+00:00"
 }

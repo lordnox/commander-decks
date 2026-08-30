@@ -1,0 +1,134 @@
+{
+  "artist": "Livia Prima",
+  "artist_ids": [
+    "0f41e561-bc26-4d85-aab6-66c384e01b74"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764725,
+  "cmc": 2.0,
+  "collector_number": "242",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "colors": [
+    "B",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 4304,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "28a6b23f-a854-469a-9b06-119507dd9d42",
+  "illustration_id": "1a41b22a-65f8-45c0-9ab9-e5b82ad11fea",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:04:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/8/28a6b23f-a854-469a-9b06-119507dd9d42.webp?1783911895",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/8/28a6b23f-a854-469a-9b06-119507dd9d42.jpg?1783911895",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/8/28a6b23f-a854-469a-9b06-119507dd9d42.jpg?1783911895",
+    "crop": "https://cards.scryfall.io/crop/front/2/8/28a6b23f-a854-469a-9b06-119507dd9d42.webp?1783911895",
+    "display": "https://cards.scryfall.io/display/front/2/8/28a6b23f-a854-469a-9b06-119507dd9d42.webp?1783911895",
+    "grid": "https://cards.scryfall.io/grid/front/2/8/28a6b23f-a854-469a-9b06-119507dd9d42.webp?1783911895",
+    "large": "https://cards.scryfall.io/large/front/2/8/28a6b23f-a854-469a-9b06-119507dd9d42.jpg?1783911895",
+    "normal": "https://cards.scryfall.io/normal/front/2/8/28a6b23f-a854-469a-9b06-119507dd9d42.jpg?1783911895",
+    "png": "https://cards.scryfall.io/png/front/2/8/28a6b23f-a854-469a-9b06-119507dd9d42.png?1783911895",
+    "small": "https://cards.scryfall.io/small/front/2/8/28a6b23f-a854-469a-9b06-119507dd9d42.jpg?1783911895",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/8/28a6b23f-a854-469a-9b06-119507dd9d42.webp?1783911895"
+  },
+  "keywords": [
+    "Flashback"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}{B}",
+  "mtgo_id": 124947,
+  "multiverse_ids": [
+    658686
+  ],
+  "name": "Siphon Insight",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "aee82122-d13e-4175-b499-9dde718e4da9",
+  "oracle_text": "Look at the top two cards of target opponent's library. Exile one of them face down and put the other on the bottom of that library. You may play the exiled card for as long as it remains exiled, and you may spend mana as though it were mana of any color to cast that spell.\nFlashback {1}{U}{B}",
+  "oversized": false,
+  "penny_rank": 4153,
+  "prices": {
+    "eur": "0.27",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.37",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aaee82122-d13e-4175-b499-9dde718e4da9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124947?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764725&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F545215%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Siphon+Insight",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=658686&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSiphon%2BInsight",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSiphon%2BInsight"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/28a6b23f-a854-469a-9b06-119507dd9d42/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otc/242/siphon-insight?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otc",
+  "set_id": "d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "set_name": "Outlaws of Thunder Junction Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "story_spotlight": false,
+  "tcgplayer_id": 545215,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/28a6b23f-a854-469a-9b06-119507dd9d42",
+  "variation": false
+}
