@@ -1,0 +1,132 @@
+{
+  "artist": "Daarken",
+  "artist_ids": [
+    "e607a0d4-fc12-4c01-9e3f-501f5269b9cb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 254662,
+  "cmc": 3.0,
+  "collector_number": "100",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 6431,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Captain Lewenheart uncovered evidence of a demon cult among the clergy. The Skirsdag never gave him a chance to prove his case.",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7c3fac03-a019-4faa-bc1c-09e3a394fff7",
+  "illustration_id": "c8c137a5-9c48-4ec8-a0e9-4cd03a114790",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:04:59Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/c/7c3fac03-a019-4faa-bc1c-09e3a394fff7.webp?1783940699",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/c/7c3fac03-a019-4faa-bc1c-09e3a394fff7.jpg?1783940699",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/c/7c3fac03-a019-4faa-bc1c-09e3a394fff7.jpg?1783940699",
+    "crop": "https://cards.scryfall.io/crop/front/7/c/7c3fac03-a019-4faa-bc1c-09e3a394fff7.webp?1783940699",
+    "display": "https://cards.scryfall.io/display/front/7/c/7c3fac03-a019-4faa-bc1c-09e3a394fff7.webp?1783940699",
+    "grid": "https://cards.scryfall.io/grid/front/7/c/7c3fac03-a019-4faa-bc1c-09e3a394fff7.webp?1783940699",
+    "large": "https://cards.scryfall.io/large/front/7/c/7c3fac03-a019-4faa-bc1c-09e3a394fff7.jpg?1783940699",
+    "normal": "https://cards.scryfall.io/normal/front/7/c/7c3fac03-a019-4faa-bc1c-09e3a394fff7.jpg?1783940699",
+    "png": "https://cards.scryfall.io/png/front/7/c/7c3fac03-a019-4faa-bc1c-09e3a394fff7.png?1783940699",
+    "small": "https://cards.scryfall.io/small/front/7/c/7c3fac03-a019-4faa-bc1c-09e3a394fff7.jpg?1783940699",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/c/7c3fac03-a019-4faa-bc1c-09e3a394fff7.webp?1783940699"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_foil_id": 44196,
+  "mtgo_id": 44195,
+  "multiverse_ids": [
+    271114
+  ],
+  "name": "Essence Harvest",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ae9a398e-f3a7-4878-a14d-0f6c2dac3d83",
+  "oracle_text": "Target player loses X life and you gain X life, where X is the greatest power among creatures you control.",
+  "oversized": false,
+  "penny_rank": 14681,
+  "prices": {
+    "eur": "0.60",
+    "eur_foil": "8.87",
+    "tix": "0.03",
+    "usd": "0.33",
+    "usd_etched": null,
+    "usd_foil": "7.45"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aae9a398e-f3a7-4878-a14d-0f6c2dac3d83&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/44195?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=254662&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F58912%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Essence+Harvest",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=271114&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEssence%2BHarvest",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEssence%2BHarvest"
+  },
+  "released_at": "2012-05-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7c3fac03-a019-4faa-bc1c-09e3a394fff7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/avr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/avr/100/essence-harvest?utm_source=api",
+  "set": "avr",
+  "set_id": "039810a9-92d7-4f2d-b2d0-ca661ac586c0",
+  "set_name": "Avacyn Restored",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aavr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/039810a9-92d7-4f2d-b2d0-ca661ac586c0",
+  "story_spotlight": false,
+  "tcgplayer_id": 58912,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/7c3fac03-a019-4faa-bc1c-09e3a394fff7",
+  "variation": false
+}

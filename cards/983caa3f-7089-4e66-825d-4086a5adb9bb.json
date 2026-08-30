@@ -1,0 +1,135 @@
+{
+  "artist": "Svetlin Velinov",
+  "artist_ids": [
+    "ffd063ae-c097-4f26-b2e6-b1e2137708bc"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 542851,
+  "cmc": 2.0,
+  "collector_number": "61",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2146,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "3906d538-f1ca-4799-b91c-2e0d2934f241",
+  "illustration_id": "9a2afc82-9988-48bc-8ea3-a389a96cedbe",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:30:58Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/9/3906d538-f1ca-4799-b91c-2e0d2934f241.webp?1783927858",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/9/3906d538-f1ca-4799-b91c-2e0d2934f241.jpg?1783927858",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/9/3906d538-f1ca-4799-b91c-2e0d2934f241.jpg?1783927858",
+    "crop": "https://cards.scryfall.io/crop/front/3/9/3906d538-f1ca-4799-b91c-2e0d2934f241.webp?1783927858",
+    "display": "https://cards.scryfall.io/display/front/3/9/3906d538-f1ca-4799-b91c-2e0d2934f241.webp?1783927858",
+    "grid": "https://cards.scryfall.io/grid/front/3/9/3906d538-f1ca-4799-b91c-2e0d2934f241.webp?1783927858",
+    "large": "https://cards.scryfall.io/large/front/3/9/3906d538-f1ca-4799-b91c-2e0d2934f241.jpg?1783927858",
+    "normal": "https://cards.scryfall.io/normal/front/3/9/3906d538-f1ca-4799-b91c-2e0d2934f241.jpg?1783927858",
+    "png": "https://cards.scryfall.io/png/front/3/9/3906d538-f1ca-4799-b91c-2e0d2934f241.png?1783927858",
+    "small": "https://cards.scryfall.io/small/front/3/9/3906d538-f1ca-4799-b91c-2e0d2934f241.jpg?1783927858",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/9/3906d538-f1ca-4799-b91c-2e0d2934f241.webp?1783927858"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 86485,
+  "multiverse_ids": [
+    509426
+  ],
+  "name": "Delay",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "983caa3f-7089-4e66-825d-4086a5adb9bb",
+  "oracle_text": "Counter target spell. If the spell is countered this way, exile it with three time counters on it instead of putting it into its owner's graveyard. If it doesn't have suspend, it gains suspend. (At the beginning of its owner's upkeep, they remove a time counter. When the last is removed, they may play it without paying its mana cost. If it's a creature, it has haste.)",
+  "oversized": false,
+  "penny_rank": 4538,
+  "preview": {
+    "previewed_at": "2021-02-26",
+    "source": "Numerama",
+    "source_uri": "https://www.numerama.com/pop-culture/689124-spirale-temporelle-remastered-3-cartes-exclusives-de-la-prochaine-extension-de-magic.html"
+  },
+  "prices": {
+    "eur": "2.58",
+    "eur_foil": "16.86",
+    "tix": "0.04",
+    "usd": "3.84",
+    "usd_etched": null,
+    "usd_foil": "6.13"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A983caa3f-7089-4e66-825d-4086a5adb9bb&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/86485?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=542851&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F233519%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Delay",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=509426&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDelay",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDelay"
+  },
+  "released_at": "2021-03-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3906d538-f1ca-4799-b91c-2e0d2934f241/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tsr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tsr/61/delay?utm_source=api",
+  "set": "tsr",
+  "set_id": "11e90d1b-0502-43e6-b056-e24836523c13",
+  "set_name": "Time Spiral Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atsr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/11e90d1b-0502-43e6-b056-e24836523c13",
+  "story_spotlight": false,
+  "tcgplayer_id": 233519,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/3906d538-f1ca-4799-b91c-2e0d2934f241",
+  "variation": false
+}

@@ -1,0 +1,131 @@
+{
+  "artist": "Ben Thompson",
+  "artist_ids": [
+    "f3116c88-57f4-4fd1-95f3-cfd163977661"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 1037,
+  "cmc": 5.0,
+  "collector_number": "44",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 14441,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d913c541-a8fb-4383-bbab-988be3e0f5d5",
+  "illustration_id": "9801b50a-0e4a-41ee-a693-70ee58ee8d6c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:14:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/9/d913c541-a8fb-4383-bbab-988be3e0f5d5.webp?1783944885",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/9/d913c541-a8fb-4383-bbab-988be3e0f5d5.jpg?1783944885",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/9/d913c541-a8fb-4383-bbab-988be3e0f5d5.jpg?1783944885",
+    "crop": "https://cards.scryfall.io/crop/front/d/9/d913c541-a8fb-4383-bbab-988be3e0f5d5.webp?1783944885",
+    "display": "https://cards.scryfall.io/display/front/d/9/d913c541-a8fb-4383-bbab-988be3e0f5d5.webp?1783944885",
+    "grid": "https://cards.scryfall.io/grid/front/d/9/d913c541-a8fb-4383-bbab-988be3e0f5d5.webp?1783944885",
+    "large": "https://cards.scryfall.io/large/front/d/9/d913c541-a8fb-4383-bbab-988be3e0f5d5.jpg?1783944885",
+    "normal": "https://cards.scryfall.io/normal/front/d/9/d913c541-a8fb-4383-bbab-988be3e0f5d5.jpg?1783944885",
+    "png": "https://cards.scryfall.io/png/front/d/9/d913c541-a8fb-4383-bbab-988be3e0f5d5.png?1783944885",
+    "small": "https://cards.scryfall.io/small/front/d/9/d913c541-a8fb-4383-bbab-988be3e0f5d5.jpg?1783944885",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/9/d913c541-a8fb-4383-bbab-988be3e0f5d5.webp?1783944885"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{U}",
+  "mtgo_foil_id": 18723,
+  "mtgo_id": 18722,
+  "multiverse_ids": [
+    43604
+  ],
+  "name": "Parallel Thoughts",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2daee7cb-6736-4aa6-9921-0371c1abe69f",
+  "oracle_text": "When this enchantment enters, search your library for seven cards, exile them in a face-down pile, and shuffle that pile. Then shuffle your library.\nIf you would draw a card, you may instead put the top card of the pile you exiled into your hand.",
+  "oversized": false,
+  "penny_rank": 11434,
+  "prices": {
+    "eur": "0.51",
+    "eur_foil": "6.11",
+    "tix": "0.02",
+    "usd": "1.50",
+    "usd_etched": null,
+    "usd_foil": "16.12"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2daee7cb-6736-4aa6-9921-0371c1abe69f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/18722?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=1037&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10870%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Parallel+Thoughts",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=43604&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DParallel%2BThoughts",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DParallel%2BThoughts"
+  },
+  "released_at": "2003-05-26",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d913c541-a8fb-4383-bbab-988be3e0f5d5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/scg?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/scg/44/parallel-thoughts?utm_source=api",
+  "set": "scg",
+  "set_id": "5133c3a1-1412-4ce6-a1f0-73b695966ded",
+  "set_name": "Scourge",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ascg&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5133c3a1-1412-4ce6-a1f0-73b695966ded",
+  "story_spotlight": false,
+  "tcgplayer_id": 10870,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/d913c541-a8fb-4383-bbab-988be3e0f5d5",
+  "variation": false
+}

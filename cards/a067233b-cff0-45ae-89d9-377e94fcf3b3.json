@@ -1,0 +1,133 @@
+{
+  "artist": "Randy Gallegos",
+  "artist_ids": [
+    "a5048cc7-438a-4378-98e4-da99b78e1db0"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 18864,
+  "cmc": 2.0,
+  "collector_number": "35",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 23816,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "59c4dceb-6889-4a79-87c2-98952f3478bb",
+  "illustration_id": "d7a650fb-c07d-47ed-885a-8d8219f892d1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:39:59Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/9/59c4dceb-6889-4a79-87c2-98952f3478bb.webp?1783942799",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/9/59c4dceb-6889-4a79-87c2-98952f3478bb.jpg?1783942799",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/9/59c4dceb-6889-4a79-87c2-98952f3478bb.jpg?1783942799",
+    "crop": "https://cards.scryfall.io/crop/front/5/9/59c4dceb-6889-4a79-87c2-98952f3478bb.webp?1783942799",
+    "display": "https://cards.scryfall.io/display/front/5/9/59c4dceb-6889-4a79-87c2-98952f3478bb.webp?1783942799",
+    "grid": "https://cards.scryfall.io/grid/front/5/9/59c4dceb-6889-4a79-87c2-98952f3478bb.webp?1783942799",
+    "large": "https://cards.scryfall.io/large/front/5/9/59c4dceb-6889-4a79-87c2-98952f3478bb.jpg?1783942799",
+    "normal": "https://cards.scryfall.io/normal/front/5/9/59c4dceb-6889-4a79-87c2-98952f3478bb.jpg?1783942799",
+    "png": "https://cards.scryfall.io/png/front/5/9/59c4dceb-6889-4a79-87c2-98952f3478bb.png?1783942799",
+    "small": "https://cards.scryfall.io/small/front/5/9/59c4dceb-6889-4a79-87c2-98952f3478bb.jpg?1783942799",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/9/59c4dceb-6889-4a79-87c2-98952f3478bb.webp?1783942799"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}{U}",
+  "mtgo_foil_id": 29109,
+  "mtgo_id": 29108,
+  "multiverse_ids": [
+    152870
+  ],
+  "name": "Grimoire Thief",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a067233b-cff0-45ae-89d9-377e94fcf3b3",
+  "oracle_text": "Whenever this creature becomes tapped, exile the top three cards of target opponent's library face down.\nYou may look at cards exiled with this creature.\n{U}, Sacrifice this creature: Turn all cards exiled with this creature face up. Counter all spells with those names.",
+  "oversized": false,
+  "penny_rank": 6796,
+  "power": "2",
+  "prices": {
+    "eur": "0.68",
+    "eur_foil": "2.32",
+    "tix": "0.02",
+    "usd": "0.64",
+    "usd_etched": null,
+    "usd_foil": "4.92"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa067233b-cff0-45ae-89d9-377e94fcf3b3&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/29108?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=18864&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F17993%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Grimoire+Thief",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=152870&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGrimoire%2BThief",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGrimoire%2BThief"
+  },
+  "released_at": "2008-02-01",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/59c4dceb-6889-4a79-87c2-98952f3478bb/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mor?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mor/35/grimoire-thief?utm_source=api",
+  "set": "mor",
+  "set_id": "c41550df-7b41-41a3-85ab-8612eb2f168f",
+  "set_name": "Morningtide",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amor&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/c41550df-7b41-41a3-85ab-8612eb2f168f",
+  "story_spotlight": false,
+  "tcgplayer_id": 17993,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Merfolk Rogue",
+  "uri": "https://api.scryfall.com/cards/59c4dceb-6889-4a79-87c2-98952f3478bb",
+  "variation": false
+}

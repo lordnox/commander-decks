@@ -1,0 +1,185 @@
+{
+  "arena_id": 78633,
+  "artist": "Daniel Ljunggren",
+  "artist_ids": [
+    "0fbd4798-76eb-46d5-a5d4-1e3a25870e34"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Daniel Ljunggren",
+      "artist_id": "0fbd4798-76eb-46d5-a5d4-1e3a25870e34",
+      "colors": [],
+      "illustration_id": "b1f16581-ff01-473e-ad26-7e02b67f3756",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.webp?1783925549",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.jpg?1783925549",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.jpg?1783925549",
+        "crop": "https://cards.scryfall.io/crop/front/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.webp?1783925549",
+        "display": "https://cards.scryfall.io/display/front/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.webp?1783925549",
+        "grid": "https://cards.scryfall.io/grid/front/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.webp?1783925549",
+        "large": "https://cards.scryfall.io/large/front/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.jpg?1783925549",
+        "normal": "https://cards.scryfall.io/normal/front/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.jpg?1783925549",
+        "png": "https://cards.scryfall.io/png/front/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.png?1783925549",
+        "small": "https://cards.scryfall.io/small/front/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.jpg?1783925549",
+        "thumb": "https://cards.scryfall.io/thumb/front/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.webp?1783925549"
+      },
+      "mana_cost": "",
+      "name": "Hostile Hostel",
+      "object": "card_face",
+      "oracle_text": "{T}: Add {C}.\n{1}, {T}, Sacrifice a creature: Put a soul counter on this land. Then if there are three or more soul counters on it, remove those counters, transform it, then untap it. Activate only as a sorcery.",
+      "type_line": "Land"
+    },
+    {
+      "artist": "Daniel Ljunggren",
+      "artist_id": "0fbd4798-76eb-46d5-a5d4-1e3a25870e34",
+      "color_indicator": [
+        "B"
+      ],
+      "colors": [
+        "B"
+      ],
+      "illustration_id": "2fcd0196-6f3c-4d0f-bff8-351eb8151474",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.webp?1783925549",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.jpg?1783925549",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.jpg?1783925549",
+        "crop": "https://cards.scryfall.io/crop/back/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.webp?1783925549",
+        "display": "https://cards.scryfall.io/display/back/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.webp?1783925549",
+        "grid": "https://cards.scryfall.io/grid/back/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.webp?1783925549",
+        "large": "https://cards.scryfall.io/large/back/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.jpg?1783925549",
+        "normal": "https://cards.scryfall.io/normal/back/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.jpg?1783925549",
+        "png": "https://cards.scryfall.io/png/back/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.png?1783925549",
+        "small": "https://cards.scryfall.io/small/back/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.jpg?1783925549",
+        "thumb": "https://cards.scryfall.io/thumb/back/a/c/ac83c27f-55d6-4e5a-93a4-febb0c183289.webp?1783925549"
+      },
+      "mana_cost": "",
+      "name": "Creeping Inn",
+      "object": "card_face",
+      "oracle_text": "Whenever this creature attacks, you may exile a creature card from your graveyard. If you do, each opponent loses X life and you gain X life, where X is the number of creature cards exiled with this creature.\n{4}: This creature phases out.",
+      "power": "3",
+      "toughness": "7",
+      "type_line": "Artifact Creature — Horror Construct"
+    }
+  ],
+  "cardmarket_id": 574872,
+  "cmc": 0.0,
+  "collector_number": "264",
+  "color_identity": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 10365,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "sunmoondfc"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ac83c27f-55d6-4e5a-93a4-febb0c183289",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:52:29Z",
+  "keywords": [
+    "Transform"
+  ],
+  "lang": "en",
+  "layout": "transform",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 93538,
+  "multiverse_ids": [
+    535062,
+    535063
+  ],
+  "name": "Hostile Hostel // Creeping Inn",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1b340f71-502f-48e9-85ed-9af62f356115",
+  "oversized": false,
+  "penny_rank": 3171,
+  "preview": {
+    "previewed_at": "2021-09-07",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/card-preview/creeping-inn-hostile-hostel-2021-09-07"
+  },
+  "prices": {
+    "eur": "0.80",
+    "eur_foil": "1.26",
+    "tix": "0.02",
+    "usd": "0.58",
+    "usd_etched": null,
+    "usd_foil": "0.66"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1b340f71-502f-48e9-85ed-9af62f356115&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/93538?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=574872&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F248078%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hostile+Hostel",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=535062&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHostile%2BHostel%2B%252F%252F%2BCreeping%2BInn",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHostile%2BHostel%2B%252F%252F%2BCreeping%2BInn"
+  },
+  "released_at": "2021-09-24",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "B99B412DA381AC0385AB432AF0D62B259AA1AAD8DB043330456BD0B0F9A09A28",
+  "rulings_uri": "https://api.scryfall.com/cards/ac83c27f-55d6-4e5a-93a4-febb0c183289/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mid?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mid/264/hostile-hostel-creeping-inn?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mid",
+  "set_id": "44b8eb8f-fa23-401a-98b5-1fbb9871128e",
+  "set_name": "Innistrad: Midnight Hunt",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amid&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/44b8eb8f-fa23-401a-98b5-1fbb9871128e",
+  "story_spotlight": false,
+  "tcgplayer_id": 248078,
+  "textless": false,
+  "type_line": "Land // Artifact Creature — Horror Construct",
+  "uri": "https://api.scryfall.com/cards/ac83c27f-55d6-4e5a-93a4-febb0c183289",
+  "variation": false
+}

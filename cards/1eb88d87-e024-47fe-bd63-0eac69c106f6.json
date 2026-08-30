@@ -1,0 +1,131 @@
+{
+  "artist": "Anthony S. Waters",
+  "artist_ids": [
+    "f009de11-3c8d-4663-b996-ca0c3e997fad"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 261961,
+  "cmc": 5.0,
+  "collector_number": "60",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 22844,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "134c8764-028e-4f7f-988d-ffd4d3827eb6",
+  "illustration_id": "7fffd3d8-6a4c-4fe4-b8c6-b821f36c6ec7",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:53:14Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/3/134c8764-028e-4f7f-988d-ffd4d3827eb6.webp?1783939994",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/3/134c8764-028e-4f7f-988d-ffd4d3827eb6.jpg?1783939994",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/3/134c8764-028e-4f7f-988d-ffd4d3827eb6.jpg?1783939994",
+    "crop": "https://cards.scryfall.io/crop/front/1/3/134c8764-028e-4f7f-988d-ffd4d3827eb6.webp?1783939994",
+    "display": "https://cards.scryfall.io/display/front/1/3/134c8764-028e-4f7f-988d-ffd4d3827eb6.webp?1783939994",
+    "grid": "https://cards.scryfall.io/grid/front/1/3/134c8764-028e-4f7f-988d-ffd4d3827eb6.webp?1783939994",
+    "large": "https://cards.scryfall.io/large/front/1/3/134c8764-028e-4f7f-988d-ffd4d3827eb6.jpg?1783939994",
+    "normal": "https://cards.scryfall.io/normal/front/1/3/134c8764-028e-4f7f-988d-ffd4d3827eb6.jpg?1783939994",
+    "png": "https://cards.scryfall.io/png/front/1/3/134c8764-028e-4f7f-988d-ffd4d3827eb6.png?1783939994",
+    "small": "https://cards.scryfall.io/small/front/1/3/134c8764-028e-4f7f-988d-ffd4d3827eb6.jpg?1783939994",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/3/134c8764-028e-4f7f-988d-ffd4d3827eb6.webp?1783939994"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{U}",
+  "mtgo_foil_id": 48981,
+  "mtgo_id": 48980,
+  "multiverse_ids": [
+    370395
+  ],
+  "name": "Petals of Insight",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1eb88d87-e024-47fe-bd63-0eac69c106f6",
+  "oracle_text": "Look at the top three cards of your library. You may put those cards on the bottom of your library in any order. If you do, return Petals of Insight to its owner's hand. Otherwise, draw three cards.",
+  "oversized": false,
+  "penny_rank": 15929,
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": "0.30",
+    "tix": "0.03",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": "0.40"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1eb88d87-e024-47fe-bd63-0eac69c106f6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/48980?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=261961&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F68280%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Petals+of+Insight",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=370395&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPetals%2Bof%2BInsight",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPetals%2Bof%2BInsight"
+  },
+  "released_at": "2013-06-07",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/134c8764-028e-4f7f-988d-ffd4d3827eb6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mma?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mma/60/petals-of-insight?utm_source=api",
+  "set": "mma",
+  "set_id": "0b7020f2-336d-4706-9ce6-f6710b9ebd5c",
+  "set_name": "Modern Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amma&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/0b7020f2-336d-4706-9ce6-f6710b9ebd5c",
+  "story_spotlight": false,
+  "tcgplayer_id": 68280,
+  "textless": false,
+  "type_line": "Sorcery — Arcane",
+  "uri": "https://api.scryfall.com/cards/134c8764-028e-4f7f-988d-ffd4d3827eb6",
+  "variation": false
+}

@@ -1,0 +1,136 @@
+{
+  "artist": "Igor Kieryluk",
+  "artist_ids": [
+    "9c3e9d17-509f-485c-9360-46d897ce716b"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764918,
+  "cmc": 3.0,
+  "collector_number": "243",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "colors": [
+    "B",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 3187,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "94946d6c-1edb-46e9-a5ae-0ca2a016a7cd",
+  "illustration_id": "b270f8cf-d0a3-448f-a023-3e1581a3fbcb",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:04:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/4/94946d6c-1edb-46e9-a5ae-0ca2a016a7cd.webp?1783911895",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/4/94946d6c-1edb-46e9-a5ae-0ca2a016a7cd.jpg?1783911895",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/4/94946d6c-1edb-46e9-a5ae-0ca2a016a7cd.jpg?1783911895",
+    "crop": "https://cards.scryfall.io/crop/front/9/4/94946d6c-1edb-46e9-a5ae-0ca2a016a7cd.webp?1783911895",
+    "display": "https://cards.scryfall.io/display/front/9/4/94946d6c-1edb-46e9-a5ae-0ca2a016a7cd.webp?1783911895",
+    "grid": "https://cards.scryfall.io/grid/front/9/4/94946d6c-1edb-46e9-a5ae-0ca2a016a7cd.webp?1783911895",
+    "large": "https://cards.scryfall.io/large/front/9/4/94946d6c-1edb-46e9-a5ae-0ca2a016a7cd.jpg?1783911895",
+    "normal": "https://cards.scryfall.io/normal/front/9/4/94946d6c-1edb-46e9-a5ae-0ca2a016a7cd.jpg?1783911895",
+    "png": "https://cards.scryfall.io/png/front/9/4/94946d6c-1edb-46e9-a5ae-0ca2a016a7cd.png?1783911895",
+    "small": "https://cards.scryfall.io/small/front/9/4/94946d6c-1edb-46e9-a5ae-0ca2a016a7cd.jpg?1783911895",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/4/94946d6c-1edb-46e9-a5ae-0ca2a016a7cd.webp?1783911895"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{B}",
+  "mtgo_id": 124949,
+  "multiverse_ids": [
+    658687
+  ],
+  "name": "Thief of Sanity",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "68b51d58-7566-4a26-8c31-8da32799bea7",
+  "oracle_text": "Flying\nWhenever this creature deals combat damage to a player, look at the top three cards of that player's library, exile one of them face down, then put the rest into their graveyard. You may cast that card for as long as it remains exiled, and mana of any type can be spent to cast that spell.",
+  "oversized": false,
+  "penny_rank": 1984,
+  "power": "2",
+  "prices": {
+    "eur": "0.37",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.53",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A68b51d58-7566-4a26-8c31-8da32799bea7&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124949?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764918&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F545193%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Thief+of+Sanity",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=658687&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThief%2Bof%2BSanity",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThief%2Bof%2BSanity"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/94946d6c-1edb-46e9-a5ae-0ca2a016a7cd/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otc/243/thief-of-sanity?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otc",
+  "set_id": "d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "set_name": "Outlaws of Thunder Junction Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "story_spotlight": false,
+  "tcgplayer_id": 545193,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Specter",
+  "uri": "https://api.scryfall.com/cards/94946d6c-1edb-46e9-a5ae-0ca2a016a7cd",
+  "variation": false
+}

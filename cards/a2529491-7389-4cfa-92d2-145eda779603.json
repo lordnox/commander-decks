@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "0ea01eca-5ffc-4678-92f1-9c35fbf4a362",
+      "name": "Darksteel Hydra",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Phyrexian Hydra",
+      "uri": "https://api.scryfall.com/cards/0ea01eca-5ffc-4678-92f1-9c35fbf4a362"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f279fcf1-e4f5-4873-9d73-8d62e0343b81",
+      "name": "Darksteel Ingot",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/f279fcf1-e4f5-4873-9d73-8d62e0343b81"
+    }
+  ],
+  "artist": "Martina Pilcerova",
+  "artist_ids": [
+    "30fead7c-da53-4c1b-b514-4be6e5ce487c"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764857,
+  "cmc": 3.0,
+  "collector_number": "256",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 2035,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"It reflects the purity of Mirrodin-that-was.\"\n—Koth of the Hammer",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f279fcf1-e4f5-4873-9d73-8d62e0343b81",
+  "illustration_id": "fa864803-3d08-49ac-a040-0e4d2cc4fd86",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:04:50Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/2/f279fcf1-e4f5-4873-9d73-8d62e0343b81.webp?1783911890",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/2/f279fcf1-e4f5-4873-9d73-8d62e0343b81.jpg?1783911890",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/2/f279fcf1-e4f5-4873-9d73-8d62e0343b81.jpg?1783911890",
+    "crop": "https://cards.scryfall.io/crop/front/f/2/f279fcf1-e4f5-4873-9d73-8d62e0343b81.webp?1783911890",
+    "display": "https://cards.scryfall.io/display/front/f/2/f279fcf1-e4f5-4873-9d73-8d62e0343b81.webp?1783911890",
+    "grid": "https://cards.scryfall.io/grid/front/f/2/f279fcf1-e4f5-4873-9d73-8d62e0343b81.webp?1783911890",
+    "large": "https://cards.scryfall.io/large/front/f/2/f279fcf1-e4f5-4873-9d73-8d62e0343b81.jpg?1783911890",
+    "normal": "https://cards.scryfall.io/normal/front/f/2/f279fcf1-e4f5-4873-9d73-8d62e0343b81.jpg?1783911890",
+    "png": "https://cards.scryfall.io/png/front/f/2/f279fcf1-e4f5-4873-9d73-8d62e0343b81.png?1783911890",
+    "small": "https://cards.scryfall.io/small/front/f/2/f279fcf1-e4f5-4873-9d73-8d62e0343b81.jpg?1783911890",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/2/f279fcf1-e4f5-4873-9d73-8d62e0343b81.webp?1783911890"
+  },
+  "keywords": [
+    "Indestructible"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}",
+  "mtgo_id": 124975,
+  "multiverse_ids": [
+    658700
+  ],
+  "name": "Darksteel Ingot",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a2529491-7389-4cfa-92d2-145eda779603",
+  "oracle_text": "Indestructible (Effects that say \"destroy\" don't destroy this artifact.)\n{T}: Add one mana of any color.",
+  "oversized": false,
+  "penny_rank": 5357,
+  "prices": {
+    "eur": "0.26",
+    "eur_foil": null,
+    "tix": "0.05",
+    "usd": "0.44",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa2529491-7389-4cfa-92d2-145eda779603&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124975?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764857&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F545219%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Darksteel+Ingot",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=658700&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDarksteel%2BIngot",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDarksteel%2BIngot"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f279fcf1-e4f5-4873-9d73-8d62e0343b81/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otc/256/darksteel-ingot?utm_source=api",
+  "set": "otc",
+  "set_id": "d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "set_name": "Outlaws of Thunder Junction Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "story_spotlight": false,
+  "tcgplayer_id": 545219,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/f279fcf1-e4f5-4873-9d73-8d62e0343b81",
+  "variation": false
+}

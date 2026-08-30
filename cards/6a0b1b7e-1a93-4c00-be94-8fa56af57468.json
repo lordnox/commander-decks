@@ -1,0 +1,142 @@
+{
+  "artist": "Jesper Ejsing",
+  "artist_ids": [
+    "a5f8354a-8b51-4e59-96b2-0e3aeae4fa1d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 511400,
+  "cmc": 3.0,
+  "collector_number": "126",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 6993,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "She sticks to her chosen master closer than their own shadow.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "84537fea-ad81-4a9a-99d4-722a938adc7d",
+  "illustration_id": "db9541bb-ca2b-4c32-8dae-a84e8b68f914",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:47:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/4/84537fea-ad81-4a9a-99d4-722a938adc7d.webp?1783928837",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/4/84537fea-ad81-4a9a-99d4-722a938adc7d.jpg?1783928837",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/4/84537fea-ad81-4a9a-99d4-722a938adc7d.jpg?1783928837",
+    "crop": "https://cards.scryfall.io/crop/front/8/4/84537fea-ad81-4a9a-99d4-722a938adc7d.webp?1783928837",
+    "display": "https://cards.scryfall.io/display/front/8/4/84537fea-ad81-4a9a-99d4-722a938adc7d.webp?1783928837",
+    "grid": "https://cards.scryfall.io/grid/front/8/4/84537fea-ad81-4a9a-99d4-722a938adc7d.webp?1783928837",
+    "large": "https://cards.scryfall.io/large/front/8/4/84537fea-ad81-4a9a-99d4-722a938adc7d.jpg?1783928837",
+    "normal": "https://cards.scryfall.io/normal/front/8/4/84537fea-ad81-4a9a-99d4-722a938adc7d.jpg?1783928837",
+    "png": "https://cards.scryfall.io/png/front/8/4/84537fea-ad81-4a9a-99d4-722a938adc7d.png?1783928837",
+    "small": "https://cards.scryfall.io/small/front/8/4/84537fea-ad81-4a9a-99d4-722a938adc7d.jpg?1783928837",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/4/84537fea-ad81-4a9a-99d4-722a938adc7d.webp?1783928837"
+  },
+  "keywords": [
+    "Partner"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 85034,
+  "multiverse_ids": [
+    497646
+  ],
+  "name": "Falthis, Shadowcat Familiar",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6a0b1b7e-1a93-4c00-be94-8fa56af57468",
+  "oracle_text": "Commanders you control have menace and deathtouch.\nPartner (You can have two commanders if both have partner.)",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2020-11-02",
+    "source": "TCGplayer",
+    "source_uri": "https://infinite.tcgplayer.com/article/Nightshade-Harvester-Necrotic-Hex-and-Falthis-Shadowcat-Familiar/6bd660d4-d315-480d-ae2f-a6de462a72eb"
+  },
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": "0.36",
+    "tix": "0.04",
+    "usd": "0.36",
+    "usd_etched": null,
+    "usd_foil": "0.44"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6a0b1b7e-1a93-4c00-be94-8fa56af57468&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/85034?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=511400&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F226903%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Falthis%2C+Shadowcat+Familiar",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=497646&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFalthis%252C%2BShadowcat%2BFamiliar",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFalthis%252C%2BShadowcat%2BFamiliar"
+  },
+  "released_at": "2020-11-20",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/84537fea-ad81-4a9a-99d4-722a938adc7d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmr/126/falthis-shadowcat-familiar?utm_source=api",
+  "set": "cmr",
+  "set_id": "39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "set_name": "Commander Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "story_spotlight": false,
+  "tcgplayer_id": 226903,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Nightmare Cat",
+  "uri": "https://api.scryfall.com/cards/84537fea-ad81-4a9a-99d4-722a938adc7d",
+  "variation": false
+}

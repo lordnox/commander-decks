@@ -65,4 +65,10 @@ Grouped by [Commander bracket](https://mtgcommander.net/index.php/brackets/), wi
 - **[The Twelfth Doctor — Borrowed Time](decks/3+_twelfth-doctor-borrowed-time/README.md)** `3+`<br>
   Cast lose-the-game spells from anywhere but hand so the Twelfth Doctor demonstrates copies to opponents, then end your own turn before the bill arrives.<br>
   [![spell copy 5](https://img.shields.io/static/v1?label=5&message=spell%20copy&color=0b6b58&style=flat-square)](https://archidekt.com/tags/spell_copy) [![extra turns 4](https://img.shields.io/static/v1?label=4&message=extra%20turns&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/extra_turns) [![impulse draw 4](https://img.shields.io/static/v1?label=4&message=impulse%20draw&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/impulse_draw) [![alternate wincon 3](https://img.shields.io/static/v1?label=3&message=alternate%20wincon&color=5f8b84&style=flat-square)](https://archidekt.com/tags/alternate_wincon) [![+2 more tags](https://img.shields.io/static/v1?label=&message=%2B2%20more&color=6b7280&style=flat-square)](decks/3+_twelfth-doctor-borrowed-time/README.md)
+
+### Unrated
+
+- **[Umbris — Mental Breakdown](decks/unrated_umbris-mental-breakdown/README.md)** `Unrated`<br>
+  Exile-theft control turns every opponent's missing card into Umbris power, then wins through shadow, copies, or a power-based shot.<br>
+  [![commander matters 5](https://img.shields.io/static/v1?label=5&message=commander%20matters&color=0b6b58&style=flat-square)](https://archidekt.com/tags/commander_matters) [![exile 5](https://img.shields.io/static/v1?label=5&message=exile&color=0b6b58&style=flat-square)](https://archidekt.com/tags/exile) [![theft 5](https://img.shields.io/static/v1?label=5&message=theft&color=0b6b58&style=flat-square)](https://archidekt.com/tags/theft) [![chaos 4](https://img.shields.io/static/v1?label=4&message=chaos&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/chaos) [![+3 more tags](https://img.shields.io/static/v1?label=&message=%2B3%20more&color=6b7280&style=flat-square)](decks/unrated_umbris-mental-breakdown/README.md)
 <!-- deck-index:end -->

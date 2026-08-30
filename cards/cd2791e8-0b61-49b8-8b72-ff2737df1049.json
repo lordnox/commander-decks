@@ -1,0 +1,133 @@
+{
+  "artist": "John Matson",
+  "artist_ids": [
+    "a1685587-4b55-446b-b420-c37b202ed3f1"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 8449,
+  "cmc": 1.0,
+  "collector_number": "48",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 8263,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Careless, like a child with fire, so was I with time.\"\n—Teferi",
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "8d1fb805-1382-458c-b98d-4491f13833b6",
+  "illustration_id": "a9f17daa-0e68-479b-be6b-c084553acdbe",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:49:56Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/d/8d1fb805-1382-458c-b98d-4491f13833b6.webp?1783946996",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/d/8d1fb805-1382-458c-b98d-4491f13833b6.jpg?1783946996",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/d/8d1fb805-1382-458c-b98d-4491f13833b6.jpg?1783946996",
+    "crop": "https://cards.scryfall.io/crop/front/8/d/8d1fb805-1382-458c-b98d-4491f13833b6.webp?1783946996",
+    "display": "https://cards.scryfall.io/display/front/8/d/8d1fb805-1382-458c-b98d-4491f13833b6.webp?1783946996",
+    "grid": "https://cards.scryfall.io/grid/front/8/d/8d1fb805-1382-458c-b98d-4491f13833b6.webp?1783946996",
+    "large": "https://cards.scryfall.io/large/front/8/d/8d1fb805-1382-458c-b98d-4491f13833b6.jpg?1783946996",
+    "normal": "https://cards.scryfall.io/normal/front/8/d/8d1fb805-1382-458c-b98d-4491f13833b6.jpg?1783946996",
+    "png": "https://cards.scryfall.io/png/front/8/d/8d1fb805-1382-458c-b98d-4491f13833b6.png?1783946996",
+    "small": "https://cards.scryfall.io/small/front/8/d/8d1fb805-1382-458c-b98d-4491f13833b6.jpg?1783946996",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/d/8d1fb805-1382-458c-b98d-4491f13833b6.webp?1783946996"
+  },
+  "keywords": [
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_foil_id": 7782,
+  "mtgo_id": 7781,
+  "multiverse_ids": [
+    3655
+  ],
+  "name": "Vanishing",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cd2791e8-0b61-49b8-8b72-ff2737df1049",
+  "oracle_text": "Enchant creature\n{U}{U}: Enchanted creature phases out. (While it's phased out, it's treated as though it doesn't exist. It phases in before its controller untaps during their next untap step.)",
+  "oversized": false,
+  "penny_rank": 10621,
+  "prices": {
+    "eur": "0.60",
+    "eur_foil": null,
+    "tix": "0.04",
+    "usd": "0.60",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acd2791e8-0b61-49b8-8b72-ff2737df1049&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/7781?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=8449&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F5956%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vanishing",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=3655&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVanishing",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVanishing"
+  },
+  "released_at": "1997-02-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8d1fb805-1382-458c-b98d-4491f13833b6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/vis?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/vis/48/vanishing?utm_source=api",
+  "set": "vis",
+  "set_id": "2c32f1a9-7921-4826-bea0-80bbac70532c",
+  "set_name": "Visions",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Avis&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/2c32f1a9-7921-4826-bea0-80bbac70532c",
+  "story_spotlight": false,
+  "tcgplayer_id": 5956,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/8d1fb805-1382-458c-b98d-4491f13833b6",
+  "variation": false
+}
