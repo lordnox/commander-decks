@@ -1,0 +1,133 @@
+{
+  "arena_id": 95614,
+  "artist": "Flavio Greco Paglia",
+  "artist_ids": [
+    "9c5d82ee-a27b-47e4-8226-cd8647cc0b05"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 819387,
+  "cmc": 2.0,
+  "collector_number": "94",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 11047,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "As Sultai blades threatened Qatros city walls, Mehtma of House Fenzala turned her weapons on her political rivals.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "95617742-548d-464a-bb89-a858ffa9018f",
+  "illustration_id": "a074ddd8-0a74-4680-bf2b-cba5d54687a2",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:49:31Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/5/95617742-548d-464a-bb89-a858ffa9018f.webp?1783907371",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/5/95617742-548d-464a-bb89-a858ffa9018f.jpg?1783907371",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/5/95617742-548d-464a-bb89-a858ffa9018f.jpg?1783907371",
+    "crop": "https://cards.scryfall.io/crop/front/9/5/95617742-548d-464a-bb89-a858ffa9018f.webp?1783907371",
+    "display": "https://cards.scryfall.io/display/front/9/5/95617742-548d-464a-bb89-a858ffa9018f.webp?1783907371",
+    "grid": "https://cards.scryfall.io/grid/front/9/5/95617742-548d-464a-bb89-a858ffa9018f.webp?1783907371",
+    "large": "https://cards.scryfall.io/large/front/9/5/95617742-548d-464a-bb89-a858ffa9018f.jpg?1783907371",
+    "normal": "https://cards.scryfall.io/normal/front/9/5/95617742-548d-464a-bb89-a858ffa9018f.jpg?1783907371",
+    "png": "https://cards.scryfall.io/png/front/9/5/95617742-548d-464a-bb89-a858ffa9018f.png?1783907371",
+    "small": "https://cards.scryfall.io/small/front/9/5/95617742-548d-464a-bb89-a858ffa9018f.jpg?1783907371",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/5/95617742-548d-464a-bb89-a858ffa9018f.webp?1783907371"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 139141,
+  "multiverse_ids": [
+    693574
+  ],
+  "name": "Strategic Betrayal",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0127c13f-7b0f-44c3-8b35-97f306c5f239",
+  "oracle_text": "Target opponent exiles a creature they control and their graveyard.",
+  "oversized": false,
+  "penny_rank": 976,
+  "prices": {
+    "eur": "0.47",
+    "eur_foil": "0.58",
+    "tix": "0.21",
+    "usd": "0.50",
+    "usd_etched": null,
+    "usd_foil": "1.62"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0127c13f-7b0f-44c3-8b35-97f306c5f239&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/139141?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=819387&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F625197%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Strategic+Betrayal",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=693574&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DStrategic%2BBetrayal",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DStrategic%2BBetrayal"
+  },
+  "released_at": "2025-04-11",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/95617742-548d-464a-bb89-a858ffa9018f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdm/94/strategic-betrayal?utm_source=api",
+  "set": "tdm",
+  "set_id": "1361ca81-1304-49a8-b2e6-e76a4aa4a8c3",
+  "set_name": "Tarkir: Dragonstorm",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/1361ca81-1304-49a8-b2e6-e76a4aa4a8c3",
+  "story_spotlight": false,
+  "tcgplayer_id": 625197,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/95617742-548d-464a-bb89-a858ffa9018f",
+  "variation": false
+}

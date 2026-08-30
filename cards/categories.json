@@ -1233,7 +1233,9 @@
     },
     "613a8774-165e-4cf6-ad43-124f9ffc9980": {
       "categories": [
-        "removal"
+        "graveyard-hate",
+        "exile",
+        "theft"
       ],
       "name": "Nautiloid Ship"
     },
@@ -6300,7 +6302,8 @@
     "b5e9599f-9561-4e3f-9904-9a4dab98cabb": {
       "name": "Star Compass",
       "categories": [
-        "ramp"
+        "ramp",
+        "mana-fixing"
       ]
     },
     "3e84d719-bb76-43a4-b61a-fee30c3aac68": {
@@ -8203,8 +8206,45 @@
         "exile",
         "token-production"
       ]
+    },
+    "1f266fa4-6667-49db-9d24-dfbabf1449ca": {
+      "name": "Uchuulon",
+      "categories": [
+        "exile",
+        "token-production"
+      ]
+    },
+    "008cb342-79f5-4df6-a6b7-0e9e22ed693f": {
+      "name": "Coalition Relic",
+      "categories": [
+        "ramp",
+        "mana-fixing"
+      ]
+    },
+    "72e8d67a-41e6-4074-bcbd-b54ead995237": {
+      "name": "Pentad Prism",
+      "categories": [
+        "ramp",
+        "mana-fixing"
+      ]
+    },
+    "06f7ec6d-d70e-44d8-bf43-ae667d244ab4": {
+      "name": "Espers to Magicite",
+      "categories": [
+        "graveyard-hate",
+        "exile",
+        "clone"
+      ]
+    },
+    "0127c13f-7b0f-44c3-8b35-97f306c5f239": {
+      "name": "Strategic Betrayal",
+      "categories": [
+        "removal",
+        "graveyard-hate",
+        "exile"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-30T22:05:29.409443+00:00"
+  "updated_at": "2026-08-30T22:15:09.665110+00:00"
 }
