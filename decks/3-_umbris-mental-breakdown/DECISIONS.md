@@ -146,6 +146,16 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 ## Talks
 
+### 2026-08-31 — Reassessment: Bracket 3−
+
+Rechecked the tuned 100 against the live Wizards Commander page, the October 21, 2025 pace and intent barometers, the February 9, 2026 bracket update, and a fresh Scryfall `is:gamechanger` query. The query returned 53 Game Changers and matched none in this deck. The hard cap therefore permits Bracket 2, but the deck's construction and play pattern no longer fit Core's unoptimized, straightforward, incremental intent.
+
+The decisive change is redundancy: 42 cards put opposing resources into exile, nine attack graveyards, nine provide ramp, thirteen provide interaction, five protect the plan, and seven convert the accumulated power into a finish. Tasha's Hideous Laughter, Espers to Magicite, Author of Shadows, Agent of Erebos, Canoptek Scarab Swarm, Strategic Betrayal, and a developed Perilous Vault each turn one card from hand or battlefield into a potentially lethal Umbris deposit. That is the Upgraded pattern of accruing resources and deploying a win in one large turn, even with zero Game Changers.
+
+Position is 3− rather than plain 3. The deck has no unrestricted tutor for its own library, no free interaction, no deterministic combo, only three draw and three selection cards, and several six- and seven-mana engines. Its normal line casts Umbris on turn four or five, presents a first lethal attack around turns six–eight, and needs additional attacks, copies, or power shots to close around turns eight–ten. Removal or commander tax pushes an interactive game to turn ten or later.
+
+The exceptional line requires three specific nonland cards plus suitable mana: Pentad Prism on turn two with blue and black mana, spend both counters with three lands to cast Umbris on turn three, then cast Tasha's Hideous Laughter before combat on turn four. Pentad plus Tasha appears in the first ten cards in about 0.93% of un-mulliganed draws before applying land and colour requirements. It can present one lethal commander attack if the combined opposing exile count reaches twenty and the attack connects; it is neither a deterministic table win nor representative pace.
+
 ### 2026-08-31 — Upper-edge Bracket 2 tuning
 
 The target “2++” is represented as Bracket 2+ because the repository supports only minus, plain, and plus positions. Seven low-output slots became four compact exile payoffs and three faster mana pieces. Uchuulon replaced Scrib Nibblers; Strategic Betrayal replaced Jester's Scepter; Nautiloid Ship replaced Ornate Kanzashi; Espers to Magicite replaced Petals of Insight. Coalition Relic, Pentad Prism, and Star Compass replaced Darksteel Ingot, Spectral Searchlight, and Vessel of Endless Rest.
