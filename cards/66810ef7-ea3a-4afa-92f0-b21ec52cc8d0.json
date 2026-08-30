@@ -1,0 +1,122 @@
+{
+  "artist": "Adam Rex",
+  "artist_ids": [
+    "445bd2fb-4a70-4599-87a4-83cf5979fc56"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 1.0,
+  "collector_number": "TMP-86",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2894,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "23b529f3-7efb-45a8-a10f-5bfc6496d39b",
+  "illustration_id": "a2e866ea-860f-405a-972e-e9fe7150addc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:37:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/3/23b529f3-7efb-45a8-a10f-5bfc6496d39b.webp?1783910261",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/3/23b529f3-7efb-45a8-a10f-5bfc6496d39b.jpg?1783910261",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/3/23b529f3-7efb-45a8-a10f-5bfc6496d39b.jpg?1783910261",
+    "crop": "https://cards.scryfall.io/crop/front/2/3/23b529f3-7efb-45a8-a10f-5bfc6496d39b.webp?1783910261",
+    "display": "https://cards.scryfall.io/display/front/2/3/23b529f3-7efb-45a8-a10f-5bfc6496d39b.webp?1783910261",
+    "grid": "https://cards.scryfall.io/grid/front/2/3/23b529f3-7efb-45a8-a10f-5bfc6496d39b.webp?1783910261",
+    "large": "https://cards.scryfall.io/large/front/2/3/23b529f3-7efb-45a8-a10f-5bfc6496d39b.jpg?1783910261",
+    "normal": "https://cards.scryfall.io/normal/front/2/3/23b529f3-7efb-45a8-a10f-5bfc6496d39b.jpg?1783910261",
+    "png": "https://cards.scryfall.io/png/front/2/3/23b529f3-7efb-45a8-a10f-5bfc6496d39b.png?1783910261",
+    "small": "https://cards.scryfall.io/small/front/2/3/23b529f3-7efb-45a8-a10f-5bfc6496d39b.jpg?1783910261",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/3/23b529f3-7efb-45a8-a10f-5bfc6496d39b.webp?1783910261"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "multiverse_ids": [],
+  "name": "Shadow Rift",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "66810ef7-ea3a-4afa-92f0-b21ec52cc8d0",
+  "oracle_text": "Target creature gains shadow until end of turn. (It can block or be blocked by only creatures with shadow.)\nDraw a card.",
+  "oversized": false,
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": "1.53",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A66810ef7-ea3a-4afa-92f0-b21ec52cc8d0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Shadow+Rift&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Shadow+Rift&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F582597%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Shadow+Rift",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DShadow%2BRift",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DShadow%2BRift"
+  },
+  "released_at": "2024-08-02",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/23b529f3-7efb-45a8-a10f-5bfc6496d39b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/plst?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/plst/TMP-86/shadow-rift?utm_source=api",
+  "set": "plst",
+  "set_id": "67e47ba2-b019-4181-9005-fe9fc021de44",
+  "set_name": "The List",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aplst&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/67e47ba2-b019-4181-9005-fe9fc021de44",
+  "story_spotlight": false,
+  "tcgplayer_id": 582597,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/23b529f3-7efb-45a8-a10f-5bfc6496d39b",
+  "variation": false
+}

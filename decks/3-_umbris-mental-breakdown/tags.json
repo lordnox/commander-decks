@@ -2,7 +2,7 @@
   "schema_version": 1,
   "cutoff": 3,
   "title": "Umbris — Mental Breakdown",
-  "summary": "Exile-theft control turns every opponent's missing card into Umbris power, then wins through shadow, copies, or a power-based shot.",
+  "summary": "Exile-theft control turns every opponent's missing card into Umbris power, then protects and delivers the commander or its copies.",
   "tags": [
     {
       "name": "commander matters",
@@ -12,7 +12,7 @@
     {
       "name": "exile",
       "score": 5,
-      "reason": "Forty cards exile opposing libraries, hands, graveyards, spells, or permanents."
+      "reason": "Thirty-five cards exile opposing libraries, hands, graveyards, spells, or permanents."
     },
     {
       "name": "theft",
@@ -30,14 +30,14 @@
       "reason": "Exile removal, graveyard clearing, counters, and library extraction regulate the table while Umbris grows."
     },
     {
+      "name": "voltron",
+      "score": 4,
+      "reason": "Seven delivery cards and six true protection cards support commander-damage kills from an exile-inflated Umbris."
+    },
+    {
       "name": "clones",
       "score": 3,
       "reason": "Four nonlegendary-copy effects multiply Umbris-sized threats or turn an established board into finishers."
-    },
-    {
-      "name": "voltron",
-      "score": 3,
-      "reason": "Evasion and protection support commander-damage kills from an exile-inflated Umbris."
     },
     {
       "name": "prison",

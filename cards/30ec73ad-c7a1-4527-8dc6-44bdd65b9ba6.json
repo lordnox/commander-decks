@@ -1,0 +1,137 @@
+{
+  "artist": "Thomas M. Baxa",
+  "artist_ids": [
+    "ff346569-557d-4043-ae44-97c2c7cabd7d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 722752,
+  "cmc": 2.0,
+  "collector_number": "167",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 672,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Do the innocent pay for the crimes of the guilty? Of course they do. That's the fate of the weak.\"\n—Nicol Bolas",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "0eb0e8e7-266f-441e-b1cd-12b8ec3f7d71",
+  "illustration_id": "e9aa88a8-321d-424e-bb59-7ee42b7bdb25",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:07:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/e/0eb0e8e7-266f-441e-b1cd-12b8ec3f7d71.webp?1783915672",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/e/0eb0e8e7-266f-441e-b1cd-12b8ec3f7d71.jpg?1783915672",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/e/0eb0e8e7-266f-441e-b1cd-12b8ec3f7d71.jpg?1783915672",
+    "crop": "https://cards.scryfall.io/crop/front/0/e/0eb0e8e7-266f-441e-b1cd-12b8ec3f7d71.webp?1783915672",
+    "display": "https://cards.scryfall.io/display/front/0/e/0eb0e8e7-266f-441e-b1cd-12b8ec3f7d71.webp?1783915672",
+    "grid": "https://cards.scryfall.io/grid/front/0/e/0eb0e8e7-266f-441e-b1cd-12b8ec3f7d71.webp?1783915672",
+    "large": "https://cards.scryfall.io/large/front/0/e/0eb0e8e7-266f-441e-b1cd-12b8ec3f7d71.jpg?1783915672",
+    "normal": "https://cards.scryfall.io/normal/front/0/e/0eb0e8e7-266f-441e-b1cd-12b8ec3f7d71.jpg?1783915672",
+    "png": "https://cards.scryfall.io/png/front/0/e/0eb0e8e7-266f-441e-b1cd-12b8ec3f7d71.png?1783915672",
+    "small": "https://cards.scryfall.io/small/front/0/e/0eb0e8e7-266f-441e-b1cd-12b8ec3f7d71.jpg?1783915672",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/e/0eb0e8e7-266f-441e-b1cd-12b8ec3f7d71.webp?1783915672"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 115433,
+  "multiverse_ids": [
+    622775
+  ],
+  "name": "Imp's Mischief",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "30ec73ad-c7a1-4527-8dc6-44bdd65b9ba6",
+  "oracle_text": "Change the target of target spell with a single target. You lose life equal to that spell's mana value.",
+  "oversized": false,
+  "penny_rank": 7935,
+  "preview": {
+    "previewed_at": "2023-07-14",
+    "source": "MTGGoldfish",
+    "source_uri": "https://www.mtggoldfish.com/articles/exclusive-commander-masters-preview-cards-revealed"
+  },
+  "prices": {
+    "eur": "5.79",
+    "eur_foil": "7.82",
+    "tix": "0.03",
+    "usd": "8.07",
+    "usd_etched": null,
+    "usd_foil": "10.41"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A30ec73ad-c7a1-4527-8dc6-44bdd65b9ba6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/115433?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=722752&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F504533%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Imp%27s+Mischief",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=622775&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DImp%2527s%2BMischief",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DImp%2527s%2BMischief"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0eb0e8e7-266f-441e-b1cd-12b8ec3f7d71/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/167/imps-mischief?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 504533,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/0eb0e8e7-266f-441e-b1cd-12b8ec3f7d71",
+  "variation": false
+}

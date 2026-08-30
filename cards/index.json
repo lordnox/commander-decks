@@ -1340,8 +1340,14 @@
     "coalition relic": "008cb342-79f5-4df6-a6b7-0e9e22ed693f",
     "pentad prism": "72e8d67a-41e6-4074-bcbd-b54ead995237",
     "espers to magicite": "06f7ec6d-d70e-44d8-bf43-ae667d244ab4",
-    "strategic betrayal": "0127c13f-7b0f-44c3-8b35-97f306c5f239"
+    "strategic betrayal": "0127c13f-7b0f-44c3-8b35-97f306c5f239",
+    "cover of darkness": "d78654fc-7d90-40ce-9c36-a211424d1a88",
+    "prowler's helm": "603ef53f-6191-4229-b85f-adad6f4503ce",
+    "sphere of the suns": "7c709413-dacf-48af-8ac9-8f61b2699bf1",
+    "imp's mischief": "30ec73ad-c7a1-4527-8dc6-44bdd65b9ba6",
+    "not of this world": "5da5d8a3-009e-4d8a-977e-6ebc73ba2682",
+    "shadow rift": "66810ef7-ea3a-4afa-92f0-b21ec52cc8d0"
   },
   "schema_version": 1,
-  "updated_at": "2026-08-30T22:15:09.665110+00:00"
+  "updated_at": "2026-08-30T22:46:36.435112+00:00"
 }
