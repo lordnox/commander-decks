@@ -1332,8 +1332,11 @@
     "river of tears": "8a83d284-75a0-4901-b7d9-c4b7586ee327",
     "shizo, death's storehouse": "008f2698-1721-45a3-8353-10f2f400dc8f",
     "tendo ice bridge": "9e006a4b-8dde-4416-8cb4-8401562d0fd5",
-    "parallel thoughts": "2daee7cb-6736-4aa6-9921-0371c1abe69f"
+    "parallel thoughts": "2daee7cb-6736-4aa6-9921-0371c1abe69f",
+    "abyssal harvester": "68cc5065-0514-4adf-885f-da554e1db00a",
+    "agent of erebos": "3fa5e109-4a67-4523-8183-90e48a906400",
+    "canoptek scarab swarm": "5b7f6cc3-8d4e-42e5-a908-7ebe3bccaf1e"
   },
   "schema_version": 1,
-  "updated_at": "2026-08-30T20:50:50.244399+00:00"
+  "updated_at": "2026-08-30T22:05:29.409443+00:00"
 }

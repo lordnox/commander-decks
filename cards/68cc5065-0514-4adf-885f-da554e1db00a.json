@@ -1,0 +1,154 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "10f257e3-1d03-4395-8a2d-c71f702db9ad",
+      "name": "Abyssal Harvester",
+      "object": "related_card",
+      "type_line": "Creature — Demon Warlock",
+      "uri": "https://api.scryfall.com/cards/10f257e3-1d03-4395-8a2d-c71f702db9ad"
+    },
+    {
+      "component": "token",
+      "id": "fc586e46-b7d0-4c84-8678-3542cd390de1",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/fc586e46-b7d0-4c84-8678-3542cd390de1"
+    }
+  ],
+  "arena_id": 93767,
+  "artist": "Diana Franco",
+  "artist_ids": [
+    "6b04ff0c-cd6d-42c1-83d3-3ff150fecdc3"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 797262,
+  "cmc": 3.0,
+  "collector_number": "54",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3088,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Till the soil, spare no soul. / Neath the darkness, nightmares grow.\"\n—Children's nursery rhyme",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f2e0f538-5825-47e9-883c-3ec6fd5b25ea",
+  "illustration_id": "bdd28109-f034-4bd4-9244-69311b04a4d5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:18:34Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/2/f2e0f538-5825-47e9-883c-3ec6fd5b25ea.webp?1783909114",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/2/f2e0f538-5825-47e9-883c-3ec6fd5b25ea.jpg?1783909114",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/2/f2e0f538-5825-47e9-883c-3ec6fd5b25ea.jpg?1783909114",
+    "crop": "https://cards.scryfall.io/crop/front/f/2/f2e0f538-5825-47e9-883c-3ec6fd5b25ea.webp?1783909114",
+    "display": "https://cards.scryfall.io/display/front/f/2/f2e0f538-5825-47e9-883c-3ec6fd5b25ea.webp?1783909114",
+    "grid": "https://cards.scryfall.io/grid/front/f/2/f2e0f538-5825-47e9-883c-3ec6fd5b25ea.webp?1783909114",
+    "large": "https://cards.scryfall.io/large/front/f/2/f2e0f538-5825-47e9-883c-3ec6fd5b25ea.jpg?1783909114",
+    "normal": "https://cards.scryfall.io/normal/front/f/2/f2e0f538-5825-47e9-883c-3ec6fd5b25ea.jpg?1783909114",
+    "png": "https://cards.scryfall.io/png/front/f/2/f2e0f538-5825-47e9-883c-3ec6fd5b25ea.png?1783909114",
+    "small": "https://cards.scryfall.io/small/front/f/2/f2e0f538-5825-47e9-883c-3ec6fd5b25ea.jpg?1783909114",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/2/f2e0f538-5825-47e9-883c-3ec6fd5b25ea.webp?1783909114"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}{B}",
+  "mtgo_id": 133676,
+  "multiverse_ids": [
+    679131
+  ],
+  "name": "Abyssal Harvester",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "68cc5065-0514-4adf-885f-da554e1db00a",
+  "oracle_text": "{T}: Exile target creature card from a graveyard that was put there this turn. Create a token that's a copy of it, except it's a Nightmare in addition to its other types. Then exile all other Nightmare tokens you control.",
+  "oversized": false,
+  "penny_rank": 5722,
+  "power": "3",
+  "prices": {
+    "eur": "0.57",
+    "eur_foil": "0.63",
+    "tix": "0.02",
+    "usd": "0.36",
+    "usd_etched": null,
+    "usd_foil": "0.42"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A68cc5065-0514-4adf-885f-da554e1db00a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/133676?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=797262&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F591693%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Abyssal+Harvester",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=679131&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAbyssal%2BHarvester",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAbyssal%2BHarvester"
+  },
+  "released_at": "2024-11-15",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f2e0f538-5825-47e9-883c-3ec6fd5b25ea/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fdn/54/abyssal-harvester?utm_source=api",
+  "security_stamp": "oval",
+  "set": "fdn",
+  "set_id": "a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "set_name": "Foundations",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afdn&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "story_spotlight": false,
+  "tcgplayer_id": 591693,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Demon Warlock",
+  "uri": "https://api.scryfall.com/cards/f2e0f538-5825-47e9-883c-3ec6fd5b25ea",
+  "variation": false
+}
