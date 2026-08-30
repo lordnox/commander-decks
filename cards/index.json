@@ -1354,8 +1354,12 @@
     "legacy's allure": "106ca7bd-6dad-43fe-af58-8667ebddb2eb",
     "everflowing chalice": "0a79237e-0811-4a8a-bd4d-db3ca91bff22",
     "outrageous robbery": "5b194438-6946-45dd-8d77-c9de8c115d09",
-    "predators' hour": "4d504d5f-02a4-4104-89b7-88884483f53a"
+    "predators' hour": "4d504d5f-02a4-4104-89b7-88884483f53a",
+    "aboleth spawn": "d6ae77b3-59e7-475c-800c-930a5cb2e0ca",
+    "endless evil": "05157e8e-4c8c-455e-a5a1-de8271951c51",
+    "maddening cacophony": "e0f0f290-c83f-4d97-9f5d-786c7136b0d1",
+    "crypt incursion": "ce00e0d0-c6f4-4fe8-97c3-7279b06d8fdb"
   },
   "schema_version": 1,
-  "updated_at": "2026-08-30T23:07:28.016465+00:00"
+  "updated_at": "2026-08-30T23:19:24.997072+00:00"
 }

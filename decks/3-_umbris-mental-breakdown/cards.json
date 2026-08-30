@@ -57,6 +57,66 @@
       "submitted_name": "Abyssal Harvester"
     },
     {
+      "cache": "cards/d6ae77b3-59e7-475c-800c-930a5cb2e0ca.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Probing Telepathy",
+          "Ward",
+          "Flash"
+        ],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Flash\nWard {2}\nProbing Telepathy — Whenever a creature entering under an opponent's control causes a triggered ability of that creature to trigger, you may copy that ability. You may choose new targets for the copy.",
+        "power": "2",
+        "toughness": "3",
+        "type_line": "Creature — Fish Horror"
+      },
+      "categories": [
+        "Nightmare - Horror",
+        "Theft",
+        "Interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Aboleth Spawn",
+      "oracle_id": "d6ae77b3-59e7-475c-800c-930a5cb2e0ca",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/662/aboleth-spawn?utm_source=api",
+      "submitted_categories": [
+        "Nightmare - Horror",
+        "Theft",
+        "Interaction"
+      ],
+      "submitted_name": "Aboleth Spawn"
+    },
+    {
+      "cache": "cards/b8510b34-0e5f-4639-9db1-1ba40d84b800.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}{B}",
+        "oracle_text": "Each spell you cast that's a Demon, Horror, or Nightmare costs {1} less to cast.\nWhenever you cast a spell, if the amount of mana spent to cast it was less than its mana value, target opponent loses life equal to the difference.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Enchantment Creature — Horror"
+      },
+      "categories": [
+        "Nightmare - Horror",
+        "Cost Reduction",
+        "Payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Ancient Cellarspawn",
+      "oracle_id": "b8510b34-0e5f-4639-9db1-1ba40d84b800",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/16/ancient-cellarspawn?utm_source=api",
+      "submitted_categories": [
+        "Nightmare - Horror",
+        "Cost Reduction",
+        "Payoff"
+      ],
+      "submitted_name": "Ancient Cellarspawn"
+    },
+    {
       "cache": "cards/8bad4e43-4375-4e7f-897e-d28be72308d7.json",
       "card": {
         "cmc": 5.0,
@@ -194,60 +254,6 @@
         "Evasion"
       ],
       "submitted_name": "Falthis, Shadowcat Familiar"
-    },
-    {
-      "cache": "cards/a067233b-cff0-45ae-89d9-377e94fcf3b3.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{U}{U}",
-        "oracle_text": "Whenever this creature becomes tapped, exile the top three cards of target opponent's library face down.\nYou may look at cards exiled with this creature.\n{U}, Sacrifice this creature: Turn all cards exiled with this creature face up. Counter all spells with those names.",
-        "power": "2",
-        "toughness": "2",
-        "type_line": "Creature — Merfolk Rogue"
-      },
-      "categories": [
-        "Into Exile",
-        "Interaction"
-      ],
-      "category_source": "decklist",
-      "name": "Grimoire Thief",
-      "oracle_id": "a067233b-cff0-45ae-89d9-377e94fcf3b3",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mor/35/grimoire-thief?utm_source=api",
-      "submitted_categories": [
-        "Into Exile",
-        "Interaction"
-      ],
-      "submitted_name": "Grimoire Thief"
-    },
-    {
-      "cache": "cards/06af8e20-6f60-400d-9120-c99311232dde.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [
-          "Flying"
-        ],
-        "mana_cost": "{3}{U}",
-        "oracle_text": "Flying\n{1}{U}, {Q}: Target opponent exiles the top card of their library. Until end of turn, you may play that card. ({Q} is the untap symbol.)",
-        "power": "1",
-        "toughness": "4",
-        "type_line": "Creature — Faerie Rogue"
-      },
-      "categories": [
-        "Into Exile",
-        "Play From Exile"
-      ],
-      "category_source": "decklist",
-      "name": "Knacksaw Clique",
-      "oracle_id": "06af8e20-6f60-400d-9120-c99311232dde",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/shm/42/knacksaw-clique?utm_source=api",
-      "submitted_categories": [
-        "Into Exile",
-        "Play From Exile"
-      ],
-      "submitted_name": "Knacksaw Clique"
     },
     {
       "cache": "cards/613a8774-165e-4cf6-ad43-124f9ffc9980.json",
@@ -684,6 +690,32 @@
       "submitted_name": "King Narfi's Betrayal"
     },
     {
+      "cache": "cards/05157e8e-4c8c-455e-a5a1-de8271951c51.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Enchant creature you control\nAt the beginning of your upkeep, create a token that's a copy of enchanted creature, except the token is 1/1.\nWhen enchanted creature dies, if that creature was a Horror, return this card to its owner's hand.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "Clone",
+        "Engine"
+      ],
+      "category_source": "decklist",
+      "name": "Endless Evil",
+      "oracle_id": "05157e8e-4c8c-455e-a5a1-de8271951c51",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/665/endless-evil?utm_source=api",
+      "submitted_categories": [
+        "Clone",
+        "Engine"
+      ],
+      "submitted_name": "Endless Evil"
+    },
+    {
       "cache": "cards/106ca7bd-6dad-43fe-af58-8667ebddb2eb.json",
       "card": {
         "cmc": 2.0,
@@ -756,33 +788,6 @@
         "Protection"
       ],
       "submitted_name": "Vanishing"
-    },
-    {
-      "cache": "cards/1386d111-a2a7-4df1-91d7-947664126989.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{2}",
-        "oracle_text": "This artifact enters tapped.\n{T}: Add {B}.",
-        "produced_mana": [
-          "B"
-        ],
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Ramp",
-        "Fixing"
-      ],
-      "category_source": "decklist",
-      "name": "Charcoal Diamond",
-      "oracle_id": "1386d111-a2a7-4df1-91d7-947664126989",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/clb/305/charcoal-diamond?utm_source=api",
-      "submitted_categories": [
-        "Ramp",
-        "Fixing"
-      ],
-      "submitted_name": "Charcoal Diamond"
     },
     {
       "cache": "cards/21d700e8-0255-418e-96a0-6fe05b3f836d.json",
@@ -905,6 +910,30 @@
       "submitted_name": "Everflowing Chalice"
     },
     {
+      "cache": "cards/bccb06f1-8839-4104-9ffa-c79a817f8378.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "Black spells you cast cost {1} less to cast.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp",
+        "Cost Reduction"
+      ],
+      "category_source": "decklist",
+      "name": "Jet Medallion",
+      "oracle_id": "bccb06f1-8839-4104-9ffa-c79a817f8378",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/292/jet-medallion?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Cost Reduction"
+      ],
+      "submitted_name": "Jet Medallion"
+    },
+    {
       "cache": "cards/cb53bd72-dee8-46fa-b0f9-1eee3a99379a.json",
       "card": {
         "cmc": 6.0,
@@ -960,39 +989,6 @@
         "Engine"
       ],
       "submitted_name": "Midnight Clock"
-    },
-    {
-      "cache": "cards/ad95eac2-5b48-4102-9988-a6d7b1ec30e0.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{3}",
-        "oracle_text": "{T}: Add one mana of any color.\n{1}, {T}: Untap target legendary creature you control.",
-        "produced_mana": [
-          "B",
-          "G",
-          "R",
-          "U",
-          "W"
-        ],
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Ramp",
-        "Fixing",
-        "Utility"
-      ],
-      "category_source": "decklist",
-      "name": "Patriar's Seal",
-      "oracle_id": "ad95eac2-5b48-4102-9988-a6d7b1ec30e0",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/clb/332/patriars-seal?utm_source=api",
-      "submitted_categories": [
-        "Ramp",
-        "Fixing",
-        "Utility"
-      ],
-      "submitted_name": "Patriar's Seal"
     },
     {
       "cache": "cards/72e8d67a-41e6-4074-bcbd-b54ead995237.json",
@@ -1108,31 +1104,28 @@
       "submitted_name": "Prowler's Helm"
     },
     {
-      "cache": "cards/2224b6e0-c5ff-45d0-84e3-83758c5fc99f.json",
+      "cache": "cards/f1ef5698-14bd-42bf-aae5-2870699e4186.json",
       "card": {
         "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{2}",
-        "oracle_text": "This artifact enters tapped.\n{T}: Add {U}.",
-        "produced_mana": [
-          "U"
-        ],
+        "oracle_text": "Blue spells you cast cost {1} less to cast.",
         "type_line": "Artifact"
       },
       "categories": [
         "Ramp",
-        "Fixing"
+        "Cost Reduction"
       ],
       "category_source": "decklist",
-      "name": "Sky Diamond",
-      "oracle_id": "2224b6e0-c5ff-45d0-84e3-83758c5fc99f",
+      "name": "Sapphire Medallion",
+      "oracle_id": "f1ef5698-14bd-42bf-aae5-2870699e4186",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/clb/337/sky-diamond?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mh3/296/sapphire-medallion?utm_source=api",
       "submitted_categories": [
         "Ramp",
-        "Fixing"
+        "Cost Reduction"
       ],
-      "submitted_name": "Sky Diamond"
+      "submitted_name": "Sapphire Medallion"
     },
     {
       "cache": "cards/7c709413-dacf-48af-8ac9-8f61b2699bf1.json",
@@ -1389,6 +1382,33 @@
       "submitted_name": "Irenicus's Vile Duplication"
     },
     {
+      "cache": "cards/e0f0f290-c83f-4d97-9f5d-786c7136b0d1.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Mill",
+          "Kicker"
+        ],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Kicker {3}{U}\nEach opponent mills eight cards. If this spell was kicked, instead each opponent mills half their library, rounded up.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Mill",
+        "Setup"
+      ],
+      "category_source": "decklist",
+      "name": "Maddening Cacophony",
+      "oracle_id": "e0f0f290-c83f-4d97-9f5d-786c7136b0d1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/znr/67/maddening-cacophony?utm_source=api",
+      "submitted_categories": [
+        "Mill",
+        "Setup"
+      ],
+      "submitted_name": "Maddening Cacophony"
+    },
+    {
       "cache": "cards/444dea65-9be7-4b64-afd1-eebe44b285be.json",
       "card": {
         "cmc": 5.0,
@@ -1411,30 +1431,6 @@
         "Card Selection"
       ],
       "submitted_name": "Moonlight Bargain"
-    },
-    {
-      "cache": "cards/c06d1127-a269-453f-9c06-e9c424998eb7.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "mana_cost": "{3}{U}",
-        "oracle_text": "Choose target creature you control. Each other creature becomes a copy of that creature until end of turn, except it isn't legendary.",
-        "type_line": "Sorcery"
-      },
-      "categories": [
-        "Clone",
-        "Finisher"
-      ],
-      "category_source": "decklist",
-      "name": "Nanogene Conversion",
-      "oracle_id": "c06d1127-a269-453f-9c06-e9c424998eb7",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/who/49/nanogene-conversion?utm_source=api",
-      "submitted_categories": [
-        "Clone",
-        "Finisher"
-      ],
-      "submitted_name": "Nanogene Conversion"
     },
     {
       "cache": "cards/5da5d8a3-009e-4d8a-977e-6ebc73ba2682.json",
@@ -1541,6 +1537,30 @@
       "submitted_name": "Predators' Hour"
     },
     {
+      "cache": "cards/ce00e0d0-c6f4-4fe8-97c3-7279b06d8fdb.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Exile all creature cards from target player's graveyard. You gain 3 life for each card exiled this way.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Into Exile",
+        "Graveyard Hate"
+      ],
+      "category_source": "decklist",
+      "name": "Crypt Incursion",
+      "oracle_id": "ce00e0d0-c6f4-4fe8-97c3-7279b06d8fdb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dgm/23/crypt-incursion?utm_source=api",
+      "submitted_categories": [
+        "Into Exile",
+        "Graveyard Hate"
+      ],
+      "submitted_name": "Crypt Incursion"
+    },
+    {
       "cache": "cards/70dc830e-d05b-4fc7-88dd-879e140b3fbf.json",
       "card": {
         "cmc": 2.0,
@@ -1565,28 +1585,6 @@
         "Into Exile"
       ],
       "submitted_name": "Reality Shift"
-    },
-    {
-      "cache": "cards/327121a1-f193-44c6-a834-802095abec84.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{1}{B}",
-        "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nRite of Consumption deals damage equal to the sacrificed creature's power to target player or planeswalker. You gain life equal to the damage dealt this way.",
-        "type_line": "Sorcery"
-      },
-      "categories": [
-        "Finisher"
-      ],
-      "category_source": "decklist",
-      "name": "Rite of Consumption",
-      "oracle_id": "327121a1-f193-44c6-a834-802095abec84",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/shm/76/rite-of-consumption?utm_source=api",
-      "submitted_categories": [
-        "Finisher"
-      ],
-      "submitted_name": "Rite of Consumption"
     },
     {
       "cache": "cards/66810ef7-ea3a-4afa-92f0-b21ec52cc8d0.json",
@@ -2234,7 +2232,7 @@
     }
   ],
   "categorized_cards": 81,
-  "generated_at": "2026-08-30T23:12:06.205257+00:00",
+  "generated_at": "2026-08-30T23:19:24.997072+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 81,
