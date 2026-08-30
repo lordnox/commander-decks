@@ -1,0 +1,133 @@
+{
+  "artist": "Justin Sweet",
+  "artist_ids": [
+    "bb15780e-8f96-4823-b258-a7a9fd79b02c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 1703,
+  "cmc": 3.0,
+  "collector_number": "72",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 15691,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b3dd3ce7-e0e3-4412-9983-ff933584f59b",
+  "illustration_id": "33cbfbb4-d7e9-43b9-8e42-932383a1d928",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:18:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/3/b3dd3ce7-e0e3-4412-9983-ff933584f59b.webp?1783945086",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/3/b3dd3ce7-e0e3-4412-9983-ff933584f59b.jpg?1783945086",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/3/b3dd3ce7-e0e3-4412-9983-ff933584f59b.jpg?1783945086",
+    "crop": "https://cards.scryfall.io/crop/front/b/3/b3dd3ce7-e0e3-4412-9983-ff933584f59b.webp?1783945086",
+    "display": "https://cards.scryfall.io/display/front/b/3/b3dd3ce7-e0e3-4412-9983-ff933584f59b.webp?1783945086",
+    "grid": "https://cards.scryfall.io/grid/front/b/3/b3dd3ce7-e0e3-4412-9983-ff933584f59b.webp?1783945086",
+    "large": "https://cards.scryfall.io/large/front/b/3/b3dd3ce7-e0e3-4412-9983-ff933584f59b.jpg?1783945086",
+    "normal": "https://cards.scryfall.io/normal/front/b/3/b3dd3ce7-e0e3-4412-9983-ff933584f59b.jpg?1783945086",
+    "png": "https://cards.scryfall.io/png/front/b/3/b3dd3ce7-e0e3-4412-9983-ff933584f59b.png?1783945086",
+    "small": "https://cards.scryfall.io/small/front/b/3/b3dd3ce7-e0e3-4412-9983-ff933584f59b.jpg?1783945086",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/3/b3dd3ce7-e0e3-4412-9983-ff933584f59b.webp?1783945086"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{U}",
+  "mtgo_foil_id": 17860,
+  "mtgo_id": 17859,
+  "multiverse_ids": [
+    39620
+  ],
+  "name": "Callous Oppressor",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "de14f6a9-1c62-42e9-b174-3e8b1080e0dc",
+  "oracle_text": "You may choose not to untap this creature during your untap step.\nAs this creature enters, an opponent chooses a creature type.\n{T}: Gain control of target creature that isn't of the chosen type for as long as this creature remains tapped.",
+  "oversized": false,
+  "penny_rank": 16541,
+  "power": "1",
+  "prices": {
+    "eur": "0.96",
+    "eur_foil": "7.10",
+    "tix": "0.02",
+    "usd": "1.69",
+    "usd_etched": null,
+    "usd_foil": "12.44"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ade14f6a9-1c62-42e9-b174-3e8b1080e0dc&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/17859?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=1703&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10441%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Callous+Oppressor",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=39620&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCallous%2BOppressor",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCallous%2BOppressor"
+  },
+  "released_at": "2002-10-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b3dd3ce7-e0e3-4412-9983-ff933584f59b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ons?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ons/72/callous-oppressor?utm_source=api",
+  "set": "ons",
+  "set_id": "914a6c6d-cb3b-45e8-a2db-9978a2339faf",
+  "set_name": "Onslaught",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aons&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/914a6c6d-cb3b-45e8-a2db-9978a2339faf",
+  "story_spotlight": false,
+  "tcgplayer_id": 10441,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Octopus",
+  "uri": "https://api.scryfall.com/cards/b3dd3ce7-e0e3-4412-9983-ff933584f59b",
+  "variation": false
+}
