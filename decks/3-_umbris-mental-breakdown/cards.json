@@ -113,34 +113,6 @@
       "submitted_name": "Ancient Cellarspawn"
     },
     {
-      "cache": "cards/9abecd23-a2d9-43c7-8d01-f8afdc53026e.json",
-      "card": {
-        "cmc": 7.0,
-        "keywords": [],
-        "mana_cost": "{4}{B}{B}{B}",
-        "oracle_text": "Arvinox isn't a creature unless you control three or more permanents you don't own.\nAt the beginning of your end step, exile the bottom card of each opponent's library face down. For as long as those cards remain exiled, you may look at them, you may cast permanent spells from among them, and you may spend mana as though it were mana of any color to cast those spells.",
-        "power": "9",
-        "toughness": "9",
-        "type_line": "Legendary Enchantment Creature — Horror"
-      },
-      "categories": [
-        "Nightmare - Horror",
-        "Into Exile",
-        "Play From Exile"
-      ],
-      "category_source": "decklist",
-      "name": "Arvinox, the Mind Flail",
-      "oracle_id": "9abecd23-a2d9-43c7-8d01-f8afdc53026e",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/dsc/130/arvinox-the-mind-flail?utm_source=api",
-      "submitted_categories": [
-        "Nightmare - Horror",
-        "Into Exile",
-        "Play From Exile"
-      ],
-      "submitted_name": "Arvinox, the Mind Flail"
-    },
-    {
       "cache": "cards/8bad4e43-4375-4e7f-897e-d28be72308d7.json",
       "card": {
         "cmc": 5.0,
@@ -282,36 +254,6 @@
         "Control"
       ],
       "submitted_name": "Circu, Dimir Lobotomist"
-    },
-    {
-      "cache": "cards/e537bd23-7368-459b-badf-b7b7c112c88a.json",
-      "card": {
-        "cmc": 7.0,
-        "keywords": [
-          "Menace"
-        ],
-        "mana_cost": "{5}{B}{B}",
-        "oracle_text": "Menace\nWhenever this creature attacks a player, exile all cards from that player's hand, then they draw that many cards. You may play lands and cast spells from among the exiled cards for as long as they remain exiled. If you cast a spell this way, you may spend mana as though it were mana of any color to cast it.",
-        "power": "6",
-        "toughness": "6",
-        "type_line": "Creature — Horror"
-      },
-      "categories": [
-        "Nightmare - Horror",
-        "Into Exile",
-        "Play From Exile"
-      ],
-      "category_source": "decklist",
-      "name": "Elder Brain",
-      "oracle_id": "e537bd23-7368-459b-badf-b7b7c112c88a",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/clb/125/elder-brain?utm_source=api",
-      "submitted_categories": [
-        "Nightmare - Horror",
-        "Into Exile",
-        "Play From Exile"
-      ],
-      "submitted_name": "Elder Brain"
     },
     {
       "cache": "cards/6a0b1b7e-1a93-4c00-be94-8fa56af57468.json",
@@ -672,6 +614,28 @@
       "submitted_name": "Ashiok, Nightmare Weaver"
     },
     {
+      "cache": "cards/d78654fc-7d90-40ce-9c36-a211424d1a88.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "As this enchantment enters, choose a creature type.\nCreatures of the chosen type have fear. (They can't be blocked except by artifact creatures and/or black creatures.)",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Evasion"
+      ],
+      "category_source": "decklist",
+      "name": "Cover of Darkness",
+      "oracle_id": "d78654fc-7d90-40ce-9c36-a211424d1a88",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ons/133/cover-of-darkness?utm_source=api",
+      "submitted_categories": [
+        "Evasion"
+      ],
+      "submitted_name": "Cover of Darkness"
+    },
+    {
       "cache": "cards/e7eb7ac8-08ab-419b-8508-987afd0bb93b.json",
       "card": {
         "cmc": 3.0,
@@ -770,30 +734,6 @@
       "submitted_name": "King Narfi's Betrayal"
     },
     {
-      "cache": "cards/d4b5e09b-9ca2-4b51-a4f8-080741810df8.json",
-      "card": {
-        "cmc": 7.0,
-        "keywords": [],
-        "mana_cost": "{5}{U}{U}",
-        "oracle_text": "Whenever an opponent casts their first spell each turn, that player exiles the top card of their library. If it's a nonland card, you may cast it without paying its mana cost.",
-        "type_line": "Enchantment"
-      },
-      "categories": [
-        "Into Exile",
-        "Play From Exile"
-      ],
-      "category_source": "decklist",
-      "name": "Mind's Dilation",
-      "oracle_id": "d4b5e09b-9ca2-4b51-a4f8-080741810df8",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/otc/101/minds-dilation?utm_source=api",
-      "submitted_categories": [
-        "Into Exile",
-        "Play From Exile"
-      ],
-      "submitted_name": "Mind's Dilation"
-    },
-    {
       "cache": "cards/e23bf5fe-e494-473e-8502-606106ee1820.json",
       "card": {
         "cmc": 5.0,
@@ -844,6 +784,64 @@
       "submitted_name": "Vanishing"
     },
     {
+      "cache": "cards/1386d111-a2a7-4df1-91d7-947664126989.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "This artifact enters tapped.\n{T}: Add {B}.",
+        "produced_mana": [
+          "B"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp",
+        "Fixing"
+      ],
+      "category_source": "decklist",
+      "name": "Charcoal Diamond",
+      "oracle_id": "1386d111-a2a7-4df1-91d7-947664126989",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/305/charcoal-diamond?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Fixing"
+      ],
+      "submitted_name": "Charcoal Diamond"
+    },
+    {
+      "cache": "cards/21d700e8-0255-418e-96a0-6fe05b3f836d.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "This artifact enters tapped.\nAs this artifact enters, choose a color.\n{T}: Add one mana of the chosen color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Snow Artifact"
+      },
+      "categories": [
+        "Ramp",
+        "Fixing"
+      ],
+      "category_source": "decklist",
+      "name": "Coldsteel Heart",
+      "oracle_id": "21d700e8-0255-418e-96a0-6fe05b3f836d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2x2/301/coldsteel-heart?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Fixing"
+      ],
+      "submitted_name": "Coldsteel Heart"
+    },
+    {
       "cache": "cards/008cb342-79f5-4df6-a6b7-0e9e22ed693f.json",
       "card": {
         "cmc": 3.0,
@@ -875,33 +873,6 @@
       "submitted_name": "Coalition Relic"
     },
     {
-      "cache": "cards/2a2f2d6c-3937-4e4b-9e4a-3480e0c787d0.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{2}",
-        "oracle_text": "This artifact enters tapped.\n{T}: Add {C}.\n{4}: Roll a d6. Until end of turn, you may have this artifact become an X/X Insect artifact creature with flying, where X is the result.\nWhenever this artifact attacks, another target attacking creature gains flying until end of turn.",
-        "produced_mana": [
-          "C"
-        ],
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Ramp",
-        "Evasion"
-      ],
-      "category_source": "decklist",
-      "name": "Ebony Fly",
-      "oracle_id": "2a2f2d6c-3937-4e4b-9e4a-3480e0c787d0",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/afc/60/ebony-fly?utm_source=api",
-      "submitted_categories": [
-        "Ramp",
-        "Evasion"
-      ],
-      "submitted_name": "Ebony Fly"
-    },
-    {
       "cache": "cards/95560508-7ac9-4be9-8a3f-3c7d5b52807b.json",
       "card": {
         "cmc": 2.0,
@@ -931,54 +902,6 @@
         "Fixing"
       ],
       "submitted_name": "Fellwar Stone"
-    },
-    {
-      "cache": "cards/fa798a3d-7797-4795-b251-a45f0429d169.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "mana_cost": "{4}",
-        "oracle_text": "{2}, {T}, Sacrifice this artifact: Search target opponent's library for a card and exile it. Then that player shuffles. Until the beginning of your next upkeep, you may play that card. At the beginning of your next upkeep, if you haven't played it, put it into its owner's graveyard.",
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Into Exile",
-        "Play From Exile"
-      ],
-      "category_source": "decklist",
-      "name": "Grinning Totem",
-      "oracle_id": "fa798a3d-7797-4795-b251-a45f0429d169",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/tsb/110/grinning-totem?utm_source=api",
-      "submitted_categories": [
-        "Into Exile",
-        "Play From Exile"
-      ],
-      "submitted_name": "Grinning Totem"
-    },
-    {
-      "cache": "cards/8783a94a-d0b2-4291-a550-dbcf8e16bf4b.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "mana_cost": "{4}",
-        "oracle_text": "{2}, {T}, Sacrifice this artifact: Search target player's library for three cards and exile them. Then that player shuffles.",
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Into Exile",
-        "Interaction"
-      ],
-      "category_source": "decklist",
-      "name": "Jester's Cap",
-      "oracle_id": "8783a94a-d0b2-4291-a550-dbcf8e16bf4b",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/dmr/227/jesters-cap?utm_source=api",
-      "submitted_categories": [
-        "Into Exile",
-        "Interaction"
-      ],
-      "submitted_name": "Jester's Cap"
     },
     {
       "cache": "cards/cb53bd72-dee8-46fa-b0f9-1eee3a99379a.json",
@@ -1098,6 +1021,88 @@
       "submitted_name": "Prismatic Lens"
     },
     {
+      "cache": "cards/603ef53f-6191-4229-b85f-adad6f4503ce.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Equip"
+        ],
+        "mana_cost": "{2}",
+        "oracle_text": "Equipped creature can't be blocked except by Walls.\nEquip {2}",
+        "type_line": "Artifact — Equipment"
+      },
+      "categories": [
+        "Evasion"
+      ],
+      "category_source": "decklist",
+      "name": "Prowler's Helm",
+      "oracle_id": "603ef53f-6191-4229-b85f-adad6f4503ce",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ths/219/prowlers-helm?utm_source=api",
+      "submitted_categories": [
+        "Evasion"
+      ],
+      "submitted_name": "Prowler's Helm"
+    },
+    {
+      "cache": "cards/2224b6e0-c5ff-45d0-84e3-83758c5fc99f.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "This artifact enters tapped.\n{T}: Add {U}.",
+        "produced_mana": [
+          "U"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp",
+        "Fixing"
+      ],
+      "category_source": "decklist",
+      "name": "Sky Diamond",
+      "oracle_id": "2224b6e0-c5ff-45d0-84e3-83758c5fc99f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/337/sky-diamond?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Fixing"
+      ],
+      "submitted_name": "Sky Diamond"
+    },
+    {
+      "cache": "cards/7c709413-dacf-48af-8ac9-8f61b2699bf1.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "This artifact enters tapped and with three charge counters on it.\n{T}, Remove a charge counter from this artifact: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp",
+        "Fixing"
+      ],
+      "category_source": "decklist",
+      "name": "Sphere of the Suns",
+      "oracle_id": "7c709413-dacf-48af-8ac9-8f61b2699bf1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mm2/231/sphere-of-the-suns?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Fixing"
+      ],
+      "submitted_name": "Sphere of the Suns"
+    },
+    {
       "cache": "cards/b5e9599f-9561-4e3f-9904-9a4dab98cabb.json",
       "card": {
         "cmc": 2.0,
@@ -1180,31 +1185,6 @@
         "Finisher"
       ],
       "submitted_name": "Surestrike Trident"
-    },
-    {
-      "cache": "cards/b166b670-febc-4821-855e-f8d465644c03.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{3}",
-        "oracle_text": "This artifact enters tapped.\n{T}: Add {C}{C}.",
-        "produced_mana": [
-          "C"
-        ],
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Ramp"
-      ],
-      "category_source": "decklist",
-      "name": "Worn Powerstone",
-      "oracle_id": "b166b670-febc-4821-855e-f8d465644c03",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mh3/298/worn-powerstone?utm_source=api",
-      "submitted_categories": [
-        "Ramp"
-      ],
-      "submitted_name": "Worn Powerstone"
     },
     {
       "cache": "cards/944a52d9-bb14-43c5-8d05-2afaf023dc9f.json",
@@ -1375,6 +1355,30 @@
       "submitted_name": "Faerie Trickery"
     },
     {
+      "cache": "cards/30ec73ad-c7a1-4527-8dc6-44bdd65b9ba6.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Change the target of target spell with a single target. You lose life equal to that spell's mana value.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Interaction",
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Imp's Mischief",
+      "oracle_id": "30ec73ad-c7a1-4527-8dc6-44bdd65b9ba6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/167/imps-mischief?utm_source=api",
+      "submitted_categories": [
+        "Interaction",
+        "Protection"
+      ],
+      "submitted_name": "Imp's Mischief"
+    },
+    {
       "cache": "cards/a3faf698-1dac-45ef-9c43-c8cead489ffc.json",
       "card": {
         "cmc": 4.0,
@@ -1445,6 +1449,30 @@
         "Finisher"
       ],
       "submitted_name": "Nanogene Conversion"
+    },
+    {
+      "cache": "cards/5da5d8a3-009e-4d8a-977e-6ebc73ba2682.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [],
+        "mana_cost": "{7}",
+        "oracle_text": "Counter target spell or ability that targets a permanent you control.\nThis spell costs {7} less to cast if it targets a spell or ability that targets a creature you control with power 7 or greater.",
+        "type_line": "Kindred Instant — Eldrazi"
+      },
+      "categories": [
+        "Interaction",
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Not of This World",
+      "oracle_id": "5da5d8a3-009e-4d8a-977e-6ebc73ba2682",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/807/not-of-this-world?utm_source=api",
+      "submitted_categories": [
+        "Interaction",
+        "Protection"
+      ],
+      "submitted_name": "Not of This World"
     },
     {
       "cache": "cards/6d56aeb1-0a50-46b6-abdb-cd6575a98dc3.json",
@@ -1547,30 +1575,28 @@
       "submitted_name": "Rite of Consumption"
     },
     {
-      "cache": "cards/e3d08582-85ba-48c4-a453-4a5a385a0c3e.json",
+      "cache": "cards/66810ef7-ea3a-4afa-92f0-b21ec52cc8d0.json",
       "card": {
-        "cmc": 3.0,
-        "keywords": [
-          "Kicker"
-        ],
-        "mana_cost": "{B}{B}{B}",
-        "oracle_text": "Kicker {7} (You may pay an additional {7} as you cast this spell.)\nSearch target player's library for up to three cards, exile them, then that player shuffles. If this spell was kicked, instead search that player's library for up to fifteen cards, exile them, then that player shuffles.",
-        "type_line": "Sorcery"
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{U}",
+        "oracle_text": "Target creature gains shadow until end of turn. (It can block or be blocked by only creatures with shadow.)\nDraw a card.",
+        "type_line": "Instant"
       },
       "categories": [
-        "Into Exile",
-        "Interaction"
+        "Evasion",
+        "Draw"
       ],
       "category_source": "decklist",
-      "name": "Sadistic Sacrament",
-      "oracle_id": "e3d08582-85ba-48c4-a453-4a5a385a0c3e",
+      "name": "Shadow Rift",
+      "oracle_id": "66810ef7-ea3a-4afa-92f0-b21ec52cc8d0",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/zen/110/sadistic-sacrament?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/plst/TMP-86/shadow-rift?utm_source=api",
       "submitted_categories": [
-        "Into Exile",
-        "Interaction"
+        "Evasion",
+        "Draw"
       ],
-      "submitted_name": "Sadistic Sacrament"
+      "submitted_name": "Shadow Rift"
     },
     {
       "cache": "cards/aee82122-d13e-4175-b499-9dde718e4da9.json",
@@ -1599,32 +1625,6 @@
         "Card Selection"
       ],
       "submitted_name": "Siphon Insight"
-    },
-    {
-      "cache": "cards/7687b2a7-816d-4416-979b-675e35e235fc.json",
-      "card": {
-        "cmc": 6.0,
-        "keywords": [],
-        "mana_cost": "{3}{U}{U}{U}",
-        "oracle_text": "Counter target spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard. You may play it without paying its mana cost for as long as it remains exiled. (If it has X in its mana cost, X is 0.)",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Interaction",
-        "Into Exile",
-        "Play From Exile"
-      ],
-      "category_source": "decklist",
-      "name": "Spelljack",
-      "oracle_id": "7687b2a7-816d-4416-979b-675e35e235fc",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/jud/51/spelljack?utm_source=api",
-      "submitted_categories": [
-        "Interaction",
-        "Into Exile",
-        "Play From Exile"
-      ],
-      "submitted_name": "Spelljack"
     },
     {
       "cache": "cards/0127c13f-7b0f-44c3-8b35-97f306c5f239.json",
@@ -2332,7 +2332,7 @@
     }
   ],
   "categorized_cards": 84,
-  "generated_at": "2026-08-30T22:15:09.665110+00:00",
+  "generated_at": "2026-08-30T22:48:59.120363+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 84,

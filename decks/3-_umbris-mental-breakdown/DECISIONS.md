@@ -16,13 +16,11 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Abyssal Harvester** — Converts a creature that just died into a Nightmare token that triggers every Umbris, and banks the original card in exile.
 - **Agent of Erebos** — Exiles a whole opposing graveyard on entry and repeats it from the deck's enchantments through constellation.
 - **Ancient Cellarspawn** — Discounts the creature types that trigger Umbris and converts those discounts into incidental life loss.
-- **Arvinox, the Mind Flail** — Exiles from every opposing library each end step and turns stolen permanents into a second board.
 - **Author of Shadows** — Converts stocked opposing graveyards into a large Umbris boost while preserving one spell to steal.
 - **Auton Soldier** — Becomes a nonlegendary Umbris with myriad, presenting an Umbris-sized attacker to every opponent.
 - **Brainstealer Dragon** — A Horror trigger, repeatable theft engine, and damage payoff for casting opposing permanents.
 - **Canoptek Scarab Swarm** — Empties an opposing graveyard into exile and pays the artifact and land cards back as flying attackers.
 - **Circu, Dimir Lobotomist** — Makes ordinary blue and black spells chip opposing libraries directly into exile.
-- **Elder Brain** — Exiles an opponent's entire hand on contact and lets those cards become the deck's hand.
 - **Falthis, Shadowcat Familiar** — Enters as a Nightmare and gives Umbris menace and deathtouch without Equipment.
 - **Grimoire Thief** — Banks three opposing cards whenever it taps and can sacrifice itself to counter matching spells.
 - **Knacksaw Clique** — Repeatedly turns an opponent's top card into temporary access and permanent Umbris power when unused.
@@ -36,26 +34,27 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Thief of Sanity** — Selects the best of three opposing cards to steal while putting the remainder where graveyard exile can find them.
 - **Uchuulon** — Enters as a Horror, consumes an opposing creature card each end step, and copies itself so later turns multiply both bodies and Umbris triggers.
 - **Ashiok, Nightmare Weaver** — Adds three cards per activation and can turn an exiled creature into a Nightmare that retriggers Umbris.
+- **Cover of Darkness** — Naming Nightmare gives Umbris and every Umbris copy persistent fear for two mana.
 - **Cunning Rhetoric** — Discourages attacks by permanently banking a card from each attacker and allowing the useful ones to be played.
 - **Dauthi Embrace** — Gives Umbris or another enormous threat shadow at the moment it needs to connect.
 - **Kaya's Ghostform** — Returns Umbris after either destruction or exile without relying on a generic protective Equipment.
 - **King Narfi's Betrayal** — Mills all players, exiles selected opposing threats, and provides two turns to cast them.
-- **Mind's Dilation** — Makes each opponent's first spell expose another card and casts useful nonlands for free.
 - **Shared Fate** — Replaces normal drawing with playing from opposing libraries and is the namesake mental-breakdown engine.
 - **Vanishing** — Gives the commander repeatable phasing protection while leaving it available for targeted evasion when unphased.
+- **Charcoal Diamond** — Puts black acceleration on turn two so the deck reaches Umbris while retaining blue lands for protection.
+- **Coldsteel Heart** — Supplies the missing commander colour or a known colour needed for a stolen spell.
 - **Coalition Relic** — Fixes stolen spells to any colour and can store a counter to jump from three mana to six on the following turn.
-- **Ebony Fly** — Ramps early and later gives a large attacker flying while producing an expendable blocker.
 - **Fellwar Stone** — Produces colours represented across the opposing decks, exactly the colours their stolen spells require.
-- **Grinning Totem** — Searches an opponent's library for the most useful card and leaves an uncast card in exile long enough to grow Umbris.
-- **Jester's Cap** — Removes three structurally important cards while adding three permanent points of Umbris power.
 - **Knowledge Pool** — Starts with nine opponent-owned cards in exile at a four-player table and makes hand-cast spells exchangeable.
 - **Pentad Prism** — Converts two Dimir mana into two later payments of any colour, enabling a turn-three Umbris or burst-casting stolen spells.
 - **Perilous Vault** — Resets an overwhelming battlefield by exiling it, leaving opponent-owned permanents as Umbris power.
 - **Prismatic Lens** — Accelerates Umbris and filters mana into colours needed for stolen cards.
+- **Prowler's Helm** — Gives the commander or any nonlegendary copy repeatable near-unblockability without requiring coloured mana.
+- **Sky Diamond** — Puts blue acceleration on turn two so later lands can supply black or remain open for interaction.
+- **Sphere of the Suns** — Provides three early payments of any colour, enough to accelerate Umbris and bridge into a stolen spell.
 - **Star Compass** — Moves the sustained ramp package down to two mana while reliably producing either core colour from the basic-heavy mana base.
 - **Stonespeaker Crystal** — Ramps toward the expensive engines, then clears graveyards and replaces itself.
 - **Surestrike Trident** — Converts Umbris's full power into direct damage without requiring combat.
-- **Worn Powerstone** — Jumps from three mana toward Umbris and the six- and seven-mana theft engines.
 - **Ashes to Ashes** — Efficiently exiles two nonartifact creatures in the old, life-paid style this deck prefers.
 - **Baleful Mastery** — Exiles either a creature or planeswalker, with a political discounted mode when tempo matters.
 - **Curse of the Swine** — Scales into a one-sided exile sweep and turns every removed creature into lasting Umbris power.
@@ -63,16 +62,17 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Espers to Magicite** — Exiles every opposing graveyard at instant speed and preserves the best creature's rules text as a noncreature artifact copy.
 - **Essence Harvest** — Uses Umbris's power as a noncombat life swing without sacrificing the commander.
 - **Faerie Trickery** — Exiles nearly every countered spell instead of feeding an opponent's graveyard.
+- **Imp's Mischief** — Redirects single-target removal or protection for two mana without requiring blue to remain open.
 - **Irenicus's Vile Duplication** — Creates a flying, nonlegendary Umbris copy that shares the accumulated exile count.
 - **Moonlight Bargain** — Puts selected cards directly into hand, so it still functions after Shared Fate replaces draws.
 - **Nanogene Conversion** — Turns every other established creature into a nonlegendary Umbris for one decisive combat.
+- **Not of This World** — Protects a seven-power Umbris from targeted spells and abilities for zero mana while remaining useful for seven mana in emergencies.
 - **Praetor's Grasp** — Removes the best opposing tool and makes it available for the exact turn it is needed.
 - **Psychic Intrusion** — Takes a known card from hand or graveyard and supplies unrestricted colour fixing to cast it.
 - **Reality Shift** — Exiles a creature at instant speed while leaving only an unknown 2/2 manifestation.
 - **Rite of Consumption** — Sacrifices an enormous creature for a final direct-damage and life-gain shot.
-- **Sadistic Sacrament** — Removes three cards cheaply or fifteen after a late kicker, producing a deterministic Umbris boost.
+- **Shadow Rift** — Gives a lethal attacker shadow for one mana and replaces itself, including through Shared Fate's replacement draw.
 - **Siphon Insight** — Selects from an opposing library twice and permits any mana type to cast the stolen card.
-- **Spelljack** — Exiles a spell on the stack and saves it to be cast later without paying its cost.
 - **Strategic Betrayal** — Makes an opponent exile a creature and their whole graveyard for two mana, producing removal and a large Umbris deposit in one spell.
 - **Tasha's Hideous Laughter** — Exiles from every opposing library at once and usually creates a lethal-sized Umbris immediately.
 - **Boggart Trawler // Boggart Bog** — Is either a black land or targeted graveyard exile, preserving deck space for both jobs.
@@ -120,6 +120,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Vessel of Endless Rest** — Cut for Star Compass. The single card moved to the bottom is no longer needed after increasing whole-graveyard exile, while two-mana sustained ramp improves the commander's normal timing.
 - **Eater of the Dead** — Its zero-mana ability only works while it is tapped and untaps it, so it eats one creature after attacking unless another card repeatedly taps it. The deck has no such tap outlet; it is not a free whole-graveyard engine by itself.
 - **Stone of Erech** — Efficient, but its replacement effect prevents opposing creatures from reaching the graveyard, shutting off Abyssal Harvester, Uchuulon, and Nautiloid Ship before they can extract value.
+- **Arvinox, the Mind Flail** — Cut for Cover of Darkness. Seven mana for three face-down cards per round was slower than making the commander and its copies connect.
+- **Elder Brain** — Cut for Shadow Rift. Menace did not make a seven-mana creature connect reliably; the one-mana cantrip delivers the commander immediately.
+- **Mind's Dilation** — Cut for Prowler's Helm. The free opposing spell each turn was powerful but arrived after the deck wanted to be attacking.
+- **Spelljack** — Cut for Not of This World. Six mana was too much to reserve; a grown Umbris now protects itself from targeted interaction for zero.
+- **Grinning Totem** — Cut for Imp's Mischief. Six total mana and a sacrifice produced one temporary card, while the instant protects the central threat at the moment interaction appears.
+- **Jester's Cap** — Cut for Coldsteel Heart. Six total mana produced only three Umbris power; two-mana acceleration advances every meaningful play.
+- **Sadistic Sacrament** — Cut for Sphere of the Suns. The triple-black mode added only three cards and the kicked mode cost ten; flexible acceleration is useful in every opening.
+- **Ebony Fly** — Cut for Sky Diamond. It enters tapped and its flying ability needs four mana, a successful die roll, and the Fly itself attacking; it was not reliable commander evasion.
+- **Worn Powerstone** — Cut for Charcoal Diamond. Entering on turn three was too late to accelerate a normal turn-four Umbris, while the Diamond fixes a required pip on turn two.
 
 ## Primer
 
@@ -138,6 +147,11 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Espers to Magicite.** The copied token becomes only an artifact, not an artifact creature. It retains copiable rules text but cannot attack or block.
 - **Strategic Betrayal.** The targeted opponent chooses which creature they exile. Both that permanent and every opponent-owned card in their graveyard immediately count for Umbris.
 - **Pentad Prism.** Dimir mana gives it two charge counters through sunburst. Those counters may both be removed in one turn, allowing three lands plus the Prism to cast Umbris on turn three.
+- **Shizo, Death's Storehouse.** Granting fear costs `{B}` in addition to tapping Shizo. A turn with only three other available lands cannot both cast Tasha's Hideous Laughter and activate Shizo.
+- **Cover of Darkness.** Name Nightmare. Umbris and its copies retain the Nightmare type; other Horrors without Nightmare do not receive fear.
+- **Shadow Rift.** Shadow is granted before the spell instructs its controller to draw. Shared Fate replaces that draw but does not affect the evasion.
+- **Not of This World.** The cost reduction checks whether the targeted spell or ability targets a creature with power seven or greater. It does not answer untargeted sweepers.
+- **Imp's Mischief.** It changes a single target and needs another legal target; it cannot redirect a spell with multiple targets or no targets.
 - **Knowledge Pool.** Its trigger applies only to spells cast from hand. Cards cast from Shared Fate's exile do not trigger it.
 - **Nonlegendary copies.** Spark Double, Irenicus's Vile Duplication, Auton Soldier, and Nanogene Conversion explicitly remove legendary. Ordinary copy effects do not.
 - **Auton Soldier.** When it copies Umbris, its nonlegendary, artifact, and myriad modifications are copiable. Its myriad tokens enter as nonlegendary Umbris copies and trigger each Umbris, but none deals commander damage.
@@ -145,6 +159,16 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **No loop.** The deck contains no deterministic infinite loop; every exile, theft, copy, and direct-damage line consumes cards, mana, combat steps, or permanents.
 
 ## Talks
+
+### 2026-08-31 — Delivery, protection, and curve rebuild
+
+The turn-five Tasha line is not a dependable win by itself. It produces one oversized attacker in a three-opponent game, and the original list had only Dauthi Embrace, Falthis, Shizo, and Rogue's Passage as practical ways to cross a defended board. Ebony Fly had been overstated: it needs four mana, a die roll, and an attack of its own before granting flying. Shizo had also been understated: its fear ability costs `{B}` plus tapping the land.
+
+Nine slots were rebuilt around what the commander actually needs. Cover of Darkness, Shadow Rift, and Prowler's Helm raise practical delivery from four cards to seven; Not of This World and Imp's Mischief raise real commander protection from four cards to six. Charcoal Diamond, Coldsteel Heart, Sky Diamond, and Sphere of the Suns replace two slower rocks and three low-output extraction cards, bringing the ramp package to eleven cards with eight at mana value two.
+
+The mana-value total falls by twenty-one despite Not of This World's printed mana value of seven: the four seven-mana cards fall to Brainstealer Dragon plus the normally free protection spell, and the six-mana cards fall to Knowledge Pool plus Auton Soldier. This keeps one extravagant Horror and the namesake Pool while removing late plays that competed with Umbris rather than enabling it.
+
+The assessment remains Bracket 3−. The exceptional turn-four presentation still requires Pentad Prism, Umbris, Tasha's Hideous Laughter, exact mana, and a clear lane or Shadow Rift. The normal game is more coherent, but still telegraphed combat with no unrestricted tutor for this library, deterministic combo, extra turns, free general-purpose interaction, or Game Changers. It now presents a protected or evasive lethal attack around turns six–seven more reliably and still needs several attacks or a separate power shot to eliminate three opponents.
 
 ### 2026-08-31 — Reassessment: Bracket 3−
 
