@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "9af00a97-9938-4ab2-938a-669cdfe4332a",
+      "name": "Insect",
+      "object": "related_card",
+      "type_line": "Token Artifact Creature — Insect",
+      "uri": "https://api.scryfall.com/cards/9af00a97-9938-4ab2-938a-669cdfe4332a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b5025282-7bce-41fc-9af9-5f1e6704d69d",
+      "name": "Canoptek Scarab Swarm",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Insect",
+      "uri": "https://api.scryfall.com/cards/b5025282-7bce-41fc-9af9-5f1e6704d69d"
+    }
+  ],
+  "artist": "Alexey Kruglov",
+  "artist_ids": [
+    "15c28181-aa07-4386-8657-0ca5ee6951e2"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 675369,
+  "cmc": 4.0,
+  "collector_number": "150",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 3986,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "3ce2021c-1422-4901-a554-2d4fab72c8e4",
+  "illustration_id": "27fdbf79-6378-4c46-b830-8bae673f9561",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:33:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/c/3ce2021c-1422-4901-a554-2d4fab72c8e4.webp?1783920826",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/c/3ce2021c-1422-4901-a554-2d4fab72c8e4.jpg?1783920826",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/c/3ce2021c-1422-4901-a554-2d4fab72c8e4.jpg?1783920826",
+    "crop": "https://cards.scryfall.io/crop/front/3/c/3ce2021c-1422-4901-a554-2d4fab72c8e4.webp?1783920826",
+    "display": "https://cards.scryfall.io/display/front/3/c/3ce2021c-1422-4901-a554-2d4fab72c8e4.webp?1783920826",
+    "grid": "https://cards.scryfall.io/grid/front/3/c/3ce2021c-1422-4901-a554-2d4fab72c8e4.webp?1783920826",
+    "large": "https://cards.scryfall.io/large/front/3/c/3ce2021c-1422-4901-a554-2d4fab72c8e4.jpg?1783920826",
+    "normal": "https://cards.scryfall.io/normal/front/3/c/3ce2021c-1422-4901-a554-2d4fab72c8e4.jpg?1783920826",
+    "png": "https://cards.scryfall.io/png/front/3/c/3ce2021c-1422-4901-a554-2d4fab72c8e4.png?1783920826",
+    "small": "https://cards.scryfall.io/small/front/3/c/3ce2021c-1422-4901-a554-2d4fab72c8e4.jpg?1783920826",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/c/3ce2021c-1422-4901-a554-2d4fab72c8e4.webp?1783920826"
+  },
+  "keywords": [
+    "Flying",
+    "Feeder Mandibles"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}",
+  "mtgo_id": 108772,
+  "multiverse_ids": [
+    580972
+  ],
+  "name": "Canoptek Scarab Swarm",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5b7f6cc3-8d4e-42e5-a908-7ebe3bccaf1e",
+  "oracle_text": "Flying\nFeeder Mandibles — When this creature enters, exile target player's graveyard. For each artifact or land card exiled this way, create a 1/1 colorless Insect artifact creature token with flying.",
+  "oversized": false,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2022-09-15",
+    "source": "The Command Zone",
+    "source_uri": "https://www.youtube.com/watch?v=g2UWu8lKU5k"
+  },
+  "prices": {
+    "eur": "10.81",
+    "eur_foil": null,
+    "tix": "18.19",
+    "usd": "12.74",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5b7f6cc3-8d4e-42e5-a908-7ebe3bccaf1e&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/108772?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=675369&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F286331%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Canoptek+Scarab+Swarm",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=580972&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCanoptek%2BScarab%2BSwarm",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCanoptek%2BScarab%2BSwarm"
+  },
+  "released_at": "2022-10-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3ce2021c-1422-4901-a554-2d4fab72c8e4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/40k?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/40k/150/canoptek-scarab-swarm?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "40k",
+  "set_id": "f35f5dd8-5b95-4f52-bbe7-1c62909a8d08",
+  "set_name": "Warhammer 40,000 Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A40k&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/f35f5dd8-5b95-4f52-bbe7-1c62909a8d08",
+  "story_spotlight": false,
+  "tcgplayer_id": 286331,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Artifact Creature — Insect",
+  "uri": "https://api.scryfall.com/cards/3ce2021c-1422-4901-a554-2d4fab72c8e4",
+  "variation": false
+}

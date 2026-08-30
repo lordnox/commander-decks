@@ -8180,8 +8180,31 @@
         "card-selection",
         "tutor"
       ]
+    },
+    "68cc5065-0514-4adf-885f-da554e1db00a": {
+      "name": "Abyssal Harvester",
+      "categories": [
+        "graveyard-hate",
+        "exile",
+        "clone"
+      ]
+    },
+    "3fa5e109-4a67-4523-8183-90e48a906400": {
+      "name": "Agent of Erebos",
+      "categories": [
+        "graveyard-hate",
+        "exile"
+      ]
+    },
+    "5b7f6cc3-8d4e-42e5-a908-7ebe3bccaf1e": {
+      "name": "Canoptek Scarab Swarm",
+      "categories": [
+        "graveyard-hate",
+        "exile",
+        "token-production"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-30T20:50:50.244399+00:00"
+  "updated_at": "2026-08-30T22:05:29.409443+00:00"
 }

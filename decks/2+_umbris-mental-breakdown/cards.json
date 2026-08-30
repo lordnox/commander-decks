@@ -29,6 +29,62 @@
       "submitted_name": "Umbris, Fear Manifest"
     },
     {
+      "cache": "cards/68cc5065-0514-4adf-885f-da554e1db00a.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}{B}",
+        "oracle_text": "{T}: Exile target creature card from a graveyard that was put there this turn. Create a token that's a copy of it, except it's a Nightmare in addition to its other types. Then exile all other Nightmare tokens you control.",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Creature — Demon Warlock"
+      },
+      "categories": [
+        "Into Exile",
+        "Graveyard Hate",
+        "Clone"
+      ],
+      "category_source": "decklist",
+      "name": "Abyssal Harvester",
+      "oracle_id": "68cc5065-0514-4adf-885f-da554e1db00a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/54/abyssal-harvester?utm_source=api",
+      "submitted_categories": [
+        "Into Exile",
+        "Graveyard Hate",
+        "Clone"
+      ],
+      "submitted_name": "Abyssal Harvester"
+    },
+    {
+      "cache": "cards/3fa5e109-4a67-4523-8183-90e48a906400.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Constellation"
+        ],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "Constellation — Whenever this creature or another enchantment you control enters, exile target player's graveyard.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Enchantment Creature — Zombie"
+      },
+      "categories": [
+        "Into Exile",
+        "Graveyard Hate"
+      ],
+      "category_source": "decklist",
+      "name": "Agent of Erebos",
+      "oracle_id": "3fa5e109-4a67-4523-8183-90e48a906400",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/jou/59/agent-of-erebos?utm_source=api",
+      "submitted_categories": [
+        "Into Exile",
+        "Graveyard Hate"
+      ],
+      "submitted_name": "Agent of Erebos"
+    },
+    {
       "cache": "cards/b8510b34-0e5f-4639-9db1-1ba40d84b800.json",
       "card": {
         "cmc": 3.0,
@@ -169,6 +225,37 @@
         "Payoff"
       ],
       "submitted_name": "Brainstealer Dragon"
+    },
+    {
+      "cache": "cards/5b7f6cc3-8d4e-42e5-a908-7ebe3bccaf1e.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Flying",
+          "Feeder Mandibles"
+        ],
+        "mana_cost": "{4}",
+        "oracle_text": "Flying\nFeeder Mandibles — When this creature enters, exile target player's graveyard. For each artifact or land card exiled this way, create a 1/1 colorless Insect artifact creature token with flying.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Artifact Creature — Insect"
+      },
+      "categories": [
+        "Into Exile",
+        "Graveyard Hate",
+        "Evasion"
+      ],
+      "category_source": "decklist",
+      "name": "Canoptek Scarab Swarm",
+      "oracle_id": "5b7f6cc3-8d4e-42e5-a908-7ebe3bccaf1e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/40k/150/canoptek-scarab-swarm?utm_source=api",
+      "submitted_categories": [
+        "Into Exile",
+        "Graveyard Hate",
+        "Evasion"
+      ],
+      "submitted_name": "Canoptek Scarab Swarm"
     },
     {
       "cache": "cards/c87d547b-00a4-4fdd-ade4-f3f032e5ea3b.json",
@@ -596,30 +683,6 @@
       "submitted_name": "Dauthi Embrace"
     },
     {
-      "cache": "cards/ff768016-67f8-409e-8359-9ed05bcb46d2.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{2}{B}",
-        "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Destroy target creature an opponent controls with power 2 or less.\nII — Target opponent reveals their hand. You choose a noncreature, nonland card from it. That player discards that card.\nIII — Exile target opponent's graveyard.",
-        "type_line": "Enchantment — Saga"
-      },
-      "categories": [
-        "Interaction",
-        "Into Exile"
-      ],
-      "category_source": "decklist",
-      "name": "Elspeth's Nightmare",
-      "oracle_id": "ff768016-67f8-409e-8359-9ed05bcb46d2",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/thb/91/elspeths-nightmare?utm_source=api",
-      "submitted_categories": [
-        "Interaction",
-        "Into Exile"
-      ],
-      "submitted_name": "Elspeth's Nightmare"
-    },
-    {
       "cache": "cards/b15c6203-6311-44eb-916d-a4c271960c74.json",
       "card": {
         "cmc": 1.0,
@@ -933,30 +996,6 @@
         "Engine"
       ],
       "submitted_name": "Knowledge Pool"
-    },
-    {
-      "cache": "cards/f7dcb605-c48e-4e21-86e2-0d0bd4bd2ec7.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "mana_cost": "{4}",
-        "oracle_text": "{3}, {T}: Target player exiles a card from their hand. Activate only as a sorcery.\n{1}: Choose a card exiled with this artifact. You may play that card this turn.",
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Into Exile",
-        "Play From Exile"
-      ],
-      "category_source": "decklist",
-      "name": "Muse Vessel",
-      "oracle_id": "f7dcb605-c48e-4e21-86e2-0d0bd4bd2ec7",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/dis/163/muse-vessel?utm_source=api",
-      "submitted_categories": [
-        "Into Exile",
-        "Play From Exile"
-      ],
-      "submitted_name": "Muse Vessel"
     },
     {
       "cache": "cards/3c41c666-5cf4-4f35-9cb8-c41f1f78f31e.json",
@@ -1393,30 +1432,6 @@
         "Finisher"
       ],
       "submitted_name": "Nanogene Conversion"
-    },
-    {
-      "cache": "cards/2daee7cb-6736-4aa6-9921-0371c1abe69f.json",
-      "card": {
-        "cmc": 5.0,
-        "keywords": [],
-        "mana_cost": "{3}{U}{U}",
-        "oracle_text": "When this enchantment enters, search your library for seven cards, exile them in a face-down pile, and shuffle that pile. Then shuffle your library.\nIf you would draw a card, you may instead put the top card of the pile you exiled into your hand.",
-        "type_line": "Enchantment"
-      },
-      "categories": [
-        "Card Selection",
-        "Setup"
-      ],
-      "category_source": "decklist",
-      "name": "Parallel Thoughts",
-      "oracle_id": "2daee7cb-6736-4aa6-9921-0371c1abe69f",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/scg/44/parallel-thoughts?utm_source=api",
-      "submitted_categories": [
-        "Card Selection",
-        "Setup"
-      ],
-      "submitted_name": "Parallel Thoughts"
     },
     {
       "cache": "cards/1eb88d87-e024-47fe-bd63-0eac69c106f6.json",
@@ -2302,7 +2317,7 @@
     }
   ],
   "categorized_cards": 84,
-  "generated_at": "2026-08-30T20:55:25.511307+00:00",
+  "generated_at": "2026-08-30T22:05:29.409443+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 84,
