@@ -1,0 +1,149 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "804b3378-b330-45d2-9e2c-602ec080f285",
+      "name": "Endless Evil",
+      "object": "related_card",
+      "type_line": "Enchantment — Aura",
+      "uri": "https://api.scryfall.com/cards/804b3378-b330-45d2-9e2c-602ec080f285"
+    },
+    {
+      "component": "token",
+      "id": "51d7dc49-7116-489b-a719-7b293a513cdc",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/51d7dc49-7116-489b-a719-7b293a513cdc"
+    }
+  ],
+  "artist": "Diego Gisbert",
+  "artist_ids": [
+    "3f4e975d-092c-40e4-b850-2d582bf4b5cb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 661291,
+  "cmc": 3.0,
+  "collector_number": "665",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 4531,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "804b3378-b330-45d2-9e2c-602ec080f285",
+  "illustration_id": "8106b382-8f30-494e-9e6a-d02ff3604af0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:01:48Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/0/804b3378-b330-45d2-9e2c-602ec080f285.webp?1783922508",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/0/804b3378-b330-45d2-9e2c-602ec080f285.jpg?1783922508",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/0/804b3378-b330-45d2-9e2c-602ec080f285.jpg?1783922508",
+    "crop": "https://cards.scryfall.io/crop/front/8/0/804b3378-b330-45d2-9e2c-602ec080f285.webp?1783922508",
+    "display": "https://cards.scryfall.io/display/front/8/0/804b3378-b330-45d2-9e2c-602ec080f285.webp?1783922508",
+    "grid": "https://cards.scryfall.io/grid/front/8/0/804b3378-b330-45d2-9e2c-602ec080f285.webp?1783922508",
+    "large": "https://cards.scryfall.io/large/front/8/0/804b3378-b330-45d2-9e2c-602ec080f285.jpg?1783922508",
+    "normal": "https://cards.scryfall.io/normal/front/8/0/804b3378-b330-45d2-9e2c-602ec080f285.jpg?1783922508",
+    "png": "https://cards.scryfall.io/png/front/8/0/804b3378-b330-45d2-9e2c-602ec080f285.png?1783922508",
+    "small": "https://cards.scryfall.io/small/front/8/0/804b3378-b330-45d2-9e2c-602ec080f285.jpg?1783922508",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/0/804b3378-b330-45d2-9e2c-602ec080f285.webp?1783922508"
+  },
+  "keywords": [
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 101426,
+  "multiverse_ids": [
+    567230
+  ],
+  "name": "Endless Evil",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "05157e8e-4c8c-455e-a5a1-de8271951c51",
+  "oracle_text": "Enchant creature you control\nAt the beginning of your upkeep, create a token that's a copy of enchanted creature, except the token is 1/1.\nWhen enchanted creature dies, if that creature was a Horror, return this card to its owner's hand.",
+  "oversized": false,
+  "prices": {
+    "eur": "3.83",
+    "eur_foil": null,
+    "tix": "0.17",
+    "usd": "3.98",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A05157e8e-4c8c-455e-a5a1-de8271951c51&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/101426?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=661291&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F273526%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Endless+Evil",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=567230&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEndless%2BEvil",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEndless%2BEvil"
+  },
+  "released_at": "2022-06-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/804b3378-b330-45d2-9e2c-602ec080f285/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/665/endless-evil?utm_source=api",
+  "security_stamp": "oval",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 273526,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/804b3378-b330-45d2-9e2c-602ec080f285",
+  "variation": false
+}

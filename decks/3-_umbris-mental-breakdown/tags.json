@@ -12,7 +12,7 @@
     {
       "name": "exile",
       "score": 5,
-      "reason": "Thirty-two cards exile opposing libraries, hands, graveyards, spells, or permanents."
+      "reason": "Thirty-one cards exile opposing libraries, hands, graveyards, spells, or permanents."
     },
     {
       "name": "theft",
@@ -37,12 +37,17 @@
     {
       "name": "clones",
       "score": 3,
-      "reason": "Three nonlegendary-copy effects multiply Umbris-sized threats or turn an established board into finishers."
+      "reason": "Five copy effects create persistent Umbris-sized threats, repeat its entry trigger, or reuse opposing creatures."
     },
     {
       "name": "prison",
       "score": 2,
       "reason": "The namesake enchantment package constrains normal draw and casting without creating a hard lock."
+    },
+    {
+      "name": "mill",
+      "score": 1,
+      "reason": "Maddening Cacophony is the sole dedicated mill spell and exists only to seed later graveyard exile."
     }
   ]
 }
