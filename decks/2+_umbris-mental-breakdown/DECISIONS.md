@@ -124,6 +124,10 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 ## Talks
 
+### 2026-08-30 — Assessment: Bracket 2+
+
+Checked against the live Wizards Commander page (Brackets still in beta; 0 Game Changers in Brackets 1–2, up to 3 in Bracket 3) plus the October 21, 2025 barometers (Core: at least eight turns; Upgraded: at least six) and the February 9, 2026 Game Changers additions. A live Scryfall `is:gamechanger` query (53 cards, including Farewell and Biorhythm) matches nothing in the 100. No two-card infinite, extra turns, or mass land denial. Oracle checks: Tasha's Hideous Laughter is `{1}{U}{U}` and exiles until each opponent has total mana value 20 or greater, which is a large Umbris deposit rather than a mill-out; Knowledge Pool imprints three cards per player and only exchanges spells cast from hand; Shared Fate replacements do not trigger the Pool; Spark Double / Irenicus's Vile Duplication / Auton Soldier / Nanogene Conversion are the only copies that drop legendary. The repeatable plan is incremental exile into a telegraphed commander-damage or Trident/Harvest shot, which is Core, but Tasha plus the commander's always-available body is a compact one-spell inflation that can present lethal on turn five or six, which sits at the top of the bracket. Not Bracket 3: no Game Changers, no fast mana, one opposing-library tutor, and the non-Tasha goldfish still needs several exile engines before a win. Not Bracket 2 middle: the Tasha line is a real, keepable high roll rather than a four-card pile.
+
 ### 2026-08-30 — Rebuild lock
 
 The commander and title are **Umbris — Mental Breakdown**. The plan is exile-theft control: Shared Fate is allowed to redefine drawing, Knowledge Pool is allowed to exchange hand-cast spells, and Tasha's Hideous Laughter is allowed despite appearing in another deck. Existing decks do not reserve mechanics or cards. The house rules remain zero current Game Changers and a preference for strange, purposeful cards over Commander staples.
