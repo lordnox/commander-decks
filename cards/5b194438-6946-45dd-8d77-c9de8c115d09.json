@@ -1,0 +1,139 @@
+{
+  "arena_id": 89012,
+  "artist": "Kai Carpenter",
+  "artist_ids": [
+    "dcd3cf0d-67b7-4b73-8e62-1d318bf6209c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 752589,
+  "cmc": 2.0,
+  "collector_number": "97",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 4709,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"When you can't erase your own trail, leave as many false ones as possible.\"\n—Etrata",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "b87813fa-ad12-4062-bb9e-436d8418fba5",
+  "illustration_id": "69c12fd9-73b8-4f8c-9aa4-fba2075bd037",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:21:34Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/8/b87813fa-ad12-4062-bb9e-436d8418fba5.webp?1783912894",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/8/b87813fa-ad12-4062-bb9e-436d8418fba5.jpg?1783912894",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/8/b87813fa-ad12-4062-bb9e-436d8418fba5.jpg?1783912894",
+    "crop": "https://cards.scryfall.io/crop/front/b/8/b87813fa-ad12-4062-bb9e-436d8418fba5.webp?1783912894",
+    "display": "https://cards.scryfall.io/display/front/b/8/b87813fa-ad12-4062-bb9e-436d8418fba5.webp?1783912894",
+    "grid": "https://cards.scryfall.io/grid/front/b/8/b87813fa-ad12-4062-bb9e-436d8418fba5.webp?1783912894",
+    "large": "https://cards.scryfall.io/large/front/b/8/b87813fa-ad12-4062-bb9e-436d8418fba5.jpg?1783912894",
+    "normal": "https://cards.scryfall.io/normal/front/b/8/b87813fa-ad12-4062-bb9e-436d8418fba5.jpg?1783912894",
+    "png": "https://cards.scryfall.io/png/front/b/8/b87813fa-ad12-4062-bb9e-436d8418fba5.png?1783912894",
+    "small": "https://cards.scryfall.io/small/front/b/8/b87813fa-ad12-4062-bb9e-436d8418fba5.jpg?1783912894",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/8/b87813fa-ad12-4062-bb9e-436d8418fba5.webp?1783912894"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{X}{B}{B}",
+  "mtgo_id": 121672,
+  "multiverse_ids": [
+    646655
+  ],
+  "name": "Outrageous Robbery",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5b194438-6946-45dd-8d77-c9de8c115d09",
+  "oracle_text": "Target opponent exiles the top X cards of their library face down. You may look at and play those cards for as long as they remain exiled. If you cast a spell this way, you may spend mana as though it were mana of any type to cast it.",
+  "oversized": false,
+  "penny_rank": 2533,
+  "preview": {
+    "previewed_at": "2024-01-22",
+    "source": "Good Luck High Five",
+    "source_uri": "https://vxtwitter.com/GLHFMagic/status/1749506461049168266"
+  },
+  "prices": {
+    "eur": "0.51",
+    "eur_foil": "0.69",
+    "tix": "0.03",
+    "usd": "0.38",
+    "usd_etched": null,
+    "usd_foil": "0.49"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5b194438-6946-45dd-8d77-c9de8c115d09&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/121672?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=752589&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535247%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Outrageous+Robbery",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=646655&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOutrageous%2BRobbery",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOutrageous%2BRobbery"
+  },
+  "released_at": "2024-02-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b87813fa-ad12-4062-bb9e-436d8418fba5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkm/97/outrageous-robbery?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkm",
+  "set_id": "2b17794b-15c3-4796-ad6f-0887a0eceeca",
+  "set_name": "Murders at Karlov Manor",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/2b17794b-15c3-4796-ad6f-0887a0eceeca",
+  "story_spotlight": false,
+  "tcgplayer_id": 535247,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/b87813fa-ad12-4062-bb9e-436d8418fba5",
+  "variation": false
+}

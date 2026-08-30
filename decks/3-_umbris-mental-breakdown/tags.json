@@ -2,7 +2,7 @@
   "schema_version": 1,
   "cutoff": 3,
   "title": "Umbris — Mental Breakdown",
-  "summary": "Exile-theft control turns every opponent's missing card into Umbris power, then protects and delivers the commander or its copies.",
+  "summary": "Exile-theft control steals opposing cards and permanents, then turns everything left in exile into protected commander damage.",
   "tags": [
     {
       "name": "commander matters",
@@ -12,12 +12,12 @@
     {
       "name": "exile",
       "score": 5,
-      "reason": "Thirty-five cards exile opposing libraries, hands, graveyards, spells, or permanents."
+      "reason": "Thirty-two cards exile opposing libraries, hands, graveyards, spells, or permanents."
     },
     {
       "name": "theft",
       "score": 5,
-      "reason": "Shared Fate and repeatable theft engines make opponents' cards the deck's main source of value."
+      "reason": "Nineteen cards take opposing permanents or let the deck play opposing cards."
     },
     {
       "name": "chaos",
@@ -32,12 +32,12 @@
     {
       "name": "voltron",
       "score": 4,
-      "reason": "Seven delivery cards and six true protection cards support commander-damage kills from an exile-inflated Umbris."
+      "reason": "Eight delivery effects and six true protection cards support commander-damage kills from an exile-inflated Umbris."
     },
     {
       "name": "clones",
       "score": 3,
-      "reason": "Four nonlegendary-copy effects multiply Umbris-sized threats or turn an established board into finishers."
+      "reason": "Three nonlegendary-copy effects multiply Umbris-sized threats or turn an established board into finishers."
     },
     {
       "name": "prison",
