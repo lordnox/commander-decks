@@ -81,6 +81,7 @@ If they asked to apply, or accepted the package:
 2. Follow `deck-workspace` (resolve, categories, primer, tags, validate).
 3. Update `## Cards in`, `## Cards out`, `## Rules`, and a dated `## Talks` note. Primer stays present-tense; swap history stays in the decision log.
 4. Use `assess-deck` only if they asked for bracket or win-turn after the new 99.
+5. Use `rank-deck` if they asked whether the new 99 is still on-goal, fun, oppressive, or janky.
 
 ## Queries
 

@@ -60,6 +60,14 @@ Tags are deck-level (for example `graveyard` or `tokens`), not card categories s
 
 See [`.agents/skills/tag-deck/SKILL.md`](.agents/skills/tag-deck/SKILL.md).
 
+## `rank-deck`
+
+Score a stored deck on fun to play, oppressiveness, and jankiness, plus one identity score per declared deck goal. Use this when ranking a list, comparing build paths, or checking whether the 99 still hits goals such as Voltron and Theft.
+
+Goals live in that deck's `DECISIONS.md` and `rankings.json`. Universal kitchen-table bars (fun, interesting Magic, do not prevent others from having fun) are scored through the three universal axes; identity axes are never borrowed from another deck.
+
+See [`.agents/skills/rank-deck/SKILL.md`](.agents/skills/rank-deck/SKILL.md).
+
 ## `assess-deck`
 
 Assess Commander Bracket and expected win turn. Use this only when the user asks about power, speed, bracket, or whether a deck fits a pod.
