@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Polymorph** — Spare bodies become random nonlegendary monsters; the 99 is a hit list plus fodder.
+- **Tokens** — Interaction leaves Zombies, Armies, Crabs, and Scions behind so Jalira always has bait.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 7, fun 8, mean 4, Polymorph 9, Tokens 8. Theft exists to feed Jalira, not as a repeating steal plan.
+
 ## Cards in
 
 - **Jalira, Master Polymorphist** — Four-mana commander that trades any spare creature for the first nonlegendary creature off the library; the 99 exists to feed her activations and make every hit a monster.

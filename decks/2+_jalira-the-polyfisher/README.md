@@ -8,6 +8,10 @@
 [![polymorph 5](https://img.shields.io/static/v1?label=5&message=polymorph&color=0b6b58&style=flat-square)](https://archidekt.com/tags/polymorph) [![tokens 4](https://img.shields.io/static/v1?label=4&message=tokens&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/tokens) [![theft 3](https://img.shields.io/static/v1?label=3&message=theft&color=5f8b84&style=flat-square)](https://archidekt.com/tags/theft) [![topdeck 3](https://img.shields.io/static/v1?label=3&message=topdeck&color=5f8b84&style=flat-square)](https://archidekt.com/tags/topdeck)
 <!-- deck-tags:end -->
 
+<!-- deck-rankings:start -->
+![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 4](https://img.shields.io/static/v1?label=4&message=Mean&color=b05252&style=flat-square) ![Polymorph 9](https://img.shields.io/static/v1?label=9&message=Polymorph&color=0b6b58&style=flat-square) ![Tokens 8](https://img.shields.io/static/v1?label=8&message=Tokens&color=2f7d6a&style=flat-square)
+<!-- deck-rankings:end -->
+
 A mono-blue polymorph deck where the interaction suite doubles as bait. Nearly every cheap spell leaves a token behind — an [Orc Army](https://scryfall.com/card/tltr/5/orc-army?utm_source=api), a decayed [Zombie](https://scryfall.com/card/cc2/9/snake-zombie?utm_source=api), a [Crab](https://scryfall.com/card/tmh2/2/crab?utm_source=api), a [Fish](https://scryfall.com/card/tfdn/10/fish?utm_source=api) — and [**Jalira, Master Polymorphist**](https://scryfall.com/card/a25/63/jalira-master-polymorphist?utm_source=api) trades any of them for the first nonlegendary creature off the top of the library. Since the twenty creatures in the 99 average around eight power, every cast-off token is a lottery ticket that only has winning numbers.
 
 ## Key cards

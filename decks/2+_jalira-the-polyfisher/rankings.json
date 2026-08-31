@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Polymorph",
+    "Tokens"
+  ],
+  "scores": {
+    "jankiness": 7,
+    "fun": 8,
+    "oppressiveness": 4,
+    "identity": {
+      "Polymorph": 9,
+      "Tokens": 8
+    }
+  },
+  "notes": "Jalira, Polymorph, and Proteus Staff convert cheap tokens and stolen bodies into a curated monster pile; Brainstorm-class restackers name the next flip. Theft is a blender line, not a second goal. Wins are telegraphed attacks, so Mean stays low."
+}
