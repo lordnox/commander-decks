@@ -8,6 +8,10 @@
 [![enrage 5](https://img.shields.io/static/v1?label=5&message=enrage&color=0b6b58&style=flat-square)](https://archidekt.com/tags/enrage) [![+1/+1 counters 4](https://img.shields.io/static/v1?label=4&message=%2B1%2F%2B1%20counters&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/plus-counters) [![burn 4](https://img.shields.io/static/v1?label=4&message=burn&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/burn) [![dinosaurs 4](https://img.shields.io/static/v1?label=4&message=dinosaurs&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/dinosaurs) [![pingers 4](https://img.shields.io/static/v1?label=4&message=pingers&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/pingers) [![chaos 3](https://img.shields.io/static/v1?label=3&message=chaos&color=5f8b84&style=flat-square)](https://archidekt.com/tags/chaos) [![combo 3](https://img.shields.io/static/v1?label=3&message=combo&color=5f8b84&style=flat-square)](https://archidekt.com/tags/combo) [![group slug 3](https://img.shields.io/static/v1?label=3&message=group%20slug&color=5f8b84&style=flat-square)](https://archidekt.com/tags/group_slug)
 <!-- deck-tags:end -->
 
+<!-- deck-rankings:start -->
+![Jank 9](https://img.shields.io/static/v1?label=9&message=Jank&color=0b6b58&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 7](https://img.shields.io/static/v1?label=7&message=Mean&color=991b1b&style=flat-square) ![Enrage 10](https://img.shields.io/static/v1?label=10&message=Enrage&color=0b6b58&style=flat-square) ![Dinosaurs 8](https://img.shields.io/static/v1?label=8&message=Dinosaurs&color=2f7d6a&style=flat-square)
+<!-- deck-rankings:end -->
+
 A Jund enrage deck that hurts its own creatures on purpose. [**Indoraptor, the Perfect Hybrid**](https://scryfall.com/card/rex/15/indoraptor-the-perfect-hybrid?utm_source=api) is a 3/1 for three that grows on the way in and punishes every point of damage it takes, so the deck pairs cheap repeatable pingers with counters, indestructibility, and damage-triggered payoffs.
 
 ## Key cards
