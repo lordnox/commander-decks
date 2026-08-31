@@ -12,9 +12,9 @@
 
 Creature-go Mardu aikido. The battlefield advertises a collection of bad blocks, sacrificial traps, and damage reflectors; the instant suite turns each creature that dies into another card through [**Extus, Oriq Overlord**](https://scryfall.com/card/stx/149/extus-oriq-overlord-awaken-the-blood-avatar?utm_source=api). The deck runs no card tutors and no Game Changers. [**Awaken the Blood Avatar**](https://scryfall.com/card/stx/149/extus-oriq-overlord-awaken-the-blood-avatar?utm_source=api) is deliberately treated as blank.
 
-**Commander:** [**Extus, Oriq Overlord**](https://scryfall.com/card/stx/149/extus-oriq-overlord-awaken-the-blood-avatar?utm_source=api)  
-**Deck size:** 100 cards  
-**Primary plan:** force or invite attacks, then route the supplied damage back through creatures and reflective spells  
+**Commander:** [**Extus, Oriq Overlord**](https://scryfall.com/card/stx/149/extus-oriq-overlord-awaken-the-blood-avatar?utm_source=api)<br>
+**Deck size:** 100 cards<br>
+**Primary plan:** force or invite attacks, then route the supplied damage back through creatures and reflective spells<br>
 **Backup plan:** manufacture the damage with [**Volcano Hellion**](https://scryfall.com/card/plc/111/volcano-hellion?utm_source=api), [**Crypt Rats**](https://scryfall.com/card/mh1/84/crypt-rats?utm_source=api), or [**Spontaneous Combustion**](https://scryfall.com/card/cns/194/spontaneous-combustion?utm_source=api)
 
 ## Key cards
