@@ -8,6 +8,10 @@
 [![spell copy 5](https://img.shields.io/static/v1?label=5&message=spell%20copy&color=0b6b58&style=flat-square)](https://archidekt.com/tags/spell_copy) [![spellslinger 5](https://img.shields.io/static/v1?label=5&message=spellslinger&color=0b6b58&style=flat-square)](https://archidekt.com/tags/spellslinger) [![control 4](https://img.shields.io/static/v1?label=4&message=control&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/control) [![combo 3](https://img.shields.io/static/v1?label=3&message=combo&color=5f8b84&style=flat-square)](https://archidekt.com/tags/combo)
 <!-- deck-tags:end -->
 
+<!-- deck-rankings:start -->
+![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 7](https://img.shields.io/static/v1?label=7&message=Mean&color=991b1b&style=flat-square) ![Spell Copy 10](https://img.shields.io/static/v1?label=10&message=Spell%20Copy&color=0b6b58&style=flat-square) ![Spellslinger 9](https://img.shields.io/static/v1?label=9&message=Spellslinger&color=0b6b58&style=flat-square)
+<!-- deck-rankings:end -->
+
 An Izzet spell-copy deck that spends the early game reducing costs and controlling the table, then resolves one sorcery six times. The primary win is a stack of [Tasha's Hideous Laughter](https://scryfall.com/card/afr/78/tashas-hideous-laughter?utm_source=api) copies; [Crackle with Power](https://scryfall.com/card/stx/95/crackle-with-power?utm_source=api) and [Jaya's Immolating Inferno](https://scryfall.com/card/cmr/415/jayas-immolating-inferno?utm_source=api) provide deterministic damage alternatives. The list contains three tutors and no current Game Changers.
 
 ## Key cards
