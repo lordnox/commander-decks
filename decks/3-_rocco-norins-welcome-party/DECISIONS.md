@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Blink** — Norin and Saltskitter exile-return every cycle; the 99 fires on those enters.
+- **Burn** — Those enters are table-wide damage, with combat as backup.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 7, fun 7, mean 5, Blink 8, Burn 8. Same 99 as Endless Wariness; identity is blink-then-burn.
+
 ## Cards in
 
 - **Agate Instigator** — Two-mana ping with optional offspring copy; cheap Rocco target that stacks with Tremors.
