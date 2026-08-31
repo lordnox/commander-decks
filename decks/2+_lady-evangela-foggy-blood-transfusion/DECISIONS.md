@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Aikido** — Other players' attacks become fogs, taxes, cards, or a drain.
+- **Life Exchange** — Dump life on purpose, then swap totals with the leader before the Coffers drain.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 9, fun 9, mean 5, Aikido 9, Life Exchange 7. Lifedrain is the closer, not a second identity axis.
+
 ## Cards in
 
 ### Commander
