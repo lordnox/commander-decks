@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Donate** — Unkeepable creatures and curses are built to be gifted, not kept.
+- **Politics** — Who receives the gift, and who has to attack with it, is the table conversation.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 9, fun 8, mean 7, Donate 9, Politics 8. Mean is one player locking down, not a whole-table stax lock.
+
 ## Cards in
 
 - **Abyssal Persecutor** — Gift that stops its controller from winning the game until it leaves.
