@@ -343,28 +343,6 @@
       "submitted_name": "Blood Celebrant"
     },
     {
-      "cache": "cards/613a41b8-0b4f-4995-bf1e-ca41f96e6438.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{X}{U}{U}{U}",
-        "oracle_text": "Target player draws X cards. Shuffle Blue Sun's Zenith into its owner's library.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Draw"
-      ],
-      "category_source": "decklist",
-      "name": "Blue Sun's Zenith",
-      "oracle_id": "613a41b8-0b4f-4995-bf1e-ca41f96e6438",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/a25/44/blue-suns-zenith?utm_source=api",
-      "submitted_categories": [
-        "Draw"
-      ],
-      "submitted_name": "Blue Sun's Zenith"
-    },
-    {
       "cache": "cards/d11e627b-8a48-411d-a261-2c9a02a758ba.json",
       "card": {
         "cmc": 3.0,
@@ -2149,28 +2127,6 @@
       "submitted_name": "Rings of Brighthearth"
     },
     {
-      "cache": "cards/04eb4fc0-0cc5-44f1-af5a-44579125d5c2.json",
-      "card": {
-        "cmc": 1.0,
-        "keywords": [],
-        "mana_cost": "{W}",
-        "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nReturn any number of target creatures you control to their owner's hand.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Blink"
-      ],
-      "category_source": "decklist",
-      "name": "Scapegoat",
-      "oracle_id": "04eb4fc0-0cc5-44f1-af5a-44579125d5c2",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/sth/14/scapegoat?utm_source=api",
-      "submitted_categories": [
-        "Blink"
-      ],
-      "submitted_name": "Scapegoat"
-    },
-    {
       "cache": "cards/3db1ac09-e35a-4f50-97c4-f65dbc28daef.json",
       "card": {
         "cmc": 5.0,
@@ -2329,6 +2285,58 @@
         "Ramp"
       ],
       "submitted_name": "Sol Ring"
+    },
+    {
+      "cache": "cards/5a12e989-d6bc-441e-88dd-779e68a9fee3.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Defender"
+        ],
+        "mana_cost": "{W}{B}{B}",
+        "oracle_text": "Defender (This creature can't attack.)\nWhenever this creature is dealt combat damage, you gain that much life and attacking player loses that much life.",
+        "power": "0",
+        "toughness": "4",
+        "type_line": "Creature — Spirit"
+      },
+      "categories": [
+        "Tax",
+        "Fog"
+      ],
+      "category_source": "decklist",
+      "name": "Souls of the Faultless",
+      "oracle_id": "5a12e989-d6bc-441e-88dd-779e68a9fee3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/gpt/131/souls-of-the-faultless?utm_source=api",
+      "submitted_categories": [
+        "Tax",
+        "Fog"
+      ],
+      "submitted_name": "Souls of the Faultless"
+    },
+    {
+      "cache": "cards/1d6e9716-8c3c-443d-afd8-68d0d6c469a5.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "While an opponent is choosing targets as part of casting a spell they control or activating an ability they control, that player must choose at least one Flagbearer on the battlefield if able.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Flagbearer"
+      },
+      "categories": [
+        "Tax"
+      ],
+      "category_source": "decklist",
+      "name": "Standard Bearer",
+      "oracle_id": "1d6e9716-8c3c-443d-afd8-68d0d6c469a5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/apc/18/standard-bearer?utm_source=api",
+      "submitted_categories": [
+        "Tax"
+      ],
+      "submitted_name": "Standard Bearer"
     },
     {
       "cache": "cards/cd2c90ac-2b04-461c-92f3-939871b6b6a3.json",
@@ -2744,7 +2752,7 @@
     }
   ],
   "categorized_cards": 106,
-  "generated_at": "2026-08-27T17:52:47.811932+00:00",
+  "generated_at": "2026-08-31T15:17:45.703521+00:00",
   "maybeboard_cards": 15,
   "maybeboard_unique_cards": 15,
   "resolved_unique_cards": 106,

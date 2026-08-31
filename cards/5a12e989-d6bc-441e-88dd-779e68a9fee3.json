@@ -1,0 +1,139 @@
+{
+  "artist": "Pat Lee",
+  "artist_ids": [
+    "4902294d-a1e5-495b-8526-49b2bfdda056"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 13266,
+  "cmc": 3.0,
+  "collector_number": "131",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 17226,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"More horrible than their empty forms are their noble eyes. I dare not strike.\"\n—Klattic, Boros legionnaire",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "24f02a09-e959-438c-ab48-abd34b10d07c",
+  "illustration_id": "5d19d7e6-8774-4978-ba0c-cfbc519c1560",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:51:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/4/24f02a09-e959-438c-ab48-abd34b10d07c.webp?1783943470",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/4/24f02a09-e959-438c-ab48-abd34b10d07c.jpg?1783943470",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/4/24f02a09-e959-438c-ab48-abd34b10d07c.jpg?1783943470",
+    "crop": "https://cards.scryfall.io/crop/front/2/4/24f02a09-e959-438c-ab48-abd34b10d07c.webp?1783943470",
+    "display": "https://cards.scryfall.io/display/front/2/4/24f02a09-e959-438c-ab48-abd34b10d07c.webp?1783943470",
+    "grid": "https://cards.scryfall.io/grid/front/2/4/24f02a09-e959-438c-ab48-abd34b10d07c.webp?1783943470",
+    "large": "https://cards.scryfall.io/large/front/2/4/24f02a09-e959-438c-ab48-abd34b10d07c.jpg?1783943470",
+    "normal": "https://cards.scryfall.io/normal/front/2/4/24f02a09-e959-438c-ab48-abd34b10d07c.jpg?1783943470",
+    "png": "https://cards.scryfall.io/png/front/2/4/24f02a09-e959-438c-ab48-abd34b10d07c.png?1783943470",
+    "small": "https://cards.scryfall.io/small/front/2/4/24f02a09-e959-438c-ab48-abd34b10d07c.jpg?1783943470",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/4/24f02a09-e959-438c-ab48-abd34b10d07c.webp?1783943470"
+  },
+  "keywords": [
+    "Defender"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}{B}{B}",
+  "mtgo_foil_id": 23864,
+  "mtgo_id": 23863,
+  "multiverse_ids": [
+    97231
+  ],
+  "name": "Souls of the Faultless",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5a12e989-d6bc-441e-88dd-779e68a9fee3",
+  "oracle_text": "Defender (This creature can't attack.)\nWhenever this creature is dealt combat damage, you gain that much life and attacking player loses that much life.",
+  "oversized": false,
+  "penny_rank": 14306,
+  "power": "0",
+  "prices": {
+    "eur": "0.44",
+    "eur_foil": "0.97",
+    "tix": "0.03",
+    "usd": "1.08",
+    "usd_etched": null,
+    "usd_foil": "2.86"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5a12e989-d6bc-441e-88dd-779e68a9fee3&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/23863?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=13266&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F13784%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Souls+of+the+Faultless",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=97231&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSouls%2Bof%2Bthe%2BFaultless",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSouls%2Bof%2Bthe%2BFaultless"
+  },
+  "released_at": "2006-02-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/24f02a09-e959-438c-ab48-abd34b10d07c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/gpt?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/gpt/131/souls-of-the-faultless?utm_source=api",
+  "set": "gpt",
+  "set_id": "594b4d09-8ce1-494d-bdb2-842c124bd087",
+  "set_name": "Guildpact",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Agpt&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/594b4d09-8ce1-494d-bdb2-842c124bd087",
+  "story_spotlight": false,
+  "tcgplayer_id": 13784,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Spirit",
+  "uri": "https://api.scryfall.com/cards/24f02a09-e959-438c-ab48-abd34b10d07c",
+  "variation": false,
+  "watermark": "orzhov"
+}
