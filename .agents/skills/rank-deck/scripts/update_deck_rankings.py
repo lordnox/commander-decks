@@ -29,7 +29,9 @@ def update_primer(deck_dir: Path, *, check: bool = False) -> int:
             raise ValueError("; ".join(errors))
         section = deck_rankings.primer_badges(data)
     updated = deck_rankings.insert_primer_section(original, section)
-    if check and updated != original:
+    root = deck_rankings.repository_root(deck_dir)
+    outdated = deck_rankings.sync_badges(root, check=check)
+    if check and (updated != original or outdated):
         print(f"{deck_dir}: ranking badges are missing or stale")
         return 1
     if updated != original:
