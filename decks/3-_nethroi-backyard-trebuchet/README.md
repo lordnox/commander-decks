@@ -9,7 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 9](https://img.shields.io/static/v1?label=9&message=Jank&color=0b6b58&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 6](https://img.shields.io/static/v1?label=6&message=Mean&color=b91c1c&style=flat-square) ![Toughness 9](https://img.shields.io/static/v1?label=9&message=Toughness&color=0b6b58&style=flat-square) ![Life Exchange 8](https://img.shields.io/static/v1?label=8&message=Life%20Exchange&color=2f7d6a&style=flat-square)
+![Jank 9](https://img.shields.io/static/v1?label=9&message=Jank&color=0b6b58&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 6](https://img.shields.io/static/v1?label=6&message=Mean&color=6b7280&style=flat-square) ![Toughness 9](https://img.shields.io/static/v1?label=9&message=Toughness&color=0b6b58&style=flat-square) ![Life Exchange 8](https://img.shields.io/static/v1?label=8&message=Life%20Exchange&color=2f7d6a&style=flat-square)
 <!-- deck-rankings:end -->
 
 An Abzan deck that builds a pile of high-toughness, low-power creatures, then either mutates [**Nethroi, Apex of Death**](https://scryfall.com/card/dmc/163/nethroi-apex-of-death?utm_source=api) over a non-Human to dump the pile from the graveyard, or loads [**Catapult Captain**](https://scryfall.com/card/vow/99/catapult-fodder-catapult-captain?utm_source=api) and [**Tree of Perdition**](https://scryfall.com/card/ecc/49/tree-of-perdition?utm_source=api) so one sacrifice sets an opponent's life to their own former total.

@@ -9,7 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 9](https://img.shields.io/static/v1?label=9&message=Jank&color=0b6b58&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 6](https://img.shields.io/static/v1?label=6&message=Mean&color=b91c1c&style=flat-square) ![Mill 9](https://img.shields.io/static/v1?label=9&message=Mill&color=0b6b58&style=flat-square) ![Landfall 8](https://img.shields.io/static/v1?label=8&message=Landfall&color=2f7d6a&style=flat-square)
+![Jank 9](https://img.shields.io/static/v1?label=9&message=Jank&color=0b6b58&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 6](https://img.shields.io/static/v1?label=6&message=Mean&color=6b7280&style=flat-square) ![Mill 9](https://img.shields.io/static/v1?label=9&message=Mill&color=0b6b58&style=flat-square) ![Landfall 8](https://img.shields.io/static/v1?label=8&message=Landfall&color=2f7d6a&style=flat-square)
 <!-- deck-rankings:end -->
 
 A Sultai self-mill combo deck that throws lands into the graveyard, drags them back onto the battlefield, and turns a suspicious number of Homers into quadratic mill.

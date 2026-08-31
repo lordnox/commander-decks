@@ -9,7 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 7](https://img.shields.io/static/v1?label=7&message=Fun&color=2f7d6a&style=flat-square) ![Mean 6](https://img.shields.io/static/v1?label=6&message=Mean&color=b91c1c&style=flat-square) ![Pingers 9](https://img.shields.io/static/v1?label=9&message=Pingers&color=0b6b58&style=flat-square) ![ETB Effects 9](https://img.shields.io/static/v1?label=9&message=ETB%20Effects&color=0b6b58&style=flat-square)
+![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 7](https://img.shields.io/static/v1?label=7&message=Fun&color=2f7d6a&style=flat-square) ![Mean 6](https://img.shields.io/static/v1?label=6&message=Mean&color=6b7280&style=flat-square) ![Pingers 9](https://img.shields.io/static/v1?label=9&message=Pingers&color=0b6b58&style=flat-square) ![ETB Effects 9](https://img.shields.io/static/v1?label=9&message=ETB%20Effects&color=0b6b58&style=flat-square)
 <!-- deck-rankings:end -->
 
 Naya ETB ping: [**Rocco, Cabaretti Caterer**](https://scryfall.com/card/snc/218/rocco-cabaretti-caterer?utm_source=api) fetches [**Norin the Wary**](https://scryfall.com/card/tsp/171/norin-the-wary?utm_source=api), whose exile-and-return on every spell and attack retriggers pingers, draw, and tokens until the table's life is gone.

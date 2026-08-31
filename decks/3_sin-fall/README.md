@@ -9,7 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 8](https://img.shields.io/static/v1?label=8&message=Jank&color=2f7d6a&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 6](https://img.shields.io/static/v1?label=6&message=Mean&color=b91c1c&style=flat-square) ![Lands 9](https://img.shields.io/static/v1?label=9&message=Lands&color=0b6b58&style=flat-square) ![Graveyard 9](https://img.shields.io/static/v1?label=9&message=Graveyard&color=0b6b58&style=flat-square)
+![Jank 8](https://img.shields.io/static/v1?label=8&message=Jank&color=2f7d6a&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 6](https://img.shields.io/static/v1?label=6&message=Mean&color=6b7280&style=flat-square) ![Lands 9](https://img.shields.io/static/v1?label=9&message=Lands&color=0b6b58&style=flat-square) ![Graveyard 9](https://img.shields.io/static/v1?label=9&message=Graveyard&color=0b6b58&style=flat-square)
 <!-- deck-rankings:end -->
 
 Sultai landfall and graveyard lottery: dump lands (and one jackpot) into the yard, cast [**Sin, Spira's Punishment**](https://scryfall.com/card/fin/242/sin-spiras-punishment?utm_source=api), and let the land chain print tapped copies until it hits [**Portal to Phyrexia**](https://scryfall.com/card/bro/240/portal-to-phyrexia?utm_source=api), [**Famished Worldsire**](https://scryfall.com/card/eoe/182/famished-worldsire?utm_source=api), or another payoff.

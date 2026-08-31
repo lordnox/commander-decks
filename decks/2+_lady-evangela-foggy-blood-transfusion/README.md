@@ -9,7 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 9](https://img.shields.io/static/v1?label=9&message=Jank&color=0b6b58&style=flat-square) ![Fun 9](https://img.shields.io/static/v1?label=9&message=Fun&color=0b6b58&style=flat-square) ![Mean 5](https://img.shields.io/static/v1?label=5&message=Mean&color=b91c1c&style=flat-square) ![Aikido 9](https://img.shields.io/static/v1?label=9&message=Aikido&color=0b6b58&style=flat-square) ![Life Exchange 7](https://img.shields.io/static/v1?label=7&message=Life%20Exchange&color=2f7d6a&style=flat-square)
+![Jank 9](https://img.shields.io/static/v1?label=9&message=Jank&color=0b6b58&style=flat-square) ![Fun 9](https://img.shields.io/static/v1?label=9&message=Fun&color=0b6b58&style=flat-square) ![Mean 5](https://img.shields.io/static/v1?label=5&message=Mean&color=6b7280&style=flat-square) ![Aikido 9](https://img.shields.io/static/v1?label=9&message=Aikido&color=0b6b58&style=flat-square) ![Life Exchange 7](https://img.shields.io/static/v1?label=7&message=Life%20Exchange&color=2f7d6a&style=flat-square)
 <!-- deck-rankings:end -->
 
 Esper aikido control that looks like a harmless old cleric. It spends its own life to draw cards, refuses to fight over the board, swaps life totals with whoever is winning, and then drains the table with a [Cabal Coffers](https://scryfall.com/card/mh2/301/cabal-coffers?utm_source=api) X spell. Zero Game Changers and zero card tutors by design.
