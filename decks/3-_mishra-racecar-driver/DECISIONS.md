@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Vehicles** — Warform skips crew on the racers and reuses their attack triggers.
+- **Artifacts** — Almost every payoff is something Mishra can copy in combat.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 7, fun 7, mean 5, Vehicles 8, Artifacts 9. Known commander, weird crew-skip finish.
+
 ## Cards in
 
 This log records why every card entered the list. Future changes should append a dated entry identifying the card added, the card removed, and the reason.

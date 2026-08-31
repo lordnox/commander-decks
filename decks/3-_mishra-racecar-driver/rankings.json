@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Vehicles",
+    "Artifacts"
+  ],
+  "scores": {
+    "jankiness": 7,
+    "fun": 7,
+    "oppressiveness": 5,
+    "identity": {
+      "Vehicles": 8,
+      "Artifacts": 9
+    }
+  },
+  "notes": "Warform is the plan: skip crew on Titans and junkers, or copy Wellspring and Jewel for ETB value. Artifact density is near-total; Vehicles are the racecar finish, not every copy target. Fun is choosing the combat copy; Mean is repeatable ETB removal, not a lock."
+}

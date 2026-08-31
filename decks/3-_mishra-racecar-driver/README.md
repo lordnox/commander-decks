@@ -8,6 +8,10 @@
 [![artifacts 5](https://img.shields.io/static/v1?label=5&message=artifacts&color=0b6b58&style=flat-square)](https://archidekt.com/tags/artifacts) [![vehicles 5](https://img.shields.io/static/v1?label=5&message=vehicles&color=0b6b58&style=flat-square)](https://archidekt.com/tags/vehicles) [![clones 3](https://img.shields.io/static/v1?label=3&message=clones&color=5f8b84&style=flat-square)](https://archidekt.com/tags/clones)
 <!-- deck-tags:end -->
 
+<!-- deck-rankings:start -->
+![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 7](https://img.shields.io/static/v1?label=7&message=Fun&color=2f7d6a&style=flat-square) ![Mean 5](https://img.shields.io/static/v1?label=5&message=Mean&color=b91c1c&style=flat-square) ![Vehicles 8](https://img.shields.io/static/v1?label=8&message=Vehicles&color=2f7d6a&style=flat-square) ![Artifacts 9](https://img.shields.io/static/v1?label=9&message=Artifacts&color=0b6b58&style=flat-square)
+<!-- deck-rankings:end -->
+
 A Grixis artifact-and-Vehicles deck that turns utility artifacts into disposable 4/4 racers, repeatedly reusing their enters-the-battlefield and attack abilities.
 
 ## Key cards
