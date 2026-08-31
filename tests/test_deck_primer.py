@@ -608,12 +608,28 @@ class DeckRankingTests(unittest.TestCase):
             )
             self.assertIn("message=Jank&color=2f7d6a", badges)
             self.assertIn("message=Mean&color=b91c1c", badges)
-            self.assertEqual(deck_rankings.universal_cells(rankings), ["7", "8", "6"])
+            self.assertEqual(
+                deck_rankings.universal_cells(rankings),
+                [
+                    r"$\textsf{7}$",
+                    r"$\color{#2f9e8f}{\textsf{8}}$",
+                    r"$\textsf{6}$",
+                ],
+            )
+            self.assertEqual(
+                deck_rankings.score_cell("oppressiveness", 8),
+                r"$\color{#e05252}{\textsf{8}}$",
+            )
+            self.assertEqual(
+                deck_rankings.score_cell("fun", 10),
+                r"$\color{#2f9e8f}{\textsf{\textbf{10}}}$",
+            )
             self.assertIn("| Deck | Bracket | Jank | Fun | Mean | Goals |", overview)
             self.assertIn("height=\"16\"", overview)
             self.assertIn("<sub>", overview)
             self.assertIn(
-                "| [Test primer](decks/3-_test/README.md) | `3−` | 7 | 8 | 6 "
+                "| [Test primer](decks/3-_test/README.md) | `3−` "
+                r"| $\textsf{7}$ | $\color{#2f9e8f}{\textsf{8}}$ | $\textsf{6}$ "
                 f"| {deck_rankings.goal_cell(rankings)} |",
                 overview,
             )

@@ -19,6 +19,11 @@ HIGH_IS_GOOD_COLORS = ("8aa6a0", "6f9a92", "5f8b84", "2f7d6a", "0b6b58")
 HIGH_IS_BAD_COLORS = ("9a6b6b", "b05252", "b91c1c", "991b1b", "7f1d1d")
 HIGH_IS_BAD_KEYS = frozenset({"oppressiveness"})
 INDEX_GOAL_BADGE_HEIGHT = 16
+INDEX_TEXT_GOOD_COLOR = "#2f9e8f"
+INDEX_TEXT_BAD_COLOR = "#e05252"
+INDEX_STRONG_FROM = 8
+INDEX_WEAK_TO = 3
+INDEX_BOLD_SCORES = frozenset({MIN_SCORE, MAX_SCORE})
 PRIMER_START = "<!-- deck-rankings:start -->"
 PRIMER_END = "<!-- deck-rankings:end -->"
 PRIMER_SECTION = re.compile(
@@ -133,10 +138,28 @@ def primer_badges(data: dict) -> str:
     return f"{PRIMER_START}\n{badge_row(data)}\n{PRIMER_END}"
 
 
+def score_cell(key: str, score: int) -> str:
+    """GitHub strips CSS, so table emphasis has to go through inline math.
+
+    Every cell is wrapped so the column keeps one font; color marks the extremes
+    only, and follows valence rather than magnitude: a high Mean is the bad end.
+    """
+    body = f"\\textbf{{{score}}}" if score in INDEX_BOLD_SCORES else str(score)
+    body = f"\\textsf{{{body}}}"
+    high_is_bad = key in HIGH_IS_BAD_KEYS
+    if score >= INDEX_STRONG_FROM:
+        color = INDEX_TEXT_BAD_COLOR if high_is_bad else INDEX_TEXT_GOOD_COLOR
+    elif score <= INDEX_WEAK_TO:
+        color = INDEX_TEXT_GOOD_COLOR if high_is_bad else INDEX_TEXT_BAD_COLOR
+    else:
+        return f"${body}$"
+    return f"$\\color{{{color}}}{{{body}}}$"
+
+
 def universal_cells(data: dict) -> list[str]:
     """One table cell per universal axis, in Jank, Fun, Mean order."""
     scores = data["scores"]
-    return [str(int(scores[key])) for key in UNIVERSAL_KEYS]
+    return [score_cell(key, int(scores[key])) for key in UNIVERSAL_KEYS]
 
 
 def goal_cell(data: dict) -> str:
