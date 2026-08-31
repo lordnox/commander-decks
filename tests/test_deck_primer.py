@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -532,7 +533,7 @@ class DeckTagTests(unittest.TestCase):
 
 
 class DeckRankingTests(unittest.TestCase):
-    def test_primer_table_and_root_index_follow_goal_order(self):
+    def test_primer_badges_and_root_index_follow_display_order(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             deck_dir = root / "decks/3-_test"
@@ -596,19 +597,22 @@ class DeckRankingTests(unittest.TestCase):
             self.assertEqual(update_deck_rankings.update_primer(deck_dir), 0)
             primer = (deck_dir / "README.md").read_text(encoding="utf-8")
             overview = (root / "README.md").read_text(encoding="utf-8")
-            table = primer.split("deck-rankings:start", 1)[1].split("deck-rankings:end", 1)[0]
+            badges = primer.split("deck-rankings:start", 1)[1].split("deck-rankings:end", 1)[0]
             tags_end = primer.index("<!-- deck-tags:end -->")
             ranking_start = primer.index("<!-- deck-rankings:start -->")
+            expected_row = deck_rankings.badge_row(
+                json.loads((deck_dir / "rankings.json").read_text(encoding="utf-8")),
+            )
 
             self.assertLess(tags_end, ranking_start)
-            self.assertIn(
-                "| Fun | Oppressiveness | Jankiness | Voltron | Theft |",
-                table,
+            self.assertEqual(
+                [alt for alt in re.findall(r"!\[([^\]]+)\]", badges)],
+                ["Jank 7", "Fun 8", "Mean 6", "Voltron 9", "Theft 5"],
             )
-            self.assertIn("| 8 | 6 | 7 | 9 | 5 |", table)
+            self.assertIn("message=Jank&color=2f7d6a", badges)
+            self.assertIn("message=Mean&color=b91c1c", badges)
             self.assertIn(
-                "**[Test primer](decks/3-_test/README.md)** `3−` "
-                "Fun 8 · Oppressiveness 6 · Jankiness 7 · Voltron 9 · Theft 5",
+                f"**[Test primer](decks/3-_test/README.md)** `3−` {expected_row}",
                 overview,
             )
             self.assertEqual(update_deck_rankings.update_primer(deck_dir, check=True), 0)

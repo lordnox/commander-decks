@@ -254,7 +254,7 @@ def index_entries(root: Path, catalog: dict) -> list[dict]:
         try:
             rankings = deck_rankings.load_rankings(deck_dir)
             if rankings is not None and not deck_rankings.validate_rankings(rankings):
-                ranking_inline = deck_rankings.index_inline(rankings)
+                ranking_inline = deck_rankings.index_badges(rankings)
         except (ValueError, json.JSONDecodeError, OSError):
             ranking_inline = ""
         entries.append(

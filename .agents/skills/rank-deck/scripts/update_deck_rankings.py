@@ -27,17 +27,17 @@ def update_primer(deck_dir: Path, *, check: bool = False) -> int:
         errors = deck_rankings.validate_rankings(data)
         if errors:
             raise ValueError("; ".join(errors))
-        section = deck_rankings.primer_table(data)
+        section = deck_rankings.primer_badges(data)
     updated = deck_rankings.insert_primer_section(original, section)
     if check and updated != original:
-        print(f"{deck_dir}: ranking table is missing or stale")
+        print(f"{deck_dir}: ranking badges are missing or stale")
         return 1
     if updated != original:
         primer_path.write_text(updated, encoding="utf-8")
     if data is None:
-        print(f"{deck_dir}: no rankings.json; ranking table omitted")
+        print(f"{deck_dir}: no rankings.json; ranking badges omitted")
     else:
-        print(f"{deck_dir}: ranking table ({len(deck_rankings.score_columns(data))} scores)")
+        print(f"{deck_dir}: ranking badges ({len(deck_rankings.score_columns(data))} scores)")
     return 0
 
 
@@ -47,7 +47,7 @@ def main() -> int:
     parser.add_argument(
         "--check",
         action="store_true",
-        help="report a missing or stale ranking table without writing",
+        help="report missing or stale ranking badges without writing",
     )
     args = parser.parse_args()
     target = args.deck.resolve()

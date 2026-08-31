@@ -38,11 +38,13 @@ A card, package, or build path that raises a universal score while lowering a de
 
 ## Universal scores (1–10)
 
-| Score | What it measures | 1 | 10 |
-| --- | --- | --- | --- |
-| **Fun to play** | Pilot decisions, replayability, varied game states | Same line every game, few choices | Many meaningful sequencing choices |
-| **Oppressiveness** | How much the deck removes opponents' meaningful decisions | Opponents still play their decks | Locks, extra turns, or stax that empty the table |
-| **Jankiness** | Unusual, fragile, or convoluted interactions versus efficient packages | Staple-linear | Esoteric cards, weird rules, two-card packages |
+| Score | Badge | What it measures | 1 | 10 |
+| --- | --- | --- | --- | --- |
+| **Jankiness** | `Jank` | Unusual, fragile, or convoluted interactions versus efficient packages | Staple-linear | Esoteric cards, weird rules, two-card packages |
+| **Fun to play** | `Fun` | Pilot decisions, replayability, varied game states | Same line every game, few choices | Many meaningful sequencing choices |
+| **Oppressiveness** | `Mean` | How much the deck removes opponents' meaningful decisions | Opponents still play their decks | Locks, extra turns, or stax that empty the table |
+
+The JSON keys stay `jankiness`, `fun`, and `oppressiveness`; `Jank`, `Fun`, and `Mean` are only the badge labels, and that is also the display order.
 
 **Fun to play** is the pilot's experience. **Oppressiveness** is the table's. A theft or chaos engine can score high on both. Prefer raising fun and jank without raising oppressiveness.
 
@@ -65,9 +67,9 @@ Write `decks/<deck>/rankings.json`:
 {
   "goals": ["Voltron", "Theft"],
   "scores": {
+    "jankiness": 8,
     "fun": 8,
     "oppressiveness": 6,
-    "jankiness": 8,
     "identity": {
       "Voltron": 8,
       "Theft": 9
@@ -79,14 +81,14 @@ Write `decks/<deck>/rankings.json`:
 
 Integer scores only. Copy the same numbers into `DECISIONS.md` under `## Rankings` (date the talk if the scores changed). Do not put swap history in the primer.
 
-Then render the primer table and refresh the root index:
+Then render the primer badges and refresh the root index:
 
 ```bash
 python3 .agents/skills/rank-deck/scripts/update_deck_rankings.py decks/<deck>
 python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<deck>
 ```
 
-The primer table sits after the Archidekt tag badges. The root README prints the same columns immediately after the bracket badge. Primer refresh also runs this skill; if goals are missing, skip scoring rather than inventing them.
+Both surfaces show one shields.io badge per score, `Jank`, `Fun`, `Mean`, then identity goals in `goals` order. The primer row sits after the Archidekt tag badges; the root README repeats it immediately after the bracket badge. Badge color darkens with the score: teal where a high score is desirable, red for `Mean`, where a high score is the thing to watch. Primer refresh also runs this skill; if goals are missing, skip scoring rather than inventing them.
 
 ## When a ranking should change a list
 

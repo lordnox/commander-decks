@@ -47,7 +47,7 @@ Use concise Markdown. Write every card mention as a bold link to its manifest `s
 2. Assessment blockquote (`N−` / `N` / `N+`), when the deck has been assessed
 3. Action buttons: Archidekt deck-creation link and `DECISIONS.md`
 4. Archidekt tag badges (from `tag-deck`)
-5. Ranking table (from `rank-deck`), when `rankings.json` exists
+5. Ranking badges (from `rank-deck`), when `rankings.json` exists
 6. Short identity or summary
 7. `## Key cards`
 8. Category access by turn three
@@ -107,17 +107,17 @@ Follow `.agents/skills/tag-deck/SKILL.md` after the list is resolved. Score ever
 python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<prefix><slug>
 ```
 
-Badges sit immediately after the Archidekt sandbox link. The same run regenerates the bracket-grouped deck index in the root README, where the deck shows its bracket, ranking scores when `rankings.json` exists, summary, and top badges. `--check` must succeed. Card categories stay separate from these deck tags.
+Badges sit immediately after the Archidekt sandbox link. The same run regenerates the bracket-grouped deck index in the root README, where the deck shows its bracket, ranking badges when `rankings.json` exists, summary, and top tag badges. `--check` must succeed. Card categories stay separate from these deck tags.
 
 ### Rankings
 
-Follow `.agents/skills/rank-deck/SKILL.md` after tags. Score fun, oppressiveness, jankiness, and each declared identity goal, write `rankings.json`, then render the primer table:
+Follow `.agents/skills/rank-deck/SKILL.md` after tags. Score jankiness, fun, oppressiveness, and each declared identity goal, write `rankings.json`, then render the primer badges:
 
 ```bash
 python3 .agents/skills/rank-deck/scripts/update_deck_rankings.py decks/<prefix><slug>
 ```
 
-The table sits immediately after the Archidekt tag badges. Columns are Fun, Oppressiveness, Jankiness, then identity goals in `rankings.json` `goals` order. The same run of `update_deck_tags.py` prints those scores on the root README index immediately after the bracket badge. `--check` must succeed when `rankings.json` is present. If goals are missing, skip the table rather than inventing axes; ask once, then continue the primer.
+The badge row sits immediately after the Archidekt tag badges, in this order: Jank, Fun, Mean (the display label for oppressiveness), then identity goals in `rankings.json` `goals` order. The same run of `update_deck_tags.py` renders the same badges on the root README index immediately after the bracket badge. `--check` must succeed when `rankings.json` is present. If goals are missing, skip the badges rather than inventing axes; ask once, then continue the primer.
 
 Do not put ranking notes or swap history in the primer. Evidence stays in `rankings.json` `notes` and `DECISIONS.md` under `## Rankings`.
 
@@ -185,4 +185,4 @@ Before saving:
 - append primer, rules, and talk notes to `DECISIONS.md` when a line, win-turn claim, or Oracle reading was argued rather than obvious from the list;
 - run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<prefix><slug>` after the primer scripts.
 
-Report the deck name, total and unique cards, unresolved count, README path, and that the Archidekt link, tag badges, ranking table, category probability table, and mana stats are current.
+Report the deck name, total and unique cards, unresolved count, README path, and that the Archidekt link, tag badges, ranking badges, category probability table, and mana stats are current.

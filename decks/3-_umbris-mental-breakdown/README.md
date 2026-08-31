@@ -9,9 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-| Fun | Oppressiveness | Jankiness | Voltron | Theft |
-| ---: | ---: | ---: | ---: | ---: |
-| 8 | 6 | 8 | 8 | 9 |
+![Jank 8](https://img.shields.io/static/v1?label=8&message=Jank&color=2f7d6a&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 6](https://img.shields.io/static/v1?label=6&message=Mean&color=b91c1c&style=flat-square) ![Voltron 8](https://img.shields.io/static/v1?label=8&message=Voltron&color=2f7d6a&style=flat-square) ![Theft 9](https://img.shields.io/static/v1?label=9&message=Theft&color=0b6b58&style=flat-square)
 <!-- deck-rankings:end -->
 
 Exile-theft control replaces familiar resources with other players' cards. [Shared Fate](https://scryfall.com/card/mrd/49/shared-fate?utm_source=api) turns draws into opposing-library choices, [Knowledge Pool](https://scryfall.com/card/mbs/111/knowledge-pool?utm_source=api) exchanges spells cast from hand, and every opponent-owned card left in exile makes [Umbris](https://scryfall.com/card/voc/38/umbris-fear-manifest?utm_source=api) larger. The deck steals only what it needs; unused cards remain a power bank for combat or direct damage.
