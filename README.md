@@ -14,7 +14,7 @@ Grouped by [Commander bracket](https://mtgcommander.net/index.php/brackets/), wi
 <!-- deck-index:start -->
 ### Bracket 2 · Core
 
-- **[Jalira, Master Polymorphist — The Polyfisher](decks/2+_jalira-the-polyfisher/README.md)** `2+`<br>
+- **[Jalira, Master Polymorphist — The Polyfisher](decks/2+_jalira-the-polyfisher/README.md)** `2+` ![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 4](https://img.shields.io/static/v1?label=4&message=Mean&color=b05252&style=flat-square) ![Polymorph 9](https://img.shields.io/static/v1?label=9&message=Polymorph&color=0b6b58&style=flat-square) ![Tokens 8](https://img.shields.io/static/v1?label=8&message=Tokens&color=2f7d6a&style=flat-square)<br>
   Mono-blue Jalira polymorph: interaction that leaves tokens behind, then flip those tokens into random giant monsters.<br>
   [![polymorph 5](https://img.shields.io/static/v1?label=5&message=polymorph&color=0b6b58&style=flat-square)](https://archidekt.com/tags/polymorph) [![tokens 4](https://img.shields.io/static/v1?label=4&message=tokens&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/tokens) [![theft 3](https://img.shields.io/static/v1?label=3&message=theft&color=5f8b84&style=flat-square)](https://archidekt.com/tags/theft) [![topdeck 3](https://img.shields.io/static/v1?label=3&message=topdeck&color=5f8b84&style=flat-square)](https://archidekt.com/tags/topdeck)
 - **[Jon Irenicus — Unwanted Presents](decks/2+_jon-irenicus-unwanted-presents/README.md)** `2+`<br>
