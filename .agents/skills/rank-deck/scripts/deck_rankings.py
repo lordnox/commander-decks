@@ -125,8 +125,15 @@ def primer_badges(data: dict) -> str:
     return f"{PRIMER_START}\n{badge_row(data)}\n{PRIMER_END}"
 
 
-def index_badges(data: dict) -> str:
-    return " " + badge_row(data)
+def universal_cells(data: dict) -> list[str]:
+    """One table cell per universal axis, in Jank, Fun, Mean order."""
+    scores = data["scores"]
+    return [str(int(scores[key])) for key in UNIVERSAL_KEYS]
+
+
+def goal_cell(data: dict) -> str:
+    identity = data["scores"].get("identity") or {}
+    return ", ".join(f"{goal} {int(identity[goal])}" for goal in data["goals"])
 
 
 def insert_primer_section(original: str, section: str | None) -> str:

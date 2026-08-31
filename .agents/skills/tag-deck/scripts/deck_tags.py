@@ -41,15 +41,7 @@ MARKDOWN_LINK = re.compile(r"\[(?P<label>[^\]]+)\]\([^)]*\)")
 DECK_PREFIX = re.compile(r"^(?P<bracket>\d+)(?P<modifier>[+-]?)_")
 SHIELD_COLORS = {5: "0b6b58", 4: "2f7d6a", 3: "5f8b84"}
 SHIELD_FALLBACK_COLOR = "6b7f7a"
-OVERFLOW_COLOR = "6b7280"
-INDEX_BADGE_LIMIT = 4
-BRACKET_NAMES = {
-    1: "Exhibition",
-    2: "Core",
-    3: "Upgraded",
-    4: "Optimized",
-    5: "cEDH",
-}
+INDEX_SCORE_HEADERS = ("Jank", "Fun", "Mean")
 
 
 def repository_root(start: Path) -> Path:
@@ -169,15 +161,6 @@ def primer_section(tags: list[dict]) -> str:
     return f"{PRIMER_START}\n{body}\n{PRIMER_END}"
 
 
-def overflow_badge(count: int, primer_path: str) -> str:
-    message = quote(f"+{count} more", safe="")
-    url = (
-        f"https://img.shields.io/static/v1?label=&message={message}"
-        f"&color={OVERFLOW_COLOR}&style=flat-square"
-    )
-    return f"[![+{count} more tags]({url})]({primer_path})"
-
-
 def insert_primer_section(original: str, section: str) -> str:
     if PRIMER_SECTION.search(original):
         return PRIMER_SECTION.sub(section, original, count=1)
@@ -230,12 +213,6 @@ def bracket_badge(deck_dir_name: str) -> str:
     return match.group("bracket") + match.group("modifier").replace("-", "−")
 
 
-def bracket_heading(bracket: int) -> str:
-    if bracket not in BRACKET_NAMES:
-        return "Unrated"
-    return f"Bracket {bracket} · {BRACKET_NAMES[bracket]}"
-
-
 def index_entries(root: Path, catalog: dict) -> list[dict]:
     """Collect one root-README index entry per deck that has renderable tags."""
     entries = []
@@ -246,17 +223,20 @@ def index_entries(root: Path, catalog: dict) -> list[dict]:
             deck = load_deck_tags(deck_dir)
             if validate_deck_tags(deck, catalog):
                 continue
-            visible = visible_tags(deck, catalog)
+            visible_tags(deck, catalog)
         except (ValueError, json.JSONDecodeError, OSError):
             continue
         bracket, rank = bracket_position(deck_dir.name)
-        ranking_inline = ""
+        ranking_cells: list[str] = []
+        goal_cell = ""
         try:
             rankings = deck_rankings.load_rankings(deck_dir)
             if rankings is not None and not deck_rankings.validate_rankings(rankings):
-                ranking_inline = deck_rankings.index_badges(rankings)
+                ranking_cells = deck_rankings.universal_cells(rankings)
+                goal_cell = deck_rankings.goal_cell(rankings)
         except (ValueError, json.JSONDecodeError, OSError):
-            ranking_inline = ""
+            ranking_cells = []
+            goal_cell = ""
         entries.append(
             {
                 "bracket": bracket,
@@ -264,42 +244,35 @@ def index_entries(root: Path, catalog: dict) -> list[dict]:
                 "badge": bracket_badge(deck_dir.name),
                 "title": deck_title(deck_dir, deck),
                 "path": relative_primer_path(deck_dir, root),
-                "summary": str(deck["summary"]).strip(),
-                "tags": visible,
-                "rankings": ranking_inline,
+                "scores": ranking_cells,
+                "goals": goal_cell,
             }
         )
     entries.sort(key=lambda entry: (entry["bracket"], entry["rank"], entry["title"].casefold()))
     return entries
 
 
-def index_entry_lines(entry: dict) -> list[str]:
-    shown = entry["tags"][:INDEX_BADGE_LIMIT]
-    badges = [badge_markdown(tag) for tag in shown]
-    hidden = len(entry["tags"]) - len(shown)
-    if hidden > 0:
-        badges.append(overflow_badge(hidden, entry["path"]))
-    rankings = entry.get("rankings") or ""
-    lines = [f"- **[{entry['title']}]({entry['path']})** `{entry['badge']}`{rankings}<br>"]
-    lines.append(f"  {entry['summary']}" + ("<br>" if badges else ""))
-    if badges:
-        lines.append("  " + " ".join(badges))
-    return lines
+def index_row(entry: dict) -> str:
+    scores = entry.get("scores") or ["—"] * len(INDEX_SCORE_HEADERS)
+    cells = [
+        f"[{entry['title']}]({entry['path']})",
+        f"`{entry['badge']}`",
+        *scores,
+        entry.get("goals") or "—",
+    ]
+    return "| " + " | ".join(cells) + " |"
 
 
 def index_section(entries: list[dict]) -> str:
     lines = [INDEX_START]
-    current: int | None = None
-    for entry in entries:
-        if entry["bracket"] != current:
-            current = entry["bracket"]
-            if len(lines) > 1:
-                lines.append("")
-            lines.append(f"### {bracket_heading(current)}")
-            lines.append("")
-        lines.extend(index_entry_lines(entry))
-    if len(lines) == 1:
+    if not entries:
         lines.append("_No deck primers yet._")
+        lines.append(INDEX_END)
+        return "\n".join(lines)
+    headers = ["Deck", "Bracket", *INDEX_SCORE_HEADERS, "Goals"]
+    lines.append("| " + " | ".join(headers) + " |")
+    lines.append("| " + " | ".join(["---"] * len(headers)) + " |")
+    lines.extend(index_row(entry) for entry in entries)
     lines.append(INDEX_END)
     return "\n".join(lines)
 
