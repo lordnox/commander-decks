@@ -8396,8 +8396,20 @@
         "exile",
         "theft"
       ]
+    },
+    "5a12e989-d6bc-441e-88dd-779e68a9fee3": {
+      "name": "Souls of the Faultless",
+      "categories": [
+        "other"
+      ]
+    },
+    "1d6e9716-8c3c-443d-afd8-68d0d6c469a5": {
+      "name": "Standard Bearer",
+      "categories": [
+        "other"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-31T12:55:02.769763+00:00"
+  "updated_at": "2026-08-31T15:17:45.703521+00:00"
 }
