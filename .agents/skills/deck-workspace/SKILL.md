@@ -147,7 +147,7 @@ The `## Deck primers` section after the root README title holds a generated inde
 python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<prefix><slug>
 ```
 
-- Every row comes from the deck directory prefix (bracket), `rankings.json` when present (Jank, Fun, Mean, and identity goals as table cells), and the primer H1 or the optional `title` in `tags.json` (label). A deck without a valid `tags.json` never reaches the index; its summary and tag badges stay on the primer.
+- Every row comes from the deck directory prefix (bracket), `rankings.json` when present (Jank, Fun, Mean as numbers, identity goals as smaller badges), and the primer H1 or the optional `title` in `tags.json` (label). A deck without a valid `tags.json` never reaches the index; its summary and tag badges stay on the primer.
 - Set the directory prefix from the primer's assessment blockquote: the numeric bracket plus an ASCII `-` or `+`, so `3-`, `3`, `3+`, or `unrated_` with no assessment. When migrating legacy wording, map Low/Mid/High Bracket N to `N−`/`N`/`N+`.
 - Grouping, ordering, and badge cutoffs are the script's job; the validator fails when the checked-in index differs from a fresh render.
 - After `assess-deck` changes a bracket or directory prefix, rerun the script and update every stored path plus the manifest's `source` field.

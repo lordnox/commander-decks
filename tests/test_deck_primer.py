@@ -610,9 +610,11 @@ class DeckRankingTests(unittest.TestCase):
             self.assertIn("message=Mean&color=b91c1c", badges)
             self.assertEqual(deck_rankings.universal_cells(rankings), ["7", "8", "6"])
             self.assertIn("| Deck | Bracket | Jank | Fun | Mean | Goals |", overview)
+            self.assertIn("height=\"16\"", overview)
+            self.assertIn("<sub>", overview)
             self.assertIn(
                 "| [Test primer](decks/3-_test/README.md) | `3−` | 7 | 8 | 6 "
-                "| Voltron 9, Theft 5 |",
+                f"| {deck_rankings.goal_cell(rankings)} |",
                 overview,
             )
             self.assertEqual(update_deck_rankings.update_primer(deck_dir, check=True), 0)

@@ -18,6 +18,7 @@ UNIVERSAL_LABELS = {
 HIGH_IS_GOOD_COLORS = ("8aa6a0", "6f9a92", "5f8b84", "2f7d6a", "0b6b58")
 HIGH_IS_BAD_COLORS = ("9a6b6b", "b05252", "b91c1c", "991b1b", "7f1d1d")
 HIGH_IS_BAD_KEYS = frozenset({"oppressiveness"})
+INDEX_GOAL_BADGE_HEIGHT = 16
 PRIMER_START = "<!-- deck-rankings:start -->"
 PRIMER_END = "<!-- deck-rankings:end -->"
 PRIMER_SECTION = re.compile(
@@ -114,6 +115,13 @@ def badge_markdown(label: str, score: int, *, high_is_bad: bool) -> str:
     return f"![{label} {score}]({shield_url(label, score, high_is_bad=high_is_bad)})"
 
 
+def compact_badge_html(label: str, score: int, *, high_is_bad: bool) -> str:
+    """Smaller than primer badges; GitHub honors height on img, and <sub> shrinks further."""
+    alt = f"{label} {score}"
+    url = shield_url(label, score, high_is_bad=high_is_bad)
+    return f'<img src="{url}" alt="{alt}" height="{INDEX_GOAL_BADGE_HEIGHT}">'
+
+
 def badge_row(data: dict) -> str:
     return " ".join(
         badge_markdown(label, score, high_is_bad=high_is_bad)
@@ -133,7 +141,13 @@ def universal_cells(data: dict) -> list[str]:
 
 def goal_cell(data: dict) -> str:
     identity = data["scores"].get("identity") or {}
-    return ", ".join(f"{goal} {int(identity[goal])}" for goal in data["goals"])
+    badges = [
+        compact_badge_html(str(goal), int(identity[goal]), high_is_bad=False)
+        for goal in data["goals"]
+    ]
+    if not badges:
+        return "—"
+    return "<sub>" + " ".join(badges) + "</sub>"
 
 
 def insert_primer_section(original: str, section: str | None) -> str:
