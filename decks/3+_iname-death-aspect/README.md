@@ -8,6 +8,10 @@
 [![combo 5](https://img.shields.io/static/v1?label=5&message=combo&color=0b6b58&style=flat-square)](https://archidekt.com/tags/combo) [![graveyard 5](https://img.shields.io/static/v1?label=5&message=graveyard&color=0b6b58&style=flat-square)](https://archidekt.com/tags/graveyard) [![spirits 5](https://img.shields.io/static/v1?label=5&message=spirits&color=0b6b58&style=flat-square)](https://archidekt.com/tags/spirits) [![reanimator 4](https://img.shields.io/static/v1?label=4&message=reanimator&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/reanimator) [![self-mill 4](https://img.shields.io/static/v1?label=4&message=self-mill&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/self-mill) [![alternate wincon 3](https://img.shields.io/static/v1?label=3&message=alternate%20wincon&color=5f8b84&style=flat-square)](https://archidekt.com/tags/alternate_wincon)
 <!-- deck-tags:end -->
 
+<!-- deck-rankings:start -->
+![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 5](https://img.shields.io/static/v1?label=5&message=Fun&color=5f8b84&style=flat-square) ![Mean 7](https://img.shields.io/static/v1?label=7&message=Mean&color=991b1b&style=flat-square) ![Spirits 9](https://img.shields.io/static/v1?label=9&message=Spirits&color=0b6b58&style=flat-square) ![Graveyard 9](https://img.shields.io/static/v1?label=9&message=Graveyard&color=0b6b58&style=flat-square)
+<!-- deck-rankings:end -->
+
 Mono-black Spirit graveyard deck: dump the legend suite with [**Iname, Death Aspect**](https://scryfall.com/card/chk/118/iname-death-aspect?utm_source=api), then either win on upkeep with [**Mortal Combat**](https://scryfall.com/card/10e/160/mortal-combat?utm_source=api) or reanimate the pile.
 
 **Commander:** [Iname, Death Aspect](https://scryfall.com/card/chk/118/iname-death-aspect?utm_source=api)  
