@@ -603,6 +603,7 @@ class DeckRankingTests(unittest.TestCase):
             expected_row = deck_rankings.badge_row(
                 json.loads((deck_dir / "rankings.json").read_text(encoding="utf-8")),
             )
+            index_block = overview.split("deck-index:start", 1)[1]
 
             self.assertLess(tags_end, ranking_start)
             self.assertEqual(
@@ -611,10 +612,9 @@ class DeckRankingTests(unittest.TestCase):
             )
             self.assertIn("message=Jank&color=2f7d6a", badges)
             self.assertIn("message=Mean&color=b91c1c", badges)
-            self.assertIn(
-                f"**[Test primer](decks/3-_test/README.md)** `3−` {expected_row}",
-                overview,
-            )
+            self.assertIn(expected_row, primer)
+            self.assertIn("**[Test primer](decks/3-_test/README.md)** `3−`<br>", overview)
+            self.assertNotIn("message=Jank", index_block)
             self.assertEqual(update_deck_rankings.update_primer(deck_dir, check=True), 0)
             self.assertEqual(update_deck_tags.update_surfaces(deck_dir, check=True), 0)
 
