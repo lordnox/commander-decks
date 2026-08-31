@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Lands",
+    "Graveyard"
+  ],
+  "scores": {
+    "jankiness": 8,
+    "fun": 8,
+    "oppressiveness": 6,
+    "identity": {
+      "Lands": 9,
+      "Graveyard": 9
+    }
+  },
+  "notes": "The 99 rigs Sin's land-chain into one jackpot copy, then Field of the Dead and unique names as a second axis. Portal and Valgavoth copies are blowouts, not extra-turn locks. Landfall engines tagged Avoid-with-Sin stay out of the lottery on purpose."
+}
