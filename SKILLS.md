@@ -64,7 +64,7 @@ See [`.agents/skills/tag-deck/SKILL.md`](.agents/skills/tag-deck/SKILL.md).
 
 Score a stored deck on fun to play, oppressiveness, and jankiness, plus one identity score per declared deck goal. Use this when ranking a list, writing or refreshing a primer, comparing build paths, or checking whether the 99 still hits goals such as Voltron and Theft.
 
-Goals live in that deck's `DECISIONS.md` and `rankings.json`. Universal kitchen-table bars (fun, interesting Magic, do not prevent others from having fun) are scored through the three universal axes; identity axes are never borrowed from another deck. A primer refresh renders the scores as a table after the tag badges and on the root README after the bracket badge.
+Goals live in that deck's `DECISIONS.md` and `rankings.json`. Universal kitchen-table bars (fun, interesting Magic, do not prevent others from having fun) are scored through the three universal axes; identity axes are never borrowed from another deck. A primer refresh renders the scores as badges (`Jank`, `Fun`, `Mean`, then identity goals) after the tag badges, and repeats them on the root README after the bracket badge.
 
 See [`.agents/skills/rank-deck/SKILL.md`](.agents/skills/rank-deck/SKILL.md).
 

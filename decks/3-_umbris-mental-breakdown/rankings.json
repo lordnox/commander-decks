@@ -1,9 +1,9 @@
 {
   "goals": ["Voltron", "Theft"],
   "scores": {
+    "jankiness": 8,
     "fun": 8,
     "oppressiveness": 6,
-    "jankiness": 8,
     "identity": {
       "Voltron": 8,
       "Theft": 9

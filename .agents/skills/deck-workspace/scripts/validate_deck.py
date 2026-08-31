@@ -321,7 +321,7 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
         )
         if ranking_check.returncode:
             errors.append(
-                "primer ranking table is missing or stale; run "
+                "primer ranking badges are missing or stale; run "
                 "python3 .agents/skills/rank-deck/scripts/update_deck_rankings.py "
                 f"{deck_dir.relative_to(repo_root)}"
             )

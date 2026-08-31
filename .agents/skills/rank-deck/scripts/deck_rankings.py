@@ -5,15 +5,19 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
+from urllib.parse import quote
 
 MIN_SCORE = 1
 MAX_SCORE = 10
-UNIVERSAL_KEYS = ("fun", "oppressiveness", "jankiness")
+UNIVERSAL_KEYS = ("jankiness", "fun", "oppressiveness")
 UNIVERSAL_LABELS = {
+    "jankiness": "Jank",
     "fun": "Fun",
-    "oppressiveness": "Oppressiveness",
-    "jankiness": "Jankiness",
+    "oppressiveness": "Mean",
 }
+HIGH_IS_GOOD_COLORS = ("8aa6a0", "6f9a92", "5f8b84", "2f7d6a", "0b6b58")
+HIGH_IS_BAD_COLORS = ("9a6b6b", "b05252", "b91c1c", "991b1b", "7f1d1d")
+HIGH_IS_BAD_KEYS = frozenset({"oppressiveness"})
 PRIMER_START = "<!-- deck-rankings:start -->"
 PRIMER_END = "<!-- deck-rankings:end -->"
 PRIMER_SECTION = re.compile(
@@ -84,26 +88,45 @@ def _valid_score(value: object) -> bool:
     return isinstance(value, int) and not isinstance(value, bool) and MIN_SCORE <= value <= MAX_SCORE
 
 
-def score_columns(data: dict) -> list[tuple[str, int]]:
+def score_columns(data: dict) -> list[tuple[str, int, bool]]:
+    """Display order: Jank, Fun, Mean, then identity goals as declared."""
     scores = data["scores"]
-    columns = [(UNIVERSAL_LABELS[key], int(scores[key])) for key in UNIVERSAL_KEYS]
+    columns = [
+        (UNIVERSAL_LABELS[key], int(scores[key]), key in HIGH_IS_BAD_KEYS)
+        for key in UNIVERSAL_KEYS
+    ]
     identity = scores.get("identity") or {}
     for goal in data["goals"]:
-        columns.append((str(goal), int(identity[goal])))
+        columns.append((str(goal), int(identity[goal]), False))
     return columns
 
 
-def primer_table(data: dict) -> str:
-    columns = score_columns(data)
-    headers = " | ".join(label for label, _ in columns)
-    divider = " | ".join("---:" for _ in columns)
-    values = " | ".join(str(score) for _, score in columns)
-    body = f"| {headers} |\n| {divider} |\n| {values} |"
-    return f"{PRIMER_START}\n{body}\n{PRIMER_END}"
+def shield_url(label: str, score: int, *, high_is_bad: bool) -> str:
+    palette = HIGH_IS_BAD_COLORS if high_is_bad else HIGH_IS_GOOD_COLORS
+    color = palette[min((score - 1) // 2, len(palette) - 1)]
+    return (
+        f"https://img.shields.io/static/v1?label={quote(str(score), safe='')}"
+        f"&message={quote(label, safe='')}&color={color}&style=flat-square"
+    )
 
 
-def index_inline(data: dict) -> str:
-    return " " + " · ".join(f"{label} {score}" for label, score in score_columns(data))
+def badge_markdown(label: str, score: int, *, high_is_bad: bool) -> str:
+    return f"![{label} {score}]({shield_url(label, score, high_is_bad=high_is_bad)})"
+
+
+def badge_row(data: dict) -> str:
+    return " ".join(
+        badge_markdown(label, score, high_is_bad=high_is_bad)
+        for label, score, high_is_bad in score_columns(data)
+    )
+
+
+def primer_badges(data: dict) -> str:
+    return f"{PRIMER_START}\n{badge_row(data)}\n{PRIMER_END}"
+
+
+def index_badges(data: dict) -> str:
+    return " " + badge_row(data)
 
 
 def insert_primer_section(original: str, section: str | None) -> str:
