@@ -46,6 +46,7 @@ $deck-workspace import this deck list
 $scryfall-lookup find red cards that blink things
 $audit-deck go through this stored 99 slot by slot
 $assess-deck assess Mishra's bracket and expected win turn
+$rank-deck score this deck's fun, oppressiveness, jank, and identity goals
 $deck-ideas park this brew as currently not viable
 ```
 
@@ -141,12 +142,13 @@ Before making changes:
 5. For a deck README or play guide, read .agents/skills/deck-primer/SKILL.md.
 6. For Archidekt deck tags and README badges, read .agents/skills/tag-deck/SKILL.md.
 7. For bracket, power, or win-turn analysis, read .agents/skills/assess-deck/SKILL.md.
-8. For parking an unbuilt brew in DECK-IDEAS.md, read .agents/skills/deck-ideas/SKILL.md.
-9. Follow those workflows exactly.
-10. Preserve submitted deck lists and never overwrite a likely existing deck
+8. For fun, oppressiveness, jankiness, and per-deck identity scores, read .agents/skills/rank-deck/SKILL.md.
+9. For parking an unbuilt brew in DECK-IDEAS.md, read .agents/skills/deck-ideas/SKILL.md.
+10. Follow those workflows exactly.
+11. Preserve submitted deck lists and never overwrite a likely existing deck
    without confirmation.
-11. Ensure every resolved card has one or more categories.
-12. Ensure every deck has a primer linked near the top of the root README.
+12. Ensure every resolved card has one or more categories.
+13. Ensure every deck has a primer linked near the top of the root README.
 ```
 
 To resolve a saved list manually:
@@ -198,6 +200,7 @@ cards/
 .agents/
   skills/
     assess-deck/
+    rank-deck/
     audit-deck/
     deck-ideas/
     deck-workspace/

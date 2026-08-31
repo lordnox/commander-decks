@@ -43,7 +43,7 @@ Inspect `decks/` and follow `deck-ideas` (root `DECK-IDEAS.md`). If a stored dec
 1. Follow `deck-workspace` (save list, resolve, categorize, primer, tags, root README link).
 2. Write `DECISIONS.md` as required by `deck-workspace` (How to use, Cards in, Talks for this grill). Put cards that lost the 99 but might return in a **Maybe** note, not under Cards in.
 3. Validate with `validate_deck.py`.
-4. Use `assess-deck` only when the user asks for bracket or win-turn.
+4. Use `assess-deck` only when the user asks for bracket or win-turn. Use `rank-deck` when they ask whether the list is fun, oppressive, janky, or still on its own goals.
 5. If the user parks the brew instead, stop here and follow `deck-ideas`. Do not write a 99 to keep moving.
 
 ## Lessons

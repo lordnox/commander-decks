@@ -55,7 +55,7 @@ Every deck folder is `decks/<rating>_<commander>-<name>/` in kebab-case.
 - If the title slug already starts with the commander slug, do not double it (`sin` + `sin-fall` stays `sin-fall`).
 - Example: Lady Evangela, deck name Foggy Blood Transfusion → `unrated_lady-evangela-foggy-blood-transfusion`.
 
-Use `design-deck` when brewing from a theme, `deck-ideas` when parking a brew that is not a 99, `deck-workspace` for import and validation, `scryfall-lookup` for card searches, `audit-deck` for a slot-by-slot Scryfall review of a stored 99, `deck-primer` when creating or updating a play guide, `tag-deck` for Archidekt deck tags, and `assess-deck` for bracket, power, or expected-win-turn analysis.
+Use `design-deck` when brewing from a theme, `deck-ideas` when parking a brew that is not a 99, `deck-workspace` for import and validation, `scryfall-lookup` for card searches, `audit-deck` for a slot-by-slot Scryfall review of a stored 99, `deck-primer` when creating or updating a play guide, `tag-deck` for Archidekt deck tags, `assess-deck` for bracket, power, or expected-win-turn analysis, and `rank-deck` for fun, oppressiveness, jankiness, and per-deck identity goals.
 
 ## Chat card presentation
 
