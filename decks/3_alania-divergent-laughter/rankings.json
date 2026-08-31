@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Spell Copy",
+    "Spellslinger"
+  ],
+  "scores": {
+    "jankiness": 7,
+    "fun": 8,
+    "oppressiveness": 7,
+    "identity": {
+      "Spell Copy": 10,
+      "Spellslinger": 9
+    }
+  },
+  "notes": "Alania plus Repeated Reverberation, Storm King's Thunder, Thousand-Year Storm, and Forks copy Tasha, Crackle, or Jaya's Inferno into a win. Early turns are hold-up Izzet answers. Six Tashas gut libraries without always winning on the spot, which is the main table-feel hit."
+}

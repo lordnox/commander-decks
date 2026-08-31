@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Spell Copy** — One sorcery resolved many times is the kill.
+- **Spellslinger** — The 99 is instants and sorceries with copy and control support.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 7, fun 8, mean 7, Spell Copy 10, Spellslinger 9. Control is the posture, not a second identity score.
+
 ## Cards in
 
 - **Alania, Divergent Storm** — The commander copies both halves of the primary turn: first Repeated Reverberation, then the first sorcery finisher, producing five copies without relying on an infinite loop.
