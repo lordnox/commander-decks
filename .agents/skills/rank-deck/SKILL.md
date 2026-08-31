@@ -79,6 +79,15 @@ Write `decks/<deck>/rankings.json`:
 
 Integer scores only. Copy the same numbers into `DECISIONS.md` under `## Rankings` (date the talk if the scores changed). Do not put swap history in the primer.
 
+Then render the primer table and refresh the root index:
+
+```bash
+python3 .agents/skills/rank-deck/scripts/update_deck_rankings.py decks/<deck>
+python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<deck>
+```
+
+The primer table sits after the Archidekt tag badges. The root README prints the same columns immediately after the bracket badge. Primer refresh also runs this skill; if goals are missing, skip scoring rather than inventing them.
+
 ## When a ranking should change a list
 
 Only recommend cuts or adds if the user is already editing. Then prefer cards that raise a lagging identity score without a large oppressiveness jump. Reject a path that would replace the declared goals (for example turning a Voltron deck into ETB-blink control).

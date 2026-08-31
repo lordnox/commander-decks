@@ -98,8 +98,9 @@ After all cards resolve and have useful categories:
 1. Read and follow `.agents/skills/deck-primer/SKILL.md`.
 2. Create or refresh `decks/<prefix><slug>/README.md` from the resolved manifest.
 3. Follow `.agents/skills/tag-deck/SKILL.md`: score official Archidekt tags, write `tags.json`, and render badges.
-4. Do not leave a newly created deck without a primer.
-5. If the primer cannot be completed, report the blocker and treat deck creation as incomplete.
+4. Follow `.agents/skills/rank-deck/SKILL.md` when the deck has declared goals: write `rankings.json` and render the primer table.
+5. Do not leave a newly created deck without a primer.
+6. If the primer cannot be completed, report the blocker and treat deck creation as incomplete.
 
 Create `DECISIONS.md` or `decisions.json`. Decision logs are required for every deck.
 
@@ -146,7 +147,7 @@ The `## Deck primers` section after the root README title holds a generated inde
 python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<prefix><slug>
 ```
 
-- Every entry comes from the deck directory prefix (bracket badge), the primer H1 or the optional `title` in `tags.json` (label), and `tags.json` (summary and badges). A deck without a valid `tags.json` never reaches the index.
+- Every entry comes from the deck directory prefix (bracket badge), `rankings.json` when present (Fun, Oppressiveness, Jankiness, then identity goals, immediately after the bracket), the primer H1 or the optional `title` in `tags.json` (label), and `tags.json` (summary and badges). A deck without a valid `tags.json` never reaches the index.
 - Set the directory prefix from the primer's assessment blockquote: the numeric bracket plus an ASCII `-` or `+`, so `3-`, `3`, `3+`, or `unrated_` with no assessment. When migrating legacy wording, map Low/Mid/High Bracket N to `N−`/`N`/`N+`.
 - Grouping, ordering, and badge cutoffs are the script's job; the validator fails when the checked-in index differs from a fresh render.
 - After `assess-deck` changes a bracket or directory prefix, rerun the script and update every stored path plus the manifest's `source` field.
@@ -159,7 +160,7 @@ Run:
 python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<prefix><slug>
 ```
 
-Decision logs are required by default. Pass `--no-require-decisions` only for a temporary import. Fix every error before review. The validator checks deck size, manifest consistency, categories, commander designation, singleton and color-identity rules, cached Commander legality for already-released cards, primer linkage, root deck index currency, assessment placement, Archidekt, tag badges, category-table, and mana-stats currency, card-mention links, and decision-log coverage. Unreleased cards are allowed; see the root `DECISIONS.md`.
+Decision logs are required by default. Pass `--no-require-decisions` only for a temporary import. Fix every error before review. The validator checks deck size, manifest consistency, categories, commander designation, singleton and color-identity rules, cached Commander legality for already-released cards, primer linkage, root deck index currency, assessment placement, Archidekt, tag badges, ranking-table, category-table, and mana-stats currency, card-mention links, and decision-log coverage. Unreleased cards are allowed; see the root `DECISIONS.md`.
 
 Inspect the final diff after validation. Shared registries preserve their existing order, so unrelated global reordering or cache changes indicate a workflow problem and should be removed.
 

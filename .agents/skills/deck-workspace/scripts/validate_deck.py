@@ -133,6 +133,10 @@ def tag_script(name: str) -> Path:
     return Path(__file__).resolve().parents[2] / "tag-deck/scripts" / name
 
 
+def ranking_script(name: str) -> Path:
+    return Path(__file__).resolve().parents[2] / "rank-deck/scripts" / name
+
+
 def run_primer_check(script: Path, deck_dir: Path) -> subprocess.CompletedProcess:
     return subprocess.run(
         [sys.executable, str(script), str(deck_dir), "--check"],
@@ -311,6 +315,16 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
                     "python3 .agents/skills/tag-deck/scripts/update_deck_tags.py "
                     f"{deck_dir.relative_to(repo_root)}"
                 )
+        ranking_check = run_primer_check(
+            ranking_script("update_deck_rankings.py"),
+            deck_dir,
+        )
+        if ranking_check.returncode:
+            errors.append(
+                "primer ranking table is missing or stale; run "
+                "python3 .agents/skills/rank-deck/scripts/update_deck_rankings.py "
+                f"{deck_dir.relative_to(repo_root)}"
+            )
     root_readme = repo_root / "README.md"
     primer_link = f"({primer_path.relative_to(repo_root)})"
     if not root_readme.is_file() or primer_link not in root_readme.read_text(encoding="utf-8"):

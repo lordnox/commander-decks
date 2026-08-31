@@ -38,10 +38,11 @@ Whenever the user posts a deck list or asks to begin work on a stored list:
 7. Assign one or more useful categories to every resolved card. Use universal categories unless the card has a deck-specific role.
 8. Create or refresh the deck's `README.md` by following the `deck-primer` skill.
 9. Follow `tag-deck`: score official Archidekt tags into `tags.json` and show cutoff badges on the primer and root README.
-10. Regenerate the `Deck primers` index in the root README with `python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<deck-name>`. The whole block between the `deck-index` markers is generated from every deck's directory prefix, primer title, and `tags.json`; never hand-edit it.
-11. Add `DECISIONS.md` with a `## How to use` definition, one inclusion entry per unique deck card under `## Cards in`, and a primer link to that file. After swaps, primer rewrites, assessments, or rules arguments, append `## Cards out`, `## Primer`, `## Rules`, or `## Talks`.
-12. Run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<deck-name>` (decision logs are required by default).
-13. Do not analyze or recommend changes until resolution or validation errors are reported or fixed.
+10. Follow `rank-deck` when goals are declared: write `rankings.json` and show the score table on the primer; the root index prints the same scores after the bracket badge.
+11. Regenerate the `Deck primers` index in the root README with `python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<deck-name>`. The whole block between the `deck-index` markers is generated from every deck's directory prefix, ranking scores, primer title, and `tags.json`; never hand-edit it.
+12. Add `DECISIONS.md` with a `## How to use` definition, one inclusion entry per unique deck card under `## Cards in`, and a primer link to that file. After swaps, primer rewrites, assessments, or rules arguments, append `## Cards out`, `## Primer`, `## Rules`, or `## Talks`.
+13. Run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<deck-name>` (decision logs are required by default).
+14. Do not analyze or recommend changes until resolution or validation errors are reported or fixed.
 
 A newly created deck is incomplete until its primer exists and is linked from the root README.
 

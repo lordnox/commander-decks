@@ -11,6 +11,8 @@ CATEGORY_SCRIPT = ROOT / ".agents/skills/deck-primer/scripts/update_category_pro
 MANA_SCRIPT = ROOT / ".agents/skills/deck-primer/scripts/update_mana_stats.py"
 TAG_SCRIPT = ROOT / ".agents/skills/tag-deck/scripts/update_deck_tags.py"
 TAG_LIB = ROOT / ".agents/skills/tag-deck/scripts/deck_tags.py"
+RANKING_SCRIPT = ROOT / ".agents/skills/rank-deck/scripts/update_deck_rankings.py"
+RANKING_LIB = ROOT / ".agents/skills/rank-deck/scripts/deck_rankings.py"
 SPEC = importlib.util.spec_from_file_location("link_card_mentions", LINKER_SCRIPT)
 linker = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(linker)
@@ -38,6 +40,15 @@ TAG_SPEC.loader.exec_module(update_deck_tags)
 TAG_LIB_SPEC = importlib.util.spec_from_file_location("deck_tags", TAG_LIB)
 deck_tags = importlib.util.module_from_spec(TAG_LIB_SPEC)
 TAG_LIB_SPEC.loader.exec_module(deck_tags)
+RANKING_SPEC = importlib.util.spec_from_file_location(
+    "update_deck_rankings",
+    RANKING_SCRIPT,
+)
+update_deck_rankings = importlib.util.module_from_spec(RANKING_SPEC)
+RANKING_SPEC.loader.exec_module(update_deck_rankings)
+RANKING_LIB_SPEC = importlib.util.spec_from_file_location("deck_rankings", RANKING_LIB)
+deck_rankings = importlib.util.module_from_spec(RANKING_LIB_SPEC)
+RANKING_LIB_SPEC.loader.exec_module(deck_rankings)
 
 
 class LinkCardMentionsTests(unittest.TestCase):
@@ -518,6 +529,95 @@ class DeckTagTests(unittest.TestCase):
             self.assertIn("combo", overview)
             self.assertNotIn("crabs", overview)
             self.assertEqual(update_deck_tags.update_surfaces(deck_dir, check=True), 0)
+
+
+class DeckRankingTests(unittest.TestCase):
+    def test_primer_table_and_root_index_follow_goal_order(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            deck_dir = root / "decks/3-_test"
+            catalog_dir = root / ".agents/skills/tag-deck"
+            deck_dir.mkdir(parents=True)
+            catalog_dir.mkdir(parents=True)
+            (root / "cards").mkdir()
+            (catalog_dir / "archidekt-tags.json").write_text(
+                json.dumps({
+                    "schema_version": 1,
+                    "default_cutoff": 3,
+                    "tags": [
+                        {
+                            "name": "combo",
+                            "slug": "combo",
+                            "url": "https://archidekt.com/tags/combo",
+                        },
+                    ],
+                }),
+                encoding="utf-8",
+            )
+            (deck_dir / "tags.json").write_text(
+                json.dumps({
+                    "schema_version": 1,
+                    "cutoff": 3,
+                    "summary": "A mill combo.",
+                    "tags": [
+                        {"name": "combo", "score": 5, "reason": "Primary plan."},
+                    ],
+                }),
+                encoding="utf-8",
+            )
+            (deck_dir / "rankings.json").write_text(
+                json.dumps({
+                    "goals": ["Voltron", "Theft"],
+                    "scores": {
+                        "fun": 8,
+                        "oppressiveness": 6,
+                        "jankiness": 7,
+                        "identity": {"Voltron": 9, "Theft": 5},
+                    },
+                    "notes": "Test scores.",
+                }),
+                encoding="utf-8",
+            )
+            (deck_dir / "README.md").write_text(
+                "# Test primer\n\n"
+                "> Bracket 3− combo deck.\n\n"
+                "[![Open in Archidekt]"
+                "(https://img.shields.io/badge/Open%20in%20Archidekt-0b6b58?style=for-the-badge)]"
+                "(https://archidekt.com/sandbox?deck=%5B%5D)\n",
+                encoding="utf-8",
+            )
+            (root / "README.md").write_text(
+                "## Deck primers\n\n"
+                "<!-- deck-index:start -->\n<!-- deck-index:end -->\n",
+                encoding="utf-8",
+            )
+
+            self.assertEqual(update_deck_tags.update_surfaces(deck_dir), 0)
+            self.assertEqual(update_deck_rankings.update_primer(deck_dir), 0)
+            primer = (deck_dir / "README.md").read_text(encoding="utf-8")
+            overview = (root / "README.md").read_text(encoding="utf-8")
+            table = primer.split("deck-rankings:start", 1)[1].split("deck-rankings:end", 1)[0]
+            tags_end = primer.index("<!-- deck-tags:end -->")
+            ranking_start = primer.index("<!-- deck-rankings:start -->")
+
+            self.assertLess(tags_end, ranking_start)
+            self.assertIn(
+                "| Fun | Oppressiveness | Jankiness | Voltron | Theft |",
+                table,
+            )
+            self.assertIn("| 8 | 6 | 7 | 9 | 5 |", table)
+            self.assertIn(
+                "**[Test primer](decks/3-_test/README.md)** `3−` "
+                "Fun 8 · Oppressiveness 6 · Jankiness 7 · Voltron 9 · Theft 5",
+                overview,
+            )
+            self.assertEqual(update_deck_rankings.update_primer(deck_dir, check=True), 0)
+            self.assertEqual(update_deck_tags.update_surfaces(deck_dir, check=True), 0)
+
+    def test_missing_rankings_leave_index_and_primer_unchanged(self):
+        primer = "# Test\n\n> Bracket 2.\n"
+        self.assertEqual(deck_rankings.insert_primer_section(primer, None), primer)
+        self.assertIsNone(deck_rankings.load_rankings(Path("/tmp/does-not-exist-deck")))
 
 
 if __name__ == "__main__":

@@ -59,7 +59,7 @@ python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<prefix><slug>
 
 This writes the visible badges into the primer (after the Archidekt link) and regenerates the whole root README deck index between the `<!-- deck-index:start -->` and `<!-- deck-index:end -->` markers. `--check` must succeed afterward.
 
-The index is generated, so never edit it by hand. It groups decks under `### Bracket N · Name` headings, sorts them by bracket, then `−` / plain / `+`, then title, and shows each deck's summary plus its top four badges with a `+N more` badge linking to the primer. Badge color darkens with the score. Every deck needs a valid `tags.json`, or it silently drops out of the index.
+The index is generated, so never edit it by hand. It groups decks under `### Bracket N · Name` headings, sorts them by bracket, then `−` / plain / `+`, then title, and shows each deck's bracket, ranking scores from `rankings.json` when present (Fun, Oppressiveness, Jankiness, then identity goals), summary, plus its top four badges with a `+N more` badge linking to the primer. Badge color darkens with the score. Every deck needs a valid `tags.json`, or it silently drops out of the index.
 
 ## 4. When to run
 
