@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Mill",
+    "Landfall"
+  ],
+  "scores": {
+    "jankiness": 9,
+    "fun": 8,
+    "oppressiveness": 6,
+    "identity": {
+      "Mill": 9,
+      "Landfall": 8
+    }
+  },
+  "notes": "The win is pointing copied Homers outward. Setup is dump lands then replay them; jank is seafood-count math, Nanogene, and legend-safe clones. Mean is a one-turn library empty, not stax. Crab tribal is not a goal."
+}

@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Mill** — Copied Homer triggers empty opposing libraries; there is no Lab Man line.
+- **Landfall** — Dump lands, replay them, and each extra drop copies more Homers.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 9, fun 8, mean 6, Mill 9, Landfall 8. Combo speed without extra-turn locks.
+
 ## Cards in
 
 This log records why every card entered the initial list. Future changes should append a dated entry identifying the card added, the card removed, and the reason.

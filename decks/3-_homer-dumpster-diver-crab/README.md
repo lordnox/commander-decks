@@ -8,6 +8,10 @@
 [![combo 5](https://img.shields.io/static/v1?label=5&message=combo&color=0b6b58&style=flat-square)](https://archidekt.com/tags/combo) [![graveyard 5](https://img.shields.io/static/v1?label=5&message=graveyard&color=0b6b58&style=flat-square)](https://archidekt.com/tags/graveyard) [![mill 5](https://img.shields.io/static/v1?label=5&message=mill&color=0b6b58&style=flat-square)](https://archidekt.com/tags/mill) [![self-mill 5](https://img.shields.io/static/v1?label=5&message=self-mill&color=0b6b58&style=flat-square)](https://archidekt.com/tags/self-mill) [![landfall 4](https://img.shields.io/static/v1?label=4&message=landfall&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/landfall)
 <!-- deck-tags:end -->
 
+<!-- deck-rankings:start -->
+![Jank 9](https://img.shields.io/static/v1?label=9&message=Jank&color=0b6b58&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 6](https://img.shields.io/static/v1?label=6&message=Mean&color=b91c1c&style=flat-square) ![Mill 9](https://img.shields.io/static/v1?label=9&message=Mill&color=0b6b58&style=flat-square) ![Landfall 8](https://img.shields.io/static/v1?label=8&message=Landfall&color=2f7d6a&style=flat-square)
+<!-- deck-rankings:end -->
+
 A Sultai self-mill combo deck that throws lands into the graveyard, drags them back onto the battlefield, and turns a suspicious number of Homers into quadratic mill.
 
 > **Card-status note:** Scryfall lists [**Homer, the Hermit**](https://scryfall.com/card/mbc/40/homer-the-hermit?utm_source=api) with a release date of 9 November 2026 and currently marks it not legal in Commander. The remaining 99 cards are Commander-legal.
