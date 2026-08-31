@@ -29,7 +29,7 @@ Grouped by [Commander bracket](https://mtgcommander.net/index.php/brackets/), wi
 
 ### Bracket 3 · Upgraded
 
-- **[Hazel — Misty Critters](decks/3-_hazel-misty-critters/README.md)** `3−`<br>
+- **[Hazel — Misty Critters](decks/3-_hazel-misty-critters/README.md)** `3−` ![Jank 6](https://img.shields.io/static/v1?label=6&message=Jank&color=5f8b84&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 5](https://img.shields.io/static/v1?label=5&message=Mean&color=b91c1c&style=flat-square) ![Squirrels 9](https://img.shields.io/static/v1?label=9&message=Squirrels&color=0b6b58&style=flat-square) ![Tokens 9](https://img.shields.io/static/v1?label=9&message=Tokens&color=0b6b58&style=flat-square)<br>
   Golgari go-wide squirrel tokens: flood the board, copy the tokens, and overrun or Triumph for the kill.<br>
   [![go-wide 5](https://img.shields.io/static/v1?label=5&message=go-wide&color=0b6b58&style=flat-square)](https://archidekt.com/tags/go-wide) [![squirrels 5](https://img.shields.io/static/v1?label=5&message=squirrels&color=0b6b58&style=flat-square)](https://archidekt.com/tags/squirrels) [![tokens 5](https://img.shields.io/static/v1?label=5&message=tokens&color=0b6b58&style=flat-square)](https://archidekt.com/tags/tokens) [![infect 3](https://img.shields.io/static/v1?label=3&message=infect&color=5f8b84&style=flat-square)](https://archidekt.com/tags/infect)
 - **[Homer — Dumpster-Diver Crab](decks/3-_homer-dumpster-diver-crab/README.md)** `3−`<br>
