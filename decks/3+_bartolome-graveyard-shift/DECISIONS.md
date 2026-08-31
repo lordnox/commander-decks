@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Aristocrats** — Free sac plus death triggers are the midgame.
+- **Combo** — Overlapping two- and three-card death loops are the primary wins.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 7, fun 7, mean 7, Aristocrats 9, Combo 9. Mean is a closed loop, not stax.
+
 ## Cards in
 
 This log records why every card entered the list. Future changes should append a dated entry identifying the card added, the card removed, and the reason.
