@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Group Slug",
+    "Discard"
+  ],
+  "scores": {
+    "jankiness": 7,
+    "fun": 7,
+    "oppressiveness": 7,
+    "identity": {
+      "Group Slug": 9,
+      "Discard": 8
+    }
+  },
+  "notes": "Iron Maiden, Viseling, Painful Quandary, and the rest make life leave someone every turn so Sygg draws; Howling Mine effects overfill hands for those taxes. Discard is a real engine with Caress and Grimoire. Opponents still cast spells, but every extra card costs life."
+}
