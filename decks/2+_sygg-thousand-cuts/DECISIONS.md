@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Group Slug** — The table bleeds every turn so Sygg draws and the clock is attrition.
+- **Discard** — Forced discard is a repeating engine with dedicated payoffs, not a splash.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 7, fun 7, mean 7, Group Slug 9, Discard 8. Mean is symmetric tax, not a lock.
+
 ## Cards in
 
 - **Sygg, River Cutthroat** — Two-mana commander that draws a card each end step where any opponent lost 3+ life; the entire punisher shell exists to make that check free.

@@ -8,6 +8,10 @@
 [![group slug 5](https://img.shields.io/static/v1?label=5&message=group%20slug&color=0b6b58&style=flat-square)](https://archidekt.com/tags/group_slug) [![discard 4](https://img.shields.io/static/v1?label=4&message=discard&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/discard) [![lifedrain 4](https://img.shields.io/static/v1?label=4&message=lifedrain&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/lifedrain) [![draw 3](https://img.shields.io/static/v1?label=3&message=draw&color=5f8b84&style=flat-square)](https://archidekt.com/tags/draw) [![forced combat 3](https://img.shields.io/static/v1?label=3&message=forced%20combat&color=5f8b84&style=flat-square)](https://archidekt.com/tags/forced_combat)
 <!-- deck-tags:end -->
 
+<!-- deck-rankings:start -->
+![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 7](https://img.shields.io/static/v1?label=7&message=Fun&color=2f7d6a&style=flat-square) ![Mean 7](https://img.shields.io/static/v1?label=7&message=Mean&color=991b1b&style=flat-square) ![Group Slug 9](https://img.shields.io/static/v1?label=9&message=Group%20Slug&color=0b6b58&style=flat-square) ![Discard 8](https://img.shields.io/static/v1?label=8&message=Discard&color=2f7d6a&style=flat-square)
+<!-- deck-rankings:end -->
+
 A Dimir punisher deck where nobody takes a big hit, but everybody bleeds. Passive drip engines — hand-size punishment, discard taxes, cast taxes, and goaded combat — make every opponent lose life on every turn of the table, and [**Sygg, River Cutthroat**](https://scryfall.com/card/znc/103/sygg-river-cutthroat?utm_source=api) converts each end step where any opponent lost three or more life into a card. The life that leaves the table comes back to you through drain and lifegain, and the game ends by attrition.
 
 ## Key cards
