@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Squirrels** — Commanders, lords, and makers are squirrel-native; other tribes feed the same swarm.
+- **Tokens** — The kill is a copied critical mass, then overrun or Triumph.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 6, fun 8, mean 5, Squirrels 9, Tokens 9. Linear go-wide, not a lock.
+
 ## Cards in
 
 - **Hazel of the Rootbloom** — Commands the deck by turning expendable tokens into mana and copying the best Squirrel token twice each end step.

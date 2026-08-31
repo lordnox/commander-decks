@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Squirrels",
+    "Tokens"
+  ],
+  "scores": {
+    "jankiness": 6,
+    "fun": 8,
+    "oppressiveness": 5,
+    "identity": {
+      "Squirrels": 9,
+      "Tokens": 9
+    }
+  },
+  "notes": "Hazel, Chatterfang, Odd Acorn Gang, and the Nest package make squirrels the copy target and the combat type. Fun is the tap-for-mana versus pump versus attack split; Mean stays mid because the table still plays until a Triumph or Rotcaller swing."
+}
