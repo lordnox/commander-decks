@@ -88,7 +88,7 @@ python3 .agents/skills/rank-deck/scripts/update_deck_rankings.py decks/<deck>
 python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<deck>
 ```
 
-Both surfaces show one shields.io badge per score, `Jank`, `Fun`, `Mean`, then identity goals in `goals` order. The primer row sits after the Archidekt tag badges; the root README repeats it immediately after the bracket badge. Badge color darkens with the score: teal where a high score is desirable, red for `Mean`, where a high score is the thing to watch. Primer refresh also runs this skill; if goals are missing, skip scoring rather than inventing them.
+The primer shows one shields.io badge per score, `Jank`, `Fun`, `Mean`, then identity goals in `goals` order, in a row after the Archidekt tag badges. Badge color darkens with the score: teal where a high score is desirable, red for `Mean`, where a high score is the thing to watch. The root README index is a table instead, with the same scores as plain numbers so decks line up column by column. Primer refresh also runs this skill; if goals are missing, skip scoring rather than inventing them.
 
 ## When a ranking should change a list
 
