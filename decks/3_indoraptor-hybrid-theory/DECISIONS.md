@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Enrage** — Damage to your own creatures is the repeating action and the commander payoff.
+- **Dinosaurs** — Indoraptor plus enrage dinosaurs and dino ramp, not a generic Jund goodstuff pile.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 9, fun 8, mean 7, Enrage 10, Dinosaurs 8. Voltron is a line, not a scored goal.
+
 ## Cards in
 
 - **Indoraptor, the Perfect Hybrid** — Commands the deck: a cheap menace threat that grows on entry from prior burn and converts every point of self-inflicted damage into a forced sacrifice or direct damage.

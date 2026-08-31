@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Enrage",
+    "Dinosaurs"
+  ],
+  "scores": {
+    "jankiness": 9,
+    "fun": 8,
+    "oppressiveness": 7,
+    "identity": {
+      "Enrage": 10,
+      "Dinosaurs": 8
+    }
+  },
+  "notes": "Pestilence, Pyrohemia, Wisps, and friends ping your own creatures on purpose so Ripjaw, Cacophodon, Rite of Passage, and Last Laugh fire. The commander is a bloodthirst closer, but Last Laugh can end the table without attacking. Symmetric damage is why Mean is high."
+}
