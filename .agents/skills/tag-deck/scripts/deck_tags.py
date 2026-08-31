@@ -42,7 +42,7 @@ DECK_PREFIX = re.compile(r"^(?P<bracket>\d+)(?P<modifier>[+-]?)_")
 SHIELD_COLORS = {5: "0b6b58", 4: "2f7d6a", 3: "5f8b84"}
 SHIELD_FALLBACK_COLOR = "6b7f7a"
 OVERFLOW_COLOR = "6b7280"
-INDEX_BADGE_LIMIT = 4
+INDEX_BADGE_LIMIT = 3
 BRACKET_NAMES = {
     1: "Exhibition",
     2: "Core",
@@ -161,6 +161,11 @@ def badge_markdown(tag: dict) -> str:
     return f"[![{alt}]({shield_url(tag['name'], tag['score'])})]({tag['url']})"
 
 
+def index_tag_link(tag: dict) -> str:
+    """Root-index tags are plain names; their scores stay on the primer badges."""
+    return f"[{tag['name']}]({tag['url']})"
+
+
 def primer_section(tags: list[dict]) -> str:
     if not tags:
         body = "_No Archidekt tags reach this deck's display cutoff._"
@@ -275,15 +280,15 @@ def index_entries(root: Path, catalog: dict) -> list[dict]:
 
 def index_entry_lines(entry: dict) -> list[str]:
     shown = entry["tags"][:INDEX_BADGE_LIMIT]
-    badges = [badge_markdown(tag) for tag in shown]
+    tags = [index_tag_link(tag) for tag in shown]
     hidden = len(entry["tags"]) - len(shown)
     if hidden > 0:
-        badges.append(overflow_badge(hidden, entry["path"]))
+        tags.append(f"[+{hidden} more]({entry['path']})")
     rankings = entry.get("rankings") or ""
     lines = [f"- **[{entry['title']}]({entry['path']})** `{entry['badge']}`{rankings}<br>"]
-    lines.append(f"  {entry['summary']}" + ("<br>" if badges else ""))
-    if badges:
-        lines.append("  " + " ".join(badges))
+    lines.append(f"  {entry['summary']}" + ("<br>" if tags else ""))
+    if tags:
+        lines.append("  <sub>" + " · ".join(tags) + "</sub>")
     return lines
 
 
