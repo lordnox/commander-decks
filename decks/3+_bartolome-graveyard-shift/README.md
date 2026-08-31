@@ -8,6 +8,10 @@
 [![aristocrats 5](https://img.shields.io/static/v1?label=5&message=aristocrats&color=0b6b58&style=flat-square)](https://archidekt.com/tags/aristocrats) [![combo 5](https://img.shields.io/static/v1?label=5&message=combo&color=0b6b58&style=flat-square)](https://archidekt.com/tags/combo) [![sacrifice 5](https://img.shields.io/static/v1?label=5&message=sacrifice&color=0b6b58&style=flat-square)](https://archidekt.com/tags/sacrifice) [![graveyard 3](https://img.shields.io/static/v1?label=3&message=graveyard&color=5f8b84&style=flat-square)](https://archidekt.com/tags/graveyard) [![reanimator 3](https://img.shields.io/static/v1?label=3&message=reanimator&color=5f8b84&style=flat-square)](https://archidekt.com/tags/reanimator) [![skeletons 3](https://img.shields.io/static/v1?label=3&message=skeletons&color=5f8b84&style=flat-square)](https://archidekt.com/tags/skeletons)
 <!-- deck-tags:end -->
 
+<!-- deck-rankings:start -->
+![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 7](https://img.shields.io/static/v1?label=7&message=Fun&color=2f7d6a&style=flat-square) ![Mean 7](https://img.shields.io/static/v1?label=7&message=Mean&color=991b1b&style=flat-square) ![Aristocrats 9](https://img.shields.io/static/v1?label=9&message=Aristocrats&color=0b6b58&style=flat-square) ![Combo 9](https://img.shields.io/static/v1?label=9&message=Combo&color=0b6b58&style=flat-square)
+<!-- deck-rankings:end -->
+
 An Orzhov graveyard-combo deck built around Bartolomé's free sacrifice outlet, with the Ozox/Jumblebones rotation and Aura-recursion loops serving as overlapping engines.
 
 **Commander:** [Bartolomé del Presidio](https://scryfall.com/card/lci/224/bartolom%C3%A9-del-presidio)  

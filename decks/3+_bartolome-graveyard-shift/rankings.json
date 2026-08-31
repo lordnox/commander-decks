@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Aristocrats",
+    "Combo"
+  ],
+  "scores": {
+    "jankiness": 7,
+    "fun": 7,
+    "oppressiveness": 7,
+    "identity": {
+      "Aristocrats": 9,
+      "Combo": 9
+    }
+  },
+  "notes": "Bartolom\u00e9 as a free outlet plus dense death payoffs is the whole engine; Ozox, Titan plus return Auras, Enduring Renewal, and Relic-Warder loops overlap. Staple Cutthroat and Altar packages pull jank down; once a loop plus drain is on, opponents stop playing their decks."
+}
