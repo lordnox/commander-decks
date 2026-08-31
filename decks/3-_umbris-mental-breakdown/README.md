@@ -9,7 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 8](https://img.shields.io/static/v1?label=8&message=Jank&color=2f7d6a&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 6](https://img.shields.io/static/v1?label=6&message=Mean&color=b91c1c&style=flat-square) ![Voltron 8](https://img.shields.io/static/v1?label=8&message=Voltron&color=2f7d6a&style=flat-square) ![Theft 9](https://img.shields.io/static/v1?label=9&message=Theft&color=0b6b58&style=flat-square)
+<img src="../../assets/badges/jank-8.svg" alt="Jank 8" title="Jank 8"> <img src="../../assets/badges/fun-8.svg" alt="Fun 8" title="Fun 8"> <img src="../../assets/badges/mean-6.svg" alt="Mean 6" title="Mean 6"> <img src="../../assets/badges/voltron-8.svg" alt="Voltron 8" title="Voltron 8"> <img src="../../assets/badges/theft-9.svg" alt="Theft 9" title="Theft 9">
 <!-- deck-rankings:end -->
 
 Exile-theft control replaces familiar resources with other players' cards. [Shared Fate](https://scryfall.com/card/mrd/49/shared-fate?utm_source=api) turns draws into opposing-library choices, [Knowledge Pool](https://scryfall.com/card/mbs/111/knowledge-pool?utm_source=api) exchanges spells cast from hand, and every opponent-owned card left in exile makes [Umbris](https://scryfall.com/card/voc/38/umbris-fear-manifest?utm_source=api) larger. The deck steals only what it needs; unused cards remain a power bank for combat or direct damage.

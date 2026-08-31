@@ -9,7 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 7](https://img.shields.io/static/v1?label=7&message=Fun&color=2f7d6a&style=flat-square) ![Mean 7](https://img.shields.io/static/v1?label=7&message=Mean&color=991b1b&style=flat-square) ![Aristocrats 9](https://img.shields.io/static/v1?label=9&message=Aristocrats&color=0b6b58&style=flat-square) ![Combo 9](https://img.shields.io/static/v1?label=9&message=Combo&color=0b6b58&style=flat-square)
+<img src="../../assets/badges/jank-7.svg" alt="Jank 7" title="Jank 7"> <img src="../../assets/badges/fun-7.svg" alt="Fun 7" title="Fun 7"> <img src="../../assets/badges/mean-7.svg" alt="Mean 7" title="Mean 7"> <img src="../../assets/badges/aristocrats-9.svg" alt="Aristocrats 9" title="Aristocrats 9"> <img src="../../assets/badges/combo-9.svg" alt="Combo 9" title="Combo 9">
 <!-- deck-rankings:end -->
 
 An Orzhov graveyard-combo deck built around Bartolomé's free sacrifice outlet, with the Ozox/Jumblebones rotation and Aura-recursion loops serving as overlapping engines.

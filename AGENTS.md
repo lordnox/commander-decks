@@ -72,6 +72,7 @@ In conversation (not primers or `decklist.txt`), featured card lists should show
 - `decks/<rating>_<commander>-<name>/tags.json`: scored Archidekt deck tags and one-line summary
 - `decks/<rating>_<commander>-<name>/rankings.json`: jankiness, fun, oppressiveness, and per-deck identity scores from `rank-deck`
 - `decks/<rating>_<commander>-<name>/DECISIONS.md`: how to use the log, required card-by-card inclusion reasons, plus optional cuts, primer notes, rules checks, and session talks
+- `assets/badges/<label>-<score>.svg`: generated ranking badge images, written and pruned by `rank-deck`
 - `cards/<oracle-id>.json`: shared Scryfall card object, one per Oracle card
 - `cards/index.json`: normalized card-name aliases mapped to Oracle IDs
 - `cards/categories.json`: universal categories keyed by Oracle ID

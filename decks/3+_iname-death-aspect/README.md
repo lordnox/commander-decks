@@ -9,7 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 5](https://img.shields.io/static/v1?label=5&message=Fun&color=5f8b84&style=flat-square) ![Mean 7](https://img.shields.io/static/v1?label=7&message=Mean&color=991b1b&style=flat-square) ![Spirits 9](https://img.shields.io/static/v1?label=9&message=Spirits&color=0b6b58&style=flat-square) ![Graveyard 9](https://img.shields.io/static/v1?label=9&message=Graveyard&color=0b6b58&style=flat-square)
+<img src="../../assets/badges/jank-7.svg" alt="Jank 7" title="Jank 7"> <img src="../../assets/badges/fun-5.svg" alt="Fun 5" title="Fun 5"> <img src="../../assets/badges/mean-7.svg" alt="Mean 7" title="Mean 7"> <img src="../../assets/badges/spirits-9.svg" alt="Spirits 9" title="Spirits 9"> <img src="../../assets/badges/graveyard-9.svg" alt="Graveyard 9" title="Graveyard 9">
 <!-- deck-rankings:end -->
 
 Mono-black Spirit graveyard deck: dump the legend suite with [**Iname, Death Aspect**](https://scryfall.com/card/chk/118/iname-death-aspect?utm_source=api), then either win on upkeep with [**Mortal Combat**](https://scryfall.com/card/10e/160/mortal-combat?utm_source=api) or reanimate the pile.

@@ -9,7 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 9](https://img.shields.io/static/v1?label=9&message=Jank&color=0b6b58&style=flat-square) ![Fun 9](https://img.shields.io/static/v1?label=9&message=Fun&color=0b6b58&style=flat-square) ![Mean 8](https://img.shields.io/static/v1?label=8&message=Mean&color=991b1b&style=flat-square) ![Spell Copy 9](https://img.shields.io/static/v1?label=9&message=Spell%20Copy&color=0b6b58&style=flat-square) ![Extra Turns 8](https://img.shields.io/static/v1?label=8&message=Extra%20Turns&color=2f7d6a&style=flat-square)
+<img src="../../assets/badges/jank-9.svg" alt="Jank 9" title="Jank 9"> <img src="../../assets/badges/fun-9.svg" alt="Fun 9" title="Fun 9"> <img src="../../assets/badges/mean-8.svg" alt="Mean 8" title="Mean 8"> <img src="../../assets/badges/spell-copy-9.svg" alt="Spell Copy 9" title="Spell Copy 9"> <img src="../../assets/badges/extra-turns-8.svg" alt="Extra Turns 8" title="Extra Turns 8">
 <!-- deck-rankings:end -->
 
 A Grixis Doctor's-companion list. Cast the first spell each turn from anywhere but your hand so [**The Twelfth Doctor**](https://scryfall.com/card/who/164/the-twelfth-doctor?utm_source=api) demonstrates it: you keep a copy, an opponent gets a copy. The payload is lose-the-game extra turns and pacts. [**Obeka, Brute Chronologist**](https://scryfall.com/card/cmr/289/obeka-brute-chronologist?utm_source=api), [**Sundial of the Infinite**](https://scryfall.com/card/m12/218/sundial-of-the-infinite?utm_source=api), and [**Discontinuity**](https://scryfall.com/card/m21/48/discontinuity?utm_source=api) exile your own bill off the stack. [**Vislor Turlough**](https://scryfall.com/card/who/74/vislor-turlough?utm_source=api) adds black, draws every end step, and is cheap to empty-hand around.

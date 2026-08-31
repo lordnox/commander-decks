@@ -603,11 +603,20 @@ class DeckRankingTests(unittest.TestCase):
 
             self.assertLess(tags_end, ranking_start)
             self.assertEqual(
-                [alt for alt in re.findall(r"!\[([^\]]+)\]", badges)],
+                re.findall(r'alt="([^"]+)"', badges),
                 ["Jank 7", "Fun 8", "Mean 6", "Voltron 9", "Theft 5"],
             )
-            self.assertIn("message=Jank&color=2f7d6a", badges)
-            self.assertIn("message=Mean&color=b91c1c", badges)
+            self.assertEqual(
+                re.findall(r'title="([^"]+)"', badges),
+                ["Jank 7", "Fun 8", "Mean 6", "Voltron 9", "Theft 5"],
+            )
+            self.assertIn('src="../../assets/badges/jank-7.svg"', badges)
+            self.assertNotIn("shields.io", badges)
+            jank = (root / "assets/badges/jank-7.svg").read_text(encoding="utf-8")
+            mean = (root / "assets/badges/mean-6.svg").read_text(encoding="utf-8")
+            self.assertIn('fill="#2f7d6a"', jank)
+            self.assertIn('fill="#b91c1c"', mean)
+            self.assertIn("<title>Jank: 7</title>", jank)
             self.assertEqual(
                 deck_rankings.universal_cells(rankings),
                 [
