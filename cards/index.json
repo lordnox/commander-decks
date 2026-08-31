@@ -1358,8 +1358,11 @@
     "aboleth spawn": "d6ae77b3-59e7-475c-800c-930a5cb2e0ca",
     "endless evil": "05157e8e-4c8c-455e-a5a1-de8271951c51",
     "maddening cacophony": "e0f0f290-c83f-4d97-9f5d-786c7136b0d1",
-    "crypt incursion": "ce00e0d0-c6f4-4fe8-97c3-7279b06d8fdb"
+    "crypt incursion": "ce00e0d0-c6f4-4fe8-97c3-7279b06d8fdb",
+    "bismuth mindrender": "12b859f8-36f3-43cd-b537-6e07857b247e",
+    "faceless butcher": "5237a105-60c4-4597-b24e-84c12ce7b01f",
+    "gonti, night minister": "e16f79c1-ffbb-4893-b62a-d4e9d15e2b16"
   },
   "schema_version": 1,
-  "updated_at": "2026-08-30T23:19:24.997072+00:00"
+  "updated_at": "2026-08-31T11:28:58.082345+00:00"
 }

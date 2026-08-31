@@ -8367,8 +8367,30 @@
         "exile",
         "lifegain"
       ]
+    },
+    "12b859f8-36f3-43cd-b537-6e07857b247e": {
+      "name": "Bismuth Mindrender",
+      "categories": [
+        "exile",
+        "theft"
+      ]
+    },
+    "5237a105-60c4-4597-b24e-84c12ce7b01f": {
+      "name": "Faceless Butcher",
+      "categories": [
+        "removal",
+        "exile"
+      ]
+    },
+    "e16f79c1-ffbb-4893-b62a-d4e9d15e2b16": {
+      "name": "Gonti, Night Minister",
+      "categories": [
+        "exile",
+        "theft",
+        "token-production"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-30T23:19:24.997072+00:00"
+  "updated_at": "2026-08-31T11:28:58.082345+00:00"
 }

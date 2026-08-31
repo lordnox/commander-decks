@@ -15,15 +15,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Umbris, Fear Manifest** — Turns every opponent-owned card in exile into power and makes useful Horror entries add more.
 - **Abyssal Harvester** — Converts a creature that just died into a Nightmare token that triggers every Umbris, and banks the original card in exile.
 - **Aboleth Spawn** — Enters at flash speed as a Horror, then copies opposing creature entry triggers as a form of trigger theft.
-- **Ancient Cellarspawn** — Discounts six native Horrors, Nightmares, and Demons while turning every Medallion reduction or free cast into life loss.
+- **Ancient Cellarspawn** — Discounts native Horrors, Nightmares, and Demons while turning every Medallion reduction or free cast into life loss.
 - **Author of Shadows** — Converts stocked opposing graveyards into a large Umbris boost while preserving one spell to steal.
-- **Callous Oppressor** — Takes the best creature outside an opponent-chosen type and holds it indefinitely by remaining tapped.
+- **Faceless Butcher** — Exiles another creature on entry, holds it while the Butcher remains, and is a Nightmare Horror so Umbris both grows from the exile and triggers.
 - **Canoptek Scarab Swarm** — Empties an opposing graveyard into exile and pays the artifact and land cards back as flying attackers.
 - **Coffin Queen** — Reanimates opposing creatures under this deck's control and exiles them when the Queen untaps.
 - **Falthis, Shadowcat Familiar** — Enters as a Nightmare and gives Umbris menace and deathtouch without Equipment.
 - **Nautiloid Ship** — Exiles a whole graveyard on entry, then turns one banked creature into a stolen permanent whenever it connects.
-- **Nightveil Specter** — Uses combat to stock exile and permits both spells and lands to be played from its pile.
-- **Raven Guild Master** — Exiles ten cards on combat damage, making one connection a major Umbris growth event.
+- **Gonti, Night Minister** — Pays Treasures whenever anyone casts a spell they do not own, and any creature connecting with an opponent exiles a playable card with any-colour fixing.
+- **Bismuth Mindrender** — Connects with menace, exiles until a nonland, leaves the lands in the Umbris bank, and can cast the spell for life instead of mana.
 - **Silent Hallcreeper** — Supplies an unblockable Horror entry, a card, and later the option to copy a useful nonlegendary creature.
 - **Spark Double** — Copies Umbris without retaining legendary, creating a second permanent that uses the shared exile count.
 - **Spellskite** — Protects engines by redirecting targeted interaction and also enters as a Horror.
@@ -146,6 +146,12 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Rite of Consumption** — Cut for Crypt Incursion. Sacrificing the protected commander was useful only as a last shot, while Incursion converts the new mill deposit into power at instant speed.
 - **Doomsday Excruciator** — Rejected. Six black pips receive no Cellarspawn or Medallion reduction, and reducing this deck to six cards creates a forced deck-out race rather than an exile-theft game.
 - **Malboro** — Rejected. Swampcycling fixes a land drop but does not ramp, and six mana for nine exiled cards is substantially below the deck's existing library-exile effects.
+- **Callous Oppressor** — Cut for Faceless Butcher. Permanent creature theft remains, but the stolen card now sits in exile for Umbris and the body is a Nightmare Horror.
+- **Nightveil Specter** — Cut for Gonti, Night Minister. Combat exile you can play remains; Gonti spreads that trigger across the team, fixes colour, and makes Treasures off Shared Fate and Knowledge Pool casts. Opponents who hit this deck's other opponents also get a card.
+- **Raven Guild Master** — Cut for Bismuth Mindrender. One connection still stocks exile, but the 1/1 ten-card dump needed help connecting; Mindrender is a 4/3 with menace that leaves lands banked and can steal the nonland for life.
+- **Hostage Taker** — Rejected for the Oppressor slot. Same exile-and-cast shape without Nightmare or Horror, and it is a Dimir staple.
+- **Intellect Devourer** — Rejected for the Guild Master slot. A Horror that plays three hand cards does not keep a combat library dump, and the pile returns if it dies.
+- **Dauthi Voidwalker, Gríma, Mnemonic Betrayal, Omen Machine, and The Mindskinner** — Rejected in the 2026-08-31 slot audit. Replacement exile starves the graveyard converters; Gríma puts the until-spell pile on the bottom; Betrayal returns uncast cards; Omen Machine fights Shared Fate; Mindskinner turns commander damage into mill.
 
 ## Primer
 
@@ -174,11 +180,13 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Shadow Rift.** Shadow is granted before the spell instructs its controller to draw. Shared Fate replaces that draw but does not affect the evasion.
 - **Not of This World.** The cost reduction checks whether the targeted spell or ability targets a creature with power seven or greater. It does not answer untargeted sweepers.
 - **Imp's Mischief.** It changes a single target and needs another legal target; it cannot redirect a spell with multiple targets or no targets.
-- **Five-colour fixing.** Four theft cards lack free casting, direct deployment, or an any-colour permission: Shared Fate, Nightveil Specter, Praetor's Grasp, and Thada Adel. Thada and Praetor's Grasp choose their targets, so only Shared Fate and Nightveil Specter expose blind off-colour costs. Exotic Orchard plus six flexible rocks cover exceptions; both blind effects can also steal lands.
-- **Callous Oppressor.** The chosen opponent names one creature type as it enters. Its control effect lasts only while it remains tapped; choosing not to untap preserves the stolen creature.
+- **Five-colour fixing.** Three theft cards lack free casting, direct deployment, or an any-colour permission: Shared Fate, Praetor's Grasp, and Thada Adel. Thada and Praetor's Grasp choose their targets, so only Shared Fate exposes blind off-colour costs. Exotic Orchard plus six flexible rocks cover exceptions; Shared Fate can also steal lands. Gonti and Predators' Hour fix colour; Bismuth pays life instead of mana.
+- **Faceless Butcher.** The exile lasts only while the Butcher is on the battlefield. The exiled creature counts for Umbris until the Butcher leaves or the card is moved some other way.
 - **Coffin Queen.** The stolen creature is exiled when Coffin Queen becomes untapped or its controller loses control of the Queen. Leaving it tapped preserves that creature.
 - **Thada Adel.** The artifact is exiled permanently, but permission to play it lasts only until end of turn. The ability does not fix coloured costs.
 - **Legacy's Allure.** Its treasure counters are counters on the enchantment, not Treasure tokens. Sacrificing it creates a control effect with no stated duration.
+- **Gonti, Night Minister.** The Treasure trigger fires for any player casting a spell they do not own, including opponents using Shared Fate or Knowledge Pool. The combat trigger fires when a creature deals combat damage to one of your opponents, so this deck does not give cards to players who attack it, but an opponent who attacks another opponent does get a card.
+- **Bismuth Mindrender.** Lands exiled by the until-nonland trigger remain in exile and count for Umbris. Casting the nonland for life moves it to the stack and drops Umbris by one. If the spell is not cast, it stays exiled.
 - **Predators' Hour.** Each creature that deals combat damage creates its own exile trigger. Its permission and any-colour clause last as long as each card remains exiled.
 - **Outrageous Robbery.** Uncast cards stay face down in exile indefinitely and continue growing Umbris; its permission includes lands and its casting permission fixes mana.
 - **Midnight Clock with Shared Fate.** The hand and graveyard are shuffled in first, then each of the seven draws is replaced by Shared Fate with an opposing card. Midnight Clock exiles itself after those instructions.
@@ -188,6 +196,10 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **No loop.** The deck contains no deterministic infinite loop; every exile, theft, copy, and direct-damage line consumes cards, mana, combat steps, or permanents.
 
 ## Talks
+
+### 2026-08-31 — Slot audit swaps
+
+Faceless Butcher, Gonti, Night Minister, and Bismuth Mindrender replace Callous Oppressor, Nightveil Specter, and Raven Guild Master. Printed nonland mana value rises from 184 to 187 (average 2.88). Play-from-exile plus permanent theft is twenty cards; Into Exile is thirty-two. Blind off-colour hits fall to Shared Fate alone. Gonti's Treasures are chaotic on purpose: they pay this deck for Shared Fate and Knowledge Pool casts and also pay opponents who do the same. Bismuth is the combat-exile body that can actually connect.
 
 ### 2026-08-31 — Reducers, one mill spell, and reassessment
 

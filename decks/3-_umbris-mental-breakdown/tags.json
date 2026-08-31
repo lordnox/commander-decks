@@ -12,17 +12,17 @@
     {
       "name": "exile",
       "score": 5,
-      "reason": "Thirty-one cards exile opposing libraries, hands, graveyards, spells, or permanents."
+      "reason": "Thirty-two cards exile opposing libraries, hands, graveyards, spells, or permanents."
     },
     {
       "name": "theft",
       "score": 5,
-      "reason": "Nineteen cards take opposing permanents or let the deck play opposing cards."
+      "reason": "Twenty cards take opposing permanents or let the deck play opposing cards. Gonti also pays Treasures for those casts."
     },
     {
       "name": "chaos",
       "score": 4,
-      "reason": "Shared Fate and Knowledge Pool replace normal draws and hand-casting with communal exile decisions."
+      "reason": "Shared Fate, Knowledge Pool, and Gonti's symmetrical Treasures replace normal draws and hand-casting with communal exile decisions."
     },
     {
       "name": "control",

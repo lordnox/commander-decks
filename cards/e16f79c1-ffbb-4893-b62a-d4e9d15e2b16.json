@@ -1,0 +1,163 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "ba7638ef-114b-4055-9855-390f82b7d5c5",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/ba7638ef-114b-4055-9855-390f82b7d5c5"
+    },
+    {
+      "component": "combo_piece",
+      "id": "21ed5dd3-e67b-4425-bb98-6b07db1e9d1f",
+      "name": "Gonti, Night Minister",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Aetherborn Rogue",
+      "uri": "https://api.scryfall.com/cards/21ed5dd3-e67b-4425-bb98-6b07db1e9d1f"
+    }
+  ],
+  "arena_id": 94889,
+  "artist": "Scott M. Fischer",
+  "artist_ids": [
+    "23b0cf43-3e43-44c6-8329-96446eca5bce"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 808806,
+  "cmc": 4.0,
+  "collector_number": "87",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2511,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d79ca40a-e5c0-4956-8df0-ecbd2a25656f",
+  "illustration_id": "91ad605c-a582-4201-8214-a8d1cd97422e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:58:15Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/7/d79ca40a-e5c0-4956-8df0-ecbd2a25656f.webp?1783907895",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/7/d79ca40a-e5c0-4956-8df0-ecbd2a25656f.jpg?1783907895",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/7/d79ca40a-e5c0-4956-8df0-ecbd2a25656f.jpg?1783907895",
+    "crop": "https://cards.scryfall.io/crop/front/d/7/d79ca40a-e5c0-4956-8df0-ecbd2a25656f.webp?1783907895",
+    "display": "https://cards.scryfall.io/display/front/d/7/d79ca40a-e5c0-4956-8df0-ecbd2a25656f.webp?1783907895",
+    "grid": "https://cards.scryfall.io/grid/front/d/7/d79ca40a-e5c0-4956-8df0-ecbd2a25656f.webp?1783907895",
+    "large": "https://cards.scryfall.io/large/front/d/7/d79ca40a-e5c0-4956-8df0-ecbd2a25656f.jpg?1783907895",
+    "normal": "https://cards.scryfall.io/normal/front/d/7/d79ca40a-e5c0-4956-8df0-ecbd2a25656f.jpg?1783907895",
+    "png": "https://cards.scryfall.io/png/front/d/7/d79ca40a-e5c0-4956-8df0-ecbd2a25656f.png?1783907895",
+    "small": "https://cards.scryfall.io/small/front/d/7/d79ca40a-e5c0-4956-8df0-ecbd2a25656f.jpg?1783907895",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/7/d79ca40a-e5c0-4956-8df0-ecbd2a25656f.webp?1783907895"
+  },
+  "keywords": [
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "mtgo_id": 136297,
+  "multiverse_ids": [
+    690524
+  ],
+  "name": "Gonti, Night Minister",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e16f79c1-ffbb-4893-b62a-d4e9d15e2b16",
+  "oracle_text": "Whenever a player casts a spell they don't own, that player creates a Treasure token.\nWhenever a creature deals combat damage to one of your opponents, its controller looks at the top card of that opponent's library and exiles it face down. They may play that card for as long as it remains exiled. Mana of any type can be spent to cast a spell this way.",
+  "oversized": false,
+  "penny_rank": 7654,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2025-01-28",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.70",
+    "eur_foil": "0.70",
+    "tix": "0.02",
+    "usd": "0.84",
+    "usd_etched": null,
+    "usd_foil": "1.58"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae16f79c1-ffbb-4893-b62a-d4e9d15e2b16&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/136297?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=808806&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F615624%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Gonti%2C+Night+Minister",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=690524&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGonti%252C%2BNight%2BMinister",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGonti%252C%2BNight%2BMinister"
+  },
+  "released_at": "2025-02-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d79ca40a-e5c0-4956-8df0-ecbd2a25656f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dft?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dft/87/gonti-night-minister?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dft",
+  "set_id": "23464cc2-a69c-427d-b8a7-08e5d80235d7",
+  "set_name": "Aetherdrift",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adft&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/23464cc2-a69c-427d-b8a7-08e5d80235d7",
+  "story_spotlight": false,
+  "tcgplayer_id": 615624,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Aetherborn Rogue",
+  "uri": "https://api.scryfall.com/cards/d79ca40a-e5c0-4956-8df0-ecbd2a25656f",
+  "variation": false
+}
