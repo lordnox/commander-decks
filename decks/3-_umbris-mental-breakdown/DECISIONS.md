@@ -10,6 +10,16 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Rules** — Oracle readings and stack order that were checked.
 - **Talks** — dated session notes so an argument does not live only in chat.
 
+## Goals
+
+- **Voltron** — The game ends by connecting with a large Umbris, not by a separate combo or an ETB-value pile.
+- **Theft** — Opposing cards are played or controlled as a repeating plan.
+- **Exile** — Supporting constraint: stolen and removed cards should sit in exile so they both disable the owner and grow Umbris. Not a third identity score unless promoted later.
+
+## Rankings
+
+See `rankings.json`. First pass after dropping blink: fun 8, oppressiveness 6, jankiness 8, Voltron 8, Theft 9. Shared Fate and Knowledge Pool keep oppressiveness off the floor; Dream-Thief's Bandana puts combat theft on the Voltron body without leaving the battlefield.
+
 ## Cards in
 
 - **Umbris, Fear Manifest** — Turns every opponent-owned card in exile into power and makes useful Horror entries add more.
@@ -51,6 +61,7 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Perilous Vault** — Resets an overwhelming battlefield by exiling it, leaving opponent-owned permanents as Umbris power.
 - **Prismatic Lens** — Accelerates Umbris and filters mana into colours needed for stolen cards.
 - **Prowler's Helm** — Gives the commander or any nonlegendary copy repeatable near-unblockability without requiring coloured mana.
+- **Dream-Thief's Bandana** — Turns each connecting attack into a face-down exile theft with any-colour casting, including on Umbris, so Voltron and theft share the same combat step.
 - **Sapphire Medallion** — Can reduce twenty-one blue spells and supports multi-spell turns more efficiently than a tapped colour rock.
 - **Sphere of the Suns** — Provides three early payments of any colour, enough to accelerate Umbris and bridge into a stolen spell.
 - **Star Compass** — Moves the sustained ramp package down to two mana while reliably producing either core colour from the basic-heavy mana base.
@@ -60,7 +71,6 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Espers to Magicite** — Exiles every opposing graveyard at instant speed and preserves the best creature's rules text as a noncreature artifact copy.
 - **Essence Harvest** — Uses Umbris's power as a noncombat life swing without sacrificing the commander.
 - **Faerie Trickery** — Exiles nearly every countered spell instead of feeding an opponent's graveyard.
-- **Ghostly Flicker** — Answers targeted removal at instant speed and re-runs two entry triggers, most profitably Knowledge Pool's imprint, which banks three more cards from every library while the previous imprint stays exiled.
 - **Imp's Mischief** — Redirects single-target removal or protection for two mana without requiring blue to remain open.
 - **Irenicus's Vile Duplication** — Creates a flying, nonlegendary Umbris copy that shares the accumulated exile count.
 - **Maddening Cacophony** — Mills every opponent once, giving the graveyard-exile package a reliable twenty-four-card deposit to convert.
@@ -97,7 +107,7 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 ## Cards out
 
 - **Sol Ring, Arcane Signet, Lightning Greaves, and Counterspell** — Generic Commander defaults do not express exile theft; the list uses slower cards with fixing, evasion, or exile text attached.
-- **Displace, Essence Flux, Planar Incision, and Teferi's Time Twist** — Single-target blink still buys only one until-land trigger, which does not justify a slot. Superseded in part: Ghostly Flicker was added because two targets reach the artifact entry triggers, not just the commander.
+- **Displace, Essence Flux, Ghostly Flicker, Planar Incision, and Teferi's Time Twist** — Blink answers removal only by taking Umbris off the attack and dropping its Auras. The declared goals are Voltron and Theft; repeating Knowledge Pool's imprint is a different deck.
 - **Drown in Dreams, Extract from Darkness, Curse of Unbinding, and Zellix, Sanity Flayer** — Dedicated mill builds a graveyard resource that this version subsequently exiles and distracts from theft.
 - **Dream Devourer** — Foretell exiles cards owned by this deck, which never increases Umbris's power.
 - **Public Enemy, Ghoulish Impetus, and Renegade Silent** — Goad adds a separate politics plan without advancing the exile bank.
@@ -148,7 +158,8 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Malboro** — Rejected. Swampcycling fixes a land drop but does not ramp, and six mana for nine exiled cards is substantially below the deck's existing library-exile effects.
 - **Callous Oppressor** — Cut for Faceless Butcher. Permanent creature theft remains, but the stolen card now sits in exile for Umbris and the body is a Nightmare Horror.
 - **Nightveil Specter** — Cut for Gonti, Night Minister. Combat exile you can play remains; Gonti spreads that trigger across the team, fixes colour, and makes Treasures off Shared Fate and Knowledge Pool casts. Opponents who hit this deck's other opponents also get a card.
-- **Coalition Relic** — Cut for Ghostly Flicker at the deck owner's request. Its stored counter was the deck's second-best burst, but three-mana rocks compete with the turn-three play the deck actually wants.
+- **Coalition Relic** — Cut at the deck owner's request. Its stored counter was the deck's second-best burst, but three-mana rocks compete with the turn-three play the deck actually wants.
+- **Ghostly Flicker** — Cut for Dream-Thief's Bandana after choosing the no-blink identity. The imprint trick on Knowledge Pool is real, but it fights Voltron (summoning sickness, lost Auras) and raises oppressiveness when repeated.
 - **Pentad Prism** — Cut at the deck owner's request. It was the only enabler of the turn-three Umbris line, so that exceptional draw is gone; the sustained two-mana rocks and both Medallions carry normal openings.
 - **Hostage Taker** — Rejected for the Oppressor slot. Same exile-and-cast shape without Nightmare or Horror, and it is a Dimir staple.
 - **Intellect Devourer** — Rejected for the Guild Master slot. A Horror that plays three hand cards does not keep a combat library dump, and the pile returns if it dies.
@@ -169,8 +180,7 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Uchuulon.** Every existing Uchuulon triggers separately at the end step. Each trigger needs a different creature card still available in an opponent's graveyard, then creates another Horror copy that triggers every Umbris as it enters.
 - **Espers to Magicite.** The copied token becomes only an artifact, not an artifact creature. It retains copiable rules text but cannot attack or block.
 - **Strategic Betrayal.** The targeted opponent chooses which creature they exile. Both that permanent and every opponent-owned card in their graveyard immediately count for Umbris.
-- **Ghostly Flicker.** The exiled cards return immediately as new objects, so a targeted spell already on the stack loses its target, but a sweeper still kills them. Umbris returns summoning sick, and any Aura on it — Vanishing, Kaya's Ghostform, Endless Evil — is put into the graveyard.
-- **Knowledge Pool blinked.** The Pool has no clause returning imprinted cards, so cards from an earlier imprint stay exiled permanently and keep counting for Umbris. Only cards exiled with the current object can be cast off its exchange trigger.
+- **Dream-Thief's Bandana.** The stolen card stays in exile face down until it is played, so it counts for Umbris. Any-colour mana may be spent to cast it. Equip is {1} and can move after a stolen attacker connects.
 - **Medallions.** Each reduces only generic mana in a spell of its colour. Both can reduce Umbris, but neither produces mana, pays activated costs, nor fixes an off-colour stolen spell.
 - **Ancient Cellarspawn.** Its first ability reduces one generic mana from Horrors, Nightmares, and Demons. Its second compares mana actually spent with mana value, so Medallion reductions and spells cast for free through Knowledge Pool cause life loss.
 - **Aboleth Spawn.** It copies only an opposing permanent's triggered ability caused by a creature entering. Its own Horror entry still triggers this deck's Umbris normally.
@@ -198,6 +208,10 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **No loop.** The deck contains no deterministic infinite loop; every exile, theft, copy, and direct-damage line consumes cards, mana, combat steps, or permanents.
 
 ## Talks
+
+### 2026-08-31 — No blink; rank-deck goals locked
+
+The deck owner chose identity path 2: keep Voltron, Theft, and exile, drop blink. Ghostly Flicker leaves; Dream-Thief's Bandana occupies that slot so connecting with Umbris (or any thief) is the theft trigger. Rankings and Goals are recorded for rank-deck: Voltron and Theft are the scored identity axes; exile is a supporting constraint.
 
 ### 2026-08-31 — Raven Guild Master reinstated, blink opened
 

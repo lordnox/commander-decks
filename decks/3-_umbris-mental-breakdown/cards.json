@@ -1081,6 +1081,34 @@
       "submitted_name": "Prowler's Helm"
     },
     {
+      "cache": "cards/3c958b5f-680b-45fc-8c3d-27b23677436e.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Equip"
+        ],
+        "mana_cost": "{2}",
+        "oracle_text": "Whenever equipped creature deals combat damage to a player, look at the top card of their library, then exile it face down. For as long as it remains exiled, you may play it, and mana of any type can be spent to cast that spell.\nEquip {1}",
+        "type_line": "Artifact — Equipment"
+      },
+      "categories": [
+        "Into Exile",
+        "Play From Exile",
+        "Theft"
+      ],
+      "category_source": "decklist",
+      "name": "Dream-Thief's Bandana",
+      "oracle_id": "3c958b5f-680b-45fc-8c3d-27b23677436e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/38/dream-thiefs-bandana?utm_source=api",
+      "submitted_categories": [
+        "Into Exile",
+        "Play From Exile",
+        "Theft"
+      ],
+      "submitted_name": "Dream-Thief's Bandana"
+    },
+    {
       "cache": "cards/f1ef5698-14bd-42bf-aae5-2870699e4186.json",
       "card": {
         "cmc": 2.0,
@@ -1309,32 +1337,6 @@
         "Into Exile"
       ],
       "submitted_name": "Faerie Trickery"
-    },
-    {
-      "cache": "cards/ad0070db-6454-41cb-861f-8f5b8fc2a3b8.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{2}{U}",
-        "oracle_text": "Exile two target artifacts, creatures, and/or lands you control, then return those cards to the battlefield under your control.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Blink",
-        "Protection",
-        "Into Exile"
-      ],
-      "category_source": "decklist",
-      "name": "Ghostly Flicker",
-      "oracle_id": "ad0070db-6454-41cb-861f-8f5b8fc2a3b8",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cmm/98/ghostly-flicker?utm_source=api",
-      "submitted_categories": [
-        "Blink",
-        "Protection",
-        "Into Exile"
-      ],
-      "submitted_name": "Ghostly Flicker"
     },
     {
       "cache": "cards/30ec73ad-c7a1-4527-8dc6-44bdd65b9ba6.json",
@@ -2235,7 +2237,7 @@
     }
   ],
   "categorized_cards": 81,
-  "generated_at": "2026-08-31T11:37:35.327282+00:00",
+  "generated_at": "2026-08-31T12:55:32.206009+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 81,
