@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Pingers** — The clock is noncombat damage on every Norin return, not a big swing.
+- **ETB Effects** — Rocco fetches Norin so Impact Tremors, draw, and tokens retrigger all game.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 7, fun 7, mean 6, Pingers 9, ETB Effects 9. Same 99 as Welcome Party; identity is ping-first.
+
 ## Cards in
 
 - **Rocco, Cabaretti Caterer** — Naya commander that tutors a creature with mana value X or less on cast; the deck's consistency for Norin and later pingers.
