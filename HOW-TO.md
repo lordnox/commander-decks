@@ -189,6 +189,7 @@ decks/
     decklist.txt
     cards.json
     tags.json
+    rankings.json
     category-overrides.json
     printing-overrides.json
     README.md

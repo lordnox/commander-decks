@@ -9,7 +9,7 @@ A conversation-driven workspace for importing, resolving, categorizing, assessin
 
 ## Deck primers
 
-Grouped by [Commander bracket](https://mtgcommander.net/index.php/brackets/), with each deck's exact position after its name. Badges are [Archidekt deck tags](.agents/skills/tag-deck/archidekt-tags.json) scored 1–5 for how strongly they apply; the primers list the full set.
+Grouped by [Commander bracket](https://mtgcommander.net/index.php/brackets/), with each deck's exact position after its name. Ranking scores from `rank-deck` follow the bracket when the deck has them. Badges are [Archidekt deck tags](.agents/skills/tag-deck/archidekt-tags.json) scored 1–5 for how strongly they apply; the primers list the full set.
 
 <!-- deck-index:start -->
 ### Bracket 2 · Core
@@ -47,7 +47,7 @@ Grouped by [Commander bracket](https://mtgcommander.net/index.php/brackets/), wi
 - **[Rocco — Norin's Welcome Party](decks/3-_rocco-norins-welcome-party/README.md)** `3−`<br>
   Rocco fetches Norin so repeated exile-return enters ping the table, draw cards, and feed Aura Shards.<br>
   [![blink 5](https://img.shields.io/static/v1?label=5&message=blink&color=0b6b58&style=flat-square)](https://archidekt.com/tags/blink) [![burn 4](https://img.shields.io/static/v1?label=4&message=burn&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/burn) [![draw 3](https://img.shields.io/static/v1?label=3&message=draw&color=5f8b84&style=flat-square)](https://archidekt.com/tags/draw) [![go-wide 3](https://img.shields.io/static/v1?label=3&message=go-wide&color=5f8b84&style=flat-square)](https://archidekt.com/tags/go-wide) [![+1 more tags](https://img.shields.io/static/v1?label=&message=%2B1%20more&color=6b7280&style=flat-square)](decks/3-_rocco-norins-welcome-party/README.md)
-- **[Umbris — Mental Breakdown](decks/3-_umbris-mental-breakdown/README.md)** `3−`<br>
+- **[Umbris — Mental Breakdown](decks/3-_umbris-mental-breakdown/README.md)** `3−` Fun 8 · Oppressiveness 6 · Jankiness 8 · Voltron 8 · Theft 9<br>
   Exile-theft control steals opposing cards and permanents, then turns everything left in exile into protected commander damage.<br>
   [![commander matters 5](https://img.shields.io/static/v1?label=5&message=commander%20matters&color=0b6b58&style=flat-square)](https://archidekt.com/tags/commander_matters) [![exile 5](https://img.shields.io/static/v1?label=5&message=exile&color=0b6b58&style=flat-square)](https://archidekt.com/tags/exile) [![theft 5](https://img.shields.io/static/v1?label=5&message=theft&color=0b6b58&style=flat-square)](https://archidekt.com/tags/theft) [![chaos 4](https://img.shields.io/static/v1?label=4&message=chaos&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/chaos) [![+3 more tags](https://img.shields.io/static/v1?label=&message=%2B3%20more&color=6b7280&style=flat-square)](decks/3-_umbris-mental-breakdown/README.md)
 - **[Alania — Divergent Laughter](decks/3_alania-divergent-laughter/README.md)** `3`<br>

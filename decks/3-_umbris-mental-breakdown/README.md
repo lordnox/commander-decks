@@ -8,6 +8,12 @@
 [![commander matters 5](https://img.shields.io/static/v1?label=5&message=commander%20matters&color=0b6b58&style=flat-square)](https://archidekt.com/tags/commander_matters) [![exile 5](https://img.shields.io/static/v1?label=5&message=exile&color=0b6b58&style=flat-square)](https://archidekt.com/tags/exile) [![theft 5](https://img.shields.io/static/v1?label=5&message=theft&color=0b6b58&style=flat-square)](https://archidekt.com/tags/theft) [![chaos 4](https://img.shields.io/static/v1?label=4&message=chaos&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/chaos) [![control 4](https://img.shields.io/static/v1?label=4&message=control&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/control) [![voltron 4](https://img.shields.io/static/v1?label=4&message=voltron&color=2f7d6a&style=flat-square)](https://archidekt.com/tags/voltron) [![clones 3](https://img.shields.io/static/v1?label=3&message=clones&color=5f8b84&style=flat-square)](https://archidekt.com/tags/clones)
 <!-- deck-tags:end -->
 
+<!-- deck-rankings:start -->
+| Fun | Oppressiveness | Jankiness | Voltron | Theft |
+| ---: | ---: | ---: | ---: | ---: |
+| 8 | 6 | 8 | 8 | 9 |
+<!-- deck-rankings:end -->
+
 Exile-theft control replaces familiar resources with other players' cards. [Shared Fate](https://scryfall.com/card/mrd/49/shared-fate?utm_source=api) turns draws into opposing-library choices, [Knowledge Pool](https://scryfall.com/card/mbs/111/knowledge-pool?utm_source=api) exchanges spells cast from hand, and every opponent-owned card left in exile makes [Umbris](https://scryfall.com/card/voc/38/umbris-fear-manifest?utm_source=api) larger. The deck steals only what it needs; unused cards remain a power bank for combat or direct damage.
 
 ## Key cards

@@ -1,6 +1,6 @@
 ---
 name: deck-primer
-description: Analyze a resolved Commander deck and create or update its deck-specific README primer. Use when the user asks how a stored deck works, requests a primer or play guide, or wants the deck's game plan, engines, combos, mulligans, tutors, sequencing, win conditions, category draw probabilities, mana curve, color cost and production, Archidekt tags, or direct Archidekt deck-creation link documented.
+description: Analyze a resolved Commander deck and create or update its deck-specific README primer. Use when the user asks how a stored deck works, requests a primer or play guide, or wants the deck's game plan, engines, combos, mulligans, tutors, sequencing, win conditions, category draw probabilities, mana curve, color cost and production, Archidekt tags, ranking scores, or direct Archidekt deck-creation link documented.
 ---
 
 # Deck Primer
@@ -47,19 +47,20 @@ Use concise Markdown. Write every card mention as a bold link to its manifest `s
 2. Assessment blockquote (`N−` / `N` / `N+`), when the deck has been assessed
 3. Action buttons: Archidekt deck-creation link and `DECISIONS.md`
 4. Archidekt tag badges (from `tag-deck`)
-5. Short identity or summary
-6. `## Key cards`
-7. Category access by turn three
-8. Mana (color cost and production, average and total mana value, mana curve)
-9. How the deck works
-10. Core engine or role table
-11. Main combo or synergy patterns
-12. Win conditions
-13. Early, mid, and late game
-14. Mulligan guide
-15. Tutor priorities
-16. Important sequencing and rules notes
-17. Weaknesses and what to protect
+5. Ranking table (from `rank-deck`), when `rankings.json` exists
+6. Short identity or summary
+7. `## Key cards`
+8. Category access by turn three
+9. Mana (color cost and production, average and total mana value, mana curve)
+10. How the deck works
+11. Core engine or role table
+12. Main combo or synergy patterns
+13. Win conditions
+14. Early, mid, and late game
+15. Mulligan guide
+16. Tutor priorities
+17. Important sequencing and rules notes
+18. Weaknesses and what to protect
 
 Prefer a table for interchangeable roles and tutor decisions. Explain representative cards rather than listing every card. Make the primer useful during actual play.
 
@@ -106,7 +107,19 @@ Follow `.agents/skills/tag-deck/SKILL.md` after the list is resolved. Score ever
 python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<prefix><slug>
 ```
 
-Badges sit immediately after the Archidekt sandbox link. The same run regenerates the bracket-grouped deck index in the root README, where the deck shows its summary and top badges. `--check` must succeed. Card categories stay separate from these deck tags.
+Badges sit immediately after the Archidekt sandbox link. The same run regenerates the bracket-grouped deck index in the root README, where the deck shows its bracket, ranking scores when `rankings.json` exists, summary, and top badges. `--check` must succeed. Card categories stay separate from these deck tags.
+
+### Rankings
+
+Follow `.agents/skills/rank-deck/SKILL.md` after tags. Score fun, oppressiveness, jankiness, and each declared identity goal, write `rankings.json`, then render the primer table:
+
+```bash
+python3 .agents/skills/rank-deck/scripts/update_deck_rankings.py decks/<prefix><slug>
+```
+
+The table sits immediately after the Archidekt tag badges. Columns are Fun, Oppressiveness, Jankiness, then identity goals in `rankings.json` `goals` order. The same run of `update_deck_tags.py` prints those scores on the root README index immediately after the bracket badge. `--check` must succeed when `rankings.json` is present. If goals are missing, skip the table rather than inventing axes; ask once, then continue the primer.
+
+Do not put ranking notes or swap history in the primer. Evidence stays in `rankings.json` `notes` and `DECISIONS.md` under `## Rankings`.
 
 ### Category access by turn three
 
@@ -159,6 +172,7 @@ Before saving:
 - run `python3 .agents/skills/deck-primer/scripts/update_archidekt_link.py decks/<prefix><slug> --check`;
 - confirm the Archidekt payload contains every resolved card, the deck's total quantity, and one or two commander entries (partners or Doctor's companion);
 - follow `.agents/skills/tag-deck/SKILL.md`, then run `python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<prefix><slug> --check`;
+- follow `.agents/skills/rank-deck/SKILL.md`, then run `python3 .agents/skills/rank-deck/scripts/update_deck_rankings.py decks/<prefix><slug> --check`;
 - run `python3 .agents/skills/deck-primer/scripts/update_category_probabilities.py decks/<prefix><slug> --check`;
 - confirm the category table uses 10 cards seen, excludes commanders and `{noDeck}` extras, and requires three Lands but one card from other categories;
 - run `python3 .agents/skills/deck-primer/scripts/update_mana_stats.py decks/<prefix><slug> --check`;
@@ -171,4 +185,4 @@ Before saving:
 - append primer, rules, and talk notes to `DECISIONS.md` when a line, win-turn claim, or Oracle reading was argued rather than obvious from the list;
 - run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<prefix><slug>` after the primer scripts.
 
-Report the deck name, total and unique cards, unresolved count, README path, and that the Archidekt link, tag badges, category probability table, and mana stats are current.
+Report the deck name, total and unique cards, unresolved count, README path, and that the Archidekt link, tag badges, ranking table, category probability table, and mana stats are current.
