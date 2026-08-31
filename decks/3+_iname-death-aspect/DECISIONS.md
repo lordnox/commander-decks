@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Spirits** — Iname only mills Spirits; the creature base is a Spirit pile.
+- **Graveyard** — Dump the legend suite at once, then Combat or reanimate the pile.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 7, fun 5, mean 7, Spirits 9, Graveyard 9. Alternate win is the closer, not a second identity axis.
+
 ## Cards in
 
 - **Iname, Death Aspect** — Commander that mills any number of Spirits on entry, enabling Mortal Combat and mass reanimation.

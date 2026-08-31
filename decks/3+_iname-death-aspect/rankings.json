@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Spirits",
+    "Graveyard"
+  ],
+  "scores": {
+    "jankiness": 7,
+    "fun": 5,
+    "oppressiveness": 7,
+    "identity": {
+      "Spirits": 9,
+      "Graveyard": 9
+    }
+  },
+  "notes": "Twenty Spirits plus Bidding exist so the yard is a Spirit pile. Mortal Combat is the named closer, with Living Death and Yawgmoth's Will as backups. Fourteen tutors and ritual-Iname make many games one dump-then-Combat line, which is why Fun is low; delayed upkeep win keeps Mean off extra-turn territory."
+}
