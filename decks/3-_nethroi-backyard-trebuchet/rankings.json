@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Toughness",
+    "Life Exchange"
+  ],
+  "scores": {
+    "jankiness": 9,
+    "fun": 8,
+    "oppressiveness": 6,
+    "identity": {
+      "Toughness": 9,
+      "Life Exchange": 8
+    }
+  },
+  "notes": "Doran, Assault Formation, Catapult Captain, Trees, Betor, and Ikra all pay off toughness. The namesake kill is Tree of Perdition then fling the new toughness; Nethroi mutate is a 0-power yard dump. Mean is setting someone to 13 then deleting their old life, especially under Wound Reflection."
+}

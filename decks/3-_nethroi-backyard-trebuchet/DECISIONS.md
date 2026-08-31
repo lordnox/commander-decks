@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Toughness** — Combat, mana, and the fling all pay off toughness rather than power.
+- **Life Exchange** — Trees and Mister Negative set a life total, then the trebuchet throws it.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 9, fun 8, mean 6, Toughness 9, Life Exchange 8. Defenders are fuel, not a second scored goal.
+
 ## Cards in
 
 ### Commander and trebuchet
