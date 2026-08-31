@@ -36,6 +36,14 @@ It prefers the local `cards/` cache for known names, then queries `api.scryfall.
 
 See [`.agents/skills/scryfall-lookup/SKILL.md`](.agents/skills/scryfall-lookup/SKILL.md).
 
+## `audit-deck`
+
+Slot-by-slot Scryfall review of a stored 99. Use this when asking if the list is finished, to go through it once more, to check interesting cards for each slot, or to find a strange multifunctional card or two-card package.
+
+It challenges every unique card against current Oracle searches, prefers esoteric multifunctional cards over slightly better rate, then reports each replacement and why. Apply changes only after that report unless the user already asked to edit. Skip for a theme with no list (`design-deck`) and for parking (`deck-ideas`).
+
+See [`.agents/skills/audit-deck/SKILL.md`](.agents/skills/audit-deck/SKILL.md).
+
 ## `deck-primer`
 
 Write the play guide at `decks/<deck>/README.md`. Use this when importing a deck or when the user asks how a stored deck works.

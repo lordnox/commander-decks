@@ -10,7 +10,7 @@ description: >-
 
 # Design Deck
 
-Do not write `decklist.txt` or a 99 until the grill is locked. If the user already posted a complete list, skip this skill and follow `deck-workspace`.
+Do not write `decklist.txt` or a 99 until the grill is locked. If the user already posted a complete list, skip this skill and follow `deck-workspace`. If they want a stored 99 challenged slot-by-slot on Scryfall, follow `audit-deck`.
 
 This is a **discussion**. The job is the right questions and evidence-backed answers, then a list. Search with `scryfall-lookup` when a card or package would change the plan. Do not invent Oracle text.
 

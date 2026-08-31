@@ -44,6 +44,7 @@ You can explicitly invoke a skill when needed:
 ```text
 $deck-workspace import this deck list
 $scryfall-lookup find red cards that blink things
+$audit-deck go through this stored 99 slot by slot
 $assess-deck assess Mishra's bracket and expected win turn
 $deck-ideas park this brew as currently not viable
 ```
@@ -136,15 +137,16 @@ Before making changes:
 1. Read AGENTS.md.
 2. Read .agents/skills/deck-workspace/SKILL.md.
 3. For card searches, read .agents/skills/scryfall-lookup/SKILL.md.
-4. For a deck README or play guide, read .agents/skills/deck-primer/SKILL.md.
-5. For Archidekt deck tags and README badges, read .agents/skills/tag-deck/SKILL.md.
-6. For bracket, power, or win-turn analysis, read .agents/skills/assess-deck/SKILL.md.
-7. For parking an unbuilt brew in DECK-IDEAS.md, read .agents/skills/deck-ideas/SKILL.md.
-8. Follow those workflows exactly.
-9. Preserve submitted deck lists and never overwrite a likely existing deck
+4. For a slot-by-slot Scryfall review of a stored 99, read .agents/skills/audit-deck/SKILL.md.
+5. For a deck README or play guide, read .agents/skills/deck-primer/SKILL.md.
+6. For Archidekt deck tags and README badges, read .agents/skills/tag-deck/SKILL.md.
+7. For bracket, power, or win-turn analysis, read .agents/skills/assess-deck/SKILL.md.
+8. For parking an unbuilt brew in DECK-IDEAS.md, read .agents/skills/deck-ideas/SKILL.md.
+9. Follow those workflows exactly.
+10. Preserve submitted deck lists and never overwrite a likely existing deck
    without confirmation.
-10. Ensure every resolved card has one or more categories.
-11. Ensure every deck has a primer linked near the top of the root README.
+11. Ensure every resolved card has one or more categories.
+12. Ensure every deck has a primer linked near the top of the root README.
 ```
 
 To resolve a saved list manually:
@@ -196,6 +198,7 @@ cards/
 .agents/
   skills/
     assess-deck/
+    audit-deck/
     deck-ideas/
     deck-workspace/
     design-deck/
@@ -224,6 +227,10 @@ Assess Mishra's Commander bracket and expected win turn.
 
 ```text
 Compare this new list with the stored version of my Mishra deck.
+```
+
+```text
+Go through Umbris slot by slot and check Scryfall for interesting cards. Show each replacement and why.
 ```
 
 ```text
