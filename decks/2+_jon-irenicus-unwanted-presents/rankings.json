@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Donate",
+    "Politics"
+  ],
+  "scores": {
+    "jankiness": 9,
+    "fun": 8,
+    "oppressiveness": 7,
+    "identity": {
+      "Donate": 9,
+      "Politics": 8
+    }
+  },
+  "notes": "Twenty-one drawback creatures plus Donate, Wrong Turn, and Shifting Grift exist to be handed off; Irenicus goads, sacs blockers, and draws off owned attackers. Steel Golem, Grid Monitor, and Persecutor gifts can empty one seat while the rest of the table still plays."
+}

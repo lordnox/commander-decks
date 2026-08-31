@@ -8,6 +8,10 @@
 [![donate 5](https://img.shields.io/static/v1?label=5&message=donate&color=0b6b58&style=flat-square)](https://archidekt.com/tags/donate) [![politics 5](https://img.shields.io/static/v1?label=5&message=politics&color=0b6b58&style=flat-square)](https://archidekt.com/tags/politics) [![forced combat 3](https://img.shields.io/static/v1?label=3&message=forced%20combat&color=5f8b84&style=flat-square)](https://archidekt.com/tags/forced_combat)
 <!-- deck-tags:end -->
 
+<!-- deck-rankings:start -->
+![Jank 9](https://img.shields.io/static/v1?label=9&message=Jank&color=0b6b58&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 7](https://img.shields.io/static/v1?label=7&message=Mean&color=991b1b&style=flat-square) ![Donate 9](https://img.shields.io/static/v1?label=9&message=Donate&color=0b6b58&style=flat-square) ![Politics 8](https://img.shields.io/static/v1?label=8&message=Politics&color=2f7d6a&style=flat-square)
+<!-- deck-rankings:end -->
+
 A Dimir politics deck that builds creatures too painful to keep, then hands them to other players. [**Jon Irenicus, Shattered One**](https://scryfall.com/card/clb/278/jon-irenicus-shattered-one?utm_source=api) goads the gift, pads it with two +1/+1 counters, and draws whenever a creature you own but do not control attacks.
 
 ## Key cards
