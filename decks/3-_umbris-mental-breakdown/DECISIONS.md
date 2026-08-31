@@ -24,6 +24,7 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Nautiloid Ship** — Exiles a whole graveyard on entry, then turns one banked creature into a stolen permanent whenever it connects.
 - **Gonti, Night Minister** — Pays Treasures whenever anyone casts a spell they do not own, and any creature connecting with an opponent exiles a playable card with any-colour fixing.
 - **Bismuth Mindrender** — Connects with menace, exiles until a nonland, leaves the lands in the Umbris bank, and can cast the spell for life instead of mana.
+- **Raven Guild Master** — One connection exiles ten cards face down from a library, the largest single-hit Umbris deposit in the list, and its morph cost hides the threat until the turn it matters.
 - **Silent Hallcreeper** — Supplies an unblockable Horror entry, a card, and later the option to copy a useful nonlegendary creature.
 - **Spark Double** — Copies Umbris without retaining legendary, creating a second permanent that uses the shared exile count.
 - **Spellskite** — Protects engines by redirecting targeted interaction and also enters as a Horror.
@@ -42,13 +43,11 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Shared Fate** — Replaces normal drawing with playing from opposing libraries and is the namesake mental-breakdown engine.
 - **Vanishing** — Gives the commander repeatable phasing protection while leaving it available for targeted evasion when unphased.
 - **Coldsteel Heart** — Supplies the missing commander colour or a known colour needed for a stolen spell.
-- **Coalition Relic** — Fixes stolen spells to any colour and can store a counter to jump from three mana to six on the following turn.
 - **Everflowing Chalice** — Is a two-mana rock in normal openings and scales into multiple colourless mana when drawn late.
 - **Fellwar Stone** — Produces colours represented across the opposing decks, exactly the colours their stolen spells require.
 - **Jet Medallion** — Can reduce twenty-three black spells and turns each reduction into damage while Ancient Cellarspawn is present.
 - **Knowledge Pool** — Starts with nine opponent-owned cards in exile at a four-player table and makes hand-cast spells exchangeable.
 - **Midnight Clock** — Ramps in the early game and turns its seven eventual draws into seven opposing cards while Shared Fate is active.
-- **Pentad Prism** — Converts two Dimir mana into two later payments of any colour, enabling a turn-three Umbris or burst-casting stolen spells.
 - **Perilous Vault** — Resets an overwhelming battlefield by exiling it, leaving opponent-owned permanents as Umbris power.
 - **Prismatic Lens** — Accelerates Umbris and filters mana into colours needed for stolen cards.
 - **Prowler's Helm** — Gives the commander or any nonlegendary copy repeatable near-unblockability without requiring coloured mana.
@@ -61,6 +60,7 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Espers to Magicite** — Exiles every opposing graveyard at instant speed and preserves the best creature's rules text as a noncreature artifact copy.
 - **Essence Harvest** — Uses Umbris's power as a noncombat life swing without sacrificing the commander.
 - **Faerie Trickery** — Exiles nearly every countered spell instead of feeding an opponent's graveyard.
+- **Ghostly Flicker** — Answers targeted removal at instant speed and re-runs two entry triggers, most profitably Knowledge Pool's imprint, which banks three more cards from every library while the previous imprint stays exiled.
 - **Imp's Mischief** — Redirects single-target removal or protection for two mana without requiring blue to remain open.
 - **Irenicus's Vile Duplication** — Creates a flying, nonlegendary Umbris copy that shares the accumulated exile count.
 - **Maddening Cacophony** — Mills every opponent once, giving the graveyard-exile package a reliable twenty-four-card deposit to convert.
@@ -97,7 +97,7 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 ## Cards out
 
 - **Sol Ring, Arcane Signet, Lightning Greaves, and Counterspell** — Generic Commander defaults do not express exile theft; the list uses slower cards with fixing, evasion, or exile text attached.
-- **Displace, Essence Flux, Ghostly Flicker, Planar Incision, and Teferi's Time Twist** — Repeating Umbris's until-land trigger is too small a reward to make blink a main package.
+- **Displace, Essence Flux, Planar Incision, and Teferi's Time Twist** — Single-target blink still buys only one until-land trigger, which does not justify a slot. Superseded in part: Ghostly Flicker was added because two targets reach the artifact entry triggers, not just the commander.
 - **Drown in Dreams, Extract from Darkness, Curse of Unbinding, and Zellix, Sanity Flayer** — Dedicated mill builds a graveyard resource that this version subsequently exiles and distracts from theft.
 - **Dream Devourer** — Foretell exiles cards owned by this deck, which never increases Umbris's power.
 - **Public Enemy, Ghoulish Impetus, and Renegade Silent** — Goad adds a separate politics plan without advancing the exile bank.
@@ -148,7 +148,8 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Malboro** — Rejected. Swampcycling fixes a land drop but does not ramp, and six mana for nine exiled cards is substantially below the deck's existing library-exile effects.
 - **Callous Oppressor** — Cut for Faceless Butcher. Permanent creature theft remains, but the stolen card now sits in exile for Umbris and the body is a Nightmare Horror.
 - **Nightveil Specter** — Cut for Gonti, Night Minister. Combat exile you can play remains; Gonti spreads that trigger across the team, fixes colour, and makes Treasures off Shared Fate and Knowledge Pool casts. Opponents who hit this deck's other opponents also get a card.
-- **Raven Guild Master** — Cut for Bismuth Mindrender. One connection still stocks exile, but the 1/1 ten-card dump needed help connecting; Mindrender is a 4/3 with menace that leaves lands banked and can steal the nonland for life.
+- **Coalition Relic** — Cut for Ghostly Flicker at the deck owner's request. Its stored counter was the deck's second-best burst, but three-mana rocks compete with the turn-three play the deck actually wants.
+- **Pentad Prism** — Cut at the deck owner's request. It was the only enabler of the turn-three Umbris line, so that exceptional draw is gone; the sustained two-mana rocks and both Medallions carry normal openings.
 - **Hostage Taker** — Rejected for the Oppressor slot. Same exile-and-cast shape without Nightmare or Horror, and it is a Dimir staple.
 - **Intellect Devourer** — Rejected for the Guild Master slot. A Horror that plays three hand cards does not keep a combat library dump, and the pile returns if it dies.
 - **Dauthi Voidwalker, Gríma, Mnemonic Betrayal, Omen Machine, and The Mindskinner** — Rejected in the 2026-08-31 slot audit. Replacement exile starves the graveyard converters; Gríma puts the until-spell pile on the bottom; Betrayal returns uncast cards; Omen Machine fights Shared Fate; Mindskinner turns commander damage into mill.
@@ -168,7 +169,8 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Uchuulon.** Every existing Uchuulon triggers separately at the end step. Each trigger needs a different creature card still available in an opponent's graveyard, then creates another Horror copy that triggers every Umbris as it enters.
 - **Espers to Magicite.** The copied token becomes only an artifact, not an artifact creature. It retains copiable rules text but cannot attack or block.
 - **Strategic Betrayal.** The targeted opponent chooses which creature they exile. Both that permanent and every opponent-owned card in their graveyard immediately count for Umbris.
-- **Pentad Prism.** Dimir mana gives it two charge counters through sunburst. Those counters may both be removed in one turn, allowing three lands plus the Prism to cast Umbris on turn three.
+- **Ghostly Flicker.** The exiled cards return immediately as new objects, so a targeted spell already on the stack loses its target, but a sweeper still kills them. Umbris returns summoning sick, and any Aura on it — Vanishing, Kaya's Ghostform, Endless Evil — is put into the graveyard.
+- **Knowledge Pool blinked.** The Pool has no clause returning imprinted cards, so cards from an earlier imprint stay exiled permanently and keep counting for Umbris. Only cards exiled with the current object can be cast off its exchange trigger.
 - **Medallions.** Each reduces only generic mana in a spell of its colour. Both can reduce Umbris, but neither produces mana, pays activated costs, nor fixes an off-colour stolen spell.
 - **Ancient Cellarspawn.** Its first ability reduces one generic mana from Horrors, Nightmares, and Demons. Its second compares mana actually spent with mana value, so Medallion reductions and spells cast for free through Knowledge Pool cause life loss.
 - **Aboleth Spawn.** It copies only an opposing permanent's triggered ability caused by a creature entering. Its own Horror entry still triggers this deck's Umbris normally.
@@ -196,6 +198,12 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **No loop.** The deck contains no deterministic infinite loop; every exile, theft, copy, and direct-damage line consumes cards, mana, combat steps, or permanents.
 
 ## Talks
+
+### 2026-08-31 — Raven Guild Master reinstated, blink opened
+
+The deck owner keeps Raven Guild Master, so the Bismuth Mindrender swap above no longer applies to it: both are in the list. They also dislike Coalition Relic and Pentad Prism, which pay for the reinstated Guild Master and one blink slot. Commander's Sphere and Arcane Signet were never in this list.
+
+Blink enters as a package of one rather than the five-card version rejected earlier, because the earlier rejection only measured Umbris's own until-land trigger. Ghostly Flicker's two targets reach Knowledge Pool, Nautiloid Ship, Canoptek Scarab Swarm, and Faceless Butcher, and it doubles as instant-speed protection. Ramp falls from thirteen to eleven and the turn-three Umbris line is gone; the bracket stays 3− because that line was the fast outlier, not the normal pace.
 
 ### 2026-08-31 — Slot audit swaps
 

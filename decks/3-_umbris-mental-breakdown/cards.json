@@ -356,6 +356,32 @@
       "submitted_name": "Nautiloid Ship"
     },
     {
+      "cache": "cards/1dfaa773-7cd5-4489-9790-661cef4ed6f3.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Morph"
+        ],
+        "mana_cost": "{1}{U}{U}",
+        "oracle_text": "Whenever this creature deals combat damage to a player, that player exiles the top ten cards of their library.\nMorph {2}{U}{U} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Wizard Mutant"
+      },
+      "categories": [
+        "Into Exile"
+      ],
+      "category_source": "decklist",
+      "name": "Raven Guild Master",
+      "oracle_id": "1dfaa773-7cd5-4489-9790-661cef4ed6f3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/scg/47/raven-guild-master?utm_source=api",
+      "submitted_categories": [
+        "Into Exile"
+      ],
+      "submitted_name": "Raven Guild Master"
+    },
+    {
       "cache": "cards/6aea681e-88d2-48df-a717-3ce0bc95205b.json",
       "card": {
         "cmc": 2.0,
@@ -836,37 +862,6 @@
       "submitted_name": "Coldsteel Heart"
     },
     {
-      "cache": "cards/008cb342-79f5-4df6-a6b7-0e9e22ed693f.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{3}",
-        "oracle_text": "{T}: Add one mana of any color.\n{T}: Put a charge counter on this artifact.\nAt the beginning of your first main phase, remove all charge counters from this artifact. Add one mana of any color for each charge counter removed this way.",
-        "produced_mana": [
-          "B",
-          "G",
-          "R",
-          "U",
-          "W"
-        ],
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Ramp",
-        "Fixing"
-      ],
-      "category_source": "decklist",
-      "name": "Coalition Relic",
-      "oracle_id": "008cb342-79f5-4df6-a6b7-0e9e22ed693f",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/dmc/180/coalition-relic?utm_source=api",
-      "submitted_categories": [
-        "Ramp",
-        "Fixing"
-      ],
-      "submitted_name": "Coalition Relic"
-    },
-    {
       "cache": "cards/95560508-7ac9-4be9-8a3f-3c7d5b52807b.json",
       "card": {
         "cmc": 2.0,
@@ -1004,39 +999,6 @@
         "Engine"
       ],
       "submitted_name": "Midnight Clock"
-    },
-    {
-      "cache": "cards/72e8d67a-41e6-4074-bcbd-b54ead995237.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [
-          "Sunburst"
-        ],
-        "mana_cost": "{2}",
-        "oracle_text": "Sunburst (This artifact enters with a charge counter on it for each color of mana spent to cast it.)\nRemove a charge counter from this artifact: Add one mana of any color.",
-        "produced_mana": [
-          "B",
-          "G",
-          "R",
-          "U",
-          "W"
-        ],
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Ramp",
-        "Fixing"
-      ],
-      "category_source": "decklist",
-      "name": "Pentad Prism",
-      "oracle_id": "72e8d67a-41e6-4074-bcbd-b54ead995237",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/eoc/56/pentad-prism?utm_source=api",
-      "submitted_categories": [
-        "Ramp",
-        "Fixing"
-      ],
-      "submitted_name": "Pentad Prism"
     },
     {
       "cache": "cards/7acd7ef5-0e26-436d-962a-1a391f81c2e8.json",
@@ -1347,6 +1309,32 @@
         "Into Exile"
       ],
       "submitted_name": "Faerie Trickery"
+    },
+    {
+      "cache": "cards/ad0070db-6454-41cb-861f-8f5b8fc2a3b8.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Exile two target artifacts, creatures, and/or lands you control, then return those cards to the battlefield under your control.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Blink",
+        "Protection",
+        "Into Exile"
+      ],
+      "category_source": "decklist",
+      "name": "Ghostly Flicker",
+      "oracle_id": "ad0070db-6454-41cb-861f-8f5b8fc2a3b8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/98/ghostly-flicker?utm_source=api",
+      "submitted_categories": [
+        "Blink",
+        "Protection",
+        "Into Exile"
+      ],
+      "submitted_name": "Ghostly Flicker"
     },
     {
       "cache": "cards/30ec73ad-c7a1-4527-8dc6-44bdd65b9ba6.json",
@@ -2247,7 +2235,7 @@
     }
   ],
   "categorized_cards": 81,
-  "generated_at": "2026-08-31T11:32:45.569415+00:00",
+  "generated_at": "2026-08-31T11:37:35.327282+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 81,
