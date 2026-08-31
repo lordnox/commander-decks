@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Creature-go Mardu aikido that forces bad attacks, recycles visible traps with Extus, and routes borrowed damage through increasingly unsafe contraptions.",
+  "tags": [
+    {
+      "name": "aikido",
+      "score": 5,
+      "reason": "The primary plan makes opposing creatures and damage punish their controllers."
+    },
+    {
+      "name": "creatures",
+      "score": 4,
+      "reason": "Thirty-three creatures form the visible defense, forced-combat package, and damage-reflection engine."
+    },
+    {
+      "name": "forced combat",
+      "score": 4,
+      "reason": "Imps, goad creatures, Angel's Trumpet, and Rite of the Raging Storm keep combat moving."
+    },
+    {
+      "name": "self-damage",
+      "score": 4,
+      "reason": "Reflectors, Volcano Hellion, Crypt Rats, and Coalhauler Swine deliberately manufacture dangerous damage events."
+    },
+    {
+      "name": "combo",
+      "score": 3,
+      "reason": "Tutorless packages include Stuffy Doll with Guilty Conscience and damage sweepers with Repercussion."
+    },
+    {
+      "name": "graveyard",
+      "score": 3,
+      "reason": "Extus repeatedly returns sacrificed, discarded, or destroyed nonlegendary creatures to hand."
+    },
+    {
+      "name": "politics",
+      "score": 3,
+      "reason": "Advocates, Crown of Doom, Humble Defector, and attack incentives create visible table bargains."
+    },
+    {
+      "name": "sacrifice",
+      "score": 3,
+      "reason": "Creature sacrifices pay for prevention, cards, mana, theft, and a damage sweep while Extus retrieves the body."
+    },
+    {
+      "name": "burn",
+      "score": 2,
+      "reason": "Damage finishes players, but most of it originates from their attackers or from creatures hurting themselves."
+    },
+    {
+      "name": "group slug",
+      "score": 2,
+      "reason": "Coalhauler Swine, Crypt Rats, Repercussion, and Angel's Trumpet can damage several players."
+    },
+    {
+      "name": "spellslinger",
+      "score": 2,
+      "reason": "Twenty instants and sorceries trigger Extus, but creatures remain the main shell."
+    },
+    {
+      "name": "tokens",
+      "score": 2,
+      "reason": "Rite of the Raging Storm, Life of the Party, Goblin Spymaster, Inkshield, and Kher Keep make bodies."
+    },
+    {
+      "name": "lifegain",
+      "score": 1,
+      "reason": "Worthy Cause, Children of Korlis, and Soul Link offset damage the deck intentionally risks."
+    },
+    {
+      "name": "theft",
+      "score": 1,
+      "reason": "Ritual of the Machine is a single permanent theft effect."
+    }
+  ]
+}

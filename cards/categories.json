@@ -8714,12 +8714,6 @@
         "politics"
       ]
     },
-    "e04fa58e-be7a-4c9c-98d0-48241742a41b": {
-      "name": "Backfire",
-      "categories": [
-        "damage-reflection"
-      ]
-    },
     "bb81aa50-49db-4743-85fc-6b4d9ed29bc6": {
       "name": "Soul Link",
       "categories": [
@@ -8822,8 +8816,15 @@
         "land",
         "ramp"
       ]
+    },
+    "3a8a67ad-e4ff-4b55-9976-a2f13cc9b41b": {
+      "name": "Powerstone Minefield",
+      "categories": [
+        "damage-reflection",
+        "removal"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-31T15:29:20.532512+00:00"
+  "updated_at": "2026-08-31T15:33:57.740143+00:00"
 }
