@@ -175,7 +175,7 @@ Its columns are sorted alphabetically and zipped, so treat the output as a check
 
 ## 8. Continue deck work
 
-Use `cards.json` as the deck inventory and prefer its embedded `card` details for analysis. Load referenced cache files only for fields not embedded in the manifest. Use the `scryfall-lookup` skill for searches or to refresh current card information. Use the `deck-primer` skill when updating how a deck plays.
+Use `cards.json` as the deck inventory and prefer its embedded `card` details for analysis. Load referenced cache files only for fields not embedded in the manifest. Use the `scryfall-lookup` skill for searches or to refresh current card information. Use the `deck-primer` skill when updating how a deck plays. Use `audit-deck` when the user wants every slot challenged against Scryfall.
 
 When recommending swaps, follow the root `DECISIONS.md` card preferences: esoteric old cards over staples, zero Game Changers unless that deck is excepted.
 
