@@ -1,0 +1,132 @@
+{
+  "artist": "Tony Szczudlo",
+  "artist_ids": [
+    "1952c90b-a5a7-4328-9f7c-e11064f59daf"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 789062,
+  "cmc": 0.0,
+  "collector_number": "304",
+  "color_identity": [
+    "B",
+    "R"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 496,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7e6f1a55-0fec-4b94-9640-9110ca8d0212",
+  "illustration_id": "9f7d7fd1-8c7b-41e9-bb2f-b03916c92014",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:26:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/e/7e6f1a55-0fec-4b94-9640-9110ca8d0212.webp?1783909566",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/e/7e6f1a55-0fec-4b94-9640-9110ca8d0212.jpg?1783909566",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/e/7e6f1a55-0fec-4b94-9640-9110ca8d0212.jpg?1783909566",
+    "crop": "https://cards.scryfall.io/crop/front/7/e/7e6f1a55-0fec-4b94-9640-9110ca8d0212.webp?1783909566",
+    "display": "https://cards.scryfall.io/display/front/7/e/7e6f1a55-0fec-4b94-9640-9110ca8d0212.webp?1783909566",
+    "grid": "https://cards.scryfall.io/grid/front/7/e/7e6f1a55-0fec-4b94-9640-9110ca8d0212.webp?1783909566",
+    "large": "https://cards.scryfall.io/large/front/7/e/7e6f1a55-0fec-4b94-9640-9110ca8d0212.jpg?1783909566",
+    "normal": "https://cards.scryfall.io/normal/front/7/e/7e6f1a55-0fec-4b94-9640-9110ca8d0212.jpg?1783909566",
+    "png": "https://cards.scryfall.io/png/front/7/e/7e6f1a55-0fec-4b94-9640-9110ca8d0212.png?1783909566",
+    "small": "https://cards.scryfall.io/small/front/7/e/7e6f1a55-0fec-4b94-9640-9110ca8d0212.jpg?1783909566",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/e/7e6f1a55-0fec-4b94-9640-9110ca8d0212.webp?1783909566"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 131233,
+  "multiverse_ids": [
+    676177
+  ],
+  "name": "Tainted Peak",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b2bae7fc-0668-4b34-9cd6-0d80aea52275",
+  "oracle_text": "{T}: Add {C}.\n{T}: Add {B} or {R}. Activate only if you control a Swamp.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.49",
+    "eur_foil": null,
+    "tix": "0.05",
+    "usd": "1.24",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab2bae7fc-0668-4b34-9cd6-0d80aea52275&unique=prints",
+  "produced_mana": [
+    "B",
+    "C",
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/131233?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=789062&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F579340%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Tainted+Peak",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676177&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTainted%2BPeak",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTainted%2BPeak"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7e6f1a55-0fec-4b94-9640-9110ca8d0212/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/304/tainted-peak?utm_source=api",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 579340,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/7e6f1a55-0fec-4b94-9640-9110ca8d0212",
+  "variation": false
+}

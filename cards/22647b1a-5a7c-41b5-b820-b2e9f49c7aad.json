@@ -1,0 +1,126 @@
+{
+  "artist": "Mark Poole",
+  "artist_ids": [
+    "bfdeaf09-f915-4058-8e8b-bcac3bc43c33"
+  ],
+  "booster": true,
+  "border_color": "white",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 9677,
+  "cmc": 2.0,
+  "collector_number": "30",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 22113,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "d28234a6-0e6b-4555-b5f9-edcc7b29194b",
+  "illustration_id": "d4786c1c-2bf9-4666-9be8-bb707eb97223",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:49:22Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/2/d28234a6-0e6b-4555-b5f9-edcc7b29194b.webp?1783946962",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/2/d28234a6-0e6b-4555-b5f9-edcc7b29194b.jpg?1783946962",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/2/d28234a6-0e6b-4555-b5f9-edcc7b29194b.jpg?1783946962",
+    "crop": "https://cards.scryfall.io/crop/front/d/2/d28234a6-0e6b-4555-b5f9-edcc7b29194b.webp?1783946962",
+    "display": "https://cards.scryfall.io/display/front/d/2/d28234a6-0e6b-4555-b5f9-edcc7b29194b.webp?1783946962",
+    "grid": "https://cards.scryfall.io/grid/front/d/2/d28234a6-0e6b-4555-b5f9-edcc7b29194b.webp?1783946962",
+    "large": "https://cards.scryfall.io/large/front/d/2/d28234a6-0e6b-4555-b5f9-edcc7b29194b.jpg?1783946962",
+    "normal": "https://cards.scryfall.io/normal/front/d/2/d28234a6-0e6b-4555-b5f9-edcc7b29194b.jpg?1783946962",
+    "png": "https://cards.scryfall.io/png/front/d/2/d28234a6-0e6b-4555-b5f9-edcc7b29194b.png?1783946962",
+    "small": "https://cards.scryfall.io/small/front/d/2/d28234a6-0e6b-4555-b5f9-edcc7b29194b.jpg?1783946962",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/2/d28234a6-0e6b-4555-b5f9-edcc7b29194b.webp?1783946962"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}{W}",
+  "multiverse_ids": [
+    4127
+  ],
+  "name": "Eye for an Eye",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "22647b1a-5a7c-41b5-b820-b2e9f49c7aad",
+  "oracle_text": "The next time a source of your choice would deal damage to you this turn, instead that source deals that much damage to you and Eye for an Eye deals that much damage to that source's controller.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.72",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.68",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A22647b1a-5a7c-41b5-b820-b2e9f49c7aad&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Eye+for+an+Eye&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=9677&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F2139%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Eye+for+an+Eye",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=4127&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEye%2Bfor%2Ban%2BEye",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEye%2Bfor%2Ban%2BEye"
+  },
+  "released_at": "1997-03-24",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d28234a6-0e6b-4555-b5f9-edcc7b29194b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/5ed?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/5ed/30/eye-for-an-eye?utm_source=api",
+  "set": "5ed",
+  "set_id": "5afd2f4b-8309-4f45-a2b2-3785018474cb",
+  "set_name": "Fifth Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A5ed&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/5afd2f4b-8309-4f45-a2b2-3785018474cb",
+  "story_spotlight": false,
+  "tcgplayer_id": 2139,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/d28234a6-0e6b-4555-b5f9-edcc7b29194b",
+  "variation": false
+}

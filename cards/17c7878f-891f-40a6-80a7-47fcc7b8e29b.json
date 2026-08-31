@@ -1,0 +1,132 @@
+{
+  "artist": "Adam Rex",
+  "artist_ids": [
+    "445bd2fb-4a70-4599-87a4-83cf5979fc56"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 1066,
+  "cmc": 2.0,
+  "collector_number": "73",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 18943,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Finally, a use for that head of yours.\"\n—Braids, dementia summoner",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "48a90779-008e-401f-9877-be0a935d2ccd",
+  "illustration_id": "bc408c1e-923b-479a-b692-4f68a5dbbb98",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:14:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/8/48a90779-008e-401f-9877-be0a935d2ccd.webp?1783944878",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/8/48a90779-008e-401f-9877-be0a935d2ccd.jpg?1783944878",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/8/48a90779-008e-401f-9877-be0a935d2ccd.jpg?1783944878",
+    "crop": "https://cards.scryfall.io/crop/front/4/8/48a90779-008e-401f-9877-be0a935d2ccd.webp?1783944878",
+    "display": "https://cards.scryfall.io/display/front/4/8/48a90779-008e-401f-9877-be0a935d2ccd.webp?1783944878",
+    "grid": "https://cards.scryfall.io/grid/front/4/8/48a90779-008e-401f-9877-be0a935d2ccd.webp?1783944878",
+    "large": "https://cards.scryfall.io/large/front/4/8/48a90779-008e-401f-9877-be0a935d2ccd.jpg?1783944878",
+    "normal": "https://cards.scryfall.io/normal/front/4/8/48a90779-008e-401f-9877-be0a935d2ccd.jpg?1783944878",
+    "png": "https://cards.scryfall.io/png/front/4/8/48a90779-008e-401f-9877-be0a935d2ccd.png?1783944878",
+    "small": "https://cards.scryfall.io/small/front/4/8/48a90779-008e-401f-9877-be0a935d2ccd.jpg?1783944878",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/8/48a90779-008e-401f-9877-be0a935d2ccd.webp?1783944878"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_foil_id": 18837,
+  "mtgo_id": 18836,
+  "multiverse_ids": [
+    43734
+  ],
+  "name": "Skulltap",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "17c7878f-891f-40a6-80a7-47fcc7b8e29b",
+  "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nDraw two cards.",
+  "oversized": false,
+  "penny_rank": 16122,
+  "prices": {
+    "eur": "0.10",
+    "eur_foil": "1.04",
+    "tix": "0.04",
+    "usd": "0.16",
+    "usd_etched": null,
+    "usd_foil": "1.17"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A17c7878f-891f-40a6-80a7-47fcc7b8e29b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/18836?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=1066&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10899%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Skulltap",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=43734&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSkulltap",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSkulltap"
+  },
+  "released_at": "2003-05-26",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/48a90779-008e-401f-9877-be0a935d2ccd/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/scg?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/scg/73/skulltap?utm_source=api",
+  "set": "scg",
+  "set_id": "5133c3a1-1412-4ce6-a1f0-73b695966ded",
+  "set_name": "Scourge",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ascg&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5133c3a1-1412-4ce6-a1f0-73b695966ded",
+  "story_spotlight": false,
+  "tcgplayer_id": 10899,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/48a90779-008e-401f-9877-be0a935d2ccd",
+  "variation": false
+}

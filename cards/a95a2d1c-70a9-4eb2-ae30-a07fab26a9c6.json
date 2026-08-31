@@ -1,0 +1,130 @@
+{
+  "artist": "Cecil Fernando",
+  "artist_ids": [
+    "5e3d0778-9b63-4c2d-a683-b46a1fb161c2"
+  ],
+  "booster": true,
+  "border_color": "white",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 10881,
+  "cmc": 1.0,
+  "collector_number": "38",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 27583,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"My soldiers fought without hesitation, died without doubt.\"\n—Sidar Jabari",
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "1abf09d8-f972-4b81-80e9-70fb4a33ed56",
+  "illustration_id": "40108a96-d398-4dd1-bd21-5c3eefcda6f8",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:36:47Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/a/1abf09d8-f972-4b81-80e9-70fb4a33ed56.webp?1783946207",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/a/1abf09d8-f972-4b81-80e9-70fb4a33ed56.jpg?1783946207",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/a/1abf09d8-f972-4b81-80e9-70fb4a33ed56.jpg?1783946207",
+    "crop": "https://cards.scryfall.io/crop/front/1/a/1abf09d8-f972-4b81-80e9-70fb4a33ed56.webp?1783946207",
+    "display": "https://cards.scryfall.io/display/front/1/a/1abf09d8-f972-4b81-80e9-70fb4a33ed56.webp?1783946207",
+    "grid": "https://cards.scryfall.io/grid/front/1/a/1abf09d8-f972-4b81-80e9-70fb4a33ed56.webp?1783946207",
+    "large": "https://cards.scryfall.io/large/front/1/a/1abf09d8-f972-4b81-80e9-70fb4a33ed56.jpg?1783946207",
+    "normal": "https://cards.scryfall.io/normal/front/1/a/1abf09d8-f972-4b81-80e9-70fb4a33ed56.jpg?1783946207",
+    "png": "https://cards.scryfall.io/png/front/1/a/1abf09d8-f972-4b81-80e9-70fb4a33ed56.png?1783946207",
+    "small": "https://cards.scryfall.io/small/front/1/a/1abf09d8-f972-4b81-80e9-70fb4a33ed56.jpg?1783946207",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/a/1abf09d8-f972-4b81-80e9-70fb4a33ed56.webp?1783946207"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}",
+  "multiverse_ids": [
+    15362
+  ],
+  "name": "Resistance Fighter",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a95a2d1c-70a9-4eb2-ae30-a07fab26a9c6",
+  "oracle_text": "Sacrifice this creature: Prevent all combat damage target creature would deal this turn.",
+  "oversized": false,
+  "penny_rank": 17572,
+  "power": "1",
+  "prices": {
+    "eur": "0.08",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.20",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa95a2d1c-70a9-4eb2-ae30-a07fab26a9c6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Resistance+Fighter&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=10881&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F2714%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Resistance+Fighter",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=15362&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DResistance%2BFighter",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DResistance%2BFighter"
+  },
+  "released_at": "1999-04-21",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1abf09d8-f972-4b81-80e9-70fb4a33ed56/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/6ed?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/6ed/38/resistance-fighter?utm_source=api",
+  "set": "6ed",
+  "set_id": "78ee1957-d5d4-4551-acae-b1b418e8a50b",
+  "set_name": "Classic Sixth Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A6ed&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/78ee1957-d5d4-4551-acae-b1b418e8a50b",
+  "story_spotlight": false,
+  "tcgplayer_id": 2714,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Soldier",
+  "uri": "https://api.scryfall.com/cards/1abf09d8-f972-4b81-80e9-70fb4a33ed56",
+  "variation": false
+}

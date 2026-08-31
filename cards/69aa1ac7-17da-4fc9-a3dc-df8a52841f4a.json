@@ -1,0 +1,134 @@
+{
+  "artist": "Ron Spencer",
+  "artist_ids": [
+    "dab52c11-0564-4207-a4a1-c1735c946a65"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 705728,
+  "cmc": 3.0,
+  "collector_number": "247",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 9251,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7165a9ac-3f44-4d14-93bb-d4d4970ab41b",
+  "illustration_id": "53905922-f6a4-414f-85d7-3a1164079f22",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:32:39Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/1/7165a9ac-3f44-4d14-93bb-d4d4970ab41b.webp?1783917159",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/1/7165a9ac-3f44-4d14-93bb-d4d4970ab41b.jpg?1783917159",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/1/7165a9ac-3f44-4d14-93bb-d4d4970ab41b.jpg?1783917159",
+    "crop": "https://cards.scryfall.io/crop/front/7/1/7165a9ac-3f44-4d14-93bb-d4d4970ab41b.webp?1783917159",
+    "display": "https://cards.scryfall.io/display/front/7/1/7165a9ac-3f44-4d14-93bb-d4d4970ab41b.webp?1783917159",
+    "grid": "https://cards.scryfall.io/grid/front/7/1/7165a9ac-3f44-4d14-93bb-d4d4970ab41b.webp?1783917159",
+    "large": "https://cards.scryfall.io/large/front/7/1/7165a9ac-3f44-4d14-93bb-d4d4970ab41b.jpg?1783917159",
+    "normal": "https://cards.scryfall.io/normal/front/7/1/7165a9ac-3f44-4d14-93bb-d4d4970ab41b.jpg?1783917159",
+    "png": "https://cards.scryfall.io/png/front/7/1/7165a9ac-3f44-4d14-93bb-d4d4970ab41b.png?1783917159",
+    "small": "https://cards.scryfall.io/small/front/7/1/7165a9ac-3f44-4d14-93bb-d4d4970ab41b.jpg?1783917159",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/1/7165a9ac-3f44-4d14-93bb-d4d4970ab41b.webp?1783917159"
+  },
+  "keywords": [
+    "Echo",
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 110942,
+  "multiverse_ids": [
+    612495
+  ],
+  "name": "Bone Shredder",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "69aa1ac7-17da-4fc9-a3dc-df8a52841f4a",
+  "oracle_text": "Flying\nEcho {2}{B} (At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.)\nWhen this creature enters, destroy target nonartifact, nonblack creature.",
+  "oversized": false,
+  "penny_rank": 6081,
+  "power": "1",
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": null,
+    "tix": "0.14",
+    "usd": "0.16",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A69aa1ac7-17da-4fc9-a3dc-df8a52841f4a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/110942?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=705728&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F491329%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bone+Shredder",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=612495&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBone%2BShredder",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBone%2BShredder"
+  },
+  "released_at": "2023-04-21",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7165a9ac-3f44-4d14-93bb-d4d4970ab41b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/moc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/moc/247/bone-shredder?utm_source=api",
+  "set": "moc",
+  "set_id": "6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "set_name": "March of the Machine Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "story_spotlight": false,
+  "tcgplayer_id": 491329,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Phyrexian Minion",
+  "uri": "https://api.scryfall.com/cards/7165a9ac-3f44-4d14-93bb-d4d4970ab41b",
+  "variation": false
+}
