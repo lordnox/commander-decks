@@ -525,9 +525,8 @@ class DeckTagTests(unittest.TestCase):
             self.assertIn("deck-tags:start", primer)
             self.assertIn("combo", primer)
             self.assertNotIn("crabs", primer.split("deck-tags:start", 1)[1].split("deck-tags:end", 1)[0])
-            self.assertIn("A mill combo that happens to be a crab.", overview)
+            self.assertNotIn("A mill combo that happens to be a crab.", overview)
             self.assertIn("[Test primer](decks/test/README.md)", overview)
-            self.assertIn("combo", overview)
             self.assertNotIn("crabs", overview)
             self.assertEqual(update_deck_tags.update_surfaces(deck_dir, check=True), 0)
 
@@ -600,9 +599,7 @@ class DeckRankingTests(unittest.TestCase):
             badges = primer.split("deck-rankings:start", 1)[1].split("deck-rankings:end", 1)[0]
             tags_end = primer.index("<!-- deck-tags:end -->")
             ranking_start = primer.index("<!-- deck-rankings:start -->")
-            expected_row = deck_rankings.badge_row(
-                json.loads((deck_dir / "rankings.json").read_text(encoding="utf-8")),
-            )
+            rankings = json.loads((deck_dir / "rankings.json").read_text(encoding="utf-8"))
 
             self.assertLess(tags_end, ranking_start)
             self.assertEqual(
@@ -611,8 +608,11 @@ class DeckRankingTests(unittest.TestCase):
             )
             self.assertIn("message=Jank&color=2f7d6a", badges)
             self.assertIn("message=Mean&color=b91c1c", badges)
+            self.assertEqual(deck_rankings.universal_cells(rankings), ["7", "8", "6"])
+            self.assertIn("| Deck | Bracket | Jank | Fun | Mean | Goals |", overview)
             self.assertIn(
-                f"**[Test primer](decks/3-_test/README.md)** `3−` {expected_row}",
+                "| [Test primer](decks/3-_test/README.md) | `3−` | 7 | 8 | 6 "
+                "| Voltron 9, Theft 5 |",
                 overview,
             )
             self.assertEqual(update_deck_rankings.update_primer(deck_dir, check=True), 0)
