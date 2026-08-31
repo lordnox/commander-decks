@@ -7,7 +7,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 10](https://img.shields.io/static/v1?label=10&message=Jank&color=0b6b58&style=flat-square) ![Fun 10](https://img.shields.io/static/v1?label=10&message=Fun&color=0b6b58&style=flat-square) ![Mean 5](https://img.shields.io/static/v1?label=5&message=Mean&color=b91c1c&style=flat-square) ![Aikido 10](https://img.shields.io/static/v1?label=10&message=Aikido&color=0b6b58&style=flat-square)
+<img src="../../assets/badges/jank-10.svg" alt="Jank 10" title="Jank 10"> <img src="../../assets/badges/fun-10.svg" alt="Fun 10" title="Fun 10"> <img src="../../assets/badges/mean-5.svg" alt="Mean 5" title="Mean 5"> <img src="../../assets/badges/aikido-10.svg" alt="Aikido 10" title="Aikido 10">
 <!-- deck-rankings:end -->
 
 Creature-go Mardu aikido. The battlefield advertises a collection of bad blocks, sacrificial traps, and damage reflectors; the instant suite turns each creature that dies into another card through [**Extus, Oriq Overlord**](https://scryfall.com/card/stx/149/extus-oriq-overlord-awaken-the-blood-avatar?utm_source=api). The deck runs no card tutors and no Game Changers. [**Awaken the Blood Avatar**](https://scryfall.com/card/stx/149/extus-oriq-overlord-awaken-the-blood-avatar?utm_source=api) is deliberately treated as blank.
