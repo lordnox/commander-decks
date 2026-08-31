@@ -54,7 +54,7 @@
 1x Thrill of Possibility [Draw,Discard,Creature Recursion]
 1x General's Regalia [Damage Routing,Aikido]
 1x Crown of Doom [Forced Combat,Politics]
-1x Backfire [Damage Reflection,Aikido]
+1x Powerstone Minefield [Aikido,Removal]
 1x Soul Link [Lifegain,Damage Reflection]
 1x Guilty Conscience [Damage Reflection,Win Condition]
 1x Repercussion [Damage Reflection,Win Condition]

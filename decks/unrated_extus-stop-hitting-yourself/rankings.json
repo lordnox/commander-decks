@@ -1,0 +1,14 @@
+{
+  "goals": [
+    "Aikido"
+  ],
+  "scores": {
+    "jankiness": 10,
+    "fun": 10,
+    "oppressiveness": 5,
+    "identity": {
+      "Aikido": 10
+    }
+  },
+  "notes": "The list replaces efficient Mardu staples with old forced-combat creatures, zero-cost damage-routing shields, and tutorless reflector contraptions. Visible traps and political choices produce varied games; Stuffy Doll plus Guilty Conscience and Repercussion provide real danger without a reliable search path or lock."
+}

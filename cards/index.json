@@ -1415,7 +1415,6 @@
     "thrill of possibility": "1cb0610b-a731-42c2-b93f-0a29f63cebf4",
     "general's regalia": "cceba6f3-b1c0-45ee-826c-b871d24c7208",
     "crown of doom": "fed77e0a-a4a6-4409-9cab-bf0fc2cd9f9b",
-    "backfire": "e04fa58e-be7a-4c9c-98d0-48241742a41b",
     "soul link": "bb81aa50-49db-4743-85fc-6b4d9ed29bc6",
     "guilty conscience": "a1439ace-5880-4fb8-a321-ec8063e7ed0e",
     "repercussion": "f6069a4f-744e-43e8-9f8b-7c13b8b0187f",
@@ -1430,8 +1429,9 @@
     "temple of malice": "7c439c18-31dc-41fe-b03d-3fca06e6fc0b",
     "shadowblood ridge": "15687ee3-3cdb-4a8f-a726-46b73bceb792",
     "kher keep": "79638767-fbc7-451a-b29f-d93f2ac6f102",
-    "kor haven": "276cece9-f9f2-46e6-ae76-daddaa2fb9ab"
+    "kor haven": "276cece9-f9f2-46e6-ae76-daddaa2fb9ab",
+    "powerstone minefield": "3a8a67ad-e4ff-4b55-9976-a2f13cc9b41b"
   },
   "schema_version": 1,
-  "updated_at": "2026-08-31T15:29:20.532512+00:00"
+  "updated_at": "2026-08-31T15:33:57.740143+00:00"
 }

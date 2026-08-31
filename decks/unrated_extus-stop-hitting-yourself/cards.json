@@ -1480,30 +1480,28 @@
       "submitted_name": "Crown of Doom"
     },
     {
-      "cache": "cards/e04fa58e-be7a-4c9c-98d0-48241742a41b.json",
+      "cache": "cards/3a8a67ad-e4ff-4b55-9976-a2f13cc9b41b.json",
       "card": {
-        "cmc": 1.0,
-        "keywords": [
-          "Enchant"
-        ],
-        "mana_cost": "{U}",
-        "oracle_text": "Enchant creature\nWhenever enchanted creature deals damage to you, this Aura deals that much damage to that creature's controller.",
-        "type_line": "Enchantment — Aura"
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{R}{W}",
+        "oracle_text": "Whenever a creature attacks or blocks, this enchantment deals 2 damage to it.",
+        "type_line": "Enchantment"
       },
       "categories": [
-        "Damage Reflection",
-        "Aikido"
+        "Aikido",
+        "Removal"
       ],
       "category_source": "decklist",
-      "name": "Backfire",
-      "oracle_id": "e04fa58e-be7a-4c9c-98d0-48241742a41b",
+      "name": "Powerstone Minefield",
+      "oracle_id": "3a8a67ad-e4ff-4b55-9976-a2f13cc9b41b",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/4ed/62/backfire?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/apc/115/powerstone-minefield?utm_source=api",
       "submitted_categories": [
-        "Damage Reflection",
-        "Aikido"
+        "Aikido",
+        "Removal"
       ],
-      "submitted_name": "Backfire"
+      "submitted_name": "Powerstone Minefield"
     },
     {
       "cache": "cards/bb81aa50-49db-4743-85fc-6b4d9ed29bc6.json",
@@ -2145,7 +2143,7 @@
     }
   ],
   "categorized_cards": 81,
-  "generated_at": "2026-08-31T15:29:20.532512+00:00",
+  "generated_at": "2026-08-31T15:33:57.740143+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 81,
