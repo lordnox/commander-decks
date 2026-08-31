@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Lands** — Half the 99 is lands; Sin only keeps copying while it exiles lands.
+- **Graveyard** — The yard is the lottery: land density plus one jackpot.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 8, fun 8, mean 6, Lands 9, Graveyard 9. The copy loop is a trigger, not a two-card infinite.
+
 ## Cards in
 
 - **Abundance** — Lets draws become chosen land or nonland reveals, but keep it out of the graveyard before Sin triggers so a random copy does not steal a jackpot slot.
