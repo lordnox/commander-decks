@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 import string
+from collections.abc import Iterable
 from html import escape
 from pathlib import Path
 
@@ -147,10 +148,20 @@ def text_width(text: str) -> float:
     return sum(CHAR_WIDTHS.get(character, DEFAULT_CHAR_WIDTH) for character in text)
 
 
-def badge_svg(label: str, score: int, *, high_is_bad: bool) -> str:
+def score_segment_width() -> float:
+    """Sized for the widest possible score so every badge splits at the same x."""
+    return round(text_width(str(MAX_SCORE)) + BADGE_PADDING * 2, 1)
+
+
+def label_segment_width(labels: Iterable[str]) -> float:
+    widest = max((text_width(label) for label in labels), default=0.0)
+    return round(widest + BADGE_PADDING * 2, 1)
+
+
+def badge_svg(label: str, score: int, *, high_is_bad: bool, label_width: float) -> str:
     score_text = str(score)
-    left = round(text_width(score_text) + BADGE_PADDING * 2, 1)
-    right = round(text_width(label) + BADGE_PADDING * 2, 1)
+    left = score_segment_width()
+    right = label_width
     total = round(left + right, 1)
     description = escape(f"{label}: {score}")
     return (
@@ -243,11 +254,15 @@ def repository_root(start: Path) -> Path:
 
 
 def required_badges(root: Path) -> dict[str, str]:
-    """Every badge file the repository should contain, keyed by repo-relative path."""
-    badges: dict[str, str] = {}
+    """Every badge file the repository should contain, keyed by repo-relative path.
+
+    All badges share the width of the longest label in the repository, so a column
+    of them lines up. Adding a longer goal therefore rewrites every badge.
+    """
+    columns: list[tuple[str, int, bool]] = []
     decks = root / "decks"
     if not decks.is_dir():
-        return badges
+        return {}
     for deck_dir in sorted(decks.iterdir()):
         try:
             data = load_rankings(deck_dir)
@@ -255,9 +270,17 @@ def required_badges(root: Path) -> dict[str, str]:
             continue
         if data is None or validate_rankings(data):
             continue
-        for label, score, high_is_bad in score_columns(data):
-            badges[badge_path(label, score)] = badge_svg(label, score, high_is_bad=high_is_bad)
-    return badges
+        columns.extend(score_columns(data))
+    label_width = label_segment_width(label for label, _, _ in columns)
+    return {
+        badge_path(label, score): badge_svg(
+            label,
+            score,
+            high_is_bad=high_is_bad,
+            label_width=label_width,
+        )
+        for label, score, high_is_bad in columns
+    }
 
 
 def sync_badges(root: Path, *, check: bool = False) -> list[str]:

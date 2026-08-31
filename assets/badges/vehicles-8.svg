@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="77.1" height="20" role="img" aria-label="Vehicles: 8">
+<svg xmlns="http://www.w3.org/2000/svg" width="113.8" height="20" role="img" aria-label="Vehicles: 8">
 <title>Vehicles: 8</title>
 <g shape-rendering="crispEdges">
-<rect width="20.9" height="20" fill="#555555"/>
-<rect x="20.9" width="56.2" height="20" fill="#2f7d6a"/>
+<rect width="27.8" height="20" fill="#555555"/>
+<rect x="27.8" width="86.0" height="20" fill="#2f7d6a"/>
 </g>
 <g fill="#ffffff" text-anchor="middle" font-family="Verdana,DejaVu Sans,Geneva,sans-serif" font-size="11">
-<text x="10.4" y="14">8</text>
-<text x="49.0" y="14">Vehicles</text>
+<text x="13.9" y="14">8</text>
+<text x="70.8" y="14">Vehicles</text>
 </g>
 </svg>
