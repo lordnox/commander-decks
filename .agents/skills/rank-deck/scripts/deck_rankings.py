@@ -125,10 +125,6 @@ def primer_badges(data: dict) -> str:
     return f"{PRIMER_START}\n{badge_row(data)}\n{PRIMER_END}"
 
 
-def index_badges(data: dict) -> str:
-    return " " + badge_row(data)
-
-
 def insert_primer_section(original: str, section: str | None) -> str:
     if section is None:
         updated = PRIMER_SECTION.sub("", original, count=1)

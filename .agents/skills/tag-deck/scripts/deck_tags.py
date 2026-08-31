@@ -2,19 +2,10 @@
 
 from __future__ import annotations
 
-import importlib.util
 import json
 import re
 from pathlib import Path
 from urllib.parse import quote
-
-RANKING_SCRIPT_DIR = Path(__file__).resolve().parents[2] / "rank-deck/scripts"
-RANKING_SPEC = importlib.util.spec_from_file_location(
-    "deck_rankings",
-    RANKING_SCRIPT_DIR / "deck_rankings.py",
-)
-deck_rankings = importlib.util.module_from_spec(RANKING_SPEC)
-RANKING_SPEC.loader.exec_module(deck_rankings)
 
 SCHEMA_VERSION = 1
 MIN_SCORE = 1
@@ -250,13 +241,6 @@ def index_entries(root: Path, catalog: dict) -> list[dict]:
         except (ValueError, json.JSONDecodeError, OSError):
             continue
         bracket, rank = bracket_position(deck_dir.name)
-        ranking_inline = ""
-        try:
-            rankings = deck_rankings.load_rankings(deck_dir)
-            if rankings is not None and not deck_rankings.validate_rankings(rankings):
-                ranking_inline = deck_rankings.index_badges(rankings)
-        except (ValueError, json.JSONDecodeError, OSError):
-            ranking_inline = ""
         entries.append(
             {
                 "bracket": bracket,
@@ -266,7 +250,6 @@ def index_entries(root: Path, catalog: dict) -> list[dict]:
                 "path": relative_primer_path(deck_dir, root),
                 "summary": str(deck["summary"]).strip(),
                 "tags": visible,
-                "rankings": ranking_inline,
             }
         )
     entries.sort(key=lambda entry: (entry["bracket"], entry["rank"], entry["title"].casefold()))
@@ -279,8 +262,7 @@ def index_entry_lines(entry: dict) -> list[str]:
     hidden = len(entry["tags"]) - len(shown)
     if hidden > 0:
         badges.append(overflow_badge(hidden, entry["path"]))
-    rankings = entry.get("rankings") or ""
-    lines = [f"- **[{entry['title']}]({entry['path']})** `{entry['badge']}`{rankings}<br>"]
+    lines = [f"- **[{entry['title']}]({entry['path']})** `{entry['badge']}`<br>"]
     lines.append(f"  {entry['summary']}" + ("<br>" if badges else ""))
     if badges:
         lines.append("  " + " ".join(badges))
