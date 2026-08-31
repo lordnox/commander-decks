@@ -107,7 +107,7 @@ Follow `.agents/skills/tag-deck/SKILL.md` after the list is resolved. Score ever
 python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<prefix><slug>
 ```
 
-Badges sit immediately after the Archidekt sandbox link. The same run regenerates the bracket-grouped deck index in the root README, where the deck shows its bracket, ranking badges when `rankings.json` exists, summary, and top tag badges. `--check` must succeed. Card categories stay separate from these deck tags.
+Badges sit immediately after the Archidekt sandbox link. The same run regenerates the bracket-grouped deck index in the root README, where the deck shows its bracket, its ranking code and goal badges when `rankings.json` exists, summary, and top tag links. `--check` must succeed. Card categories stay separate from these deck tags.
 
 ### Rankings
 
@@ -117,7 +117,7 @@ Follow `.agents/skills/rank-deck/SKILL.md` after tags. Score jankiness, fun, opp
 python3 .agents/skills/rank-deck/scripts/update_deck_rankings.py decks/<prefix><slug>
 ```
 
-The badge row sits immediately after the Archidekt tag badges, in this order: Jank, Fun, Mean (the display label for oppressiveness), then identity goals in `rankings.json` `goals` order. The same run of `update_deck_tags.py` renders the same badges on the root README index immediately after the bracket badge. `--check` must succeed when `rankings.json` is present. If goals are missing, skip the badges rather than inventing axes; ask once, then continue the primer.
+The badge row sits immediately after the Archidekt tag badges, in this order: Jank, Fun, Mean (the display label for oppressiveness), then identity goals in `rankings.json` `goals` order. The same run of `update_deck_tags.py` renders a compact `J# F# M#` code plus the identity badges on the root README index, immediately after the bracket badge. `--check` must succeed when `rankings.json` is present. If goals are missing, skip the badges rather than inventing axes; ask once, then continue the primer.
 
 Do not put ranking notes or swap history in the primer. Evidence stays in `rankings.json` `notes` and `DECISIONS.md` under `## Rankings`.
 
