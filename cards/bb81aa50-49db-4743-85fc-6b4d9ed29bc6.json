@@ -1,0 +1,136 @@
+{
+  "artist": "Jeff Easley",
+  "artist_ids": [
+    "da17055e-693c-461a-b132-67dd88b42ca6"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 3232,
+  "cmc": 3.0,
+  "collector_number": "120",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 17493,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "They danced like puppets to a tune only Yawgmoth could hear.",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "425e0ca4-8592-4802-b7c4-6e3323edd78c",
+  "illustration_id": "8f5a7f2d-351d-4098-9890-8d1bce75ea2f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:22:11Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/2/425e0ca4-8592-4802-b7c4-6e3323edd78c.webp?1783945331",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/2/425e0ca4-8592-4802-b7c4-6e3323edd78c.jpg?1783945331",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/2/425e0ca4-8592-4802-b7c4-6e3323edd78c.jpg?1783945331",
+    "crop": "https://cards.scryfall.io/crop/front/4/2/425e0ca4-8592-4802-b7c4-6e3323edd78c.webp?1783945331",
+    "display": "https://cards.scryfall.io/display/front/4/2/425e0ca4-8592-4802-b7c4-6e3323edd78c.webp?1783945331",
+    "grid": "https://cards.scryfall.io/grid/front/4/2/425e0ca4-8592-4802-b7c4-6e3323edd78c.webp?1783945331",
+    "large": "https://cards.scryfall.io/large/front/4/2/425e0ca4-8592-4802-b7c4-6e3323edd78c.jpg?1783945331",
+    "normal": "https://cards.scryfall.io/normal/front/4/2/425e0ca4-8592-4802-b7c4-6e3323edd78c.jpg?1783945331",
+    "png": "https://cards.scryfall.io/png/front/4/2/425e0ca4-8592-4802-b7c4-6e3323edd78c.png?1783945331",
+    "small": "https://cards.scryfall.io/small/front/4/2/425e0ca4-8592-4802-b7c4-6e3323edd78c.jpg?1783945331",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/2/425e0ca4-8592-4802-b7c4-6e3323edd78c.webp?1783945331"
+  },
+  "keywords": [
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}{B}",
+  "mtgo_foil_id": 16097,
+  "mtgo_id": 16096,
+  "multiverse_ids": [
+    26822
+  ],
+  "name": "Soul Link",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "bb81aa50-49db-4743-85fc-6b4d9ed29bc6",
+  "oracle_text": "Enchant creature\nWhenever enchanted creature deals damage, you gain that much life.\nWhenever enchanted creature is dealt damage, you gain that much life.",
+  "oversized": false,
+  "penny_rank": 17790,
+  "prices": {
+    "eur": "0.26",
+    "eur_foil": "1.65",
+    "tix": "0.04",
+    "usd": "0.29",
+    "usd_etched": null,
+    "usd_foil": "5.71"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abb81aa50-49db-4743-85fc-6b4d9ed29bc6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/16096?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=3232&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F8027%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Soul+Link",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=26822&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSoul%2BLink",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSoul%2BLink"
+  },
+  "released_at": "2001-06-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/425e0ca4-8592-4802-b7c4-6e3323edd78c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/apc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/apc/120/soul-link?utm_source=api",
+  "set": "apc",
+  "set_id": "e4e00913-d08d-4899-86ea-5cf631e09ce0",
+  "set_name": "Apocalypse",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aapc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e4e00913-d08d-4899-86ea-5cf631e09ce0",
+  "story_spotlight": false,
+  "tcgplayer_id": 8027,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/425e0ca4-8592-4802-b7c4-6e3323edd78c",
+  "variation": false
+}

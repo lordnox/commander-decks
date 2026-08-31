@@ -1,0 +1,132 @@
+{
+  "artist": "Daniel Gelon",
+  "artist_ids": [
+    "63ac31a8-dd1a-4679-9f82-ece89429a084"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 6216,
+  "cmc": 1.0,
+  "collector_number": "116",
+  "color_identity": [
+    "B",
+    "R"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3126,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"My foes serve me twice: in dying, and in death.\"\n—Lim-Dûl, the Necromancer",
+  "foil": false,
+  "frame": "1993",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "1dae52a2-3af7-4b97-9d2e-2448b7c413fb",
+  "illustration_id": "3a7904c1-6048-4a83-918d-2be6065a1855",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:58:25Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/d/1dae52a2-3af7-4b97-9d2e-2448b7c413fb.webp?1783947505",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/d/1dae52a2-3af7-4b97-9d2e-2448b7c413fb.jpg?1783947505",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/d/1dae52a2-3af7-4b97-9d2e-2448b7c413fb.jpg?1783947505",
+    "crop": "https://cards.scryfall.io/crop/front/1/d/1dae52a2-3af7-4b97-9d2e-2448b7c413fb.webp?1783947505",
+    "display": "https://cards.scryfall.io/display/front/1/d/1dae52a2-3af7-4b97-9d2e-2448b7c413fb.webp?1783947505",
+    "grid": "https://cards.scryfall.io/grid/front/1/d/1dae52a2-3af7-4b97-9d2e-2448b7c413fb.webp?1783947505",
+    "large": "https://cards.scryfall.io/large/front/1/d/1dae52a2-3af7-4b97-9d2e-2448b7c413fb.jpg?1783947505",
+    "normal": "https://cards.scryfall.io/normal/front/1/d/1dae52a2-3af7-4b97-9d2e-2448b7c413fb.jpg?1783947505",
+    "png": "https://cards.scryfall.io/png/front/1/d/1dae52a2-3af7-4b97-9d2e-2448b7c413fb.png?1783947505",
+    "small": "https://cards.scryfall.io/small/front/1/d/1dae52a2-3af7-4b97-9d2e-2448b7c413fb.jpg?1783947505",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/d/1dae52a2-3af7-4b97-9d2e-2448b7c413fb.webp?1783947505"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "multiverse_ids": [
+    2440
+  ],
+  "name": "Burnt Offering",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "86eb30a0-0beb-42db-9ddf-cf8be6c99dd3",
+  "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nAdd X mana in any combination of {B} and/or {R}, where X is the sacrificed creature's mana value.",
+  "oversized": false,
+  "prices": {
+    "eur": "1.23",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "1.39",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A86eb30a0-0beb-42db-9ddf-cf8be6c99dd3&unique=prints",
+  "produced_mana": [
+    "B",
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Burnt+Offering&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=6216&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F4617%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Burnt+Offering",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=2440&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBurnt%2BOffering",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBurnt%2BOffering"
+  },
+  "released_at": "1995-06-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1dae52a2-3af7-4b97-9d2e-2448b7c413fb/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ice?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ice/116/burnt-offering?utm_source=api",
+  "set": "ice",
+  "set_id": "b0e08eea-5c01-4406-a6e2-dcd09c5e5b67",
+  "set_name": "Ice Age",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aice&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/b0e08eea-5c01-4406-a6e2-dcd09c5e5b67",
+  "story_spotlight": false,
+  "tcgplayer_id": 4617,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/1dae52a2-3af7-4b97-9d2e-2448b7c413fb",
+  "variation": false
+}

@@ -1,0 +1,2157 @@
+{
+  "cards": [
+    {
+      "cache": "cards/0b299983-9f0f-404a-acd1-8f142572b1f1.json",
+      "card": {
+        "cmc": 4.0,
+        "faces": [
+          {
+            "mana_cost": "{1}{W}{B}{B}",
+            "name": "Extus, Oriq Overlord",
+            "oracle_text": "Double strike\nMagecraft — Whenever you cast or copy an instant or sorcery spell, return target nonlegendary creature card from your graveyard to your hand.",
+            "power": "2",
+            "toughness": "4",
+            "type_line": "Legendary Creature — Human Warlock"
+          },
+          {
+            "mana_cost": "{6}{B}{R}",
+            "name": "Awaken the Blood Avatar",
+            "oracle_text": "As an additional cost to cast this spell, you may sacrifice any number of creatures. This spell costs {2} less to cast for each creature sacrificed this way.\nEach opponent sacrifices a creature of their choice. Create a 3/6 black and red Avatar creature token with haste and \"Whenever this token attacks, it deals 3 damage to each opponent.\"",
+            "type_line": "Sorcery"
+          }
+        ],
+        "keywords": [
+          "Magecraft",
+          "Double strike"
+        ],
+        "type_line": "Legendary Creature — Human Warlock // Sorcery"
+      },
+      "categories": [
+        "Commander{top}",
+        "Creature Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Extus, Oriq Overlord // Awaken the Blood Avatar",
+      "oracle_id": "0b299983-9f0f-404a-acd1-8f142572b1f1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/stx/149/extus-oriq-overlord-awaken-the-blood-avatar?utm_source=api",
+      "submitted_categories": [
+        "Commander{top}",
+        "Creature Recursion"
+      ],
+      "submitted_name": "Extus, Oriq Overlord // Awaken the Blood Avatar"
+    },
+    {
+      "cache": "cards/97dea59e-2090-4653-9ed9-86820a20605f.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Flying\n{T}: Non-Wall creatures the active player controls attack this turn if able. At the beginning of the next end step, destroy each of those creatures that didn't attack this turn. Activate only during an opponent's turn and only before combat.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Imp"
+      },
+      "categories": [
+        "Forced Combat"
+      ],
+      "category_source": "decklist",
+      "name": "Maddening Imp",
+      "oracle_id": "97dea59e-2090-4653-9ed9-86820a20605f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmp/143/maddening-imp?utm_source=api",
+      "submitted_categories": [
+        "Forced Combat"
+      ],
+      "submitted_name": "Maddening Imp"
+    },
+    {
+      "cache": "cards/c58dfcbf-49e6-4ef0-bd31-ebd81b0cfa41.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "{T}: Choose target non-Wall creature the active player has controlled continuously since the beginning of the turn. That creature attacks this turn if able. Destroy it at the beginning of the next end step if it didn't attack this turn. Activate only during an opponent's turn, before attackers are declared.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Imp"
+      },
+      "categories": [
+        "Forced Combat"
+      ],
+      "category_source": "decklist",
+      "name": "Nettling Imp",
+      "oracle_id": "c58dfcbf-49e6-4ef0-bd31-ebd81b0cfa41",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sum/119/nettling-imp?utm_source=api",
+      "submitted_categories": [
+        "Forced Combat"
+      ],
+      "submitted_name": "Nettling Imp"
+    },
+    {
+      "cache": "cards/4318c704-888f-4d85-b5f7-6d9abb14e60c.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "{T}: Untap target blue creature.\n{T}: Choose target non-Wall creature the active player has controlled continuously since the beginning of the turn. That creature attacks this turn if able. Destroy it at the beginning of the next end step if it didn't attack this turn. Activate only before attackers are declared.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Imp"
+      },
+      "categories": [
+        "Forced Combat"
+      ],
+      "category_source": "decklist",
+      "name": "Norritt",
+      "oracle_id": "4318c704-888f-4d85-b5f7-6d9abb14e60c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ice/155/norritt?utm_source=api",
+      "submitted_categories": [
+        "Forced Combat"
+      ],
+      "submitted_name": "Norritt"
+    },
+    {
+      "cache": "cards/0fe1a1f7-41c9-415e-a5e3-b5ba0c0271e5.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "{1}{B}{B}, {T}, Discard a card: Creatures target player controls attack this turn if able.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Spellshaper"
+      },
+      "categories": [
+        "Forced Combat",
+        "Discard"
+      ],
+      "category_source": "decklist",
+      "name": "Instigator",
+      "oracle_id": "0fe1a1f7-41c9-415e-a5e3-b5ba0c0271e5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mmq/140/instigator?utm_source=api",
+      "submitted_categories": [
+        "Forced Combat",
+        "Discard"
+      ],
+      "submitted_name": "Instigator"
+    },
+    {
+      "cache": "cards/ab5b49d4-e648-43f1-bcc0-7dd4763316ee.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flying",
+          "Defender"
+        ],
+        "mana_cost": "{2}{R}",
+        "oracle_text": "Defender, flying\n{1}{R}: Target creature attacks this turn if able.",
+        "power": "5",
+        "toughness": "3",
+        "type_line": "Creature — Elemental"
+      },
+      "categories": [
+        "Forced Combat"
+      ],
+      "category_source": "decklist",
+      "name": "Rage Nimbus",
+      "oracle_id": "ab5b49d4-e648-43f1-bcc0-7dd4763316ee",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/roe/160/rage-nimbus?utm_source=api",
+      "submitted_categories": [
+        "Forced Combat"
+      ],
+      "submitted_name": "Rage Nimbus"
+    },
+    {
+      "cache": "cards/ec08df88-3c13-4940-a090-0c502b9b12f1.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "First strike"
+        ],
+        "mana_cost": "{2}{R}",
+        "oracle_text": "First strike\nAt the beginning of each opponent's end step, that player creates a 1/1 red Goblin creature token with \"Creatures you control attack each combat if able.\"",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Creature — Goblin Rogue"
+      },
+      "categories": [
+        "Forced Combat",
+        "Tokens"
+      ],
+      "category_source": "decklist",
+      "name": "Goblin Spymaster",
+      "oracle_id": "ec08df88-3c13-4940-a090-0c502b9b12f1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/795/goblin-spymaster?utm_source=api",
+      "submitted_categories": [
+        "Forced Combat",
+        "Tokens"
+      ],
+      "submitted_name": "Goblin Spymaster"
+    },
+    {
+      "cache": "cards/f3b3173b-f7ae-420e-84ec-ea61414674a0.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Flying",
+          "Goad"
+        ],
+        "mana_cost": "{2}{R}{R}",
+        "oracle_text": "Flying\nWhenever this creature enters or attacks, goad target creature. (Until your next turn, that creature attacks each combat if able and attacks a player other than you if able.)\nWhenever a goaded creature attacks, it deals 1 damage to its controller.",
+        "power": "3",
+        "toughness": "4",
+        "type_line": "Creature — Spirit Dragon"
+      },
+      "categories": [
+        "Forced Combat",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Vengeful Ancestor",
+      "oracle_id": "f3b3173b-f7ae-420e-84ec-ea61414674a0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/242/vengeful-ancestor?utm_source=api",
+      "submitted_categories": [
+        "Forced Combat",
+        "Aikido"
+      ],
+      "submitted_name": "Vengeful Ancestor"
+    },
+    {
+      "cache": "cards/b2d1f87b-a11f-43eb-8b89-b48945320d73.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Goad",
+          "First strike",
+          "Haste",
+          "Trample"
+        ],
+        "mana_cost": "{3}{R}",
+        "oracle_text": "First strike, trample, haste\nWhenever this creature attacks, it gets +X/+0 until end of turn, where X is the number of creatures you control.\nWhen this creature enters, if it's not a token, each opponent creates a token that's a copy of it. The tokens are goaded for the rest of the game. (They attack each combat if able and attack a player other than you if able.)",
+        "power": "0",
+        "toughness": "1",
+        "type_line": "Creature — Elemental"
+      },
+      "categories": [
+        "Forced Combat",
+        "Tokens"
+      ],
+      "category_source": "decklist",
+      "name": "Life of the Party",
+      "oracle_id": "b2d1f87b-a11f-43eb-8b89-b48945320d73",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ncc/48/life-of-the-party?utm_source=api",
+      "submitted_categories": [
+        "Forced Combat",
+        "Tokens"
+      ],
+      "submitted_name": "Life of the Party"
+    },
+    {
+      "cache": "cards/19fba3c8-3363-4f2f-a2fb-01e59a77447c.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{W}",
+        "oracle_text": "{T}, Sacrifice this creature: Destroy target attacking creature.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Soldier"
+      },
+      "categories": [
+        "Aikido",
+        "Removal"
+      ],
+      "category_source": "decklist",
+      "name": "Mine Bearer",
+      "oracle_id": "19fba3c8-3363-4f2f-a2fb-01e59a77447c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/pcy/16/mine-bearer?utm_source=api",
+      "submitted_categories": [
+        "Aikido",
+        "Removal"
+      ],
+      "submitted_name": "Mine Bearer"
+    },
+    {
+      "cache": "cards/a95a2d1c-70a9-4eb2-ae30-a07fab26a9c6.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{W}",
+        "oracle_text": "Sacrifice this creature: Prevent all combat damage target creature would deal this turn.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Soldier"
+      },
+      "categories": [
+        "Aikido",
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Resistance Fighter",
+      "oracle_id": "a95a2d1c-70a9-4eb2-ae30-a07fab26a9c6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/6ed/38/resistance-fighter?utm_source=api",
+      "submitted_categories": [
+        "Aikido",
+        "Protection"
+      ],
+      "submitted_name": "Resistance Fighter"
+    },
+    {
+      "cache": "cards/0477b923-9f32-4e7f-ac08-c715cca819a4.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{W}",
+        "oracle_text": "{T}: Return two target cards from an opponent's graveyard to their hand. Destroy target attacking creature.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Nomad"
+      },
+      "categories": [
+        "Aikido",
+        "Removal",
+        "Politics"
+      ],
+      "category_source": "decklist",
+      "name": "Spurnmage Advocate",
+      "oracle_id": "0477b923-9f32-4e7f-ac08-c715cca819a4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmd/33/spurnmage-advocate?utm_source=api",
+      "submitted_categories": [
+        "Aikido",
+        "Removal",
+        "Politics"
+      ],
+      "submitted_name": "Spurnmage Advocate"
+    },
+    {
+      "cache": "cards/57188b3d-567c-4dff-8b93-7cc7a47894be.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{W}",
+        "oracle_text": "{T}: Return target card from an opponent's graveyard to their hand. Prevent all damage that would be dealt to any target this turn by a source of your choice.",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Creature — Human Cleric"
+      },
+      "categories": [
+        "Aikido",
+        "Protection",
+        "Politics"
+      ],
+      "category_source": "decklist",
+      "name": "Shieldmage Advocate",
+      "oracle_id": "57188b3d-567c-4dff-8b93-7cc7a47894be",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/jud/22/shieldmage-advocate?utm_source=api",
+      "submitted_categories": [
+        "Aikido",
+        "Protection",
+        "Politics"
+      ],
+      "submitted_name": "Shieldmage Advocate"
+    },
+    {
+      "cache": "cards/6e202114-48f3-46d2-bc54-df766d149d9d.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Morph"
+        ],
+        "mana_cost": "{W}",
+        "oracle_text": "Morph {W} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)\nWhen this creature is turned face up, prevent all combat damage non-Soldier creatures would deal this turn.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Soldier"
+      },
+      "categories": [
+        "Aikido",
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Frontline Strategist",
+      "oracle_id": "6e202114-48f3-46d2-bc54-df766d149d9d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/scg/15/frontline-strategist?utm_source=api",
+      "submitted_categories": [
+        "Aikido",
+        "Protection"
+      ],
+      "submitted_name": "Frontline Strategist"
+    },
+    {
+      "cache": "cards/1d6e9716-8c3c-443d-afd8-68d0d6c469a5.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "While an opponent is choosing targets as part of casting a spell they control or activating an ability they control, that player must choose at least one Flagbearer on the battlefield if able.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Flagbearer"
+      },
+      "categories": [
+        "Aikido",
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Standard Bearer",
+      "oracle_id": "1d6e9716-8c3c-443d-afd8-68d0d6c469a5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/apc/18/standard-bearer?utm_source=api",
+      "submitted_categories": [
+        "Aikido",
+        "Protection"
+      ],
+      "submitted_name": "Standard Bearer"
+    },
+    {
+      "cache": "cards/032a5616-bbaf-4659-86c4-43edf29b9788.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Madness",
+          "Flash"
+        ],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Flash\nWhen this creature enters, change the target of target spell that targets only a single creature to this creature.\nMadness {2}{B} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Creature — Beast"
+      },
+      "categories": [
+        "Aikido",
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Muck Drubb",
+      "oracle_id": "032a5616-bbaf-4659-86c4-43edf29b9788",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsr/126/muck-drubb?utm_source=api",
+      "submitted_categories": [
+        "Aikido",
+        "Protection"
+      ],
+      "submitted_name": "Muck Drubb"
+    },
+    {
+      "cache": "cards/49984248-4800-4f46-933a-fedd970ae910.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{W}",
+        "oracle_text": "Sacrifice this creature: Prevent all combat damage that would be dealt this turn.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Spirit"
+      },
+      "categories": [
+        "Aikido",
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Kami of False Hope",
+      "oracle_id": "49984248-4800-4f46-933a-fedd970ae910",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/bok/10/kami-of-false-hope?utm_source=api",
+      "submitted_categories": [
+        "Aikido",
+        "Protection"
+      ],
+      "submitted_name": "Kami of False Hope"
+    },
+    {
+      "cache": "cards/d44a8f89-b9c0-4e8a-9179-baa0c448a3c9.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{W}",
+        "oracle_text": "Sacrifice this creature: You gain life equal to the life you've lost this turn. (Damage causes loss of life.)",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Rebel Cleric"
+      },
+      "categories": [
+        "Aikido",
+        "Lifegain"
+      ],
+      "category_source": "decklist",
+      "name": "Children of Korlis",
+      "oracle_id": "d44a8f89-b9c0-4e8a-9179-baa0c448a3c9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsr/14/children-of-korlis?utm_source=api",
+      "submitted_categories": [
+        "Aikido",
+        "Lifegain"
+      ],
+      "submitted_name": "Children of Korlis"
+    },
+    {
+      "cache": "cards/4d9d5dbb-25ab-41a5-a277-3ee5f9ef579b.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "{0}: The next 1 damage that would be dealt to this creature this turn is dealt to target creature you control instead.\n{1}{W}: The next time a source of your choice would deal damage to target creature this turn, that damage is dealt to this creature instead.",
+        "power": "1",
+        "toughness": "2",
+        "type_line": "Creature — Kor Cleric Shaman"
+      },
+      "categories": [
+        "Damage Routing",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Shaman en-Kor",
+      "oracle_id": "4d9d5dbb-25ab-41a5-a277-3ee5f9ef579b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sth/15/shaman-en-kor?utm_source=api",
+      "submitted_categories": [
+        "Damage Routing",
+        "Aikido"
+      ],
+      "submitted_name": "Shaman en-Kor"
+    },
+    {
+      "cache": "cards/53b86704-4f16-498e-8c2c-e661cb85eb9c.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{R}",
+        "oracle_text": "Whenever this creature is dealt damage, it deals that much damage to target opponent or planeswalker.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Goblin"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Mogg Maniac",
+      "oracle_id": "53b86704-4f16-498e-8c2c-e661cb85eb9c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/plst/STH-94/mogg-maniac?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "submitted_name": "Mogg Maniac"
+    },
+    {
+      "cache": "cards/cf4d8b19-fd11-4200-9871-896772019f4c.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{R/W}{R/W}",
+        "oracle_text": "Whenever this creature is dealt damage, it deals that much damage to any target.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Creature — Elemental"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Spitemare",
+      "oracle_id": "cf4d8b19-fd11-4200-9871-896772019f4c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ddh/16/spitemare?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "submitted_name": "Spitemare"
+    },
+    {
+      "cache": "cards/5f079a75-899e-467d-b443-3b87ce2fb548.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{R/W}{R/W}{R/W}",
+        "oracle_text": "Whenever this creature is dealt damage, it deals that much damage to any target.\n{R/W}: This creature gains first strike until end of turn.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Creature — Minotaur Wizard"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Boros Reckoner",
+      "oracle_id": "5f079a75-899e-467d-b443-3b87ce2fb548",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/201/boros-reckoner?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "submitted_name": "Boros Reckoner"
+    },
+    {
+      "cache": "cards/3677e743-8d3d-4ec7-8bfe-21e36979a79b.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Mentor"
+        ],
+        "mana_cost": "{R}{R}{W}{W}",
+        "oracle_text": "Mentor (Whenever this creature attacks, put a +1/+1 counter on target attacking creature with lesser power.)\nWhenever this creature is dealt damage, it deals that much damage to target player.",
+        "power": "4",
+        "toughness": "3",
+        "type_line": "Creature — Human Knight"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Truefire Captain",
+      "oracle_id": "3677e743-8d3d-4ec7-8bfe-21e36979a79b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rvr/235/truefire-captain?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "submitted_name": "Truefire Captain"
+    },
+    {
+      "cache": "cards/3e41648f-c5a9-4b26-b97e-8176fe5e9c85.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Indestructible",
+          "Fight"
+        ],
+        "mana_cost": "{4}{R}",
+        "oracle_text": "Indestructible\nWhenever this creature is dealt damage, it deals that much damage to target opponent.\n{2}{R}, {T}: This creature fights another target creature.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Goblin"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Brash Taunter",
+      "oracle_id": "3e41648f-c5a9-4b26-b97e-8176fe5e9c85",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/161/brash-taunter?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "submitted_name": "Brash Taunter"
+    },
+    {
+      "cache": "cards/499dceab-1890-49c8-b35d-b059a1dc950f.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Indestructible"
+        ],
+        "mana_cost": "{5}",
+        "oracle_text": "Indestructible\nAs this creature enters, choose a player.\nWhenever this creature is dealt damage, it deals that much damage to the chosen player.\n{T}: This creature deals 1 damage to itself.",
+        "power": "0",
+        "toughness": "1",
+        "type_line": "Artifact Creature — Construct"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Stuffy Doll",
+      "oracle_id": "499dceab-1890-49c8-b35d-b059a1dc950f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/875/stuffy-doll?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "submitted_name": "Stuffy Doll"
+    },
+    {
+      "cache": "cards/c00f082b-787f-4f96-8356-c10d35713bc4.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{4}{R}{R}",
+        "oracle_text": "Whenever this creature is dealt damage, it deals that much damage to each player.",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Creature — Boar Beast"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Coalhauler Swine",
+      "oracle_id": "c00f082b-787f-4f96-8356-c10d35713bc4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rav/119/coalhauler-swine?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "submitted_name": "Coalhauler Swine"
+    },
+    {
+      "cache": "cards/e85f6251-8801-414b-adc9-5488794e7456.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{W}",
+        "oracle_text": "{1}{W}: The next 1 damage that would be dealt to this creature this turn is dealt to target creature instead.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Human Cleric"
+      },
+      "categories": [
+        "Damage Routing",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Zealous Inquisitor",
+      "oracle_id": "e85f6251-8801-414b-adc9-5488794e7456",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/9ed/57/zealous-inquisitor?utm_source=api",
+      "submitted_categories": [
+        "Damage Routing",
+        "Aikido"
+      ],
+      "submitted_name": "Zealous Inquisitor"
+    },
+    {
+      "cache": "cards/e04688e0-672b-407f-a2c9-fd7292926483.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{B}{B}",
+        "oracle_text": "When this creature enters, exile it unless you discard a creature card.\nWhen this creature dies, exile it and return target creature card from your graveyard to the battlefield.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Phyrexian Minion"
+      },
+      "categories": [
+        "Recursion",
+        "Sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Body Snatcher",
+      "oracle_id": "e04688e0-672b-407f-a2c9-fd7292926483",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmr/75/body-snatcher?utm_source=api",
+      "submitted_categories": [
+        "Recursion",
+        "Sacrifice"
+      ],
+      "submitted_name": "Body Snatcher"
+    },
+    {
+      "cache": "cards/12a88c08-11e3-4f51-a17c-ca06452bac6f.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{R}{R}",
+        "oracle_text": "This creature has echo {X}, where X is your life total. (At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.)\nWhen this creature enters, it deals an amount of damage of your choice to you and target creature. The damage can't be prevented.",
+        "power": "6",
+        "toughness": "5",
+        "type_line": "Creature — Hellion"
+      },
+      "categories": [
+        "Removal",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Volcano Hellion",
+      "oracle_id": "12a88c08-11e3-4f51-a17c-ca06452bac6f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/plc/111/volcano-hellion?utm_source=api",
+      "submitted_categories": [
+        "Removal",
+        "Win Condition"
+      ],
+      "submitted_name": "Volcano Hellion"
+    },
+    {
+      "cache": "cards/8eb7c0a5-6190-40de-b473-2d1daa3bbe28.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flash"
+        ],
+        "mana_cost": "{1}{R}{R}",
+        "oracle_text": "Flash\nWhen this creature enters, copy target instant or sorcery spell. You may choose new targets for the copy.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Human Wizard"
+      },
+      "categories": [
+        "Copy",
+        "Creature Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Dualcaster Mage",
+      "oracle_id": "8eb7c0a5-6190-40de-b473-2d1daa3bbe28",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c21/165/dualcaster-mage?utm_source=api",
+      "submitted_categories": [
+        "Copy",
+        "Creature Recursion"
+      ],
+      "submitted_name": "Dualcaster Mage"
+    },
+    {
+      "cache": "cards/104095ed-55e3-408e-bf70-4fe06bb16d2f.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "{X}: This creature deals X damage to each creature and each player. Spend only black mana on X.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Rat"
+      },
+      "categories": [
+        "Board Wipe",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Crypt Rats",
+      "oracle_id": "104095ed-55e3-408e-bf70-4fe06bb16d2f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh1/84/crypt-rats?utm_source=api",
+      "submitted_categories": [
+        "Board Wipe",
+        "Win Condition"
+      ],
+      "submitted_name": "Crypt Rats"
+    },
+    {
+      "cache": "cards/ab55834f-c935-4773-89c6-bec9712284eb.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Madness"
+        ],
+        "mana_cost": "{1}{B}{B}",
+        "oracle_text": "When this creature enters, destroy target creature with power 4 or greater. It can't be regenerated.\nMadness {B} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Rebel Assassin"
+      },
+      "categories": [
+        "Removal",
+        "Discard"
+      ],
+      "category_source": "decklist",
+      "name": "Big Game Hunter",
+      "oracle_id": "ab55834f-c935-4773-89c6-bec9712284eb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsr/102/big-game-hunter?utm_source=api",
+      "submitted_categories": [
+        "Removal",
+        "Discard"
+      ],
+      "submitted_name": "Big Game Hunter"
+    },
+    {
+      "cache": "cards/69aa1ac7-17da-4fc9-a3dc-df8a52841f4a.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Echo",
+          "Flying"
+        ],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Flying\nEcho {2}{B} (At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.)\nWhen this creature enters, destroy target nonartifact, nonblack creature.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Phyrexian Minion"
+      },
+      "categories": [
+        "Removal",
+        "Sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Bone Shredder",
+      "oracle_id": "69aa1ac7-17da-4fc9-a3dc-df8a52841f4a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/moc/247/bone-shredder?utm_source=api",
+      "submitted_categories": [
+        "Removal",
+        "Sacrifice"
+      ],
+      "submitted_name": "Bone Shredder"
+    },
+    {
+      "cache": "cards/1582e16d-4825-4cc5-b12c-449c45e4e449.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{R}",
+        "oracle_text": "{T}: Draw two cards. Target opponent gains control of this creature. Activate only during your turn.",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Creature — Human Rogue"
+      },
+      "categories": [
+        "Draw",
+        "Politics"
+      ],
+      "category_source": "decklist",
+      "name": "Humble Defector",
+      "oracle_id": "1582e16d-4825-4cc5-b12c-449c45e4e449",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/170/humble-defector?utm_source=api",
+      "submitted_categories": [
+        "Draw",
+        "Politics"
+      ],
+      "submitted_name": "Humble Defector"
+    },
+    {
+      "cache": "cards/b24063f7-157f-47c0-919a-33856d53b902.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Buyback"
+        ],
+        "mana_cost": "{W}",
+        "oracle_text": "Buyback {2} (You may pay an additional {2} as you cast this spell. If you do, put this card into your hand as it resolves.)\nAs an additional cost to cast this spell, sacrifice a creature.\nYou gain life equal to the sacrificed creature's toughness.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Sacrifice",
+        "Lifegain",
+        "Creature Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Worthy Cause",
+      "oracle_id": "b24063f7-157f-47c0-919a-33856d53b902",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmp/53/worthy-cause?utm_source=api",
+      "submitted_categories": [
+        "Sacrifice",
+        "Lifegain",
+        "Creature Recursion"
+      ],
+      "submitted_name": "Worthy Cause"
+    },
+    {
+      "cache": "cards/86eb30a0-0beb-42db-9ddf-cf8be6c99dd3.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{B}",
+        "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nAdd X mana in any combination of {B} and/or {R}, where X is the sacrificed creature's mana value.",
+        "produced_mana": [
+          "B",
+          "R"
+        ],
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Sacrifice",
+        "Ramp",
+        "Creature Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Burnt Offering",
+      "oracle_id": "86eb30a0-0beb-42db-9ddf-cf8be6c99dd3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ice/116/burnt-offering?utm_source=api",
+      "submitted_categories": [
+        "Sacrifice",
+        "Ramp",
+        "Creature Recursion"
+      ],
+      "submitted_name": "Burnt Offering"
+    },
+    {
+      "cache": "cards/bccd8298-e056-4b91-b090-408c75467b92.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{B}{B}",
+        "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nGain control of target nonartifact, nonblack creature.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Sacrifice",
+        "Theft",
+        "Creature Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Ritual of the Machine",
+      "oracle_id": "bccd8298-e056-4b91-b090-408c75467b92",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/all/59/ritual-of-the-machine?utm_source=api",
+      "submitted_categories": [
+        "Sacrifice",
+        "Theft",
+        "Creature Recursion"
+      ],
+      "submitted_name": "Ritual of the Machine"
+    },
+    {
+      "cache": "cards/17c7878f-891f-40a6-80a7-47fcc7b8e29b.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nDraw two cards.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Sacrifice",
+        "Draw",
+        "Creature Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Skulltap",
+      "oracle_id": "17c7878f-891f-40a6-80a7-47fcc7b8e29b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/scg/73/skulltap?utm_source=api",
+      "submitted_categories": [
+        "Sacrifice",
+        "Draw",
+        "Creature Recursion"
+      ],
+      "submitted_name": "Skulltap"
+    },
+    {
+      "cache": "cards/0f81064d-01cd-4a61-8aea-2544e4d14b70.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}{R}",
+        "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nSpontaneous Combustion deals 3 damage to each creature.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Sacrifice",
+        "Board Wipe",
+        "Creature Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Spontaneous Combustion",
+      "oracle_id": "0f81064d-01cd-4a61-8aea-2544e4d14b70",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cns/194/spontaneous-combustion?utm_source=api",
+      "submitted_categories": [
+        "Sacrifice",
+        "Board Wipe",
+        "Creature Recursion"
+      ],
+      "submitted_name": "Spontaneous Combustion"
+    },
+    {
+      "cache": "cards/f6a6da20-52c8-4921-9884-29d3a3051b0d.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{W}{W}",
+        "oracle_text": "Until end of turn, target creature you control gains \"{0}: The next 1 damage that would be dealt to target creature, planeswalker, or player this turn is dealt to this creature instead.\" Only you may activate this ability.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Damage Routing",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Martyrdom",
+      "oracle_id": "f6a6da20-52c8-4921-9884-29d3a3051b0d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/all/10a/martyrdom?utm_source=api",
+      "submitted_categories": [
+        "Damage Routing",
+        "Aikido"
+      ],
+      "submitted_name": "Martyrdom"
+    },
+    {
+      "cache": "cards/5b3f6817-5d7a-4d83-ad1d-df75b4e1970b.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{W}",
+        "oracle_text": "All damage that would be dealt this turn to target creature you control by a source of your choice is dealt to another target creature instead.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Damage Routing",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Kor Chant",
+      "oracle_id": "5b3f6817-5d7a-4d83-ad1d-df75b4e1970b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/plst/CNS-73/kor-chant?utm_source=api",
+      "submitted_categories": [
+        "Damage Routing",
+        "Aikido"
+      ],
+      "submitted_name": "Kor Chant"
+    },
+    {
+      "cache": "cards/21565b0d-f814-49ca-8613-f40040c4ba6c.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{R}{W}",
+        "oracle_text": "The next time a source of your choice would deal damage this turn, that damage is dealt to that source's controller instead.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Reflect Damage",
+      "oracle_id": "21565b0d-f814-49ca-8613-f40040c4ba6c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mir/277/reflect-damage?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "submitted_name": "Reflect Damage"
+    },
+    {
+      "cache": "cards/184fdd23-8235-4500-b2f5-d3b0b93a8f35.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{W}",
+        "oracle_text": "All combat damage that would be dealt to you this turn by target unblocked creature is dealt to its controller instead.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Mirror Strike",
+      "oracle_id": "184fdd23-8235-4500-b2f5-d3b0b93a8f35",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/pcy/17/mirror-strike?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "submitted_name": "Mirror Strike"
+    },
+    {
+      "cache": "cards/a00e5eb6-b916-4cd6-8ff2-c02f4929abc7.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}{R}",
+        "oracle_text": "Cast this spell only during an opponent's turn.\nTap target creature that player controls. That creature deals damage equal to its power to the player. Prevent all combat damage that would be dealt to and dealt by the creature this turn.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Delirium",
+      "oracle_id": "a00e5eb6-b916-4cd6-8ff2-c02f4929abc7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mir/260/delirium?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "submitted_name": "Delirium"
+    },
+    {
+      "cache": "cards/04e9ac31-3377-4a4c-9337-53ee0ada882a.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Conspire"
+        ],
+        "mana_cost": "{4}{B/R}",
+        "oracle_text": "Tap target untapped creature. It deals damage equal to its power to its controller.\nConspire (As you cast this spell, you may tap two untapped creatures you control that share a color with it. When you do, copy it and you may choose a new target for the copy.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Copy"
+      ],
+      "category_source": "decklist",
+      "name": "Traitor's Roar",
+      "oracle_id": "04e9ac31-3377-4a4c-9337-53ee0ada882a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/shm/200/traitors-roar?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Copy"
+      ],
+      "submitted_name": "Traitor's Roar"
+    },
+    {
+      "cache": "cards/3db9bf7b-da4e-428f-aa5d-a0cd1afeb16c.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}{R}",
+        "oracle_text": "Tap target untapped creature. That creature deals damage equal to its power to its controller.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Backlash",
+      "oracle_id": "3db9bf7b-da4e-428f-aa5d-a0cd1afeb16c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inv/234/backlash?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "submitted_name": "Backlash"
+    },
+    {
+      "cache": "cards/dc5dffc8-fac5-4956-bac4-1ad2cc16f6be.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{R}{W}",
+        "oracle_text": "The next time a source of your choice would deal damage to you this turn, prevent that damage. If damage is prevented this way, Deflecting Palm deals that much damage to that source's controller.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Deflecting Palm",
+      "oracle_id": "dc5dffc8-fac5-4956-bac4-1ad2cc16f6be",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/205/deflecting-palm?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "submitted_name": "Deflecting Palm"
+    },
+    {
+      "cache": "cards/da93264e-4e04-401a-9809-e4e1056cf604.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{W}{B}",
+        "oracle_text": "Prevent all combat damage that would be dealt to you this turn. For each 1 damage prevented this way, create a 2/1 white and black Inkling creature token with flying.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Aikido",
+        "Tokens",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Inkshield",
+      "oracle_id": "da93264e-4e04-401a-9809-e4e1056cf604",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/316/inkshield?utm_source=api",
+      "submitted_categories": [
+        "Aikido",
+        "Tokens",
+        "Win Condition"
+      ],
+      "submitted_name": "Inkshield"
+    },
+    {
+      "cache": "cards/22647b1a-5a7c-41b5-b820-b2e9f49c7aad.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{W}{W}",
+        "oracle_text": "The next time a source of your choice would deal damage to you this turn, instead that source deals that much damage to you and Eye for an Eye deals that much damage to that source's controller.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Eye for an Eye",
+      "oracle_id": "22647b1a-5a7c-41b5-b820-b2e9f49c7aad",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/5ed/30/eye-for-an-eye?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "submitted_name": "Eye for an Eye"
+    },
+    {
+      "cache": "cards/20eff2ce-f26d-48a2-8a1f-435a7e2968c8.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{W}",
+        "oracle_text": "Prevent all combat damage that would be dealt by target attacking or blocking creature this turn. If {R} was spent to cast this spell, Boros Fury-Shield deals damage to that creature's controller equal to the creature's power.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Boros Fury-Shield",
+      "oracle_id": "20eff2ce-f26d-48a2-8a1f-435a7e2968c8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rav/5/boros-fury-shield?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "submitted_name": "Boros Fury-Shield"
+    },
+    {
+      "cache": "cards/fc8247f5-f7b2-4fc4-a9ea-90babad5fa42.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{W/B}",
+        "oracle_text": "Prevent all combat damage that would be dealt this turn if {W} was spent to cast this spell. Each player loses 1 life for each attacking creature they control if {B} was spent to cast this spell. (Do both if {W}{B} was spent.)",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Aikido",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Batwing Brume",
+      "oracle_id": "fc8247f5-f7b2-4fc4-a9ea-90babad5fa42",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/arc/80/batwing-brume?utm_source=api",
+      "submitted_categories": [
+        "Aikido",
+        "Win Condition"
+      ],
+      "submitted_name": "Batwing Brume"
+    },
+    {
+      "cache": "cards/30ec73ad-c7a1-4527-8dc6-44bdd65b9ba6.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Change the target of target spell with a single target. You lose life equal to that spell's mana value.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Aikido",
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Imp's Mischief",
+      "oracle_id": "30ec73ad-c7a1-4527-8dc6-44bdd65b9ba6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/167/imps-mischief?utm_source=api",
+      "submitted_categories": [
+        "Aikido",
+        "Protection"
+      ],
+      "submitted_name": "Imp's Mischief"
+    },
+    {
+      "cache": "cards/50c53ae0-51ba-4046-ac74-87c65e688032.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{R}{R}",
+        "oracle_text": "Copy target instant or sorcery spell, except that the copy is red. You may choose new targets for the copy.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Copy",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Fork",
+      "oracle_id": "50c53ae0-51ba-4046-ac74-87c65e688032",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/30a/445/fork?utm_source=api",
+      "submitted_categories": [
+        "Copy",
+        "Aikido"
+      ],
+      "submitted_name": "Fork"
+    },
+    {
+      "cache": "cards/1cb0610b-a731-42c2-b93f-0a29f63cebf4.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{R}",
+        "oracle_text": "As an additional cost to cast this spell, discard a card.\nDraw two cards.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Draw",
+        "Discard",
+        "Creature Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Thrill of Possibility",
+      "oracle_id": "1cb0610b-a731-42c2-b93f-0a29f63cebf4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/210/thrill-of-possibility?utm_source=api",
+      "submitted_categories": [
+        "Draw",
+        "Discard",
+        "Creature Recursion"
+      ],
+      "submitted_name": "Thrill of Possibility"
+    },
+    {
+      "cache": "cards/cceba6f3-b1c0-45ee-826c-b871d24c7208.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "{3}: The next time a source of your choice would deal damage to you this turn, that damage is dealt to target creature you control instead.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Damage Routing",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "General's Regalia",
+      "oracle_id": "cceba6f3-b1c0-45ee-826c-b871d24c7208",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mmq/295/generals-regalia?utm_source=api",
+      "submitted_categories": [
+        "Damage Routing",
+        "Aikido"
+      ],
+      "submitted_name": "General's Regalia"
+    },
+    {
+      "cache": "cards/fed77e0a-a4a6-4409-9cab-bf0fc2cd9f9b.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "Whenever a creature attacks you or a planeswalker you control, it gets +2/+0 until end of turn.\n{2}: Target player other than this artifact's owner gains control of it. Activate only during your turn.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Forced Combat",
+        "Politics"
+      ],
+      "category_source": "decklist",
+      "name": "Crown of Doom",
+      "oracle_id": "fed77e0a-a4a6-4409-9cab-bf0fc2cd9f9b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c14/55/crown-of-doom?utm_source=api",
+      "submitted_categories": [
+        "Forced Combat",
+        "Politics"
+      ],
+      "submitted_name": "Crown of Doom"
+    },
+    {
+      "cache": "cards/e04fa58e-be7a-4c9c-98d0-48241742a41b.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{U}",
+        "oracle_text": "Enchant creature\nWhenever enchanted creature deals damage to you, this Aura deals that much damage to that creature's controller.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Backfire",
+      "oracle_id": "e04fa58e-be7a-4c9c-98d0-48241742a41b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/4ed/62/backfire?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Aikido"
+      ],
+      "submitted_name": "Backfire"
+    },
+    {
+      "cache": "cards/bb81aa50-49db-4743-85fc-6b4d9ed29bc6.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{1}{W}{B}",
+        "oracle_text": "Enchant creature\nWhenever enchanted creature deals damage, you gain that much life.\nWhenever enchanted creature is dealt damage, you gain that much life.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "Lifegain",
+        "Damage Reflection"
+      ],
+      "category_source": "decklist",
+      "name": "Soul Link",
+      "oracle_id": "bb81aa50-49db-4743-85fc-6b4d9ed29bc6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/apc/120/soul-link?utm_source=api",
+      "submitted_categories": [
+        "Lifegain",
+        "Damage Reflection"
+      ],
+      "submitted_name": "Soul Link"
+    },
+    {
+      "cache": "cards/a1439ace-5880-4fb8-a321-ec8063e7ed0e.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{W}",
+        "oracle_text": "Enchant creature\nWhenever enchanted creature deals damage, this Aura deals that much damage to that creature.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Guilty Conscience",
+      "oracle_id": "a1439ace-5880-4fb8-a321-ec8063e7ed0e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/scg/17/guilty-conscience?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "submitted_name": "Guilty Conscience"
+    },
+    {
+      "cache": "cards/f6069a4f-744e-43e8-9f8b-7c13b8b0187f.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{R}{R}",
+        "oracle_text": "Whenever a creature is dealt damage, this enchantment deals that much damage to that creature's controller.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Repercussion",
+      "oracle_id": "f6069a4f-744e-43e8-9f8b-7c13b8b0187f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/uds/95/repercussion?utm_source=api",
+      "submitted_categories": [
+        "Damage Reflection",
+        "Win Condition"
+      ],
+      "submitted_name": "Repercussion"
+    },
+    {
+      "cache": "cards/5cdc4654-b8c5-4599-a1d2-9e9d5f6509cb.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{W}",
+        "oracle_text": "Whenever one or more creatures attack, you may have target attacking creature gain double strike until end of turn.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Politics",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Duelist's Heritage",
+      "oracle_id": "5cdc4654-b8c5-4599-a1d2-9e9d5f6509cb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tle/153/duelists-heritage?utm_source=api",
+      "submitted_categories": [
+        "Politics",
+        "Win Condition"
+      ],
+      "submitted_name": "Duelist's Heritage"
+    },
+    {
+      "cache": "cards/984f92dd-cb9b-4421-a8e6-75bfe566be10.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{R}{R}",
+        "oracle_text": "Creatures named Lightning Rager can't attack you or planeswalkers you control.\nAt the beginning of each player's upkeep, that player creates a 5/1 red Elemental creature token named Lightning Rager. It has trample, haste, and \"At the beginning of the end step, sacrifice this token.\"",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Forced Combat",
+        "Tokens",
+        "Politics"
+      ],
+      "category_source": "decklist",
+      "name": "Rite of the Raging Storm",
+      "oracle_id": "984f92dd-cb9b-4421-a8e6-75bfe566be10",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/159/rite-of-the-raging-storm?utm_source=api",
+      "submitted_categories": [
+        "Forced Combat",
+        "Tokens",
+        "Politics"
+      ],
+      "submitted_name": "Rite of the Raging Storm"
+    },
+    {
+      "cache": "cards/f187f766-3696-419e-9865-58023a46446b.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "All creatures have vigilance.\nAt the beginning of each player's end step, tap all untapped creatures that player controls that didn't attack this turn. This artifact deals damage to the player equal to the number of creatures tapped this way.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Forced Combat",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Angel's Trumpet",
+      "oracle_id": "f187f766-3696-419e-9865-58023a46446b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ulg/121/angels-trumpet?utm_source=api",
+      "submitted_categories": [
+        "Forced Combat",
+        "Aikido"
+      ],
+      "submitted_name": "Angel's Trumpet"
+    },
+    {
+      "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Command Tower",
+      "oracle_id": "0895c9b7-ae7d-4bb3-af17-3b75deb50a25",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/233/command-tower?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Command Tower"
+    },
+    {
+      "cache": "cards/4619de7e-3d6e-4c6b-8e6e-e24db324839d.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {R}, {W}, or {B}.",
+        "produced_mana": [
+          "B",
+          "R",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Nomad Outpost",
+      "oracle_id": "4619de7e-3d6e-4c6b-8e6e-e24db324839d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdm/263/nomad-outpost?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Nomad Outpost"
+    },
+    {
+      "cache": "cards/b473e293-59e3-4e04-acf2-622604aeb25f.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Scry"
+        ],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add one mana of any color in your commander's color identity. When that mana is spent to cast a creature spell that shares a creature type with your commander, scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Path of Ancestry",
+      "oracle_id": "b473e293-59e3-4e04-acf2-622604aeb25f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/80/path-of-ancestry?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Path of Ancestry"
+    },
+    {
+      "cache": "cards/33de01e9-ce5a-42d4-afcb-343cd54a6d80.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {W} or {B}. This land deals 1 damage to you.",
+        "produced_mana": [
+          "B",
+          "C",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Caves of Koilos",
+      "oracle_id": "33de01e9-ce5a-42d4-afcb-343cd54a6d80",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/365/caves-of-koilos?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Caves of Koilos"
+    },
+    {
+      "cache": "cards/6b75b94e-83b7-457e-ac41-7ca90b5a59aa.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {R} or {W}. This land deals 1 damage to you.",
+        "produced_mana": [
+          "C",
+          "R",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Battlefield Forge",
+      "oracle_id": "6b75b94e-83b7-457e-ac41-7ca90b5a59aa",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/362/battlefield-forge?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Battlefield Forge"
+    },
+    {
+      "cache": "cards/f5c38c01-4a40-469f-91a0-7479daf4e8e7.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {B} or {R}. This land deals 1 damage to you.",
+        "produced_mana": [
+          "B",
+          "C",
+          "R"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Sulfurous Springs",
+      "oracle_id": "f5c38c01-4a40-469f-91a0-7479daf4e8e7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/185/sulfurous-springs?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Sulfurous Springs"
+    },
+    {
+      "cache": "cards/439de49b-1091-4688-9ffb-80a025df31c2.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {W} or {B}. Activate only if you control a Swamp.",
+        "produced_mana": [
+          "B",
+          "C",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Tainted Field",
+      "oracle_id": "439de49b-1091-4688-9ffb-80a025df31c2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/302/tainted-field?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Tainted Field"
+    },
+    {
+      "cache": "cards/b2bae7fc-0668-4b34-9cd6-0d80aea52275.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {B} or {R}. Activate only if you control a Swamp.",
+        "produced_mana": [
+          "B",
+          "C",
+          "R"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Tainted Peak",
+      "oracle_id": "b2bae7fc-0668-4b34-9cd6-0d80aea52275",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/304/tainted-peak?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Tainted Peak"
+    },
+    {
+      "cache": "cards/e6e6fce8-0f6a-4b84-865e-d4e4a4182f9f.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Scry"
+        ],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {W} or {B}.",
+        "produced_mana": [
+          "B",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Temple of Silence",
+      "oracle_id": "e6e6fce8-0f6a-4b84-865e-d4e4a4182f9f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/415/temple-of-silence?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Temple of Silence"
+    },
+    {
+      "cache": "cards/7c439c18-31dc-41fe-b03d-3fca06e6fc0b.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Scry"
+        ],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {B} or {R}.",
+        "produced_mana": [
+          "B",
+          "R"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Temple of Malice",
+      "oracle_id": "7c439c18-31dc-41fe-b03d-3fca06e6fc0b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/701/temple-of-malice?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Temple of Malice"
+    },
+    {
+      "cache": "cards/6f0d94d9-64bb-4175-83bc-301e8f79f54f.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Scry"
+        ],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {R} or {W}.",
+        "produced_mana": [
+          "R",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Temple of Triumph",
+      "oracle_id": "6f0d94d9-64bb-4175-83bc-301e8f79f54f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/417/temple-of-triumph?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Temple of Triumph"
+    },
+    {
+      "cache": "cards/15687ee3-3cdb-4a8f-a726-46b73bceb792.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{1}, {T}: Add {B}{R}.",
+        "produced_mana": [
+          "B",
+          "R"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Shadowblood Ridge",
+      "oracle_id": "15687ee3-3cdb-4a8f-a726-46b73bceb792",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/296/shadowblood-ridge?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Shadowblood Ridge"
+    },
+    {
+      "cache": "cards/86fb3749-37d6-48a6-8524-71e996850307.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice a creature: You gain 1 life.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land",
+        "Sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "High Market",
+      "oracle_id": "86fb3749-37d6-48a6-8524-71e996850307",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/380/high-market?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Sacrifice"
+      ],
+      "submitted_name": "High Market"
+    },
+    {
+      "cache": "cards/79638767-fbc7-451a-b29f-d93f2ac6f102.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{1}{R}, {T}: Create a 0/1 red Kobold creature token named Kobolds of Kher Keep.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "Land",
+        "Tokens"
+      ],
+      "category_source": "decklist",
+      "name": "Kher Keep",
+      "oracle_id": "79638767-fbc7-451a-b29f-d93f2ac6f102",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/270/kher-keep?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Tokens"
+      ],
+      "submitted_name": "Kher Keep"
+    },
+    {
+      "cache": "cards/276cece9-f9f2-46e6-ae76-daddaa2fb9ab.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{1}{W}, {T}: Prevent all combat damage that would be dealt by target attacking creature this turn.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "Land",
+        "Aikido"
+      ],
+      "category_source": "decklist",
+      "name": "Kor Haven",
+      "oracle_id": "276cece9-f9f2-46e6-ae76-daddaa2fb9ab",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/nem/141/kor-haven?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Aikido"
+      ],
+      "submitted_name": "Kor Haven"
+    },
+    {
+      "cache": "cards/56719f6a-1a6c-4c0a-8d21-18f7d7350b68.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {B}.)",
+        "produced_mana": [
+          "B"
+        ],
+        "type_line": "Basic Land — Swamp"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Swamp",
+      "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
+      "quantity": 9,
+      "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Swamp"
+    },
+    {
+      "cache": "cards/bc71ebf6-2056-41f7-be35-b2e5c34afa99.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {W}.)",
+        "produced_mana": [
+          "W"
+        ],
+        "type_line": "Basic Land — Plains"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Plains",
+      "oracle_id": "bc71ebf6-2056-41f7-be35-b2e5c34afa99",
+      "quantity": 7,
+      "scryfall_uri": "https://scryfall.com/card/trk/317/plains?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Plains"
+    },
+    {
+      "cache": "cards/a3fb7228-e76b-4e96-a40e-20b5fed75685.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {R}.)",
+        "produced_mana": [
+          "R"
+        ],
+        "type_line": "Basic Land — Mountain"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Mountain",
+      "oracle_id": "a3fb7228-e76b-4e96-a40e-20b5fed75685",
+      "quantity": 6,
+      "scryfall_uri": "https://scryfall.com/card/trk/323/mountain?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Mountain"
+    }
+  ],
+  "categorized_cards": 81,
+  "generated_at": "2026-08-31T15:29:20.532512+00:00",
+  "maybeboard_cards": 0,
+  "maybeboard_unique_cards": 0,
+  "resolved_unique_cards": 81,
+  "schema_version": 3,
+  "source": "decks/unrated_extus-stop-hitting-yourself/decklist.txt",
+  "total_cards": 100,
+  "unique_cards": 81,
+  "unresolved": []
+}

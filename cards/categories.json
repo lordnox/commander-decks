@@ -8403,13 +8403,427 @@
         "other"
       ]
     },
+    "0b299983-9f0f-404a-acd1-8f142572b1f1": {
+      "name": "Extus, Oriq Overlord // Awaken the Blood Avatar",
+      "categories": [
+        "recursion",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "97dea59e-2090-4653-9ed9-86820a20605f": {
+      "name": "Maddening Imp",
+      "categories": [
+        "forced-combat"
+      ]
+    },
+    "c58dfcbf-49e6-4ef0-bd31-ebd81b0cfa41": {
+      "name": "Nettling Imp",
+      "categories": [
+        "forced-combat"
+      ]
+    },
+    "4318c704-888f-4d85-b5f7-6d9abb14e60c": {
+      "name": "Norritt",
+      "categories": [
+        "forced-combat"
+      ]
+    },
+    "0fe1a1f7-41c9-415e-a5e3-b5ba0c0271e5": {
+      "name": "Instigator",
+      "categories": [
+        "discard"
+      ]
+    },
+    "ab5b49d4-e648-43f1-bcc0-7dd4763316ee": {
+      "name": "Rage Nimbus",
+      "categories": [
+        "forced-combat"
+      ]
+    },
+    "ec08df88-3c13-4940-a090-0c502b9b12f1": {
+      "name": "Goblin Spymaster",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "f3b3173b-f7ae-420e-84ec-ea61414674a0": {
+      "name": "Vengeful Ancestor",
+      "categories": [
+        "forced-combat"
+      ]
+    },
+    "b2d1f87b-a11f-43eb-8b89-b48945320d73": {
+      "name": "Life of the Party",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "19fba3c8-3363-4f2f-a2fb-01e59a77447c": {
+      "name": "Mine Bearer",
+      "categories": [
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "a95a2d1c-70a9-4eb2-ae30-a07fab26a9c6": {
+      "name": "Resistance Fighter",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "0477b923-9f32-4e7f-ac08-c715cca819a4": {
+      "name": "Spurnmage Advocate",
+      "categories": [
+        "removal"
+      ]
+    },
+    "57188b3d-567c-4dff-8b93-7cc7a47894be": {
+      "name": "Shieldmage Advocate",
+      "categories": [
+        "protection",
+        "politics"
+      ]
+    },
+    "6e202114-48f3-46d2-bc54-df766d149d9d": {
+      "name": "Frontline Strategist",
+      "categories": [
+        "protection"
+      ]
+    },
     "1d6e9716-8c3c-443d-afd8-68d0d6c469a5": {
       "name": "Standard Bearer",
       "categories": [
-        "other"
+        "protection"
+      ]
+    },
+    "032a5616-bbaf-4659-86c4-43edf29b9788": {
+      "name": "Muck Drubb",
+      "categories": [
+        "discard"
+      ]
+    },
+    "4d9d5dbb-25ab-41a5-a277-3ee5f9ef579b": {
+      "name": "Shaman en-Kor",
+      "categories": [
+        "damage-redirection"
+      ]
+    },
+    "53b86704-4f16-498e-8c2c-e661cb85eb9c": {
+      "name": "Mogg Maniac",
+      "categories": [
+        "damage-reflection",
+        "win-condition"
+      ]
+    },
+    "cf4d8b19-fd11-4200-9871-896772019f4c": {
+      "name": "Spitemare",
+      "categories": [
+        "damage-reflection",
+        "win-condition"
+      ]
+    },
+    "5f079a75-899e-467d-b443-3b87ce2fb548": {
+      "name": "Boros Reckoner",
+      "categories": [
+        "damage-reflection",
+        "win-condition"
+      ]
+    },
+    "3677e743-8d3d-4ec7-8bfe-21e36979a79b": {
+      "name": "Truefire Captain",
+      "categories": [
+        "damage-reflection",
+        "win-condition"
+      ]
+    },
+    "3e41648f-c5a9-4b26-b97e-8176fe5e9c85": {
+      "name": "Brash Taunter",
+      "categories": [
+        "protection"
+      ]
+    },
+    "499dceab-1890-49c8-b35d-b059a1dc950f": {
+      "name": "Stuffy Doll",
+      "categories": [
+        "protection"
+      ]
+    },
+    "c00f082b-787f-4f96-8356-c10d35713bc4": {
+      "name": "Coalhauler Swine",
+      "categories": [
+        "damage-reflection",
+        "group-slug"
+      ]
+    },
+    "e85f6251-8801-414b-adc9-5488794e7456": {
+      "name": "Zealous Inquisitor",
+      "categories": [
+        "damage-redirection"
+      ]
+    },
+    "12a88c08-11e3-4f51-a17c-ca06452bac6f": {
+      "name": "Volcano Hellion",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "104095ed-55e3-408e-bf70-4fe06bb16d2f": {
+      "name": "Crypt Rats",
+      "categories": [
+        "board-wipe",
+        "win-condition"
+      ]
+    },
+    "ab55834f-c935-4773-89c6-bec9712284eb": {
+      "name": "Big Game Hunter",
+      "categories": [
+        "removal",
+        "discard"
+      ]
+    },
+    "69aa1ac7-17da-4fc9-a3dc-df8a52841f4a": {
+      "name": "Bone Shredder",
+      "categories": [
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "1582e16d-4825-4cc5-b12c-449c45e4e449": {
+      "name": "Humble Defector",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "b24063f7-157f-47c0-919a-33856d53b902": {
+      "name": "Worthy Cause",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "86eb30a0-0beb-42db-9ddf-cf8be6c99dd3": {
+      "name": "Burnt Offering",
+      "categories": [
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "bccd8298-e056-4b91-b090-408c75467b92": {
+      "name": "Ritual of the Machine",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "17c7878f-891f-40a6-80a7-47fcc7b8e29b": {
+      "name": "Skulltap",
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "0f81064d-01cd-4a61-8aea-2544e4d14b70": {
+      "name": "Spontaneous Combustion",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "f6a6da20-52c8-4921-9884-29d3a3051b0d": {
+      "name": "Martyrdom",
+      "categories": [
+        "damage-redirection"
+      ]
+    },
+    "5b3f6817-5d7a-4d83-ad1d-df75b4e1970b": {
+      "name": "Kor Chant",
+      "categories": [
+        "damage-redirection"
+      ]
+    },
+    "21565b0d-f814-49ca-8613-f40040c4ba6c": {
+      "name": "Reflect Damage",
+      "categories": [
+        "damage-reflection"
+      ]
+    },
+    "184fdd23-8235-4500-b2f5-d3b0b93a8f35": {
+      "name": "Mirror Strike",
+      "categories": [
+        "damage-reflection"
+      ]
+    },
+    "a00e5eb6-b916-4cd6-8ff2-c02f4929abc7": {
+      "name": "Delirium",
+      "categories": [
+        "damage-reflection"
+      ]
+    },
+    "04e9ac31-3377-4a4c-9337-53ee0ada882a": {
+      "name": "Traitor's Roar",
+      "categories": [
+        "damage-reflection",
+        "copy"
+      ]
+    },
+    "3db9bf7b-da4e-428f-aa5d-a0cd1afeb16c": {
+      "name": "Backlash",
+      "categories": [
+        "damage-reflection"
+      ]
+    },
+    "dc5dffc8-fac5-4956-bac4-1ad2cc16f6be": {
+      "name": "Deflecting Palm",
+      "categories": [
+        "damage-reflection"
+      ]
+    },
+    "22647b1a-5a7c-41b5-b820-b2e9f49c7aad": {
+      "name": "Eye for an Eye",
+      "categories": [
+        "damage-reflection"
+      ]
+    },
+    "20eff2ce-f26d-48a2-8a1f-435a7e2968c8": {
+      "name": "Boros Fury-Shield",
+      "categories": [
+        "damage-reflection"
+      ]
+    },
+    "50c53ae0-51ba-4046-ac74-87c65e688032": {
+      "name": "Fork",
+      "categories": [
+        "copy"
+      ]
+    },
+    "1cb0610b-a731-42c2-b93f-0a29f63cebf4": {
+      "name": "Thrill of Possibility",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "cceba6f3-b1c0-45ee-826c-b871d24c7208": {
+      "name": "General's Regalia",
+      "categories": [
+        "damage-redirection"
+      ]
+    },
+    "fed77e0a-a4a6-4409-9cab-bf0fc2cd9f9b": {
+      "name": "Crown of Doom",
+      "categories": [
+        "forced-combat",
+        "politics"
+      ]
+    },
+    "e04fa58e-be7a-4c9c-98d0-48241742a41b": {
+      "name": "Backfire",
+      "categories": [
+        "damage-reflection"
+      ]
+    },
+    "bb81aa50-49db-4743-85fc-6b4d9ed29bc6": {
+      "name": "Soul Link",
+      "categories": [
+        "lifegain"
+      ]
+    },
+    "a1439ace-5880-4fb8-a321-ec8063e7ed0e": {
+      "name": "Guilty Conscience",
+      "categories": [
+        "damage-reflection",
+        "win-condition"
+      ]
+    },
+    "f6069a4f-744e-43e8-9f8b-7c13b8b0187f": {
+      "name": "Repercussion",
+      "categories": [
+        "damage-reflection",
+        "win-condition"
+      ]
+    },
+    "5cdc4654-b8c5-4599-a1d2-9e9d5f6509cb": {
+      "name": "Duelist's Heritage",
+      "categories": [
+        "politics"
+      ]
+    },
+    "984f92dd-cb9b-4421-a8e6-75bfe566be10": {
+      "name": "Rite of the Raging Storm",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "f187f766-3696-419e-9865-58023a46446b": {
+      "name": "Angel's Trumpet",
+      "categories": [
+        "forced-combat"
+      ]
+    },
+    "4619de7e-3d6e-4c6b-8e6e-e24db324839d": {
+      "name": "Nomad Outpost",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "6b75b94e-83b7-457e-ac41-7ca90b5a59aa": {
+      "name": "Battlefield Forge",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "f5c38c01-4a40-469f-91a0-7479daf4e8e7": {
+      "name": "Sulfurous Springs",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "b2bae7fc-0668-4b34-9cd6-0d80aea52275": {
+      "name": "Tainted Peak",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "e6e6fce8-0f6a-4b84-865e-d4e4a4182f9f": {
+      "name": "Temple of Silence",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "7c439c18-31dc-41fe-b03d-3fca06e6fc0b": {
+      "name": "Temple of Malice",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "15687ee3-3cdb-4a8f-a726-46b73bceb792": {
+      "name": "Shadowblood Ridge",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "79638767-fbc7-451a-b29f-d93f2ac6f102": {
+      "name": "Kher Keep",
+      "categories": [
+        "land",
+        "ramp",
+        "token-production"
+      ]
+    },
+    "276cece9-f9f2-46e6-ae76-daddaa2fb9ab": {
+      "name": "Kor Haven",
+      "categories": [
+        "land",
+        "ramp"
       ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-31T15:17:45.703521+00:00"
+  "updated_at": "2026-08-31T15:29:20.532512+00:00"
 }

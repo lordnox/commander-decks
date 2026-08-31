@@ -1,0 +1,132 @@
+{
+  "artist": "Slawomir Maniak",
+  "artist_ids": [
+    "d887bc66-2779-416c-a1ff-d8720242063e"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764813,
+  "cmc": 2.0,
+  "collector_number": "170",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 1781,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"You were once Mardu, so your body and will are strong. Now we must train your mind.\"\n—Houn, Jeskai elder",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d17c10a1-12fe-4a58-81ed-03a8bdd06686",
+  "illustration_id": "03e337bd-ae76-44cb-aedc-45294f52d415",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:05:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/1/d17c10a1-12fe-4a58-81ed-03a8bdd06686.webp?1783911918",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/1/d17c10a1-12fe-4a58-81ed-03a8bdd06686.jpg?1783911918",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/1/d17c10a1-12fe-4a58-81ed-03a8bdd06686.jpg?1783911918",
+    "crop": "https://cards.scryfall.io/crop/front/d/1/d17c10a1-12fe-4a58-81ed-03a8bdd06686.webp?1783911918",
+    "display": "https://cards.scryfall.io/display/front/d/1/d17c10a1-12fe-4a58-81ed-03a8bdd06686.webp?1783911918",
+    "grid": "https://cards.scryfall.io/grid/front/d/1/d17c10a1-12fe-4a58-81ed-03a8bdd06686.webp?1783911918",
+    "large": "https://cards.scryfall.io/large/front/d/1/d17c10a1-12fe-4a58-81ed-03a8bdd06686.jpg?1783911918",
+    "normal": "https://cards.scryfall.io/normal/front/d/1/d17c10a1-12fe-4a58-81ed-03a8bdd06686.jpg?1783911918",
+    "png": "https://cards.scryfall.io/png/front/d/1/d17c10a1-12fe-4a58-81ed-03a8bdd06686.png?1783911918",
+    "small": "https://cards.scryfall.io/small/front/d/1/d17c10a1-12fe-4a58-81ed-03a8bdd06686.jpg?1783911918",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/1/d17c10a1-12fe-4a58-81ed-03a8bdd06686.webp?1783911918"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}",
+  "mtgo_id": 124799,
+  "multiverse_ids": [
+    658614
+  ],
+  "name": "Humble Defector",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1582e16d-4825-4cc5-b12c-449c45e4e449",
+  "oracle_text": "{T}: Draw two cards. Target opponent gains control of this creature. Activate only during your turn.",
+  "oversized": false,
+  "penny_rank": 8391,
+  "power": "2",
+  "prices": {
+    "eur": "0.15",
+    "eur_foil": null,
+    "tix": "0.06",
+    "usd": "0.35",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1582e16d-4825-4cc5-b12c-449c45e4e449&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124799?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764813&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F545348%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Humble+Defector",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=658614&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHumble%2BDefector",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHumble%2BDefector"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d17c10a1-12fe-4a58-81ed-03a8bdd06686/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otc/170/humble-defector?utm_source=api",
+  "set": "otc",
+  "set_id": "d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "set_name": "Outlaws of Thunder Junction Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "story_spotlight": false,
+  "tcgplayer_id": 545348,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Rogue",
+  "uri": "https://api.scryfall.com/cards/d17c10a1-12fe-4a58-81ed-03a8bdd06686",
+  "variation": false
+}

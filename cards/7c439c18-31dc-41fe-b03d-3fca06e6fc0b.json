@@ -1,0 +1,140 @@
+{
+  "arena_id": 94129,
+  "artist": "Jonas De Ro",
+  "artist_ids": [
+    "561ebf9e-8d93-4b57-8156-8826d0c19601"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 796148,
+  "cmc": 0.0,
+  "collector_number": "701",
+  "color_identity": [
+    "B",
+    "R"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 443,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d78eccc4-1500-43f1-94f5-b39c160b6381",
+  "illustration_id": "28247dd9-4241-4f06-b6b3-6552fc45561e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:14:56Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/7/d78eccc4-1500-43f1-94f5-b39c160b6381.webp?1783908896",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/7/d78eccc4-1500-43f1-94f5-b39c160b6381.jpg?1783908896",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/7/d78eccc4-1500-43f1-94f5-b39c160b6381.jpg?1783908896",
+    "crop": "https://cards.scryfall.io/crop/front/d/7/d78eccc4-1500-43f1-94f5-b39c160b6381.webp?1783908896",
+    "display": "https://cards.scryfall.io/display/front/d/7/d78eccc4-1500-43f1-94f5-b39c160b6381.webp?1783908896",
+    "grid": "https://cards.scryfall.io/grid/front/d/7/d78eccc4-1500-43f1-94f5-b39c160b6381.webp?1783908896",
+    "large": "https://cards.scryfall.io/large/front/d/7/d78eccc4-1500-43f1-94f5-b39c160b6381.jpg?1783908896",
+    "normal": "https://cards.scryfall.io/normal/front/d/7/d78eccc4-1500-43f1-94f5-b39c160b6381.jpg?1783908896",
+    "png": "https://cards.scryfall.io/png/front/d/7/d78eccc4-1500-43f1-94f5-b39c160b6381.png?1783908896",
+    "small": "https://cards.scryfall.io/small/front/d/7/d78eccc4-1500-43f1-94f5-b39c160b6381.jpg?1783908896",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/7/d78eccc4-1500-43f1-94f5-b39c160b6381.webp?1783908896"
+  },
+  "keywords": [
+    "Scry"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 134738,
+  "multiverse_ids": [
+    680840
+  ],
+  "name": "Temple of Malice",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7c439c18-31dc-41fe-b03d-3fca06e6fc0b",
+  "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {B} or {R}.",
+  "oversized": false,
+  "penny_rank": 895,
+  "prices": {
+    "eur": "0.21",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.22",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7c439c18-31dc-41fe-b03d-3fca06e6fc0b&unique=prints",
+  "produced_mana": [
+    "B",
+    "R"
+  ],
+  "promo": false,
+  "promo_types": [
+    "startercollection"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/134738?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=796148&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F589372%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Temple+of+Malice",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=680840&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTemple%2Bof%2BMalice",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTemple%2Bof%2BMalice"
+  },
+  "released_at": "2024-11-15",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d78eccc4-1500-43f1-94f5-b39c160b6381/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fdn/701/temple-of-malice?utm_source=api",
+  "security_stamp": "oval",
+  "set": "fdn",
+  "set_id": "a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "set_name": "Foundations",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afdn&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "story_spotlight": false,
+  "tcgplayer_id": 589372,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/d78eccc4-1500-43f1-94f5-b39c160b6381",
+  "variation": false
+}

@@ -1,0 +1,133 @@
+{
+  "artist": "D. Alexander Gregory",
+  "artist_ids": [
+    "38433e15-f0f5-4223-a985-2d13c4aa0922"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 3910,
+  "cmc": 3.0,
+  "collector_number": "16",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 29187,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"The Keldons may have explosive tempers, but *I* have explosives.\"",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a8151510-2445-4244-b851-ab332b908170",
+  "illustration_id": "3527dc55-c162-4d58-a82e-2edaaac0ae74",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:29:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/8/a8151510-2445-4244-b851-ab332b908170.webp?1783945795",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/8/a8151510-2445-4244-b851-ab332b908170.jpg?1783945795",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/8/a8151510-2445-4244-b851-ab332b908170.jpg?1783945795",
+    "crop": "https://cards.scryfall.io/crop/front/a/8/a8151510-2445-4244-b851-ab332b908170.webp?1783945795",
+    "display": "https://cards.scryfall.io/display/front/a/8/a8151510-2445-4244-b851-ab332b908170.webp?1783945795",
+    "grid": "https://cards.scryfall.io/grid/front/a/8/a8151510-2445-4244-b851-ab332b908170.webp?1783945795",
+    "large": "https://cards.scryfall.io/large/front/a/8/a8151510-2445-4244-b851-ab332b908170.jpg?1783945795",
+    "normal": "https://cards.scryfall.io/normal/front/a/8/a8151510-2445-4244-b851-ab332b908170.jpg?1783945795",
+    "png": "https://cards.scryfall.io/png/front/a/8/a8151510-2445-4244-b851-ab332b908170.png?1783945795",
+    "small": "https://cards.scryfall.io/small/front/a/8/a8151510-2445-4244-b851-ab332b908170.jpg?1783945795",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/8/a8151510-2445-4244-b851-ab332b908170.webp?1783945795"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_foil_id": 14132,
+  "mtgo_id": 14131,
+  "multiverse_ids": [
+    24555
+  ],
+  "name": "Mine Bearer",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "19fba3c8-3363-4f2f-a2fb-01e59a77447c",
+  "oracle_text": "{T}, Sacrifice this creature: Destroy target attacking creature.",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": "0.06",
+    "eur_foil": "0.82",
+    "tix": "0.04",
+    "usd": "0.09",
+    "usd_etched": null,
+    "usd_foil": "0.84"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A19fba3c8-3363-4f2f-a2fb-01e59a77447c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/14131?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=3910&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F7334%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mine+Bearer",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=24555&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMine%2BBearer",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMine%2BBearer"
+  },
+  "released_at": "2000-06-05",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a8151510-2445-4244-b851-ab332b908170/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/pcy?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/pcy/16/mine-bearer?utm_source=api",
+  "set": "pcy",
+  "set_id": "c233bd36-57c0-4aa2-ae6c-7aeabfb4e3ce",
+  "set_name": "Prophecy",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Apcy&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/c233bd36-57c0-4aa2-ae6c-7aeabfb4e3ce",
+  "story_spotlight": false,
+  "tcgplayer_id": 7334,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Soldier",
+  "uri": "https://api.scryfall.com/cards/a8151510-2445-4244-b851-ab332b908170",
+  "variation": false
+}

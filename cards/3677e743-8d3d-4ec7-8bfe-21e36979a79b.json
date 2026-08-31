@@ -1,0 +1,137 @@
+{
+  "artist": "Chris Rallis",
+  "artist_ids": [
+    "a8e7b854-b15a-421a-b66d-6e68187ae285"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 748588,
+  "cmc": 4.0,
+  "collector_number": "235",
+  "color_identity": [
+    "R",
+    "W"
+  ],
+  "colors": [
+    "R",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 12683,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "eddcf0fd-bcbb-4ce9-ab94-9d4b81c0222d",
+  "illustration_id": "888fea0c-0a03-4d14-a572-5e7937d23daa",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:27:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/d/eddcf0fd-bcbb-4ce9-ab94-9d4b81c0222d.webp?1783913271",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/d/eddcf0fd-bcbb-4ce9-ab94-9d4b81c0222d.jpg?1783913271",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/d/eddcf0fd-bcbb-4ce9-ab94-9d4b81c0222d.jpg?1783913271",
+    "crop": "https://cards.scryfall.io/crop/front/e/d/eddcf0fd-bcbb-4ce9-ab94-9d4b81c0222d.webp?1783913271",
+    "display": "https://cards.scryfall.io/display/front/e/d/eddcf0fd-bcbb-4ce9-ab94-9d4b81c0222d.webp?1783913271",
+    "grid": "https://cards.scryfall.io/grid/front/e/d/eddcf0fd-bcbb-4ce9-ab94-9d4b81c0222d.webp?1783913271",
+    "large": "https://cards.scryfall.io/large/front/e/d/eddcf0fd-bcbb-4ce9-ab94-9d4b81c0222d.jpg?1783913271",
+    "normal": "https://cards.scryfall.io/normal/front/e/d/eddcf0fd-bcbb-4ce9-ab94-9d4b81c0222d.jpg?1783913271",
+    "png": "https://cards.scryfall.io/png/front/e/d/eddcf0fd-bcbb-4ce9-ab94-9d4b81c0222d.png?1783913271",
+    "small": "https://cards.scryfall.io/small/front/e/d/eddcf0fd-bcbb-4ce9-ab94-9d4b81c0222d.jpg?1783913271",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/d/eddcf0fd-bcbb-4ce9-ab94-9d4b81c0222d.webp?1783913271"
+  },
+  "keywords": [
+    "Mentor"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{R}{R}{W}{W}",
+  "mtgo_id": 120997,
+  "multiverse_ids": [
+    643242
+  ],
+  "name": "Truefire Captain",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3677e743-8d3d-4ec7-8bfe-21e36979a79b",
+  "oracle_text": "Mentor (Whenever this creature attacks, put a +1/+1 counter on target attacking creature with lesser power.)\nWhenever this creature is dealt damage, it deals that much damage to target player.",
+  "oversized": false,
+  "penny_rank": 6182,
+  "power": "4",
+  "prices": {
+    "eur": "0.09",
+    "eur_foil": "0.23",
+    "tix": "0.04",
+    "usd": "0.21",
+    "usd_etched": null,
+    "usd_foil": "0.29"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3677e743-8d3d-4ec7-8bfe-21e36979a79b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/120997?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=748588&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F531227%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Truefire+Captain",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=643242&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTruefire%2BCaptain",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTruefire%2BCaptain"
+  },
+  "released_at": "2024-01-12",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/eddcf0fd-bcbb-4ce9-ab94-9d4b81c0222d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rvr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rvr/235/truefire-captain?utm_source=api",
+  "set": "rvr",
+  "set_id": "fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "set_name": "Ravnica Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arvr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "story_spotlight": false,
+  "tcgplayer_id": 531227,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Human Knight",
+  "uri": "https://api.scryfall.com/cards/eddcf0fd-bcbb-4ce9-ab94-9d4b81c0222d",
+  "variation": false,
+  "watermark": "boros"
+}

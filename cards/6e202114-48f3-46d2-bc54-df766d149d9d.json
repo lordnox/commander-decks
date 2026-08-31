@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "1c43fac2-62fb-4924-848d-a8d739773d6e",
+      "name": "Frontline Strategist",
+      "object": "related_card",
+      "type_line": "Creature — Human Soldier",
+      "uri": "https://api.scryfall.com/cards/1c43fac2-62fb-4924-848d-a8d739773d6e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5430da88-b72e-4d64-bd3c-b21062cac1c2",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/5430da88-b72e-4d64-bd3c-b21062cac1c2"
+    }
+  ],
+  "artist": "Christopher Moeller",
+  "artist_ids": [
+    "21e10012-06ae-44f2-b38d-3824dd2e73d4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 1008,
+  "cmc": 1.0,
+  "collector_number": "15",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 21839,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "1c43fac2-62fb-4924-848d-a8d739773d6e",
+  "illustration_id": "8208cfb6-855c-481f-8ce0-86ec521b5a6e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:14:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/c/1c43fac2-62fb-4924-848d-a8d739773d6e.webp?1783944893",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/c/1c43fac2-62fb-4924-848d-a8d739773d6e.jpg?1783944893",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/c/1c43fac2-62fb-4924-848d-a8d739773d6e.jpg?1783944893",
+    "crop": "https://cards.scryfall.io/crop/front/1/c/1c43fac2-62fb-4924-848d-a8d739773d6e.webp?1783944893",
+    "display": "https://cards.scryfall.io/display/front/1/c/1c43fac2-62fb-4924-848d-a8d739773d6e.webp?1783944893",
+    "grid": "https://cards.scryfall.io/grid/front/1/c/1c43fac2-62fb-4924-848d-a8d739773d6e.webp?1783944893",
+    "large": "https://cards.scryfall.io/large/front/1/c/1c43fac2-62fb-4924-848d-a8d739773d6e.jpg?1783944893",
+    "normal": "https://cards.scryfall.io/normal/front/1/c/1c43fac2-62fb-4924-848d-a8d739773d6e.jpg?1783944893",
+    "png": "https://cards.scryfall.io/png/front/1/c/1c43fac2-62fb-4924-848d-a8d739773d6e.png?1783944893",
+    "small": "https://cards.scryfall.io/small/front/1/c/1c43fac2-62fb-4924-848d-a8d739773d6e.jpg?1783944893",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/c/1c43fac2-62fb-4924-848d-a8d739773d6e.webp?1783944893"
+  },
+  "keywords": [
+    "Morph"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}",
+  "mtgo_foil_id": 18677,
+  "mtgo_id": 18676,
+  "multiverse_ids": [
+    43493
+  ],
+  "name": "Frontline Strategist",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6e202114-48f3-46d2-bc54-df766d149d9d",
+  "oracle_text": "Morph {W} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)\nWhen this creature is turned face up, prevent all combat damage non-Soldier creatures would deal this turn.",
+  "oversized": false,
+  "penny_rank": 11910,
+  "power": "1",
+  "prices": {
+    "eur": "0.16",
+    "eur_foil": "0.62",
+    "tix": "0.04",
+    "usd": "0.10",
+    "usd_etched": null,
+    "usd_foil": "0.57"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6e202114-48f3-46d2-bc54-df766d149d9d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/18676?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=1008&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10844%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Frontline+Strategist",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=43493&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFrontline%2BStrategist",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFrontline%2BStrategist"
+  },
+  "released_at": "2003-05-26",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1c43fac2-62fb-4924-848d-a8d739773d6e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/scg?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/scg/15/frontline-strategist?utm_source=api",
+  "set": "scg",
+  "set_id": "5133c3a1-1412-4ce6-a1f0-73b695966ded",
+  "set_name": "Scourge",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ascg&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5133c3a1-1412-4ce6-a1f0-73b695966ded",
+  "story_spotlight": false,
+  "tcgplayer_id": 10844,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Soldier",
+  "uri": "https://api.scryfall.com/cards/1c43fac2-62fb-4924-848d-a8d739773d6e",
+  "variation": false
+}

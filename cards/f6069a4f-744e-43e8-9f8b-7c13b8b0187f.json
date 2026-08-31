@@ -1,0 +1,131 @@
+{
+  "artist": "Michael Sutfin",
+  "artist_ids": [
+    "5ce7b3bd-53d2-49e6-b504-37191e8e9b17"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 10795,
+  "cmc": 3.0,
+  "collector_number": "95",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 2972,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Not all Keld's warriors are found on the battlefield.",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d0f3c78e-16c0-4fbc-8ef4-fbf610f9d464",
+  "illustration_id": "6b269e34-c890-472b-b5c6-c35a031d45d6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:34:25Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/0/d0f3c78e-16c0-4fbc-8ef4-fbf610f9d464.webp?1783946065",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/0/d0f3c78e-16c0-4fbc-8ef4-fbf610f9d464.jpg?1783946065",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/0/d0f3c78e-16c0-4fbc-8ef4-fbf610f9d464.jpg?1783946065",
+    "crop": "https://cards.scryfall.io/crop/front/d/0/d0f3c78e-16c0-4fbc-8ef4-fbf610f9d464.webp?1783946065",
+    "display": "https://cards.scryfall.io/display/front/d/0/d0f3c78e-16c0-4fbc-8ef4-fbf610f9d464.webp?1783946065",
+    "grid": "https://cards.scryfall.io/grid/front/d/0/d0f3c78e-16c0-4fbc-8ef4-fbf610f9d464.webp?1783946065",
+    "large": "https://cards.scryfall.io/large/front/d/0/d0f3c78e-16c0-4fbc-8ef4-fbf610f9d464.jpg?1783946065",
+    "normal": "https://cards.scryfall.io/normal/front/d/0/d0f3c78e-16c0-4fbc-8ef4-fbf610f9d464.jpg?1783946065",
+    "png": "https://cards.scryfall.io/png/front/d/0/d0f3c78e-16c0-4fbc-8ef4-fbf610f9d464.png?1783946065",
+    "small": "https://cards.scryfall.io/small/front/d/0/d0f3c78e-16c0-4fbc-8ef4-fbf610f9d464.jpg?1783946065",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/0/d0f3c78e-16c0-4fbc-8ef4-fbf610f9d464.webp?1783946065"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}{R}",
+  "mtgo_foil_id": 12886,
+  "mtgo_id": 12885,
+  "multiverse_ids": [
+    15216
+  ],
+  "name": "Repercussion",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f6069a4f-744e-43e8-9f8b-7c13b8b0187f",
+  "oracle_text": "Whenever a creature is dealt damage, this enchantment deals that much damage to that creature's controller.",
+  "oversized": false,
+  "prices": {
+    "eur": "6.64",
+    "eur_foil": "33.39",
+    "tix": "0.02",
+    "usd": "13.54",
+    "usd_etched": null,
+    "usd_foil": "101.78"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af6069a4f-744e-43e8-9f8b-7c13b8b0187f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/12885?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=10795&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F6231%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Repercussion",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=15216&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRepercussion",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRepercussion"
+  },
+  "released_at": "1999-06-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d0f3c78e-16c0-4fbc-8ef4-fbf610f9d464/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/uds?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/uds/95/repercussion?utm_source=api",
+  "set": "uds",
+  "set_id": "44f17b37-dcf8-4239-baab-1efc00cd3480",
+  "set_name": "Urza's Destiny",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Auds&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/44f17b37-dcf8-4239-baab-1efc00cd3480",
+  "story_spotlight": false,
+  "tcgplayer_id": 6231,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/d0f3c78e-16c0-4fbc-8ef4-fbf610f9d464",
+  "variation": false
+}
