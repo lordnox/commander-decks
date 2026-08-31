@@ -9,7 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 9](https://img.shields.io/static/v1?label=9&message=Jank&color=0b6b58&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 7](https://img.shields.io/static/v1?label=7&message=Mean&color=991b1b&style=flat-square) ![Enrage 10](https://img.shields.io/static/v1?label=10&message=Enrage&color=0b6b58&style=flat-square) ![Dinosaurs 8](https://img.shields.io/static/v1?label=8&message=Dinosaurs&color=2f7d6a&style=flat-square)
+<img src="../../assets/badges/jank-9.svg" alt="Jank 9" title="Jank 9"> <img src="../../assets/badges/fun-8.svg" alt="Fun 8" title="Fun 8"> <img src="../../assets/badges/mean-7.svg" alt="Mean 7" title="Mean 7"> <img src="../../assets/badges/enrage-10.svg" alt="Enrage 10" title="Enrage 10"> <img src="../../assets/badges/dinosaurs-8.svg" alt="Dinosaurs 8" title="Dinosaurs 8">
 <!-- deck-rankings:end -->
 
 A Jund enrage deck that hurts its own creatures on purpose. [**Indoraptor, the Perfect Hybrid**](https://scryfall.com/card/rex/15/indoraptor-the-perfect-hybrid?utm_source=api) is a 3/1 for three that grows on the way in and punishes every point of damage it takes, so the deck pairs cheap repeatable pingers with counters, indestructibility, and damage-triggered payoffs.

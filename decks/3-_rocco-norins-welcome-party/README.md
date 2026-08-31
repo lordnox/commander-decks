@@ -9,7 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 7](https://img.shields.io/static/v1?label=7&message=Fun&color=2f7d6a&style=flat-square) ![Mean 5](https://img.shields.io/static/v1?label=5&message=Mean&color=b91c1c&style=flat-square) ![Blink 8](https://img.shields.io/static/v1?label=8&message=Blink&color=2f7d6a&style=flat-square) ![Burn 8](https://img.shields.io/static/v1?label=8&message=Burn&color=2f7d6a&style=flat-square)
+<img src="../../assets/badges/jank-7.svg" alt="Jank 7" title="Jank 7"> <img src="../../assets/badges/fun-7.svg" alt="Fun 7" title="Fun 7"> <img src="../../assets/badges/mean-5.svg" alt="Mean 5" title="Mean 5"> <img src="../../assets/badges/blink-8.svg" alt="Blink 8" title="Blink 8"> <img src="../../assets/badges/burn-8.svg" alt="Burn 8" title="Burn 8">
 <!-- deck-rankings:end -->
 
 A Naya ETB party: [**Rocco, Cabaretti Caterer**](https://scryfall.com/card/snc/218/rocco-cabaretti-caterer?utm_source=api) fetches the guest of honor, [**Norin the Wary**](https://scryfall.com/card/tsp/171/norin-the-wary?utm_source=api), who spends the rest of the game walking in and out of exile. Every return is another creature entering, which the ping suite turns into damage, the draw suite turns into cards, and [**Aura Shards**](https://scryfall.com/card/cmd/182/aura-shards?utm_source=api) turns into artifact and enchantment removal. Combat is the backup when [**Champion of Lambholt**](https://scryfall.com/card/moc/293/champion-of-lambholt?utm_source=api) outgrows the table.

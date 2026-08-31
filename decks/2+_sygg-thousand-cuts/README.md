@@ -9,7 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 7](https://img.shields.io/static/v1?label=7&message=Fun&color=2f7d6a&style=flat-square) ![Mean 7](https://img.shields.io/static/v1?label=7&message=Mean&color=991b1b&style=flat-square) ![Group Slug 9](https://img.shields.io/static/v1?label=9&message=Group%20Slug&color=0b6b58&style=flat-square) ![Discard 8](https://img.shields.io/static/v1?label=8&message=Discard&color=2f7d6a&style=flat-square)
+<img src="../../assets/badges/jank-7.svg" alt="Jank 7" title="Jank 7"> <img src="../../assets/badges/fun-7.svg" alt="Fun 7" title="Fun 7"> <img src="../../assets/badges/mean-7.svg" alt="Mean 7" title="Mean 7"> <img src="../../assets/badges/group-slug-9.svg" alt="Group Slug 9" title="Group Slug 9"> <img src="../../assets/badges/discard-8.svg" alt="Discard 8" title="Discard 8">
 <!-- deck-rankings:end -->
 
 A Dimir punisher deck where nobody takes a big hit, but everybody bleeds. Passive drip engines — hand-size punishment, discard taxes, cast taxes, and goaded combat — make every opponent lose life on every turn of the table, and [**Sygg, River Cutthroat**](https://scryfall.com/card/znc/103/sygg-river-cutthroat?utm_source=api) converts each end step where any opponent lost three or more life into a card. The life that leaves the table comes back to you through drain and lifegain, and the game ends by attrition.

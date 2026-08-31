@@ -9,7 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 7](https://img.shields.io/static/v1?label=7&message=Fun&color=2f7d6a&style=flat-square) ![Mean 5](https://img.shields.io/static/v1?label=5&message=Mean&color=b91c1c&style=flat-square) ![Vehicles 8](https://img.shields.io/static/v1?label=8&message=Vehicles&color=2f7d6a&style=flat-square) ![Artifacts 9](https://img.shields.io/static/v1?label=9&message=Artifacts&color=0b6b58&style=flat-square)
+<img src="../../assets/badges/jank-7.svg" alt="Jank 7" title="Jank 7"> <img src="../../assets/badges/fun-7.svg" alt="Fun 7" title="Fun 7"> <img src="../../assets/badges/mean-5.svg" alt="Mean 5" title="Mean 5"> <img src="../../assets/badges/vehicles-8.svg" alt="Vehicles 8" title="Vehicles 8"> <img src="../../assets/badges/artifacts-9.svg" alt="Artifacts 9" title="Artifacts 9">
 <!-- deck-rankings:end -->
 
 A Grixis artifact-and-Vehicles deck that turns utility artifacts into disposable 4/4 racers, repeatedly reusing their enters-the-battlefield and attack abilities.

@@ -9,7 +9,7 @@
 <!-- deck-tags:end -->
 
 <!-- deck-rankings:start -->
-![Jank 7](https://img.shields.io/static/v1?label=7&message=Jank&color=2f7d6a&style=flat-square) ![Fun 8](https://img.shields.io/static/v1?label=8&message=Fun&color=2f7d6a&style=flat-square) ![Mean 7](https://img.shields.io/static/v1?label=7&message=Mean&color=991b1b&style=flat-square) ![Spell Copy 10](https://img.shields.io/static/v1?label=10&message=Spell%20Copy&color=0b6b58&style=flat-square) ![Spellslinger 9](https://img.shields.io/static/v1?label=9&message=Spellslinger&color=0b6b58&style=flat-square)
+<img src="../../assets/badges/jank-7.svg" alt="Jank 7" title="Jank 7"> <img src="../../assets/badges/fun-8.svg" alt="Fun 8" title="Fun 8"> <img src="../../assets/badges/mean-7.svg" alt="Mean 7" title="Mean 7"> <img src="../../assets/badges/spell-copy-10.svg" alt="Spell Copy 10" title="Spell Copy 10"> <img src="../../assets/badges/spellslinger-9.svg" alt="Spellslinger 9" title="Spellslinger 9">
 <!-- deck-rankings:end -->
 
 An Izzet spell-copy deck that spends the early game reducing costs and controlling the table, then resolves one sorcery six times. The primary win is a stack of [Tasha's Hideous Laughter](https://scryfall.com/card/afr/78/tashas-hideous-laughter?utm_source=api) copies; [Crackle with Power](https://scryfall.com/card/stx/95/crackle-with-power?utm_source=api) and [Jaya's Immolating Inferno](https://scryfall.com/card/cmr/415/jayas-immolating-inferno?utm_source=api) provide deterministic damage alternatives. The list contains three tutors and no current Game Changers.
