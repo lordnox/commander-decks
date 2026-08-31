@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Spell Copy** — Demonstrate, Hive Mind, and recast windows copy lose-the-game spells onto other seats.
+- **Extra Turns** — Final Fortune and friends are the payload; end the turn before the bill arrives.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 9, fun 9, mean 8, Spell Copy 9, Extra Turns 8. Highest Mean in the house so far; politics over the copy is the Fun.
+
 ## Cards in
 
 - **The Twelfth Doctor** — The engine: the first spell cast from anywhere other than the hand each turn gets demonstrate, copying it for you and handing a copy to an opponent of your choice. Every copy also grows him a +1/+1 counter.
