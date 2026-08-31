@@ -8389,8 +8389,15 @@
         "theft",
         "token-production"
       ]
+    },
+    "3c958b5f-680b-45fc-8c3d-27b23677436e": {
+      "name": "Dream-Thief's Bandana",
+      "categories": [
+        "exile",
+        "theft"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-31T11:28:58.082345+00:00"
+  "updated_at": "2026-08-31T12:55:02.769763+00:00"
 }

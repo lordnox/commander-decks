@@ -1,0 +1,13 @@
+{
+  "goals": ["Voltron", "Theft"],
+  "scores": {
+    "fun": 8,
+    "oppressiveness": 6,
+    "jankiness": 8,
+    "identity": {
+      "Voltron": 8,
+      "Theft": 9
+    }
+  },
+  "notes": "Combat close with Umbris is the plan; theft is dense (Shared Fate, Knowledge Pool, Gonti, Bandana, play-from-exile). Shared Fate and Knowledge Pool are the main oppressiveness. Blink was rejected because it fights Voltron. Exile is a supporting constraint, not a third scored goal."
+}
