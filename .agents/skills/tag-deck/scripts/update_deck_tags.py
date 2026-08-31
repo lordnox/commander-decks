@@ -37,7 +37,8 @@ def update_surfaces(deck_dir: Path, *, check: bool = False) -> int:
     index_block = deck_tags.index_section(deck_tags.index_entries(root, catalog))
     updated_root = deck_tags.replace_primer_index(original_root, index_block)
 
-    changed = updated_primer != original_primer or updated_root != original_root
+    outdated = deck_tags.deck_rankings.sync_badges(root, check=check)
+    changed = updated_primer != original_primer or updated_root != original_root or outdated
     if check and changed:
         print(f"{deck_dir}: Archidekt tag badges or the root deck index are missing or stale")
         return 1

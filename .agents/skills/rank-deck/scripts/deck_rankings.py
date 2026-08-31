@@ -4,8 +4,9 @@ from __future__ import annotations
 
 import json
 import re
+import string
+from html import escape
 from pathlib import Path
-from urllib.parse import quote
 
 MIN_SCORE = 1
 MAX_SCORE = 10
@@ -18,6 +19,35 @@ UNIVERSAL_LABELS = {
 HIGH_IS_GOOD_COLORS = ("8aa6a0", "6f9a92", "5f8b84", "2f7d6a", "0b6b58")
 HIGH_IS_BAD_COLORS = ("9a6b6b", "b05252", "b91c1c", "991b1b", "7f1d1d")
 HIGH_IS_BAD_KEYS = frozenset({"oppressiveness"})
+BADGE_DIR = "assets/badges"
+PRIMER_BADGE_PREFIX = "../../"
+BADGE_HEIGHT = 20
+BADGE_BASELINE = 14
+BADGE_PADDING = 7
+BADGE_FONT_SIZE = 11
+BADGE_FONT_STACK = "Verdana,DejaVu Sans,Geneva,sans-serif"
+BADGE_SCORE_COLOR = "#555555"
+BADGE_TEXT_COLOR = "#ffffff"
+# Verdana 11px advance widths; close enough that segments never clip the label.
+CHAR_WIDTHS = {
+    **{character: 6.9 for character in string.digits},
+    **dict(zip(string.ascii_uppercase, (
+        7.0, 7.0, 7.1, 7.7, 6.4, 5.8, 8.0, 7.6, 4.2, 4.4, 7.0, 5.7, 8.6,
+        7.6, 8.2, 6.4, 8.2, 7.1, 6.7, 6.2, 7.4, 7.0, 10.2, 7.0, 6.2, 6.4,
+    ))),
+    **dict(zip(string.ascii_lowercase, (
+        6.2, 6.5, 5.3, 6.5, 6.2, 4.0, 6.5, 6.4, 2.9, 2.9, 5.9, 2.9, 9.7,
+        6.4, 6.3, 6.5, 6.5, 4.3, 5.3, 4.0, 6.4, 5.9, 8.4, 5.9, 5.9, 5.2,
+    ))),
+    " ": 3.9,
+    "-": 4.1,
+    "'": 2.9,
+    ".": 3.4,
+    ",": 3.4,
+    "/": 4.6,
+    "+": 7.2,
+}
+DEFAULT_CHAR_WIDTH = 6.5
 INDEX_GOAL_BADGE_HEIGHT = 16
 INDEX_TEXT_GOOD_COLOR = "#2f9e8f"
 INDEX_TEXT_BAD_COLOR = "#e05252"
@@ -107,35 +137,67 @@ def score_columns(data: dict) -> list[tuple[str, int, bool]]:
     return columns
 
 
-def shield_url(label: str, score: int, *, high_is_bad: bool) -> str:
+def badge_color(score: int, *, high_is_bad: bool) -> str:
     palette = HIGH_IS_BAD_COLORS if high_is_bad else HIGH_IS_GOOD_COLORS
-    color = palette[min((score - 1) // 2, len(palette) - 1)]
+    return "#" + palette[min((score - 1) // 2, len(palette) - 1)]
+
+
+def text_width(text: str) -> float:
+    """Approximate Verdana 11px advance width, so segments are sized without a font engine."""
+    return sum(CHAR_WIDTHS.get(character, DEFAULT_CHAR_WIDTH) for character in text)
+
+
+def badge_svg(label: str, score: int, *, high_is_bad: bool) -> str:
+    score_text = str(score)
+    left = round(text_width(score_text) + BADGE_PADDING * 2, 1)
+    right = round(text_width(label) + BADGE_PADDING * 2, 1)
+    total = round(left + right, 1)
+    description = escape(f"{label}: {score}")
     return (
-        f"https://img.shields.io/static/v1?label={quote(str(score), safe='')}"
-        f"&message={quote(label, safe='')}&color={color}&style=flat-square"
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{total}" height="{BADGE_HEIGHT}"'
+        f' role="img" aria-label="{description}">\n'
+        f"<title>{description}</title>\n"
+        '<g shape-rendering="crispEdges">\n'
+        f'<rect width="{left}" height="{BADGE_HEIGHT}" fill="{BADGE_SCORE_COLOR}"/>\n'
+        f'<rect x="{left}" width="{right}" height="{BADGE_HEIGHT}"'
+        f' fill="{badge_color(score, high_is_bad=high_is_bad)}"/>\n'
+        "</g>\n"
+        f'<g fill="{BADGE_TEXT_COLOR}" text-anchor="middle"'
+        f' font-family="{BADGE_FONT_STACK}" font-size="{BADGE_FONT_SIZE}">\n'
+        f'<text x="{round(left / 2, 1)}" y="{BADGE_BASELINE}">{score_text}</text>\n'
+        f'<text x="{round(left + right / 2, 1)}" y="{BADGE_BASELINE}">{escape(label)}</text>\n'
+        "</g>\n"
+        "</svg>\n"
     )
 
 
-def badge_markdown(label: str, score: int, *, high_is_bad: bool) -> str:
-    return f"![{label} {score}]({shield_url(label, score, high_is_bad=high_is_bad)})"
+def badge_slug(label: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", label.lower()).strip("-")
 
 
-def compact_badge_html(label: str, score: int, *, high_is_bad: bool) -> str:
-    """Smaller than primer badges; GitHub honors height on img, and <sub> shrinks further."""
-    alt = f"{label} {score}"
-    url = shield_url(label, score, high_is_bad=high_is_bad)
-    return f'<img src="{url}" alt="{alt}" height="{INDEX_GOAL_BADGE_HEIGHT}">'
+def badge_path(label: str, score: int) -> str:
+    return f"{BADGE_DIR}/{badge_slug(label)}-{score}.svg"
 
 
-def badge_row(data: dict) -> str:
+def badge_markdown(label: str, score: int, *, prefix: str = "", height: int | None = None) -> str:
+    """Badges are committed SVGs, so alt and title carry the score for anyone not seeing them."""
+    description = escape(f"{label} {score}", quote=True)
+    size = f' height="{height}"' if height else ""
+    return (
+        f'<img src="{prefix}{badge_path(label, score)}"'
+        f' alt="{description}" title="{description}"{size}>'
+    )
+
+
+def badge_row(data: dict, *, prefix: str = "", height: int | None = None) -> str:
     return " ".join(
-        badge_markdown(label, score, high_is_bad=high_is_bad)
-        for label, score, high_is_bad in score_columns(data)
+        badge_markdown(label, score, prefix=prefix, height=height)
+        for label, score, _ in score_columns(data)
     )
 
 
 def primer_badges(data: dict) -> str:
-    return f"{PRIMER_START}\n{badge_row(data)}\n{PRIMER_END}"
+    return f"{PRIMER_START}\n{badge_row(data, prefix=PRIMER_BADGE_PREFIX)}\n{PRIMER_END}"
 
 
 def score_cell(key: str, score: int) -> str:
@@ -165,12 +227,61 @@ def universal_cells(data: dict) -> list[str]:
 def goal_cell(data: dict) -> str:
     identity = data["scores"].get("identity") or {}
     badges = [
-        compact_badge_html(str(goal), int(identity[goal]), high_is_bad=False)
+        badge_markdown(str(goal), int(identity[goal]), height=INDEX_GOAL_BADGE_HEIGHT)
         for goal in data["goals"]
     ]
     if not badges:
         return "—"
     return "<sub>" + " ".join(badges) + "</sub>"
+
+
+def repository_root(start: Path) -> Path:
+    for parent in (start, *start.parents):
+        if (parent / "cards").is_dir() and (parent / "decks").is_dir():
+            return parent
+    raise FileNotFoundError("could not locate repository root")
+
+
+def required_badges(root: Path) -> dict[str, str]:
+    """Every badge file the repository should contain, keyed by repo-relative path."""
+    badges: dict[str, str] = {}
+    decks = root / "decks"
+    if not decks.is_dir():
+        return badges
+    for deck_dir in sorted(decks.iterdir()):
+        try:
+            data = load_rankings(deck_dir)
+        except (ValueError, json.JSONDecodeError, OSError):
+            continue
+        if data is None or validate_rankings(data):
+            continue
+        for label, score, high_is_bad in score_columns(data):
+            badges[badge_path(label, score)] = badge_svg(label, score, high_is_bad=high_is_bad)
+    return badges
+
+
+def sync_badges(root: Path, *, check: bool = False) -> list[str]:
+    """Write missing or changed badge SVGs and drop orphans; report paths either way."""
+    badges = required_badges(root)
+    stale = [
+        path
+        for path, svg in badges.items()
+        if not (root / path).is_file() or (root / path).read_text(encoding="utf-8") != svg
+    ]
+    badge_dir = root / BADGE_DIR
+    existing = sorted(badge_dir.glob("*.svg")) if badge_dir.is_dir() else []
+    orphans = [
+        str(path.relative_to(root)) for path in existing if str(path.relative_to(root)) not in badges
+    ]
+    if check:
+        return stale + orphans
+    if badges:
+        badge_dir.mkdir(parents=True, exist_ok=True)
+    for path in stale:
+        (root / path).write_text(badges[path], encoding="utf-8")
+    for path in orphans:
+        (root / path).unlink()
+    return stale + orphans
 
 
 def insert_primer_section(original: str, section: str | None) -> str:
