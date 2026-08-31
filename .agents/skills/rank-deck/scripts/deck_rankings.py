@@ -18,6 +18,8 @@ UNIVERSAL_LABELS = {
 HIGH_IS_GOOD_COLORS = ("8aa6a0", "6f9a92", "5f8b84", "2f7d6a", "0b6b58")
 HIGH_IS_BAD_COLORS = ("9a6b6b", "b05252", "b91c1c", "991b1b", "7f1d1d")
 HIGH_IS_BAD_KEYS = frozenset({"oppressiveness"})
+NEUTRAL_COLOR = "6b7280"
+HIGH_IS_BAD_ALERT_FROM = 7
 PRIMER_START = "<!-- deck-rankings:start -->"
 PRIMER_END = "<!-- deck-rankings:end -->"
 PRIMER_SECTION = re.compile(
@@ -102,8 +104,11 @@ def score_columns(data: dict) -> list[tuple[str, int, bool]]:
 
 
 def shield_url(label: str, score: int, *, high_is_bad: bool) -> str:
-    palette = HIGH_IS_BAD_COLORS if high_is_bad else HIGH_IS_GOOD_COLORS
-    color = palette[min((score - 1) // 2, len(palette) - 1)]
+    if high_is_bad and score < HIGH_IS_BAD_ALERT_FROM:
+        color = NEUTRAL_COLOR
+    else:
+        palette = HIGH_IS_BAD_COLORS if high_is_bad else HIGH_IS_GOOD_COLORS
+        color = palette[min((score - 1) // 2, len(palette) - 1)]
     return (
         f"https://img.shields.io/static/v1?label={quote(str(score), safe='')}"
         f"&message={quote(label, safe='')}&color={color}&style=flat-square"
@@ -125,8 +130,28 @@ def primer_badges(data: dict) -> str:
     return f"{PRIMER_START}\n{badge_row(data)}\n{PRIMER_END}"
 
 
+def universal_signature(data: dict) -> str:
+    """Compact `J6 F8 M5` figure; the axis order is explained once in the index intro."""
+    scores = data["scores"]
+    return " ".join(
+        f"{UNIVERSAL_LABELS[key][0]}{int(scores[key])}" for key in UNIVERSAL_KEYS
+    )
+
+
+def identity_badges(data: dict) -> str:
+    identity = data["scores"].get("identity") or {}
+    return " ".join(
+        badge_markdown(str(goal), int(identity[goal]), high_is_bad=False)
+        for goal in data["goals"]
+    )
+
+
 def index_badges(data: dict) -> str:
-    return " " + badge_row(data)
+    parts = [f"`{universal_signature(data)}`"]
+    goals = identity_badges(data)
+    if goals:
+        parts.append(goals)
+    return " " + " ".join(parts)
 
 
 def insert_primer_section(original: str, section: str | None) -> str:
