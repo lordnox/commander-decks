@@ -1,0 +1,180 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "08497fc5-1c0e-4c3c-a356-bf4b34bd4c45",
+      "name": "Robot",
+      "object": "related_card",
+      "type_line": "Token Artifact Creature — Robot",
+      "uri": "https://api.scryfall.com/cards/08497fc5-1c0e-4c3c-a356-bf4b34bd4c45"
+    },
+    {
+      "component": "combo_piece",
+      "id": "2cb65388-dc6c-4e2a-93ac-49ea484849e9",
+      "name": "Mechanized Ninja Cavalry",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Robot Ninja",
+      "uri": "https://api.scryfall.com/cards/2cb65388-dc6c-4e2a-93ac-49ea484849e9"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8aae3bd6-a935-44a5-aa4d-a525b00cbf50",
+      "name": "Mouser Foundry",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/8aae3bd6-a935-44a5-aa4d-a525b00cbf50"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c3e68d0d-c259-423e-a319-8b2397c4892c",
+      "name": "Ravenous Robots",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Robot",
+      "uri": "https://api.scryfall.com/cards/c3e68d0d-c259-423e-a319-8b2397c4892c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8f586a85-f9b7-49c4-bfb0-e348b9088841",
+      "name": "Big Mother Mouser",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Robot",
+      "uri": "https://api.scryfall.com/cards/8f586a85-f9b7-49c4-bfb0-e348b9088841"
+    },
+    {
+      "component": "combo_piece",
+      "id": "058490f4-0ada-45e6-b4f0-e433537f52d6",
+      "name": "Mouser Attack!",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/058490f4-0ada-45e6-b4f0-e433537f52d6"
+    },
+    {
+      "component": "combo_piece",
+      "id": "117b1341-2cf0-466e-b3a8-7e1afa42cd4c",
+      "name": "Baxter Stockman",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Scientist",
+      "uri": "https://api.scryfall.com/cards/117b1341-2cf0-466e-b3a8-7e1afa42cd4c"
+    }
+  ],
+  "artist": "Dominik Mayer",
+  "artist_ids": [
+    "c3439c4a-1fee-4e33-9b89-18dac27ac927"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "10",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "08497fc5-1c0e-4c3c-a356-bf4b34bd4c45",
+  "illustration_id": "75f592d5-7658-4344-b27f-a43d72dcee0c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:53:21Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/8/08497fc5-1c0e-4c3c-a356-bf4b34bd4c45.webp?1783904001",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/8/08497fc5-1c0e-4c3c-a356-bf4b34bd4c45.jpg?1783904001",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/8/08497fc5-1c0e-4c3c-a356-bf4b34bd4c45.jpg?1783904001",
+    "crop": "https://cards.scryfall.io/crop/front/0/8/08497fc5-1c0e-4c3c-a356-bf4b34bd4c45.webp?1783904001",
+    "display": "https://cards.scryfall.io/display/front/0/8/08497fc5-1c0e-4c3c-a356-bf4b34bd4c45.webp?1783904001",
+    "grid": "https://cards.scryfall.io/grid/front/0/8/08497fc5-1c0e-4c3c-a356-bf4b34bd4c45.webp?1783904001",
+    "large": "https://cards.scryfall.io/large/front/0/8/08497fc5-1c0e-4c3c-a356-bf4b34bd4c45.jpg?1783904001",
+    "normal": "https://cards.scryfall.io/normal/front/0/8/08497fc5-1c0e-4c3c-a356-bf4b34bd4c45.jpg?1783904001",
+    "png": "https://cards.scryfall.io/png/front/0/8/08497fc5-1c0e-4c3c-a356-bf4b34bd4c45.png?1783904001",
+    "small": "https://cards.scryfall.io/small/front/0/8/08497fc5-1c0e-4c3c-a356-bf4b34bd4c45.jpg?1783904001",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/8/08497fc5-1c0e-4c3c-a356-bf4b34bd4c45.webp?1783904001"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Robot",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "278c4086-7273-4401-a1d6-5e43e14d057d",
+  "oracle_text": "",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A278c4086-7273-4401-a1d6-5e43e14d057d&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Robot&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Robot&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DRobot%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Robot",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRobot",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRobot"
+  },
+  "released_at": "2026-03-06",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/08497fc5-1c0e-4c3c-a356-bf4b34bd4c45/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ttmt?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ttmt/10/robot?utm_source=api",
+  "set": "ttmt",
+  "set_id": "914ad085-2264-40ad-84cb-b7e3d63bb5fe",
+  "set_name": "Teenage Mutant Ninja Turtles Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Attmt&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/914ad085-2264-40ad-84cb-b7e3d63bb5fe",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Token Artifact Creature — Robot",
+  "uri": "https://api.scryfall.com/cards/08497fc5-1c0e-4c3c-a356-bf4b34bd4c45",
+  "variation": false
+}

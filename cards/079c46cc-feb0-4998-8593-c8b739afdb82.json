@@ -1,0 +1,240 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "e96f22c0-b9c8-418a-8224-e7d0b2841bd2",
+      "name": "Elephant",
+      "object": "related_card",
+      "type_line": "Token Creature — Elephant",
+      "uri": "https://api.scryfall.com/cards/e96f22c0-b9c8-418a-8224-e7d0b2841bd2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "cd1383d8-fdc4-4830-a05b-a69ee15e3cd0",
+      "name": "Elephant Ambush",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/cd1383d8-fdc4-4830-a05b-a69ee15e3cd0"
+    },
+    {
+      "component": "combo_piece",
+      "id": "48783dc1-0976-4955-b7e3-afa311160d68",
+      "name": "Terastodon",
+      "object": "related_card",
+      "type_line": "Creature — Elephant",
+      "uri": "https://api.scryfall.com/cards/48783dc1-0976-4955-b7e3-afa311160d68"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a9b998c9-ff41-45b6-baf7-0fc456daf978",
+      "name": "Trumpeting Herd",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/a9b998c9-ff41-45b6-baf7-0fc456daf978"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7fc713d7-4a7e-4f1f-b461-e89bb1457d7d",
+      "name": "Stampeding Scurryfoot",
+      "object": "related_card",
+      "type_line": "Creature — Mouse",
+      "uri": "https://api.scryfall.com/cards/7fc713d7-4a7e-4f1f-b461-e89bb1457d7d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "426b63f9-5788-45d2-b934-1579320bc775",
+      "name": "Selvala's Charge",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/426b63f9-5788-45d2-b934-1579320bc775"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9a1d3972-12bf-49f9-8e1f-c62f8a31d0d3",
+      "name": "March of the World Ooze",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/9a1d3972-12bf-49f9-8e1f-c62f8a31d0d3"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a586aded-9aca-41b1-9530-274ac3758701",
+      "name": "Elephant Guide",
+      "object": "related_card",
+      "type_line": "Enchantment — Aura",
+      "uri": "https://api.scryfall.com/cards/a586aded-9aca-41b1-9530-274ac3758701"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4d313ea7-2456-48f3-8b12-97d8e8c2a5b3",
+      "name": "Autarch Mammoth",
+      "object": "related_card",
+      "type_line": "Creature — Elephant Mount",
+      "uri": "https://api.scryfall.com/cards/4d313ea7-2456-48f3-8b12-97d8e8c2a5b3"
+    },
+    {
+      "component": "combo_piece",
+      "id": "892cd7b7-58d0-4bc4-a904-4b64fadd7f3c",
+      "name": "Call of the Herd",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/892cd7b7-58d0-4bc4-a904-4b64fadd7f3c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f5453591-6377-40de-892c-e8dd46687d11",
+      "name": "Kazandu Tuskcaller",
+      "object": "related_card",
+      "type_line": "Creature — Human Shaman",
+      "uri": "https://api.scryfall.com/cards/f5453591-6377-40de-892c-e8dd46687d11"
+    },
+    {
+      "component": "combo_piece",
+      "id": "14003109-ec2c-40ad-b005-67218ec75cbd",
+      "name": "Bestial Menace",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/14003109-ec2c-40ad-b005-67218ec75cbd"
+    },
+    {
+      "component": "combo_piece",
+      "id": "c3f9b454-97e9-4c77-b37a-e974221ae385",
+      "name": "Generous Gift",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/c3f9b454-97e9-4c77-b37a-e974221ae385"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9b2ca0a2-0a18-4d9e-b953-52018af3c65b",
+      "name": "Assault // Battery",
+      "object": "related_card",
+      "type_line": "Sorcery // Sorcery",
+      "uri": "https://api.scryfall.com/cards/9b2ca0a2-0a18-4d9e-b953-52018af3c65b"
+    }
+  ],
+  "artist": "David Álvarez",
+  "artist_ids": [
+    "c3004e2c-d372-4faa-90db-f1274e75ef41"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "12",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "e2030e94-c186-4b7d-9924-6d53440244fe",
+  "illustration_id": "4da6a302-e9ad-4cdc-a164-181487102380",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:33:33Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/2/e2030e94-c186-4b7d-9924-6d53440244fe.webp?1783902813",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/2/e2030e94-c186-4b7d-9924-6d53440244fe.jpg?1783902813",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/2/e2030e94-c186-4b7d-9924-6d53440244fe.jpg?1783902813",
+    "crop": "https://cards.scryfall.io/crop/front/e/2/e2030e94-c186-4b7d-9924-6d53440244fe.webp?1783902813",
+    "display": "https://cards.scryfall.io/display/front/e/2/e2030e94-c186-4b7d-9924-6d53440244fe.webp?1783902813",
+    "grid": "https://cards.scryfall.io/grid/front/e/2/e2030e94-c186-4b7d-9924-6d53440244fe.webp?1783902813",
+    "large": "https://cards.scryfall.io/large/front/e/2/e2030e94-c186-4b7d-9924-6d53440244fe.jpg?1783902813",
+    "normal": "https://cards.scryfall.io/normal/front/e/2/e2030e94-c186-4b7d-9924-6d53440244fe.jpg?1783902813",
+    "png": "https://cards.scryfall.io/png/front/e/2/e2030e94-c186-4b7d-9924-6d53440244fe.png?1783902813",
+    "small": "https://cards.scryfall.io/small/front/e/2/e2030e94-c186-4b7d-9924-6d53440244fe.jpg?1783902813",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/2/e2030e94-c186-4b7d-9924-6d53440244fe.webp?1783902813"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Elephant",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "079c46cc-feb0-4998-8593-c8b739afdb82",
+  "oracle_text": "",
+  "oversized": false,
+  "power": "3",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A079c46cc-feb0-4998-8593-c8b739afdb82&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Elephant&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Elephant&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DElephant%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Elephant",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DElephant",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DElephant"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e2030e94-c186-4b7d-9924-6d53440244fe/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tmsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tmsc/12/elephant?utm_source=api",
+  "set": "tmsc",
+  "set_id": "1a555c51-d5da-4f1d-ac1c-5cce81d5d8dc",
+  "set_name": "Marvel Super Heroes Commander Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atmsc&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/1a555c51-d5da-4f1d-ac1c-5cce81d5d8dc",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Token Creature — Elephant",
+  "uri": "https://api.scryfall.com/cards/e2030e94-c186-4b7d-9924-6d53440244fe",
+  "variation": false
+}

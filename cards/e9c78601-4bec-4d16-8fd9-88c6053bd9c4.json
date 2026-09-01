@@ -1,0 +1,161 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "1d74d012-66ca-4a0c-9e90-e31e96730d4d",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/1d74d012-66ca-4a0c-9e90-e31e96730d4d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4c4d8bfb-aaf0-41f3-a000-1df6363fb25c",
+      "name": "Bottle-Cap Blast",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/4c4d8bfb-aaf0-41f3-a000-1df6363fb25c"
+    }
+  ],
+  "artist": "Liiga Smilshkalne",
+  "artist_ids": [
+    "5a50ced2-b301-4195-8af4-f7e1bae07d28"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 758331,
+  "cmc": 5.0,
+  "collector_number": "55",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 4044,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "8bdceec0-0950-4d52-86fc-d0f04e8487ce",
+  "illustration_id": "827f0374-195f-4bc7-bd50-8311e7bcf583",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:13:24Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/b/8bdceec0-0950-4d52-86fc-d0f04e8487ce.webp?1783912404",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/b/8bdceec0-0950-4d52-86fc-d0f04e8487ce.jpg?1783912404",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/b/8bdceec0-0950-4d52-86fc-d0f04e8487ce.jpg?1783912404",
+    "crop": "https://cards.scryfall.io/crop/front/8/b/8bdceec0-0950-4d52-86fc-d0f04e8487ce.webp?1783912404",
+    "display": "https://cards.scryfall.io/display/front/8/b/8bdceec0-0950-4d52-86fc-d0f04e8487ce.webp?1783912404",
+    "grid": "https://cards.scryfall.io/grid/front/8/b/8bdceec0-0950-4d52-86fc-d0f04e8487ce.webp?1783912404",
+    "large": "https://cards.scryfall.io/large/front/8/b/8bdceec0-0950-4d52-86fc-d0f04e8487ce.jpg?1783912404",
+    "normal": "https://cards.scryfall.io/normal/front/8/b/8bdceec0-0950-4d52-86fc-d0f04e8487ce.jpg?1783912404",
+    "png": "https://cards.scryfall.io/png/front/8/b/8bdceec0-0950-4d52-86fc-d0f04e8487ce.png?1783912404",
+    "small": "https://cards.scryfall.io/small/front/8/b/8bdceec0-0950-4d52-86fc-d0f04e8487ce.jpg?1783912404",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/b/8bdceec0-0950-4d52-86fc-d0f04e8487ce.webp?1783912404"
+  },
+  "keywords": [
+    "Improvise",
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{R}",
+  "mtgo_id": 132359,
+  "multiverse_ids": [
+    652142
+  ],
+  "name": "Bottle-Cap Blast",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e9c78601-4bec-4d16-8fd9-88c6053bd9c4",
+  "oracle_text": "Improvise (Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for {1}.)\nBottle-Cap Blast deals 5 damage to any target. If excess damage was dealt to a permanent this way, create that many tapped Treasure tokens. (They're artifacts with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+  "oversized": false,
+  "prices": {
+    "eur": "5.27",
+    "eur_foil": "17.74",
+    "tix": "9.64",
+    "usd": "4.53",
+    "usd_etched": null,
+    "usd_foil": "19.87"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae9c78601-4bec-4d16-8fd9-88c6053bd9c4&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/132359?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=758331&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F541424%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bottle-Cap+Blast",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=652142&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBottle-Cap%2BBlast",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBottle-Cap%2BBlast"
+  },
+  "released_at": "2024-03-08",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8bdceec0-0950-4d52-86fc-d0f04e8487ce/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/pip?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/pip/55/bottle-cap-blast?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "pip",
+  "set_id": "d84d7a49-2ef4-4808-83b4-8c65b4aa0e2d",
+  "set_name": "Fallout",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Apip&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d84d7a49-2ef4-4808-83b4-8c65b4aa0e2d",
+  "story_spotlight": false,
+  "tcgplayer_id": 541424,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/8bdceec0-0950-4d52-86fc-d0f04e8487ce",
+  "variation": false
+}

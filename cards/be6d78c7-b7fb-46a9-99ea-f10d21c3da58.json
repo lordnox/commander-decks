@@ -1,0 +1,136 @@
+{
+  "artist": "Mark Zug",
+  "artist_ids": [
+    "48e2b98c-5467-4671-bd42-4c3746115117"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 12851,
+  "cmc": 7.0,
+  "collector_number": "12",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 24905,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "46e53299-f480-4769-bfc6-86fb19964280",
+  "illustration_id": "fb2d4432-8ca3-437d-966f-e087dafed934",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:03:34Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/6/46e53299-f480-4769-bfc6-86fb19964280.webp?1783944214",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/6/46e53299-f480-4769-bfc6-86fb19964280.jpg?1783944214",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/6/46e53299-f480-4769-bfc6-86fb19964280.jpg?1783944214",
+    "crop": "https://cards.scryfall.io/crop/front/4/6/46e53299-f480-4769-bfc6-86fb19964280.webp?1783944214",
+    "display": "https://cards.scryfall.io/display/front/4/6/46e53299-f480-4769-bfc6-86fb19964280.webp?1783944214",
+    "grid": "https://cards.scryfall.io/grid/front/4/6/46e53299-f480-4769-bfc6-86fb19964280.webp?1783944214",
+    "large": "https://cards.scryfall.io/large/front/4/6/46e53299-f480-4769-bfc6-86fb19964280.jpg?1783944214",
+    "normal": "https://cards.scryfall.io/normal/front/4/6/46e53299-f480-4769-bfc6-86fb19964280.jpg?1783944214",
+    "png": "https://cards.scryfall.io/png/front/4/6/46e53299-f480-4769-bfc6-86fb19964280.png?1783944214",
+    "small": "https://cards.scryfall.io/small/front/4/6/46e53299-f480-4769-bfc6-86fb19964280.jpg?1783944214",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/6/46e53299-f480-4769-bfc6-86fb19964280.webp?1783944214"
+  },
+  "keywords": [
+    "Flying",
+    "Soulshift"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{W}{W}",
+  "mtgo_foil_id": 21616,
+  "mtgo_id": 21615,
+  "multiverse_ids": [
+    81977
+  ],
+  "name": "Kami of the Honored Dead",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "be6d78c7-b7fb-46a9-99ea-f10d21c3da58",
+  "oracle_text": "Flying\nWhenever this creature is dealt damage, you gain that much life.\nSoulshift 6 (When this creature dies, you may return target Spirit card with mana value 6 or less from your graveyard to your hand.)",
+  "oversized": false,
+  "penny_rank": 17156,
+  "power": "3",
+  "prices": {
+    "eur": "0.13",
+    "eur_foil": "0.61",
+    "tix": "0.03",
+    "usd": "0.18",
+    "usd_etched": null,
+    "usd_foil": "0.83"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abe6d78c7-b7fb-46a9-99ea-f10d21c3da58&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/21615?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=12851&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F12293%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Kami+of+the+Honored+Dead",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=81977&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKami%2Bof%2Bthe%2BHonored%2BDead",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKami%2Bof%2Bthe%2BHonored%2BDead"
+  },
+  "released_at": "2005-02-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/46e53299-f480-4769-bfc6-86fb19964280/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/bok?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/bok/12/kami-of-the-honored-dead?utm_source=api",
+  "set": "bok",
+  "set_id": "d4b88587-a1f5-4b47-9e24-78ec9e57bd0e",
+  "set_name": "Betrayers of Kamigawa",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abok&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/d4b88587-a1f5-4b47-9e24-78ec9e57bd0e",
+  "story_spotlight": false,
+  "tcgplayer_id": 12293,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Creature — Spirit",
+  "uri": "https://api.scryfall.com/cards/46e53299-f480-4769-bfc6-86fb19964280",
+  "variation": false
+}

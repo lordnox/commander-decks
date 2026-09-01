@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "c46f9a07-005c-44b7-8057-b2f00b274dd6",
+      "name": "Robot",
+      "object": "related_card",
+      "type_line": "Token Artifact Creature — Robot",
+      "uri": "https://api.scryfall.com/cards/c46f9a07-005c-44b7-8057-b2f00b274dd6"
+    },
+    {
+      "component": "combo_piece",
+      "id": "474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a",
+      "name": "Melded Moxite",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a"
+    }
+  ],
+  "arena_id": 96717,
+  "artist": "Alexandr Leskinen",
+  "artist_ids": [
+    "f7341fb0-cf38-4391-af7e-fb3f024d4eef"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 835359,
+  "cmc": 2.0,
+  "collector_number": "143",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 9253,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Only the most skilled matter shapers can imbue moxite with other raw energies, but the rewards are well worth the dangers.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a",
+  "illustration_id": "90006ed6-d7cc-46a2-8ea4-d7613fe133ec",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:25:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/7/474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a.webp?1783905952",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/7/474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a.jpg?1783905952",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/7/474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a.jpg?1783905952",
+    "crop": "https://cards.scryfall.io/crop/front/4/7/474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a.webp?1783905952",
+    "display": "https://cards.scryfall.io/display/front/4/7/474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a.webp?1783905952",
+    "grid": "https://cards.scryfall.io/grid/front/4/7/474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a.webp?1783905952",
+    "large": "https://cards.scryfall.io/large/front/4/7/474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a.jpg?1783905952",
+    "normal": "https://cards.scryfall.io/normal/front/4/7/474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a.jpg?1783905952",
+    "png": "https://cards.scryfall.io/png/front/4/7/474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a.png?1783905952",
+    "small": "https://cards.scryfall.io/small/front/4/7/474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a.jpg?1783905952",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/7/474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a.webp?1783905952"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}",
+  "mtgo_id": 142899,
+  "multiverse_ids": [],
+  "name": "Melded Moxite",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "86e0e718-82b5-4c99-9837-1b4d8729a27e",
+  "oracle_text": "When this artifact enters, you may discard a card. If you do, draw two cards.\n{3}, Sacrifice this artifact: Create a tapped 2/2 colorless Robot artifact creature token.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2025-07-14",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.facebook.com/MagicTheGathering"
+  },
+  "prices": {
+    "eur": "0.18",
+    "eur_foil": "0.41",
+    "tix": "0.03",
+    "usd": "0.25",
+    "usd_etched": null,
+    "usd_foil": "0.35"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A86e0e718-82b5-4c99-9837-1b4d8729a27e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/142899?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=835359&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F643632%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Melded+Moxite",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMelded%2BMoxite",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMelded%2BMoxite"
+  },
+  "released_at": "2025-08-01",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "AC8DBA9EB50A15A90831EBB6487FD37947CD2401C6441DDDC8635309CA8A7DE1",
+  "rulings_uri": "https://api.scryfall.com/cards/474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eoe?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eoe/143/melded-moxite?utm_source=api",
+  "set": "eoe",
+  "set_id": "452951cf-378b-4472-b7fe-572fe2af2ac0",
+  "set_name": "Edge of Eternities",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeoe&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/452951cf-378b-4472-b7fe-572fe2af2ac0",
+  "story_spotlight": false,
+  "tcgplayer_id": 643632,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/474c067f-eb24-4ae8-b4c0-f6f8e24cdb2a",
+  "variation": false
+}

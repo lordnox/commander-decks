@@ -1,0 +1,140 @@
+{
+  "artist": "Dan Murayama Scott",
+  "artist_ids": [
+    "f852fa13-137e-40f2-bbc1-0f01df09c0e0"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 660278,
+  "cmc": 5.0,
+  "collector_number": "207",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 2260,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"We'll put it all back! The gems, the gold, the chalice that would've looked great on my mantle; we'll put everythi—\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "acd207de-eec3-4d82-b8b9-b1e60a7bad12",
+  "illustration_id": "3aea88f1-8323-4185-a82f-773494adcca8",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:05:24Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/c/acd207de-eec3-4d82-b8b9-b1e60a7bad12.webp?1783922724",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/c/acd207de-eec3-4d82-b8b9-b1e60a7bad12.jpg?1783922724",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/c/acd207de-eec3-4d82-b8b9-b1e60a7bad12.jpg?1783922724",
+    "crop": "https://cards.scryfall.io/crop/front/a/c/acd207de-eec3-4d82-b8b9-b1e60a7bad12.webp?1783922724",
+    "display": "https://cards.scryfall.io/display/front/a/c/acd207de-eec3-4d82-b8b9-b1e60a7bad12.webp?1783922724",
+    "grid": "https://cards.scryfall.io/grid/front/a/c/acd207de-eec3-4d82-b8b9-b1e60a7bad12.webp?1783922724",
+    "large": "https://cards.scryfall.io/large/front/a/c/acd207de-eec3-4d82-b8b9-b1e60a7bad12.jpg?1783922724",
+    "normal": "https://cards.scryfall.io/normal/front/a/c/acd207de-eec3-4d82-b8b9-b1e60a7bad12.jpg?1783922724",
+    "png": "https://cards.scryfall.io/png/front/a/c/acd207de-eec3-4d82-b8b9-b1e60a7bad12.png?1783922724",
+    "small": "https://cards.scryfall.io/small/front/a/c/acd207de-eec3-4d82-b8b9-b1e60a7bad12.jpg?1783922724",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/c/acd207de-eec3-4d82-b8b9-b1e60a7bad12.webp?1783922724"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{R}{R}",
+  "mtgo_id": 100440,
+  "multiverse_ids": [
+    563090
+  ],
+  "name": "Wrathful Red Dragon",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "17c2a962-994a-49f1-8c4e-ebcc43c3c92a",
+  "oracle_text": "Flying\nWhenever a Dragon you control is dealt damage, it deals that much damage to any target that isn't a Dragon.",
+  "oversized": false,
+  "power": "5",
+  "preview": {
+    "previewed_at": "2022-05-24",
+    "source": "M.Wakatsuki/aisha",
+    "source_uri": "https://twitter.com/aishawakatsuki/status/1529116568105668608"
+  },
+  "prices": {
+    "eur": "8.78",
+    "eur_foil": "7.56",
+    "tix": "4.73",
+    "usd": "6.84",
+    "usd_etched": null,
+    "usd_foil": "6.11"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A17c2a962-994a-49f1-8c4e-ebcc43c3c92a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/100440?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=660278&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F273008%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wrathful+Red+Dragon",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=563090&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWrathful%2BRed%2BDragon",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWrathful%2BRed%2BDragon"
+  },
+  "released_at": "2022-06-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/acd207de-eec3-4d82-b8b9-b1e60a7bad12/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/207/wrathful-red-dragon?utm_source=api",
+  "security_stamp": "oval",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 273008,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Creature — Dragon",
+  "uri": "https://api.scryfall.com/cards/acd207de-eec3-4d82-b8b9-b1e60a7bad12",
+  "variation": false
+}

@@ -1,0 +1,130 @@
+{
+  "artist": "Scott M. Fischer",
+  "artist_ids": [
+    "23b0cf43-3e43-44c6-8329-96446eca5bce"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 358753,
+  "cmc": 1.0,
+  "collector_number": "101",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 1584,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"I wrecked your metal guy, boss. But look! I made you an ashtray.\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "17cd920a-de09-454a-a9da-c84512e3aff1",
+  "illustration_id": "9290e288-838e-4d63-bc1c-661d445cec08",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:25:42Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/7/17cd920a-de09-454a-a9da-c84512e3aff1.webp?1783934742",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/7/17cd920a-de09-454a-a9da-c84512e3aff1.jpg?1783934742",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/7/17cd920a-de09-454a-a9da-c84512e3aff1.jpg?1783934742",
+    "crop": "https://cards.scryfall.io/crop/front/1/7/17cd920a-de09-454a-a9da-c84512e3aff1.webp?1783934742",
+    "display": "https://cards.scryfall.io/display/front/1/7/17cd920a-de09-454a-a9da-c84512e3aff1.webp?1783934742",
+    "grid": "https://cards.scryfall.io/grid/front/1/7/17cd920a-de09-454a-a9da-c84512e3aff1.webp?1783934742",
+    "large": "https://cards.scryfall.io/large/front/1/7/17cd920a-de09-454a-a9da-c84512e3aff1.jpg?1783934742",
+    "normal": "https://cards.scryfall.io/normal/front/1/7/17cd920a-de09-454a-a9da-c84512e3aff1.jpg?1783934742",
+    "png": "https://cards.scryfall.io/png/front/1/7/17cd920a-de09-454a-a9da-c84512e3aff1.png?1783934742",
+    "small": "https://cards.scryfall.io/small/front/1/7/17cd920a-de09-454a-a9da-c84512e3aff1.jpg?1783934742",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/7/17cd920a-de09-454a-a9da-c84512e3aff1.webp?1783934742"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{R}",
+  "multiverse_ids": [
+    446837
+  ],
+  "name": "Goblin Welder",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9fc28e1f-f4ea-4bf8-9442-a36dba3b3b29",
+  "oracle_text": "{T}: Choose target artifact a player controls and target artifact card in that player's graveyard. If both targets are still legal as this ability resolves, that player simultaneously sacrifices the artifact and returns the artifact card to the battlefield.",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": "16.94",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "22.90",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9fc28e1f-f4ea-4bf8-9442-a36dba3b3b29&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Goblin+Welder&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=358753&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F166822%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Goblin+Welder",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=446837&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGoblin%2BWelder",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGoblin%2BWelder"
+  },
+  "released_at": "2018-06-08",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/17cd920a-de09-454a-a9da-c84512e3aff1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cm2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cm2/101/goblin-welder?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cm2",
+  "set_id": "2ba5b1a3-40ed-422e-981d-56753004dfc6",
+  "set_name": "Commander Anthology Volume II",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acm2&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/2ba5b1a3-40ed-422e-981d-56753004dfc6",
+  "story_spotlight": false,
+  "tcgplayer_id": 166822,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Goblin Artificer",
+  "uri": "https://api.scryfall.com/cards/17cd920a-de09-454a-a9da-c84512e3aff1",
+  "variation": false
+}

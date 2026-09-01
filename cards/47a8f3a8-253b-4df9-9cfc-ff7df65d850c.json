@@ -1,0 +1,167 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "4ae9f454-4f8c-4123-9886-674bc439dfe7",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/4ae9f454-4f8c-4123-9886-674bc439dfe7"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3ce46100-461d-424e-afa4-7a0bb7d0a822",
+      "name": "Forging the Tyrite Sword",
+      "object": "related_card",
+      "type_line": "Enchantment — Saga",
+      "uri": "https://api.scryfall.com/cards/3ce46100-461d-424e-afa4-7a0bb7d0a822"
+    },
+    {
+      "component": "combo_piece",
+      "id": "feddb683-a8f8-4def-bd3e-6d630c42cd34",
+      "name": "Halvar, God of Battle // Sword of the Realms",
+      "object": "related_card",
+      "type_line": "Legendary Creature — God // Legendary Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/feddb683-a8f8-4def-bd3e-6d630c42cd34"
+    }
+  ],
+  "arena_id": 75258,
+  "artist": "Kieran Yanner",
+  "artist_ids": [
+    "aa7e89ed-d294-4633-9057-ce04dacfcfa4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 530237,
+  "cmc": 3.0,
+  "collector_number": "211",
+  "color_identity": [
+    "R",
+    "W"
+  ],
+  "colors": [
+    "R",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 8333,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "3ce46100-461d-424e-afa4-7a0bb7d0a822",
+  "illustration_id": "56d4ed46-502e-40fa-a2e0-323485e2a9ea",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:36:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/c/3ce46100-461d-424e-afa4-7a0bb7d0a822.webp?1783928197",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/c/3ce46100-461d-424e-afa4-7a0bb7d0a822.jpg?1783928197",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/c/3ce46100-461d-424e-afa4-7a0bb7d0a822.jpg?1783928197",
+    "crop": "https://cards.scryfall.io/crop/front/3/c/3ce46100-461d-424e-afa4-7a0bb7d0a822.webp?1783928197",
+    "display": "https://cards.scryfall.io/display/front/3/c/3ce46100-461d-424e-afa4-7a0bb7d0a822.webp?1783928197",
+    "grid": "https://cards.scryfall.io/grid/front/3/c/3ce46100-461d-424e-afa4-7a0bb7d0a822.webp?1783928197",
+    "large": "https://cards.scryfall.io/large/front/3/c/3ce46100-461d-424e-afa4-7a0bb7d0a822.jpg?1783928197",
+    "normal": "https://cards.scryfall.io/normal/front/3/c/3ce46100-461d-424e-afa4-7a0bb7d0a822.jpg?1783928197",
+    "png": "https://cards.scryfall.io/png/front/3/c/3ce46100-461d-424e-afa4-7a0bb7d0a822.png?1783928197",
+    "small": "https://cards.scryfall.io/small/front/3/c/3ce46100-461d-424e-afa4-7a0bb7d0a822.jpg?1783928197",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/c/3ce46100-461d-424e-afa4-7a0bb7d0a822.webp?1783928197"
+  },
+  "keywords": [
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "saga",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}{W}",
+  "mtgo_id": 87765,
+  "multiverse_ids": [
+    503827
+  ],
+  "name": "Forging the Tyrite Sword",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "47a8f3a8-253b-4df9-9cfc-ff7df65d850c",
+  "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI, II — Create a Treasure token.\nIII — Search your library for a card named Halvar, God of Battle or an Equipment card, reveal it, put it into your hand, then shuffle.",
+  "oversized": false,
+  "penny_rank": 12606,
+  "preview": {
+    "previewed_at": "2021-01-08",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/feature/planeswalkers-guide-kaldheim-part-1-2021-01-08"
+  },
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": "0.33",
+    "tix": "0.03",
+    "usd": "0.34",
+    "usd_etched": null,
+    "usd_foil": "0.37"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A47a8f3a8-253b-4df9-9cfc-ff7df65d850c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/87765?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=530237&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F230144%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Forging+the+Tyrite+Sword",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=503827&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DForging%2Bthe%2BTyrite%2BSword",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DForging%2Bthe%2BTyrite%2BSword"
+  },
+  "released_at": "2021-02-05",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3ce46100-461d-424e-afa4-7a0bb7d0a822/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/khm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/khm/211/forging-the-tyrite-sword?utm_source=api",
+  "set": "khm",
+  "set_id": "43057fad-b1c1-437f-bc48-0045bce6d8c9",
+  "set_name": "Kaldheim",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Akhm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/43057fad-b1c1-437f-bc48-0045bce6d8c9",
+  "story_spotlight": true,
+  "tcgplayer_id": 230144,
+  "textless": false,
+  "type_line": "Enchantment — Saga",
+  "uri": "https://api.scryfall.com/cards/3ce46100-461d-424e-afa4-7a0bb7d0a822",
+  "variation": false
+}

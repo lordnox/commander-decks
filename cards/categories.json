@@ -898,7 +898,7 @@
       "categories": [
         "commander-top"
       ],
-      "name": "Bartolomé del Presidio"
+      "name": "Bartolom\u00e9 del Presidio"
     },
     "f73da5d8-fd15-4315-ad3c-c86c28087285": {
       "categories": [
@@ -1168,7 +1168,8 @@
     },
     "4d67e2a7-4aa7-44cc-853b-500d7aac046d": {
       "categories": [
-        "ramp"
+        "ramp",
+        "copy"
       ],
       "name": "Cursed Mirror"
     },
@@ -1247,6 +1248,7 @@
     },
     "6754753d-790e-4a95-a150-76741c4a02d4": {
       "categories": [
+        "vehicle",
         "token-production",
         "sacrifice"
       ],
@@ -1411,7 +1413,7 @@
     },
     "c20a96f7-aa5a-4c15-b8b1-806685c99b27": {
       "categories": [
-        "other"
+        "protection"
       ],
       "name": "Bolt Bend"
     },
@@ -3844,6 +3846,8 @@
     "8b27326f-e7b8-4a4d-b589-df459246d19a": {
       "name": "Shadowspear",
       "categories": [
+        "equipment",
+        "lifegain",
         "protection"
       ]
     },
@@ -8541,6 +8545,8 @@
     "3e41648f-c5a9-4b26-b97e-8176fe5e9c85": {
       "name": "Brash Taunter",
       "categories": [
+        "damage-reflection",
+        "win-condition",
         "protection"
       ]
     },
@@ -8876,8 +8882,355 @@
         "damage-reflection",
         "win-condition"
       ]
+    },
+    "2b22cf44-7b03-4919-9812-6796bf193484": {
+      "name": "Abuelo's Awakening",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "70d35dbd-1d91-4a2a-a643-6870d168f4f5": {
+      "name": "Adagia, Windswept Bastion",
+      "categories": [
+        "land",
+        "ramp",
+        "copy"
+      ]
+    },
+    "02f16726-f2f6-4943-b71a-93f8e26251d3": {
+      "name": "Ancient Den",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "535f405d-94df-4f45-aedc-b331103720b7": {
+      "name": "Atsushi, the Blazing Sky",
+      "categories": [
+        "token-production",
+        "card-draw"
+      ]
+    },
+    "5c5b308c-07d5-422a-8b45-b8b19cb967ca": {
+      "name": "Blacksmith's Skill",
+      "categories": [
+        "protection"
+      ]
+    },
+    "41c84665-1f99-40ab-aaca-1188649eb263": {
+      "name": "Boros Signet",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "e9c78601-4bec-4d16-8fd9-88c6053bd9c4": {
+      "name": "Bottle-Cap Blast",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "939e8448-013a-4aef-9a92-7c883a77a1a0": {
+      "name": "Cavern-Hoard Dragon",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "4f1b68d7-7d16-4bb1-af5f-f1708b23ca73": {
+      "name": "Celestial Armor",
+      "categories": [
+        "protection",
+        "equipment"
+      ]
+    },
+    "086b2564-9114-4ba2-94fd-b490f98f38a7": {
+      "name": "Chain Reaction",
+      "categories": [
+        "board-wipe"
+      ]
+    },
+    "0b67c4e2-f88b-4e01-85a1-9d5f5b8db13b": {
+      "name": "Commander's Sphere",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "afc9436b-8cad-4916-929d-ff33a37b42d5": {
+      "name": "Dawnsire, Sunstar Dreadnought",
+      "categories": [
+        "win-condition",
+        "vehicle"
+      ]
+    },
+    "133c99c0-3652-410f-8100-68015a47af9f": {
+      "name": "Dispatch",
+      "categories": [
+        "removal"
+      ]
+    },
+    "0d6e76aa-2966-48b7-be4e-2d3e2cc94fc1": {
+      "name": "Donna Noble",
+      "categories": [
+        "damage-reflection",
+        "win-condition"
+      ]
+    },
+    "079c46cc-feb0-4998-8593-c8b739afdb82": {
+      "name": "Elephant",
+      "categories": [
+        "other"
+      ]
+    },
+    "47a8f3a8-253b-4df9-9cfc-ff7df65d850c": {
+      "name": "Forging the Tyrite Sword",
+      "categories": [
+        "ramp",
+        "tutor",
+        "token-production"
+      ]
+    },
+    "a54f0869-94c8-42af-9080-166efb9486a4": {
+      "name": "Gamble",
+      "categories": [
+        "tutor",
+        "discard"
+      ]
+    },
+    "1af63a5e-2bec-4f8d-a373-d9ce43a7d242": {
+      "name": "Gideon's Sacrifice",
+      "categories": [
+        "damage-routing",
+        "protection"
+      ]
+    },
+    "c1d6cce8-085f-42cb-8b0c-b6fbbf88b16a": {
+      "name": "Goblin Engineer",
+      "categories": [
+        "tutor",
+        "recursion",
+        "sacrifice"
+      ]
+    },
+    "9fc28e1f-f4ea-4bf8-9442-a36dba3b3b29": {
+      "name": "Goblin Welder",
+      "categories": [
+        "recursion",
+        "sacrifice"
+      ]
+    },
+    "be6d78c7-b7fb-46a9-99ea-f10d21c3da58": {
+      "name": "Kami of the Honored Dead",
+      "categories": [
+        "lifegain",
+        "damage-reflection"
+      ]
+    },
+    "f8c2a972-e38f-47e5-a355-6f30ad09b1ae": {
+      "name": "Losheel, Clockwork Scholar",
+      "categories": [
+        "card-draw",
+        "protection"
+      ]
+    },
+    "86e0e718-82b5-4c99-9837-1b4d8729a27e": {
+      "name": "Melded Moxite",
+      "categories": [
+        "card-draw",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "baec04a1-3bc9-4618-afab-e42013e36648": {
+      "name": "Metropolis Reformer",
+      "categories": [
+        "protection",
+        "lifegain"
+      ]
+    },
+    "9ec43ec6-b625-4be8-8f79-3679e6657dbc": {
+      "name": "Mycosynth Wellspring",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "04a0382f-7e4e-4450-ae70-18999379d875": {
+      "name": "Nutrient Block",
+      "categories": [
+        "card-draw",
+        "protection",
+        "sacrifice"
+      ]
+    },
+    "add020f8-a6ae-4ce1-8d4e-f48f3fd14767": {
+      "name": "Osgir, the Reconstructor",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "dbc9ea19-cf68-41d3-88a8-b5ab8df75c5a": {
+      "name": "Oswald Fiddlebender",
+      "categories": [
+        "tutor",
+        "sacrifice"
+      ]
+    },
+    "9b5cfbb7-21ed-491d-b77d-547e4d30a7da": {
+      "name": "Phyrexian Vindicator",
+      "categories": [
+        "damage-reflection",
+        "protection",
+        "win-condition"
+      ]
+    },
+    "681fc668-cb26-4ba4-a915-48ddfa2b9520": {
+      "name": "Prized Statue",
+      "categories": [
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "2c10cae2-951a-4f4f-94e4-8713b58d07dd": {
+      "name": "Pyrite Spellbomb",
+      "categories": [
+        "card-draw",
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "f1ea7dc5-01cb-4780-947c-08ea9324c52f": {
+      "name": "Reckless Handling",
+      "categories": [
+        "tutor",
+        "discard"
+      ]
+    },
+    "26d2762b-4346-40d0-b93d-b0dbfeb6e2bc": {
+      "name": "Reroute Systems",
+      "categories": [
+        "protection",
+        "removal"
+      ]
+    },
+    "278c4086-7273-4401-a1d6-5e43e14d057d": {
+      "name": "Robot",
+      "categories": [
+        "other"
+      ]
+    },
+    "8e7641e1-e814-4d5a-9cb3-71ad2f4ceee8": {
+      "name": "Rugged Prairie",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "a3faf70d-c034-4692-9e92-1922029e3852": {
+      "name": "Rustvale Bridge",
+      "categories": [
+        "land",
+        "ramp",
+        "protection"
+      ]
+    },
+    "6c85271c-c711-49b0-a72e-9e576c33714d": {
+      "name": "Sculpting Steel",
+      "categories": [
+        "copy"
+      ]
+    },
+    "3d1b09a3-f151-4218-974b-02bb6159247a": {
+      "name": "Seize the Spotlight",
+      "categories": [
+        "card-draw",
+        "theft",
+        "token-production"
+      ]
+    },
+    "cf6d10ed-85c3-48f2-8ba0-2960e03b408b": {
+      "name": "Spectator Seating",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "fde2653f-5270-4b8f-9642-0835dbb076c2": {
+      "name": "Spiteful Banditry",
+      "categories": [
+        "board-wipe",
+        "token-production"
+      ]
+    },
+    "03f5c566-825c-4c46-9c01-a2f9b1e70a13": {
+      "name": "The Mycosynth Gardens",
+      "categories": [
+        "land",
+        "ramp",
+        "copy"
+      ]
+    },
+    "aaa14260-2537-4668-8517-c825118777cc": {
+      "name": "Tune Up",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "3567c3c8-b3c7-45b7-935b-b1fdbc973720": {
+      "name": "Vandalblast",
+      "categories": [
+        "removal"
+      ]
+    },
+    "e43055c7-2245-4544-b0b4-ee30dc1ebf14": {
+      "name": "Wall of Hope",
+      "categories": [
+        "damage-reflection",
+        "lifegain"
+      ]
+    },
+    "c947171b-ed9e-4b83-af45-bd595a8d84ee": {
+      "name": "Warmaker Gunship",
+      "categories": [
+        "removal",
+        "vehicle"
+      ]
+    },
+    "17c2a962-994a-49f1-8c4e-ebcc43c3c92a": {
+      "name": "Wrathful Red Dragon",
+      "categories": [
+        "damage-reflection",
+        "win-condition"
+      ]
+    },
+    "189b3b19-e917-4c66-8157-856140d77958": {
+      "name": "Hamster",
+      "categories": [
+        "other"
+      ]
+    },
+    "06c0476f-0a88-479e-b942-a485acfbf589": {
+      "name": "Mishra's Warform",
+      "categories": [
+        "other"
+      ]
+    },
+    "53ccb03f-a853-4df9-8c00-39279d15f3b2": {
+      "name": "Phyrexian Myr",
+      "categories": [
+        "other"
+      ]
+    },
+    "32edf0e6-a495-4de8-b85f-42a2d4ef71b1": {
+      "name": "Vibranium",
+      "categories": [
+        "ramp",
+        "protection"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-01T17:49:38.560916+00:00"
+  "updated_at": "2026-09-01T18:00:32.535132+00:00"
 }
