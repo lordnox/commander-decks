@@ -9229,8 +9229,35 @@
         "ramp",
         "protection"
       ]
+    },
+    "0f2e3e2e-9857-4be5-9bf0-62da1cc147fc": {
+      "name": "Lobelia, Defender of Bag End",
+      "categories": [
+        "exile",
+        "play-from-exile",
+        "theft",
+        "sacrifice"
+      ]
+    },
+    "4864cc98-4fde-4010-81e9-ea4944347e7e": {
+      "name": "Mindleecher",
+      "categories": [
+        "exile",
+        "play-from-exile",
+        "theft",
+        "evasion",
+        "nightmare"
+      ]
+    },
+    "b75ca527-4494-4957-b2e3-8c590df42e95": {
+      "name": "Dauntless Scrapbot",
+      "categories": [
+        "graveyard-hate",
+        "ramp",
+        "token-production"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-01T18:00:32.535132+00:00"
+  "updated_at": "2026-09-01T20:31:58.553574+00:00"
 }
