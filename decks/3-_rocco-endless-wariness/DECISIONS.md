@@ -19,7 +19,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 ## Rankings
 
-See `rankings.json`. First pass: jank 7, fun 7, mean 6, Pingers 9, ETB Effects 9. Same 99 as Welcome Party; identity is ping-first.
+See `rankings.json`. First pass: jank 7, fun 7, mean 6, Pingers 9, ETB Effects 9. Identity is ping-first.
 
 ## Cards in
 
@@ -120,6 +120,10 @@ The primer treats Rocco as a repeatable creature tutor and Norin as the engine, 
 - Blessed Sanctuary prevents noncombat damage to you and creatures you control, so Blasphemous Act does not kill your team.
 
 ## Talks
+
+### 2026-09-01 — Duplicate Rocco copy removed
+
+`decklist.txt` for Norin's Welcome Party matched Endless Wariness line-for-line (same cards, printings, and categories). Kept this folder as the live list and deleted `decks/3-_rocco-norins-welcome-party/`.
 
 ### 2026-08-27 — Bracket assessment
 
