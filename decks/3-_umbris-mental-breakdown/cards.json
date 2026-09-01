@@ -679,30 +679,30 @@
       "submitted_name": "Kaya's Ghostform"
     },
     {
-      "cache": "cards/35c416c6-f522-4b4c-93db-75c4e01843d1.json",
+      "cache": "cards/d32345c1-ed20-4bfc-a5fa-6ac7b99542ec.json",
       "card": {
         "cmc": 3.0,
-        "keywords": [
-          "Mill"
-        ],
-        "mana_cost": "{1}{U}{B}",
-        "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Each player mills four cards. Then you may exile a creature or planeswalker card from each graveyard.\nII, III — Until end of turn, you may cast spells from among cards exiled with this Saga, and you may spend mana as though it were mana of any color to cast those spells.",
-        "type_line": "Enchantment — Saga"
+        "keywords": [],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Whenever a player casts an instant or sorcery spell, exile it instead of putting it into a graveyard as it resolves.\n{X}, {T}, Sacrifice this artifact: You may cast any number of spells from among cards exiled with this artifact with total mana value X or less without paying their mana costs.",
+        "type_line": "Artifact"
       },
       "categories": [
         "Into Exile",
-        "Play From Exile"
+        "Play From Exile",
+        "Engine"
       ],
       "category_source": "decklist",
-      "name": "King Narfi's Betrayal",
-      "oracle_id": "35c416c6-f522-4b4c-93db-75c4e01843d1",
+      "name": "Rod of Absorption",
+      "oracle_id": "d32345c1-ed20-4bfc-a5fa-6ac7b99542ec",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/lcc/272/king-narfis-betrayal?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/afc/19/rod-of-absorption?utm_source=api",
       "submitted_categories": [
         "Into Exile",
-        "Play From Exile"
+        "Play From Exile",
+        "Engine"
       ],
-      "submitted_name": "King Narfi's Betrayal"
+      "submitted_name": "Rod of Absorption"
     },
     {
       "cache": "cards/05157e8e-4c8c-455e-a5a1-de8271951c51.json",
@@ -2260,7 +2260,7 @@
     }
   ],
   "categorized_cards": 81,
-  "generated_at": "2026-09-01T21:13:05.323285+00:00",
+  "generated_at": "2026-09-01T21:25:19.795245+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 81,

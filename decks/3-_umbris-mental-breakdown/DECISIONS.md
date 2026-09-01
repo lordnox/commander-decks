@@ -18,7 +18,7 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 ## Rankings
 
-See `rankings.json`. 2026-09-01 slot-audit refresh: jankiness 9, fun 8, oppressiveness 6, Voltron 8, Theft 9. Mutating Mindleecher under Umbris, sacrificing artifacts to Lobelia, and turning Scrapbot graveyard exile into delayed ramp raise Jank without changing the core scores. Shared Fate and Knowledge Pool keep Mean off the floor. Exile stays a supporting constraint, not a third scored goal.
+See `rankings.json`. 2026-09-01 slot-audit refresh: jankiness 9, fun 8, oppressiveness 6, Voltron 8, Theft 9. Mutating Mindleecher under Umbris, sacrificing artifacts to Lobelia, turning Scrapbot graveyard exile into delayed ramp, and dumping resolved instants and sorceries onto Rod of Absorption raise Jank without changing the core scores. Shared Fate and Knowledge Pool keep Mean off the floor. Exile stays a supporting constraint, not a third scored goal.
 
 ## Cards in
 
@@ -47,7 +47,7 @@ See `rankings.json`. 2026-09-01 slot-audit refresh: jankiness 9, fun 8, oppressi
 - **Dauthi Embrace** — Gives Umbris or another enormous threat shadow at the moment it needs to connect.
 - **Endless Evil** — Copies Umbris every upkeep so both legendary copies trigger before the token is removed by the legend rule.
 - **Kaya's Ghostform** — Returns Umbris after either destruction or exile without relying on a generic protective Equipment.
-- **King Narfi's Betrayal** — Mills all players, exiles selected opposing threats, and provides two turns to cast them.
+- **Rod of Absorption** — Banks every instant and sorcery as it resolves, grows Umbris from opponent-owned spells, then sacrifices for a free recast of the piled cards.
 - **Intellect Devourer** — Enters as a Horror to trigger Umbris, then makes every opponent bank a hand card that this deck may play with any-colour fixing.
 - **Lobelia, Defender of Bag End** — Immediately banks one card from each opponent, then sacrifices expendable artifacts or Treasures to cast the best one for free or drain the table.
 - **Shared Fate** — Replaces normal drawing with playing from opposing libraries and is the namesake mental-breakdown engine.
@@ -114,6 +114,7 @@ See `rankings.json`. 2026-09-01 slot-audit refresh: jankiness 9, fun 8, oppressi
 - **Crypt Incursion** — Cut for Dauntless Scrapbot. Incursion hit only creature cards from one graveyard and its life buffer did not advance either identity goal; Scrapbot clears every opposing graveyard and leaves delayed ramp.
 - **Legacy's Allure** — Cut for Intellect Devourer after confirming that another slow control effect is unnecessary. Devourer advances Horror, exile, and Theft immediately rather than waiting several upkeeps to take one small creature.
 - **Prismatic Lens** — Cut for Honored Heirloom. Moving this slot to three mana loses a turn-two accelerator, but keeps five-colour stolen-spell fixing and adds repeatable opponent-graveyard exile.
+- **King Narfi's Betrayal** — Cut for Rod of Absorption. The saga milled, then offered two turns to cast selected graveyard cards; the Rod stays on the board, eats every resolved instant and sorcery, and dumps the pile as a free recast without feeding opposing yards.
 - **Displace, Essence Flux, Ghostly Flicker, Planar Incision, and Teferi's Time Twist** — Blink answers removal only by taking Umbris off the attack and dropping its Auras. The declared goals are Voltron and Theft; repeating Knowledge Pool's imprint is a different deck.
 - **Drown in Dreams, Extract from Darkness, Curse of Unbinding, and Zellix, Sanity Flayer** — Dedicated mill builds a graveyard resource that this version subsequently exiles and distracts from theft.
 - **Dream Devourer** — Foretell exiles cards owned by this deck, which never increases Umbris's power.
@@ -174,6 +175,7 @@ See `rankings.json`. 2026-09-01 slot-audit refresh: jankiness 9, fun 8, oppressi
 ## Primer
 
 - **2026-08-30 — Identity.** The primer treats Shared Fate and Knowledge Pool as finite resource exchanges, not a hard lock, and treats Umbris combat as the dependable win rather than hoping opposing decks supply a finisher.
+- **2026-09-01 — Rod of Absorption.** The primer documents the Rod as a third communal-exile engine: spells still resolve, then sit under it for Umbris until a paid sacrifice recasts the pile.
 
 ## Rules
 
@@ -213,10 +215,15 @@ See `rankings.json`. 2026-09-01 slot-audit refresh: jankiness 9, fun 8, oppressi
 - **Midnight Clock with Shared Fate.** The hand and graveyard are shuffled in first, then each of the seven draws is replaced by Shared Fate with an opposing card. Midnight Clock exiles itself after those instructions.
 - **Everflowing Chalice.** Casting it without multikicker is legal but leaves it with no charge counter and no mana output.
 - **Knowledge Pool.** Its trigger applies only to spells cast from hand. Cards cast from Shared Fate's exile do not trigger it.
+- **Rod of Absorption.** Instants and sorceries still resolve; the Rod replaces the graveyard trip. Opponent-owned cards under it count for Umbris until they are recast. The sacrifice ability recasts any number of those cards with total mana value X or less for free, and the Rod is already gone so those recasts are not re-exiled by it. This deck's own instants and sorceries are also banked, including counters that resolve.
 - **Nonlegendary copies.** Spark Double and Irenicus's Vile Duplication explicitly remove legendary. Endless Evil does not, so its Umbris token must obey the legend rule.
 - **No loop.** The deck contains no deterministic infinite loop; every exile, theft, copy, and direct-damage line consumes cards, mana, combat steps, or permanents.
 
 ## Talks
+
+### 2026-09-01 — Rod of Absorption for King Narfi's Betrayal
+
+King Narfi's Betrayal was a three-mana saga that milled, then offered two turns to cast selected graveyard cards. Rod of Absorption keeps the same mana value, stays as a board engine, intercepts every resolved instant and sorcery into exile for Umbris, and recasts the pile for free when sacrificed. Rankings stay Jank 9 / Fun 8 / Mean 6 / Voltron 8 / Theft 9: the Rod is stranger than the saga and raises theft of spells already spent, without adding a lock.
 
 ### 2026-09-01 — Allure and Lens follow-up
 

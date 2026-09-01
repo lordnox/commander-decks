@@ -22,7 +22,7 @@
 1 Cover of Darkness [Evasion]
 1 Dauthi Embrace [Evasion]
 1 Kaya's Ghostform [Protection]
-1 King Narfi's Betrayal [Into Exile,Play From Exile]
+1 Rod of Absorption [Into Exile,Play From Exile,Engine]
 1 Endless Evil [Clone,Engine]
 1 Intellect Devourer [Nightmare - Horror,Into Exile,Play From Exile,Theft]
 1 Lobelia, Defender of Bag End [Into Exile,Play From Exile,Theft]

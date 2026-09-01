@@ -9268,8 +9268,15 @@
         "exile",
         "graveyard-hate"
       ]
+    },
+    "d32345c1-ed20-4bfc-a5fa-6ac7b99542ec": {
+      "name": "Rod of Absorption",
+      "categories": [
+        "exile",
+        "theft"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-01T21:13:05.323285+00:00"
+  "updated_at": "2026-09-01T21:25:19.795245+00:00"
 }
