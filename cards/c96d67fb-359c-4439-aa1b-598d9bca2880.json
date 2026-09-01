@@ -1,0 +1,135 @@
+{
+  "artist": "Erikas Perl",
+  "artist_ids": [
+    "39cb50cf-0223-43c7-bd96-afb5f05c7e43"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 891805,
+  "cmc": 2.0,
+  "collector_number": "19",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 15869,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Behind me. Now.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7b05925b-ac8f-4ca5-9c9d-5e4e408c9f1d",
+  "illustration_id": "fa76868a-4f52-4459-a5cd-60b755f5ab9a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:41:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/b/7b05925b-ac8f-4ca5-9c9d-5e4e408c9f1d.webp?1783903298",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/b/7b05925b-ac8f-4ca5-9c9d-5e4e408c9f1d.jpg?1783903298",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/b/7b05925b-ac8f-4ca5-9c9d-5e4e408c9f1d.jpg?1783903298",
+    "crop": "https://cards.scryfall.io/crop/front/7/b/7b05925b-ac8f-4ca5-9c9d-5e4e408c9f1d.webp?1783903298",
+    "display": "https://cards.scryfall.io/display/front/7/b/7b05925b-ac8f-4ca5-9c9d-5e4e408c9f1d.webp?1783903298",
+    "grid": "https://cards.scryfall.io/grid/front/7/b/7b05925b-ac8f-4ca5-9c9d-5e4e408c9f1d.webp?1783903298",
+    "large": "https://cards.scryfall.io/large/front/7/b/7b05925b-ac8f-4ca5-9c9d-5e4e408c9f1d.jpg?1783903298",
+    "normal": "https://cards.scryfall.io/normal/front/7/b/7b05925b-ac8f-4ca5-9c9d-5e4e408c9f1d.jpg?1783903298",
+    "png": "https://cards.scryfall.io/png/front/7/b/7b05925b-ac8f-4ca5-9c9d-5e4e408c9f1d.png?1783903298",
+    "small": "https://cards.scryfall.io/small/front/7/b/7b05925b-ac8f-4ca5-9c9d-5e4e408c9f1d.jpg?1783903298",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/b/7b05925b-ac8f-4ca5-9c9d-5e4e408c9f1d.webp?1783903298"
+  },
+  "keywords": [
+    "Rebound"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "mtgo_id": 150477,
+  "multiverse_ids": [],
+  "name": "Invisible Force Field",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c96d67fb-359c-4439-aa1b-598d9bca2880",
+  "oracle_text": "Up to four target permanents you control gain indestructible until end of turn.\nRebound (If you cast this spell from your hand, exile it as it resolves. At the beginning of your next upkeep, you may cast this card from exile without paying its mana cost.)",
+  "oversized": false,
+  "prices": {
+    "eur": "0.49",
+    "eur_foil": null,
+    "tix": "0.40",
+    "usd": "0.35",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac96d67fb-359c-4439-aa1b-598d9bca2880&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150477?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891805&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F697504%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Invisible+Force+Field",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DInvisible%2BForce%2BField",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DInvisible%2BForce%2BField"
+  },
+  "released_at": "2026-06-26",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "6777C630E62DC6EADC3724569BC8002E328EBF121D48474634F47367C488A3A1",
+  "rulings_uri": "https://api.scryfall.com/cards/7b05925b-ac8f-4ca5-9c9d-5e4e408c9f1d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/19/invisible-force-field?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 697504,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/7b05925b-ac8f-4ca5-9c9d-5e4e408c9f1d",
+  "variation": false
+}

@@ -1,0 +1,137 @@
+{
+  "arena_id": 96725,
+  "artist": "Dmitry Burmak",
+  "artist_ids": [
+    "9872f5c0-274a-48ce-a9ad-6f0d5654e29c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 835033,
+  "cmc": 3.0,
+  "collector_number": "151",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 2995,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The agony that consumed him also gave him clarity of purpose.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d2948913-817b-4715-92d5-ed3cde347be7",
+  "illustration_id": "98e61cca-f8e3-48f5-8892-ff9fb4c469c6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:25:49Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/2/d2948913-817b-4715-92d5-ed3cde347be7.webp?1783905949",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/2/d2948913-817b-4715-92d5-ed3cde347be7.jpg?1783905949",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/2/d2948913-817b-4715-92d5-ed3cde347be7.jpg?1783905949",
+    "crop": "https://cards.scryfall.io/crop/front/d/2/d2948913-817b-4715-92d5-ed3cde347be7.webp?1783905949",
+    "display": "https://cards.scryfall.io/display/front/d/2/d2948913-817b-4715-92d5-ed3cde347be7.webp?1783905949",
+    "grid": "https://cards.scryfall.io/grid/front/d/2/d2948913-817b-4715-92d5-ed3cde347be7.webp?1783905949",
+    "large": "https://cards.scryfall.io/large/front/d/2/d2948913-817b-4715-92d5-ed3cde347be7.jpg?1783905949",
+    "normal": "https://cards.scryfall.io/normal/front/d/2/d2948913-817b-4715-92d5-ed3cde347be7.jpg?1783905949",
+    "png": "https://cards.scryfall.io/png/front/d/2/d2948913-817b-4715-92d5-ed3cde347be7.png?1783905949",
+    "small": "https://cards.scryfall.io/small/front/d/2/d2948913-817b-4715-92d5-ed3cde347be7.jpg?1783905949",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/2/d2948913-817b-4715-92d5-ed3cde347be7.webp?1783905949"
+  },
+  "keywords": [
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}",
+  "mtgo_id": 142915,
+  "multiverse_ids": [],
+  "name": "Pain for All",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4eedf21c-0ad1-48da-a9fe-2ffdbf8371e9",
+  "oracle_text": "Enchant creature you control\nWhen this Aura enters, enchanted creature deals damage equal to its power to any other target.\nWhenever enchanted creature is dealt damage, it deals that much damage to each opponent.",
+  "oversized": false,
+  "penny_rank": 10217,
+  "prices": {
+    "eur": "0.65",
+    "eur_foil": "1.06",
+    "tix": "0.02",
+    "usd": "1.93",
+    "usd_etched": null,
+    "usd_foil": "1.58"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4eedf21c-0ad1-48da-a9fe-2ffdbf8371e9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/142915?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=835033&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F643036%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Pain+for+All",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPain%2Bfor%2BAll",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPain%2Bfor%2BAll"
+  },
+  "released_at": "2025-08-01",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "5834D20A04E51DC135BF6F31170CD4215A34BE0AF9E122A351A563A51ED96C6E",
+  "rulings_uri": "https://api.scryfall.com/cards/d2948913-817b-4715-92d5-ed3cde347be7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eoe?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eoe/151/pain-for-all?utm_source=api",
+  "security_stamp": "oval",
+  "set": "eoe",
+  "set_id": "452951cf-378b-4472-b7fe-572fe2af2ac0",
+  "set_name": "Edge of Eternities",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeoe&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/452951cf-378b-4472-b7fe-572fe2af2ac0",
+  "story_spotlight": true,
+  "tcgplayer_id": 643036,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/d2948913-817b-4715-92d5-ed3cde347be7",
+  "variation": false
+}

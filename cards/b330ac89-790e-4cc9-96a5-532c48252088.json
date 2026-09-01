@@ -1,0 +1,123 @@
+{
+  "artist": "Richard Thomas",
+  "artist_ids": [
+    "596b3aac-b331-4e1e-ae41-9ec2d3b653e1"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "049a6229-ace9-4363-816a-60cb8773e95d",
+  "cardmarket_id": 685744,
+  "cmc": 1.0,
+  "collector_number": "303",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 24365,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": false,
+  "id": "65773831-af10-45df-bc10-709158e37f79",
+  "illustration_id": "56312255-8f0a-4d76-bf76-7e39dcf27a65",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T05:09:56Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/5/65773831-af10-45df-bc10-709158e37f79.webp?1783919396",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/5/65773831-af10-45df-bc10-709158e37f79.jpg?1783919396",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/5/65773831-af10-45df-bc10-709158e37f79.jpg?1783919396",
+    "crop": "https://cards.scryfall.io/crop/front/6/5/65773831-af10-45df-bc10-709158e37f79.webp?1783919396",
+    "display": "https://cards.scryfall.io/display/front/6/5/65773831-af10-45df-bc10-709158e37f79.webp?1783919396",
+    "grid": "https://cards.scryfall.io/grid/front/6/5/65773831-af10-45df-bc10-709158e37f79.webp?1783919396",
+    "large": "https://cards.scryfall.io/large/front/6/5/65773831-af10-45df-bc10-709158e37f79.jpg?1783919396",
+    "normal": "https://cards.scryfall.io/normal/front/6/5/65773831-af10-45df-bc10-709158e37f79.jpg?1783919396",
+    "png": "https://cards.scryfall.io/png/front/6/5/65773831-af10-45df-bc10-709158e37f79.png?1783919396",
+    "small": "https://cards.scryfall.io/small/front/6/5/65773831-af10-45df-bc10-709158e37f79.jpg?1783919396",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/5/65773831-af10-45df-bc10-709158e37f79.webp?1783919396"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}",
+  "multiverse_ids": [],
+  "name": "Blaze of Glory",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b330ac89-790e-4cc9-96a5-532c48252088",
+  "oracle_text": "Cast this spell only during combat before blockers are declared.\nTarget creature defending player controls can block any number of creatures this turn. It blocks each attacking creature this turn if able.",
+  "oversized": false,
+  "prices": {
+    "eur": "115.00",
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab330ac89-790e-4cc9-96a5-532c48252088&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Blaze+of+Glory&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=685744&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F449196%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Blaze+of+Glory",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBlaze%2Bof%2BGlory",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBlaze%2Bof%2BGlory"
+  },
+  "released_at": "2022-11-28",
+  "reprint": true,
+  "reserved": true,
+  "rulings_uri": "https://api.scryfall.com/cards/65773831-af10-45df-bc10-709158e37f79/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/30a?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/30a/303/blaze-of-glory?utm_source=api",
+  "set": "30a",
+  "set_id": "c3cddb17-44d9-4abd-8d19-666f6c5171fe",
+  "set_name": "30th Anniversary Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A30a&unique=prints",
+  "set_type": "memorabilia",
+  "set_uri": "https://api.scryfall.com/sets/c3cddb17-44d9-4abd-8d19-666f6c5171fe",
+  "story_spotlight": false,
+  "tcgplayer_id": 449196,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/65773831-af10-45df-bc10-709158e37f79",
+  "variation": false
+}
