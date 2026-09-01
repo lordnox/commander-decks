@@ -731,28 +731,37 @@
       "submitted_name": "Endless Evil"
     },
     {
-      "cache": "cards/106ca7bd-6dad-43fe-af58-8667ebddb2eb.json",
+      "cache": "cards/a06fa827-900b-46d4-8f48-b4e15964951a.json",
       "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{U}{U}",
-        "oracle_text": "At the beginning of your upkeep, you may put a treasure counter on this enchantment.\nSacrifice this enchantment: Gain control of target creature with power less than or equal to the number of treasure counters on this enchantment. (This effect lasts indefinitely.)",
-        "type_line": "Enchantment"
+        "cmc": 4.0,
+        "keywords": [
+          "Devour Intellect",
+          "Body Thief"
+        ],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "Devour Intellect — When this creature enters, each opponent exiles a card from their hand until this creature leaves the battlefield.\nBody Thief — You may play lands and cast spells from among cards exiled with this creature. If you cast a spell this way, you may spend mana as though it were mana of any color to cast it.",
+        "power": "2",
+        "toughness": "4",
+        "type_line": "Creature — Horror"
       },
       "categories": [
-        "Theft",
-        "Control"
+        "Nightmare - Horror",
+        "Into Exile",
+        "Play From Exile",
+        "Theft"
       ],
       "category_source": "decklist",
-      "name": "Legacy's Allure",
-      "oracle_id": "106ca7bd-6dad-43fe-af58-8667ebddb2eb",
+      "name": "Intellect Devourer",
+      "oracle_id": "a06fa827-900b-46d4-8f48-b4e15964951a",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/plst/TMP-71/legacys-allure?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/clb/132/intellect-devourer?utm_source=api",
       "submitted_categories": [
-        "Theft",
-        "Control"
+        "Nightmare - Horror",
+        "Into Exile",
+        "Play From Exile",
+        "Theft"
       ],
-      "submitted_name": "Legacy's Allure"
+      "submitted_name": "Intellect Devourer"
     },
     {
       "cache": "cards/0f2e3e2e-9857-4be5-9bf0-62da1cc147fc.json",
@@ -1089,15 +1098,14 @@
       "submitted_name": "Perilous Vault"
     },
     {
-      "cache": "cards/e3056f28-868b-401a-a528-7528d639bdeb.json",
+      "cache": "cards/4bf0427e-5e87-4d32-ad34-1d8946ab96fd.json",
       "card": {
-        "cmc": 2.0,
+        "cmc": 3.0,
         "keywords": [],
-        "mana_cost": "{2}",
-        "oracle_text": "{T}: Add {C}.\n{1}, {T}: Add one mana of any color.",
+        "mana_cost": "{3}",
+        "oracle_text": "{T}: Add one mana of any color.\n{2}, {T}: Exile target card from a graveyard.",
         "produced_mana": [
           "B",
-          "C",
           "G",
           "R",
           "U",
@@ -1107,18 +1115,22 @@
       },
       "categories": [
         "Ramp",
-        "Fixing"
+        "Fixing",
+        "Into Exile",
+        "Graveyard Hate"
       ],
       "category_source": "decklist",
-      "name": "Prismatic Lens",
-      "oracle_id": "e3056f28-868b-401a-a528-7528d639bdeb",
+      "name": "Honored Heirloom",
+      "oracle_id": "4bf0427e-5e87-4d32-ad34-1d8946ab96fd",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/otc/264/prismatic-lens?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/vow/257/honored-heirloom?utm_source=api",
       "submitted_categories": [
         "Ramp",
-        "Fixing"
+        "Fixing",
+        "Into Exile",
+        "Graveyard Hate"
       ],
-      "submitted_name": "Prismatic Lens"
+      "submitted_name": "Honored Heirloom"
     },
     {
       "cache": "cards/3c958b5f-680b-45fc-8c3d-27b23677436e.json",
@@ -2248,7 +2260,7 @@
     }
   ],
   "categorized_cards": 81,
-  "generated_at": "2026-09-01T20:31:58.553574+00:00",
+  "generated_at": "2026-09-01T21:13:05.323285+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 81,

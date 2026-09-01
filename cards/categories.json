@@ -7042,7 +7042,10 @@
     "a06fa827-900b-46d4-8f48-b4e15964951a": {
       "name": "Intellect Devourer",
       "categories": [
-        "other"
+        "exile",
+        "play-from-exile",
+        "theft",
+        "horror"
       ]
     },
     "cbd483b5-5554-43ed-a729-535d01b0d5d3": {
@@ -9256,8 +9259,17 @@
         "ramp",
         "token-production"
       ]
+    },
+    "4bf0427e-5e87-4d32-ad34-1d8946ab96fd": {
+      "name": "Honored Heirloom",
+      "categories": [
+        "ramp",
+        "fixing",
+        "exile",
+        "graveyard-hate"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-01T20:31:58.553574+00:00"
+  "updated_at": "2026-09-01T21:13:05.323285+00:00"
 }
