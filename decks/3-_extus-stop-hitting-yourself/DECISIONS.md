@@ -122,6 +122,11 @@ First pass: jank 10, fun 10, mean 5, Aikido 10. The deck creates unusually visib
 - **Plains** — Seven copies support the dense white prevention suite.
 - **Mountain** — Six copies support Fork and the red half of the reflection package.
 
+## Primer
+
+- **Usual table threat around turn eight to ten** because Extus is a four-mana `{1}{W}{B}{B}` commander with no Sol Ring-class rocks, and Arcbond, Pain for All, and Repercussion still need a reflector or a damage source already in play.
+- **Turn-six Stuffy plus Conscience is a one-player kill, not a goldfish table win.** Stuffy costs five; Conscience costs `{W}` and needs a tap activation. The loop is mandatory once the first point is dealt, but it only hits the named player.
+
 ## Cards out
 
 - **Norritt** — Flumph took the slot because Norritt was a four-mana duplicate provocateur whose blue-creature untap mode had no targets; Flumph adds repeatable political draw.
@@ -160,3 +165,11 @@ The user delegated the exact finishers and asked for the crazier option, creatur
 ### 2026-09-01 — Inspiration audit
 
 The user supplied another Extus aikido list and asked this deck to learn from it without treating that list as categorically better. Eleven swaps remove redundant reflectors, self-hostile damage, expensive routing, and dead secondary modes. The incoming package adds three sacrifice-draw spells or creatures, broad permanent interaction, whole-combat redirection, rebound protection, and two real damage engines. Sunforger, Land Tax, fetchlands, Blasphemous Act, Star of Extinction, and unsupported tribal reflectors remain out: they would improve consistency or raw lethality by replacing the tutorless creature-go identity rather than strengthening it.
+
+### 2026-09-01 — Bracket 3− assessment
+
+Assessed against the live [Commander format page](https://magic.wizards.com/en/formats/commander) (Game Changer caps: 0 in Brackets 1–2, up to 3 in Bracket 3), the [October 21, 2025](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-october-21-2025) turn-floor and intent update, and the [February 9, 2026](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-february-9-2026) reminder that Farewell joined the list but bracket structure did not change. Scryfall `is:gamechanger` returned 53 cards; none of them are in this 100.
+
+There are no extra-turn cards, no mass land denial, and no library tutors. The deck does contain an intentional two-card infinite: Stuffy Doll plus Guilty Conscience. Stuffy names a player, taps to deal 1 to itself, then Conscience deals that much back; the loop is mandatory until that player leaves. Brash Taunter forms the same chain after any first damage event. The original Exhibition/Core deck-building barometer still excludes intentional two-card infinites, so this is not Bracket 2. The combo is also not an early-game table kill: Stuffy costs five mana, Conscience one white, there is no Sol Ring or other fast mana, and with no tutors the pair is rarely in hand by turn six. The named player dies; the other two usually do not.
+
+Normal goldfish: four or five lands into Extus, then Deadly Dispute or Corrupted Conviction to recycle a trap, then a reflector plus Arcbond, Pain for All, Repercussion, or Crypt Rats around turns eight to ten. Credible high roll: turn-five Stuffy, turn-six Conscience, one opponent gone. Interactive games stretch past turn ten once Extus, Conscience, or the ignition enchantments are removed. That matches Bracket 3's six-turn floor and "one big turn after accumulation" more than Core's eight-turn low-pressure bar, but the construction is too slow, tutorless, and fragile for the middle of Upgraded.
