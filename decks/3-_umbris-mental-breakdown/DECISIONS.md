@@ -18,7 +18,7 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 ## Rankings
 
-See `rankings.json`. First pass after dropping blink: fun 8, oppressiveness 6, jankiness 8, Voltron 8, Theft 9. Shared Fate and Knowledge Pool keep oppressiveness off the floor; Dream-Thief's Bandana puts combat theft on the Voltron body without leaving the battlefield.
+See `rankings.json`. 2026-09-01 refresh after a full list check: jankiness 8, fun 8, oppressiveness 6, Voltron 8, Theft 9. Shared Fate and Knowledge Pool keep Mean off the floor; Dream-Thief's Bandana puts combat theft on the Voltron body without leaving the battlefield. Exile stays a supporting constraint, not a third scored goal.
 
 ## Cards in
 
@@ -208,6 +208,20 @@ See `rankings.json`. First pass after dropping blink: fun 8, oppressiveness 6, j
 - **No loop.** The deck contains no deterministic infinite loop; every exile, theft, copy, and direct-damage line consumes cards, mana, combat steps, or permanents.
 
 ## Talks
+
+### 2026-09-01 — Assessment and ranking refresh
+
+Rechecked the current 100 against the live Wizards Commander page (Brackets still in beta; 0 Game Changers in Brackets 1–2, up to 3 in Bracket 3), the October 21, 2025 pace barometers (Core: at least eight turns; Upgraded: at least six), the February 9, 2026 Game Changers additions (Farewell, Biorhythm), and a fresh Scryfall `is:gamechanger` query (53 cards). None of those names are in this deck. Kitchen-table permanent fast mana is also absent: the two-mana package is rocks and Medallions, not Sol Ring-class mana.
+
+There is still no deterministic loop, extra turn, or mass land denial. Praetor's Grasp is the only tutor and it searches an opposing library. The win is telegraphed commander combat after exile deposits, with Essence Harvest and nonlegendary copies as backups.
+
+Normal goldfish: turn-two rock or Medallion, Umbris on turn four or five (five mana, or four with a Medallion once four lands are down), a large deposit such as Tasha's Hideous Laughter or graveyard conversion in the mid game, first protected or evasive lethal around turns six–seven, table close around turns eight–ten. Interactive games slip to turn ten or later when Umbris is removed, because commander tax is seven and the list has no blink recast.
+
+Credible high roll, not expected pace: turn-two Fellwar Stone or Prismatic Lens, turn-four Umbris, turn-five Tasha's Hideous Laughter plus Shadow Rift into one opponent. Tasha exiles until each opponent has twenty mana value in exile; three dumps plus Umbris's own until-land trigger can reach commander-damage lethal for one player. Medallions do not restore the old turn-three commander line: three lands plus a reducer is only three mana on turn three, and the list no longer has a two-mana rock that also produces a second mana the turn it is needed.
+
+Bracket stays 3−. Hard limits would allow Bracket 2, but the 99 is an Upgraded pattern: dense synergy, thirty-four Into Exile cards, a one-spell lethal inflation, and real disruption. It is not middle or high Bracket 3 because the finish is still combat, consistency is low (no own-library tutor, thin draw), and the fast line kills one player rather than the table. It is not Bracket 4: no Game Changers, no kitchen-table permanent fast mana, no free interaction, no compact instant win.
+
+Rankings unchanged: Jank 8, Fun 8, Mean 6, Voltron 8, Theft 9.
 
 ### 2026-08-31 — No blink; rank-deck goals locked
 
