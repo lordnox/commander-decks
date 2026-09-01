@@ -27,4 +27,4 @@ Copying a legendary commander does not create a second attacker unless the copy 
 
 ## Game Changers and staples
 
-Query `is:gamechanger` live. Zero unless this deck is excepted. `Necropotence` is a Game Changer; a kitchen-table analogue is not a license to add it. Staples still need a specific argument.
+Query `is:gamechanger` live and still disclose official status. Inclusion follows root `DECISIONS.md`: argue the usage, do not auto-veto. A Game Changer that only adds speed, consistency, or a free answer stays out. Permanent fast mana is 4+ here; one-shot rituals can be 3+. Staples still need a specific argument.

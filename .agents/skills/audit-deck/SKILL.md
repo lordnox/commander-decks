@@ -22,7 +22,7 @@ If the user already posted a list that is not imported, follow `deck-workspace` 
 1. Identify the folder with `deck-workspace`. Ask if several decks match.
 2. Read `decklist.txt`, `cards.json`, and that deck's `DECISIONS.md` (`## Cards in`, `## Cards out`, `## Rules`).
 3. Stop if cards are unresolved or validation fails.
-4. Read root `DECISIONS.md`: esoteric old cards, avoid staples, zero Game Changers unless this deck is excepted.
+4. Read root `DECISIONS.md`: esoteric old cards, avoid staples, discussable Game Changers, kitchen-table fast mana.
 5. Derive each slot's job from **Cards in**, not from a generic archetype.
 
 Do not edit the 99 until the audit is finished, unless the user already said to apply as you go.
@@ -43,7 +43,7 @@ Skip a new search only when `## Cards out` already rejected the obvious challeng
 
 Follow `scryfall-lookup`. Query `api.scryfall.com`; do not invent Oracle text. Send `User-Agent: commander-decks/1.0` and `Accept: application/json`. Prefer cache hits for known names.
 
-Default filters: `f:commander`, the commander's color identity (`id<=…` or `commander:`), `-is:gamechanger` unless this deck is excepted.
+Default filters: `f:commander`, the commander's color identity (`id<=…` or `commander:`). Do not blanket-exclude `is:gamechanger`; score those hits against root `DECISIONS.md` (usage must be the joke, theme, or secret commander). Permanent fast mana stays 4+ unless the user is convinced.
 
 Search **per job**, not one dump of Dimir. Typical axes:
 
