@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Artifacts** — Osgir, welders, and the ship want artifacts in play or in the yard.
+- **Aikido** — Reflectors turn the table's damage, fights, and our own wipes into player-facing hits.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 8, fun 8, mean 5, Artifacts 9, Aikido 8. The weird routing and station copies keep jank high; Path, Swords, Signet, and Gamble keep it off Extus's 10.
+
 ## Cards in
 
 ### Commander and reconstruction
