@@ -52,19 +52,19 @@ See `rankings.json`. 2026-09-01 refresh after a full list check: jankiness 8, fu
 - **Legacy's Allure** — Accumulates counters from turn two onward, then permanently takes a creature whose power fits the stored total.
 - **Shared Fate** — Replaces normal drawing with playing from opposing libraries and is the namesake mental-breakdown engine.
 - **Vanishing** — Gives the commander repeatable phasing protection while leaving it available for targeted evasion when unphased.
-- **Coldsteel Heart** — Supplies the missing commander colour or a known colour needed for a stolen spell.
+- **Arcane Signet** — Accelerates Umbris on turn two and always supplies either commander colour without entering tapped.
 - **Everflowing Chalice** — Is a two-mana rock in normal openings and scales into multiple colourless mana when drawn late.
 - **Fellwar Stone** — Produces colours represented across the opposing decks, exactly the colours their stolen spells require.
 - **Jet Medallion** — Can reduce twenty-three black spells and turns each reduction into damage while Ancient Cellarspawn is present.
 - **Knowledge Pool** — Starts with nine opponent-owned cards in exile at a four-player table and makes hand-cast spells exchangeable.
 - **Midnight Clock** — Ramps in the early game and turns its seven eventual draws into seven opposing cards while Shared Fate is active.
+- **Mind Stone** — Enters untapped as two-mana acceleration and cashes itself in for a card when mana is no longer the bottleneck.
 - **Perilous Vault** — Resets an overwhelming battlefield by exiling it, leaving opponent-owned permanents as Umbris power.
 - **Prismatic Lens** — Accelerates Umbris and filters mana into colours needed for stolen cards.
 - **Prowler's Helm** — Gives the commander or any nonlegendary copy repeatable near-unblockability without requiring coloured mana.
 - **Dream-Thief's Bandana** — Turns each connecting attack into a face-down exile theft with any-colour casting, including on Umbris, so Voltron and theft share the same combat step.
 - **Sapphire Medallion** — Can reduce twenty-one blue spells and supports multi-spell turns more efficiently than a tapped colour rock.
-- **Sphere of the Suns** — Provides three early payments of any colour, enough to accelerate Umbris and bridge into a stolen spell.
-- **Star Compass** — Moves the sustained ramp package down to two mana while reliably producing either core colour from the basic-heavy mana base.
+- **Talisman of Dominance** — Enters untapped, accelerates immediately, and supplies either commander colour without another mana source.
 - **Baleful Mastery** — Exiles either a creature or planeswalker, with a political discounted mode when tempo matters.
 - **Curse of the Swine** — Scales into a one-sided exile sweep and turns every removed creature into lasting Umbris power.
 - **Delay** — Stores a spell in exile for three turns, often long enough for the game to end or its context to disappear.
@@ -88,25 +88,27 @@ See `rankings.json`. 2026-09-01 refresh after a full list check: jankiness 8, fu
 - **Boggart Trawler // Boggart Bog** — Is either a black land or targeted graveyard exile, preserving deck space for both jobs.
 - **Malakir Rebirth // Malakir Mire** — Is either a black land or one-mana protection from a destroy or sacrifice effect.
 - **Bojuka Bog** — Converts a developed opposing graveyard into Umbris power from a land slot.
-- **Choked Estuary** — Usually enters untapped by revealing one of the twenty-two Island or Swamp cards in the list.
+- **City of Brass** — Enters untapped and casts both Dimir spells and blind off-colour cards found through Shared Fate.
+- **Command Tower** — Enters untapped and supplies either commander colour with no sequencing condition.
 - **Clearwater Pathway // Murkwater Pathway** — Enters untapped as whichever core colour the current hand lacks.
-- **Darkwater Catacombs** — Converts spare generic mana into either Dimir colour efficiently.
 - **Drowned Catacomb** — Usually enters untapped beside the deck's high basic and typed-land count.
 - **Exotic Orchard** — Mirrors opposing land colours to cast the cards stolen from those opponents.
 - **Island** — Supplies reliable blue mana without entering tapped.
+- **Mana Confluence** — Enters untapped and converts one life into any colour needed for stolen spells.
 - **Morphic Pool** — Enters untapped in the intended multiplayer game and produces either commander colour.
-- **River of Tears** — Produces either Dimir colour according to the turn's sequencing.
+- **Polluted Delta** — Finds an untapped basic, Underground Sea, or Watery Grave while choosing the colour needed that turn.
 - **Rogue's Passage** — Makes a lethal Umbris unblockable from a land slot.
 - **Shizo, Death's Storehouse** — Gives Umbris fear cheaply while still producing black mana.
-- **Sunken Hollow** — Is a fetchable Dimir source that often enters untapped after the basic-heavy opening.
-- **Swamp** — Supplies reliable black mana and enables Tainted Isle and Sunken Hollow.
-- **Tainted Isle** — Becomes a flexible Dimir source once any Swamp is present.
-- **Temple of Deceit** — Fixes both core colours and improves the next draw before Shared Fate arrives.
+- **Swamp** — Supplies reliable black mana without entering tapped.
+- **Underground Sea** — Is an unconditional untapped blue-black source that Polluted Delta can find.
 - **Underground River** — Enters untapped and supplies either core colour for one life when coloured mana is needed.
+- **Watery Grave** — Is a fetchable blue-black source that can enter untapped whenever tempo matters.
 
 ## Cards out
 
-- **Sol Ring, Arcane Signet, Lightning Greaves, and Counterspell** — Generic Commander defaults do not express exile theft; the list uses slower cards with fixing, evasion, or exile text attached.
+- **Sol Ring, Lightning Greaves, and Counterspell** — Generic Commander defaults do not express exile theft; Sol Ring also exceeds the deck's Bracket 3− fast-mana target.
+- **Coldsteel Heart, Sphere of the Suns, and Star Compass** — Replaced by Arcane Signet, Talisman of Dominance, and Mind Stone. The new rocks enter untapped, do not deplete, and do not depend on basics already being in play.
+- **Choked Estuary, Darkwater Catacombs, River of Tears, Sunken Hollow, Tainted Isle, and Temple of Deceit** — Replaced by Command Tower, Watery Grave, Underground Sea, Polluted Delta, Mana Confluence, and City of Brass. Every new land can produce or fetch untapped mana, and the five-colour sources improve blind Shared Fate casting.
 - **Displace, Essence Flux, Ghostly Flicker, Planar Incision, and Teferi's Time Twist** — Blink answers removal only by taking Umbris off the attack and dropping its Auras. The declared goals are Voltron and Theft; repeating Knowledge Pool's imprint is a different deck.
 - **Drown in Dreams, Extract from Darkness, Curse of Unbinding, and Zellix, Sanity Flayer** — Dedicated mill builds a graveyard resource that this version subsequently exiles and distracts from theft.
 - **Dream Devourer** — Foretell exiles cards owned by this deck, which never increases Umbris's power.
@@ -208,6 +210,12 @@ See `rankings.json`. 2026-09-01 refresh after a full list check: jankiness 8, fu
 - **No loop.** The deck contains no deterministic infinite loop; every exile, theft, copy, and direct-damage line consumes cards, mana, combat steps, or permanents.
 
 ## Talks
+
+### 2026-09-01 — Untapped mana and ramp upgrade
+
+Six conditional or tapped Dimir lands became Command Tower, Watery Grave, Underground Sea, Polluted Delta, Mana Confluence, and City of Brass. All six can produce or fetch untapped mana, Polluted Delta has two typed dual targets plus basics, and the five-colour lands help cast blind Shared Fate cards. Bojuka Bog and the two spell lands remain because their deck-specific effects justify entering tapped.
+
+Coldsteel Heart, Sphere of the Suns, and Star Compass became Arcane Signet, Talisman of Dominance, and Mind Stone. The replacements all enter untapped, the Talisman and Signet fix both commander colours without setup, and Mind Stone becomes a card later. Sol Ring remains out because permanent fast mana is kitchen-table Bracket 4+ in this repository. The upgrade improves turn-four Umbris consistency without restoring a turn-three commander line, so the Bracket 3− assessment and rankings remain current.
 
 ### 2026-09-01 — Assessment and ranking refresh
 
