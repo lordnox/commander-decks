@@ -1,0 +1,138 @@
+{
+  "artist": "Ben Hill",
+  "artist_ids": [
+    "35785d29-9538-407e-852d-a9b3ab626388"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 660717,
+  "cmc": 5.0,
+  "collector_number": "50",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 11342,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "a2ecf2f5-6d8b-4321-9aa1-d84c291a5c20",
+  "illustration_id": "270cd630-b9e1-4eb2-ad02-484bceee486e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:06:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/2/a2ecf2f5-6d8b-4321-9aa1-d84c291a5c20.webp?1783922798",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/2/a2ecf2f5-6d8b-4321-9aa1-d84c291a5c20.jpg?1783922798",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/2/a2ecf2f5-6d8b-4321-9aa1-d84c291a5c20.jpg?1783922798",
+    "crop": "https://cards.scryfall.io/crop/front/a/2/a2ecf2f5-6d8b-4321-9aa1-d84c291a5c20.webp?1783922798",
+    "display": "https://cards.scryfall.io/display/front/a/2/a2ecf2f5-6d8b-4321-9aa1-d84c291a5c20.webp?1783922798",
+    "grid": "https://cards.scryfall.io/grid/front/a/2/a2ecf2f5-6d8b-4321-9aa1-d84c291a5c20.webp?1783922798",
+    "large": "https://cards.scryfall.io/large/front/a/2/a2ecf2f5-6d8b-4321-9aa1-d84c291a5c20.jpg?1783922798",
+    "normal": "https://cards.scryfall.io/normal/front/a/2/a2ecf2f5-6d8b-4321-9aa1-d84c291a5c20.jpg?1783922798",
+    "png": "https://cards.scryfall.io/png/front/a/2/a2ecf2f5-6d8b-4321-9aa1-d84c291a5c20.png?1783922798",
+    "small": "https://cards.scryfall.io/small/front/a/2/a2ecf2f5-6d8b-4321-9aa1-d84c291a5c20.jpg?1783922798",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/2/a2ecf2f5-6d8b-4321-9aa1-d84c291a5c20.webp?1783922798"
+  },
+  "keywords": [
+    "Flying",
+    "Flash"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{W}",
+  "multiverse_ids": [
+    562933
+  ],
+  "name": "Windshaper Planetar",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c47050c2-9b46-427e-85d6-058fd6a61e67",
+  "oracle_text": "Flash\nFlying\nWhen this creature enters during the declare attackers step, for each attacking creature, you may reselect which player or permanent that creature is attacking. (It can't attack its controller or their permanents.)",
+  "oversized": false,
+  "power": "4",
+  "preview": {
+    "previewed_at": "2022-05-26",
+    "source": "Nmia",
+    "source_uri": "https://www.facebook.com/Nmia.Gaming/photos/2174640632703803"
+  },
+  "prices": {
+    "eur": "0.30",
+    "eur_foil": "0.33",
+    "tix": null,
+    "usd": "0.28",
+    "usd_etched": null,
+    "usd_foil": "0.33"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac47050c2-9b46-427e-85d6-058fd6a61e67&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Windshaper+Planetar&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=660717&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F273440%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Windshaper+Planetar",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=562933&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWindshaper%2BPlanetar",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWindshaper%2BPlanetar"
+  },
+  "released_at": "2022-06-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a2ecf2f5-6d8b-4321-9aa1-d84c291a5c20/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/50/windshaper-planetar?utm_source=api",
+  "security_stamp": "oval",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 273440,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Angel",
+  "uri": "https://api.scryfall.com/cards/a2ecf2f5-6d8b-4321-9aa1-d84c291a5c20",
+  "variation": false
+}

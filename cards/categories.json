@@ -8400,7 +8400,8 @@
     "5a12e989-d6bc-441e-88dd-779e68a9fee3": {
       "name": "Souls of the Faultless",
       "categories": [
-        "other"
+        "damage-reflection",
+        "lifegain"
       ]
     },
     "0b299983-9f0f-404a-acd1-8f142572b1f1": {
@@ -8823,8 +8824,60 @@
         "damage-reflection",
         "removal"
       ]
+    },
+    "bc328acc-8521-4581-88c3-99a7cb2c1cdb": {
+      "name": "Flumph",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "c47050c2-9b46-427e-85d6-058fd6a61e67": {
+      "name": "Windshaper Planetar",
+      "categories": [
+        "protection",
+        "politics"
+      ]
+    },
+    "c96d67fb-359c-4439-aa1b-598d9bca2880": {
+      "name": "Invisible Force Field",
+      "categories": [
+        "protection"
+      ]
+    },
+    "d8070ee7-dbd1-4d38-9715-ba14e103e379": {
+      "name": "High Priest of Penance",
+      "categories": [
+        "removal"
+      ]
+    },
+    "01790829-cc03-430f-a899-2f274b7dbf62": {
+      "name": "Arcbond",
+      "categories": [
+        "damage-reflection",
+        "win-condition"
+      ]
+    },
+    "9842734c-1eac-4509-a731-4c22017ae586": {
+      "name": "Wear // Tear",
+      "categories": [
+        "removal"
+      ]
+    },
+    "b330ac89-790e-4cc9-96a5-532c48252088": {
+      "name": "Blaze of Glory",
+      "categories": [
+        "damage-redirection",
+        "protection"
+      ]
+    },
+    "4eedf21c-0ad1-48da-a9fe-2ffdbf8371e9": {
+      "name": "Pain for All",
+      "categories": [
+        "damage-reflection",
+        "win-condition"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-08-31T15:33:57.740143+00:00"
+  "updated_at": "2026-09-01T17:49:38.560916+00:00"
 }
