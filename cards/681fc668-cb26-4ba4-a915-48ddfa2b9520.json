@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "770b988d-4f31-4746-8c23-4ed8d9a6b393",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/770b988d-4f31-4746-8c23-4ed8d9a6b393"
+    },
+    {
+      "component": "combo_piece",
+      "id": "58a49829-c354-4823-8cc1-a159fc46c0d7",
+      "name": "Prized Statue",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/58a49829-c354-4823-8cc1-a159fc46c0d7"
+    }
+  ],
+  "artist": "Ben Wootten",
+  "artist_ids": [
+    "31cdca96-ecde-4245-bfb6-653929d57d9c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 660935,
+  "cmc": 2.0,
+  "collector_number": "334",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 2317,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "To the cultists, the sacred idol was priceless. To the adventurers, it was worth about two sturdy mules and a barrel of ale.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "58a49829-c354-4823-8cc1-a159fc46c0d7",
+  "illustration_id": "41c055bb-261c-43c5-a485-757f81f5c5f6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:04:27Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/8/58a49829-c354-4823-8cc1-a159fc46c0d7.webp?1783922667",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/8/58a49829-c354-4823-8cc1-a159fc46c0d7.jpg?1783922667",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/8/58a49829-c354-4823-8cc1-a159fc46c0d7.jpg?1783922667",
+    "crop": "https://cards.scryfall.io/crop/front/5/8/58a49829-c354-4823-8cc1-a159fc46c0d7.webp?1783922667",
+    "display": "https://cards.scryfall.io/display/front/5/8/58a49829-c354-4823-8cc1-a159fc46c0d7.webp?1783922667",
+    "grid": "https://cards.scryfall.io/grid/front/5/8/58a49829-c354-4823-8cc1-a159fc46c0d7.webp?1783922667",
+    "large": "https://cards.scryfall.io/large/front/5/8/58a49829-c354-4823-8cc1-a159fc46c0d7.jpg?1783922667",
+    "normal": "https://cards.scryfall.io/normal/front/5/8/58a49829-c354-4823-8cc1-a159fc46c0d7.jpg?1783922667",
+    "png": "https://cards.scryfall.io/png/front/5/8/58a49829-c354-4823-8cc1-a159fc46c0d7.png?1783922667",
+    "small": "https://cards.scryfall.io/small/front/5/8/58a49829-c354-4823-8cc1-a159fc46c0d7.jpg?1783922667",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/8/58a49829-c354-4823-8cc1-a159fc46c0d7.webp?1783922667"
+  },
+  "keywords": [
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}",
+  "mtgo_id": 100706,
+  "multiverse_ids": [
+    563217
+  ],
+  "name": "Prized Statue",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "681fc668-cb26-4ba4-a915-48ddfa2b9520",
+  "oracle_text": "When this artifact enters or is put into a graveyard from the battlefield, create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+  "oversized": false,
+  "prices": {
+    "eur": "0.78",
+    "eur_foil": "1.41",
+    "tix": "0.04",
+    "usd": "0.45",
+    "usd_etched": null,
+    "usd_foil": "8.71"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A681fc668-cb26-4ba4-a915-48ddfa2b9520&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/100706?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=660935&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F273386%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Prized+Statue",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=563217&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPrized%2BStatue",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPrized%2BStatue"
+  },
+  "released_at": "2022-06-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/58a49829-c354-4823-8cc1-a159fc46c0d7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/334/prized-statue?utm_source=api",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 273386,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/58a49829-c354-4823-8cc1-a159fc46c0d7",
+  "variation": false
+}

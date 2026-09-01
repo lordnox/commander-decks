@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "11ba43d1-e879-40e0-b49c-e009deb7e3aa",
+      "name": "Myr Sire",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Phyrexian Myr",
+      "uri": "https://api.scryfall.com/cards/11ba43d1-e879-40e0-b49c-e009deb7e3aa"
+    },
+    {
+      "component": "combo_piece",
+      "id": "43296ce8-f055-4778-a187-363a642001e4",
+      "name": "Parasitic Implant",
+      "object": "related_card",
+      "type_line": "Enchantment — Aura",
+      "uri": "https://api.scryfall.com/cards/43296ce8-f055-4778-a187-363a642001e4"
+    },
+    {
+      "component": "token",
+      "id": "f4ef9889-e61d-4733-b27c-9e78aea8e84b",
+      "name": "Phyrexian Myr",
+      "object": "related_card",
+      "type_line": "Token Artifact Creature — Phyrexian Myr",
+      "uri": "https://api.scryfall.com/cards/f4ef9889-e61d-4733-b27c-9e78aea8e84b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ced53428-391d-4b61-83e8-cce297e28de9",
+      "name": "Shrine of Loyal Legions",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/ced53428-391d-4b61-83e8-cce297e28de9"
+    }
+  ],
+  "artist": "Matt Stewart",
+  "artist_ids": [
+    "20871267-2d8a-41d5-b03a-be3d557c5734"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "44",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "f4ef9889-e61d-4733-b27c-9e78aea8e84b",
+  "illustration_id": "1fbe3f99-b768-40e7-b8b5-1cef34411651",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:00:43Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/4/f4ef9889-e61d-4733-b27c-9e78aea8e84b.webp?1783915243",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/4/f4ef9889-e61d-4733-b27c-9e78aea8e84b.jpg?1783915243",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/4/f4ef9889-e61d-4733-b27c-9e78aea8e84b.jpg?1783915243",
+    "crop": "https://cards.scryfall.io/crop/front/f/4/f4ef9889-e61d-4733-b27c-9e78aea8e84b.webp?1783915243",
+    "display": "https://cards.scryfall.io/display/front/f/4/f4ef9889-e61d-4733-b27c-9e78aea8e84b.webp?1783915243",
+    "grid": "https://cards.scryfall.io/grid/front/f/4/f4ef9889-e61d-4733-b27c-9e78aea8e84b.webp?1783915243",
+    "large": "https://cards.scryfall.io/large/front/f/4/f4ef9889-e61d-4733-b27c-9e78aea8e84b.jpg?1783915243",
+    "normal": "https://cards.scryfall.io/normal/front/f/4/f4ef9889-e61d-4733-b27c-9e78aea8e84b.jpg?1783915243",
+    "png": "https://cards.scryfall.io/png/front/f/4/f4ef9889-e61d-4733-b27c-9e78aea8e84b.png?1783915243",
+    "small": "https://cards.scryfall.io/small/front/f/4/f4ef9889-e61d-4733-b27c-9e78aea8e84b.jpg?1783915243",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/4/f4ef9889-e61d-4733-b27c-9e78aea8e84b.webp?1783915243"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Phyrexian Myr",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "53ccb03f-a853-4df9-8c00-39279d15f3b2",
+  "oracle_text": "",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A53ccb03f-a853-4df9-8c00-39279d15f3b2&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Phyrexian+Myr&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Phyrexian+Myr&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DPhyrexian%2BMyr%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Phyrexian+Myr",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPhyrexian%2BMyr",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPhyrexian%2BMyr"
+  },
+  "released_at": "2023-08-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f4ef9889-e61d-4733-b27c-9e78aea8e84b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tcmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tcmm/44/phyrexian-myr?utm_source=api",
+  "set": "tcmm",
+  "set_id": "3fa29655-8840-4a5b-8289-3964109e436b",
+  "set_name": "Commander Masters Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atcmm&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/3fa29655-8840-4a5b-8289-3964109e436b",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Token Artifact Creature — Phyrexian Myr",
+  "uri": "https://api.scryfall.com/cards/f4ef9889-e61d-4733-b27c-9e78aea8e84b",
+  "variation": false
+}

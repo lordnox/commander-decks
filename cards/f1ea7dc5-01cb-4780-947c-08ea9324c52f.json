@@ -1,0 +1,132 @@
+{
+  "arena_id": 85075,
+  "artist": "Miguel Mercado",
+  "artist_ids": [
+    "085f314d-cd61-48e0-89d1-048e9891e4a1"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 710202,
+  "cmc": 2.0,
+  "collector_number": "19",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 2698,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The relic shattered, and something in Nahiri broke as well.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "239165bb-7819-4d54-a84c-2911934253d6",
+  "illustration_id": "1f1dc424-4ccc-4c68-a4a0-ae79d0db2f44",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:22:01Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/3/239165bb-7819-4d54-a84c-2911934253d6.webp?1783916521",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/3/239165bb-7819-4d54-a84c-2911934253d6.jpg?1783916521",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/3/239165bb-7819-4d54-a84c-2911934253d6.jpg?1783916521",
+    "crop": "https://cards.scryfall.io/crop/front/2/3/239165bb-7819-4d54-a84c-2911934253d6.webp?1783916521",
+    "display": "https://cards.scryfall.io/display/front/2/3/239165bb-7819-4d54-a84c-2911934253d6.webp?1783916521",
+    "grid": "https://cards.scryfall.io/grid/front/2/3/239165bb-7819-4d54-a84c-2911934253d6.webp?1783916521",
+    "large": "https://cards.scryfall.io/large/front/2/3/239165bb-7819-4d54-a84c-2911934253d6.jpg?1783916521",
+    "normal": "https://cards.scryfall.io/normal/front/2/3/239165bb-7819-4d54-a84c-2911934253d6.jpg?1783916521",
+    "png": "https://cards.scryfall.io/png/front/2/3/239165bb-7819-4d54-a84c-2911934253d6.png?1783916521",
+    "small": "https://cards.scryfall.io/small/front/2/3/239165bb-7819-4d54-a84c-2911934253d6.jpg?1783916521",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/3/239165bb-7819-4d54-a84c-2911934253d6.webp?1783916521"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}",
+  "mtgo_id": 109160,
+  "multiverse_ids": [
+    615412
+  ],
+  "name": "Reckless Handling",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f1ea7dc5-01cb-4780-947c-08ea9324c52f",
+  "oracle_text": "Search your library for an artifact card, reveal it, put it into your hand, shuffle, then discard a card at random. If an artifact card was discarded this way, Reckless Handling deals 2 damage to each opponent.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.21",
+    "eur_foil": "0.24",
+    "tix": "0.10",
+    "usd": "0.34",
+    "usd_etched": null,
+    "usd_foil": "0.35"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af1ea7dc5-01cb-4780-947c-08ea9324c52f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/109160?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=710202&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F495617%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Reckless+Handling",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=615412&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DReckless%2BHandling",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DReckless%2BHandling"
+  },
+  "released_at": "2023-05-12",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/239165bb-7819-4d54-a84c-2911934253d6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mat?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mat/19/reckless-handling?utm_source=api",
+  "set": "mat",
+  "set_id": "6727e43d-31b6-45b0-ae05-7a811ba72f70",
+  "set_name": "March of the Machine: The Aftermath",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amat&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/6727e43d-31b6-45b0-ae05-7a811ba72f70",
+  "story_spotlight": false,
+  "tcgplayer_id": 495617,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/239165bb-7819-4d54-a84c-2911934253d6",
+  "variation": false
+}

@@ -1,0 +1,138 @@
+{
+  "arena_id": 94835,
+  "artist": "Chris Rallis",
+  "artist_ids": [
+    "a8e7b854-b15a-421a-b66d-6e68187ae285"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 808202,
+  "cmc": 4.0,
+  "collector_number": "33",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 11127,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"For most people? The odds would be insurmountable,\" Daretti said.\n\"But we're not most people,\" Pia replied.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f8bddc5f-8f25-4313-b5bb-e5eae2923878",
+  "illustration_id": "0e397842-d950-40f1-9800-92d5b7a85523",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:58:32Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/8/f8bddc5f-8f25-4313-b5bb-e5eae2923878.webp?1783907912",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/8/f8bddc5f-8f25-4313-b5bb-e5eae2923878.jpg?1783907912",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/8/f8bddc5f-8f25-4313-b5bb-e5eae2923878.jpg?1783907912",
+    "crop": "https://cards.scryfall.io/crop/front/f/8/f8bddc5f-8f25-4313-b5bb-e5eae2923878.webp?1783907912",
+    "display": "https://cards.scryfall.io/display/front/f/8/f8bddc5f-8f25-4313-b5bb-e5eae2923878.webp?1783907912",
+    "grid": "https://cards.scryfall.io/grid/front/f/8/f8bddc5f-8f25-4313-b5bb-e5eae2923878.webp?1783907912",
+    "large": "https://cards.scryfall.io/large/front/f/8/f8bddc5f-8f25-4313-b5bb-e5eae2923878.jpg?1783907912",
+    "normal": "https://cards.scryfall.io/normal/front/f/8/f8bddc5f-8f25-4313-b5bb-e5eae2923878.jpg?1783907912",
+    "png": "https://cards.scryfall.io/png/front/f/8/f8bddc5f-8f25-4313-b5bb-e5eae2923878.png?1783907912",
+    "small": "https://cards.scryfall.io/small/front/f/8/f8bddc5f-8f25-4313-b5bb-e5eae2923878.jpg?1783907912",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/8/f8bddc5f-8f25-4313-b5bb-e5eae2923878.webp?1783907912"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}",
+  "mtgo_id": 136189,
+  "multiverse_ids": [
+    690470
+  ],
+  "name": "Tune Up",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "aaa14260-2537-4668-8517-c825118777cc",
+  "oracle_text": "Return target artifact card from your graveyard to the battlefield. If it's a Vehicle, it becomes an artifact creature.",
+  "oversized": false,
+  "penny_rank": 9946,
+  "preview": {
+    "previewed_at": "2025-01-24",
+    "source": "The Vorthos Cast",
+    "source_uri": "https://bsky.app/profile/thevorthoscast.bsky.social/post/3lgirewhxpk27"
+  },
+  "prices": {
+    "eur": "0.05",
+    "eur_foil": "0.13",
+    "tix": "0.03",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": "0.33"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aaaa14260-2537-4668-8517-c825118777cc&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/136189?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=808202&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F615250%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Tune+Up",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=690470&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTune%2BUp",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTune%2BUp"
+  },
+  "released_at": "2025-02-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f8bddc5f-8f25-4313-b5bb-e5eae2923878/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dft?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dft/33/tune-up?utm_source=api",
+  "set": "dft",
+  "set_id": "23464cc2-a69c-427d-b8a7-08e5d80235d7",
+  "set_name": "Aetherdrift",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adft&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/23464cc2-a69c-427d-b8a7-08e5d80235d7",
+  "story_spotlight": true,
+  "tcgplayer_id": 615250,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/f8bddc5f-8f25-4313-b5bb-e5eae2923878",
+  "variation": false
+}

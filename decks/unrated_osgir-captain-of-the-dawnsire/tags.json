@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "title": "Osgir — Captain of the Dawnsire",
+  "summary": "Osgir doubles cheap artifacts and damage reflectors, then feeds them with wipes, Arcbond, and a stationed Dawnsire.",
+  "tags": [
+    {
+      "name": "artifacts",
+      "score": 5,
+      "reason": "Osgir, welders, Oswald, artifact lands, and almost every payoff want artifacts in play or in the graveyard."
+    },
+    {
+      "name": "aikido",
+      "score": 4,
+      "reason": "A full reflector suite turns incoming damage, fights, and red sweepers into player-facing damage."
+    },
+    {
+      "name": "self-damage",
+      "score": 4,
+      "reason": "Blasphemous Act, Chain Reaction, Spiteful Banditry, and Arcbond are aimed at our own reflectors on purpose."
+    },
+    {
+      "name": "spacecraft",
+      "score": 4,
+      "reason": "The brew is named for Dawnsire; Warmaker Gunship and Adagia share the station axis."
+    },
+    {
+      "name": "artificers",
+      "score": 3,
+      "reason": "Osgir, Oswald, Goblin Engineer, Goblin Welder, and Losheel are the reconstruction crew."
+    },
+    {
+      "name": "burn",
+      "score": 3,
+      "reason": "Reflectors, Bottle-Cap Blast, Pyrite Spellbomb, and red sweepers close through damage."
+    },
+    {
+      "name": "clones",
+      "score": 3,
+      "reason": "Osgir makes two copies, plus Sculpting Steel, Cursed Mirror, Mycosynth Gardens, and Adagia."
+    },
+    {
+      "name": "combo",
+      "score": 3,
+      "reason": "Arcbond plus a reflector plus a wipe is a finite but lethal table-wide line, not a loop."
+    },
+    {
+      "name": "graveyard",
+      "score": 3,
+      "reason": "Osgir, Welder, Engineer, Tune Up, Abuelo's Awakening, and Buried Ruin all spend the yard."
+    },
+    {
+      "name": "sacrifice",
+      "score": 3,
+      "reason": "Osgir's pump, Oswald, Engineer, Welder, and wellsprings all want artifacts to die."
+    },
+    {
+      "name": "tokens",
+      "score": 3,
+      "reason": "Osgir's copies, Treasures, Prized Statue, Atsushi, and Titanic are the board."
+    },
+    {
+      "name": "dragons",
+      "score": 2,
+      "reason": "Wrathful Red Dragon pays off Atsushi and Cavern-Hoard Dragon when they are damaged."
+    },
+    {
+      "name": "equipment",
+      "score": 2,
+      "reason": "Basilisk Collar, Shadowspear, and Celestial Armor sit on reflectors; Forging the Tyrite Sword finds them."
+    },
+    {
+      "name": "lifegain",
+      "score": 2,
+      "reason": "Collar, Shadowspear, Kami, Wall of Hope, and Metropolis Reformer convert reflector hits into life."
+    },
+    {
+      "name": "vehicles",
+      "score": 2,
+      "reason": "RMS Titanic is a real Vehicle; Dawnsire and Warmaker are spacecraft that station into creatures."
+    },
+    {
+      "name": "politics",
+      "score": 1,
+      "reason": "Seize the Spotlight is the only fame-or-fortune bargain."
+    }
+  ]
+}

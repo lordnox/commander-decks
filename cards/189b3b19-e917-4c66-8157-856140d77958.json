@@ -1,0 +1,141 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "711274ae-1a4e-491c-aa71-b2d29c890578",
+      "name": "Hamster",
+      "object": "related_card",
+      "type_line": "Token Creature — Hamster",
+      "uri": "https://api.scryfall.com/cards/711274ae-1a4e-491c-aa71-b2d29c890578"
+    },
+    {
+      "component": "combo_piece",
+      "id": "58655918-b34f-4c50-aef9-6a7b10c60aee",
+      "name": "Rolling Hamsphere",
+      "object": "related_card",
+      "type_line": "Artifact — Vehicle",
+      "uri": "https://api.scryfall.com/cards/58655918-b34f-4c50-aef9-6a7b10c60aee"
+    }
+  ],
+  "artist": "Andrea Radeck",
+  "artist_ids": [
+    "2560b932-96b5-4308-9d32-298641ef326e"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 0.0,
+  "collector_number": "22",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "711274ae-1a4e-491c-aa71-b2d29c890578",
+  "illustration_id": "9084130e-e65c-4896-894a-0f0e730a0437",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:29:15Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/1/711274ae-1a4e-491c-aa71-b2d29c890578.webp?1783909755",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/1/711274ae-1a4e-491c-aa71-b2d29c890578.jpg?1783909755",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/1/711274ae-1a4e-491c-aa71-b2d29c890578.jpg?1783909755",
+    "crop": "https://cards.scryfall.io/crop/front/7/1/711274ae-1a4e-491c-aa71-b2d29c890578.webp?1783909755",
+    "display": "https://cards.scryfall.io/display/front/7/1/711274ae-1a4e-491c-aa71-b2d29c890578.webp?1783909755",
+    "grid": "https://cards.scryfall.io/grid/front/7/1/711274ae-1a4e-491c-aa71-b2d29c890578.webp?1783909755",
+    "large": "https://cards.scryfall.io/large/front/7/1/711274ae-1a4e-491c-aa71-b2d29c890578.jpg?1783909755",
+    "normal": "https://cards.scryfall.io/normal/front/7/1/711274ae-1a4e-491c-aa71-b2d29c890578.jpg?1783909755",
+    "png": "https://cards.scryfall.io/png/front/7/1/711274ae-1a4e-491c-aa71-b2d29c890578.png?1783909755",
+    "small": "https://cards.scryfall.io/small/front/7/1/711274ae-1a4e-491c-aa71-b2d29c890578.jpg?1783909755",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/1/711274ae-1a4e-491c-aa71-b2d29c890578.webp?1783909755"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "token",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [],
+  "name": "Hamster",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "189b3b19-e917-4c66-8157-856140d77958",
+  "oracle_text": "",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A189b3b19-e917-4c66-8157-856140d77958&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Hamster&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Hamster&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DHamster%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hamster",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHamster",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHamster"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/711274ae-1a4e-491c-aa71-b2d29c890578/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tblc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tblc/22/hamster?utm_source=api",
+  "set": "tblc",
+  "set_id": "c19783ef-387f-4974-9185-56be15c7ac0d",
+  "set_name": "Bloomburrow Commander Tokens",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atblc&unique=prints",
+  "set_type": "token",
+  "set_uri": "https://api.scryfall.com/sets/c19783ef-387f-4974-9185-56be15c7ac0d",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Token Creature — Hamster",
+  "uri": "https://api.scryfall.com/cards/711274ae-1a4e-491c-aa71-b2d29c890578",
+  "variation": false
+}

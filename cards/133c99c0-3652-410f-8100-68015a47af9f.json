@@ -1,0 +1,135 @@
+{
+  "artist": "Aaron J. Riley",
+  "artist_ids": [
+    "f21b412c-aef5-4d15-88be-4f40615acde3"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 892682,
+  "cmc": 1.0,
+  "collector_number": "130",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 463,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "There are few ways to enter Wakanda, but there are many ways to leave.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "99d30a21-b003-4a17-a4c5-97811f230896",
+  "illustration_id": "edcec3e4-de34-42c2-bee5-430b248934d0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:40:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/9/99d30a21-b003-4a17-a4c5-97811f230896.webp?1783903251",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/9/99d30a21-b003-4a17-a4c5-97811f230896.jpg?1783903251",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/9/99d30a21-b003-4a17-a4c5-97811f230896.jpg?1783903251",
+    "crop": "https://cards.scryfall.io/crop/front/9/9/99d30a21-b003-4a17-a4c5-97811f230896.webp?1783903251",
+    "display": "https://cards.scryfall.io/display/front/9/9/99d30a21-b003-4a17-a4c5-97811f230896.webp?1783903251",
+    "grid": "https://cards.scryfall.io/grid/front/9/9/99d30a21-b003-4a17-a4c5-97811f230896.webp?1783903251",
+    "large": "https://cards.scryfall.io/large/front/9/9/99d30a21-b003-4a17-a4c5-97811f230896.jpg?1783903251",
+    "normal": "https://cards.scryfall.io/normal/front/9/9/99d30a21-b003-4a17-a4c5-97811f230896.jpg?1783903251",
+    "png": "https://cards.scryfall.io/png/front/9/9/99d30a21-b003-4a17-a4c5-97811f230896.png?1783903251",
+    "small": "https://cards.scryfall.io/small/front/9/9/99d30a21-b003-4a17-a4c5-97811f230896.jpg?1783903251",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/9/99d30a21-b003-4a17-a4c5-97811f230896.webp?1783903251"
+  },
+  "keywords": [
+    "Metalcraft"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}",
+  "mtgo_id": 150729,
+  "multiverse_ids": [],
+  "name": "Dispatch",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "133c99c0-3652-410f-8100-68015a47af9f",
+  "oracle_text": "Tap target creature.\nMetalcraft — If you control three or more artifacts, exile that creature.",
+  "oversized": false,
+  "penny_rank": 1278,
+  "prices": {
+    "eur": "0.26",
+    "eur_foil": null,
+    "tix": "0.03",
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A133c99c0-3652-410f-8100-68015a47af9f&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150729?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=892682&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F698175%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dispatch",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDispatch",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDispatch"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "E1E5D0CB5ACDC2B88A6F2444B918ED497CC98CCA5B6AA46AAEA2358C140828E2",
+  "rulings_uri": "https://api.scryfall.com/cards/99d30a21-b003-4a17-a4c5-97811f230896/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/130/dispatch?utm_source=api",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 698175,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/99d30a21-b003-4a17-a4c5-97811f230896",
+  "variation": false
+}

@@ -1,0 +1,144 @@
+{
+  "artist": "Andrey Kuzinskiy",
+  "artist_ids": [
+    "c04ff0b2-67a1-4238-82f7-6c67de734b56"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 738633,
+  "cmc": 4.0,
+  "collector_number": "82",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 10942,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "b6ffec6a-fbba-46cc-becb-4ee5ef8c4971",
+  "illustration_id": "5d873a41-3a8d-45a5-9d29-f89c98c2694e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:50:54Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/6/b6ffec6a-fbba-46cc-becb-4ee5ef8c4971.webp?1783914654",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/6/b6ffec6a-fbba-46cc-becb-4ee5ef8c4971.jpg?1783914654",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/6/b6ffec6a-fbba-46cc-becb-4ee5ef8c4971.jpg?1783914654",
+    "crop": "https://cards.scryfall.io/crop/front/b/6/b6ffec6a-fbba-46cc-becb-4ee5ef8c4971.webp?1783914654",
+    "display": "https://cards.scryfall.io/display/front/b/6/b6ffec6a-fbba-46cc-becb-4ee5ef8c4971.webp?1783914654",
+    "grid": "https://cards.scryfall.io/grid/front/b/6/b6ffec6a-fbba-46cc-becb-4ee5ef8c4971.webp?1783914654",
+    "large": "https://cards.scryfall.io/large/front/b/6/b6ffec6a-fbba-46cc-becb-4ee5ef8c4971.jpg?1783914654",
+    "normal": "https://cards.scryfall.io/normal/front/b/6/b6ffec6a-fbba-46cc-becb-4ee5ef8c4971.jpg?1783914654",
+    "png": "https://cards.scryfall.io/png/front/b/6/b6ffec6a-fbba-46cc-becb-4ee5ef8c4971.png?1783914654",
+    "small": "https://cards.scryfall.io/small/front/b/6/b6ffec6a-fbba-46cc-becb-4ee5ef8c4971.jpg?1783914654",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/6/b6ffec6a-fbba-46cc-becb-4ee5ef8c4971.webp?1783914654"
+  },
+  "keywords": [
+    "Soulbond",
+    "Doctor's companion"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{R}",
+  "multiverse_ids": [
+    634777
+  ],
+  "name": "Donna Noble",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0d6e76aa-2966-48b7-be4e-2d3e2cc94fc1",
+  "oracle_text": "Soulbond (You may pair this creature with another unpaired creature when either enters. They remain paired for as long as you control both of them.)\nWhenever Donna Noble or a creature it's paired with is dealt damage, Donna Noble deals that much damage to target opponent.\nDoctor's companion (You can have two commanders if the other is the Doctor.)",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2023-08-29",
+    "source": "BBC",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.28",
+    "eur_foil": "0.34",
+    "tix": null,
+    "usd": "0.44",
+    "usd_etched": null,
+    "usd_foil": "0.54"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0d6e76aa-2966-48b7-be4e-2d3e2cc94fc1&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Donna+Noble&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=738633&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F514529%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Donna+Noble",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=634777&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDonna%2BNoble",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDonna%2BNoble"
+  },
+  "released_at": "2023-10-13",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b6ffec6a-fbba-46cc-becb-4ee5ef8c4971/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/who?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/who/82/donna-noble?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "who",
+  "set_id": "efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "set_name": "Doctor Who",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awho&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "story_spotlight": false,
+  "tcgplayer_id": 514529,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Human",
+  "uri": "https://api.scryfall.com/cards/b6ffec6a-fbba-46cc-becb-4ee5ef8c4971",
+  "variation": false
+}
