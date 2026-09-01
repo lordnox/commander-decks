@@ -831,12 +831,12 @@
       "submitted_name": "Vanishing"
     },
     {
-      "cache": "cards/21d700e8-0255-418e-96a0-6fe05b3f836d.json",
+      "cache": "cards/0bc7f093-bef0-4f1a-852c-4b75ebf54838.json",
       "card": {
         "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{2}",
-        "oracle_text": "This artifact enters tapped.\nAs this artifact enters, choose a color.\n{T}: Add one mana of the chosen color.",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
         "produced_mana": [
           "B",
           "G",
@@ -844,22 +844,22 @@
           "U",
           "W"
         ],
-        "type_line": "Snow Artifact"
+        "type_line": "Artifact"
       },
       "categories": [
         "Ramp",
         "Fixing"
       ],
       "category_source": "decklist",
-      "name": "Coldsteel Heart",
-      "oracle_id": "21d700e8-0255-418e-96a0-6fe05b3f836d",
+      "name": "Arcane Signet",
+      "oracle_id": "0bc7f093-bef0-4f1a-852c-4b75ebf54838",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/2x2/301/coldsteel-heart?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/msc/192/arcane-signet?utm_source=api",
       "submitted_categories": [
         "Ramp",
         "Fixing"
       ],
-      "submitted_name": "Coldsteel Heart"
+      "submitted_name": "Arcane Signet"
     },
     {
       "cache": "cards/95560508-7ac9-4be9-8a3f-3c7d5b52807b.json",
@@ -1001,6 +1001,33 @@
       "submitted_name": "Midnight Clock"
     },
     {
+      "cache": "cards/c97361b5-af16-4a7b-af85-a429dbaf4ad2.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add {C}.\n{1}, {T}, Sacrifice this artifact: Draw a card.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp",
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Mind Stone",
+      "oracle_id": "c97361b5-af16-4a7b-af85-a429dbaf4ad2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/76/mind-stone?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Draw"
+      ],
+      "submitted_name": "Mind Stone"
+    },
+    {
       "cache": "cards/7acd7ef5-0e26-436d-962a-1a391f81c2e8.json",
       "card": {
         "cmc": 4.0,
@@ -1133,18 +1160,16 @@
       "submitted_name": "Sapphire Medallion"
     },
     {
-      "cache": "cards/7c709413-dacf-48af-8ac9-8f61b2699bf1.json",
+      "cache": "cards/4c0a0448-b9d6-43a0-8549-64066dac63f0.json",
       "card": {
         "cmc": 2.0,
         "keywords": [],
         "mana_cost": "{2}",
-        "oracle_text": "This artifact enters tapped and with three charge counters on it.\n{T}, Remove a charge counter from this artifact: Add one mana of any color.",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {U} or {B}. This artifact deals 1 damage to you.",
         "produced_mana": [
           "B",
-          "G",
-          "R",
-          "U",
-          "W"
+          "C",
+          "U"
         ],
         "type_line": "Artifact"
       },
@@ -1153,46 +1178,15 @@
         "Fixing"
       ],
       "category_source": "decklist",
-      "name": "Sphere of the Suns",
-      "oracle_id": "7c709413-dacf-48af-8ac9-8f61b2699bf1",
+      "name": "Talisman of Dominance",
+      "oracle_id": "4c0a0448-b9d6-43a0-8549-64066dac63f0",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mm2/231/sphere-of-the-suns?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/msc/219/talisman-of-dominance?utm_source=api",
       "submitted_categories": [
         "Ramp",
         "Fixing"
       ],
-      "submitted_name": "Sphere of the Suns"
-    },
-    {
-      "cache": "cards/b5e9599f-9561-4e3f-9904-9a4dab98cabb.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{2}",
-        "oracle_text": "This artifact enters tapped.\n{T}: Add one mana of any color that a basic land you control could produce.",
-        "produced_mana": [
-          "B",
-          "G",
-          "R",
-          "U",
-          "W"
-        ],
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Ramp",
-        "Fixing"
-      ],
-      "category_source": "decklist",
-      "name": "Star Compass",
-      "oracle_id": "b5e9599f-9561-4e3f-9904-9a4dab98cabb",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/ima/229/star-compass?utm_source=api",
-      "submitted_categories": [
-        "Ramp",
-        "Fixing"
-      ],
-      "submitted_name": "Star Compass"
+      "submitted_name": "Talisman of Dominance"
     },
     {
       "cache": "cards/adfcdadd-ddda-477b-8e72-0cae2430fb63.json",
@@ -1803,15 +1797,18 @@
       "submitted_name": "Bojuka Bog"
     },
     {
-      "cache": "cards/d473b507-8c33-4118-bc10-b0a268776074.json",
+      "cache": "cards/f25351e3-539b-4bbc-b92d-6480acf4d722.json",
       "card": {
         "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
-        "oracle_text": "As this land enters, you may reveal an Island or Swamp card from your hand. If you don't, this land enters tapped.\n{T}: Add {U} or {B}.",
+        "oracle_text": "Whenever this land becomes tapped, it deals 1 damage to you.\n{T}: Add one mana of any color.",
         "produced_mana": [
           "B",
-          "U"
+          "G",
+          "R",
+          "U",
+          "W"
         ],
         "type_line": "Land"
       },
@@ -1820,15 +1817,46 @@
         "Fixing"
       ],
       "category_source": "decklist",
-      "name": "Choked Estuary",
-      "oracle_id": "d473b507-8c33-4118-bc10-b0a268776074",
+      "name": "City of Brass",
+      "oracle_id": "f25351e3-539b-4bbc-b92d-6480acf4d722",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/msc/229/choked-estuary?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/tmc/62/city-of-brass?utm_source=api",
       "submitted_categories": [
         "Land",
         "Fixing"
       ],
-      "submitted_name": "Choked Estuary"
+      "submitted_name": "City of Brass"
+    },
+    {
+      "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land",
+        "Fixing"
+      ],
+      "category_source": "decklist",
+      "name": "Command Tower",
+      "oracle_id": "0895c9b7-ae7d-4bb3-af17-3b75deb50a25",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/233/command-tower?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Fixing"
+      ],
+      "submitted_name": "Command Tower"
     },
     {
       "cache": "cards/144119bc-7fd1-45c5-9e29-f742e7c255ac.json",
@@ -1869,34 +1897,6 @@
         "Fixing"
       ],
       "submitted_name": "Clearwater Pathway // Murkwater Pathway"
-    },
-    {
-      "cache": "cards/4869a530-757f-4364-8d8e-4dc8001f433c.json",
-      "card": {
-        "cmc": 0.0,
-        "keywords": [],
-        "mana_cost": "",
-        "oracle_text": "{1}, {T}: Add {U}{B}.",
-        "produced_mana": [
-          "B",
-          "U"
-        ],
-        "type_line": "Land"
-      },
-      "categories": [
-        "Land",
-        "Fixing"
-      ],
-      "category_source": "decklist",
-      "name": "Darkwater Catacombs",
-      "oracle_id": "4869a530-757f-4364-8d8e-4dc8001f433c",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/tdc/355/darkwater-catacombs?utm_source=api",
-      "submitted_categories": [
-        "Land",
-        "Fixing"
-      ],
-      "submitted_name": "Darkwater Catacombs"
     },
     {
       "cache": "cards/819fc966-434e-470f-91e9-a38df974ad17.json",
@@ -1983,6 +1983,37 @@
       "submitted_name": "Island"
     },
     {
+      "cache": "cards/d0ee5bdc-2b69-4b73-9a20-ffcc18783b29.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land",
+        "Fixing"
+      ],
+      "category_source": "decklist",
+      "name": "Mana Confluence",
+      "oracle_id": "d0ee5bdc-2b69-4b73-9a20-ffcc18783b29",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/jou/163/mana-confluence?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Fixing"
+      ],
+      "submitted_name": "Mana Confluence"
+    },
+    {
       "cache": "cards/bd004c9d-771e-4e63-a97d-a2259c096af8.json",
       "card": {
         "cmc": 0.0,
@@ -2011,16 +2042,12 @@
       "submitted_name": "Morphic Pool"
     },
     {
-      "cache": "cards/8a83d284-75a0-4901-b7d9-c4b7586ee327.json",
+      "cache": "cards/ef86989d-ce80-4e55-aece-7d11710eeffa.json",
       "card": {
         "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
-        "oracle_text": "{T}: Add {U}. If you played a land this turn, add {B} instead.",
-        "produced_mana": [
-          "B",
-          "U"
-        ],
+        "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Swamp card, put it onto the battlefield, then shuffle.",
         "type_line": "Land"
       },
       "categories": [
@@ -2028,15 +2055,15 @@
         "Fixing"
       ],
       "category_source": "decklist",
-      "name": "River of Tears",
-      "oracle_id": "8a83d284-75a0-4901-b7d9-c4b7586ee327",
+      "name": "Polluted Delta",
+      "oracle_id": "ef86989d-ce80-4e55-aece-7d11710eeffa",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mkc/283/river-of-tears?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mh3/224/polluted-delta?utm_source=api",
       "submitted_categories": [
         "Land",
         "Fixing"
       ],
-      "submitted_name": "River of Tears"
+      "submitted_name": "Polluted Delta"
     },
     {
       "cache": "cards/f29dc596-2121-4421-8463-15f6c2e8b9b3.json",
@@ -2093,34 +2120,6 @@
       "submitted_name": "Shizo, Death's Storehouse"
     },
     {
-      "cache": "cards/cd2c90ac-2b04-461c-92f3-939871b6b6a3.json",
-      "card": {
-        "cmc": 0.0,
-        "keywords": [],
-        "mana_cost": "",
-        "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped unless you control two or more basic lands.",
-        "produced_mana": [
-          "B",
-          "U"
-        ],
-        "type_line": "Land — Island Swamp"
-      },
-      "categories": [
-        "Land",
-        "Fixing"
-      ],
-      "category_source": "decklist",
-      "name": "Sunken Hollow",
-      "oracle_id": "cd2c90ac-2b04-461c-92f3-939871b6b6a3",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/msc/271/sunken-hollow?utm_source=api",
-      "submitted_categories": [
-        "Land",
-        "Fixing"
-      ],
-      "submitted_name": "Sunken Hollow"
-    },
-    {
       "cache": "cards/56719f6a-1a6c-4c0a-8d21-18f7d7350b68.json",
       "card": {
         "cmc": 0.0,
@@ -2146,65 +2145,32 @@
       "submitted_name": "Swamp"
     },
     {
-      "cache": "cards/0222414f-98b5-458a-a0fd-831a66cd8b07.json",
+      "cache": "cards/4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b.json",
       "card": {
         "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
-        "oracle_text": "{T}: Add {C}.\n{T}: Add {U} or {B}. Activate only if you control a Swamp.",
+        "oracle_text": "({T}: Add {U} or {B}.)",
         "produced_mana": [
           "B",
-          "C",
           "U"
         ],
-        "type_line": "Land"
+        "type_line": "Land — Island Swamp"
       },
       "categories": [
         "Land",
         "Fixing"
       ],
       "category_source": "decklist",
-      "name": "Tainted Isle",
-      "oracle_id": "0222414f-98b5-458a-a0fd-831a66cd8b07",
+      "name": "Underground Sea",
+      "oracle_id": "4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/dsc/303/tainted-isle?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/30a/578/underground-sea?utm_source=api",
       "submitted_categories": [
         "Land",
         "Fixing"
       ],
-      "submitted_name": "Tainted Isle"
-    },
-    {
-      "cache": "cards/33b9b3bd-33ca-46f3-b8bb-a978bc3d1085.json",
-      "card": {
-        "cmc": 0.0,
-        "keywords": [
-          "Scry"
-        ],
-        "mana_cost": "",
-        "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {U} or {B}.",
-        "produced_mana": [
-          "B",
-          "U"
-        ],
-        "type_line": "Land"
-      },
-      "categories": [
-        "Land",
-        "Fixing",
-        "Card Selection"
-      ],
-      "category_source": "decklist",
-      "name": "Temple of Deceit",
-      "oracle_id": "33b9b3bd-33ca-46f3-b8bb-a978bc3d1085",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/fdn/697/temple-of-deceit?utm_source=api",
-      "submitted_categories": [
-        "Land",
-        "Fixing",
-        "Card Selection"
-      ],
-      "submitted_name": "Temple of Deceit"
+      "submitted_name": "Underground Sea"
     },
     {
       "cache": "cards/857febd9-cdd7-4f8e-a852-d88084b0cfbc.json",
@@ -2234,10 +2200,38 @@
         "Fixing"
       ],
       "submitted_name": "Underground River"
+    },
+    {
+      "cache": "cards/fc9ec820-4245-4a96-b009-5308a818ca58.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land — Island Swamp"
+      },
+      "categories": [
+        "Land",
+        "Fixing"
+      ],
+      "category_source": "decklist",
+      "name": "Watery Grave",
+      "oracle_id": "fc9ec820-4245-4a96-b009-5308a818ca58",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/306/watery-grave?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Fixing"
+      ],
+      "submitted_name": "Watery Grave"
     }
   ],
   "categorized_cards": 81,
-  "generated_at": "2026-08-31T12:55:32.206009+00:00",
+  "generated_at": "2026-09-01T20:09:56.738380+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 81,
