@@ -101,7 +101,7 @@ Use the deck's normal pace, consistency, resilience, tutors, fast mana, interact
 Inspect:
 
 - commander mana value, dependency, and setup needed before it produces value;
-- lands, color reliability, fast mana, ordinary ramp, and the earliest realistic commander turn;
+- lands, color reliability, fast mana versus ordinary ramp, and the earliest realistic commander turn (root `DECISIONS.md`: extra mana this turn is fast mana; Signets are ramp; one-shot rituals vs Sol Ring-class permanents);
 - tutors, card selection, draw engines, recursion, and redundancy;
 - efficient and free interaction, protection, board wipes, and stack interaction;
 - compact combos, deterministic loops, extra turns, mass land denial, and alternate wins;
@@ -148,7 +148,7 @@ Keep the result concise and include:
 
 1. **Verdict:** bracket and position within it.
 2. **Win-turn table:** credible high roll, normal goldfish, and interactive game.
-3. **Evidence table:** Game Changers, combos, tutors, fast mana, interaction, consistency, and win conditions.
+3. **Evidence table:** Game Changers, combos, tutors, fast mana, interaction, consistency, and win conditions. Count official `is:gamechanger` for bracket caps. In the fast-mana row, do not call Signets fast mana; split one-shot rituals from permanent rocks, and note that this table's Sol Ring is kitchen-table 4+ even when Wizards does not list it.
 4. **Boundary argument:** why not the adjacent brackets.
 5. **Pregame description:** one sentence the player can use at the table.
 
