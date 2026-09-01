@@ -12,12 +12,12 @@
     {
       "name": "exile",
       "score": 5,
-      "reason": "Thirty-two cards exile opposing libraries, hands, graveyards, spells, or permanents."
+      "reason": "Thirty-five cards exile opposing libraries, hands, graveyards, spells, or permanents."
     },
     {
       "name": "theft",
       "score": 5,
-      "reason": "Twenty cards take opposing permanents or let the deck play opposing cards. Gonti also pays Treasures for those casts."
+      "reason": "Thirteen explicit theft cards and seventeen play-from-exile cards overlap to make opposing resources the deck's repeatable fuel."
     },
     {
       "name": "chaos",

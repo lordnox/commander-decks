@@ -1,0 +1,139 @@
+{
+  "artist": "Antonio José Manzanedo",
+  "artist_ids": [
+    "74986d28-0001-4a78-827c-e490b325d0e3"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 452068,
+  "cmc": 6.0,
+  "collector_number": "44",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 10079,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2bf6b21a-8e18-400c-a39c-d693e487e47b",
+  "illustration_id": "bbe3ef3c-4b1d-4608-b908-a6d01aa91d5d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:26:58Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/b/2bf6b21a-8e18-400c-a39c-d693e487e47b.webp?1783931218",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/b/2bf6b21a-8e18-400c-a39c-d693e487e47b.jpg?1783931218",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/b/2bf6b21a-8e18-400c-a39c-d693e487e47b.jpg?1783931218",
+    "crop": "https://cards.scryfall.io/crop/front/2/b/2bf6b21a-8e18-400c-a39c-d693e487e47b.webp?1783931218",
+    "display": "https://cards.scryfall.io/display/front/2/b/2bf6b21a-8e18-400c-a39c-d693e487e47b.webp?1783931218",
+    "grid": "https://cards.scryfall.io/grid/front/2/b/2bf6b21a-8e18-400c-a39c-d693e487e47b.webp?1783931218",
+    "large": "https://cards.scryfall.io/large/front/2/b/2bf6b21a-8e18-400c-a39c-d693e487e47b.jpg?1783931218",
+    "normal": "https://cards.scryfall.io/normal/front/2/b/2bf6b21a-8e18-400c-a39c-d693e487e47b.jpg?1783931218",
+    "png": "https://cards.scryfall.io/png/front/2/b/2bf6b21a-8e18-400c-a39c-d693e487e47b.png?1783931218",
+    "small": "https://cards.scryfall.io/small/front/2/b/2bf6b21a-8e18-400c-a39c-d693e487e47b.jpg?1783931218",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/b/2bf6b21a-8e18-400c-a39c-d693e487e47b.webp?1783931218"
+  },
+  "keywords": [
+    "Flying",
+    "Mutate"
+  ],
+  "lang": "en",
+  "layout": "mutate",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{B}{B}",
+  "mtgo_id": 80669,
+  "multiverse_ids": [
+    484891
+  ],
+  "name": "Mindleecher",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4864cc98-4fde-4010-81e9-ea4944347e7e",
+  "oracle_text": "Mutate {4}{B} (If you cast this spell for its mutate cost, put it over or under target non-Human creature you own. They mutate into the creature on top plus all abilities from under it.)\nFlying\nWhenever this creature mutates, exile the top card of each opponent's library face down. You may look at and play those cards for as long as they remain exiled.",
+  "oversized": false,
+  "power": "5",
+  "preview": {
+    "previewed_at": "2020-04-04",
+    "source": "Kitchentable Commander",
+    "source_uri": "https://www.youtube.com/watch?v=wsZWuz00EQ4"
+  },
+  "prices": {
+    "eur": "0.36",
+    "eur_foil": null,
+    "tix": "2.09",
+    "usd": "0.42",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4864cc98-4fde-4010-81e9-ea4944347e7e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/80669?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=452068&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F212147%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mindleecher",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=484891&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMindleecher",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMindleecher"
+  },
+  "released_at": "2020-04-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2bf6b21a-8e18-400c-a39c-d693e487e47b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c20?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c20/44/mindleecher?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c20",
+  "set_id": "f60ec786-1f8d-42f7-9abc-0d880fe243f6",
+  "set_name": "Commander 2020",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac20&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/f60ec786-1f8d-42f7-9abc-0d880fe243f6",
+  "story_spotlight": false,
+  "tcgplayer_id": 212147,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Creature — Nightmare",
+  "uri": "https://api.scryfall.com/cards/2bf6b21a-8e18-400c-a39c-d693e487e47b",
+  "variation": false
+}
