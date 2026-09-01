@@ -127,3 +127,11 @@ Every unique card needs a Cards in line. The other headings appear when there is
 ### 2026-09-01 — Import
 
 Imported the submitted 99 as **Osgir — Captain of the Dawnsire**. Token lines (Copy, Elephant, Robot, Treasure) are `{noDeck}` extras. Treasure resolved through the shared cache as the Dinosaur // Treasure token object, matching other decks. **Gamble** is a Game Changer and is kept because the list was imported unchanged; house rules still default to zero Game Changers unless this deck is excepted later.
+
+### 2026-09-01 — Assessment
+
+Assigned **Bracket 3−** from the [Commander format page](https://magic.wizards.com/en/formats/commander) (0 Game Changers in Brackets 1–2, up to 3 in Bracket 3) and the [February 9, 2026 brackets update](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-february-9-2026). Live Scryfall `is:gamechanger` matches only **Gamble** in the 99.
+
+- No two-card infinite, extra turns, or mass land denial. The kill is [Arcbond](https://scryfall.com/card/frf/91/arcbond) plus a wipe into a reflector, or a stationed [Dawnsire, Sunstar Dreadnought](https://scryfall.com/card/eoe/238/dawnsire-sunstar-dreadnought).
+- Not Bracket 2: Gamble is a Game Changer, which those brackets exclude.
+- Not middle Bracket 3: 37 lands, no fast mana, Osgir is four mana and reconstructs at sorcery speed, and Dawnsire needs station counters. Normal goldfish is turn seven or eight; a turn-six Arcbond wipe is the exceptional line.
