@@ -374,32 +374,32 @@
       "submitted_name": "Shieldmage Advocate"
     },
     {
-      "cache": "cards/6e202114-48f3-46d2-bc54-df766d149d9d.json",
+      "cache": "cards/e43055c7-2245-4544-b0b4-ee30dc1ebf14.json",
       "card": {
         "cmc": 1.0,
         "keywords": [
-          "Morph"
+          "Defender"
         ],
         "mana_cost": "{W}",
-        "oracle_text": "Morph {W} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)\nWhen this creature is turned face up, prevent all combat damage non-Soldier creatures would deal this turn.",
-        "power": "1",
-        "toughness": "1",
-        "type_line": "Creature — Human Soldier"
+        "oracle_text": "Defender (This creature can't attack.)\nWhenever this creature is dealt damage, you gain that much life.",
+        "power": "0",
+        "toughness": "3",
+        "type_line": "Creature — Wall"
       },
       "categories": [
         "Aikido",
-        "Protection"
+        "Lifegain"
       ],
       "category_source": "decklist",
-      "name": "Frontline Strategist",
-      "oracle_id": "6e202114-48f3-46d2-bc54-df766d149d9d",
+      "name": "Wall of Hope",
+      "oracle_id": "e43055c7-2245-4544-b0b4-ee30dc1ebf14",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/scg/15/frontline-strategist?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/lgn/24/wall-of-hope?utm_source=api",
       "submitted_categories": [
         "Aikido",
-        "Protection"
+        "Lifegain"
       ],
-      "submitted_name": "Frontline Strategist"
+      "submitted_name": "Wall of Hope"
     },
     {
       "cache": "cards/1d6e9716-8c3c-443d-afd8-68d0d6c469a5.json",
@@ -1349,28 +1349,30 @@
       "submitted_name": "Wear // Tear"
     },
     {
-      "cache": "cards/20eff2ce-f26d-48a2-8a1f-435a7e2968c8.json",
+      "cache": "cards/1af63a5e-2bec-4f8d-a373-d9ce43a7d242.json",
       "card": {
-        "cmc": 3.0,
+        "cmc": 1.0,
         "keywords": [],
-        "mana_cost": "{2}{W}",
-        "oracle_text": "Prevent all combat damage that would be dealt by target attacking or blocking creature this turn. If {R} was spent to cast this spell, Boros Fury-Shield deals damage to that creature's controller equal to the creature's power.",
+        "mana_cost": "{W}",
+        "oracle_text": "Choose a creature or planeswalker you control. All damage that would be dealt this turn to you and permanents you control is dealt to the chosen permanent instead (if it's still on the battlefield).",
         "type_line": "Instant"
       },
       "categories": [
-        "Damage Reflection",
-        "Aikido"
+        "Damage Routing",
+        "Aikido",
+        "Creature Recursion"
       ],
       "category_source": "decklist",
-      "name": "Boros Fury-Shield",
-      "oracle_id": "20eff2ce-f26d-48a2-8a1f-435a7e2968c8",
+      "name": "Gideon's Sacrifice",
+      "oracle_id": "1af63a5e-2bec-4f8d-a373-d9ce43a7d242",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/rav/5/boros-fury-shield?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mkc/68/gideons-sacrifice?utm_source=api",
       "submitted_categories": [
-        "Damage Reflection",
-        "Aikido"
+        "Damage Routing",
+        "Aikido",
+        "Creature Recursion"
       ],
-      "submitted_name": "Boros Fury-Shield"
+      "submitted_name": "Gideon's Sacrifice"
     },
     {
       "cache": "cards/fc8247f5-f7b2-4fc4-a9ea-90babad5fa42.json",
@@ -1623,28 +1625,39 @@
       "submitted_name": "Repercussion"
     },
     {
-      "cache": "cards/5cdc4654-b8c5-4599-a1d2-9e9d5f6509cb.json",
+      "cache": "cards/98492d7d-3b9e-4ae1-ac45-1b508d6d2670.json",
       "card": {
-        "cmc": 3.0,
+        "cmc": 6.0,
         "keywords": [],
-        "mana_cost": "{2}{W}",
-        "oracle_text": "Whenever one or more creatures attack, you may have target attacking creature gain double strike until end of turn.",
-        "type_line": "Enchantment"
+        "mana_cost": "{6}",
+        "oracle_text": "When this artifact enters, draw three cards.\n{T}: Add three mana of any one color.\nWhenever one or more creatures an opponent controls attack you and aren't blocked, that player draws three cards and gains control of this artifact. Untap it.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
       },
       "categories": [
-        "Politics",
-        "Win Condition"
+        "Aikido",
+        "Draw",
+        "Ramp",
+        "Politics"
       ],
       "category_source": "decklist",
-      "name": "Duelist's Heritage",
-      "oracle_id": "5cdc4654-b8c5-4599-a1d2-9e9d5f6509cb",
+      "name": "Coveted Jewel",
+      "oracle_id": "98492d7d-3b9e-4ae1-ac45-1b508d6d2670",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/tle/153/duelists-heritage?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/msc/196/coveted-jewel?utm_source=api",
       "submitted_categories": [
-        "Politics",
-        "Win Condition"
+        "Aikido",
+        "Draw",
+        "Ramp",
+        "Politics"
       ],
-      "submitted_name": "Duelist's Heritage"
+      "submitted_name": "Coveted Jewel"
     },
     {
       "cache": "cards/984f92dd-cb9b-4421-a8e6-75bfe566be10.json",
@@ -2186,7 +2199,7 @@
     }
   ],
   "categorized_cards": 81,
-  "generated_at": "2026-09-01T17:49:38.560916+00:00",
+  "generated_at": "2026-09-01T19:14:48.789373+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 81,
