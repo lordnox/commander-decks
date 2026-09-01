@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "cutoff": 3,
-  "summary": "Creature-go Mardu aikido that forces bad attacks, recycles visible traps with Extus, and routes borrowed damage through increasingly unsafe contraptions.",
+  "summary": "Creature-go Mardu aikido that redirects bad attacks, recycles visible traps with Extus, and turns borrowed damage into unsafe table-wide contraptions.",
   "tags": [
     {
       "name": "aikido",
@@ -11,7 +11,7 @@
     {
       "name": "creatures",
       "score": 4,
-      "reason": "Thirty-three creatures form the visible defense, forced-combat package, and damage-reflection engine."
+      "reason": "Thirty-one creatures plus Extus form the visible defense, forced-combat package, draw engine, and damage-reflection machinery."
     },
     {
       "name": "forced combat",
@@ -21,7 +21,7 @@
     {
       "name": "self-damage",
       "score": 4,
-      "reason": "Reflectors, Volcano Hellion, Crypt Rats, and Coalhauler Swine deliberately manufacture dangerous damage events."
+      "reason": "Reflectors, Volcano Hellion, Crypt Rats, Arcbond, and Pain for All deliberately manufacture dangerous damage events."
     },
     {
       "name": "combo",
@@ -36,12 +36,12 @@
     {
       "name": "politics",
       "score": 3,
-      "reason": "Advocates, Crown of Doom, Humble Defector, and attack incentives create visible table bargains."
+      "reason": "Advocates, Flumph, Windshaper Planetar, Crown of Doom, Humble Defector, and attack incentives create visible table bargains."
     },
     {
       "name": "sacrifice",
       "score": 3,
-      "reason": "Creature sacrifices pay for prevention, cards, mana, theft, and a damage sweep while Extus retrieves the body."
+      "reason": "Creature sacrifices pay for cards, mana, theft, and a damage sweep while Extus retrieves the body."
     },
     {
       "name": "burn",
@@ -51,12 +51,12 @@
     {
       "name": "group slug",
       "score": 2,
-      "reason": "Coalhauler Swine, Crypt Rats, Repercussion, and Angel's Trumpet can damage several players."
+      "reason": "Arcbond, Crypt Rats, Repercussion, and Angel's Trumpet can damage several players."
     },
     {
       "name": "spellslinger",
       "score": 2,
-      "reason": "Twenty instants and sorceries trigger Extus, but creatures remain the main shell."
+      "reason": "Twenty-three instants and sorceries trigger Extus, but creatures remain the main shell."
     },
     {
       "name": "tokens",
@@ -66,7 +66,7 @@
     {
       "name": "lifegain",
       "score": 1,
-      "reason": "Worthy Cause, Children of Korlis, and Soul Link offset damage the deck intentionally risks."
+      "reason": "Worthy Cause, Children of Korlis, and Souls of the Faultless offset damage the deck intentionally risks."
     },
     {
       "name": "theft",
