@@ -1,0 +1,132 @@
+{
+  "artist": "Svetlin Velinov",
+  "artist_ids": [
+    "ffd063ae-c097-4f26-b2e6-b1e2137708bc"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 572197,
+  "cmc": 3.0,
+  "collector_number": "19",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 11920,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "59e9e244-bb8e-4346-b06b-4af987473442",
+  "illustration_id": "9831715e-4979-448d-b215-e036f1423e55",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:04:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/9/59e9e244-bb8e-4346-b06b-4af987473442.webp?1783926252",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/9/59e9e244-bb8e-4346-b06b-4af987473442.jpg?1783926252",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/9/59e9e244-bb8e-4346-b06b-4af987473442.jpg?1783926252",
+    "crop": "https://cards.scryfall.io/crop/front/5/9/59e9e244-bb8e-4346-b06b-4af987473442.webp?1783926252",
+    "display": "https://cards.scryfall.io/display/front/5/9/59e9e244-bb8e-4346-b06b-4af987473442.webp?1783926252",
+    "grid": "https://cards.scryfall.io/grid/front/5/9/59e9e244-bb8e-4346-b06b-4af987473442.webp?1783926252",
+    "large": "https://cards.scryfall.io/large/front/5/9/59e9e244-bb8e-4346-b06b-4af987473442.jpg?1783926252",
+    "normal": "https://cards.scryfall.io/normal/front/5/9/59e9e244-bb8e-4346-b06b-4af987473442.jpg?1783926252",
+    "png": "https://cards.scryfall.io/png/front/5/9/59e9e244-bb8e-4346-b06b-4af987473442.png?1783926252",
+    "small": "https://cards.scryfall.io/small/front/5/9/59e9e244-bb8e-4346-b06b-4af987473442.jpg?1783926252",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/9/59e9e244-bb8e-4346-b06b-4af987473442.webp?1783926252"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "multiverse_ids": [
+    531924
+  ],
+  "name": "Rod of Absorption",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d32345c1-ed20-4bfc-a5fa-6ac7b99542ec",
+  "oracle_text": "Whenever a player casts an instant or sorcery spell, exile it instead of putting it into a graveyard as it resolves.\n{X}, {T}, Sacrifice this artifact: You may cast any number of spells from among cards exiled with this artifact with total mana value X or less without paying their mana costs.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2021-07-10",
+    "source": "MTG Muddstah",
+    "source_uri": "https://www.youtube.com/watch?v=JuG8gigPnlM"
+  },
+  "prices": {
+    "eur": "0.39",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.50",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad32345c1-ed20-4bfc-a5fa-6ac7b99542ec&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Rod+of+Absorption&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=572197&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243775%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rod+of+Absorption",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=531924&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRod%2Bof%2BAbsorption",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRod%2Bof%2BAbsorption"
+  },
+  "released_at": "2021-07-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/59e9e244-bb8e-4346-b06b-4af987473442/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afc/19/rod-of-absorption?utm_source=api",
+  "security_stamp": "oval",
+  "set": "afc",
+  "set_id": "db1b46f9-893c-4623-9465-985ff6e4472c",
+  "set_name": "Forgotten Realms Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/db1b46f9-893c-4623-9465-985ff6e4472c",
+  "story_spotlight": false,
+  "tcgplayer_id": 243775,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/59e9e244-bb8e-4346-b06b-4af987473442",
+  "variation": false
+}

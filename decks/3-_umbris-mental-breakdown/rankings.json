@@ -1,7 +1,7 @@
 {
   "goals": ["Voltron", "Theft"],
   "scores": {
-    "jankiness": 8,
+    "jankiness": 9,
     "fun": 8,
     "oppressiveness": 6,
     "identity": {
@@ -9,5 +9,5 @@
       "Theft": 9
     }
   },
-  "notes": "Combat close with Umbris is the plan; theft is dense (Shared Fate, Knowledge Pool, Gonti, Bandana, play-from-exile). Shared Fate and Knowledge Pool are the main oppressiveness. Blink stays out because it fights Voltron. Exile is a supporting constraint, not a third scored goal."
+  "notes": "Combat close with Umbris remains the plan. Mutating Mindleecher under the commander, feeding artifacts to Lobelia, turning Scrapbot graveyard exile into delayed ramp, and dumping resolved instants and sorceries onto Rod of Absorption keep Jank at 9. Shared Fate and Knowledge Pool remain the main oppressiveness."
 }

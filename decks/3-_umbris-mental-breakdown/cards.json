@@ -633,32 +633,6 @@
       "submitted_name": "Cover of Darkness"
     },
     {
-      "cache": "cards/e7eb7ac8-08ab-419b-8508-987afd0bb93b.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{2}{B}",
-        "oracle_text": "Whenever an opponent attacks you and/or one or more planeswalkers you control, exile the top card of that player's library. You may play that card for as long as it remains exiled, and you may spend mana as though it were mana of any color to cast it.",
-        "type_line": "Enchantment"
-      },
-      "categories": [
-        "Into Exile",
-        "Play From Exile",
-        "Protection"
-      ],
-      "category_source": "decklist",
-      "name": "Cunning Rhetoric",
-      "oracle_id": "e7eb7ac8-08ab-419b-8508-987afd0bb93b",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/otc/129/cunning-rhetoric?utm_source=api",
-      "submitted_categories": [
-        "Into Exile",
-        "Play From Exile",
-        "Protection"
-      ],
-      "submitted_name": "Cunning Rhetoric"
-    },
-    {
       "cache": "cards/b19a7ae7-3af5-4aa6-80e1-8888054427de.json",
       "card": {
         "cmc": 3.0,
@@ -705,30 +679,30 @@
       "submitted_name": "Kaya's Ghostform"
     },
     {
-      "cache": "cards/35c416c6-f522-4b4c-93db-75c4e01843d1.json",
+      "cache": "cards/d32345c1-ed20-4bfc-a5fa-6ac7b99542ec.json",
       "card": {
         "cmc": 3.0,
-        "keywords": [
-          "Mill"
-        ],
-        "mana_cost": "{1}{U}{B}",
-        "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Each player mills four cards. Then you may exile a creature or planeswalker card from each graveyard.\nII, III — Until end of turn, you may cast spells from among cards exiled with this Saga, and you may spend mana as though it were mana of any color to cast those spells.",
-        "type_line": "Enchantment — Saga"
+        "keywords": [],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Whenever a player casts an instant or sorcery spell, exile it instead of putting it into a graveyard as it resolves.\n{X}, {T}, Sacrifice this artifact: You may cast any number of spells from among cards exiled with this artifact with total mana value X or less without paying their mana costs.",
+        "type_line": "Artifact"
       },
       "categories": [
         "Into Exile",
-        "Play From Exile"
+        "Play From Exile",
+        "Engine"
       ],
       "category_source": "decklist",
-      "name": "King Narfi's Betrayal",
-      "oracle_id": "35c416c6-f522-4b4c-93db-75c4e01843d1",
+      "name": "Rod of Absorption",
+      "oracle_id": "d32345c1-ed20-4bfc-a5fa-6ac7b99542ec",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/lcc/272/king-narfis-betrayal?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/afc/19/rod-of-absorption?utm_source=api",
       "submitted_categories": [
         "Into Exile",
-        "Play From Exile"
+        "Play From Exile",
+        "Engine"
       ],
-      "submitted_name": "King Narfi's Betrayal"
+      "submitted_name": "Rod of Absorption"
     },
     {
       "cache": "cards/05157e8e-4c8c-455e-a5a1-de8271951c51.json",
@@ -757,28 +731,65 @@
       "submitted_name": "Endless Evil"
     },
     {
-      "cache": "cards/106ca7bd-6dad-43fe-af58-8667ebddb2eb.json",
+      "cache": "cards/a06fa827-900b-46d4-8f48-b4e15964951a.json",
       "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{U}{U}",
-        "oracle_text": "At the beginning of your upkeep, you may put a treasure counter on this enchantment.\nSacrifice this enchantment: Gain control of target creature with power less than or equal to the number of treasure counters on this enchantment. (This effect lasts indefinitely.)",
-        "type_line": "Enchantment"
+        "cmc": 4.0,
+        "keywords": [
+          "Devour Intellect",
+          "Body Thief"
+        ],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "Devour Intellect — When this creature enters, each opponent exiles a card from their hand until this creature leaves the battlefield.\nBody Thief — You may play lands and cast spells from among cards exiled with this creature. If you cast a spell this way, you may spend mana as though it were mana of any color to cast it.",
+        "power": "2",
+        "toughness": "4",
+        "type_line": "Creature — Horror"
       },
       "categories": [
-        "Theft",
-        "Control"
+        "Nightmare - Horror",
+        "Into Exile",
+        "Play From Exile",
+        "Theft"
       ],
       "category_source": "decklist",
-      "name": "Legacy's Allure",
-      "oracle_id": "106ca7bd-6dad-43fe-af58-8667ebddb2eb",
+      "name": "Intellect Devourer",
+      "oracle_id": "a06fa827-900b-46d4-8f48-b4e15964951a",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/plst/TMP-71/legacys-allure?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/clb/132/intellect-devourer?utm_source=api",
       "submitted_categories": [
-        "Theft",
-        "Control"
+        "Nightmare - Horror",
+        "Into Exile",
+        "Play From Exile",
+        "Theft"
       ],
-      "submitted_name": "Legacy's Allure"
+      "submitted_name": "Intellect Devourer"
+    },
+    {
+      "cache": "cards/0f2e3e2e-9857-4be5-9bf0-62da1cc147fc.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "When Lobelia enters, look at the top card of each opponent's library and exile those cards face down.\n{T}, Sacrifice an artifact: Choose one —\n• Until end of turn, you may play a card exiled with Lobelia without paying its mana cost.\n• Each opponent loses 2 life and you gain 2 life.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Halfling Citizen"
+      },
+      "categories": [
+        "Into Exile",
+        "Play From Exile",
+        "Theft"
+      ],
+      "category_source": "decklist",
+      "name": "Lobelia, Defender of Bag End",
+      "oracle_id": "0f2e3e2e-9857-4be5-9bf0-62da1cc147fc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ltc/27/lobelia-defender-of-bag-end?utm_source=api",
+      "submitted_categories": [
+        "Into Exile",
+        "Play From Exile",
+        "Theft"
+      ],
+      "submitted_name": "Lobelia, Defender of Bag End"
     },
     {
       "cache": "cards/e23bf5fe-e494-473e-8502-606106ee1820.json",
@@ -1001,6 +1012,41 @@
       "submitted_name": "Midnight Clock"
     },
     {
+      "cache": "cards/4864cc98-4fde-4010-81e9-ea4944347e7e.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Flying",
+          "Mutate"
+        ],
+        "mana_cost": "{4}{B}{B}",
+        "oracle_text": "Mutate {4}{B} (If you cast this spell for its mutate cost, put it over or under target non-Human creature you own. They mutate into the creature on top plus all abilities from under it.)\nFlying\nWhenever this creature mutates, exile the top card of each opponent's library face down. You may look at and play those cards for as long as they remain exiled.",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Creature — Nightmare"
+      },
+      "categories": [
+        "Nightmare - Horror",
+        "Into Exile",
+        "Play From Exile",
+        "Theft",
+        "Evasion"
+      ],
+      "category_source": "decklist",
+      "name": "Mindleecher",
+      "oracle_id": "4864cc98-4fde-4010-81e9-ea4944347e7e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c20/44/mindleecher?utm_source=api",
+      "submitted_categories": [
+        "Nightmare - Horror",
+        "Into Exile",
+        "Play From Exile",
+        "Theft",
+        "Evasion"
+      ],
+      "submitted_name": "Mindleecher"
+    },
+    {
       "cache": "cards/c97361b5-af16-4a7b-af85-a429dbaf4ad2.json",
       "card": {
         "cmc": 2.0,
@@ -1052,15 +1098,14 @@
       "submitted_name": "Perilous Vault"
     },
     {
-      "cache": "cards/e3056f28-868b-401a-a528-7528d639bdeb.json",
+      "cache": "cards/4bf0427e-5e87-4d32-ad34-1d8946ab96fd.json",
       "card": {
-        "cmc": 2.0,
+        "cmc": 3.0,
         "keywords": [],
-        "mana_cost": "{2}",
-        "oracle_text": "{T}: Add {C}.\n{1}, {T}: Add one mana of any color.",
+        "mana_cost": "{3}",
+        "oracle_text": "{T}: Add one mana of any color.\n{2}, {T}: Exile target card from a graveyard.",
         "produced_mana": [
           "B",
-          "C",
           "G",
           "R",
           "U",
@@ -1070,42 +1115,22 @@
       },
       "categories": [
         "Ramp",
-        "Fixing"
+        "Fixing",
+        "Into Exile",
+        "Graveyard Hate"
       ],
       "category_source": "decklist",
-      "name": "Prismatic Lens",
-      "oracle_id": "e3056f28-868b-401a-a528-7528d639bdeb",
+      "name": "Honored Heirloom",
+      "oracle_id": "4bf0427e-5e87-4d32-ad34-1d8946ab96fd",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/otc/264/prismatic-lens?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/vow/257/honored-heirloom?utm_source=api",
       "submitted_categories": [
         "Ramp",
-        "Fixing"
+        "Fixing",
+        "Into Exile",
+        "Graveyard Hate"
       ],
-      "submitted_name": "Prismatic Lens"
-    },
-    {
-      "cache": "cards/603ef53f-6191-4229-b85f-adad6f4503ce.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [
-          "Equip"
-        ],
-        "mana_cost": "{2}",
-        "oracle_text": "Equipped creature can't be blocked except by Walls.\nEquip {2}",
-        "type_line": "Artifact — Equipment"
-      },
-      "categories": [
-        "Evasion"
-      ],
-      "category_source": "decklist",
-      "name": "Prowler's Helm",
-      "oracle_id": "603ef53f-6191-4229-b85f-adad6f4503ce",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/ths/219/prowlers-helm?utm_source=api",
-      "submitted_categories": [
-        "Evasion"
-      ],
-      "submitted_name": "Prowler's Helm"
+      "submitted_name": "Honored Heirloom"
     },
     {
       "cache": "cards/3c958b5f-680b-45fc-8c3d-27b23677436e.json",
@@ -1536,28 +1561,32 @@
       "submitted_name": "Predators' Hour"
     },
     {
-      "cache": "cards/ce00e0d0-c6f4-4fe8-97c3-7279b06d8fdb.json",
+      "cache": "cards/b75ca527-4494-4957-b2e3-8c590df42e95.json",
       "card": {
         "cmc": 3.0,
         "keywords": [],
-        "mana_cost": "{2}{B}",
-        "oracle_text": "Exile all creature cards from target player's graveyard. You gain 3 life for each card exiled this way.",
-        "type_line": "Instant"
+        "mana_cost": "{3}",
+        "oracle_text": "When this creature enters, exile each opponent's graveyard. Create a Lander token. (It's an artifact with \"{2}, {T}, Sacrifice this token: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\")",
+        "power": "3",
+        "toughness": "1",
+        "type_line": "Artifact Creature — Robot"
       },
       "categories": [
         "Into Exile",
-        "Graveyard Hate"
+        "Graveyard Hate",
+        "Ramp"
       ],
       "category_source": "decklist",
-      "name": "Crypt Incursion",
-      "oracle_id": "ce00e0d0-c6f4-4fe8-97c3-7279b06d8fdb",
+      "name": "Dauntless Scrapbot",
+      "oracle_id": "b75ca527-4494-4957-b2e3-8c590df42e95",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/dgm/23/crypt-incursion?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/eoe/237/dauntless-scrapbot?utm_source=api",
       "submitted_categories": [
         "Into Exile",
-        "Graveyard Hate"
+        "Graveyard Hate",
+        "Ramp"
       ],
-      "submitted_name": "Crypt Incursion"
+      "submitted_name": "Dauntless Scrapbot"
     },
     {
       "cache": "cards/70dc830e-d05b-4fc7-88dd-879e140b3fbf.json",
@@ -2231,7 +2260,7 @@
     }
   ],
   "categorized_cards": 81,
-  "generated_at": "2026-09-01T20:09:56.738380+00:00",
+  "generated_at": "2026-09-01T21:25:19.795245+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 81,

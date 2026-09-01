@@ -18,7 +18,7 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 ## Rankings
 
-See `rankings.json`. 2026-09-01 refresh after a full list check: jankiness 8, fun 8, oppressiveness 6, Voltron 8, Theft 9. Shared Fate and Knowledge Pool keep Mean off the floor; Dream-Thief's Bandana puts combat theft on the Voltron body without leaving the battlefield. Exile stays a supporting constraint, not a third scored goal.
+See `rankings.json`. 2026-09-01 slot-audit refresh: jankiness 9, fun 8, oppressiveness 6, Voltron 8, Theft 9. Mutating Mindleecher under Umbris, sacrificing artifacts to Lobelia, turning Scrapbot graveyard exile into delayed ramp, and dumping resolved instants and sorceries onto Rod of Absorption raise Jank without changing the core scores. Shared Fate and Knowledge Pool keep Mean off the floor. Exile stays a supporting constraint, not a third scored goal.
 
 ## Cards in
 
@@ -44,12 +44,12 @@ See `rankings.json`. 2026-09-01 refresh after a full list check: jankiness 8, fu
 - **Uchuulon** — Enters as a Horror, consumes an opposing creature card each end step, and copies itself so later turns multiply both bodies and Umbris triggers.
 - **Ashiok, Nightmare Weaver** — Adds three cards per activation and can turn an exiled creature into a Nightmare that retriggers Umbris.
 - **Cover of Darkness** — Naming Nightmare gives Umbris and every Umbris copy persistent fear for two mana.
-- **Cunning Rhetoric** — Discourages attacks by permanently banking a card from each attacker and allowing the useful ones to be played.
 - **Dauthi Embrace** — Gives Umbris or another enormous threat shadow at the moment it needs to connect.
 - **Endless Evil** — Copies Umbris every upkeep so both legendary copies trigger before the token is removed by the legend rule.
 - **Kaya's Ghostform** — Returns Umbris after either destruction or exile without relying on a generic protective Equipment.
-- **King Narfi's Betrayal** — Mills all players, exiles selected opposing threats, and provides two turns to cast them.
-- **Legacy's Allure** — Accumulates counters from turn two onward, then permanently takes a creature whose power fits the stored total.
+- **Rod of Absorption** — Banks every instant and sorcery as it resolves, grows Umbris from opponent-owned spells, then sacrifices for a free recast of the piled cards.
+- **Intellect Devourer** — Enters as a Horror to trigger Umbris, then makes every opponent bank a hand card that this deck may play with any-colour fixing.
+- **Lobelia, Defender of Bag End** — Immediately banks one card from each opponent, then sacrifices expendable artifacts or Treasures to cast the best one for free or drain the table.
 - **Shared Fate** — Replaces normal drawing with playing from opposing libraries and is the namesake mental-breakdown engine.
 - **Vanishing** — Gives the commander repeatable phasing protection while leaving it available for targeted evasion when unphased.
 - **Arcane Signet** — Accelerates Umbris on turn two and always supplies either commander colour without entering tapped.
@@ -58,10 +58,10 @@ See `rankings.json`. 2026-09-01 refresh after a full list check: jankiness 8, fu
 - **Jet Medallion** — Can reduce twenty-three black spells and turns each reduction into damage while Ancient Cellarspawn is present.
 - **Knowledge Pool** — Starts with nine opponent-owned cards in exile at a four-player table and makes hand-cast spells exchangeable.
 - **Midnight Clock** — Ramps in the early game and turns its seven eventual draws into seven opposing cards while Shared Fate is active.
+- **Mindleecher** — Mutates under Umbris to grant flying while exiling a playable card from every opposing library, or enters normally as a Nightmare that triggers Umbris.
 - **Mind Stone** — Enters untapped as two-mana acceleration and cashes itself in for a card when mana is no longer the bottleneck.
 - **Perilous Vault** — Resets an overwhelming battlefield by exiling it, leaving opponent-owned permanents as Umbris power.
-- **Prismatic Lens** — Accelerates Umbris and filters mana into colours needed for stolen cards.
-- **Prowler's Helm** — Gives the commander or any nonlegendary copy repeatable near-unblockability without requiring coloured mana.
+- **Honored Heirloom** — Produces any colour for stolen spells, then uses spare mana to move an opponent-owned graveyard card into Umbris's permanent exile bank.
 - **Dream-Thief's Bandana** — Turns each connecting attack into a face-down exile theft with any-colour casting, including on Umbris, so Voltron and theft share the same combat step.
 - **Sapphire Medallion** — Can reduce twenty-one blue spells and supports multi-spell turns more efficiently than a tapped colour rock.
 - **Talisman of Dominance** — Enters untapped, accelerates immediately, and supplies either commander colour without another mana source.
@@ -79,7 +79,7 @@ See `rankings.json`. 2026-09-01 refresh after a full list check: jankiness 8, fu
 - **Outrageous Robbery** — Banks any chosen number of opposing cards at instant speed and supplies its own fixing for cards cast from that pile.
 - **Praetor's Grasp** — Removes the best opposing tool and makes it available for the exact turn it is needed.
 - **Predators' Hour** — Gives the whole attacking team menace and converts every successful hit into a permanently playable opposing card.
-- **Crypt Incursion** — Exiles every creature card from one opposing graveyard at instant speed and turns the deposit into a large life buffer.
+- **Dauntless Scrapbot** — Exiles every opposing graveyard for one large Umbris deposit, then leaves a Lander token that converts spare mana into a basic land.
 - **Reality Shift** — Exiles a creature at instant speed while leaving only an unknown 2/2 manifestation.
 - **Shadow Rift** — Gives a lethal attacker shadow for one mana and replaces itself, including through Shared Fate's replacement draw.
 - **Siphon Insight** — Selects from an opposing library twice and permits any mana type to cast the stolen card.
@@ -109,6 +109,12 @@ See `rankings.json`. 2026-09-01 refresh after a full list check: jankiness 8, fu
 - **Sol Ring, Lightning Greaves, and Counterspell** — Generic Commander defaults do not express exile theft; Sol Ring also exceeds the deck's Bracket 3− fast-mana target.
 - **Coldsteel Heart, Sphere of the Suns, and Star Compass** — Replaced by Arcane Signet, Talisman of Dominance, and Mind Stone. The new rocks enter untapped, do not deplete, and do not depend on basics already being in play.
 - **Choked Estuary, Darkwater Catacombs, River of Tears, Sunken Hollow, Tainted Isle, and Temple of Deceit** — Replaced by Command Tower, Watery Grave, Underground Sea, Polluted Delta, Mana Confluence, and City of Brass. Every new land can produce or fetch untapped mana, and the five-colour sources improve blind Shared Fate casting.
+- **Cunning Rhetoric** — Cut for Lobelia, Defender of Bag End. Rhetoric depended on opponents choosing to attack and produced nothing when they declined; Lobelia banks three cards immediately and converts the deck's artifact mana or Treasures into a free stolen spell.
+- **Prowler's Helm** — Cut for Mindleecher. The Helm supplied only delivery and cost four mana across casting and equipping; mutating Mindleecher under Umbris grants flying while adding three playable opposing cards to exile.
+- **Crypt Incursion** — Cut for Dauntless Scrapbot. Incursion hit only creature cards from one graveyard and its life buffer did not advance either identity goal; Scrapbot clears every opposing graveyard and leaves delayed ramp.
+- **Legacy's Allure** — Cut for Intellect Devourer after confirming that another slow control effect is unnecessary. Devourer advances Horror, exile, and Theft immediately rather than waiting several upkeeps to take one small creature.
+- **Prismatic Lens** — Cut for Honored Heirloom. Moving this slot to three mana loses a turn-two accelerator, but keeps five-colour stolen-spell fixing and adds repeatable opponent-graveyard exile.
+- **King Narfi's Betrayal** — Cut for Rod of Absorption. The saga milled, then offered two turns to cast selected graveyard cards; the Rod stays on the board, eats every resolved instant and sorcery, and dumps the pile as a free recast without feeding opposing yards.
 - **Displace, Essence Flux, Ghostly Flicker, Planar Incision, and Teferi's Time Twist** — Blink answers removal only by taking Umbris off the attack and dropping its Auras. The declared goals are Voltron and Theft; repeating Knowledge Pool's imprint is a different deck.
 - **Drown in Dreams, Extract from Darkness, Curse of Unbinding, and Zellix, Sanity Flayer** — Dedicated mill builds a graveyard resource that this version subsequently exiles and distracts from theft.
 - **Dream Devourer** — Foretell exiles cards owned by this deck, which never increases Umbris's power.
@@ -164,12 +170,12 @@ See `rankings.json`. 2026-09-01 refresh after a full list check: jankiness 8, fu
 - **Ghostly Flicker** — Cut for Dream-Thief's Bandana after choosing the no-blink identity. The imprint trick on Knowledge Pool is real, but it fights Voltron (summoning sickness, lost Auras) and raises oppressiveness when repeated.
 - **Pentad Prism** — Cut at the deck owner's request. It was the only enabler of the turn-three Umbris line, so that exceptional draw is gone; the sustained two-mana rocks and both Medallions carry normal openings.
 - **Hostage Taker** — Rejected for the Oppressor slot. Same exile-and-cast shape without Nightmare or Horror, and it is a Dimir staple.
-- **Intellect Devourer** — Rejected for the Guild Master slot. A Horror that plays three hand cards does not keep a combat library dump, and the pile returns if it dies.
 - **Dauthi Voidwalker, Gríma, Mnemonic Betrayal, Omen Machine, and The Mindskinner** — Rejected in the 2026-08-31 slot audit. Replacement exile starves the graveyard converters; Gríma puts the until-spell pile on the bottom; Betrayal returns uncast cards; Omen Machine fights Shared Fate; Mindskinner turns commander damage into mill.
 
 ## Primer
 
 - **2026-08-30 — Identity.** The primer treats Shared Fate and Knowledge Pool as finite resource exchanges, not a hard lock, and treats Umbris combat as the dependable win rather than hoping opposing decks supply a finisher.
+- **2026-09-01 — Rod of Absorption.** The primer documents the Rod as a third communal-exile engine: spells still resolve, then sit under it for Umbris until a paid sacrifice recasts the pile.
 
 ## Rules
 
@@ -188,7 +194,9 @@ See `rankings.json`. 2026-09-01 refresh after a full list check: jankiness 8, fu
 - **Aboleth Spawn.** It copies only an opposing permanent's triggered ability caused by a creature entering. Its own Horror entry still triggers this deck's Umbris normally.
 - **Endless Evil.** A token copying Umbris remains legendary and has base power and toughness 1/1. Both Umbrises trigger from its entry before the legend rule removes one; the triggers remain on the stack.
 - **Maddening Cacophony.** Unkicked, it mills eight cards from each opponent—twenty-four cards in a normal four-player game. Milling does not grow Umbris until a later effect exiles those cards.
-- **Crypt Incursion.** It exiles only creature cards from one player's graveyard, not the whole graveyard. Extract a creature with Coffin Queen first when that permanent matters more than one Umbris power.
+- **Dauntless Scrapbot.** Its entry exiles every card from every opposing graveyard before creating the Lander. Extract a creature with Coffin Queen, Uchuulon, or Nautiloid Ship first when that permanent matters more than the complete Umbris deposit.
+- **Lobelia, Defender of Bag End.** The three face-down cards stay exiled and keep growing Umbris if Lobelia leaves. Only Lobelia's activated ability can play one for free, and each activation sacrifices an artifact in addition to tapping her.
+- **Mindleecher.** Put it under Umbris when mutating so the resulting creature remains the commander and keeps Umbris's name, types, power, and toughness while gaining flying and Mindleecher's mutate trigger. Mutating does not enter the battlefield, so it does not trigger Umbris's Horror-entry ability; it does exile one playable card from each opponent. The play permission from the resolved trigger persists if the mutate pile later leaves.
 - **Shizo, Death's Storehouse.** Granting fear costs `{B}` in addition to tapping Shizo. A turn with only three other available lands cannot both cast Tasha's Hideous Laughter and activate Shizo.
 - **Cover of Darkness.** Name Nightmare. Umbris and its copies retain the Nightmare type; other Horrors without Nightmare do not receive fear.
 - **Shadow Rift.** Shadow is granted before the spell instructs its controller to draw. Shared Fate replaces that draw but does not affect the evasion.
@@ -198,7 +206,8 @@ See `rankings.json`. 2026-09-01 refresh after a full list check: jankiness 8, fu
 - **Faceless Butcher.** The exile lasts only while the Butcher is on the battlefield. The exiled creature counts for Umbris until the Butcher leaves or the card is moved some other way.
 - **Coffin Queen.** The stolen creature is exiled when Coffin Queen becomes untapped or its controller loses control of the Queen. Leaving it tapped preserves that creature.
 - **Thada Adel.** The artifact is exiled permanently, but permission to play it lasts only until end of turn. The ability does not fix coloured costs.
-- **Legacy's Allure.** Its treasure counters are counters on the enchantment, not Treasure tokens. Sacrificing it creates a control effect with no stated duration.
+- **Intellect Devourer.** Each opponent chooses which card from their hand to exile. Those cards count for Umbris and may be played with any-colour permission only while Devourer remains on the battlefield; its Horror entry also triggers Umbris separately.
+- **Honored Heirloom.** Its mana ability produces any colour. Its second ability exiles one target card from any graveyard; choose an opponent-owned card to grow Umbris, and extract anything worth stealing before using it.
 - **Gonti, Night Minister.** The Treasure trigger fires for any player casting a spell they do not own, including opponents using Shared Fate or Knowledge Pool. The combat trigger fires when a creature deals combat damage to one of your opponents, so this deck does not give cards to players who attack it, but an opponent who attacks another opponent does get a card.
 - **Bismuth Mindrender.** Lands exiled by the until-nonland trigger remain in exile and count for Umbris. Casting the nonland for life moves it to the stack and drops Umbris by one. If the spell is not cast, it stays exiled.
 - **Predators' Hour.** Each creature that deals combat damage creates its own exile trigger. Its permission and any-colour clause last as long as each card remains exiled.
@@ -206,10 +215,37 @@ See `rankings.json`. 2026-09-01 refresh after a full list check: jankiness 8, fu
 - **Midnight Clock with Shared Fate.** The hand and graveyard are shuffled in first, then each of the seven draws is replaced by Shared Fate with an opposing card. Midnight Clock exiles itself after those instructions.
 - **Everflowing Chalice.** Casting it without multikicker is legal but leaves it with no charge counter and no mana output.
 - **Knowledge Pool.** Its trigger applies only to spells cast from hand. Cards cast from Shared Fate's exile do not trigger it.
+- **Rod of Absorption.** Instants and sorceries still resolve; the Rod replaces the graveyard trip. Opponent-owned cards under it count for Umbris until they are recast. The sacrifice ability recasts any number of those cards with total mana value X or less for free, and the Rod is already gone so those recasts are not re-exiled by it. This deck's own instants and sorceries are also banked, including counters that resolve.
 - **Nonlegendary copies.** Spark Double and Irenicus's Vile Duplication explicitly remove legendary. Endless Evil does not, so its Umbris token must obey the legend rule.
 - **No loop.** The deck contains no deterministic infinite loop; every exile, theft, copy, and direct-damage line consumes cards, mana, combat steps, or permanents.
 
 ## Talks
+
+### 2026-09-01 — Rod of Absorption for King Narfi's Betrayal
+
+King Narfi's Betrayal was a three-mana saga that milled, then offered two turns to cast selected graveyard cards. Rod of Absorption keeps the same mana value, stays as a board engine, intercepts every resolved instant and sorcery into exile for Umbris, and recasts the pile for free when sacrificed. Rankings stay Jank 9 / Fun 8 / Mean 6 / Voltron 8 / Theft 9: the Rod is stranger than the saga and raises theft of spells already spent, without adding a lock.
+
+### 2026-09-01 — Allure and Lens follow-up
+
+The owner confirmed that Legacy's Allure's standalone control job is unnecessary and that Prismatic Lens may become a three-mana rock. A narrower Scryfall pass searched low-cost Dimir exile-theft cards, Horrors and Nightmares with play permission, and every Commander-legal three-mana artifact that produces any colour or combines mana with exile, graveyard, draw, surveil, or scry text.
+
+Intellect Devourer takes the Allure slot. The earlier rejection applied only when Devourer was asked to replace Raven Guild Master's ten-card combat deposit; no such job is required here. Devourer now replaces one slow permanent-control spell with an immediate Horror entry, an Umbris trigger, three opponent-chosen hand cards in exile, and any-colour permission to play them. The cards return if Devourer leaves, which keeps the theft interactive.
+
+Honored Heirloom takes the Lens slot. Chromatic Lantern was the strongest conventional fixing candidate, but Heirloom keeps the same any-colour output while using spare mana to exile opponent-owned graveyard cards. Coalition Relic remains excluded at the owner's earlier request. The swap reduces turn-two ramp by one but still enables turn-four Umbris when cast on turn three, and no permanent fast mana enters.
+
+The deck remains Bracket 3− and Jank 9 / Fun 8 / Mean 6 / Voltron 8 / Theft 9.
+
+### 2026-09-01 — Full slot audit
+
+Audited every unique slot from its Cards in job and searched live Scryfall by exile, play-from-exile, theft, Nightmare/Horror, graveyard conversion, protection, delivery, clone, interaction, and mana roles. The current Game Changers query returned 53 cards; none of the accepted challengers are listed. Basics were treated as one slot, and the commander was locked.
+
+Three incumbents lost. Cunning Rhetoric was the least proactive theft engine because opponents controlled whether it produced cards; Lobelia guarantees three opposing cards and turns spare artifacts into a free cast. Prowler's Helm was the narrowest delivery card; Mindleecher gives Umbris flying while adding Nightmare and three-card exile-theft text. Crypt Incursion was the narrowest graveyard converter; Dauntless Scrapbot exiles all opposing graveyards and leaves delayed ramp.
+
+Every other slot stays because its challenger dropped a required job or merely improved rate. The Horror/Nightmare bodies either trigger Umbris or add theft, protection, copying, graveyard conversion, or delivery. The exile suite divides cleanly into library deposits, graveyard deposits, permanent answers, and cards that can be played. The clone package either creates a persistent nonlegendary Umbris or repeatedly triggers the legend rule for more exile. The protection and evasion pieces cover different failure modes, while the ramp and land package now supports turn-four Umbris and off-colour theft without Bracket 4 fast mana. Each surviving unique card's specific job remains recorded under Cards in.
+
+Strongest rejected challengers: Sakashima the Impostor can coexist with Umbris and bounce itself, but it is sideways against the already-functional clone slots; Dimir Doppelganger exiles and copies a graveyard creature but supplies no permission to play the actual opposing card, so Intellect Devourer now wins that slot; Szat's Will is a strong graveyard wipe but cannot replace Perilous Vault's noncreature reset; Web of Inertia is wonderfully strange with the graveyard wipes but drops Theft and creates a soft combat lock that raises Mean; Key to the City is the efficient conventional delivery option, but Mindleecher advances Voltron, Theft, exile, and Nightmare identity in one card; Ashiok, Nightmare Muse is powerful but less strange and more five-mana value than the current focused engines.
+
+Rankings after the audit: Jank 9, Fun 8, Mean 6, Voltron 8, Theft 9.
 
 ### 2026-09-01 — Untapped mana and ramp upgrade
 
@@ -225,9 +261,9 @@ There is still no deterministic loop, extra turn, or mass land denial. Praetor's
 
 Normal goldfish: turn-two rock or Medallion, Umbris on turn four or five (five mana, or four with a Medallion once four lands are down), a large deposit such as Tasha's Hideous Laughter or graveyard conversion in the mid game, first protected or evasive lethal around turns six–seven, table close around turns eight–ten. Interactive games slip to turn ten or later when Umbris is removed, because commander tax is seven and the list has no blink recast.
 
-Credible high roll, not expected pace: turn-two Fellwar Stone or Prismatic Lens, turn-four Umbris, turn-five Tasha's Hideous Laughter plus Shadow Rift into one opponent. Tasha exiles until each opponent has twenty mana value in exile; three dumps plus Umbris's own until-land trigger can reach commander-damage lethal for one player. Medallions do not restore the old turn-three commander line: three lands plus a reducer is only three mana on turn three, and the list no longer has a two-mana rock that also produces a second mana the turn it is needed.
+Credible high roll, not expected pace: turn-two Fellwar Stone or Talisman of Dominance, turn-four Umbris, turn-five Tasha's Hideous Laughter plus Shadow Rift into one opponent. Tasha exiles until each opponent has twenty mana value in exile; three dumps plus Umbris's own until-land trigger can reach commander-damage lethal for one player. Medallions do not restore the old turn-three commander line: three lands plus a reducer is only three mana on turn three, and the list no longer has a two-mana rock that also produces a second mana the turn it is needed.
 
-Bracket stays 3−. Hard limits would allow Bracket 2, but the 99 is an Upgraded pattern: dense synergy, thirty-four Into Exile cards, a one-spell lethal inflation, and real disruption. It is not middle or high Bracket 3 because the finish is still combat, consistency is low (no own-library tutor, thin draw), and the fast line kills one player rather than the table. It is not Bracket 4: no Game Changers, no kitchen-table permanent fast mana, no free interaction, no compact instant win.
+Bracket stays 3−. Hard limits would allow Bracket 2, but the 99 is an Upgraded pattern: dense synergy, thirty-seven Into Exile cards, a one-spell lethal inflation, and real disruption. It is not middle or high Bracket 3 because the finish is still combat, consistency is low (no own-library tutor, thin draw), and the fast line kills one player rather than the table. It is not Bracket 4: no Game Changers, no kitchen-table permanent fast mana, no free interaction, no compact instant win.
 
 Rankings unchanged: Jank 8, Fun 8, Mean 6, Voltron 8, Theft 9.
 
