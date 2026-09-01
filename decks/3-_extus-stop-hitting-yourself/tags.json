@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "cutoff": 3,
-  "summary": "Creature-go Mardu aikido that redirects bad attacks, recycles visible traps with Extus, and turns borrowed damage into unsafe table-wide contraptions.",
+  "summary": "Creature-go Mardu aikido that offers a stealable prize, redirects the resulting attack into visible traps, and recycles those creatures with Extus.",
   "tags": [
     {
       "name": "aikido",
@@ -36,7 +36,7 @@
     {
       "name": "politics",
       "score": 3,
-      "reason": "Advocates, Flumph, Windshaper Planetar, Crown of Doom, Humble Defector, and attack incentives create visible table bargains."
+      "reason": "Coveted Jewel, Advocates, Flumph, Windshaper Planetar, Crown of Doom, Humble Defector, and attack incentives create visible table bargains."
     },
     {
       "name": "sacrifice",
@@ -66,7 +66,7 @@
     {
       "name": "lifegain",
       "score": 1,
-      "reason": "Worthy Cause, Children of Korlis, and Souls of the Faultless offset damage the deck intentionally risks."
+      "reason": "Wall of Hope, Worthy Cause, Children of Korlis, and Souls of the Faultless offset damage the deck intentionally risks."
     },
     {
       "name": "theft",

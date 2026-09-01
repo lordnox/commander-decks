@@ -44,11 +44,11 @@ First pass: jank 10, fun 10, mean 5, Aikido 10. The deck creates unusually visib
 - **Invisible Force Field** — Grants indestructible to four permanents, then rebounds for a second cast and a second Extus trigger.
 - **Spurnmage Advocate** — Returns two cards to an opponent as a political price for destroying an attacker.
 - **Shieldmage Advocate** — Gives an opponent one card back to prevent all damage from the most dangerous source.
-- **Frontline Strategist** — Morphs into a one-sided combat fog against non-Soldiers without advertising itself in advance.
+- **Wall of Hope** — A one-mana old-school defender that converts every routed hit into that much life and returns through Extus after it dies.
 - **Standard Bearer** — Pulls any opposing targeted spell or ability toward itself when that target remains legal.
 - **Muck Drubb** — Madness and flash turn it into an ambush that steals a single-target spell aimed at another creature.
 - **Kami of False Hope** — Sacrifices to prevent combat damage for a turn, then returns through magecraft.
-- **Children of Korlis** — Refunds life lost during an Eye for an Eye, Volcano Hellion, or Coalhauler turn.
+- **Children of Korlis** — Refunds life lost to Volcano Hellion, Crypt Rats, pain lands, or an unsafe damage cascade.
 - **Inkshield** — Converts one lethal combat step into an evasive army for the return swing.
 - **Batwing Brume** — Fogs combat while charging the attacker one life per attacking creature.
 - **Kor Haven** — Uses a land slot to blank one attacker without committing another spell.
@@ -72,7 +72,7 @@ First pass: jank 10, fun 10, mean 5, Aikido 10. The deck creates unusually visib
 - **Backlash** — Instant-speed version of the large-creature self-punch.
 - **Deflecting Palm** — Prevents one source's damage to us and deals the prevented amount to that source's controller.
 - **Wear // Tear** — Answers an artifact, an enchantment, or both when fused while still casting an instant that triggers Extus.
-- **Boros Fury-Shield** — Prevents an attacking creature's damage to us and, with red mana, hits its controller for that creature's power.
+- **Gideon's Sacrifice** — Routes every point aimed at us and our permanents for a whole turn into one reflector, Wall of Hope, or High Priest of Penance; casting it also triggers Extus.
 - **Imp's Mischief** — Changes a single-target spell to a new target and charges life equal to that spell's mana value.
 - **Blaze of Glory** — Makes one defending creature block every attacker it legally can; an indestructible reflector can absorb an entire combat and return the damage.
 - **Pain for All** — Immediately makes one creature punch another target, then turns every later damage event on that creature into damage to each opponent.
@@ -101,7 +101,7 @@ First pass: jank 10, fun 10, mean 5, Aikido 10. The deck creates unusually visib
 - **Big Game Hunter** — Madness pairs with the discard costs and destroys a large nonblack creature on entry.
 - **Bone Shredder** — Removes a nonartifact, nonblack creature and naturally dies to echo so Extus can retrieve it.
 - **Humble Defector** — Political draw that can be sacrificed after activation, retrieved by Extus, and kept rather than donated.
-- **Duelist's Heritage** — Gives any attacking creature double strike, encouraging attacks between opponents or turning a permitted attacker lethal.
+- **Coveted Jewel** — Draws three and taps for three, then explicitly invites opponents to send unblocked attackers at the deck's visible traps to steal it.
 
 ### Mana
 
@@ -140,6 +140,9 @@ First pass: jank 10, fun 10, mean 5, Aikido 10. The deck creates unusually visib
 - **General's Regalia** — Blaze of Glory costs one mana rather than six before its first effect and turns an indestructible reflector into a blocker for an entire attack.
 - **Powerstone Minefield** — Pain for All preserves manufactured reflection without killing the deck's own one-toughness blockers whenever they enter combat.
 - **Soul Link** — Corrupted Conviction becomes the third deliberate sacrifice-and-draw spell; Soul Link lost its spectacular target when Coalhauler Swine left.
+- **Frontline Strategist** — Wall of Hope is cheaper, face-up political information and remains useful outside combat through the deck's damage-routing effects.
+- **Boros Fury-Shield** — Gideon's Sacrifice replaces a three-mana answer to one combat creature with a one-mana whole-turn router that feeds every damaged-creature payoff.
+- **Duelist's Heritage** — Coveted Jewel keeps the political permanent slot but asks opponents to attack us, refills the weak hand, and helps pay to redeploy Extus creatures.
 
 ## Rules
 
@@ -151,6 +154,8 @@ First pass: jank 10, fun 10, mean 5, Aikido 10. The deck creates unusually visib
 - **Guilty Conscience and Brash Taunter.** Brash Taunter also forms the mandatory damage chain after it is first dealt damage; unlike Stuffy Doll, it needs another source to start the loop.
 - **Arcbond.** The chosen creature deals damage to every other creature and every player whenever it is dealt damage that turn. Damage prevented by another effect was not dealt and does not trigger Arcbond. The controller of the Arcbonded creature also takes the spray.
 - **Pain for All.** Its trigger damages each opponent but not its controller or other creatures, making it safer than Arcbond. It only triggers when damage is actually dealt to the enchanted creature.
+- **Gideon's Sacrifice.** The replacement effect changes where damage is dealt; it does not prevent that damage. The chosen creature therefore triggers Wall of Hope, High Priest of Penance, Arcbond, Pain for All, or a reflector as appropriate. If the chosen permanent leaves the battlefield, later damage is dealt normally.
+- **Coveted Jewel.** Its attack trigger is checked after blockers are declared. One or more unblocked attackers from the same opponent produce one trigger, not one trigger per creature.
 - **Blaze of Glory.** The targeted defending creature blocks every attacker it legally can, but restrictions and evasion still apply. It does not itself grant indestructible or change combat-damage assignment.
 - **Invisible Force Field.** Rebound casts the spell from exile at the next upkeep, so Extus triggers again even if there are no useful indestructible targets.
 - **Madness and Extus.** A Big Game Hunter or Muck Drubb cast for madness moves from discard to exile, not the graveyard, so that card cannot be the magecraft target from the same discard.
@@ -173,3 +178,7 @@ Assessed against the live [Commander format page](https://magic.wizards.com/en/f
 There are no extra-turn cards, no mass land denial, and no library tutors. The deck does contain an intentional two-card infinite: Stuffy Doll plus Guilty Conscience. Stuffy names a player, taps to deal 1 to itself, then Conscience deals that much back; the loop is mandatory until that player leaves. Brash Taunter forms the same chain after any first damage event. The original Exhibition/Core deck-building barometer still excludes intentional two-card infinites, so this is not Bracket 2. The combo is also not an early-game table kill: Stuffy costs five mana, Conscience one white, there is no Sol Ring or other fast mana, and with no tutors the pair is rarely in hand by turn six. The named player dies; the other two usually do not.
 
 Normal goldfish: four or five lands into Extus, then Deadly Dispute or Corrupted Conviction to recycle a trap, then a reflector plus Arcbond, Pain for All, Repercussion, or Crypt Rats around turns eight to ten. Credible high roll: turn-five Stuffy, turn-six Conscience, one opponent gone. Interactive games stretch past turn ten once Extus, Conscience, or the ignition enchantments are removed. That matches Bracket 3's six-turn floor and "one big turn after accumulation" more than Core's eight-turn low-pressure bar, but the construction is too slow, tutorless, and fragile for the middle of Upgraded.
+
+### 2026-09-01 — Osgir lessons
+
+The user asked Extus to learn from Osgir without becoming the second artifact-reflector deck. Gideon's Sacrifice, Wall of Hope, and Coveted Jewel strengthen Extus's distinct plan: route an opponent's turn into one creature, profit from being hit, and invite attacks with a stealable prize. Frontline Strategist, Boros Fury-Shield, and Duelist's Heritage leave as narrower or attack-away effects. Osgir's Gamble, artifact tutors, reconstruction package, Blasphemous Act, Chain Reaction, and Dawnsire stay there; importing them would make Extus a less coherent copy of Osgir. Kami of the Honored Dead was considered and rejected after checking Oracle text: it is a seven-mana 3/5 with lifegain and soulshift, not a creature that blocks any number.
