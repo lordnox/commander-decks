@@ -1,16 +1,16 @@
 {
   "goals": [
-    "Artifacts",
-    "Aikido"
+    "Spacecraft",
+    "Redirect"
   ],
   "scores": {
     "jankiness": 8,
     "fun": 8,
     "oppressiveness": 5,
     "identity": {
-      "Artifacts": 9,
-      "Aikido": 8
+      "Spacecraft": 5,
+      "Redirect": 8
     }
   },
-  "notes": "Jank is Arcbond routing, Gideon's Sacrifice, Vindicator prevention, Donna Noble soulbond, and legendary Dawnsire copies, not a linear Osgir rock deck. Fun is choosing which artifact to exile and when to feed a reflector. Mean is a telegraphed wipe, not a lock. Identity: almost every payoff is an artifact Osgir can double; the reflectors are the actual closer."
+  "notes": "Declared plan is fetch Dawnsire, station it, then redirect damage to burn the table. Redirect is the dense package: reflectors, Arcbond, Gideon's Sacrifice, and red wipes. Spacecraft is the namesake plus Warmaker and Adagia, but Gamble, Reckless Handling, and Oswald are the only real fetches, Engineer cannot return a five, and most reconstruct targets are cheap rocks."
 }
