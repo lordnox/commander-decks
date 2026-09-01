@@ -14,12 +14,12 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 ## Goals
 
-- **Artifacts** — Osgir, welders, and the ship want artifacts in play or in the yard.
-- **Aikido** — Reflectors turn the table's damage, fights, and our own wipes into player-facing hits.
+- **Spacecraft** — Fetch [Dawnsire, Sunstar Dreadnought](https://scryfall.com/card/eoe/238/dawnsire-sunstar-dreadnought), get it onto the battlefield, and station it. Osgir is the captain of that ship.
+- **Redirect** — Route damage through reflectors, Arcbond, and Gideon's Sacrifice to burn opponents off the table.
 
 ## Rankings
 
-See `rankings.json`. First pass: jank 8, fun 8, mean 5, Artifacts 9, Aikido 8. The weird routing and station copies keep jank high; Path, Swords, Signet, and Gamble keep it off Extus's 10.
+See `rankings.json`. 2026-09-01: jank 8, fun 8, mean 5, Spacecraft 5, Redirect 8. Identity replaced Artifacts/Aikido after the declared plan was locked as fetch-the-ship then redirect-burn.
 
 ## Cards in
 
@@ -121,6 +121,7 @@ See `rankings.json`. First pass: jank 8, fun 8, mean 5, Artifacts 9, Aikido 8. T
 
 - The namesake is Dawnsire as a stationed closer, not as a Voltron commander. Osgir copies of Dawnsire are legendary, so the legend rule keeps one token.
 - Arcbond plus a wipe is finite table damage, not a loop. Phyrexian Vindicator prevents damage, so Arcbond does not see those events.
+- Primary and backup plans follow the locked goals: fetch and station Dawnsire, then redirect-burn. Reflectors without the ship are the backup.
 
 ## Rules
 
@@ -144,3 +145,7 @@ Assigned **Bracket 3−** from the [Commander format page](https://magic.wizards
 - No two-card infinite, extra turns, or mass land denial. The kill is [Arcbond](https://scryfall.com/card/frf/91/arcbond) plus a wipe into a reflector, or a stationed [Dawnsire, Sunstar Dreadnought](https://scryfall.com/card/eoe/238/dawnsire-sunstar-dreadnought).
 - Not Bracket 2: Gamble is a Game Changer, which those brackets exclude.
 - Not middle Bracket 3: 37 lands, no fast mana, Osgir is four mana and reconstructs at sorcery speed, and Dawnsire needs station counters. Normal goldfish is turn seven or eight; a turn-six Arcbond wipe is the exceptional line.
+
+### 2026-09-01 — Identity goals
+
+Locked **Spacecraft** and **Redirect**. The plan is fetch Dawnsire, station it, then burn with redirected damage. Rankings identity moved off Artifacts/Aikido: Spacecraft 5 (thin fetch: Gamble, Reckless Handling, Oswald; Engineer cannot return a five), Redirect 8 (reflectors plus Arcbond and Gideon's Sacrifice).
