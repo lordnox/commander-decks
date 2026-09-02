@@ -1,0 +1,141 @@
+{
+  "arena_id": 80401,
+  "artist": "Kasia 'Kafis' Zielińska",
+  "artist_ids": [
+    "a662cb71-4770-4b49-8b03-2cf8497049a7"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 611269,
+  "cmc": 0.0,
+  "collector_number": "250",
+  "color_identity": [
+    "G",
+    "R",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 363,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The parklike Cabaretti grounds offer rest, food, and the perfect place to shake off a tail.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "26d40e03-6de4-4373-9fbf-04c1dd79e995",
+  "illustration_id": "d8977623-189a-4754-97e0-de4d6dbe44bf",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:10:58Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/6/26d40e03-6de4-4373-9fbf-04c1dd79e995.webp?1783923058",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/6/26d40e03-6de4-4373-9fbf-04c1dd79e995.jpg?1783923058",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/6/26d40e03-6de4-4373-9fbf-04c1dd79e995.jpg?1783923058",
+    "crop": "https://cards.scryfall.io/crop/front/2/6/26d40e03-6de4-4373-9fbf-04c1dd79e995.webp?1783923058",
+    "display": "https://cards.scryfall.io/display/front/2/6/26d40e03-6de4-4373-9fbf-04c1dd79e995.webp?1783923058",
+    "grid": "https://cards.scryfall.io/grid/front/2/6/26d40e03-6de4-4373-9fbf-04c1dd79e995.webp?1783923058",
+    "large": "https://cards.scryfall.io/large/front/2/6/26d40e03-6de4-4373-9fbf-04c1dd79e995.jpg?1783923058",
+    "normal": "https://cards.scryfall.io/normal/front/2/6/26d40e03-6de4-4373-9fbf-04c1dd79e995.jpg?1783923058",
+    "png": "https://cards.scryfall.io/png/front/2/6/26d40e03-6de4-4373-9fbf-04c1dd79e995.png?1783923058",
+    "small": "https://cards.scryfall.io/small/front/2/6/26d40e03-6de4-4373-9fbf-04c1dd79e995.jpg?1783923058",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/6/26d40e03-6de4-4373-9fbf-04c1dd79e995.webp?1783923058"
+  },
+  "keywords": [
+    "Cycling"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 98719,
+  "multiverse_ids": [
+    555451
+  ],
+  "name": "Jetmir's Garden",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f5896356-5744-4f7e-a4e5-1cc36dde5958",
+  "oracle_text": "({T}: Add {R}, {G}, or {W}.)\nThis land enters tapped.\nCycling {3} ({3}, Discard this card: Draw a card.)",
+  "oversized": false,
+  "prices": {
+    "eur": "13.78",
+    "eur_foil": "14.44",
+    "tix": "0.15",
+    "usd": "16.69",
+    "usd_etched": null,
+    "usd_foil": "18.30"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af5896356-5744-4f7e-a4e5-1cc36dde5958&unique=prints",
+  "produced_mana": [
+    "G",
+    "R",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/98719?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=611269&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F265346%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Jetmir%27s+Garden",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=555451&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DJetmir%2527s%2BGarden",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DJetmir%2527s%2BGarden"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/26d40e03-6de4-4373-9fbf-04c1dd79e995/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/snc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/snc/250/jetmirs-garden?utm_source=api",
+  "security_stamp": "oval",
+  "set": "snc",
+  "set_id": "df837242-8c15-42e4-b049-c933a02dc501",
+  "set_name": "Streets of New Capenna",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asnc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/df837242-8c15-42e4-b049-c933a02dc501",
+  "story_spotlight": false,
+  "tcgplayer_id": 265346,
+  "textless": false,
+  "type_line": "Land — Mountain Forest Plains",
+  "uri": "https://api.scryfall.com/cards/26d40e03-6de4-4373-9fbf-04c1dd79e995",
+  "variation": false,
+  "watermark": "cabaretti"
+}

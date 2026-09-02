@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Protected five-colour Scarecrow kindred: establish mana and cards, land Reaper King behind interaction, then turn each tribal body into a Vindicate.",
+  "tags": [
+    {
+      "name": "artifacts",
+      "score": 5,
+      "reason": "Thirty-nine cards are artifacts, including the commander, the Scarecrow spine, protection Equipment, ramp, and draw engines."
+    },
+    {
+      "name": "changelings",
+      "score": 4,
+      "reason": "Ten changeling creatures are run specifically because they count as Scarecrows with no support."
+    },
+    {
+      "name": "etb effects",
+      "score": 4,
+      "reason": "The whole plan is Reaper King's enter trigger, doubled by Panharmonicon and Elesh Norn and reset by Conjurer's Closet."
+    },
+    {
+      "name": "scarecrows",
+      "score": 4,
+      "reason": "Thirteen printed Scarecrows in the 99 plus ten changeling creatures make the commander's trigger the primary plan."
+    },
+    {
+      "name": "combo",
+      "score": 3,
+      "reason": "Pili-Pala with Grand Architect produces infinite mana, normally converted through Mirror Entity."
+    },
+    {
+      "name": "creatures",
+      "score": 3,
+      "reason": "The tribal bodies and changelings build a wide board for Reaper King and Mirror Entity."
+    },
+    {
+      "name": "draw",
+      "score": 3,
+      "reason": "Kindred Discovery, Jhoira, Mystic Forge, Vedalken Archmage, Skullclamp, and Thought Monitor create a real card-flow core."
+    },
+    {
+      "name": "mana rocks",
+      "score": 3,
+      "reason": "Arcane Signet, Chromatic Lantern, Coalition Relic, and Fellwar Stone support the five-colour cost."
+    },
+    {
+      "name": "midrange",
+      "score": 3,
+      "reason": "The deck deploys bodies, grinds permanents off the table, and wins in the mid to late game."
+    },
+    {
+      "name": "ramp",
+      "score": 3,
+      "reason": "Twelve ramp cards support the first commander cast and later seven- or nine-mana recasts."
+    },
+    {
+      "name": "shapeshifters",
+      "score": 3,
+      "reason": "The changeling package is entirely Shapeshifter creatures."
+    },
+    {
+      "name": "clones",
+      "score": 2,
+      "reason": "Sculpting Steel and Phyrexian Metamorph copy the best artifact on the table."
+    },
+    {
+      "name": "color hack",
+      "score": 2,
+      "reason": "Painter's Servant, Scuttlemutt, and Grand Architect recolour creatures for the Pili-Pala engine."
+    },
+    {
+      "name": "mana dorks",
+      "score": 2,
+      "reason": "Oasis Gardener and Scuttlemutt tap for mana while remaining Scarecrow triggers."
+    },
+    {
+      "name": "multicolor matters",
+      "score": 2,
+      "reason": "Nothing rewards multicolour directly, but the commander's hybrid cost drops by five when all five colours are online."
+    },
+    {
+      "name": "tokens",
+      "score": 2,
+      "reason": "Mirrorworks, Maskwood Nexus, and Irregular Cohort provide a small token package."
+    },
+    {
+      "name": "toolbox",
+      "score": 2,
+      "reason": "Inventors' Fair finds the artifact the board needs."
+    },
+    {
+      "name": "-1/-1 counters",
+      "score": 1,
+      "reason": "Grim Poppet and Wingrattle Scarecrow are incidental counter interactions, not a package."
+    },
+    {
+      "name": "reanimator",
+      "score": 1,
+      "reason": "Scarecrone and Graveshifter rebuy bodies; there is no reanimation plan."
+    },
+    {
+      "name": "type hack",
+      "score": 1,
+      "reason": "Maskwood Nexus is the only remaining type-changing card."
+    }
+  ]
+}

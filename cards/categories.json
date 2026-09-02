@@ -9684,8 +9684,116 @@
       "categories": [
         "other"
       ]
+    },
+    "2679d0dd-ba30-4a1c-b6a0-b3ac6c790496": {
+      "name": "Boros Charm",
+      "categories": [
+        "protection"
+      ]
+    },
+    "7e8c2a18-e404-40ff-a9e0-ec3eeb6d576e": {
+      "name": "Command Beacon",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "c02c5547-b9c9-4b2d-9d12-e87bfba8f2d2": {
+      "name": "Herald's Horn",
+      "categories": [
+        "other"
+      ]
+    },
+    "f5896356-5744-4f7e-a4e5-1cc36dde5958": {
+      "name": "Jetmir's Garden",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "c803b788-4213-4fab-b841-7e5bbf66088e": {
+      "name": "Jhoira, Weatherlight Captain",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "005ee549-1bf5-478f-bc3f-3e791bd7eecf": {
+      "name": "Kindred Discovery",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "ca204b66-8d0c-431a-8d34-282f7c2d17da": {
+      "name": "Lightning Greaves",
+      "categories": [
+        "other"
+      ]
+    },
+    "3dc364f3-3094-4660-80ca-9418588c7fde": {
+      "name": "Mithril Coat",
+      "categories": [
+        "protection"
+      ]
+    },
+    "994bc16d-fdc6-475c-96df-beeb4d5aa03e": {
+      "name": "Mystic Forge",
+      "categories": [
+        "other"
+      ]
+    },
+    "9c58d241-4d9f-4b46-b8ee-f4587f9acfd6": {
+      "name": "Plaza of Heroes",
+      "categories": [
+        "land",
+        "ramp",
+        "protection"
+      ]
+    },
+    "f5822e53-ddec-4c77-bcf4-091e35c1e731": {
+      "name": "Rebuff the Wicked",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "3123ec89-8e95-4761-ba17-747ec667509f": {
+      "name": "Spara's Headquarters",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "c8b143ad-43ec-4e0d-a440-e348daa31391": {
+      "name": "Swiftfoot Boots",
+      "categories": [
+        "protection"
+      ]
+    },
+    "3437d504-bf62-4c27-b15f-f6330182ff7e": {
+      "name": "The World Tree",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "9deded8b-cec4-4ede-a50b-131404d456d4": {
+      "name": "Thought Monitor",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "82506e51-3fe1-446f-83c9-69e67583cefc": {
+      "name": "Slip Out the Back",
+      "categories": [
+        "other"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-02T10:30:01.104224+00:00"
+  "updated_at": "2026-09-02T14:57:23.140600+00:00"
 }

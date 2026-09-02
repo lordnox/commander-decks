@@ -1,0 +1,130 @@
+{
+  "artist": "Zara Alfonso",
+  "artist_ids": [
+    "329a7971-c37e-47f7-9143-58dc929420a7"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753215,
+  "cmc": 1.0,
+  "collector_number": "99",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1096,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"I was never here.\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d9d9fbbb-ed6c-45f7-a1d8-f9d29ae7930f",
+  "illustration_id": "4e8d5334-284b-47f2-92a1-6902857a243e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:15:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/9/d9d9fbbb-ed6c-45f7-a1d8-f9d29ae7930f.webp?1783912552",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/9/d9d9fbbb-ed6c-45f7-a1d8-f9d29ae7930f.jpg?1783912552",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/9/d9d9fbbb-ed6c-45f7-a1d8-f9d29ae7930f.jpg?1783912552",
+    "crop": "https://cards.scryfall.io/crop/front/d/9/d9d9fbbb-ed6c-45f7-a1d8-f9d29ae7930f.webp?1783912552",
+    "display": "https://cards.scryfall.io/display/front/d/9/d9d9fbbb-ed6c-45f7-a1d8-f9d29ae7930f.webp?1783912552",
+    "grid": "https://cards.scryfall.io/grid/front/d/9/d9d9fbbb-ed6c-45f7-a1d8-f9d29ae7930f.webp?1783912552",
+    "large": "https://cards.scryfall.io/large/front/d/9/d9d9fbbb-ed6c-45f7-a1d8-f9d29ae7930f.jpg?1783912552",
+    "normal": "https://cards.scryfall.io/normal/front/d/9/d9d9fbbb-ed6c-45f7-a1d8-f9d29ae7930f.jpg?1783912552",
+    "png": "https://cards.scryfall.io/png/front/d/9/d9d9fbbb-ed6c-45f7-a1d8-f9d29ae7930f.png?1783912552",
+    "small": "https://cards.scryfall.io/small/front/d/9/d9d9fbbb-ed6c-45f7-a1d8-f9d29ae7930f.jpg?1783912552",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/9/d9d9fbbb-ed6c-45f7-a1d8-f9d29ae7930f.webp?1783912552"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_id": 122982,
+  "multiverse_ids": [
+    651834
+  ],
+  "name": "Slip Out the Back",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "82506e51-3fe1-446f-83c9-69e67583cefc",
+  "oracle_text": "Put a +1/+1 counter on target creature. It phases out. (Treat it and anything attached to it as though they don't exist until its controller's next turn.)",
+  "oversized": false,
+  "penny_rank": 292,
+  "prices": {
+    "eur": "4.50",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "5.14",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A82506e51-3fe1-446f-83c9-69e67583cefc&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122982?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753215&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535229%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Slip+Out+the+Back",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=651834&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSlip%2BOut%2Bthe%2BBack",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSlip%2BOut%2Bthe%2BBack"
+  },
+  "released_at": "2024-02-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d9d9fbbb-ed6c-45f7-a1d8-f9d29ae7930f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clu?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clu/99/slip-out-the-back?utm_source=api",
+  "set": "clu",
+  "set_id": "d4bfabcf-a859-43a4-9d8a-665533c8b174",
+  "set_name": "Ravnica: Clue Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclu&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/d4bfabcf-a859-43a4-9d8a-665533c8b174",
+  "story_spotlight": false,
+  "tcgplayer_id": 535229,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/d9d9fbbb-ed6c-45f7-a1d8-f9d29ae7930f",
+  "variation": false
+}

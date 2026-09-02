@@ -1,0 +1,13 @@
+{
+  "goals": ["Scarecrow Tribal", "Permanent Destruction"],
+  "scores": {
+    "jankiness": 6,
+    "fun": 8,
+    "oppressiveness": 7,
+    "identity": {
+      "Scarecrow Tribal": 8,
+      "Permanent Destruction": 8
+    }
+  },
+  "notes": "Jank falls from 8 to 6 because proven protection, land ramp, typed triomes, and real draw replace the weakest Scarecrows and redundant type hacks; the remaining oddity is the hybrid-cost mana puzzle and Pili-Pala plus Grand Architect. Fun remains high because sequencing protection, deciding when to expose the King, and choosing destroy targets create real decisions. Oppressiveness remains 7 because repeated unconditional permanent destruction, including lands, is still the primary action. Thirteen printed Scarecrows in the 99 plus ten changeling creatures keep the tribe central, but the identity score falls from 9 to 8 because playability now occupies more slots."
+}

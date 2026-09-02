@@ -1,0 +1,144 @@
+{
+  "arena_id": 84937,
+  "artist": "Igor Krstic",
+  "artist_ids": [
+    "44cdd332-50f6-4cab-b606-c4565fc5efeb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 716993,
+  "cmc": 3.0,
+  "collector_number": "245",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 238,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "0fd1fc09-a09d-45e6-8a07-3a8a83b4e6ec",
+  "illustration_id": "7d585002-2771-4ecd-9c03-269ba51c9232",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:17:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/f/0fd1fc09-a09d-45e6-8a07-3a8a83b4e6ec.webp?1783916237",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/f/0fd1fc09-a09d-45e6-8a07-3a8a83b4e6ec.jpg?1783916237",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/f/0fd1fc09-a09d-45e6-8a07-3a8a83b4e6ec.jpg?1783916237",
+    "crop": "https://cards.scryfall.io/crop/front/0/f/0fd1fc09-a09d-45e6-8a07-3a8a83b4e6ec.webp?1783916237",
+    "display": "https://cards.scryfall.io/display/front/0/f/0fd1fc09-a09d-45e6-8a07-3a8a83b4e6ec.webp?1783916237",
+    "grid": "https://cards.scryfall.io/grid/front/0/f/0fd1fc09-a09d-45e6-8a07-3a8a83b4e6ec.webp?1783916237",
+    "large": "https://cards.scryfall.io/large/front/0/f/0fd1fc09-a09d-45e6-8a07-3a8a83b4e6ec.jpg?1783916237",
+    "normal": "https://cards.scryfall.io/normal/front/0/f/0fd1fc09-a09d-45e6-8a07-3a8a83b4e6ec.jpg?1783916237",
+    "png": "https://cards.scryfall.io/png/front/0/f/0fd1fc09-a09d-45e6-8a07-3a8a83b4e6ec.png?1783916237",
+    "small": "https://cards.scryfall.io/small/front/0/f/0fd1fc09-a09d-45e6-8a07-3a8a83b4e6ec.jpg?1783916237",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/f/0fd1fc09-a09d-45e6-8a07-3a8a83b4e6ec.webp?1783916237"
+  },
+  "keywords": [
+    "Indestructible",
+    "Equip",
+    "Flash"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}",
+  "mtgo_id": 112400,
+  "multiverse_ids": [
+    617075
+  ],
+  "name": "Mithril Coat",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3dc364f3-3094-4660-80ca-9418588c7fde",
+  "oracle_text": "Flash\nIndestructible\nWhen Mithril Coat enters, attach it to target legendary creature you control.\nEquipped creature has indestructible.\nEquip {3}",
+  "oversized": false,
+  "penny_rank": 7317,
+  "preview": {
+    "previewed_at": "2023-06-07",
+    "source": "Hareruya",
+    "source_uri": "https://article.hareruyamtg.com/article/70279/?lang=en"
+  },
+  "prices": {
+    "eur": "18.19",
+    "eur_foil": "19.47",
+    "tix": "0.02",
+    "usd": "31.31",
+    "usd_etched": null,
+    "usd_foil": "35.48"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3dc364f3-3094-4660-80ca-9418588c7fde&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/112400?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=716993&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F499456%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mithril+Coat",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=617075&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMithril%2BCoat",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMithril%2BCoat"
+  },
+  "released_at": "2023-06-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0fd1fc09-a09d-45e6-8a07-3a8a83b4e6ec/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ltr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ltr/245/mithril-coat?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "ltr",
+  "set_id": "08078706-ac5d-439b-8f01-894d38751367",
+  "set_name": "The Lord of the Rings: Tales of Middle-earth",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Altr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/08078706-ac5d-439b-8f01-894d38751367",
+  "story_spotlight": false,
+  "tcgplayer_id": 499456,
+  "textless": false,
+  "type_line": "Legendary Artifact — Equipment",
+  "uri": "https://api.scryfall.com/cards/0fd1fc09-a09d-45e6-8a07-3a8a83b4e6ec",
+  "variation": false
+}

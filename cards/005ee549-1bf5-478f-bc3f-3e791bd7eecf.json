@@ -1,0 +1,136 @@
+{
+  "artist": "Stephanie Hans",
+  "artist_ids": [
+    "aae74ccd-7466-471d-8112-13b2658bbbea"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 891667,
+  "cmc": 5.0,
+  "collector_number": "150",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 342,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "It is in the nature of a hero to inspire others.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "19bdedb2-768b-4adf-8193-917a10c8f729",
+  "illustration_id": "0bed0f9e-ec59-4e68-82c8-04589adc3448",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:40:39Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/9/19bdedb2-768b-4adf-8193-917a10c8f729.webp?1783903239",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/9/19bdedb2-768b-4adf-8193-917a10c8f729.jpg?1783903239",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/9/19bdedb2-768b-4adf-8193-917a10c8f729.jpg?1783903239",
+    "crop": "https://cards.scryfall.io/crop/front/1/9/19bdedb2-768b-4adf-8193-917a10c8f729.webp?1783903239",
+    "display": "https://cards.scryfall.io/display/front/1/9/19bdedb2-768b-4adf-8193-917a10c8f729.webp?1783903239",
+    "grid": "https://cards.scryfall.io/grid/front/1/9/19bdedb2-768b-4adf-8193-917a10c8f729.webp?1783903239",
+    "large": "https://cards.scryfall.io/large/front/1/9/19bdedb2-768b-4adf-8193-917a10c8f729.jpg?1783903239",
+    "normal": "https://cards.scryfall.io/normal/front/1/9/19bdedb2-768b-4adf-8193-917a10c8f729.jpg?1783903239",
+    "png": "https://cards.scryfall.io/png/front/1/9/19bdedb2-768b-4adf-8193-917a10c8f729.png?1783903239",
+    "small": "https://cards.scryfall.io/small/front/1/9/19bdedb2-768b-4adf-8193-917a10c8f729.jpg?1783903239",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/9/19bdedb2-768b-4adf-8193-917a10c8f729.webp?1783903239"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{U}",
+  "mtgo_id": 150769,
+  "multiverse_ids": [],
+  "name": "Kindred Discovery",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "005ee549-1bf5-478f-bc3f-3e791bd7eecf",
+  "oracle_text": "As this enchantment enters, choose a creature type.\nWhenever a creature you control of the chosen type enters or attacks, draw a card.",
+  "oversized": false,
+  "prices": {
+    "eur": "5.06",
+    "eur_foil": null,
+    "tix": "1.24",
+    "usd": "6.11",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A005ee549-1bf5-478f-bc3f-3e791bd7eecf&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150769?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891667&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F697185%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Kindred+Discovery",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKindred%2BDiscovery",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKindred%2BDiscovery"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "7FFB8A3F0B112857B64FA26412246FB090D990000E0670877B2D9F2D0AFE3BBF",
+  "rulings_uri": "https://api.scryfall.com/cards/19bdedb2-768b-4adf-8193-917a10c8f729/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/150/kindred-discovery?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 697185,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/19bdedb2-768b-4adf-8193-917a10c8f729",
+  "variation": false
+}

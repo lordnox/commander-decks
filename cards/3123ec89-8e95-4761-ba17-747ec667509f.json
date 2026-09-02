@@ -1,0 +1,141 @@
+{
+  "arena_id": 80408,
+  "artist": "Kieran Yanner",
+  "artist_ids": [
+    "aa7e89ed-d294-4633-9057-ce04dacfcfa4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 611271,
+  "cmc": 0.0,
+  "collector_number": "257",
+  "color_identity": [
+    "G",
+    "U",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 399,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "To most, the Nido Sanctuary is an office complex. To the Brokers, it's a vault of secrets.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7363f1fb-9af3-4212-921f-d59533faf0e5",
+  "illustration_id": "63cca6ae-9310-4bb1-86a2-36900cbd8813",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:10:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/3/7363f1fb-9af3-4212-921f-d59533faf0e5.webp?1783923052",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/3/7363f1fb-9af3-4212-921f-d59533faf0e5.jpg?1783923052",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/3/7363f1fb-9af3-4212-921f-d59533faf0e5.jpg?1783923052",
+    "crop": "https://cards.scryfall.io/crop/front/7/3/7363f1fb-9af3-4212-921f-d59533faf0e5.webp?1783923052",
+    "display": "https://cards.scryfall.io/display/front/7/3/7363f1fb-9af3-4212-921f-d59533faf0e5.webp?1783923052",
+    "grid": "https://cards.scryfall.io/grid/front/7/3/7363f1fb-9af3-4212-921f-d59533faf0e5.webp?1783923052",
+    "large": "https://cards.scryfall.io/large/front/7/3/7363f1fb-9af3-4212-921f-d59533faf0e5.jpg?1783923052",
+    "normal": "https://cards.scryfall.io/normal/front/7/3/7363f1fb-9af3-4212-921f-d59533faf0e5.jpg?1783923052",
+    "png": "https://cards.scryfall.io/png/front/7/3/7363f1fb-9af3-4212-921f-d59533faf0e5.png?1783923052",
+    "small": "https://cards.scryfall.io/small/front/7/3/7363f1fb-9af3-4212-921f-d59533faf0e5.jpg?1783923052",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/3/7363f1fb-9af3-4212-921f-d59533faf0e5.webp?1783923052"
+  },
+  "keywords": [
+    "Cycling"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 98733,
+  "multiverse_ids": [
+    555458
+  ],
+  "name": "Spara's Headquarters",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3123ec89-8e95-4761-ba17-747ec667509f",
+  "oracle_text": "({T}: Add {G}, {W}, or {U}.)\nThis land enters tapped.\nCycling {3} ({3}, Discard this card: Draw a card.)",
+  "oversized": false,
+  "prices": {
+    "eur": "12.36",
+    "eur_foil": "13.73",
+    "tix": "0.10",
+    "usd": "13.67",
+    "usd_etched": null,
+    "usd_foil": "14.23"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3123ec89-8e95-4761-ba17-747ec667509f&unique=prints",
+  "produced_mana": [
+    "G",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/98733?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=611271&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F265348%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Spara%27s+Headquarters",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=555458&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSpara%2527s%2BHeadquarters",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSpara%2527s%2BHeadquarters"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7363f1fb-9af3-4212-921f-d59533faf0e5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/snc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/snc/257/sparas-headquarters?utm_source=api",
+  "security_stamp": "oval",
+  "set": "snc",
+  "set_id": "df837242-8c15-42e4-b049-c933a02dc501",
+  "set_name": "Streets of New Capenna",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asnc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/df837242-8c15-42e4-b049-c933a02dc501",
+  "story_spotlight": false,
+  "tcgplayer_id": 265348,
+  "textless": false,
+  "type_line": "Land — Forest Plains Island",
+  "uri": "https://api.scryfall.com/cards/7363f1fb-9af3-4212-921f-d59533faf0e5",
+  "variation": false,
+  "watermark": "brokers"
+}
