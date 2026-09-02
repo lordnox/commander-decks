@@ -9717,8 +9717,30 @@
         "token-production",
         "sacrifice"
       ]
+    },
+    "b53f216d-1592-4eee-b204-502a805fbc8c": {
+      "name": "Treetop Village",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "9cc02c16-8cf9-4ac7-9475-231c27121968": {
+      "name": "Ghitu Encampment",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "18cbb47a-85b1-48f6-a024-8c3bbffa0d87": {
+      "name": "Havenwood Battleground",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-02T20:00:03.307031+00:00"
+  "updated_at": "2026-09-02T20:13:06.951456+00:00"
 }

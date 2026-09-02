@@ -223,34 +223,6 @@
       "submitted_name": "Gluttonous Slime"
     },
     {
-      "cache": "cards/9cfac390-4638-4654-8b50-65c0f0886b18.json",
-      "card": {
-        "cmc": 6.0,
-        "keywords": [
-          "Devour"
-        ],
-        "mana_cost": "{4}{R}{G}",
-        "oracle_text": "Devour 3 (As this creature enters, you may sacrifice any number of creatures. It enters with three times that many +1/+1 counters on it.)\nWhenever this creature attacks, it deals damage equal to its power to up to one other target creature. Excess damage is dealt to that creature's controller instead.",
-        "power": "6",
-        "toughness": "6",
-        "type_line": "Creature — Dinosaur"
-      },
-      "categories": [
-        "devour",
-        "removal"
-      ],
-      "category_source": "decklist",
-      "name": "Ravenous Tyrannosaurus",
-      "oracle_id": "9cfac390-4638-4654-8b50-65c0f0886b18",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mar/93/ravenous-tyrannosaurus?utm_source=api",
-      "submitted_categories": [
-        "devour",
-        "removal"
-      ],
-      "submitted_name": "Ravenous Tyrannosaurus"
-    },
-    {
       "cache": "cards/ef048ecc-581d-4a17-91fd-edf7d7733ef9.json",
       "card": {
         "cmc": 6.0,
@@ -620,28 +592,6 @@
         "token-production"
       ],
       "submitted_name": "Beetleback Chief"
-    },
-    {
-      "cache": "cards/25cb5c86-83cd-4a06-b0d1-a0f6fc9158a6.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{X}{1}{R}{R}",
-        "oracle_text": "Create X 1/1 red Goblin creature tokens.",
-        "type_line": "Sorcery"
-      },
-      "categories": [
-        "token-production"
-      ],
-      "category_source": "decklist",
-      "name": "Goblin Offensive",
-      "oracle_id": "25cb5c86-83cd-4a06-b0d1-a0f6fc9158a6",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/hop/56/goblin-offensive?utm_source=api",
-      "submitted_categories": [
-        "token-production"
-      ],
-      "submitted_name": "Goblin Offensive"
     },
     {
       "cache": "cards/b7326fd9-7648-4db3-b506-61a7de8a4094.json",
@@ -1192,30 +1142,6 @@
         "recursion"
       ],
       "submitted_name": "Eternal Witness"
-    },
-    {
-      "cache": "cards/15afdd88-05fc-4335-8a55-c6ee702f3bef.json",
-      "card": {
-        "cmc": 5.0,
-        "keywords": [],
-        "mana_cost": "{4}{G}",
-        "oracle_text": "At the beginning of your upkeep, if this creature is in your graveyard, you may pay {2}{G}. If you do, return target creature card from your graveyard to your hand.",
-        "power": "4",
-        "toughness": "4",
-        "type_line": "Creature — Incarnation"
-      },
-      "categories": [
-        "recursion"
-      ],
-      "category_source": "decklist",
-      "name": "Genesis",
-      "oracle_id": "15afdd88-05fc-4335-8a55-c6ee702f3bef",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mh1/166/genesis?utm_source=api",
-      "submitted_categories": [
-        "recursion"
-      ],
-      "submitted_name": "Genesis"
     },
     {
       "cache": "cards/4b8856f8-3cd1-450c-a71b-eb0026e8e179.json",
@@ -1879,6 +1805,87 @@
       "submitted_name": "Kher Keep"
     },
     {
+      "cache": "cards/b53f216d-1592-4eee-b204-502a805fbc8c.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {G}.\n{1}{G}: This land becomes a 3/3 green Ape creature with trample until end of turn. It's still a land. (It can deal excess combat damage to the player or planeswalker it's attacking.)",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Treetop Village",
+      "oracle_id": "b53f216d-1592-4eee-b204-502a805fbc8c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ddu/30/treetop-village?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "token-production"
+      ],
+      "submitted_name": "Treetop Village"
+    },
+    {
+      "cache": "cards/9cc02c16-8cf9-4ac7-9475-231c27121968.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {R}.\n{1}{R}: This land becomes a 2/1 red Warrior creature with first strike until end of turn. It's still a land. (It deals combat damage before creatures without first strike.)",
+        "produced_mana": [
+          "R"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Ghitu Encampment",
+      "oracle_id": "9cc02c16-8cf9-4ac7-9475-231c27121968",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ddn/33/ghitu-encampment?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "token-production"
+      ],
+      "submitted_name": "Ghitu Encampment"
+    },
+    {
+      "cache": "cards/18cbb47a-85b1-48f6-a024-8c3bbffa0d87.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {G}.\n{T}, Sacrifice this land: Add {G}{G}.",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Havenwood Battleground",
+      "oracle_id": "18cbb47a-85b1-48f6-a024-8c3bbffa0d87",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cma/256/havenwood-battleground?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "ramp"
+      ],
+      "submitted_name": "Havenwood Battleground"
+    },
+    {
       "cache": "cards/86fb3749-37d6-48a6-8524-71e996850307.json",
       "card": {
         "cmc": 0.0,
@@ -2132,7 +2139,7 @@
     }
   ],
   "categorized_cards": 83,
-  "generated_at": "2026-09-02T20:00:03.307031+00:00",
+  "generated_at": "2026-09-02T20:13:06.951456+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 83,

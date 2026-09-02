@@ -1,0 +1,128 @@
+{
+  "artist": "John Avon",
+  "artist_ids": [
+    "798f3932-30e0-4420-aa3f-db4d613f89ca"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 268809,
+  "cmc": 0.0,
+  "collector_number": "33",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 12034,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "b6af3085-a24c-4a76-b4c0-a27a50993f1c",
+  "illustration_id": "f3019605-98fa-49f4-ac00-a25bbaf72f70",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:38:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/6/b6af3085-a24c-4a76-b4c0-a27a50993f1c.webp?1783939118",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/6/b6af3085-a24c-4a76-b4c0-a27a50993f1c.jpg?1783939118",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/6/b6af3085-a24c-4a76-b4c0-a27a50993f1c.jpg?1783939118",
+    "crop": "https://cards.scryfall.io/crop/front/b/6/b6af3085-a24c-4a76-b4c0-a27a50993f1c.webp?1783939118",
+    "display": "https://cards.scryfall.io/display/front/b/6/b6af3085-a24c-4a76-b4c0-a27a50993f1c.webp?1783939118",
+    "grid": "https://cards.scryfall.io/grid/front/b/6/b6af3085-a24c-4a76-b4c0-a27a50993f1c.webp?1783939118",
+    "large": "https://cards.scryfall.io/large/front/b/6/b6af3085-a24c-4a76-b4c0-a27a50993f1c.jpg?1783939118",
+    "normal": "https://cards.scryfall.io/normal/front/b/6/b6af3085-a24c-4a76-b4c0-a27a50993f1c.jpg?1783939118",
+    "png": "https://cards.scryfall.io/png/front/b/6/b6af3085-a24c-4a76-b4c0-a27a50993f1c.png?1783939118",
+    "small": "https://cards.scryfall.io/small/front/b/6/b6af3085-a24c-4a76-b4c0-a27a50993f1c.jpg?1783939118",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/6/b6af3085-a24c-4a76-b4c0-a27a50993f1c.webp?1783939118"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [
+    386321
+  ],
+  "name": "Ghitu Encampment",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9cc02c16-8cf9-4ac7-9475-231c27121968",
+  "oracle_text": "This land enters tapped.\n{T}: Add {R}.\n{1}{R}: This land becomes a 2/1 red Warrior creature with first strike until end of turn. It's still a land. (It deals combat damage before creatures without first strike.)",
+  "oversized": false,
+  "penny_rank": 1083,
+  "prices": {
+    "eur": "0.11",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.19",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9cc02c16-8cf9-4ac7-9475-231c27121968&unique=prints",
+  "produced_mana": [
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Ghitu+Encampment&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=268809&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F92939%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ghitu+Encampment",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=386321&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGhitu%2BEncampment",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGhitu%2BEncampment"
+  },
+  "released_at": "2014-09-05",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b6af3085-a24c-4a76-b4c0-a27a50993f1c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ddn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ddn/33/ghitu-encampment?utm_source=api",
+  "set": "ddn",
+  "set_id": "163844e5-077e-4e2c-a0f0-fa33fbc7bb3b",
+  "set_name": "Duel Decks: Speed vs. Cunning",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Addn&unique=prints",
+  "set_type": "duel_deck",
+  "set_uri": "https://api.scryfall.com/sets/163844e5-077e-4e2c-a0f0-fa33fbc7bb3b",
+  "story_spotlight": false,
+  "tcgplayer_id": 92939,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/b6af3085-a24c-4a76-b4c0-a27a50993f1c",
+  "variation": false
+}

@@ -1566,8 +1566,11 @@
     "krenko's command": "9cfe86ae-eebe-44aa-a956-4b3e9e621105",
     "mitotic slime": "1162c7ff-c0cb-469a-ad3c-322b0981ae1d",
     "fists of ironwood": "2f6a5278-23bf-47b2-a2b9-dfff7d96f3dd",
-    "goblin warrens": "c1161505-1623-4475-a88e-2e48072cc2f1"
+    "goblin warrens": "c1161505-1623-4475-a88e-2e48072cc2f1",
+    "treetop village": "b53f216d-1592-4eee-b204-502a805fbc8c",
+    "ghitu encampment": "9cc02c16-8cf9-4ac7-9475-231c27121968",
+    "havenwood battleground": "18cbb47a-85b1-48f6-a024-8c3bbffa0d87"
   },
   "schema_version": 1,
-  "updated_at": "2026-09-02T20:00:03.307031+00:00"
+  "updated_at": "2026-09-02T20:13:06.951456+00:00"
 }

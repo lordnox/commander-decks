@@ -32,7 +32,6 @@ See `rankings.json`. First pass: jank 8, fun 8, mean 4, Devour 9. Old token farm
 - **Voracious Dragon** — Devour 1 flyer that pings twice per Goblin eaten; the goblin meal package is not flavor text.
 - **Caldera Hellion** — Devour 1 then deals 3 to each creature: eat the team, survive as the leftover, clear weenies.
 - **Gluttonous Slime** — Flash Devour 1 as an ambush eater or emergency chump that still grows.
-- **Ravenous Tyrannosaurus** — Devour 3 attacker that fights another creature and spills leftover damage to a player.
 - **Predator Dragon** — Haste Devour 2 so an eaten board can swing the same turn.
 
 ### Meals
@@ -44,7 +43,6 @@ See `rankings.json`. First pass: jank 8, fun 8, mean 4, Devour 9. Old token farm
 - **Nest Invader** — Two bodies for three mana on an empty board.
 - **Mogg War Marshal** — Echo goblin that leaves a token when it leaves, including when eaten.
 - **Beetleback Chief** — Three goblins in one spell for Voracious Dragon and Thromok.
-- **Goblin Offensive** — X goblins when the Hellion is ready.
 - **Hordeling Outburst** — Three goblins for three mana; the T3 plate the goldfish was missing.
 - **Dragon Fodder** — Two goblins on turn two for Voracious Dragon and Thromok.
 - **Krenko's Command** — Same rate as Fodder; redundant 2-drop goblin pair.
@@ -52,6 +50,9 @@ See `rankings.json`. First pass: jank 8, fun 8, mean 4, Devour 9. Old token farm
 - **Squirrel Nest** — A meal every turn from a land, so the buffet survives creature wipes and refills without new spells.
 - **Fists of Ironwood** — Two saprolings for two mana, and the trample the eaten giant needs later.
 - **Goblin Warrens** — Repeatable: two goblins become three, so the plate grows between devours. Also a free sac outlet.
+- **Treetop Village** — A land that becomes a 3/3 trampler, so it is a meal that survives board wipes and a spare body when the plate is empty.
+- **Ghitu Encampment** — Same job in red, cheaper to animate, and first strike makes it a real blocker while you wait.
+- **Havenwood Battleground** — Fallen Empires land that cashes itself in for {G}{G}, which bridges the turn a five-drop is one mana away.
 - **Thallid Devourer** — Fallen Empires saproling eater that both makes and spends meals without the modern keyword.
 - **Siege-Gang Commander** — Three goblins plus a repeatable sac ping for leftover bodies.
 - **Second Harvest** — Copies every token at once so the next devour has a doubled buffet.
@@ -89,7 +90,6 @@ See `rankings.json`. First pass: jank 8, fun 8, mean 4, Devour 9. Old token farm
 ### Recursion and tutors
 
 - **Eternal Witness** — Returns a spent Burst, Fling, or devourer.
-- **Genesis** — Recurring creature from the graveyard without tapping out on the main phase.
 - **Pattern of Rebirth** — Enchant a meal; when it is eaten, tutor any creature onto the battlefield. Sparse on-theme tutor, not Worldly Tutor.
 
 ### Ramp
@@ -155,6 +155,16 @@ Twelve traced runs showed the systemic failure is an empty board, not slow eater
 
 Removal after the cut is still nine cards; the sweeper role stays on Magmaquake and Caldera Hellion.
 
+### 2026-09-02 — Land count raised to 37
+
+Fourteen cards cost five or more against 34 lands, which is a five-drop deck on a three-drop mana base. At 34, only 45% of openers hold three lands and only 31% have seen five lands by turn five; at 37 those are 53% and 39%. Four of the eight traced runs stumbled on lands. Three of the most expensive or worst-rate cards funded the change, which also drops the five-plus count from fourteen to twelve.
+
+- **Ravenous Tyrannosaurus** — Six mana; sat in four traced opening hands and was bottomed or never cast. Devour is still on seven other cards. Replaced by **Treetop Village**.
+- **Goblin Offensive** — Five mana for two goblins is a bad rate beside Dragon Fodder at two mana for two. Replaced by **Ghitu Encampment**.
+- **Genesis** — Five mana for a graveyard engine that wants spare mana every upkeep, which this deck never had in testing. Replaced by **Havenwood Battleground**.
+
+Two of the three new lands animate, so the land count went up without the plate getting smaller.
+
 ## Rules
 
 - Devour is a replacement effect as the creature enters. Counters are already on the creature when ETB triggers (Skullmulcher, Voracious Dragon, Caldera Hellion, Pandemonium) see it.
@@ -185,7 +195,7 @@ Experience: stacking a buffet, then one dramatic swallow.
 - Commander setup: turn 4–5 after some bodies
 - Turn-five milestone: four or more creatures in play and a path to Thromok or a 99 devourer on turn six
 - Interaction: seven dedicated answers plus Caldera Hellion / Ezuri's Predation
-- Recovery: Genesis, Witness, Pattern, bounce
+- Recovery: Witness, Pattern, bounce
 - Boundaries: 0 Game Changers, no two-card infinites, no extra turns, no MLD, tutors limited to Pattern of Rebirth
 
 **Commander search:** `f:c is:commander keyword:devour` returns only Thromok. `keyword:devour` is 23 cards, almost all RG. Prossh no longer has Devour; current Oracle is kobolds on cast plus a pump sac.
@@ -265,3 +275,7 @@ Also confirmed: Fists of Ironwood needs a creature already on the battlefield, s
 ### 2026-09-02 — Fogs
 
 User: fogs are not played in that playgroup. The primer weakness about fogs stopping the combat clock is removed; a wide board of blockers stays as the real reason the single-giant clock stalls, answered with trample or a Fling effect rather than more attacks.
+
+### 2026-09-02 — Land count
+
+User asked why 34 lands when 40 is the usual advice and 37 is their personal floor. The build reasoning had been 34 lands plus three modal land backs plus ten ramp spells, counted as 47 sources. That over-counted: mana dorks die to the sweepers this deck wants to cast, and a modal back costs the spell and enters tapped. With fourteen cards at five or more mana, 34 was wrong and their instinct was right. Raised to 37 true lands.
