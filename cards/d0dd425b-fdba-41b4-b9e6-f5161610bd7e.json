@@ -1,0 +1,150 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "cb06a798-4808-476b-bc0f-1f432b431464",
+      "name": "Phyrexian Beast",
+      "object": "related_card",
+      "type_line": "Token Creature — Phyrexian Beast",
+      "uri": "https://api.scryfall.com/cards/cb06a798-4808-476b-bc0f-1f432b431464"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9a6cd6f6-ae6e-4a77-95ca-64c6882357d5",
+      "name": "Ezuri's Predation",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/9a6cd6f6-ae6e-4a77-95ca-64c6882357d5"
+    }
+  ],
+  "artist": "Uriah Voth",
+  "artist_ids": [
+    "14cf4c0c-1a83-4366-ba61-6d0a26ee5a69"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 788863,
+  "cmc": 8.0,
+  "collector_number": "178",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1195,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Slaughter the weak ones. They are unworthy of the gift of *compleation.*\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9a6cd6f6-ae6e-4a77-95ca-64c6882357d5",
+  "illustration_id": "2085087d-f49d-419c-8a04-e4d4b7458304",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:26:47Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/a/9a6cd6f6-ae6e-4a77-95ca-64c6882357d5.webp?1783909607",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/a/9a6cd6f6-ae6e-4a77-95ca-64c6882357d5.jpg?1783909607",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/a/9a6cd6f6-ae6e-4a77-95ca-64c6882357d5.jpg?1783909607",
+    "crop": "https://cards.scryfall.io/crop/front/9/a/9a6cd6f6-ae6e-4a77-95ca-64c6882357d5.webp?1783909607",
+    "display": "https://cards.scryfall.io/display/front/9/a/9a6cd6f6-ae6e-4a77-95ca-64c6882357d5.webp?1783909607",
+    "grid": "https://cards.scryfall.io/grid/front/9/a/9a6cd6f6-ae6e-4a77-95ca-64c6882357d5.webp?1783909607",
+    "large": "https://cards.scryfall.io/large/front/9/a/9a6cd6f6-ae6e-4a77-95ca-64c6882357d5.jpg?1783909607",
+    "normal": "https://cards.scryfall.io/normal/front/9/a/9a6cd6f6-ae6e-4a77-95ca-64c6882357d5.jpg?1783909607",
+    "png": "https://cards.scryfall.io/png/front/9/a/9a6cd6f6-ae6e-4a77-95ca-64c6882357d5.png?1783909607",
+    "small": "https://cards.scryfall.io/small/front/9/a/9a6cd6f6-ae6e-4a77-95ca-64c6882357d5.jpg?1783909607",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/a/9a6cd6f6-ae6e-4a77-95ca-64c6882357d5.webp?1783909607"
+  },
+  "keywords": [
+    "Fight"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{G}{G}{G}",
+  "mtgo_id": 130981,
+  "multiverse_ids": [
+    676051
+  ],
+  "name": "Ezuri's Predation",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d0dd425b-fdba-41b4-b9e6-f5161610bd7e",
+  "oracle_text": "For each creature your opponents control, create a 4/4 green Phyrexian Beast creature token. Each of those tokens fights a different one of those creatures.",
+  "oversized": false,
+  "prices": {
+    "eur": "2.62",
+    "eur_foil": null,
+    "tix": "2.34",
+    "usd": "2.73",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad0dd425b-fdba-41b4-b9e6-f5161610bd7e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130981?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=788863&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F577821%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ezuri%27s+Predation",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676051&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEzuri%2527s%2BPredation",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEzuri%2527s%2BPredation"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9a6cd6f6-ae6e-4a77-95ca-64c6882357d5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/178/ezuris-predation?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 577821,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/9a6cd6f6-ae6e-4a77-95ca-64c6882357d5",
+  "variation": false
+}

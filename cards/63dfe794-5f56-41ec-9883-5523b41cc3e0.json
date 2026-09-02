@@ -1,0 +1,140 @@
+{
+  "arena_id": 91066,
+  "artist": "Jorge Jacinto",
+  "artist_ids": [
+    "05a3ac12-b25d-48e2-af5e-8a299fd3da14"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 772423,
+  "cmc": 0.0,
+  "collector_number": "215",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 374,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "dd148edc-9e43-41aa-bb50-f912115d3e72",
+  "illustration_id": "a64f6e6f-fc2e-4223-928b-cb3dde4a35d7",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:01Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/d/dd148edc-9e43-41aa-bb50-f912115d3e72.webp?1783911241",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/d/dd148edc-9e43-41aa-bb50-f912115d3e72.jpg?1783911241",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/d/dd148edc-9e43-41aa-bb50-f912115d3e72.jpg?1783911241",
+    "crop": "https://cards.scryfall.io/crop/front/d/d/dd148edc-9e43-41aa-bb50-f912115d3e72.webp?1783911241",
+    "display": "https://cards.scryfall.io/display/front/d/d/dd148edc-9e43-41aa-bb50-f912115d3e72.webp?1783911241",
+    "grid": "https://cards.scryfall.io/grid/front/d/d/dd148edc-9e43-41aa-bb50-f912115d3e72.webp?1783911241",
+    "large": "https://cards.scryfall.io/large/front/d/d/dd148edc-9e43-41aa-bb50-f912115d3e72.jpg?1783911241",
+    "normal": "https://cards.scryfall.io/normal/front/d/d/dd148edc-9e43-41aa-bb50-f912115d3e72.jpg?1783911241",
+    "png": "https://cards.scryfall.io/png/front/d/d/dd148edc-9e43-41aa-bb50-f912115d3e72.png?1783911241",
+    "small": "https://cards.scryfall.io/small/front/d/d/dd148edc-9e43-41aa-bb50-f912115d3e72.jpg?1783911241",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/d/dd148edc-9e43-41aa-bb50-f912115d3e72.webp?1783911241"
+  },
+  "keywords": [
+    "Exert"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 126449,
+  "multiverse_ids": [
+    662367
+  ],
+  "name": "Arena of Glory",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "63dfe794-5f56-41ec-9883-5523b41cc3e0",
+  "oracle_text": "This land enters tapped unless you control a Mountain.\n{T}: Add {R}.\n{R}, {T}, Exert this land: Add {R}{R}. If that mana is spent on a creature spell, it gains haste until end of turn. (An exerted permanent won't untap during your next untap step.)",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2024-05-28",
+    "source": "Kotaku",
+    "source_uri": "https://www.kotaku.com.au/2024/05/magic-the-gathering-modern-horizons-iiii-card-preview/"
+  },
+  "prices": {
+    "eur": "10.24",
+    "eur_foil": "12.44",
+    "tix": "0.34",
+    "usd": "8.06",
+    "usd_etched": null,
+    "usd_foil": "9.49"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A63dfe794-5f56-41ec-9883-5523b41cc3e0&unique=prints",
+  "produced_mana": [
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126449?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=772423&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F553264%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Arena+of+Glory",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662367&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DArena%2Bof%2BGlory",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DArena%2Bof%2BGlory"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/dd148edc-9e43-41aa-bb50-f912115d3e72/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/215/arena-of-glory?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 553264,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/dd148edc-9e43-41aa-bb50-f912115d3e72",
+  "variation": false
+}

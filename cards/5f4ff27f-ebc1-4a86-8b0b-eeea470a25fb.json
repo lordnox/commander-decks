@@ -1,0 +1,135 @@
+{
+  "artist": "Anthony S. Waters",
+  "artist_ids": [
+    "f009de11-3c8d-4663-b996-ca0c3e997fad"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 748477,
+  "cmc": 7.0,
+  "collector_number": "126",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 5257,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Something roams the killing places, sniffing the guilt of the slayers, stalking them on iron paws.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "22ab5c53-932e-465d-84b7-2c8263c835e9",
+  "illustration_id": "7bb3e28c-0cec-418f-acba-c376b404fcaf",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:28:28Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/2/22ab5c53-932e-465d-84b7-2c8263c835e9.webp?1783913308",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/2/22ab5c53-932e-465d-84b7-2c8263c835e9.jpg?1783913308",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/2/22ab5c53-932e-465d-84b7-2c8263c835e9.jpg?1783913308",
+    "crop": "https://cards.scryfall.io/crop/front/2/2/22ab5c53-932e-465d-84b7-2c8263c835e9.webp?1783913308",
+    "display": "https://cards.scryfall.io/display/front/2/2/22ab5c53-932e-465d-84b7-2c8263c835e9.webp?1783913308",
+    "grid": "https://cards.scryfall.io/grid/front/2/2/22ab5c53-932e-465d-84b7-2c8263c835e9.webp?1783913308",
+    "large": "https://cards.scryfall.io/large/front/2/2/22ab5c53-932e-465d-84b7-2c8263c835e9.jpg?1783913308",
+    "normal": "https://cards.scryfall.io/normal/front/2/2/22ab5c53-932e-465d-84b7-2c8263c835e9.jpg?1783913308",
+    "png": "https://cards.scryfall.io/png/front/2/2/22ab5c53-932e-465d-84b7-2c8263c835e9.png?1783913308",
+    "small": "https://cards.scryfall.io/small/front/2/2/22ab5c53-932e-465d-84b7-2c8263c835e9.jpg?1783913308",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/2/22ab5c53-932e-465d-84b7-2c8263c835e9.webp?1783913308"
+  },
+  "keywords": [
+    "Haste"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{R}{R}",
+  "mtgo_id": 120779,
+  "multiverse_ids": [
+    643133
+  ],
+  "name": "Stalking Vengeance",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5f4ff27f-ebc1-4a86-8b0b-eeea470a25fb",
+  "oracle_text": "Haste\nWhenever another creature you control dies, it deals damage equal to its power to target player or planeswalker.",
+  "oversized": false,
+  "penny_rank": 15140,
+  "power": "5",
+  "prices": {
+    "eur": "0.15",
+    "eur_foil": "0.34",
+    "tix": "0.04",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": "0.36"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5f4ff27f-ebc1-4a86-8b0b-eeea470a25fb&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/120779?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=748477&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F530870%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Stalking+Vengeance",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=643133&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DStalking%2BVengeance",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DStalking%2BVengeance"
+  },
+  "released_at": "2024-01-12",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/22ab5c53-932e-465d-84b7-2c8263c835e9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rvr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rvr/126/stalking-vengeance?utm_source=api",
+  "set": "rvr",
+  "set_id": "fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "set_name": "Ravnica Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arvr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "story_spotlight": false,
+  "tcgplayer_id": 530870,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Creature — Avatar",
+  "uri": "https://api.scryfall.com/cards/22ab5c53-932e-465d-84b7-2c8263c835e9",
+  "variation": false
+}

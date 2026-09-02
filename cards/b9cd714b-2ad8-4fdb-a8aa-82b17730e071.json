@@ -1,0 +1,150 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "fd0474f3-682d-4c6d-b902-84f3250aa269",
+      "name": "Squirrel",
+      "object": "related_card",
+      "type_line": "Token Creature — Squirrel",
+      "uri": "https://api.scryfall.com/cards/fd0474f3-682d-4c6d-b902-84f3250aa269"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5c94e2b8-9fe6-41fd-bf43-ab7534abfd33",
+      "name": "Deranged Hermit",
+      "object": "related_card",
+      "type_line": "Creature — Elf",
+      "uri": "https://api.scryfall.com/cards/5c94e2b8-9fe6-41fd-bf43-ab7534abfd33"
+    }
+  ],
+  "artist": "Kev Walker",
+  "artist_ids": [
+    "f366a0ee-a0cd-466d-ba6a-90058c7a31a6"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 17607,
+  "cmc": 5.0,
+  "collector_number": "5",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 11928,
+  "finishes": [
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "5c94e2b8-9fe6-41fd-bf43-ab7534abfd33",
+  "illustration_id": "7fa1a931-406d-4cc8-860f-b54b7009c71c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:07:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/c/5c94e2b8-9fe6-41fd-bf43-ab7534abfd33.webp?1783944461",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/c/5c94e2b8-9fe6-41fd-bf43-ab7534abfd33.jpg?1783944461",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/c/5c94e2b8-9fe6-41fd-bf43-ab7534abfd33.jpg?1783944461",
+    "crop": "https://cards.scryfall.io/crop/front/5/c/5c94e2b8-9fe6-41fd-bf43-ab7534abfd33.webp?1783944461",
+    "display": "https://cards.scryfall.io/display/front/5/c/5c94e2b8-9fe6-41fd-bf43-ab7534abfd33.webp?1783944461",
+    "grid": "https://cards.scryfall.io/grid/front/5/c/5c94e2b8-9fe6-41fd-bf43-ab7534abfd33.webp?1783944461",
+    "large": "https://cards.scryfall.io/large/front/5/c/5c94e2b8-9fe6-41fd-bf43-ab7534abfd33.jpg?1783944461",
+    "normal": "https://cards.scryfall.io/normal/front/5/c/5c94e2b8-9fe6-41fd-bf43-ab7534abfd33.jpg?1783944461",
+    "png": "https://cards.scryfall.io/png/front/5/c/5c94e2b8-9fe6-41fd-bf43-ab7534abfd33.png?1783944461",
+    "small": "https://cards.scryfall.io/small/front/5/c/5c94e2b8-9fe6-41fd-bf43-ab7534abfd33.jpg?1783944461",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/c/5c94e2b8-9fe6-41fd-bf43-ab7534abfd33.webp?1783944461"
+  },
+  "keywords": [
+    "Echo"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{G}{G}",
+  "multiverse_ids": [],
+  "name": "Deranged Hermit",
+  "nonfoil": false,
+  "object": "card",
+  "oracle_id": "b9cd714b-2ad8-4fdb-a8aa-82b17730e071",
+  "oracle_text": "Echo {3}{G}{G} (At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.)\nWhen this creature enters, create four 1/1 green Squirrel creature tokens.\nSquirrel creatures get +1/+1.",
+  "oversized": false,
+  "penny_rank": 1831,
+  "power": "1",
+  "prices": {
+    "eur": null,
+    "eur_foil": "80.35",
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": "131.00"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab9cd714b-2ad8-4fdb-a8aa-82b17730e071&unique=prints",
+  "promo": true,
+  "promo_types": [
+    "judgegift"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Deranged+Hermit&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=17607&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F38239%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Deranged+Hermit",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDeranged%2BHermit",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDeranged%2BHermit"
+  },
+  "released_at": "2004-01-01",
+  "reprint": true,
+  "reserved": true,
+  "rulings_uri": "https://api.scryfall.com/cards/5c94e2b8-9fe6-41fd-bf43-ab7534abfd33/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/g04?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/g04/5/deranged-hermit?utm_source=api",
+  "set": "g04",
+  "set_id": "68b258e6-d659-457c-a3d6-9da5d7cd6aa1",
+  "set_name": "Judge Gift Cards 2004",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ag04&unique=prints",
+  "set_type": "promo",
+  "set_uri": "https://api.scryfall.com/sets/68b258e6-d659-457c-a3d6-9da5d7cd6aa1",
+  "story_spotlight": false,
+  "tcgplayer_id": 38239,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Elf",
+  "uri": "https://api.scryfall.com/cards/5c94e2b8-9fe6-41fd-bf43-ab7534abfd33",
+  "variation": false,
+  "watermark": "dci"
+}

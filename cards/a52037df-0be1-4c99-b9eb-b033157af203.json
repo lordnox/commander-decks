@@ -1,0 +1,129 @@
+{
+  "artist": "Gabor Szikszai",
+  "artist_ids": [
+    "44c3877f-8771-43dc-9e40-f4c765f59d2e"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 572306,
+  "cmc": 2.0,
+  "collector_number": "133",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 5497,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Where will you run when I punish you with the very ground you flee on?\"\n—Nicol Bolas",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "8a8945b4-d2e1-4779-9c33-a8b062637fa6",
+  "illustration_id": "1675a1f8-8485-43ec-ab54-dc90d1492118",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:03:24Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/a/8a8945b4-d2e1-4779-9c33-a8b062637fa6.webp?1783926204",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/a/8a8945b4-d2e1-4779-9c33-a8b062637fa6.jpg?1783926204",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/a/8a8945b4-d2e1-4779-9c33-a8b062637fa6.jpg?1783926204",
+    "crop": "https://cards.scryfall.io/crop/front/8/a/8a8945b4-d2e1-4779-9c33-a8b062637fa6.webp?1783926204",
+    "display": "https://cards.scryfall.io/display/front/8/a/8a8945b4-d2e1-4779-9c33-a8b062637fa6.webp?1783926204",
+    "grid": "https://cards.scryfall.io/grid/front/8/a/8a8945b4-d2e1-4779-9c33-a8b062637fa6.webp?1783926204",
+    "large": "https://cards.scryfall.io/large/front/8/a/8a8945b4-d2e1-4779-9c33-a8b062637fa6.jpg?1783926204",
+    "normal": "https://cards.scryfall.io/normal/front/8/a/8a8945b4-d2e1-4779-9c33-a8b062637fa6.jpg?1783926204",
+    "png": "https://cards.scryfall.io/png/front/8/a/8a8945b4-d2e1-4779-9c33-a8b062637fa6.png?1783926204",
+    "small": "https://cards.scryfall.io/small/front/8/a/8a8945b4-d2e1-4779-9c33-a8b062637fa6.jpg?1783926204",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/a/8a8945b4-d2e1-4779-9c33-a8b062637fa6.webp?1783926204"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{X}{R}{R}",
+  "multiverse_ids": [
+    532520
+  ],
+  "name": "Magmaquake",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a52037df-0be1-4c99-b9eb-b033157af203",
+  "oracle_text": "Magmaquake deals X damage to each creature without flying and each planeswalker.",
+  "oversized": false,
+  "penny_rank": 8876,
+  "prices": {
+    "eur": "0.31",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.41",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa52037df-0be1-4c99-b9eb-b033157af203&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Magmaquake&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=572306&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243859%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Magmaquake",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=532520&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMagmaquake",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMagmaquake"
+  },
+  "released_at": "2021-07-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8a8945b4-d2e1-4779-9c33-a8b062637fa6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afc/133/magmaquake?utm_source=api",
+  "security_stamp": "oval",
+  "set": "afc",
+  "set_id": "db1b46f9-893c-4623-9465-985ff6e4472c",
+  "set_name": "Forgotten Realms Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/db1b46f9-893c-4623-9465-985ff6e4472c",
+  "story_spotlight": false,
+  "tcgplayer_id": 243859,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/8a8945b4-d2e1-4779-9c33-a8b062637fa6",
+  "variation": false
+}

@@ -1,0 +1,151 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "e7a55908-ad02-43f4-8968-cd5598cb05c6",
+      "name": "Eldrazi Spawn",
+      "object": "related_card",
+      "type_line": "Token Creature — Eldrazi Spawn",
+      "uri": "https://api.scryfall.com/cards/e7a55908-ad02-43f4-8968-cd5598cb05c6"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3085f5b1-d2e3-4dd4-8263-024b2b5da4b4",
+      "name": "Nest Invader",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi Drone",
+      "uri": "https://api.scryfall.com/cards/3085f5b1-d2e3-4dd4-8263-024b2b5da4b4"
+    }
+  ],
+  "artist": "Trevor Claxton",
+  "artist_ids": [
+    "35d39e75-5d6c-4318-9136-38cdfff34a05"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 294307,
+  "cmc": 2.0,
+  "collector_number": "69",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 11784,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "It nurtures its masters' glorious future.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "3085f5b1-d2e3-4dd4-8263-024b2b5da4b4",
+  "illustration_id": "1c440123-3b32-41ac-845b-a2d18d035a03",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:00:27Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/0/3085f5b1-d2e3-4dd4-8263-024b2b5da4b4.webp?1783936827",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/0/3085f5b1-d2e3-4dd4-8263-024b2b5da4b4.jpg?1783936827",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/0/3085f5b1-d2e3-4dd4-8263-024b2b5da4b4.jpg?1783936827",
+    "crop": "https://cards.scryfall.io/crop/front/3/0/3085f5b1-d2e3-4dd4-8263-024b2b5da4b4.webp?1783936827",
+    "display": "https://cards.scryfall.io/display/front/3/0/3085f5b1-d2e3-4dd4-8263-024b2b5da4b4.webp?1783936827",
+    "grid": "https://cards.scryfall.io/grid/front/3/0/3085f5b1-d2e3-4dd4-8263-024b2b5da4b4.webp?1783936827",
+    "large": "https://cards.scryfall.io/large/front/3/0/3085f5b1-d2e3-4dd4-8263-024b2b5da4b4.jpg?1783936827",
+    "normal": "https://cards.scryfall.io/normal/front/3/0/3085f5b1-d2e3-4dd4-8263-024b2b5da4b4.jpg?1783936827",
+    "png": "https://cards.scryfall.io/png/front/3/0/3085f5b1-d2e3-4dd4-8263-024b2b5da4b4.png?1783936827",
+    "small": "https://cards.scryfall.io/small/front/3/0/3085f5b1-d2e3-4dd4-8263-024b2b5da4b4.jpg?1783936827",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/0/3085f5b1-d2e3-4dd4-8263-024b2b5da4b4.webp?1783936827"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "multiverse_ids": [
+    423494
+  ],
+  "name": "Nest Invader",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a7584a28-0829-4897-abf4-6be1a9232347",
+  "oracle_text": "When this creature enters, create a 0/1 colorless Eldrazi Spawn creature token. It has \"Sacrifice this token: Add {C}.\"",
+  "oversized": false,
+  "penny_rank": 4326,
+  "power": "2",
+  "prices": {
+    "eur": "0.41",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.28",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa7584a28-0829-4897-abf4-6be1a9232347&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Nest+Invader&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=294307&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F125472%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Nest+Invader",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=423494&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DNest%2BInvader",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DNest%2BInvader"
+  },
+  "released_at": "2016-11-25",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3085f5b1-d2e3-4dd4-8263-024b2b5da4b4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/pca?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/pca/69/nest-invader?utm_source=api",
+  "set": "pca",
+  "set_id": "ceadd605-dfba-4998-b96d-e8e8138aa20f",
+  "set_name": "Planechase Anthology",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Apca&unique=prints",
+  "set_type": "planechase",
+  "set_uri": "https://api.scryfall.com/sets/ceadd605-dfba-4998-b96d-e8e8138aa20f",
+  "story_spotlight": false,
+  "tcgplayer_id": 125472,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Eldrazi Drone",
+  "uri": "https://api.scryfall.com/cards/3085f5b1-d2e3-4dd4-8263-024b2b5da4b4",
+  "variation": false
+}

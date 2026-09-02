@@ -1,0 +1,137 @@
+{
+  "artist": "Eli Minaya",
+  "artist_ids": [
+    "fee369ac-08b5-4a69-8ef8-f2b42b81e807"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 892702,
+  "cmc": 4.0,
+  "collector_number": "174",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 640,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "A mantle passed on through sacrifice and love.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9dd8b16f-3dfd-4e04-a2e9-ec87d0e007c9",
+  "illustration_id": "d860607a-f041-4f08-a1e2-4e4e33c9c614",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:40:29Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/d/9dd8b16f-3dfd-4e04-a2e9-ec87d0e007c9.webp?1783903229",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/d/9dd8b16f-3dfd-4e04-a2e9-ec87d0e007c9.jpg?1783903229",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/d/9dd8b16f-3dfd-4e04-a2e9-ec87d0e007c9.jpg?1783903229",
+    "crop": "https://cards.scryfall.io/crop/front/9/d/9dd8b16f-3dfd-4e04-a2e9-ec87d0e007c9.webp?1783903229",
+    "display": "https://cards.scryfall.io/display/front/9/d/9dd8b16f-3dfd-4e04-a2e9-ec87d0e007c9.webp?1783903229",
+    "grid": "https://cards.scryfall.io/grid/front/9/d/9dd8b16f-3dfd-4e04-a2e9-ec87d0e007c9.webp?1783903229",
+    "large": "https://cards.scryfall.io/large/front/9/d/9dd8b16f-3dfd-4e04-a2e9-ec87d0e007c9.jpg?1783903229",
+    "normal": "https://cards.scryfall.io/normal/front/9/d/9dd8b16f-3dfd-4e04-a2e9-ec87d0e007c9.jpg?1783903229",
+    "png": "https://cards.scryfall.io/png/front/9/d/9dd8b16f-3dfd-4e04-a2e9-ec87d0e007c9.png?1783903229",
+    "small": "https://cards.scryfall.io/small/front/9/d/9dd8b16f-3dfd-4e04-a2e9-ec87d0e007c9.jpg?1783903229",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/d/9dd8b16f-3dfd-4e04-a2e9-ec87d0e007c9.webp?1783903229"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}{G}",
+  "mtgo_id": 150817,
+  "multiverse_ids": [],
+  "name": "Greater Good",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "dc0593c2-ccb4-4648-a592-c5bcd121dc72",
+  "oracle_text": "Sacrifice a creature: Draw cards equal to the sacrificed creature's power, then discard three cards.",
+  "oversized": false,
+  "penny_rank": 2380,
+  "prices": {
+    "eur": "2.19",
+    "eur_foil": null,
+    "tix": "0.17",
+    "usd": "1.36",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Adc0593c2-ccb4-4648-a592-c5bcd121dc72&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150817?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=892702&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F698195%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Greater+Good",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGreater%2BGood",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGreater%2BGood"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "9B8599A403E8A3A6450A27701C9958BAB5B74B63592CBD4378450A35C3426AD7",
+  "rulings_uri": "https://api.scryfall.com/cards/9dd8b16f-3dfd-4e04-a2e9-ec87d0e007c9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/174/greater-good?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 698195,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/9dd8b16f-3dfd-4e04-a2e9-ec87d0e007c9",
+  "variation": false
+}

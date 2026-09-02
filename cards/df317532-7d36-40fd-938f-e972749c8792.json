@@ -1,0 +1,141 @@
+{
+  "artist": "Igor Kieryluk",
+  "artist_ids": [
+    "9c3e9d17-509f-485c-9360-46d897ce716b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 510335,
+  "cmc": 1.0,
+  "collector_number": "228",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 217,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"We could no more abandon the forest than the stars could abandon the night sky.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "450744cf-7eba-491b-97b0-ca80c6368bbb",
+  "illustration_id": "591f20ba-804d-4410-9f0c-1ca1306de73e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:46:34Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/5/450744cf-7eba-491b-97b0-ca80c6368bbb.webp?1783928794",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/5/450744cf-7eba-491b-97b0-ca80c6368bbb.jpg?1783928794",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/5/450744cf-7eba-491b-97b0-ca80c6368bbb.jpg?1783928794",
+    "crop": "https://cards.scryfall.io/crop/front/4/5/450744cf-7eba-491b-97b0-ca80c6368bbb.webp?1783928794",
+    "display": "https://cards.scryfall.io/display/front/4/5/450744cf-7eba-491b-97b0-ca80c6368bbb.webp?1783928794",
+    "grid": "https://cards.scryfall.io/grid/front/4/5/450744cf-7eba-491b-97b0-ca80c6368bbb.webp?1783928794",
+    "large": "https://cards.scryfall.io/large/front/4/5/450744cf-7eba-491b-97b0-ca80c6368bbb.jpg?1783928794",
+    "normal": "https://cards.scryfall.io/normal/front/4/5/450744cf-7eba-491b-97b0-ca80c6368bbb.jpg?1783928794",
+    "png": "https://cards.scryfall.io/png/front/4/5/450744cf-7eba-491b-97b0-ca80c6368bbb.png?1783928794",
+    "small": "https://cards.scryfall.io/small/front/4/5/450744cf-7eba-491b-97b0-ca80c6368bbb.jpg?1783928794",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/5/450744cf-7eba-491b-97b0-ca80c6368bbb.webp?1783928794"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "mtgo_id": 85238,
+  "multiverse_ids": [
+    497748
+  ],
+  "name": "Fyndhorn Elves",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "df317532-7d36-40fd-938f-e972749c8792",
+  "oracle_text": "{T}: Add {G}.",
+  "oversized": false,
+  "penny_rank": 388,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2020-10-28",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.instagram.com/p/CG3tsglHqsi/"
+  },
+  "prices": {
+    "eur": "3.21",
+    "eur_foil": "4.42",
+    "tix": "0.05",
+    "usd": "2.53",
+    "usd_etched": null,
+    "usd_foil": "20.59"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Adf317532-7d36-40fd-938f-e972749c8792&unique=prints",
+  "produced_mana": [
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/85238?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=510335&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F226624%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Fyndhorn+Elves",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=497748&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFyndhorn%2BElves",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFyndhorn%2BElves"
+  },
+  "released_at": "2020-11-20",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/450744cf-7eba-491b-97b0-ca80c6368bbb/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmr/228/fyndhorn-elves?utm_source=api",
+  "set": "cmr",
+  "set_id": "39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "set_name": "Commander Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "story_spotlight": false,
+  "tcgplayer_id": 226624,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Elf Druid",
+  "uri": "https://api.scryfall.com/cards/450744cf-7eba-491b-97b0-ca80c6368bbb",
+  "variation": false
+}

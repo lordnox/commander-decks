@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "96b0ffdf-351e-4b89-92f2-79b20420b3bc",
+      "name": "Eldrazi Spawn",
+      "object": "related_card",
+      "type_line": "Token Creature — Eldrazi Spawn",
+      "uri": "https://api.scryfall.com/cards/96b0ffdf-351e-4b89-92f2-79b20420b3bc"
+    },
+    {
+      "component": "combo_piece",
+      "id": "13724768-83d3-4da2-82d7-35787c4f9877",
+      "name": "Awakening Zone",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/13724768-83d3-4da2-82d7-35787c4f9877"
+    }
+  ],
+  "artist": "Johann Bodin",
+  "artist_ids": [
+    "d92e2dd9-9ef6-43f6-81f8-df87f9066983"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 881591,
+  "cmc": 3.0,
+  "collector_number": "262",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1571,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "The ground erupted in time with the hedron's thrum, a dirge of the last days.",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "13724768-83d3-4da2-82d7-35787c4f9877",
+  "illustration_id": "e9e474d5-a347-4b1e-b369-7d1109a47a9d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:49:28Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/3/13724768-83d3-4da2-82d7-35787c4f9877.webp?1783903768",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/3/13724768-83d3-4da2-82d7-35787c4f9877.jpg?1783903768",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/3/13724768-83d3-4da2-82d7-35787c4f9877.jpg?1783903768",
+    "crop": "https://cards.scryfall.io/crop/front/1/3/13724768-83d3-4da2-82d7-35787c4f9877.webp?1783903768",
+    "display": "https://cards.scryfall.io/display/front/1/3/13724768-83d3-4da2-82d7-35787c4f9877.webp?1783903768",
+    "grid": "https://cards.scryfall.io/grid/front/1/3/13724768-83d3-4da2-82d7-35787c4f9877.webp?1783903768",
+    "large": "https://cards.scryfall.io/large/front/1/3/13724768-83d3-4da2-82d7-35787c4f9877.jpg?1783903768",
+    "normal": "https://cards.scryfall.io/normal/front/1/3/13724768-83d3-4da2-82d7-35787c4f9877.jpg?1783903768",
+    "png": "https://cards.scryfall.io/png/front/1/3/13724768-83d3-4da2-82d7-35787c4f9877.png?1783903768",
+    "small": "https://cards.scryfall.io/small/front/1/3/13724768-83d3-4da2-82d7-35787c4f9877.jpg?1783903768",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/3/13724768-83d3-4da2-82d7-35787c4f9877.webp?1783903768"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "mtgo_id": 148991,
+  "multiverse_ids": [],
+  "name": "Awakening Zone",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f955bc96-d602-4142-a9a2-87009cc7028c",
+  "oracle_text": "At the beginning of your upkeep, you may create a 0/1 colorless Eldrazi Spawn creature token. It has \"Sacrifice this token: Add {C}.\"",
+  "oversized": false,
+  "penny_rank": 6955,
+  "prices": {
+    "eur": "0.38",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.35",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af955bc96-d602-4142-a9a2-87009cc7028c&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/148991?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=881591&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F687474%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Awakening+Zone",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAwakening%2BZone",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAwakening%2BZone"
+  },
+  "released_at": "2026-04-24",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "C48D0A887709BABEC5B97B8FA30BCC75AFD2C09DE7B43CC7AABF8C6FD47EBBF7",
+  "rulings_uri": "https://api.scryfall.com/cards/13724768-83d3-4da2-82d7-35787c4f9877/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/soc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/soc/262/awakening-zone?utm_source=api",
+  "security_stamp": "oval",
+  "set": "soc",
+  "set_id": "97fab8d1-480a-419d-ab14-663968e29b9c",
+  "set_name": "Secrets of Strixhaven Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/97fab8d1-480a-419d-ab14-663968e29b9c",
+  "story_spotlight": false,
+  "tcgplayer_id": 687474,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/13724768-83d3-4da2-82d7-35787c4f9877",
+  "variation": false
+}

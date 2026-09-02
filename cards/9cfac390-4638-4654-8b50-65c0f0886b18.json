@@ -1,0 +1,142 @@
+{
+  "arena_id": 105257,
+  "artist": "Jack Kirby",
+  "artist_ids": [
+    "12dfdcd9-8bdc-4f72-9b2b-61daa12c6197"
+  ],
+  "booster": false,
+  "border_color": "borderless",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 890877,
+  "cmc": 6.0,
+  "collector_number": "93",
+  "color_identity": [
+    "G",
+    "R"
+  ],
+  "colors": [
+    "G",
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 5013,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "inverted"
+  ],
+  "full_art": true,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "d20ce47d-f08f-475d-a8c3-8a4ebeb0b4f2",
+  "illustration_id": "65c70495-c13b-43e0-8fe9-81e5a90f25b4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:41:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/2/d20ce47d-f08f-475d-a8c3-8a4ebeb0b4f2.webp?1783903305",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/2/d20ce47d-f08f-475d-a8c3-8a4ebeb0b4f2.jpg?1783903305",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/2/d20ce47d-f08f-475d-a8c3-8a4ebeb0b4f2.jpg?1783903305",
+    "crop": "https://cards.scryfall.io/crop/front/d/2/d20ce47d-f08f-475d-a8c3-8a4ebeb0b4f2.webp?1783903305",
+    "display": "https://cards.scryfall.io/display/front/d/2/d20ce47d-f08f-475d-a8c3-8a4ebeb0b4f2.webp?1783903305",
+    "grid": "https://cards.scryfall.io/grid/front/d/2/d20ce47d-f08f-475d-a8c3-8a4ebeb0b4f2.webp?1783903305",
+    "large": "https://cards.scryfall.io/large/front/d/2/d20ce47d-f08f-475d-a8c3-8a4ebeb0b4f2.jpg?1783903305",
+    "normal": "https://cards.scryfall.io/normal/front/d/2/d20ce47d-f08f-475d-a8c3-8a4ebeb0b4f2.jpg?1783903305",
+    "png": "https://cards.scryfall.io/png/front/d/2/d20ce47d-f08f-475d-a8c3-8a4ebeb0b4f2.png?1783903305",
+    "small": "https://cards.scryfall.io/small/front/d/2/d20ce47d-f08f-475d-a8c3-8a4ebeb0b4f2.jpg?1783903305",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/2/d20ce47d-f08f-475d-a8c3-8a4ebeb0b4f2.webp?1783903305"
+  },
+  "keywords": [
+    "Devour"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{R}{G}",
+  "mtgo_id": 150425,
+  "multiverse_ids": [],
+  "name": "Ravenous Tyrannosaurus",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9cfac390-4638-4654-8b50-65c0f0886b18",
+  "oracle_text": "Devour 3 (As this creature enters, you may sacrifice any number of creatures. It enters with three times that many +1/+1 counters on it.)\nWhenever this creature attacks, it deals damage equal to its power to up to one other target creature. Excess damage is dealt to that creature's controller instead.",
+  "oversized": false,
+  "power": "6",
+  "prices": {
+    "eur": "5.03",
+    "eur_foil": "7.39",
+    "tix": "0.37",
+    "usd": "6.99",
+    "usd_etched": null,
+    "usd_foil": "11.90"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9cfac390-4638-4654-8b50-65c0f0886b18&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "sourcematerial",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150425?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=890877&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F696434%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ravenous+Tyrannosaurus",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRavenous%2BTyrannosaurus",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRavenous%2BTyrannosaurus"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d20ce47d-f08f-475d-a8c3-8a4ebeb0b4f2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mar?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mar/93/ravenous-tyrannosaurus?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mar",
+  "set_id": "159f2a38-6a67-48fb-b583-2538554d70a3",
+  "set_name": "Marvel Universe",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amar&unique=prints",
+  "set_type": "masterpiece",
+  "set_uri": "https://api.scryfall.com/sets/159f2a38-6a67-48fb-b583-2538554d70a3",
+  "story_spotlight": false,
+  "tcgplayer_id": 696434,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Creature — Dinosaur",
+  "uri": "https://api.scryfall.com/cards/d20ce47d-f08f-475d-a8c3-8a4ebeb0b4f2",
+  "variation": false
+}

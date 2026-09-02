@@ -1,0 +1,146 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "09faad62-42ff-4e37-b8a5-d8e8a0f6d096",
+      "name": "Goblin",
+      "object": "related_card",
+      "type_line": "Token Creature — Goblin",
+      "uri": "https://api.scryfall.com/cards/09faad62-42ff-4e37-b8a5-d8e8a0f6d096"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4ebce261-3a53-48f2-a173-0d98c68aff2c",
+      "name": "Mogg War Marshal",
+      "object": "related_card",
+      "type_line": "Creature — Goblin Warrior",
+      "uri": "https://api.scryfall.com/cards/4ebce261-3a53-48f2-a173-0d98c68aff2c"
+    }
+  ],
+  "artist": "Jesper Ejsing",
+  "artist_ids": [
+    "a5f8354a-8b51-4e59-96b2-0e3aeae4fa1d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 891747,
+  "cmc": 2.0,
+  "collector_number": "DMR-131",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 3015,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "4ebce261-3a53-48f2-a173-0d98c68aff2c",
+  "illustration_id": "017a4755-0575-4f7e-914c-3791cd32cf00",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:44:20Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/e/4ebce261-3a53-48f2-a173-0d98c68aff2c.webp?1783903460",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/e/4ebce261-3a53-48f2-a173-0d98c68aff2c.jpg?1783903460",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/e/4ebce261-3a53-48f2-a173-0d98c68aff2c.jpg?1783903460",
+    "crop": "https://cards.scryfall.io/crop/front/4/e/4ebce261-3a53-48f2-a173-0d98c68aff2c.webp?1783903460",
+    "display": "https://cards.scryfall.io/display/front/4/e/4ebce261-3a53-48f2-a173-0d98c68aff2c.webp?1783903460",
+    "grid": "https://cards.scryfall.io/grid/front/4/e/4ebce261-3a53-48f2-a173-0d98c68aff2c.webp?1783903460",
+    "large": "https://cards.scryfall.io/large/front/4/e/4ebce261-3a53-48f2-a173-0d98c68aff2c.jpg?1783903460",
+    "normal": "https://cards.scryfall.io/normal/front/4/e/4ebce261-3a53-48f2-a173-0d98c68aff2c.jpg?1783903460",
+    "png": "https://cards.scryfall.io/png/front/4/e/4ebce261-3a53-48f2-a173-0d98c68aff2c.png?1783903460",
+    "small": "https://cards.scryfall.io/small/front/4/e/4ebce261-3a53-48f2-a173-0d98c68aff2c.jpg?1783903460",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/e/4ebce261-3a53-48f2-a173-0d98c68aff2c.webp?1783903460"
+  },
+  "keywords": [
+    "Echo"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}",
+  "multiverse_ids": [],
+  "name": "Mogg War Marshal",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7b8f4879-578e-40e4-863a-41d0c32c6bdd",
+  "oracle_text": "Echo {1}{R} (At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.)\nWhen this creature enters or dies, create a 1/1 red Goblin creature token.",
+  "oversized": false,
+  "penny_rank": 864,
+  "power": "1",
+  "prices": {
+    "eur": "0.16",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.29",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7b8f4879-578e-40e4-863a-41d0c32c6bdd&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Mogg+War+Marshal&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891747&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F693883%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mogg+War+Marshal",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMogg%2BWar%2BMarshal",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMogg%2BWar%2BMarshal"
+  },
+  "released_at": "2026-05-18",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4ebce261-3a53-48f2-a173-0d98c68aff2c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/plst?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/plst/DMR-131/mogg-war-marshal?utm_source=api",
+  "set": "plst",
+  "set_id": "67e47ba2-b019-4181-9005-fe9fc021de44",
+  "set_name": "The List",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aplst&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/67e47ba2-b019-4181-9005-fe9fc021de44",
+  "story_spotlight": false,
+  "tcgplayer_id": 693883,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Goblin Warrior",
+  "uri": "https://api.scryfall.com/cards/4ebce261-3a53-48f2-a173-0d98c68aff2c",
+  "variation": false
+}

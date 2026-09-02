@@ -898,7 +898,7 @@
       "categories": [
         "commander-top"
       ],
-      "name": "Bartolom\u00e9 del Presidio"
+      "name": "Bartolomé del Presidio"
     },
     "f73da5d8-fd15-4315-ad3c-c86c28087285": {
       "categories": [
@@ -9275,8 +9275,413 @@
         "exile",
         "theft"
       ]
+    },
+    "fbb6ec41-3017-4d8d-bca0-c93040f1b291": {
+      "name": "Thromok the Insatiable",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "d7fd16ce-282d-49cd-b2b4-0d25935e7a72": {
+      "name": "Mycoloth",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "66cdbd34-a864-4c39-acac-9fb26ef4adf9": {
+      "name": "Skullmulcher",
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "1f4743ed-4e91-4344-9409-c8ede5c4804d": {
+      "name": "Bloodspore Thrinax",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "aef6c5b3-824f-4b7d-9671-1ed61d547717": {
+      "name": "Thunder-Thrash Elder",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "7f39bbae-6c84-4cb3-9a58-d746a723ad35": {
+      "name": "Voracious Dragon",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "86a7dba7-aff9-4086-b149-03eee812249f": {
+      "name": "Caldera Hellion",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "5797684a-a022-45d2-aa2e-4d375b33017e": {
+      "name": "Gluttonous Slime",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "9cfac390-4638-4654-8b50-65c0f0886b18": {
+      "name": "Ravenous Tyrannosaurus",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "1b36eb85-0b1e-41fb-8ecd-dda13c4feffc": {
+      "name": "Preyseizer Dragon",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "ef048ecc-581d-4a17-91fd-edf7d7733ef9": {
+      "name": "Predator Dragon",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "86c55fe5-98b5-4e53-8828-a7f04ee3e985": {
+      "name": "Ribtruss Roaster",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "b9cd714b-2ad8-4fdb-a8aa-82b17730e071": {
+      "name": "Deranged Hermit",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "7b31ecf8-5266-4376-ace0-8b873706c4ea": {
+      "name": "Saproling Burst",
+      "categories": [
+        "board-wipe",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "8b33d890-7d67-44a8-a253-e2b171d7ca9d": {
+      "name": "Sprout Swarm",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "f955bc96-d602-4142-a9a2-87009cc7028c": {
+      "name": "Awakening Zone",
+      "categories": [
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "a7584a28-0829-4897-abf4-6be1a9232347": {
+      "name": "Nest Invader",
+      "categories": [
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "7b8f4879-578e-40e4-863a-41d0c32c6bdd": {
+      "name": "Mogg War Marshal",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "f5c5f64c-6911-430c-a825-b32b96d39c7d": {
+      "name": "Beetleback Chief",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "25cb5c86-83cd-4a06-b0d1-a0f6fc9158a6": {
+      "name": "Goblin Offensive",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "36c800cb-b1ca-4432-ad3c-4d8b90337f4c": {
+      "name": "Phyrexian Processor",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "b7326fd9-7648-4db3-b506-61a7de8a4094": {
+      "name": "Thallid Devourer",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "ddc7f59a-bbb1-4ba1-82c8-6813fd191940": {
+      "name": "Siege-Gang Commander",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "8bf8e846-9d10-4dbc-a379-df37bb9fb6d4": {
+      "name": "Temur Sabertooth",
+      "categories": [
+        "protection"
+      ]
+    },
+    "4a85cd7e-625b-4043-b7f1-999def26eb36": {
+      "name": "Erratic Portal",
+      "categories": [
+        "other"
+      ]
+    },
+    "e7aee670-e6ac-4b3a-b3d1-7b7013db8f3d": {
+      "name": "Sneak Attack",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "dc0593c2-ccb4-4648-a592-c5bcd121dc72": {
+      "name": "Greater Good",
+      "categories": [
+        "card-draw",
+        "sacrifice",
+        "discard"
+      ]
+    },
+    "24227761-b50e-4b9e-93a2-e82d053b3e3d": {
+      "name": "Fling",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "3ceda405-8175-416a-beda-9a95f5acc60c": {
+      "name": "Grab the Reins",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "073551ca-2e84-4d49-8484-9890718cc483": {
+      "name": "Pandemonium",
+      "categories": [
+        "other"
+      ]
+    },
+    "5f4ff27f-ebc1-4a86-8b0b-eeea470a25fb": {
+      "name": "Stalking Vengeance",
+      "categories": [
+        "other"
+      ]
+    },
+    "406b4b1d-756b-4062-897d-3693832086a0": {
+      "name": "Greater Gargadon",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "e23d6f3b-0e18-423b-943b-15db7837255b": {
+      "name": "Fires of Yavimaya",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "cb15a8dd-57fe-466f-847e-66476b690a1f": {
+      "name": "Xenagos, God of Revels",
+      "categories": [
+        "protection"
+      ]
+    },
+    "6a5ce1b0-ac78-4a74-9eb7-4064e1687bf1": {
+      "name": "Momentous Fall",
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "2b76f9e9-cd28-4eaf-8674-215c34263f96": {
+      "name": "Return of the Wildspeaker",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "ffa64ac6-fe55-48b8-b015-849982cd7ad8": {
+      "name": "Fecundity",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "3127ae9b-a7a7-43ec-89d7-688f8445b33d": {
+      "name": "Garruk's Uprising",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "21f45043-5419-4019-8b6c-e5294bd5f549": {
+      "name": "Acidic Slime",
+      "categories": [
+        "removal"
+      ]
+    },
+    "63a37c08-7e38-4fe2-9a71-cc4604c4f831": {
+      "name": "Ulvenwald Tracker",
+      "categories": [
+        "other"
+      ]
+    },
+    "a52037df-0be1-4c99-b9eb-b033157af203": {
+      "name": "Magmaquake",
+      "categories": [
+        "other"
+      ]
+    },
+    "6d4e558e-9109-4918-a082-fdcbaffd516b": {
+      "name": "Nature's Claim",
+      "categories": [
+        "removal"
+      ]
+    },
+    "92d95e12-fa51-4360-88e4-9078ccc5d8d3": {
+      "name": "Cindervines",
+      "categories": [
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "d0dd425b-fdba-41b4-b9e6-f5161610bd7e": {
+      "name": "Ezuri's Predation",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "15afdd88-05fc-4335-8a55-c6ee702f3bef": {
+      "name": "Genesis",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "4b8856f8-3cd1-450c-a71b-eb0026e8e179": {
+      "name": "Pattern of Rebirth",
+      "categories": [
+        "other"
+      ]
+    },
+    "68954295-54e3-4303-a6bc-fc4547a4e3a3": {
+      "name": "Llanowar Elves",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "df317532-7d36-40fd-938f-e972749c8792": {
+      "name": "Fyndhorn Elves",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "4567a528-75f0-4ea6-b927-3a500caf76ac": {
+      "name": "Arbor Elf",
+      "categories": [
+        "other"
+      ]
+    },
+    "cf14d4e5-5965-45ad-97f7-26facf2884b5": {
+      "name": "Fertile Ground",
+      "categories": [
+        "other"
+      ]
+    },
+    "376c9d3f-21d3-4251-bb6a-026fa9e1b0e1": {
+      "name": "Skyshroud Claim",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "8973bd99-20f8-4867-90ef-50392147ee1b": {
+      "name": "Wood Elves",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "39da2aa8-f4d9-44f6-a446-488beaec821f": {
+      "name": "Wrap in Vigor",
+      "categories": [
+        "other"
+      ]
+    },
+    "8998d211-5ca6-41d2-bc64-f51f70bd41e5": {
+      "name": "Vines of Vastwood",
+      "categories": [
+        "other"
+      ]
+    },
+    "22e3cf1d-3559-4ce1-954c-8dc815342979": {
+      "name": "Taiga",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "16052b52-ade1-406f-a06b-ce7ea607fb63": {
+      "name": "Stomping Ground",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "bd912666-f37f-4767-af6f-9e6d0fcccacf": {
+      "name": "Karplusan Forest",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "d33c3fbb-8306-4c2d-b0dd-88f12639da94": {
+      "name": "Grove of the Burnwillows",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "d99a1d9a-7721-4331-bf22-1c6ee0bd825a": {
+      "name": "Fire-Lit Thicket",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "a05f641c-15c9-43dc-ae0d-1ea372fd33d5": {
+      "name": "Copperline Gorge",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "c6911265-54ef-4c16-bcf2-1ffb24b7d426": {
+      "name": "Kessig Wolf Run",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "f8410804-632b-4f18-9a73-6dccc7e4582d": {
+      "name": "Kazuul's Fury // Kazuul's Cliffs",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "63dfe794-5f56-41ec-9883-5523b41cc3e0": {
+      "name": "Arena of Glory",
+      "categories": [
+        "land",
+        "ramp"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-01T21:25:19.795245+00:00"
+  "updated_at": "2026-09-02T19:21:09.493453+00:00"
 }

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "title": "Thromok — Square Meal",
+  "summary": "Feed token meals into devour enters, especially Thromok's N-squared counters, then connect or Fling the leftover giant.",
+  "tags": [
+    { "name": "+1/+1 counters", "score": 5, "reason": "Every devourer converts meals into counters; Thromok is quadratic." },
+    { "name": "tokens", "score": 5, "reason": "The 99 exists to print bodies that devourers eat." },
+    { "name": "sacrifice", "score": 4, "reason": "Devour, Greater Good, Gargadon, Siege-Gang, High Market, and Clamp all spend creatures." },
+    { "name": "stompy", "score": 4, "reason": "Wins are oversized creatures connecting or Flung." },
+    { "name": "aristocrats", "score": 3, "reason": "Death payoffs (Vengeance, Fecundity, Marshal) sit under the devour plan." },
+    { "name": "goblins", "score": 3, "reason": "A dedicated goblin meal package plus Voracious Dragon." },
+    { "name": "saprolings", "score": 3, "reason": "Mycoloth, Burst, Sprout Swarm, and Thallid Devourer." },
+    { "name": "aggro", "score": 2, "reason": "Haste swallows exist; the deck still sets a board first." },
+    { "name": "dragons", "score": 2, "reason": "Several devour dragons, not a dragon tribal deck." },
+    { "name": "midrange", "score": 2, "reason": "Token midrange into a big turn, not a fair value grind as the identity." },
+    { "name": "voltron", "score": 2, "reason": "Thromok can commander-damage, but other eaters also close." },
+    { "name": "blink", "score": 1, "reason": "Sabertooth and Portal re-enter devourers; not a blink deck." }
+  ]
+}

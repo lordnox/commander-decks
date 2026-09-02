@@ -1,0 +1,131 @@
+{
+  "artist": "Raoul Vitale",
+  "artist_ids": [
+    "c7c15d49-f84b-4d98-9a34-e80e8347b756"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 301641,
+  "cmc": 1.0,
+  "collector_number": "177",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 381,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"The timeless, tireless jaws of nature shall one day devour us all.\"\n—Sildark, artificer of Omu",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d24b6640-ef2f-4c92-beb3-afdf78f9c2d5",
+  "illustration_id": "fd7eab73-271d-49a6-a99a-6cdda1108af8",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:38:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/2/d24b6640-ef2f-4c92-beb3-afdf78f9c2d5.webp?1783935517",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/2/d24b6640-ef2f-4c92-beb3-afdf78f9c2d5.jpg?1783935517",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/2/d24b6640-ef2f-4c92-beb3-afdf78f9c2d5.jpg?1783935517",
+    "crop": "https://cards.scryfall.io/crop/front/d/2/d24b6640-ef2f-4c92-beb3-afdf78f9c2d5.webp?1783935517",
+    "display": "https://cards.scryfall.io/display/front/d/2/d24b6640-ef2f-4c92-beb3-afdf78f9c2d5.webp?1783935517",
+    "grid": "https://cards.scryfall.io/grid/front/d/2/d24b6640-ef2f-4c92-beb3-afdf78f9c2d5.webp?1783935517",
+    "large": "https://cards.scryfall.io/large/front/d/2/d24b6640-ef2f-4c92-beb3-afdf78f9c2d5.jpg?1783935517",
+    "normal": "https://cards.scryfall.io/normal/front/d/2/d24b6640-ef2f-4c92-beb3-afdf78f9c2d5.jpg?1783935517",
+    "png": "https://cards.scryfall.io/png/front/d/2/d24b6640-ef2f-4c92-beb3-afdf78f9c2d5.png?1783935517",
+    "small": "https://cards.scryfall.io/small/front/d/2/d24b6640-ef2f-4c92-beb3-afdf78f9c2d5.jpg?1783935517",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/2/d24b6640-ef2f-4c92-beb3-afdf78f9c2d5.webp?1783935517"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "mtgo_foil_id": 66234,
+  "mtgo_id": 66233,
+  "multiverse_ids": [
+    438743
+  ],
+  "name": "Nature's Claim",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6d4e558e-9109-4918-a082-fdcbaffd516b",
+  "oracle_text": "Destroy target artifact or enchantment. Its controller gains 4 life.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.74",
+    "eur_foil": "1.34",
+    "tix": "0.06",
+    "usd": "1.51",
+    "usd_etched": null,
+    "usd_foil": "2.87"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6d4e558e-9109-4918-a082-fdcbaffd516b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/66233?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=301641&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F145523%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Nature%27s+Claim",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=438743&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DNature%2527s%2BClaim",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DNature%2527s%2BClaim"
+  },
+  "released_at": "2017-11-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d24b6640-ef2f-4c92-beb3-afdf78f9c2d5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ima?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ima/177/natures-claim?utm_source=api",
+  "set": "ima",
+  "set_id": "741bcd30-7709-4133-8919-f4b46483bed7",
+  "set_name": "Iconic Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aima&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/741bcd30-7709-4133-8919-f4b46483bed7",
+  "story_spotlight": false,
+  "tcgplayer_id": 145523,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/d24b6640-ef2f-4c92-beb3-afdf78f9c2d5",
+  "variation": false
+}

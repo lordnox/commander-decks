@@ -1,0 +1,131 @@
+{
+  "artist": "John Donahue",
+  "artist_ids": [
+    "5dd10cc1-7146-4c47-9114-b1ecae435a44"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 267315,
+  "cmc": 2.0,
+  "collector_number": "183",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 2355,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Some nature mages unknowingly took advantage of the temporal energies still swirling on Dominaria. What they mistook for healing magic was in fact the manipulation of time.",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "92d53533-b10e-430a-a6f6-58ecb508be77",
+  "illustration_id": "1fa7311c-86d3-4dcb-81d1-8edd03b8798e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:42:20Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/2/92d53533-b10e-430a-a6f6-58ecb508be77.webp?1783939340",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/2/92d53533-b10e-430a-a6f6-58ecb508be77.jpg?1783939340",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/2/92d53533-b10e-430a-a6f6-58ecb508be77.jpg?1783939340",
+    "crop": "https://cards.scryfall.io/crop/front/9/2/92d53533-b10e-430a-a6f6-58ecb508be77.webp?1783939340",
+    "display": "https://cards.scryfall.io/display/front/9/2/92d53533-b10e-430a-a6f6-58ecb508be77.webp?1783939340",
+    "grid": "https://cards.scryfall.io/grid/front/9/2/92d53533-b10e-430a-a6f6-58ecb508be77.webp?1783939340",
+    "large": "https://cards.scryfall.io/large/front/9/2/92d53533-b10e-430a-a6f6-58ecb508be77.jpg?1783939340",
+    "normal": "https://cards.scryfall.io/normal/front/9/2/92d53533-b10e-430a-a6f6-58ecb508be77.jpg?1783939340",
+    "png": "https://cards.scryfall.io/png/front/9/2/92d53533-b10e-430a-a6f6-58ecb508be77.png?1783939340",
+    "small": "https://cards.scryfall.io/small/front/9/2/92d53533-b10e-430a-a6f6-58ecb508be77.jpg?1783939340",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/2/92d53533-b10e-430a-a6f6-58ecb508be77.webp?1783939340"
+  },
+  "keywords": [
+    "Regenerate"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "multiverse_ids": [
+    382413
+  ],
+  "name": "Wrap in Vigor",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "39da2aa8-f4d9-44f6-a446-488beaec821f",
+  "oracle_text": "Regenerate each creature you control.",
+  "oversized": false,
+  "penny_rank": 4620,
+  "prices": {
+    "eur": "1.08",
+    "eur_foil": "6.63",
+    "tix": null,
+    "usd": "1.44",
+    "usd_etched": null,
+    "usd_foil": "12.01"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A39da2aa8-f4d9-44f6-a446-488beaec821f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Wrap+in+Vigor&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=267315&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F83189%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wrap+in+Vigor",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=382413&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWrap%2Bin%2BVigor",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWrap%2Bin%2BVigor"
+  },
+  "released_at": "2014-06-06",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/92d53533-b10e-430a-a6f6-58ecb508be77/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cns?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cns/183/wrap-in-vigor?utm_source=api",
+  "set": "cns",
+  "set_id": "7d4ebb59-a50b-45b8-8fff-ab70767819a5",
+  "set_name": "Conspiracy",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acns&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/7d4ebb59-a50b-45b8-8fff-ab70767819a5",
+  "story_spotlight": false,
+  "tcgplayer_id": 83189,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/92d53533-b10e-430a-a6f6-58ecb508be77",
+  "variation": false
+}

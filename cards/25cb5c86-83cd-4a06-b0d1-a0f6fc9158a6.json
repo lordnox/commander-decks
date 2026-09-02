@@ -1,0 +1,148 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "b4c4d642-c3fb-47d1-b57a-266eb269d5ea",
+      "name": "Goblin Offensive",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/b4c4d642-c3fb-47d1-b57a-266eb269d5ea"
+    },
+    {
+      "component": "token",
+      "id": "09faad62-42ff-4e37-b8a5-d8e8a0f6d096",
+      "name": "Goblin",
+      "object": "related_card",
+      "type_line": "Token Creature — Goblin",
+      "uri": "https://api.scryfall.com/cards/09faad62-42ff-4e37-b8a5-d8e8a0f6d096"
+    }
+  ],
+  "artist": "Carl Critchlow",
+  "artist_ids": [
+    "17948f16-611a-44b8-8d10-9895a0bdfff1"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 21612,
+  "cmc": 3.0,
+  "collector_number": "56",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 10948,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "They certainly are.",
+  "foil": false,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b4c4d642-c3fb-47d1-b57a-266eb269d5ea",
+  "illustration_id": "6deabe31-9d58-437f-9501-3245ace8e248",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:32:03Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/4/b4c4d642-c3fb-47d1-b57a-266eb269d5ea.webp?1783942323",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/4/b4c4d642-c3fb-47d1-b57a-266eb269d5ea.jpg?1783942323",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/4/b4c4d642-c3fb-47d1-b57a-266eb269d5ea.jpg?1783942323",
+    "crop": "https://cards.scryfall.io/crop/front/b/4/b4c4d642-c3fb-47d1-b57a-266eb269d5ea.webp?1783942323",
+    "display": "https://cards.scryfall.io/display/front/b/4/b4c4d642-c3fb-47d1-b57a-266eb269d5ea.webp?1783942323",
+    "grid": "https://cards.scryfall.io/grid/front/b/4/b4c4d642-c3fb-47d1-b57a-266eb269d5ea.webp?1783942323",
+    "large": "https://cards.scryfall.io/large/front/b/4/b4c4d642-c3fb-47d1-b57a-266eb269d5ea.jpg?1783942323",
+    "normal": "https://cards.scryfall.io/normal/front/b/4/b4c4d642-c3fb-47d1-b57a-266eb269d5ea.jpg?1783942323",
+    "png": "https://cards.scryfall.io/png/front/b/4/b4c4d642-c3fb-47d1-b57a-266eb269d5ea.png?1783942323",
+    "small": "https://cards.scryfall.io/small/front/b/4/b4c4d642-c3fb-47d1-b57a-266eb269d5ea.jpg?1783942323",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/4/b4c4d642-c3fb-47d1-b57a-266eb269d5ea.webp?1783942323"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{X}{1}{R}{R}",
+  "mtgo_foil_id": 44387,
+  "mtgo_id": 44386,
+  "multiverse_ids": [
+    205388
+  ],
+  "name": "Goblin Offensive",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "25cb5c86-83cd-4a06-b0d1-a0f6fc9158a6",
+  "oracle_text": "Create X 1/1 red Goblin creature tokens.",
+  "oversized": false,
+  "prices": {
+    "eur": "1.73",
+    "eur_foil": null,
+    "tix": "0.35",
+    "usd": "5.68",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A25cb5c86-83cd-4a06-b0d1-a0f6fc9158a6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/44386?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=21612&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F37371%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Goblin+Offensive",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=205388&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGoblin%2BOffensive",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGoblin%2BOffensive"
+  },
+  "released_at": "2009-09-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b4c4d642-c3fb-47d1-b57a-266eb269d5ea/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/hop?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/hop/56/goblin-offensive?utm_source=api",
+  "set": "hop",
+  "set_id": "7137ffeb-eb1d-466c-a0d3-3157f52b1b10",
+  "set_name": "Planechase",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ahop&unique=prints",
+  "set_type": "planechase",
+  "set_uri": "https://api.scryfall.com/sets/7137ffeb-eb1d-466c-a0d3-3157f52b1b10",
+  "story_spotlight": false,
+  "tcgplayer_id": 37371,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/b4c4d642-c3fb-47d1-b57a-266eb269d5ea",
+  "variation": false
+}

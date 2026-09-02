@@ -1,0 +1,12 @@
+{
+  "goals": ["Devour"],
+  "scores": {
+    "jankiness": 8,
+    "fun": 8,
+    "oppressiveness": 4,
+    "identity": {
+      "Devour": 9
+    }
+  },
+  "notes": "Planechase Hellion plus old token farms and keyword devourers. Sequencing the buffet is the game; mean stays low because there are no locks, extra turns, or cheap two-card wins."
+}

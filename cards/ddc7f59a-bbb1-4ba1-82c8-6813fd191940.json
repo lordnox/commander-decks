@@ -1,0 +1,146 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "09faad62-42ff-4e37-b8a5-d8e8a0f6d096",
+      "name": "Goblin",
+      "object": "related_card",
+      "type_line": "Token Creature — Goblin",
+      "uri": "https://api.scryfall.com/cards/09faad62-42ff-4e37-b8a5-d8e8a0f6d096"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7d67e614-03d2-4034-b82f-25962fc378d4",
+      "name": "Siege-Gang Commander",
+      "object": "related_card",
+      "type_line": "Creature — Goblin",
+      "uri": "https://api.scryfall.com/cards/7d67e614-03d2-4034-b82f-25962fc378d4"
+    }
+  ],
+  "artist": "Aaron Miller",
+  "artist_ids": [
+    "fc021f3d-773a-4706-bbe7-f602324f511f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 891748,
+  "cmc": 5.0,
+  "collector_number": "DMR-136",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 1591,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Ready . . . uh . . . fire!\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "7d67e614-03d2-4034-b82f-25962fc378d4",
+  "illustration_id": "f9c939e1-e101-4a98-9d9b-630f75e42113",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:44:15Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/d/7d67e614-03d2-4034-b82f-25962fc378d4.webp?1783903455",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/d/7d67e614-03d2-4034-b82f-25962fc378d4.jpg?1783903455",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/d/7d67e614-03d2-4034-b82f-25962fc378d4.jpg?1783903455",
+    "crop": "https://cards.scryfall.io/crop/front/7/d/7d67e614-03d2-4034-b82f-25962fc378d4.webp?1783903455",
+    "display": "https://cards.scryfall.io/display/front/7/d/7d67e614-03d2-4034-b82f-25962fc378d4.webp?1783903455",
+    "grid": "https://cards.scryfall.io/grid/front/7/d/7d67e614-03d2-4034-b82f-25962fc378d4.webp?1783903455",
+    "large": "https://cards.scryfall.io/large/front/7/d/7d67e614-03d2-4034-b82f-25962fc378d4.jpg?1783903455",
+    "normal": "https://cards.scryfall.io/normal/front/7/d/7d67e614-03d2-4034-b82f-25962fc378d4.jpg?1783903455",
+    "png": "https://cards.scryfall.io/png/front/7/d/7d67e614-03d2-4034-b82f-25962fc378d4.png?1783903455",
+    "small": "https://cards.scryfall.io/small/front/7/d/7d67e614-03d2-4034-b82f-25962fc378d4.jpg?1783903455",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/d/7d67e614-03d2-4034-b82f-25962fc378d4.webp?1783903455"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{R}{R}",
+  "multiverse_ids": [],
+  "name": "Siege-Gang Commander",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ddc7f59a-bbb1-4ba1-82c8-6813fd191940",
+  "oracle_text": "When this creature enters, create three 1/1 red Goblin creature tokens.\n{1}{R}, Sacrifice a Goblin: This creature deals 2 damage to any target.",
+  "oversized": false,
+  "penny_rank": 2450,
+  "power": "2",
+  "prices": {
+    "eur": "0.18",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Addc7f59a-bbb1-4ba1-82c8-6813fd191940&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Siege-Gang+Commander&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891748&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F693894%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Siege-Gang+Commander",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSiege-Gang%2BCommander",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSiege-Gang%2BCommander"
+  },
+  "released_at": "2026-05-18",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7d67e614-03d2-4034-b82f-25962fc378d4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/plst?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/plst/DMR-136/siege-gang-commander?utm_source=api",
+  "security_stamp": "oval",
+  "set": "plst",
+  "set_id": "67e47ba2-b019-4181-9005-fe9fc021de44",
+  "set_name": "The List",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aplst&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/67e47ba2-b019-4181-9005-fe9fc021de44",
+  "story_spotlight": false,
+  "tcgplayer_id": 693894,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Goblin",
+  "uri": "https://api.scryfall.com/cards/7d67e614-03d2-4034-b82f-25962fc378d4",
+  "variation": false
+}
