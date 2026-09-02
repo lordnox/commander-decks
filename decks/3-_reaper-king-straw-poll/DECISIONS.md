@@ -17,6 +17,10 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Scarecrow Tribal** — the creature type is the engine, not decoration. A card earns its slot by being a Scarecrow, making Scarecrows, or making other creatures count as Scarecrows.
 - **Permanent Destruction** — the clock is a Vindicate stapled to a body. Every scarecrow that enters should be answering something on the table.
 
+## Rankings
+
+See `rankings.json`. Assessment pass: jank 8, fun 8, mean 7, Scarecrow Tribal 9, Permanent Destruction 8. Identity is tribe-first; the Mean 7 is the Vindicate engine, not the combo.
+
 ## Cards in
 
 - **Reaper King** — The commander. Anthem for the tribe and "whenever another Scarecrow you control enters, destroy target permanent." Its hybrid cost is the reason the mana base is greedy: with all five colors available it costs five mana, not ten.
@@ -143,3 +147,15 @@ The shell then wrote itself in three layers. Native Scarecrows from Shadowmoor a
 Deliberately kept out of the 99: the rest of the Shadowmoor colour-check cycle (Watchwing, Thornwatch, Blazethorn, Rattleblaze) and the vanilla Scarecrows (Wicker Witch, Field Creeper, Jousting Dummy). They are on-theme but they are worse Vindicate carriers than a one-mana Heap Doll or Jawbone Skulkin, and the deck already runs enough three-and-four-mana do-nothing bodies. Wickerwing Effigy was wanted for its cast-from-top text but it is an Arena-only printing and not Commander legal; Realmwalker naming Scarecrow does the same job legally.
 
 Combos were kept to lines that contain a Scarecrow. Pili-Pala with Grand Architect is infinite mana into Mirror Entity. Painter's Servant with Grindstone decks a player per turn. No Ashnod's Altar plus Nim Deathmantle package was added: it wins without touching the tribe, which is exactly the kind of generic best-tool inclusion the house rules push back on.
+
+### 2026-09-02 — Bracket 3− and rankings
+
+Live sources: [Commander format page](https://magic.wizards.com/en/formats/commander) (0 Game Changers in Brackets 1–2, up to 3 in Bracket 3), [February 9, 2026 Brackets update](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-february-9-2026) (Farewell and Biorhythm added to Game Changers; no bracket-level rewrite), and the [October 21, 2025](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-october-21-2025) turn bars (Core 8+, Upgraded 6+, Optimized 4+). Scryfall `is:gamechanger` (53 cards, including Farewell and Biorhythm) matches none of the 100.
+
+No extra turns, no mass land denial package, no kitchen-table permanent fast mana, one inefficient tutor (Inventors' Fair). Pili-Pala plus Grand Architect is a true two-card infinite mana loop; it still needs Mirror Entity, Reckless Fireweaver, or the King plus a body factory to end the game. Painter's Servant plus Grindstone decks one opponent per tap and is not a table kill.
+
+Normal goldfish is Reaper King on turn five or six once five colours are online, then incremental Vindicates into a combat or Fireweaver close around turn nine to eleven. Credible high roll is the Architect line plus a finisher around turn seven. A turn-four Entity kill is legal (T2 Pili-Pala, T3 Architect, T4 recolour into infinite plus Entity) but needs those three spells plus double blue by turn three, so it is not the expected pace.
+
+Not Bracket 2: Core wants low-pressure, telegraphed, disruptable wins and at least eight turns as the *satisfying* end; this list's plan is repeated unconditional permanent destruction, including lands, plus a real infinite. Not Bracket 3 middle or 3+: no Game Changers, greedy five-colour commander, and the usual game still plays past turn eight. Folder prefix `3-_`.
+
+Rankings unchanged on this pass: the Mean 7 is the table feeling the Vindicate triggers, not a lock or extra-turn package. Jank 8 is the hybrid-cost mana base and the Shadowmoor commons. Identity stays 9 / 8 because twenty-five printed Scarecrows plus changelings and type hacks are the engine, and every trigger still gates on the commander.
