@@ -898,7 +898,7 @@
       "categories": [
         "commander-top"
       ],
-      "name": "Bartolom\u00e9 del Presidio"
+      "name": "Bartolomé del Presidio"
     },
     "f73da5d8-fd15-4315-ad3c-c86c28087285": {
       "categories": [
@@ -9275,8 +9275,417 @@
         "exile",
         "theft"
       ]
+    },
+    "fb868840-09fa-49b1-85cb-b08ad065e972": {
+      "name": "Bitterblossom",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "51d6d164-6e5f-4be3-8f09-433e0b8d4c6b": {
+      "name": "Bloodline Pretender",
+      "categories": [
+        "other"
+      ]
+    },
+    "893fed41-c144-433f-af88-bc7d419b7fb3": {
+      "name": "Burnished Hart",
+      "categories": [
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "a549d54f-2640-455c-8a93-bef4df2f9e8b": {
+      "name": "Cairn Wanderer",
+      "categories": [
+        "other"
+      ]
+    },
+    "5811d905-cae5-4f92-a78e-abb43f8864a7": {
+      "name": "Cauldron of Souls",
+      "categories": [
+        "other"
+      ]
+    },
+    "02765930-e15e-4cc1-ac0d-040334a9c5bc": {
+      "name": "Chainbreaker",
+      "categories": [
+        "other"
+      ]
+    },
+    "a61ef0cc-1da9-49f9-b0dc-01cf9f6205be": {
+      "name": "Changeling Outcast",
+      "categories": [
+        "other"
+      ]
+    },
+    "539f5396-d99a-417d-a84c-dff7930b5900": {
+      "name": "Chromatic Lantern",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "cd1eda60-53e4-44d0-9b2c-7a57395e291f": {
+      "name": "Conjurer's Closet",
+      "categories": [
+        "removal",
+        "blink"
+      ]
+    },
+    "1b817184-4965-4186-bfa9-6d9cf198050e": {
+      "name": "Crossroads Candleguide",
+      "categories": [
+        "ramp",
+        "removal"
+      ]
+    },
+    "fd74f8eb-0253-42dd-8277-186d4934da38": {
+      "name": "Dismember",
+      "categories": [
+        "other"
+      ]
+    },
+    "ffcffad7-6c33-4265-82c9-04045fdf371b": {
+      "name": "Dread Tiller",
+      "categories": [
+        "other"
+      ]
+    },
+    "5ade11c0-41dd-4b6a-9f5b-c5903a3a0d7f": {
+      "name": "Elesh Norn, Mother of Machines",
+      "categories": [
+        "other"
+      ]
+    },
+    "54bed864-fe2e-4359-b0ac-c27a2c225487": {
+      "name": "Fang Skulkin",
+      "categories": [
+        "other"
+      ]
+    },
+    "42bf259d-4bb9-49c3-b4ec-223dca62f4d6": {
+      "name": "Fetid Heath",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "d99a1d9a-7721-4331-bf22-1c6ee0bd825a": {
+      "name": "Fire-Lit Thicket",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "dc974eb4-72b9-4213-887b-8ee684b93420": {
+      "name": "Flooded Grove",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "11ceb2db-021e-422d-976e-7bfe3b67a8aa": {
+      "name": "Foraging Wickermaw",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "7af1d7f9-058a-4ccb-96b7-fc391b615c09": {
+      "name": "Grand Architect",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "1cea9b82-d2e9-4758-8ec8-729fcf4bb7d7": {
+      "name": "Grand Coliseum",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "5004b84a-33b7-4f6f-b2c2-7086b9087535": {
+      "name": "Graven Cairns",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "1eebc02a-9a64-49b0-8322-c5ce671457ce": {
+      "name": "Graveshifter",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "43e0dbaf-3c81-47e2-b0c2-364f7ac7295f": {
+      "name": "Grim Poppet",
+      "categories": [
+        "other"
+      ]
+    },
+    "97560adc-814e-450c-9ca7-f9364e910a0b": {
+      "name": "Grindstone",
+      "categories": [
+        "other"
+      ]
+    },
+    "aa7f0f15-bcbb-4af5-ad31-ff215dd81e71": {
+      "name": "Heap Doll",
+      "categories": [
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "c232d974-9c65-4bce-b045-e5a7cc0c62e0": {
+      "name": "Idol of Oblivion",
+      "categories": [
+        "card-draw",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "91d4a5fe-fd6d-4b14-a63f-61b4d0ecd9c4": {
+      "name": "Inventors' Fair",
+      "categories": [
+        "land",
+        "ramp",
+        "tutor",
+        "sacrifice"
+      ]
+    },
+    "c0636d16-671c-4e80-af8c-67d80d2cd979": {
+      "name": "Irregular Cohort",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "1cbcc073-1645-4d7f-98f4-7309d7b35692": {
+      "name": "Jawbone Skulkin",
+      "categories": [
+        "other"
+      ]
+    },
+    "17e905ca-c0bd-473d-95a7-e180ba5fea43": {
+      "name": "Mirror Entity",
+      "categories": [
+        "other"
+      ]
+    },
+    "52237e6b-19f6-405c-a668-545c4ccb1b6d": {
+      "name": "Mothdust Changeling",
+      "categories": [
+        "other"
+      ]
+    },
+    "e9f5feb2-2c1a-46ce-885a-4f378d7d10af": {
+      "name": "Mystic Gate",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "210a130c-d5d3-43bf-8a80-d796c37242e8": {
+      "name": "Oasis Gardener",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "757eadac-dd29-4a7f-8683-5bc823168326": {
+      "name": "One with the Machine",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "baf93873-35e6-4bf2-bdcc-78a5206422fb": {
+      "name": "Painter's Servant",
+      "categories": [
+        "other"
+      ]
+    },
+    "340bbe8b-e987-4c3e-ab4e-9dee63e57d4f": {
+      "name": "Phyrexian Metamorph",
+      "categories": [
+        "other"
+      ]
+    },
+    "ad97333e-733c-402f-8ca3-e836c96b843c": {
+      "name": "Pili-Pala",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "7f3b6c25-b855-4ea5-a8ad-d954a6cdffb7": {
+      "name": "Prototype Portal",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "70034860-5198-421f-871d-7c1676337b6e": {
+      "name": "Reaper King",
+      "categories": [
+        "removal"
+      ]
+    },
+    "180e1a7e-890d-477c-80a5-da8a5f2857b3": {
+      "name": "Reckless Fireweaver",
+      "categories": [
+        "other"
+      ]
+    },
+    "f45716dc-c613-4b14-865d-419395fb02f6": {
+      "name": "Scarecrone",
+      "categories": [
+        "card-draw",
+        "recursion",
+        "sacrifice"
+      ]
+    },
+    "cf7bb5d4-c33f-4879-a793-6d6f2a4d94be": {
+      "name": "Scarecrow Guide",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "e4b32e47-5484-4ee9-bac3-4ba37558a56a": {
+      "name": "Scaretiller",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "9ef2a604-4053-4ce0-bc08-43d9cc0b15cc": {
+      "name": "Scorn Effigy",
+      "categories": [
+        "other"
+      ]
+    },
+    "779269f9-78c1-4e65-bafe-b6dea40a2b24": {
+      "name": "Scrapbasket",
+      "categories": [
+        "other"
+      ]
+    },
+    "564c785b-c2fb-4857-a5bf-a14ae2cf6c93": {
+      "name": "Scuttlemutt",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "4b9f6a6e-c168-4732-b454-2272d56636da": {
+      "name": "Shire Scarecrow",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "00c0543c-2a1f-4425-8283-4062d74a1637": {
+      "name": "Solemn Simulacrum",
+      "categories": [
+        "ramp",
+        "card-draw"
+      ]
+    },
+    "9505f124-f152-48ce-b0d3-097abdda8e3e": {
+      "name": "Tatterkite",
+      "categories": [
+        "other"
+      ]
+    },
+    "39b67a4d-6a87-41f0-a86f-b66671ccc20d": {
+      "name": "The Reaper, King No More",
+      "categories": [
+        "other"
+      ]
+    },
+    "d50b1d2e-1825-432a-ab73-068fdc356f50": {
+      "name": "Universal Automaton",
+      "categories": [
+        "other"
+      ]
+    },
+    "568cf486-0261-4634-ac36-a6507101b2d0": {
+      "name": "Vedalken Archmage",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "d8e2efe0-33a4-4303-9e83-ac42ea5df8cb": {
+      "name": "Vivid Crag",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "2da7c49f-cc1e-45d9-9cbf-067e92b0daef": {
+      "name": "Vivid Creek",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "b7a68899-c0d3-49e0-854b-19268ae9b89d": {
+      "name": "Vivid Grove",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "20b32052-f66f-4eb8-b56e-00d531907f19": {
+      "name": "Vivid Marsh",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "dee99df5-628f-4a4e-a203-4dfddc927373": {
+      "name": "Vivid Meadow",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "730d02c7-2f8a-47d3-99f0-e4ada7f6255c": {
+      "name": "Wickerfolk Indomitable",
+      "categories": [
+        "other"
+      ]
+    },
+    "3449b0e5-532c-4b4b-9d1b-1b6672f560d7": {
+      "name": "Wickerwing Effigy",
+      "categories": [
+        "other"
+      ]
+    },
+    "f6a07af3-e54b-4dcb-ae2a-3dfdac386bab": {
+      "name": "Wild-Field Scarecrow",
+      "categories": [
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "034264da-a404-4037-b215-b095bba77490": {
+      "name": "Wingrattle Scarecrow",
+      "categories": [
+        "other"
+      ]
+    },
+    "61b85077-64aa-4bcc-890d-2d88da9543c0": {
+      "name": "Wooded Bastion",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "76642e7a-3c8f-45b8-9cd7-dac8086bea87": {
+      "name": "Xenograft",
+      "categories": [
+        "other"
+      ]
+    },
+    "8ba5af76-2485-4fd6-bd2e-fe90d1f2691c": {
+      "name": "Wreckage Wickerfolk",
+      "categories": [
+        "other"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-01T21:25:19.795245+00:00"
+  "updated_at": "2026-09-02T10:30:01.104224+00:00"
 }

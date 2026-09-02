@@ -1,0 +1,134 @@
+{
+  "artist": "Micah Epstein",
+  "artist_ids": [
+    "957ec398-9a5e-4f54-9090-37a06d57b96c"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764835,
+  "cmc": 1.0,
+  "collector_number": "128",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 669,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "A mercurial face sows distrust. Distrust reaps a lonely life.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ab499df5-ed76-43ad-81b3-70afd0487ccd",
+  "illustration_id": "190423f8-4771-4e7b-9d0a-144b6ae06658",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:05:32Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/b/ab499df5-ed76-43ad-81b3-70afd0487ccd.webp?1783911932",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/b/ab499df5-ed76-43ad-81b3-70afd0487ccd.jpg?1783911932",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/b/ab499df5-ed76-43ad-81b3-70afd0487ccd.jpg?1783911932",
+    "crop": "https://cards.scryfall.io/crop/front/a/b/ab499df5-ed76-43ad-81b3-70afd0487ccd.webp?1783911932",
+    "display": "https://cards.scryfall.io/display/front/a/b/ab499df5-ed76-43ad-81b3-70afd0487ccd.webp?1783911932",
+    "grid": "https://cards.scryfall.io/grid/front/a/b/ab499df5-ed76-43ad-81b3-70afd0487ccd.webp?1783911932",
+    "large": "https://cards.scryfall.io/large/front/a/b/ab499df5-ed76-43ad-81b3-70afd0487ccd.jpg?1783911932",
+    "normal": "https://cards.scryfall.io/normal/front/a/b/ab499df5-ed76-43ad-81b3-70afd0487ccd.jpg?1783911932",
+    "png": "https://cards.scryfall.io/png/front/a/b/ab499df5-ed76-43ad-81b3-70afd0487ccd.png?1783911932",
+    "small": "https://cards.scryfall.io/small/front/a/b/ab499df5-ed76-43ad-81b3-70afd0487ccd.jpg?1783911932",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/b/ab499df5-ed76-43ad-81b3-70afd0487ccd.webp?1783911932"
+  },
+  "keywords": [
+    "Changeling"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 124715,
+  "multiverse_ids": [
+    658572
+  ],
+  "name": "Changeling Outcast",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a61ef0cc-1da9-49f9-b0dc-01cf9f6205be",
+  "oracle_text": "Changeling (This card is every creature type.)\nThis creature can't block and can't be blocked.",
+  "oversized": false,
+  "penny_rank": 1729,
+  "power": "1",
+  "prices": {
+    "eur": "1.45",
+    "eur_foil": null,
+    "tix": "0.06",
+    "usd": "2.38",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa61ef0cc-1da9-49f9-b0dc-01cf9f6205be&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124715?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764835&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F545343%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Changeling+Outcast",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=658572&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DChangeling%2BOutcast",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DChangeling%2BOutcast"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ab499df5-ed76-43ad-81b3-70afd0487ccd/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otc/128/changeling-outcast?utm_source=api",
+  "set": "otc",
+  "set_id": "d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "set_name": "Outlaws of Thunder Junction Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "story_spotlight": false,
+  "tcgplayer_id": 545343,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Shapeshifter",
+  "uri": "https://api.scryfall.com/cards/ab499df5-ed76-43ad-81b3-70afd0487ccd",
+  "variation": false
+}

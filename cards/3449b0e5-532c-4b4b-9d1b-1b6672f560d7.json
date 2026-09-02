@@ -1,0 +1,128 @@
+{
+  "arena_id": 79967,
+  "artist": "Isis",
+  "artist_ids": [
+    "4d12227a-8657-48b7-884a-ff70cc6428a5"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 3.0,
+  "collector_number": "61",
+  "color_identity": [],
+  "colors": [],
+  "digital": true,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena"
+  ],
+  "highres_image": false,
+  "id": "fe945eca-4354-4c0e-aa82-325711bf5cc8",
+  "illustration_id": "cf494fef-5936-4d66-98fa-374fc23710f2",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T06:35:28Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/e/fe945eca-4354-4c0e-aa82-325711bf5cc8.webp?1783924528",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/e/fe945eca-4354-4c0e-aa82-325711bf5cc8.jpg?1783924528",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/e/fe945eca-4354-4c0e-aa82-325711bf5cc8.jpg?1783924528",
+    "crop": "https://cards.scryfall.io/crop/front/f/e/fe945eca-4354-4c0e-aa82-325711bf5cc8.webp?1783924528",
+    "display": "https://cards.scryfall.io/display/front/f/e/fe945eca-4354-4c0e-aa82-325711bf5cc8.webp?1783924528",
+    "grid": "https://cards.scryfall.io/grid/front/f/e/fe945eca-4354-4c0e-aa82-325711bf5cc8.webp?1783924528",
+    "large": "https://cards.scryfall.io/large/front/f/e/fe945eca-4354-4c0e-aa82-325711bf5cc8.jpg?1783924528",
+    "normal": "https://cards.scryfall.io/normal/front/f/e/fe945eca-4354-4c0e-aa82-325711bf5cc8.jpg?1783924528",
+    "png": "https://cards.scryfall.io/png/front/f/e/fe945eca-4354-4c0e-aa82-325711bf5cc8.png?1783924528",
+    "small": "https://cards.scryfall.io/small/front/f/e/fe945eca-4354-4c0e-aa82-325711bf5cc8.jpg?1783924528",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/e/fe945eca-4354-4c0e-aa82-325711bf5cc8.webp?1783924528"
+  },
+  "keywords": [
+    "Defender"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "not_legal",
+    "competitivebrawl": "legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "{3}",
+  "multiverse_ids": [
+    548288
+  ],
+  "name": "Wickerwing Effigy",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3449b0e5-532c-4b4b-9d1b-1b6672f560d7",
+  "oracle_text": "Defender\nYou may look at the top card of your library any time.\nYou may cast creature spells from the top of your library.\nWhenever you cast a creature spell from your library, it becomes a black Bird in addition to its other colors and types, has flying, and has base power and toughness 1/1.",
+  "oversized": false,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2021-12-07",
+    "source": "MTGNerdGirl",
+    "source_uri": "https://twitter.com/MTGNerdGirl/status/1468415036188246019?s=20"
+  },
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3449b0e5-532c-4b4b-9d1b-1b6672f560d7&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "alchemy"
+  ],
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wickerwing+Effigy",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=548288&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWickerwing%2BEffigy",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWickerwing%2BEffigy"
+  },
+  "released_at": "2021-12-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/fe945eca-4354-4c0e-aa82-325711bf5cc8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ymid?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ymid/61/wickerwing-effigy?utm_source=api",
+  "security_stamp": "arena",
+  "set": "ymid",
+  "set_id": "8a673262-8745-452d-820a-03d5c4a4f135",
+  "set_name": "Alchemy: Innistrad",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aymid&unique=prints",
+  "set_type": "alchemy",
+  "set_uri": "https://api.scryfall.com/sets/8a673262-8745-452d-820a-03d5c4a4f135",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Artifact Creature — Scarecrow",
+  "uri": "https://api.scryfall.com/cards/fe945eca-4354-4c0e-aa82-325711bf5cc8",
+  "variation": false
+}

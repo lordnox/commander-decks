@@ -1,0 +1,155 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "55998d0d-b169-4e1b-a9e2-a2ea75b4bbf0",
+      "name": "Faerie Rogue",
+      "object": "related_card",
+      "type_line": "Token Creature — Faerie Rogue",
+      "uri": "https://api.scryfall.com/cards/55998d0d-b169-4e1b-a9e2-a2ea75b4bbf0"
+    },
+    {
+      "component": "combo_piece",
+      "id": "bb0b3575-c7bd-411d-9aa4-3a986b7876a9",
+      "name": "Bitterblossom",
+      "object": "related_card",
+      "type_line": "Kindred Enchantment — Faerie",
+      "uri": "https://api.scryfall.com/cards/bb0b3575-c7bd-411d-9aa4-3a986b7876a9"
+    }
+  ],
+  "artist": "Rebecca Guay",
+  "artist_ids": [
+    "f8f662fa-d597-46a3-afb2-91d6e13243e2"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 664235,
+  "cmc": 2.0,
+  "collector_number": "69",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 617,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "In Lorwyn's brief evenings, the sun pauses at the horizon long enough for a certain species of violet to bloom with the fragrance of mischief.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b9640cbf-b016-410e-9eff-e8924883517b",
+  "illustration_id": "880d99c2-a189-4983-ad37-b630e7cb2e91",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:51:48Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/9/b9640cbf-b016-410e-9eff-e8924883517b.webp?1783921908",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/9/b9640cbf-b016-410e-9eff-e8924883517b.jpg?1783921908",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/9/b9640cbf-b016-410e-9eff-e8924883517b.jpg?1783921908",
+    "crop": "https://cards.scryfall.io/crop/front/b/9/b9640cbf-b016-410e-9eff-e8924883517b.webp?1783921908",
+    "display": "https://cards.scryfall.io/display/front/b/9/b9640cbf-b016-410e-9eff-e8924883517b.webp?1783921908",
+    "grid": "https://cards.scryfall.io/grid/front/b/9/b9640cbf-b016-410e-9eff-e8924883517b.webp?1783921908",
+    "large": "https://cards.scryfall.io/large/front/b/9/b9640cbf-b016-410e-9eff-e8924883517b.jpg?1783921908",
+    "normal": "https://cards.scryfall.io/normal/front/b/9/b9640cbf-b016-410e-9eff-e8924883517b.jpg?1783921908",
+    "png": "https://cards.scryfall.io/png/front/b/9/b9640cbf-b016-410e-9eff-e8924883517b.png?1783921908",
+    "small": "https://cards.scryfall.io/small/front/b/9/b9640cbf-b016-410e-9eff-e8924883517b.jpg?1783921908",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/9/b9640cbf-b016-410e-9eff-e8924883517b.webp?1783921908"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 101622,
+  "multiverse_ids": [
+    571402
+  ],
+  "name": "Bitterblossom",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "fb868840-09fa-49b1-85cb-b08ad065e972",
+  "oracle_text": "At the beginning of your upkeep, you lose 1 life and create a 1/1 black Faerie Rogue creature token with flying.",
+  "oversized": false,
+  "penny_rank": 215,
+  "preview": {
+    "previewed_at": "2022-06-17",
+    "source": "PleasantKenobi",
+    "source_uri": "https://www.youtube.com/watch?v=1WuGFmG67cc"
+  },
+  "prices": {
+    "eur": "22.08",
+    "eur_foil": "24.03",
+    "tix": "0.46",
+    "usd": "32.19",
+    "usd_etched": null,
+    "usd_foil": "34.97"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Afb868840-09fa-49b1-85cb-b08ad065e972&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/101622?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=664235&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F276397%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bitterblossom",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=571402&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBitterblossom",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBitterblossom"
+  },
+  "released_at": "2022-07-08",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b9640cbf-b016-410e-9eff-e8924883517b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/2x2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/2x2/69/bitterblossom?utm_source=api",
+  "security_stamp": "oval",
+  "set": "2x2",
+  "set_id": "5a645837-b050-449f-ac90-1e7ccbf45031",
+  "set_name": "Double Masters 2022",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A2x2&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/5a645837-b050-449f-ac90-1e7ccbf45031",
+  "story_spotlight": false,
+  "tcgplayer_id": 276397,
+  "textless": false,
+  "type_line": "Kindred Enchantment — Faerie",
+  "uri": "https://api.scryfall.com/cards/b9640cbf-b016-410e-9eff-e8924883517b",
+  "variation": false
+}

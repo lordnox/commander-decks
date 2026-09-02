@@ -1,0 +1,2669 @@
+{
+  "cards": [
+    {
+      "cache": "cards/2188c03f-11b6-4651-914a-b4fdd59127e3.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "As this enchantment enters, choose a creature type.\nCreatures you control are the chosen type in addition to their other types. The same is true for creature spells you control and creature cards you own that aren't on the battlefield.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Tribe Changer"
+      ],
+      "category_source": "decklist",
+      "name": "Arcane Adaptation",
+      "oracle_id": "2188c03f-11b6-4651-914a-b4fdd59127e3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/xln/46/arcane-adaptation?utm_source=api",
+      "submitted_categories": [
+        "Tribe Changer"
+      ],
+      "submitted_name": "Arcane Adaptation"
+    },
+    {
+      "cache": "cards/4d18bcba-a346-445e-a182-6cc30b7e066d.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "Sacrifice a creature: Add {C}{C}.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Combo Piece",
+        "Extra Triggers"
+      ],
+      "category_source": "decklist",
+      "name": "Ashnod's Altar",
+      "oracle_id": "4d18bcba-a346-445e-a182-6cc30b7e066d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/368/ashnods-altar?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece",
+        "Extra Triggers"
+      ],
+      "submitted_name": "Ashnod's Altar"
+    },
+    {
+      "cache": "cards/7735eeba-693b-47e2-bd51-414379cf1016.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Destroy target permanent. Its controller creates a 3/3 green Beast creature token.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Beast Within",
+      "oracle_id": "7735eeba-693b-47e2-bd51-414379cf1016",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/169/beast-within?utm_source=api",
+      "submitted_categories": [
+        "Interaction"
+      ],
+      "submitted_name": "Beast Within"
+    },
+    {
+      "cache": "cards/fb868840-09fa-49b1-85cb-b08ad065e972.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "At the beginning of your upkeep, you lose 1 life and create a 1/1 black Faerie Rogue creature token with flying.",
+        "type_line": "Kindred Enchantment — Faerie"
+      },
+      "categories": [
+        "Extra Triggers"
+      ],
+      "category_source": "decklist",
+      "name": "Bitterblossom",
+      "oracle_id": "fb868840-09fa-49b1-85cb-b08ad065e972",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2x2/69/bitterblossom?utm_source=api",
+      "submitted_categories": [
+        "Extra Triggers"
+      ],
+      "submitted_name": "Bitterblossom"
+    },
+    {
+      "cache": "cards/51d6d164-6e5f-4be3-8f09-433e0b8d4c6b.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Changeling"
+        ],
+        "mana_cost": "{3}",
+        "oracle_text": "Changeling (This card is every creature type.)\nAs this creature enters, choose a creature type.\nWhenever another creature you control of the chosen type enters, put a +1/+1 counter on this creature.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Artifact Creature — Shapeshifter"
+      },
+      "categories": [
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Bloodline Pretender",
+      "oracle_id": "51d6d164-6e5f-4be3-8f09-433e0b8d4c6b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/moc/350/bloodline-pretender?utm_source=api",
+      "submitted_categories": [
+        "Straw Man"
+      ],
+      "submitted_name": "Bloodline Pretender"
+    },
+    {
+      "cache": "cards/3644f316-f9a3-46c9-9b1e-747f86cf4ead.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Return target artifact card from your graveyard to your hand.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land",
+        "Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Buried Ruin",
+      "oracle_id": "3644f316-f9a3-46c9-9b1e-747f86cf4ead",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/150/buried-ruin?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Recursion"
+      ],
+      "submitted_name": "Buried Ruin"
+    },
+    {
+      "cache": "cards/893fed41-c144-433f-af88-bc7d419b7fb3.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "{3}, Sacrifice this creature: Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Artifact Creature — Elk"
+      },
+      "categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Burnished Hart",
+      "oracle_id": "893fed41-c144-433f-af88-bc7d419b7fb3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/250/burnished-hart?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "submitted_name": "Burnished Hart"
+    },
+    {
+      "cache": "cards/a549d54f-2640-455c-8a93-bef4df2f9e8b.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Changeling"
+        ],
+        "mana_cost": "{4}{B}",
+        "oracle_text": "Changeling (This card is every creature type.)\nAs long as a creature card with flying is in a graveyard, this creature has flying. The same is true for fear, first strike, double strike, deathtouch, haste, landwalk, lifelink, protection, reach, trample, shroud, and vigilance.",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Creature — Shapeshifter"
+      },
+      "categories": [
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Cairn Wanderer",
+      "oracle_id": "a549d54f-2640-455c-8a93-bef4df2f9e8b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c20/130/cairn-wanderer?utm_source=api",
+      "submitted_categories": [
+        "Straw Man"
+      ],
+      "submitted_name": "Cairn Wanderer"
+    },
+    {
+      "cache": "cards/f1603384-4361-49c9-98aa-7785fc3504c4.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{U/R}, {T}: Add {U}{U}, {U}{R}, or {R}{R}.",
+        "produced_mana": [
+          "C",
+          "R",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Cascade Bluffs",
+      "oracle_id": "f1603384-4361-49c9-98aa-7785fc3504c4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/364/cascade-bluffs?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Cascade Bluffs"
+    },
+    {
+      "cache": "cards/5811d905-cae5-4f92-a78e-abb43f8864a7.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{5}",
+        "oracle_text": "{T}: Choose any number of target creatures. Each of those creatures gains persist until end of turn. (When it dies, if it had no -1/-1 counters on it, return it to the battlefield under its owner's control with a -1/-1 counter on it.)",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Extra Triggers",
+        "Combo Piece"
+      ],
+      "category_source": "decklist",
+      "name": "Cauldron of Souls",
+      "oracle_id": "5811d905-cae5-4f92-a78e-abb43f8864a7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cm2/180/cauldron-of-souls?utm_source=api",
+      "submitted_categories": [
+        "Extra Triggers",
+        "Combo Piece"
+      ],
+      "submitted_name": "Cauldron of Souls"
+    },
+    {
+      "cache": "cards/89ca686a-7c72-4d8f-9290-e89635624a83.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered.",
+        "produced_mana": [
+          "B",
+          "C",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Cavern of Souls",
+      "oracle_id": "89ca686a-7c72-4d8f-9290-e89635624a83",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lci/269/cavern-of-souls?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Cavern of Souls"
+    },
+    {
+      "cache": "cards/02765930-e15e-4cc1-ac0d-040334a9c5bc.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "This creature enters with two -1/-1 counters on it.\n{3}, {T}: Remove a -1/-1 counter from target creature.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Chainbreaker",
+      "oracle_id": "02765930-e15e-4cc1-ac0d-040334a9c5bc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/shm/249/chainbreaker?utm_source=api",
+      "submitted_categories": [
+        "Straw Man"
+      ],
+      "submitted_name": "Chainbreaker"
+    },
+    {
+      "cache": "cards/a61ef0cc-1da9-49f9-b0dc-01cf9f6205be.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Changeling"
+        ],
+        "mana_cost": "{B}",
+        "oracle_text": "Changeling (This card is every creature type.)\nThis creature can't block and can't be blocked.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Shapeshifter"
+      },
+      "categories": [
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Changeling Outcast",
+      "oracle_id": "a61ef0cc-1da9-49f9-b0dc-01cf9f6205be",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/128/changeling-outcast?utm_source=api",
+      "submitted_categories": [
+        "Straw Man"
+      ],
+      "submitted_name": "Changeling Outcast"
+    },
+    {
+      "cache": "cards/07a0cba9-8768-4fd9-a3d5-b0f83b4bf8e8.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{R}",
+        "oracle_text": "The owner of target permanent shuffles it into their library, then reveals the top card of their library. If it's a permanent card, they put it onto the battlefield.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Chaos Warp",
+      "oracle_id": "07a0cba9-8768-4fd9-a3d5-b0f83b4bf8e8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/72/chaos-warp?utm_source=api",
+      "submitted_categories": [
+        "Interaction"
+      ],
+      "submitted_name": "Chaos Warp"
+    },
+    {
+      "cache": "cards/539f5396-d99a-417d-a84c-dff7930b5900.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "Lands you control have \"{T}: Add one mana of any color.\"\n{T}: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Chromatic Lantern",
+      "oracle_id": "539f5396-d99a-417d-a84c-dff7930b5900",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/73/chromatic-lantern?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Chromatic Lantern"
+    },
+    {
+      "cache": "cards/f25351e3-539b-4bbc-b92d-6480acf4d722.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "Whenever this land becomes tapped, it deals 1 damage to you.\n{T}: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "City of Brass",
+      "oracle_id": "f25351e3-539b-4bbc-b92d-6480acf4d722",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmc/62/city-of-brass?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "City of Brass"
+    },
+    {
+      "cache": "cards/008cb342-79f5-4df6-a6b7-0e9e22ed693f.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "{T}: Add one mana of any color.\n{T}: Put a charge counter on this artifact.\nAt the beginning of your first main phase, remove all charge counters from this artifact. Add one mana of any color for each charge counter removed this way.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Coalition Relic",
+      "oracle_id": "008cb342-79f5-4df6-a6b7-0e9e22ed693f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmc/180/coalition-relic?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Coalition Relic"
+    },
+    {
+      "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Command Tower",
+      "oracle_id": "0895c9b7-ae7d-4bb3-af17-3b75deb50a25",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/233/command-tower?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Command Tower"
+    },
+    {
+      "cache": "cards/cd1eda60-53e4-44d0-9b2c-7a57395e291f.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{5}",
+        "oracle_text": "At the beginning of your end step, you may exile target creature you control, then return that card to the battlefield under your control.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Extra Triggers"
+      ],
+      "category_source": "decklist",
+      "name": "Conjurer's Closet",
+      "oracle_id": "cd1eda60-53e4-44d0-9b2c-7a57395e291f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inr/259/conjurers-closet?utm_source=api",
+      "submitted_categories": [
+        "Extra Triggers"
+      ],
+      "submitted_name": "Conjurer's Closet"
+    },
+    {
+      "cache": "cards/775d284d-0884-4ae3-a1b5-2b2a50a895b4.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "As this enchantment enters, choose a creature type.\nCreatures you control are the chosen type. The same is true for creature spells you control and creature cards you own that aren't on the battlefield.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Tribe Changer"
+      ],
+      "category_source": "decklist",
+      "name": "Conspiracy",
+      "oracle_id": "775d284d-0884-4ae3-a1b5-2b2a50a895b4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsb/39/conspiracy?utm_source=api",
+      "submitted_categories": [
+        "Tribe Changer"
+      ],
+      "submitted_name": "Conspiracy"
+    },
+    {
+      "cache": "cards/1b817184-4965-4186-bfa9-6d9cf198050e.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "When this creature enters, exile up to one target card from a graveyard.\n{2}: Add one mana of any color.",
+        "power": "3",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "toughness": "4",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Crossroads Candleguide",
+      "oracle_id": "1b817184-4965-4186-bfa9-6d9cf198050e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mid/253/crossroads-candleguide?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "submitted_name": "Crossroads Candleguide"
+    },
+    {
+      "cache": "cards/8dc067bf-f78f-4ac4-b6e7-b305c42cf0bc.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Indestructible"
+        ],
+        "mana_cost": "",
+        "oracle_text": "Indestructible\n{T}: Add {C}.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Artifact Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Darksteel Citadel",
+      "oracle_id": "8dc067bf-f78f-4ac4-b6e7-b305c42cf0bc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c21/285/darksteel-citadel?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Darksteel Citadel"
+    },
+    {
+      "cache": "cards/fd74f8eb-0253-42dd-8277-186d4934da38.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{B/P}{B/P}",
+        "oracle_text": "({B/P} can be paid with either {B} or 2 life.)\nTarget creature gets -5/-5 until end of turn.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Dismember",
+      "oracle_id": "fd74f8eb-0253-42dd-8277-186d4934da38",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mm2/79/dismember?utm_source=api",
+      "submitted_categories": [
+        "Interaction"
+      ],
+      "submitted_name": "Dismember"
+    },
+    {
+      "cache": "cards/ffcffad7-6c33-4265-82c9-04045fdf371b.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}{G}",
+        "oracle_text": "When this creature enters, put a -1/-1 counter on target creature.\nWhenever a creature with a -1/-1 counter on it dies, you may put a land card from your hand or graveyard onto the battlefield tapped.",
+        "power": "2",
+        "toughness": "4",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Straw Man",
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Dread Tiller",
+      "oracle_id": "ffcffad7-6c33-4265-82c9-04045fdf371b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecc/20/dread-tiller?utm_source=api",
+      "submitted_categories": [
+        "Straw Man",
+        "Ramp"
+      ],
+      "submitted_name": "Dread Tiller"
+    },
+    {
+      "cache": "cards/5ade11c0-41dd-4b6a-9f5b-c5903a3a0d7f.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Vigilance"
+        ],
+        "mana_cost": "{4}{W}",
+        "oracle_text": "Vigilance\nIf a permanent entering causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.\nPermanents entering don't cause abilities of permanents your opponents control to trigger.",
+        "power": "4",
+        "toughness": "7",
+        "type_line": "Legendary Creature — Phyrexian Praetor"
+      },
+      "categories": [
+        "Extra Triggers"
+      ],
+      "category_source": "decklist",
+      "name": "Elesh Norn, Mother of Machines",
+      "oracle_id": "5ade11c0-41dd-4b6a-9f5b-c5903a3a0d7f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/one/10/elesh-norn-mother-of-machines?utm_source=api",
+      "submitted_categories": [
+        "Extra Triggers"
+      ],
+      "submitted_name": "Elesh Norn, Mother of Machines"
+    },
+    {
+      "cache": "cards/27b047e3-0d41-45e2-98e9-9391d7923a1e.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Exotic Orchard",
+      "oracle_id": "27b047e3-0d41-45e2-98e9-9391d7923a1e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/79/exotic-orchard?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Exotic Orchard"
+    },
+    {
+      "cache": "cards/54bed864-fe2e-4359-b0ac-c27a2c225487.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{2}: Target black creature gains wither until end of turn. (It deals damage to creatures in the form of -1/-1 counters.)",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Fang Skulkin",
+      "oracle_id": "54bed864-fe2e-4359-b0ac-c27a2c225487",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eve/168/fang-skulkin?utm_source=api",
+      "submitted_categories": [
+        "Straw Man"
+      ],
+      "submitted_name": "Fang Skulkin"
+    },
+    {
+      "cache": "cards/95560508-7ac9-4be9-8a3f-3c7d5b52807b.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Fellwar Stone",
+      "oracle_id": "95560508-7ac9-4be9-8a3f-3c7d5b52807b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/74/fellwar-stone?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Fellwar Stone"
+    },
+    {
+      "cache": "cards/42bf259d-4bb9-49c3-b4ec-223dca62f4d6.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{W/B}, {T}: Add {W}{W}, {W}{B}, or {B}{B}.",
+        "produced_mana": [
+          "B",
+          "C",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Fetid Heath",
+      "oracle_id": "42bf259d-4bb9-49c3-b4ec-223dca62f4d6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/372/fetid-heath?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Fetid Heath"
+    },
+    {
+      "cache": "cards/d99a1d9a-7721-4331-bf22-1c6ee0bd825a.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{R/G}, {T}: Add {R}{R}, {R}{G}, or {G}{G}.",
+        "produced_mana": [
+          "C",
+          "G",
+          "R"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Fire-Lit Thicket",
+      "oracle_id": "d99a1d9a-7721-4331-bf22-1c6ee0bd825a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/317/fire-lit-thicket?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Fire-Lit Thicket"
+    },
+    {
+      "cache": "cards/dc974eb4-72b9-4213-887b-8ee684b93420.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{G/U}, {T}: Add {G}{G}, {G}{U}, or {U}{U}.",
+        "produced_mana": [
+          "C",
+          "G",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Flooded Grove",
+      "oracle_id": "dc974eb4-72b9-4213-887b-8ee684b93420",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/373/flooded-grove?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Flooded Grove"
+    },
+    {
+      "cache": "cards/11ceb2db-021e-422d-976e-7bfe3b67a8aa.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Surveil"
+        ],
+        "mana_cost": "{2}",
+        "oracle_text": "When this creature enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)\n{1}: Add one mana of any color. This creature becomes that color until end of turn. Activate only once each turn.",
+        "power": "1",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "toughness": "3",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Foraging Wickermaw",
+      "oracle_id": "11ceb2db-021e-422d-976e-7bfe3b67a8aa",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecl/256/foraging-wickermaw?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "submitted_name": "Foraging Wickermaw"
+    },
+    {
+      "cache": "cards/b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {G}.)",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Basic Land — Forest"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Forest",
+      "oracle_id": "b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/325/forest?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Forest"
+    },
+    {
+      "cache": "cards/150ab025-5cc3-4468-a724-bbba8838445d.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "Whenever a nontoken creature enters, if this artifact is untapped, that creature's controller creates a 1/1 colorless Myr artifact creature token.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Extra Triggers"
+      ],
+      "category_source": "decklist",
+      "name": "Genesis Chamber",
+      "oracle_id": "150ab025-5cc3-4468-a724-bbba8838445d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/bbd/235/genesis-chamber?utm_source=api",
+      "submitted_categories": [
+        "Extra Triggers"
+      ],
+      "submitted_name": "Genesis Chamber"
+    },
+    {
+      "cache": "cards/7af1d7f9-058a-4ccb-96b7-fc391b615c09.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}{U}",
+        "oracle_text": "Other blue creatures you control get +1/+1.\n{U}: Target artifact creature becomes blue until end of turn.\nTap an untapped blue creature you control: Add {C}{C}. Spend this mana only to cast artifact spells or activate abilities of artifacts.",
+        "power": "1",
+        "produced_mana": [
+          "C"
+        ],
+        "toughness": "3",
+        "type_line": "Creature — Vedalken Artificer"
+      },
+      "categories": [
+        "Combo Piece"
+      ],
+      "category_source": "decklist",
+      "name": "Grand Architect",
+      "oracle_id": "7af1d7f9-058a-4ccb-96b7-fc391b615c09",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/53/grand-architect?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece"
+      ],
+      "submitted_name": "Grand Architect"
+    },
+    {
+      "cache": "cards/1cea9b82-d2e9-4758-8ec8-729fcf4bb7d7.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{T}: Add one mana of any color. This land deals 1 damage to you.",
+        "produced_mana": [
+          "B",
+          "C",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Grand Coliseum",
+      "oracle_id": "1cea9b82-d2e9-4758-8ec8-729fcf4bb7d7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmc/68/grand-coliseum?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Grand Coliseum"
+    },
+    {
+      "cache": "cards/5004b84a-33b7-4f6f-b2c2-7086b9087535.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{B/R}, {T}: Add {B}{B}, {B}{R}, or {R}{R}.",
+        "produced_mana": [
+          "B",
+          "C",
+          "R"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Graven Cairns",
+      "oracle_id": "5004b84a-33b7-4f6f-b2c2-7086b9087535",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/280/graven-cairns?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Graven Cairns"
+    },
+    {
+      "cache": "cards/1eebc02a-9a64-49b0-8322-c5ce671457ce.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Changeling"
+        ],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "Changeling (This card is every creature type.)\nWhen this creature enters, you may return target creature card from your graveyard to your hand.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Shapeshifter"
+      },
+      "categories": [
+        "Straw Man",
+        "Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Graveshifter",
+      "oracle_id": "1eebc02a-9a64-49b0-8322-c5ce671457ce",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecl/104/graveshifter?utm_source=api",
+      "submitted_categories": [
+        "Straw Man",
+        "Recursion"
+      ],
+      "submitted_name": "Graveshifter"
+    },
+    {
+      "cache": "cards/43e0dbaf-3c81-47e2-b0c2-364f7ac7295f.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [],
+        "mana_cost": "{7}",
+        "oracle_text": "This creature enters with three -1/-1 counters on it.\nRemove a -1/-1 counter from this creature: Put a -1/-1 counter on another target creature.",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Straw Man",
+        "Interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Grim Poppet",
+      "oracle_id": "43e0dbaf-3c81-47e2-b0c2-364f7ac7295f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecc/142/grim-poppet?utm_source=api",
+      "submitted_categories": [
+        "Straw Man",
+        "Interaction"
+      ],
+      "submitted_name": "Grim Poppet"
+    },
+    {
+      "cache": "cards/97560adc-814e-450c-9ca7-f9364e910a0b.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Mill"
+        ],
+        "mana_cost": "{1}",
+        "oracle_text": "{3}, {T}: Target player mills two cards. If two cards that share a color were milled this way, repeat this process.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Combo Piece",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Grindstone",
+      "oracle_id": "97560adc-814e-450c-9ca7-f9364e910a0b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otp/79/grindstone?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece",
+        "Win Condition"
+      ],
+      "submitted_name": "Grindstone"
+    },
+    {
+      "cache": "cards/aa7f0f15-bcbb-4af5-ad31-ff215dd81e71.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "Sacrifice this creature: Exile target card from a graveyard.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Heap Doll",
+      "oracle_id": "aa7f0f15-bcbb-4af5-ad31-ff215dd81e71",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/uma/228/heap-doll?utm_source=api",
+      "submitted_categories": [
+        "Straw Man"
+      ],
+      "submitted_name": "Heap Doll"
+    },
+    {
+      "cache": "cards/c232d974-9c65-4bce-b045-e5a7cc0c62e0.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Draw a card. Activate only if you created a token this turn.\n{8}, {T}, Sacrifice this artifact: Create a 10/10 colorless Eldrazi creature token.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Idol of Oblivion",
+      "oracle_id": "c232d974-9c65-4bce-b045-e5a7cc0c62e0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/319/idol-of-oblivion?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Idol of Oblivion"
+    },
+    {
+      "cache": "cards/91d4a5fe-fd6d-4b14-a63f-61b4d0ecd9c4.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "At the beginning of your upkeep, if you control three or more artifacts, you gain 1 life.\n{T}: Add {C}.\n{4}, {T}, Sacrifice Inventors' Fair: Search your library for an artifact card, reveal it, put it into your hand, then shuffle. Activate only if you control three or more artifacts.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "Land",
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Inventors' Fair",
+      "oracle_id": "91d4a5fe-fd6d-4b14-a63f-61b4d0ecd9c4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/kld/247/inventors-fair?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Tutor"
+      ],
+      "submitted_name": "Inventors' Fair"
+    },
+    {
+      "cache": "cards/c0636d16-671c-4e80-af8c-67d80d2cd979.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Changeling"
+        ],
+        "mana_cost": "{2}{W}{W}",
+        "oracle_text": "Changeling (This card is every creature type.)\nWhen this creature enters, create a 2/2 colorless Shapeshifter creature token with changeling.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Shapeshifter"
+      },
+      "categories": [
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Irregular Cohort",
+      "oracle_id": "c0636d16-671c-4e80-af8c-67d80d2cd979",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/696/irregular-cohort?utm_source=api",
+      "submitted_categories": [
+        "Straw Man"
+      ],
+      "submitted_name": "Irregular Cohort"
+    },
+    {
+      "cache": "cards/b2c6aa39-2d2a-459c-a555-fb48ba993373.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U}.)",
+        "produced_mana": [
+          "U"
+        ],
+        "type_line": "Basic Land — Island"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Island",
+      "oracle_id": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/319/island?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Island"
+    },
+    {
+      "cache": "cards/1cbcc073-1645-4d7f-98f4-7309d7b35692.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "{2}: Target red creature gains haste until end of turn.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Jawbone Skulkin",
+      "oracle_id": "1cbcc073-1645-4d7f-98f4-7309d7b35692",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eve/170/jawbone-skulkin?utm_source=api",
+      "submitted_categories": [
+        "Straw Man"
+      ],
+      "submitted_name": "Jawbone Skulkin"
+    },
+    {
+      "cache": "cards/79638767-fbc7-451a-b29f-d93f2ac6f102.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{1}{R}, {T}: Create a 0/1 red Kobold creature token named Kobolds of Kher Keep.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "Land",
+        "Extra Triggers"
+      ],
+      "category_source": "decklist",
+      "name": "Kher Keep",
+      "oracle_id": "79638767-fbc7-451a-b29f-d93f2ac6f102",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/270/kher-keep?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Extra Triggers"
+      ],
+      "submitted_name": "Kher Keep"
+    },
+    {
+      "cache": "cards/d0ee5bdc-2b69-4b73-9a20-ffcc18783b29.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Mana Confluence",
+      "oracle_id": "d0ee5bdc-2b69-4b73-9a20-ffcc18783b29",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/jou/163/mana-confluence?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Mana Confluence"
+    },
+    {
+      "cache": "cards/210940f1-3c11-4877-bbfc-2429c03f98ee.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Changeling"
+        ],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Changeling (This card is every creature type.)\nWhen this creature enters, you may exile a creature card from your graveyard. If you do, exile target artifact or enchantment an opponent controls.",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Creature — Shapeshifter"
+      },
+      "categories": [
+        "Straw Man",
+        "Interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Masked Vandal",
+      "oracle_id": "210940f1-3c11-4877-bbfc-2429c03f98ee",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/khm/184/masked-vandal?utm_source=api",
+      "submitted_categories": [
+        "Straw Man",
+        "Interaction"
+      ],
+      "submitted_name": "Masked Vandal"
+    },
+    {
+      "cache": "cards/9b2cdbed-c733-409b-b0e4-2c8960c25111.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "Creatures you control are every creature type. The same is true for creature spells you control and creature cards you own that aren't on the battlefield.\n{3}, {T}: Create a 2/2 blue Shapeshifter creature token with changeling. (It is every creature type.)",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Tribe Changer"
+      ],
+      "category_source": "decklist",
+      "name": "Maskwood Nexus",
+      "oracle_id": "9b2cdbed-c733-409b-b0e4-2c8960c25111",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/865/maskwood-nexus?utm_source=api",
+      "submitted_categories": [
+        "Tribe Changer"
+      ],
+      "submitted_name": "Maskwood Nexus"
+    },
+    {
+      "cache": "cards/17e905ca-c0bd-473d-95a7-e180ba5fea43.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Changeling"
+        ],
+        "mana_cost": "{2}{W}",
+        "oracle_text": "Changeling (This card is every creature type.)\n{X}: Until end of turn, creatures you control have base power and toughness X/X and gain all creature types.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Shapeshifter"
+      },
+      "categories": [
+        "Straw Man",
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Mirror Entity",
+      "oracle_id": "17e905ca-c0bd-473d-95a7-e180ba5fea43",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/83/mirror-entity?utm_source=api",
+      "submitted_categories": [
+        "Straw Man",
+        "Win Condition"
+      ],
+      "submitted_name": "Mirror Entity"
+    },
+    {
+      "cache": "cards/fd9c4ebe-cc9c-427c-8105-adb1703c191b.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{5}",
+        "oracle_text": "Whenever another nontoken artifact you control enters, you may pay {2}. If you do, create a token that's a copy of that artifact.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Extra Triggers"
+      ],
+      "category_source": "decklist",
+      "name": "Mirrorworks",
+      "oracle_id": "fd9c4ebe-cc9c-427c-8105-adb1703c191b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c18/211/mirrorworks?utm_source=api",
+      "submitted_categories": [
+        "Extra Triggers"
+      ],
+      "submitted_name": "Mirrorworks"
+    },
+    {
+      "cache": "cards/52237e6b-19f6-405c-a668-545c4ccb1b6d.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Changeling"
+        ],
+        "mana_cost": "{U}",
+        "oracle_text": "Changeling (This card is every creature type.)\nTap an untapped creature you control: This creature gains flying until end of turn.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Shapeshifter"
+      },
+      "categories": [
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Mothdust Changeling",
+      "oracle_id": "52237e6b-19f6-405c-a668-545c4ccb1b6d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mma/53/mothdust-changeling?utm_source=api",
+      "submitted_categories": [
+        "Straw Man"
+      ],
+      "submitted_name": "Mothdust Changeling"
+    },
+    {
+      "cache": "cards/a3fb7228-e76b-4e96-a40e-20b5fed75685.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {R}.)",
+        "produced_mana": [
+          "R"
+        ],
+        "type_line": "Basic Land — Mountain"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Mountain",
+      "oracle_id": "a3fb7228-e76b-4e96-a40e-20b5fed75685",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/323/mountain?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Mountain"
+    },
+    {
+      "cache": "cards/e9f5feb2-2c1a-46ce-885a-4f378d7d10af.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{W/U}, {T}: Add {W}{W}, {W}{U}, or {U}{U}.",
+        "produced_mana": [
+          "C",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Mystic Gate",
+      "oracle_id": "e9f5feb2-2c1a-46ce-885a-4f378d7d10af",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/1013/mystic-gate?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Mystic Gate"
+    },
+    {
+      "cache": "cards/d6911456-42cb-4b23-a560-dc98784530f5.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Changeling"
+        ],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Changeling (This card is every creature type.)\nTarget creature gets +3/-3 and loses all creature types until end of turn.",
+        "type_line": "Kindred Instant — Shapeshifter"
+      },
+      "categories": [
+        "Interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Nameless Inversion",
+      "oracle_id": "d6911456-42cb-4b23-a560-dc98784530f5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecl/113/nameless-inversion?utm_source=api",
+      "submitted_categories": [
+        "Interaction"
+      ],
+      "submitted_name": "Nameless Inversion"
+    },
+    {
+      "cache": "cards/210a130c-d5d3-43bf-8a80-d796c37242e8.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "When this creature enters, you gain 2 life.\n{T}: Add one mana of any color.",
+        "power": "2",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "toughness": "2",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Oasis Gardener",
+      "oracle_id": "210a130c-d5d3-43bf-8a80-d796c37242e8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otj/246/oasis-gardener?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "submitted_name": "Oasis Gardener"
+    },
+    {
+      "cache": "cards/757eadac-dd29-4a7f-8683-5bc823168326.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Draw cards equal to the greatest mana value among artifacts you control.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "One with the Machine",
+      "oracle_id": "757eadac-dd29-4a7f-8683-5bc823168326",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/m19/66/one-with-the-machine?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "One with the Machine"
+    },
+    {
+      "cache": "cards/baf93873-35e6-4bf2-bdcc-78a5206422fb.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "As this creature enters, choose a color.\nAll cards that aren't on the battlefield, spells, and permanents are the chosen color in addition to their other colors.",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Combo Piece",
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Painter's Servant",
+      "oracle_id": "baf93873-35e6-4bf2-bdcc-78a5206422fb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/shm/257/painters-servant?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece",
+        "Straw Man"
+      ],
+      "submitted_name": "Painter's Servant"
+    },
+    {
+      "cache": "cards/76678885-3674-443d-b9a2-2a460cf6aac0.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "If an artifact or creature entering causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Extra Triggers"
+      ],
+      "category_source": "decklist",
+      "name": "Panharmonicon",
+      "oracle_id": "76678885-3674-443d-b9a2-2a460cf6aac0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2x2/310/panharmonicon?utm_source=api",
+      "submitted_categories": [
+        "Extra Triggers"
+      ],
+      "submitted_name": "Panharmonicon"
+    },
+    {
+      "cache": "cards/b473e293-59e3-4e04-acf2-622604aeb25f.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Scry"
+        ],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add one mana of any color in your commander's color identity. When that mana is spent to cast a creature spell that shares a creature type with your commander, scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Path of Ancestry",
+      "oracle_id": "b473e293-59e3-4e04-acf2-622604aeb25f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/80/path-of-ancestry?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Path of Ancestry"
+    },
+    {
+      "cache": "cards/340bbe8b-e987-4c3e-ab4e-9dee63e57d4f.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{U/P}",
+        "oracle_text": "({U/P} can be paid with either {U} or 2 life.)\nYou may have this creature enter as a copy of any artifact or creature on the battlefield, except it's an artifact in addition to its other types.",
+        "power": "0",
+        "toughness": "0",
+        "type_line": "Artifact Creature — Phyrexian Shapeshifter"
+      },
+      "categories": [
+        "Extra Triggers"
+      ],
+      "category_source": "decklist",
+      "name": "Phyrexian Metamorph",
+      "oracle_id": "340bbe8b-e987-4c3e-ab4e-9dee63e57d4f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/75/phyrexian-metamorph?utm_source=api",
+      "submitted_categories": [
+        "Extra Triggers"
+      ],
+      "submitted_name": "Phyrexian Metamorph"
+    },
+    {
+      "cache": "cards/ad97333e-733c-402f-8ca3-e836c96b843c.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{2}",
+        "oracle_text": "Flying\n{2}, {Q}: Add one mana of any color. ({Q} is the untap symbol.)",
+        "power": "1",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "toughness": "1",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Combo Piece",
+        "Ramp",
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Pili-Pala",
+      "oracle_id": "ad97333e-733c-402f-8ca3-e836c96b843c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/shm/258/pili-pala?utm_source=api",
+      "submitted_categories": [
+        "Combo Piece",
+        "Ramp",
+        "Straw Man"
+      ],
+      "submitted_name": "Pili-Pala"
+    },
+    {
+      "cache": "cards/bc71ebf6-2056-41f7-be35-b2e5c34afa99.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {W}.)",
+        "produced_mana": [
+          "W"
+        ],
+        "type_line": "Basic Land — Plains"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Plains",
+      "oracle_id": "bc71ebf6-2056-41f7-be35-b2e5c34afa99",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/317/plains?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Plains"
+    },
+    {
+      "cache": "cards/7f3b6c25-b855-4ea5-a8ad-d954a6cdffb7.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Imprint"
+        ],
+        "mana_cost": "{4}",
+        "oracle_text": "Imprint — When this artifact enters, you may exile an artifact card from your hand.\n{X}, {T}: Create a token that's a copy of the exiled card. X is the mana value of that card.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Extra Triggers"
+      ],
+      "category_source": "decklist",
+      "name": "Prototype Portal",
+      "oracle_id": "7f3b6c25-b855-4ea5-a8ad-d954a6cdffb7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c18/216/prototype-portal?utm_source=api",
+      "submitted_categories": [
+        "Extra Triggers"
+      ],
+      "submitted_name": "Prototype Portal"
+    },
+    {
+      "cache": "cards/b81eaa2f-0554-41c6-bdf6-d1cb73b8f56f.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Changeling"
+        ],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Changeling (This card is every creature type.)\nAs this creature enters, choose a creature type.\nYou may look at the top card of your library any time.\nYou may cast creature spells of the chosen type from the top of your library.",
+        "power": "2",
+        "toughness": "3",
+        "type_line": "Creature — Shapeshifter"
+      },
+      "categories": [
+        "Straw Man",
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Realmwalker",
+      "oracle_id": "b81eaa2f-0554-41c6-bdf6-d1cb73b8f56f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecc/114/realmwalker?utm_source=api",
+      "submitted_categories": [
+        "Straw Man",
+        "Draw"
+      ],
+      "submitted_name": "Realmwalker"
+    },
+    {
+      "cache": "cards/70034860-5198-421f-871d-7c1676337b6e.json",
+      "card": {
+        "cmc": 10.0,
+        "keywords": [],
+        "mana_cost": "{2/W}{2/U}{2/B}{2/R}{2/G}",
+        "oracle_text": "({2/W} can be paid with any two mana or with {W}. This card's mana value is 10.)\nOther Scarecrow creatures you control get +1/+1.\nWhenever another Scarecrow you control enters, destroy target permanent.",
+        "power": "6",
+        "toughness": "6",
+        "type_line": "Legendary Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Commander{top}"
+      ],
+      "category_source": "decklist",
+      "name": "Reaper King",
+      "oracle_id": "70034860-5198-421f-871d-7c1676337b6e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/shm/260/reaper-king?utm_source=api",
+      "submitted_categories": [
+        "Commander{top}"
+      ],
+      "submitted_name": "Reaper King"
+    },
+    {
+      "cache": "cards/180e1a7e-890d-477c-80a5-da8a5f2857b3.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{R}",
+        "oracle_text": "Whenever an artifact you control enters, this creature deals 1 damage to each opponent.",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Creature — Human Artificer"
+      },
+      "categories": [
+        "Win Condition"
+      ],
+      "category_source": "decklist",
+      "name": "Reckless Fireweaver",
+      "oracle_id": "180e1a7e-890d-477c-80a5-da8a5f2857b3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/kld/126/reckless-fireweaver?utm_source=api",
+      "submitted_categories": [
+        "Win Condition"
+      ],
+      "submitted_name": "Reckless Fireweaver"
+    },
+    {
+      "cache": "cards/67f43ac6-2a58-4b53-b5d7-0330e2a252e2.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any type that a land you control could produce.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Reflecting Pool",
+      "oracle_id": "67f43ac6-2a58-4b53-b5d7-0330e2a252e2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/358/reflecting-pool?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Reflecting Pool"
+    },
+    {
+      "cache": "cards/8e7641e1-e814-4d5a-9cb3-71ad2f4ceee8.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{R/W}, {T}: Add {R}{R}, {R}{W}, or {W}{W}.",
+        "produced_mana": [
+          "C",
+          "R",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Rugged Prairie",
+      "oracle_id": "8e7641e1-e814-4d5a-9cb3-71ad2f4ceee8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/401/rugged-prairie?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Rugged Prairie"
+    },
+    {
+      "cache": "cards/f45716dc-c613-4b14-865d-419395fb02f6.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "{1}, Sacrifice a Scarecrow: Draw a card.\n{4}, {T}: Return target artifact creature card from your graveyard to the battlefield.",
+        "power": "1",
+        "toughness": "2",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Draw",
+        "Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Scarecrone",
+      "oracle_id": "f45716dc-c613-4b14-865d-419395fb02f6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/jmp/482/scarecrone?utm_source=api",
+      "submitted_categories": [
+        "Draw",
+        "Recursion"
+      ],
+      "submitted_name": "Scarecrone"
+    },
+    {
+      "cache": "cards/cf7bb5d4-c33f-4879-a793-6d6f2a4d94be.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Reach"
+        ],
+        "mana_cost": "{2}",
+        "oracle_text": "Reach\n{1}: Add one mana of any color. Activate only once each turn.",
+        "power": "2",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "toughness": "1",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Scarecrow Guide",
+      "oracle_id": "cf7bb5d4-c33f-4879-a793-6d6f2a4d94be",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/woe/250/scarecrow-guide?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "submitted_name": "Scarecrow Guide"
+    },
+    {
+      "cache": "cards/e4b32e47-5484-4ee9-bac3-4ba37558a56a.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "Whenever this creature becomes tapped, choose one —\n• You may put a land card from your hand onto the battlefield tapped.\n• Return target land card from your graveyard to the battlefield tapped.",
+        "power": "1",
+        "toughness": "4",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Scaretiller",
+      "oracle_id": "e4b32e47-5484-4ee9-bac3-4ba37558a56a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/266/scaretiller?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "submitted_name": "Scaretiller"
+    },
+    {
+      "cache": "cards/9ef2a604-4053-4ce0-bc08-43d9cc0b15cc.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Foretell"
+        ],
+        "mana_cost": "{3}",
+        "oracle_text": "Foretell {0} (During your turn, you may pay {2} and exile this card from your hand face down. Cast it on a later turn for its foretell cost.)",
+        "power": "2",
+        "toughness": "3",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Scorn Effigy",
+      "oracle_id": "9ef2a604-4053-4ce0-bc08-43d9cc0b15cc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/khm/246/scorn-effigy?utm_source=api",
+      "submitted_categories": [
+        "Straw Man"
+      ],
+      "submitted_name": "Scorn Effigy"
+    },
+    {
+      "cache": "cards/779269f9-78c1-4e65-bafe-b6dea40a2b24.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "{1}: This creature becomes all colors until end of turn.",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Scrapbasket",
+      "oracle_id": "779269f9-78c1-4e65-bafe-b6dea40a2b24",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/shm/262/scrapbasket?utm_source=api",
+      "submitted_categories": [
+        "Straw Man"
+      ],
+      "submitted_name": "Scrapbasket"
+    },
+    {
+      "cache": "cards/6c85271c-c711-49b0-a72e-9e576c33714d.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "You may have this artifact enter as a copy of any artifact on the battlefield.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Extra Triggers"
+      ],
+      "category_source": "decklist",
+      "name": "Sculpting Steel",
+      "oracle_id": "6c85271c-c711-49b0-a72e-9e576c33714d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/moc/374/sculpting-steel?utm_source=api",
+      "submitted_categories": [
+        "Extra Triggers"
+      ],
+      "submitted_name": "Sculpting Steel"
+    },
+    {
+      "cache": "cards/564c785b-c2fb-4857-a5bf-a14ae2cf6c93.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "{T}: Add one mana of any color.\n{T}: Target creature becomes the color or colors of your choice until end of turn.",
+        "power": "2",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "toughness": "2",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Scuttlemutt",
+      "oracle_id": "564c785b-c2fb-4857-a5bf-a14ae2cf6c93",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/jmp/484/scuttlemutt?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "submitted_name": "Scuttlemutt"
+    },
+    {
+      "cache": "cards/79ba18fd-f184-43c1-86df-56ee18ce806c.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type or activate an ability of a creature source of the chosen type.",
+        "produced_mana": [
+          "B",
+          "C",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Secluded Courtyard",
+      "oracle_id": "79ba18fd-f184-43c1-86df-56ee18ce806c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/265/secluded-courtyard?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Secluded Courtyard"
+    },
+    {
+      "cache": "cards/4b9f6a6e-c168-4732-b454-2272d56636da.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Defender"
+        ],
+        "mana_cost": "{2}",
+        "oracle_text": "Defender\n{1}: Add one mana of any color. Activate only once each turn.",
+        "power": "0",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "toughness": "3",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Shire Scarecrow",
+      "oracle_id": "4b9f6a6e-c168-4732-b454-2272d56636da",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ltr/249/shire-scarecrow?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "submitted_name": "Shire Scarecrow"
+    },
+    {
+      "cache": "cards/00c0543c-2a1f-4425-8283-4062d74a1637.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "When this creature enters, you may search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.\nWhen this creature dies, you may draw a card.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Artifact Creature — Golem"
+      },
+      "categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Solemn Simulacrum",
+      "oracle_id": "00c0543c-2a1f-4425-8283-4062d74a1637",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/215/solemn-simulacrum?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "submitted_name": "Solemn Simulacrum"
+    },
+    {
+      "cache": "cards/e6415ffb-8b7a-41c3-bedf-0d4112b7b795.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{U/B}, {T}: Add {U}{U}, {U}{B}, or {B}{B}.",
+        "produced_mana": [
+          "B",
+          "C",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Sunken Ruins",
+      "oracle_id": "e6415ffb-8b7a-41c3-bedf-0d4112b7b795",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/326/sunken-ruins?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Sunken Ruins"
+    },
+    {
+      "cache": "cards/56719f6a-1a6c-4c0a-8d21-18f7d7350b68.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {B}.)",
+        "produced_mana": [
+          "B"
+        ],
+        "type_line": "Basic Land — Swamp"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Swamp",
+      "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Swamp"
+    },
+    {
+      "cache": "cards/9505f124-f152-48ce-b0d3-097abdda8e3e.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{3}",
+        "oracle_text": "Flying\nThis creature can't have counters put on it.",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Tatterkite",
+      "oracle_id": "9505f124-f152-48ce-b0d3-097abdda8e3e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/shm/264/tatterkite?utm_source=api",
+      "submitted_categories": [
+        "Straw Man"
+      ],
+      "submitted_name": "Tatterkite"
+    },
+    {
+      "cache": "cards/39b67a4d-6a87-41f0-a86f-b66671ccc20d.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{2/B}{2/R}{2/G}",
+        "oracle_text": "When The Reaper enters, put a -1/-1 counter on each of up to two target creatures.\nWhenever a creature an opponent controls with a -1/-1 counter on it dies, you may put that card onto the battlefield under your control. Do this only once each turn.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Legendary Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Straw Man",
+        "Interaction"
+      ],
+      "category_source": "decklist",
+      "name": "The Reaper, King No More",
+      "oracle_id": "39b67a4d-6a87-41f0-a86f-b66671ccc20d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecc/4/the-reaper-king-no-more?utm_source=api",
+      "submitted_categories": [
+        "Straw Man",
+        "Interaction"
+      ],
+      "submitted_name": "The Reaper, King No More"
+    },
+    {
+      "cache": "cards/db623754-e078-4030-ba07-818803c348a8.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{B/G}, {T}: Add {B}{B}, {B}{G}, or {G}{G}.",
+        "produced_mana": [
+          "B",
+          "C",
+          "G"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Twilight Mire",
+      "oracle_id": "db623754-e078-4030-ba07-818803c348a8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/418/twilight-mire?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Twilight Mire"
+    },
+    {
+      "cache": "cards/584b15f2-6ae9-413a-8b8d-9244dbea4878.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type.",
+        "produced_mana": [
+          "B",
+          "C",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Unclaimed Territory",
+      "oracle_id": "584b15f2-6ae9-413a-8b8d-9244dbea4878",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/275/unclaimed-territory?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Unclaimed Territory"
+    },
+    {
+      "cache": "cards/d50b1d2e-1825-432a-ab73-068fdc356f50.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Changeling"
+        ],
+        "mana_cost": "{1}",
+        "oracle_text": "Changeling (This card is every creature type.)",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Artifact Creature — Shapeshifter"
+      },
+      "categories": [
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Universal Automaton",
+      "oracle_id": "d50b1d2e-1825-432a-ab73-068fdc356f50",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh1/235/universal-automaton?utm_source=api",
+      "submitted_categories": [
+        "Straw Man"
+      ],
+      "submitted_name": "Universal Automaton"
+    },
+    {
+      "cache": "cards/568cf486-0261-4634-ac36-a6507101b2d0.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}{U}",
+        "oracle_text": "Whenever you cast an artifact spell, draw a card.",
+        "power": "0",
+        "toughness": "2",
+        "type_line": "Creature — Vedalken Wizard"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Vedalken Archmage",
+      "oracle_id": "568cf486-0261-4634-ac36-a6507101b2d0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/jmp/187/vedalken-archmage?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Vedalken Archmage"
+    },
+    {
+      "cache": "cards/d8e2efe0-33a4-4303-9e83-ac42ea5df8cb.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {R}.\n{T}, Remove a charge counter from this land: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Vivid Crag",
+      "oracle_id": "d8e2efe0-33a4-4303-9e83-ac42ea5df8cb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cm2/276/vivid-crag?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Vivid Crag"
+    },
+    {
+      "cache": "cards/2da7c49f-cc1e-45d9-9cbf-067e92b0daef.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {U}.\n{T}, Remove a charge counter from this land: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Vivid Creek",
+      "oracle_id": "2da7c49f-cc1e-45d9-9cbf-067e92b0daef",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ncc/444/vivid-creek?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Vivid Creek"
+    },
+    {
+      "cache": "cards/b7a68899-c0d3-49e0-854b-19268ae9b89d.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {G}.\n{T}, Remove a charge counter from this land: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Vivid Grove",
+      "oracle_id": "b7a68899-c0d3-49e0-854b-19268ae9b89d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ncc/445/vivid-grove?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Vivid Grove"
+    },
+    {
+      "cache": "cards/20b32052-f66f-4eb8-b56e-00d531907f19.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {B}.\n{T}, Remove a charge counter from this land: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Vivid Marsh",
+      "oracle_id": "20b32052-f66f-4eb8-b56e-00d531907f19",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c17/292/vivid-marsh?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Vivid Marsh"
+    },
+    {
+      "cache": "cards/dee99df5-628f-4a4e-a203-4dfddc927373.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {W}.\n{T}, Remove a charge counter from this land: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Vivid Meadow",
+      "oracle_id": "dee99df5-628f-4a4e-a203-4dfddc927373",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ncc/446/vivid-meadow?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Vivid Meadow"
+    },
+    {
+      "cache": "cards/31f15274-301b-47c5-ba19-0ced04520878.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "{2}, {T}, Sacrifice this artifact: Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Wayfarer's Bauble",
+      "oracle_id": "31f15274-301b-47c5-ba19-0ced04520878",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/hoc/211/wayfarers-bauble?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Wayfarer's Bauble"
+    },
+    {
+      "cache": "cards/730d02c7-2f8a-47d3-99f0-e4ada7f6255c.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "You may cast this card from your graveyard by paying 2 life and sacrificing an artifact or creature in addition to paying its other costs.",
+        "power": "4",
+        "toughness": "3",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Straw Man",
+        "Recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Wickerfolk Indomitable",
+      "oracle_id": "730d02c7-2f8a-47d3-99f0-e4ada7f6255c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dft/109/wickerfolk-indomitable?utm_source=api",
+      "submitted_categories": [
+        "Straw Man",
+        "Recursion"
+      ],
+      "submitted_name": "Wickerfolk Indomitable"
+    },
+    {
+      "cache": "cards/f6a07af3-e54b-4dcb-ae2a-3dfdac386bab.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Defender"
+        ],
+        "mana_cost": "{3}",
+        "oracle_text": "Defender\n{2}, Sacrifice this creature: Search your library for up to two basic land cards, reveal them, put them into your hand, then shuffle.",
+        "power": "1",
+        "toughness": "4",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Wild-Field Scarecrow",
+      "oracle_id": "f6a07af3-e54b-4dcb-ae2a-3dfdac386bab",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inr/274/wild-field-scarecrow?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Straw Man"
+      ],
+      "submitted_name": "Wild-Field Scarecrow"
+    },
+    {
+      "cache": "cards/034264da-a404-4037-b215-b095bba77490.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "This creature has flying as long as you control a blue creature.\nThis creature has persist as long as you control a black creature. (When this creature dies, if it had no -1/-1 counters on it, return it to the battlefield under its owner's control with a -1/-1 counter on it.)",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Straw Man",
+        "Extra Triggers"
+      ],
+      "category_source": "decklist",
+      "name": "Wingrattle Scarecrow",
+      "oracle_id": "034264da-a404-4037-b215-b095bba77490",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/shm/270/wingrattle-scarecrow?utm_source=api",
+      "submitted_categories": [
+        "Straw Man",
+        "Extra Triggers"
+      ],
+      "submitted_name": "Wingrattle Scarecrow"
+    },
+    {
+      "cache": "cards/61b85077-64aa-4bcc-890d-2d88da9543c0.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{G/W}, {T}: Add {G}{G}, {G}{W}, or {W}{W}.",
+        "produced_mana": [
+          "C",
+          "G",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Wooded Bastion",
+      "oracle_id": "61b85077-64aa-4bcc-890d-2d88da9543c0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/332/wooded-bastion?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Wooded Bastion"
+    },
+    {
+      "cache": "cards/8ba5af76-2485-4fd6-bd2e-fe90d1f2691c.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Flying",
+          "Surveil"
+        ],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Flying\nWhen this creature enters, surveil 2. (Look at the top two cards of your library, then put any number of them into your graveyard and the rest on top of your library in any order.)",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Artifact Creature — Scarecrow"
+      },
+      "categories": [
+        "Draw",
+        "Straw Man"
+      ],
+      "category_source": "decklist",
+      "name": "Wreckage Wickerfolk",
+      "oracle_id": "8ba5af76-2485-4fd6-bd2e-fe90d1f2691c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dft/110/wreckage-wickerfolk?utm_source=api",
+      "submitted_categories": [
+        "Draw",
+        "Straw Man"
+      ],
+      "submitted_name": "Wreckage Wickerfolk"
+    },
+    {
+      "cache": "cards/76642e7a-3c8f-45b8-9cd7-dac8086bea87.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{4}{U}",
+        "oracle_text": "As this enchantment enters, choose a creature type.\nEach creature you control is the chosen type in addition to its other types.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Tribe Changer"
+      ],
+      "category_source": "decklist",
+      "name": "Xenograft",
+      "oracle_id": "76642e7a-3c8f-45b8-9cd7-dac8086bea87",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/nph/51/xenograft?utm_source=api",
+      "submitted_categories": [
+        "Tribe Changer"
+      ],
+      "submitted_name": "Xenograft"
+    }
+  ],
+  "categorized_cards": 100,
+  "generated_at": "2026-09-02T10:32:03.415006+00:00",
+  "maybeboard_cards": 0,
+  "maybeboard_unique_cards": 0,
+  "resolved_unique_cards": 100,
+  "schema_version": 3,
+  "source": "decks/unrated_reaper-king-straw-poll/decklist.txt",
+  "total_cards": 100,
+  "unique_cards": 100,
+  "unresolved": []
+}

@@ -1,0 +1,132 @@
+{
+  "artist": "Martina Pilcerova",
+  "artist_ids": [
+    "30fead7c-da53-4c1b-b514-4be6e5ce487c"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 358918,
+  "cmc": 0.0,
+  "collector_number": "276",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 7262,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "da397243-2193-4e5d-8dee-df37b70677e7",
+  "illustration_id": "9e6b50e6-2876-4947-a146-91139492773a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:24:36Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/a/da397243-2193-4e5d-8dee-df37b70677e7.webp?1783934676",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/a/da397243-2193-4e5d-8dee-df37b70677e7.jpg?1783934676",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/a/da397243-2193-4e5d-8dee-df37b70677e7.jpg?1783934676",
+    "crop": "https://cards.scryfall.io/crop/front/d/a/da397243-2193-4e5d-8dee-df37b70677e7.webp?1783934676",
+    "display": "https://cards.scryfall.io/display/front/d/a/da397243-2193-4e5d-8dee-df37b70677e7.webp?1783934676",
+    "grid": "https://cards.scryfall.io/grid/front/d/a/da397243-2193-4e5d-8dee-df37b70677e7.webp?1783934676",
+    "large": "https://cards.scryfall.io/large/front/d/a/da397243-2193-4e5d-8dee-df37b70677e7.jpg?1783934676",
+    "normal": "https://cards.scryfall.io/normal/front/d/a/da397243-2193-4e5d-8dee-df37b70677e7.jpg?1783934676",
+    "png": "https://cards.scryfall.io/png/front/d/a/da397243-2193-4e5d-8dee-df37b70677e7.png?1783934676",
+    "small": "https://cards.scryfall.io/small/front/d/a/da397243-2193-4e5d-8dee-df37b70677e7.jpg?1783934676",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/a/da397243-2193-4e5d-8dee-df37b70677e7.webp?1783934676"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [
+    447012
+  ],
+  "name": "Vivid Crag",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d8e2efe0-33a4-4303-9e83-ac42ea5df8cb",
+  "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {R}.\n{T}, Remove a charge counter from this land: Add one mana of any color.",
+  "oversized": false,
+  "penny_rank": 747,
+  "prices": {
+    "eur": "0.35",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.58",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad8e2efe0-33a4-4303-9e83-ac42ea5df8cb&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Vivid+Crag&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=358918&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F166867%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vivid+Crag",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=447012&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVivid%2BCrag",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVivid%2BCrag"
+  },
+  "released_at": "2018-06-08",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/da397243-2193-4e5d-8dee-df37b70677e7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cm2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cm2/276/vivid-crag?utm_source=api",
+  "set": "cm2",
+  "set_id": "2ba5b1a3-40ed-422e-981d-56753004dfc6",
+  "set_name": "Commander Anthology Volume II",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acm2&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/2ba5b1a3-40ed-422e-981d-56753004dfc6",
+  "story_spotlight": false,
+  "tcgplayer_id": 166867,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/da397243-2193-4e5d-8dee-df37b70677e7",
+  "variation": false
+}

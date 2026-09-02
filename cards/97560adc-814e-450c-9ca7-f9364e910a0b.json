@@ -1,0 +1,135 @@
+{
+  "artist": "Alejandro Mirabal",
+  "artist_ids": [
+    "f77eebc1-2aa4-4cad-a158-aedbdfccbf0c"
+  ],
+  "booster": false,
+  "border_color": "borderless",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 763694,
+  "cmc": 1.0,
+  "collector_number": "79",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 6299,
+  "finishes": [
+    "foil"
+  ],
+  "flavor_text": "Tarnation Weaponsmith Enters Third Month of Sharpening: \"It's Almost Ready\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "inverted"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "183b321b-2214-42ba-a50a-54c15e3e8b77",
+  "illustration_id": "4dc99b83-5651-429b-a4f6-9d6dc93a9ea1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:01:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/8/183b321b-2214-42ba-a50a-54c15e3e8b77.webp?1783911701",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/8/183b321b-2214-42ba-a50a-54c15e3e8b77.jpg?1783911701",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/8/183b321b-2214-42ba-a50a-54c15e3e8b77.jpg?1783911701",
+    "crop": "https://cards.scryfall.io/crop/front/1/8/183b321b-2214-42ba-a50a-54c15e3e8b77.webp?1783911701",
+    "display": "https://cards.scryfall.io/display/front/1/8/183b321b-2214-42ba-a50a-54c15e3e8b77.webp?1783911701",
+    "grid": "https://cards.scryfall.io/grid/front/1/8/183b321b-2214-42ba-a50a-54c15e3e8b77.webp?1783911701",
+    "large": "https://cards.scryfall.io/large/front/1/8/183b321b-2214-42ba-a50a-54c15e3e8b77.jpg?1783911701",
+    "normal": "https://cards.scryfall.io/normal/front/1/8/183b321b-2214-42ba-a50a-54c15e3e8b77.jpg?1783911701",
+    "png": "https://cards.scryfall.io/png/front/1/8/183b321b-2214-42ba-a50a-54c15e3e8b77.png?1783911701",
+    "small": "https://cards.scryfall.io/small/front/1/8/183b321b-2214-42ba-a50a-54c15e3e8b77.jpg?1783911701",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/8/183b321b-2214-42ba-a50a-54c15e3e8b77.webp?1783911701"
+  },
+  "keywords": [
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "banned",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}",
+  "mtgo_id": 123551,
+  "multiverse_ids": [
+    658279
+  ],
+  "name": "Grindstone",
+  "nonfoil": false,
+  "object": "card",
+  "oracle_id": "97560adc-814e-450c-9ca7-f9364e910a0b",
+  "oracle_text": "{3}, {T}: Target player mills two cards. If two cards that share a color were milled this way, repeat this process.",
+  "oversized": false,
+  "prices": {
+    "eur": null,
+    "eur_foil": "22.86",
+    "tix": "2.20",
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": "53.85"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A97560adc-814e-450c-9ca7-f9364e910a0b&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "textured",
+    "boosterfun"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/123551?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=763694&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544250%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Grindstone",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=658279&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGrindstone",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGrindstone"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/183b321b-2214-42ba-a50a-54c15e3e8b77/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otp?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otp/79/grindstone?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otp",
+  "set_id": "8b51294d-fc54-410c-83b2-0168837ede87",
+  "set_name": "Breaking News",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotp&unique=prints",
+  "set_type": "masterpiece",
+  "set_uri": "https://api.scryfall.com/sets/8b51294d-fc54-410c-83b2-0168837ede87",
+  "story_spotlight": false,
+  "tcgplayer_id": 544250,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/183b321b-2214-42ba-a50a-54c15e3e8b77",
+  "variation": false
+}

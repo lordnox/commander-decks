@@ -1,0 +1,141 @@
+{
+  "artist": "Christopher Moeller",
+  "artist_ids": [
+    "21e10012-06ae-44f2-b38d-3824dd2e73d4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 484024,
+  "cmc": 0.0,
+  "collector_number": "332",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 2024,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The elves of Wilt-Leaf Wood continually expand the palisade surrounding the sanctuary. They hope to one day enclose the entire forest within its walls.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "36b591ec-0231-4b91-a132-eb3aedfdf8fa",
+  "illustration_id": "20412a4f-53cf-4fd0-90eb-955768dedbe6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:08:00Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/6/36b591ec-0231-4b91-a132-eb3aedfdf8fa.webp?1783930080",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/6/36b591ec-0231-4b91-a132-eb3aedfdf8fa.jpg?1783930080",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/6/36b591ec-0231-4b91-a132-eb3aedfdf8fa.jpg?1783930080",
+    "crop": "https://cards.scryfall.io/crop/front/3/6/36b591ec-0231-4b91-a132-eb3aedfdf8fa.webp?1783930080",
+    "display": "https://cards.scryfall.io/display/front/3/6/36b591ec-0231-4b91-a132-eb3aedfdf8fa.webp?1783930080",
+    "grid": "https://cards.scryfall.io/grid/front/3/6/36b591ec-0231-4b91-a132-eb3aedfdf8fa.webp?1783930080",
+    "large": "https://cards.scryfall.io/large/front/3/6/36b591ec-0231-4b91-a132-eb3aedfdf8fa.jpg?1783930080",
+    "normal": "https://cards.scryfall.io/normal/front/3/6/36b591ec-0231-4b91-a132-eb3aedfdf8fa.jpg?1783930080",
+    "png": "https://cards.scryfall.io/png/front/3/6/36b591ec-0231-4b91-a132-eb3aedfdf8fa.png?1783930080",
+    "small": "https://cards.scryfall.io/small/front/3/6/36b591ec-0231-4b91-a132-eb3aedfdf8fa.jpg?1783930080",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/6/36b591ec-0231-4b91-a132-eb3aedfdf8fa.webp?1783930080"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 82698,
+  "multiverse_ids": [
+    490005
+  ],
+  "name": "Wooded Bastion",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "61b85077-64aa-4bcc-890d-2d88da9543c0",
+  "oracle_text": "{T}: Add {C}.\n{G/W}, {T}: Add {G}{G}, {G}{W}, or {W}{W}.",
+  "oversized": false,
+  "penny_rank": 338,
+  "preview": {
+    "previewed_at": "2020-07-22",
+    "source": "Good Luck High Five",
+    "source_uri": "https://twitter.com/MissMariapants/status/1286033361367113737"
+  },
+  "prices": {
+    "eur": "11.06",
+    "eur_foil": "14.46",
+    "tix": "0.02",
+    "usd": "16.28",
+    "usd_etched": null,
+    "usd_foil": "16.67"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A61b85077-64aa-4bcc-890d-2d88da9543c0&unique=prints",
+  "produced_mana": [
+    "C",
+    "G",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/82698?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=484024&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F218589%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wooded+Bastion",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=490005&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWooded%2BBastion",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWooded%2BBastion"
+  },
+  "released_at": "2020-08-07",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/36b591ec-0231-4b91-a132-eb3aedfdf8fa/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/2xm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/2xm/332/wooded-bastion?utm_source=api",
+  "security_stamp": "oval",
+  "set": "2xm",
+  "set_id": "372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "set_name": "Double Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A2xm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "story_spotlight": false,
+  "tcgplayer_id": 218589,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/36b591ec-0231-4b91-a132-eb3aedfdf8fa",
+  "variation": false
+}
