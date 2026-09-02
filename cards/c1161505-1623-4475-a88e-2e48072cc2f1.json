@@ -1,0 +1,146 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "09faad62-42ff-4e37-b8a5-d8e8a0f6d096",
+      "name": "Goblin",
+      "object": "related_card",
+      "type_line": "Token Creature — Goblin",
+      "uri": "https://api.scryfall.com/cards/09faad62-42ff-4e37-b8a5-d8e8a0f6d096"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1255654b-f983-4862-9112-9e378ea5d9fe",
+      "name": "Goblin Warrens",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/1255654b-f983-4862-9112-9e378ea5d9fe"
+    }
+  ],
+  "artist": "Dan Frazier",
+  "artist_ids": [
+    "059bba56-5feb-42e4-8c2e-e2f1e6ba11f9"
+  ],
+  "booster": true,
+  "border_color": "white",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 11030,
+  "cmc": 3.0,
+  "collector_number": "187",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 15497,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Goblins bred underground, their numbers hidden from the enemy until it was too late.\"\n—*Sarpadian Empires*, vol. IV",
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "1255654b-f983-4862-9112-9e378ea5d9fe",
+  "illustration_id": "bb806ecd-50d1-4d7c-8bbd-76d3a15c37fb",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:36:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/2/1255654b-f983-4862-9112-9e378ea5d9fe.webp?1783946172",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/2/1255654b-f983-4862-9112-9e378ea5d9fe.jpg?1783946172",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/2/1255654b-f983-4862-9112-9e378ea5d9fe.jpg?1783946172",
+    "crop": "https://cards.scryfall.io/crop/front/1/2/1255654b-f983-4862-9112-9e378ea5d9fe.webp?1783946172",
+    "display": "https://cards.scryfall.io/display/front/1/2/1255654b-f983-4862-9112-9e378ea5d9fe.webp?1783946172",
+    "grid": "https://cards.scryfall.io/grid/front/1/2/1255654b-f983-4862-9112-9e378ea5d9fe.webp?1783946172",
+    "large": "https://cards.scryfall.io/large/front/1/2/1255654b-f983-4862-9112-9e378ea5d9fe.jpg?1783946172",
+    "normal": "https://cards.scryfall.io/normal/front/1/2/1255654b-f983-4862-9112-9e378ea5d9fe.jpg?1783946172",
+    "png": "https://cards.scryfall.io/png/front/1/2/1255654b-f983-4862-9112-9e378ea5d9fe.png?1783946172",
+    "small": "https://cards.scryfall.io/small/front/1/2/1255654b-f983-4862-9112-9e378ea5d9fe.jpg?1783946172",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/2/1255654b-f983-4862-9112-9e378ea5d9fe.webp?1783946172"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}",
+  "multiverse_ids": [
+    15421
+  ],
+  "name": "Goblin Warrens",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c1161505-1623-4475-a88e-2e48072cc2f1",
+  "oracle_text": "{2}{R}, Sacrifice two Goblins: Create three 1/1 red Goblin creature tokens.",
+  "oversized": false,
+  "penny_rank": 11371,
+  "prices": {
+    "eur": "1.33",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "1.04",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac1161505-1623-4475-a88e-2e48072cc2f1&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Goblin+Warrens&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=11030&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F2591%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Goblin+Warrens",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=15421&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGoblin%2BWarrens",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGoblin%2BWarrens"
+  },
+  "released_at": "1999-04-21",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1255654b-f983-4862-9112-9e378ea5d9fe/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/6ed?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/6ed/187/goblin-warrens?utm_source=api",
+  "set": "6ed",
+  "set_id": "78ee1957-d5d4-4551-acae-b1b418e8a50b",
+  "set_name": "Classic Sixth Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A6ed&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/78ee1957-d5d4-4551-acae-b1b418e8a50b",
+  "story_spotlight": false,
+  "tcgplayer_id": 2591,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/1255654b-f983-4862-9112-9e378ea5d9fe",
+  "variation": false
+}

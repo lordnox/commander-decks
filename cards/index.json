@@ -1564,8 +1564,10 @@
     "hordeling outburst": "a6450b8e-eb18-431c-9eb7-7daf107978b2",
     "dragon fodder": "d0d2c45b-b6e3-4999-bdab-976e8f0d6617",
     "krenko's command": "9cfe86ae-eebe-44aa-a956-4b3e9e621105",
-    "mitotic slime": "1162c7ff-c0cb-469a-ad3c-322b0981ae1d"
+    "mitotic slime": "1162c7ff-c0cb-469a-ad3c-322b0981ae1d",
+    "fists of ironwood": "2f6a5278-23bf-47b2-a2b9-dfff7d96f3dd",
+    "goblin warrens": "c1161505-1623-4475-a88e-2e48072cc2f1"
   },
   "schema_version": 1,
-  "updated_at": "2026-09-02T19:26:12.591940+00:00"
+  "updated_at": "2026-09-02T20:00:03.307031+00:00"
 }

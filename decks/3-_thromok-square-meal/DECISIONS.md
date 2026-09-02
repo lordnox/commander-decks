@@ -49,6 +49,9 @@ See `rankings.json`. First pass: jank 8, fun 8, mean 4, Devour 9. Old token farm
 - **Dragon Fodder** — Two goblins on turn two for Voracious Dragon and Thromok.
 - **Krenko's Command** — Same rate as Fodder; redundant 2-drop goblin pair.
 - **Mitotic Slime** — One body that splits into more meals when eaten or killed.
+- **Squirrel Nest** — A meal every turn from a land, so the buffet survives creature wipes and refills without new spells.
+- **Fists of Ironwood** — Two saprolings for two mana, and the trample the eaten giant needs later.
+- **Goblin Warrens** — Repeatable: two goblins become three, so the plate grows between devours. Also a free sac outlet.
 - **Thallid Devourer** — Fallen Empires saproling eater that both makes and spends meals without the modern keyword.
 - **Siege-Gang Commander** — Three goblins plus a repeatable sac ping for leftover bodies.
 - **Second Harvest** — Copies every token at once so the next devour has a doubled buffet.
@@ -65,8 +68,6 @@ See `rankings.json`. First pass: jank 8, fun 8, mean 4, Devour 9. Old token farm
 - **Fling** — Instant conversion of an eaten giant into player damage, including in response to removal.
 - **Grab the Reins** — Steal a blocker or Fling-style damage with the same card.
 - **Pandemonium** — Exodus ETB burn; devour sets power before the trigger, so Thromok's enter can be a Fireball.
-- **Stalking Vengeance** — Each sacrificed meal deals its power as it dies, so the buffet itself is the burn.
-- **Greater Gargadon** — Suspended second stomach: sac artifacts, creatures, or lands to time it down, then a hasty closer.
 - **Fires of Yavimaya** — Old haste enabler so a post-devour body can connect.
 - **Xenagos, God of Revels** — Doubles the Hellion (or any eater) and gives haste for a commander-damage swing.
 
@@ -85,8 +86,6 @@ See `rankings.json`. First pass: jank 8, fun 8, mean 4, Devour 9. Old token farm
 - **Magmaquake** — Sweeps planeswalkers and small creatures while a huge Thromok can live.
 - **Nature's Claim** — Cheap artifact or enchantment answer that also pads life.
 - **Cindervines** — Tax and ping against artifacts and enchantments.
-- **Ezuri's Predation** — Fight wipe that leaves Beast tokens as the next meal.
-
 ### Recursion and tutors
 
 - **Eternal Witness** — Returns a spent Burst, Fling, or devourer.
@@ -146,6 +145,16 @@ Turn-five boards were dying on two or three creatures. Cut expensive eaters and 
 - **Phyrexian Processor** — Four mana and life for one token. Replaced by **Krenko's Command**.
 - **Return of the Wildspeaker** — Draw or anthem after the giant exists. Replaced by **Mitotic Slime**.
 
+### 2026-09-02 — Simulation: empty plate
+
+Twelve traced runs showed the systemic failure is an empty board, not slow eaters: three runs drew mana, ramp, and payoffs with no cheap token maker. The three most expensive non-payoff cards never got cast in any trace, so they became the cheap repeatable meals.
+
+- **Ezuri's Predation** — Eight mana; sat in three opening hands and was never castable by turn five. Replaced by **Squirrel Nest**, which makes a meal every turn from a land and survives creature wipes.
+- **Stalking Vengeance** — Seven mana and it only pays off once a board already exists and dies. Replaced by **Fists of Ironwood**, two bodies on turn two plus the trample the giant wants.
+- **Greater Gargadon** — Suspend 10 is ten upkeeps, and its sacrifices do not feed devour (devour only eats as a creature enters). Replaced by **Goblin Warrens**, which turns two goblins into three repeatedly.
+
+Removal after the cut is still nine cards; the sweeper role stays on Magmaquake and Caldera Hellion.
+
 ## Rules
 
 - Devour is a replacement effect as the creature enters. Counters are already on the creature when ETB triggers (Skullmulcher, Voracious Dragon, Caldera Hellion, Pandemonium) see it.
@@ -155,7 +164,9 @@ Turn-five boards were dying on two or three creatures. Cut expensive eaters and 
 - Caldera Hellion deals 3 to each creature after it has already eaten. It needs toughness greater than 3 (enough meals) or it dies to its own trigger.
 - Saproling Burst tokens die when the enchantment leaves. Eat them before Burst fades out if you need the bodies on Thromok instead.
 - Voracious Dragon's ETB counts only Goblins it devoured, not saprolings or Spawn.
-- Earthcraft plus Squirrel Nest is a two-card infinite; Earthcraft is not in the list so that pair is not available.
+- Mycoloth makes a saproling per +1/+1 counter, not per point of power. Cast with nothing to eat it is a 4/4 with zero counters and makes zero saprolings, so it is not a standalone engine.
+- Squirrel Nest plus Earthcraft is the classic two-card infinite. Squirrel Nest is in the list and Earthcraft is deliberately not, which keeps the Bracket 3 no-early-infinite line intact. Do not add Earthcraft without reopening the bracket.
+- Goblin Warrens sacrifices as a cost, so those goblins die and are seen by Fecundity and Mogg War Marshal. That sacrifice is not devour; only a creature entering can devour.
 
 ## Talks
 
@@ -211,4 +222,46 @@ Verdict **Bracket 3−**: stronger and more synergistic than Core, still a teleg
 
 Pregame sentence matches the primer blockquote.
 
+### 2026-09-02 — Full simulation (v2 → v3)
 
+The two entries above read opening hands only. This entry is the traced run under `simulate-deck`: eight regression hands on seed 1729 plus four confirmation hands on seed 2718, each played out to turn five with lands, tapped-land timing, colours, and mana spent.
+
+Model: plan is meals into devour enters, backup is a token flood; Bracket 3; commander expected turn four or five; milestone is four or more creatures on turn five with Thromok or a 99 devourer castable on six.
+
+| Metric | Result |
+|---|---|
+| Keepable with at most one mulligan | 11/12 |
+| Turn-five milestone reached | 5/12 |
+| Mana or colour failure | 2/12 |
+| Useful draw seen | 8/12 |
+| Required interaction available | 9/12 |
+| Commander-removal recovery passed | 1/2 |
+| Game plan successful / delayed / failed | 5 / 4 / 3 |
+
+Best runs: 2718 run 3 reached six creatures on turn four off Llanowar into Wood Elves into Siege-Gang, so turn five was a 25/25 Thromok; 2718 run 4 used Awakening Zone plus Krenko's Command for a five-meal turn five; 1729 run 1 declined Deranged Hermit's echo so the Hermit died and the three squirrels plus Fyndhorn made a 16/16.
+
+Systemic failure, three runs: a hand of lands, ramp, and payoffs with no cheap token maker. 2718 run 1 ramped to seven mana by turn five with one Kher Keep kobold on board. 1729 run 3 had a single Mogg War Marshal and cast Thromok as a 4/4. 1729 run 4 (a five-card hand) drew Greater Good, Eternal Witness, and Fecundity, all of which need bodies that were not there. Diagnosis is meal density and repeatability, not eater cost, which reverses the earlier read.
+
+Stress branches:
+- Commander removed after a turn-five swallow: recovered. The devourers in the 99 do the same job and the board keeps making meals.
+- Commander removed twice: failed. At seven mana Thromok needs a fresh buffet in the same turn, and only Temur Sabertooth or Erratic Portal bridge that. This is the deck's real ceiling and it stays as a known weakness rather than a build change.
+- Board wipe after a swallow: previously catastrophic, because every meal source was a creature. Squirrel Nest now rebuilds from a land.
+- Must-answer permanent on turn five: answered in nine runs, mostly Hull Breach or Acidic Slime.
+
+Limitation: twelve traces are diagnostic, not probability. Not yet tested: how the deck plays from behind after two wipes, and whether Goblin Warrens is worth its mana when Thromok is not castable.
+
+### 2026-09-02 — v3 confirmation on the regression seed
+
+Seed 1729 replayed and traced against the new list. Changing three cards reshuffles the library, so this is the same method on a fresh sample rather than the same cards.
+
+Milestone reached in five of eight, against three of eight for v2. Two delayed, one missed. The one miss is a mulligan to five with no token maker, which is variance rather than a package failure.
+
+The empty-plate shape showed up once and degraded from a miss to a delay: the hand held Sprout Swarm, whose buyback made a saproling every turn instead of nothing. Both new aura meals carried runs directly. Fists of Ironwood turned a lone Mogg War Marshal into a four-creature board on turn four and an eighteen-power Thunder-Thrash Elder on turn five, and gave a three-creature board five creatures in another run. Squirrel Nest on Kessig Wolf Run produced a meal per turn from turn three, reaching four creatures for a turn-five Skullmulcher.
+
+Also confirmed: Fists of Ironwood needs a creature already on the battlefield, so it is not a turn-two play on an empty board.
+
+
+
+### 2026-09-02 — Fogs
+
+User: fogs are not played in that playgroup. The primer weakness about fogs stopping the combat clock is removed; a wide board of blockers stays as the real reason the single-giant clock stalls, answered with trample or a Fling effect rather than more attacks.

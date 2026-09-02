@@ -371,6 +371,80 @@
       "submitted_name": "Mitotic Slime"
     },
     {
+      "cache": "cards/2d584333-b25e-4291-a2c9-80c6d9f8732a.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{1}{G}{G}",
+        "oracle_text": "Enchant land\nEnchanted land has \"{T}: Create a 1/1 green Squirrel creature token.\"",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Squirrel Nest",
+      "oracle_id": "2d584333-b25e-4291-a2c9-80c6d9f8732a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmr/177/squirrel-nest?utm_source=api",
+      "submitted_categories": [
+        "token-production"
+      ],
+      "submitted_name": "Squirrel Nest"
+    },
+    {
+      "cache": "cards/2f6a5278-23bf-47b2-a2b9-dfff7d96f3dd.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Enchant creature\nWhen this Aura enters, create two 1/1 green Saproling creature tokens.\nEnchanted creature has trample.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "token-production",
+        "trample"
+      ],
+      "category_source": "decklist",
+      "name": "Fists of Ironwood",
+      "oracle_id": "2f6a5278-23bf-47b2-a2b9-dfff7d96f3dd",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rvr/139/fists-of-ironwood?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "trample"
+      ],
+      "submitted_name": "Fists of Ironwood"
+    },
+    {
+      "cache": "cards/c1161505-1623-4475-a88e-2e48072cc2f1.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{R}",
+        "oracle_text": "{2}{R}, Sacrifice two Goblins: Create three 1/1 red Goblin creature tokens.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "token-production",
+        "sacrifice-outlet"
+      ],
+      "category_source": "decklist",
+      "name": "Goblin Warrens",
+      "oracle_id": "c1161505-1623-4475-a88e-2e48072cc2f1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/6ed/187/goblin-warrens?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "sacrifice-outlet"
+      ],
+      "submitted_name": "Goblin Warrens"
+    },
+    {
       "cache": "cards/b9cd714b-2ad8-4fdb-a8aa-82b17730e071.json",
       "card": {
         "cmc": 5.0,
@@ -812,62 +886,6 @@
       "submitted_name": "Pandemonium"
     },
     {
-      "cache": "cards/5f4ff27f-ebc1-4a86-8b0b-eeea470a25fb.json",
-      "card": {
-        "cmc": 7.0,
-        "keywords": [
-          "Haste"
-        ],
-        "mana_cost": "{5}{R}{R}",
-        "oracle_text": "Haste\nWhenever another creature you control dies, it deals damage equal to its power to target player or planeswalker.",
-        "power": "5",
-        "toughness": "5",
-        "type_line": "Creature — Avatar"
-      },
-      "categories": [
-        "death-trigger",
-        "finisher"
-      ],
-      "category_source": "decklist",
-      "name": "Stalking Vengeance",
-      "oracle_id": "5f4ff27f-ebc1-4a86-8b0b-eeea470a25fb",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/rvr/126/stalking-vengeance?utm_source=api",
-      "submitted_categories": [
-        "death-trigger",
-        "finisher"
-      ],
-      "submitted_name": "Stalking Vengeance"
-    },
-    {
-      "cache": "cards/406b4b1d-756b-4062-897d-3693832086a0.json",
-      "card": {
-        "cmc": 10.0,
-        "keywords": [
-          "Suspend"
-        ],
-        "mana_cost": "{9}{R}",
-        "oracle_text": "Suspend 10—{R}\nSacrifice an artifact, creature, or land: Remove a time counter from this card. Activate only if this card is suspended.",
-        "power": "9",
-        "toughness": "7",
-        "type_line": "Creature — Beast"
-      },
-      "categories": [
-        "sacrifice-outlet",
-        "finisher"
-      ],
-      "category_source": "decklist",
-      "name": "Greater Gargadon",
-      "oracle_id": "406b4b1d-756b-4062-897d-3693832086a0",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/2x2/111/greater-gargadon?utm_source=api",
-      "submitted_categories": [
-        "sacrifice-outlet",
-        "finisher"
-      ],
-      "submitted_name": "Greater Gargadon"
-    },
-    {
       "cache": "cards/e23d6f3b-0e18-423b-943b-15db7837255b.json",
       "card": {
         "cmc": 3.0,
@@ -1150,32 +1168,6 @@
         "removal"
       ],
       "submitted_name": "Cindervines"
-    },
-    {
-      "cache": "cards/d0dd425b-fdba-41b4-b9e6-f5161610bd7e.json",
-      "card": {
-        "cmc": 8.0,
-        "keywords": [
-          "Fight"
-        ],
-        "mana_cost": "{5}{G}{G}{G}",
-        "oracle_text": "For each creature your opponents control, create a 4/4 green Phyrexian Beast creature token. Each of those tokens fights a different one of those creatures.",
-        "type_line": "Sorcery"
-      },
-      "categories": [
-        "board-wipe",
-        "token-production"
-      ],
-      "category_source": "decklist",
-      "name": "Ezuri's Predation",
-      "oracle_id": "d0dd425b-fdba-41b4-b9e6-f5161610bd7e",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/dsc/178/ezuris-predation?utm_source=api",
-      "submitted_categories": [
-        "board-wipe",
-        "token-production"
-      ],
-      "submitted_name": "Ezuri's Predation"
     },
     {
       "cache": "cards/30b24e8e-3b0e-4d8e-90f3-f66eb7c1858c.json",
@@ -2140,7 +2132,7 @@
     }
   ],
   "categorized_cards": 83,
-  "generated_at": "2026-09-02T19:28:29.791222+00:00",
+  "generated_at": "2026-09-02T20:00:03.307031+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 83,
