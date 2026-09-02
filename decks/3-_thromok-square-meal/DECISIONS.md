@@ -33,9 +33,7 @@ See `rankings.json`. First pass: jank 8, fun 8, mean 4, Devour 9. Old token farm
 - **Caldera Hellion** — Devour 1 then deals 3 to each creature: eat the team, survive as the leftover, clear weenies.
 - **Gluttonous Slime** — Flash Devour 1 as an ambush eater or emergency chump that still grows.
 - **Ravenous Tyrannosaurus** — Devour 3 attacker that fights another creature and spills leftover damage to a player.
-- **Preyseizer Dragon** — Devour 2 flyer that pings equal to its counters whenever it attacks.
 - **Predator Dragon** — Haste Devour 2 so an eaten board can swing the same turn.
-- **Ribtruss Roaster** — Devour 1 that reprints Pest meals equal to its counters at each end step.
 
 ### Meals
 
@@ -46,8 +44,11 @@ See `rankings.json`. First pass: jank 8, fun 8, mean 4, Devour 9. Old token farm
 - **Nest Invader** — Two bodies for three mana on an empty board.
 - **Mogg War Marshal** — Echo goblin that leaves a token when it leaves, including when eaten.
 - **Beetleback Chief** — Three goblins in one spell for Voracious Dragon and Thromok.
-- **Goblin Offensive** — Instant-speed-looking X goblins when the Hellion is ready.
-- **Phyrexian Processor** — Life for a large token that is still a legal meal, or a threat if you never eat it.
+- **Goblin Offensive** — X goblins when the Hellion is ready.
+- **Hordeling Outburst** — Three goblins for three mana; the T3 plate the goldfish was missing.
+- **Dragon Fodder** — Two goblins on turn two for Voracious Dragon and Thromok.
+- **Krenko's Command** — Same rate as Fodder; redundant 2-drop goblin pair.
+- **Mitotic Slime** — One body that splits into more meals when eaten or killed.
 - **Thallid Devourer** — Fallen Empires saproling eater that both makes and spends meals without the modern keyword.
 - **Siege-Gang Commander** — Three goblins plus a repeatable sac ping for leftover bodies.
 - **Second Harvest** — Copies every token at once so the next devour has a doubled buffet.
@@ -72,7 +73,6 @@ See `rankings.json`. First pass: jank 8, fun 8, mean 4, Devour 9. Old token farm
 ### Draw and selection
 
 - **Momentous Fall** — Instant Greater Good on one creature when removal is pointed at it.
-- **Return of the Wildspeaker** — Draw equal to the biggest power or an anthem if the board is already wide.
 - **Fecundity** — Draws on deaths, including devour sacrifices, without needing the giant to survive.
 - **Skullclamp** — Equip a 1/1 meal, then devour it; two cards per snack. The feeding-trough argument, not a generic staple.
 - **Garruk's Uprising** — Draw on a 4-power enter and give the team trample so Thromok can get through.
@@ -135,6 +135,17 @@ See `rankings.json`. First pass: jank 8, fun 8, mean 4, Devour 9. Old token farm
 - **Forest** — Green density for dorks, auras, and Thromok.
 - **Mountain** — Red for Sneak Attack, dragons, and Fling.
 
+## Cards out
+
+### 2026-09-02 — Goldfish meals
+
+Turn-five boards were dying on two or three creatures. Cut expensive eaters and a draw-over-meals card for cheap goblin pairs and Mitotic Slime.
+
+- **Preyseizer Dragon** — Six-mana Devour 2 was not on the board by the milestone. Replaced by **Hordeling Outburst**.
+- **Ribtruss Roaster** — Five-mana refill after a swallow; the failure was having nothing to swallow. Replaced by **Dragon Fodder**.
+- **Phyrexian Processor** — Four mana and life for one token. Replaced by **Krenko's Command**.
+- **Return of the Wildspeaker** — Draw or anthem after the giant exists. Replaced by **Mitotic Slime**.
+
 ## Rules
 
 - Devour is a replacement effect as the creature enters. Counters are already on the creature when ETB triggers (Skullmulcher, Voracious Dragon, Caldera Hellion, Pandemonium) see it.
@@ -181,3 +192,23 @@ Winner: Thromok. Prossh would have won if the keyword were still on him. Kresh w
 **Packages:** meals (old tokens), devourers, re-enter (Portal/Sabertooth/Sneak), conversion (Fling/Pandemonium/Vengeance/Good), RG interaction, dorks as both ramp and food.
 
 Rejected: Korvold (too much card-draw snowball, staple commander), Food/Feasting Hobbit (wrong meal type), Famished Worldsire (eats lands), Earthcraft (infinite with Nest), Natural Order (Game Changer), Sol Ring (kitchen 4+).
+
+### 2026-09-02 — Version 1 goldfish
+
+Regression seed 1729 plus confirmation 2718. Turn-five milestone: four creatures and a path to Thromok or a 99 devourer on six.
+
+Keepable on one mulligan in most runs. Milestone about 6/12. Repeated miss: two or three bodies, expensive devourers in hand, Processor as a single token. Stress: commander removal after a small swallow is a 0/0 or small body; bounce needs a second buffet.
+
+Version 2 swaps cheap goblin spells and Mitotic Slime in. Re-run 1729 after the list updates.
+
+### 2026-09-02 — Version 2 goldfish and assessment
+
+Seed 1729 after the meal swap: about five of eight hands hit four creatures by turn five, two more were one body short, and the two-land Arbor Elf keep still failed. Not a second systemic miss of the same kind, so no further package swap.
+
+Official Game Changers queried with `is:gamechanger` (53 cards, including Farewell and Biorhythm from the February 9, 2026 update). This 99 has zero. No two-card infinite, extra turns, or mass land denial. Pattern of Rebirth is the only tutor. Sneak Attack, Greater Good, and Pandemonium are one-big-turn tools, not instant wins.
+
+Verdict **Bracket 3−**: stronger and more synergistic than Core, still a telegraphed combat swallow that usually needs turn eight. High roll is a turn-six Thromok with haste or Pandemonium after a goblin dump. Interactive games slip when the Hellion is taxed twice without bounce and a second buffet.
+
+Pregame sentence matches the primer blockquote.
+
+

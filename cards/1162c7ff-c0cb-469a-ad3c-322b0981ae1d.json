@@ -1,0 +1,164 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "8aacf055-e36f-4428-8a3c-f73fa4b4307c",
+      "name": "Mitotic Slime",
+      "object": "related_card",
+      "type_line": "Creature — Ooze",
+      "uri": "https://api.scryfall.com/cards/8aacf055-e36f-4428-8a3c-f73fa4b4307c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f49fbd95-16bb-4426-ac98-6d900417dfc5",
+      "name": "Mitotic Ultimus",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Ooze Giant",
+      "uri": "https://api.scryfall.com/cards/f49fbd95-16bb-4426-ac98-6d900417dfc5"
+    },
+    {
+      "component": "token",
+      "id": "6c746fd1-0731-4c6d-9eb8-6048238ce6d1",
+      "name": "Ooze",
+      "object": "related_card",
+      "type_line": "Token Creature — Ooze",
+      "uri": "https://api.scryfall.com/cards/6c746fd1-0731-4c6d-9eb8-6048238ce6d1"
+    },
+    {
+      "component": "token",
+      "id": "26e205aa-6d29-4067-8b20-f3da72511b21",
+      "name": "Ooze",
+      "object": "related_card",
+      "type_line": "Token Creature — Ooze",
+      "uri": "https://api.scryfall.com/cards/26e205aa-6d29-4067-8b20-f3da72511b21"
+    }
+  ],
+  "artist": "Raymond Swanland",
+  "artist_ids": [
+    "e956bacc-077d-4c12-b6bc-ba798b718af9"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 652886,
+  "cmc": 5.0,
+  "collector_number": "302",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 8741,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "8aacf055-e36f-4428-8a3c-f73fa4b4307c",
+  "illustration_id": "74d96aa9-f0a8-4c06-8522-efb5200891b7",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:14:05Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/a/8aacf055-e36f-4428-8a3c-f73fa4b4307c.webp?1783923245",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/a/8aacf055-e36f-4428-8a3c-f73fa4b4307c.jpg?1783923245",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/a/8aacf055-e36f-4428-8a3c-f73fa4b4307c.jpg?1783923245",
+    "crop": "https://cards.scryfall.io/crop/front/8/a/8aacf055-e36f-4428-8a3c-f73fa4b4307c.webp?1783923245",
+    "display": "https://cards.scryfall.io/display/front/8/a/8aacf055-e36f-4428-8a3c-f73fa4b4307c.webp?1783923245",
+    "grid": "https://cards.scryfall.io/grid/front/8/a/8aacf055-e36f-4428-8a3c-f73fa4b4307c.webp?1783923245",
+    "large": "https://cards.scryfall.io/large/front/8/a/8aacf055-e36f-4428-8a3c-f73fa4b4307c.jpg?1783923245",
+    "normal": "https://cards.scryfall.io/normal/front/8/a/8aacf055-e36f-4428-8a3c-f73fa4b4307c.jpg?1783923245",
+    "png": "https://cards.scryfall.io/png/front/8/a/8aacf055-e36f-4428-8a3c-f73fa4b4307c.png?1783923245",
+    "small": "https://cards.scryfall.io/small/front/8/a/8aacf055-e36f-4428-8a3c-f73fa4b4307c.jpg?1783923245",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/a/8aacf055-e36f-4428-8a3c-f73fa4b4307c.webp?1783923245"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{G}",
+  "multiverse_ids": [
+    559874
+  ],
+  "name": "Mitotic Slime",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1162c7ff-c0cb-469a-ad3c-322b0981ae1d",
+  "oracle_text": "When this creature dies, create two 2/2 green Ooze creature tokens. They have \"When this token dies, create two 1/1 green Ooze creature tokens.\"",
+  "oversized": false,
+  "penny_rank": 7027,
+  "power": "4",
+  "prices": {
+    "eur": "0.28",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.35",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1162c7ff-c0cb-469a-ad3c-322b0981ae1d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Mitotic+Slime&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=652886&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F269644%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mitotic+Slime",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=559874&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMitotic%2BSlime",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMitotic%2BSlime"
+  },
+  "released_at": "2022-04-29",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8aacf055-e36f-4428-8a3c-f73fa4b4307c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ncc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ncc/302/mitotic-slime?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ncc",
+  "set_id": "c51de34b-d4d6-4179-a432-573744ded119",
+  "set_name": "New Capenna Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ancc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c51de34b-d4d6-4179-a432-573744ded119",
+  "story_spotlight": false,
+  "tcgplayer_id": 269644,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Ooze",
+  "uri": "https://api.scryfall.com/cards/8aacf055-e36f-4428-8a3c-f73fa4b4307c",
+  "variation": false
+}

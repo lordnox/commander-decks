@@ -9680,8 +9680,32 @@
         "land",
         "ramp"
       ]
+    },
+    "a6450b8e-eb18-431c-9eb7-7daf107978b2": {
+      "name": "Hordeling Outburst",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "d0d2c45b-b6e3-4999-bdab-976e8f0d6617": {
+      "name": "Dragon Fodder",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "9cfe86ae-eebe-44aa-a956-4b3e9e621105": {
+      "name": "Krenko's Command",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "1162c7ff-c0cb-469a-ad3c-322b0981ae1d": {
+      "name": "Mitotic Slime",
+      "categories": [
+        "token-production"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-02T19:21:09.493453+00:00"
+  "updated_at": "2026-09-02T19:26:12.591940+00:00"
 }
