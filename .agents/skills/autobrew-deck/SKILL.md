@@ -137,62 +137,32 @@ deck's `DECISIONS.md`.
 
 Do not evaluate unresolved cards. Do not call version 1 finished.
 
-## 5. Goldfish through turn five
+## 5. Decide whether to simulate
 
-Generate reproducible test draws from the resolved manifest:
+Use `simulate-deck` as a separate diagnostic skill when early sequencing,
+mulligans, mana, interaction, protection, or commander recovery could change
+the list. Version 1 and every substantial infrastructure revision should
+normally be simulated. It may be skipped when the user asks for a conceptual
+list only or the relevant question cannot be tested by goldfishing.
 
-```bash
-python3 .agents/skills/autobrew-deck/scripts/goldfish.py \
-  decks/<deck> --runs 8 --turns 5 --seed 1729
-python3 .agents/skills/autobrew-deck/scripts/goldfish.py \
-  decks/<deck> --runs 4 --turns 5 --seed <new-version-seed>
-```
+Pass the simulator:
 
-The first eight are regression hands; keep their seed across versions. The
-last four are fresh confirmation hands. The script presents fresh seven-card
-options for zero, one, or two London mulligans. For each run, choose the keep,
-name bottomed cards, and play legal turns using the resolved Oracle text.
+- the game-plan sentence and backup route;
+- target bracket and expected pace;
+- turn-five milestone;
+- commander-dependency and known pressure points;
+- any package or branch that needs evidence.
 
-Record for every run:
-
-- mulligans, opening hand, and turn-by-turn draws;
-- land, mana, spells, and resulting battlefield each turn;
-- when the turn-five milestone was reached;
-- unused interaction or protection and its legal targets;
-- whether the game plan succeeded, was delayed, or failed;
-- the exact failure cause, not merely "bad draw".
-
-Test these what-ifs in addition to clean goldfishes:
-
-| Target | Required stress tests |
-|---|---|
-| Brackets 1–2 | Plan develops by turn five; one later key-piece removal; no artificial turn-four policing requirement |
-| Bracket 3 | Commander removed after its normal cast; must-answer permanent by turns five or six; one board wipe or engine loss |
-| Bracket 4 | Opposing commander or engine must be answered by turn four; own commander removed on curve; protection or stack interaction under pressure |
-| Bracket 5 | Use cEDH metagame, mulligan, priority, and interaction assumptions; turn-five solitaire is insufficient |
-
-If the commander is delayed to hold protection, replay the branch both ways.
-If removal is needed, identify the actual drawn answer and prove it is legal.
-Test commander removal twice when the deck is commander-dependent.
+Use its default eight regression hands plus four fresh confirmation hands.
+Keep simulation read-only: the brew loop, not the simulator, decides whether
+its findings justify card changes.
 
 ## 6. Diagnose and revise
 
-Summarize each version with:
-
-| Metric | Result |
-|---|---|
-| Keepable with at most one mulligan | n/12 |
-| Turn-five milestone reached | n/12 |
-| Mana or colour failure | n/12 |
-| Useful draw seen | n/12 |
-| Required interaction available | n/12 |
-| Commander-removal recovery passed | n/scenarios |
-| Game plan successful / delayed / failed | n / n / n |
-
-Treat the sample as a diagnostic, not a probability proof. Use the primer's
-hypergeometric category table for density claims. A repeated failure in at
-least three runs is systemic; one outlier is evidence to note, not permission
-to replace a package.
+Review the `simulate-deck` report when simulation was selected. Treat the
+sample as diagnostic evidence, not a probability proof. A repeated failure in
+at least three runs is systemic; one outlier is evidence to note, not
+permission to replace a package.
 
 Revise in this order:
 
@@ -205,11 +175,13 @@ Revise in this order:
 
 Make explicit cards-in/cards-out pairs and reasons in `DECISIONS.md`. Resolve,
 recategorize, regenerate the primer, and validate after every version. Then
-rerun the eight regression hands and four fresh hands.
+invoke `simulate-deck` again when the revision is meant to fix a simulated
+failure. Reuse its regression seed and add fresh confirmation hands.
 
 Stop when the declared milestone and stress obligations pass without a
-systemic failure, and a fresh confirmation sample does not reveal a new one.
-Do not optimize away the chosen experience merely to improve the numbers.
+systemic failure, or when the non-simulated evidence is sufficient for the
+declared scope. Do not optimize away the chosen experience merely to improve
+the numbers.
 
 Ask the user with concrete options if two consecutive revisions do not improve
 the same systemic failure. Typical options are:
