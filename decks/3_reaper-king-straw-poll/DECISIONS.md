@@ -19,7 +19,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 ## Rankings
 
-See `rankings.json`. Playability pass: jank 6, fun 8, mean 7, Scarecrow Tribal 8, Permanent Destruction 8. Identity remains tribe-first; the lower jank score reflects real protection, draw, ramp, and fetchable lands.
+See `rankings.json`. Final pass: jank 7, fun 8, mean 7, Scarecrow Tribal 8, Permanent Destruction 8. The floor is conventional mana and protection; Padeem, Spellskite, Crystal Shard, and Keep Safe restore some artifact-specific strangeness without weakening it.
 
 ## Cards in
 
@@ -39,11 +39,10 @@ See `rankings.json`. Playability pass: jank 6, fun 8, mean 7, Scarecrow Tribal 8
 - **Coalition Relic** — Rainbow rock that can bank a pip on the opponents' turn, so it effectively ramps toward the commander.
 - **Command Beacon** — Turns one taxed commander cast into a cast from hand, which matters after the King has died twice.
 - **Command Tower** — Free rainbow land in a five-colour identity.
-- **Conjurer's Closet** — Blinks a Scarecrow every end step for a free destroy trigger, and resets an ETB like Wreckage Wickerfolk or Masked Vandal.
+- **Crystal Shard** — Holds up blue to return the King to hand before removal, avoiding command-zone tax, and replays cheap Scarecrows for fresh destroy triggers.
 - **Darksteel Citadel** — Indestructible artifact land; counts for Inventors' Fair and triggers Reckless Fireweaver on the turn it enters.
 - **Deflecting Swat** — Free while the King is in play and redirects targeted exile, bounce, or removal instead of merely surviving destroy effects.
 - **Dismember** — Removal that costs almost no coloured mana, which matters in a deck saving every pip for the commander.
-- **Elesh Norn, Mother of Machines** — Doubles the King's destroy trigger and switches off opposing ETB value at the same time.
 - **Exotic Orchard** — Rainbow source at no life cost in a four-player pod that almost always has the colours.
 - **Farseek** — Finds any of the five typed triomes and supplies missing colours permanently.
 - **Fellwar Stone** — Two-mana rock that usually casts a colour the King needs.
@@ -67,6 +66,7 @@ See `rankings.json`. Playability pass: jank 6, fun 8, mean 7, Scarecrow Tribal 8
 - **Jawbone Skulkin** — One-mana Scarecrow, the cheapest recurring trigger alongside Heap Doll and the best Prototype Portal imprint.
 - **Jetmir's Garden** — Typed three-colour land that Farseek or Nature’s Lore can find; cycles when mana is already solved.
 - **Jhoira, Weatherlight Captain** — Draws on every artifact or legendary spell, so the artifact shell keeps functioning without the King.
+- **Keep Safe** — Counters a spell targeting any permanent and replaces itself, preserving both protection density and card flow.
 - **Kindred Discovery** — Names Scarecrow and draws on each tribal creature entering or attacking, supplying the sustained hand the first draft lacked.
 - **Lightning Greaves** — Zero-equip shroud and haste; the cleanest permanent answer to holding removal for the King.
 - **Mana Confluence** — Untapped rainbow source; again, life for cost reduction on the commander.
@@ -74,7 +74,6 @@ See `rankings.json`. Playability pass: jank 6, fun 8, mean 7, Scarecrow Tribal 8
 - **Maskwood Nexus** — The best Tribe Changer: every creature you control is every type, so every token in the deck becomes a Reaper King trigger.
 - **Mirror Entity** — Changeling Scarecrow and the deck's mana sink; with infinite mana it is the one-turn kill.
 - **Mirrorworks** — Every nontoken artifact you cast can pay {2} for a token copy, which doubles both the body count and the destroy triggers.
-- **Mithril Coat** — Flash protection from destroy effects that attaches to the legendary commander immediately and stays indestructible itself.
 - **Mothdust Changeling** — One-mana native Scarecrow and a cheap evasion grant.
 - **Mountain** — Basic; supports the filter lands and Burnished Hart.
 - **Mystic Forge** — Casts the colorless artifact spine from the library and clears dead top cards without relying on the commander.
@@ -83,6 +82,7 @@ See `rankings.json`. Playability pass: jank 6, fun 8, mean 7, Scarecrow Tribal 8
 - **Nature's Lore** — Finds a Forest triome untapped by the spell and fixes three colours with one land.
 - **Oasis Gardener** — Scarecrow that actually taps for mana of any colour rather than filtering, plus a small life buffer against the painful mana base.
 - **One with the Machine** — With Reaper King on the battlefield this draws ten, because his mana value is ten.
+- **Padeem, Consul of Innovation** — Gives the artifact commander and every artifact engine hexproof, then usually draws each upkeep because Reaper King has mana value ten.
 - **Painter's Servant** — A Scarecrow that wins with Grindstone, and it also permanently colours Pili-Pala for Grand Architect.
 - **Panharmonicon** — Doubles the King's destroy trigger, since every Scarecrow entering is an artifact creature entering.
 - **Path of Ancestry** — Rainbow land that scries on every Scarecrow spell, which is most of the deck.
@@ -93,7 +93,6 @@ See `rankings.json`. Playability pass: jank 6, fun 8, mean 7, Scarecrow Tribal 8
 - **Raffine's Tower** — Typed three-colour Farseek target with cycling.
 - **Realmwalker** — Changeling Scarecrow that names Scarecrow and lets the deck cast the tribe off the top of the library.
 - **Reaper King** — The commander. Anthem for the tribe and "whenever another Scarecrow you control enters, destroy target permanent." Its hybrid cost is the reason the mana base is greedy: with all five colors available it costs five mana, not ten.
-- **Rebuff the Wicked** — One-mana counter for any spell targeting the King or another key permanent.
 - **Reckless Fireweaver** — Converts the artifact flood into a real clock; every Scarecrow that enters pings each opponent.
 - **Reflecting Pool** — Rainbow source alongside the many any-colour lands.
 - **Rugged Prairie** — Filter land; colorless on its own, two pips when fed.
@@ -106,6 +105,7 @@ See `rankings.json`. Playability pass: jank 6, fun 8, mean 7, Scarecrow Tribal 8
 - **Slip Out the Back** — One-mana answer to destroy, exile, bounce, and most wipes by phasing the King out.
 - **Solemn Simulacrum** — Real ramp, a basic to hand, a card on death, and an artifact creature that a Tribe Changer turns into a Scarecrow.
 - **Spara's Headquarters** — Typed Forest triome for Nature’s Lore and Farseek, with cycling.
+- **Spellskite** — Artifact creature that repeatedly absorbs legal targeted removal, can be recurred by Scarecrone, and becomes a Scarecrow under Maskwood Nexus.
 - **Sunken Ruins** — Filter land; colorless on its own, two pips when fed.
 - **Swamp** — Basic; supports the filter lands and Burnished Hart.
 - **Swiftfoot Boots** — Repeatable hexproof and haste while still allowing the deck to target the equipped creature.
@@ -161,6 +161,13 @@ See `rankings.json`. Playability pass: jank 6, fun 8, mean 7, Scarecrow Tribal 8
 - **Vivid Marsh** — Cut for Raffine's Tower, a typed three-colour Farseek target.
 - **Vivid Meadow** — Cut for Jetmir's Garden, a typed Forest triome found by either two-mana land tutor.
 
+### 2026-09-02 — Jank pass after the floor was stable
+
+- **Conjurer's Closet** — Cut for Crystal Shard. Both can replay a Scarecrow, but Shard costs less, works at instant speed, and can bounce the King to hand before removal so the next cast avoids commander tax.
+- **Elesh Norn, Mother of Machines** — Cut for Padeem, Consul of Innovation. A second trigger doubler was more threat than resilience; Padeem gives the artifact commander hexproof and usually draws from his mana value ten.
+- **Mithril Coat** — Cut for Spellskite. Coat only stopped destroy effects; the artifact creature can absorb legal destroy, exile, bounce, Aura, and ability targets, then return through Scarecrone.
+- **Rebuff the Wicked** — Cut for Keep Safe. One extra mana buys the same broad spell counter plus a card, so protection no longer empties the hand.
+
 ## Rules
 
 - **Reaper King's cost is the mana base's job.** `{2/W}{2/U}{2/B}{2/R}{2/G}` lets each symbol be paid with the colour or with two generic. Five colours available means five mana; no colours means ten. His mana value stays 10 regardless, which is what One with the Machine cares about.
@@ -168,9 +175,12 @@ See `rankings.json`. Playability pass: jank 6, fun 8, mean 7, Scarecrow Tribal 8
 - **Cauldron of Souls is not a persist loop.** It grants persist until end of turn. A creature that dies and returns is a new object without the granted ability, so each creature returns at most once from that activation.
 - **Pili-Pala plus Grand Architect is infinite.** Grand Architect's recolour costs `{U}`, not a tap. Make Pili-Pala blue, tap it as an untapped blue creature for `{C}{C}`, then pay `{2}` and `{Q}` to untap Pili-Pala and add one mana of any colour. Architect's restricted mana legally pays for Pili-Pala's ability because Pili-Pala is an artifact. Each lap nets one unrestricted coloured mana and restores the starting state.
 - **Panharmonicon and Elesh Norn stack additively.** Each says the ability triggers "an additional time", so both out means three destroy triggers per Scarecrow entering, not four.
-- **Greaves stops friendly targeting too.** Shroud prevents Mithril Coat, Tamiyo's Safekeeping, Slip Out the Back, and Plaza of Heroes from targeting the equipped King. Move Greaves to another creature before using those effects.
+- **Greaves stops friendly targeting too.** Shroud prevents Tamiyo's Safekeeping, Slip Out the Back, Plaza of Heroes, and Crystal Shard from targeting the equipped King. Move Greaves to another creature before using those effects. Spellskite does not target the King; it targets the spell or ability and changes that target to itself.
 - **Slip Out the Back phases the engine out.** Equipment attached to the King phases with him. New Scarecrows entering while he is phased out do not trigger his ability.
 - **Deflecting Swat redirects; it does not counter.** It can change the target of Swords to Plowshares or a targeted bounce spell while the King is present, but it does nothing to a nontargeted wipe.
+- **Crystal Shard protects by returning, not countering.** Target your own King and decline to pay `{1}`. He returns to hand, so the next cast uses his printed hybrid cost rather than command-zone tax; Shard must be untapped and its ability still targets.
+- **Spellskite only changes legal targets.** It can absorb Swords to Plowshares because it is a creature and Beast Within because it is a permanent. It cannot absorb a spell whose targeting restriction Spellskite does not satisfy.
+- **Padeem sees mana value, not mana paid.** Reaper King's mana value is ten, so Padeem normally draws at upkeep even when the King was cast for five.
 
 ## Talks
 
@@ -215,3 +225,9 @@ The live official bracket and Game Changer sources remain those recorded above. 
 The deck moves from 3− to Bracket 3. Its fastest combo is unchanged, but 36 lands, two typed-land tutors, twelve ramp cards, eleven draw cards, and broad protection make the normal game materially more consistent and resilient. A protected King normally arrives on turn five or six with a cheap Scarecrow ready; the deck then threatens combat, Fireweaver damage, or the Architect line around turn eight to ten. The exceptional turn-four table kill requires Pili-Pala on turn two, Grand Architect on turn three with double blue, Mirror Entity plus blue on turn four, and a third attacker deployed beforehand. It is legal but not credible as the expected pace.
 
 It does not reach 3+ or Bracket 4: there is one inefficient land tutor, no combo tutor chain, no free counterspell suite, no fast mana, and only one deterministic mana loop. It is no longer 3− because opponents must now fight through several protection axes while the artifact draw shell continues without the commander. Folder prefix `3_`.
+
+### 2026-09-02 — Jankier protection that passed
+
+Only four stranger challengers cleared the playability bar. Padeem is commander hexproof plus repeatable draw because the King is a mana-value-ten artifact. Spellskite is a recurable artifact creature that absorbs legal targeted removal. Crystal Shard both saves the King to hand and replays cheap Scarecrows. Keep Safe is the old-fashioned two-mana version of Rebuff the Wicked that replaces itself.
+
+The rejected jank stayed out. Robe of Stars and Vanishing are repeatable phasing, but require several mana after setup; Slip Out the Back does the emergency job for one. Haystack is an artifact and phases repeatedly, but four total mana before the first save is too slow. Synod Sanctum and Voyager Staff interact with artifacts but ask too much mana for protection that must already be ready. Neurok Stealthsuit can attach at instant speed, but double blue is a worse hold-up cost than Boots, Greaves, Padeem, or Spellskite. Confound and Hindering Light draw like Keep Safe but have narrower targeting or a harder colour cost.

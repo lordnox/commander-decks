@@ -431,26 +431,28 @@
       "submitted_name": "Command Tower"
     },
     {
-      "cache": "cards/cd1eda60-53e4-44d0-9b2c-7a57395e291f.json",
+      "cache": "cards/cd8ccb10-a2c8-4a84-aa41-6ce6018f9bb7.json",
       "card": {
-        "cmc": 5.0,
+        "cmc": 3.0,
         "keywords": [],
-        "mana_cost": "{5}",
-        "oracle_text": "At the beginning of your end step, you may exile target creature you control, then return that card to the battlefield under your control.",
+        "mana_cost": "{3}",
+        "oracle_text": "{3}, {T} or {U}, {T}: Return target creature to its owner's hand unless its controller pays {1}.",
         "type_line": "Artifact"
       },
       "categories": [
+        "Protection",
         "Extra Triggers"
       ],
       "category_source": "decklist",
-      "name": "Conjurer's Closet",
-      "oracle_id": "cd1eda60-53e4-44d0-9b2c-7a57395e291f",
+      "name": "Crystal Shard",
+      "oracle_id": "cd8ccb10-a2c8-4a84-aa41-6ce6018f9bb7",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/inr/259/conjurers-closet?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mrd/159/crystal-shard?utm_source=api",
       "submitted_categories": [
+        "Protection",
         "Extra Triggers"
       ],
-      "submitted_name": "Conjurer's Closet"
+      "submitted_name": "Crystal Shard"
     },
     {
       "cache": "cards/8dc067bf-f78f-4ac4-b6e7-b305c42cf0bc.json",
@@ -524,32 +526,6 @@
         "Interaction"
       ],
       "submitted_name": "Dismember"
-    },
-    {
-      "cache": "cards/5ade11c0-41dd-4b6a-9f5b-c5903a3a0d7f.json",
-      "card": {
-        "cmc": 5.0,
-        "keywords": [
-          "Vigilance"
-        ],
-        "mana_cost": "{4}{W}",
-        "oracle_text": "Vigilance\nIf a permanent entering causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.\nPermanents entering don't cause abilities of permanents your opponents control to trigger.",
-        "power": "4",
-        "toughness": "7",
-        "type_line": "Legendary Creature — Phyrexian Praetor"
-      },
-      "categories": [
-        "Extra Triggers"
-      ],
-      "category_source": "decklist",
-      "name": "Elesh Norn, Mother of Machines",
-      "oracle_id": "5ade11c0-41dd-4b6a-9f5b-c5903a3a0d7f",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/one/10/elesh-norn-mother-of-machines?utm_source=api",
-      "submitted_categories": [
-        "Extra Triggers"
-      ],
-      "submitted_name": "Elesh Norn, Mother of Machines"
     },
     {
       "cache": "cards/27b047e3-0d41-45e2-98e9-9391d7923a1e.json",
@@ -1160,6 +1136,32 @@
       "submitted_name": "Jhoira, Weatherlight Captain"
     },
     {
+      "cache": "cards/5602c14d-cc22-47d7-a1b0-6491749f00dd.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Counter target spell that targets a permanent you control.\nDraw a card.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Protection",
+        "Counterspell",
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Keep Safe",
+      "oracle_id": "5602c14d-cc22-47d7-a1b0-6491749f00dd",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/iko/56/keep-safe?utm_source=api",
+      "submitted_categories": [
+        "Protection",
+        "Counterspell",
+        "Draw"
+      ],
+      "submitted_name": "Keep Safe"
+    },
+    {
       "cache": "cards/005ee549-1bf5-478f-bc3f-3e791bd7eecf.json",
       "card": {
         "cmc": 5.0,
@@ -1333,32 +1335,6 @@
         "Extra Triggers"
       ],
       "submitted_name": "Mirrorworks"
-    },
-    {
-      "cache": "cards/3dc364f3-3094-4660-80ca-9418588c7fde.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [
-          "Indestructible",
-          "Equip",
-          "Flash"
-        ],
-        "mana_cost": "{3}",
-        "oracle_text": "Flash\nIndestructible\nWhen Mithril Coat enters, attach it to target legendary creature you control.\nEquipped creature has indestructible.\nEquip {3}",
-        "type_line": "Legendary Artifact — Equipment"
-      },
-      "categories": [
-        "Protection"
-      ],
-      "category_source": "decklist",
-      "name": "Mithril Coat",
-      "oracle_id": "3dc364f3-3094-4660-80ca-9418588c7fde",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/ltr/245/mithril-coat?utm_source=api",
-      "submitted_categories": [
-        "Protection"
-      ],
-      "submitted_name": "Mithril Coat"
     },
     {
       "cache": "cards/52237e6b-19f6-405c-a668-545c4ccb1b6d.json",
@@ -1562,6 +1538,32 @@
         "Draw"
       ],
       "submitted_name": "One with the Machine"
+    },
+    {
+      "cache": "cards/0c7ba712-6a99-4d2f-9242-a2163a11f69c.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Artifacts you control have hexproof. (They can't be the targets of spells or abilities your opponents control.)\nAt the beginning of your upkeep, if you control the artifact with the greatest mana value or tied for the greatest mana value, draw a card.",
+        "power": "1",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Vedalken Artificer"
+      },
+      "categories": [
+        "Protection",
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Padeem, Consul of Innovation",
+      "oracle_id": "0c7ba712-6a99-4d2f-9242-a2163a11f69c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/109/padeem-consul-of-innovation?utm_source=api",
+      "submitted_categories": [
+        "Protection",
+        "Draw"
+      ],
+      "submitted_name": "Padeem, Consul of Innovation"
     },
     {
       "cache": "cards/baf93873-35e6-4bf2-bdcc-78a5206422fb.json",
@@ -1842,30 +1844,6 @@
         "Commander{top}"
       ],
       "submitted_name": "Reaper King"
-    },
-    {
-      "cache": "cards/f5822e53-ddec-4c77-bcf4-091e35c1e731.json",
-      "card": {
-        "cmc": 1.0,
-        "keywords": [],
-        "mana_cost": "{W}",
-        "oracle_text": "Counter target spell that targets a permanent you control.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "Protection",
-        "Counterspell"
-      ],
-      "category_source": "decklist",
-      "name": "Rebuff the Wicked",
-      "oracle_id": "f5822e53-ddec-4c77-bcf4-091e35c1e731",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/tsr/35/rebuff-the-wicked?utm_source=api",
-      "submitted_categories": [
-        "Protection",
-        "Counterspell"
-      ],
-      "submitted_name": "Rebuff the Wicked"
     },
     {
       "cache": "cards/180e1a7e-890d-477c-80a5-da8a5f2857b3.json",
@@ -2186,6 +2164,30 @@
         "Land"
       ],
       "submitted_name": "Spara's Headquarters"
+    },
+    {
+      "cache": "cards/e0aa6ce0-ca31-433b-ac6c-32b8675cdb71.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{U/P}: Change a target of target spell or ability to this creature. ({U/P} can be paid with either {U} or 2 life.)",
+        "power": "0",
+        "toughness": "4",
+        "type_line": "Artifact Creature — Phyrexian Horror"
+      },
+      "categories": [
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Spellskite",
+      "oracle_id": "e0aa6ce0-ca31-433b-ac6c-32b8675cdb71",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/873/spellskite?utm_source=api",
+      "submitted_categories": [
+        "Protection"
+      ],
+      "submitted_name": "Spellskite"
     },
     {
       "cache": "cards/e6415ffb-8b7a-41c3-bedf-0d4112b7b795.json",
@@ -2639,7 +2641,7 @@
     }
   ],
   "categorized_cards": 100,
-  "generated_at": "2026-09-02T15:03:15.993589+00:00",
+  "generated_at": "2026-09-02T15:04:37.824246+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 100,

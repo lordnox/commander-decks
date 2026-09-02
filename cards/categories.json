@@ -9792,8 +9792,14 @@
       "categories": [
         "other"
       ]
+    },
+    "cd8ccb10-a2c8-4a84-aa41-6ce6018f9bb7": {
+      "name": "Crystal Shard",
+      "categories": [
+        "other"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-02T14:57:23.140600+00:00"
+  "updated_at": "2026-09-02T15:04:37.676369+00:00"
 }
