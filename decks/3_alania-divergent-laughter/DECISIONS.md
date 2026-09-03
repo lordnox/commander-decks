@@ -121,3 +121,17 @@ The pilot wants **Pyromancer's Goggles** and **Primal Amulet** back, cutting **C
 ### 2026-08-24 — Instant-speed card draw
 
 Move the dedicated selection package to instants so the deck can hold up interaction like a blue-go list. Finishers and setup remain sorceries. Cut **Serum Visions**, **Strategic Planning**, and **Pieces of the Puzzle** for **Consider**, **Impulse**, and **Quick Study**. Memory Deluge was the first draw-two candidate, but copies look at X=0 because they were not cast, so Alania would not actually find cards with it.
+
+### 2026-09-03 — Assessment: Bracket 3
+
+Source is [`BRACKET-DEFINITIONS.md`](../../BRACKET-DEFINITIONS.md) (Upgraded texture, six-turn floor as satisfaction, printed cap of three Game Changers in Bracket 3) and its Scryfall `is:gamechanger` snapshot dated **2026-09-03** (53 names). The 99 hits **none**. [Personal Tutor](https://scryfall.com/card/cmm/110/personal-tutor), [Solve the Equation](https://scryfall.com/card/stx/54/solve-the-equation), and [Long-Term Plans](https://scryfall.com/card/scg/38/long-term-plans) are tutors, not Game Changers.
+
+[Sol Ring](https://scryfall.com/card/msc/211/sol-ring) is in the 99. Wizards does not list it; this table treats permanent fast mana as kitchen-table **4+**. Signets, Talisman, and Fellwar Stone are ramp. Rechecked Oracle: Alania copies the first instant and the first sorcery of the turn if an opponent draws; [Repeated Reverberation](https://scryfall.com/card/cmm/879/repeated-reverberation) copies the next instant, sorcery, or loyalty ability twice; copying Reverb with Alania then Tasha/Jaya/Crackle yields six resolutions. Six [Tasha's Hideous Laughter](https://scryfall.com/card/afr/78/tashas-hideous-laughter) copies exile until 20 mana value each and do not empty a typical library. [Jaya's Immolating Inferno](https://scryfall.com/card/cmr/415/jayas-immolating-inferno) at X=7 across six resolutions is 42 to each of three targets and is a deterministic table kill; Alania meets the legendary-sorcery clause. No extra-turn package, no two-card infinite, no mass land denial.
+
+Stay **Bracket 3** (middle), folder `3_`. Usual close around turn eight after holding up answers. A Reverb-plus-Jaya dump is a *reasonable* turn-six kill, not the normal pace. The nine-card turn-four Tasha chain (Sol Ring, both Medallions, Alania, Reverb, Tasha, four colored lands) strips most of every library and does not end the game. Not Bracket 2: from-hand copy dump, three tutors, Sol Ring, and a control suite. Not 3+ or 4: zero Game Changers, five-mana commander, usual win after the six-turn floor, and the T4 line is mill setup rather than a kill.
+
+## Primer
+
+- **Six Tasha copies are a setup turn.** Each copy stops at 20 mana value exiled, so opponents remain alive with a gutted library.
+- **Jaya X=7 or Crackle X=2 on the same six-copy stack is the actual kill.** Those are the lines that set the turn-six “reasonable” estimate.
+- **The turn-four line is nine specific cards and Sol Ring.** It is possible, not likely, and it is not a win.
