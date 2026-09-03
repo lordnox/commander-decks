@@ -165,3 +165,11 @@ Categories are `Draw`, `Graveyard Filter`, and `Mill`. `Ramp` was left off delib
 ### 2026-08-25 — Drop the clones tag
 
 Sin makes tapped token copies, but that is not a Clone/Sakashima package. Keep the copies under **tokens** and drop **clones** so the Archidekt badge does not imply a clone deck.
+
+### 2026-09-03 — Reassessment
+
+Rechecked the live [Commander format page](https://magic.wizards.com/en/formats/commander) (0 Game Changers in Brackets 1–2, up to 3 in Bracket 3), the [October 21, 2025](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-october-21-2025) turn floors, the [February 9, 2026](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-february-9-2026) reminder that Farewell and Biorhythm joined Game Changers, Scryfall `is:gamechanger` (53 cards), and root `BRACKET-DEFINITIONS.md`.
+
+The 99 still contains two Game Changers: **Crop Rotation** and **Field of the Dead**. That is inside Bracket 3's cap and is a default exclude from advertised Bracket 2 (Crop Rotation as a land toolbox is discussable Parley per root `DECISIONS.md`; Field of the Dead is still an engine GC). Yard tutors remain **Entomb**, **Buried Alive**, and **Unmarked Grave**. Oracle on Sin: exile a random graveyard permanent, make a tapped copy, and repeat only if that card is a land. A turn-five Portal token therefore enters tapped and is a blowout, not an instantaneous win.
+
+Usual goldfish is still ramp into Sin on turn five or six, then a combat or X-spell close around turn seven. **Rain of Filth** is one-shot fast mana, not a Sol Ring. Not Bracket 2 without a spoken footnote: two GCs, compact yard tutors, Scapeshift assembling Field. Not Bracket 4: no Mox/Vault/Cradle, no free counters, commander is seven mana. Mid Bracket 3; folder stays `3_`.
