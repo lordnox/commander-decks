@@ -4,7 +4,8 @@ description: >-
   Grill a Commander brew before writing a 99. Use when the user wants to create,
   brew, or rebuild a deck from a theme, commander, or constraint rather than from
   a complete list. Ask the questions that would change the 99; verify Oracle and
-  Game Changers; do not fill in guesses. Skip if the user already posted a list
+  Game Changers; do not fill in guesses. If the brew has a target bracket, read
+  BRACKET-DEFINITIONS.md. Skip if the user already posted a list
   (use deck-workspace).
 ---
 
@@ -35,7 +36,7 @@ Inspect `decks/` and follow `deck-ideas` (root `DECK-IDEAS.md`). If a stored dec
 4. **Math.** Walk one real stack or loop (costs, what Rings can copy, what is a mana ability). Fat-once is not infinite. A high-roll that does not end the game is not a win turn.
 5. **How you find the finishers.** Tutors vs draw. Card tutors and land search are different locks. Game Changers: query `is:gamechanger`, do not trust memory (`Ancient Tomb`, `Mystical Tutor`, `Enlightened Tutor`, `Bolas's Citadel` have been GCs).
 6. **Constraints.** Read the root `DECISIONS.md` card preferences first: esoteric old cards over staples, discussable Game Changers, kitchen-table fast mana (one-shot 3+, permanent 4+). Then colors, silence vs draw-go, sticky enchantments vs creatures, politics vs pillowfort, maybeboard vs 99. Reject color-identity illegal cards immediately.
-7. **Speed versus high roll.** Gold-fish high roll vs expected win turn.
+7. **Speed versus high roll.** Gold-fish high roll vs expected win turn. If the brew has a target bracket, read [`BRACKET-DEFINITIONS.md`](../../../BRACKET-DEFINITIONS.md) (Incremental Core vs Upgraded texture, turn floors as satisfaction). Use `assess-deck` only when the user asks to rate a stored 99.
 8. **Name.** Brew title and short commander slug. Folder `unrated_<commander>-<name>` (see AGENTS.md). Primer H1: `# [Commander](scryfall) — Title`. Confirm jokes and subtitles.
 
 ## 2. Build only after lock-in

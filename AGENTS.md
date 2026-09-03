@@ -56,6 +56,8 @@ Every deck folder is `decks/<rating>_<commander>-<name>/` in kebab-case.
 - If the title slug already starts with the commander slug, do not double it (`sin` + `sin-fall` stays `sin-fall`).
 - Example: Lady Evangela, deck name Foggy Blood Transfusion → `unrated_lady-evangela-foggy-blood-transfusion`.
 
+When bracket, power, expected win turn, Game Changer caps, or pod fit come up, read [`BRACKET-DEFINITIONS.md`](BRACKET-DEFINITIONS.md) first, then the skill that owns the task (`assess-deck`, `autobrew-deck`, `design-deck`, or `simulate-deck`).
+
 Use `autobrew-deck` when the agent should choose and iterate a deck with little or no input, `simulate-deck` for read-only goldfishing and stress tests of any resolved deck, `design-deck` when collaboratively brewing from a theme, `deck-ideas` when parking a brew that is not a 99, `deck-workspace` for import and validation, `scryfall-lookup` for card searches, `audit-deck` for a slot-by-slot Scryfall review of a stored 99, `deck-primer` when creating or updating a play guide, `tag-deck` for Archidekt deck tags, `assess-deck` for bracket, power, or expected-win-turn analysis, and `rank-deck` for jankiness, fun, oppressiveness, and per-deck identity goals.
 
 ## Chat card presentation
@@ -65,6 +67,7 @@ In conversation (not primers or `decklist.txt`), featured card lists should show
 ## Repository structure
 
 - `DECISIONS.md`: kitchen-table house rules that apply to every deck
+- `BRACKET-DEFINITIONS.md`: Commander Bracket intent, Incremental Core texture, printed caps, and this table's Parley reading
 - `DECK-IDEAS.md`: grilled brews that are queued or parked, not a `decks/` folder yet
 - `decks/<rating>_<commander>-<name>/decklist.txt`: original user-supplied deck list
 - `decks/<rating>_<commander>-<name>/cards.json`: resolved quantities, effective categories, and compact embedded Oracle details

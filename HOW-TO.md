@@ -141,7 +141,7 @@ Before making changes:
 4. For a slot-by-slot Scryfall review of a stored 99, read .agents/skills/audit-deck/SKILL.md.
 5. For a deck README or play guide, read .agents/skills/deck-primer/SKILL.md.
 6. For Archidekt deck tags and README badges, read .agents/skills/tag-deck/SKILL.md.
-7. For bracket, power, or win-turn analysis, read .agents/skills/assess-deck/SKILL.md.
+7. For bracket intent, read BRACKET-DEFINITIONS.md. For power or win-turn analysis of a stored deck, also read .agents/skills/assess-deck/SKILL.md.
 8. For fun, oppressiveness, jankiness, and per-deck identity scores, read .agents/skills/rank-deck/SKILL.md.
 9. For parking an unbuilt brew in DECK-IDEAS.md, read .agents/skills/deck-ideas/SKILL.md.
 10. Follow those workflows exactly.
