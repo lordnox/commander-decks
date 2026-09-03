@@ -2,26 +2,34 @@
 
 This file is the repository baseline for Commander Brackets. Read it whenever
 bracket, power, expected win turn, Game Changer caps, or pod matchmaking comes
-up. Do not reconstruct brackets from memory.
+up. It is the **only** source an assessment needs: official intent, printed
+caps, the cached Game Changers list, and this table's reading all live here.
+Do not reconstruct brackets from memory and do not re-fetch Wizards pages or
+Scryfall as routine work.
 
-Live Wizards pages can change. On an assessment, also fetch:
-
-- https://magic.wizards.com/en/formats/commander
-- the latest official Commander Brackets announcement on magic.wizards.com
-
-If those pages disagree with the official text copied below, the live pages
-win for **printed intent** and **Game Changer caps**. Then apply this table's
-reading (win texture, Incremental Core, Parley) for kitchen-table talk and for
-how this repo labels decks.
-
-Official sources for the copied intent text:
+Official sources for the copied intent text and the cached list:
 
 - [Commander format page](https://magic.wizards.com/en/formats/commander)
 - [October 21, 2025 bracket update](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-october-21-2025)
 - [February 9, 2026 update](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-february-9-2026)
 
-Query current Game Changers with Scryfall `is:gamechanger`. Cite the Wizards
-page, not a third-party list.
+Cite this file in assessments. Cite the Wizards pages above when quoting
+official wording, never a third-party list.
+
+## Refreshing this file
+
+Everything here is a snapshot, so it can go stale. Refresh only when the user
+asks, when Wizards announces a bracket or Game Changer change, or when a
+card's status is genuinely in doubt:
+
+```bash
+python3 .agents/skills/assess-deck/scripts/update_game_changers.py            # rewrite the cache
+python3 .agents/skills/assess-deck/scripts/update_game_changers.py --check    # is it stale?
+```
+
+`--check` compares the cached names against live `is:gamechanger` and prints
+what to add or remove. When Wizards changes bracket text or caps, fetch the
+pages above and edit the sections below by hand in the same commit.
 
 ## How to use these brackets
 
@@ -130,6 +138,31 @@ Live-page baseline unless Wizards changes it:
 Two-card infinites, extra turns, and mass land denial are **barometers**, not a
 ban list. A combo that *often* comes up before the turn floor does not belong
 in that bracket even if the pilot waits to fire it.
+
+## Cached Game Changers
+
+Match a deck manifest against this list instead of querying Scryfall. Note in
+the assessment that the count came from this snapshot, and give its date. Only
+re-run the refresh script when the snapshot is suspected stale.
+
+<!-- game-changers:start -->
+Snapshot of Scryfall `is:gamechanger` taken 2026-09-03: **53 cards**.
+
+| Group | Cards |
+| --- | --- |
+| White (7) | [Drannith Magistrate](https://scryfall.com/card/iko/11/drannith-magistrate), [Enlightened Tutor](https://scryfall.com/card/dmr/6/enlightened-tutor), [Farewell](https://scryfall.com/card/mkc/64/farewell), [Humility](https://scryfall.com/card/tpr/16/humility), [Serra's Sanctum](https://scryfall.com/card/usg/325/serras-sanctum), [Smothering Tithe](https://scryfall.com/card/cmm/57/smothering-tithe), [Teferi's Protection](https://scryfall.com/card/2x2/32/teferis-protection) |
+| Blue (10) | [Consecrated Sphinx](https://scryfall.com/card/2x2/43/consecrated-sphinx), [Cyclonic Rift](https://scryfall.com/card/rvr/40/cyclonic-rift), [Fierce Guardianship](https://scryfall.com/card/cmm/94/fierce-guardianship), [Force of Will](https://scryfall.com/card/dmr/50/force-of-will), [Gifts Ungiven](https://scryfall.com/card/2x2/51/gifts-ungiven), [Intuition](https://scryfall.com/card/tpr/54/intuition), [Mystical Tutor](https://scryfall.com/card/dmr/60/mystical-tutor), [Narset, Parter of Veils](https://scryfall.com/card/cmm/853/narset-parter-of-veils), [Rhystic Study](https://scryfall.com/card/j22/114/rhystic-study), [Thassa's Oracle](https://scryfall.com/card/thb/73/thassas-oracle) |
+| Black (10) | [Ad Nauseam](https://scryfall.com/card/2xm/76/ad-nauseam), [Bolas's Citadel](https://scryfall.com/card/war/79/bolass-citadel), [Braids, Cabal Minion](https://scryfall.com/card/mh2/273/braids-cabal-minion), [Demonic Tutor](https://scryfall.com/card/cmm/150/demonic-tutor), [Imperial Seal](https://scryfall.com/card/2x2/79/imperial-seal), [Necropotence](https://scryfall.com/card/ima/98/necropotence), [Opposition Agent](https://scryfall.com/card/cmr/141/opposition-agent), [Orcish Bowmasters](https://scryfall.com/card/ltr/103/orcish-bowmasters), [Tergrid, God of Fright // Tergrid's Lantern](https://scryfall.com/card/khm/112/tergrid-god-of-fright-tergrids-lantern), [Vampiric Tutor](https://scryfall.com/card/dmr/108/vampiric-tutor) |
+| Red (3) | [Gamble](https://scryfall.com/card/dmr/121/gamble), [Jeska's Will](https://scryfall.com/card/mkc/156/jeskas-will), [Underworld Breach](https://scryfall.com/card/thb/161/underworld-breach) |
+| Green (7) | [Biorhythm](https://scryfall.com/card/9ed/231/biorhythm), [Crop Rotation](https://scryfall.com/card/dmr/154/crop-rotation), [Gaea's Cradle](https://scryfall.com/card/usg/321/gaeas-cradle), [Natural Order](https://scryfall.com/card/ema/177/natural-order), [Seedborn Muse](https://scryfall.com/card/tdc/268/seedborn-muse), [Survival of the Fittest](https://scryfall.com/card/tpr/199/survival-of-the-fittest), [Worldly Tutor](https://scryfall.com/card/dmr/185/worldly-tutor) |
+| Multicolor (4) | [Aura Shards](https://scryfall.com/card/cmd/182/aura-shards), [Coalition Victory](https://scryfall.com/card/tsb/91/coalition-victory), [Grand Arbiter Augustin IV](https://scryfall.com/card/2x2/221/grand-arbiter-augustin-iv), [Notion Thief](https://scryfall.com/card/znc/96/notion-thief) |
+| Colorless (12) | [Ancient Tomb](https://scryfall.com/card/uma/236/ancient-tomb), [Chrome Mox](https://scryfall.com/card/2xm/240/chrome-mox), [Field of the Dead](https://scryfall.com/card/m20/247/field-of-the-dead), [Glacial Chasm](https://scryfall.com/card/me2/229/glacial-chasm), [Grim Monolith](https://scryfall.com/card/ulg/126/grim-monolith), [Lion's Eye Diamond](https://scryfall.com/card/vma/271/lions-eye-diamond), [Mana Vault](https://scryfall.com/card/2x2/308/mana-vault), [Mishra's Workshop](https://scryfall.com/card/vma/305/mishras-workshop), [Mox Diamond](https://scryfall.com/card/tpr/228/mox-diamond), [Panoptic Mirror](https://scryfall.com/card/dst/136/panoptic-mirror), [The One Ring](https://scryfall.com/card/ltr/246/the-one-ring), [The Tabernacle at Pendrell Vale](https://scryfall.com/card/me3/212/the-tabernacle-at-pendrell-vale) |
+
+<!-- game-changers:end -->
+
+Sol Ring is deliberately absent: Wizards does not list it, but root
+`DECISIONS.md` treats permanent fast mana as kitchen-table 4+. Say so in the
+fast-mana row rather than counting it against a cap.
 
 ## This table's reading (Parley)
 

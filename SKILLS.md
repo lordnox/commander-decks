@@ -72,6 +72,6 @@ See [`.agents/skills/rank-deck/SKILL.md`](.agents/skills/rank-deck/SKILL.md).
 
 Assess Commander Bracket and expected win turn. Use this only when the user asks about power, speed, bracket, or whether a deck fits a pod.
 
-It reads [`BRACKET-DEFINITIONS.md`](BRACKET-DEFINITIONS.md) and the stored list rather than the theme, refreshes official bracket and Game Changer guidance, and writes an evidence-based pregame description. It does not change the 99 unless the user separately asks.
+It reads [`BRACKET-DEFINITIONS.md`](BRACKET-DEFINITIONS.md) and the stored list rather than the theme, then writes an evidence-based pregame description. Bracket intent, printed caps, and the cached Game Changers snapshot all come from that one file; nothing is fetched per assessment. It does not change the 99 unless the user separately asks.
 
 See [`.agents/skills/assess-deck/SKILL.md`](.agents/skills/assess-deck/SKILL.md).

@@ -1,6 +1,6 @@
 ---
 name: assess-deck
-description: Assess a resolved Commander deck's current Commander Bracket and expected win turn. Use when the user asks about power level, bracket, speed, likely or fastest win turn, optimization level, or whether a deck fits a pod. Read BRACKET-DEFINITIONS.md, verify current official bracket and Game Changer guidance, analyze the stored deck rather than its theme alone, and give an evidence-based pregame description.
+description: Assess a resolved Commander deck's current Commander Bracket and expected win turn. Use when the user asks about power level, bracket, speed, likely or fastest win turn, optimization level, or whether a deck fits a pod. Take bracket intent, caps, and the cached Game Changers list from BRACKET-DEFINITIONS.md, analyze the stored deck rather than its theme alone, and give an evidence-based pregame description.
 ---
 
 # Assess Deck
@@ -15,21 +15,16 @@ Assess the deck as built. Do not modify it unless the user separately asks for c
 4. Use embedded Oracle details in `cards.json`. Read shared cache files only when required data is absent.
 5. Use `.agents/skills/scryfall-lookup/SKILL.md` when card text or legality needs refreshing.
 
-## 2. Refresh the bracket rules
+## 2. Load the bracket rules
 
-Read root [`BRACKET-DEFINITIONS.md`](../../../BRACKET-DEFINITIONS.md) before classifying. That file is this repo's intent, Incremental Core texture, turn-floor meaning, printed caps, and Parley reading.
+Root [`BRACKET-DEFINITIONS.md`](../../../BRACKET-DEFINITIONS.md) is the only bracket source this skill uses. It holds official intent, turn floors, printed Game Changer caps, the cached Game Changers list, and this table's reading (win texture, Incremental Core, Parley).
 
-Commander Brackets and the Game Changers list can change. Fetch these pages on every assessment, then prefer them over memory for **printed** intent and Game Changer caps:
+1. Read that file before classifying.
+2. Take hard limits versus expected barometers from its `Printed caps and barometers` table. Do not treat two-card combos, extra turns, or mass land denial as a fixed restriction checklist.
+3. Match the deck manifest against its `Cached Game Changers` block. Do not query Scryfall or fetch Wizards pages as routine work.
+4. Cite `BRACKET-DEFINITIONS.md` and the snapshot date in the assessment.
 
-- https://magic.wizards.com/en/formats/commander (live Brackets and Game Changers)
-- the latest official Commander Brackets announcement on magic.wizards.com
-
-If the live pages disagree with `BRACKET-DEFINITIONS.md` on official wording or caps, the live pages win for those facts. Then apply this table's reading in that file (win texture, Incremental Core, Parley footnotes).
-
-1. Record whatever the current official page lists as hard limits versus expected barometers for each relevant bracket. Do not treat two-card combos, extra turns, or mass land denial as a fixed restriction checklist.
-2. Confirm Game Changer caps on that fetch. The live-page baseline is 0 in Brackets 1–2, up to 3 in Bracket 3, and unlimited in Brackets 4–5.
-3. Query current Game Changers with the `scryfall-lookup` skill using `is:gamechanger`, then match those names against the deck manifest. Cite the Wizards page, not a third-party list.
-4. Cite the official source and `BRACKET-DEFINITIONS.md` in the assessment.
+Refresh that file only when the user asks, when Wizards announces a change, or when a specific card's status is genuinely in doubt. It documents `update_game_changers.py` and `--check`; a refresh is its own step, not part of every assessment.
 
 Do not classify a deck solely by counting Game Changers. Use printed caps as the default advertised boundary; a thematic Game Changer can stay in a lower-feeling game only with an explicit footnote, as in `BRACKET-DEFINITIONS.md`.
 
@@ -97,7 +92,7 @@ Keep the result concise and include:
 
 1. **Verdict:** bracket and position within it.
 2. **Win-turn table:** credible high roll, normal goldfish, and interactive game.
-3. **Evidence table:** Game Changers, combos, tutors, fast mana, interaction, consistency, and win conditions. Count official `is:gamechanger` for bracket caps. In the fast-mana row, do not call Signets fast mana; split one-shot rituals from permanent rocks, and note that this table's Sol Ring is kitchen-table 4+ even when Wizards does not list it.
+3. **Evidence table:** Game Changers, combos, tutors, fast mana, interaction, consistency, and win conditions. Count Game Changers from the cached block in `BRACKET-DEFINITIONS.md` for bracket caps. In the fast-mana row, do not call Signets fast mana; split one-shot rituals from permanent rocks, and note that this table's Sol Ring is kitchen-table 4+ even when Wizards does not list it.
 4. **Boundary argument:** why not the adjacent brackets.
 5. **Pregame description:** one sentence the player can use at the table.
 

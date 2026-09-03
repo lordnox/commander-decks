@@ -5,7 +5,7 @@ description: >-
   turn-by-turn plays, London mulligans, and bracket-specific disruption
   scenarios. Use when testing new or existing decks, checking early turns,
   mana, interaction, protection, commander recovery, or comparing revisions.
-  Read BRACKET-DEFINITIONS.md when the pressure model depends on bracket.
+  Take bracket-dependent pressure models from BRACKET-DEFINITIONS.md.
 ---
 
 # Simulate Deck
@@ -44,9 +44,9 @@ declared milestone, choose one that measures setup rather than pretending every
 deck should win by turn five. State uncertain assumptions instead of silently
 hard-coding them.
 
-Read [`BRACKET-DEFINITIONS.md`](../../../BRACKET-DEFINITIONS.md) and refresh
-official bracket guidance when using bracket-specific expectations.
-The bracket controls the pressure model:
+Take bracket-specific expectations from
+[`BRACKET-DEFINITIONS.md`](../../../BRACKET-DEFINITIONS.md) rather than live
+pages. The bracket controls the pressure model:
 
 | Target | Required stress tests |
 |---|---|
