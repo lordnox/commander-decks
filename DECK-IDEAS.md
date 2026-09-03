@@ -26,6 +26,26 @@ Named finishers: [Vito, Thorn of the Dusk Rose](https://scryfall.com/card/m21/12
 
 House rules for a later 99: no Game Changers unless excepted ([Enlightened Tutor](https://scryfall.com/card/mir/14/enlightened-tutor) is one). Prefer the old Pestilence cousins over modern drain staples. Still open: brew title, how much two-card combo vs a sticky Pestilence lock, and whether [Oloro, Ageless Ascetic](https://scryfall.com/card/c13/203/oloro-ageless-ascetic) belongs in the zone instead of Zur. No `decks/` folder yet; [Indoraptor — Hybrid Theory](decks/3_indoraptor-hybrid-theory/README.md) is a different Pestilence-style plan (Jund enrage).
 
+### Gor + Peer Pressure (newt war)
+
+Parked 2026-09-03. Worth a 99 later: Simic type-change plus an Onslaught steal, and [Gor Muldrak, Amphinologist](https://scryfall.com/card/cmr/277/gor-muldrak-amphinologist) is the commander lock. No brew title yet.
+
+Plan in one sentence: at each of your end steps, give a 4/3 Salamander to every player tied for fewest creatures, keep protection from those tokens, then turn a slice of the board into Salamanders and resolve [Peer Pressure](https://scryfall.com/card/ons/101/peer-pressure) naming Salamander. That steal is not a loop. Peer Pressure needs you to control strictly more creatures of the chosen type than each other player; the control change lasts indefinitely even after until-end-of-turn type changes wear off.
+
+Rules that were checked: Gor's static also protects Gor. The token ability checks creature counts on resolution, not on trigger. Tied for fewest means each tied player makes a token, so a wide board on your side donates to the table. Protection from Salamanders stops Salamander sources from damaging, enchanting, blocking, or targeting you and your permanents; it does not stop you from attacking with stolen creatures. Type-changers in identity: [Unnatural Selection](https://scryfall.com/card/apc/32/unnatural-selection), [Imagecrafter](https://scryfall.com/card/ons/87/imagecrafter), [Amoeboid Changeling](https://scryfall.com/card/lrw/51/amoeboid-changeling) (grant all types, or strip them). Neither Gor nor Peer Pressure is a Game Changer.
+
+Named finishers: Peer Pressure itself as the swing, then beatdown with the stolen pile. Combat lords and overrun are backup, not the joke. House rules for a later 99: prefer the old type-change toys over modern changeling staples unless the extra types are the line. Still open: brew title, whether you stay creature-light to keep receiving tokens or go wide and only donate, and how much extra steal ([Cultural Exchange](https://scryfall.com/card/ody/79/cultural-exchange) era) belongs next to Peer Pressure. No `decks/` folder yet.
+
+### Atemsis (six mana values)
+
+Parked 2026-09-03. Worth a 99 later: the lose-the-game line is printed on [Atemsis, All-Seeing](https://scryfall.com/card/m20/46/atemsis-all-seeing), and mono-blue is the commander lock. No brew title yet.
+
+Plan in one sentence: keep a six-mana-value hand, connect with Atemsis, reveal, that player loses. The tap ability (`{2}{U}`, draw two then discard one) is the sculpt, not the win. It is not a loop. Each trigger can only eliminate the opponent who took the damage, and only if the reveal still has six different mana values.
+
+Rules that were checked: the trigger is any damage to an opponent, not only combat. Every card has exactly one mana value; no-cost cards and `{X}` in hand are 0, and 0 counts. Split cards use the combined halves (Fire // Ice is 4, not two values). Lands in hand are 0. Game Changers are not required for the line; [Cyclonic Rift](https://scryfall.com/card/rvr/40/cyclonic-rift) and [Rhystic Study](https://scryfall.com/card/j22/114/rhystic-study) stay out unless excepted as the joke.
+
+Named finishers: Atemsis connecting is the named win. Path to connect: bounce ([Evacuation](https://scryfall.com/card/lcc/156/evacuation), [Aetherize](https://scryfall.com/card/fdn/151/aetherize), [Consuming Tide](https://scryfall.com/card/vow/53/consuming-tide)), then a spread of mana values in the 99 so a full hand is six columns without tutors. Hand-size without Reliquary Tower: [Library of Leng](https://scryfall.com/card/me4/211/library-of-leng), [Spellbook](https://scryfall.com/card/m10/220/spellbook). Still open: brew title, how much the 99 is "only connect the Sphinx" versus a backup mill or combat plan, and whether the tap ability is worth building around as card selection or just incidental. No `decks/` folder yet.
+
 ## Currently not viable
 
 ### Mind Unbound + The Magic Mirror (proliferate)
