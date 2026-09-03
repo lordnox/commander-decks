@@ -1,0 +1,168 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "6349bcef-4ec5-4160-96ef-302d825f3888",
+      "name": "Unyielding Gatekeeper",
+      "object": "related_card",
+      "type_line": "Creature — Elephant Cleric",
+      "uri": "https://api.scryfall.com/cards/6349bcef-4ec5-4160-96ef-302d825f3888"
+    },
+    {
+      "component": "token",
+      "id": "30a109aa-99d4-4cfe-a9b1-1b40db5b7885",
+      "name": "Detective",
+      "object": "related_card",
+      "type_line": "Token Creature — Detective",
+      "uri": "https://api.scryfall.com/cards/30a109aa-99d4-4cfe-a9b1-1b40db5b7885"
+    },
+    {
+      "component": "combo_piece",
+      "id": "241b3b6d-a25f-4a43-b5d6-1d1079e7e498",
+      "name": "A Mysterious Creature",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/241b3b6d-a25f-4a43-b5d6-1d1079e7e498"
+    }
+  ],
+  "arena_id": 88955,
+  "artist": "Borja Pindado",
+  "artist_ids": [
+    "1624a1a8-3492-4c0b-9abc-83dcf2653111"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 751190,
+  "cmc": 2.0,
+  "collector_number": "35",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 15639,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f3a0d597-d2df-4aaf-8084-c8eeda64ce60",
+  "illustration_id": "53d3f0e1-fc61-4680-9524-c3aa3aea632f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:21:57Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/3/f3a0d597-d2df-4aaf-8084-c8eeda64ce60.webp?1783912917",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/3/f3a0d597-d2df-4aaf-8084-c8eeda64ce60.jpg?1783912917",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/3/f3a0d597-d2df-4aaf-8084-c8eeda64ce60.jpg?1783912917",
+    "crop": "https://cards.scryfall.io/crop/front/f/3/f3a0d597-d2df-4aaf-8084-c8eeda64ce60.webp?1783912917",
+    "display": "https://cards.scryfall.io/display/front/f/3/f3a0d597-d2df-4aaf-8084-c8eeda64ce60.webp?1783912917",
+    "grid": "https://cards.scryfall.io/grid/front/f/3/f3a0d597-d2df-4aaf-8084-c8eeda64ce60.webp?1783912917",
+    "large": "https://cards.scryfall.io/large/front/f/3/f3a0d597-d2df-4aaf-8084-c8eeda64ce60.jpg?1783912917",
+    "normal": "https://cards.scryfall.io/normal/front/f/3/f3a0d597-d2df-4aaf-8084-c8eeda64ce60.jpg?1783912917",
+    "png": "https://cards.scryfall.io/png/front/f/3/f3a0d597-d2df-4aaf-8084-c8eeda64ce60.png?1783912917",
+    "small": "https://cards.scryfall.io/small/front/f/3/f3a0d597-d2df-4aaf-8084-c8eeda64ce60.jpg?1783912917",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/3/f3a0d597-d2df-4aaf-8084-c8eeda64ce60.webp?1783912917"
+  },
+  "keywords": [
+    "Disguise"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "mtgo_id": 121558,
+  "multiverse_ids": [
+    646598
+  ],
+  "name": "Unyielding Gatekeeper",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3c8fa799-7f30-4532-8317-f37a7ab787de",
+  "oracle_text": "Disguise {1}{W} (You may cast this card face down for {3} as a 2/2 creature with ward {2}. Turn it face up any time for its disguise cost.)\nWhen this creature is turned face up, exile another target nonland permanent. If you controlled it, return it to the battlefield tapped. Otherwise, its controller creates a 2/2 white and blue Detective creature token.",
+  "oversized": false,
+  "penny_rank": 8362,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2024-01-17",
+    "source": "Corey Baumeister",
+    "source_uri": "https://twitter.com/CoreyBaumeister/status/1747716223679504552"
+  },
+  "prices": {
+    "eur": "0.15",
+    "eur_foil": "0.20",
+    "tix": "0.02",
+    "usd": "0.17",
+    "usd_etched": null,
+    "usd_foil": "0.21"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3c8fa799-7f30-4532-8317-f37a7ab787de&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/121558?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=751190&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F533384%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Unyielding+Gatekeeper",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=646598&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DUnyielding%2BGatekeeper",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DUnyielding%2BGatekeeper"
+  },
+  "released_at": "2024-02-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f3a0d597-d2df-4aaf-8084-c8eeda64ce60/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkm/35/unyielding-gatekeeper?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkm",
+  "set_id": "2b17794b-15c3-4796-ad6f-0887a0eceeca",
+  "set_name": "Murders at Karlov Manor",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/2b17794b-15c3-4796-ad6f-0887a0eceeca",
+  "story_spotlight": false,
+  "tcgplayer_id": 533384,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Elephant Cleric",
+  "uri": "https://api.scryfall.com/cards/f3a0d597-d2df-4aaf-8084-c8eeda64ce60",
+  "variation": false
+}

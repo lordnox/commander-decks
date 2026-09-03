@@ -1,6 +1,33 @@
 {
   "cards": [
     {
+      "cache": "cards/eaa9baac-72f2-4bde-9146-860878d9860b.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flying",
+          "Ward"
+        ],
+        "mana_cost": "{1}{W}{U}",
+        "oracle_text": "Flying, ward {2}\n{1}{W}{U}: Exile another target creature or artifact you control. Return it to the battlefield under its owner's control at the beginning of the next end step.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Spirit"
+      },
+      "categories": [
+        "Commander{top}"
+      ],
+      "category_source": "decklist",
+      "name": "Abuelo, Ancestral Echo",
+      "oracle_id": "eaa9baac-72f2-4bde-9146-860878d9860b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lci/219/abuelo-ancestral-echo?utm_source=api",
+      "submitted_categories": [
+        "Commander{top}"
+      ],
+      "submitted_name": "Abuelo, Ancestral Echo"
+    },
+    {
       "cache": "cards/fb220f46-f8b8-4804-baa4-e7d50b4871f7.json",
       "card": {
         "cmc": 3.0,
@@ -402,34 +429,6 @@
       "submitted_name": "Conjurer's Closet"
     },
     {
-      "cache": "cards/8a76a9b9-3127-45fe-b20f-a8f643276281.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [
-          "Flash"
-        ],
-        "mana_cost": "{1}{W}",
-        "oracle_text": "Flash\nIf a nontoken creature would enter and it wasn't cast, exile it instead.",
-        "power": "2",
-        "toughness": "2",
-        "type_line": "Creature — Human Cleric"
-      },
-      "categories": [
-        "stax",
-        "interaction"
-      ],
-      "category_source": "decklist",
-      "name": "Containment Priest",
-      "oracle_id": "8a76a9b9-3127-45fe-b20f-a8f643276281",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/m21/13/containment-priest?utm_source=api",
-      "submitted_categories": [
-        "stax",
-        "interaction"
-      ],
-      "submitted_name": "Containment Priest"
-    },
-    {
       "cache": "cards/9938d178-0ce6-45c0-b317-fd5c54231579.json",
       "card": {
         "cmc": 6.0,
@@ -720,30 +719,6 @@
       "submitted_name": "Floodgate"
     },
     {
-      "cache": "cards/a03ab63a-83f3-4dd6-926d-08d09ce2e696.json",
-      "card": {
-        "cmc": 6.0,
-        "keywords": [],
-        "mana_cost": "{6}",
-        "oracle_text": "At the beginning of each player's upkeep, that player reveals the top card of their library. If it's an artifact, creature, enchantment, or land card, the player may put it onto the battlefield.",
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "cheat",
-        "chaos"
-      ],
-      "category_source": "decklist",
-      "name": "Gate to the Aether",
-      "oracle_id": "a03ab63a-83f3-4dd6-926d-08d09ce2e696",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mrd/174/gate-to-the-aether?utm_source=api",
-      "submitted_categories": [
-        "cheat",
-        "chaos"
-      ],
-      "submitted_name": "Gate to the Aether"
-    },
-    {
       "cache": "cards/d7dcd1a3-3163-4e26-94e8-f4072e477e6a.json",
       "card": {
         "cmc": 5.0,
@@ -801,7 +776,9 @@
         "type_line": "Legendary Enchantment Creature — God // Legendary Enchantment Creature — Phyrexian God"
       },
       "categories": [
-        "Commander{top}"
+        "recursion",
+        "blink-payoff",
+        "enchantment"
       ],
       "category_source": "decklist",
       "name": "Heliod, the Radiant Dawn // Heliod, the Warped Eclipse",
@@ -809,7 +786,9 @@
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/mom/17/heliod-the-radiant-dawn-heliod-the-warped-eclipse?utm_source=api",
       "submitted_categories": [
-        "Commander{top}"
+        "recursion",
+        "blink-payoff",
+        "enchantment"
       ],
       "submitted_name": "Heliod, the Radiant Dawn // Heliod, the Warped Eclipse"
     },
@@ -1001,6 +980,30 @@
       "submitted_name": "Journey to Nowhere"
     },
     {
+      "cache": "cards/0214805d-d207-42da-a25f-2a8e1990904e.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Exile target creature you control, then return that card to the battlefield under its owner's control. It gains first strike until end of turn.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "blink",
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Justiciar's Portal",
+      "oracle_id": "0214805d-d207-42da-a25f-2a8e1990904e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rna/13/justiciars-portal?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "protection"
+      ],
+      "submitted_name": "Justiciar's Portal"
+    },
+    {
       "cache": "cards/83917116-d2d8-4701-a79f-af17486706ae.json",
       "card": {
         "cmc": 1.0,
@@ -1169,54 +1172,54 @@
       "submitted_name": "Multiversal Recruitment"
     },
     {
-      "cache": "cards/6128679e-7e54-41e4-ab6e-25aeeffed49f.json",
+      "cache": "cards/76678885-3674-443d-b9a2-2a460cf6aac0.json",
       "card": {
-        "cmc": 2.0,
-        "keywords": [
-          "Enchant"
-        ],
-        "mana_cost": "{1}{W}",
-        "oracle_text": "Enchant artifact, creature, or planeswalker\nEnchanted permanent can't attack or block, and its activated abilities can't be activated.",
-        "type_line": "Enchantment — Aura"
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "If an artifact or creature entering causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.",
+        "type_line": "Artifact"
       },
       "categories": [
-        "removal",
-        "enchantment"
+        "engine",
+        "blink-payoff",
+        "artifact"
       ],
       "category_source": "decklist",
-      "name": "Planar Disruption",
-      "oracle_id": "6128679e-7e54-41e4-ab6e-25aeeffed49f",
+      "name": "Panharmonicon",
+      "oracle_id": "76678885-3674-443d-b9a2-2a460cf6aac0",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/one/28/planar-disruption?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/2x2/310/panharmonicon?utm_source=api",
       "submitted_categories": [
-        "removal",
-        "enchantment"
+        "engine",
+        "blink-payoff",
+        "artifact"
       ],
-      "submitted_name": "Planar Disruption"
+      "submitted_name": "Panharmonicon"
     },
     {
-      "cache": "cards/a959a91a-3e1d-4bd4-9e14-5ee977540146.json",
+      "cache": "cards/1a3ce329-ee48-4abc-b820-b43e9e68eae9.json",
       "card": {
-        "cmc": 2.0,
+        "cmc": 3.0,
         "keywords": [],
-        "mana_cost": "{1}{U}",
-        "oracle_text": "Exile target artifact or creature, then return it to the battlefield under its owner's control with a +1/+1 counter on it.",
-        "type_line": "Instant"
+        "mana_cost": "{3}",
+        "oracle_text": "{3}: If your library has ten or more cards in it, target opponent looks at the top ten cards of your library and separates them into two face-down piles. Exile one of those piles. Search the other pile for a card, put it into your hand, then shuffle the rest of that pile into your library.",
+        "type_line": "Artifact"
       },
       "categories": [
-        "blink",
-        "protection"
+        "card-advantage",
+        "politics"
       ],
       "category_source": "decklist",
-      "name": "Planar Incision",
-      "oracle_id": "a959a91a-3e1d-4bd4-9e14-5ee977540146",
+      "name": "Phyrexian Portal",
+      "oracle_id": "1a3ce329-ee48-4abc-b820-b43e9e68eae9",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/neo/72/planar-incision?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/all/126/phyrexian-portal?utm_source=api",
       "submitted_categories": [
-        "blink",
-        "protection"
+        "card-advantage",
+        "politics"
       ],
-      "submitted_name": "Planar Incision"
+      "submitted_name": "Phyrexian Portal"
     },
     {
       "cache": "cards/bc71ebf6-2056-41f7-be35-b2e5c34afa99.json",
@@ -1244,30 +1247,6 @@
       "submitted_name": "Plains"
     },
     {
-      "cache": "cards/1a3ce329-ee48-4abc-b820-b43e9e68eae9.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{3}",
-        "oracle_text": "{3}: If your library has ten or more cards in it, target opponent looks at the top ten cards of your library and separates them into two face-down piles. Exile one of those piles. Search the other pile for a card, put it into your hand, then shuffle the rest of that pile into your library.",
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "card-advantage",
-        "politics"
-      ],
-      "category_source": "decklist",
-      "name": "Phyrexian Portal",
-      "oracle_id": "1a3ce329-ee48-4abc-b820-b43e9e68eae9",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/all/126/phyrexian-portal?utm_source=api",
-      "submitted_categories": [
-        "card-advantage",
-        "politics"
-      ],
-      "submitted_name": "Phyrexian Portal"
-    },
-    {
       "cache": "cards/853c6cc0-ed2b-4d65-add1-2449ade8cf68.json",
       "card": {
         "cmc": 6.0,
@@ -1290,6 +1269,84 @@
         "artifact"
       ],
       "submitted_name": "Planar Bridge"
+    },
+    {
+      "cache": "cards/6128679e-7e54-41e4-ab6e-25aeeffed49f.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Enchant artifact, creature, or planeswalker\nEnchanted permanent can't attack or block, and its activated abilities can't be activated.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "removal",
+        "enchantment"
+      ],
+      "category_source": "decklist",
+      "name": "Planar Disruption",
+      "oracle_id": "6128679e-7e54-41e4-ab6e-25aeeffed49f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/one/28/planar-disruption?utm_source=api",
+      "submitted_categories": [
+        "removal",
+        "enchantment"
+      ],
+      "submitted_name": "Planar Disruption"
+    },
+    {
+      "cache": "cards/75701981-b9fc-471f-a97f-e897bb3dfb77.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{W}",
+        "oracle_text": "{3}{W}, Exile this creature: Exile all creatures. At the beginning of the next end step, return those cards to the battlefield under their owners' control.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Cleric"
+      },
+      "categories": [
+        "blink",
+        "board-wipe",
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Planar Guide",
+      "oracle_id": "75701981-b9fc-471f-a97f-e897bb3dfb77",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lgn/18/planar-guide?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "board-wipe",
+        "protection"
+      ],
+      "submitted_name": "Planar Guide"
+    },
+    {
+      "cache": "cards/a959a91a-3e1d-4bd4-9e14-5ee977540146.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Exile target artifact or creature, then return it to the battlefield under its owner's control with a +1/+1 counter on it.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "blink",
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Planar Incision",
+      "oracle_id": "a959a91a-3e1d-4bd4-9e14-5ee977540146",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/72/planar-incision?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "protection"
+      ],
+      "submitted_name": "Planar Incision"
     },
     {
       "cache": "cards/d4b10505-2b7a-4099-aacb-ff2359b24310.json",
@@ -1390,42 +1447,6 @@
         "reanimation"
       ],
       "submitted_name": "Portal to Phyrexia"
-    },
-    {
-      "cache": "cards/6d03971a-8365-449a-8fbe-07b5b9bb42dc.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [
-          "Treasure",
-          "Ninjutsu"
-        ],
-        "mana_cost": "{2}{U}",
-        "oracle_text": "Ninjutsu {1}{U} ({1}{U}, Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand tapped and attacking.)\nWhenever one or more Ninja or Rogue creatures you control deal combat damage to a player, create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
-        "power": "3",
-        "produced_mana": [
-          "B",
-          "G",
-          "R",
-          "U",
-          "W"
-        ],
-        "toughness": "2",
-        "type_line": "Creature — Human Ninja"
-      },
-      "categories": [
-        "ramp",
-        "bounce-synergy"
-      ],
-      "category_source": "decklist",
-      "name": "Prosperous Thief",
-      "oracle_id": "6d03971a-8365-449a-8fbe-07b5b9bb42dc",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/neo/73/prosperous-thief?utm_source=api",
-      "submitted_categories": [
-        "ramp",
-        "bounce-synergy"
-      ],
-      "submitted_name": "Prosperous Thief"
     },
     {
       "cache": "cards/7f3b6c25-b855-4ea5-a8ad-d954a6cdffb7.json",
@@ -1586,34 +1607,6 @@
         "interaction"
       ],
       "submitted_name": "See Double"
-    },
-    {
-      "cache": "cards/572b1aeb-d2a0-433d-b167-86e683c2127d.json",
-      "card": {
-        "cmc": 6.0,
-        "keywords": [
-          "Vigilance"
-        ],
-        "mana_cost": "{5}{W}",
-        "oracle_text": "Vigilance (Attacking doesn't cause this creature to tap.)\nAt the beginning of combat on each opponent's turn, tap target creature that player controls.",
-        "power": "4",
-        "toughness": "6",
-        "type_line": "Creature — Giant Soldier"
-      },
-      "categories": [
-        "interaction",
-        "combat-control"
-      ],
-      "category_source": "decklist",
-      "name": "Sentinel of the Eternal Watch",
-      "oracle_id": "572b1aeb-d2a0-433d-b167-86e683c2127d",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/ori/30/sentinel-of-the-eternal-watch?utm_source=api",
-      "submitted_categories": [
-        "interaction",
-        "combat-control"
-      ],
-      "submitted_name": "Sentinel of the Eternal Watch"
     },
     {
       "cache": "cards/ac914d98-221e-426c-8a50-342896b15f9e.json",
@@ -1836,6 +1829,36 @@
       "submitted_name": "Tranquil Cove"
     },
     {
+      "cache": "cards/3c8fa799-7f30-4532-8317-f37a7ab787de.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Disguise"
+        ],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Disguise {1}{W} (You may cast this card face down for {3} as a 2/2 creature with ward {2}. Turn it face up any time for its disguise cost.)\nWhen this creature is turned face up, exile another target nonland permanent. If you controlled it, return it to the battlefield tapped. Otherwise, its controller creates a 2/2 white and blue Detective creature token.",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Creature — Elephant Cleric"
+      },
+      "categories": [
+        "blink",
+        "removal",
+        "flash"
+      ],
+      "category_source": "decklist",
+      "name": "Unyielding Gatekeeper",
+      "oracle_id": "3c8fa799-7f30-4532-8317-f37a7ab787de",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkm/35/unyielding-gatekeeper?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "removal",
+        "flash"
+      ],
+      "submitted_name": "Unyielding Gatekeeper"
+    },
+    {
       "cache": "cards/a8bf8ff8-d924-4fd2-b5ed-05b38f55325a.json",
       "card": {
         "cmc": 5.0,
@@ -1917,44 +1940,15 @@
         "flash"
       ],
       "submitted_name": "Whitemane Lion"
-    },
-    {
-      "cache": "cards/2e150f97-5688-4559-94b8-86c33fda28a0.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [
-          "Flying",
-          "Vigilance"
-        ],
-        "mana_cost": "{2}{U}",
-        "oracle_text": "Flying, vigilance\n{T}: Create a 2/2 white and blue Knight creature token with vigilance. Activate only if you've cast two or more spells this turn.",
-        "power": "2",
-        "toughness": "2",
-        "type_line": "Creature — Human Knight"
-      },
-      "categories": [
-        "token-production",
-        "finisher"
-      ],
-      "category_source": "decklist",
-      "name": "Xerex Strobe-Knight",
-      "oracle_id": "2e150f97-5688-4559-94b8-86c33fda28a0",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mom/85/xerex-strobe-knight?utm_source=api",
-      "submitted_categories": [
-        "token-production",
-        "finisher"
-      ],
-      "submitted_name": "Xerex Strobe-Knight"
     }
   ],
   "categorized_cards": 71,
-  "generated_at": "2026-09-03T17:14:01.296771+00:00",
+  "generated_at": "2026-09-03T17:28:02.522428+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 71,
   "schema_version": 3,
-  "source": "decks/2+_heliod-warped-threshold/decklist.txt",
+  "source": "decks/2+_abuelo-threshold-echo/decklist.txt",
   "total_cards": 100,
   "unique_cards": 71,
   "unresolved": []

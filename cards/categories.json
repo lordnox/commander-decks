@@ -9901,8 +9901,29 @@
       "categories": [
         "other"
       ]
+    },
+    "eaa9baac-72f2-4bde-9146-860878d9860b": {
+      "name": "Abuelo, Ancestral Echo",
+      "categories": [
+        "removal",
+        "blink"
+      ]
+    },
+    "75701981-b9fc-471f-a97f-e897bb3dfb77": {
+      "name": "Planar Guide",
+      "categories": [
+        "board-wipe"
+      ]
+    },
+    "3c8fa799-7f30-4532-8317-f37a7ab787de": {
+      "name": "Unyielding Gatekeeper",
+      "categories": [
+        "removal",
+        "token-production",
+        "blink"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-03T17:14:01.296771+00:00"
+  "updated_at": "2026-09-03T17:28:02.522428+00:00"
 }

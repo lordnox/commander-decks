@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Portal",
+    "Blink"
+  ],
+  "scores": {
+    "jankiness": 8,
+    "fun": 9,
+    "oppressiveness": 5,
+    "identity": {
+      "Portal": 10,
+      "Blink": 9
+    }
+  },
+  "notes": "Abuelo, Ancestral Echo puts the doorway in the command zone, so Blink rises to 9: the engine is always available, hits artifacts as well as creatures, and doubles as instant-speed protection. Portal stays 10 because every slot is a literal portal, gate, or a creature depicted crossing or guarding one. Jankiness drops to 8 now that the list has one coherent engine instead of a pile of unrelated doors, though the six-plus mana portals and Aether Gale's six-target puzzle keep it strange. Oppressiveness drops to 5 with the Containment Priest prison removed; Mirror of Life Trapping is the only stax piece left and it never stops opponents from playing, it only recycles what they cast."
+}

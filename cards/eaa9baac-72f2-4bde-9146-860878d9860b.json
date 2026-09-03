@@ -1,0 +1,149 @@
+{
+  "arena_id": 87379,
+  "artist": "Victor Adame Minguez",
+  "artist_ids": [
+    "bd8f7368-5b10-4554-b6b8-d052c6aca89f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 740874,
+  "cmc": 3.0,
+  "collector_number": "219",
+  "color_identity": [
+    "U",
+    "W"
+  ],
+  "colors": [
+    "U",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 5724,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Come, friends. Let us see if this world remembers us.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "40eee689-2514-421a-8056-eb7668be66ff",
+  "illustration_id": "25fc1989-0c61-4875-93c8-46b09bbaede9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:35:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/0/40eee689-2514-421a-8056-eb7668be66ff.webp?1783913735",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/0/40eee689-2514-421a-8056-eb7668be66ff.jpg?1783913735",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/0/40eee689-2514-421a-8056-eb7668be66ff.jpg?1783913735",
+    "crop": "https://cards.scryfall.io/crop/front/4/0/40eee689-2514-421a-8056-eb7668be66ff.webp?1783913735",
+    "display": "https://cards.scryfall.io/display/front/4/0/40eee689-2514-421a-8056-eb7668be66ff.webp?1783913735",
+    "grid": "https://cards.scryfall.io/grid/front/4/0/40eee689-2514-421a-8056-eb7668be66ff.webp?1783913735",
+    "large": "https://cards.scryfall.io/large/front/4/0/40eee689-2514-421a-8056-eb7668be66ff.jpg?1783913735",
+    "normal": "https://cards.scryfall.io/normal/front/4/0/40eee689-2514-421a-8056-eb7668be66ff.jpg?1783913735",
+    "png": "https://cards.scryfall.io/png/front/4/0/40eee689-2514-421a-8056-eb7668be66ff.png?1783913735",
+    "small": "https://cards.scryfall.io/small/front/4/0/40eee689-2514-421a-8056-eb7668be66ff.jpg?1783913735",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/0/40eee689-2514-421a-8056-eb7668be66ff.webp?1783913735"
+  },
+  "keywords": [
+    "Flying",
+    "Ward"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}{U}",
+  "mtgo_id": 118274,
+  "multiverse_ids": [
+    636939
+  ],
+  "name": "Abuelo, Ancestral Echo",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "eaa9baac-72f2-4bde-9146-860878d9860b",
+  "oracle_text": "Flying, ward {2}\n{1}{W}{U}: Exile another target creature or artifact you control. Return it to the battlefield under its owner's control at the beginning of the next end step.",
+  "oversized": false,
+  "penny_rank": 9973,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2023-10-24",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.youtube.com/watch?v=Szm0yzSUUm0"
+  },
+  "prices": {
+    "eur": "0.28",
+    "eur_foil": "0.22",
+    "tix": "0.02",
+    "usd": "0.28",
+    "usd_etched": null,
+    "usd_foil": "0.36"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aeaa9baac-72f2-4bde-9146-860878d9860b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/118274?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=740874&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F524201%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Abuelo%2C+Ancestral+Echo",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=636939&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAbuelo%252C%2BAncestral%2BEcho",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAbuelo%252C%2BAncestral%2BEcho"
+  },
+  "released_at": "2023-11-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/40eee689-2514-421a-8056-eb7668be66ff/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lci?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lci/219/abuelo-ancestral-echo?utm_source=api",
+  "security_stamp": "oval",
+  "set": "lci",
+  "set_id": "70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "set_name": "The Lost Caverns of Ixalan",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alci&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "story_spotlight": false,
+  "tcgplayer_id": 524201,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Spirit",
+  "uri": "https://api.scryfall.com/cards/40eee689-2514-421a-8056-eb7668be66ff",
+  "variation": false
+}
