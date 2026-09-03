@@ -1576,8 +1576,24 @@
     "one with the machine": "757eadac-dd29-4a7f-8683-5bc823168326",
     "tezzeret, betrayer of flesh": "5dedd5a9-bc5d-47bb-9ae1-7d683843d041",
     "thran portal": "926ce6a2-7bdd-4380-ac65-bc902ba0c284",
-    "tiller of flesh": "b6d2f392-5637-49ec-b6cb-603edd89e788"
+    "tiller of flesh": "b6d2f392-5637-49ec-b6cb-603edd89e788",
+    "aether gale": "b21d6482-1b3a-47e6-98a5-3067f5f3818b",
+    "aether spellbomb": "4b033a0a-c1ae-44d7-9662-72cbbfda024b",
+    "aetheric amplifier": "295cd8e1-0830-46c1-9957-556afd4bcee6",
+    "azor's gateway // sanctum of the sun": "c0cbb347-b060-43ce-a9c5-8c835be3cf1b",
+    "azor's gateway": "c0cbb347-b060-43ce-a9c5-8c835be3cf1b",
+    "sanctum of the sun": "c0cbb347-b060-43ce-a9c5-8c835be3cf1b",
+    "invasion of theros // ephara, ever-sheltering": "ba5f7f37-352a-4b9c-b648-0ba5c8d842fc",
+    "invasion of theros": "ba5f7f37-352a-4b9c-b648-0ba5c8d842fc",
+    "ephara, ever-sheltering": "ba5f7f37-352a-4b9c-b648-0ba5c8d842fc",
+    "matzalantli, the great door // the core": "16182e01-22ff-4786-985d-919b47c4aa4d",
+    "matzalantli, the great door": "16182e01-22ff-4786-985d-919b47c4aa4d",
+    "the core": "16182e01-22ff-4786-985d-919b47c4aa4d",
+    "planar disruption": "6128679e-7e54-41e4-ab6e-25aeeffed49f",
+    "planar incision": "a959a91a-3e1d-4bd4-9e14-5ee977540146",
+    "teleportation circle": "c786a0aa-d86f-42c3-a7ea-5cb6ab72b5ec",
+    "venser, the sojourner": "a8bf8ff8-d924-4fd2-b5ed-05b38f55325a"
   },
   "schema_version": 1,
-  "updated_at": "2026-09-03T16:29:55.345684+00:00"
+  "updated_at": "2026-09-03T16:43:41.500528+00:00"
 }

@@ -46,18 +46,18 @@ See `rankings.json`. After the 2026-09-03 ten-card swap: jank 8, fun 8, mean 5, 
 
 - **Another Round** — The main explosive turn, rebuying a whole portal board or ETB creature package.
 - **Aether Channeler** — ETB that is bounce, a flying token, or a card, then pays that choice again every time a portal blinks it.
-- **Boomerang** — Simple permanent bounce that keeps the door-closed tempo plan honest.
+- **Aether Gale** — Six-target mass bounce that can clear opposing blockers while reopening the deck's own ETB creatures and portals when fewer enemy targets matter.
+- **Aether Spellbomb** — A tiny artifact doorway that is either creature bounce or a fresh card, with recursion and copying upside from the portal shell.
 - **Conjurer's Closet** — Slow but reliable repeatable blink for value creatures every end step.
 - **Dematerialize** — Permanent bounce twice, first from hand and later from the graveyard.
 - **Depart the Realm** — Cheap foretell bounce that lets the deck bank mana and play draw-go.
-- **Distinguished Conjurer** — Creature-based blink engine that also pads life totals for long games.
 - **Ephara's Dispersal** — Often one-mana interaction when an attacker has already come through the portal.
-- **Justiciar's Portal** — Small protection spell that also retriggers ETB creatures.
 - **Light the Way** — Flexible protection piece that can either save a permanent or return it for reuse.
 - **Mirror of Life Trapping** — Weird engine card that keeps recasting creatures through the same doorway.
+- **Planar Incision** — Protects or retriggers an artifact or creature and leaves a counter behind for the counter subpackage.
 - **Snap** — Cheap tempo bounce that refunds mana and helps double-spell after Heliod transforms.
 - **Splash Portal** — Efficient one-shot blink that stays on theme and even replaces itself on the right creature types.
-- **Step Through** — Two-creature bounce when needed, with Wizardcycling as selection for key utility creatures.
+- **Teleportation Circle** — Repeatable end-step doorway for either an artifact portal or an ETB creature.
 - **Whitemane Lion** — Flash creature that turns every ETB creature in hand into a repeatable loop.
 
 ### Enchantment doors
@@ -66,17 +66,16 @@ See `rankings.json`. After the 2026-09-03 ten-card swap: jank 8, fun 8, mean 5, 
 - **Aether Tunnel** — Named-aether Aura that makes a utility creature unblockable and still triggers Sram.
 - **Dimensional Exile** — A portal-like prison effect that turns one of the deck's many basics into removal.
 - **Extraordinary Journey** — Removal and delayed deployment engine in one card, exactly the kind of odd threshold effect the deck wants.
+- **Invasion of Theros // Ephara, Ever-Sheltering** — A battle that finds an Aura doorway, then becomes a God that draws from later enchantment doors.
 - **Journey to Nowhere** — Clean cheap exile to make sure the deck can survive until the large portals matter.
-- **Realmbreaker's Grasp** — Cheap answer that also fits the visual language of rifts and bindings.
+- **Planar Disruption** — Planar prison Aura that shuts down artifacts and planeswalkers as well as creatures.
 
 ### Token and board development
 
 - **Chrome Host Seedshark** — The best noncreature-spell payoff in the pool, rewarding portal artifacts and bounce spells alike.
 - **Commence the Endgame** — Safe card draw that also leaves behind a large token body.
 - **Essence of Orthodoxy** — Another incubate engine that rewards the deck for naturally playing Phyrexians and artifacts.
-- **Invasion of Belenon // Belenon War Anthem** — Creates bodies early and becomes a wide-board anthem later.
 - **Multiversal Recruitment** — Copies the best ETB creature and can be flashed back after the first wave.
-- **Nexus of Becoming** — Slow value engine that turns extra artifact and creature cards in hand into bodies.
 - **Sunder the Gateway** — Removal that also adds to the incubator subpackage.
 - **Tiller of Flesh** — Incubates whenever bounce, Auras, or other targeted spells fire, so token production rides the interaction the deck already casts.
 - **Xerex Strobe-Knight** — Payoff for double-spelling after Heliod flips, and a clean win piece when left alone.
@@ -84,7 +83,8 @@ See `rankings.json`. After the 2026-09-03 ten-card swap: jank 8, fun 8, mean 5, 
 ### Card flow and setup
 
 - **Archaeomancer's Map** — Makes land drops smoother and punishes faster tables for pulling ahead on mana.
-- **Astral Cornucopia** — Flexible mana rock that scales up well when later copied or cheated.
+- **Aetheric Amplifier** — Portal-flavored mana rock that can double Incubator, loyalty, or other useful counters later.
+- **Azor's Gateway // Sanctum of the Sun** — Filters dead cards through a literal gateway and can eventually become enough mana to operate a giant portal.
 - **Comeuppance** — A single card that punishes the alpha strike and buys a full turn cycle for the expensive portal plan.
 - **Day's Undoing** — Refills everybody's hand, which turns transformed Heliod into a cost reducer for the burst turn.
 - **Cloud of Faeries** — Old extra-turn-of-mana ETB that Heliod can flash, then cycle later if the body is wrong.
@@ -94,10 +94,10 @@ See `rankings.json`. After the 2026-09-03 ten-card swap: jank 8, fun 8, mean 5, 
 - **Firemane Commando** — Rewards the table for attacking elsewhere, which both buys time and hands opponents extra cards for Heliod's back face.
 - **Grip of Amnesia** — Two-mana counter that replaces itself and still fits the original portal-art pool.
 - **Interdimensional Web Watch** — Mana rock that also turns the top of the library into a temporary extra hand.
+- **Matzalantli, the Great Door // The Core** — Looting doorway that converts a varied graveyard into the mana required by Planar Portal and Planar Bridge.
 - **One with the Machine** — Draws equal to the largest portal artifact, so Portal to Phyrexia and Planar Bridge refill the hand instead of stranding it.
 - **Invasion of Vryn // Overloaded Mage-Ring** — Selection on the front and a spell-copy land on the back, which suits the deck's larger bounce and draw turns.
 - **Mirage Mirror** — Copies the best portal, threat, or land on the table and gives the deck a way to improvise around odd boards.
-- **Sram, Senior Edificer** — Quiet card-draw engine off the remaining Auras (Abduction, Aether Tunnel, Dimensional Exile, Realmbreaker's Grasp).
 - **Step Between Worlds** — Another everyone-draws reset that can be plotted ahead of time for a future Heliod turn.
 - **Tezzeret, Betrayer of Flesh** — Makes the first portal activation each turn cheaper, loots toward artifacts, and can turn a stuck portal into a 4/4.
 
@@ -111,9 +111,9 @@ See `rankings.json`. After the 2026-09-03 ten-card swap: jank 8, fun 8, mean 5, 
 - **Plains** — White basics keep the blink and removal cards castable without leaning on slow nonbasics.
 - **Runed Arch** — Turns small evasive creatures and token bodies into a credible alpha strike.
 - **See Double** — Flexible interaction spell that can copy the table's best spell, your best creature, or both once graveyards fill naturally.
-- **Tetsuko Umezawa, Fugitive** — Makes the deck's utility creatures, incubator leftovers, and small tokens connect safely.
 - **Thran Portal** — Gate land that can be Plains or Island and often enters untapped in the first three lands.
 - **Tranquil Cove** — Cheap untaxing fixer with a small life bump for long games.
+- **Venser, the Sojourner** — Interplanar traveler that blinks any permanent, opens an unblockable finishing turn, and threatens a spell-powered exile emblem.
 
 ## Rules
 
@@ -126,6 +126,10 @@ See `rankings.json`. After the 2026-09-03 ten-card swap: jank 8, fun 8, mean 5, 
 - **Step Between Worlds exiles itself after resolution.** It is a one-shot reset, not a graveyard resource.
 - **Thran Portal's mana abilities cost 1 life.** It is still a Plains or Island for Extraplanar Lens, not a fifth color source.
 - **Tezzeret only discounts the first artifact activation each turn.** Planar Bridge and Prototype Portal still need a later turn for the expensive chapter.
+- **Aether Gale requires exactly six legal nonland targets.** Your own ETB creatures and portals can fill missing slots and turn the drawback into reuse.
+- **Azor's Gateway checks five different mana values among its exiled cards.** It does not count card types or colors.
+- **Matzalantli checks permanent types in the graveyard.** The back face's mana then counts permanent cards, not permanent types.
+- **Invasion of Theros searches the library only.** It cannot find Heliod while Heliod is in the command zone.
 
 ## Cards out
 
@@ -139,6 +143,16 @@ See `rankings.json`. After the 2026-09-03 ten-card swap: jank 8, fun 8, mean 5, 
 - **Knight of the New Coalition** — Two vanilla bodies. **Aether Channeler** is a body that also bounces or draws, then repeats on blink.
 - **Lassoed by the Law** — Four-mana tap that made a 1/1. Bounce already answers attackers; the slot became **Cloud of Faeries**, a Heliod-flashable mana creature from the original art pool.
 - **Security Bypass** — Slow cipher Aura. **Aether Tunnel** is the same Sram trigger with real evasion.
+- **Astral Cornucopia** — Scalable but poor before six mana. **Aetheric Amplifier** ramps at three and later doubles Incubator or planeswalker counters.
+- **Boomerang** — Flexible but generic one-for-one bounce. **Aether Spellbomb** keeps creature bounce while adding artifact and card-draw modes.
+- **Distinguished Conjurer** — Its repeatable blink cost five mana plus a tap. **Teleportation Circle** blinks creatures or artifact portals for free each end step.
+- **Invasion of Belenon // Belenon War Anthem** — A 2/2 and anthem were low-impact. **Invasion of Theros // Ephara, Ever-Sheltering** finds an Aura and can become an enchantment draw engine.
+- **Justiciar's Portal** — Creature-only blink with marginal first strike. **Planar Incision** also crosses artifacts and leaves a useful counter.
+- **Nexus of Becoming** — Four mana before its slow token conversion. **Matzalantli, the Great Door // The Core** filters immediately and can power the giant portals.
+- **Realmbreaker's Grasp** — Only suppressed creatures and Vehicles. **Planar Disruption** also closes artifacts and planeswalkers.
+- **Sram, Senior Edificer** — Too few Auras and Equipment remained to make him reliable. **Azor's Gateway // Sanctum of the Sun** filters every turn and keeps the doorway identity.
+- **Step Through** — Five mana for two creatures, with a shrinking Wizard package. **Aether Gale** moves six nonlands and can deliberately reopen friendly ETBs.
+- **Tetsuko Umezawa, Fugitive** — Only a small subset of creatures qualified. **Venser, the Sojourner** makes the whole board unblockable and blinks any permanent.
 
 ## Primer
 
@@ -209,3 +223,11 @@ Keep the portal identity; cut the ten worst filler cards from the locked `art:po
 Rejected while searching: [Path to Exile](https://scryfall.com/card/con/14/path-to-exile), [Talon Gates of Madara](https://scryfall.com/card/m3c/30/talon-gates-of-madara), and [Aetherize](https://scryfall.com/card/gtc/29/aetherize) as staples; [Intuition](https://scryfall.com/card/tpr/54/intuition) as a Game Changer used only for consistency; [Possessed Portal](https://scryfall.com/card/5dn/144/possessed-portal) as a lock; [Portal Mage](https://scryfall.com/card/c17/12/portal-mage) as a second [Portal Manipulator](https://scryfall.com/card/clu/40/portal-manipulator).
 
 Jank drops 9 to 8 because the list is less "whatever the art tag allowed." Portal stays 9. Flash stays 7. Mean stays 5: [Dolmen Gate](https://scryfall.com/card/lrw/256/dolmen-gate) makes combat safer without stopping other decks.
+
+### 2026-09-03 — Second ten-card portal upgrade
+
+The second pass widened "portal" from the original art query to literal gates, aether effects, planar crossings, doors, teleportation, and a planeswalker who travels between planes. The replacements preserve each weak slot's role while adding artifact, blink, counter, or finisher overlap.
+
+No candidate is a live Game Changer. Generic staples such as Cyclonic Rift, Teferi's Protection, and fast mana remained excluded. The portal artifacts themselves remain untouched even where their rate is poor, because they are the deck's identity rather than filler.
+
+Scores stay Jank 8, Fun 8, Mean 5, Portal 9, Flash 7. The deck is more functional, but Aether Gale's six-target puzzle, two transforming doors, and Venser's interplanar utility keep it unusual.

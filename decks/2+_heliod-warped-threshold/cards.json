@@ -55,6 +55,56 @@
       "submitted_name": "Aether Channeler"
     },
     {
+      "cache": "cards/b21d6482-1b3a-47e6-98a5-3067f5f3818b.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{U}{U}",
+        "oracle_text": "Return six target nonland permanents to their owners' hands.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "bounce",
+        "interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Aether Gale",
+      "oracle_id": "b21d6482-1b3a-47e6-98a5-3067f5f3818b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/186/aether-gale?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "interaction"
+      ],
+      "submitted_name": "Aether Gale"
+    },
+    {
+      "cache": "cards/4b033a0a-c1ae-44d7-9662-72cbbfda024b.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "{U}, Sacrifice this artifact: Return target creature to its owner's hand.\n{1}, Sacrifice this artifact: Draw a card.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "bounce",
+        "card-draw",
+        "artifact"
+      ],
+      "category_source": "decklist",
+      "name": "Aether Spellbomb",
+      "oracle_id": "4b033a0a-c1ae-44d7-9662-72cbbfda024b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/jmp/456/aether-spellbomb?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "card-draw",
+        "artifact"
+      ],
+      "submitted_name": "Aether Spellbomb"
+    },
+    {
       "cache": "cards/0a90d1fb-7a76-4b62-b001-4a539a8e5df1.json",
       "card": {
         "cmc": 2.0,
@@ -79,6 +129,39 @@
         "enchantment"
       ],
       "submitted_name": "Aether Tunnel"
+    },
+    {
+      "cache": "cards/295cd8e1-0830-46c1-9957-556afd4bcee6.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Double"
+        ],
+        "mana_cost": "{3}",
+        "oracle_text": "{T}: Add one mana of any color.\n{4}, {T}: Choose one. Activate only as a sorcery.\n• Double the number of each kind of counter on target permanent.\n• Double the number of each kind of counter you have.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp",
+        "counter-synergy"
+      ],
+      "category_source": "decklist",
+      "name": "Aetheric Amplifier",
+      "oracle_id": "295cd8e1-0830-46c1-9957-556afd4bcee6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/drc/18/aetheric-amplifier?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "counter-synergy"
+      ],
+      "submitted_name": "Aetheric Amplifier"
     },
     {
       "cache": "cards/8095ca78-db19-4724-a6ff-eacc85fa2274.json",
@@ -129,12 +212,26 @@
       "submitted_name": "Archaeomancer's Map"
     },
     {
-      "cache": "cards/1bc42024-52da-4d93-8b47-544f0a4a72a1.json",
+      "cache": "cards/c0cbb347-b060-43ce-a9c5-8c835be3cf1b.json",
       "card": {
-        "cmc": 0.0,
-        "keywords": [],
-        "mana_cost": "{X}{X}{X}",
-        "oracle_text": "This artifact enters with X charge counters on it.\n{T}: Choose a color. Add one mana of that color for each charge counter on this artifact.",
+        "cmc": 2.0,
+        "faces": [
+          {
+            "mana_cost": "{2}",
+            "name": "Azor's Gateway",
+            "oracle_text": "{1}, {T}: Draw a card, then exile a card from your hand. If cards with five or more different mana values are exiled with Azor's Gateway, you gain 5 life, untap Azor's Gateway, and transform it.",
+            "type_line": "Legendary Artifact"
+          },
+          {
+            "mana_cost": "",
+            "name": "Sanctum of the Sun",
+            "oracle_text": "(Transforms from Azor's Gateway.)\n{T}: Add X mana of any one color, where X is your life total.",
+            "type_line": "Legendary Land"
+          }
+        ],
+        "keywords": [
+          "Transform"
+        ],
         "produced_mana": [
           "B",
           "G",
@@ -142,20 +239,24 @@
           "U",
           "W"
         ],
-        "type_line": "Artifact"
+        "type_line": "Legendary Artifact // Legendary Land"
       },
       "categories": [
+        "card-draw",
+        "selection",
         "ramp"
       ],
       "category_source": "decklist",
-      "name": "Astral Cornucopia",
-      "oracle_id": "1bc42024-52da-4d93-8b47-544f0a4a72a1",
+      "name": "Azor's Gateway // Sanctum of the Sun",
+      "oracle_id": "c0cbb347-b060-43ce-a9c5-8c835be3cf1b",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/soc/342/astral-cornucopia?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/rix/176/azors-gateway-sanctum-of-the-sun?utm_source=api",
       "submitted_categories": [
+        "card-draw",
+        "selection",
         "ramp"
       ],
-      "submitted_name": "Astral Cornucopia"
+      "submitted_name": "Azor's Gateway // Sanctum of the Sun"
     },
     {
       "cache": "cards/46e50ee9-91f8-416e-82fa-f1a76e61fb73.json",
@@ -180,30 +281,6 @@
         "artifact"
       ],
       "submitted_name": "Belbe's Portal"
-    },
-    {
-      "cache": "cards/dc4a4996-108a-4aac-850f-2d9f76403446.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{U}{U}",
-        "oracle_text": "Return target permanent to its owner's hand.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "bounce",
-        "interaction"
-      ],
-      "category_source": "decklist",
-      "name": "Boomerang",
-      "oracle_id": "dc4a4996-108a-4aac-850f-2d9f76403446",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/plst/MIR-56/boomerang?utm_source=api",
-      "submitted_categories": [
-        "bounce",
-        "interaction"
-      ],
-      "submitted_name": "Boomerang"
     },
     {
       "cache": "cards/837c5d0e-0a33-4f9d-ae25-68a687bdf640.json",
@@ -518,32 +595,6 @@
         "card-draw"
       ],
       "submitted_name": "Disrupt"
-    },
-    {
-      "cache": "cards/6df57d67-2fd9-4e7a-b67b-f361fc30e496.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{1}{W}",
-        "oracle_text": "Whenever another creature you control enters, you gain 1 life.\n{4}{W}, {T}: Exile another target creature you control, then return it to the battlefield under its owner's control.",
-        "power": "1",
-        "toughness": "2",
-        "type_line": "Creature — Human Wizard"
-      },
-      "categories": [
-        "blink",
-        "engine"
-      ],
-      "category_source": "decklist",
-      "name": "Distinguished Conjurer",
-      "oracle_id": "6df57d67-2fd9-4e7a-b67b-f361fc30e496",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mh3/264/distinguished-conjurer?utm_source=api",
-      "submitted_categories": [
-        "blink",
-        "engine"
-      ],
-      "submitted_name": "Distinguished Conjurer"
     },
     {
       "cache": "cards/d53d000f-c92f-4d70-ae60-8be3791da8a2.json",
@@ -903,43 +954,47 @@
       "submitted_name": "Interdimensional Web Watch"
     },
     {
-      "cache": "cards/e462e78d-2d26-4a2d-8d8f-5f31abe5c924.json",
+      "cache": "cards/ba5f7f37-352a-4b9c-b648-0ba5c8d842fc.json",
       "card": {
         "cmc": 3.0,
         "faces": [
           {
-            "defense": "5",
+            "defense": "4",
             "mana_cost": "{2}{W}",
-            "name": "Invasion of Belenon",
-            "oracle_text": "(As a Siege enters, choose an opponent to protect it. You and others can attack it. When it's defeated, exile it, then cast it transformed.)\nWhen this Siege enters, create a 2/2 white and blue Knight creature token with vigilance.",
+            "name": "Invasion of Theros",
+            "oracle_text": "(As a Siege enters, choose an opponent to protect it. You and others can attack it. When it's defeated, exile it, then cast it transformed.)\nWhen this Siege enters, search your library for an Aura, God, or Demigod card, reveal it, put it into your hand, then shuffle.",
             "type_line": "Battle — Siege"
           },
           {
             "mana_cost": "",
-            "name": "Belenon War Anthem",
-            "oracle_text": "Creatures you control get +1/+1.",
-            "type_line": "Enchantment"
+            "name": "Ephara, Ever-Sheltering",
+            "oracle_text": "Ephara has lifelink and indestructible as long as you control at least three other enchantments.\nWhenever another enchantment you control enters, draw a card.",
+            "power": "4",
+            "toughness": "4",
+            "type_line": "Legendary Enchantment Creature — God"
           }
         ],
         "keywords": [
           "Transform"
         ],
-        "type_line": "Battle — Siege // Enchantment"
+        "type_line": "Battle — Siege // Legendary Enchantment Creature — God"
       },
       "categories": [
-        "token-production",
-        "anthem"
+        "tutor",
+        "card-draw",
+        "enchantment"
       ],
       "category_source": "decklist",
-      "name": "Invasion of Belenon // Belenon War Anthem",
-      "oracle_id": "e462e78d-2d26-4a2d-8d8f-5f31abe5c924",
+      "name": "Invasion of Theros // Ephara, Ever-Sheltering",
+      "oracle_id": "ba5f7f37-352a-4b9c-b648-0ba5c8d842fc",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mom/20/invasion-of-belenon-belenon-war-anthem?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mom/23/invasion-of-theros-ephara-ever-sheltering?utm_source=api",
       "submitted_categories": [
-        "token-production",
-        "anthem"
+        "tutor",
+        "card-draw",
+        "enchantment"
       ],
-      "submitted_name": "Invasion of Belenon // Belenon War Anthem"
+      "submitted_name": "Invasion of Theros // Ephara, Ever-Sheltering"
     },
     {
       "cache": "cards/73c7fdb3-4742-4d08-8658-daa4435c49b1.json",
@@ -1028,30 +1083,6 @@
       "submitted_name": "Journey to Nowhere"
     },
     {
-      "cache": "cards/0214805d-d207-42da-a25f-2a8e1990904e.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{1}{W}",
-        "oracle_text": "Exile target creature you control, then return that card to the battlefield under its owner's control. It gains first strike until end of turn.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "blink",
-        "combat-trick"
-      ],
-      "category_source": "decklist",
-      "name": "Justiciar's Portal",
-      "oracle_id": "0214805d-d207-42da-a25f-2a8e1990904e",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/rna/13/justiciars-portal?utm_source=api",
-      "submitted_categories": [
-        "blink",
-        "combat-trick"
-      ],
-      "submitted_name": "Justiciar's Portal"
-    },
-    {
       "cache": "cards/83917116-d2d8-4701-a79f-af17486706ae.json",
       "card": {
         "cmc": 1.0,
@@ -1074,6 +1105,54 @@
         "bounce"
       ],
       "submitted_name": "Light the Way"
+    },
+    {
+      "cache": "cards/16182e01-22ff-4786-985d-919b47c4aa4d.json",
+      "card": {
+        "cmc": 3.0,
+        "faces": [
+          {
+            "mana_cost": "{3}",
+            "name": "Matzalantli, the Great Door",
+            "oracle_text": "{T}: Draw a card, then discard a card.\n{4}, {T}: Transform Matzalantli. Activate only if there are four or more permanent types among cards in your graveyard. (Artifact, battle, creature, enchantment, land, and planeswalker are permanent types.)",
+            "type_line": "Legendary Artifact"
+          },
+          {
+            "mana_cost": "",
+            "name": "The Core",
+            "oracle_text": "(Transforms from Matzalantli.)\nFathomless descent — {T}: Add X mana of any one color, where X is the number of permanent cards in your graveyard.",
+            "type_line": "Legendary Land"
+          }
+        ],
+        "keywords": [
+          "Transform",
+          "Fathomless descent"
+        ],
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Legendary Artifact // Legendary Land"
+      },
+      "categories": [
+        "card-draw",
+        "selection",
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Matzalantli, the Great Door // The Core",
+      "oracle_id": "16182e01-22ff-4786-985d-919b47c4aa4d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lci/256/matzalantli-the-great-door-the-core?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "selection",
+        "ramp"
+      ],
+      "submitted_name": "Matzalantli, the Great Door // The Core"
     },
     {
       "cache": "cards/6a84eda1-7e72-4b5a-849f-b6e177565aeb.json",
@@ -1172,30 +1251,6 @@
       "submitted_name": "Multiversal Recruitment"
     },
     {
-      "cache": "cards/07142ee9-dc2c-4b33-ad20-2f5285225e86.json",
-      "card": {
-        "cmc": 6.0,
-        "keywords": [],
-        "mana_cost": "{6}",
-        "oracle_text": "At the beginning of combat on your turn, draw a card. Then you may exile an artifact or creature card from your hand. If you do, create a token that's a copy of the exiled card, except it's a 3/3 Golem artifact creature in addition to its other types.",
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "card-draw",
-        "token-production"
-      ],
-      "category_source": "decklist",
-      "name": "Nexus of Becoming",
-      "oracle_id": "07142ee9-dc2c-4b33-ad20-2f5285225e86",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/big/25/nexus-of-becoming?utm_source=api",
-      "submitted_categories": [
-        "card-draw",
-        "token-production"
-      ],
-      "submitted_name": "Nexus of Becoming"
-    },
-    {
       "cache": "cards/757eadac-dd29-4a7f-8683-5bc823168326.json",
       "card": {
         "cmc": 4.0,
@@ -1216,6 +1271,56 @@
         "card-draw"
       ],
       "submitted_name": "One with the Machine"
+    },
+    {
+      "cache": "cards/6128679e-7e54-41e4-ab6e-25aeeffed49f.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Enchant artifact, creature, or planeswalker\nEnchanted permanent can't attack or block, and its activated abilities can't be activated.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "removal",
+        "enchantment"
+      ],
+      "category_source": "decklist",
+      "name": "Planar Disruption",
+      "oracle_id": "6128679e-7e54-41e4-ab6e-25aeeffed49f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/one/28/planar-disruption?utm_source=api",
+      "submitted_categories": [
+        "removal",
+        "enchantment"
+      ],
+      "submitted_name": "Planar Disruption"
+    },
+    {
+      "cache": "cards/a959a91a-3e1d-4bd4-9e14-5ee977540146.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Exile target artifact or creature, then return it to the battlefield under its owner's control with a +1/+1 counter on it.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "blink",
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Planar Incision",
+      "oracle_id": "a959a91a-3e1d-4bd4-9e14-5ee977540146",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/72/planar-incision?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "protection"
+      ],
+      "submitted_name": "Planar Incision"
     },
     {
       "cache": "cards/bc71ebf6-2056-41f7-be35-b2e5c34afa99.json",
@@ -1417,30 +1522,6 @@
       "submitted_name": "Prototype Portal"
     },
     {
-      "cache": "cards/f2baa0b9-ab0b-4ae9-b5f0-d5b3fcd9cf37.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [
-          "Enchant"
-        ],
-        "mana_cost": "{1}{W}",
-        "oracle_text": "Enchant artifact or creature\nEnchanted permanent can't attack or block, and its activated abilities can't be activated unless they're mana abilities.",
-        "type_line": "Enchantment — Aura"
-      },
-      "categories": [
-        "removal"
-      ],
-      "category_source": "decklist",
-      "name": "Realmbreaker's Grasp",
-      "oracle_id": "f2baa0b9-ab0b-4ae9-b5f0-d5b3fcd9cf37",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mom/33/realmbreakers-grasp?utm_source=api",
-      "submitted_categories": [
-        "removal"
-      ],
-      "submitted_name": "Realmbreaker's Grasp"
-    },
-    {
       "cache": "cards/32717625-46c6-45c5-ad0a-fb6a91f9878c.json",
       "card": {
         "cmc": 3.0,
@@ -1535,32 +1616,6 @@
       "submitted_name": "Splash Portal"
     },
     {
-      "cache": "cards/7e00b0cd-d212-4604-ba07-da21f4fe00b0.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{1}{W}",
-        "oracle_text": "Whenever you cast an Aura, Equipment, or Vehicle spell, draw a card.",
-        "power": "2",
-        "toughness": "2",
-        "type_line": "Legendary Creature — Dwarf Advisor"
-      },
-      "categories": [
-        "card-draw",
-        "engine"
-      ],
-      "category_source": "decklist",
-      "name": "Sram, Senior Edificer",
-      "oracle_id": "7e00b0cd-d212-4604-ba07-da21f4fe00b0",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/soc/176/sram-senior-edificer?utm_source=api",
-      "submitted_categories": [
-        "card-draw",
-        "engine"
-      ],
-      "submitted_name": "Sram, Senior Edificer"
-    },
-    {
       "cache": "cards/48b43d53-9a8a-47a2-8610-a54d276d7be7.json",
       "card": {
         "cmc": 5.0,
@@ -1585,34 +1640,6 @@
         "reset"
       ],
       "submitted_name": "Step Between Worlds"
-    },
-    {
-      "cache": "cards/c4fa89c7-f00d-42ef-bd67-407a288cd054.json",
-      "card": {
-        "cmc": 5.0,
-        "keywords": [
-          "Wizardcycling",
-          "Typecycling",
-          "Cycling"
-        ],
-        "mana_cost": "{3}{U}{U}",
-        "oracle_text": "Return two target creatures to their owners' hands.\nWizardcycling {2} ({2}, Discard this card: Search your library for a Wizard card, reveal it, put it into your hand, then shuffle.)",
-        "type_line": "Sorcery"
-      },
-      "categories": [
-        "bounce",
-        "selection"
-      ],
-      "category_source": "decklist",
-      "name": "Step Through",
-      "oracle_id": "c4fa89c7-f00d-42ef-bd67-407a288cd054",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mh2/66/step-through?utm_source=api",
-      "submitted_categories": [
-        "bounce",
-        "selection"
-      ],
-      "submitted_name": "Step Through"
     },
     {
       "cache": "cards/88d49309-e7d7-486d-8696-cd66bec2fe33.json",
@@ -1642,30 +1669,28 @@
       "submitted_name": "Sunder the Gateway"
     },
     {
-      "cache": "cards/ceeeacbc-01b0-4421-aaca-2ce6cdbe45d7.json",
+      "cache": "cards/c786a0aa-d86f-42c3-a7ea-5cb6ab72b5ec.json",
       "card": {
-        "cmc": 2.0,
+        "cmc": 4.0,
         "keywords": [],
-        "mana_cost": "{1}{U}",
-        "oracle_text": "Creatures you control with power or toughness 1 or less can't be blocked.",
-        "power": "1",
-        "toughness": "3",
-        "type_line": "Legendary Creature — Human Rogue"
+        "mana_cost": "{3}{W}",
+        "oracle_text": "At the beginning of your end step, exile up to one target artifact or creature you control, then return that card to the battlefield under its owner's control.",
+        "type_line": "Enchantment"
       },
       "categories": [
-        "evasion",
+        "blink",
         "engine"
       ],
       "category_source": "decklist",
-      "name": "Tetsuko Umezawa, Fugitive",
-      "oracle_id": "ceeeacbc-01b0-4421-aaca-2ce6cdbe45d7",
+      "name": "Teleportation Circle",
+      "oracle_id": "c786a0aa-d86f-42c3-a7ea-5cb6ab72b5ec",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cmm/126/tetsuko-umezawa-fugitive?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/afr/39/teleportation-circle?utm_source=api",
       "submitted_categories": [
-        "evasion",
+        "blink",
         "engine"
       ],
-      "submitted_name": "Tetsuko Umezawa, Fugitive"
+      "submitted_name": "Teleportation Circle"
     },
     {
       "cache": "cards/5dedd5a9-bc5d-47bb-9ae1-7d683843d041.json",
@@ -1794,6 +1819,33 @@
       "submitted_name": "Tranquil Cove"
     },
     {
+      "cache": "cards/a8bf8ff8-d924-4fd2-b5ed-05b38f55325a.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "loyalty": "3",
+        "mana_cost": "{3}{W}{U}",
+        "oracle_text": "+2: Exile target permanent you own. Return it to the battlefield under your control at the beginning of the next end step.\n−1: Creatures can't be blocked this turn.\n−8: You get an emblem with \"Whenever you cast a spell, exile target permanent.\"",
+        "type_line": "Legendary Planeswalker — Venser"
+      },
+      "categories": [
+        "blink",
+        "evasion",
+        "finisher"
+      ],
+      "category_source": "decklist",
+      "name": "Venser, the Sojourner",
+      "oracle_id": "a8bf8ff8-d924-4fd2-b5ed-05b38f55325a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ddi/1/venser-the-sojourner?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "evasion",
+        "finisher"
+      ],
+      "submitted_name": "Venser, the Sojourner"
+    },
+    {
       "cache": "cards/e8d6084b-9b72-438e-a30a-851b888f3e4d.json",
       "card": {
         "cmc": 2.0,
@@ -1852,7 +1904,7 @@
     }
   ],
   "categorized_cards": 71,
-  "generated_at": "2026-09-03T16:29:55.345684+00:00",
+  "generated_at": "2026-09-03T16:43:41.500528+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 71,

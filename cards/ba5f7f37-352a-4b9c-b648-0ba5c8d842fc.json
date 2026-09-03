@@ -1,0 +1,189 @@
+{
+  "arena_id": 84275,
+  "artist": "Johan Grenier",
+  "artist_ids": [
+    "465e38b8-7eed-4d22-a6d2-d3603ee0c00b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Johan Grenier",
+      "artist_id": "465e38b8-7eed-4d22-a6d2-d3603ee0c00b",
+      "colors": [
+        "W"
+      ],
+      "defense": "4",
+      "illustration_id": "3d0fe50f-f370-4246-b0dd-458974676adc",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.webp?1783917071",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.jpg?1783917071",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.jpg?1783917071",
+        "crop": "https://cards.scryfall.io/crop/front/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.webp?1783917071",
+        "display": "https://cards.scryfall.io/display/front/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.webp?1783917071",
+        "grid": "https://cards.scryfall.io/grid/front/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.webp?1783917071",
+        "large": "https://cards.scryfall.io/large/front/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.jpg?1783917071",
+        "normal": "https://cards.scryfall.io/normal/front/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.jpg?1783917071",
+        "png": "https://cards.scryfall.io/png/front/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.png?1783917071",
+        "small": "https://cards.scryfall.io/small/front/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.jpg?1783917071",
+        "thumb": "https://cards.scryfall.io/thumb/front/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.webp?1783917071"
+      },
+      "mana_cost": "{2}{W}",
+      "name": "Invasion of Theros",
+      "object": "card_face",
+      "oracle_text": "(As a Siege enters, choose an opponent to protect it. You and others can attack it. When it's defeated, exile it, then cast it transformed.)\nWhen this Siege enters, search your library for an Aura, God, or Demigod card, reveal it, put it into your hand, then shuffle.",
+      "type_line": "Battle — Siege"
+    },
+    {
+      "artist": "Johan Grenier",
+      "artist_id": "465e38b8-7eed-4d22-a6d2-d3603ee0c00b",
+      "color_indicator": [
+        "U",
+        "W"
+      ],
+      "colors": [
+        "U",
+        "W"
+      ],
+      "flavor_text": "When the sun falters and the seas disperse, when the wilds wither and the forges go cold, when death itself succumbs, she endures.",
+      "illustration_id": "60e58660-c6e7-46ba-86fb-7224a3e5da29",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.webp?1783917071",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.jpg?1783917071",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.jpg?1783917071",
+        "crop": "https://cards.scryfall.io/crop/back/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.webp?1783917071",
+        "display": "https://cards.scryfall.io/display/back/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.webp?1783917071",
+        "grid": "https://cards.scryfall.io/grid/back/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.webp?1783917071",
+        "large": "https://cards.scryfall.io/large/back/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.jpg?1783917071",
+        "normal": "https://cards.scryfall.io/normal/back/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.jpg?1783917071",
+        "png": "https://cards.scryfall.io/png/back/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.png?1783917071",
+        "small": "https://cards.scryfall.io/small/back/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.jpg?1783917071",
+        "thumb": "https://cards.scryfall.io/thumb/back/4/3/433e9f1c-9d6c-4c7e-89d0-79595b4331f2.webp?1783917071"
+      },
+      "mana_cost": "",
+      "name": "Ephara, Ever-Sheltering",
+      "object": "card_face",
+      "oracle_text": "Ephara has lifelink and indestructible as long as you control at least three other enchantments.\nWhenever another enchantment you control enters, draw a card.",
+      "power": "4",
+      "toughness": "4",
+      "type_line": "Legendary Enchantment Creature — God"
+    }
+  ],
+  "cardmarket_id": 704287,
+  "cmc": 3.0,
+  "collector_number": "23",
+  "color_identity": [
+    "U",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 7209,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary",
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "433e9f1c-9d6c-4c7e-89d0-79595b4331f2",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:31:11Z",
+  "keywords": [
+    "Transform"
+  ],
+  "lang": "en",
+  "layout": "transform",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 109850,
+  "multiverse_ids": [
+    607039,
+    607040
+  ],
+  "name": "Invasion of Theros // Ephara, Ever-Sheltering",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ba5f7f37-352a-4b9c-b648-0ba5c8d842fc",
+  "oversized": false,
+  "penny_rank": 12299,
+  "preview": {
+    "previewed_at": "2023-04-03",
+    "source": "Beatriz Grancha",
+    "source_uri": "https://twitter.com/AliaDeschain/status/1642947270927589377"
+  },
+  "prices": {
+    "eur": "0.42",
+    "eur_foil": "0.82",
+    "tix": "0.02",
+    "usd": "0.53",
+    "usd_etched": null,
+    "usd_foil": "0.90"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aba5f7f37-352a-4b9c-b648-0ba5c8d842fc&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/109850?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=704287&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F490950%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Invasion+of+Theros",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=607039&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DInvasion%2Bof%2BTheros%2B%252F%252F%2BEphara%252C%2BEver-Sheltering",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DInvasion%2Bof%2BTheros%2B%252F%252F%2BEphara%252C%2BEver-Sheltering"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/433e9f1c-9d6c-4c7e-89d0-79595b4331f2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/23/invasion-of-theros-ephara-ever-sheltering?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": false,
+  "tcgplayer_id": 490950,
+  "textless": false,
+  "type_line": "Battle — Siege // Legendary Enchantment Creature — God",
+  "uri": "https://api.scryfall.com/cards/433e9f1c-9d6c-4c7e-89d0-79595b4331f2",
+  "variation": false
+}

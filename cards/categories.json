@@ -9749,8 +9749,77 @@
       "categories": [
         "token-production"
       ]
+    },
+    "b21d6482-1b3a-47e6-98a5-3067f5f3818b": {
+      "name": "Aether Gale",
+      "categories": [
+        "other"
+      ]
+    },
+    "4b033a0a-c1ae-44d7-9662-72cbbfda024b": {
+      "name": "Aether Spellbomb",
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "295cd8e1-0830-46c1-9957-556afd4bcee6": {
+      "name": "Aetheric Amplifier",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "c0cbb347-b060-43ce-a9c5-8c835be3cf1b": {
+      "name": "Azor's Gateway // Sanctum of the Sun",
+      "categories": [
+        "ramp",
+        "card-draw"
+      ]
+    },
+    "ba5f7f37-352a-4b9c-b648-0ba5c8d842fc": {
+      "name": "Invasion of Theros // Ephara, Ever-Sheltering",
+      "categories": [
+        "card-draw",
+        "protection",
+        "tutor"
+      ]
+    },
+    "16182e01-22ff-4786-985d-919b47c4aa4d": {
+      "name": "Matzalantli, the Great Door // The Core",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "6128679e-7e54-41e4-ab6e-25aeeffed49f": {
+      "name": "Planar Disruption",
+      "categories": [
+        "other"
+      ]
+    },
+    "a959a91a-3e1d-4bd4-9e14-5ee977540146": {
+      "name": "Planar Incision",
+      "categories": [
+        "removal",
+        "blink"
+      ]
+    },
+    "c786a0aa-d86f-42c3-a7ea-5cb6ab72b5ec": {
+      "name": "Teleportation Circle",
+      "categories": [
+        "removal",
+        "blink"
+      ]
+    },
+    "a8bf8ff8-d924-4fd2-b5ed-05b38f55325a": {
+      "name": "Venser, the Sojourner",
+      "categories": [
+        "removal",
+        "blink"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-03T16:29:55.345684+00:00"
+  "updated_at": "2026-09-03T16:43:41.500528+00:00"
 }

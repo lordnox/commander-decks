@@ -6,12 +6,12 @@
     {
       "name": "artifacts",
       "score": 4,
-      "reason": "Literal portal artifacts, Tezzeret discounting their activations, Prototype Portal copies, Thran Temporal Gateway, and Extraplanar Lens are a real artifact engine, not just mana rocks."
+      "reason": "Literal portal artifacts, two transforming gateways, Tezzeret's activation discount, Prototype Portal copies, and artifact blink form a real engine."
     },
     {
       "name": "blink",
       "score": 4,
-      "reason": "The deck reuses creatures and enchantments through Portal of Sanctuary, Conjurer's Closet, Another Round, Splash Portal, Justiciar's Portal, and Whitemane Lion."
+      "reason": "Portal of Sanctuary, Teleportation Circle, Conjurer's Closet, Planar Incision, Another Round, and Venser repeatedly cross creatures and artifacts between zones."
     },
     {
       "name": "control",
@@ -26,7 +26,7 @@
     {
       "name": "etb effects",
       "score": 3,
-      "reason": "The bounce and blink package is there to re-fire creatures like Distinguished Conjurer, Aether Channeler, Firemane Commando, and Portal to Phyrexia."
+      "reason": "The bounce and blink package re-fires Aether Channeler, Firemane Commando, Portal to Phyrexia, and the other portal permanents."
     },
     {
       "name": "politics",

@@ -1,0 +1,151 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "c9ad6e7a-8ad8-4a35-b6c9-151720d88af9",
+      "name": "Venser, the Sojourner Emblem",
+      "object": "related_card",
+      "type_line": "Emblem — Venser",
+      "uri": "https://api.scryfall.com/cards/c9ad6e7a-8ad8-4a35-b6c9-151720d88af9"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8f61a0ea-c2e8-4571-9669-19abd8bbc874",
+      "name": "Venser, the Sojourner",
+      "object": "related_card",
+      "type_line": "Legendary Planeswalker — Venser",
+      "uri": "https://api.scryfall.com/cards/8f61a0ea-c2e8-4571-9669-19abd8bbc874"
+    }
+  ],
+  "artist": "Eric Deschamps",
+  "artist_ids": [
+    "37970e22-9cee-44c1-af44-5ee27cf26b76"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 253542,
+  "cmc": 5.0,
+  "collector_number": "1",
+  "color_identity": [
+    "U",
+    "W"
+  ],
+  "colors": [
+    "U",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 6319,
+  "finishes": [
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "8f61a0ea-c2e8-4571-9669-19abd8bbc874",
+  "illustration_id": "82decbc9-5e1b-48b3-8db7-ef9705551105",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:06:25Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/f/8f61a0ea-c2e8-4571-9669-19abd8bbc874.webp?1783940785",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/f/8f61a0ea-c2e8-4571-9669-19abd8bbc874.jpg?1783940785",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/f/8f61a0ea-c2e8-4571-9669-19abd8bbc874.jpg?1783940785",
+    "crop": "https://cards.scryfall.io/crop/front/8/f/8f61a0ea-c2e8-4571-9669-19abd8bbc874.webp?1783940785",
+    "display": "https://cards.scryfall.io/display/front/8/f/8f61a0ea-c2e8-4571-9669-19abd8bbc874.webp?1783940785",
+    "grid": "https://cards.scryfall.io/grid/front/8/f/8f61a0ea-c2e8-4571-9669-19abd8bbc874.webp?1783940785",
+    "large": "https://cards.scryfall.io/large/front/8/f/8f61a0ea-c2e8-4571-9669-19abd8bbc874.jpg?1783940785",
+    "normal": "https://cards.scryfall.io/normal/front/8/f/8f61a0ea-c2e8-4571-9669-19abd8bbc874.jpg?1783940785",
+    "png": "https://cards.scryfall.io/png/front/8/f/8f61a0ea-c2e8-4571-9669-19abd8bbc874.png?1783940785",
+    "small": "https://cards.scryfall.io/small/front/8/f/8f61a0ea-c2e8-4571-9669-19abd8bbc874.jpg?1783940785",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/f/8f61a0ea-c2e8-4571-9669-19abd8bbc874.webp?1783940785"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "loyalty": "3",
+  "mana_cost": "{3}{W}{U}",
+  "mtgo_foil_id": 43755,
+  "mtgo_id": 43754,
+  "multiverse_ids": [
+    266078
+  ],
+  "name": "Venser, the Sojourner",
+  "nonfoil": false,
+  "object": "card",
+  "oracle_id": "a8bf8ff8-d924-4fd2-b5ed-05b38f55325a",
+  "oracle_text": "+2: Exile target permanent you own. Return it to the battlefield under your control at the beginning of the next end step.\n−1: Creatures can't be blocked this turn.\n−8: You get an emblem with \"Whenever you cast a spell, exile target permanent.\"",
+  "oversized": false,
+  "penny_rank": 4382,
+  "prices": {
+    "eur": null,
+    "eur_foil": "4.19",
+    "tix": "0.03",
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": "4.34"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa8bf8ff8-d924-4fd2-b5ed-05b38f55325a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/43754?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=253542&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F58121%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Venser%2C+the+Sojourner",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=266078&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVenser%252C%2Bthe%2BSojourner",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVenser%252C%2Bthe%2BSojourner"
+  },
+  "released_at": "2012-03-30",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8f61a0ea-c2e8-4571-9669-19abd8bbc874/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ddi?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ddi/1/venser-the-sojourner?utm_source=api",
+  "set": "ddi",
+  "set_id": "a29e8ace-bbcd-4507-b159-7ec77d28f792",
+  "set_name": "Duel Decks: Venser vs. Koth",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Addi&unique=prints",
+  "set_type": "duel_deck",
+  "set_uri": "https://api.scryfall.com/sets/a29e8ace-bbcd-4507-b159-7ec77d28f792",
+  "story_spotlight": false,
+  "tcgplayer_id": 58121,
+  "textless": false,
+  "type_line": "Legendary Planeswalker — Venser",
+  "uri": "https://api.scryfall.com/cards/8f61a0ea-c2e8-4571-9669-19abd8bbc874",
+  "variation": false
+}

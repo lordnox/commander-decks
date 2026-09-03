@@ -1,0 +1,133 @@
+{
+  "arena_id": 79497,
+  "artist": "Joshua Raphael",
+  "artist_ids": [
+    "553b2a73-780f-414b-b2d7-3b7888821082"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 608203,
+  "cmc": 2.0,
+  "collector_number": "72",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2260,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Jin-Gitaxias had long coveted the secrets of planeswalking. Spirits that could pass between worlds made for perfect test subjects.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "9163cb04-ee28-4127-b53a-89c546996d7d",
+  "illustration_id": "0e450ba2-b6e3-4c28-a4bc-24175406963d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:24:57Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/1/9163cb04-ee28-4127-b53a-89c546996d7d.webp?1783923897",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/1/9163cb04-ee28-4127-b53a-89c546996d7d.jpg?1783923897",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/1/9163cb04-ee28-4127-b53a-89c546996d7d.jpg?1783923897",
+    "crop": "https://cards.scryfall.io/crop/front/9/1/9163cb04-ee28-4127-b53a-89c546996d7d.webp?1783923897",
+    "display": "https://cards.scryfall.io/display/front/9/1/9163cb04-ee28-4127-b53a-89c546996d7d.webp?1783923897",
+    "grid": "https://cards.scryfall.io/grid/front/9/1/9163cb04-ee28-4127-b53a-89c546996d7d.webp?1783923897",
+    "large": "https://cards.scryfall.io/large/front/9/1/9163cb04-ee28-4127-b53a-89c546996d7d.jpg?1783923897",
+    "normal": "https://cards.scryfall.io/normal/front/9/1/9163cb04-ee28-4127-b53a-89c546996d7d.jpg?1783923897",
+    "png": "https://cards.scryfall.io/png/front/9/1/9163cb04-ee28-4127-b53a-89c546996d7d.png?1783923897",
+    "small": "https://cards.scryfall.io/small/front/9/1/9163cb04-ee28-4127-b53a-89c546996d7d.jpg?1783923897",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/1/9163cb04-ee28-4127-b53a-89c546996d7d.webp?1783923897"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 97064,
+  "multiverse_ids": [
+    548370
+  ],
+  "name": "Planar Incision",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a959a91a-3e1d-4bd4-9e14-5ee977540146",
+  "oracle_text": "Exile target artifact or creature, then return it to the battlefield under its owner's control with a +1/+1 counter on it.",
+  "oversized": false,
+  "penny_rank": 8518,
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": "0.82",
+    "tix": "0.03",
+    "usd": "0.36",
+    "usd_etched": null,
+    "usd_foil": "2.69"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa959a91a-3e1d-4bd4-9e14-5ee977540146&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/97064?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=608203&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F262784%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Planar+Incision",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=548370&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPlanar%2BIncision",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPlanar%2BIncision"
+  },
+  "released_at": "2022-02-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9163cb04-ee28-4127-b53a-89c546996d7d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/neo?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/neo/72/planar-incision?utm_source=api",
+  "set": "neo",
+  "set_id": "59a2059f-5482-433f-8761-eb2e17859b71",
+  "set_name": "Kamigawa: Neon Dynasty",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aneo&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/59a2059f-5482-433f-8761-eb2e17859b71",
+  "story_spotlight": true,
+  "tcgplayer_id": 262784,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/9163cb04-ee28-4127-b53a-89c546996d7d",
+  "variation": false
+}
