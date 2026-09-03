@@ -1,0 +1,18 @@
+---
+description: Load BRACKET-DEFINITIONS.md whenever Commander Brackets come up
+alwaysApply: true
+---
+
+# Commander Brackets
+
+When the work involves Commander Brackets, power level, expected win turn, Game Changers as a cap, or whether a deck fits a pod, **read `BRACKET-DEFINITIONS.md` first**. Do not reconstruct bracket intent from memory.
+
+That file is this table's baseline: official Exhibition / Core / Upgraded / Optimized / cEDH text, Core as Incremental win texture, turn floors as satisfaction not a stopwatch, and printed Game Changer caps as Parley (waive only with a spoken footnote).
+
+Then follow the skill that owns the task:
+
+- `assess-deck` to rate a stored 99 (still fetch live Wizards pages)
+- `autobrew-deck` / `design-deck` to pick a target bracket
+- `simulate-deck` for bracket-specific pressure
+
+Live Wizards pages win if they disagree on printed caps or official intent. Apply this repo's texture and Parley reading after that.
