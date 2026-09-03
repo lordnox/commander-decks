@@ -112,3 +112,11 @@ Checked against the live Wizards Commander page (Brackets beta: 0 Game Changers 
 ### 2026-08-27 — Import
 
 Deck imported from the user's Archidekt export with set codes, collector numbers, and per-card categories. The submitted categories were kept verbatim as deck-source categories. Every printing from the export is pinned in `printing-overrides.json` so the Archidekt link and primer images match the physical copies. The five Bat tokens are `{noDeck}` extras for Aclazotz.
+
+### 2026-09-03 — Reassessment against cached Game Changers
+
+Source is [`BRACKET-DEFINITIONS.md`](../../BRACKET-DEFINITIONS.md) (Core as Incremental, eight-turn floor as satisfaction, printed 0 Game Changers in Brackets 1–2) and its Scryfall `is:gamechanger` snapshot dated **2026-09-03** (53 names). The 99 still hits **none**. No card tutors. Rocks are Signets, Diamonds, Fellwar Stone, and [The Soul Stone](https://scryfall.com/card/spm/66/the-soul-stone) (`{T}: Add {B}`; harness is delayed recursion), not Sol Ring-class fast mana.
+
+Rechecked Oracle: [Exquisite Blood](https://scryfall.com/card/lcc/195/exquisite-blood) and [Bloodthirsty Conqueror](https://scryfall.com/card/fdn/58/bloodthirsty-conqueror) both trigger on opponents *losing* life, so they stack as gain, not a loop; there is still no Sanguine Bond half. [Bloodchief Ascension](https://scryfall.com/card/cmm/139/bloodchief-ascension) plus [Liliana's Caress](https://scryfall.com/card/m11/103/lilianas-caress) plus a wheel is a large Incremental drain that needs three pieces, not an oops-I-win two-card combo.
+
+Stay **Bracket 2+**, folder `2+_`. Usual goldfish still turn ten to twelve; a stacked wheel with Caress and charged Ascension can reasonably end around turn eight. Not Bracket 3: no Game Changers, no tutors, no fast mana, and the deck cannot reliably present a win by turn six.
