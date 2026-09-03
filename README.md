@@ -4,12 +4,13 @@ A conversation-driven workspace for importing, resolving, categorizing, assessin
 
 - [How to](HOW-TO.md)
 - [House rules](DECISIONS.md)
+- [Bracket definitions](BRACKET-DEFINITIONS.md)
 - [Deck ideas](DECK-IDEAS.md)
 - [Skills](SKILLS.md)
 
 ## Deck primers
 
-One row per deck, sorted by [Commander bracket](https://mtgcommander.net/index.php/brackets/), so decks can be compared at a glance. Jank, Fun, and Mean (oppressiveness) are [rankings](.agents/skills/rank-deck/SKILL.md) from 1–10, colored at the extremes: teal is the desirable end and red the one to watch, which flips for Mean, where high is the problem. Goals are the same kind of score shown as small badges, because those labels differ per deck; those badges are SVGs committed under `assets/badges/`, so nothing is fetched from a badge service. Each primer carries the deck's summary, its full [Archidekt deck tags](.agents/skills/tag-deck/archidekt-tags.json), and the same scores as full-size badges.
+One row per deck, sorted by [Commander bracket](BRACKET-DEFINITIONS.md), so decks can be compared at a glance. Jank, Fun, and Mean (oppressiveness) are [rankings](.agents/skills/rank-deck/SKILL.md) from 1–10, colored at the extremes: teal is the desirable end and red the one to watch, which flips for Mean, where high is the problem. Goals are the same kind of score shown as small badges, because those labels differ per deck; those badges are SVGs committed under `assets/badges/`, so nothing is fetched from a badge service. Each primer carries the deck's summary, its full [Archidekt deck tags](.agents/skills/tag-deck/archidekt-tags.json), and the same scores as full-size badges.
 
 <!-- deck-index:start -->
 | Deck | Bracket | Jank | Fun | Mean | Goals |

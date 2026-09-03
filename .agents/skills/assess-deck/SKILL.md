@@ -1,6 +1,6 @@
 ---
 name: assess-deck
-description: Assess a resolved Commander deck's current Commander Bracket and expected win turn. Use when the user asks about power level, bracket, speed, likely or fastest win turn, optimization level, or whether a deck fits a pod. Verify current official bracket and Game Changer guidance, analyze the stored deck rather than its theme alone, and give an evidence-based pregame description.
+description: Assess a resolved Commander deck's current Commander Bracket and expected win turn. Use when the user asks about power level, bracket, speed, likely or fastest win turn, optimization level, or whether a deck fits a pod. Read BRACKET-DEFINITIONS.md, verify current official bracket and Game Changer guidance, analyze the stored deck rather than its theme alone, and give an evidence-based pregame description.
 ---
 
 # Assess Deck
@@ -9,7 +9,7 @@ Assess the deck as built. Do not modify it unless the user separately asks for c
 
 ## 1. Load and validate the deck
 
-1. Read `AGENTS.md`, `decks/<prefix><slug>/decklist.txt`, and `decks/<prefix><slug>/cards.json`.
+1. Read `AGENTS.md`, root `BRACKET-DEFINITIONS.md`, `decks/<prefix><slug>/decklist.txt`, and `decks/<prefix><slug>/cards.json`.
 2. Confirm the requested deck matches the directory.
 3. Stop and report unresolved cards, a non-Commander deck size, or missing commander data.
 4. Use embedded Oracle details in `cards.json`. Read shared cache files only when required data is absent.
@@ -17,72 +17,21 @@ Assess the deck as built. Do not modify it unless the user separately asks for c
 
 ## 2. Refresh the bracket rules
 
-Commander Brackets and the Game Changers list can change. Fetch these pages on every assessment, then prefer them over memory and over the baseline in this skill:
+Read root [`BRACKET-DEFINITIONS.md`](../../../BRACKET-DEFINITIONS.md) before classifying. That file is this repo's intent, Incremental Core texture, turn-floor meaning, printed caps, and Parley reading.
+
+Commander Brackets and the Game Changers list can change. Fetch these pages on every assessment, then prefer them over memory for **printed** intent and Game Changer caps:
 
 - https://magic.wizards.com/en/formats/commander (live Brackets and Game Changers)
 - the latest official Commander Brackets announcement on magic.wizards.com
 
+If the live pages disagree with `BRACKET-DEFINITIONS.md` on official wording or caps, the live pages win for those facts. Then apply this table's reading in that file (win texture, Incremental Core, Parley footnotes).
+
 1. Record whatever the current official page lists as hard limits versus expected barometers for each relevant bracket. Do not treat two-card combos, extra turns, or mass land denial as a fixed restriction checklist.
 2. Confirm Game Changer caps on that fetch. The live-page baseline is 0 in Brackets 1–2, up to 3 in Bracket 3, and unlimited in Brackets 4–5.
 3. Query current Game Changers with the `scryfall-lookup` skill using `is:gamechanger`, then match those names against the deck manifest. Cite the Wizards page, not a third-party list.
-4. Cite the official source in the assessment.
+4. Cite the official source and `BRACKET-DEFINITIONS.md` in the assessment.
 
-Do not classify a deck solely by counting Game Changers. Use the official page's hard limits as boundaries and bracket intent as the primary classification.
-
-
-### Bracket definitions and expected pace
-
-Use these definitions as a baseline only. Official pages win if they disagree:
-
-#### Bracket 1: Exhibition
-
-Players expect:
-
-- decks to prioritize a goal, theme, or idea over power;
-- flexibility around card legality or viable commanders when agreed by the pod;
-- highly thematic or substandard win conditions;
-- gameplay that gives each player time to show off their creation;
-- at least nine turns before a win or loss, with enough time for the deck's theme to be showcased.
-
-#### Bracket 2: Core
-
-Players expect:
-
-- unoptimized, straightforward decks with some choices made for creativity or entertainment;
-- incremental, telegraphed, board-based, and disruptable win conditions;
-- low-pressure, social gameplay;
-- proactive and considerate play that lets every deck demonstrate its plan;
-- at least eight turns before a win or loss.
-
-#### Bracket 3: Upgraded
-
-Players expect:
-
-- strong synergy, high card quality, and effective disruption;
-- Game Changers used mainly as value engines or game-ending spells;
-- win conditions that can be deployed in one large turn after resources have accumulated;
-- frequent proactive and reactive plays;
-- at least six turns before a win or loss.
-
-#### Bracket 4: Optimized
-
-Players expect:
-
-- high-power construction that is not built for the Bracket 5 cEDH metagame;
-- lethal, consistent, fast decks designed to win as quickly as possible;
-- fast mana, snowballing engines, free disruption, and tutors among their Game Changers;
-- efficient, instantaneous win conditions;
-- explosive gameplay with efficient threats and disruption;
-- at least four turns before a win or loss.
-
-#### Bracket 5: cEDH
-
-Players expect:
-
-- meticulous construction for the cEDH metagame, using cEDH knowledge, tools, or established lists where useful;
-- highly efficient and consistent win conditions;
-- intricate, advanced gameplay with very small margins for error and victory prioritized above all else;
-- games that may end on any turn.
+Do not classify a deck solely by counting Game Changers. Use printed caps as the default advertised boundary; a thematic Game Changer can stay in a lower-feeling game only with an explicit footnote, as in `BRACKET-DEFINITIONS.md`.
 
 Treat the turn expectation as the deck's normal, repeatable pace, not its fastest theoretical line. A rare line that wins earlier does not automatically promote the deck when its typical pace and construction still fit the lower bracket.
 
@@ -133,7 +82,7 @@ Use a range when draw variance is material. State uncertainty when the deck has 
 ## 5. Assign the bracket
 
 1. Apply current hard restrictions first.
-2. Compare the deck's repeatable pace and intent with the official bracket descriptions.
+2. Compare the deck's repeatable pace and **win texture** with `BRACKET-DEFINITIONS.md` (and live official text if it changed).
 3. Choose one default bracket for matchmaking.
 4. State where it sits within that bracket using `N−`, `N`, or `N+`.
 5. Explain why it does not belong one bracket lower and one bracket higher.
