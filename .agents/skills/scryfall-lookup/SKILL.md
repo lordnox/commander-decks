@@ -85,7 +85,7 @@ Use the narrowest accurate filters. Common operators include:
 - `commander:` for cards legal in a commander's color identity
 - `format:` or `f:` for format legality
 - `is:commander` for cards usable as commanders
-- `is:gamechanger` for the current Commander Game Changers list (used by `assess-deck`)
+- `is:gamechanger` to filter candidates by Game Changer status while searching. To read a card's status, use the cached block in root `BRACKET-DEFINITIONS.md` instead of a fresh query; that file's refresh script owns the live query.
 
 Do not silently broaden a restrictive request. If zero results are returned, explain the query and then try one clearly identified broader query when useful.
 

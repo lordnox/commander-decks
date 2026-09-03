@@ -54,7 +54,7 @@ Search **per job**, not one dump of Dimir. Typical axes:
 
 Look for **multifunctional** cards: one card that covers two or more of this deck's jobs. Also look for **packages**: two cards that together do something neither does well, in the manner of Vanish into Memory + Wall of Blood (instant-speed life-for-cards). That pair is an example of the *kind* of interaction, not a card to add unless this deck actually wants it. Details: [lessons.md](lessons.md).
 
-Verify every shortlist name with collection or exact named lookup. Query live `is:gamechanger` before recommending.
+Verify every shortlist name with collection or exact named lookup. Check Game Changer status against the cached block in root `BRACKET-DEFINITIONS.md` before recommending.
 
 ## 4. Decide
 

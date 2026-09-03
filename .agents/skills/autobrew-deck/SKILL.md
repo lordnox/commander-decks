@@ -5,8 +5,8 @@ description: >-
   compare commanders, build a resolved deck, and iterate through turn-five
   goldfishes. Use when the user delegates deck concept and construction with
   little or no input, asks the agent to build a deck it likes, or wants the
-  agent to choose the plan and commander. Read BRACKET-DEFINITIONS.md before
-  locking a target bracket.
+  agent to choose the plan and commander. Take the target bracket from
+  BRACKET-DEFINITIONS.md.
 ---
 
 # Autobrew Deck
@@ -54,11 +54,11 @@ Name a backup route and identify the deck's intended emotional or mechanical
 experience. A theme word such as "Aikido", "Scarecrows", or "burn" is not a
 game plan.
 
-Choose the target Commander Bracket now. Read
-[`BRACKET-DEFINITIONS.md`](../../../BRACKET-DEFINITIONS.md), then refresh
-official guidance and current Game Changers as required by `assess-deck`; do
-not use memory. This table usually targets Incremental Core (Bracket 2) or
-Upgraded (Bracket 3).
+Choose the target Commander Bracket now. Take intent, caps, and the cached
+Game Changers list from [`BRACKET-DEFINITIONS.md`](../../../BRACKET-DEFINITIONS.md);
+do not use memory and do not re-fetch Wizards or Scryfall for bracket data.
+This table usually targets Incremental Core (Bracket 2) or Upgraded
+(Bracket 3).
 Before searching commanders, declare:
 
 - target bracket and expected normal win turn;

@@ -5,14 +5,18 @@ alwaysApply: true
 
 # Commander Brackets
 
-When the work involves Commander Brackets, power level, expected win turn, Game Changers as a cap, or whether a deck fits a pod, **read `BRACKET-DEFINITIONS.md` first**. Do not reconstruct bracket intent from memory.
+When the work involves Commander Brackets, power level, expected win turn, Game Changers as a cap, or whether a deck fits a pod, **read `BRACKET-DEFINITIONS.md`**. It is the only bracket source: official Exhibition / Core / Upgraded / Optimized / cEDH text, Core as Incremental win texture, turn floors as satisfaction not a stopwatch, printed caps as Parley (waive only with a spoken footnote), and a cached `is:gamechanger` snapshot.
 
-That file is this table's baseline: official Exhibition / Core / Upgraded / Optimized / cEDH text, Core as Incremental win texture, turn floors as satisfaction not a stopwatch, and printed Game Changer caps as Parley (waive only with a spoken footnote).
+Do not reconstruct bracket intent from memory, and do not fetch Wizards pages or query `is:gamechanger` just to assess a deck. Match deck manifests against the cached block and cite its snapshot date.
 
 Then follow the skill that owns the task:
 
-- `assess-deck` to rate a stored 99 (still fetch live Wizards pages)
+- `assess-deck` to rate a stored 99
 - `autobrew-deck` / `design-deck` to pick a target bracket
 - `simulate-deck` for bracket-specific pressure
 
-Live Wizards pages win if they disagree on printed caps or official intent. Apply this repo's texture and Parley reading after that.
+Refresh the file only when the user asks, when Wizards announces a change, or when a card's status is in doubt:
+
+```bash
+python3 .agents/skills/assess-deck/scripts/update_game_changers.py --check
+```

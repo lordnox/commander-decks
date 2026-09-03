@@ -19,7 +19,7 @@ This is a **discussion**. The job is the right questions and evidence-backed ans
 
 - Ask only what is still open. Challenge guesses instead of filling them in.
 - Prefer the user's constraint over a "better" staple they already refused.
-- A right answer is Oracle (or `is:gamechanger`) plus the user's lock, not vibe.
+- A right answer is Oracle (or the cached Game Changers list) plus the user's lock, not vibe.
 - Stop and wait when a constraint or Oracle reading would change the 99.
 - Do not "just build it" to keep moving.
 - After lock-in, dump the argument into that deck's `DECISIONS.md` (`## Talks`, `## Rules`, maybeboard under `## Primer` or `## Cards out`). If the brew is parked instead of built, follow `deck-ideas`. Do not leave the grill only in chat.
@@ -34,7 +34,7 @@ Inspect `decks/` and follow `deck-ideas` (root `DECK-IDEAS.md`). If a stored dec
 2. **Plan in one sentence.** Repeating action, and what ends the game. Theme words ("aikido", "mill them") are not a plan until finishers are named.
 3. **Finishers.** Name the cards that win. Read Oracle for each. Watch replacement effects, "this spell", mill vs exile, life-total **set** vs damage, and "your life total can't change" vs exchange.
 4. **Math.** Walk one real stack or loop (costs, what Rings can copy, what is a mana ability). Fat-once is not infinite. A high-roll that does not end the game is not a win turn.
-5. **How you find the finishers.** Tutors vs draw. Card tutors and land search are different locks. Game Changers: query `is:gamechanger`, do not trust memory (`Ancient Tomb`, `Mystical Tutor`, `Enlightened Tutor`, `Bolas's Citadel` have been GCs).
+5. **How you find the finishers.** Tutors vs draw. Card tutors and land search are different locks. Game Changers: check the cached block in [`BRACKET-DEFINITIONS.md`](../../../BRACKET-DEFINITIONS.md), do not trust memory (`Ancient Tomb`, `Mystical Tutor`, `Enlightened Tutor`, `Bolas's Citadel` have been GCs).
 6. **Constraints.** Read the root `DECISIONS.md` card preferences first: esoteric old cards over staples, discussable Game Changers, kitchen-table fast mana (one-shot 3+, permanent 4+). Then colors, silence vs draw-go, sticky enchantments vs creatures, politics vs pillowfort, maybeboard vs 99. Reject color-identity illegal cards immediately.
 7. **Speed versus high roll.** Gold-fish high roll vs expected win turn. If the brew has a target bracket, read [`BRACKET-DEFINITIONS.md`](../../../BRACKET-DEFINITIONS.md) (Incremental Core vs Upgraded texture, turn floors as satisfaction). Use `assess-deck` only when the user asks to rate a stored 99.
 8. **Name.** Brew title and short commander slug. Folder `unrated_<commander>-<name>` (see AGENTS.md). Primer H1: `# [Commander](scryfall) — Title`. Confirm jokes and subtitles.
