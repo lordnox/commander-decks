@@ -1,0 +1,174 @@
+{
+  "arena_id": 84324,
+  "artist": "Leon Tukker",
+  "artist_ids": [
+    "669b8b90-758d-4f9e-b4f7-98cd6742eb97"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Leon Tukker",
+      "artist_id": "669b8b90-758d-4f9e-b4f7-98cd6742eb97",
+      "colors": [
+        "U"
+      ],
+      "defense": "4",
+      "illustration_id": "3a24583c-60e4-4298-88e6-6a875bf6b632",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.webp?1783917038",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.jpg?1783917038",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.jpg?1783917038",
+        "crop": "https://cards.scryfall.io/crop/front/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.webp?1783917038",
+        "display": "https://cards.scryfall.io/display/front/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.webp?1783917038",
+        "grid": "https://cards.scryfall.io/grid/front/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.webp?1783917038",
+        "large": "https://cards.scryfall.io/large/front/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.jpg?1783917038",
+        "normal": "https://cards.scryfall.io/normal/front/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.jpg?1783917038",
+        "png": "https://cards.scryfall.io/png/front/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.png?1783917038",
+        "small": "https://cards.scryfall.io/small/front/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.jpg?1783917038",
+        "thumb": "https://cards.scryfall.io/thumb/front/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.webp?1783917038"
+      },
+      "mana_cost": "{3}{U}",
+      "name": "Invasion of Vryn",
+      "object": "card_face",
+      "oracle_text": "(As a Siege enters, choose an opponent to protect it. You and others can attack it. When it's defeated, exile it, then cast it transformed.)\nWhen this Siege enters, draw three cards, then discard a card.",
+      "type_line": "Battle — Siege"
+    },
+    {
+      "artist": "Leon Tukker",
+      "artist_id": "669b8b90-758d-4f9e-b4f7-98cd6742eb97",
+      "color_indicator": [
+        "U"
+      ],
+      "colors": [
+        "U"
+      ],
+      "flavor_text": "\"On my signal, disable the safeguards. Let's blow these metal freaks right back to their own world!\"\n—Gav Beleren, mage-ring engineer",
+      "illustration_id": "4fd001b2-7bbb-403f-9bfa-12d05530176f",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.webp?1783917038",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.jpg?1783917038",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.jpg?1783917038",
+        "crop": "https://cards.scryfall.io/crop/back/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.webp?1783917038",
+        "display": "https://cards.scryfall.io/display/back/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.webp?1783917038",
+        "grid": "https://cards.scryfall.io/grid/back/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.webp?1783917038",
+        "large": "https://cards.scryfall.io/large/back/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.jpg?1783917038",
+        "normal": "https://cards.scryfall.io/normal/back/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.jpg?1783917038",
+        "png": "https://cards.scryfall.io/png/back/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.png?1783917038",
+        "small": "https://cards.scryfall.io/small/back/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.jpg?1783917038",
+        "thumb": "https://cards.scryfall.io/thumb/back/c/0/c0ef6737-8e85-42ca-8ee6-6a34f9462de3.webp?1783917038"
+      },
+      "mana_cost": "",
+      "name": "Overloaded Mage-Ring",
+      "object": "card_face",
+      "oracle_text": "{1}, {T}, Sacrifice this artifact: Copy target spell you control. You may choose new targets for the copy. (A copy of a permanent spell becomes a token.)",
+      "type_line": "Artifact"
+    }
+  ],
+  "cardmarket_id": 704327,
+  "cmc": 4.0,
+  "collector_number": "64",
+  "color_identity": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 14785,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c0ef6737-8e85-42ca-8ee6-6a34f9462de3",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:30:38Z",
+  "keywords": [
+    "Transform"
+  ],
+  "lang": "en",
+  "layout": "transform",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 109948,
+  "multiverse_ids": [
+    607088,
+    607089
+  ],
+  "name": "Invasion of Vryn // Overloaded Mage-Ring",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "73c7fdb3-4742-4d08-8658-daa4435c49b1",
+  "oversized": false,
+  "penny_rank": 11670,
+  "prices": {
+    "eur": "0.07",
+    "eur_foil": "0.25",
+    "tix": "0.03",
+    "usd": "0.22",
+    "usd_etched": null,
+    "usd_foil": "0.19"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A73c7fdb3-4742-4d08-8658-daa4435c49b1&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/109948?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=704327&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F491207%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Invasion+of+Vryn",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=607088&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DInvasion%2Bof%2BVryn%2B%252F%252F%2BOverloaded%2BMage-Ring",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DInvasion%2Bof%2BVryn%2B%252F%252F%2BOverloaded%2BMage-Ring"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c0ef6737-8e85-42ca-8ee6-6a34f9462de3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/64/invasion-of-vryn-overloaded-mage-ring?utm_source=api",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": false,
+  "tcgplayer_id": 491207,
+  "textless": false,
+  "type_line": "Battle — Siege // Artifact",
+  "uri": "https://api.scryfall.com/cards/c0ef6737-8e85-42ca-8ee6-6a34f9462de3",
+  "variation": false
+}

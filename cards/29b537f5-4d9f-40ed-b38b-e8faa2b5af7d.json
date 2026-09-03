@@ -1,0 +1,138 @@
+{
+  "arena_id": 91610,
+  "artist": "Caio Monteiro",
+  "artist_ids": [
+    "d5053eb6-af72-47a0-b6e8-023cc3b9aefb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 778351,
+  "cmc": 1.0,
+  "collector_number": "74",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 3049,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Don't ask me how it works. If I stopped long enough to question it, I'd lose my legs.\"\n—Lorb, frogfolk wizard",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "adbaa356-28ba-487f-930a-a957d9960ab0",
+  "illustration_id": "a8bacb74-bd77-4615-b49a-7ebf6d737d62",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:47:21Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/d/adbaa356-28ba-487f-930a-a957d9960ab0.webp?1783910841",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/d/adbaa356-28ba-487f-930a-a957d9960ab0.jpg?1783910841",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/d/adbaa356-28ba-487f-930a-a957d9960ab0.jpg?1783910841",
+    "crop": "https://cards.scryfall.io/crop/front/a/d/adbaa356-28ba-487f-930a-a957d9960ab0.webp?1783910841",
+    "display": "https://cards.scryfall.io/display/front/a/d/adbaa356-28ba-487f-930a-a957d9960ab0.webp?1783910841",
+    "grid": "https://cards.scryfall.io/grid/front/a/d/adbaa356-28ba-487f-930a-a957d9960ab0.webp?1783910841",
+    "large": "https://cards.scryfall.io/large/front/a/d/adbaa356-28ba-487f-930a-a957d9960ab0.jpg?1783910841",
+    "normal": "https://cards.scryfall.io/normal/front/a/d/adbaa356-28ba-487f-930a-a957d9960ab0.jpg?1783910841",
+    "png": "https://cards.scryfall.io/png/front/a/d/adbaa356-28ba-487f-930a-a957d9960ab0.png?1783910841",
+    "small": "https://cards.scryfall.io/small/front/a/d/adbaa356-28ba-487f-930a-a957d9960ab0.jpg?1783910841",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/d/adbaa356-28ba-487f-930a-a957d9960ab0.webp?1783910841"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_id": 129393,
+  "multiverse_ids": [
+    668988
+  ],
+  "name": "Splash Portal",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "29b537f5-4d9f-40ed-b38b-e8faa2b5af7d",
+  "oracle_text": "Exile target creature you control, then return it to the battlefield under its owner's control. If that creature is a Bird, Frog, Otter, or Rat, draw a card.",
+  "oversized": false,
+  "penny_rank": 5249,
+  "preview": {
+    "previewed_at": "2024-07-12",
+    "source": "CulturaPop",
+    "source_uri": "https://cpop.it/articoli/bozzamagic-the-gathering-vi-sveliamo-in-esclusiva-3-nuove-carte-di-bloomburrow"
+  },
+  "prices": {
+    "eur": "0.90",
+    "eur_foil": "0.88",
+    "tix": "0.03",
+    "usd": "0.47",
+    "usd_etched": null,
+    "usd_foil": "0.46"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A29b537f5-4d9f-40ed-b38b-e8faa2b5af7d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/129393?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=778351&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F559145%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Splash+Portal",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=668988&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSplash%2BPortal",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSplash%2BPortal"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/adbaa356-28ba-487f-930a-a957d9960ab0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/74/splash-portal?utm_source=api",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": false,
+  "tcgplayer_id": 559145,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/adbaa356-28ba-487f-930a-a957d9960ab0",
+  "variation": false
+}

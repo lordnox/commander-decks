@@ -1,0 +1,133 @@
+{
+  "arena_id": 69141,
+  "artist": "Micah Epstein",
+  "artist_ids": [
+    "957ec398-9a5e-4f54-9090-37a06d57b96c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 368535,
+  "cmc": 2.0,
+  "collector_number": "13",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 6946,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "With the new guildmaster's innovations, arresters can arrive on the scene moments before a crime is committed.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "1df611df-3490-4b07-8034-6da9a0122a81",
+  "illustration_id": "f9723e1e-dabc-4beb-8a3a-d64d41d413af",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:08:42Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/d/1df611df-3490-4b07-8034-6da9a0122a81.webp?1783933722",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/d/1df611df-3490-4b07-8034-6da9a0122a81.jpg?1783933722",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/d/1df611df-3490-4b07-8034-6da9a0122a81.jpg?1783933722",
+    "crop": "https://cards.scryfall.io/crop/front/1/d/1df611df-3490-4b07-8034-6da9a0122a81.webp?1783933722",
+    "display": "https://cards.scryfall.io/display/front/1/d/1df611df-3490-4b07-8034-6da9a0122a81.webp?1783933722",
+    "grid": "https://cards.scryfall.io/grid/front/1/d/1df611df-3490-4b07-8034-6da9a0122a81.webp?1783933722",
+    "large": "https://cards.scryfall.io/large/front/1/d/1df611df-3490-4b07-8034-6da9a0122a81.jpg?1783933722",
+    "normal": "https://cards.scryfall.io/normal/front/1/d/1df611df-3490-4b07-8034-6da9a0122a81.jpg?1783933722",
+    "png": "https://cards.scryfall.io/png/front/1/d/1df611df-3490-4b07-8034-6da9a0122a81.png?1783933722",
+    "small": "https://cards.scryfall.io/small/front/1/d/1df611df-3490-4b07-8034-6da9a0122a81.jpg?1783933722",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/d/1df611df-3490-4b07-8034-6da9a0122a81.webp?1783933722"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "mtgo_id": 71026,
+  "multiverse_ids": [
+    457157
+  ],
+  "name": "Justiciar's Portal",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0214805d-d207-42da-a25f-2a8e1990904e",
+  "oracle_text": "Exile target creature you control, then return that card to the battlefield under its owner's control. It gains first strike until end of turn.",
+  "oversized": false,
+  "penny_rank": 13061,
+  "prices": {
+    "eur": "0.18",
+    "eur_foil": "0.47",
+    "tix": "0.03",
+    "usd": "0.21",
+    "usd_etched": null,
+    "usd_foil": "1.22"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0214805d-d207-42da-a25f-2a8e1990904e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/71026?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=368535&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F183374%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Justiciar%27s+Portal",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=457157&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DJusticiar%2527s%2BPortal",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DJusticiar%2527s%2BPortal"
+  },
+  "released_at": "2019-01-25",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1df611df-3490-4b07-8034-6da9a0122a81/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rna?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rna/13/justiciars-portal?utm_source=api",
+  "set": "rna",
+  "set_id": "97a7fd84-8d89-45a3-b48b-c951f6a3f9f1",
+  "set_name": "Ravnica Allegiance",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arna&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/97a7fd84-8d89-45a3-b48b-c951f6a3f9f1",
+  "story_spotlight": false,
+  "tcgplayer_id": 183374,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/1df611df-3490-4b07-8034-6da9a0122a81",
+  "variation": false
+}

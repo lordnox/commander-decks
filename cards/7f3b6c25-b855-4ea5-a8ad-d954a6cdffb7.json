@@ -1,0 +1,144 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "e2ccdd3b-9c39-4785-99b9-64b5de1177be",
+      "name": "Prototype Portal",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/e2ccdd3b-9c39-4785-99b9-64b5de1177be"
+    },
+    {
+      "component": "token",
+      "id": "f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c"
+    }
+  ],
+  "artist": "Drew Baker",
+  "artist_ids": [
+    "a8c4ef83-94ad-41c7-861f-95debea16868"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 361941,
+  "cmc": 4.0,
+  "collector_number": "216",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 8941,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "e2ccdd3b-9c39-4785-99b9-64b5de1177be",
+  "illustration_id": "129325ee-bb54-40bb-90c7-755e967d1296",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:17:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/2/e2ccdd3b-9c39-4785-99b9-64b5de1177be.webp?1783934261",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/2/e2ccdd3b-9c39-4785-99b9-64b5de1177be.jpg?1783934261",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/2/e2ccdd3b-9c39-4785-99b9-64b5de1177be.jpg?1783934261",
+    "crop": "https://cards.scryfall.io/crop/front/e/2/e2ccdd3b-9c39-4785-99b9-64b5de1177be.webp?1783934261",
+    "display": "https://cards.scryfall.io/display/front/e/2/e2ccdd3b-9c39-4785-99b9-64b5de1177be.webp?1783934261",
+    "grid": "https://cards.scryfall.io/grid/front/e/2/e2ccdd3b-9c39-4785-99b9-64b5de1177be.webp?1783934261",
+    "large": "https://cards.scryfall.io/large/front/e/2/e2ccdd3b-9c39-4785-99b9-64b5de1177be.jpg?1783934261",
+    "normal": "https://cards.scryfall.io/normal/front/e/2/e2ccdd3b-9c39-4785-99b9-64b5de1177be.jpg?1783934261",
+    "png": "https://cards.scryfall.io/png/front/e/2/e2ccdd3b-9c39-4785-99b9-64b5de1177be.png?1783934261",
+    "small": "https://cards.scryfall.io/small/front/e/2/e2ccdd3b-9c39-4785-99b9-64b5de1177be.jpg?1783934261",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/2/e2ccdd3b-9c39-4785-99b9-64b5de1177be.webp?1783934261"
+  },
+  "keywords": [
+    "Imprint"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}",
+  "multiverse_ids": [
+    451171
+  ],
+  "name": "Prototype Portal",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7f3b6c25-b855-4ea5-a8ad-d954a6cdffb7",
+  "oracle_text": "Imprint — When this artifact enters, you may exile an artifact card from your hand.\n{X}, {T}: Create a token that's a copy of the exiled card. X is the mana value of that card.",
+  "oversized": false,
+  "penny_rank": 7684,
+  "prices": {
+    "eur": "0.31",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.76",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7f3b6c25-b855-4ea5-a8ad-d954a6cdffb7&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Prototype+Portal&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=361941&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F171149%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Prototype+Portal",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=451171&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPrototype%2BPortal",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPrototype%2BPortal"
+  },
+  "released_at": "2018-08-10",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e2ccdd3b-9c39-4785-99b9-64b5de1177be/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c18?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c18/216/prototype-portal?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c18",
+  "set_id": "06ce6bc2-85cd-4cca-85b1-8c620d3e0902",
+  "set_name": "Commander 2018",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac18&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/06ce6bc2-85cd-4cca-85b1-8c620d3e0902",
+  "story_spotlight": false,
+  "tcgplayer_id": 171149,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/e2ccdd3b-9c39-4785-99b9-64b5de1177be",
+  "variation": false
+}

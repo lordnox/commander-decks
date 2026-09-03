@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "194ad785-21bb-4ce6-8776-31c67259fb99",
+      "name": "Sunder the Gateway",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/194ad785-21bb-4ce6-8776-31c67259fb99"
+    },
+    {
+      "component": "token",
+      "id": "2c5ed737-657b-43bf-b222-941da7579a4a",
+      "name": "Incubator // Phyrexian",
+      "object": "related_card",
+      "type_line": "Token Artifact — Incubator // Token Artifact Creature — Phyrexian",
+      "uri": "https://api.scryfall.com/cards/2c5ed737-657b-43bf-b222-941da7579a4a"
+    }
+  ],
+  "arena_id": 84294,
+  "artist": "Titus Lunter",
+  "artist_ids": [
+    "b11e6b3a-f4ca-4cf1-8fd7-475696de5f5c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 704746,
+  "cmc": 2.0,
+  "collector_number": "39",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 11289,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "194ad785-21bb-4ce6-8776-31c67259fb99",
+  "illustration_id": "76415a01-482c-4ec2-9148-7815d086e7aa",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:30:49Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/9/194ad785-21bb-4ce6-8776-31c67259fb99.webp?1783917049",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/9/194ad785-21bb-4ce6-8776-31c67259fb99.jpg?1783917049",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/9/194ad785-21bb-4ce6-8776-31c67259fb99.jpg?1783917049",
+    "crop": "https://cards.scryfall.io/crop/front/1/9/194ad785-21bb-4ce6-8776-31c67259fb99.webp?1783917049",
+    "display": "https://cards.scryfall.io/display/front/1/9/194ad785-21bb-4ce6-8776-31c67259fb99.webp?1783917049",
+    "grid": "https://cards.scryfall.io/grid/front/1/9/194ad785-21bb-4ce6-8776-31c67259fb99.webp?1783917049",
+    "large": "https://cards.scryfall.io/large/front/1/9/194ad785-21bb-4ce6-8776-31c67259fb99.jpg?1783917049",
+    "normal": "https://cards.scryfall.io/normal/front/1/9/194ad785-21bb-4ce6-8776-31c67259fb99.jpg?1783917049",
+    "png": "https://cards.scryfall.io/png/front/1/9/194ad785-21bb-4ce6-8776-31c67259fb99.png?1783917049",
+    "small": "https://cards.scryfall.io/small/front/1/9/194ad785-21bb-4ce6-8776-31c67259fb99.jpg?1783917049",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/9/194ad785-21bb-4ce6-8776-31c67259fb99.webp?1783917049"
+  },
+  "keywords": [
+    "Incubate",
+    "Transform"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "mtgo_id": 109888,
+  "multiverse_ids": [
+    607058
+  ],
+  "name": "Sunder the Gateway",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "88d49309-e7d7-486d-8696-cd66bec2fe33",
+  "oracle_text": "Choose one —\n• Destroy target nontoken artifact or enchantment an opponent controls. Incubate 2. (Create an Incubator token with two +1/+1 counters on it and \"{2}: Transform this token.\" It transforms into a 0/0 Phyrexian artifact creature.)\n• Incubate 2, then transform an Incubator token you control.",
+  "oversized": false,
+  "penny_rank": 9232,
+  "prices": {
+    "eur": "0.09",
+    "eur_foil": "0.20",
+    "tix": "0.03",
+    "usd": "0.13",
+    "usd_etched": null,
+    "usd_foil": "0.26"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A88d49309-e7d7-486d-8696-cd66bec2fe33&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/109888?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=704746&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F491739%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sunder+the+Gateway",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=607058&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSunder%2Bthe%2BGateway",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSunder%2Bthe%2BGateway"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/194ad785-21bb-4ce6-8776-31c67259fb99/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/39/sunder-the-gateway?utm_source=api",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": false,
+  "tcgplayer_id": 491739,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/194ad785-21bb-4ce6-8776-31c67259fb99",
+  "variation": false
+}

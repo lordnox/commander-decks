@@ -1,0 +1,138 @@
+{
+  "arena_id": 86735,
+  "artist": "Volkan Baǵa",
+  "artist_ids": [
+    "93bec3c0-0260-4d31-8064-5d01efb4153f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 728411,
+  "cmc": 2.0,
+  "collector_number": "48",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 10436,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a69fb480-a9fc-4f09-ac4e-3ce52c485ea9",
+  "illustration_id": "64639b36-f7e1-4e04-8e4b-c53fa7721741",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:58:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/6/a69fb480-a9fc-4f09-ac4e-3ce52c485ea9.webp?1783915121",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/6/a69fb480-a9fc-4f09-ac4e-3ce52c485ea9.jpg?1783915121",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/6/a69fb480-a9fc-4f09-ac4e-3ce52c485ea9.jpg?1783915121",
+    "crop": "https://cards.scryfall.io/crop/front/a/6/a69fb480-a9fc-4f09-ac4e-3ce52c485ea9.webp?1783915121",
+    "display": "https://cards.scryfall.io/display/front/a/6/a69fb480-a9fc-4f09-ac4e-3ce52c485ea9.webp?1783915121",
+    "grid": "https://cards.scryfall.io/grid/front/a/6/a69fb480-a9fc-4f09-ac4e-3ce52c485ea9.webp?1783915121",
+    "large": "https://cards.scryfall.io/large/front/a/6/a69fb480-a9fc-4f09-ac4e-3ce52c485ea9.jpg?1783915121",
+    "normal": "https://cards.scryfall.io/normal/front/a/6/a69fb480-a9fc-4f09-ac4e-3ce52c485ea9.jpg?1783915121",
+    "png": "https://cards.scryfall.io/png/front/a/6/a69fb480-a9fc-4f09-ac4e-3ce52c485ea9.png?1783915121",
+    "small": "https://cards.scryfall.io/small/front/a/6/a69fb480-a9fc-4f09-ac4e-3ce52c485ea9.jpg?1783915121",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/6/a69fb480-a9fc-4f09-ac4e-3ce52c485ea9.webp?1783915121"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{X}{X}{U}{U}",
+  "mtgo_id": 116394,
+  "multiverse_ids": [
+    629549
+  ],
+  "name": "Extraordinary Journey",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "69288566-3015-45de-b391-6fe079865f0c",
+  "oracle_text": "When this enchantment enters, exile up to X target creatures. For each of those cards, its owner may play it for as long as it remains exiled.\nWhenever one or more nontoken creatures enter, if one or more of them entered from exile or was cast from exile, you draw a card. This ability triggers only once each turn.",
+  "oversized": false,
+  "penny_rank": 6174,
+  "preview": {
+    "previewed_at": "2023-08-17",
+    "source": "PC Gamer",
+    "source_uri": "https://www.pcgamer.com/magic-the-gathering-returns-to-fairytales-for-wilds-of-eldraine/"
+  },
+  "prices": {
+    "eur": "0.13",
+    "eur_foil": "0.30",
+    "tix": "0.02",
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": "0.29"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A69288566-3015-45de-b391-6fe079865f0c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/116394?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=728411&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F512602%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Extraordinary+Journey",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=629549&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DExtraordinary%2BJourney",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DExtraordinary%2BJourney"
+  },
+  "released_at": "2023-09-08",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a69fb480-a9fc-4f09-ac4e-3ce52c485ea9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/woe?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/woe/48/extraordinary-journey?utm_source=api",
+  "security_stamp": "oval",
+  "set": "woe",
+  "set_id": "79139661-13ee-43c4-8bad-a8c069f1a1df",
+  "set_name": "Wilds of Eldraine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awoe&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/79139661-13ee-43c4-8bad-a8c069f1a1df",
+  "story_spotlight": true,
+  "tcgplayer_id": 512602,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/a69fb480-a9fc-4f09-ac4e-3ce52c485ea9",
+  "variation": false
+}

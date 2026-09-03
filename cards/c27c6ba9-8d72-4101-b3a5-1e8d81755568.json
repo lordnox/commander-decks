@@ -1,0 +1,191 @@
+{
+  "arena_id": 84265,
+  "artist": "Victor Adame Minguez",
+  "artist_ids": [
+    "bd8f7368-5b10-4554-b6b8-d052c6aca89f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Victor Adame Minguez",
+      "artist_id": "bd8f7368-5b10-4554-b6b8-d052c6aca89f",
+      "colors": [
+        "W"
+      ],
+      "flavor_text": "\"*Compleat* the faith, *compleat* the god.\"\n—Ajani Goldmane",
+      "illustration_id": "e5fcd738-5942-440f-ad02-7447b0a3861b",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.webp?1783917074",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.jpg?1783917074",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.jpg?1783917074",
+        "crop": "https://cards.scryfall.io/crop/front/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.webp?1783917074",
+        "display": "https://cards.scryfall.io/display/front/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.webp?1783917074",
+        "grid": "https://cards.scryfall.io/grid/front/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.webp?1783917074",
+        "large": "https://cards.scryfall.io/large/front/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.jpg?1783917074",
+        "normal": "https://cards.scryfall.io/normal/front/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.jpg?1783917074",
+        "png": "https://cards.scryfall.io/png/front/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.png?1783917074",
+        "small": "https://cards.scryfall.io/small/front/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.jpg?1783917074",
+        "thumb": "https://cards.scryfall.io/thumb/front/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.webp?1783917074"
+      },
+      "mana_cost": "{2}{W}{W}",
+      "name": "Heliod, the Radiant Dawn",
+      "object": "card_face",
+      "oracle_text": "When Heliod enters, return target enchantment card that isn't a God from your graveyard to your hand.\n{3}{U/P}: Transform Heliod. Activate only as a sorcery. ({U/P} can be paid with either {U} or 2 life.)",
+      "power": "4",
+      "toughness": "4",
+      "type_line": "Legendary Enchantment Creature — God"
+    },
+    {
+      "artist": "Victor Adame Minguez",
+      "artist_id": "bd8f7368-5b10-4554-b6b8-d052c6aca89f",
+      "color_indicator": [
+        "U",
+        "W"
+      ],
+      "colors": [
+        "U",
+        "W"
+      ],
+      "flavor_text": "\"*Compleat* the god, *compleat* the plane.\"\n—Ajani Goldmane",
+      "illustration_id": "4e064415-a6c6-417f-9619-5a5ed3486183",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.webp?1783917074",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.jpg?1783917074",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.jpg?1783917074",
+        "crop": "https://cards.scryfall.io/crop/back/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.webp?1783917074",
+        "display": "https://cards.scryfall.io/display/back/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.webp?1783917074",
+        "grid": "https://cards.scryfall.io/grid/back/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.webp?1783917074",
+        "large": "https://cards.scryfall.io/large/back/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.jpg?1783917074",
+        "normal": "https://cards.scryfall.io/normal/back/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.jpg?1783917074",
+        "png": "https://cards.scryfall.io/png/back/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.png?1783917074",
+        "small": "https://cards.scryfall.io/small/back/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.jpg?1783917074",
+        "thumb": "https://cards.scryfall.io/thumb/back/a/7/a7113c93-6c6d-410f-aeec-abc5ee121cdf.webp?1783917074"
+      },
+      "mana_cost": "",
+      "name": "Heliod, the Warped Eclipse",
+      "object": "card_face",
+      "oracle_text": "You may cast spells as though they had flash.\nSpells you cast cost {1} less to cast for each card your opponents have drawn this turn.",
+      "power": "4",
+      "toughness": "6",
+      "type_line": "Legendary Enchantment Creature — Phyrexian God"
+    }
+  ],
+  "cardmarket_id": 697761,
+  "cmc": 4.0,
+  "collector_number": "17",
+  "color_identity": [
+    "U",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 3259,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary",
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "a7113c93-6c6d-410f-aeec-abc5ee121cdf",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:31:14Z",
+  "keywords": [
+    "Transform"
+  ],
+  "lang": "en",
+  "layout": "transform",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 109830,
+  "multiverse_ids": [
+    607029,
+    607030
+  ],
+  "name": "Heliod, the Radiant Dawn // Heliod, the Warped Eclipse",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c27c6ba9-8d72-4101-b3a5-1e8d81755568",
+  "oversized": false,
+  "penny_rank": 2479,
+  "preview": {
+    "previewed_at": "2023-02-19",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://twitter.com/wizards_magic/status/1627379095263748097?s=20"
+  },
+  "prices": {
+    "eur": "0.97",
+    "eur_foil": "1.35",
+    "tix": "0.02",
+    "usd": "2.08",
+    "usd_etched": null,
+    "usd_foil": "2.83"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac27c6ba9-8d72-4101-b3a5-1e8d81755568&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/109830?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=697761&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F484508%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Heliod%2C+the+Radiant+Dawn",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=607029&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHeliod%252C%2Bthe%2BRadiant%2BDawn%2B%252F%252F%2BHeliod%252C%2Bthe%2BWarped%2BEclipse",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHeliod%252C%2Bthe%2BRadiant%2BDawn%2B%252F%252F%2BHeliod%252C%2Bthe%2BWarped%2BEclipse"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a7113c93-6c6d-410f-aeec-abc5ee121cdf/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/17/heliod-the-radiant-dawn-heliod-the-warped-eclipse?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": false,
+  "tcgplayer_id": 484508,
+  "textless": false,
+  "type_line": "Legendary Enchantment Creature — God // Legendary Enchantment Creature — Phyrexian God",
+  "uri": "https://api.scryfall.com/cards/a7113c93-6c6d-410f-aeec-abc5ee121cdf",
+  "variation": false
+}

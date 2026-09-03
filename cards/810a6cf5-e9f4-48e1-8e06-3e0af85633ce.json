@@ -1,0 +1,135 @@
+{
+  "artist": "Jonas De Ro",
+  "artist_ids": [
+    "561ebf9e-8d93-4b57-8156-8826d0c19601"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 722775,
+  "cmc": 3.0,
+  "collector_number": "85",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 5707,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ac13a82d-43f5-4b96-bf5f-18e33fae921b",
+  "illustration_id": "6f280db9-1f36-40ea-9aff-3243fd63fb83",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:08:23Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/c/ac13a82d-43f5-4b96-bf5f-18e33fae921b.webp?1783915703",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/c/ac13a82d-43f5-4b96-bf5f-18e33fae921b.jpg?1783915703",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/c/ac13a82d-43f5-4b96-bf5f-18e33fae921b.jpg?1783915703",
+    "crop": "https://cards.scryfall.io/crop/front/a/c/ac13a82d-43f5-4b96-bf5f-18e33fae921b.webp?1783915703",
+    "display": "https://cards.scryfall.io/display/front/a/c/ac13a82d-43f5-4b96-bf5f-18e33fae921b.webp?1783915703",
+    "grid": "https://cards.scryfall.io/grid/front/a/c/ac13a82d-43f5-4b96-bf5f-18e33fae921b.webp?1783915703",
+    "large": "https://cards.scryfall.io/large/front/a/c/ac13a82d-43f5-4b96-bf5f-18e33fae921b.jpg?1783915703",
+    "normal": "https://cards.scryfall.io/normal/front/a/c/ac13a82d-43f5-4b96-bf5f-18e33fae921b.jpg?1783915703",
+    "png": "https://cards.scryfall.io/png/front/a/c/ac13a82d-43f5-4b96-bf5f-18e33fae921b.png?1783915703",
+    "small": "https://cards.scryfall.io/small/front/a/c/ac13a82d-43f5-4b96-bf5f-18e33fae921b.jpg?1783915703",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/c/ac13a82d-43f5-4b96-bf5f-18e33fae921b.webp?1783915703"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 115269,
+  "multiverse_ids": [
+    622693
+  ],
+  "name": "Day's Undoing",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "810a6cf5-e9f4-48e1-8e06-3e0af85633ce",
+  "oracle_text": "Each player shuffles their hand and graveyard into their library, then draws seven cards. If it's your turn, end the turn. (Exile all spells and abilities from the stack, including this card. Discard down to your maximum hand size. Damage wears off, and \"this turn\" and \"until end of turn\" effects end.)",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-07-14",
+    "source": "Block 101 Hobbies Store",
+    "source_uri": "https://www.facebook.com/photo/?fbid=750626440404142&set=a.443936001073189"
+  },
+  "prices": {
+    "eur": "1.69",
+    "eur_foil": "2.86",
+    "tix": "1.24",
+    "usd": "1.54",
+    "usd_etched": null,
+    "usd_foil": "2.55"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A810a6cf5-e9f4-48e1-8e06-3e0af85633ce&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/115269?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=722775&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F504502%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Day%27s+Undoing",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=622693&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDay%2527s%2BUndoing",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDay%2527s%2BUndoing"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ac13a82d-43f5-4b96-bf5f-18e33fae921b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/85/days-undoing?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 504502,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/ac13a82d-43f5-4b96-bf5f-18e33fae921b",
+  "variation": false
+}

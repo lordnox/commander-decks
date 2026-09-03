@@ -1,0 +1,136 @@
+{
+  "artist": "Mike Ploog",
+  "artist_ids": [
+    "4a9465c4-1545-4ab6-91e7-60252b90bed4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 2493,
+  "cmc": 4.0,
+  "collector_number": "81",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 29219,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "frame_effects": [
+    "tombstone"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "04217c17-7c29-4b02-b9b6-bfa1df50d4bc",
+  "illustration_id": "ad032c00-1c3a-4d4e-bb86-a66560998571",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:21:01Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/4/04217c17-7c29-4b02-b9b6-bfa1df50d4bc.webp?1783945261",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/4/04217c17-7c29-4b02-b9b6-bfa1df50d4bc.jpg?1783945261",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/4/04217c17-7c29-4b02-b9b6-bfa1df50d4bc.jpg?1783945261",
+    "crop": "https://cards.scryfall.io/crop/front/0/4/04217c17-7c29-4b02-b9b6-bfa1df50d4bc.webp?1783945261",
+    "display": "https://cards.scryfall.io/display/front/0/4/04217c17-7c29-4b02-b9b6-bfa1df50d4bc.webp?1783945261",
+    "grid": "https://cards.scryfall.io/grid/front/0/4/04217c17-7c29-4b02-b9b6-bfa1df50d4bc.webp?1783945261",
+    "large": "https://cards.scryfall.io/large/front/0/4/04217c17-7c29-4b02-b9b6-bfa1df50d4bc.jpg?1783945261",
+    "normal": "https://cards.scryfall.io/normal/front/0/4/04217c17-7c29-4b02-b9b6-bfa1df50d4bc.jpg?1783945261",
+    "png": "https://cards.scryfall.io/png/front/0/4/04217c17-7c29-4b02-b9b6-bfa1df50d4bc.png?1783945261",
+    "small": "https://cards.scryfall.io/small/front/0/4/04217c17-7c29-4b02-b9b6-bfa1df50d4bc.jpg?1783945261",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/4/04217c17-7c29-4b02-b9b6-bfa1df50d4bc.webp?1783945261"
+  },
+  "keywords": [
+    "Flashback"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "mtgo_foil_id": 16936,
+  "mtgo_id": 16935,
+  "multiverse_ids": [
+    29826
+  ],
+  "name": "Dematerialize",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d2fbad7d-d05a-4321-9aff-a93bd102a3f4",
+  "oracle_text": "Return target permanent to its owner's hand.\nFlashback {5}{U}{U} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+  "oversized": false,
+  "penny_rank": 16723,
+  "prices": {
+    "eur": "0.06",
+    "eur_foil": "0.61",
+    "tix": "0.04",
+    "usd": "0.10",
+    "usd_etched": null,
+    "usd_foil": "0.67"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad2fbad7d-d05a-4321-9aff-a93bd102a3f4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/16935?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=2493&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F9356%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dematerialize",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=29826&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDematerialize",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDematerialize"
+  },
+  "released_at": "2001-10-01",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/04217c17-7c29-4b02-b9b6-bfa1df50d4bc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ody?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ody/81/dematerialize?utm_source=api",
+  "set": "ody",
+  "set_id": "b0d90d2d-494a-4224-bfa0-36ce5ee281b1",
+  "set_name": "Odyssey",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aody&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/b0d90d2d-494a-4224-bfa0-36ce5ee281b1",
+  "story_spotlight": false,
+  "tcgplayer_id": 9356,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/04217c17-7c29-4b02-b9b6-bfa1df50d4bc",
+  "variation": false
+}

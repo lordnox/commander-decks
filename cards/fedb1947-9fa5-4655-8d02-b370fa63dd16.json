@@ -1,0 +1,159 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "12742d1f-eb2e-4262-88e2-403c9ae6c431",
+      "name": "Zombie Army",
+      "object": "related_card",
+      "type_line": "Token Creature — Zombie Army",
+      "uri": "https://api.scryfall.com/cards/12742d1f-eb2e-4262-88e2-403c9ae6c431"
+    },
+    {
+      "component": "combo_piece",
+      "id": "209d70a2-c8c1-4072-ab1f-57804b55a09a",
+      "name": "Commence the Endgame",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/209d70a2-c8c1-4072-ab1f-57804b55a09a"
+    }
+  ],
+  "arena_id": 69496,
+  "artist": "Noah Bradley",
+  "artist_ids": [
+    "81995d11-da98-4f8b-89bd-b88ca2ddb06b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 372237,
+  "cmc": 6.0,
+  "collector_number": "45",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 8387,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Even gods shall kneel.\"\n—Nicol Bolas",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "209d70a2-c8c1-4072-ab1f-57804b55a09a",
+  "illustration_id": "860f9dcd-23a8-444a-988b-766fccfa6334",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:04:27Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/0/209d70a2-c8c1-4072-ab1f-57804b55a09a.webp?1783933467",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/0/209d70a2-c8c1-4072-ab1f-57804b55a09a.jpg?1783933467",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/0/209d70a2-c8c1-4072-ab1f-57804b55a09a.jpg?1783933467",
+    "crop": "https://cards.scryfall.io/crop/front/2/0/209d70a2-c8c1-4072-ab1f-57804b55a09a.webp?1783933467",
+    "display": "https://cards.scryfall.io/display/front/2/0/209d70a2-c8c1-4072-ab1f-57804b55a09a.webp?1783933467",
+    "grid": "https://cards.scryfall.io/grid/front/2/0/209d70a2-c8c1-4072-ab1f-57804b55a09a.webp?1783933467",
+    "large": "https://cards.scryfall.io/large/front/2/0/209d70a2-c8c1-4072-ab1f-57804b55a09a.jpg?1783933467",
+    "normal": "https://cards.scryfall.io/normal/front/2/0/209d70a2-c8c1-4072-ab1f-57804b55a09a.jpg?1783933467",
+    "png": "https://cards.scryfall.io/png/front/2/0/209d70a2-c8c1-4072-ab1f-57804b55a09a.png?1783933467",
+    "small": "https://cards.scryfall.io/small/front/2/0/209d70a2-c8c1-4072-ab1f-57804b55a09a.jpg?1783933467",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/0/209d70a2-c8c1-4072-ab1f-57804b55a09a.webp?1783933467"
+  },
+  "keywords": [
+    "Amass"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{U}{U}",
+  "mtgo_id": 71696,
+  "multiverse_ids": [
+    460972
+  ],
+  "name": "Commence the Endgame",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "fedb1947-9fa5-4655-8d02-b370fa63dd16",
+  "oracle_text": "This spell can't be countered.\nDraw two cards, then amass Zombies X, where X is the number of cards in your hand. (Put X +1/+1 counters on an Army you control. It's also a Zombie. If you don't control an Army, create a 0/0 black Zombie Army creature token first.)",
+  "oversized": false,
+  "penny_rank": 3834,
+  "preview": {
+    "previewed_at": "2019-04-15",
+    "source": "Making Magic",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/making-magic/waging-war-spark-part-3-2019-04-15?c"
+  },
+  "prices": {
+    "eur": "0.25",
+    "eur_foil": "0.39",
+    "tix": "0.02",
+    "usd": "0.29",
+    "usd_etched": null,
+    "usd_foil": "0.63"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Afedb1947-9fa5-4655-8d02-b370fa63dd16&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/71696?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=372237&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F188626%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Commence+the+Endgame",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=460972&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCommence%2Bthe%2BEndgame",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCommence%2Bthe%2BEndgame"
+  },
+  "released_at": "2019-05-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/209d70a2-c8c1-4072-ab1f-57804b55a09a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/war?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/war/45/commence-the-endgame?utm_source=api",
+  "security_stamp": "oval",
+  "set": "war",
+  "set_id": "ee044f0b-e101-4ead-8d0e-aa510aad4277",
+  "set_name": "War of the Spark",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awar&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/ee044f0b-e101-4ead-8d0e-aa510aad4277",
+  "story_spotlight": false,
+  "tcgplayer_id": 188626,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/209d70a2-c8c1-4072-ab1f-57804b55a09a",
+  "variation": false
+}

@@ -1,0 +1,196 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "88439bfc-8942-473b-9e4f-863017788476",
+      "name": "Knight",
+      "object": "related_card",
+      "type_line": "Token Creature — Knight",
+      "uri": "https://api.scryfall.com/cards/88439bfc-8942-473b-9e4f-863017788476"
+    },
+    {
+      "component": "combo_piece",
+      "id": "4fb0eb2d-9cb7-4e72-a970-5009b046df2a",
+      "name": "Invasion of Belenon // Belenon War Anthem",
+      "object": "related_card",
+      "type_line": "Battle — Siege // Enchantment",
+      "uri": "https://api.scryfall.com/cards/4fb0eb2d-9cb7-4e72-a970-5009b046df2a"
+    }
+  ],
+  "arena_id": 84269,
+  "artist": "Antonio José Manzanedo",
+  "artist_ids": [
+    "74986d28-0001-4a78-827c-e490b325d0e3"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Antonio José Manzanedo",
+      "artist_id": "74986d28-0001-4a78-827c-e490b325d0e3",
+      "colors": [
+        "W"
+      ],
+      "defense": "5",
+      "illustration_id": "aee91ba8-0120-439d-8a9d-c6e0c2284ade",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.webp?1783917065",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.jpg?1783917065",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.jpg?1783917065",
+        "crop": "https://cards.scryfall.io/crop/front/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.webp?1783917065",
+        "display": "https://cards.scryfall.io/display/front/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.webp?1783917065",
+        "grid": "https://cards.scryfall.io/grid/front/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.webp?1783917065",
+        "large": "https://cards.scryfall.io/large/front/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.jpg?1783917065",
+        "normal": "https://cards.scryfall.io/normal/front/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.jpg?1783917065",
+        "png": "https://cards.scryfall.io/png/front/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.png?1783917065",
+        "small": "https://cards.scryfall.io/small/front/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.jpg?1783917065",
+        "thumb": "https://cards.scryfall.io/thumb/front/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.webp?1783917065"
+      },
+      "mana_cost": "{2}{W}",
+      "name": "Invasion of Belenon",
+      "object": "card_face",
+      "oracle_text": "(As a Siege enters, choose an opponent to protect it. You and others can attack it. When it's defeated, exile it, then cast it transformed.)\nWhen this Siege enters, create a 2/2 white and blue Knight creature token with vigilance.",
+      "type_line": "Battle — Siege"
+    },
+    {
+      "artist": "Antonio José Manzanedo",
+      "artist_id": "74986d28-0001-4a78-827c-e490b325d0e3",
+      "color_indicator": [
+        "W"
+      ],
+      "colors": [
+        "W"
+      ],
+      "flavor_text": "\"Just as a flute turns breath into music, we are the vessel through which the Sacred Winds produce glorious justice.\"",
+      "illustration_id": "6d1bbf12-265e-49b5-8376-d500c9683b48",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.webp?1783917065",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.jpg?1783917065",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.jpg?1783917065",
+        "crop": "https://cards.scryfall.io/crop/back/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.webp?1783917065",
+        "display": "https://cards.scryfall.io/display/back/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.webp?1783917065",
+        "grid": "https://cards.scryfall.io/grid/back/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.webp?1783917065",
+        "large": "https://cards.scryfall.io/large/back/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.jpg?1783917065",
+        "normal": "https://cards.scryfall.io/normal/back/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.jpg?1783917065",
+        "png": "https://cards.scryfall.io/png/back/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.png?1783917065",
+        "small": "https://cards.scryfall.io/small/back/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.jpg?1783917065",
+        "thumb": "https://cards.scryfall.io/thumb/back/4/f/4fb0eb2d-9cb7-4e72-a970-5009b046df2a.webp?1783917065"
+      },
+      "mana_cost": "",
+      "name": "Belenon War Anthem",
+      "object": "card_face",
+      "oracle_text": "Creatures you control get +1/+1.",
+      "type_line": "Enchantment"
+    }
+  ],
+  "cardmarket_id": 704006,
+  "cmc": 3.0,
+  "collector_number": "20",
+  "color_identity": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 15958,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "4fb0eb2d-9cb7-4e72-a970-5009b046df2a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:31:05Z",
+  "keywords": [
+    "Transform"
+  ],
+  "lang": "en",
+  "layout": "transform",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 109838,
+  "multiverse_ids": [
+    607033,
+    607034
+  ],
+  "name": "Invasion of Belenon // Belenon War Anthem",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e462e78d-2d26-4a2d-8d8f-5f31abe5c924",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-04-01",
+    "source": "Mirror",
+    "source_uri": "https://www.mirror.co.uk/lifestyle/staying-in/magic-gathering-march-machine-exclusively-29606042"
+  },
+  "prices": {
+    "eur": "0.06",
+    "eur_foil": "0.17",
+    "tix": "0.03",
+    "usd": "0.23",
+    "usd_etched": null,
+    "usd_foil": "0.25"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae462e78d-2d26-4a2d-8d8f-5f31abe5c924&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/109838?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=704006&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F490661%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Invasion+of+Belenon",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=607033&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DInvasion%2Bof%2BBelenon%2B%252F%252F%2BBelenon%2BWar%2BAnthem",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DInvasion%2Bof%2BBelenon%2B%252F%252F%2BBelenon%2BWar%2BAnthem"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4fb0eb2d-9cb7-4e72-a970-5009b046df2a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/20/invasion-of-belenon-belenon-war-anthem?utm_source=api",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": false,
+  "tcgplayer_id": 490661,
+  "textless": false,
+  "type_line": "Battle — Siege // Enchantment",
+  "uri": "https://api.scryfall.com/cards/4fb0eb2d-9cb7-4e72-a970-5009b046df2a",
+  "variation": false
+}

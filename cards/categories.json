@@ -898,7 +898,7 @@
       "categories": [
         "commander-top"
       ],
-      "name": "Bartolom\u00e9 del Presidio"
+      "name": "Bartolomé del Presidio"
     },
     "f73da5d8-fd15-4315-ad3c-c86c28087285": {
       "categories": [
@@ -9275,8 +9275,418 @@
         "exile",
         "theft"
       ]
+    },
+    "d0e1904e-1a37-41f6-8582-b9ea794bb886": {
+      "name": "Abduction",
+      "categories": [
+        "other"
+      ]
+    },
+    "8095ca78-db19-4724-a6ff-eacc85fa2274": {
+      "name": "Another Round",
+      "categories": [
+        "blink"
+      ]
+    },
+    "ef833546-f755-4ac5-867a-3926984e68a0": {
+      "name": "Archaeomancer's Map",
+      "categories": [
+        "other"
+      ]
+    },
+    "1bc42024-52da-4d93-8b47-544f0a4a72a1": {
+      "name": "Astral Cornucopia",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "896213bb-28a0-45a4-abbd-35af51f1d9aa": {
+      "name": "Attentive Skywarden",
+      "categories": [
+        "other"
+      ]
+    },
+    "11f55ec5-b9a3-4670-8afb-31d29478fb59": {
+      "name": "Bar the Gate",
+      "categories": [
+        "other"
+      ]
+    },
+    "46e50ee9-91f8-416e-82fa-f1a76e61fb73": {
+      "name": "Belbe's Portal",
+      "categories": [
+        "other"
+      ]
+    },
+    "dc4a4996-108a-4aac-850f-2d9f76403446": {
+      "name": "Boomerang",
+      "categories": [
+        "other"
+      ]
+    },
+    "34f0beae-a8e2-4474-9f7f-4735d3f26863": {
+      "name": "Boon of Safety",
+      "categories": [
+        "other"
+      ]
+    },
+    "837c5d0e-0a33-4f9d-ae25-68a687bdf640": {
+      "name": "Chrome Host Seedshark",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "eea4feef-2595-4ed2-92a0-11ccb3e7d40e": {
+      "name": "Coercive Portal",
+      "categories": [
+        "card-draw",
+        "board-wipe",
+        "sacrifice"
+      ]
+    },
+    "fedb1947-9fa5-4655-8d02-b370fa63dd16": {
+      "name": "Commence the Endgame",
+      "categories": [
+        "card-draw",
+        "token-production"
+      ]
+    },
+    "cd1eda60-53e4-44d0-9b2c-7a57395e291f": {
+      "name": "Conjurer's Closet",
+      "categories": [
+        "removal",
+        "blink"
+      ]
+    },
+    "810a6cf5-e9f4-48e1-8e06-3e0af85633ce": {
+      "name": "Day's Undoing",
+      "categories": [
+        "board-wipe",
+        "discard"
+      ]
+    },
+    "d2fbad7d-d05a-4321-9aff-a93bd102a3f4": {
+      "name": "Dematerialize",
+      "categories": [
+        "other"
+      ]
+    },
+    "ae069ba4-8ca6-4eda-8f5d-fc82072d7d40": {
+      "name": "Depart the Realm",
+      "categories": [
+        "other"
+      ]
+    },
+    "8f0777bc-4fca-4601-beed-1fd060f28075": {
+      "name": "Dimensional Exile",
+      "categories": [
+        "removal"
+      ]
+    },
+    "76347258-71d5-4874-adde-ff7aa932b808": {
+      "name": "Disrupt",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "6df57d67-2fd9-4e7a-b67b-f361fc30e496": {
+      "name": "Distinguished Conjurer",
+      "categories": [
+        "removal",
+        "blink"
+      ]
+    },
+    "194284f7-cf92-4d9f-a8ce-e4dc3505ab7a": {
+      "name": "Donatello's Technique",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "7536eb66-959d-4dca-9b75-895572ef733c": {
+      "name": "Emergence Zone",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "1e0bb57a-f5c7-45e9-b5b9-5bb3ec930108": {
+      "name": "Ephara's Dispersal",
+      "categories": [
+        "other"
+      ]
+    },
+    "4a85cd7e-625b-4043-b7f1-999def26eb36": {
+      "name": "Erratic Portal",
+      "categories": [
+        "other"
+      ]
+    },
+    "51329e73-aebe-4f42-a4db-e092b1984a4b": {
+      "name": "Essence of Orthodoxy",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "69288566-3015-45de-b391-6fe079865f0c": {
+      "name": "Extraordinary Journey",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "ac675899-25bb-4f06-9c8c-bf188024495f": {
+      "name": "Firemane Commando",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "0399b932-2a59-471c-828e-2b16614e0dae": {
+      "name": "Flywheel Racer",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "bc2f807b-555d-4a62-ab14-75fe62c64b97": {
+      "name": "Fold into Aether",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "a03ab63a-83f3-4dd6-926d-08d09ce2e696": {
+      "name": "Gate to the Aether",
+      "categories": [
+        "other"
+      ]
+    },
+    "a6543f71-0326-4e1f-b58f-9ce325d5d036": {
+      "name": "Gateway Plaza",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "c27c6ba9-8d72-4101-b3a5-1e8d81755568": {
+      "name": "Heliod, the Radiant Dawn // Heliod, the Warped Eclipse",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "456dbec4-1b0e-48c4-abae-5c8205651872": {
+      "name": "Interdimensional Web Watch",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "e462e78d-2d26-4a2d-8d8f-5f31abe5c924": {
+      "name": "Invasion of Belenon // Belenon War Anthem",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "73c7fdb3-4742-4d08-8658-daa4435c49b1": {
+      "name": "Invasion of Vryn // Overloaded Mage-Ring",
+      "categories": [
+        "card-draw",
+        "sacrifice",
+        "discard"
+      ]
+    },
+    "2bfec482-be0d-4768-84e7-1c2c74ea1373": {
+      "name": "Journey to Nowhere",
+      "categories": [
+        "removal"
+      ]
+    },
+    "0214805d-d207-42da-a25f-2a8e1990904e": {
+      "name": "Justiciar's Portal",
+      "categories": [
+        "removal",
+        "blink"
+      ]
+    },
+    "30ab812f-a055-4c68-ad81-9dd23e38827f": {
+      "name": "Knight of the New Coalition",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "9457f3c1-a087-46cd-a8be-cf665466b77c": {
+      "name": "Lassoed by the Law",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "83917116-d2d8-4701-a79f-af17486706ae": {
+      "name": "Light the Way",
+      "categories": [
+        "other"
+      ]
+    },
+    "6a84eda1-7e72-4b5a-849f-b6e177565aeb": {
+      "name": "Mirage Mirror",
+      "categories": [
+        "other"
+      ]
+    },
+    "3ec7ae18-b203-49bd-95f9-ad5482459a23": {
+      "name": "Mirror of Life Trapping",
+      "categories": [
+        "blink"
+      ]
+    },
+    "17770eeb-ecbf-4510-af2d-acececfbe146": {
+      "name": "Multiversal Passage",
+      "categories": [
+        "land"
+      ]
+    },
+    "8c65d5bd-5d90-4e84-8251-cfef21dd6332": {
+      "name": "Multiversal Recruitment",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "07142ee9-dc2c-4b33-ad20-2f5285225e86": {
+      "name": "Nexus of Becoming",
+      "categories": [
+        "card-draw",
+        "token-production"
+      ]
+    },
+    "1a3ce329-ee48-4abc-b820-b43e9e68eae9": {
+      "name": "Phyrexian Portal",
+      "categories": [
+        "other"
+      ]
+    },
+    "853c6cc0-ed2b-4d65-add1-2449ade8cf68": {
+      "name": "Planar Bridge",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "d4b10505-2b7a-4099-aacb-ff2359b24310": {
+      "name": "Planar Portal",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "0dd3127e-de13-4785-b5f2-0af996e9f15f": {
+      "name": "Portal Manipulator",
+      "categories": [
+        "other"
+      ]
+    },
+    "c30491b5-08fe-4694-9ac8-53be7b4b92ce": {
+      "name": "Portal of Sanctuary",
+      "categories": [
+        "other"
+      ]
+    },
+    "7f3b6c25-b855-4ea5-a8ad-d954a6cdffb7": {
+      "name": "Prototype Portal",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "f2baa0b9-ab0b-4ae9-b5f0-d5b3fcd9cf37": {
+      "name": "Realmbreaker's Grasp",
+      "categories": [
+        "other"
+      ]
+    },
+    "32717625-46c6-45c5-ad0a-fb6a91f9878c": {
+      "name": "Runed Arch",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "cb660c6d-dc8b-4779-8613-6acf19418baa": {
+      "name": "Security Bypass",
+      "categories": [
+        "discard"
+      ]
+    },
+    "144d0817-348c-4171-aa7e-3468b23cf97d": {
+      "name": "See Double",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "ac914d98-221e-426c-8a50-342896b15f9e": {
+      "name": "Snap",
+      "categories": [
+        "other"
+      ]
+    },
+    "29b537f5-4d9f-40ed-b38b-e8faa2b5af7d": {
+      "name": "Splash Portal",
+      "categories": [
+        "card-draw",
+        "removal",
+        "blink"
+      ]
+    },
+    "7e00b0cd-d212-4604-ba07-da21f4fe00b0": {
+      "name": "Sram, Senior Edificer",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "48b43d53-9a8a-47a2-8610-a54d276d7be7": {
+      "name": "Step Between Worlds",
+      "categories": [
+        "other"
+      ]
+    },
+    "c4fa89c7-f00d-42ef-bd67-407a288cd054": {
+      "name": "Step Through",
+      "categories": [
+        "tutor",
+        "discard"
+      ]
+    },
+    "88d49309-e7d7-486d-8696-cd66bec2fe33": {
+      "name": "Sunder the Gateway",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "ceeeacbc-01b0-4421-aaca-2ce6cdbe45d7": {
+      "name": "Tetsuko Umezawa, Fugitive",
+      "categories": [
+        "other"
+      ]
+    },
+    "36282c29-a44b-4156-9441-03aa4bf386a8": {
+      "name": "Thran Temporal Gateway",
+      "categories": [
+        "other"
+      ]
+    },
+    "5d641bf6-0f93-4189-8dc1-ec7ea446dade": {
+      "name": "Tranquil Cove",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "e8d6084b-9b72-438e-a30a-851b888f3e4d": {
+      "name": "Whitemane Lion",
+      "categories": [
+        "other"
+      ]
+    },
+    "2e150f97-5688-4559-94b8-86c33fda28a0": {
+      "name": "Xerex Strobe-Knight",
+      "categories": [
+        "token-production"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-01T21:25:19.795245+00:00"
+  "updated_at": "2026-09-03T15:55:04.317475+00:00"
 }

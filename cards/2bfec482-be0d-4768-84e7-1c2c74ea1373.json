@@ -1,0 +1,130 @@
+{
+  "artist": "Warren Mahy",
+  "artist_ids": [
+    "002c739e-aa1f-4c1d-921b-37cb2d1b1c5b"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 247265,
+  "cmc": 2.0,
+  "collector_number": "17",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 8683,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "4686b51c-e02b-48c1-bafe-e8d08a5407b9",
+  "illustration_id": "1c541d75-885a-4c4e-aaf7-aeae5b41ab2c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:14:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/6/4686b51c-e02b-48c1-bafe-e8d08a5407b9.webp?1783941252",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/6/4686b51c-e02b-48c1-bafe-e8d08a5407b9.jpg?1783941252",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/6/4686b51c-e02b-48c1-bafe-e8d08a5407b9.jpg?1783941252",
+    "crop": "https://cards.scryfall.io/crop/front/4/6/4686b51c-e02b-48c1-bafe-e8d08a5407b9.webp?1783941252",
+    "display": "https://cards.scryfall.io/display/front/4/6/4686b51c-e02b-48c1-bafe-e8d08a5407b9.webp?1783941252",
+    "grid": "https://cards.scryfall.io/grid/front/4/6/4686b51c-e02b-48c1-bafe-e8d08a5407b9.webp?1783941252",
+    "large": "https://cards.scryfall.io/large/front/4/6/4686b51c-e02b-48c1-bafe-e8d08a5407b9.jpg?1783941252",
+    "normal": "https://cards.scryfall.io/normal/front/4/6/4686b51c-e02b-48c1-bafe-e8d08a5407b9.jpg?1783941252",
+    "png": "https://cards.scryfall.io/png/front/4/6/4686b51c-e02b-48c1-bafe-e8d08a5407b9.png?1783941252",
+    "small": "https://cards.scryfall.io/small/front/4/6/4686b51c-e02b-48c1-bafe-e8d08a5407b9.jpg?1783941252",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/6/4686b51c-e02b-48c1-bafe-e8d08a5407b9.webp?1783941252"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "mtgo_foil_id": 40888,
+  "mtgo_id": 40568,
+  "multiverse_ids": [
+    247547
+  ],
+  "name": "Journey to Nowhere",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2bfec482-be0d-4768-84e7-1c2c74ea1373",
+  "oracle_text": "When this enchantment enters, exile target creature.\nWhen this enchantment leaves the battlefield, return the exiled card to the battlefield under its owner's control.",
+  "oversized": false,
+  "penny_rank": 1025,
+  "prices": {
+    "eur": "0.77",
+    "eur_foil": null,
+    "tix": "0.74",
+    "usd": "0.47",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2bfec482-be0d-4768-84e7-1c2c74ea1373&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/40568?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=247265&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F47460%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Journey+to+Nowhere",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=247547&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DJourney%2Bto%2BNowhere",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DJourney%2Bto%2BNowhere"
+  },
+  "released_at": "2011-06-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4686b51c-e02b-48c1-bafe-e8d08a5407b9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmd?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmd/17/journey-to-nowhere?utm_source=api",
+  "set": "cmd",
+  "set_id": "84ff1a64-4e69-4ed2-8c08-26206e3b97a0",
+  "set_name": "Commander 2011",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmd&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/84ff1a64-4e69-4ed2-8c08-26206e3b97a0",
+  "story_spotlight": false,
+  "tcgplayer_id": 47460,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/4686b51c-e02b-48c1-bafe-e8d08a5407b9",
+  "variation": false
+}

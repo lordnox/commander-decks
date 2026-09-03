@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Azorius portal control: bounce and blink odd gate artifacts until Heliod opens a flash-speed burst turn and the token board takes over.",
+  "tags": [
+    {
+      "name": "blink",
+      "score": 4,
+      "reason": "The deck reuses creatures and enchantments through Portal of Sanctuary, Conjurer's Closet, Another Round, Splash Portal, Justiciar's Portal, and Whitemane Lion."
+    },
+    {
+      "name": "control",
+      "score": 4,
+      "reason": "Its default posture is to pass with mana up, answer the most relevant permanent with bounce or exile, and only commit heavier engines after the table slows down."
+    },
+    {
+      "name": "flash",
+      "score": 4,
+      "reason": "Heliod's back face, Emergence Zone, Whitemane Lion, Portal Manipulator, and foretell on Depart the Realm let the deck play almost entirely on the opponent-facing half of the turn cycle."
+    },
+    {
+      "name": "artifacts",
+      "score": 3,
+      "reason": "A large part of the engine is literal portal artifacts, copied portals, and artifact-matter support like Prototype Portal and Thran Temporal Gateway."
+    },
+    {
+      "name": "etb effects",
+      "score": 3,
+      "reason": "The bounce and blink package is there to re-fire creatures like Distinguished Conjurer, Knight of the New Coalition, Firemane Commando, and Portal to Phyrexia."
+    },
+    {
+      "name": "politics",
+      "score": 3,
+      "reason": "Portal Manipulator, Firemane Commando, Coercive Portal, and Phyrexian Portal all ask the table to bargain or attack elsewhere instead of just removing everything."
+    },
+    {
+      "name": "tokens",
+      "score": 3,
+      "reason": "Chrome Host Seedshark, Essence of Orthodoxy, Commence the Endgame, Knight of the New Coalition, Multiversal Recruitment, and Xerex Strobe-Knight create the board that actually closes games."
+    },
+    {
+      "name": "battles",
+      "score": 2,
+      "reason": "The deck runs two useful battles and has flyers and tokens to flip them, but they support the engine rather than define it."
+    },
+    {
+      "name": "chaos",
+      "score": 2,
+      "reason": "Gate to the Aether and Mirror of Life Trapping add uncertainty, but the deck is not a full chaos shell."
+    },
+    {
+      "name": "ramp",
+      "score": 2,
+      "reason": "The mana package exists to reach the expensive portals, but it is support rather than the deck's identity."
+    },
+    {
+      "name": "spell copy",
+      "score": 2,
+      "reason": "Invasion of Vryn and See Double can copy the right spell at the right moment, but the list is not primarily a copy deck."
+    },
+    {
+      "name": "theft",
+      "score": 1,
+      "reason": "Abduction steals a creature and Portal to Phyrexia reanimates from opposing graveyards, but theft is incidental."
+    }
+  ]
+}

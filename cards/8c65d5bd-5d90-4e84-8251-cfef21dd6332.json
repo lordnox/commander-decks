@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9ecb06fa-2d75-4670-96e3-cd5d5e150528",
+      "name": "Multiversal Recruitment",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/9ecb06fa-2d75-4670-96e3-cd5d5e150528"
+    }
+  ],
+  "arena_id": 105639,
+  "artist": "Thomas Chamberlain-Keen",
+  "artist_ids": [
+    "0ff7b311-8dc5-4151-9ef0-143557dfd8fd"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 891968,
+  "cmc": 4.0,
+  "collector_number": "629",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 11248,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"We are Kang. We shall conquer.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "9ecb06fa-2d75-4670-96e3-cd5d5e150528",
+  "illustration_id": "cf490510-b28d-4796-8019-945d76dbba3a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:37:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/e/9ecb06fa-2d75-4670-96e3-cd5d5e150528.webp?1783903071",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/e/9ecb06fa-2d75-4670-96e3-cd5d5e150528.jpg?1783903071",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/e/9ecb06fa-2d75-4670-96e3-cd5d5e150528.jpg?1783903071",
+    "crop": "https://cards.scryfall.io/crop/front/9/e/9ecb06fa-2d75-4670-96e3-cd5d5e150528.webp?1783903071",
+    "display": "https://cards.scryfall.io/display/front/9/e/9ecb06fa-2d75-4670-96e3-cd5d5e150528.webp?1783903071",
+    "grid": "https://cards.scryfall.io/grid/front/9/e/9ecb06fa-2d75-4670-96e3-cd5d5e150528.webp?1783903071",
+    "large": "https://cards.scryfall.io/large/front/9/e/9ecb06fa-2d75-4670-96e3-cd5d5e150528.jpg?1783903071",
+    "normal": "https://cards.scryfall.io/normal/front/9/e/9ecb06fa-2d75-4670-96e3-cd5d5e150528.jpg?1783903071",
+    "png": "https://cards.scryfall.io/png/front/9/e/9ecb06fa-2d75-4670-96e3-cd5d5e150528.png?1783903071",
+    "small": "https://cards.scryfall.io/small/front/9/e/9ecb06fa-2d75-4670-96e3-cd5d5e150528.jpg?1783903071",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/e/9ecb06fa-2d75-4670-96e3-cd5d5e150528.webp?1783903071"
+  },
+  "keywords": [
+    "Flashback"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "mtgo_id": 151707,
+  "multiverse_ids": [],
+  "name": "Multiversal Recruitment",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8c65d5bd-5d90-4e84-8251-cfef21dd6332",
+  "oracle_text": "Create a token that's a copy of target creature you control, except it isn't legendary.\nFlashback {5}{U}{U} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+  "oversized": false,
+  "prices": {
+    "eur": "6.18",
+    "eur_foil": "6.63",
+    "tix": "1.66",
+    "usd": "5.44",
+    "usd_etched": null,
+    "usd_foil": "11.85"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8c65d5bd-5d90-4e84-8251-cfef21dd6332&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/151707?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891968&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F697205%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Multiversal+Recruitment",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMultiversal%2BRecruitment",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMultiversal%2BRecruitment"
+  },
+  "released_at": "2026-06-26",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "4F4E4814278683A182B88A06A7678973B416CB0E7492D10AE06F4F007B6114E9",
+  "rulings_uri": "https://api.scryfall.com/cards/9ecb06fa-2d75-4670-96e3-cd5d5e150528/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/629/multiversal-recruitment?utm_source=api",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 697205,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/9ecb06fa-2d75-4670-96e3-cd5d5e150528",
+  "variation": false
+}
