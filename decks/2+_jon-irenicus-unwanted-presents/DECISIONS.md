@@ -115,3 +115,18 @@ See `rankings.json`. First pass: jank 9, fun 8, mean 7, Donate 9, Politics 8. Me
 - **Watery Grave** — Mana base for Dimir, including utility lands that bounce or strip graveyards.
 - **Wrong Turn** — Instant-speed gift that also removes a creature from combat when you change its controller.
 - **Yukora, the Prisoner** — When it leaves the gifted player, they sacrifice all non-Ogre creatures.
+
+## Primer
+
+- **Usual threat is a lock around turn six to eight, not a table kill.** Irenicus on three or four, then Steel Golem / Grid Monitor / Abyssal Persecutor / Illusions of Grandeur gifts. Combat and attrition close later.
+- **Sol Ring into turn-two Irenicus is extra mana, not an early win.** The commander only starts donating on the end step and still needs a present in play.
+
+## Talks
+
+### 2026-09-03 — Reassessment against cached Game Changers
+
+Source is [`BRACKET-DEFINITIONS.md`](../../BRACKET-DEFINITIONS.md) (Core as Incremental, eight-turn floor as satisfaction, printed 0 Game Changers in Brackets 1–2) and its Scryfall `is:gamechanger` snapshot dated **2026-09-03** (53 names). The 99 hits **none**. [Demonic Tutor](https://scryfall.com/card/cmm/150/demonic-tutor) and [Vampiric Tutor](https://scryfall.com/card/dmr/108/vampiric-tutor) are maybeboard only. [Bribery](https://scryfall.com/card/mh2/387/bribery) and [Praetor's Grasp](https://scryfall.com/card/ncc/252/praetors-grasp) search an *opponent's* library, not yours, and are not on the cached list.
+
+[Sol Ring](https://scryfall.com/card/cmm/410/sol-ring) is in the 99. Wizards does not list it; this table treats permanent fast mana as kitchen-table **4+**. It is an isolated rock, not the plan: a turn-two commander still needs a present and does not end the table. [Dark Ritual](https://scryfall.com/card/lea/107/dark-ritual) is a one-shot ritual. Signets are ramp. [Mystic Remora](https://scryfall.com/card/dmr/59/mystic-remora) is not a Game Changer. Rechecked Oracle: Irenicus goads and grants "can't be sacrificed"; [Abyssal Persecutor](https://scryfall.com/card/wwk/47/abyssal-persecutor) stops its controller from winning; there is no two-card infinite.
+
+Stay **Bracket 2+**, folder `2+_`. Not flat 2: Sol Ring, Remora, Underground Sea, and a dense lock package are real card quality. Not Bracket 3: zero Game Changers in the 99, Incremental donate locks rather than a from-hand dump, and the usual close is after the eight-turn floor.
