@@ -1566,8 +1566,18 @@
     "thran temporal gateway": "36282c29-a44b-4156-9441-03aa4bf386a8",
     "tranquil cove": "5d641bf6-0f93-4189-8dc1-ec7ea446dade",
     "whitemane lion": "e8d6084b-9b72-438e-a30a-851b888f3e4d",
-    "xerex strobe-knight": "2e150f97-5688-4559-94b8-86c33fda28a0"
+    "xerex strobe-knight": "2e150f97-5688-4559-94b8-86c33fda28a0",
+    "aether channeler": "fb220f46-f8b8-4804-baa4-e7d50b4871f7",
+    "aether tunnel": "0a90d1fb-7a76-4b62-b001-4a539a8e5df1",
+    "cloud of faeries": "adc1f3b4-cce7-42c9-a208-dbab1d1924f5",
+    "dolmen gate": "d53d000f-c92f-4d70-ae60-8be3791da8a2",
+    "extraplanar lens": "e48f9fc7-72cf-4c3a-b3b3-d237edc01310",
+    "grip of amnesia": "0144d9bb-d3cb-4c23-b133-6653d7c3a76d",
+    "one with the machine": "757eadac-dd29-4a7f-8683-5bc823168326",
+    "tezzeret, betrayer of flesh": "5dedd5a9-bc5d-47bb-9ae1-7d683843d041",
+    "thran portal": "926ce6a2-7bdd-4380-ac65-bc902ba0c284",
+    "tiller of flesh": "b6d2f392-5637-49ec-b6cb-603edd89e788"
   },
   "schema_version": 1,
-  "updated_at": "2026-09-03T15:55:04.317475+00:00"
+  "updated_at": "2026-09-03T16:29:55.345684+00:00"
 }

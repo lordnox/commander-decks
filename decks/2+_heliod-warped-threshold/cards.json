@@ -27,6 +27,60 @@
       "submitted_name": "Abduction"
     },
     {
+      "cache": "cards/fb220f46-f8b8-4804-baa4-e7d50b4871f7.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "When this creature enters, choose one —\n• Create a 1/1 white Bird creature token with flying.\n• Return another target nonland permanent to its owner's hand.\n• Draw a card.",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Creature — Human Wizard"
+      },
+      "categories": [
+        "bounce",
+        "token-production",
+        "card-draw"
+      ],
+      "category_source": "decklist",
+      "name": "Aether Channeler",
+      "oracle_id": "fb220f46-f8b8-4804-baa4-e7d50b4871f7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmu/42/aether-channeler?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "token-production",
+        "card-draw"
+      ],
+      "submitted_name": "Aether Channeler"
+    },
+    {
+      "cache": "cards/0a90d1fb-7a76-4b62-b001-4a539a8e5df1.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Enchant creature\nEnchanted creature gets +1/+0 and can't be blocked.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "evasion",
+        "enchantment"
+      ],
+      "category_source": "decklist",
+      "name": "Aether Tunnel",
+      "oracle_id": "0a90d1fb-7a76-4b62-b001-4a539a8e5df1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/m19/43/aether-tunnel?utm_source=api",
+      "submitted_categories": [
+        "evasion",
+        "enchantment"
+      ],
+      "submitted_name": "Aether Tunnel"
+    },
+    {
       "cache": "cards/8095ca78-db19-4724-a6ff-eacc85fa2274.json",
       "card": {
         "cmc": 3.0,
@@ -104,61 +158,6 @@
       "submitted_name": "Astral Cornucopia"
     },
     {
-      "cache": "cards/896213bb-28a0-45a4-abbd-35af51f1d9aa.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [
-          "Flying",
-          "Transform"
-        ],
-        "mana_cost": "{2}{W}",
-        "oracle_text": "Flying\nWhenever this creature deals combat damage to a player or battle, transform up to one target Incubator token you control.",
-        "power": "2",
-        "toughness": "2",
-        "type_line": "Creature — Phyrexian Kor"
-      },
-      "categories": [
-        "token-support",
-        "evasion"
-      ],
-      "category_source": "decklist",
-      "name": "Attentive Skywarden",
-      "oracle_id": "896213bb-28a0-45a4-abbd-35af51f1d9aa",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mom/7/attentive-skywarden?utm_source=api",
-      "submitted_categories": [
-        "token-support",
-        "evasion"
-      ],
-      "submitted_name": "Attentive Skywarden"
-    },
-    {
-      "cache": "cards/11f55ec5-b9a3-4670-8afb-31d29478fb59.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [
-          "Venture into the dungeon"
-        ],
-        "mana_cost": "{2}{U}",
-        "oracle_text": "Counter target creature or planeswalker spell. Venture into the dungeon. (Enter the first room or advance to the next room.)",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "counterspell",
-        "venture"
-      ],
-      "category_source": "decklist",
-      "name": "Bar the Gate",
-      "oracle_id": "11f55ec5-b9a3-4670-8afb-31d29478fb59",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/afr/47/bar-the-gate?utm_source=api",
-      "submitted_categories": [
-        "counterspell",
-        "venture"
-      ],
-      "submitted_name": "Bar the Gate"
-    },
-    {
       "cache": "cards/46e50ee9-91f8-416e-82fa-f1a76e61fb73.json",
       "card": {
         "cmc": 5.0,
@@ -207,30 +206,6 @@
       "submitted_name": "Boomerang"
     },
     {
-      "cache": "cards/34f0beae-a8e2-4474-9f7f-4735d3f26863.json",
-      "card": {
-        "cmc": 1.0,
-        "keywords": [
-          "Scry"
-        ],
-        "mana_cost": "{W}",
-        "oracle_text": "Put a shield counter on target creature. (If it would be dealt damage or destroyed, remove a shield counter from it instead.)\nScry 1.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "protection"
-      ],
-      "category_source": "decklist",
-      "name": "Boon of Safety",
-      "oracle_id": "34f0beae-a8e2-4474-9f7f-4735d3f26863",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/snc/4/boon-of-safety?utm_source=api",
-      "submitted_categories": [
-        "protection"
-      ],
-      "submitted_name": "Boon of Safety"
-    },
-    {
       "cache": "cards/837c5d0e-0a33-4f9d-ae25-68a687bdf640.json",
       "card": {
         "cmc": 3.0,
@@ -259,6 +234,35 @@
         "engine"
       ],
       "submitted_name": "Chrome Host Seedshark"
+    },
+    {
+      "cache": "cards/adc1f3b4-cce7-42c9-a208-dbab1d1924f5.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Flying",
+          "Cycling"
+        ],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Flying\nWhen this creature enters, untap up to two lands.\nCycling {2} ({2}, Discard this card: Draw a card.)",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Faerie"
+      },
+      "categories": [
+        "ramp",
+        "evasion"
+      ],
+      "category_source": "decklist",
+      "name": "Cloud of Faeries",
+      "oracle_id": "adc1f3b4-cce7-42c9-a208-dbab1d1924f5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/moc/219/cloud-of-faeries?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "evasion"
+      ],
+      "submitted_name": "Cloud of Faeries"
     },
     {
       "cache": "cards/eea4feef-2595-4ed2-92a0-11ccb3e7d40e.json",
@@ -542,30 +546,28 @@
       "submitted_name": "Distinguished Conjurer"
     },
     {
-      "cache": "cards/194284f7-cf92-4d9f-a8ce-e4dc3505ab7a.json",
+      "cache": "cards/d53d000f-c92f-4d70-ae60-8be3791da8a2.json",
       "card": {
-        "cmc": 3.0,
-        "keywords": [
-          "Sneak"
-        ],
-        "mana_cost": "{2}{U}",
-        "oracle_text": "Sneak {U} (You may cast this spell for {U} if you also return an unblocked attacker you control to hand during the declare blockers step.)\nDraw two cards.",
-        "type_line": "Sorcery"
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "Prevent all combat damage that would be dealt to attacking creatures you control.",
+        "type_line": "Artifact"
       },
       "categories": [
-        "card-draw",
-        "bounce-synergy"
+        "combat",
+        "protection"
       ],
       "category_source": "decklist",
-      "name": "Donatello's Technique",
-      "oracle_id": "194284f7-cf92-4d9f-a8ce-e4dc3505ab7a",
+      "name": "Dolmen Gate",
+      "oracle_id": "d53d000f-c92f-4d70-ae60-8be3791da8a2",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/tmt/39/donatellos-technique?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/lrw/256/dolmen-gate?utm_source=api",
       "submitted_categories": [
-        "card-draw",
-        "bounce-synergy"
+        "combat",
+        "protection"
       ],
-      "submitted_name": "Donatello's Technique"
+      "submitted_name": "Dolmen Gate"
     },
     {
       "cache": "cards/7536eb66-959d-4dca-9b75-895572ef733c.json",
@@ -699,6 +701,37 @@
       "submitted_name": "Extraordinary Journey"
     },
     {
+      "cache": "cards/e48f9fc7-72cf-4c3a-b3b3-d237edc01310.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Imprint"
+        ],
+        "mana_cost": "{3}",
+        "oracle_text": "Imprint — When this artifact enters, you may exile target land you control.\nWhenever a land with the same name as the exiled card is tapped for mana, its controller adds one mana of any type that land produced.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Extraplanar Lens",
+      "oracle_id": "e48f9fc7-72cf-4c3a-b3b3-d237edc01310",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/381/extraplanar-lens?utm_source=api",
+      "submitted_categories": [
+        "ramp"
+      ],
+      "submitted_name": "Extraplanar Lens"
+    },
+    {
       "cache": "cards/0c85b8f7-0bd0-4680-9ec5-d4b110460a54.json",
       "card": {
         "cmc": 0.0,
@@ -751,64 +784,6 @@
       "submitted_name": "Firemane Commando"
     },
     {
-      "cache": "cards/0399b932-2a59-471c-828e-2b16614e0dae.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [
-          "Vigilance",
-          "Crew"
-        ],
-        "mana_cost": "{2}",
-        "oracle_text": "Vigilance\n{T}: Add one mana of any color. Activate only if this permanent is a creature.\nCrew 1 (Tap any number of creatures you control with total power 1 or more: This Vehicle becomes an artifact creature until end of turn.)",
-        "power": "3",
-        "produced_mana": [
-          "B",
-          "G",
-          "R",
-          "U",
-          "W"
-        ],
-        "toughness": "2",
-        "type_line": "Artifact — Vehicle"
-      },
-      "categories": [
-        "ramp"
-      ],
-      "category_source": "decklist",
-      "name": "Flywheel Racer",
-      "oracle_id": "0399b932-2a59-471c-828e-2b16614e0dae",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mom/259/flywheel-racer?utm_source=api",
-      "submitted_categories": [
-        "ramp"
-      ],
-      "submitted_name": "Flywheel Racer"
-    },
-    {
-      "cache": "cards/bc2f807b-555d-4a62-ab14-75fe62c64b97.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "mana_cost": "{2}{U}{U}",
-        "oracle_text": "Counter target spell. If that spell is countered this way, its controller may put a creature card from their hand onto the battlefield.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "counterspell",
-        "cheat"
-      ],
-      "category_source": "decklist",
-      "name": "Fold into Aether",
-      "oracle_id": "bc2f807b-555d-4a62-ab14-75fe62c64b97",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/5dn/31/fold-into-aether?utm_source=api",
-      "submitted_categories": [
-        "counterspell",
-        "cheat"
-      ],
-      "submitted_name": "Fold into Aether"
-    },
-    {
       "cache": "cards/a03ab63a-83f3-4dd6-926d-08d09ce2e696.json",
       "card": {
         "cmc": 6.0,
@@ -833,33 +808,28 @@
       "submitted_name": "Gate to the Aether"
     },
     {
-      "cache": "cards/a6543f71-0326-4e1f-b58f-9ce325d5d036.json",
+      "cache": "cards/0144d9bb-d3cb-4c23-b133-6653d7c3a76d.json",
       "card": {
-        "cmc": 0.0,
+        "cmc": 2.0,
         "keywords": [],
-        "mana_cost": "",
-        "oracle_text": "This land enters tapped.\nWhen this land enters, sacrifice it unless you pay {1}.\n{T}: Add one mana of any color.",
-        "produced_mana": [
-          "B",
-          "G",
-          "R",
-          "U",
-          "W"
-        ],
-        "type_line": "Land — Gate"
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Counter target spell unless its controller exiles all cards from their graveyard.\nDraw a card.",
+        "type_line": "Instant"
       },
       "categories": [
-        "land"
+        "counterspell",
+        "card-draw"
       ],
       "category_source": "decklist",
-      "name": "Gateway Plaza",
-      "oracle_id": "a6543f71-0326-4e1f-b58f-9ce325d5d036",
+      "name": "Grip of Amnesia",
+      "oracle_id": "0144d9bb-d3cb-4c23-b133-6653d7c3a76d",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/war/246/gateway-plaza?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/jud/41/grip-of-amnesia?utm_source=api",
       "submitted_categories": [
-        "land"
+        "counterspell",
+        "card-draw"
       ],
-      "submitted_name": "Gateway Plaza"
+      "submitted_name": "Grip of Amnesia"
     },
     {
       "cache": "cards/c27c6ba9-8d72-4101-b3a5-1e8d81755568.json",
@@ -1082,56 +1052,6 @@
       "submitted_name": "Justiciar's Portal"
     },
     {
-      "cache": "cards/30ab812f-a055-4c68-ad81-9dd23e38827f.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [
-          "Vigilance"
-        ],
-        "mana_cost": "{3}{W}",
-        "oracle_text": "Vigilance\nWhen this creature enters, create a 2/2 white and blue Knight creature token with vigilance.",
-        "power": "2",
-        "toughness": "2",
-        "type_line": "Creature — Human Knight"
-      },
-      "categories": [
-        "token-production"
-      ],
-      "category_source": "decklist",
-      "name": "Knight of the New Coalition",
-      "oracle_id": "30ab812f-a055-4c68-ad81-9dd23e38827f",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mom/25/knight-of-the-new-coalition?utm_source=api",
-      "submitted_categories": [
-        "token-production"
-      ],
-      "submitted_name": "Knight of the New Coalition"
-    },
-    {
-      "cache": "cards/9457f3c1-a087-46cd-a8be-cf665466b77c.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "mana_cost": "{3}{W}",
-        "oracle_text": "When this enchantment enters, exile target nonland permanent an opponent controls until this enchantment leaves the battlefield.\nWhen this enchantment enters, create a 1/1 red Mercenary creature token with \"{T}: Target creature you control gets +1/+0 until end of turn. Activate only as a sorcery.\"",
-        "type_line": "Enchantment"
-      },
-      "categories": [
-        "removal",
-        "token-production"
-      ],
-      "category_source": "decklist",
-      "name": "Lassoed by the Law",
-      "oracle_id": "9457f3c1-a087-46cd-a8be-cf665466b77c",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/otj/18/lassoed-by-the-law?utm_source=api",
-      "submitted_categories": [
-        "removal",
-        "token-production"
-      ],
-      "submitted_name": "Lassoed by the Law"
-    },
-    {
       "cache": "cards/83917116-d2d8-4701-a79f-af17486706ae.json",
       "card": {
         "cmc": 1.0,
@@ -1274,6 +1194,28 @@
         "token-production"
       ],
       "submitted_name": "Nexus of Becoming"
+    },
+    {
+      "cache": "cards/757eadac-dd29-4a7f-8683-5bc823168326.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Draw cards equal to the greatest mana value among artifacts you control.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "decklist",
+      "name": "One with the Machine",
+      "oracle_id": "757eadac-dd29-4a7f-8683-5bc823168326",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/m19/66/one-with-the-machine?utm_source=api",
+      "submitted_categories": [
+        "card-draw"
+      ],
+      "submitted_name": "One with the Machine"
     },
     {
       "cache": "cards/bc71ebf6-2056-41f7-be35-b2e5c34afa99.json",
@@ -1523,33 +1465,6 @@
       "submitted_name": "Runed Arch"
     },
     {
-      "cache": "cards/cb660c6d-dc8b-4779-8613-6acf19418baa.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [
-          "Enchant",
-          "Connive"
-        ],
-        "mana_cost": "{1}{U}",
-        "oracle_text": "Enchant creature\nAs long as enchanted creature is attacking alone, it can't be blocked.\nEnchanted creature has \"Whenever this creature deals combat damage to a player, it connives.\" (Its controller draws a card, then discards a card. If they discarded a nonland card, they put a +1/+1 counter on this creature.)",
-        "type_line": "Enchantment — Aura"
-      },
-      "categories": [
-        "evasion",
-        "card-selection"
-      ],
-      "category_source": "decklist",
-      "name": "Security Bypass",
-      "oracle_id": "cb660c6d-dc8b-4779-8613-6acf19418baa",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/snc/59/security-bypass?utm_source=api",
-      "submitted_categories": [
-        "evasion",
-        "card-selection"
-      ],
-      "submitted_name": "Security Bypass"
-    },
-    {
       "cache": "cards/144d0817-348c-4171-aa7e-3468b23cf97d.json",
       "card": {
         "cmc": 4.0,
@@ -1753,6 +1668,53 @@
       "submitted_name": "Tetsuko Umezawa, Fugitive"
     },
     {
+      "cache": "cards/5dedd5a9-bc5d-47bb-9ae1-7d683843d041.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "loyalty": "4",
+        "mana_cost": "{2}{U}{U}",
+        "oracle_text": "The first activated ability of an artifact you activate each turn costs {2} less to activate.\n+1: Draw two cards. Then discard two cards unless you discard an artifact card.\n−2: Target artifact becomes an artifact creature. If it isn't a Vehicle, it has base power and toughness 4/4.\n−6: You get an emblem with \"Whenever an artifact you control becomes tapped, draw a card.\"",
+        "type_line": "Legendary Planeswalker — Tezzeret"
+      },
+      "categories": [
+        "card-draw",
+        "artifact"
+      ],
+      "category_source": "decklist",
+      "name": "Tezzeret, Betrayer of Flesh",
+      "oracle_id": "5dedd5a9-bc5d-47bb-9ae1-7d683843d041",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/120/tezzeret-betrayer-of-flesh?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "artifact"
+      ],
+      "submitted_name": "Tezzeret, Betrayer of Flesh"
+    },
+    {
+      "cache": "cards/926ce6a2-7bdd-4380-ac65-bc902ba0c284.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control two or fewer other lands.\nAs this land enters, choose a basic land type.\nThis land is the chosen type in addition to its other types.\nMana abilities of this land cost an additional 1 life to activate.",
+        "type_line": "Land — Gate"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Thran Portal",
+      "oracle_id": "926ce6a2-7bdd-4380-ac65-bc902ba0c284",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmu/259/thran-portal?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Thran Portal"
+    },
+    {
       "cache": "cards/36282c29-a44b-4156-9441-03aa4bf386a8.json",
       "card": {
         "cmc": 4.0,
@@ -1775,6 +1737,35 @@
         "artifact"
       ],
       "submitted_name": "Thran Temporal Gateway"
+    },
+    {
+      "cache": "cards/b6d2f392-5637-49ec-b6cb-603edd89e788.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Incubate",
+          "Transform"
+        ],
+        "mana_cost": "{3}{W}",
+        "oracle_text": "Whenever you cast a spell that targets one or more permanents, incubate 2. (Create an Incubator token with two +1/+1 counters on it and \"{2}: Transform this token.\" It transforms into a 0/0 Phyrexian artifact creature.)",
+        "power": "2",
+        "toughness": "4",
+        "type_line": "Creature — Phyrexian Knight"
+      },
+      "categories": [
+        "token-production",
+        "engine"
+      ],
+      "category_source": "decklist",
+      "name": "Tiller of Flesh",
+      "oracle_id": "b6d2f392-5637-49ec-b6cb-603edd89e788",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mom/44/tiller-of-flesh?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "engine"
+      ],
+      "submitted_name": "Tiller of Flesh"
     },
     {
       "cache": "cards/5d641bf6-0f93-4189-8dc1-ec7ea446dade.json",
@@ -1861,7 +1852,7 @@
     }
   ],
   "categorized_cards": 71,
-  "generated_at": "2026-09-03T15:58:12.377055+00:00",
+  "generated_at": "2026-09-03T16:29:55.345684+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 71,

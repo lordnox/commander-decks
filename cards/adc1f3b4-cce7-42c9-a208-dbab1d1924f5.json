@@ -1,0 +1,134 @@
+{
+  "artist": "Iris Compiet",
+  "artist_ids": [
+    "aa807c8c-d07f-4f09-90d3-b2cbf5b86dbf"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 705646,
+  "cmc": 2.0,
+  "collector_number": "219",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1376,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "03aff125-8962-4a0a-a2b4-e5d693b75400",
+  "illustration_id": "559bbc78-f3f2-42d5-80da-f4efb2e886ea",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:32:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/3/03aff125-8962-4a0a-a2b4-e5d693b75400.webp?1783917172",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/3/03aff125-8962-4a0a-a2b4-e5d693b75400.jpg?1783917172",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/3/03aff125-8962-4a0a-a2b4-e5d693b75400.jpg?1783917172",
+    "crop": "https://cards.scryfall.io/crop/front/0/3/03aff125-8962-4a0a-a2b4-e5d693b75400.webp?1783917172",
+    "display": "https://cards.scryfall.io/display/front/0/3/03aff125-8962-4a0a-a2b4-e5d693b75400.webp?1783917172",
+    "grid": "https://cards.scryfall.io/grid/front/0/3/03aff125-8962-4a0a-a2b4-e5d693b75400.webp?1783917172",
+    "large": "https://cards.scryfall.io/large/front/0/3/03aff125-8962-4a0a-a2b4-e5d693b75400.jpg?1783917172",
+    "normal": "https://cards.scryfall.io/normal/front/0/3/03aff125-8962-4a0a-a2b4-e5d693b75400.jpg?1783917172",
+    "png": "https://cards.scryfall.io/png/front/0/3/03aff125-8962-4a0a-a2b4-e5d693b75400.png?1783917172",
+    "small": "https://cards.scryfall.io/small/front/0/3/03aff125-8962-4a0a-a2b4-e5d693b75400.jpg?1783917172",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/3/03aff125-8962-4a0a-a2b4-e5d693b75400.webp?1783917172"
+  },
+  "keywords": [
+    "Flying",
+    "Cycling"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "banned",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 110886,
+  "multiverse_ids": [
+    612467
+  ],
+  "name": "Cloud of Faeries",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "adc1f3b4-cce7-42c9-a208-dbab1d1924f5",
+  "oracle_text": "Flying\nWhen this creature enters, untap up to two lands.\nCycling {2} ({2}, Discard this card: Draw a card.)",
+  "oversized": false,
+  "penny_rank": 567,
+  "power": "1",
+  "prices": {
+    "eur": "0.34",
+    "eur_foil": null,
+    "tix": "0.41",
+    "usd": "0.48",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aadc1f3b4-cce7-42c9-a208-dbab1d1924f5&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/110886?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=705646&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F491508%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Cloud+of+Faeries",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=612467&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCloud%2Bof%2BFaeries",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCloud%2Bof%2BFaeries"
+  },
+  "released_at": "2023-04-21",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/03aff125-8962-4a0a-a2b4-e5d693b75400/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/moc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/moc/219/cloud-of-faeries?utm_source=api",
+  "set": "moc",
+  "set_id": "6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "set_name": "March of the Machine Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "story_spotlight": false,
+  "tcgplayer_id": 491508,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Faerie",
+  "uri": "https://api.scryfall.com/cards/03aff125-8962-4a0a-a2b4-e5d693b75400",
+  "variation": false
+}

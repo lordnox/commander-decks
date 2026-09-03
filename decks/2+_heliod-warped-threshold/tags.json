@@ -4,6 +4,11 @@
   "summary": "Azorius portal control: bounce and blink odd gate artifacts until Heliod opens a flash-speed burst turn and the token board takes over.",
   "tags": [
     {
+      "name": "artifacts",
+      "score": 4,
+      "reason": "Literal portal artifacts, Tezzeret discounting their activations, Prototype Portal copies, Thran Temporal Gateway, and Extraplanar Lens are a real artifact engine, not just mana rocks."
+    },
+    {
       "name": "blink",
       "score": 4,
       "reason": "The deck reuses creatures and enchantments through Portal of Sanctuary, Conjurer's Closet, Another Round, Splash Portal, Justiciar's Portal, and Whitemane Lion."
@@ -19,14 +24,9 @@
       "reason": "Heliod's back face, Emergence Zone, Whitemane Lion, Portal Manipulator, and foretell on Depart the Realm let the deck play almost entirely on the opponent-facing half of the turn cycle."
     },
     {
-      "name": "artifacts",
-      "score": 3,
-      "reason": "A large part of the engine is literal portal artifacts, copied portals, and artifact-matter support like Prototype Portal and Thran Temporal Gateway."
-    },
-    {
       "name": "etb effects",
       "score": 3,
-      "reason": "The bounce and blink package is there to re-fire creatures like Distinguished Conjurer, Knight of the New Coalition, Firemane Commando, and Portal to Phyrexia."
+      "reason": "The bounce and blink package is there to re-fire creatures like Distinguished Conjurer, Aether Channeler, Firemane Commando, and Portal to Phyrexia."
     },
     {
       "name": "politics",
@@ -36,7 +36,7 @@
     {
       "name": "tokens",
       "score": 3,
-      "reason": "Chrome Host Seedshark, Essence of Orthodoxy, Commence the Endgame, Knight of the New Coalition, Multiversal Recruitment, and Xerex Strobe-Knight create the board that actually closes games."
+      "reason": "Chrome Host Seedshark, Essence of Orthodoxy, Commence the Endgame, Tiller of Flesh, Multiversal Recruitment, and Xerex Strobe-Knight create the board that actually closes games."
     },
     {
       "name": "battles",

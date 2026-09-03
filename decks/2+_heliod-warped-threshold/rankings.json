@@ -4,7 +4,7 @@
     "Flash"
   ],
   "scores": {
-    "jankiness": 9,
+    "jankiness": 8,
     "fun": 8,
     "oppressiveness": 5,
     "identity": {
@@ -12,5 +12,5 @@
       "Flash": 7
     }
   },
-  "notes": "The 99 is the portal-art pool: Erratic Portal, Phyrexian Portal, Gate to the Aether, and cousins do the work. Flash is Heliod's back face plus Emergence Zone and a few flash creatures, not the early bounce game. Bounce and a late Portal to Phyrexia slow combat without emptying other decks."
+  "notes": "Still a portal deck: named gates, aether cards, and artifact portals do the work, with Aether Channeler as the one stretch. Flash is still Heliod's back face plus Emergence Zone, not the early bounce game. The ten-card upgrade lowered jank by cutting pool-filler without turning the list into generic Azorius."
 }

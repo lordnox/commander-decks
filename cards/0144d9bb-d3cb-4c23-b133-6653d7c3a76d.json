@@ -1,0 +1,132 @@
+{
+  "artist": "Bradley Williams",
+  "artist_ids": [
+    "24d81dfa-3745-4386-93f8-7e67dddb3c8a"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 2167,
+  "cmc": 2.0,
+  "collector_number": "41",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 19660,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Would you abandon your past to save your future?\"\n—Ambassador Laquatus",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "43dc7e2a-5b9b-4f0f-8b2e-a7c7f847e1f1",
+  "illustration_id": "fd2dacfe-56cd-4f6a-875a-1d8a740633ae",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:18:49Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/3/43dc7e2a-5b9b-4f0f-8b2e-a7c7f847e1f1.webp?1783945129",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/3/43dc7e2a-5b9b-4f0f-8b2e-a7c7f847e1f1.jpg?1783945129",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/3/43dc7e2a-5b9b-4f0f-8b2e-a7c7f847e1f1.jpg?1783945129",
+    "crop": "https://cards.scryfall.io/crop/front/4/3/43dc7e2a-5b9b-4f0f-8b2e-a7c7f847e1f1.webp?1783945129",
+    "display": "https://cards.scryfall.io/display/front/4/3/43dc7e2a-5b9b-4f0f-8b2e-a7c7f847e1f1.webp?1783945129",
+    "grid": "https://cards.scryfall.io/grid/front/4/3/43dc7e2a-5b9b-4f0f-8b2e-a7c7f847e1f1.webp?1783945129",
+    "large": "https://cards.scryfall.io/large/front/4/3/43dc7e2a-5b9b-4f0f-8b2e-a7c7f847e1f1.jpg?1783945129",
+    "normal": "https://cards.scryfall.io/normal/front/4/3/43dc7e2a-5b9b-4f0f-8b2e-a7c7f847e1f1.jpg?1783945129",
+    "png": "https://cards.scryfall.io/png/front/4/3/43dc7e2a-5b9b-4f0f-8b2e-a7c7f847e1f1.png?1783945129",
+    "small": "https://cards.scryfall.io/small/front/4/3/43dc7e2a-5b9b-4f0f-8b2e-a7c7f847e1f1.jpg?1783945129",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/3/43dc7e2a-5b9b-4f0f-8b2e-a7c7f847e1f1.webp?1783945129"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_foil_id": 17455,
+  "mtgo_id": 17454,
+  "multiverse_ids": [
+    34808
+  ],
+  "name": "Grip of Amnesia",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0144d9bb-d3cb-4c23-b133-6653d7c3a76d",
+  "oracle_text": "Counter target spell unless its controller exiles all cards from their graveyard.\nDraw a card.",
+  "oversized": false,
+  "penny_rank": 7544,
+  "prices": {
+    "eur": "0.16",
+    "eur_foil": "2.10",
+    "tix": "0.04",
+    "usd": "0.18",
+    "usd_etched": null,
+    "usd_foil": "5.07"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0144d9bb-d3cb-4c23-b133-6653d7c3a76d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/17454?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=2167&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10201%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Grip+of+Amnesia",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=34808&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGrip%2Bof%2BAmnesia",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGrip%2Bof%2BAmnesia"
+  },
+  "released_at": "2002-05-27",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/43dc7e2a-5b9b-4f0f-8b2e-a7c7f847e1f1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/jud?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/jud/41/grip-of-amnesia?utm_source=api",
+  "set": "jud",
+  "set_id": "cd82de1a-36fd-4618-bfe8-b45532a582d9",
+  "set_name": "Judgment",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ajud&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/cd82de1a-36fd-4618-bfe8-b45532a582d9",
+  "story_spotlight": false,
+  "tcgplayer_id": 10201,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/43dc7e2a-5b9b-4f0f-8b2e-a7c7f847e1f1",
+  "variation": false
+}

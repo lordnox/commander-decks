@@ -19,7 +19,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 ## Rankings
 
-See `rankings.json`. First pass: jank 9, fun 8, mean 5, Portal 9, Flash 7.
+See `rankings.json`. After the 2026-09-03 ten-card swap: jank 8, fun 8, mean 5, Portal 9, Flash 7.
 
 ## Cards in
 
@@ -45,6 +45,7 @@ See `rankings.json`. First pass: jank 9, fun 8, mean 5, Portal 9, Flash 7.
 ### Bounce and blink
 
 - **Another Round** — The main explosive turn, rebuying a whole portal board or ETB creature package.
+- **Aether Channeler** — ETB that is bounce, a flying token, or a card, then pays that choice again every time a portal blinks it.
 - **Boomerang** — Simple permanent bounce that keeps the door-closed tempo plan honest.
 - **Conjurer's Closet** — Slow but reliable repeatable blink for value creatures every end step.
 - **Dematerialize** — Permanent bounce twice, first from hand and later from the graveyard.
@@ -62,57 +63,56 @@ See `rankings.json`. First pass: jank 9, fun 8, mean 5, Portal 9, Flash 7.
 ### Enchantment doors
 
 - **Abduction** — Theft effect that also leaves the creature to its owner if it dies, which keeps the deck tricky instead of purely permanent-steal control.
+- **Aether Tunnel** — Named-aether Aura that makes a utility creature unblockable and still triggers Sram.
 - **Dimensional Exile** — A portal-like prison effect that turns one of the deck's many basics into removal.
 - **Extraordinary Journey** — Removal and delayed deployment engine in one card, exactly the kind of odd threshold effect the deck wants.
 - **Journey to Nowhere** — Clean cheap exile to make sure the deck can survive until the large portals matter.
-- **Lassoed by the Law** — Removal stapled to a body, giving the deck both interaction and something to pressure battles with.
 - **Realmbreaker's Grasp** — Cheap answer that also fits the visual language of rifts and bindings.
-- **Security Bypass** — Makes a small utility creature into a safe source of card selection and damage.
 
 ### Token and board development
 
-- **Attentive Skywarden** — Turns incubators into real bodies while attacking in the air.
 - **Chrome Host Seedshark** — The best noncreature-spell payoff in the pool, rewarding portal artifacts and bounce spells alike.
 - **Commence the Endgame** — Safe card draw that also leaves behind a large token body.
 - **Essence of Orthodoxy** — Another incubate engine that rewards the deck for naturally playing Phyrexians and artifacts.
 - **Invasion of Belenon // Belenon War Anthem** — Creates bodies early and becomes a wide-board anthem later.
-- **Knight of the New Coalition** — Small two-body creature that helps defend and pressure battles.
 - **Multiversal Recruitment** — Copies the best ETB creature and can be flashed back after the first wave.
 - **Nexus of Becoming** — Slow value engine that turns extra artifact and creature cards in hand into bodies.
 - **Sunder the Gateway** — Removal that also adds to the incubator subpackage.
+- **Tiller of Flesh** — Incubates whenever bounce, Auras, or other targeted spells fire, so token production rides the interaction the deck already casts.
 - **Xerex Strobe-Knight** — Payoff for double-spelling after Heliod flips, and a clean win piece when left alone.
 
 ### Card flow and setup
 
 - **Archaeomancer's Map** — Makes land drops smoother and punishes faster tables for pulling ahead on mana.
 - **Astral Cornucopia** — Flexible mana rock that scales up well when later copied or cheated.
-- **Bar the Gate** — Counterspell that also leaves behind venture progress, which fits the threshold-crossing feel even without a full dungeon package.
-- **Boon of Safety** — Cheap shield plus scry to protect the most important permanent on the table.
 - **Comeuppance** — A single card that punishes the alpha strike and buys a full turn cycle for the expensive portal plan.
 - **Day's Undoing** — Refills everybody's hand, which turns transformed Heliod into a cost reducer for the burst turn.
+- **Cloud of Faeries** — Old extra-turn-of-mana ETB that Heliod can flash, then cycle later if the body is wrong.
 - **Disrupt** — Low-cost stack interaction that can cycle when the exact answer is not needed.
-- **Donatello's Technique** — Cheap card draw with a return-to-hand clause that naturally fits the bounce shell.
+- **Dolmen Gate** — Named gate that lets the token board attack through larger creatures instead of waiting for a fog.
+- **Extraplanar Lens** — Doubles the basic-heavy mana base so Planar Portal and Planar Bridge actually activate.
 - **Firemane Commando** — Rewards the table for attacking elsewhere, which both buys time and hands opponents extra cards for Heliod's back face.
-- **Flywheel Racer** — Mana rock early, evasive attacker later, and another Sram trigger.
-- **Fold into Aether** — Counterspell that still advances the game by sneaking something onto the battlefield.
+- **Grip of Amnesia** — Two-mana counter that replaces itself and still fits the original portal-art pool.
 - **Interdimensional Web Watch** — Mana rock that also turns the top of the library into a temporary extra hand.
+- **One with the Machine** — Draws equal to the largest portal artifact, so Portal to Phyrexia and Planar Bridge refill the hand instead of stranding it.
 - **Invasion of Vryn // Overloaded Mage-Ring** — Selection on the front and a spell-copy land on the back, which suits the deck's larger bounce and draw turns.
 - **Mirage Mirror** — Copies the best portal, threat, or land on the table and gives the deck a way to improvise around odd boards.
-- **Sram, Senior Edificer** — Quiet card-draw engine because the deck is unusually dense on Auras, Vehicles, and artifacts for Azorius.
+- **Sram, Senior Edificer** — Quiet card-draw engine off the remaining Auras (Abduction, Aether Tunnel, Dimensional Exile, Realmbreaker's Grasp).
 - **Step Between Worlds** — Another everyone-draws reset that can be plotted ahead of time for a future Heliod turn.
+- **Tezzeret, Betrayer of Flesh** — Makes the first portal activation each turn cheaper, loots toward artifacts, and can turn a stuck portal into a 4/4.
 
 ### Evasion, utility, and finishers
 
 - **Command Tower** — Clean fixing in the two-color shell.
 - **Emergence Zone** — Redundant flash enabler in case Heliod does not survive to transform.
 - **Fabled Passage** — Basic fixer that keeps the mostly-basic mana base honest.
-- **Gateway Plaza** — Clunky but thematic gate land that fixes both colors.
 - **Island** — Heavy blue basics let the bounce and counter package stay available on time.
 - **Multiversal Passage** — Flexible dual that still keeps the mana base simple.
 - **Plains** — White basics keep the blink and removal cards castable without leaning on slow nonbasics.
 - **Runed Arch** — Turns small evasive creatures and token bodies into a credible alpha strike.
 - **See Double** — Flexible interaction spell that can copy the table's best spell, your best creature, or both once graveyards fill naturally.
 - **Tetsuko Umezawa, Fugitive** — Makes the deck's utility creatures, incubator leftovers, and small tokens connect safely.
+- **Thran Portal** — Gate land that can be Plains or Island and often enters untapped in the first three lands.
 - **Tranquil Cove** — Cheap untaxing fixer with a small life bump for long games.
 
 ## Rules
@@ -120,10 +120,25 @@ See `rankings.json`. First pass: jank 9, fun 8, mean 5, Portal 9, Flash 7.
 - **Heliod's back face counts opponents' cards drawn this turn, not this round.** The best burst turn often starts after a wheel-like spell on the same turn cycle.
 - **Portal Manipulator only works during the declare attackers step.** It is a combat twist, not a general redirection spell.
 - **Mirror of Life Trapping only exiles creatures that were cast.** Blinked or cheated creatures do not restart that loop.
-- **Portal of Sanctuary returns the creature and each Aura attached to it.** That is why cheap Auras like Abduction and Security Bypass are worth playing here.
+- **Portal of Sanctuary returns the creature and each Aura attached to it.** That is why cheap Auras like Abduction and Aether Tunnel are worth playing here.
 - **Another Round is finite, not infinite.** It repeats the blink process X additional times and never restores mana by itself.
 - **Day's Undoing ends the turn if cast on your turn.** It is most useful either as a reset button or as a setup play before a future Heliod burst turn.
 - **Step Between Worlds exiles itself after resolution.** It is a one-shot reset, not a graveyard resource.
+- **Thran Portal's mana abilities cost 1 life.** It is still a Plains or Island for Extraplanar Lens, not a fifth color source.
+- **Tezzeret only discounts the first artifact activation each turn.** Planar Bridge and Prototype Portal still need a later turn for the expensive chapter.
+
+## Cards out
+
+- **Attentive Skywarden** — Incubate payoff that did nothing unless those tokens were already in play. **Tiller of Flesh** makes the incubators from the bounce spells the deck was already casting.
+- **Bar the Gate** — Three-mana counter whose venture clause had no dungeon to feed. **Grip of Amnesia** still counters and replaces itself from the same art pool.
+- **Boon of Safety** — One-permanent shield. **Dolmen Gate** protects the whole attack the token plan actually uses.
+- **Donatello's Technique** — Off-theme TMNT cantrip. **One with the Machine** draws off the giant portal artifacts.
+- **Flywheel Racer** — Weak Vehicle that existed to trigger Sram. **Extraplanar Lens** turns the 31 basics into real mana for the expensive portals.
+- **Fold into Aether** — Five-mana counter that rarely cheated anything in. **Tezzeret, Betrayer of Flesh** discounts the portal activations Fold was pretending to enable.
+- **Gateway Plaza** — Enters tapped and still costs a mana. **Thran Portal** is a named portal Gate that can be a basic type.
+- **Knight of the New Coalition** — Two vanilla bodies. **Aether Channeler** is a body that also bounces or draws, then repeats on blink.
+- **Lassoed by the Law** — Four-mana tap that made a 1/1. Bounce already answers attackers; the slot became **Cloud of Faeries**, a Heliod-flashable mana creature from the original art pool.
+- **Security Bypass** — Slow cipher Aura. **Aether Tunnel** is the same Sram trigger with real evasion.
 
 ## Primer
 
@@ -186,3 +201,11 @@ Verdict stays **Bracket 2+**. Not Bracket 2 flat: Heliod flash, Portal to Phyrex
 ### 2026-09-03 — Rankings
 
 Locked goals from the autobrew constraint and the chosen plan: **Portal** and **Flash**. First scores: jank 9, fun 8, mean 5, Portal 9, Flash 7. Portal is the whole list. Flash is the Heliod conversion, not the early game. Mean stays moderate because bounce is temporary and the table still plays.
+
+### 2026-09-03 — Ten-card on-theme upgrade
+
+Keep the portal identity; cut the ten worst filler cards from the locked `art:portal` pass and replace them with stronger gate, aether, or planar cards. Nine of the ten ins still match the original query. [Aether Channeler](https://scryfall.com/card/dmu/42/aether-channeler) is the one stretch: named aether, bounce/token/draw ETB, not `art:portal`.
+
+Rejected while searching: [Path to Exile](https://scryfall.com/card/con/14/path-to-exile), [Talon Gates of Madara](https://scryfall.com/card/m3c/30/talon-gates-of-madara), and [Aetherize](https://scryfall.com/card/gtc/29/aetherize) as staples; [Intuition](https://scryfall.com/card/tpr/54/intuition) as a Game Changer used only for consistency; [Possessed Portal](https://scryfall.com/card/5dn/144/possessed-portal) as a lock; [Portal Mage](https://scryfall.com/card/c17/12/portal-mage) as a second [Portal Manipulator](https://scryfall.com/card/clu/40/portal-manipulator).
+
+Jank drops 9 to 8 because the list is less "whatever the art tag allowed." Portal stays 9. Flash stays 7. Mean stays 5: [Dolmen Gate](https://scryfall.com/card/lrw/256/dolmen-gate) makes combat safer without stopping other decks.
