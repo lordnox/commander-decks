@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Portal** — The locked card pool and namesake: literal portals, gates, and threshold-crossing permanents do the repeating work.
+- **Flash** — Hold the door closed, then open several at once after Heliod transforms or Emergence Zone pays the timing tax.
+
+## Rankings
+
+See `rankings.json`. First pass: jank 9, fun 8, mean 5, Portal 9, Flash 7.
+
 ## Cards in
 
 ### Commander
@@ -116,6 +125,10 @@ Every unique card needs a Cards in line. The other headings appear when there is
 - **Day's Undoing ends the turn if cast on your turn.** It is most useful either as a reset button or as a setup play before a future Heliod burst turn.
 - **Step Between Worlds exiles itself after resolution.** It is a one-shot reset, not a graveyard resource.
 
+## Primer
+
+- **Usual win around turn nine or ten** because the goldfish close is combat after incubators and Knights, not a compact X-spell. The primer assessment names the Gateway plus Portal to Phyrexia line as an unlikely turn-five *reset*, not a kill, so a Core pod is not told the deck wins on five.
+
 ## Talks
 
 ### 2026-09-03 — Game plan and bracket target
@@ -147,3 +160,29 @@ Winner: **Heliod, the Radiant Dawn**. It was the only candidate that both matche
 - **Redundancy** — multiple bounce portals plus one-shot blink spells
 - **Cross-role overlaps** — Map ramps and fixes, Commando draws and feeds Heliod, Lassoed removes and makes a body
 - **Infrastructure** — basic-heavy mana base, low-cost bounce, light countermagic, and enough shields to survive until the big artifacts matter
+
+### 2026-09-03 — Assessment
+
+Independent pass against the live Commander page ([magic.wizards.com/en/formats/commander](https://magic.wizards.com/en/formats/commander)) and the [February 9, 2026 bracket update](https://magic.wizards.com/en/news/announcements/commander-brackets-beta-update-february-9-2026). Official hard limits: Brackets 1–2 exclude Game Changers; Bracket 3 allows up to three; 4–5 unlimited. Live Scryfall `is:gamechanger` is 53 names, including Farewell and Biorhythm from that February update. This 99 hits none.
+
+October 21, 2025 barometers still stand on the live page: Bracket 2 expects incremental, telegraphed, disruptable wins and at least eight turns; Bracket 3 expects a deployable big turn after accumulation and a six-turn floor.
+
+Construction that sets the call:
+
+- Heliod is `{2}{W}{W}`, then `{3}{U/P}` as a sorcery to transform. Earliest commander is turn four; earliest back face is turn five. The back face is flash and a discount for cards opponents drew *this turn*, not this round. [Day's Undoing](https://scryfall.com/card/cmm/85/days-undoing?utm_source=api) ends the turn if cast on your turn, so it cannot be the same-turn Heliod burst.
+- 37 true lands, four ordinary ramp pieces, no one-shot rituals, no Sol Ring-class rocks.
+- Tutors are [Planar Portal](https://scryfall.com/card/8ed/311/planar-portal?utm_source=api) (`{6}` then `{6}`) and [Planar Bridge](https://scryfall.com/card/2x2/313/planar-bridge?utm_source=api) (`{6}` then `{8}`). Official pages no longer treat tutor count as a hard cap; these are too slow to compact a win.
+- No two-card loop, extra turns, or mass land denial. [Another Round](https://scryfall.com/card/otj/1/another-round?utm_source=api) is finite blink, not infinite.
+- Interaction is bounce-heavy plus three counters, Comeuppance, and exile Auras. Wins are board-based: incubators, Knights, [Runed Arch](https://scryfall.com/card/ice/334/runed-arch?utm_source=api), or a stuck [Portal to Phyrexia](https://scryfall.com/card/bro/240/portal-to-phyrexia?utm_source=api).
+
+Win-turn traces:
+
+- High roll, not a kill: land [Thran Temporal Gateway](https://scryfall.com/card/dom/233/thran-temporal-gateway?utm_source=api) on turn four, activate on turn five, put Portal to Phyrexia from hand. Two specific cards, no cheap search. Each opponent sacrifices three creatures. That is a reset.
+- Normal goldfish: Heliod or a bounce portal by turn five, tokens through Seedshark or Knights, combat close around turn nine or ten.
+- Interactive: Heliod taxed twice or the first portal removed. The 99 still bounces and makes tokens; the close slips to turn eleven or later.
+
+Verdict stays **Bracket 2+**. Not Bracket 2 flat: Heliod flash, Portal to Phyrexia, and the Gateway cheat are real card quality a Core pod should hear about. Not Bracket 3: the repeatable pace clears eight turns, the big artifacts are not a turn-six deploy, and zero Game Changers is the 1–2 cap. Folder stays `2+_`.
+
+### 2026-09-03 — Rankings
+
+Locked goals from the autobrew constraint and the chosen plan: **Portal** and **Flash**. First scores: jank 9, fun 8, mean 5, Portal 9, Flash 7. Portal is the whole list. Flash is the Heliod conversion, not the early game. Mean stays moderate because bounce is temporary and the table still plays.

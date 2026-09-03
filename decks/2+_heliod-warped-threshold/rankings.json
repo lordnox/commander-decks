@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Portal",
+    "Flash"
+  ],
+  "scores": {
+    "jankiness": 9,
+    "fun": 8,
+    "oppressiveness": 5,
+    "identity": {
+      "Portal": 9,
+      "Flash": 7
+    }
+  },
+  "notes": "The 99 is the portal-art pool: Erratic Portal, Phyrexian Portal, Gate to the Aether, and cousins do the work. Flash is Heliod's back face plus Emergence Zone and a few flash creatures, not the early bounce game. Bounce and a late Portal to Phyrexia slow combat without emptying other decks."
+}

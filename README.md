@@ -14,7 +14,7 @@ One row per deck, sorted by [Commander bracket](https://mtgcommander.net/index.p
 <!-- deck-index:start -->
 | Deck | Bracket | Jank | Fun | Mean | Goals |
 | --- | --- | --- | --- | --- | --- |
-| [Heliod, the Radiant Dawn — Warped Threshold](decks/2+_heliod-warped-threshold/README.md) | `2+` | — | — | — | — |
+| [Heliod, the Radiant Dawn — Warped Threshold](decks/2+_heliod-warped-threshold/README.md) | `2+` | $\color{#2f9e8f}{\textsf{9}}$ | $\color{#2f9e8f}{\textsf{8}}$ | $\textsf{5}$ | <sub><img src="assets/badges/portal-9.svg" alt="Portal 9" title="Portal 9" height="16"> <img src="assets/badges/flash-7.svg" alt="Flash 7" title="Flash 7" height="16"></sub> |
 | [Jalira, Master Polymorphist — The Polyfisher](decks/2+_jalira-the-polyfisher/README.md) | `2+` | $\textsf{7}$ | $\color{#2f9e8f}{\textsf{8}}$ | $\textsf{4}$ | <sub><img src="assets/badges/polymorph-9.svg" alt="Polymorph 9" title="Polymorph 9" height="16"> <img src="assets/badges/tokens-8.svg" alt="Tokens 8" title="Tokens 8" height="16"></sub> |
 | [Jon Irenicus — Unwanted Presents](decks/2+_jon-irenicus-unwanted-presents/README.md) | `2+` | $\color{#2f9e8f}{\textsf{9}}$ | $\color{#2f9e8f}{\textsf{8}}$ | $\textsf{7}$ | <sub><img src="assets/badges/donate-9.svg" alt="Donate 9" title="Donate 9" height="16"> <img src="assets/badges/politics-8.svg" alt="Politics 8" title="Politics 8" height="16"></sub> |
 | [Lady Evangela — Foggy Blood Transfusion](decks/2+_lady-evangela-foggy-blood-transfusion/README.md) | `2+` | $\color{#2f9e8f}{\textsf{9}}$ | $\color{#2f9e8f}{\textsf{9}}$ | $\textsf{5}$ | <sub><img src="assets/badges/aikido-9.svg" alt="Aikido 9" title="Aikido 9" height="16"> <img src="assets/badges/life-exchange-7.svg" alt="Life Exchange 7" title="Life Exchange 7" height="16"></sub> |
