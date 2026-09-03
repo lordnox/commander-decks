@@ -14,12 +14,12 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 ## Goals
 
-- **Portal** — The locked card pool and namesake: literal portals, gates, and threshold-crossing permanents do the repeating work.
-- **Flash** — Hold the door closed, then open several at once after Heliod transforms or Emergence Zone pays the timing tax.
+- **Portal** — Literal portals, gates, and creatures depicted crossing or guarding them define the card pool and game actions.
+- **Blink** — Portal engines repeatedly move ETB creatures across the battlefield boundary for cards, removal, recursion, and tempo.
 
 ## Rankings
 
-See `rankings.json`. After the 2026-09-03 ten-card swap: jank 8, fun 8, mean 5, Portal 9, Flash 7.
+See `rankings.json`. Portal-blink rebuild: jank 9, fun 9, mean 6, Portal 10, Blink 8.
 
 ## Cards in
 
@@ -51,7 +51,6 @@ See `rankings.json`. After the 2026-09-03 ten-card swap: jank 8, fun 8, mean 5, 
 - **Conjurer's Closet** — Slow but reliable repeatable blink for value creatures every end step.
 - **Dematerialize** — Permanent bounce twice, first from hand and later from the graveyard.
 - **Depart the Realm** — Cheap foretell bounce that lets the deck bank mana and play draw-go.
-- **Ephara's Dispersal** — Often one-mana interaction when an attacker has already come through the portal.
 - **Light the Way** — Flexible protection piece that can either save a permanent or return it for reuse.
 - **Mirror of Life Trapping** — Weird engine card that keeps recasting creatures through the same doorway.
 - **Planar Incision** — Protects or retriggers an artifact or creature and leaves a counter behind for the counter subpackage.
@@ -60,24 +59,34 @@ See `rankings.json`. After the 2026-09-03 ten-card swap: jank 8, fun 8, mean 5, 
 - **Teleportation Circle** — Repeatable end-step doorway for either an artifact portal or an ETB creature.
 - **Whitemane Lion** — Flash creature that turns every ETB creature in hand into a repeatable loop.
 
+### Portal creatures and blink targets
+
+- **Alabaster Host Intercessor** — Plainscycles when six mana is too far away, then becomes repeatable creature exile and a Phyrexian body when blinked.
+- **Containment Priest** — Flash door-closed mode that converts opposing non-cast returns into permanent exile; self-bounce reopens the deck's own portals.
+- **Curator of Destinies** — Uncounterable flying blink target that repeatedly divides the top five cards into an opponent-chosen pile.
+- **Floodgate** — Old portal-art Wall whose leave trigger becomes a repeatable Island-scaled ground sweeper under blink.
+- **Halo-Charged Skaab** — ETB mill and topdeck recursion for an instant, sorcery, or battle.
+- **Inga Rune-Eyes** — Scry 3 on every entry, with a three-card death trigger after a sufficiently large creature exchange.
+- **Jacob Hauken, Inspector // Hauken's Insight** — Repeatable draw and exile selection that eventually opens into free spells; it is intentionally not blinked.
+- **Prosperous Thief** — Ninjutsu returns an unblocked ETB creature for reuse and converts later connections into Treasure.
+- **Renet, Temporal Apprentice** — Flash ETB that returns every other nonland permanent that entered that turn, making instant-speed blink a temporal reset.
+- **Resolute Watchdog** — One-mana portal guard that blocks early and sacrifices to protect Heliod or another creature engine.
+- **Salvager of Secrets** — ETB recursion for blink, bounce, and wheel spells.
+- **Sentinel of the Eternal Watch** — Large gate guard that taps the best attacker at the start of every opponent's combat.
+- **Wall of Tears** — Cheap old defensive portal that bounces anything it blocks at end of combat.
+
 ### Enchantment doors
 
-- **Abduction** — Theft effect that also leaves the creature to its owner if it dies, which keeps the deck tricky instead of purely permanent-steal control.
-- **Aether Tunnel** — Named-aether Aura that makes a utility creature unblockable and still triggers Sram.
 - **Dimensional Exile** — A portal-like prison effect that turns one of the deck's many basics into removal.
 - **Extraordinary Journey** — Removal and delayed deployment engine in one card, exactly the kind of odd threshold effect the deck wants.
-- **Invasion of Theros // Ephara, Ever-Sheltering** — A battle that finds an Aura doorway, then becomes a God that draws from later enchantment doors.
 - **Journey to Nowhere** — Clean cheap exile to make sure the deck can survive until the large portals matter.
 - **Planar Disruption** — Planar prison Aura that shuts down artifacts and planeswalkers as well as creatures.
 
 ### Token and board development
 
 - **Chrome Host Seedshark** — The best noncreature-spell payoff in the pool, rewarding portal artifacts and bounce spells alike.
-- **Commence the Endgame** — Safe card draw that also leaves behind a large token body.
-- **Essence of Orthodoxy** — Another incubate engine that rewards the deck for naturally playing Phyrexians and artifacts.
 - **Multiversal Recruitment** — Copies the best ETB creature and can be flashed back after the first wave.
 - **Sunder the Gateway** — Removal that also adds to the incubator subpackage.
-- **Tiller of Flesh** — Incubates whenever bounce, Auras, or other targeted spells fire, so token production rides the interaction the deck already casts.
 - **Xerex Strobe-Knight** — Payoff for double-spelling after Heliod flips, and a clean win piece when left alone.
 
 ### Card flow and setup
@@ -85,17 +94,11 @@ See `rankings.json`. After the 2026-09-03 ten-card swap: jank 8, fun 8, mean 5, 
 - **Archaeomancer's Map** — Makes land drops smoother and punishes faster tables for pulling ahead on mana.
 - **Aetheric Amplifier** — Portal-flavored mana rock that can double Incubator, loyalty, or other useful counters later.
 - **Azor's Gateway // Sanctum of the Sun** — Filters dead cards through a literal gateway and can eventually become enough mana to operate a giant portal.
-- **Comeuppance** — A single card that punishes the alpha strike and buys a full turn cycle for the expensive portal plan.
-- **Day's Undoing** — Refills everybody's hand, which turns transformed Heliod into a cost reducer for the burst turn.
 - **Cloud of Faeries** — Old extra-turn-of-mana ETB that Heliod can flash, then cycle later if the body is wrong.
-- **Disrupt** — Low-cost stack interaction that can cycle when the exact answer is not needed.
 - **Dolmen Gate** — Named gate that lets the token board attack through larger creatures instead of waiting for a fog.
 - **Extraplanar Lens** — Doubles the basic-heavy mana base so Planar Portal and Planar Bridge actually activate.
-- **Firemane Commando** — Rewards the table for attacking elsewhere, which both buys time and hands opponents extra cards for Heliod's back face.
-- **Grip of Amnesia** — Two-mana counter that replaces itself and still fits the original portal-art pool.
 - **Interdimensional Web Watch** — Mana rock that also turns the top of the library into a temporary extra hand.
 - **Matzalantli, the Great Door // The Core** — Looting doorway that converts a varied graveyard into the mana required by Planar Portal and Planar Bridge.
-- **One with the Machine** — Draws equal to the largest portal artifact, so Portal to Phyrexia and Planar Bridge refill the hand instead of stranding it.
 - **Invasion of Vryn // Overloaded Mage-Ring** — Selection on the front and a spell-copy land on the back, which suits the deck's larger bounce and draw turns.
 - **Mirage Mirror** — Copies the best portal, threat, or land on the table and gives the deck a way to improvise around odd boards.
 - **Step Between Worlds** — Another everyone-draws reset that can be plotted ahead of time for a future Heliod turn.
@@ -120,16 +123,20 @@ See `rankings.json`. After the 2026-09-03 ten-card swap: jank 8, fun 8, mean 5, 
 - **Heliod's back face counts opponents' cards drawn this turn, not this round.** The best burst turn often starts after a wheel-like spell on the same turn cycle.
 - **Portal Manipulator only works during the declare attackers step.** It is a combat twist, not a general redirection spell.
 - **Mirror of Life Trapping only exiles creatures that were cast.** Blinked or cheated creatures do not restart that loop.
-- **Portal of Sanctuary returns the creature and each Aura attached to it.** That is why cheap Auras like Abduction and Aether Tunnel are worth playing here.
+- **Containment Priest affects every player.** With Priest present, Planar Incision permanently exiles an opposing nontoken creature, but the Priest also strands the deck's own blinked, cheated, or reanimated creatures.
+- **Containment Priest plus Mirror of Life Trapping is a hard prison.** Creatures the Mirror tries to return were not cast, so Priest exiles them again; bounce Priest before reopening your own creature portals.
+- **Heliod returns front face up after blink.** Blinking the Warped Eclipse loses flash and requires paying the transform cost again.
+- **Jacob Hauken must not be blinked.** A returned Jacob is a new object and cannot access cards exiled with the old one.
+- **Floodgate triggers whenever it leaves, including blink.** Its damage also hits the deck's nonblue ground creatures and colorless Incubators; transformed Heliod and blue creatures are safe.
+- **Renet checks the whole turn.** Flash or blink Renet during an opponent's turn after they develop to return every other nonland permanent that entered that turn.
+- **Portal of Sanctuary returns the creature and each Aura attached to it.**
 - **Another Round is finite, not infinite.** It repeats the blink process X additional times and never restores mana by itself.
-- **Day's Undoing ends the turn if cast on your turn.** It is most useful either as a reset button or as a setup play before a future Heliod burst turn.
 - **Step Between Worlds exiles itself after resolution.** It is a one-shot reset, not a graveyard resource.
 - **Thran Portal's mana abilities cost 1 life.** It is still a Plains or Island for Extraplanar Lens, not a fifth color source.
 - **Tezzeret only discounts the first artifact activation each turn.** Planar Bridge and Prototype Portal still need a later turn for the expensive chapter.
 - **Aether Gale requires exactly six legal nonland targets.** Your own ETB creatures and portals can fill missing slots and turn the drawback into reuse.
 - **Azor's Gateway checks five different mana values among its exiled cards.** It does not count card types or colors.
 - **Matzalantli checks permanent types in the graveyard.** The back face's mana then counts permanent cards, not permanent types.
-- **Invasion of Theros searches the library only.** It cannot find Heliod while Heliod is in the command zone.
 
 ## Cards out
 
@@ -153,10 +160,23 @@ See `rankings.json`. After the 2026-09-03 ten-card swap: jank 8, fun 8, mean 5, 
 - **Sram, Senior Edificer** — Too few Auras and Equipment remained to make him reliable. **Azor's Gateway // Sanctum of the Sun** filters every turn and keeps the doorway identity.
 - **Step Through** — Five mana for two creatures, with a shrinking Wizard package. **Aether Gale** moves six nonlands and can deliberately reopen friendly ETBs.
 - **Tetsuko Umezawa, Fugitive** — Only a small subset of creatures qualified. **Venser, the Sojourner** makes the whole board unblockable and blinks any permanent.
+- **Abduction** — Four-mana theft did not participate in blink. **Alabaster Host Intercessor** keeps removal while adding Plainscycling and a reusable ETB.
+- **Aether Tunnel** — Unblockable Aura was too narrow. **Prosperous Thief** turns an unblocked attacker into ETB reuse and Treasure.
+- **Comeuppance** — Powerful but generic one-shot combat punishment. **Floodgate** turns the same defensive slot into a repeatable, strange blink sweeper.
+- **Commence the Endgame** — Six-mana generic cards and a token. **Curator of Destinies** keeps the flying card-advantage role and repeats through blink.
+- **Day's Undoing** — Ending the turn prevented a same-turn Heliod burst. **Jacob Hauken, Inspector** supplies repeatable draw and a portal-like free-cast back face.
+- **Disrupt** — Narrow tax counter. **Containment Priest** is flash interaction that forms the deck-specific opponent-blink prison.
+- **Ephara's Dispersal** — One-shot defensive bounce. **Wall of Tears** repeatedly bounces attackers while increasing creature density.
+- **Essence of Orthodoxy** — Five mana plus two more per animated 2/2 was too slow. **Halo-Charged Skaab** gives every blink graveyard selection.
+- **Firemane Commando** — Political draw fed the old Flash goal but had no blink text. **Sentinel of the Eternal Watch** is a portal-art creature that controls each combat.
+- **Grip of Amnesia** — Opponents could often pay by exiling a disposable graveyard. **Renet, Temporal Apprentice** is flash interaction and a reusable turn reset.
+- **Invasion of Theros // Ephara, Ever-Sheltering** — Too few Auras remained to justify the tutor. **Inga Rune-Eyes** gives immediate and repeatable selection.
+- **One with the Machine** — Potentially large but conditional one-shot draw. **Salvager of Secrets** repeatedly recovers the deck's blink and bounce spells.
+- **Tiller of Flesh** — Four mana before slowly manufacturing Incubators. **Resolute Watchdog** protects Heliod from turn one and costs no later activation unless needed.
 
 ## Primer
 
-- **Usual win around turn nine or ten** because the goldfish close is combat after incubators and Knights, not a compact X-spell. The primer assessment names the Gateway plus Portal to Phyrexia line as an unlikely turn-five *reset*, not a kill, so a Core pod is not told the deck wins on five.
+- **Usual win around turn nine or ten** because the deck accumulates ETB value and combat control rather than assembling a compact kill. The primer discloses Mirror plus Containment Priest as a temporary prison package.
 
 ## Talks
 
@@ -231,3 +251,13 @@ The second pass widened "portal" from the original art query to literal gates, a
 No candidate is a live Game Changer. Generic staples such as Cyclonic Rift, Teferi's Protection, and fast mana remained excluded. The portal artifacts themselves remain untouched even where their rate is poor, because they are the deck's identity rather than filler.
 
 Scores stay Jank 8, Fun 8, Mean 5, Portal 9, Flash 7. The deck is more functional, but Aether Gale's six-target puzzle, two transforming doors, and Venser's interplanar utility keep it unusual.
+
+### 2026-09-03 — Portal/gate blink rebuild
+
+The declared identity is now **Portal** plus **Blink**, replacing Flash as a scored goal. The creature search `f:c id:uw (art:portal or art:gate) t:creature` supplied portal guards and travelers so the four creature-restricted blink engines have real material.
+
+Thirteen low-overlap spells and slow Incubator cards became thirteen creatures. The deck now has twenty creature cards including the commander, with reusable ETB or leave-battlefield effects for removal, selection, card advantage, recursion, and mass bounce.
+
+Containment Priest is intentional stax, not generic hate. Planar Incision can blink an opposing creature into permanent exile; Journey to Nowhere and Mirror of Life Trapping can also strand returns. Priest must then be bounced before the deck uses its own blink, cheat, or reanimation effects.
+
+Scores move to Jank 9, Fun 9, Mean 6, Portal 10, Blink 8. The strange timing puzzles and old portal-art creatures raise pilot choice and identity; Priest plus Mirror raises table pressure enough to disclose.

@@ -1,0 +1,175 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "df5c4d9c-6c27-4d29-a6b8-df8905f810a6",
+      "name": "A-Prosperous Thief",
+      "object": "related_card",
+      "type_line": "Creature — Human Ninja",
+      "uri": "https://api.scryfall.com/cards/df5c4d9c-6c27-4d29-a6b8-df8905f810a6"
+    },
+    {
+      "component": "token",
+      "id": "6911181d-573b-41eb-96a4-799c96e008fc",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/6911181d-573b-41eb-96a4-799c96e008fc"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b1e666d9-d2ba-49a6-a2c7-cd2639bf4663",
+      "name": "Prosperous Thief",
+      "object": "related_card",
+      "type_line": "Creature — Human Ninja",
+      "uri": "https://api.scryfall.com/cards/b1e666d9-d2ba-49a6-a2c7-cd2639bf4663"
+    }
+  ],
+  "arena_id": 79498,
+  "artist": "Fajareka Setiawan",
+  "artist_ids": [
+    "0cc534e0-be18-4cb1-8521-50fabd0dac6f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 607638,
+  "cmc": 3.0,
+  "collector_number": "73",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2512,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "da3f683e-5a28-4ae7-b53b-851b957123ba",
+  "illustration_id": "5892b5ca-039c-41a3-80a6-81666c6cbc67",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:24:57Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/a/da3f683e-5a28-4ae7-b53b-851b957123ba.webp?1783923897",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/a/da3f683e-5a28-4ae7-b53b-851b957123ba.jpg?1783923897",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/a/da3f683e-5a28-4ae7-b53b-851b957123ba.jpg?1783923897",
+    "crop": "https://cards.scryfall.io/crop/front/d/a/da3f683e-5a28-4ae7-b53b-851b957123ba.webp?1783923897",
+    "display": "https://cards.scryfall.io/display/front/d/a/da3f683e-5a28-4ae7-b53b-851b957123ba.webp?1783923897",
+    "grid": "https://cards.scryfall.io/grid/front/d/a/da3f683e-5a28-4ae7-b53b-851b957123ba.webp?1783923897",
+    "large": "https://cards.scryfall.io/large/front/d/a/da3f683e-5a28-4ae7-b53b-851b957123ba.jpg?1783923897",
+    "normal": "https://cards.scryfall.io/normal/front/d/a/da3f683e-5a28-4ae7-b53b-851b957123ba.jpg?1783923897",
+    "png": "https://cards.scryfall.io/png/front/d/a/da3f683e-5a28-4ae7-b53b-851b957123ba.png?1783923897",
+    "small": "https://cards.scryfall.io/small/front/d/a/da3f683e-5a28-4ae7-b53b-851b957123ba.jpg?1783923897",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/a/da3f683e-5a28-4ae7-b53b-851b957123ba.webp?1783923897"
+  },
+  "keywords": [
+    "Treasure",
+    "Ninjutsu"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 97066,
+  "multiverse_ids": [
+    548371
+  ],
+  "name": "Prosperous Thief",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6d03971a-8365-449a-8fbe-07b5b9bb42dc",
+  "oracle_text": "Ninjutsu {1}{U} ({1}{U}, Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand tapped and attacking.)\nWhenever one or more Ninja or Rogue creatures you control deal combat damage to a player, create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+  "oversized": false,
+  "penny_rank": 3308,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2022-02-01",
+    "source": "IGN",
+    "source_uri": "https://fr.ign.com/magic-the-gathering-arena/58098/news/magic-the-gathering-decouvrez-des-cartes-inedites-du-kamigawa-dynastie-neon?fbclid=IwAR25iICaFxX8Vsv2IMCnRCs9KPhDgB-Y6cPtEi_N9RTH2MKDEcqoX_X96NI"
+  },
+  "prices": {
+    "eur": "0.21",
+    "eur_foil": "0.40",
+    "tix": "0.03",
+    "usd": "0.22",
+    "usd_etched": null,
+    "usd_foil": "0.38"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6d03971a-8365-449a-8fbe-07b5b9bb42dc&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/97066?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=607638&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F262603%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Prosperous+Thief",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=548371&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DProsperous%2BThief",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DProsperous%2BThief"
+  },
+  "released_at": "2022-02-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/da3f683e-5a28-4ae7-b53b-851b957123ba/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/neo?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/neo/73/prosperous-thief?utm_source=api",
+  "set": "neo",
+  "set_id": "59a2059f-5482-433f-8761-eb2e17859b71",
+  "set_name": "Kamigawa: Neon Dynasty",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aneo&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/59a2059f-5482-433f-8761-eb2e17859b71",
+  "story_spotlight": false,
+  "tcgplayer_id": 262603,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Human Ninja",
+  "uri": "https://api.scryfall.com/cards/da3f683e-5a28-4ae7-b53b-851b957123ba",
+  "variation": false
+}

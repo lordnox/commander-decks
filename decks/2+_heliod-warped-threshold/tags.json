@@ -1,52 +1,52 @@
 {
   "schema_version": 1,
   "cutoff": 3,
-  "summary": "Azorius portal control: bounce and blink odd gate artifacts until Heliod opens a flash-speed burst turn and the token board takes over.",
+  "summary": "Portal-gate blink control: repeatedly cross strange ETB creatures through artifact doors, then close the passage with Mirror and Containment Priest.",
   "tags": [
+    {
+      "name": "blink",
+      "score": 5,
+      "reason": "Creature and artifact portals repeatedly reuse ETB and leave-battlefield effects for cards, removal, recursion, and tempo."
+    },
     {
       "name": "artifacts",
       "score": 4,
       "reason": "Literal portal artifacts, two transforming gateways, Tezzeret's activation discount, Prototype Portal copies, and artifact blink form a real engine."
     },
     {
-      "name": "blink",
-      "score": 4,
-      "reason": "Portal of Sanctuary, Teleportation Circle, Conjurer's Closet, Planar Incision, Another Round, and Venser repeatedly cross creatures and artifacts between zones."
-    },
-    {
       "name": "control",
       "score": 4,
-      "reason": "Its default posture is to pass with mana up, answer the most relevant permanent with bounce or exile, and only commit heavier engines after the table slows down."
+      "reason": "Bounce, prison Auras, Floodgate, Renet, Wall of Tears, and Sentinel control combat and permanent development."
+    },
+    {
+      "name": "etb effects",
+      "score": 4,
+      "reason": "Twenty creatures give the blink engines repeatable removal, selection, card advantage, recursion, protection, and mass bounce."
     },
     {
       "name": "flash",
       "score": 4,
-      "reason": "Heliod's back face, Emergence Zone, Whitemane Lion, Portal Manipulator, and foretell on Depart the Realm let the deck play almost entirely on the opponent-facing half of the turn cycle."
+      "reason": "Heliod's back face, Renet, Containment Priest, Whitemane Lion, Portal Manipulator, and Emergence Zone support opponent-turn portal play."
     },
     {
-      "name": "etb effects",
+      "name": "stax",
       "score": 3,
-      "reason": "The bounce and blink package re-fires Aether Channeler, Firemane Commando, Portal to Phyrexia, and the other portal permanents."
-    },
-    {
-      "name": "politics",
-      "score": 3,
-      "reason": "Portal Manipulator, Firemane Commando, Coercive Portal, and Phyrexian Portal all ask the table to bargain or attack elsewhere instead of just removing everything."
+      "reason": "Mirror of Life Trapping delays cast creatures, while Containment Priest can strand those returns and shut non-cast entries until bounced."
     },
     {
       "name": "tokens",
       "score": 3,
-      "reason": "Chrome Host Seedshark, Essence of Orthodoxy, Commence the Endgame, Tiller of Flesh, Multiversal Recruitment, and Xerex Strobe-Knight create the board that actually closes games."
-    },
-    {
-      "name": "battles",
-      "score": 2,
-      "reason": "The deck runs two useful battles and has flyers and tokens to flip them, but they support the engine rather than define it."
+      "reason": "Chrome Host Seedshark, Aether Channeler, Multiversal Recruitment, Sunder the Gateway, and Xerex Strobe-Knight create the combat board."
     },
     {
       "name": "chaos",
       "score": 2,
-      "reason": "Gate to the Aether and Mirror of Life Trapping add uncertainty, but the deck is not a full chaos shell."
+      "reason": "Gate to the Aether and Mirror of Life Trapping add uncertainty, but the deck can exploit their entry patterns."
+    },
+    {
+      "name": "politics",
+      "score": 2,
+      "reason": "Portal Manipulator, Coercive Portal, and Phyrexian Portal still create table decisions, but politics is no longer a major axis."
     },
     {
       "name": "ramp",
@@ -59,9 +59,14 @@
       "reason": "Invasion of Vryn and See Double can copy the right spell at the right moment, but the list is not primarily a copy deck."
     },
     {
+      "name": "battles",
+      "score": 1,
+      "reason": "Invasion of Vryn remains a useful threshold card, but battles are now incidental."
+    },
+    {
       "name": "theft",
       "score": 1,
-      "reason": "Abduction steals a creature and Portal to Phyrexia reanimates from opposing graveyards, but theft is incidental."
+      "reason": "Portal to Phyrexia can reanimate opposing creatures, but theft is incidental."
     }
   ]
 }

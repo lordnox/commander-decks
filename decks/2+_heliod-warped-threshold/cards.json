@@ -1,32 +1,6 @@
 {
   "cards": [
     {
-      "cache": "cards/d0e1904e-1a37-41f6-8582-b9ea794bb886.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [
-          "Enchant"
-        ],
-        "mana_cost": "{2}{U}{U}",
-        "oracle_text": "Enchant creature\nWhen this Aura enters, untap enchanted creature.\nYou control enchanted creature.\nWhen enchanted creature dies, return that card to the battlefield under its owner's control.",
-        "type_line": "Enchantment — Aura"
-      },
-      "categories": [
-        "theft",
-        "enchantment"
-      ],
-      "category_source": "decklist",
-      "name": "Abduction",
-      "oracle_id": "d0e1904e-1a37-41f6-8582-b9ea794bb886",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/6ed/55/abduction?utm_source=api",
-      "submitted_categories": [
-        "theft",
-        "enchantment"
-      ],
-      "submitted_name": "Abduction"
-    },
-    {
       "cache": "cards/fb220f46-f8b8-4804-baa4-e7d50b4871f7.json",
       "card": {
         "cmc": 3.0,
@@ -105,32 +79,6 @@
       "submitted_name": "Aether Spellbomb"
     },
     {
-      "cache": "cards/0a90d1fb-7a76-4b62-b001-4a539a8e5df1.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [
-          "Enchant"
-        ],
-        "mana_cost": "{1}{U}",
-        "oracle_text": "Enchant creature\nEnchanted creature gets +1/+0 and can't be blocked.",
-        "type_line": "Enchantment — Aura"
-      },
-      "categories": [
-        "evasion",
-        "enchantment"
-      ],
-      "category_source": "decklist",
-      "name": "Aether Tunnel",
-      "oracle_id": "0a90d1fb-7a76-4b62-b001-4a539a8e5df1",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/m19/43/aether-tunnel?utm_source=api",
-      "submitted_categories": [
-        "evasion",
-        "enchantment"
-      ],
-      "submitted_name": "Aether Tunnel"
-    },
-    {
       "cache": "cards/295cd8e1-0830-46c1-9957-556afd4bcee6.json",
       "card": {
         "cmc": 3.0,
@@ -162,6 +110,39 @@
         "counter-synergy"
       ],
       "submitted_name": "Aetheric Amplifier"
+    },
+    {
+      "cache": "cards/d1d719e9-9c02-40cf-8849-91a5c120a516.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Plainscycling",
+          "Landcycling",
+          "Typecycling",
+          "Cycling"
+        ],
+        "mana_cost": "{5}{W}",
+        "oracle_text": "When this creature enters, exile target creature an opponent controls until this creature leaves the battlefield.\nPlainscycling {2} ({2}, Discard this card: Search your library for a Plains card, reveal it, put it into your hand, then shuffle.)",
+        "power": "3",
+        "toughness": "4",
+        "type_line": "Creature — Phyrexian Samurai"
+      },
+      "categories": [
+        "removal",
+        "land-search",
+        "blink-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Alabaster Host Intercessor",
+      "oracle_id": "d1d719e9-9c02-40cf-8849-91a5c120a516",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mom/3/alabaster-host-intercessor?utm_source=api",
+      "submitted_categories": [
+        "removal",
+        "land-search",
+        "blink-payoff"
+      ],
+      "submitted_name": "Alabaster Host Intercessor"
     },
     {
       "cache": "cards/8095ca78-db19-4724-a6ff-eacc85fa2274.json",
@@ -368,56 +349,6 @@
       "submitted_name": "Coercive Portal"
     },
     {
-      "cache": "cards/01f29158-2dc9-4b9d-b726-add5d3fd5782.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "mana_cost": "{3}{W}",
-        "oracle_text": "Prevent all damage that would be dealt to you and planeswalkers you control this turn by sources you don't control. If damage from a creature source is prevented this way, Comeuppance deals that much damage to that creature. If damage from a noncreature source is prevented this way, Comeuppance deals that much damage to the source's controller.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "fog",
-        "removal"
-      ],
-      "category_source": "decklist",
-      "name": "Comeuppance",
-      "oracle_id": "01f29158-2dc9-4b9d-b726-add5d3fd5782",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mkc/58/comeuppance?utm_source=api",
-      "submitted_categories": [
-        "fog",
-        "removal"
-      ],
-      "submitted_name": "Comeuppance"
-    },
-    {
-      "cache": "cards/fedb1947-9fa5-4655-8d02-b370fa63dd16.json",
-      "card": {
-        "cmc": 6.0,
-        "keywords": [
-          "Amass"
-        ],
-        "mana_cost": "{4}{U}{U}",
-        "oracle_text": "This spell can't be countered.\nDraw two cards, then amass Zombies X, where X is the number of cards in your hand. (Put X +1/+1 counters on an Army you control. It's also a Zombie. If you don't control an Army, create a 0/0 black Zombie Army creature token first.)",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "card-draw",
-        "token-production"
-      ],
-      "category_source": "decklist",
-      "name": "Commence the Endgame",
-      "oracle_id": "fedb1947-9fa5-4655-8d02-b370fa63dd16",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/war/45/commence-the-endgame?utm_source=api",
-      "submitted_categories": [
-        "card-draw",
-        "token-production"
-      ],
-      "submitted_name": "Commence the Endgame"
-    },
-    {
       "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
       "card": {
         "cmc": 0.0,
@@ -471,28 +402,60 @@
       "submitted_name": "Conjurer's Closet"
     },
     {
-      "cache": "cards/810a6cf5-e9f4-48e1-8e06-3e0af85633ce.json",
+      "cache": "cards/8a76a9b9-3127-45fe-b20f-a8f643276281.json",
       "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{2}{U}",
-        "oracle_text": "Each player shuffles their hand and graveyard into their library, then draws seven cards. If it's your turn, end the turn. (Exile all spells and abilities from the stack, including this card. Discard down to your maximum hand size. Damage wears off, and \"this turn\" and \"until end of turn\" effects end.)",
-        "type_line": "Sorcery"
+        "cmc": 2.0,
+        "keywords": [
+          "Flash"
+        ],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Flash\nIf a nontoken creature would enter and it wasn't cast, exile it instead.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Human Cleric"
+      },
+      "categories": [
+        "stax",
+        "interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Containment Priest",
+      "oracle_id": "8a76a9b9-3127-45fe-b20f-a8f643276281",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/m21/13/containment-priest?utm_source=api",
+      "submitted_categories": [
+        "stax",
+        "interaction"
+      ],
+      "submitted_name": "Containment Priest"
+    },
+    {
+      "cache": "cards/9938d178-0ce6-45c0-b317-fd5c54231579.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{4}{U}{U}",
+        "oracle_text": "This spell can't be countered.\nFlying\nWhen this creature enters, look at the top five cards of your library and separate them into a face-down pile and a face-up pile. An opponent chooses one of those piles. Put that pile into your hand and the other into your graveyard.",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Creature — Sphinx"
       },
       "categories": [
         "card-draw",
-        "setup"
+        "blink-payoff"
       ],
       "category_source": "decklist",
-      "name": "Day's Undoing",
-      "oracle_id": "810a6cf5-e9f4-48e1-8e06-3e0af85633ce",
+      "name": "Curator of Destinies",
+      "oracle_id": "9938d178-0ce6-45c0-b317-fd5c54231579",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cmm/85/days-undoing?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/fdn/34/curator-of-destinies?utm_source=api",
       "submitted_categories": [
         "card-draw",
-        "setup"
+        "blink-payoff"
       ],
-      "submitted_name": "Day's Undoing"
+      "submitted_name": "Curator of Destinies"
     },
     {
       "cache": "cards/d2fbad7d-d05a-4321-9aff-a93bd102a3f4.json",
@@ -573,30 +536,6 @@
       "submitted_name": "Dimensional Exile"
     },
     {
-      "cache": "cards/76347258-71d5-4874-adde-ff7aa932b808.json",
-      "card": {
-        "cmc": 1.0,
-        "keywords": [],
-        "mana_cost": "{U}",
-        "oracle_text": "Counter target instant or sorcery spell unless its controller pays {1}.\nDraw a card.",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "counterspell",
-        "card-draw"
-      ],
-      "category_source": "decklist",
-      "name": "Disrupt",
-      "oracle_id": "76347258-71d5-4874-adde-ff7aa932b808",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/inv/51/disrupt?utm_source=api",
-      "submitted_categories": [
-        "counterspell",
-        "card-draw"
-      ],
-      "submitted_name": "Disrupt"
-    },
-    {
       "cache": "cards/d53d000f-c92f-4d70-ae60-8be3791da8a2.json",
       "card": {
         "cmc": 2.0,
@@ -648,32 +587,6 @@
       "submitted_name": "Emergence Zone"
     },
     {
-      "cache": "cards/1e0bb57a-f5c7-45e9-b5b9-5bb3ec930108.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [
-          "Surveil"
-        ],
-        "mana_cost": "{2}{U}",
-        "oracle_text": "This spell costs {2} less to cast if it targets an attacking creature.\nReturn target creature to its owner's hand. Surveil 2. (Look at the top two cards of your library, then put any number of them into your graveyard and the rest on top of your library in any order.)",
-        "type_line": "Instant"
-      },
-      "categories": [
-        "bounce",
-        "interaction"
-      ],
-      "category_source": "decklist",
-      "name": "Ephara's Dispersal",
-      "oracle_id": "1e0bb57a-f5c7-45e9-b5b9-5bb3ec930108",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mkc/103/epharas-dispersal?utm_source=api",
-      "submitted_categories": [
-        "bounce",
-        "interaction"
-      ],
-      "submitted_name": "Ephara's Dispersal"
-    },
-    {
       "cache": "cards/4a85cd7e-625b-4043-b7f1-999def26eb36.json",
       "card": {
         "cmc": 4.0,
@@ -696,36 +609,6 @@
         "engine"
       ],
       "submitted_name": "Erratic Portal"
-    },
-    {
-      "cache": "cards/51329e73-aebe-4f42-a4db-e092b1984a4b.json",
-      "card": {
-        "cmc": 5.0,
-        "keywords": [
-          "Flying",
-          "Incubate",
-          "Transform"
-        ],
-        "mana_cost": "{3}{W}{W}",
-        "oracle_text": "Flying\nWhenever this creature or another Phyrexian you control enters, incubate 2. (Create an Incubator token with two +1/+1 counters on it and \"{2}: Transform this token.\" It transforms into a 0/0 Phyrexian artifact creature.)",
-        "power": "3",
-        "toughness": "3",
-        "type_line": "Creature — Phyrexian"
-      },
-      "categories": [
-        "token-production",
-        "engine"
-      ],
-      "category_source": "decklist",
-      "name": "Essence of Orthodoxy",
-      "oracle_id": "51329e73-aebe-4f42-a4db-e092b1984a4b",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mom/323/essence-of-orthodoxy?utm_source=api",
-      "submitted_categories": [
-        "token-production",
-        "engine"
-      ],
-      "submitted_name": "Essence of Orthodoxy"
     },
     {
       "cache": "cards/69288566-3015-45de-b391-6fe079865f0c.json",
@@ -807,32 +690,34 @@
       "submitted_name": "Fabled Passage"
     },
     {
-      "cache": "cards/ac675899-25bb-4f06-9c8c-bf188024495f.json",
+      "cache": "cards/f5a85674-fd09-42d8-bba7-5656be25fcea.json",
       "card": {
         "cmc": 4.0,
         "keywords": [
-          "Flying"
+          "Defender"
         ],
-        "mana_cost": "{3}{W}",
-        "oracle_text": "Flying\nWhenever you attack with two or more creatures, draw a card.\nWhenever another player attacks with two or more creatures, they draw a card if none of those creatures attacked you.",
-        "power": "4",
-        "toughness": "3",
-        "type_line": "Creature — Angel Soldier"
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Defender\nWhen this creature has flying, sacrifice it.\nWhen this creature leaves the battlefield, it deals damage to each nonblue creature without flying equal to half the number of Islands you control, rounded down.",
+        "power": "0",
+        "toughness": "5",
+        "type_line": "Creature — Wall"
       },
       "categories": [
-        "card-draw",
-        "politics"
+        "board-wipe",
+        "blink-payoff",
+        "defender"
       ],
       "category_source": "decklist",
-      "name": "Firemane Commando",
-      "oracle_id": "ac675899-25bb-4f06-9c8c-bf188024495f",
+      "name": "Floodgate",
+      "oracle_id": "f5a85674-fd09-42d8-bba7-5656be25fcea",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/soc/145/firemane-commando?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/dmr/49/floodgate?utm_source=api",
       "submitted_categories": [
-        "card-draw",
-        "politics"
+        "board-wipe",
+        "blink-payoff",
+        "defender"
       ],
-      "submitted_name": "Firemane Commando"
+      "submitted_name": "Floodgate"
     },
     {
       "cache": "cards/a03ab63a-83f3-4dd6-926d-08d09ce2e696.json",
@@ -859,28 +744,34 @@
       "submitted_name": "Gate to the Aether"
     },
     {
-      "cache": "cards/0144d9bb-d3cb-4c23-b133-6653d7c3a76d.json",
+      "cache": "cards/d7dcd1a3-3163-4e26-94e8-f4072e477e6a.json",
       "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{1}{U}",
-        "oracle_text": "Counter target spell unless its controller exiles all cards from their graveyard.\nDraw a card.",
-        "type_line": "Instant"
+        "cmc": 5.0,
+        "keywords": [
+          "Mill"
+        ],
+        "mana_cost": "{4}{U}",
+        "oracle_text": "When this creature enters, each player mills two cards. Then you may put an instant, sorcery, or battle card from your graveyard on top of your library. (To mill two cards, a player puts the top two cards of their library into their graveyard.)",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Creature — Zombie"
       },
       "categories": [
-        "counterspell",
-        "card-draw"
+        "recursion",
+        "selection",
+        "blink-payoff"
       ],
       "category_source": "decklist",
-      "name": "Grip of Amnesia",
-      "oracle_id": "0144d9bb-d3cb-4c23-b133-6653d7c3a76d",
+      "name": "Halo-Charged Skaab",
+      "oracle_id": "d7dcd1a3-3163-4e26-94e8-f4072e477e6a",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/jud/41/grip-of-amnesia?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mom/60/halo-charged-skaab?utm_source=api",
       "submitted_categories": [
-        "counterspell",
-        "card-draw"
+        "recursion",
+        "selection",
+        "blink-payoff"
       ],
-      "submitted_name": "Grip of Amnesia"
+      "submitted_name": "Halo-Charged Skaab"
     },
     {
       "cache": "cards/c27c6ba9-8d72-4101-b3a5-1e8d81755568.json",
@@ -923,6 +814,36 @@
       "submitted_name": "Heliod, the Radiant Dawn // Heliod, the Warped Eclipse"
     },
     {
+      "cache": "cards/78afa295-c9f4-4a81-9f7b-5746a3cf6b31.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Scry"
+        ],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "When Inga Rune-Eyes enters, scry 3.\nWhen Inga Rune-Eyes dies, draw three cards if three or more creatures died this turn.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Human Wizard"
+      },
+      "categories": [
+        "selection",
+        "card-draw",
+        "blink-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Inga Rune-Eyes",
+      "oracle_id": "78afa295-c9f4-4a81-9f7b-5746a3cf6b31",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/100/inga-rune-eyes?utm_source=api",
+      "submitted_categories": [
+        "selection",
+        "card-draw",
+        "blink-payoff"
+      ],
+      "submitted_name": "Inga Rune-Eyes"
+    },
+    {
       "cache": "cards/456dbec4-1b0e-48c4-abae-5c8205651872.json",
       "card": {
         "cmc": 4.0,
@@ -952,49 +873,6 @@
         "card-advantage"
       ],
       "submitted_name": "Interdimensional Web Watch"
-    },
-    {
-      "cache": "cards/ba5f7f37-352a-4b9c-b648-0ba5c8d842fc.json",
-      "card": {
-        "cmc": 3.0,
-        "faces": [
-          {
-            "defense": "4",
-            "mana_cost": "{2}{W}",
-            "name": "Invasion of Theros",
-            "oracle_text": "(As a Siege enters, choose an opponent to protect it. You and others can attack it. When it's defeated, exile it, then cast it transformed.)\nWhen this Siege enters, search your library for an Aura, God, or Demigod card, reveal it, put it into your hand, then shuffle.",
-            "type_line": "Battle — Siege"
-          },
-          {
-            "mana_cost": "",
-            "name": "Ephara, Ever-Sheltering",
-            "oracle_text": "Ephara has lifelink and indestructible as long as you control at least three other enchantments.\nWhenever another enchantment you control enters, draw a card.",
-            "power": "4",
-            "toughness": "4",
-            "type_line": "Legendary Enchantment Creature — God"
-          }
-        ],
-        "keywords": [
-          "Transform"
-        ],
-        "type_line": "Battle — Siege // Legendary Enchantment Creature — God"
-      },
-      "categories": [
-        "tutor",
-        "card-draw",
-        "enchantment"
-      ],
-      "category_source": "decklist",
-      "name": "Invasion of Theros // Ephara, Ever-Sheltering",
-      "oracle_id": "ba5f7f37-352a-4b9c-b648-0ba5c8d842fc",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mom/23/invasion-of-theros-ephara-ever-sheltering?utm_source=api",
-      "submitted_categories": [
-        "tutor",
-        "card-draw",
-        "enchantment"
-      ],
-      "submitted_name": "Invasion of Theros // Ephara, Ever-Sheltering"
     },
     {
       "cache": "cards/73c7fdb3-4742-4d08-8658-daa4435c49b1.json",
@@ -1059,6 +937,46 @@
         "land"
       ],
       "submitted_name": "Island"
+    },
+    {
+      "cache": "cards/16d2a56a-7181-4ef3-866b-10dd8615d9e9.json",
+      "card": {
+        "cmc": 2.0,
+        "faces": [
+          {
+            "mana_cost": "{1}{U}",
+            "name": "Jacob Hauken, Inspector",
+            "oracle_text": "{T}: Draw a card, then exile a card from your hand face down. You may look at that card for as long as it remains exiled. You may pay {4}{U}{U}. If you do, transform Jacob Hauken.",
+            "power": "0",
+            "toughness": "2",
+            "type_line": "Legendary Creature — Human Advisor"
+          },
+          {
+            "mana_cost": "",
+            "name": "Hauken's Insight",
+            "oracle_text": "At the beginning of your upkeep, exile the top card of your library face down. You may look at that card for as long as it remains exiled.\nOnce during each of your turns, you may play a land or cast a spell from among the cards exiled with this permanent without paying its mana cost.",
+            "type_line": "Legendary Enchantment"
+          }
+        ],
+        "keywords": [
+          "Transform"
+        ],
+        "type_line": "Legendary Creature — Human Advisor // Legendary Enchantment"
+      },
+      "categories": [
+        "card-draw",
+        "engine"
+      ],
+      "category_source": "decklist",
+      "name": "Jacob Hauken, Inspector // Hauken's Insight",
+      "oracle_id": "16d2a56a-7181-4ef3-866b-10dd8615d9e9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/vow/65/jacob-hauken-inspector-haukens-insight?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "engine"
+      ],
+      "submitted_name": "Jacob Hauken, Inspector // Hauken's Insight"
     },
     {
       "cache": "cards/2bfec482-be0d-4768-84e7-1c2c74ea1373.json",
@@ -1249,28 +1167,6 @@
         "flashback"
       ],
       "submitted_name": "Multiversal Recruitment"
-    },
-    {
-      "cache": "cards/757eadac-dd29-4a7f-8683-5bc823168326.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "mana_cost": "{3}{U}",
-        "oracle_text": "Draw cards equal to the greatest mana value among artifacts you control.",
-        "type_line": "Sorcery"
-      },
-      "categories": [
-        "card-draw"
-      ],
-      "category_source": "decklist",
-      "name": "One with the Machine",
-      "oracle_id": "757eadac-dd29-4a7f-8683-5bc823168326",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/m19/66/one-with-the-machine?utm_source=api",
-      "submitted_categories": [
-        "card-draw"
-      ],
-      "submitted_name": "One with the Machine"
     },
     {
       "cache": "cards/6128679e-7e54-41e4-ab6e-25aeeffed49f.json",
@@ -1496,6 +1392,42 @@
       "submitted_name": "Portal to Phyrexia"
     },
     {
+      "cache": "cards/6d03971a-8365-449a-8fbe-07b5b9bb42dc.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Treasure",
+          "Ninjutsu"
+        ],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Ninjutsu {1}{U} ({1}{U}, Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand tapped and attacking.)\nWhenever one or more Ninja or Rogue creatures you control deal combat damage to a player, create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+        "power": "3",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "toughness": "2",
+        "type_line": "Creature — Human Ninja"
+      },
+      "categories": [
+        "ramp",
+        "bounce-synergy"
+      ],
+      "category_source": "decklist",
+      "name": "Prosperous Thief",
+      "oracle_id": "6d03971a-8365-449a-8fbe-07b5b9bb42dc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/73/prosperous-thief?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "bounce-synergy"
+      ],
+      "submitted_name": "Prosperous Thief"
+    },
+    {
       "cache": "cards/7f3b6c25-b855-4ea5-a8ad-d954a6cdffb7.json",
       "card": {
         "cmc": 4.0,
@@ -1522,6 +1454,66 @@
       "submitted_name": "Prototype Portal"
     },
     {
+      "cache": "cards/6c754808-86a6-43d3-8aeb-96ec19f7396c.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Flash"
+        ],
+        "mana_cost": "{3}{U}{U}",
+        "oracle_text": "Flash\nWhen Renet enters, return each other nonland permanent that entered this turn to its owner's hand.",
+        "power": "4",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Human Wizard"
+      },
+      "categories": [
+        "bounce",
+        "interaction",
+        "blink-payoff",
+        "flash"
+      ],
+      "category_source": "decklist",
+      "name": "Renet, Temporal Apprentice",
+      "oracle_id": "6c754808-86a6-43d3-8aeb-96ec19f7396c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmt/50/renet-temporal-apprentice?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "interaction",
+        "blink-payoff",
+        "flash"
+      ],
+      "submitted_name": "Renet, Temporal Apprentice"
+    },
+    {
+      "cache": "cards/ca2aee09-398d-4eaa-acbb-98663216185b.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Defender"
+        ],
+        "mana_cost": "{W}",
+        "oracle_text": "Defender\n{1}, Sacrifice this creature: Target creature you control gains indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy it.)",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Creature — Dog"
+      },
+      "categories": [
+        "protection",
+        "defender"
+      ],
+      "category_source": "decklist",
+      "name": "Resolute Watchdog",
+      "oracle_id": "ca2aee09-398d-4eaa-acbb-98663216185b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rna/19/resolute-watchdog?utm_source=api",
+      "submitted_categories": [
+        "protection",
+        "defender"
+      ],
+      "submitted_name": "Resolute Watchdog"
+    },
+    {
       "cache": "cards/32717625-46c6-45c5-ad0a-fb6a91f9878c.json",
       "card": {
         "cmc": 3.0,
@@ -1546,6 +1538,32 @@
       "submitted_name": "Runed Arch"
     },
     {
+      "cache": "cards/3e400e13-6cae-45e6-b5cc-5b5f9d74dec5.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{U}{U}",
+        "oracle_text": "When this creature enters, return target instant or sorcery card from your graveyard to your hand.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Merfolk Wizard"
+      },
+      "categories": [
+        "recursion",
+        "blink-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Salvager of Secrets",
+      "oracle_id": "3e400e13-6cae-45e6-b5cc-5b5f9d74dec5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/gn2/25/salvager-of-secrets?utm_source=api",
+      "submitted_categories": [
+        "recursion",
+        "blink-payoff"
+      ],
+      "submitted_name": "Salvager of Secrets"
+    },
+    {
       "cache": "cards/144d0817-348c-4171-aa7e-3468b23cf97d.json",
       "card": {
         "cmc": 4.0,
@@ -1568,6 +1586,34 @@
         "interaction"
       ],
       "submitted_name": "See Double"
+    },
+    {
+      "cache": "cards/572b1aeb-d2a0-433d-b167-86e683c2127d.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Vigilance"
+        ],
+        "mana_cost": "{5}{W}",
+        "oracle_text": "Vigilance (Attacking doesn't cause this creature to tap.)\nAt the beginning of combat on each opponent's turn, tap target creature that player controls.",
+        "power": "4",
+        "toughness": "6",
+        "type_line": "Creature — Giant Soldier"
+      },
+      "categories": [
+        "interaction",
+        "combat-control"
+      ],
+      "category_source": "decklist",
+      "name": "Sentinel of the Eternal Watch",
+      "oracle_id": "572b1aeb-d2a0-433d-b167-86e683c2127d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ori/30/sentinel-of-the-eternal-watch?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "combat-control"
+      ],
+      "submitted_name": "Sentinel of the Eternal Watch"
     },
     {
       "cache": "cards/ac914d98-221e-426c-8a50-342896b15f9e.json",
@@ -1764,35 +1810,6 @@
       "submitted_name": "Thran Temporal Gateway"
     },
     {
-      "cache": "cards/b6d2f392-5637-49ec-b6cb-603edd89e788.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [
-          "Incubate",
-          "Transform"
-        ],
-        "mana_cost": "{3}{W}",
-        "oracle_text": "Whenever you cast a spell that targets one or more permanents, incubate 2. (Create an Incubator token with two +1/+1 counters on it and \"{2}: Transform this token.\" It transforms into a 0/0 Phyrexian artifact creature.)",
-        "power": "2",
-        "toughness": "4",
-        "type_line": "Creature — Phyrexian Knight"
-      },
-      "categories": [
-        "token-production",
-        "engine"
-      ],
-      "category_source": "decklist",
-      "name": "Tiller of Flesh",
-      "oracle_id": "b6d2f392-5637-49ec-b6cb-603edd89e788",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mom/44/tiller-of-flesh?utm_source=api",
-      "submitted_categories": [
-        "token-production",
-        "engine"
-      ],
-      "submitted_name": "Tiller of Flesh"
-    },
-    {
       "cache": "cards/5d641bf6-0f93-4189-8dc1-ec7ea446dade.json",
       "card": {
         "cmc": 0.0,
@@ -1844,6 +1861,34 @@
         "finisher"
       ],
       "submitted_name": "Venser, the Sojourner"
+    },
+    {
+      "cache": "cards/5825d718-6a32-4f4c-9b56-1a50051cfe28.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Defender"
+        ],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Defender (This creature can't attack.)\nWhenever this creature blocks a creature, return that creature to its owner's hand at end of combat.",
+        "power": "0",
+        "toughness": "4",
+        "type_line": "Creature — Wall"
+      },
+      "categories": [
+        "bounce",
+        "defender"
+      ],
+      "category_source": "decklist",
+      "name": "Wall of Tears",
+      "oracle_id": "5825d718-6a32-4f4c-9b56-1a50051cfe28",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sth/50/wall-of-tears?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "defender"
+      ],
+      "submitted_name": "Wall of Tears"
     },
     {
       "cache": "cards/e8d6084b-9b72-438e-a30a-851b888f3e4d.json",
@@ -1904,7 +1949,7 @@
     }
   ],
   "categorized_cards": 71,
-  "generated_at": "2026-09-03T16:43:41.500528+00:00",
+  "generated_at": "2026-09-03T17:14:01.296771+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 71,

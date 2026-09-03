@@ -9818,8 +9818,91 @@
         "removal",
         "blink"
       ]
+    },
+    "d1d719e9-9c02-40cf-8849-91a5c120a516": {
+      "name": "Alabaster Host Intercessor",
+      "categories": [
+        "removal",
+        "tutor",
+        "discard"
+      ]
+    },
+    "8a76a9b9-3127-45fe-b20f-a8f643276281": {
+      "name": "Containment Priest",
+      "categories": [
+        "other"
+      ]
+    },
+    "9938d178-0ce6-45c0-b317-fd5c54231579": {
+      "name": "Curator of Destinies",
+      "categories": [
+        "other"
+      ]
+    },
+    "f5a85674-fd09-42d8-bba7-5656be25fcea": {
+      "name": "Floodgate",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "d7dcd1a3-3163-4e26-94e8-f4072e477e6a": {
+      "name": "Halo-Charged Skaab",
+      "categories": [
+        "other"
+      ]
+    },
+    "78afa295-c9f4-4a81-9f7b-5746a3cf6b31": {
+      "name": "Inga Rune-Eyes",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "16d2a56a-7181-4ef3-866b-10dd8615d9e9": {
+      "name": "Jacob Hauken, Inspector // Hauken's Insight",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "6d03971a-8365-449a-8fbe-07b5b9bb42dc": {
+      "name": "Prosperous Thief",
+      "categories": [
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "6c754808-86a6-43d3-8aeb-96ec19f7396c": {
+      "name": "Renet, Temporal Apprentice",
+      "categories": [
+        "other"
+      ]
+    },
+    "ca2aee09-398d-4eaa-acbb-98663216185b": {
+      "name": "Resolute Watchdog",
+      "categories": [
+        "protection",
+        "sacrifice"
+      ]
+    },
+    "3e400e13-6cae-45e6-b5cc-5b5f9d74dec5": {
+      "name": "Salvager of Secrets",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "572b1aeb-d2a0-433d-b167-86e683c2127d": {
+      "name": "Sentinel of the Eternal Watch",
+      "categories": [
+        "other"
+      ]
+    },
+    "5825d718-6a32-4f4c-9b56-1a50051cfe28": {
+      "name": "Wall of Tears",
+      "categories": [
+        "other"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-03T16:43:41.500528+00:00"
+  "updated_at": "2026-09-03T17:14:01.296771+00:00"
 }

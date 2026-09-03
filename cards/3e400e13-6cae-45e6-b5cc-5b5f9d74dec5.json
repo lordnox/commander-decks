@@ -1,0 +1,132 @@
+{
+  "artist": "Lars Grant-West",
+  "artist_ids": [
+    "21ed6499-c4d3-4965-ab02-6c7228275bec"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 421051,
+  "cmc": 5.0,
+  "collector_number": "25",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 14449,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "The greatest treasure of the deep is an echo from above.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c0b5b645-c90d-43aa-996d-03a1d575bdd6",
+  "illustration_id": "05b983f5-abc5-4d45-aaff-c6cf24351399",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:34:20Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/0/c0b5b645-c90d-43aa-996d-03a1d575bdd6.webp?1783931660",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/0/c0b5b645-c90d-43aa-996d-03a1d575bdd6.jpg?1783931660",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/0/c0b5b645-c90d-43aa-996d-03a1d575bdd6.jpg?1783931660",
+    "crop": "https://cards.scryfall.io/crop/front/c/0/c0b5b645-c90d-43aa-996d-03a1d575bdd6.webp?1783931660",
+    "display": "https://cards.scryfall.io/display/front/c/0/c0b5b645-c90d-43aa-996d-03a1d575bdd6.webp?1783931660",
+    "grid": "https://cards.scryfall.io/grid/front/c/0/c0b5b645-c90d-43aa-996d-03a1d575bdd6.webp?1783931660",
+    "large": "https://cards.scryfall.io/large/front/c/0/c0b5b645-c90d-43aa-996d-03a1d575bdd6.jpg?1783931660",
+    "normal": "https://cards.scryfall.io/normal/front/c/0/c0b5b645-c90d-43aa-996d-03a1d575bdd6.jpg?1783931660",
+    "png": "https://cards.scryfall.io/png/front/c/0/c0b5b645-c90d-43aa-996d-03a1d575bdd6.png?1783931660",
+    "small": "https://cards.scryfall.io/small/front/c/0/c0b5b645-c90d-43aa-996d-03a1d575bdd6.jpg?1783931660",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/0/c0b5b645-c90d-43aa-996d-03a1d575bdd6.webp?1783931660"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{U}",
+  "mtgo_id": 79748,
+  "multiverse_ids": [
+    476091
+  ],
+  "name": "Salvager of Secrets",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3e400e13-6cae-45e6-b5cc-5b5f9d74dec5",
+  "oracle_text": "When this creature enters, return target instant or sorcery card from your graveyard to your hand.",
+  "oversized": false,
+  "penny_rank": 10606,
+  "power": "2",
+  "prices": {
+    "eur": "0.31",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.39",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3e400e13-6cae-45e6-b5cc-5b5f9d74dec5&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/79748?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=421051&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F201550%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Salvager+of+Secrets",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=476091&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSalvager%2Bof%2BSecrets",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSalvager%2Bof%2BSecrets"
+  },
+  "released_at": "2019-11-15",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c0b5b645-c90d-43aa-996d-03a1d575bdd6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/gn2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/gn2/25/salvager-of-secrets?utm_source=api",
+  "set": "gn2",
+  "set_id": "a72727dd-dbab-4158-a772-a08825735169",
+  "set_name": "Game Night 2019",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Agn2&unique=prints",
+  "set_type": "box",
+  "set_uri": "https://api.scryfall.com/sets/a72727dd-dbab-4158-a772-a08825735169",
+  "story_spotlight": false,
+  "tcgplayer_id": 201550,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Merfolk Wizard",
+  "uri": "https://api.scryfall.com/cards/c0b5b645-c90d-43aa-996d-03a1d575bdd6",
+  "variation": false
+}

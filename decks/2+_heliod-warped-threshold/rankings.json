@@ -1,16 +1,16 @@
 {
   "goals": [
     "Portal",
-    "Flash"
+    "Blink"
   ],
   "scores": {
-    "jankiness": 8,
-    "fun": 8,
-    "oppressiveness": 5,
+    "jankiness": 9,
+    "fun": 9,
+    "oppressiveness": 6,
     "identity": {
-      "Portal": 9,
-      "Flash": 7
+      "Portal": 10,
+      "Blink": 8
     }
   },
-  "notes": "Portal remains the identity: named gates, two transforming doors, aether cards, teleportation, and interplanar Venser now reinforce the literal artifacts. Flash is still Heliod's back face plus Emergence Zone, not the early bounce game. Two upgrade passes removed pool filler without adding generic Azorius staples."
+  "notes": "Literal portals, gates, and portal-art creatures now supply the full shell. Blink has twenty creatures plus repeatable ETB, leave-battlefield, recursion, and bounce targets. Containment Priest plus Mirror of Life Trapping creates a disclosed temporary prison, raising mean alongside the timing decisions and jank."
 }

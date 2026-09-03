@@ -1592,8 +1592,23 @@
     "planar disruption": "6128679e-7e54-41e4-ab6e-25aeeffed49f",
     "planar incision": "a959a91a-3e1d-4bd4-9e14-5ee977540146",
     "teleportation circle": "c786a0aa-d86f-42c3-a7ea-5cb6ab72b5ec",
-    "venser, the sojourner": "a8bf8ff8-d924-4fd2-b5ed-05b38f55325a"
+    "venser, the sojourner": "a8bf8ff8-d924-4fd2-b5ed-05b38f55325a",
+    "alabaster host intercessor": "d1d719e9-9c02-40cf-8849-91a5c120a516",
+    "containment priest": "8a76a9b9-3127-45fe-b20f-a8f643276281",
+    "curator of destinies": "9938d178-0ce6-45c0-b317-fd5c54231579",
+    "floodgate": "f5a85674-fd09-42d8-bba7-5656be25fcea",
+    "halo-charged skaab": "d7dcd1a3-3163-4e26-94e8-f4072e477e6a",
+    "inga rune-eyes": "78afa295-c9f4-4a81-9f7b-5746a3cf6b31",
+    "jacob hauken, inspector // hauken's insight": "16d2a56a-7181-4ef3-866b-10dd8615d9e9",
+    "jacob hauken, inspector": "16d2a56a-7181-4ef3-866b-10dd8615d9e9",
+    "hauken's insight": "16d2a56a-7181-4ef3-866b-10dd8615d9e9",
+    "prosperous thief": "6d03971a-8365-449a-8fbe-07b5b9bb42dc",
+    "renet, temporal apprentice": "6c754808-86a6-43d3-8aeb-96ec19f7396c",
+    "resolute watchdog": "ca2aee09-398d-4eaa-acbb-98663216185b",
+    "salvager of secrets": "3e400e13-6cae-45e6-b5cc-5b5f9d74dec5",
+    "sentinel of the eternal watch": "572b1aeb-d2a0-433d-b167-86e683c2127d",
+    "wall of tears": "5825d718-6a32-4f4c-9b56-1a50051cfe28"
   },
   "schema_version": 1,
-  "updated_at": "2026-09-03T16:43:41.500528+00:00"
+  "updated_at": "2026-09-03T17:14:01.296771+00:00"
 }
