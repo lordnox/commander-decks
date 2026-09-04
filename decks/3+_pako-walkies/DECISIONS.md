@@ -12,6 +12,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Voltron** — Make Pako the primary attacker and closer through protection, evasion, combat mana, and repeated combats.
+- **Theft** — Repeatedly turn cards from opposing libraries into playable resources through Pako's fetch counters and Haldan.
+
+## Rankings
+
+First pass: jank 6, fun 9, mean 6, Voltron 9, Theft 8. Random opposing cards and combat sequencing create varied decisions; the tuned mana, free interaction, and established Pako shell keep jank moderate.
+
 ## Cards in
 
 - **Arcane Denial** — Cheap counter that replaces itself; keeps Pako's attack trigger from eating a removal spell.
@@ -124,3 +133,11 @@ Every unique card needs a Cards in line. The other headings appear when there is
 ### 2026-09-04 — Import
 
 Imported [pako bracket 3](https://moxfield.com/decks/x0EN2AAAt0ucd-z38eXhng) as **Pako — Walkies**. Sideboard kept as `{noDeck}` maybeboard (Cyclonic Rift, Helm of the Host, Mana Geyser, Rhystic Study, The One Ring) and stays out of Cards in. Rankings skipped until identity goals are declared.
+
+### 2026-09-04 — Assessment and rankings
+
+Assigned **Bracket 3+** using [`BRACKET-DEFINITIONS.md`](../../BRACKET-DEFINITIONS.md) and its 2026-09-03 Game Changers snapshot. The main 100 contains exactly three Game Changers: Fierce Guardianship, Jeska's Will, and Underworld Breach. Sol Ring is not officially listed, but this repository treats permanent fast mana as kitchen-table 4+ and requires that footnote.
+
+Twelve reproducible seven-turn hands (seeds 1729 and 2718) made Pako a turn-three high roll, turn-four normal cast, and turn-five slow cast. A clean Pako usually needs three attacks or an extra-combat finisher to deal 21 commander damage, placing a normal goldfish win around turn seven. Sol Ring plus protection and an extra combat can threaten the first player around turn five, but not a reliable table win. Removing Pako once shifts the deck toward turns eight to ten; a second removal often leaves it rebuilding rather than threatening lethal.
+
+Bracket 2 is too low because the list has three Game Changers, Sol Ring, free commander interaction, a tuned mana base, six extra-combat effects, and explosive one-turn finishes. Bracket 4 is too high because there are no nonland tutors, compact combos, deterministic loops, extra turns, or consistent turn-four-to-five table kills; the plan remains combat- and commander-dependent.
