@@ -139,7 +139,32 @@
       text-shadow: 0 1px 0 #000;
     }
     .pt.modified { background: #4a3a12; color: #ffe9a8; }
-    .card.tapped .pt { transform: rotate(-90deg); }
+    .marks {
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+    .mark {
+      padding: 0 3px;
+      border: 1px solid #000;
+      border-radius: 3px;
+      background: #12100ee8;
+      color: var(--ink);
+      font-size: 9px;
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+      line-height: 1.4;
+      text-shadow: 0 1px 0 #000;
+    }
+    .mark.plus { background: #1d4d31; color: #c7f5d1; }
+    .mark.minus { background: #5a2020; color: #ffd2d2; }
+    .mark.status { background: #2b2447; color: #ddd2ff; }
+    .card.tapped .pt,
+    .card.tapped .mark { transform: rotate(-90deg); }
     .card img { display: block; width: 100%; height: auto; }
     .card.tapped { transform: rotate(90deg); transform-origin: center; }
     .card.token { outline: 1px dashed #e6d27a; }
@@ -256,11 +281,29 @@
       bottom: calc(var(--controls-height) + 12px);
       z-index: 30;
       display: none;
-      width: 220px;
-      border-radius: 8px;
+      width: 240px;
+      border-radius: 10px;
+      background: #0b1a16f7;
       box-shadow: 0 8px 30px #000a;
       pointer-events: none;
+      overflow: hidden;
     }
+    #preview.visible { display: block; }
+    #preview img { display: block; width: 100%; height: auto; }
+    #preview-detail { padding: 0.45rem 0.55rem; border-top: 1px solid var(--line); }
+    #preview-detail:empty { display: none; }
+    #preview-detail h4 {
+      margin: 0 0 0.25rem;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    #preview-detail ul { margin: 0; padding-left: 1rem; }
+    #preview-detail li { font-size: 13px; }
+    #preview-detail li.plus { color: #c7f5d1; }
+    #preview-detail li.minus { color: #ffd2d2; }
+    #preview-detail li.status { color: #ddd2ff; }
     body.log-hidden #preview { right: 14px; }
     @media (max-width: 840px) {
       :root { --header-height: 64px; --controls-height: 104px; }
@@ -312,7 +355,10 @@
     <button type="button" id="next">Next</button>
     <input type="range" id="slider" min="0" value="0" aria-label="Replay event">
   </div>
-  <img id="preview" alt="">
+  <div id="preview">
+    <img id="preview-image" alt="">
+    <div id="preview-detail"></div>
+  </div>
   <script id="game-data" type="application/json">__GAME_JSON__</script>
   <script>
     const GAME = JSON.parse(document.getElementById("game-data").textContent)
@@ -322,6 +368,7 @@
     const tokens = GAME.tokens || {}
     let index = 0
     let timer = null
+    let details = []
 
     const table = document.getElementById("table")
     const log = document.getElementById("log")
@@ -379,6 +426,42 @@
       }
     }
 
+    const COUNTER_GLYPHS = {
+      "+1/+1": "+", "p1p1": "+", "-1/-1": "−", "m1m1": "−",
+      age: "⌛", charge: "⚡", energy: "⚡", experience: "✦", fade: "⌛",
+      lore: "❋", loyalty: "◆", oil: "◍", poison: "☠", quest: "★",
+      shield: "⛨", stun: "✖", time: "⌛", vanishing: "⌛",
+    }
+
+    const STATUS_MARKS = [
+      [/goad/i, "➤", "Goaded"],
+      [/enchant|equipp|attach|aura/i, "⚯", "Attached"],
+      [/copy|copies/i, "⧉", "Copy"],
+      [/hast/i, "»", "Haste"],
+      [/monarch|initiative/i, "♛", "Monarch"],
+    ]
+
+    /** Counter chips plus a status chip for each recognized note segment. */
+    const cardMarks = (entry) => {
+      const marks = Object.entries(entry.counters || {}).map(([kind, count]) => {
+        const glyph = COUNTER_GLYPHS[kind] || kind.slice(0, 1).toUpperCase()
+        const tone = glyph === "+" ? "plus" : glyph === "−" ? "minus" : ""
+        return { tone, text: `${glyph}${count}`, label: `${kind} ×${count}` }
+      })
+
+      const notes = String(entry.note || "").split(";").map((part) => part.trim()).filter(Boolean)
+      const seen = new Set()
+      for (const note of notes) {
+        const match = STATUS_MARKS.find(([pattern]) => pattern.test(note))
+        const [, glyph, label] = match || [null, "•", "Note"]
+        if (seen.has(glyph)) continue
+        seen.add(glyph)
+        const same = label.toLowerCase() === note.toLowerCase()
+        marks.push({ tone: "status", text: glyph, label: same ? label : `${label}: ${note}` })
+      }
+      return { marks, notes }
+    }
+
     const cardHtml = (name, extra = {}, inPlay = false) => {
       const info = (extra.token_id ? tokens[extra.token_id] : catalog[name]) || {}
       const src = info.image_small || ""
@@ -391,7 +474,16 @@
       const badge = stats
         ? `<span class="pt${stats.modified ? " modified" : ""}">${esc(stats.text)}</span>`
         : ""
-      return `<a class="card${classes}" href="${esc(href)}" target="_blank" rel="noreferrer" title="${esc(name)}" data-preview="${esc(info.image_normal || src)}">${image}${badge}</a>`
+      const { marks, notes } = inPlay ? cardMarks(extra) : { marks: [], notes: [] }
+      const chips = marks.length
+        ? `<span class="marks">${marks.map((mark) =>
+            `<span class="mark ${mark.tone}" title="${esc(mark.label)}">${esc(mark.text)}</span>`
+          ).join("")}</span>`
+        : ""
+      const detail = marks.length
+        ? ` data-detail="${details.push({ name, stats, entry: extra, notes }) - 1}"`
+        : ""
+      return `<a class="card${classes}" href="${esc(href)}" target="_blank" rel="noreferrer" title="${esc(name)}" data-preview="${esc(info.image_normal || src)}"${detail}>${image}${badge}${chips}</a>`
     }
 
     const zone = (title, entries, extra = "", inPlay = false) => {
@@ -434,6 +526,7 @@
         : "<span class='meta'>Empty</span>"
       const actor = seats.find((seat) => seat.id === event.seat)
       const position = `Turn ${event.turn || 0} · ${event.phase || ""} · ${index + 1}/${events.length}`
+      details = []
       table.innerHTML = seats
         .map((seat) => renderSeat(seat, state.players[seat.id], state.active === seat.id))
         .join("") + `<div class="center">
@@ -504,15 +597,37 @@
     }
 
     const preview = document.getElementById("preview")
+    const previewImage = document.getElementById("preview-image")
+    const previewDetail = document.getElementById("preview-detail")
+
+    const detailHtml = (detail) => {
+      if (!detail) return ""
+      const { entry, notes, stats } = detail
+      const lines = []
+      if (stats) lines.push([stats.modified ? "plus" : "", `${stats.text} in play`])
+      if (entry.tapped) lines.push(["", "Tapped"])
+      for (const [kind, count] of Object.entries(entry.counters || {})) {
+        const tone = kind.startsWith("-") || kind.startsWith("m1") ? "minus" : "plus"
+        lines.push([tone, `${count} ${kind} counter${count === 1 ? "" : "s"}`])
+      }
+      for (const note of notes) lines.push(["status", note])
+      if (!lines.length) return ""
+      const items = lines
+        .map(([tone, text]) => `<li class="${tone}">${esc(text)}</li>`)
+        .join("")
+      return `<h4>${esc(detail.name)}</h4><ul>${items}</ul>`
+    }
+
     table.addEventListener("mouseover", (event) => {
       const card = event.target.closest("[data-preview]")
       if (!card?.dataset.preview) return
-      preview.src = card.dataset.preview
-      preview.style.display = "block"
+      previewImage.src = card.dataset.preview
+      previewDetail.innerHTML = detailHtml(details[Number(card.dataset.detail)])
+      preview.classList.add("visible")
     })
     table.addEventListener("mouseout", (event) => {
       if (!event.relatedTarget || !table.contains(event.relatedTarget)) {
-        preview.style.display = "none"
+        preview.classList.remove("visible")
       }
     })
     document.addEventListener("keydown", (event) => {
