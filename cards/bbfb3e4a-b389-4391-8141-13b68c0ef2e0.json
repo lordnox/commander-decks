@@ -1,0 +1,132 @@
+{
+  "artist": "Greg Staples",
+  "artist_ids": [
+    "93d65564-bf00-447b-8406-e2031f03b6b1"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 290363,
+  "cmc": 2.0,
+  "collector_number": "60",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 3211,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "What a lonely agony, the memory of memories lost.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "30202613-d05f-4f47-af97-d0b75ccac293",
+  "illustration_id": "84c95a0f-8a4a-4c21-bbff-af978d48f44b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:13:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/0/30202613-d05f-4f47-af97-d0b75ccac293.webp?1783937610",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/0/30202613-d05f-4f47-af97-d0b75ccac293.jpg?1783937610",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/0/30202613-d05f-4f47-af97-d0b75ccac293.jpg?1783937610",
+    "crop": "https://cards.scryfall.io/crop/front/3/0/30202613-d05f-4f47-af97-d0b75ccac293.webp?1783937610",
+    "display": "https://cards.scryfall.io/display/front/3/0/30202613-d05f-4f47-af97-d0b75ccac293.webp?1783937610",
+    "grid": "https://cards.scryfall.io/grid/front/3/0/30202613-d05f-4f47-af97-d0b75ccac293.webp?1783937610",
+    "large": "https://cards.scryfall.io/large/front/3/0/30202613-d05f-4f47-af97-d0b75ccac293.jpg?1783937610",
+    "normal": "https://cards.scryfall.io/normal/front/3/0/30202613-d05f-4f47-af97-d0b75ccac293.jpg?1783937610",
+    "png": "https://cards.scryfall.io/png/front/3/0/30202613-d05f-4f47-af97-d0b75ccac293.png?1783937610",
+    "small": "https://cards.scryfall.io/small/front/3/0/30202613-d05f-4f47-af97-d0b75ccac293.jpg?1783937610",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/0/30202613-d05f-4f47-af97-d0b75ccac293.webp?1783937610"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "banned",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_foil_id": 60924,
+  "mtgo_id": 60923,
+  "multiverse_ids": [
+    413602
+  ],
+  "name": "Memory Lapse",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "bbfb3e4a-b389-4391-8141-13b68c0ef2e0",
+  "oracle_text": "Counter target spell. If that spell is countered this way, put it on top of its owner's library instead of into that player's graveyard.",
+  "oversized": false,
+  "penny_rank": 43,
+  "prices": {
+    "eur": "0.58",
+    "eur_foil": "0.88",
+    "tix": "0.04",
+    "usd": "0.77",
+    "usd_etched": null,
+    "usd_foil": "1.02"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abbfb3e4a-b389-4391-8141-13b68c0ef2e0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/60923?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=290363&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F118731%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Memory+Lapse",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=413602&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMemory%2BLapse",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMemory%2BLapse"
+  },
+  "released_at": "2016-06-10",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/30202613-d05f-4f47-af97-d0b75ccac293/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ema?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ema/60/memory-lapse?utm_source=api",
+  "set": "ema",
+  "set_id": "1f29f022-3ace-4c96-85e8-1f7b63aadf7e",
+  "set_name": "Eternal Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aema&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/1f29f022-3ace-4c96-85e8-1f7b63aadf7e",
+  "story_spotlight": false,
+  "tcgplayer_id": 118731,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/30202613-d05f-4f47-af97-d0b75ccac293",
+  "variation": false
+}

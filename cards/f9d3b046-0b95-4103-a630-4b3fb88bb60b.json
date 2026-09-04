@@ -1,0 +1,152 @@
+{
+  "arena_id": 84850,
+  "artist": "Inka Schulz",
+  "artist_ids": [
+    "3f93408e-c510-42a5-beef-9ddbc56d9056"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 715938,
+  "cmc": 1.0,
+  "collector_number": "158",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 151,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "There were toys the Hobbit-children had never seen before, all beautiful, and some obviously magical.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": false,
+  "id": "71384418-173a-4f77-adab-56e52fa23692",
+  "illustration_id": "9328768c-3441-48d5-a481-8303e36c19a9",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T04:17:56Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/1/71384418-173a-4f77-adab-56e52fa23692.webp?1783916276",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/1/71384418-173a-4f77-adab-56e52fa23692.jpg?1783916276",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/1/71384418-173a-4f77-adab-56e52fa23692.jpg?1783916276",
+    "crop": "https://cards.scryfall.io/crop/front/7/1/71384418-173a-4f77-adab-56e52fa23692.webp?1783916276",
+    "display": "https://cards.scryfall.io/display/front/7/1/71384418-173a-4f77-adab-56e52fa23692.webp?1783916276",
+    "grid": "https://cards.scryfall.io/grid/front/7/1/71384418-173a-4f77-adab-56e52fa23692.webp?1783916276",
+    "large": "https://cards.scryfall.io/large/front/7/1/71384418-173a-4f77-adab-56e52fa23692.jpg?1783916276",
+    "normal": "https://cards.scryfall.io/normal/front/7/1/71384418-173a-4f77-adab-56e52fa23692.jpg?1783916276",
+    "png": "https://cards.scryfall.io/png/front/7/1/71384418-173a-4f77-adab-56e52fa23692.png?1783916276",
+    "small": "https://cards.scryfall.io/small/front/7/1/71384418-173a-4f77-adab-56e52fa23692.jpg?1783916276",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/1/71384418-173a-4f77-adab-56e52fa23692.webp?1783916276"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "mtgo_id": 112226,
+  "multiverse_ids": [
+    616988
+  ],
+  "name": "Delighted Halfling",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f9d3b046-0b95-4103-a630-4b3fb88bb60b",
+  "oracle_text": "{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a legendary spell, and that spell can't be countered.",
+  "oversized": false,
+  "penny_rank": 119,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2023-05-29",
+    "source": "TheOneRing.net",
+    "source_uri": "https://www.theonering.net/torwp/2023/05/08/116501-lord-of-the-rings-tales-of-middle-earth-artist-talks-adapting-tolkien-for-magic-the-gathering/"
+  },
+  "prices": {
+    "eur": "18.89",
+    "eur_foil": "20.69",
+    "tix": "0.35",
+    "usd": "29.46",
+    "usd_etched": null,
+    "usd_foil": "32.07"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af9d3b046-0b95-4103-a630-4b3fb88bb60b&unique=prints",
+  "produced_mana": [
+    "B",
+    "C",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/112226?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=715938&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F498414%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Delighted+Halfling",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=616988&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDelighted%2BHalfling",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDelighted%2BHalfling"
+  },
+  "released_at": "2023-06-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/71384418-173a-4f77-adab-56e52fa23692/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ltr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ltr/158/delighted-halfling?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "ltr",
+  "set_id": "08078706-ac5d-439b-8f01-894d38751367",
+  "set_name": "The Lord of the Rings: Tales of Middle-earth",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Altr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/08078706-ac5d-439b-8f01-894d38751367",
+  "story_spotlight": false,
+  "tcgplayer_id": 498414,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Halfling Citizen",
+  "uri": "https://api.scryfall.com/cards/71384418-173a-4f77-adab-56e52fa23692",
+  "variation": false
+}

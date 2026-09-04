@@ -1,0 +1,152 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "ba64ed3e-93c5-406f-a38d-65cc68472122",
+      "name": "City's Blessing",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/ba64ed3e-93c5-406f-a38d-65cc68472122"
+    },
+    {
+      "component": "combo_piece",
+      "id": "64f5119f-3921-48a5-a8fb-0cb1bbabde30",
+      "name": "Expel from Orazca",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/64f5119f-3921-48a5-a8fb-0cb1bbabde30"
+    }
+  ],
+  "arena_id": 66691,
+  "artist": "Steven Belledin",
+  "artist_ids": [
+    "f07d73b9-52a0-4fe5-858b-61f7b42174a5"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 315380,
+  "cmc": 2.0,
+  "collector_number": "37",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 10658,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "64f5119f-3921-48a5-a8fb-0cb1bbabde30",
+  "illustration_id": "17a795dd-5daf-44b0-a562-1abdef935898",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:35:25Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/4/64f5119f-3921-48a5-a8fb-0cb1bbabde30.webp?1783935325",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/4/64f5119f-3921-48a5-a8fb-0cb1bbabde30.jpg?1783935325",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/4/64f5119f-3921-48a5-a8fb-0cb1bbabde30.jpg?1783935325",
+    "crop": "https://cards.scryfall.io/crop/front/6/4/64f5119f-3921-48a5-a8fb-0cb1bbabde30.webp?1783935325",
+    "display": "https://cards.scryfall.io/display/front/6/4/64f5119f-3921-48a5-a8fb-0cb1bbabde30.webp?1783935325",
+    "grid": "https://cards.scryfall.io/grid/front/6/4/64f5119f-3921-48a5-a8fb-0cb1bbabde30.webp?1783935325",
+    "large": "https://cards.scryfall.io/large/front/6/4/64f5119f-3921-48a5-a8fb-0cb1bbabde30.jpg?1783935325",
+    "normal": "https://cards.scryfall.io/normal/front/6/4/64f5119f-3921-48a5-a8fb-0cb1bbabde30.jpg?1783935325",
+    "png": "https://cards.scryfall.io/png/front/6/4/64f5119f-3921-48a5-a8fb-0cb1bbabde30.png?1783935325",
+    "small": "https://cards.scryfall.io/small/front/6/4/64f5119f-3921-48a5-a8fb-0cb1bbabde30.jpg?1783935325",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/4/64f5119f-3921-48a5-a8fb-0cb1bbabde30.webp?1783935325"
+  },
+  "keywords": [
+    "Ascend"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 66527,
+  "multiverse_ids": [
+    439694
+  ],
+  "name": "Expel from Orazca",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a6e12be3-4166-4bd7-8254-e28b7c8588c7",
+  "oracle_text": "Ascend (If you control ten or more permanents, you get the city's blessing for the rest of the game.)\nReturn target nonland permanent to its owner's hand. If you have the city's blessing, you may put that permanent on top of its owner's library instead.",
+  "oversized": false,
+  "penny_rank": 7541,
+  "prices": {
+    "eur": "0.28",
+    "eur_foil": "0.80",
+    "tix": "0.03",
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": "1.39"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa6e12be3-4166-4bd7-8254-e28b7c8588c7&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/66527?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=315380&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F155796%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Expel+from+Orazca",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=439694&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DExpel%2Bfrom%2BOrazca",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DExpel%2Bfrom%2BOrazca"
+  },
+  "released_at": "2018-01-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/64f5119f-3921-48a5-a8fb-0cb1bbabde30/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rix?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rix/37/expel-from-orazca?utm_source=api",
+  "set": "rix",
+  "set_id": "2f7e40fc-772d-4a85-bfdd-01653c41d0fa",
+  "set_name": "Rivals of Ixalan",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arix&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/2f7e40fc-772d-4a85-bfdd-01653c41d0fa",
+  "story_spotlight": false,
+  "tcgplayer_id": 155796,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/64f5119f-3921-48a5-a8fb-0cb1bbabde30",
+  "variation": false
+}

@@ -1381,7 +1381,7 @@
     },
     "ae120613-97d6-4393-b39d-c3e6c076f5d6": {
       "categories": [
-        "other"
+        "protection"
       ],
       "name": "Deflecting Swat"
     },
@@ -4456,7 +4456,7 @@
     "3407fe41-fdd3-4119-8f70-4bc4590a379f": {
       "name": "Negate",
       "categories": [
-        "other"
+        "counterspell"
       ]
     },
     "4c033502-2005-4e13-96b6-3f8c0a4b6a81": {
@@ -4912,7 +4912,7 @@
     "e5df4597-1647-4ac2-bdb3-a517598d1431": {
       "name": "Summer Bloom",
       "categories": [
-        "other"
+        "ramp"
       ]
     },
     "b38d1811-64d7-4a35-a86c-3291eecd8391": {
@@ -9275,8 +9275,347 @@
         "exile",
         "theft"
       ]
+    },
+    "44661108-d72f-4d02-9303-7e4b0ecf7e9c": {
+      "name": "Bear Umbra",
+      "categories": [
+        "combat-mana",
+        "aura",
+        "protection"
+      ]
+    },
+    "5b84101e-7e23-437d-835c-409bc061ecbb": {
+      "name": "Canopy Cover",
+      "categories": [
+        "protection",
+        "evasion",
+        "aura"
+      ]
+    },
+    "f61680da-606e-4d16-b0a0-361aa5210901": {
+      "name": "Chandra's Ignition",
+      "categories": [
+        "win-condition",
+        "board-wipe"
+      ]
+    },
+    "d75b9c82-1b49-4c3e-a1b5-aeef57d6644b": {
+      "name": "Cyclonic Rift",
+      "categories": [
+        "other"
+      ]
+    },
+    "99915b5a-5092-4900-8824-6de2aab1b2c1": {
+      "name": "Delayed Blast Fireball",
+      "categories": [
+        "removal"
+      ]
+    },
+    "f9d3b046-0b95-4103-a630-4b3fb88bb60b": {
+      "name": "Delighted Halfling",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "3ca32660-bf5f-4398-bef6-a0ec8bc767cf": {
+      "name": "Doc Aurlock, Grizzled Genius",
+      "categories": [
+        "exile-cast"
+      ]
+    },
+    "a6e12be3-4166-4bd7-8254-e28b7c8588c7": {
+      "name": "Expel from Orazca",
+      "categories": [
+        "bounce"
+      ]
+    },
+    "0c2841bb-038c-4fbf-8360-bc0a1522b58d": {
+      "name": "Exploration",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "d09c9cba-fdd2-479b-ad5d-d05181c3e3f9": {
+      "name": "Fierce Guardianship",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "d99a1d9a-7721-4331-bf22-1c6ee0bd825a": {
+      "name": "Fire-Lit Thicket",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "dc974eb4-72b9-4213-887b-8ee684b93420": {
+      "name": "Flooded Grove",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "aceac269-5100-428a-a4a3-bac57031e30b": {
+      "name": "Guild Artisan",
+      "categories": [
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "6a0b78fb-3838-47d9-8d1a-b6b0c0e8927d": {
+      "name": "Haldan, Avid Arcanist",
+      "categories": [
+        "other"
+      ]
+    },
+    "c9db6b94-a7b1-4b93-b454-4dead8f85e34": {
+      "name": "Hinder",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "fb5a3403-7f0b-406c-8c4f-d693be010ca6": {
+      "name": "Hinterland Harbor",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "0fd114c4-092b-4e28-b0dc-ef529f3bc73e": {
+      "name": "Jeska's Will",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "6bae00e8-06cf-4ac4-a1cc-757e454109fe": {
+      "name": "Ketria Triome",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "aa6c4079-72e1-4b2e-bd26-9399298c6105": {
+      "name": "Leyline Immersion",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "a8dba58b-2956-492e-ae30-49db2ae68e53": {
+      "name": "Mana Geyser",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "18a98d44-54ee-4d6d-ab32-27e294ac8995": {
+      "name": "Mark of Sakiko",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "bbfb3e4a-b389-4391-8141-13b68c0ef2e0": {
+      "name": "Memory Lapse",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "6288c0cb-cf32-4ae9-abf0-104ec71654fa": {
+      "name": "Moraug, Fury of Akoum",
+      "categories": [
+        "extra-combat"
+      ]
+    },
+    "6d4e558e-9109-4918-a082-fdcbaffd516b": {
+      "name": "Nature's Claim",
+      "categories": [
+        "removal"
+      ]
+    },
+    "97cabeda-9fe3-490d-99b4-4c8d87c17157": {
+      "name": "Noxious Revival",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "e31235f0-1f25-4158-b46e-cacde2f58b7e": {
+      "name": "Overpowering Attack",
+      "categories": [
+        "extra-combat"
+      ]
+    },
+    "680a3e17-5144-4e97-bc59-9f5fc3ad6514": {
+      "name": "Pako, Arcane Retriever",
+      "categories": [
+        "other"
+      ]
+    },
+    "6299d18e-a6a7-414c-85c0-d57a8e7d2627": {
+      "name": "Passionate Archaeologist",
+      "categories": [
+        "exile-payoff"
+      ]
+    },
+    "d1620449-930a-4895-a143-fd2a0a3c8b17": {
+      "name": "Rejuvenating Springs",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "dc1c0e8c-d0c1-445c-968f-7dec91e5d5fc": {
+      "name": "Relentless Assault",
+      "categories": [
+        "extra-combat"
+      ]
+    },
+    "2b76f9e9-cd28-4eaf-8674-215c34263f96": {
+      "name": "Return of the Wildspeaker",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "53236dd7-845a-444c-96d5-f41ed7325d8f": {
+      "name": "Rhystic Study",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "97407cd0-2bd2-4074-94d3-4ec3d243fa78": {
+      "name": "Rishkar's Expertise",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "89d1cd45-8148-4396-a9b8-e0f495e94b5b": {
+      "name": "Savage Beating",
+      "categories": [
+        "extra-combat"
+      ]
+    },
+    "2a6abd59-e448-46f1-9af8-bb9040645971": {
+      "name": "Seize the Day",
+      "categories": [
+        "extra-combat"
+      ]
+    },
+    "78301998-fd9b-4cd5-afad-dbcb43cac2a7": {
+      "name": "Shatterskull Smashing // Shatterskull, the Hammer Pass",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "75b73eb2-dafd-43db-9e96-7e1995d9849f": {
+      "name": "Song of Creation",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "338747e8-bed8-4e60-8b19-5c2b80799477": {
+      "name": "Soul Immolation",
+      "categories": [
+        "win-condition"
+      ]
+    },
+    "16052b52-ade1-406f-a06b-ce7ea607fb63": {
+      "name": "Stomping Ground",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "3adc3af3-5086-4d61-b38c-c1dddeaeebe6": {
+      "name": "Stubborn Denial",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "c8b143ad-43ec-4e0d-a440-e348daa31391": {
+      "name": "Swiftfoot Boots",
+      "categories": [
+        "protection"
+      ]
+    },
+    "d0901053-6de0-46d0-9ee3-8d40510236c1": {
+      "name": "Sword of Feast and Famine",
+      "categories": [
+        "protection",
+        "discard"
+      ]
+    },
+    "92eed395-62ca-4293-882b-8565c40daab5": {
+      "name": "Sylvan Library",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "8c34b089-aad1-476e-958a-3077bf1bbb51": {
+      "name": "Talisman of Curiosity",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "1d7a4e9c-b3c9-421e-b5f4-82d51d7d5125": {
+      "name": "Temporal Spring",
+      "categories": [
+        "bounce"
+      ]
+    },
+    "fd1998c0-c18e-4310-82de-b6320be5fe10": {
+      "name": "The Last Agni Kai",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "22e70ad0-1a9c-4d9e-8cc1-ebea485282ca": {
+      "name": "The Lost and the Damned",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "3aa83ed2-f48b-4ce6-a614-2c54ddf50538": {
+      "name": "The One Ring",
+      "categories": [
+        "card-draw",
+        "protection"
+      ]
+    },
+    "37a2a31d-51e6-4c07-b4c2-b206ad40eb42": {
+      "name": "The Reaver Cleaver",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "dd2f698c-b3b4-4dc8-9950-9be03ca7dc9e": {
+      "name": "Tinder Wall",
+      "categories": [
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "27e0948b-9916-473b-8d8c-a51bdfbc7457": {
+      "name": "Underworld Breach",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "6f856f99-4cb4-479d-958d-964220965ed6": {
+      "name": "Wilderness Reclamation",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "a178a789-1f5f-46ca-a90b-574bd236a671": {
+      "name": "Winged Boots",
+      "categories": [
+        "protection",
+        "equipment"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-01T21:25:19.795245+00:00"
+  "updated_at": "2026-09-04T12:33:19.967000+00:00"
 }

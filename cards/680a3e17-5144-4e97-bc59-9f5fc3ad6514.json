@@ -1,0 +1,164 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "066c8f63-52e6-475e-8d27-6ee37e92fc05",
+      "name": "Pako, Arcane Retriever",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Elemental Dog",
+      "uri": "https://api.scryfall.com/cards/066c8f63-52e6-475e-8d27-6ee37e92fc05"
+    },
+    {
+      "component": "combo_piece",
+      "id": "16a86a35-f7e5-434d-bf44-61ae7cb0f98b",
+      "name": "Haldan, Avid Arcanist",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Wizard",
+      "uri": "https://api.scryfall.com/cards/16a86a35-f7e5-434d-bf44-61ae7cb0f98b"
+    }
+  ],
+  "artist": "Manuel Castañón",
+  "artist_ids": [
+    "35f11eeb-36ff-4059-bb70-d1274f5bd858"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 452263,
+  "cmc": 5.0,
+  "collector_number": "13",
+  "color_identity": [
+    "G",
+    "R"
+  ],
+  "colors": [
+    "G",
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 18735,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "066c8f63-52e6-475e-8d27-6ee37e92fc05",
+  "illustration_id": "27461402-c857-4141-b750-9f083617b368",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:27:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/6/066c8f63-52e6-475e-8d27-6ee37e92fc05.webp?1783931230",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/6/066c8f63-52e6-475e-8d27-6ee37e92fc05.jpg?1783931230",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/6/066c8f63-52e6-475e-8d27-6ee37e92fc05.jpg?1783931230",
+    "crop": "https://cards.scryfall.io/crop/front/0/6/066c8f63-52e6-475e-8d27-6ee37e92fc05.webp?1783931230",
+    "display": "https://cards.scryfall.io/display/front/0/6/066c8f63-52e6-475e-8d27-6ee37e92fc05.webp?1783931230",
+    "grid": "https://cards.scryfall.io/grid/front/0/6/066c8f63-52e6-475e-8d27-6ee37e92fc05.webp?1783931230",
+    "large": "https://cards.scryfall.io/large/front/0/6/066c8f63-52e6-475e-8d27-6ee37e92fc05.jpg?1783931230",
+    "normal": "https://cards.scryfall.io/normal/front/0/6/066c8f63-52e6-475e-8d27-6ee37e92fc05.jpg?1783931230",
+    "png": "https://cards.scryfall.io/png/front/0/6/066c8f63-52e6-475e-8d27-6ee37e92fc05.png?1783931230",
+    "small": "https://cards.scryfall.io/small/front/0/6/066c8f63-52e6-475e-8d27-6ee37e92fc05.jpg?1783931230",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/6/066c8f63-52e6-475e-8d27-6ee37e92fc05.webp?1783931230"
+  },
+  "keywords": [
+    "Partner with",
+    "Haste",
+    "Partner"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{R}{G}",
+  "mtgo_id": 80749,
+  "multiverse_ids": [
+    484720
+  ],
+  "name": "Pako, Arcane Retriever",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "680a3e17-5144-4e97-bc59-9f5fc3ad6514",
+  "oracle_text": "Partner with Haldan, Avid Arcanist\nHaste\nWhenever Pako attacks, exile the top card of each player's library and put a fetch counter on each of them. Put a +1/+1 counter on Pako for each noncreature card exiled this way.",
+  "oversized": false,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2020-04-05",
+    "source": "Commanders Brew",
+    "source_uri": "https://twitter.com/CommandersBrew/status/1246799932754997248"
+  },
+  "prices": {
+    "eur": "0.93",
+    "eur_foil": "0.95",
+    "tix": "3.56",
+    "usd": "1.18",
+    "usd_etched": null,
+    "usd_foil": "0.83"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A680a3e17-5144-4e97-bc59-9f5fc3ad6514&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/80749?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=452263&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F212182%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Pako%2C+Arcane+Retriever",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=484720&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPako%252C%2BArcane%2BRetriever",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPako%252C%2BArcane%2BRetriever"
+  },
+  "released_at": "2020-04-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/066c8f63-52e6-475e-8d27-6ee37e92fc05/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c20?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c20/13/pako-arcane-retriever?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c20",
+  "set_id": "f60ec786-1f8d-42f7-9abc-0d880fe243f6",
+  "set_name": "Commander 2020",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac20&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/f60ec786-1f8d-42f7-9abc-0d880fe243f6",
+  "story_spotlight": false,
+  "tcgplayer_id": 212182,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Legendary Creature — Elemental Dog",
+  "uri": "https://api.scryfall.com/cards/066c8f63-52e6-475e-8d27-6ee37e92fc05",
+  "variation": false
+}

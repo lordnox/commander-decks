@@ -1,0 +1,134 @@
+{
+  "artist": "Michael MacRae",
+  "artist_ids": [
+    "4704d907-4fb1-402c-858f-bacf989fa156"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 891835,
+  "cmc": 4.0,
+  "collector_number": "166",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 1618,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9cb5d064-f474-4db9-b349-b9f71c587742",
+  "illustration_id": "0c493c7f-9bc6-42d2-8930-2533a58c49ae",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:40:32Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/c/9cb5d064-f474-4db9-b349-b9f71c587742.webp?1783903232",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/c/9cb5d064-f474-4db9-b349-b9f71c587742.jpg?1783903232",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/c/9cb5d064-f474-4db9-b349-b9f71c587742.jpg?1783903232",
+    "crop": "https://cards.scryfall.io/crop/front/9/c/9cb5d064-f474-4db9-b349-b9f71c587742.webp?1783903232",
+    "display": "https://cards.scryfall.io/display/front/9/c/9cb5d064-f474-4db9-b349-b9f71c587742.webp?1783903232",
+    "grid": "https://cards.scryfall.io/grid/front/9/c/9cb5d064-f474-4db9-b349-b9f71c587742.webp?1783903232",
+    "large": "https://cards.scryfall.io/large/front/9/c/9cb5d064-f474-4db9-b349-b9f71c587742.jpg?1783903232",
+    "normal": "https://cards.scryfall.io/normal/front/9/c/9cb5d064-f474-4db9-b349-b9f71c587742.jpg?1783903232",
+    "png": "https://cards.scryfall.io/png/front/9/c/9cb5d064-f474-4db9-b349-b9f71c587742.png?1783903232",
+    "small": "https://cards.scryfall.io/small/front/9/c/9cb5d064-f474-4db9-b349-b9f71c587742.jpg?1783903232",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/c/9cb5d064-f474-4db9-b349-b9f71c587742.webp?1783903232"
+  },
+  "keywords": [
+    "Flashback"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{R}",
+  "mtgo_id": 150801,
+  "multiverse_ids": [],
+  "name": "Seize the Day",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2a6abd59-e448-46f1-9af8-bb9040645971",
+  "oracle_text": "Untap target creature. After this main phase, there is an additional combat phase followed by an additional main phase.\nFlashback {2}{R} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+  "oversized": false,
+  "prices": {
+    "eur": "2.24",
+    "eur_foil": null,
+    "tix": "0.19",
+    "usd": "2.03",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2a6abd59-e448-46f1-9af8-bb9040645971&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150801?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891835&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F697602%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Seize+the+Day",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSeize%2Bthe%2BDay",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSeize%2Bthe%2BDay"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "BAEA26E9EA75EA6B8C8F5FC49492DC8C951325A7F72C46AD3E989E8790CC5A69",
+  "rulings_uri": "https://api.scryfall.com/cards/9cb5d064-f474-4db9-b349-b9f71c587742/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/166/seize-the-day?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 697602,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/9cb5d064-f474-4db9-b349-b9f71c587742",
+  "variation": false
+}

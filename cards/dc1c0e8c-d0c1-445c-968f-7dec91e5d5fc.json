@@ -1,0 +1,130 @@
+{
+  "artist": "Christopher Moeller",
+  "artist_ids": [
+    "21e10012-06ae-44f2-b38d-3824dd2e73d4"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 514599,
+  "cmc": 4.0,
+  "collector_number": "416",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 1556,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "97622209-9357-4347-8961-f77f8d2389d8",
+  "illustration_id": "9f9f3840-3094-4c32-b2e9-97a5a2eb81ef",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:45:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/7/97622209-9357-4347-8961-f77f8d2389d8.webp?1783928712",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/7/97622209-9357-4347-8961-f77f8d2389d8.jpg?1783928712",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/7/97622209-9357-4347-8961-f77f8d2389d8.jpg?1783928712",
+    "crop": "https://cards.scryfall.io/crop/front/9/7/97622209-9357-4347-8961-f77f8d2389d8.webp?1783928712",
+    "display": "https://cards.scryfall.io/display/front/9/7/97622209-9357-4347-8961-f77f8d2389d8.webp?1783928712",
+    "grid": "https://cards.scryfall.io/grid/front/9/7/97622209-9357-4347-8961-f77f8d2389d8.webp?1783928712",
+    "large": "https://cards.scryfall.io/large/front/9/7/97622209-9357-4347-8961-f77f8d2389d8.jpg?1783928712",
+    "normal": "https://cards.scryfall.io/normal/front/9/7/97622209-9357-4347-8961-f77f8d2389d8.jpg?1783928712",
+    "png": "https://cards.scryfall.io/png/front/9/7/97622209-9357-4347-8961-f77f8d2389d8.png?1783928712",
+    "small": "https://cards.scryfall.io/small/front/9/7/97622209-9357-4347-8961-f77f8d2389d8.jpg?1783928712",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/7/97622209-9357-4347-8961-f77f8d2389d8.webp?1783928712"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}{R}",
+  "mtgo_id": 85644,
+  "multiverse_ids": [
+    500896
+  ],
+  "name": "Relentless Assault",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "dc1c0e8c-d0c1-445c-968f-7dec91e5d5fc",
+  "oracle_text": "Untap all creatures that attacked this turn. After this main phase, there is an additional combat phase followed by an additional main phase.",
+  "oversized": false,
+  "penny_rank": 11016,
+  "prices": {
+    "eur": "2.55",
+    "eur_foil": null,
+    "tix": "0.03",
+    "usd": "4.60",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Adc1c0e8c-d0c1-445c-968f-7dec91e5d5fc&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/85644?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=514599&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F227319%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Relentless+Assault",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=500896&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRelentless%2BAssault",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRelentless%2BAssault"
+  },
+  "released_at": "2020-11-20",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/97622209-9357-4347-8961-f77f8d2389d8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmr/416/relentless-assault?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmr",
+  "set_id": "39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "set_name": "Commander Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "story_spotlight": false,
+  "tcgplayer_id": 227319,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/97622209-9357-4347-8961-f77f8d2389d8",
+  "variation": false
+}

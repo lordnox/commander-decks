@@ -1,0 +1,158 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "d3db07a7-cc44-443c-bd38-ed3be3f2d776",
+      "name": "The Lost and the Damned",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/d3db07a7-cc44-443c-bd38-ed3be3f2d776"
+    },
+    {
+      "component": "token",
+      "id": "eea89316-1205-4a73-be33-ac2a433edb41",
+      "name": "Spawn",
+      "object": "related_card",
+      "type_line": "Token Creature — Spawn",
+      "uri": "https://api.scryfall.com/cards/eea89316-1205-4a73-be33-ac2a433edb41"
+    }
+  ],
+  "artist": "Henry Peters",
+  "artist_ids": [
+    "2ffd9e06-94af-44f5-bec6-06f781941a6c"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 675321,
+  "cmc": 3.0,
+  "collector_number": "129",
+  "color_identity": [
+    "R",
+    "U"
+  ],
+  "colors": [
+    "R",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 5650,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "The gods of Chaos bestow gifts of mutations upon their champions. Too many of these gifts transform their bearer into mindless, writhing chaos spawn.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9a53cf96-b47f-48f0-b9cc-3330ae546a87",
+  "illustration_id": "87f64682-38aa-4c60-a414-a1473fc259fc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:34:04Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/a/9a53cf96-b47f-48f0-b9cc-3330ae546a87.webp?1783920844",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/a/9a53cf96-b47f-48f0-b9cc-3330ae546a87.jpg?1783920844",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/a/9a53cf96-b47f-48f0-b9cc-3330ae546a87.jpg?1783920844",
+    "crop": "https://cards.scryfall.io/crop/front/9/a/9a53cf96-b47f-48f0-b9cc-3330ae546a87.webp?1783920844",
+    "display": "https://cards.scryfall.io/display/front/9/a/9a53cf96-b47f-48f0-b9cc-3330ae546a87.webp?1783920844",
+    "grid": "https://cards.scryfall.io/grid/front/9/a/9a53cf96-b47f-48f0-b9cc-3330ae546a87.webp?1783920844",
+    "large": "https://cards.scryfall.io/large/front/9/a/9a53cf96-b47f-48f0-b9cc-3330ae546a87.jpg?1783920844",
+    "normal": "https://cards.scryfall.io/normal/front/9/a/9a53cf96-b47f-48f0-b9cc-3330ae546a87.jpg?1783920844",
+    "png": "https://cards.scryfall.io/png/front/9/a/9a53cf96-b47f-48f0-b9cc-3330ae546a87.png?1783920844",
+    "small": "https://cards.scryfall.io/small/front/9/a/9a53cf96-b47f-48f0-b9cc-3330ae546a87.jpg?1783920844",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/a/9a53cf96-b47f-48f0-b9cc-3330ae546a87.webp?1783920844"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{R}",
+  "mtgo_id": 108730,
+  "multiverse_ids": [
+    580951
+  ],
+  "name": "The Lost and the Damned",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "22e70ad0-1a9c-4d9e-8cc1-ebea485282ca",
+  "oracle_text": "Whenever a land you control enters from anywhere other than your hand or you cast a spell from anywhere other than your hand, create a 3/3 red Spawn creature token.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2022-09-14",
+    "source": "LoadingReadyRun",
+    "source_uri": "https://www.youtube.com/watch?v=Dghfv1yptDI"
+  },
+  "prices": {
+    "eur": "4.66",
+    "eur_foil": null,
+    "tix": "0.64",
+    "usd": "3.98",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A22e70ad0-1a9c-4d9e-8cc1-ebea485282ca&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/108730?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=675321&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F286169%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+Lost+and+the+Damned",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=580951&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BLost%2Band%2Bthe%2BDamned",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BLost%2Band%2Bthe%2BDamned"
+  },
+  "released_at": "2022-10-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9a53cf96-b47f-48f0-b9cc-3330ae546a87/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/40k?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/40k/129/the-lost-and-the-damned?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "40k",
+  "set_id": "f35f5dd8-5b95-4f52-bbe7-1c62909a8d08",
+  "set_name": "Warhammer 40,000 Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A40k&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/f35f5dd8-5b95-4f52-bbe7-1c62909a8d08",
+  "story_spotlight": false,
+  "tcgplayer_id": 286169,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/9a53cf96-b47f-48f0-b9cc-3330ae546a87",
+  "variation": false
+}

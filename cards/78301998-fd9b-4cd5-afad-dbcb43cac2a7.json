@@ -1,0 +1,174 @@
+{
+  "arena_id": 73363,
+  "artist": "Adam Paquette",
+  "artist_ids": [
+    "89023dad-e6c0-41e0-83fb-eb2bfbbdc3f2"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Adam Paquette",
+      "artist_id": "89023dad-e6c0-41e0-83fb-eb2bfbbdc3f2",
+      "colors": [
+        "R"
+      ],
+      "illustration_id": "edd3461f-d3ca-4b82-b8ed-20bf4276a3a6",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.webp?1783929355",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.jpg?1783929355",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.jpg?1783929355",
+        "crop": "https://cards.scryfall.io/crop/front/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.webp?1783929355",
+        "display": "https://cards.scryfall.io/display/front/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.webp?1783929355",
+        "grid": "https://cards.scryfall.io/grid/front/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.webp?1783929355",
+        "large": "https://cards.scryfall.io/large/front/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.jpg?1783929355",
+        "normal": "https://cards.scryfall.io/normal/front/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.jpg?1783929355",
+        "png": "https://cards.scryfall.io/png/front/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.png?1783929355",
+        "small": "https://cards.scryfall.io/small/front/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.jpg?1783929355",
+        "thumb": "https://cards.scryfall.io/thumb/front/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.webp?1783929355"
+      },
+      "mana_cost": "{X}{R}{R}",
+      "name": "Shatterskull Smashing",
+      "object": "card_face",
+      "oracle_text": "Shatterskull Smashing deals X damage divided as you choose among up to two target creatures and/or planeswalkers. If X is 6 or more, Shatterskull Smashing deals twice X damage divided as you choose among them instead.",
+      "type_line": "Sorcery"
+    },
+    {
+      "artist": "Adam Paquette",
+      "artist_id": "89023dad-e6c0-41e0-83fb-eb2bfbbdc3f2",
+      "colors": [],
+      "flavor_text": "\"The safest way across the Skyfangs is to fly. Shatterskull Pass is a pretty distant second.\"\n—Samila, Murasa Expeditionary House",
+      "illustration_id": "ce684b88-adab-4225-8d58-4a791f164b94",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.webp?1783929355",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.jpg?1783929355",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.jpg?1783929355",
+        "crop": "https://cards.scryfall.io/crop/back/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.webp?1783929355",
+        "display": "https://cards.scryfall.io/display/back/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.webp?1783929355",
+        "grid": "https://cards.scryfall.io/grid/back/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.webp?1783929355",
+        "large": "https://cards.scryfall.io/large/back/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.jpg?1783929355",
+        "normal": "https://cards.scryfall.io/normal/back/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.jpg?1783929355",
+        "png": "https://cards.scryfall.io/png/back/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.png?1783929355",
+        "small": "https://cards.scryfall.io/small/back/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.jpg?1783929355",
+        "thumb": "https://cards.scryfall.io/thumb/back/b/c/bc7239ea-f8aa-4a6f-87bd-c35359635673.webp?1783929355"
+      },
+      "mana_cost": "",
+      "name": "Shatterskull, the Hammer Pass",
+      "object": "card_face",
+      "oracle_text": "As this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {R}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 495740,
+  "cmc": 2.0,
+  "collector_number": "161",
+  "color_identity": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 1389,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "bc7239ea-f8aa-4a6f-87bd-c35359635673",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:55:55Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 83297,
+  "multiverse_ids": [
+    491802,
+    491803
+  ],
+  "name": "Shatterskull Smashing // Shatterskull, the Hammer Pass",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "78301998-fd9b-4cd5-afad-dbcb43cac2a7",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2020-09-04",
+    "source": "Mashable",
+    "source_uri": "https://mashable.com/article/magic-the-gathering-zendikar-rising-reveal-shatterskull/"
+  },
+  "prices": {
+    "eur": "7.39",
+    "eur_foil": "8.37",
+    "tix": "2.25",
+    "usd": "8.84",
+    "usd_etched": null,
+    "usd_foil": "9.71"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A78301998-fd9b-4cd5-afad-dbcb43cac2a7&unique=prints",
+  "produced_mana": [
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/83297?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=495740&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F222030%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Shatterskull+Smashing",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=491802&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DShatterskull%2BSmashing%2B%252F%252F%2BShatterskull%252C%2Bthe%2BHammer%2BPass",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DShatterskull%2BSmashing%2B%252F%252F%2BShatterskull%252C%2Bthe%2BHammer%2BPass"
+  },
+  "released_at": "2020-09-25",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/bc7239ea-f8aa-4a6f-87bd-c35359635673/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/znr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/znr/161/shatterskull-smashing-shatterskull-the-hammer-pass?utm_source=api",
+  "security_stamp": "oval",
+  "set": "znr",
+  "set_id": "f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "set_name": "Zendikar Rising",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aznr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "story_spotlight": false,
+  "tcgplayer_id": 222030,
+  "textless": false,
+  "type_line": "Sorcery // Land",
+  "uri": "https://api.scryfall.com/cards/bc7239ea-f8aa-4a6f-87bd-c35359635673",
+  "variation": false
+}

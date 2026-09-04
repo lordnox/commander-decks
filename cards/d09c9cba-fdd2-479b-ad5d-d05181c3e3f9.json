@@ -1,0 +1,132 @@
+{
+  "artist": "Randy Vargas",
+  "artist_ids": [
+    "d20672ca-0555-4238-a984-fd171d36b247"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 722524,
+  "cmc": 3.0,
+  "collector_number": "94",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 82,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Hunt somewhere else. This is your only warning.\"\n—Gavi, nest warden",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": true,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc",
+  "illustration_id": "442f8011-9c74-4a3d-a569-941e372f62eb",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:08:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/7/f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc.webp?1783915698",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/7/f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc.jpg?1783915698",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/7/f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc.jpg?1783915698",
+    "crop": "https://cards.scryfall.io/crop/front/f/7/f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc.webp?1783915698",
+    "display": "https://cards.scryfall.io/display/front/f/7/f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc.webp?1783915698",
+    "grid": "https://cards.scryfall.io/grid/front/f/7/f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc.webp?1783915698",
+    "large": "https://cards.scryfall.io/large/front/f/7/f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc.jpg?1783915698",
+    "normal": "https://cards.scryfall.io/normal/front/f/7/f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc.jpg?1783915698",
+    "png": "https://cards.scryfall.io/png/front/f/7/f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc.png?1783915698",
+    "small": "https://cards.scryfall.io/small/front/f/7/f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc.jpg?1783915698",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/7/f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc.webp?1783915698"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "banned",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "banned",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "banned",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 115287,
+  "multiverse_ids": [
+    622702
+  ],
+  "name": "Fierce Guardianship",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d09c9cba-fdd2-479b-ad5d-d05181c3e3f9",
+  "oracle_text": "If you control a commander, you may cast this spell without paying its mana cost.\nCounter target noncreature spell.",
+  "oversized": false,
+  "prices": {
+    "eur": "47.26",
+    "eur_foil": "62.95",
+    "tix": "3.20",
+    "usd": "59.12",
+    "usd_etched": null,
+    "usd_foil": "76.42"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad09c9cba-fdd2-479b-ad5d-d05181c3e3f9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/115287?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=722524&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F504561%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Fierce+Guardianship",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=622702&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFierce%2BGuardianship",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFierce%2BGuardianship"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/94/fierce-guardianship?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 504561,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc",
+  "variation": false
+}

@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "cards": {
+    "44661108-d72f-4d02-9303-7e4b0ecf7e9c": {
+      "name": "Bear Umbra",
+      "categories": [
+        "combat-mana",
+        "aura",
+        "protection"
+      ]
+    },
+    "5b84101e-7e23-437d-835c-409bc061ecbb": {
+      "name": "Canopy Cover",
+      "categories": [
+        "protection",
+        "evasion",
+        "aura"
+      ]
+    },
+    "f61680da-606e-4d16-b0a0-361aa5210901": {
+      "name": "Chandra's Ignition",
+      "categories": [
+        "win-condition",
+        "board-wipe"
+      ]
+    },
+    "ae120613-97d6-4393-b39d-c3e6c076f5d6": {
+      "name": "Deflecting Swat",
+      "categories": [
+        "protection"
+      ]
+    },
+    "99915b5a-5092-4900-8824-6de2aab1b2c1": {
+      "name": "Delayed Blast Fireball",
+      "categories": [
+        "removal",
+        "exile-payoff"
+      ]
+    },
+    "3ca32660-bf5f-4398-bef6-a0ec8bc767cf": {
+      "name": "Doc Aurlock, Grizzled Genius",
+      "categories": [
+        "exile-cast"
+      ]
+    },
+    "a6e12be3-4166-4bd7-8254-e28b7c8588c7": {
+      "name": "Expel from Orazca",
+      "categories": [
+        "bounce"
+      ]
+    },
+    "0c2841bb-038c-4fbf-8360-bc0a1522b58d": {
+      "name": "Exploration",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "d09c9cba-fdd2-479b-ad5d-d05181c3e3f9": {
+      "name": "Fierce Guardianship",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "aceac269-5100-428a-a4a3-bac57031e30b": {
+      "name": "Guild Artisan",
+      "categories": [
+        "combat-mana",
+        "token-production"
+      ]
+    },
+    "c9db6b94-a7b1-4b93-b454-4dead8f85e34": {
+      "name": "Hinder",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "a3faf698-1dac-45ef-9c43-c8cead489ffc": {
+      "name": "Irenicus's Vile Duplication",
+      "categories": [
+        "copy"
+      ]
+    },
+    "aa6c4079-72e1-4b2e-bd26-9399298c6105": {
+      "name": "Leyline Immersion",
+      "categories": [
+        "ramp",
+        "aura",
+        "protection"
+      ]
+    },
+    "18a98d44-54ee-4d6d-ab32-27e294ac8995": {
+      "name": "Mark of Sakiko",
+      "categories": [
+        "combat-mana"
+      ]
+    },
+    "bbfb3e4a-b389-4391-8141-13b68c0ef2e0": {
+      "name": "Memory Lapse",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "6288c0cb-cf32-4ae9-abf0-104ec71654fa": {
+      "name": "Moraug, Fury of Akoum",
+      "categories": [
+        "extra-combat"
+      ]
+    },
+    "78826359-fe63-44ad-adc4-a17ffcd710e4": {
+      "name": "Nature's Lore",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "3407fe41-fdd3-4119-8f70-4bc4590a379f": {
+      "name": "Negate",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "97cabeda-9fe3-490d-99b4-4c8d87c17157": {
+      "name": "Noxious Revival",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "e31235f0-1f25-4158-b46e-cacde2f58b7e": {
+      "name": "Overpowering Attack",
+      "categories": [
+        "extra-combat"
+      ]
+    },
+    "6299d18e-a6a7-414c-85c0-d57a8e7d2627": {
+      "name": "Passionate Archaeologist",
+      "categories": [
+        "exile-payoff",
+        "win-condition"
+      ]
+    },
+    "197582b9-4c86-41a3-ad0c-789a0db8e087": {
+      "name": "Quantum Misalignment",
+      "categories": [
+        "copy"
+      ]
+    },
+    "dc1c0e8c-d0c1-445c-968f-7dec91e5d5fc": {
+      "name": "Relentless Assault",
+      "categories": [
+        "extra-combat"
+      ]
+    },
+    "89d1cd45-8148-4396-a9b8-e0f495e94b5b": {
+      "name": "Savage Beating",
+      "categories": [
+        "extra-combat"
+      ]
+    },
+    "2a6abd59-e448-46f1-9af8-bb9040645971": {
+      "name": "Seize the Day",
+      "categories": [
+        "extra-combat"
+      ]
+    },
+    "8b27326f-e7b8-4a4d-b589-df459246d19a": {
+      "name": "Shadowspear",
+      "categories": [
+        "equipment",
+        "protection"
+      ]
+    },
+    "78301998-fd9b-4cd5-afad-dbcb43cac2a7": {
+      "name": "Shatterskull Smashing // Shatterskull, the Hammer Pass",
+      "categories": [
+        "land",
+        "removal"
+      ]
+    },
+    "338747e8-bed8-4e60-8b19-5c2b80799477": {
+      "name": "Soul Immolation",
+      "categories": [
+        "win-condition"
+      ]
+    },
+    "3adc3af3-5086-4d61-b38c-c1dddeaeebe6": {
+      "name": "Stubborn Denial",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "e5df4597-1647-4ac2-bdb3-a517598d1431": {
+      "name": "Summer Bloom",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "c8b143ad-43ec-4e0d-a440-e348daa31391": {
+      "name": "Swiftfoot Boots",
+      "categories": [
+        "protection",
+        "equipment"
+      ]
+    },
+    "d0901053-6de0-46d0-9ee3-8d40510236c1": {
+      "name": "Sword of Feast and Famine",
+      "categories": [
+        "equipment",
+        "protection",
+        "combat-mana"
+      ]
+    },
+    "1d7a4e9c-b3c9-421e-b5f4-82d51d7d5125": {
+      "name": "Temporal Spring",
+      "categories": [
+        "bounce"
+      ]
+    },
+    "fd1998c0-c18e-4310-82de-b6320be5fe10": {
+      "name": "The Last Agni Kai",
+      "categories": [
+        "removal",
+        "ramp"
+      ]
+    },
+    "22e70ad0-1a9c-4d9e-8cc1-ebea485282ca": {
+      "name": "The Lost and the Damned",
+      "categories": [
+        "exile-cast",
+        "token-production"
+      ]
+    },
+    "37a2a31d-51e6-4c07-b4c2-b206ad40eb42": {
+      "name": "The Reaver Cleaver",
+      "categories": [
+        "equipment",
+        "combat-mana",
+        "token-production"
+      ]
+    },
+    "1b882a0e-0ede-4d1a-bd1a-9b7cffbcde8e": {
+      "name": "Three Visits",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "27e0948b-9916-473b-8d8c-a51bdfbc7457": {
+      "name": "Underworld Breach",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "6f856f99-4cb4-479d-958d-964220965ed6": {
+      "name": "Wilderness Reclamation",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "a178a789-1f5f-46ca-a90b-574bd236a671": {
+      "name": "Winged Boots",
+      "categories": [
+        "protection",
+        "equipment",
+        "evasion"
+      ]
+    }
+  }
+}
