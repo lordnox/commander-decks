@@ -2,7 +2,8 @@
 
 `simulate-table` plays a game and writes `<slug>.json`. Start with
 `bun run table:deal`; extend a truncated log with `bun run table:continue --
-<table>.json --turns 3`. The separate `render-table-replay` skill validates
+<table>.json --turns 3`, which prepares `<slug>.working.json` for the agent to
+play and leaves the recorded replay alone. The separate `render-table-replay` skill validates
 that log and writes `<slug>.html`: a self-contained viewer with a felt table,
 life totals, a centre panel naming the current event, the stack, fixed
 transport controls, a collapsible event log, a step slider, and card art on
