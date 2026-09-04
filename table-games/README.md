@@ -55,4 +55,4 @@ loads a full snapshot JSON into chat.
   — seed 1729, Bartolomé combo win on turn 5.
 - [Jalira vs Jon vs Evangela vs Sygg](seed1729-jalira-jon-eva-sygg.md)
   ([watch](https://lordnox.github.io/commander-decks/?game=seed1729-jalira-jon-eva-sygg))
-  — seed 1729, The Polyfisher wins on turn 12 at three life, with Vile Consumption nearly getting there first.
+  — seed 1729, truncated at turn 12; only Thousand Cuts dies, after Jon's Yukora copy wipes Jalira's board and Aetherize undoes her comeback.

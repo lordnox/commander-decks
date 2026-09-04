@@ -3,18 +3,21 @@
 Four-player Bracket 2+ game recorded with `simulate-table`. Turn order is
 clockwise from p1. The React player reads its validated public replay data.
 
-**Result:** [The Polyfisher](../decks/2+_jalira-the-polyfisher/README.md) wins on
-turn 12 at three life. Every payment is tapped for in the replay, so the whole
-table plays a turn slower than it looks — and Jalira plays a turn faster,
-because her commander is castable on turn three.
+**Result:** no winner inside the twelve-turn horizon. Only
+[Thousand Cuts](../decks/2+_sygg-thousand-cuts/README.md) is eliminated, on turn
+8. [Unwanted Presents](../decks/2+_jon-irenicus-unwanted-presents/README.md)
+gives [The Polyfisher](../decks/2+_jalira-the-polyfisher/README.md) two presents
+she never asked for — a copy of Yukora that eats her own board on turn 6, and an
+[Aetherize](https://scryfall.com/card/gtc/32/aetherize) that returns her entire
+attack on turn 11.
 
 ## Seats
 
 | Seat | Deck | Commander | Mulligans | Final life | Outcome |
 |---|---|---|---|---|---|
-| p1 | [The Polyfisher](../decks/2+_jalira-the-polyfisher/README.md) | [Jalira, Master Polymorphist](https://scryfall.com/card/a25/63/jalira-master-polymorphist) | 1 | 3 | **Winner, turn 12** |
-| p2 | [Unwanted Presents](../decks/2+_jon-irenicus-unwanted-presents/README.md) | [Jon Irenicus, Shattered One](https://scryfall.com/card/clb/278/jon-irenicus-shattered-one) | 0 | 0 | Eliminated turn 11 |
-| p3 | [Foggy Blood Transfusion](../decks/2+_lady-evangela-foggy-blood-transfusion/README.md) | [Lady Evangela](https://scryfall.com/card/leg/240/lady-evangela) | 1 | 0 | Eliminated turn 12 |
+| p1 | [The Polyfisher](../decks/2+_jalira-the-polyfisher/README.md) | [Jalira, Master Polymorphist](https://scryfall.com/card/a25/63/jalira-master-polymorphist) | 1 | 7 | Alive at the horizon |
+| p2 | [Unwanted Presents](../decks/2+_jon-irenicus-unwanted-presents/README.md) | [Jon Irenicus, Shattered One](https://scryfall.com/card/clb/278/jon-irenicus-shattered-one) | 0 | 14 | Alive at the horizon |
+| p3 | [Foggy Blood Transfusion](../decks/2+_lady-evangela-foggy-blood-transfusion/README.md) | [Lady Evangela](https://scryfall.com/card/leg/240/lady-evangela) | 1 | 11 | Alive at the horizon |
 | p4 | [Thousand Cuts](../decks/2+_sygg-thousand-cuts/README.md) | [Sygg, River Cutthroat](https://scryfall.com/card/znc/103/sygg-river-cutthroat) | 2 | 0 | Eliminated turn 8 |
 
 Jalira mulliganed a two-giant seven and kept five Islands plus
@@ -37,16 +40,10 @@ Jon taps Island and [Gloomlake Verge](https://scryfall.com/card/dsk/260/gloomlak
 for [Mystic Remora](https://scryfall.com/card/dmr/59/mystic-remora)'s second
 age counter, which leaves only a colorless
 [Rogue's Passage](https://scryfall.com/card/soc/407/rogues-passage) and no
-Drinker of Sorrow this turn.
-
-**Turn 3 — Map waits for the end step.**
-[Expedition Map](https://scryfall.com/card/fdn/724/expedition-map) has no timing
-restriction on its activation, so Evangela leaves two lands open through her own
-turn and only cracks it on the end step, one turn before she actually needs the
-land. [Eclipsed Steppe](https://scryfall.com/card/otj/262/eclipsed-steppe) takes
-the turn-3 drop and enters tapped either way, so
-[Urborg, Tomb of Yawgmoth](https://scryfall.com/card/tsr/287/urborg-tomb-of-yawgmoth)
-is not needed until turn four.
+Drinker of Sorrow this turn. Evangela holds
+[Expedition Map](https://scryfall.com/card/fdn/724/expedition-map) until the end
+step, because the ability has no timing restriction and she does not need the
+land until turn four.
 
 **Turn 4 — Remora goes, the engine starts.** Paying `{3}` would leave Jon one
 mana and no commander, so he lets Remora die after four cards and casts
@@ -55,50 +52,64 @@ Jalira makes the Crab and immediately polymorphs it into
 [Faerie Artisans](https://scryfall.com/card/cmm/92/faerie-artisans), which then
 copies [Crypt Ghast](https://scryfall.com/card/rvr/70/crypt-ghast) and
 [Rug of Smothering](https://scryfall.com/card/clb/336/rug-of-smothering) on the
-same turn cycle. Every creature the table plays is now free Jalira fodder.
+same turn cycle.
 
-**Turn 5 — the golem, one turn early.** Sacrificing the Artisans copy finds
-[Ancient Stone Idol](https://scryfall.com/card/mkc/222/ancient-stone-idol) while
-Artisans itself survives. Evangela finally casts her commander and can switch
-off one attacker a turn; Jon goads the Idol away from himself with
-[Psychic Impetus](https://scryfall.com/card/clu/92/psychic-impetus).
+**Turn 5 — the copy has to be donated too.** Jon casts
+[Sleeper Agent](https://scryfall.com/card/dmr/106/sleeper-agent) and it gives
+itself to Sygg; handing it to Jalira would only be free fodder for a deck that
+sacrifices its own creatures. Faerie Artisans then copies it, and the copy has
+the same enter trigger, so Jalira must donate hers as well. She picks Evangela,
+who has the next upkeep of anyone at the table and eats the two damage before
+her own [Lady Evangela](https://scryfall.com/card/leg/240/lady-evangela) enters
+and exiles the token.
 
-**Turns 6–7 — Lady Evangela redirects the beatdown.** Because Lady Evangela
-would simply prevent the Idol's damage, the goaded 14/14 has to go at Sygg
-instead. [Triplicate Titan](https://scryfall.com/card/c21/79/triplicate-titan)
-and [Void Winnower](https://scryfall.com/card/cmm/315/void-winnower) follow.
-Sygg, at six life, spends [Vile Consumption](https://scryfall.com/card/inv/78/vile-consumption)
-to make every creature at the table cost its controller life each upkeep.
+**Turn 6 — the present under her own board.** Jon casts
+[Yukora, the Prisoner](https://scryfall.com/card/chk/144/yukora-the-prisoner)
+and gifts the original to Evangela, but Faerie Artisans has already copied it.
+When Evangela's [Baird](https://scryfall.com/card/dom/9/baird-steward-of-argive)
+enters on the next turn, Artisans exiles the older token — and a token copy
+keeps every ability, including *when Yukora leaves the battlefield, sacrifice
+all non-Ogre creatures you control*. Jalira sacrifices her commander, Faerie
+Artisans, [Ancient Stone Idol](https://scryfall.com/card/mkc/222/ancient-stone-idol)
+and [Triplicate Titan](https://scryfall.com/card/c21/79/triplicate-titan) in one
+trigger. The death triggers refund a 6/12 trampler and three 3/3 Golems, so she
+keeps a board — but the commander and the fishing engine are gone, and Jalira
+costs six to recast.
 
-**Turn 8 — the present that wipes a board.** Sygg dies to the Titan. Jon's
-gifted [Yukora, the Prisoner](https://scryfall.com/card/chk/144/yukora-the-prisoner)
-is goaded and, with Sygg gone, has only Jalira left to attack; the vigilant
-Titan blocks and kills it, and Yukora's leave-the-battlefield trigger makes
-Evangela sacrifice Lady Evangela, Crypt Ghast, Baird and Blood Celebrant at once.
+**Turn 7 — Thousand Cuts gets one real turn.**
+[Scrawling Crawler](https://scryfall.com/card/ltc/153/scrawling-crawler) resolves
+first, so [Urza's Guilt](https://scryfall.com/card/dmr/68/urzas-guilt) drains six
+a seat instead of four and strips three cards from every hand. Jalira discards
+[Void Winnower](https://scryfall.com/card/cmm/315/void-winnower) there, which is
+why nobody spends the rest of the game unable to cast even-cost spells.
 
-**Turns 9–10 — two fogs and a lock.** Void Winnower turns off every even
-mana value, which is the whole rest of Evangela's fog suite:
-[Energy Arc](https://scryfall.com/card/dis/95/energy-arc) and
-[Batwing Brume](https://scryfall.com/card/eve/104/batwing-brume) are both mana
-value two. [Darkness](https://scryfall.com/card/tsb/40/darkness) and
-[Kami of False Hope](https://scryfall.com/card/chk/6/kami-of-false-hope) buy
-one turn each, for the whole table, and then run out.
+**Turn 8 — one death takes three permanents with it.** The Construct, both
+Golems and the goaded [Drinker of Sorrow](https://scryfall.com/card/lgn/66/drinker-of-sorrow)
+finish Sygg. Everything he owns leaves the game with him, so
+[Vile Consumption](https://scryfall.com/card/inv/78/vile-consumption),
+Scrawling Crawler and [Ivory Tower](https://scryfall.com/card/tpr/232/ivory-tower)
+all stop at once. On the same turn cycle the original Yukora is goaded with only
+Jalira left to attack, dies to a Lord of Change block, and wipes Evangela's
+board the same way its copy wiped Jalira's.
+
+**Turn 11 — Repay in Kind, then Aetherize.**
+[Diluvian Primordial](https://scryfall.com/card/gtc/32/diluvian-primordial)
+enters and casts [Repay in Kind](https://scryfall.com/card/m10/113/repay-in-kind)
+free out of Evangela's graveyard, where Urza's Guilt had put it. Jalira has the
+lowest life total, so the whole table drops to hers and Jon is suddenly inside
+one attack. He answers with Aetherize: every attacking creature she controls
+goes back to its *owner's* hand, which sends Drinker of Sorrow,
+[Painwracker Oni](https://scryfall.com/card/chk/128/painwracker-oni) and
+[Greater Harvester](https://scryfall.com/card/chk/113/greater-harvester) home to
+Jon and leaves the Construct token to cease existing. Six turns of fishing undone
+by one instant, and the presents are back in the box ready to be given away
+again.
 
 **Turns 6–12 — the gifts pay Jon back.** Irenicus hands out tapped creatures,
 but they untap on the recipient's untap step and are goaded, so they have to
-attack somebody. Every one of those attacks draws Jon a card: ten in total, two
-a turn from turn 8 once both Drinker and the Oni are out. It is the only card
-advantage he has left after Remora dies, and it still is not enough, because
-Void Winnower makes half of what he draws uncastable.
-
-**Turns 11–12 — Vile Consumption almost wins from the graveyard.** Jon dies to
-Void Winnower and [It That Betrays](https://scryfall.com/card/roe/6/it-that-betrays).
-Jalira is paying seven life an upkeep by then and drops to six, so on the last
-turn she pays for only three attackers and lets the Idol, Lord of Change and
-Hulking Metamorph die. She wins at three life, and the two creatures still
-swinging for her are Jon's gifted
-[Drinker of Sorrow](https://scryfall.com/card/lgn/66/drinker-of-sorrow) and
-[Painwracker Oni](https://scryfall.com/card/chk/128/painwracker-oni).
+attack somebody. Every one of those attacks draws him a card, twice a turn once
+both Drinker and the Oni are out, and it is the only card advantage he has after
+Remora dies. He ends the twelve turns as the healthiest seat with a full grip.
 
 ## Watch it
 
