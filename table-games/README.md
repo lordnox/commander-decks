@@ -1,15 +1,18 @@
 # Table games
 
-`simulate-table` plays a game and writes `<slug>.json`. Start with
-`bun run table:deal`; extend a truncated log with `bun run table:continue --
+`simulate-table` plays a game and writes `<slug>.json`. Fetch exact token
+printings with `bun run deck:tokens -- <deck names>`, then start with
+`bun run table:deal`. Extend a truncated log with `bun run table:continue --
 <table>.json --turns 3`, which prepares `<slug>.working.json` for the agent to
-play and leaves the recorded replay alone. The separate `render-table-replay` skill validates
-that log and writes `<slug>.html`: a self-contained viewer with a felt table,
-life totals, a centre panel naming the current event, the stack, fixed
-transport controls, a collapsible event log, a step slider, and card art on
-hover. Seats that may look at the top of their library — Fblthp, Bolas's
-Citadel — show that card in its own zone. Open the HTML in a browser; GitHub
-will not render it inline.
+play and leaves the recorded replay alone.
+
+The separate `render-table-replay` skill validates that log and writes
+`<slug>.html`: a self-contained viewer with a felt table, life totals, exact
+token art, a centre panel naming the current event, the stack, fixed transport
+controls, a collapsible event log, a step slider, and card art on hover. Seats
+that may look at the top of their library — Fblthp, Bolas's Citadel — show that
+card in its own zone. Open the HTML in a browser; GitHub will not render it
+inline.
 
 Both are gitignored so ordinary runs stay scratch. To keep a game, `git add -f`
 the two files and add a `<slug>.md` recap, since neither JSON nor HTML is

@@ -35,14 +35,15 @@ Whenever the user posts a deck list or asks to begin work on a stored list:
 4. If no deck matches, lock a **deck name** (the brew title, not the commander card) and a short commander slug. Ask when either is ambiguous.
 5. Create `decks/unrated_<commander>-<name>/` (kebab-case) and save the submitted list unchanged as `decklist.txt`.
 6. Run one resolver process to resolve every card through Scryfall and update the repository cache and deck manifest. Wait for a running resolver instead of starting it again.
-7. Assign one or more useful categories to every resolved card. Use universal categories unless the card has a deck-specific role.
-8. Create or refresh the deck's `README.md` by following the `deck-primer` skill.
-9. Follow `tag-deck`: score official Archidekt tags into `tags.json` and show cutoff badges on the primer and root README.
-10. Follow `rank-deck` when goals are declared: write `rankings.json` and show the score badges on the primer; the root index repeats them after the bracket badge.
-11. Regenerate the `Deck primers` index in the root README with `python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<deck-name>`. The whole block between the `deck-index` markers is a generated comparison table built from every deck's directory prefix, `rankings.json`, primer title, and `tags.json`; never hand-edit it.
-12. Add `DECISIONS.md` with a `## How to use` definition, one inclusion entry per unique deck card under `## Cards in`, and a primer link to that file. After swaps, primer rewrites, assessments, or rules arguments, append `## Cards out`, `## Primer`, `## Rules`, or `## Talks`.
-13. Run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<deck-name>` (decision logs are required by default).
-14. Do not analyze or recommend changes until resolution or validation errors are reported or fixed.
+7. Run `bun run deck:tokens -- <deck-name>` to fetch exact Scryfall token printings into `tokens.json`.
+8. Assign one or more useful categories to every resolved card. Use universal categories unless the card has a deck-specific role.
+9. Create or refresh the deck's `README.md` by following the `deck-primer` skill.
+10. Follow `tag-deck`: score official Archidekt tags into `tags.json` and show cutoff badges on the primer and root README.
+11. Follow `rank-deck` when goals are declared: write `rankings.json` and show the score badges on the primer; the root index repeats them after the bracket badge.
+12. Regenerate the `Deck primers` index in the root README with `python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<deck-name>`. The whole block between the `deck-index` markers is a generated comparison table built from every deck's directory prefix, `rankings.json`, primer title, and `tags.json`; never hand-edit it.
+13. Add `DECISIONS.md` with a `## How to use` definition, one inclusion entry per unique deck card under `## Cards in`, and a primer link to that file. After swaps, primer rewrites, assessments, or rules arguments, append `## Cards out`, `## Primer`, `## Rules`, or `## Talks`.
+14. Run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<deck-name>` (decision logs are required by default).
+15. Do not analyze or recommend changes until resolution or validation errors are reported or fixed.
 
 A newly created deck is incomplete until its primer exists and is linked from the root README.
 
@@ -72,6 +73,7 @@ In conversation (not primers or `decklist.txt`), featured card lists should show
 - `table-games/`: replay JSON from `simulate-table` and optional HTML from `render-table-replay` (gitignored except committed examples and this folder's README)
 - `decks/<rating>_<commander>-<name>/decklist.txt`: original user-supplied deck list
 - `decks/<rating>_<commander>-<name>/cards.json`: resolved quantities, effective categories, and compact embedded Oracle details
+- `decks/<rating>_<commander>-<name>/tokens.json`: exact related Scryfall token printings, keyed by printing ID and source card
 - `decks/<rating>_<commander>-<name>/README.md`: deck primer (`# [Commander](scryfall) — Deck Name`), describing only the deck as it currently stands
 - `decks/<rating>_<commander>-<name>/tags.json`: scored Archidekt deck tags and one-line summary
 - `decks/<rating>_<commander>-<name>/rankings.json`: jankiness, fun, oppressiveness, and per-deck identity scores from `rank-deck`

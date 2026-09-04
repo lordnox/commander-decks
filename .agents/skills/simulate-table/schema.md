@@ -16,6 +16,8 @@ does not apply Magic rules.
 | `horizon` | Optional `{throughTurn, extraTurns, fromTurn}` — stop after this turn unless someone wins sooner |
 | `seats` | Four objects, `id` `p1`–`p4` |
 | `catalog` | Map of card name → `{scryfall_uri, image_small, image_normal, type_line, mana_cost, oracle_text, stats}` |
+| `tokens` | Map of exact Scryfall token printing ID → compact token details and images |
+| `token_sources` | Map of seat → source card name → exact token printing IDs |
 | `events` | Ordered list; index `0` is the opening snapshot |
 
 ### Seat
@@ -88,6 +90,7 @@ using the battlefield entry's `note`.
           "name": "Sol Ring",
           "tapped": true,
           "token": false,
+          "token_id": null,
           "commander": false,
           "counters": {},
           "note": ""
@@ -102,8 +105,32 @@ using the battlefield entry's `note`.
 }
 ```
 
-Battlefield entries may omit `token`, `commander`, `counters`, and `note`.
+Battlefield entries may omit `token`, `token_id`, `commander`, `counters`,
+and `note`.
 Do **not** put remaining library names in `state`.
+
+### Tokens
+
+Before dealing, `deck:tokens` reads every deck card's cached Scryfall
+`all_parts`, fetches each related `component: token` printing, and writes
+`decks/<deck>/tokens.json`. The deal copies those entries into top-level
+`tokens` and puts each seat's source-card relationships in `token_sources`.
+
+When a source creates a token, use the exact ID it lists:
+
+```json
+{
+  "name": "Squirrel",
+  "token": true,
+  "token_id": "977ddd05-1aae-46fc-95ce-866710d1c5c6",
+  "tapped": false
+}
+```
+
+The ID chooses the image and Oracle characteristics. This matters when several
+tokens share a name but differ in color, stats, abilities, or art. Tokens
+copied from another permanent may omit `token_id` when there is no printed
+token matching the copied object.
 
 ### Revealed top of library
 

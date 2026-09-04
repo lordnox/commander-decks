@@ -40,6 +40,8 @@ The renderer rejects:
   normal `draw` event;
 - cards referenced by events or public zones but absent from the catalog,
   except tokens;
+- token IDs referenced by battlefield entries but absent from the token
+  catalog;
 - a `revealed_top` list longer than that seat's `library_count`.
 
 It trims unused catalog entries before embedding JSON in the HTML.
@@ -59,7 +61,8 @@ Open the HTML when browser tools are available and verify:
    into three digits;
 7. a seat with `revealed_top` shows a Top of library zone above its
    battlefield;
-8. narrow layouts remain usable with the fixed controls and collapsed log.
+8. battlefield tokens with `token_id` show the exact art named by that ID;
+9. narrow layouts remain usable with the fixed controls and collapsed log.
 
 Do not dump HTML source into chat.
 

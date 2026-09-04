@@ -33,6 +33,21 @@ Do not simulate from names alone when a `cards.json` exists.
 
 ## 2. Deal
 
+Fetch the exact token printings required by the four decklists:
+
+```bash
+bun run deck:tokens -- \
+  "Thousand Cuts" "Borrowed Time" \
+  "Captain of the Dawnsire" "Graveyard Shift"
+```
+
+This reads Scryfall `all_parts` from the cached deck cards, batches only
+missing token IDs through Scryfall, and writes each deck's `tokens.json`.
+Names accept the same title, commander, and folder-slug matching as the dealer;
+omit them for an interactive choice. Commit changed token manifests.
+
+Then deal:
+
 ```bash
 bun run table:deal -- \
   "Thousand Cuts" "Borrowed Time" \
@@ -104,6 +119,10 @@ For every seat, every turn:
    Oracle of Mul Daya, Future Sight — decide from that card and publish it in
    `revealed_top` (see [schema.md](schema.md)), refreshed whenever the top
    changes.
+9. When creating a token, read that source card under the seat's
+   `token_sources` and put its exact Scryfall ID in the battlefield entry's
+   `token_id`. Do not choose a same-name token by memory; printed tokens with
+   the same name can have different characteristics.
 
 Record **every** game action as an event with a full board snapshot (see
 [schema.md](schema.md)). Hidden libraries stay in the agent's working notes,

@@ -146,6 +146,66 @@ def run_primer_check(script: Path, deck_dir: Path) -> subprocess.CompletedProces
     )
 
 
+def token_errors(
+    deck_dir: Path,
+    repo_root: Path,
+    cards: list[dict],
+    cache_by_oracle: dict[str, dict],
+) -> list[str]:
+    path = deck_dir / "tokens.json"
+    command = f"bun run deck:tokens -- {deck_dir.relative_to(repo_root)}"
+    if not path.is_file():
+        return [f"missing tokens.json; run {command}"]
+
+    manifest = read_json(path)
+    errors = []
+    expected_sources: dict[str, list[str]] = {}
+    expected_extras = []
+    for entry in cards:
+        cached = cache_by_oracle.get(entry.get("oracle_id"), {})
+        categories = entry.get("categories", [])
+        outside_deck = has_directive(entry, "{noDeck}")
+        token_extra = any(
+            category.startswith("Tokens & Extras") for category in categories
+        )
+        if outside_deck:
+            if token_extra and cached.get("layout") == "token":
+                expected_extras.append(cached.get("id"))
+            continue
+        ids = sorted({
+            part["id"]
+            for part in cached.get("all_parts", [])
+            if part.get("component") == "token" and part.get("id")
+        })
+        if ids:
+            expected_sources[entry.get("name", "?")] = ids
+
+    actual_sources = {
+        name: sorted(ids)
+        for name, ids in manifest.get("produced_by", {}).items()
+    }
+    if actual_sources != expected_sources:
+        errors.append(f"tokens.json source relationships are stale; run {command}")
+    if sorted(manifest.get("extras", [])) != sorted(expected_extras):
+        errors.append(f"tokens.json explicit extras are stale; run {command}")
+
+    required = set(expected_extras)
+    for ids in expected_sources.values():
+        required.update(ids)
+    tokens = manifest.get("tokens", {})
+    if set(tokens) != required:
+        errors.append(f"tokens.json token catalog is stale; run {command}")
+    for token_id, token in tokens.items():
+        if (
+            token.get("id") != token_id
+            or not token.get("name")
+            or not token.get("type_line")
+            or not token.get("image_small")
+        ):
+            errors.append(f"tokens.json has invalid token entry {token_id}")
+    return errors
+
+
 def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True) -> tuple[list[str], list[str]]:
     errors: list[str] = []
     warnings: list[str] = []
@@ -224,6 +284,8 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
             cache_by_oracle[oracle_id] = read_json(cache_path)
         except (json.JSONDecodeError, OSError) as error:
             errors.append(f"invalid cache object {cache_path.relative_to(repo_root)}: {error}")
+
+    errors.extend(token_errors(deck_dir, repo_root, cards, cache_by_oracle))
 
     commander_identity: set[str] = set()
     for entry in commanders:

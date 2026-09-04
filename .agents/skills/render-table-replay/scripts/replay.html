@@ -301,6 +301,7 @@
     const seats = GAME.seats || []
     const events = GAME.events || []
     const catalog = GAME.catalog || {}
+    const tokens = GAME.tokens || {}
     let index = 0
     let timer = null
 
@@ -330,7 +331,7 @@
       .replace(/</g, "&lt;")
 
     const cardHtml = (name, extra = {}) => {
-      const info = catalog[name] || {}
+      const info = (extra.token_id ? tokens[extra.token_id] : catalog[name]) || {}
       const src = info.image_small || ""
       const href = info.scryfall_uri || "#"
       const classes = `${extra.tapped ? " tapped" : ""}${extra.token ? " token" : ""}`
