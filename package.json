@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "scripts": {
+    "table:deal": "bun .agents/skills/simulate-table/scripts/deal-table.ts"
+  }
+}
