@@ -15,9 +15,9 @@ attack on turn 11.
 
 | Seat | Deck | Commander | Mulligans | Final life | Outcome |
 |---|---|---|---|---|---|
-| p1 | [The Polyfisher](../decks/2+_jalira-the-polyfisher/README.md) | [Jalira, Master Polymorphist](https://scryfall.com/card/a25/63/jalira-master-polymorphist) | 1 | 7 | Alive at the horizon |
-| p2 | [Unwanted Presents](../decks/2+_jon-irenicus-unwanted-presents/README.md) | [Jon Irenicus, Shattered One](https://scryfall.com/card/clb/278/jon-irenicus-shattered-one) | 0 | 14 | Alive at the horizon |
-| p3 | [Foggy Blood Transfusion](../decks/2+_lady-evangela-foggy-blood-transfusion/README.md) | [Lady Evangela](https://scryfall.com/card/leg/240/lady-evangela) | 1 | 11 | Alive at the horizon |
+| p1 | [The Polyfisher](../decks/2+_jalira-the-polyfisher/README.md) | [Jalira, Master Polymorphist](https://scryfall.com/card/a25/63/jalira-master-polymorphist) | 1 | 5 | Alive at the horizon |
+| p2 | [Unwanted Presents](../decks/2+_jon-irenicus-unwanted-presents/README.md) | [Jon Irenicus, Shattered One](https://scryfall.com/card/clb/278/jon-irenicus-shattered-one) | 0 | 12 | Alive at the horizon |
+| p3 | [Foggy Blood Transfusion](../decks/2+_lady-evangela-foggy-blood-transfusion/README.md) | [Lady Evangela](https://scryfall.com/card/leg/240/lady-evangela) | 1 | 9 | Alive at the horizon |
 | p4 | [Thousand Cuts](../decks/2+_sygg-thousand-cuts/README.md) | [Sygg, River Cutthroat](https://scryfall.com/card/znc/103/sygg-river-cutthroat) | 2 | 0 | Eliminated turn 8 |
 
 Jalira mulliganed a two-giant seven and kept five Islands plus
@@ -76,12 +76,22 @@ trigger. The death triggers refund a 6/12 trampler and three 3/3 Golems, so she
 keeps a board — but the commander and the fishing engine are gone, and Jalira
 costs six to recast.
 
-**Turn 7 — Thousand Cuts gets one real turn.**
-[Scrawling Crawler](https://scryfall.com/card/ltc/153/scrawling-crawler) resolves
-first, so [Urza's Guilt](https://scryfall.com/card/dmr/68/urzas-guilt) drains six
-a seat instead of four and strips three cards from every hand. Jalira discards
+**Turns 5–7 — Thousand Cuts empties his hand instead of holding it.** Six mana
+on turn 5 buys [Ivory Tower](https://scryfall.com/card/tpr/232/ivory-tower) and
+[Vile Consumption](https://scryfall.com/card/inv/78/vile-consumption), which is
+a full turn earlier than a losing board can afford to wait: every creature at
+the table now costs its controller a life each upkeep, and Jalira's token army
+is the one paying most. Turn 6 is
+[Urza's Guilt](https://scryfall.com/card/dmr/68/urzas-guilt) — four life a seat
+and three cards out of every hand, including his own. Jalira discards
 [Void Winnower](https://scryfall.com/card/cmm/315/void-winnower) there, which is
-why nobody spends the rest of the game unable to cast even-cost spells.
+why nobody spends the rest of the game unable to cast even-cost spells. Turn 7
+is [Scrawling Crawler](https://scryfall.com/card/ltc/153/scrawling-crawler), so
+every card the other three draw, draw step included, costs them a life.
+
+The one creature Vile Consumption cannot touch is a present. Its trigger is
+*sacrifice this creature unless you pay 1 life*, and Irenicus's gifts cannot be
+sacrificed, so declining to pay for them does nothing at all.
 
 **Turn 8 — one death takes three permanents with it.** The Construct, both
 Golems and the goaded [Drinker of Sorrow](https://scryfall.com/card/lgn/66/drinker-of-sorrow)
