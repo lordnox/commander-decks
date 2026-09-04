@@ -40,7 +40,8 @@
     }
     header h1 { margin: 0; font-size: 1.05rem; font-weight: 650; }
     header p { margin: 0; color: var(--muted); }
-    .header-copy { min-width: 0; }
+    .header-copy { min-width: 0; overflow: hidden; }
+    header h1 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     #subhead {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -124,13 +125,46 @@
     .card img { display: block; width: 100%; height: auto; }
     .card.tapped { transform: rotate(90deg); transform-origin: center; }
     .card.token { outline: 1px dashed #e6d27a; }
-    .stack-panel {
+    .zone.revealed h3 { color: #e6d27a; }
+    .zone.revealed .cards { padding-left: 0.35rem; border-left: 2px solid #e6d27a88; }
+    .center {
       grid-area: stack;
-      min-height: 88px;
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      justify-content: center;
+    }
+    .now-panel {
+      padding: 0.6rem 0.75rem;
+      border: 1px solid #e6d27a66;
+      border-radius: 10px;
+      background: #0b1a16f2;
+      box-shadow: 0 6px 22px #0006;
+    }
+    .now-meta {
+      margin: 0 0 0.25rem;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .now-text { margin: 0; color: #f0d9a8; font-size: 1rem; font-weight: 600; }
+    .now-note { margin: 0.35rem 0 0; color: var(--muted); font-size: 12px; }
+    .stack-panel {
+      min-height: 72px;
       padding: 0.5rem;
       border: 1px dashed #e6d27a88;
       border-radius: 10px;
       background: #0b1a16dd;
+    }
+    .stack-panel h3 {
+      margin: 0 0 0.35rem;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
     .log {
       min-width: 0;
@@ -153,10 +187,26 @@
       overflow: auto;
       flex: 1;
       margin: 0;
-      padding: 0 0.75rem 0.75rem 1.8rem;
+      padding: 0 0.75rem 0.75rem;
+      list-style: none;
     }
-    .log li { margin: 0.25rem 0; color: var(--muted); cursor: pointer; }
+    .log li {
+      display: flex;
+      gap: 0.5rem;
+      margin: 0.25rem 0;
+      color: var(--muted);
+      cursor: pointer;
+    }
     .log li.current { color: var(--ink); font-weight: 650; }
+    .log-index {
+      flex: none;
+      width: 3.5ch;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      font-weight: 400;
+      text-align: right;
+    }
+    .log-text { min-width: 0; }
     .controls {
       position: fixed;
       inset: auto 0 0;
@@ -182,14 +232,6 @@
     button:hover { background: #2b6657; }
     button:focus-visible, input:focus-visible { outline: 2px solid #e6d27a; }
     input[type="range"] { min-width: 120px; flex: 1; }
-    .event-line {
-      min-width: 160px;
-      max-width: 38vw;
-      overflow: hidden;
-      color: #f0d9a8;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
     #preview {
       position: fixed;
       right: calc(var(--log-width) + 14px);
@@ -203,7 +245,8 @@
     }
     body.log-hidden #preview { right: 14px; }
     @media (max-width: 840px) {
-      :root { --header-height: 74px; --controls-height: 104px; }
+      :root { --header-height: 64px; --controls-height: 104px; }
+      #clock { display: none; }
       #subhead { max-width: 55vw; }
       .layout { grid-template-columns: minmax(0, 1fr); }
       .table {
@@ -223,7 +266,6 @@
       }
       body.log-hidden .log { transform: translateX(100%); }
       .controls { flex-wrap: wrap; }
-      .event-line { order: 2; min-width: 100%; max-width: 100%; }
       #preview { right: 12px; }
     }
   </style>
@@ -251,7 +293,6 @@
     <button type="button" id="play">Play</button>
     <button type="button" id="next">Next</button>
     <input type="range" id="slider" min="0" value="0" aria-label="Replay event">
-    <span class="event-line" id="event-line"></span>
   </div>
   <img id="preview" alt="">
   <script id="game-data" type="application/json">__GAME_JSON__</script>
@@ -269,7 +310,6 @@
     const headline = document.getElementById("headline")
     const subhead = document.getElementById("subhead")
     const clock = document.getElementById("clock")
-    const eventLine = document.getElementById("event-line")
     const toggleLog = document.getElementById("toggle-log")
 
     headline.textContent = GAME.headline || "Table replay"
@@ -300,13 +340,13 @@
       return `<a class="card${classes}" href="${esc(href)}" target="_blank" rel="noreferrer" title="${esc(name)}" data-preview="${esc(info.image_normal || src)}">${image}</a>`
     }
 
-    const zone = (title, entries) => {
+    const zone = (title, entries, extra = "") => {
       if (!entries?.length) return ""
       const cards = entries.map((entry) => {
         const name = typeof entry === "string" ? entry : entry.name
         return cardHtml(name, entry)
       }).join("")
-      return `<div class="zone"><h3>${title}</h3><div class="cards">${cards}</div></div>`
+      return `<div class="zone${extra}"><h3>${title}</h3><div class="cards">${cards}</div></div>`
     }
 
     const renderSeat = (seat, player, active) => {
@@ -319,6 +359,7 @@
           </div>
           <div class="life">${player.life ?? "?"}</div>
         </div>
+        ${zone("Top of library", player.revealed_top, " revealed")}
         ${zone("Battlefield", player.battlefield)}
         ${zone("Hand", player.hand)}
         ${zone("Graveyard", player.graveyard)}
@@ -337,12 +378,19 @@
       const stack = (state.stack || []).length
         ? state.stack.map((item) => `${esc(item.controller || "")}: ${esc(item.name)}${item.text ? ` — ${esc(item.text)}` : ""}`).join("<br>")
         : "<span class='meta'>Empty</span>"
+      const actor = seats.find((seat) => seat.id === event.seat)
+      const position = `Turn ${event.turn || 0} · ${event.phase || ""} · ${index + 1}/${events.length}`
       table.innerHTML = seats
         .map((seat) => renderSeat(seat, state.players[seat.id], state.active === seat.id))
-        .join("") + `<div class="stack-panel"><h3>Stack</h3>${stack}</div>`
-      clock.textContent = `Turn ${event.turn || 0} · ${event.phase || ""} · ${index + 1}/${events.length}`
-      eventLine.textContent = event.summary || ""
-      eventLine.title = event.summary || ""
+        .join("") + `<div class="center">
+          <div class="now-panel">
+            <p class="now-meta">${esc(position)}${actor ? ` · ${esc(actor.name)}` : ""}</p>
+            <p class="now-text">${esc(event.summary || "")}</p>
+            ${event.note ? `<p class="now-note">${esc(event.note)}</p>` : ""}
+          </div>
+          <div class="stack-panel"><h3>Stack</h3>${stack}</div>
+        </div>`
+      clock.textContent = position
       slider.value = String(index)
       Array.from(log.children).forEach((item, i) => {
         item.classList.toggle("current", i === index)
@@ -352,7 +400,13 @@
 
     events.forEach((event, i) => {
       const item = document.createElement("li")
-      item.textContent = event.summary || `Event ${i}`
+      const number = document.createElement("span")
+      number.className = "log-index"
+      number.textContent = `${i + 1}.`
+      const text = document.createElement("span")
+      text.className = "log-text"
+      text.textContent = event.summary || `Event ${i}`
+      item.append(number, text)
       item.addEventListener("click", () => {
         index = i
         render()

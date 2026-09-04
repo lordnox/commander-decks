@@ -23,7 +23,7 @@ def referenced_cards(events: list[dict]) -> tuple[set[str], set[str]]:
         for player in (state.get("players") or {}).values():
             if not isinstance(player, dict):
                 continue
-            for zone in ("hand", "graveyard", "exile", "command"):
+            for zone in ("hand", "graveyard", "exile", "command", "revealed_top"):
                 names.update(player.get(zone) or [])
             for entry in player.get("battlefield") or []:
                 if not isinstance(entry, dict) or not entry.get("name"):
@@ -88,8 +88,15 @@ def public_game(game: dict) -> dict:
         if state.get("phase") != event.get("phase"):
             raise ValueError(f"event {event['id']}: state phase does not match event")
         for player in state["players"].values():
-            if isinstance(player, dict) and "library" in player:
+            if not isinstance(player, dict):
+                continue
+            if "library" in player:
                 raise ValueError("do not put remaining library cards in state snapshots")
+            top = player.get("revealed_top") or []
+            if len(top) > (player.get("library_count") or 0):
+                raise ValueError(
+                    f"event {event['id']}: revealed_top holds more cards than the library"
+                )
 
     validate_turn_draws(events)
 

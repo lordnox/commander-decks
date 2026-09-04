@@ -94,7 +94,8 @@ using the battlefield entry's `note`.
       ],
       "graveyard": [],
       "exile": [],
-      "command": ["Lady Evangela"]
+      "command": ["Lady Evangela"],
+      "revealed_top": []
     }
   }
 }
@@ -102,3 +103,19 @@ using the battlefield entry's `note`.
 
 Battlefield entries may omit `token`, `commander`, `counters`, and `note`.
 Do **not** put remaining library names in `state`.
+
+### Revealed top of library
+
+`revealed_top` lists library cards the seat may already look at, topmost first,
+and the viewer shows them as their own zone. Use it only while an effect grants
+that knowledge — [Fblthp, Lost on the
+Range](https://scryfall.com/search?q=%22Fblthp%2C+Lost+on+the+Range%22),
+[Bolas's Citadel](https://scryfall.com/search?q=%22Bolas%27s+Citadel%22),
+[Oracle of Mul Daya](https://scryfall.com/search?q=%22Oracle+of+Mul+Daya%22),
+[Future Sight](https://scryfall.com/search?q=%22Future+Sight%22) — or while a
+card is revealed to the whole table.
+
+Those cards are still in the library, so they stay inside `library_count`, and
+the count must never be smaller than the list. Refresh the list in the next
+event whenever the top changes: a draw, a play from the top, a shuffle, or a
+scry. Clear it when the effect leaves the battlefield.
