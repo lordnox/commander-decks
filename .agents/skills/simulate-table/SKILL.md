@@ -102,8 +102,14 @@ python3 .agents/skills/simulate-table/scripts/render_replay.py \
   --out table-games/<slug>.html
 ```
 
+The renderer keeps only the cards this game actually referenced, so the log may
+carry the full four-deck catalog. Write the log compact; it is a generated
+artifact, not a file anyone reads by hand.
+
 Open the HTML in a browser when tools allow so the table, slider, and card
-images actually work. Replays are local (`table-games/` is gitignored).
+images actually work. Replays are scratch by default (`table-games/` is
+gitignored). To keep one, `git add -f` the log and HTML and write a short
+`table-games/<slug>.md` recap, since GitHub renders neither JSON nor HTML.
 
 Do not dump the HTML source into chat.
 

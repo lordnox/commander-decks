@@ -11,6 +11,26 @@ from pathlib import Path
 TEMPLATE = Path(__file__).with_name("replay.html")
 
 
+def referenced_cards(events: list) -> set:
+    """Every card name the viewer can actually display for this game."""
+    names = set()
+    for event in events:
+        names.update(event.get("cards") or [])
+        state = event.get("state") or {}
+        for item in state.get("stack") or []:
+            if isinstance(item, dict) and item.get("name"):
+                names.add(item["name"])
+        for player in (state.get("players") or {}).values():
+            if not isinstance(player, dict):
+                continue
+            for zone in ("hand", "graveyard", "exile", "command"):
+                names.update(player.get(zone) or [])
+            for entry in player.get("battlefield") or []:
+                if isinstance(entry, dict) and entry.get("name"):
+                    names.add(entry["name"])
+    return names
+
+
 def public_game(game: dict) -> dict:
     cleaned = dict(game)
     cleaned.pop("_libraries", None)
@@ -29,6 +49,13 @@ def public_game(game: dict) -> dict:
         for player in state["players"].values():
             if isinstance(player, dict) and "library" in player:
                 raise ValueError("do not put remaining library cards in state snapshots")
+
+    catalog = cleaned.get("catalog")
+    if isinstance(catalog, dict):
+        seen = referenced_cards(events)
+        cleaned["catalog"] = {
+            name: entry for name, entry in catalog.items() if name in seen
+        }
     return cleaned
 
 
