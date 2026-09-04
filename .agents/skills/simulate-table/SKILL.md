@@ -38,11 +38,13 @@ bun run table:deal -- \
   "Thousand Cuts" "Borrowed Time" \
   "Captain of the Dawnsire" "Graveyard Shift" \
   --seed 1729 \
+  --turns 12 \
   --format json
 ```
 
-Use a user-supplied seed when given; otherwise 1729. Seats are `p1`–`p4` in
-the order given (turn order, clockwise).
+Use a user-supplied seed when given; otherwise 1729. `--turns` is the last
+turn to play; default 12. Seats are `p1`–`p4` in the order given (turn order,
+clockwise).
 
 Deck arguments accept the brew title, commander, or folder slug. An exact
 match is selected directly. Missing or ambiguous arguments open numbered
@@ -75,8 +77,9 @@ file must store **library counts only**.
 ## 3. Play to win
 
 Default: start at 40 life, Commander damage and poison on, turn-one draw on
-for every seat, continue until one player wins or **turn 12**, whichever
-first. Honor a user-supplied horizon.
+for every seat, continue until one player wins or the replay's
+`horizon.throughTurn` (default **turn 12**), whichever first. Honor a
+user-supplied `--turns` or continue request.
 
 For every seat, every turn:
 
@@ -115,6 +118,25 @@ next player's untap.
 If the game hits the turn cap with multiple players alive, stop and name the
 leader rather than inventing a win.
 
+## 3b. Continue
+
+To play extra turns of an existing replay:
+
+```bash
+bun run table:continue -- table-games/<slug>.json --turns 3 \
+  --out table-games/<slug>.json
+```
+
+`--turns` is extra turns after the current turn number, so a game truncated at
+turn 12 with `--turns 3` plays through turn 15. Omit the path to pick from
+`table-games/` interactively. Already-won games refuse unless `--force`.
+
+The command restores `_libraries` from the file when present; otherwise it
+rebuilds leftover cards from public zones and reseeds their order. It does
+not play Magic. Continue the log from the last event through
+`horizon.throughTurn` using the same play-to-win rules, then strip
+`_libraries` again before committing.
+
 ## 4. Validate the replay
 
 Before reporting:
@@ -133,7 +155,7 @@ The replay JSON is the simulation's terminal output. Invoke
 
 ## 5. Report in chat
 
-Lead with the winner (or the turn-12 leader), the turn, and the winning
+Lead with the winner (or the leader at the horizon), the turn, and the winning
 action. Then:
 
 1. Seat table: deck, commander, mulligans, final life, what the plan did.

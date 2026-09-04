@@ -37,10 +37,11 @@ type Options = {
   out?: string
   repo: string
   seed: number
+  turns: number
 }
 
-const ROOT = resolve(import.meta.dir, "../../../..")
-const SEAT_IDS = ["p1", "p2", "p3", "p4"]
+export const ROOT = resolve(import.meta.dir, "../../../..")
+export const SEAT_IDS = ["p1", "p2", "p3", "p4"]
 const SEAT_COLORS = ["#c45c26", "#2f6f64", "#4a5d9e", "#8a3d6b"]
 const MULLIGAN_MAX = 2
 
@@ -51,7 +52,7 @@ const normalize = (value: string) =>
     .replace(/[^a-z0-9]+/g, " ")
     .trim()
 
-const readJson = async (path: string) => JSON.parse(await readFile(path, "utf8"))
+export const readJson = async (path: string) => JSON.parse(await readFile(path, "utf8"))
 
 const readPrimer = async (deckPath: string) => {
   try {
@@ -80,7 +81,7 @@ const isLibraryCard = (entry: Json) =>
     (category: string) => category === "Commander{top}" || category.includes("{noDeck}"),
   )
 
-const loadManifest = async (deckPath: string) => {
+export const loadManifest = async (deckPath: string) => {
   const manifestPath = join(deckPath, "cards.json")
   const manifest = await readJson(manifestPath).catch(() => {
     throw new Error(`missing resolved manifest: ${manifestPath}`)
@@ -203,6 +204,7 @@ const parseArgs = (args: string[]): Options => {
     mulligans: "0,0,0,0",
     repo: ROOT,
     seed: 1729,
+    turns: 12,
   }
 
   for (let index = 0; index < args.length; index += 1) {
@@ -221,6 +223,7 @@ const parseArgs = (args: string[]): Options => {
     else if (arg === "--out") options.out = value()
     else if (arg === "--repo") options.repo = resolve(value())
     else if (arg === "--seed") options.seed = Number(value())
+    else if (arg === "--turns") options.turns = Number(value())
     else if (arg === "--help" || arg === "-h") {
       console.log(`Usage:
   bun run table:deal -- "Deck one" "Deck two" "Deck three" "Deck four" [options]
@@ -232,6 +235,7 @@ ambiguous names open a numbered selection when run interactively.
 Options:
   --list                    List resolved decks
   --seed NUMBER             Shuffle seed (default: 1729)
+  --turns NUMBER            Play through this turn (default: 12)
   --format markdown|json    Preview format (default: markdown)
   --apply                   Write opening game state
   --mulligans 0,1,0,0      Kept candidate per seat
@@ -250,10 +254,13 @@ Options:
     throw new Error("--format must be markdown or json")
   }
   if (options.deckQueries.length > 4) throw new Error("pass at most four deck names")
+  if (!Number.isInteger(options.turns) || options.turns < 1) {
+    throw new Error("--turns must be a positive integer")
+  }
   return options
 }
 
-const seededRandom = (seed: number) => {
+export const seededRandom = (seed: number) => {
   let state = seed >>> 0
   return () => {
     state += 0x6d2b79f5
@@ -264,7 +271,7 @@ const seededRandom = (seed: number) => {
   }
 }
 
-const shuffle = (cards: string[], random: () => number) => {
+export const shuffle = (cards: string[], random: () => number) => {
   const shuffled = [...cards]
   for (let index = shuffled.length - 1; index > 0; index -= 1) {
     const swap = Math.floor(random() * (index + 1))
@@ -521,11 +528,12 @@ const applyGame = async (seats: Seat[], options: Options) => {
     seed: options.seed,
     starting_life: 40,
     headline: "In progress",
+    horizon: { throughTurn: options.turns },
     result: {
       winner: null,
       ended: "truncated",
       turn: 0,
-      summary: "Opening keeps only; play the game and overwrite this file.",
+      summary: `Opening keeps only; play through turn ${options.turns} and overwrite this file.`,
     },
     seats: publicSeats,
     catalog: await buildCatalog(seats, options.repo),

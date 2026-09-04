@@ -13,6 +13,7 @@ does not apply Magic rules.
 | `starting_life` | Usually `40` |
 | `headline` | One-line result |
 | `result` | `{winner, ended, turn, summary}` — `ended` is `win`, `draw`, or `truncated` |
+| `horizon` | Optional `{throughTurn, extraTurns, fromTurn}` — stop after this turn unless someone wins sooner |
 | `seats` | Four objects, `id` `p1`–`p4` |
 | `catalog` | Map of card name → `{scryfall_uri, image_small, image_normal, type_line, mana_cost, oracle_text, stats}` |
 | `events` | Ordered list; index `0` is the opening snapshot |
@@ -119,3 +120,12 @@ Those cards are still in the library, so they stay inside `library_count`, and
 the count must never be smaller than the list. Refresh the list in the next
 event whenever the top changes: a draw, a play from the top, a shuffle, or a
 scry. Clear it when the effect leaves the battlefield.
+
+## Horizon
+
+`horizon.throughTurn` is the last turn number to play. `table:deal --turns 8`
+sets it at the opening keep. `table:continue --turns 3` adds three turns after
+the current turn number. A finished public replay has no remaining library
+order; continue rebuilds the leftover cards from public zones and reseeds
+their order. Keep `_libraries` in the working file until the extra turns are
+recorded, then strip it again before committing.
