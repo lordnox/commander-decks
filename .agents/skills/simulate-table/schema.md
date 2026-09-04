@@ -13,7 +13,7 @@ the viewer; it does not apply Magic rules.
 | `headline` | One-line result |
 | `result` | `{winner, ended, turn, summary}` — `ended` is `win`, `draw`, or `truncated` |
 | `seats` | Four objects, `id` `p1`–`p4` |
-| `catalog` | Map of card name → `{scryfall_uri, image_small, image_normal, type_line, mana_cost, oracle_text}` |
+| `catalog` | Map of card name → `{scryfall_uri, image_small, image_normal, type_line, mana_cost, oracle_text, stats}` |
 | `events` | Ordered list; index `0` is the opening snapshot |
 
 ### Seat
@@ -38,6 +38,11 @@ the viewer; it does not apply Magic rules.
 `kind`: `setup`, `keep`, `mulligan`, `draw`, `play_land`, `cast`, `activate`,
 `resolve`, `move`, `attack`, `block`, `damage`, `life`, `counters`, `eliminate`,
 `win`, `pass`, `note`.
+
+Split and modal cards are one catalog key using the full `A // B` name, with
+faces joined by ` // ` in `type_line` and `oracle_text`. Refer to them by that
+full name in `hand`, `battlefield`, and `cards`, and say which face is in play
+using the battlefield entry's `note`.
 
 ## State
 

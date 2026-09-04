@@ -92,8 +92,28 @@ def image_uris(cache: dict) -> dict:
     return {}
 
 
+def joined_faces(cache: dict, field: str) -> str:
+    """Split and modal cards carry text per face rather than at the top level."""
+    parts = [
+        face.get(field) or ""
+        for face in cache.get("card_faces") or []
+        if isinstance(face, dict)
+    ]
+    return " // ".join(part for part in parts if part)
+
+
+def stat_line(cache: dict) -> str:
+    if cache.get("power") is not None:
+        return f"{cache['power']}/{cache['toughness']}"
+    stats = [
+        f"{face['power']}/{face['toughness']}"
+        for face in cache.get("card_faces") or []
+        if isinstance(face, dict) and face.get("power") is not None
+    ]
+    return " // ".join(stats)
+
+
 def catalog_entry(entry: dict, repo: Path) -> dict:
-    name = entry["name"]
     card = entry.get("card") or {}
     cache_rel = entry.get("cache")
     cache: dict = {}
@@ -106,9 +126,22 @@ def catalog_entry(entry: dict, repo: Path) -> dict:
         "scryfall_uri": cache.get("scryfall_uri") or entry.get("scryfall_uri") or "",
         "image_small": uris.get("small") or "",
         "image_normal": uris.get("normal") or uris.get("small") or "",
-        "type_line": cache.get("type_line") or card.get("type_line") or "",
-        "mana_cost": cache.get("mana_cost") or card.get("mana_cost") or "",
-        "oracle_text": cache.get("oracle_text") or card.get("oracle_text") or "",
+        "type_line": (
+            cache.get("type_line")
+            or card.get("type_line")
+            or joined_faces(cache, "type_line")
+        ),
+        "mana_cost": (
+            cache.get("mana_cost")
+            or card.get("mana_cost")
+            or joined_faces(cache, "mana_cost")
+        ),
+        "oracle_text": (
+            cache.get("oracle_text")
+            or card.get("oracle_text")
+            or joined_faces(cache, "oracle_text")
+        ),
+        "stats": stat_line(cache),
     }
 
 
