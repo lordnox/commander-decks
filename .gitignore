@@ -1,0 +1,3 @@
+# Local four-player table replays (see simulate-table skill)
+table-games/*.json
+table-games/*.html
