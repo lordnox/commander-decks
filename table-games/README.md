@@ -21,3 +21,5 @@ readable in a pull request.
   — seed 1729, truncated at turn 12; Sin-fall leads after commander-killing Homer.
 - [Sygg vs The Twelfth Doctor vs Osgir vs Bartolomé](seed1729-sygg-doctor-osgir-bartolome.md)
   — seed 1729, Bartolomé combo win on turn 5.
+- [Jalira vs Jon vs Evangela vs Sygg](seed1729-jalira-jon-eva-sygg.md)
+  — seed 1729, truncated at turn 12; The Polyfisher leads after trampling out Thousand Cuts.
