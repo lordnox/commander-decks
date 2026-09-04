@@ -39,6 +39,15 @@ age counter, which leaves only a colorless
 [Rogue's Passage](https://scryfall.com/card/soc/407/rogues-passage) and no
 Drinker of Sorrow this turn.
 
+**Turn 3 — Map waits for the end step.**
+[Expedition Map](https://scryfall.com/card/fdn/724/expedition-map) has no timing
+restriction on its activation, so Evangela leaves two lands open through her own
+turn and only cracks it on the end step, one turn before she actually needs the
+land. [Eclipsed Steppe](https://scryfall.com/card/otj/262/eclipsed-steppe) takes
+the turn-3 drop and enters tapped either way, so
+[Urborg, Tomb of Yawgmoth](https://scryfall.com/card/tsr/287/urborg-tomb-of-yawgmoth)
+is not needed until turn four.
+
 **Turn 4 — Remora goes, the engine starts.** Paying `{3}` would leave Jon one
 mana and no commander, so he lets Remora die after four cards and casts
 [Jon Irenicus, Shattered One](https://scryfall.com/card/clb/278/jon-irenicus-shattered-one).
@@ -75,6 +84,13 @@ value two. [Darkness](https://scryfall.com/card/tsb/40/darkness) and
 [Kami of False Hope](https://scryfall.com/card/chk/6/kami-of-false-hope) buy
 one turn each, for the whole table, and then run out.
 
+**Turns 6–12 — the gifts pay Jon back.** Irenicus hands out tapped creatures,
+but they untap on the recipient's untap step and are goaded, so they have to
+attack somebody. Every one of those attacks draws Jon a card: ten in total, two
+a turn from turn 8 once both Drinker and the Oni are out. It is the only card
+advantage he has left after Remora dies, and it still is not enough, because
+Void Winnower makes half of what he draws uncastable.
+
 **Turns 11–12 — Vile Consumption almost wins from the graveyard.** Jon dies to
 Void Winnower and [It That Betrays](https://scryfall.com/card/roe/6/it-that-betrays).
 Jalira is paying seven life an upkeep by then and drops to six, so on the last
@@ -94,5 +110,6 @@ bun run table:render -- table-games/seed1729-jalira-jon-eva-sygg.json
 
 This is one seed, not a metagame. Known simplifications: opponents never pay
 Mystic Remora's `{4}`, Fact or Fiction's piles are split by judgment rather than
-search, and the compact catalog omits "Legendary" on Ancient Silver Dragon and
-Summon: Bahamut, which are skipped from Oracle instead.
+search, cleanup discards follow a fixed pitch order per seat, and the compact
+catalog omits "Legendary" on Ancient Silver Dragon and Summon: Bahamut, which
+are skipped from Oracle instead.
