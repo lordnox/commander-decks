@@ -5,10 +5,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
 TEMPLATE = Path(__file__).with_name("replay.html")
+PT = re.compile(r"^[^/\s]+/[^/\s]+$")
 
 
 def referenced_cards(events: list[dict]) -> tuple[set[str], set[str], set[str]]:
@@ -100,6 +102,15 @@ def public_game(game: dict) -> dict:
                 raise ValueError(
                     f"event {event['id']}: revealed_top holds more cards than the library"
                 )
+            for entry in player.get("battlefield") or []:
+                if not isinstance(entry, dict):
+                    continue
+                stated = entry.get("pt")
+                if stated is not None and not PT.match(str(stated)):
+                    raise ValueError(
+                        f"event {event['id']}: {entry.get('name', '?')} has pt "
+                        f"{stated!r}; use \"power/toughness\""
+                    )
 
     validate_turn_draws(events)
 

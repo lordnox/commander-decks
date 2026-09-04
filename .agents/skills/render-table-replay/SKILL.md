@@ -42,6 +42,7 @@ The renderer rejects:
   except tokens;
 - token IDs referenced by battlefield entries but absent from the token
   catalog;
+- a battlefield `pt` that is not `power/toughness`;
 - a `revealed_top` list longer than that seat's `library_count`.
 
 It trims unused catalog entries before embedding JSON in the HTML.
@@ -62,7 +63,9 @@ Open the HTML when browser tools are available and verify:
 7. a seat with `revealed_top` shows a Top of library zone above its
    battlefield;
 8. battlefield tokens with `token_id` show the exact art named by that ID;
-9. narrow layouts remain usable with the fixed controls and collapsed log.
+9. creatures in play show current power and toughness in the card corner,
+   counting `+1/+1` counters and any recorded `pt`;
+10. narrow layouts remain usable with the fixed controls and collapsed log.
 
 Do not dump HTML source into chat.
 

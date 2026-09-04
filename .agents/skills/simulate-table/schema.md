@@ -91,6 +91,7 @@ using the battlefield entry's `note`.
           "tapped": true,
           "token": false,
           "token_id": null,
+          "pt": "",
           "commander": false,
           "counters": {},
           "note": ""
@@ -108,6 +109,25 @@ using the battlefield entry's `note`.
 Battlefield entries may omit `token`, `token_id`, `commander`, `counters`,
 and `note`.
 Do **not** put remaining library names in `state`.
+
+### Power and toughness
+
+The viewer prints current power and toughness in the corner of every
+battlefield card that has them. It reads the printed values from the catalog
+or token entry and applies the `+1/+1` and `-1/-1` counters in that snapshot,
+so counters alone need no extra field.
+
+For any other change to the values — an anthem, an Aura or Equipment, a
+pump spell, a layer effect, an animated land — record the resulting values
+with `pt`:
+
+```json
+{"name": "Dryad Arbor", "pt": "5/6", "counters": {"+1/+1": 1}}
+```
+
+`pt` is the final value shown, so it already includes counters and the viewer
+does not add them again. Use `"power/toughness"`; a characteristic-defining
+value may be `*`.
 
 ### Tokens
 
