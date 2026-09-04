@@ -2,8 +2,10 @@
 
 `simulate-table` plays a game and writes `<slug>.json`. The separate
 `render-table-replay` skill validates that log and writes `<slug>.html`: a
-self-contained viewer with a felt table, life totals, stack, fixed transport
-controls, collapsible event log, step slider, and card art on hover. Open the
+self-contained viewer with a felt table, life totals, a centre panel naming the
+current event, the stack, fixed transport controls, a collapsible event log, a
+step slider, and card art on hover. Seats that may look at the top of their
+library — Fblthp, Bolas's Citadel — show that card in its own zone. Open the
 HTML in a browser; GitHub will not render it inline.
 
 Both are gitignored so ordinary runs stay scratch. To keep a game, `git add -f`

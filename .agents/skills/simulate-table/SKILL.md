@@ -90,6 +90,10 @@ For every seat, every turn:
 6. Never tutor, draw, or produce a card that was not in hand, in a known
    zone, or actually found by a resolved search of that library.
 7. Walk claimed loops; "fat once" is not infinite.
+8. When a seat may look at the top of its library — Fblthp, Bolas's Citadel,
+   Oracle of Mul Daya, Future Sight — decide from that card and publish it in
+   `revealed_top` (see [schema.md](schema.md)), refreshed whenever the top
+   changes.
 
 Record **every** game action as an event with a full board snapshot (see
 [schema.md](schema.md)). Hidden libraries stay in the agent's working notes,

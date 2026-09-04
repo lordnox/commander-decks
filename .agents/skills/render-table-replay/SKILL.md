@@ -39,7 +39,8 @@ The renderer rejects:
 - an `untap` that follows another player's turn without that turn having a
   normal `draw` event;
 - cards referenced by events or public zones but absent from the catalog,
-  except tokens.
+  except tokens;
+- a `revealed_top` list longer than that seat's `library_count`.
 
 It trims unused catalog entries before embedding JSON in the HTML.
 
@@ -53,8 +54,12 @@ Open the HTML when browser tools are available and verify:
    Log button;
 4. collapsing the log gives its width back to the table;
 5. each seat, life total, hand, battlefield, graveyard, command zone, stack,
-   current event, and card preview match the selected snapshot;
-6. narrow layouts remain usable with the fixed controls and collapsed log.
+   and card preview match the selected snapshot;
+6. the centre panel names the current event, and the log numbers stay readable
+   into three digits;
+7. a seat with `revealed_top` shows a Top of library zone above its
+   battlefield;
+8. narrow layouts remain usable with the fixed controls and collapsed log.
 
 Do not dump HTML source into chat.
 
