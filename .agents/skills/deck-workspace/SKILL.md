@@ -59,7 +59,20 @@ If any line cannot be resolved:
 - Rerun resolution after correcting the source list.
 - Do not claim the deck is fully imported while errors remain.
 
-## 4. Categorize every card
+## 4. Fetch token printings
+
+After cards resolve, run:
+
+```bash
+bun run deck:tokens -- <deck-name>
+```
+
+The Bun command reads exact `component: token` relationships from each cached
+Scryfall card, batches missing token IDs through the collection endpoint, and
+writes `tokens.json`. It also preserves explicit `Tokens & Extras{noDeck}`
+printings from the submitted list while excluding maybeboard cards.
+
+## 5. Categorize every card
 
 Every card must have one or more categories.
 
@@ -91,7 +104,7 @@ When a card has a different role in one deck, create or edit `decks/<prefix><slu
 
 A deck override replaces the universal category list for that card in that deck. Rerun the cache script after editing categories or overrides so `cards.json` contains the effective categories and `category_source`.
 
-## 5. Create the primer
+## 6. Create the primer
 
 After all cards resolve and have useful categories:
 
@@ -139,7 +152,7 @@ Do not put cut cards under `## Cards in`. The validator only treats `- **Name** 
 
 For JSON, use `{"schema_version": 1, "cards": {"<oracle-id>": {"name": "Card Name", "decision": "Reason"}}}` for inclusion coverage. Extra keys such as `cards_out`, `primer`, `rules`, and `talks` are allowed and ignored by the validator.
 
-## 6. Link the primer from the root README
+## 7. Link the primer from the root README
 
 The `## Deck primers` section after the root README title holds a generated index between `<!-- deck-index:start -->` and `<!-- deck-index:end -->`. Refresh it with the `tag-deck` script instead of editing it:
 
@@ -152,7 +165,7 @@ python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<prefix><slug>
 - Grouping, ordering, and badge cutoffs are the script's job; the validator fails when the checked-in index differs from a fresh render.
 - After `assess-deck` changes a bracket or directory prefix, rerun the script and update every stored path plus the manifest's `source` field.
 
-## 7. Validate the workspace
+## 8. Validate the workspace
 
 Run:
 
@@ -174,7 +187,7 @@ The script compares the deck list at the base ref with the working tree, prints 
 
 Its columns are sorted alphabetically and zipped, so treat the output as a checklist rather than a finished table: re-pair the rows into the swaps actually intended, add a `Reason` column, and confirm every card the script lists still appears.
 
-## 8. Continue deck work
+## 9. Continue deck work
 
 Use `cards.json` as the deck inventory and prefer its embedded `card` details for analysis. Load referenced cache files only for fields not embedded in the manifest. Use the `scryfall-lookup` skill for searches or to refresh current card information. Use the `deck-primer` skill when updating how a deck plays. Use `audit-deck` when the user wants every slot challenged against Scryfall.
 

@@ -6,7 +6,7 @@ import { createInterface } from "node:readline/promises"
 
 type Json = Record<string, any>
 
-type Deck = {
+export type Deck = {
   path: string
   relativePath: string
   title: string
@@ -25,6 +25,8 @@ type Seat = Deck & {
   color: string
   entries: Json[]
   candidates: Candidate[]
+  tokenSources: Record<string, string[]>
+  tokens: Record<string, Json>
 }
 
 type Options = {
@@ -116,7 +118,7 @@ export const loadManifest = async (deckPath: string) => {
   return { library, commanders, entries }
 }
 
-const discoverDecks = async (repo: string) => {
+export const discoverDecks = async (repo: string) => {
   const decksPath = join(repo, "decks")
   const entries = await readdir(decksPath, { withFileTypes: true })
   const decks: Deck[] = []
@@ -158,7 +160,7 @@ const matchesDeck = (deck: Deck, query: string) => {
   return { exact, partial }
 }
 
-const chooseDeck = async (decks: Deck[], query?: string) => {
+export const chooseDeck = async (decks: Deck[], query?: string) => {
   const matches = query
     ? decks.filter((deck) => matchesDeck(deck, query).partial)
     : decks
@@ -341,13 +343,35 @@ const buildCatalog = async (seats: Seat[], repo: string) => {
   )
 }
 
+const loadTokens = async (deckPath: string) => {
+  try {
+    const manifest = await readJson(join(deckPath, "tokens.json"))
+    if (manifest.schema !== 1) throw new Error("unsupported token schema")
+    return {
+      tokenSources: manifest.produced_by ?? {},
+      tokens: manifest.tokens ?? {},
+    }
+  } catch {
+    return { tokenSources: {}, tokens: {} }
+  }
+}
+
+const tableTokens = (seats: Seat[]) => ({
+  token_sources: Object.fromEntries(
+    seats.map((seat) => [seat.id, seat.tokenSources]),
+  ),
+  tokens: Object.assign({}, ...seats.map((seat) => seat.tokens)),
+})
+
 const loadSeats = async (decks: Deck[], seed: number) => {
   const random = seededRandom(seed)
   return Promise.all(
     decks.map(async (deck, index): Promise<Seat> => {
       const { library, entries } = await loadManifest(deck.path)
+      const tokenData = await loadTokens(deck.path)
       return {
         ...deck,
+        ...tokenData,
         id: SEAT_IDS[index],
         color: SEAT_COLORS[index],
         entries,
@@ -395,6 +419,7 @@ const previewPayload = async (seats: Seat[], options: Options) => ({
   seed: options.seed,
   seats: seats.map((seat) => publicSeat(seat, true)),
   catalog: await buildCatalog(seats, options.repo),
+  ...tableTokens(seats),
   _libraries: Object.fromEntries(
     seats.flatMap((seat) =>
       seat.candidates.map((candidate) => [
@@ -537,6 +562,7 @@ const applyGame = async (seats: Seat[], options: Options) => {
     },
     seats: publicSeats,
     catalog: await buildCatalog(seats, options.repo),
+    ...tableTokens(seats),
     events,
     _libraries: libraries,
   }

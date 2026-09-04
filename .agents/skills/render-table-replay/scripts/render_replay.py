@@ -11,9 +11,10 @@ from pathlib import Path
 TEMPLATE = Path(__file__).with_name("replay.html")
 
 
-def referenced_cards(events: list[dict]) -> tuple[set[str], set[str]]:
+def referenced_cards(events: list[dict]) -> tuple[set[str], set[str], set[str]]:
     names: set[str] = set()
-    tokens: set[str] = set()
+    token_names: set[str] = set()
+    token_ids: set[str] = set()
     for event in events:
         names.update(event.get("cards") or [])
         state = event.get("state") or {}
@@ -30,8 +31,10 @@ def referenced_cards(events: list[dict]) -> tuple[set[str], set[str]]:
                     continue
                 names.add(entry["name"])
                 if entry.get("token"):
-                    tokens.add(entry["name"])
-    return names, tokens
+                    token_names.add(entry["name"])
+                    if entry.get("token_id"):
+                        token_ids.add(entry["token_id"])
+    return names, token_names, token_ids
 
 
 def validate_turn_draws(events: list[dict]) -> None:
@@ -103,12 +106,22 @@ def public_game(game: dict) -> dict:
     catalog = cleaned.get("catalog")
     if not isinstance(catalog, dict):
         raise ValueError("replay JSON needs a card catalog")
-    names, tokens = referenced_cards(events)
-    missing = sorted(names - set(catalog) - tokens)
+    names, token_names, token_ids = referenced_cards(events)
+    missing = sorted(names - set(catalog) - token_names)
     if missing:
         raise ValueError(f"catalog is missing referenced cards: {', '.join(missing)}")
     cleaned["catalog"] = {
         name: entry for name, entry in catalog.items() if name in names
+    }
+    tokens = cleaned.get("tokens") or {}
+    missing_tokens = sorted(token_ids - set(tokens))
+    if missing_tokens:
+        raise ValueError(
+            f"token catalog is missing referenced IDs: {', '.join(missing_tokens)}"
+        )
+    cleaned["tokens"] = {
+        token_id: entry for token_id, entry in tokens.items()
+        if token_id in token_ids
     }
     return cleaned
 
