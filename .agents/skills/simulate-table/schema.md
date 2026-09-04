@@ -125,7 +125,10 @@ scry. Clear it when the effect leaves the battlefield.
 
 `horizon.throughTurn` is the last turn number to play. `table:deal --turns 8`
 sets it at the opening keep. `table:continue --turns 3` adds three turns after
-the current turn number. A finished public replay has no remaining library
-order; continue rebuilds the leftover cards from public zones and reseeds
-their order. Keep `_libraries` in the working file until the extra turns are
-recorded, then strip it again before committing.
+the current turn number and writes `<slug>.working.json`, keeping the recorded
+replay untouched.
+
+A finished public replay has no remaining library order; continue rebuilds the
+leftover cards from public zones and reseeds their order. The working file
+carries `_libraries` and the previous `headline` and `result` until the extra
+turns are recorded. A finished replay has no `horizon` and no `_libraries`.

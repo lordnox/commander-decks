@@ -16,11 +16,18 @@ type Json = Record<string, any>
 
 type Options = {
   force: boolean
+  inPlace: boolean
   out?: string
   replay?: string
   repo: string
   turns: number
 }
+
+/** Continuing writes scratch, so a committed replay is never clobbered by default. */
+const workingPath = (input: string) =>
+  input.endsWith(".working.json") ? input : input.replace(/\.json$/, ".working.json")
+
+const recordedPath = (input: string) => input.replace(/\.working\.json$/, ".json")
 
 const publicCards = (player: Json) => {
   const names: string[] = []
@@ -106,6 +113,7 @@ const librariesFromGame = async (game: Json, repo: string) => {
 const parseArgs = (args: string[]): Options => {
   const options: Options = {
     force: false,
+    inPlace: false,
     repo: ROOT,
     turns: 0,
   }
@@ -119,6 +127,7 @@ const parseArgs = (args: string[]): Options => {
       return next
     }
     if (arg === "--force") options.force = true
+    else if (arg === "--in-place") options.inPlace = true
     else if (arg === "--out") options.out = value()
     else if (arg === "--repo") options.repo = resolve(value())
     else if (arg === "--turns") options.turns = Number(value())
@@ -129,11 +138,14 @@ const parseArgs = (args: string[]): Options => {
 
 Resume a recorded table from its last snapshot. --turns is extra full turns
 after the current turn number. The agent still plays the Magic; this command
-restores hidden libraries and sets the new horizon.
+only restores hidden libraries and sets the new horizon.
+
+Output goes to <slug>.working.json so the recorded replay stays untouched.
 
 Options:
   --turns NUMBER   Extra turns to play (required)
-  --out PATH       Write the working replay (default: the input file)
+  --out PATH       Write somewhere else
+  --in-place       Overwrite the input replay instead of a working copy
   --force          Continue even if the log already has a winner
   --repo PATH      Repository root`)
       process.exit(0)
@@ -144,6 +156,9 @@ Options:
 
   if (!Number.isInteger(options.turns) || options.turns < 1) {
     throw new Error("--turns must be a positive integer")
+  }
+  if (options.inPlace && options.out) {
+    throw new Error("pass either --in-place or --out, not both")
   }
   return options
 }
@@ -237,25 +252,37 @@ const main = async () => {
   const throughTurn = currentTurn + options.turns
   const { libraries, rebuilt, overflow } = await librariesFromGame(game, options.repo)
 
+  // headline and result describe the recorded game until the extra turns exist.
   game.horizon = {
     extraTurns: options.turns,
     throughTurn,
     fromTurn: currentTurn,
   }
-  game.result = {
-    winner: null,
-    ended: "truncated",
-    turn: currentTurn,
-    summary: `Continue from turn ${currentTurn} through turn ${throughTurn}.`,
-  }
-  game.headline = `In progress — play through turn ${throughTurn}`
   game._libraries = libraries
 
-  const out = resolve(options.out ?? replayPath)
+  const target = options.out ?? (options.inPlace ? replayPath : workingPath(replayPath))
+  const out = resolve(target)
   await mkdir(dirname(out), { recursive: true })
   await writeFile(out, `${JSON.stringify(game)}\n`)
+
+  const show = (path: string) =>
+    path.startsWith(`${options.repo}/`) ? path.slice(options.repo.length + 1) : path
   process.stdout.write(brief(game, rebuilt, overflow))
-  process.stderr.write(`wrote ${out}\n`)
+  process.stdout.write(
+    [
+      "",
+      `Wrote ${show(out)} (scratch: holds hidden libraries).`,
+      "This command does not play Magic. Next:",
+      `  1. Ask the agent to play ${
+        options.turns === 1
+          ? `turn ${throughTurn}`
+          : `turns ${currentTurn + 1}–${throughTurn}`
+      } in that file.`,
+      `  2. It appends the events, strips _libraries, and writes ${show(recordedPath(replayPath))}.`,
+      "  3. Render with render-table-replay when you want the HTML.",
+      "",
+    ].join("\n"),
+  )
 }
 
 if (import.meta.main) {

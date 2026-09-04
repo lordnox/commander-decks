@@ -123,19 +123,23 @@ leader rather than inventing a win.
 To play extra turns of an existing replay:
 
 ```bash
-bun run table:continue -- table-games/<slug>.json --turns 3 \
-  --out table-games/<slug>.json
+bun run table:continue -- table-games/<slug>.json --turns 3
 ```
 
 `--turns` is extra turns after the current turn number, so a game truncated at
 turn 12 with `--turns 3` plays through turn 15. Omit the path to pick from
 `table-games/` interactively. Already-won games refuse unless `--force`.
 
+Output goes to `table-games/<slug>.working.json`, leaving the recorded replay
+alone; `--in-place` or `--out` override that. The working file keeps the old
+`headline` and `result` until the new turns exist, and adds `horizon`.
+
 The command restores `_libraries` from the file when present; otherwise it
-rebuilds leftover cards from public zones and reseeds their order. It does
-not play Magic. Continue the log from the last event through
-`horizon.throughTurn` using the same play-to-win rules, then strip
-`_libraries` again before committing.
+rebuilds leftover cards from public zones and reseeds their order. **It does
+not play Magic.** Continue the working file from its last event through
+`horizon.throughTurn` under the same play-to-win rules. When the extra turns
+are recorded, refresh `headline` and `result`, drop `horizon` and
+`_libraries`, and write `table-games/<slug>.json`.
 
 ## 4. Validate the replay
 
