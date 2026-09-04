@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Table replay</title>
+  <style>
+    :root {
+      --felt: #143d32;
+      --ink: #f4efe6;
+      --muted: #c5bba8;
+      --panel: #0e241e;
+      --line: #2a5a4c;
+      --header-height: 64px;
+      --controls-height: 64px;
+      --log-width: 340px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      font: 14px/1.4 ui-sans-serif, system-ui, sans-serif;
+      background: #071410;
+      color: var(--ink);
+    }
+    header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 20;
+      min-height: var(--header-height);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      padding: 0.65rem 1rem;
+      background: #0e241ef5;
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 4px 18px #0005;
+    }
+    header h1 { margin: 0; font-size: 1.05rem; font-weight: 650; }
+    header p { margin: 0; color: var(--muted); }
+    .header-copy { min-width: 0; }
+    #subhead {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 72vw;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex: none;
+    }
+    .layout {
+      position: fixed;
+      inset: var(--header-height) 0 var(--controls-height);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) var(--log-width);
+      min-height: 0;
+      transition: grid-template-columns 160ms ease;
+    }
+    body.log-hidden .layout { grid-template-columns: minmax(0, 1fr) 0; }
+    .table {
+      min-width: 0;
+      min-height: 0;
+      overflow: auto;
+      display: grid;
+      grid-template-areas:
+        ". north ."
+        "west stack east"
+        ". south .";
+      grid-template-columns: minmax(230px, 1fr) minmax(220px, 1.1fr) minmax(230px, 1fr);
+      grid-template-rows: minmax(220px, 1fr) auto minmax(220px, 1fr);
+      gap: 0.6rem;
+      padding: 0.75rem;
+      background:
+        radial-gradient(circle at 50% 50%, #1b5a48 0%, var(--felt) 62%, #0c2a23 100%);
+    }
+    .seat {
+      min-height: 0;
+      overflow: auto;
+      padding: 0.55rem;
+      border: 1px solid color-mix(in srgb, var(--seat, #888) 70%, #000);
+      border-radius: 12px;
+      background: #0b1f1aee;
+    }
+    .seat.p1 { grid-area: south; --seat: var(--c1); }
+    .seat.p2 { grid-area: west; --seat: var(--c2); }
+    .seat.p3 { grid-area: north; --seat: var(--c3); }
+    .seat.p4 { grid-area: east; --seat: var(--c4); }
+    .seat.active { box-shadow: inset 0 0 0 2px var(--seat); }
+    .seat-head {
+      position: sticky;
+      top: -0.55rem;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      align-items: center;
+      margin: -0.55rem -0.55rem 0;
+      padding: 0.55rem;
+      background: #0b1f1af5;
+    }
+    .life { font-variant-numeric: tabular-nums; font-size: 1.35rem; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 12px; }
+    .zone { margin-top: 0.35rem; }
+    .zone h3 {
+      margin: 0 0 0.2rem;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .cards { display: flex; flex-wrap: wrap; gap: 4px; }
+    .card {
+      width: 54px;
+      overflow: hidden;
+      border: 1px solid #0006;
+      border-radius: 4px;
+      background: #111;
+    }
+    .card img { display: block; width: 100%; height: auto; }
+    .card.tapped { transform: rotate(90deg); transform-origin: center; }
+    .card.token { outline: 1px dashed #e6d27a; }
+    .stack-panel {
+      grid-area: stack;
+      min-height: 88px;
+      padding: 0.5rem;
+      border: 1px dashed #e6d27a88;
+      border-radius: 10px;
+      background: #0b1a16dd;
+    }
+    .log {
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--line);
+      background: #0e241efa;
+      transition: opacity 120ms ease;
+    }
+    body.log-hidden .log {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .log h2 { margin: 0; padding: 0.6rem 0.75rem; font-size: 0.85rem; }
+    .log ol {
+      min-height: 0;
+      overflow: auto;
+      flex: 1;
+      margin: 0;
+      padding: 0 0.75rem 0.75rem 1.8rem;
+    }
+    .log li { margin: 0.25rem 0; color: var(--muted); cursor: pointer; }
+    .log li.current { color: var(--ink); font-weight: 650; }
+    .controls {
+      position: fixed;
+      inset: auto 0 0;
+      z-index: 20;
+      min-height: var(--controls-height);
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      padding: 0.6rem 1rem;
+      background: #0e241ef5;
+      border-top: 1px solid var(--line);
+      box-shadow: 0 -4px 18px #0005;
+    }
+    button {
+      flex: none;
+      padding: 0.45rem 0.75rem;
+      border: 0;
+      border-radius: 8px;
+      background: #1f4f43;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    button:hover { background: #2b6657; }
+    button:focus-visible, input:focus-visible { outline: 2px solid #e6d27a; }
+    input[type="range"] { min-width: 120px; flex: 1; }
+    .event-line {
+      min-width: 160px;
+      max-width: 38vw;
+      overflow: hidden;
+      color: #f0d9a8;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    #preview {
+      position: fixed;
+      right: calc(var(--log-width) + 14px);
+      bottom: calc(var(--controls-height) + 12px);
+      z-index: 30;
+      display: none;
+      width: 220px;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px #000a;
+      pointer-events: none;
+    }
+    body.log-hidden #preview { right: 14px; }
+    @media (max-width: 840px) {
+      :root { --header-height: 74px; --controls-height: 104px; }
+      #subhead { max-width: 55vw; }
+      .layout { grid-template-columns: minmax(0, 1fr); }
+      .table {
+        grid-template-columns: repeat(2, minmax(240px, 1fr));
+        grid-template-rows: repeat(3, minmax(220px, auto));
+        grid-template-areas:
+          "north north"
+          "west east"
+          "south stack";
+      }
+      .log {
+        position: absolute;
+        inset: 0 0 0 auto;
+        z-index: 15;
+        width: min(88vw, var(--log-width));
+        box-shadow: -8px 0 24px #0008;
+      }
+      body.log-hidden .log { transform: translateX(100%); }
+      .controls { flex-wrap: wrap; }
+      .event-line { order: 2; min-width: 100%; max-width: 100%; }
+      #preview { right: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-copy">
+      <h1 id="headline">Table replay</h1>
+      <p id="subhead"></p>
+    </div>
+    <div class="header-actions">
+      <p id="clock"></p>
+      <button type="button" id="toggle-log" aria-expanded="true" aria-controls="event-log">Hide log</button>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="table" id="table"></div>
+    <aside class="log" id="event-log">
+      <h2>Event log</h2>
+      <ol id="log"></ol>
+    </aside>
+  </main>
+  <div class="controls">
+    <button type="button" id="prev">Previous</button>
+    <button type="button" id="play">Play</button>
+    <button type="button" id="next">Next</button>
+    <input type="range" id="slider" min="0" value="0" aria-label="Replay event">
+    <span class="event-line" id="event-line"></span>
+  </div>
+  <img id="preview" alt="">
+  <script id="game-data" type="application/json">__GAME_JSON__</script>
+  <script>
+    const GAME = JSON.parse(document.getElementById("game-data").textContent)
+    const seats = GAME.seats || []
+    const events = GAME.events || []
+    const catalog = GAME.catalog || {}
+    let index = 0
+    let timer = null
+
+    const table = document.getElementById("table")
+    const log = document.getElementById("log")
+    const slider = document.getElementById("slider")
+    const headline = document.getElementById("headline")
+    const subhead = document.getElementById("subhead")
+    const clock = document.getElementById("clock")
+    const eventLine = document.getElementById("event-line")
+    const toggleLog = document.getElementById("toggle-log")
+
+    headline.textContent = GAME.headline || "Table replay"
+    const result = GAME.result || {}
+    subhead.textContent = [
+      seats.map((seat) => seat.name).join(" · "),
+      result.summary || "",
+    ].filter(Boolean).join(" — ")
+    slider.max = Math.max(0, events.length - 1)
+
+    seats.forEach((seat, i) => {
+      document.documentElement.style.setProperty(`--c${i + 1}`, seat.color || "#888")
+    })
+
+    const esc = (value) => String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;")
+
+    const cardHtml = (name, extra = {}) => {
+      const info = catalog[name] || {}
+      const src = info.image_small || ""
+      const href = info.scryfall_uri || "#"
+      const classes = `${extra.tapped ? " tapped" : ""}${extra.token ? " token" : ""}`
+      const image = src
+        ? `<img src="${esc(src)}" alt="${esc(name)}">`
+        : `<span style="display:block;padding:1.2rem .2rem;text-align:center;font-size:10px">${esc(name)}</span>`
+      return `<a class="card${classes}" href="${esc(href)}" target="_blank" rel="noreferrer" title="${esc(name)}" data-preview="${esc(info.image_normal || src)}">${image}</a>`
+    }
+
+    const zone = (title, entries) => {
+      if (!entries?.length) return ""
+      const cards = entries.map((entry) => {
+        const name = typeof entry === "string" ? entry : entry.name
+        return cardHtml(name, entry)
+      }).join("")
+      return `<div class="zone"><h3>${title}</h3><div class="cards">${cards}</div></div>`
+    }
+
+    const renderSeat = (seat, player, active) => {
+      player ||= {}
+      return `<section class="seat ${seat.id}${active ? " active" : ""}">
+        <div class="seat-head">
+          <div>
+            <strong>${esc(seat.name)}</strong>
+            <div class="meta">${esc((player.command || []).join(", "))} · library ${player.library_count ?? "?"}</div>
+          </div>
+          <div class="life">${player.life ?? "?"}</div>
+        </div>
+        ${zone("Battlefield", player.battlefield)}
+        ${zone("Hand", player.hand)}
+        ${zone("Graveyard", player.graveyard)}
+        ${zone("Command", player.command)}
+      </section>`
+    }
+
+    const render = () => {
+      const event = events[index] || {
+        summary: "No events",
+        state: { players: {}, stack: [] },
+        turn: 0,
+        phase: "setup",
+      }
+      const state = event.state || { players: {}, stack: [] }
+      const stack = (state.stack || []).length
+        ? state.stack.map((item) => `${esc(item.controller || "")}: ${esc(item.name)}${item.text ? ` — ${esc(item.text)}` : ""}`).join("<br>")
+        : "<span class='meta'>Empty</span>"
+      table.innerHTML = seats
+        .map((seat) => renderSeat(seat, state.players[seat.id], state.active === seat.id))
+        .join("") + `<div class="stack-panel"><h3>Stack</h3>${stack}</div>`
+      clock.textContent = `Turn ${event.turn || 0} · ${event.phase || ""} · ${index + 1}/${events.length}`
+      eventLine.textContent = event.summary || ""
+      eventLine.title = event.summary || ""
+      slider.value = String(index)
+      Array.from(log.children).forEach((item, i) => {
+        item.classList.toggle("current", i === index)
+      })
+      log.children[index]?.scrollIntoView({ block: "nearest" })
+    }
+
+    events.forEach((event, i) => {
+      const item = document.createElement("li")
+      item.textContent = event.summary || `Event ${i}`
+      item.addEventListener("click", () => {
+        index = i
+        render()
+      })
+      log.appendChild(item)
+    })
+
+    const step = (delta) => {
+      index = Math.max(0, Math.min(events.length - 1, index + delta))
+      render()
+    }
+
+    document.getElementById("prev").onclick = () => step(-1)
+    document.getElementById("next").onclick = () => step(1)
+    slider.oninput = () => {
+      index = Number(slider.value)
+      render()
+    }
+    document.getElementById("play").onclick = (event) => {
+      if (timer) {
+        clearInterval(timer)
+        timer = null
+        event.target.textContent = "Play"
+        return
+      }
+      event.target.textContent = "Pause"
+      timer = setInterval(() => {
+        if (index >= events.length - 1) {
+          clearInterval(timer)
+          timer = null
+          event.target.textContent = "Play"
+          return
+        }
+        step(1)
+      }, 1400)
+    }
+    toggleLog.onclick = () => {
+      const hidden = document.body.classList.toggle("log-hidden")
+      toggleLog.textContent = hidden ? "Show log" : "Hide log"
+      toggleLog.setAttribute("aria-expanded", String(!hidden))
+    }
+
+    const preview = document.getElementById("preview")
+    table.addEventListener("mouseover", (event) => {
+      const card = event.target.closest("[data-preview]")
+      if (!card?.dataset.preview) return
+      preview.src = card.dataset.preview
+      preview.style.display = "block"
+    })
+    table.addEventListener("mouseout", (event) => {
+      if (!event.relatedTarget || !table.contains(event.relatedTarget)) {
+        preview.style.display = "none"
+      }
+    })
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft" || event.key === "j") step(-1)
+      if (event.key === "ArrowRight" || event.key === "k" || event.key === " ") {
+        event.preventDefault()
+        step(1)
+      }
+    })
+    render()
+  </script>
+</body>
+</html>

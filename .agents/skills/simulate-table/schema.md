@@ -1,7 +1,8 @@
 # Table replay JSON
 
-`render_replay.py` expects `schema: 1`. Snapshots are the source of truth for
-the viewer; it does not apply Magic rules.
+`simulate-table` writes `schema: 1`. `render-table-replay` validates and
+renders it. Snapshots are the source of truth for the viewer; the renderer
+does not apply Magic rules.
 
 ## Top level
 
@@ -38,6 +39,27 @@ the viewer; it does not apply Magic rules.
 `kind`: `setup`, `keep`, `mulligan`, `draw`, `play_land`, `cast`, `activate`,
 `resolve`, `move`, `attack`, `block`, `damage`, `life`, `counters`, `eliminate`,
 `win`, `pass`, `note`.
+
+Every turn after setup needs an `untap` event and a separate normal draw event:
+
+```json
+{
+  "id": 15,
+  "turn": 2,
+  "phase": "draw",
+  "seat": "p3",
+  "kind": "draw",
+  "summary": "Osgir draws Plains.",
+  "cards": ["Plains"],
+  "notes": "",
+  "state": {}
+}
+```
+
+The draw snapshot includes the card in hand and the decremented
+`library_count`. Record replacement effects and payments in that event. Extra
+draws are additional `draw` events. Do not combine a draw with the spell or
+land that follows it.
 
 Split and modal cards are one catalog key using the full `A // B` name, with
 faces joined by ` // ` in `type_line` and `oracle_text`. Refer to them by that
