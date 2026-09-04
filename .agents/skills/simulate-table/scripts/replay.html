@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Table replay</title>
+  <style>
+    :root {
+      --felt: #143d32;
+      --ink: #f4efe6;
+      --muted: #c5bba8;
+      --panel: #0e241e;
+      --line: #2a5a4c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 14px/1.4 ui-sans-serif, system-ui, sans-serif;
+      background: #071410;
+      color: var(--ink);
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: baseline;
+      padding: 0.75rem 1rem;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+    }
+    header h1 { font-size: 1.05rem; margin: 0; font-weight: 650; }
+    header p { margin: 0; color: var(--muted); }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      min-height: calc(100vh - 118px);
+    }
+    .table {
+      display: grid;
+      grid-template-areas:
+        ". north ."
+        "west stack east"
+        ". south .";
+      grid-template-columns: 1fr minmax(220px, 1.1fr) 1fr;
+      grid-template-rows: 1fr auto 1fr;
+      gap: 0.6rem;
+      padding: 0.75rem;
+      background:
+        radial-gradient(circle at 50% 50%, #1b5a48 0%, var(--felt) 62%, #0c2a23 100%);
+    }
+    .seat { border: 1px solid color-mix(in srgb, var(--seat, #888) 70%, #000); border-radius: 12px; background: #0b1f1aee; padding: 0.55rem; min-height: 0; overflow: auto; }
+    .seat.p1 { grid-area: south; --seat: var(--c1); }
+    .seat.p2 { grid-area: west; --seat: var(--c2); }
+    .seat.p3 { grid-area: north; --seat: var(--c3); }
+    .seat.p4 { grid-area: east; --seat: var(--c4); }
+    .seat.active { box-shadow: 0 0 0 2px var(--seat); }
+    .seat-head { display: flex; justify-content: space-between; gap: 0.5rem; align-items: center; }
+    .life { font-variant-numeric: tabular-nums; font-size: 1.35rem; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 12px; }
+    .zone { margin-top: 0.35rem; }
+    .zone h3 { margin: 0 0 0.2rem; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+    .cards { display: flex; flex-wrap: wrap; gap: 4px; }
+    .card {
+      width: 54px;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid #0006;
+      background: #111;
+    }
+    .card img { display: block; width: 100%; height: auto; }
+    .card.tapped { transform: rotate(90deg); transform-origin: center; }
+    .card.token { outline: 1px dashed #e6d27a; }
+    .stack-panel {
+      grid-area: stack;
+      min-height: 88px;
+      border: 1px dashed #e6d27a88;
+      border-radius: 10px;
+      padding: 0.5rem;
+      background: #0b1a16cc;
+    }
+    .log {
+      border-left: 1px solid var(--line);
+      background: var(--panel);
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .log h2 { margin: 0; padding: 0.6rem 0.75rem; font-size: 0.85rem; }
+    .log ol {
+      margin: 0;
+      padding: 0 0.75rem 0.75rem 1.6rem;
+      overflow: auto;
+      flex: 1;
+    }
+    .log li { margin: 0.2rem 0; color: var(--muted); cursor: pointer; }
+    .log li.current { color: var(--ink); font-weight: 650; }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      padding: 0.6rem 1rem 0.85rem;
+      background: var(--panel);
+      border-top: 1px solid var(--line);
+    }
+    button {
+      background: #1f4f43;
+      color: var(--ink);
+      border: 0;
+      border-radius: 8px;
+      padding: 0.4rem 0.7rem;
+      cursor: pointer;
+    }
+    input[type="range"] { flex: 1; min-width: 140px; }
+    .event-line { color: #f0d9a8; }
+    #preview {
+      position: fixed;
+      right: 340px;
+      bottom: 72px;
+      width: 220px;
+      display: none;
+      z-index: 5;
+      pointer-events: none;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px #000a;
+    }
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+      .log { border-left: 0; border-top: 1px solid var(--line); max-height: 240px; }
+      #preview { right: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1 id="headline">Table replay</h1>
+      <p id="subhead"></p>
+    </div>
+    <p id="clock"></p>
+  </header>
+  <div class="layout">
+    <div class="table" id="table"></div>
+    <aside class="log">
+      <h2>Log</h2>
+      <ol id="log"></ol>
+    </aside>
+  </div>
+  <div class="controls">
+    <button type="button" id="prev">Prev</button>
+    <button type="button" id="play">Play</button>
+    <button type="button" id="next">Next</button>
+    <input type="range" id="slider" min="0" value="0">
+    <span class="event-line" id="event-line"></span>
+  </div>
+  <img id="preview" alt="">
+  <script id="game-data" type="application/json">__GAME_JSON__</script>
+  <script>
+    const GAME = JSON.parse(document.getElementById("game-data").textContent);
+    const seats = GAME.seats || [];
+    const events = GAME.events || [];
+    const catalog = GAME.catalog || {};
+    let index = 0;
+    let timer = null;
+
+    const table = document.getElementById("table");
+    const log = document.getElementById("log");
+    const slider = document.getElementById("slider");
+    const headline = document.getElementById("headline");
+    const subhead = document.getElementById("subhead");
+    const clock = document.getElementById("clock");
+    const eventLine = document.getElementById("event-line");
+
+    headline.textContent = GAME.headline || "Table replay";
+    const result = GAME.result || {};
+    subhead.textContent = [
+      seats.map((seat) => seat.name).join(" · "),
+      result.summary || "",
+    ].filter(Boolean).join(" — ");
+    slider.max = Math.max(0, events.length - 1);
+
+    const root = document.documentElement;
+    seats.forEach((seat, i) => {
+      root.style.setProperty(`--c${i + 1}`, seat.color || "#888");
+    });
+
+    const esc = (value) => String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;");
+
+    const cardHtml = (name, extra = {}) => {
+      const info = catalog[name] || {};
+      const src = info.image_small || "";
+      const href = info.scryfall_uri || "#";
+      const tapped = extra.tapped ? " tapped" : "";
+      const token = extra.token ? " token" : "";
+      const img = src
+        ? `<img src="${esc(src)}" alt="${esc(name)}">`
+        : `<span style="display:block;padding:1.2rem 0.2rem;text-align:center;font-size:10px">${esc(name)}</span>`;
+      const preview = info.image_normal || src;
+      return `<a class="card${tapped}${token}" href="${esc(href)}" target="_blank" rel="noreferrer" title="${esc(name)}" data-preview="${esc(preview)}">${img}</a>`;
+    };
+
+    const zone = (title, names, extras = []) => {
+      if (!names || !names.length) return "";
+      const cards = names.map((name, i) => cardHtml(typeof name === "string" ? name : name.name, extras[i] || name || {})).join("");
+      return `<div class="zone"><h3>${title}</h3><div class="cards">${cards}</div></div>`;
+    };
+
+    const renderSeat = (seat, player, active) => {
+      player = player || {};
+      const cmd = (player.command || []).join(", ");
+      return `<section class="seat ${seat.id}${active ? " active" : ""}">
+        <div class="seat-head">
+          <div>
+            <strong>${seat.name}</strong>
+            <div class="meta">${cmd || ""} · lib ${player.library_count ?? "?"}</div>
+          </div>
+          <div class="life">${player.life ?? "?"}</div>
+        </div>
+        ${zone("Battlefield", player.battlefield || [])}
+        ${zone("Hand", player.hand || [])}
+        ${zone("Graveyard", player.graveyard || [])}
+        ${zone("Command", player.command || [])}
+      </section>`;
+    };
+
+    const render = () => {
+      const event = events[index] || { summary: "No events", state: { players: {}, stack: [] }, turn: 0, phase: "setup" };
+      const state = event.state || { players: {}, stack: [] };
+      table.innerHTML = seats.map((seat) => renderSeat(seat, state.players[seat.id], state.active === seat.id)).join("")
+        + `<div class="stack-panel"><h3 style="margin:0 0 .35rem;font-size:11px;text-transform:uppercase;color:var(--muted)">Stack</h3>${
+          (state.stack || []).length
+            ? (state.stack || []).map((item) => `${item.controller || ""}: ${item.name}${item.text ? " — " + item.text : ""}`).join("<br>")
+            : "<span class='meta'>Empty</span>"
+        }</div>`;
+      clock.textContent = `Turn ${event.turn || 0} · ${event.phase || ""} · ${index + 1}/${events.length}`;
+      eventLine.textContent = event.summary || "";
+      slider.value = String(index);
+      [...log.children].forEach((item, i) => item.classList.toggle("current", i === index));
+      const current = log.children[index];
+      if (current) current.scrollIntoView({ block: "nearest" });
+    };
+
+    events.forEach((event, i) => {
+      const item = document.createElement("li");
+      item.textContent = event.summary || `Event ${i}`;
+      item.addEventListener("click", () => { index = i; render(); });
+      log.appendChild(item);
+    });
+
+    const step = (delta) => {
+      index = Math.max(0, Math.min(events.length - 1, index + delta));
+      render();
+    };
+
+    document.getElementById("prev").onclick = () => step(-1);
+    document.getElementById("next").onclick = () => step(1);
+    slider.oninput = () => { index = Number(slider.value); render(); };
+    document.getElementById("play").onclick = (ev) => {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+        ev.target.textContent = "Play";
+        return;
+      }
+      ev.target.textContent = "Pause";
+      timer = setInterval(() => {
+        if (index >= events.length - 1) {
+          clearInterval(timer);
+          timer = null;
+          ev.target.textContent = "Play";
+          return;
+        }
+        step(1);
+      }, 1400);
+    };
+    const preview = document.getElementById("preview");
+    table.addEventListener("mouseover", (ev) => {
+      const card = ev.target.closest("[data-preview]");
+      if (!card || !card.dataset.preview) return;
+      preview.src = card.dataset.preview;
+      preview.style.display = "block";
+    });
+    table.addEventListener("mouseout", (ev) => {
+      if (!ev.relatedTarget || !table.contains(ev.relatedTarget)) {
+        preview.style.display = "none";
+      }
+    });
+    document.addEventListener("keydown", (ev) => {
+      if (ev.key === "ArrowLeft" || ev.key === "j") step(-1);
+      if (ev.key === "ArrowRight" || ev.key === "k" || ev.key === " ") {
+        ev.preventDefault();
+        step(1);
+      }
+    });
+    render();
+  </script>
+</body>
+</html>

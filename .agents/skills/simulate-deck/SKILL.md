@@ -119,6 +119,9 @@ Use representative hands rather than inventing an ideal hand for each branch:
 Do not model a full opponent unless the user asks for matchup simulation.
 Name every opposing action introduced by a branch.
 
+When the user wants four stored decks to play each other, use `simulate-table`
+instead of stretching this goldfish model.
+
 ## 6. Report
 
 Summarize:
