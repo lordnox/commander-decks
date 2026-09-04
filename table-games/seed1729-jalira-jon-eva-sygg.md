@@ -85,7 +85,10 @@ why nobody spends the rest of the game unable to cast even-cost spells.
 
 **Turn 8 — one death takes three permanents with it.** The Construct, both
 Golems and the goaded [Drinker of Sorrow](https://scryfall.com/card/lgn/66/drinker-of-sorrow)
-finish Sygg. Everything he owns leaves the game with him, so
+finish Sygg. The Drinker is a 5/3 that becomes a 7/5 with the counters Irenicus
+staples on, and it cannot block and makes its controller sacrifice a permanent
+every time it connects — Jalira loses her Clue for the privilege of being given
+it. Everything Sygg owns leaves the game with him, so
 [Vile Consumption](https://scryfall.com/card/inv/78/vile-consumption),
 Scrawling Crawler and [Ivory Tower](https://scryfall.com/card/tpr/232/ivory-tower)
 all stop at once. On the same turn cycle the original Yukora is goaded with only
