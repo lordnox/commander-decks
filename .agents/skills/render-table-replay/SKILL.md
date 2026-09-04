@@ -65,7 +65,9 @@ Open the HTML when browser tools are available and verify:
 8. battlefield tokens with `token_id` show the exact art named by that ID;
 9. creatures in play show current power and toughness in the card corner,
    counting `+1/+1` counters and any recorded `pt`;
-10. narrow layouts remain usable with the fixed controls and collapsed log.
+10. counters and `note` segments show as chips on the card, and hovering it
+    lists them in full under the large image;
+11. narrow layouts remain usable with the fixed controls and collapsed log.
 
 Do not dump HTML source into chat.
 

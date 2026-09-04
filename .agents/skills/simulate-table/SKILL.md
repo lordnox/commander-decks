@@ -127,6 +127,10 @@ For every seat, every turn:
     the printed power and toughness. When anything else changes those values —
     an anthem, Aura, Equipment, pump spell, or animated land — put the
     resulting values in the battlefield entry's `pt`.
+11. Keep every other counter kind in `counters` too, and put the rest of a
+    permanent's state in `note` as `;`-separated segments such as
+    `enchanting Sun Titan; goaded`. The viewer turns both into icons on the
+    card and spells them out on the hover preview.
 
 Record **every** game action as an event with a full board snapshot (see
 [schema.md](schema.md)). Hidden libraries stay in the agent's working notes,

@@ -129,6 +129,27 @@ with `pt`:
 does not add them again. Use `"power/toughness"`; a characteristic-defining
 value may be `*`.
 
+### Counters and effects
+
+`counters` maps a counter kind to its count, spelled the way the card does:
+`+1/+1`, `-1/-1`, `charge`, `time`, `loyalty`, `stun`, `oil`. The viewer prints
+each kind as a chip in the card's top corner and spells it out on the hover
+preview, so a kind it does not know still reads correctly.
+
+`note` carries everything else true about that permanent, as short segments
+separated by `;`:
+
+```json
+{"name": "Changing Loyalty", "note": "enchanting Sun Titan; goaded"}
+```
+
+Each segment becomes its own chip. Goad, attachment (`enchanting`, `equipping`,
+`attached`), copy, haste, and the monarch get their own icon; any other segment
+gets a neutral dot. Hovering the card lists every segment in full, so write the
+segment for a reader rather than as a code: `enchanting Sun Titan`, not
+`aura:st`. Also use `note` to say which face of a split, modal, or transformed
+card is in play.
+
 ### Tokens
 
 Before dealing, `deck:tokens` reads every deck card's cached Scryfall
