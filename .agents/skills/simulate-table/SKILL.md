@@ -34,14 +34,20 @@ Do not simulate from names alone when a `cards.json` exists.
 ## 2. Deal
 
 ```bash
-python3 .agents/skills/simulate-table/scripts/deal_table.py \
-  decks/<a> decks/<b> decks/<c> decks/<d> \
+bun run table:deal -- \
+  "Thousand Cuts" "Borrowed Time" \
+  "Captain of the Dawnsire" "Graveyard Shift" \
   --seed 1729 \
   --format json
 ```
 
 Use a user-supplied seed when given; otherwise 1729. Seats are `p1`–`p4` in
 the order given (turn order, clockwise).
+
+Deck arguments accept the brew title, commander, or folder slug. An exact
+match is selected directly. Missing or ambiguous arguments open numbered
+choices in an interactive terminal. Use `bun run table:deal -- --list` to
+inspect every selectable deck.
 
 The helper prints, for each seat, three London candidates (keep 7, mulligan 1,
 mulligan 2) and a card catalog with Scryfall images. Choose a keep the way
@@ -50,8 +56,9 @@ that deck would: lands and early plan first, not a perfect hand.
 Apply the keeps:
 
 ```bash
-python3 .agents/skills/simulate-table/scripts/deal_table.py \
-  decks/<a> decks/<b> decks/<c> decks/<d> \
+bun run table:deal -- \
+  "Thousand Cuts" "Borrowed Time" \
+  "Captain of the Dawnsire" "Graveyard Shift" \
   --seed 1729 \
   --apply \
   --mulligans 0,1,0,0 \
