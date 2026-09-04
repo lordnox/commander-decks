@@ -116,12 +116,30 @@
     }
     .cards { display: flex; flex-wrap: wrap; gap: 4px; }
     .card {
+      position: relative;
       width: 54px;
-      overflow: hidden;
       border: 1px solid #0006;
       border-radius: 4px;
       background: #111;
     }
+    .card img { border-radius: 3px; }
+    .pt {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      padding: 0 3px;
+      border: 1px solid #000;
+      border-radius: 3px;
+      background: #12100e;
+      color: var(--ink);
+      font-size: 10px;
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+      line-height: 1.35;
+      text-shadow: 0 1px 0 #000;
+    }
+    .pt.modified { background: #4a3a12; color: #ffe9a8; }
+    .card.tapped .pt { transform: rotate(-90deg); }
     .card img { display: block; width: 100%; height: auto; }
     .card.tapped { transform: rotate(90deg); transform-origin: center; }
     .card.token { outline: 1px dashed #e6d27a; }
@@ -330,7 +348,38 @@
       .replace(/"/g, "&quot;")
       .replace(/</g, "&lt;")
 
-    const cardHtml = (name, extra = {}) => {
+    const printedPT = (info) => {
+      if (info.power != null && info.toughness != null) {
+        return [String(info.power), String(info.toughness)]
+      }
+      const front = String(info.stats || "").split(" // ")[0]
+      return front.includes("/") ? front.split("/") : null
+    }
+
+    /** Printed power and toughness plus the counters the snapshot records. */
+    const currentPT = (entry, info) => {
+      const stated = entry.pt
+        || (entry.power != null && entry.toughness != null
+          ? `${entry.power}/${entry.toughness}`
+          : "")
+      if (stated) return { text: String(stated), modified: true }
+
+      const printed = printedPT(info)
+      if (!printed) return null
+      const counters = entry.counters || {}
+      const shift = (Number(counters["+1/+1"]) || 0) - (Number(counters["-1/-1"]) || 0)
+      const shifted = (value) => {
+        const printedValue = Number(value)
+        if (Number.isFinite(printedValue)) return printedValue + shift
+        return shift ? `${value}${shift > 0 ? "+" : ""}${shift}` : value
+      }
+      return {
+        text: `${shifted(printed[0])}/${shifted(printed[1])}`,
+        modified: shift !== 0,
+      }
+    }
+
+    const cardHtml = (name, extra = {}, inPlay = false) => {
       const info = (extra.token_id ? tokens[extra.token_id] : catalog[name]) || {}
       const src = info.image_small || ""
       const href = info.scryfall_uri || "#"
@@ -338,14 +387,18 @@
       const image = src
         ? `<img src="${esc(src)}" alt="${esc(name)}">`
         : `<span style="display:block;padding:1.2rem .2rem;text-align:center;font-size:10px">${esc(name)}</span>`
-      return `<a class="card${classes}" href="${esc(href)}" target="_blank" rel="noreferrer" title="${esc(name)}" data-preview="${esc(info.image_normal || src)}">${image}</a>`
+      const stats = inPlay ? currentPT(extra, info) : null
+      const badge = stats
+        ? `<span class="pt${stats.modified ? " modified" : ""}">${esc(stats.text)}</span>`
+        : ""
+      return `<a class="card${classes}" href="${esc(href)}" target="_blank" rel="noreferrer" title="${esc(name)}" data-preview="${esc(info.image_normal || src)}">${image}${badge}</a>`
     }
 
-    const zone = (title, entries, extra = "") => {
+    const zone = (title, entries, extra = "", inPlay = false) => {
       if (!entries?.length) return ""
       const cards = entries.map((entry) => {
         const name = typeof entry === "string" ? entry : entry.name
-        return cardHtml(name, entry)
+        return cardHtml(name, entry, inPlay)
       }).join("")
       return `<div class="zone${extra}"><h3>${title}</h3><div class="cards">${cards}</div></div>`
     }
@@ -361,7 +414,7 @@
           <div class="life">${player.life ?? "?"}</div>
         </div>
         ${zone("Top of library", player.revealed_top, " revealed")}
-        ${zone("Battlefield", player.battlefield)}
+        ${zone("Battlefield", player.battlefield, "", true)}
         ${zone("Hand", player.hand)}
         ${zone("Graveyard", player.graveyard)}
         ${zone("Command", player.command)}

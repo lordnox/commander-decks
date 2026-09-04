@@ -8,8 +8,9 @@ play and leaves the recorded replay alone.
 
 The separate `render-table-replay` skill validates that log and writes
 `<slug>.html`: a self-contained viewer with a felt table, life totals, exact
-token art, a centre panel naming the current event, the stack, fixed transport
-controls, a collapsible event log, a step slider, and card art on hover. Seats
+token art, current power and toughness in the corner of each creature in play,
+a centre panel naming the current event, the stack, fixed transport controls, a
+collapsible event log, a step slider, and card art on hover. Seats
 that may look at the top of their library — Fblthp, Bolas's Citadel — show that
 card in its own zone. Open the HTML in a browser; GitHub will not render it
 inline.

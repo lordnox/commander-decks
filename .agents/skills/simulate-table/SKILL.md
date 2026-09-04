@@ -123,6 +123,10 @@ For every seat, every turn:
    `token_sources` and put its exact Scryfall ID in the battlefield entry's
    `token_id`. Do not choose a same-name token by memory; printed tokens with
    the same name can have different characteristics.
+10. Record `+1/+1` and `-1/-1` counters in `counters`; the viewer adds them to
+    the printed power and toughness. When anything else changes those values —
+    an anthem, Aura, Equipment, pump spell, or animated land — put the
+    resulting values in the battlefield entry's `pt`.
 
 Record **every** game action as an event with a full board snapshot (see
 [schema.md](schema.md)). Hidden libraries stay in the agent's working notes,
