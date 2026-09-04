@@ -14,5 +14,7 @@ readable in a pull request.
 
 ## Recorded games
 
+- [Homer vs Sin vs Osgir vs Hazel](seed1729-homer-sin-osgir-hazel.md)
+  — seed 1729, truncated at turn 12; Sin-fall leads after commander-killing Homer.
 - [Sygg vs The Twelfth Doctor vs Osgir vs Bartolomé](seed1729-sygg-doctor-osgir-bartolome.md)
   — seed 1729, Bartolomé combo win on turn 5.
