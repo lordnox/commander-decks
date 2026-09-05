@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write pages/index.html listing every finished table replay in pages/."""
+"""Write docs/index.html listing every finished table replay in docs/."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import json
 import sys
 from pathlib import Path
 
-from render_replay import PAGES, ROOT, replay_paths
+from render_replay import DOCS, ROOT, replay_paths
 
 
 def ended_label(ended: str) -> str:
@@ -151,12 +151,12 @@ def main() -> int:
         print(f"ERROR: {error}", file=sys.stderr)
         return 1
 
-    PAGES.mkdir(parents=True, exist_ok=True)
+    DOCS.mkdir(parents=True, exist_ok=True)
 
     cards = []
     missing = 0
     for log in logs:
-        html_path = PAGES / f"{log.stem}.html"
+        html_path = DOCS / f"{log.stem}.html"
         if not html_path.is_file():
             print(
                 f"ERROR: missing {html_path.relative_to(ROOT)}; run bun run table:render",
@@ -170,13 +170,13 @@ def main() -> int:
         return 1
 
     slugs = {log.stem for log in logs}
-    for stale in sorted(PAGES.glob("*.html")):
+    for stale in sorted(DOCS.glob("*.html")):
         if stale.stem not in slugs and stale.name != "index.html":
             print(f"WARNING: {stale.relative_to(ROOT)} has no replay JSON", file=sys.stderr)
 
-    (PAGES / "index.html").write_text(index_html(cards), encoding="utf-8")
-    (PAGES / ".nojekyll").write_text("", encoding="utf-8")
-    print((PAGES / "index.html").relative_to(ROOT))
+    (DOCS / "index.html").write_text(index_html(cards), encoding="utf-8")
+    (DOCS / ".nojekyll").write_text("", encoding="utf-8")
+    print((DOCS / "index.html").relative_to(ROOT))
     return 0
 
 
