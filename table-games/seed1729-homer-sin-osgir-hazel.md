@@ -57,8 +57,8 @@ hits with Sin at 40, Osgir at 37, Hazel at 15.
 
 ## Watch it
 
-`seed1729-homer-sin-osgir-hazel.html` is self-contained: open it in a browser.
-GitHub will not render it inline.
+[Watch on GitHub Pages](https://lordnox.github.io/commander-decks/seed1729-homer-sin-osgir-hazel.html).
+The HTML is also self-contained if you open it locally.
 
 Regenerate it from the log with:
 

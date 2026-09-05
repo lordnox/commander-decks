@@ -2,3 +2,4 @@
 # Scratch by default; commit a game deliberately with `git add -f`.
 table-games/*.json
 table-games/*.html
+_site/
