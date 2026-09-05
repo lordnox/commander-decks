@@ -21,13 +21,17 @@ Judging those decisions belongs to `review-table`.
 
 ## 1. Validate the input
 
-Read `.agents/skills/simulate-table/schema.md`, then run:
+Read `.agents/skills/simulate-table/schema.md`, then rebuild HTML from the
+current viewer template:
 
 ```bash
-python3 .agents/skills/render-table-replay/scripts/render_replay.py \
-  table-games/<slug>.json \
-  --out table-games/<slug>.html
+bun run table:render
+bun run table:render -- table-games/<slug>.json
 ```
+
+No arguments rewrites every finished `table-games/*.json` file (not
+`*.working.json`) next to itself as `<slug>.html`. That is the command after
+viewer or template changes. A single path still accepts `--out`.
 
 The renderer rejects:
 

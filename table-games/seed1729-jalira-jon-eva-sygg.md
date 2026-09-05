@@ -70,8 +70,7 @@ The horizon stops with Jalira ahead and no lethal on the remaining seats.
 it inline.
 
 ```bash
-python3 .agents/skills/render-table-replay/scripts/render_replay.py \
-  table-games/seed1729-jalira-jon-eva-sygg.json
+bun run table:render -- table-games/seed1729-jalira-jon-eva-sygg.json
 ```
 
 This is one seed, not a metagame. Judging is imperfect: Remora draws were not

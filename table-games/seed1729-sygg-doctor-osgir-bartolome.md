@@ -74,8 +74,7 @@ or clone.
 Regenerate it from the log with:
 
 ```bash
-python3 .agents/skills/render-table-replay/scripts/render_replay.py \
-  table-games/seed1729-sygg-doctor-osgir-bartolome.json
+bun run table:render -- table-games/seed1729-sygg-doctor-osgir-bartolome.json
 ```
 
 ## Limits
