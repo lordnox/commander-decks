@@ -65,7 +65,7 @@ Before searching commanders, declare:
 - earliest credible high roll;
 - expected commander or engine setup turn;
 - turn-five milestone;
-- interaction and recovery obligations;
+- interaction and recovery obligations (read [`INTERACTION.md`](../../../INTERACTION.md): name buckets, not a raw count);
 - fast-mana, tutor, combo, and Game Changer boundaries.
 
 The target is a design constraint, not a rating assigned after the list exists.
