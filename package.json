@@ -3,6 +3,7 @@
   "scripts": {
     "deck:tokens": "bun .agents/skills/simulate-table/scripts/fetch-deck-tokens.ts",
     "table:deal": "bun .agents/skills/simulate-table/scripts/deal-table.ts",
-    "table:continue": "bun .agents/skills/simulate-table/scripts/continue-table.ts"
+    "table:continue": "bun .agents/skills/simulate-table/scripts/continue-table.ts",
+    "table:review": "python3 .agents/skills/review-table/scripts/summarize_replays.py"
   }
 }

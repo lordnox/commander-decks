@@ -17,6 +17,7 @@ simulate-table → replay JSON → render-table-replay → HTML
 
 The JSON remains the source of truth. The HTML viewer must not repair illegal
 plays, reorder events, infer missing draws, or continue a truncated game.
+Judging those decisions belongs to `review-table`.
 
 ## 1. Validate the input
 

@@ -20,6 +20,11 @@ Both are gitignored so ordinary runs stay scratch. To keep a game, `git add -f`
 the two files and add a `<slug>.md` recap, since neither JSON nor HTML is
 readable in a pull request.
 
+To ask what went wrong in those logs — missing lands, ramp, or interaction in
+a 99, versus a seat playing the cards it had in the wrong order — follow
+`review-table`. Start with `bun run table:review -- --list` so the agent never
+loads a full snapshot JSON into chat.
+
 ## Recorded games
 
 - [Homer vs Sin vs Osgir vs Hazel](seed1729-homer-sin-osgir-hazel.md)
