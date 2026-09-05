@@ -47,6 +47,9 @@ loads a full snapshot JSON into chat.
 
 ## Recorded games
 
+- [Homer vs Hazel vs Alania vs Eva](seed1729-homer-hazel-alania-eva.md)
+  ([watch](https://lordnox.github.io/commander-decks/?game=seed1729-homer-hazel-alania-eva))
+  — seed 1729, truncated at turn 12; Misty Critters leads after commander-killing Alania.
 - [Homer vs Sin vs Osgir vs Hazel](seed1729-homer-sin-osgir-hazel.md)
   ([watch](https://lordnox.github.io/commander-decks/?game=seed1729-homer-sin-osgir-hazel))
   — seed 1729, truncated at turn 12; Sin-fall leads after commander-killing Homer.
