@@ -11,6 +11,8 @@ import unicodedata
 from pathlib import Path
 
 TEMPLATE = Path(__file__).with_name("replay.html")
+ROOT = Path(__file__).resolve().parents[4]
+TABLE_GAMES = ROOT / "table-games"
 PT = re.compile(r"^[^/\s]+/[^/\s]+$")
 
 
@@ -295,29 +297,79 @@ def render(game: dict) -> str:
     return template.replace("__GAME_JSON__", payload)
 
 
+def replay_paths(explicit: list[Path]) -> list[Path]:
+    if explicit:
+        resolved = []
+        for path in explicit:
+            candidate = path if path.is_absolute() else ROOT / path
+            if not candidate.exists():
+                raise ValueError(f"replay not found: {path}")
+            resolved.append(candidate.resolve())
+        return resolved
+    if not TABLE_GAMES.is_dir():
+        return []
+    return sorted(
+        path
+        for path in TABLE_GAMES.glob("*.json")
+        if not path.name.endswith(".working.json")
+    )
+
+
+def render_file(log: Path, out: Path | None) -> Path:
+    game = json.loads(log.read_text(encoding="utf-8"))
+    html = render(game)
+    target = out or log.with_suffix(".html")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(html, encoding="utf-8")
+    try:
+        return target.relative_to(ROOT)
+    except ValueError:
+        return target
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Validate and render a Commander table replay"
+        description=(
+            "Validate replay JSON and write HTML with the current viewer. "
+            "With no paths, rebuild every finished table-games/*.json file."
+        )
     )
-    parser.add_argument("log", type=Path)
-    parser.add_argument("--out", type=Path)
+    parser.add_argument(
+        "logs",
+        nargs="*",
+        type=Path,
+        help="Replay JSON paths. Default: table-games/*.json except *.working.json.",
+    )
+    parser.add_argument(
+        "--out",
+        type=Path,
+        help="HTML path. Only valid when rendering a single replay.",
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
+    if args.out and len(args.logs) != 1:
+        print("ERROR: --out requires exactly one replay path", file=sys.stderr)
+        return 1
     try:
-        game = json.loads(args.log.read_text(encoding="utf-8"))
-        html = render(game)
-    except (OSError, ValueError, json.JSONDecodeError) as error:
+        paths = replay_paths(args.logs)
+    except ValueError as error:
         print(f"ERROR: {error}", file=sys.stderr)
         return 1
+    if not paths:
+        print("ERROR: no replay JSON found under table-games/", file=sys.stderr)
+        return 1
 
-    out = args.out or args.log.with_suffix(".html")
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(html, encoding="utf-8")
-    print(out)
-    return 0
+    failed = 0
+    for log in paths:
+        try:
+            print(render_file(log, args.out))
+        except (OSError, ValueError, json.JSONDecodeError) as error:
+            print(f"ERROR: {log}: {error}", file=sys.stderr)
+            failed += 1
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":

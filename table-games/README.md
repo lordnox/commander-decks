@@ -6,10 +6,17 @@ printings with `bun run deck:tokens -- <deck names>`, then start with
 <table>.json --turns 3`, which prepares `<slug>.working.json` for the agent to
 play and leaves the recorded replay alone.
 
-The separate `render-table-replay` skill validates that log and writes
-`<slug>.html`: a self-contained viewer with a felt table, life totals, exact
-token art, current power and toughness in the corner of each creature in play,
-counter and status chips, a centre panel naming the current event, the stack,
+Rebuild every stored replay with the current HTML viewer:
+
+```bash
+bun run table:render
+```
+
+Pass one JSON path to refresh a single game. The `render-table-replay` skill
+validates the log and writes `<slug>.html`: a self-contained viewer with a
+felt table, life totals, exact token art, current power and toughness in the
+corner of each creature in play, counter and status chips, a centre panel
+naming the current event, the stack,
 fixed transport controls, a collapsible event log, a step slider, and a hover
 preview that shows the large card with its counters and notes spelled out. Seats
 that may look at the top of their library — Fblthp, Bolas's Citadel — show that
