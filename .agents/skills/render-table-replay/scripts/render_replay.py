@@ -14,6 +14,10 @@ ROOT = Path(__file__).resolve().parents[4]
 TABLE_GAMES = ROOT / "table-games"
 REPLAYS = ROOT / "site" / "public" / "replays"
 PT = re.compile(r"^[^/\s]+/[^/\s]+$")
+SCHEMAS = {1, 2}
+COMBAT_STEPS = {"attackers", "blockers", "first_strike_damage", "combat_damage"}
+DAMAGE_STEPS = {"first_strike_damage", "combat_damage"}
+DAMAGE_TYPES = {"combat", "noncombat"}
 
 
 def normalized_name(name: str) -> str:
@@ -173,6 +177,25 @@ def referenced_cards(events: list[dict], references: list[dict] | None = None) -
         decision = event.get("decision") or {}
         for key in ("available", "held"):
             names.update(resolve(name) for name in decision.get(key) or [])
+        combat = event.get("combat")
+        if isinstance(combat, dict):
+            names.update(
+                resolve(attacker["card"])
+                for attacker in combat.get("attackers") or []
+                if isinstance(attacker, dict) and attacker.get("card")
+            )
+            names.update(resolve(name) for name in combat.get("unblocked") or [])
+            for block in combat.get("blocks") or []:
+                if not isinstance(block, dict):
+                    continue
+                if block.get("attacker"):
+                    names.add(resolve(block["attacker"]))
+                names.update(resolve(name) for name in block.get("blockers") or [])
+        names.update(
+            resolve(entry["source"])
+            for entry in event.get("damage") or []
+            if isinstance(entry, dict) and entry.get("source")
+        )
         state = event.get("state") or {}
         for item in state.get("stack") or []:
             if isinstance(item, dict) and item.get("name"):
@@ -253,11 +276,141 @@ def validate_turn_draws(events: list[dict]) -> None:
             )
 
 
+def battlefield_entry(event: dict, name: str, rows: list[dict]) -> dict | None:
+    players = (event.get("state") or {}).get("players") or {}
+    player = players.get(event.get("seat")) or {}
+    matches = [
+        entry
+        for entry in player.get("battlefield") or []
+        if isinstance(entry, dict) and resolve_name(entry.get("name"), rows) == name
+    ]
+    return matches[0] if len(matches) == 1 else None
+
+
+def is_combat_damage(event: dict) -> bool:
+    combat = event.get("combat") or {}
+    if isinstance(combat, dict) and combat.get("step") in DAMAGE_STEPS:
+        return True
+    return any(
+        isinstance(entry, dict) and entry.get("type") == "combat"
+        for entry in event.get("damage") or []
+    )
+
+
+def validate_combat_shape(event: dict, rows: list[dict]) -> None:
+    """Check the combat fields a replay actually carries, whatever its schema."""
+    event_id = event.get("id")
+    combat = event.get("combat")
+    if combat is not None:
+        if not isinstance(combat, dict):
+            raise ValueError(f"event {event_id}: combat must be an object")
+        step = combat.get("step")
+        if step is not None and step not in COMBAT_STEPS:
+            raise ValueError(
+                f"event {event_id}: combat step {step!r} is not one of "
+                f"{', '.join(sorted(COMBAT_STEPS))}"
+            )
+        for attacker in combat.get("attackers") or []:
+            if not isinstance(attacker, dict) or not attacker.get("card"):
+                raise ValueError(f"event {event_id}: an attacker is missing its card")
+            name = resolve_name(attacker["card"], rows)
+            if not attacker.get("defender"):
+                raise ValueError(f"event {event_id}: {name} attacks no defender")
+            entry = battlefield_entry(event, name, rows)
+            if entry is None or attacker.get("tapped") is None:
+                continue
+            if bool(entry.get("tapped")) != bool(attacker["tapped"]):
+                raise ValueError(
+                    f"event {event_id}: {name} declares tapped="
+                    f"{bool(attacker['tapped'])} but its snapshot says "
+                    f"tapped={bool(entry.get('tapped'))}"
+                )
+        for block in combat.get("blocks") or []:
+            if not isinstance(block, dict) or not block.get("attacker"):
+                raise ValueError(f"event {event_id}: a block names no attacker")
+            if not block.get("blockers"):
+                raise ValueError(
+                    f"event {event_id}: the block on "
+                    f"{resolve_name(block['attacker'], rows)} names no blockers"
+                )
+    damage = event.get("damage")
+    if damage is None:
+        return
+    if not isinstance(damage, list) or not damage:
+        raise ValueError(f"event {event_id}: damage must be a non-empty list")
+    for entry in damage:
+        if not isinstance(entry, dict):
+            raise ValueError(f"event {event_id}: each damage entry must be an object")
+        if entry.get("type") not in DAMAGE_TYPES:
+            raise ValueError(
+                f"event {event_id}: damage from "
+                f"{resolve_name(entry.get('source'), rows)} needs type "
+                '"combat" or "noncombat"'
+            )
+        if not entry.get("source") or not entry.get("target"):
+            raise ValueError(f"event {event_id}: a damage entry needs source and target")
+        if not isinstance(entry.get("amount"), int) or isinstance(entry.get("amount"), bool):
+            raise ValueError(f"event {event_id}: a damage entry needs an integer amount")
+
+
+def validate_combat_flow(events: list[dict], seat_ids: set[str], rows: list[dict]) -> None:
+    """Require declare attackers, declare blockers, and typed damage."""
+    attack: dict = {}
+    for index, event in enumerate(events):
+        kind = event.get("kind")
+        if kind == "damage":
+            if not event.get("damage"):
+                raise ValueError(
+                    f"event {event['id']}: a damage event needs typed damage entries"
+                )
+            if is_combat_damage(event) and not any(
+                item.get("kind") == "attack" and item.get("turn") == event.get("turn")
+                for item in events[:index]
+            ):
+                raise ValueError(
+                    f"event {event['id']}: combat damage without a declared attack"
+                )
+            continue
+        if kind == "block":
+            blocks = (event.get("combat") or {}).get("blocks")
+            possible = ((attack.get("combat") or {}).get("possible_blockers") or {})
+            could_block = possible.get(event.get("seat"), True)
+            if not blocks and could_block and not (event.get("decision") or {}).get("reason"):
+                raise ValueError(
+                    f"event {event['id']}: declining to block needs decision.reason"
+                )
+            continue
+        if kind != "attack":
+            continue
+        attack = event
+        attackers = (event.get("combat") or {}).get("attackers")
+        if not attackers:
+            raise ValueError(f"event {event['id']}: an attack needs combat.attackers")
+        defenders = {
+            attacker.get("defender")
+            for attacker in attackers
+            if attacker.get("defender") in seat_ids
+        }
+        answered: set[str] = set()
+        for item in events[index + 1 :]:
+            if item.get("turn") != event.get("turn") or item.get("kind") == "attack":
+                break
+            if item.get("kind") == "block":
+                answered.add(item.get("seat"))
+            if item.get("kind") == "damage" and is_combat_damage(item):
+                break
+        silent = sorted(defenders - answered)
+        if silent:
+            raise ValueError(
+                f"event {event['id']}: {', '.join(silent)} never declared blockers"
+            )
+
+
 def public_game(game: dict) -> dict:
     cleaned = dict(game)
     cleaned.pop("_libraries", None)
-    if cleaned.get("schema") != 1:
-        raise ValueError("replay JSON must set schema to 1")
+    if cleaned.get("schema") not in SCHEMAS:
+        raise ValueError("replay JSON must set schema to 1 or 2")
 
     seats = cleaned.get("seats")
     events = cleaned.get("events")
@@ -322,6 +475,11 @@ def public_game(game: dict) -> dict:
                 raise ValueError(f"references[{ref_index}] deal needs terms")
 
     validate_turn_draws(events)
+    rows = references if isinstance(references, list) else []
+    for event in events:
+        validate_combat_shape(event, rows)
+    if cleaned["schema"] >= 2:
+        validate_combat_flow(events, {seat.get("id") for seat in seats}, rows)
 
     catalog = cleaned.get("catalog")
     if not isinstance(catalog, dict):

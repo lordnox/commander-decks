@@ -77,6 +77,36 @@ export type ReplayDecision = {
   honors_deal?: number
 }
 
+export type CombatAttacker = {
+  card: string | number
+  defender: string | number
+  pt?: string
+  tapped?: boolean
+  keywords?: string[]
+}
+
+export type CombatBlock = {
+  attacker: string | number
+  blockers: Array<string | number>
+}
+
+export type ReplayCombat = {
+  step?: 'attackers' | 'blockers' | 'first_strike_damage' | 'combat_damage'
+  attackers?: CombatAttacker[]
+  possible_blockers?: Record<string, Array<string | number>>
+  blocks?: CombatBlock[]
+  unblocked?: Array<string | number>
+}
+
+export type ReplayDamage = {
+  source: string | number
+  target: string | number
+  amount: number
+  type: 'combat' | 'noncombat'
+  commander?: boolean
+  keyword?: string
+}
+
 export type ReplayEvent = {
   id: number
   turn: number
@@ -86,6 +116,8 @@ export type ReplayEvent = {
   summary: string
   cards?: Array<string | number>
   notes?: string
+  combat?: ReplayCombat
+  damage?: ReplayDamage[]
   decision?: ReplayDecision
   deal?: {
     id: number

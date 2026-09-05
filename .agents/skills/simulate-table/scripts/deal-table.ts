@@ -566,7 +566,7 @@ const applyGame = async (seats: Seat[], options: Options) => {
   }))
 
   return {
-    schema: 1,
+    schema: 2,
     seed: options.seed,
     starting_life: 40,
     headline: "In progress",

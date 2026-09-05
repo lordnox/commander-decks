@@ -104,10 +104,16 @@ For each requested seat, or every seat if unspecified:
 2. Deterministic wins: at each main phase, if a walkable win existed from
    public cards, missing it is a pilot error (and would invalidate the
    original sim).
-3. Combat: attack with creatures that can still be sacrificed at instant
-   speed **before** sacrificing them. Example: five Squirrel tokens that
-   will be food for a sac outlet this turn should swing first unless
-   blocking or a fog is the actual plan.
+3. Combat: read the recorded `combat` payloads — attackers and their
+   defenders, `possible_blockers`, the blocks each seat declared, and typed
+   damage. Attacking into a board that blocks profitably is a pilot error
+   unless the `attack` event records the reason; so is a defender that
+   declined a free block without one. Attack with creatures that can still
+   be sacrificed at instant speed **before** sacrificing them: five Squirrel
+   tokens that will be food for a sac outlet this turn should swing first
+   unless blocking or a fog is the actual plan. When
+   `flags.combat_records` fires, the combat was never recorded in enough
+   detail, so report missing evidence instead of grading the line.
 4. Open mana: inspect recorded `decision.available`, `held`, `held_for`,
    `play_later`, and `reason` first. Check whether the stated later window
    happened and whether the seat followed through. `flags.unused_reactive`

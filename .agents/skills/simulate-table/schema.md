@@ -1,14 +1,19 @@
 # Table replay JSON
 
-`simulate-table` writes `schema: 1`. `render-table-replay` validates and
+`simulate-table` writes `schema: 2`. `render-table-replay` validates and
 renders it. Snapshots are the source of truth for the viewer; the renderer
 does not apply Magic rules.
+
+Schema 2 adds the [combat record](#combat): declared attackers, declared
+blockers, and damage typed as combat or non-combat. Schema 1 files are legacy
+recordings that predate it; they still render, and the renderer does not
+demand combat detail from them.
 
 ## Top level
 
 | Field | Meaning |
 |---|---|
-| `schema` | `1` |
+| `schema` | `2` (`1` is a legacy replay without combat records) |
 | `seed` | Deal seed |
 | `starting_life` | Usually `40` |
 | `headline` | One-line result |
@@ -82,6 +87,8 @@ card names so a snapshot is readable without the table. Old replays may omit
 | `notes` | Optional rules or politics aside |
 | `decision` | Optional why-this-play object; required on a pass that leaves unused mana |
 | `deal` | Optional table-talk payload on `talk` / `deal` events |
+| `combat` | Combat step payload on `attack` / `block` / combat `damage` events |
+| `damage` | List of damage entries on a `damage` event |
 | `state` | Full public board after the event, including `deals` |
 
 `kind`: `setup`, `keep`, `mulligan`, `draw`, `play_land`, `cast`, `activate`,
@@ -213,6 +220,128 @@ counter, reject, breach, expire). Put the full terms on the deal row in
 Terms must be specific, observable, and things the speaker can actually do.
 Symmetrical taxes cannot be promised away. Hidden cards cannot be promised
 unless the term is conditional on drawing them.
+
+### Combat
+
+One combat is at least three events in the `combat` phase, in order:
+`attack` (declare attackers), `block` (declare blockers, even when nobody
+blocks), then `damage` (the combat damage step). A lone `damage` event does
+not say who attacked whom, what could have blocked, or why it did not, so it
+is not a legal record of a combat.
+
+`attack` names every attacker and what it is attacking:
+
+```json
+{
+  "kind": "attack",
+  "phase": "combat",
+  "seat": "p3",
+  "summary": "Osgir, the Reconstructor attacks Misty Critters.",
+  "cards": ["Osgir, the Reconstructor"],
+  "combat": {
+    "step": "attackers",
+    "attackers": [
+      {
+        "card": "Osgir, the Reconstructor",
+        "defender": "p4",
+        "pt": "4/4",
+        "tapped": false,
+        "keywords": ["vigilance"]
+      }
+    ],
+    "possible_blockers": {
+      "p4": ["Hazel of the Rootbloom", "Squirrel ×10"]
+    }
+  }
+}
+```
+
+| Field | Meaning |
+|---|---|
+| `step` | `attackers`, `blockers`, `first_strike_damage`, or `combat_damage` |
+| `attackers[].card` | Attacking creature, as a reference index or Oracle name |
+| `attackers[].defender` | Defending seat id, or the planeswalker or battle attacked |
+| `attackers[].pt` | Power and toughness as it attacks, after counters and anthems |
+| `attackers[].tapped` | Whether declaring it tapped the creature; `false` needs vigilance or another named reason |
+| `attackers[].keywords` | Combat-relevant keywords: flying, menace, trample, deathtouch, first strike, vigilance, protection |
+| `possible_blockers` | Per defending seat, the untapped creatures that could legally block this attack; `[]` when the attack cannot be blocked |
+
+`possible_blockers` is read by humans, not resolved against the catalog, so a
+repeated token may be written once with a count (`"Squirrel ×10"`). Every other
+card in a combat payload is a reference index or an exact Oracle name.
+
+The attacker's `tapped` value must agree with that seat's battlefield snapshot:
+a vigilant attacker stays untapped, everything else is tapped in the snapshot
+taken after the declaration.
+
+`block` is declared by each defending seat, including the seat that declines:
+
+```json
+{
+  "kind": "block",
+  "phase": "combat",
+  "seat": "p4",
+  "summary": "Misty Critters blocks Osgir with two Squirrels.",
+  "combat": {
+    "step": "blockers",
+    "blocks": [
+      {
+        "attacker": "Osgir, the Reconstructor",
+        "blockers": ["Squirrel", "Squirrel"]
+      }
+    ],
+    "unblocked": []
+  }
+}
+```
+
+| Field | Meaning |
+|---|---|
+| `blocks[].attacker` | The attacker being blocked |
+| `blocks[].blockers` | Creatures blocking it, in damage assignment order |
+| `unblocked` | Attackers this seat let through |
+
+An empty `blocks` list needs a `decision` on the same event explaining why
+untapped creatures stayed home — the defender's actual reason, such as saving
+Squirrels for a sacrifice outlet, keeping a blocker for a bigger attacker, or
+being happy to take four at 15 life. A seat the attack recorded as having no
+`possible_blockers` has nothing to explain and needs no reason.
+
+`damage` types every point it deals:
+
+```json
+{
+  "kind": "damage",
+  "phase": "combat",
+  "seat": "p3",
+  "summary": "Osgir deals 4 combat damage to Misty Critters.",
+  "combat": {"step": "combat_damage"},
+  "damage": [
+    {
+      "source": "Osgir, the Reconstructor",
+      "target": "p4",
+      "amount": 4,
+      "type": "combat",
+      "commander": false
+    }
+  ]
+}
+```
+
+| Field | Meaning |
+|---|---|
+| `source` | Permanent, spell, or ability dealing the damage |
+| `target` | Defending seat id, or the permanent or planeswalker taking it |
+| `amount` | Integer |
+| `type` | `combat` or `noncombat` |
+| `commander` | `true` when it also counts toward commander damage |
+| `keyword` | Optional: `trample`, `first strike`, `deathtouch`, `infect`, `lifelink` when it changed the assignment or the result |
+
+Magic keys triggers, replacement effects, and commander damage off the
+combat / non-combat split, so a burn spell, a drain, or a damage trigger uses
+`"type": "noncombat"`, carries no `combat` field, and sits in the phase where
+it happened. Write "deals 4 combat damage" in a summary only for a combat
+damage step; other damage is just "deals 4 damage".
 
 ### Power and toughness
 

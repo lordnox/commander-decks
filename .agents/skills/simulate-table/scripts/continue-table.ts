@@ -233,7 +233,9 @@ const main = async () => {
   const options = parseArgs(Bun.argv.slice(2))
   const replayPath = await chooseReplay(options.repo, options.replay)
   const game = await readJson(replayPath)
-  if (game.schema !== 1) throw new Error("replay JSON must set schema to 1")
+  if (game.schema !== 1 && game.schema !== 2) {
+    throw new Error("replay JSON must set schema to 1 or 2")
+  }
   if (!Array.isArray(game.seats) || game.seats.length !== 4) {
     throw new Error("replay JSON needs exactly four seats")
   }

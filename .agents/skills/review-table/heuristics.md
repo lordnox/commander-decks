@@ -6,7 +6,7 @@ human pass against Oracle, the primer, and recorded decisions.
 
 ## Inputs
 
-- `table-games/*.json` schema 1, including gitignored scratch files
+- `table-games/*.json` schema 1 or 2, including gitignored scratch files
 - Default scans exclude `*.working.json`; pass one explicitly only to debug
   an unfinished continuation
 - `--deck` matches seat id, brew title, commander name, or folder slug
@@ -46,6 +46,13 @@ that battlefield at the start of the earlier window. The Squirrel case:
 tokens that can be sacrificed at instant speed should usually attack
 first. Reject when the sac was required to pay for the attack, to grow
 the attacker, or to survive a declared blocker/wipe.
+
+**combat_records.** The combat is not written down well enough to judge:
+an `attack` without `combat.attackers` or with no `block` event before
+damage, a `block` that declines without `decision.reason`, or a `damage`
+event whose entries are not typed `combat` / `noncombat`. Schema 1 replays
+raise it on every combat because they predate the record; say the evidence is
+missing rather than grading the attack or the missing block.
 
 **never_deployed.** Names that appeared in hand (keep, draw, or a
 snapshot) and were still in the final hand, never listed on `cast`,
