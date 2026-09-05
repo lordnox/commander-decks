@@ -70,6 +70,37 @@ export const creatureInPlay = (
   return (entry?.counters?.charge ?? 0) >= Number(station[1])
 }
 
+/** A permanent that taps or sacrifices itself for mana sits with the lands. */
+const manaAbility = /(?:^|\n)[^\n]*:\s*Add\b/
+const bodyLater = /\b(Vehicle|Spacecraft|Station)\b/
+const sideboard = /\b(Planeswalker|Battle)\b/
+
+export type BattlefieldRow =
+  | 'creatures'
+  | 'permanents'
+  | 'planeswalkers'
+  | 'mana'
+  | 'other'
+
+/**
+ * Where a permanent belongs on the board. A Vehicle or Spacecraft lines up with
+ * the creatures it is about to join, a Signet lines up with the lands it stands
+ * in for, and anything unusual (an emblem, a Dungeon, a card with no Oracle
+ * data) falls through to its own row rather than being forced into one.
+ */
+export const battlefieldRow = (
+  details: CardDetails,
+  entry?: BattlefieldCard,
+): BattlefieldRow => {
+  const type = details.type_line ?? ''
+  if (creatureInPlay(details, entry) || bodyLater.test(type)) return 'creatures'
+  if (sideboard.test(type)) return 'planeswalkers'
+  if (/\bLand\b/.test(type)) return 'mana'
+  if (manaAbility.test(details.oracle_text ?? '')) return 'mana'
+  if (/\b(Artifact|Enchantment)\b/.test(type)) return 'permanents'
+  return 'other'
+}
+
 /**
  * The body to print in the card corner: a recorded `pt`, the body a token's
  * note states, or the printed values shifted by `+1/+1` and `-1/-1` counters.
