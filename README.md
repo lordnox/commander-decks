@@ -13,7 +13,10 @@ A conversation-driven workspace for importing, resolving, categorizing, assessin
 
 **[lordnox.github.io/commander-decks](https://lordnox.github.io/commander-decks/)** lists every recorded four-player game and steps through it turn by turn.
 
-GitHub Pages serves that site from [`docs/`](docs) on `main`, so the link works once Pages is enabled for this repository. Each game also has a Markdown recap in [`table-games/`](table-games/README.md).
+The React and Tailwind source lives in [`site/`](site); GitHub Actions rebuilds
+the replay viewers and deploys the Vite output. Set Pages to **GitHub Actions**
+as its source. Each game also has a Markdown recap in
+[`table-games/`](table-games/README.md).
 
 ## Deck primers
 

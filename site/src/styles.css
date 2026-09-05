@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink-950: #071410;
+  --color-ink-900: #0e241e;
+  --color-moss-400: #2f6f5f;
+  --color-moss-300: #73b49f;
+  --color-moss-200: #9bd3c0;
+  --color-gold-400: #b9984f;
+  --color-gold-300: #e6d27a;
+  --font-display: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+}
+
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  background: #071410;
+  color: #f4efe6;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 90% 30%, rgb(29 83 66 / 22%), transparent 32rem),
+    #071410;
+}
+
+.hero-glow {
+  background:
+    linear-gradient(110deg, rgb(7 20 16 / 35%), rgb(7 20 16 / 92%)),
+    radial-gradient(circle at 78% 18%, rgb(115 180 159 / 25%), transparent 24rem),
+    repeating-linear-gradient(
+      135deg,
+      transparent 0,
+      transparent 32px,
+      rgb(255 255 255 / 1.5%) 32px,
+      rgb(255 255 255 / 1.5%) 33px
+    ),
+    #0e241e;
+}
+
+::selection {
+  background: #e6d27a;
+  color: #071410;
+}

@@ -30,8 +30,8 @@ bun run table:render -- table-games/<slug>.json
 ```
 
 No arguments rewrites every finished `table-games/*.json` file (not
-`*.working.json`) as `pages/<slug>.html`. That is the command after viewer or
-template changes. A single path still accepts `--out`.
+`*.working.json`) as `site/public/replays/<slug>.html`. That is the command
+after viewer or template changes. A single path still accepts `--out`.
 
 The renderer rejects:
 
@@ -84,33 +84,34 @@ Open the HTML when browser tools are available and verify:
 
 Do not dump HTML source into chat.
 
-## 3. Store and report
+## 3. Build and report
 
-The served site is the tracked `docs/` directory: one `<slug>.html` per game
-plus the generated `index.html` and `.nojekyll`. Rebuild both after a viewer
-change and commit the result:
+The React index lives under `site/`. Replay HTML and compact index metadata are
+generated into `site/public/`, which Vite copies into `dist/`:
 
 ```bash
-bun run table:render
-bun run table:pages
+bun run site:prepare
+bun run build
 ```
 
-`build_pages.py` regenerates `docs/index.html` from the replay JSON, so a new
-game appears in the listing without hand-editing HTML. It warns about a
-`docs/*.html` whose JSON is gone instead of deleting it; remove that file
-yourself once the game is really retired.
+`site:prepare` runs `table:render` and then `table:pages`.
+`build_pages.py` regenerates `site/public/games.json` from the replay JSON, so
+a new game appears in the React index without hand-editing it. It warns about a
+`site/public/replays/*.html` whose JSON is gone instead of deleting it; remove
+that file yourself once the game is really retired.
 
 Replay logs stay scratch (`table-games/*.json` is gitignored). To keep a game,
-`git add -f` its JSON, commit its `docs/<slug>.html`, and add a short
-`table-games/<slug>.md` recap because GitHub renders neither JSON nor HTML.
+`git add -f` its JSON and add a short `table-games/<slug>.md` recap. Generated
+HTML, metadata, and `dist/` remain ignored; GitHub Actions rebuilds them from
+the committed JSON.
 
-GitHub Pages serves `main` at `/docs`, so an uncommitted render never reaches
-the site and no build runs in CI. Pages must be enabled for the repository
-(public, or a plan that includes private Pages); the index is then
-`https://lordnox.github.io/commander-decks/`.
+GitHub Pages must use **GitHub Actions** as its source. The workflow typechecks
+and builds the Vite app, then deploys `dist/`. Pages must also be enabled for
+the repository (public, or a plan that includes private Pages); the index is
+then `https://lordnox.github.io/commander-decks/`.
 
-Return the HTML path:
+Return the generated HTML path:
 
 ```text
-docs/<slug>.html
+site/public/replays/<slug>.html
 ```
