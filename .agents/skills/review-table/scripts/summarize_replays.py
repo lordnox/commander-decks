@@ -216,6 +216,56 @@ def compact_decision(decision: dict, references: list[dict]) -> dict:
     return compact
 
 
+def compact_combat(combat: dict, references: list[dict]) -> dict:
+    compact: dict = {"step": combat.get("step") or ""}
+    attackers = [
+        {
+            "card": reference_name(references, attacker.get("card")),
+            "defender": reference_name(references, attacker.get("defender")),
+            "pt": attacker.get("pt") or "",
+            "tapped": attacker.get("tapped"),
+            "keywords": attacker.get("keywords") or [],
+        }
+        for attacker in combat.get("attackers") or []
+        if isinstance(attacker, dict)
+    ]
+    if attackers:
+        compact["attackers"] = attackers
+    possible = {
+        seat: resolve_cards(references, blockers or [])
+        for seat, blockers in (combat.get("possible_blockers") or {}).items()
+    }
+    if possible:
+        compact["possible_blockers"] = possible
+    if "blocks" in combat:
+        compact["blocks"] = [
+            {
+                "attacker": reference_name(references, block.get("attacker")),
+                "blockers": resolve_cards(references, block.get("blockers") or []),
+            }
+            for block in combat.get("blocks") or []
+            if isinstance(block, dict)
+        ]
+    if combat.get("unblocked"):
+        compact["unblocked"] = resolve_cards(references, combat["unblocked"])
+    return compact
+
+
+def compact_damage(damage: list, references: list[dict]) -> list[dict]:
+    return [
+        {
+            "source": reference_name(references, entry.get("source")),
+            "target": reference_name(references, entry.get("target")),
+            "amount": entry.get("amount"),
+            "type": entry.get("type") or "",
+            "commander": bool(entry.get("commander")),
+            "keyword": entry.get("keyword") or "",
+        }
+        for entry in damage
+        if isinstance(entry, dict)
+    ]
+
+
 def event_log(event: dict, references: list[dict] | None = None) -> dict:
     rows = references or []
     compact = {
@@ -228,6 +278,12 @@ def event_log(event: dict, references: list[dict] | None = None) -> dict:
         "cards": resolve_cards(rows, event.get("cards") or []),
         "notes": event.get("notes") or "",
     }
+    combat = event.get("combat") or {}
+    if combat:
+        compact["combat"] = compact_combat(combat, rows)
+    damage = event.get("damage") or []
+    if damage:
+        compact["damage"] = compact_damage(damage, rows)
     decision = compact_decision(event.get("decision") or {}, rows)
     if decision:
         compact["decision"] = decision
@@ -622,6 +678,48 @@ def unexplained_holds(
     return flags
 
 
+def combat_records(events: list[dict], references: list[dict]) -> list[dict]:
+    """Combats the replay never wrote down well enough to judge."""
+    flags = []
+    for index, event in enumerate(events):
+        kind = event.get("kind")
+        combat = event.get("combat") or {}
+        missing = []
+        if kind == "attack":
+            if not combat.get("attackers"):
+                missing.append("attackers")
+            answered = False
+            for item in events[index + 1 :]:
+                if item.get("turn") != event.get("turn") or item.get("kind") == "attack":
+                    break
+                if item.get("kind") == "block":
+                    answered = True
+                    break
+                if item.get("kind") == "damage":
+                    break
+            if not answered:
+                missing.append("blockers")
+        elif kind == "block":
+            if not combat.get("blocks") and not (event.get("decision") or {}).get("reason"):
+                missing.append("block reason")
+        elif kind == "damage":
+            entries = event.get("damage") or []
+            if not entries or any(
+                not isinstance(entry, dict) or entry.get("type") not in {"combat", "noncombat"}
+                for entry in entries
+            ):
+                missing.append("damage type")
+        if not missing:
+            continue
+        flags.append(
+            {
+                **event_log(event, references),
+                "missing": missing,
+            }
+        )
+    return flags
+
+
 def digest_game(path: Path, game: dict, seat_query: str | None) -> dict:
     seats = game.get("seats") or []
     catalog = game.get("catalog") or {}
@@ -658,6 +756,7 @@ def digest_game(path: Path, game: dict, seat_query: str | None) -> dict:
             "unexplained_holds": unexplained_holds(
                 catalog, events, references
             ),
+            "combat_records": combat_records(events, references),
         },
         "never_deployed": never_deployed(
             catalog, events, categories, references

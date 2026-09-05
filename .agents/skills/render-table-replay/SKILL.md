@@ -35,7 +35,7 @@ after player or schema changes. A single path still accepts `--out`.
 
 The renderer rejects:
 
-- schemas other than version 1;
+- schemas other than version 1 or 2;
 - anything other than four seats;
 - missing event snapshots;
 - hidden library contents in public player state;
@@ -50,7 +50,16 @@ The renderer rejects:
 - a battlefield `pt` that is not `power/toughness`;
 - a battlefield `face` that the card does not have;
 - malformed rows in `references`;
-- a `revealed_top` list longer than that seat's `library_count`.
+- a `revealed_top` list longer than that seat's `library_count`;
+- a combat payload with an unknown step, an attacker without a defender, an
+  attacker whose declared tapped state contradicts the snapshot, or a damage
+  entry that is not typed `combat` or `noncombat`.
+
+A schema 2 replay additionally needs a complete combat record, so it is
+rejected for an `attack` without `combat.attackers`, a defending seat that
+never declared blockers, a `block` that declines without `decision.reason`,
+or combat damage with no declared attack that turn. Schema 1 replays predate
+the combat record and are validated only on the fields they carry.
 
 It trims unused catalog entries before publishing JSON, and fills in
 missing per-side `faces` art from the `cards/` cache so replays recorded before
@@ -87,7 +96,9 @@ Open the React route `?game=<slug>` when browser tools are available and verify:
     threshold show none;
 11. counters and status show on the card, and selecting it opens the inspector
     with Oracle text, counters, notes, and its Scryfall link;
-12. narrow layouts remain usable with the fixed controls and collapsed log.
+12. combat events list attackers and their defenders, the blockers each seat
+    could have used, the blocks declared, and damage marked combat or not;
+13. narrow layouts remain usable with the fixed controls and collapsed log.
 
 Do not dump replay JSON into chat.
 

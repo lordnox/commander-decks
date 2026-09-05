@@ -111,8 +111,9 @@ For every seat, every turn:
    politics rather than dump the hand because it is a sim. A pass with
    unused mana is a recorded decision, not silence.
 5. Attack, race, or stall according to the win condition, threat assessment,
-   and life totals. Do not kingmake unless that deck's documented plan is
-   political. Politics is a game action: negotiate before spending
+   and life totals, and play the whole combat as three recorded steps
+   (see [3d](#3d-combat)). Do not kingmake unless that deck's documented plan
+   is political. Politics is a game action: negotiate before spending
    irreversible leverage (board wipe, lethal, lock gift, counter, targeted
    removal). Record offers, answers, and active deals in the replay.
 6. Never tutor, draw, or produce a card that was not in hand, in a known
@@ -210,7 +211,47 @@ player rows, then one card row per catalog name in key order, then every deal
 in offer order. The ID is the array index. `summary`, `reason`, and `terms`
 always use names, never indexes.
 
-## 3d. Continue
+## 3d. Combat
+
+The defending seats are players, not a damage sponge. Play every combat as
+three events — `attack`, `block`, `damage` — with the fields in
+[schema.md](schema.md#combat).
+
+**Declaring attackers.** For each attacker, name the defending player,
+planeswalker, or battle, tap it unless it has vigilance, and list its
+combat keywords. Before committing, look at what each defender can actually
+block with: their untapped creatures, their power and toughness, and their
+open mana. Record those creatures in `combat.possible_blockers`, so the
+reader can see the attack the attacking seat chose to make.
+
+An attack that hands the defender a free kill is a pilot error, not flavor. A
+4/4 swinging into ten untapped 1/1s and a 3/5 is a gift unless the attacking
+seat has a stated reason: lethal on another seat, trample or evasion, a
+pump or protection spell held up, a sacrifice outlet that wants the creature
+dead, a deal, or a race where four damage matters more than the body. Put
+that reason in `notes` or a `decision` on the `attack` event, or do not
+declare the attack.
+
+**Declaring blockers.** Every defending seat answers with its own `block`
+event, including one that blocks nothing. Block the way that seat would: a
+free or profitable block, a chump block that saves lethal, or a gang block
+that kills the attacker. Declining a block that would kill the attacker for
+nothing is a pilot error unless the seat has a reason it would say out loud
+— those creatures are food for a sacrifice outlet this turn, they are held
+for a bigger attacker, the deck wants the life loss for a payoff, or a deal
+covers this attack. A `block` event with no blocks needs that reason in
+`decision`.
+
+**Damage.** Assign combat damage from the blocks actually declared: blocked
+attackers hit their blockers, trample spills over, unblocked attackers hit
+the defending player, and creatures with lethal damage die in the same event.
+Type every entry: `"type": "combat"` in the combat damage step, and
+`"type": "noncombat"` for burn, drains, pingers, and damage triggers. Magic
+keys "whenever ~ deals combat damage" triggers and commander damage off that
+split, so a summary says "deals 4 combat damage" only when it is combat
+damage.
+
+## 3e. Continue
 
 To play extra turns of an existing replay:
 
@@ -245,9 +286,12 @@ Before reporting:
    then available. A missed win invalidates the simulation. A pass with
    unused mana and no `think` / `decision` is also a miss unless every
    remaining card is uncastable.
-5. Confirm `state.deals` is copied forward after an accepted offer, and that
+5. Confirm every combat has `attack`, `block`, and `damage` events, that the
+   attackers' tapped state matches the snapshot, and that each damage entry
+   is typed `combat` or `noncombat`.
+6. Confirm `state.deals` is copied forward after an accepted offer, and that
    a later breach has a `deal` event with `action: "breach"`.
-6. Remove `_libraries`, keep only `library_count`, and write compact JSON to
+7. Remove `_libraries`, keep only `library_count`, and write compact JSON to
    `table-games/<slug>.json`.
 
 The replay JSON is the simulation's terminal output. Invoke

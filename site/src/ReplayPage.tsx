@@ -6,6 +6,7 @@ import {
   type CSSProperties,
 } from 'react'
 import { cardInfo, currentStats, resolveName } from './cards'
+import { combatLines } from './combat'
 import type {
   BattlefieldCard,
   CardDetails,
@@ -281,6 +282,7 @@ const EventStory = ({
   onPreview: (preview: Preview) => void
 }) => {
   const seat = game.seats.find((item) => item.id === event.seat)
+  const combat = combatLines(game, event)
   const dealReference =
     event.deal && game.references?.[event.deal.id]?.kind === 'deal'
       ? game.references[event.deal.id]
@@ -317,6 +319,18 @@ const EventStory = ({
               </button>
             )
           })}
+        </div>
+      )}
+      {combat.length > 0 && (
+        <div className="mt-4 rounded-2xl border border-orange-300/20 bg-orange-500/5 p-4">
+          <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-orange-200">
+            Combat
+          </p>
+          <ul className="mt-2 space-y-1 text-sm leading-6 text-stone-300">
+            {combat.map((line, index) => (
+              <li key={`${index}-${line}`}>{line}</li>
+            ))}
+          </ul>
         </div>
       )}
       {event.notes && (
