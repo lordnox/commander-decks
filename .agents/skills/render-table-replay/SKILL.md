@@ -90,7 +90,16 @@ Replays are scratch by default (`table-games/` ignores JSON and HTML). To keep
 one, `git add -f` both files and add a short `<slug>.md` recap because GitHub
 renders neither JSON nor HTML.
 
-Return the HTML path:
+GitHub Pages lists every finished replay at
+`https://lordnox.github.io/commander-decks/`. After a viewer change, rebuild
+HTML then the site:
+
+```bash
+bun run table:render
+bun run table:pages
+```
+
+The Pages workflow on `main` runs the same pair. Return the HTML path:
 
 ```text
 table-games/<slug>.html

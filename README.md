@@ -7,6 +7,7 @@ A conversation-driven workspace for importing, resolving, categorizing, assessin
 - [Bracket definitions](BRACKET-DEFINITIONS.md)
 - [Deck ideas](DECK-IDEAS.md)
 - [Skills](SKILLS.md)
+- [Table games](https://lordnox.github.io/commander-decks/) — recorded four-player replays on GitHub Pages
 
 ## Deck primers
 

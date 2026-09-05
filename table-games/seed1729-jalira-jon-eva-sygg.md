@@ -66,8 +66,8 @@ The horizon stops with Jalira ahead and no lethal on the remaining seats.
 
 ## Watch it
 
-`seed1729-jalira-jon-eva-sygg.html` is self-contained. GitHub will not render
-it inline.
+[Watch on GitHub Pages](https://lordnox.github.io/commander-decks/seed1729-jalira-jon-eva-sygg.html).
+The HTML is also self-contained if you open it locally.
 
 ```bash
 bun run table:render -- table-games/seed1729-jalira-jon-eva-sygg.json

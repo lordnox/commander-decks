@@ -273,6 +273,15 @@
       border-top: 1px solid var(--line);
       box-shadow: 0 -4px 18px #0005;
     }
+    .nav-home {
+      flex: none;
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
+      background: #1f4f43;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-home:hover, button:hover { background: #2b6657; }
     button {
       flex: none;
       padding: 0.45rem 0.75rem;
@@ -282,8 +291,7 @@
       color: var(--ink);
       cursor: pointer;
     }
-    button:hover { background: #2b6657; }
-    button:focus-visible, input:focus-visible { outline: 2px solid #e6d27a; }
+    button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid #e6d27a; }
     input[type="range"] { min-width: 120px; flex: 1; }
     #preview {
       position: fixed;
@@ -349,6 +357,7 @@
     </div>
     <div class="header-actions">
       <p id="clock"></p>
+      <a class="nav-home" href="index.html">All games</a>
       <button type="button" id="toggle-log" aria-expanded="true" aria-controls="event-log">Hide log</button>
     </div>
   </header>

@@ -21,11 +21,19 @@ fixed transport controls, a collapsible event log, a step slider, and a hover
 preview that shows the large card with its counters and notes spelled out. Seats
 that may look at the top of their library — Fblthp, Bolas's Citadel — show that
 card in its own zone. Open the HTML in a browser; GitHub will not render it
-inline.
+inline. The live index is
+[lordnox.github.io/commander-decks](https://lordnox.github.io/commander-decks/),
+built on push to `main` by GitHub Pages.
 
-Both are gitignored so ordinary runs stay scratch. To keep a game, `git add -f`
-the two files and add a `<slug>.md` recap, since neither JSON nor HTML is
-readable in a pull request.
+Rebuild the Pages listing locally after rendering:
+
+```bash
+bun run table:pages
+```
+
+Both JSON and HTML are gitignored so ordinary runs stay scratch. To keep a
+game, `git add -f` the two files and add a `<slug>.md` recap, since neither
+JSON nor HTML is readable in a pull request.
 
 To ask what went wrong in those logs — missing lands, ramp, or interaction in
 a 99, versus a seat playing the cards it had in the wrong order — follow
@@ -35,8 +43,11 @@ loads a full snapshot JSON into chat.
 ## Recorded games
 
 - [Homer vs Sin vs Osgir vs Hazel](seed1729-homer-sin-osgir-hazel.md)
+  ([watch](https://lordnox.github.io/commander-decks/seed1729-homer-sin-osgir-hazel.html))
   — seed 1729, truncated at turn 12; Sin-fall leads after commander-killing Homer.
 - [Sygg vs The Twelfth Doctor vs Osgir vs Bartolomé](seed1729-sygg-doctor-osgir-bartolome.md)
+  ([watch](https://lordnox.github.io/commander-decks/seed1729-sygg-doctor-osgir-bartolome.html))
   — seed 1729, Bartolomé combo win on turn 5.
 - [Jalira vs Jon vs Evangela vs Sygg](seed1729-jalira-jon-eva-sygg.md)
+  ([watch](https://lordnox.github.io/commander-decks/seed1729-jalira-jon-eva-sygg.html))
   — seed 1729, truncated at turn 12; The Polyfisher leads after trampling out Thousand Cuts.

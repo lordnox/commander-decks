@@ -63,13 +63,13 @@ because Eye is an enchantment rather than a creature.
 
 ## Watch it
 
-`seed1729-sygg-doctor-osgir-bartolome.html` is self-contained: open it in a
+[Watch on GitHub Pages](https://lordnox.github.io/commander-decks/seed1729-sygg-doctor-osgir-bartolome.html).
+`seed1729-sygg-doctor-osgir-bartolome.html` is also self-contained: open it in a
 browser for the felt table, life totals, the current event in the centre, the
 stack, a 101-step slider, fixed transport controls, a collapsible event log,
 and card art on hover. From turn 4 the Borrowed Time seat also shows a Top of
 library zone, because [Fblthp, Lost on the Range](https://scryfall.com/card/otj/183/fblthp-lost-on-the-range)
-makes that card public. GitHub will not render it inline, so download the file
-or clone.
+makes that card public.
 
 Regenerate it from the log with:
 
