@@ -44,6 +44,7 @@ The renderer rejects:
 - token IDs referenced by battlefield entries but absent from the token
   catalog;
 - a battlefield `pt` that is not `power/toughness`;
+- malformed rows in `references`;
 - a `revealed_top` list longer than that seat's `library_count`.
 
 It trims unused catalog entries before embedding JSON in the HTML.
@@ -60,7 +61,8 @@ Open the HTML when browser tools are available and verify:
 5. each seat, life total, hand, battlefield, graveyard, command zone, stack,
    and card preview match the selected snapshot;
 6. the centre panel names the current event, and the log numbers stay readable
-   into three digits;
+   into three digits; `notes`, `decision.reason`, and live `state.deals` show
+   when present;
 7. a seat with `revealed_top` shows a Top of library zone above its
    battlefield;
 8. battlefield tokens with `token_id` show the exact art named by that ID;
