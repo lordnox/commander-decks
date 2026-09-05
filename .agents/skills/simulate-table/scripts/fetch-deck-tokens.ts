@@ -4,6 +4,7 @@ import { writeFile } from "node:fs/promises"
 import { join, resolve } from "node:path"
 import {
   ROOT,
+  cardFaces,
   chooseDeck,
   discoverDecks,
   loadManifest,
@@ -100,18 +101,22 @@ const fetchCollection = async (ids: string[], retry = true): Promise<Json[]> => 
   return payload.data ?? []
 }
 
-const tokenEntry = (card: Json) => ({
-  id: card.id,
-  name: card.name,
-  type_line: card.type_line ?? "",
-  oracle_text: card.oracle_text ?? "",
-  power: card.power ?? null,
-  toughness: card.toughness ?? null,
-  colors: card.colors ?? [],
-  scryfall_uri: card.scryfall_uri ?? "",
-  image_small: card.image_uris?.small ?? card.card_faces?.[0]?.image_uris?.small ?? "",
-  image_normal: card.image_uris?.normal ?? card.card_faces?.[0]?.image_uris?.normal ?? "",
-})
+const tokenEntry = (card: Json) => {
+  const faces = cardFaces(card)
+  return {
+    id: card.id,
+    name: card.name,
+    type_line: card.type_line ?? "",
+    oracle_text: card.oracle_text ?? "",
+    power: card.power ?? null,
+    toughness: card.toughness ?? null,
+    colors: card.colors ?? [],
+    scryfall_uri: card.scryfall_uri ?? "",
+    image_small: card.image_uris?.small ?? card.card_faces?.[0]?.image_uris?.small ?? "",
+    image_normal: card.image_uris?.normal ?? card.card_faces?.[0]?.image_uris?.normal ?? "",
+    ...(faces ? { faces } : {}),
+  }
+}
 
 const existingManifest = async (path: string): Promise<TokenManifest | undefined> => {
   try {

@@ -134,6 +134,10 @@ For every seat, every turn:
     permanent's state in `note` as `;`-separated segments such as
     `enchanting Sun Titan; goaded`. The viewer turns both into icons on the
     card and spells them out on the hover preview.
+12. When a double-faced permanent enters or transforms, name the side in play
+    in the battlefield entry's `face`, for example
+    `"face": "Malakir Mire"` for the land half of an MDFC. The viewer draws
+    that side's art, name, and printed power and toughness.
 
 Record **every** game action as an event with a full board snapshot (see
 [schema.md](schema.md)). Hidden libraries stay in the agent's working notes,
