@@ -13,27 +13,42 @@ TEMPLATE = Path(__file__).with_name("replay.html")
 PT = re.compile(r"^[^/\s]+/[^/\s]+$")
 
 
-def referenced_cards(events: list[dict]) -> tuple[set[str], set[str], set[str]]:
+def referenced_cards(events: list[dict], references: list[dict] | None = None) -> tuple[set[str], set[str], set[str]]:
     names: set[str] = set()
     token_names: set[str] = set()
     token_ids: set[str] = set()
+    rows = references or []
+
+    def resolve(value: object) -> str:
+        if isinstance(value, bool) or not isinstance(value, (int, str)):
+            return str(value)
+        row = None
+        if isinstance(value, int) and 0 <= value < len(rows):
+            row = rows[value]
+        if isinstance(row, dict) and row.get("kind") in {"card", "player"} and row.get("name"):
+            return row["name"]
+        return str(value)
+
     for event in events:
-        names.update(event.get("cards") or [])
+        names.update(resolve(name) for name in event.get("cards") or [])
+        decision = event.get("decision") or {}
+        for key in ("available", "held"):
+            names.update(resolve(name) for name in decision.get(key) or [])
         state = event.get("state") or {}
         for item in state.get("stack") or []:
             if isinstance(item, dict) and item.get("name"):
-                names.add(item["name"])
+                names.add(resolve(item["name"]))
         for player in (state.get("players") or {}).values():
             if not isinstance(player, dict):
                 continue
             for zone in ("hand", "graveyard", "exile", "command", "revealed_top"):
-                names.update(player.get(zone) or [])
+                names.update(resolve(name) for name in player.get(zone) or [])
             for entry in player.get("battlefield") or []:
                 if not isinstance(entry, dict) or not entry.get("name"):
                     continue
-                names.add(entry["name"])
+                names.add(resolve(entry["name"]))
                 if entry.get("token"):
-                    token_names.add(entry["name"])
+                    token_names.add(resolve(entry["name"]))
                     if entry.get("token_id"):
                         token_ids.add(entry["token_id"])
     return names, token_names, token_ids
@@ -111,13 +126,37 @@ def public_game(game: dict) -> dict:
                         f"event {event['id']}: {entry.get('name', '?')} has pt "
                         f"{stated!r}; use \"power/toughness\""
                     )
+        deals = state.get("deals")
+        if deals is not None and not isinstance(deals, list):
+            raise ValueError(f"event {event['id']}: state.deals must be a list")
+
+    references = cleaned.get("references")
+    if references is not None:
+        if not isinstance(references, list):
+            raise ValueError("references must be a list")
+        seen_seats = {seat.get("id") for seat in seats}
+        for ref_index, row in enumerate(references):
+            if not isinstance(row, dict) or not row.get("kind"):
+                raise ValueError(f"references[{ref_index}] needs kind")
+            kind = row["kind"]
+            if kind == "card" and not row.get("name"):
+                raise ValueError(f"references[{ref_index}] card needs a name")
+            if kind == "player":
+                if not row.get("name"):
+                    raise ValueError(f"references[{ref_index}] player needs a name")
+                if row.get("seat") not in seen_seats:
+                    raise ValueError(f"references[{ref_index}] player seat is not a seat id")
+            if kind == "deal" and not row.get("terms"):
+                raise ValueError(f"references[{ref_index}] deal needs terms")
 
     validate_turn_draws(events)
 
     catalog = cleaned.get("catalog")
     if not isinstance(catalog, dict):
         raise ValueError("replay JSON needs a card catalog")
-    names, token_names, token_ids = referenced_cards(events)
+    names, token_names, token_ids = referenced_cards(
+        events, references if isinstance(references, list) else None
+    )
     missing = sorted(names - set(catalog) - token_names)
     if missing:
         raise ValueError(f"catalog is missing referenced cards: {', '.join(missing)}")

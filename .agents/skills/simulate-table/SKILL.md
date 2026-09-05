@@ -108,10 +108,13 @@ For every seat, every turn:
 3. Spend mana legally. Track tapped lands, commander tax, summoning sickness,
    once-per-turn clauses, and replacement effects.
 4. Interact when the primer would: hold up counters, fogs, removal, or
-   politics rather than dump the hand because it is a sim.
+   politics rather than dump the hand because it is a sim. A pass with
+   unused mana is a recorded decision, not silence.
 5. Attack, race, or stall according to the win condition, threat assessment,
    and life totals. Do not kingmake unless that deck's documented plan is
-   political.
+   political. Politics is a game action: negotiate before spending
+   irreversible leverage (board wipe, lethal, lock gift, counter, targeted
+   removal). Record offers, answers, and active deals in the replay.
 6. Never tutor, draw, or produce a card that was not in hand, in a known
    zone, or actually found by a resolved search of that library.
 7. Walk claimed loops; "fat once" is not infinite.
@@ -134,7 +137,8 @@ For every seat, every turn:
 
 Record **every** game action as an event with a full board snapshot (see
 [schema.md](schema.md)). Hidden libraries stay in the agent's working notes,
-not in the replay JSON.
+not in the replay JSON. Decisions, table talk, and deals belong in the
+replay too — they are not chat-only commentary.
 
 Every normal draw step is its own `draw` event, even when the card is
 immediately played, discarded, revealed, replaced, or taxed. Extra draws and
@@ -145,7 +149,64 @@ next player's untap.
 If the game hits the turn cap with multiple players alive, stop and name the
 leader rather than inventing a win.
 
-## 3b. Continue
+## 3b. Recorded decisions
+
+Before a seat passes priority with unused mana, unused attacks, or an unused
+activated ability, emit a `think` event (or attach `decision` to the `pass`).
+List every legal play that mana could still buy, then name the ones held and
+why. Typical reasons: hold-up for a named counter or fog; wait for instant
+speed on the last opponent's end step; the card is a present that needs the
+commander; dumping it would kingmake.
+
+```json
+{
+  "kind": "think",
+  "summary": "Unwanted Presents keeps four mana up instead of casting Yukora.",
+  "decision": {
+    "open_mana": 4,
+    "available": [8, 12],
+    "held": [8],
+    "held_for": "politics",
+    "play_later": "after Thousand Cuts answers the offer, or as the refused line",
+    "reason": "Yukora can wait; firing it now spends the Artisans wipe before talking to Thousand Cuts."
+  }
+}
+```
+
+Do not invent a hold that the deck would not take. If the primer would dump
+the hand, dump it and skip the `think`. A silent pass with four open mana and
+a three-mana creature in hand is a missed record.
+
+## 3c. Politics
+
+Commander is not four goldfishes. Before an irreversible line that another
+seat would bargain over, open a negotiation window:
+
+1. Append a `deal` row to `references`, then emit `talk` with
+   `{ "id": 9, "action": "offer" }` (the index of that row).
+2. Named seats answer with `talk` (`accept`, `counter`, or `reject`). Other
+   seats may counteroffer; they heard the offer.
+3. Put `{ "id": 9, "status": "accepted" }` in `state.deals`. Later
+   `think` / `pass` / `cast` events that honor or break it cite that index.
+4. Terms must be actions the speaker can actually control. "Don't hurt me"
+   is invalid when the deck's taxes are symmetrical. "No targeted effects or
+   attacks against you until my next turn; group-slug permanents are exempt"
+   is valid.
+5. Use only public information. A seat may not promise a card it has not
+   shown unless the term is "if I draw an answer, I will use it on X."
+6. Deals are nonbinding. Break them when honoring would cause an immediate
+   loss, and emit `deal` with `action: "breach"`. Political primers (donate,
+   goad, group slug) start talks more often; any seat with removal,
+   protection, fogs, or combat influence may bargain.
+7. Copy `{ id, status }` into every later snapshot until the deal expires,
+   completes, or breaks. Full terms live only on the `references` row.
+
+When writing the replay, put `references` immediately after `seats`: four
+player rows, then one card row per catalog name in key order, then every deal
+in offer order. The ID is the array index. `summary`, `reason`, and `terms`
+always use names, never indexes.
+
+## 3d. Continue
 
 To play extra turns of an existing replay:
 
@@ -177,8 +238,12 @@ Before reporting:
 3. Confirm triggered abilities occur in the correct phase and before the next
    untap.
 4. At every main phase, repeat the deterministic-win check against the cards
-   then available. A missed win invalidates the simulation.
-5. Remove `_libraries`, keep only `library_count`, and write compact JSON to
+   then available. A missed win invalidates the simulation. A pass with
+   unused mana and no `think` / `decision` is also a miss unless every
+   remaining card is uncastable.
+5. Confirm `state.deals` is copied forward after an accepted offer, and that
+   a later breach has a `deal` event with `action: "breach"`.
+6. Remove `_libraries`, keep only `library_count`, and write compact JSON to
    `table-games/<slug>.json`.
 
 The replay JSON is the simulation's terminal output. Invoke
@@ -191,8 +256,9 @@ action. Then:
 
 1. Seat table: deck, commander, mulligans, final life, what the plan did.
 2. Four to eight **turning points** (keeps, commander casts, answers,
-   attacks, the win). Featured cards get small Scryfall images per
-   `.cursor/rules/card-chat-images.mdc`.
+   attacks, deals, the win). Featured cards get small Scryfall images per
+   `.cursor/rules/card-chat-images.mdc`. Quote recorded `decision.reason`
+   lines when a hold or a deal changed the game.
 3. The replay path:
 
 ```text
