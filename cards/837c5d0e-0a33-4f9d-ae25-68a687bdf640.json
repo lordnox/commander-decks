@@ -1,0 +1,157 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "04e02176-16ee-4676-8b33-cedebdb18cbc",
+      "name": "Chrome Host Seedshark",
+      "object": "related_card",
+      "type_line": "Creature — Phyrexian Shark",
+      "uri": "https://api.scryfall.com/cards/04e02176-16ee-4676-8b33-cedebdb18cbc"
+    },
+    {
+      "component": "token",
+      "id": "c5229eb0-9356-43a6-9b1b-6366f3c1e405",
+      "name": "Incubator // Phyrexian",
+      "object": "related_card",
+      "type_line": "Token Artifact — Incubator // Token Artifact Creature — Phyrexian",
+      "uri": "https://api.scryfall.com/cards/c5229eb0-9356-43a6-9b1b-6366f3c1e405"
+    }
+  ],
+  "artist": "Donato Giancola",
+  "artist_ids": [
+    "90332db2-aecb-4d79-917b-95cbeb8d0cb6"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 834248,
+  "cmc": 3.0,
+  "collector_number": "68",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 3502,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "04e02176-16ee-4676-8b33-cedebdb18cbc",
+  "illustration_id": "93c458ab-c843-43be-837c-d033f205a8b4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:27:25Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/4/04e02176-16ee-4676-8b33-cedebdb18cbc.webp?1783906045",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/4/04e02176-16ee-4676-8b33-cedebdb18cbc.jpg?1783906045",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/4/04e02176-16ee-4676-8b33-cedebdb18cbc.jpg?1783906045",
+    "crop": "https://cards.scryfall.io/crop/front/0/4/04e02176-16ee-4676-8b33-cedebdb18cbc.webp?1783906045",
+    "display": "https://cards.scryfall.io/display/front/0/4/04e02176-16ee-4676-8b33-cedebdb18cbc.webp?1783906045",
+    "grid": "https://cards.scryfall.io/grid/front/0/4/04e02176-16ee-4676-8b33-cedebdb18cbc.webp?1783906045",
+    "large": "https://cards.scryfall.io/large/front/0/4/04e02176-16ee-4676-8b33-cedebdb18cbc.jpg?1783906045",
+    "normal": "https://cards.scryfall.io/normal/front/0/4/04e02176-16ee-4676-8b33-cedebdb18cbc.jpg?1783906045",
+    "png": "https://cards.scryfall.io/png/front/0/4/04e02176-16ee-4676-8b33-cedebdb18cbc.png?1783906045",
+    "small": "https://cards.scryfall.io/small/front/0/4/04e02176-16ee-4676-8b33-cedebdb18cbc.jpg?1783906045",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/4/04e02176-16ee-4676-8b33-cedebdb18cbc.webp?1783906045"
+  },
+  "keywords": [
+    "Flying",
+    "Incubate",
+    "Transform"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 142273,
+  "multiverse_ids": [],
+  "name": "Chrome Host Seedshark",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "837c5d0e-0a33-4f9d-ae25-68a687bdf640",
+  "oracle_text": "Flying\nWhenever you cast a noncreature spell, incubate X, where X is that spell's mana value. (Create an Incubator token with X +1/+1 counters on it and \"{2}: Transform this token.\" It transforms into a 0/0 Phyrexian artifact creature.)",
+  "oversized": false,
+  "penny_rank": 393,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2025-07-10",
+    "source": "EDHijinks",
+    "source_uri": "https://www.youtube.com/watch?v=Swjj0JGhFco"
+  },
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.30",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A837c5d0e-0a33-4f9d-ae25-68a687bdf640&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/142273?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=834248&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F642794%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Chrome+Host+Seedshark",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DChrome%2BHost%2BSeedshark",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DChrome%2BHost%2BSeedshark"
+  },
+  "released_at": "2025-08-01",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "6D093706EBE2EFEFF0625C719492F6CAAF358D9551A7EE8C77A049CE51C774C9",
+  "rulings_uri": "https://api.scryfall.com/cards/04e02176-16ee-4676-8b33-cedebdb18cbc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eoc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eoc/68/chrome-host-seedshark?utm_source=api",
+  "security_stamp": "oval",
+  "set": "eoc",
+  "set_id": "b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "set_name": "Edge of Eternities Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "story_spotlight": false,
+  "tcgplayer_id": 642794,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Phyrexian Shark",
+  "uri": "https://api.scryfall.com/cards/04e02176-16ee-4676-8b33-cedebdb18cbc",
+  "variation": false
+}

@@ -1,0 +1,139 @@
+{
+  "arena_id": 84250,
+  "artist": "Konstantin Porubov",
+  "artist_ids": [
+    "103a5bc1-7a87-428d-853b-f86057a61cfe"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 704728,
+  "cmc": 6.0,
+  "collector_number": "3",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 14809,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "165357cc-ec74-490f-aec3-7048bb43c8f9",
+  "illustration_id": "b1febe11-e354-4b87-b188-d048f69ae914",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:31:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/6/165357cc-ec74-490f-aec3-7048bb43c8f9.webp?1783917072",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/6/165357cc-ec74-490f-aec3-7048bb43c8f9.jpg?1783917072",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/6/165357cc-ec74-490f-aec3-7048bb43c8f9.jpg?1783917072",
+    "crop": "https://cards.scryfall.io/crop/front/1/6/165357cc-ec74-490f-aec3-7048bb43c8f9.webp?1783917072",
+    "display": "https://cards.scryfall.io/display/front/1/6/165357cc-ec74-490f-aec3-7048bb43c8f9.webp?1783917072",
+    "grid": "https://cards.scryfall.io/grid/front/1/6/165357cc-ec74-490f-aec3-7048bb43c8f9.webp?1783917072",
+    "large": "https://cards.scryfall.io/large/front/1/6/165357cc-ec74-490f-aec3-7048bb43c8f9.jpg?1783917072",
+    "normal": "https://cards.scryfall.io/normal/front/1/6/165357cc-ec74-490f-aec3-7048bb43c8f9.jpg?1783917072",
+    "png": "https://cards.scryfall.io/png/front/1/6/165357cc-ec74-490f-aec3-7048bb43c8f9.png?1783917072",
+    "small": "https://cards.scryfall.io/small/front/1/6/165357cc-ec74-490f-aec3-7048bb43c8f9.jpg?1783917072",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/6/165357cc-ec74-490f-aec3-7048bb43c8f9.webp?1783917072"
+  },
+  "keywords": [
+    "Plainscycling",
+    "Landcycling",
+    "Typecycling",
+    "Cycling"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{W}",
+  "mtgo_id": 109800,
+  "multiverse_ids": [
+    607014
+  ],
+  "name": "Alabaster Host Intercessor",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d1d719e9-9c02-40cf-8849-91a5c120a516",
+  "oracle_text": "When this creature enters, exile target creature an opponent controls until this creature leaves the battlefield.\nPlainscycling {2} ({2}, Discard this card: Search your library for a Plains card, reveal it, put it into your hand, then shuffle.)",
+  "oversized": false,
+  "penny_rank": 9819,
+  "power": "3",
+  "prices": {
+    "eur": "0.09",
+    "eur_foil": "0.09",
+    "tix": "0.03",
+    "usd": "0.19",
+    "usd_etched": null,
+    "usd_foil": "0.33"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad1d719e9-9c02-40cf-8849-91a5c120a516&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/109800?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=704728&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F491696%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Alabaster+Host+Intercessor",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=607014&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAlabaster%2BHost%2BIntercessor",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAlabaster%2BHost%2BIntercessor"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/165357cc-ec74-490f-aec3-7048bb43c8f9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/3/alabaster-host-intercessor?utm_source=api",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": false,
+  "tcgplayer_id": 491696,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Phyrexian Samurai",
+  "uri": "https://api.scryfall.com/cards/165357cc-ec74-490f-aec3-7048bb43c8f9",
+  "variation": false
+}

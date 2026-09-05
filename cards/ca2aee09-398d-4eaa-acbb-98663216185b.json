@@ -1,0 +1,142 @@
+{
+  "arena_id": 69147,
+  "artist": "Milivoj Ćeran",
+  "artist_ids": [
+    "1eced451-4da5-42bc-b49d-70c41246581f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 368539,
+  "cmc": 1.0,
+  "collector_number": "19",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 8247,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "A friend in good times, a guardian in bad times, and a savior when all else fails.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "56d86909-b7f3-4a46-9904-e173853b79f1",
+  "illustration_id": "d298304e-d6cd-479f-b758-5f6ff223bce1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:08:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/6/56d86909-b7f3-4a46-9904-e173853b79f1.webp?1783933717",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/6/56d86909-b7f3-4a46-9904-e173853b79f1.jpg?1783933717",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/6/56d86909-b7f3-4a46-9904-e173853b79f1.jpg?1783933717",
+    "crop": "https://cards.scryfall.io/crop/front/5/6/56d86909-b7f3-4a46-9904-e173853b79f1.webp?1783933717",
+    "display": "https://cards.scryfall.io/display/front/5/6/56d86909-b7f3-4a46-9904-e173853b79f1.webp?1783933717",
+    "grid": "https://cards.scryfall.io/grid/front/5/6/56d86909-b7f3-4a46-9904-e173853b79f1.webp?1783933717",
+    "large": "https://cards.scryfall.io/large/front/5/6/56d86909-b7f3-4a46-9904-e173853b79f1.jpg?1783933717",
+    "normal": "https://cards.scryfall.io/normal/front/5/6/56d86909-b7f3-4a46-9904-e173853b79f1.jpg?1783933717",
+    "png": "https://cards.scryfall.io/png/front/5/6/56d86909-b7f3-4a46-9904-e173853b79f1.png?1783933717",
+    "small": "https://cards.scryfall.io/small/front/5/6/56d86909-b7f3-4a46-9904-e173853b79f1.jpg?1783933717",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/6/56d86909-b7f3-4a46-9904-e173853b79f1.webp?1783933717"
+  },
+  "keywords": [
+    "Defender"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}",
+  "mtgo_id": 71038,
+  "multiverse_ids": [
+    457163
+  ],
+  "name": "Resolute Watchdog",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ca2aee09-398d-4eaa-acbb-98663216185b",
+  "oracle_text": "Defender\n{1}, Sacrifice this creature: Target creature you control gains indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy it.)",
+  "oversized": false,
+  "penny_rank": 11215,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2019-01-10",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/magic"
+  },
+  "prices": {
+    "eur": "0.24",
+    "eur_foil": "3.90",
+    "tix": "0.03",
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": "3.62"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aca2aee09-398d-4eaa-acbb-98663216185b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/71038?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=368539&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F183331%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Resolute+Watchdog",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=457163&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DResolute%2BWatchdog",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DResolute%2BWatchdog"
+  },
+  "released_at": "2019-01-25",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/56d86909-b7f3-4a46-9904-e173853b79f1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rna?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rna/19/resolute-watchdog?utm_source=api",
+  "set": "rna",
+  "set_id": "97a7fd84-8d89-45a3-b48b-c951f6a3f9f1",
+  "set_name": "Ravnica Allegiance",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arna&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/97a7fd84-8d89-45a3-b48b-c951f6a3f9f1",
+  "story_spotlight": false,
+  "tcgplayer_id": 183331,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Dog",
+  "uri": "https://api.scryfall.com/cards/56d86909-b7f3-4a46-9904-e173853b79f1",
+  "variation": false
+}

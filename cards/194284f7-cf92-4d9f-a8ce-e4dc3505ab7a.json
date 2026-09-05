@@ -1,0 +1,136 @@
+{
+  "arena_id": 100496,
+  "artist": "Andreas Zafiratos",
+  "artist_ids": [
+    "e2f13a9a-57c5-40de-81d4-3b0723899cdf"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 873910,
+  "cmc": 3.0,
+  "collector_number": "39",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 12535,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"I'll need my bag of tricks.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "e570082f-8129-44d2-b471-ec7f46a98dbd",
+  "illustration_id": "6fffb591-a32b-45ec-aeac-b39396a6680f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:55:15Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/5/e570082f-8129-44d2-b471-ec7f46a98dbd.webp?1783904115",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/5/e570082f-8129-44d2-b471-ec7f46a98dbd.jpg?1783904115",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/5/e570082f-8129-44d2-b471-ec7f46a98dbd.jpg?1783904115",
+    "crop": "https://cards.scryfall.io/crop/front/e/5/e570082f-8129-44d2-b471-ec7f46a98dbd.webp?1783904115",
+    "display": "https://cards.scryfall.io/display/front/e/5/e570082f-8129-44d2-b471-ec7f46a98dbd.webp?1783904115",
+    "grid": "https://cards.scryfall.io/grid/front/e/5/e570082f-8129-44d2-b471-ec7f46a98dbd.webp?1783904115",
+    "large": "https://cards.scryfall.io/large/front/e/5/e570082f-8129-44d2-b471-ec7f46a98dbd.jpg?1783904115",
+    "normal": "https://cards.scryfall.io/normal/front/e/5/e570082f-8129-44d2-b471-ec7f46a98dbd.jpg?1783904115",
+    "png": "https://cards.scryfall.io/png/front/e/5/e570082f-8129-44d2-b471-ec7f46a98dbd.png?1783904115",
+    "small": "https://cards.scryfall.io/small/front/e/5/e570082f-8129-44d2-b471-ec7f46a98dbd.jpg?1783904115",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/5/e570082f-8129-44d2-b471-ec7f46a98dbd.webp?1783904115"
+  },
+  "keywords": [
+    "Sneak"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 147701,
+  "multiverse_ids": [],
+  "name": "Donatello's Technique",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "194284f7-cf92-4d9f-a8ce-e4dc3505ab7a",
+  "oracle_text": "Sneak {U} (You may cast this spell for {U} if you also return an unblocked attacker you control to hand during the declare blockers step.)\nDraw two cards.",
+  "oversized": false,
+  "penny_rank": 3798,
+  "prices": {
+    "eur": "0.14",
+    "eur_foil": "0.19",
+    "tix": "0.03",
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": "0.30"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A194284f7-cf92-4d9f-a8ce-e4dc3505ab7a&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/147701?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=873910&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F680251%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Donatello%27s+Technique",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDonatello%2527s%2BTechnique",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDonatello%2527s%2BTechnique"
+  },
+  "released_at": "2026-03-06",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "D9727B9C301EA84AB695B632102F9720C9AC753160CA3BB545EDE69E119C51A7",
+  "rulings_uri": "https://api.scryfall.com/cards/e570082f-8129-44d2-b471-ec7f46a98dbd/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tmt?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tmt/39/donatellos-technique?utm_source=api",
+  "set": "tmt",
+  "set_id": "03990f52-1d8a-4ce8-828a-c9bf633f0de6",
+  "set_name": "Teenage Mutant Ninja Turtles",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atmt&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/03990f52-1d8a-4ce8-828a-c9bf633f0de6",
+  "story_spotlight": false,
+  "tcgplayer_id": 680251,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/e570082f-8129-44d2-b471-ec7f46a98dbd",
+  "variation": false
+}

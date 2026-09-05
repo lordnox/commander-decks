@@ -1,0 +1,193 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "9236ab9c-7730-46d9-a543-84ff7b245ece",
+      "name": "Rivals of Ixalan Checklist",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/9236ab9c-7730-46d9-a543-84ff7b245ece"
+    },
+    {
+      "component": "combo_piece",
+      "id": "303d51ab-b9c4-4647-950f-291daabe7b81",
+      "name": "Azor's Gateway // Sanctum of the Sun",
+      "object": "related_card",
+      "type_line": "Legendary Artifact // Legendary Land",
+      "uri": "https://api.scryfall.com/cards/303d51ab-b9c4-4647-950f-291daabe7b81"
+    }
+  ],
+  "arena_id": 66979,
+  "artist": "Yeong-Hao Han",
+  "artist_ids": [
+    "f8e7f8d6-6dde-4059-973c-30f1fd1bbe4e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Yeong-Hao Han",
+      "artist_id": "f8e7f8d6-6dde-4059-973c-30f1fd1bbe4e",
+      "colors": [],
+      "illustration_id": "6204e81b-e7af-4ac8-a16a-9c7f0598d67f",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.webp?1783935273",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.jpg?1783935273",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.jpg?1783935273",
+        "crop": "https://cards.scryfall.io/crop/front/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.webp?1783935273",
+        "display": "https://cards.scryfall.io/display/front/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.webp?1783935273",
+        "grid": "https://cards.scryfall.io/grid/front/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.webp?1783935273",
+        "large": "https://cards.scryfall.io/large/front/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.jpg?1783935273",
+        "normal": "https://cards.scryfall.io/normal/front/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.jpg?1783935273",
+        "png": "https://cards.scryfall.io/png/front/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.png?1783935273",
+        "small": "https://cards.scryfall.io/small/front/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.jpg?1783935273",
+        "thumb": "https://cards.scryfall.io/thumb/front/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.webp?1783935273"
+      },
+      "mana_cost": "{2}",
+      "name": "Azor's Gateway",
+      "object": "card_face",
+      "oracle_text": "{1}, {T}: Draw a card, then exile a card from your hand. If cards with five or more different mana values are exiled with Azor's Gateway, you gain 5 life, untap Azor's Gateway, and transform it.",
+      "type_line": "Legendary Artifact"
+    },
+    {
+      "artist": "Yeong-Hao Han",
+      "artist_id": "f8e7f8d6-6dde-4059-973c-30f1fd1bbe4e",
+      "colors": [],
+      "flavor_text": "As soon as Jace laid eyes on the great sphinx's chamber, the shards of memory began sliding into place.",
+      "illustration_id": "d7dcf0e5-86a8-4ab7-9dd0-2b9eb7eee6c2",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.webp?1783935273",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.jpg?1783935273",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.jpg?1783935273",
+        "crop": "https://cards.scryfall.io/crop/back/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.webp?1783935273",
+        "display": "https://cards.scryfall.io/display/back/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.webp?1783935273",
+        "grid": "https://cards.scryfall.io/grid/back/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.webp?1783935273",
+        "large": "https://cards.scryfall.io/large/back/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.jpg?1783935273",
+        "normal": "https://cards.scryfall.io/normal/back/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.jpg?1783935273",
+        "png": "https://cards.scryfall.io/png/back/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.png?1783935273",
+        "small": "https://cards.scryfall.io/small/back/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.jpg?1783935273",
+        "thumb": "https://cards.scryfall.io/thumb/back/3/0/303d51ab-b9c4-4647-950f-291daabe7b81.webp?1783935273"
+      },
+      "mana_cost": "",
+      "name": "Sanctum of the Sun",
+      "object": "card_face",
+      "oracle_text": "(Transforms from Azor's Gateway.)\n{T}: Add X mana of any one color, where X is your life total.",
+      "type_line": "Legendary Land"
+    }
+  ],
+  "cardmarket_id": 315356,
+  "cmc": 2.0,
+  "collector_number": "176",
+  "color_identity": [],
+  "digital": false,
+  "edhrec_rank": 8515,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "compasslanddfc"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "303d51ab-b9c4-4647-950f-291daabe7b81",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:34:33Z",
+  "keywords": [
+    "Transform"
+  ],
+  "lang": "en",
+  "layout": "transform",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 66815,
+  "multiverse_ids": [
+    439838,
+    439839
+  ],
+  "name": "Azor's Gateway // Sanctum of the Sun",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c0cbb347-b060-43ce-a9c5-8c835be3cf1b",
+  "oversized": false,
+  "penny_rank": 5947,
+  "prices": {
+    "eur": "2.21",
+    "eur_foil": "4.20",
+    "tix": "0.02",
+    "usd": "2.39",
+    "usd_etched": null,
+    "usd_foil": "10.77"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac0cbb347-b060-43ce-a9c5-8c835be3cf1b&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/66815?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=315356&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F155700%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Azor%27s+Gateway",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=439838&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAzor%2527s%2BGateway%2B%252F%252F%2BSanctum%2Bof%2Bthe%2BSun",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAzor%2527s%2BGateway%2B%252F%252F%2BSanctum%2Bof%2Bthe%2BSun"
+  },
+  "released_at": "2018-01-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/303d51ab-b9c4-4647-950f-291daabe7b81/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rix?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rix/176/azors-gateway-sanctum-of-the-sun?utm_source=api",
+  "security_stamp": "oval",
+  "set": "rix",
+  "set_id": "2f7e40fc-772d-4a85-bfdd-01653c41d0fa",
+  "set_name": "Rivals of Ixalan",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arix&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/2f7e40fc-772d-4a85-bfdd-01653c41d0fa",
+  "story_spotlight": false,
+  "tcgplayer_id": 155700,
+  "textless": false,
+  "type_line": "Legendary Artifact // Legendary Land",
+  "uri": "https://api.scryfall.com/cards/303d51ab-b9c4-4647-950f-291daabe7b81",
+  "variation": false
+}

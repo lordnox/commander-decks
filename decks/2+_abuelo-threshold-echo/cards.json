@@ -1,0 +1,1955 @@
+{
+  "cards": [
+    {
+      "cache": "cards/eaa9baac-72f2-4bde-9146-860878d9860b.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flying",
+          "Ward"
+        ],
+        "mana_cost": "{1}{W}{U}",
+        "oracle_text": "Flying, ward {2}\n{1}{W}{U}: Exile another target creature or artifact you control. Return it to the battlefield under its owner's control at the beginning of the next end step.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Spirit"
+      },
+      "categories": [
+        "Commander{top}"
+      ],
+      "category_source": "decklist",
+      "name": "Abuelo, Ancestral Echo",
+      "oracle_id": "eaa9baac-72f2-4bde-9146-860878d9860b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lci/219/abuelo-ancestral-echo?utm_source=api",
+      "submitted_categories": [
+        "Commander{top}"
+      ],
+      "submitted_name": "Abuelo, Ancestral Echo"
+    },
+    {
+      "cache": "cards/fb220f46-f8b8-4804-baa4-e7d50b4871f7.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "When this creature enters, choose one —\n• Create a 1/1 white Bird creature token with flying.\n• Return another target nonland permanent to its owner's hand.\n• Draw a card.",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Creature — Human Wizard"
+      },
+      "categories": [
+        "bounce",
+        "token-production",
+        "card-draw"
+      ],
+      "category_source": "decklist",
+      "name": "Aether Channeler",
+      "oracle_id": "fb220f46-f8b8-4804-baa4-e7d50b4871f7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmu/42/aether-channeler?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "token-production",
+        "card-draw"
+      ],
+      "submitted_name": "Aether Channeler"
+    },
+    {
+      "cache": "cards/b21d6482-1b3a-47e6-98a5-3067f5f3818b.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{U}{U}",
+        "oracle_text": "Return six target nonland permanents to their owners' hands.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "bounce",
+        "interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Aether Gale",
+      "oracle_id": "b21d6482-1b3a-47e6-98a5-3067f5f3818b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/186/aether-gale?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "interaction"
+      ],
+      "submitted_name": "Aether Gale"
+    },
+    {
+      "cache": "cards/4b033a0a-c1ae-44d7-9662-72cbbfda024b.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "{U}, Sacrifice this artifact: Return target creature to its owner's hand.\n{1}, Sacrifice this artifact: Draw a card.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "bounce",
+        "card-draw",
+        "artifact"
+      ],
+      "category_source": "decklist",
+      "name": "Aether Spellbomb",
+      "oracle_id": "4b033a0a-c1ae-44d7-9662-72cbbfda024b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/jmp/456/aether-spellbomb?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "card-draw",
+        "artifact"
+      ],
+      "submitted_name": "Aether Spellbomb"
+    },
+    {
+      "cache": "cards/295cd8e1-0830-46c1-9957-556afd4bcee6.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Double"
+        ],
+        "mana_cost": "{3}",
+        "oracle_text": "{T}: Add one mana of any color.\n{4}, {T}: Choose one. Activate only as a sorcery.\n• Double the number of each kind of counter on target permanent.\n• Double the number of each kind of counter you have.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp",
+        "counter-synergy"
+      ],
+      "category_source": "decklist",
+      "name": "Aetheric Amplifier",
+      "oracle_id": "295cd8e1-0830-46c1-9957-556afd4bcee6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/drc/18/aetheric-amplifier?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "counter-synergy"
+      ],
+      "submitted_name": "Aetheric Amplifier"
+    },
+    {
+      "cache": "cards/d1d719e9-9c02-40cf-8849-91a5c120a516.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Plainscycling",
+          "Landcycling",
+          "Typecycling",
+          "Cycling"
+        ],
+        "mana_cost": "{5}{W}",
+        "oracle_text": "When this creature enters, exile target creature an opponent controls until this creature leaves the battlefield.\nPlainscycling {2} ({2}, Discard this card: Search your library for a Plains card, reveal it, put it into your hand, then shuffle.)",
+        "power": "3",
+        "toughness": "4",
+        "type_line": "Creature — Phyrexian Samurai"
+      },
+      "categories": [
+        "removal",
+        "land-search",
+        "blink-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Alabaster Host Intercessor",
+      "oracle_id": "d1d719e9-9c02-40cf-8849-91a5c120a516",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mom/3/alabaster-host-intercessor?utm_source=api",
+      "submitted_categories": [
+        "removal",
+        "land-search",
+        "blink-payoff"
+      ],
+      "submitted_name": "Alabaster Host Intercessor"
+    },
+    {
+      "cache": "cards/8095ca78-db19-4724-a6ff-eacc85fa2274.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{X}{X}{2}{W}",
+        "oracle_text": "Exile any number of creatures you control, then return them to the battlefield under their owner's control. Then repeat this process X more times.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "blink",
+        "win-condition"
+      ],
+      "category_source": "decklist",
+      "name": "Another Round",
+      "oracle_id": "8095ca78-db19-4724-a6ff-eacc85fa2274",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otj/1/another-round?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "win-condition"
+      ],
+      "submitted_name": "Another Round"
+    },
+    {
+      "cache": "cards/ef833546-f755-4ac5-867a-3926984e68a0.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{W}",
+        "oracle_text": "When this artifact enters, search your library for up to two basic Plains cards, reveal them, put them into your hand, then shuffle.\nWhenever a land an opponent controls enters, if that player controls more lands than you, you may put a land card from your hand onto the battlefield.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp",
+        "land-search"
+      ],
+      "category_source": "decklist",
+      "name": "Archaeomancer's Map",
+      "oracle_id": "ef833546-f755-4ac5-867a-3926984e68a0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/136/archaeomancers-map?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "land-search"
+      ],
+      "submitted_name": "Archaeomancer's Map"
+    },
+    {
+      "cache": "cards/c0cbb347-b060-43ce-a9c5-8c835be3cf1b.json",
+      "card": {
+        "cmc": 2.0,
+        "faces": [
+          {
+            "mana_cost": "{2}",
+            "name": "Azor's Gateway",
+            "oracle_text": "{1}, {T}: Draw a card, then exile a card from your hand. If cards with five or more different mana values are exiled with Azor's Gateway, you gain 5 life, untap Azor's Gateway, and transform it.",
+            "type_line": "Legendary Artifact"
+          },
+          {
+            "mana_cost": "",
+            "name": "Sanctum of the Sun",
+            "oracle_text": "(Transforms from Azor's Gateway.)\n{T}: Add X mana of any one color, where X is your life total.",
+            "type_line": "Legendary Land"
+          }
+        ],
+        "keywords": [
+          "Transform"
+        ],
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Legendary Artifact // Legendary Land"
+      },
+      "categories": [
+        "card-draw",
+        "selection",
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Azor's Gateway // Sanctum of the Sun",
+      "oracle_id": "c0cbb347-b060-43ce-a9c5-8c835be3cf1b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rix/176/azors-gateway-sanctum-of-the-sun?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "selection",
+        "ramp"
+      ],
+      "submitted_name": "Azor's Gateway // Sanctum of the Sun"
+    },
+    {
+      "cache": "cards/46e50ee9-91f8-416e-82fa-f1a76e61fb73.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{5}",
+        "oracle_text": "As this artifact enters, choose a creature type.\n{3}, {T}: You may put a creature card of the chosen type from your hand onto the battlefield.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "cheat",
+        "artifact"
+      ],
+      "category_source": "decklist",
+      "name": "Belbe's Portal",
+      "oracle_id": "46e50ee9-91f8-416e-82fa-f1a76e61fb73",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/nem/127/belbes-portal?utm_source=api",
+      "submitted_categories": [
+        "cheat",
+        "artifact"
+      ],
+      "submitted_name": "Belbe's Portal"
+    },
+    {
+      "cache": "cards/837c5d0e-0a33-4f9d-ae25-68a687bdf640.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flying",
+          "Incubate",
+          "Transform"
+        ],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Flying\nWhenever you cast a noncreature spell, incubate X, where X is that spell's mana value. (Create an Incubator token with X +1/+1 counters on it and \"{2}: Transform this token.\" It transforms into a 0/0 Phyrexian artifact creature.)",
+        "power": "2",
+        "toughness": "4",
+        "type_line": "Creature — Phyrexian Shark"
+      },
+      "categories": [
+        "token-production",
+        "engine"
+      ],
+      "category_source": "decklist",
+      "name": "Chrome Host Seedshark",
+      "oracle_id": "837c5d0e-0a33-4f9d-ae25-68a687bdf640",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/68/chrome-host-seedshark?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "engine"
+      ],
+      "submitted_name": "Chrome Host Seedshark"
+    },
+    {
+      "cache": "cards/adc1f3b4-cce7-42c9-a208-dbab1d1924f5.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Flying",
+          "Cycling"
+        ],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Flying\nWhen this creature enters, untap up to two lands.\nCycling {2} ({2}, Discard this card: Draw a card.)",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Faerie"
+      },
+      "categories": [
+        "ramp",
+        "evasion"
+      ],
+      "category_source": "decklist",
+      "name": "Cloud of Faeries",
+      "oracle_id": "adc1f3b4-cce7-42c9-a208-dbab1d1924f5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/moc/219/cloud-of-faeries?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "evasion"
+      ],
+      "submitted_name": "Cloud of Faeries"
+    },
+    {
+      "cache": "cards/eea4feef-2595-4ed2-92a0-11ccb3e7d40e.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Will of the council"
+        ],
+        "mana_cost": "{4}",
+        "oracle_text": "Will of the council — At the beginning of your upkeep, starting with you, each player votes for carnage or homage. If carnage gets more votes, sacrifice this artifact and destroy all nonland permanents. If homage gets more votes or the vote is tied, draw a card.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "card-draw",
+        "board-wipe"
+      ],
+      "category_source": "decklist",
+      "name": "Coercive Portal",
+      "oracle_id": "eea4feef-2595-4ed2-92a0-11ccb3e7d40e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/plst/CNS-56/coercive-portal?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "board-wipe"
+      ],
+      "submitted_name": "Coercive Portal"
+    },
+    {
+      "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Command Tower",
+      "oracle_id": "0895c9b7-ae7d-4bb3-af17-3b75deb50a25",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/233/command-tower?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Command Tower"
+    },
+    {
+      "cache": "cards/cd1eda60-53e4-44d0-9b2c-7a57395e291f.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{5}",
+        "oracle_text": "At the beginning of your end step, you may exile target creature you control, then return that card to the battlefield under your control.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "blink",
+        "engine"
+      ],
+      "category_source": "decklist",
+      "name": "Conjurer's Closet",
+      "oracle_id": "cd1eda60-53e4-44d0-9b2c-7a57395e291f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inr/259/conjurers-closet?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "engine"
+      ],
+      "submitted_name": "Conjurer's Closet"
+    },
+    {
+      "cache": "cards/9938d178-0ce6-45c0-b317-fd5c54231579.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{4}{U}{U}",
+        "oracle_text": "This spell can't be countered.\nFlying\nWhen this creature enters, look at the top five cards of your library and separate them into a face-down pile and a face-up pile. An opponent chooses one of those piles. Put that pile into your hand and the other into your graveyard.",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Creature — Sphinx"
+      },
+      "categories": [
+        "card-draw",
+        "blink-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Curator of Destinies",
+      "oracle_id": "9938d178-0ce6-45c0-b317-fd5c54231579",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/34/curator-of-destinies?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "blink-payoff"
+      ],
+      "submitted_name": "Curator of Destinies"
+    },
+    {
+      "cache": "cards/d2fbad7d-d05a-4321-9aff-a93bd102a3f4.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Flashback"
+        ],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Return target permanent to its owner's hand.\nFlashback {5}{U}{U} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "bounce",
+        "interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Dematerialize",
+      "oracle_id": "d2fbad7d-d05a-4321-9aff-a93bd102a3f4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ody/81/dematerialize?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "interaction"
+      ],
+      "submitted_name": "Dematerialize"
+    },
+    {
+      "cache": "cards/ae069ba4-8ca6-4eda-8f5d-fc82072d7d40.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Foretell"
+        ],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Return target nonland permanent to its owner's hand.\nForetell {U} (During your turn, you may pay {2} and exile this card from your hand face down. Cast it on a later turn for its foretell cost.)",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "bounce",
+        "interaction"
+      ],
+      "category_source": "decklist",
+      "name": "Depart the Realm",
+      "oracle_id": "ae069ba4-8ca6-4eda-8f5d-fc82072d7d40",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/khm/53/depart-the-realm?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "interaction"
+      ],
+      "submitted_name": "Depart the Realm"
+    },
+    {
+      "cache": "cards/8f0777bc-4fca-4601-beed-1fd060f28075.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Enchant basic land you control\nWhen this Aura enters, exile target creature an opponent controls until this Aura leaves the battlefield.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "removal",
+        "enchantment"
+      ],
+      "category_source": "decklist",
+      "name": "Dimensional Exile",
+      "oracle_id": "8f0777bc-4fca-4601-beed-1fd060f28075",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmt/4/dimensional-exile?utm_source=api",
+      "submitted_categories": [
+        "removal",
+        "enchantment"
+      ],
+      "submitted_name": "Dimensional Exile"
+    },
+    {
+      "cache": "cards/d53d000f-c92f-4d70-ae60-8be3791da8a2.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "Prevent all combat damage that would be dealt to attacking creatures you control.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "combat",
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Dolmen Gate",
+      "oracle_id": "d53d000f-c92f-4d70-ae60-8be3791da8a2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lrw/256/dolmen-gate?utm_source=api",
+      "submitted_categories": [
+        "combat",
+        "protection"
+      ],
+      "submitted_name": "Dolmen Gate"
+    },
+    {
+      "cache": "cards/7536eb66-959d-4dca-9b75-895572ef733c.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{1}, {T}, Sacrifice this land: You may cast spells this turn as though they had flash.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "flash"
+      ],
+      "category_source": "decklist",
+      "name": "Emergence Zone",
+      "oracle_id": "7536eb66-959d-4dca-9b75-895572ef733c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/war/245/emergence-zone?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "flash"
+      ],
+      "submitted_name": "Emergence Zone"
+    },
+    {
+      "cache": "cards/4a85cd7e-625b-4043-b7f1-999def26eb36.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "{1}, {T}: Return target creature to its owner's hand unless its controller pays {1}.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "bounce",
+        "engine"
+      ],
+      "category_source": "decklist",
+      "name": "Erratic Portal",
+      "oracle_id": "4a85cd7e-625b-4043-b7f1-999def26eb36",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mb2/220/erratic-portal?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "engine"
+      ],
+      "submitted_name": "Erratic Portal"
+    },
+    {
+      "cache": "cards/69288566-3015-45de-b391-6fe079865f0c.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{X}{X}{U}{U}",
+        "oracle_text": "When this enchantment enters, exile up to X target creatures. For each of those cards, its owner may play it for as long as it remains exiled.\nWhenever one or more nontoken creatures enter, if one or more of them entered from exile or was cast from exile, you draw a card. This ability triggers only once each turn.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "removal",
+        "engine"
+      ],
+      "category_source": "decklist",
+      "name": "Extraordinary Journey",
+      "oracle_id": "69288566-3015-45de-b391-6fe079865f0c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/woe/48/extraordinary-journey?utm_source=api",
+      "submitted_categories": [
+        "removal",
+        "engine"
+      ],
+      "submitted_name": "Extraordinary Journey"
+    },
+    {
+      "cache": "cards/e48f9fc7-72cf-4c3a-b3b3-d237edc01310.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Imprint"
+        ],
+        "mana_cost": "{3}",
+        "oracle_text": "Imprint — When this artifact enters, you may exile target land you control.\nWhenever a land with the same name as the exiled card is tapped for mana, its controller adds one mana of any type that land produced.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Extraplanar Lens",
+      "oracle_id": "e48f9fc7-72cf-4c3a-b3b3-d237edc01310",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/381/extraplanar-lens?utm_source=api",
+      "submitted_categories": [
+        "ramp"
+      ],
+      "submitted_name": "Extraplanar Lens"
+    },
+    {
+      "cache": "cards/0c85b8f7-0bd0-4680-9ec5-d4b110460a54.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle. Then if you control four or more lands, untap that land.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "land-search"
+      ],
+      "category_source": "decklist",
+      "name": "Fabled Passage",
+      "oracle_id": "0c85b8f7-0bd0-4680-9ec5-d4b110460a54",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/242/fabled-passage?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "land-search"
+      ],
+      "submitted_name": "Fabled Passage"
+    },
+    {
+      "cache": "cards/f5a85674-fd09-42d8-bba7-5656be25fcea.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Defender"
+        ],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Defender\nWhen this creature has flying, sacrifice it.\nWhen this creature leaves the battlefield, it deals damage to each nonblue creature without flying equal to half the number of Islands you control, rounded down.",
+        "power": "0",
+        "toughness": "5",
+        "type_line": "Creature — Wall"
+      },
+      "categories": [
+        "board-wipe",
+        "blink-payoff",
+        "defender"
+      ],
+      "category_source": "decklist",
+      "name": "Floodgate",
+      "oracle_id": "f5a85674-fd09-42d8-bba7-5656be25fcea",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmr/49/floodgate?utm_source=api",
+      "submitted_categories": [
+        "board-wipe",
+        "blink-payoff",
+        "defender"
+      ],
+      "submitted_name": "Floodgate"
+    },
+    {
+      "cache": "cards/d7dcd1a3-3163-4e26-94e8-f4072e477e6a.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Mill"
+        ],
+        "mana_cost": "{4}{U}",
+        "oracle_text": "When this creature enters, each player mills two cards. Then you may put an instant, sorcery, or battle card from your graveyard on top of your library. (To mill two cards, a player puts the top two cards of their library into their graveyard.)",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Creature — Zombie"
+      },
+      "categories": [
+        "recursion",
+        "selection",
+        "blink-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Halo-Charged Skaab",
+      "oracle_id": "d7dcd1a3-3163-4e26-94e8-f4072e477e6a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mom/60/halo-charged-skaab?utm_source=api",
+      "submitted_categories": [
+        "recursion",
+        "selection",
+        "blink-payoff"
+      ],
+      "submitted_name": "Halo-Charged Skaab"
+    },
+    {
+      "cache": "cards/c27c6ba9-8d72-4101-b3a5-1e8d81755568.json",
+      "card": {
+        "cmc": 4.0,
+        "faces": [
+          {
+            "mana_cost": "{2}{W}{W}",
+            "name": "Heliod, the Radiant Dawn",
+            "oracle_text": "When Heliod enters, return target enchantment card that isn't a God from your graveyard to your hand.\n{3}{U/P}: Transform Heliod. Activate only as a sorcery. ({U/P} can be paid with either {U} or 2 life.)",
+            "power": "4",
+            "toughness": "4",
+            "type_line": "Legendary Enchantment Creature — God"
+          },
+          {
+            "mana_cost": "",
+            "name": "Heliod, the Warped Eclipse",
+            "oracle_text": "You may cast spells as though they had flash.\nSpells you cast cost {1} less to cast for each card your opponents have drawn this turn.",
+            "power": "4",
+            "toughness": "6",
+            "type_line": "Legendary Enchantment Creature — Phyrexian God"
+          }
+        ],
+        "keywords": [
+          "Transform"
+        ],
+        "type_line": "Legendary Enchantment Creature — God // Legendary Enchantment Creature — Phyrexian God"
+      },
+      "categories": [
+        "recursion",
+        "blink-payoff",
+        "enchantment"
+      ],
+      "category_source": "decklist",
+      "name": "Heliod, the Radiant Dawn // Heliod, the Warped Eclipse",
+      "oracle_id": "c27c6ba9-8d72-4101-b3a5-1e8d81755568",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mom/17/heliod-the-radiant-dawn-heliod-the-warped-eclipse?utm_source=api",
+      "submitted_categories": [
+        "recursion",
+        "blink-payoff",
+        "enchantment"
+      ],
+      "submitted_name": "Heliod, the Radiant Dawn // Heliod, the Warped Eclipse"
+    },
+    {
+      "cache": "cards/78afa295-c9f4-4a81-9f7b-5746a3cf6b31.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Scry"
+        ],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "When Inga Rune-Eyes enters, scry 3.\nWhen Inga Rune-Eyes dies, draw three cards if three or more creatures died this turn.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Human Wizard"
+      },
+      "categories": [
+        "selection",
+        "card-draw",
+        "blink-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Inga Rune-Eyes",
+      "oracle_id": "78afa295-c9f4-4a81-9f7b-5746a3cf6b31",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/100/inga-rune-eyes?utm_source=api",
+      "submitted_categories": [
+        "selection",
+        "card-draw",
+        "blink-payoff"
+      ],
+      "submitted_name": "Inga Rune-Eyes"
+    },
+    {
+      "cache": "cards/456dbec4-1b0e-48c4-abae-5c8205651872.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "When this artifact enters, exile the top two cards of your library. Until the end of your next turn, you may play those cards.\n{T}: Add two mana in any combination of colors. Spend this mana only to cast spells from exile.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp",
+        "card-advantage"
+      ],
+      "category_source": "decklist",
+      "name": "Interdimensional Web Watch",
+      "oracle_id": "456dbec4-1b0e-48c4-abae-5c8205651872",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/spm/165/interdimensional-web-watch?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "card-advantage"
+      ],
+      "submitted_name": "Interdimensional Web Watch"
+    },
+    {
+      "cache": "cards/73c7fdb3-4742-4d08-8658-daa4435c49b1.json",
+      "card": {
+        "cmc": 4.0,
+        "faces": [
+          {
+            "defense": "4",
+            "mana_cost": "{3}{U}",
+            "name": "Invasion of Vryn",
+            "oracle_text": "(As a Siege enters, choose an opponent to protect it. You and others can attack it. When it's defeated, exile it, then cast it transformed.)\nWhen this Siege enters, draw three cards, then discard a card.",
+            "type_line": "Battle — Siege"
+          },
+          {
+            "mana_cost": "",
+            "name": "Overloaded Mage-Ring",
+            "oracle_text": "{1}, {T}, Sacrifice this artifact: Copy target spell you control. You may choose new targets for the copy. (A copy of a permanent spell becomes a token.)",
+            "type_line": "Artifact"
+          }
+        ],
+        "keywords": [
+          "Transform"
+        ],
+        "type_line": "Battle — Siege // Artifact"
+      },
+      "categories": [
+        "selection",
+        "spell-copy"
+      ],
+      "category_source": "decklist",
+      "name": "Invasion of Vryn // Overloaded Mage-Ring",
+      "oracle_id": "73c7fdb3-4742-4d08-8658-daa4435c49b1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mom/64/invasion-of-vryn-overloaded-mage-ring?utm_source=api",
+      "submitted_categories": [
+        "selection",
+        "spell-copy"
+      ],
+      "submitted_name": "Invasion of Vryn // Overloaded Mage-Ring"
+    },
+    {
+      "cache": "cards/b2c6aa39-2d2a-459c-a555-fb48ba993373.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U}.)",
+        "produced_mana": [
+          "U"
+        ],
+        "type_line": "Basic Land — Island"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Island",
+      "oracle_id": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
+      "quantity": 17,
+      "scryfall_uri": "https://scryfall.com/card/trk/319/island?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Island"
+    },
+    {
+      "cache": "cards/16d2a56a-7181-4ef3-866b-10dd8615d9e9.json",
+      "card": {
+        "cmc": 2.0,
+        "faces": [
+          {
+            "mana_cost": "{1}{U}",
+            "name": "Jacob Hauken, Inspector",
+            "oracle_text": "{T}: Draw a card, then exile a card from your hand face down. You may look at that card for as long as it remains exiled. You may pay {4}{U}{U}. If you do, transform Jacob Hauken.",
+            "power": "0",
+            "toughness": "2",
+            "type_line": "Legendary Creature — Human Advisor"
+          },
+          {
+            "mana_cost": "",
+            "name": "Hauken's Insight",
+            "oracle_text": "At the beginning of your upkeep, exile the top card of your library face down. You may look at that card for as long as it remains exiled.\nOnce during each of your turns, you may play a land or cast a spell from among the cards exiled with this permanent without paying its mana cost.",
+            "type_line": "Legendary Enchantment"
+          }
+        ],
+        "keywords": [
+          "Transform"
+        ],
+        "type_line": "Legendary Creature — Human Advisor // Legendary Enchantment"
+      },
+      "categories": [
+        "card-draw",
+        "engine"
+      ],
+      "category_source": "decklist",
+      "name": "Jacob Hauken, Inspector // Hauken's Insight",
+      "oracle_id": "16d2a56a-7181-4ef3-866b-10dd8615d9e9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/vow/65/jacob-hauken-inspector-haukens-insight?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "engine"
+      ],
+      "submitted_name": "Jacob Hauken, Inspector // Hauken's Insight"
+    },
+    {
+      "cache": "cards/2bfec482-be0d-4768-84e7-1c2c74ea1373.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "When this enchantment enters, exile target creature.\nWhen this enchantment leaves the battlefield, return the exiled card to the battlefield under its owner's control.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Journey to Nowhere",
+      "oracle_id": "2bfec482-be0d-4768-84e7-1c2c74ea1373",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmd/17/journey-to-nowhere?utm_source=api",
+      "submitted_categories": [
+        "removal"
+      ],
+      "submitted_name": "Journey to Nowhere"
+    },
+    {
+      "cache": "cards/0214805d-d207-42da-a25f-2a8e1990904e.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Exile target creature you control, then return that card to the battlefield under its owner's control. It gains first strike until end of turn.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "blink",
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Justiciar's Portal",
+      "oracle_id": "0214805d-d207-42da-a25f-2a8e1990904e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rna/13/justiciars-portal?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "protection"
+      ],
+      "submitted_name": "Justiciar's Portal"
+    },
+    {
+      "cache": "cards/83917116-d2d8-4701-a79f-af17486706ae.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{W}",
+        "oracle_text": "Choose one —\n• Put a +1/+1 counter on target creature or Vehicle. Untap it.\n• Return target permanent you control to its owner's hand.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "protection",
+        "bounce"
+      ],
+      "category_source": "decklist",
+      "name": "Light the Way",
+      "oracle_id": "83917116-d2d8-4701-a79f-af17486706ae",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/24/light-the-way?utm_source=api",
+      "submitted_categories": [
+        "protection",
+        "bounce"
+      ],
+      "submitted_name": "Light the Way"
+    },
+    {
+      "cache": "cards/16182e01-22ff-4786-985d-919b47c4aa4d.json",
+      "card": {
+        "cmc": 3.0,
+        "faces": [
+          {
+            "mana_cost": "{3}",
+            "name": "Matzalantli, the Great Door",
+            "oracle_text": "{T}: Draw a card, then discard a card.\n{4}, {T}: Transform Matzalantli. Activate only if there are four or more permanent types among cards in your graveyard. (Artifact, battle, creature, enchantment, land, and planeswalker are permanent types.)",
+            "type_line": "Legendary Artifact"
+          },
+          {
+            "mana_cost": "",
+            "name": "The Core",
+            "oracle_text": "(Transforms from Matzalantli.)\nFathomless descent — {T}: Add X mana of any one color, where X is the number of permanent cards in your graveyard.",
+            "type_line": "Legendary Land"
+          }
+        ],
+        "keywords": [
+          "Transform",
+          "Fathomless descent"
+        ],
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Legendary Artifact // Legendary Land"
+      },
+      "categories": [
+        "card-draw",
+        "selection",
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Matzalantli, the Great Door // The Core",
+      "oracle_id": "16182e01-22ff-4786-985d-919b47c4aa4d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lci/256/matzalantli-the-great-door-the-core?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "selection",
+        "ramp"
+      ],
+      "submitted_name": "Matzalantli, the Great Door // The Core"
+    },
+    {
+      "cache": "cards/6a84eda1-7e72-4b5a-849f-b6e177565aeb.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "{2}: This artifact becomes a copy of target artifact, creature, enchantment, or land until end of turn.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "copy",
+        "utility"
+      ],
+      "category_source": "decklist",
+      "name": "Mirage Mirror",
+      "oracle_id": "6a84eda1-7e72-4b5a-849f-b6e177565aeb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/206/mirage-mirror?utm_source=api",
+      "submitted_categories": [
+        "copy",
+        "utility"
+      ],
+      "submitted_name": "Mirage Mirror"
+    },
+    {
+      "cache": "cards/3ec7ae18-b203-49bd-95f9-ad5482459a23.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "Whenever a creature enters, if it was cast, exile it, then return all other permanent cards exiled with this artifact to the battlefield under their owners' control.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "blink",
+        "chaos"
+      ],
+      "category_source": "decklist",
+      "name": "Mirror of Life Trapping",
+      "oracle_id": "3ec7ae18-b203-49bd-95f9-ad5482459a23",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/326/mirror-of-life-trapping?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "chaos"
+      ],
+      "submitted_name": "Mirror of Life Trapping"
+    },
+    {
+      "cache": "cards/17770eeb-ecbf-4510-af2d-acececfbe146.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "As this land enters, choose a basic land type. Then you may pay 2 life. If you don't, it enters tapped.\nThis land is the chosen type.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Multiversal Passage",
+      "oracle_id": "17770eeb-ecbf-4510-af2d-acececfbe146",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/spm/180/multiversal-passage?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Multiversal Passage"
+    },
+    {
+      "cache": "cards/8c65d5bd-5d90-4e84-8251-cfef21dd6332.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Flashback"
+        ],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Create a token that's a copy of target creature you control, except it isn't legendary.\nFlashback {5}{U}{U} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "token-production",
+        "flashback"
+      ],
+      "category_source": "decklist",
+      "name": "Multiversal Recruitment",
+      "oracle_id": "8c65d5bd-5d90-4e84-8251-cfef21dd6332",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/629/multiversal-recruitment?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "flashback"
+      ],
+      "submitted_name": "Multiversal Recruitment"
+    },
+    {
+      "cache": "cards/76678885-3674-443d-b9a2-2a460cf6aac0.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "If an artifact or creature entering causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "engine",
+        "blink-payoff",
+        "artifact"
+      ],
+      "category_source": "decklist",
+      "name": "Panharmonicon",
+      "oracle_id": "76678885-3674-443d-b9a2-2a460cf6aac0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2x2/310/panharmonicon?utm_source=api",
+      "submitted_categories": [
+        "engine",
+        "blink-payoff",
+        "artifact"
+      ],
+      "submitted_name": "Panharmonicon"
+    },
+    {
+      "cache": "cards/1a3ce329-ee48-4abc-b820-b43e9e68eae9.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "{3}: If your library has ten or more cards in it, target opponent looks at the top ten cards of your library and separates them into two face-down piles. Exile one of those piles. Search the other pile for a card, put it into your hand, then shuffle the rest of that pile into your library.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "card-advantage",
+        "politics"
+      ],
+      "category_source": "decklist",
+      "name": "Phyrexian Portal",
+      "oracle_id": "1a3ce329-ee48-4abc-b820-b43e9e68eae9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/all/126/phyrexian-portal?utm_source=api",
+      "submitted_categories": [
+        "card-advantage",
+        "politics"
+      ],
+      "submitted_name": "Phyrexian Portal"
+    },
+    {
+      "cache": "cards/bc71ebf6-2056-41f7-be35-b2e5c34afa99.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {W}.)",
+        "produced_mana": [
+          "W"
+        ],
+        "type_line": "Basic Land — Plains"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Plains",
+      "oracle_id": "bc71ebf6-2056-41f7-be35-b2e5c34afa99",
+      "quantity": 14,
+      "scryfall_uri": "https://scryfall.com/card/trk/317/plains?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Plains"
+    },
+    {
+      "cache": "cards/853c6cc0-ed2b-4d65-add1-2449ade8cf68.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{6}",
+        "oracle_text": "{8}, {T}: Search your library for a permanent card, put it onto the battlefield, then shuffle.",
+        "type_line": "Legendary Artifact"
+      },
+      "categories": [
+        "tutor",
+        "artifact"
+      ],
+      "category_source": "decklist",
+      "name": "Planar Bridge",
+      "oracle_id": "853c6cc0-ed2b-4d65-add1-2449ade8cf68",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2x2/313/planar-bridge?utm_source=api",
+      "submitted_categories": [
+        "tutor",
+        "artifact"
+      ],
+      "submitted_name": "Planar Bridge"
+    },
+    {
+      "cache": "cards/6128679e-7e54-41e4-ab6e-25aeeffed49f.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Enchant artifact, creature, or planeswalker\nEnchanted permanent can't attack or block, and its activated abilities can't be activated.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "removal",
+        "enchantment"
+      ],
+      "category_source": "decklist",
+      "name": "Planar Disruption",
+      "oracle_id": "6128679e-7e54-41e4-ab6e-25aeeffed49f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/one/28/planar-disruption?utm_source=api",
+      "submitted_categories": [
+        "removal",
+        "enchantment"
+      ],
+      "submitted_name": "Planar Disruption"
+    },
+    {
+      "cache": "cards/75701981-b9fc-471f-a97f-e897bb3dfb77.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{W}",
+        "oracle_text": "{3}{W}, Exile this creature: Exile all creatures. At the beginning of the next end step, return those cards to the battlefield under their owners' control.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Cleric"
+      },
+      "categories": [
+        "blink",
+        "board-wipe",
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Planar Guide",
+      "oracle_id": "75701981-b9fc-471f-a97f-e897bb3dfb77",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lgn/18/planar-guide?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "board-wipe",
+        "protection"
+      ],
+      "submitted_name": "Planar Guide"
+    },
+    {
+      "cache": "cards/a959a91a-3e1d-4bd4-9e14-5ee977540146.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Exile target artifact or creature, then return it to the battlefield under its owner's control with a +1/+1 counter on it.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "blink",
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Planar Incision",
+      "oracle_id": "a959a91a-3e1d-4bd4-9e14-5ee977540146",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/72/planar-incision?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "protection"
+      ],
+      "submitted_name": "Planar Incision"
+    },
+    {
+      "cache": "cards/d4b10505-2b7a-4099-aacb-ff2359b24310.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{6}",
+        "oracle_text": "{6}, {T}: Search your library for a card, put that card into your hand, then shuffle.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "tutor",
+        "artifact"
+      ],
+      "category_source": "decklist",
+      "name": "Planar Portal",
+      "oracle_id": "d4b10505-2b7a-4099-aacb-ff2359b24310",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/8ed/311/planar-portal?utm_source=api",
+      "submitted_categories": [
+        "tutor",
+        "artifact"
+      ],
+      "submitted_name": "Planar Portal"
+    },
+    {
+      "cache": "cards/0dd3127e-de13-4785-b5f2-0af996e9f15f.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Flash"
+        ],
+        "mana_cost": "{2}{W/U}{W/U}",
+        "oracle_text": "Flash\nWhen this creature enters during the declare attackers step, choose target player and any number of target attacking creatures their opponents control. Those creatures are now attacking that player.",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Creature — Human Wizard"
+      },
+      "categories": [
+        "politics",
+        "flash"
+      ],
+      "category_source": "decklist",
+      "name": "Portal Manipulator",
+      "oracle_id": "0dd3127e-de13-4785-b5f2-0af996e9f15f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clu/40/portal-manipulator?utm_source=api",
+      "submitted_categories": [
+        "politics",
+        "flash"
+      ],
+      "submitted_name": "Portal Manipulator"
+    },
+    {
+      "cache": "cards/c30491b5-08fe-4694-9ac8-53be7b4b92ce.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "{1}, {T}: Return target creature you control and each Aura attached to it to their owners' hands. Activate only during your turn.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "bounce",
+        "engine"
+      ],
+      "category_source": "decklist",
+      "name": "Portal of Sanctuary",
+      "oracle_id": "c30491b5-08fe-4694-9ac8-53be7b4b92ce",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/m20/71/portal-of-sanctuary?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "engine"
+      ],
+      "submitted_name": "Portal of Sanctuary"
+    },
+    {
+      "cache": "cards/301d1d8e-d3fc-4010-8b29-4724fa0b31cd.json",
+      "card": {
+        "cmc": 9.0,
+        "keywords": [],
+        "mana_cost": "{9}",
+        "oracle_text": "When this artifact enters, each opponent sacrifices three creatures of their choice.\nAt the beginning of your upkeep, put target creature card from a graveyard onto the battlefield under your control. It's a Phyrexian in addition to its other types.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "removal",
+        "reanimation"
+      ],
+      "category_source": "decklist",
+      "name": "Portal to Phyrexia",
+      "oracle_id": "301d1d8e-d3fc-4010-8b29-4724fa0b31cd",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/bro/240/portal-to-phyrexia?utm_source=api",
+      "submitted_categories": [
+        "removal",
+        "reanimation"
+      ],
+      "submitted_name": "Portal to Phyrexia"
+    },
+    {
+      "cache": "cards/7f3b6c25-b855-4ea5-a8ad-d954a6cdffb7.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Imprint"
+        ],
+        "mana_cost": "{4}",
+        "oracle_text": "Imprint — When this artifact enters, you may exile an artifact card from your hand.\n{X}, {T}: Create a token that's a copy of the exiled card. X is the mana value of that card.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "token-production",
+        "engine"
+      ],
+      "category_source": "decklist",
+      "name": "Prototype Portal",
+      "oracle_id": "7f3b6c25-b855-4ea5-a8ad-d954a6cdffb7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c18/216/prototype-portal?utm_source=api",
+      "submitted_categories": [
+        "token-production",
+        "engine"
+      ],
+      "submitted_name": "Prototype Portal"
+    },
+    {
+      "cache": "cards/6c754808-86a6-43d3-8aeb-96ec19f7396c.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Flash"
+        ],
+        "mana_cost": "{3}{U}{U}",
+        "oracle_text": "Flash\nWhen Renet enters, return each other nonland permanent that entered this turn to its owner's hand.",
+        "power": "4",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Human Wizard"
+      },
+      "categories": [
+        "bounce",
+        "interaction",
+        "blink-payoff",
+        "flash"
+      ],
+      "category_source": "decklist",
+      "name": "Renet, Temporal Apprentice",
+      "oracle_id": "6c754808-86a6-43d3-8aeb-96ec19f7396c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmt/50/renet-temporal-apprentice?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "interaction",
+        "blink-payoff",
+        "flash"
+      ],
+      "submitted_name": "Renet, Temporal Apprentice"
+    },
+    {
+      "cache": "cards/ca2aee09-398d-4eaa-acbb-98663216185b.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Defender"
+        ],
+        "mana_cost": "{W}",
+        "oracle_text": "Defender\n{1}, Sacrifice this creature: Target creature you control gains indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy it.)",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Creature — Dog"
+      },
+      "categories": [
+        "protection",
+        "defender"
+      ],
+      "category_source": "decklist",
+      "name": "Resolute Watchdog",
+      "oracle_id": "ca2aee09-398d-4eaa-acbb-98663216185b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rna/19/resolute-watchdog?utm_source=api",
+      "submitted_categories": [
+        "protection",
+        "defender"
+      ],
+      "submitted_name": "Resolute Watchdog"
+    },
+    {
+      "cache": "cards/32717625-46c6-45c5-ad0a-fb6a91f9878c.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "This artifact enters tapped.\n{X}, {T}, Sacrifice this artifact: X target creatures with power 2 or less can't be blocked this turn.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "finisher",
+        "utility"
+      ],
+      "category_source": "decklist",
+      "name": "Runed Arch",
+      "oracle_id": "32717625-46c6-45c5-ad0a-fb6a91f9878c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ice/334/runed-arch?utm_source=api",
+      "submitted_categories": [
+        "finisher",
+        "utility"
+      ],
+      "submitted_name": "Runed Arch"
+    },
+    {
+      "cache": "cards/3e400e13-6cae-45e6-b5cc-5b5f9d74dec5.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{U}{U}",
+        "oracle_text": "When this creature enters, return target instant or sorcery card from your graveyard to your hand.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Merfolk Wizard"
+      },
+      "categories": [
+        "recursion",
+        "blink-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Salvager of Secrets",
+      "oracle_id": "3e400e13-6cae-45e6-b5cc-5b5f9d74dec5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/gn2/25/salvager-of-secrets?utm_source=api",
+      "submitted_categories": [
+        "recursion",
+        "blink-payoff"
+      ],
+      "submitted_name": "Salvager of Secrets"
+    },
+    {
+      "cache": "cards/144d0817-348c-4171-aa7e-3468b23cf97d.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}{U}",
+        "oracle_text": "This spell can't be copied.\nChoose one. If an opponent has eight or more cards in their graveyard, you may choose both instead.\n• Copy target spell. You may choose new targets for the copy. (A copy of a permanent spell becomes a token.)\n• Create a token that's a copy of target creature.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "copy",
+        "interaction"
+      ],
+      "category_source": "decklist",
+      "name": "See Double",
+      "oracle_id": "144d0817-348c-4171-aa7e-3468b23cf97d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mom/77/see-double?utm_source=api",
+      "submitted_categories": [
+        "copy",
+        "interaction"
+      ],
+      "submitted_name": "See Double"
+    },
+    {
+      "cache": "cards/ac914d98-221e-426c-8a50-342896b15f9e.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Return target creature to its owner's hand. Untap up to two lands.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "bounce",
+        "tempo"
+      ],
+      "category_source": "decklist",
+      "name": "Snap",
+      "oracle_id": "ac914d98-221e-426c-8a50-342896b15f9e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmr/66/snap?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "tempo"
+      ],
+      "submitted_name": "Snap"
+    },
+    {
+      "cache": "cards/29b537f5-4d9f-40ed-b38b-e8faa2b5af7d.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{U}",
+        "oracle_text": "Exile target creature you control, then return it to the battlefield under its owner's control. If that creature is a Bird, Frog, Otter, or Rat, draw a card.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "blink"
+      ],
+      "category_source": "decklist",
+      "name": "Splash Portal",
+      "oracle_id": "29b537f5-4d9f-40ed-b38b-e8faa2b5af7d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blb/74/splash-portal?utm_source=api",
+      "submitted_categories": [
+        "blink"
+      ],
+      "submitted_name": "Splash Portal"
+    },
+    {
+      "cache": "cards/48b43d53-9a8a-47a2-8610-a54d276d7be7.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Plot"
+        ],
+        "mana_cost": "{3}{U}{U}",
+        "oracle_text": "Each player may shuffle their hand and graveyard into their library. Each player who does draws seven cards. Exile Step Between Worlds.\nPlot {4}{U}{U} (You may pay {4}{U}{U} and exile this card from your hand. Cast it as a sorcery on a later turn without paying its mana cost. Plot only as a sorcery.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "card-draw",
+        "reset"
+      ],
+      "category_source": "decklist",
+      "name": "Step Between Worlds",
+      "oracle_id": "48b43d53-9a8a-47a2-8610-a54d276d7be7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otj/70/step-between-worlds?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "reset"
+      ],
+      "submitted_name": "Step Between Worlds"
+    },
+    {
+      "cache": "cards/88d49309-e7d7-486d-8696-cd66bec2fe33.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Incubate",
+          "Transform"
+        ],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Choose one —\n• Destroy target nontoken artifact or enchantment an opponent controls. Incubate 2. (Create an Incubator token with two +1/+1 counters on it and \"{2}: Transform this token.\" It transforms into a 0/0 Phyrexian artifact creature.)\n• Incubate 2, then transform an Incubator token you control.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "removal",
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Sunder the Gateway",
+      "oracle_id": "88d49309-e7d7-486d-8696-cd66bec2fe33",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mom/39/sunder-the-gateway?utm_source=api",
+      "submitted_categories": [
+        "removal",
+        "token-production"
+      ],
+      "submitted_name": "Sunder the Gateway"
+    },
+    {
+      "cache": "cards/c786a0aa-d86f-42c3-a7ea-5cb6ab72b5ec.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{W}",
+        "oracle_text": "At the beginning of your end step, exile up to one target artifact or creature you control, then return that card to the battlefield under its owner's control.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "blink",
+        "engine"
+      ],
+      "category_source": "decklist",
+      "name": "Teleportation Circle",
+      "oracle_id": "c786a0aa-d86f-42c3-a7ea-5cb6ab72b5ec",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/afr/39/teleportation-circle?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "engine"
+      ],
+      "submitted_name": "Teleportation Circle"
+    },
+    {
+      "cache": "cards/5dedd5a9-bc5d-47bb-9ae1-7d683843d041.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "loyalty": "4",
+        "mana_cost": "{2}{U}{U}",
+        "oracle_text": "The first activated ability of an artifact you activate each turn costs {2} less to activate.\n+1: Draw two cards. Then discard two cards unless you discard an artifact card.\n−2: Target artifact becomes an artifact creature. If it isn't a Vehicle, it has base power and toughness 4/4.\n−6: You get an emblem with \"Whenever an artifact you control becomes tapped, draw a card.\"",
+        "type_line": "Legendary Planeswalker — Tezzeret"
+      },
+      "categories": [
+        "card-draw",
+        "artifact"
+      ],
+      "category_source": "decklist",
+      "name": "Tezzeret, Betrayer of Flesh",
+      "oracle_id": "5dedd5a9-bc5d-47bb-9ae1-7d683843d041",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/120/tezzeret-betrayer-of-flesh?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "artifact"
+      ],
+      "submitted_name": "Tezzeret, Betrayer of Flesh"
+    },
+    {
+      "cache": "cards/926ce6a2-7bdd-4380-ac65-bc902ba0c284.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control two or fewer other lands.\nAs this land enters, choose a basic land type.\nThis land is the chosen type in addition to its other types.\nMana abilities of this land cost an additional 1 life to activate.",
+        "type_line": "Land — Gate"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Thran Portal",
+      "oracle_id": "926ce6a2-7bdd-4380-ac65-bc902ba0c284",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmu/259/thran-portal?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Thran Portal"
+    },
+    {
+      "cache": "cards/36282c29-a44b-4156-9441-03aa4bf386a8.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "{4}, {T}: You may put a historic permanent card from your hand onto the battlefield. (Artifacts, legendaries, and Sagas are historic.)",
+        "type_line": "Legendary Artifact"
+      },
+      "categories": [
+        "cheat",
+        "artifact"
+      ],
+      "category_source": "decklist",
+      "name": "Thran Temporal Gateway",
+      "oracle_id": "36282c29-a44b-4156-9441-03aa4bf386a8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dom/233/thran-temporal-gateway?utm_source=api",
+      "submitted_categories": [
+        "cheat",
+        "artifact"
+      ],
+      "submitted_name": "Thran Temporal Gateway"
+    },
+    {
+      "cache": "cards/5d641bf6-0f93-4189-8dc1-ec7ea446dade.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {W} or {U}.",
+        "produced_mana": [
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Tranquil Cove",
+      "oracle_id": "5d641bf6-0f93-4189-8dc1-ec7ea446dade",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdm/270/tranquil-cove?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Tranquil Cove"
+    },
+    {
+      "cache": "cards/3c8fa799-7f30-4532-8317-f37a7ab787de.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Disguise"
+        ],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Disguise {1}{W} (You may cast this card face down for {3} as a 2/2 creature with ward {2}. Turn it face up any time for its disguise cost.)\nWhen this creature is turned face up, exile another target nonland permanent. If you controlled it, return it to the battlefield tapped. Otherwise, its controller creates a 2/2 white and blue Detective creature token.",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Creature — Elephant Cleric"
+      },
+      "categories": [
+        "blink",
+        "removal",
+        "flash"
+      ],
+      "category_source": "decklist",
+      "name": "Unyielding Gatekeeper",
+      "oracle_id": "3c8fa799-7f30-4532-8317-f37a7ab787de",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkm/35/unyielding-gatekeeper?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "removal",
+        "flash"
+      ],
+      "submitted_name": "Unyielding Gatekeeper"
+    },
+    {
+      "cache": "cards/a8bf8ff8-d924-4fd2-b5ed-05b38f55325a.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "loyalty": "3",
+        "mana_cost": "{3}{W}{U}",
+        "oracle_text": "+2: Exile target permanent you own. Return it to the battlefield under your control at the beginning of the next end step.\n−1: Creatures can't be blocked this turn.\n−8: You get an emblem with \"Whenever you cast a spell, exile target permanent.\"",
+        "type_line": "Legendary Planeswalker — Venser"
+      },
+      "categories": [
+        "blink",
+        "evasion",
+        "finisher"
+      ],
+      "category_source": "decklist",
+      "name": "Venser, the Sojourner",
+      "oracle_id": "a8bf8ff8-d924-4fd2-b5ed-05b38f55325a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ddi/1/venser-the-sojourner?utm_source=api",
+      "submitted_categories": [
+        "blink",
+        "evasion",
+        "finisher"
+      ],
+      "submitted_name": "Venser, the Sojourner"
+    },
+    {
+      "cache": "cards/5825d718-6a32-4f4c-9b56-1a50051cfe28.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Defender"
+        ],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Defender (This creature can't attack.)\nWhenever this creature blocks a creature, return that creature to its owner's hand at end of combat.",
+        "power": "0",
+        "toughness": "4",
+        "type_line": "Creature — Wall"
+      },
+      "categories": [
+        "bounce",
+        "defender"
+      ],
+      "category_source": "decklist",
+      "name": "Wall of Tears",
+      "oracle_id": "5825d718-6a32-4f4c-9b56-1a50051cfe28",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sth/50/wall-of-tears?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "defender"
+      ],
+      "submitted_name": "Wall of Tears"
+    },
+    {
+      "cache": "cards/e8d6084b-9b72-438e-a30a-851b888f3e4d.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Flash"
+        ],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Flash\nWhen this creature enters, return a creature you control to its owner's hand.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Cat"
+      },
+      "categories": [
+        "bounce",
+        "flash"
+      ],
+      "category_source": "decklist",
+      "name": "Whitemane Lion",
+      "oracle_id": "e8d6084b-9b72-438e-a30a-851b888f3e4d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmr/35/whitemane-lion?utm_source=api",
+      "submitted_categories": [
+        "bounce",
+        "flash"
+      ],
+      "submitted_name": "Whitemane Lion"
+    }
+  ],
+  "categorized_cards": 71,
+  "generated_at": "2026-09-03T17:28:02.522428+00:00",
+  "maybeboard_cards": 0,
+  "maybeboard_unique_cards": 0,
+  "resolved_unique_cards": 71,
+  "schema_version": 3,
+  "source": "decks/2+_abuelo-threshold-echo/decklist.txt",
+  "total_cards": 100,
+  "unique_cards": 71,
+  "unresolved": []
+}

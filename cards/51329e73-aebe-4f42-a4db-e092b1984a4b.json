@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "d1a21edf-c63c-47c1-8670-1f8bcf879fcf",
+      "name": "Essence of Orthodoxy",
+      "object": "related_card",
+      "type_line": "Creature — Phyrexian",
+      "uri": "https://api.scryfall.com/cards/d1a21edf-c63c-47c1-8670-1f8bcf879fcf"
+    },
+    {
+      "component": "token",
+      "id": "2c5ed737-657b-43bf-b222-941da7579a4a",
+      "name": "Incubator // Phyrexian",
+      "object": "related_card",
+      "type_line": "Token Artifact — Incubator // Token Artifact Creature — Phyrexian",
+      "uri": "https://api.scryfall.com/cards/2c5ed737-657b-43bf-b222-941da7579a4a"
+    }
+  ],
+  "arena_id": 85107,
+  "artist": "Oriana Menendez",
+  "artist_ids": [
+    "d09f4925-a6b9-48d7-89f7-4db6deab1c7c"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 703500,
+  "cmc": 5.0,
+  "collector_number": "323",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 8394,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "604233dc-0520-47d0-8d3d-816f45c9f087",
+  "illustration_id": "b7a15937-4964-4a85-86b6-1e626732b863",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:28:27Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/0/604233dc-0520-47d0-8d3d-816f45c9f087.webp?1783916907",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/0/604233dc-0520-47d0-8d3d-816f45c9f087.jpg?1783916907",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/0/604233dc-0520-47d0-8d3d-816f45c9f087.jpg?1783916907",
+    "crop": "https://cards.scryfall.io/crop/front/6/0/604233dc-0520-47d0-8d3d-816f45c9f087.webp?1783916907",
+    "display": "https://cards.scryfall.io/display/front/6/0/604233dc-0520-47d0-8d3d-816f45c9f087.webp?1783916907",
+    "grid": "https://cards.scryfall.io/grid/front/6/0/604233dc-0520-47d0-8d3d-816f45c9f087.webp?1783916907",
+    "large": "https://cards.scryfall.io/large/front/6/0/604233dc-0520-47d0-8d3d-816f45c9f087.jpg?1783916907",
+    "normal": "https://cards.scryfall.io/normal/front/6/0/604233dc-0520-47d0-8d3d-816f45c9f087.jpg?1783916907",
+    "png": "https://cards.scryfall.io/png/front/6/0/604233dc-0520-47d0-8d3d-816f45c9f087.png?1783916907",
+    "small": "https://cards.scryfall.io/small/front/6/0/604233dc-0520-47d0-8d3d-816f45c9f087.jpg?1783916907",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/0/604233dc-0520-47d0-8d3d-816f45c9f087.webp?1783916907"
+  },
+  "keywords": [
+    "Flying",
+    "Incubate",
+    "Transform"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}{W}",
+  "mtgo_id": 109734,
+  "multiverse_ids": [
+    611080
+  ],
+  "name": "Essence of Orthodoxy",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "51329e73-aebe-4f42-a4db-e092b1984a4b",
+  "oracle_text": "Flying\nWhenever this creature or another Phyrexian you control enters, incubate 2. (Create an Incubator token with two +1/+1 counters on it and \"{2}: Transform this token.\" It transforms into a 0/0 Phyrexian artifact creature.)",
+  "oversized": false,
+  "power": "3",
+  "prices": {
+    "eur": "0.44",
+    "eur_foil": "1.16",
+    "tix": "0.02",
+    "usd": "0.40",
+    "usd_etched": null,
+    "usd_foil": "1.35"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A51329e73-aebe-4f42-a4db-e092b1984a4b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/109734?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=703500&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F490432%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Essence+of+Orthodoxy",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=611080&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEssence%2Bof%2BOrthodoxy",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEssence%2Bof%2BOrthodoxy"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/604233dc-0520-47d0-8d3d-816f45c9f087/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/323/essence-of-orthodoxy?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": false,
+  "tcgplayer_id": 490432,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Phyrexian",
+  "uri": "https://api.scryfall.com/cards/604233dc-0520-47d0-8d3d-816f45c9f087",
+  "variation": false
+}

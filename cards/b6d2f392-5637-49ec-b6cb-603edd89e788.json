@@ -1,0 +1,159 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "49e206f2-1647-4456-8f2f-b67d053413e2",
+      "name": "Tiller of Flesh",
+      "object": "related_card",
+      "type_line": "Creature — Phyrexian Knight",
+      "uri": "https://api.scryfall.com/cards/49e206f2-1647-4456-8f2f-b67d053413e2"
+    },
+    {
+      "component": "token",
+      "id": "2c5ed737-657b-43bf-b222-941da7579a4a",
+      "name": "Incubator // Phyrexian",
+      "object": "related_card",
+      "type_line": "Token Artifact — Incubator // Token Artifact Creature — Phyrexian",
+      "uri": "https://api.scryfall.com/cards/2c5ed737-657b-43bf-b222-941da7579a4a"
+    }
+  ],
+  "arena_id": 84300,
+  "artist": "Nino Vecia",
+  "artist_ids": [
+    "21466232-678a-4836-89fd-82cb15f52366"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 704012,
+  "cmc": 4.0,
+  "collector_number": "44",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 15763,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "49e206f2-1647-4456-8f2f-b67d053413e2",
+  "illustration_id": "d0616940-0afb-4793-8df1-0ceec72a25aa",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:30:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/9/49e206f2-1647-4456-8f2f-b67d053413e2.webp?1783917044",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/9/49e206f2-1647-4456-8f2f-b67d053413e2.jpg?1783917044",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/9/49e206f2-1647-4456-8f2f-b67d053413e2.jpg?1783917044",
+    "crop": "https://cards.scryfall.io/crop/front/4/9/49e206f2-1647-4456-8f2f-b67d053413e2.webp?1783917044",
+    "display": "https://cards.scryfall.io/display/front/4/9/49e206f2-1647-4456-8f2f-b67d053413e2.webp?1783917044",
+    "grid": "https://cards.scryfall.io/grid/front/4/9/49e206f2-1647-4456-8f2f-b67d053413e2.webp?1783917044",
+    "large": "https://cards.scryfall.io/large/front/4/9/49e206f2-1647-4456-8f2f-b67d053413e2.jpg?1783917044",
+    "normal": "https://cards.scryfall.io/normal/front/4/9/49e206f2-1647-4456-8f2f-b67d053413e2.jpg?1783917044",
+    "png": "https://cards.scryfall.io/png/front/4/9/49e206f2-1647-4456-8f2f-b67d053413e2.png?1783917044",
+    "small": "https://cards.scryfall.io/small/front/4/9/49e206f2-1647-4456-8f2f-b67d053413e2.jpg?1783917044",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/9/49e206f2-1647-4456-8f2f-b67d053413e2.webp?1783917044"
+  },
+  "keywords": [
+    "Incubate",
+    "Transform"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}",
+  "mtgo_id": 109900,
+  "multiverse_ids": [
+    607064
+  ],
+  "name": "Tiller of Flesh",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b6d2f392-5637-49ec-b6cb-603edd89e788",
+  "oracle_text": "Whenever you cast a spell that targets one or more permanents, incubate 2. (Create an Incubator token with two +1/+1 counters on it and \"{2}: Transform this token.\" It transforms into a 0/0 Phyrexian artifact creature.)",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2023-03-31",
+    "source": "Riley Knight",
+    "source_uri": "https://twitter.com/RLYKNGHT/status/1641938500361793537"
+  },
+  "prices": {
+    "eur": "0.05",
+    "eur_foil": "0.22",
+    "tix": "0.03",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": "0.19"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab6d2f392-5637-49ec-b6cb-603edd89e788&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/109900?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=704012&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F490662%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Tiller+of+Flesh",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=607064&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTiller%2Bof%2BFlesh",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTiller%2Bof%2BFlesh"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/49e206f2-1647-4456-8f2f-b67d053413e2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/44/tiller-of-flesh?utm_source=api",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": false,
+  "tcgplayer_id": 490662,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Phyrexian Knight",
+  "uri": "https://api.scryfall.com/cards/49e206f2-1647-4456-8f2f-b67d053413e2",
+  "variation": false
+}

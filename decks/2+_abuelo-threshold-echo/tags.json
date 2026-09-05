@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Portal-gate blink control: a three-mana command-zone doorway that repeatedly crosses strange ETB creatures and tap-ability portal artifacts, protecting them from removal on the way through.",
+  "tags": [
+    {
+      "name": "blink",
+      "score": 5,
+      "reason": "Abuelo blinks a creature or artifact every turn from the command zone, backed by Teleportation Circle, Conjurer's Closet, Erratic Portal, Venser, Planar Guide, and five one-shot blink spells."
+    },
+    {
+      "name": "etb effects",
+      "score": 5,
+      "reason": "Twenty creatures plus Panharmonicon give the blink engine repeatable removal, selection, card advantage, recursion, protection, and mass bounce."
+    },
+    {
+      "name": "artifacts",
+      "score": 4,
+      "reason": "Literal portal artifacts, two transforming gateways, Panharmonicon, Tezzeret's activation discount, Prototype Portal copies, and a commander who blinks artifacts to untap them."
+    },
+    {
+      "name": "control",
+      "score": 4,
+      "reason": "Bounce, prison Auras, Floodgate, Renet, Planar Guide, and Wall of Tears control combat and permanent development at instant speed."
+    },
+    {
+      "name": "flash",
+      "score": 3,
+      "reason": "Renet, Whitemane Lion, Unyielding Gatekeeper's disguise flip, Justiciar's Portal, Portal Manipulator, and Emergence Zone support opponent-turn play, but flash is no longer a scored goal."
+    },
+    {
+      "name": "politics",
+      "score": 2,
+      "reason": "Portal Manipulator, Coercive Portal, and Phyrexian Portal still create table decisions, but politics is no longer a major axis."
+    },
+    {
+      "name": "ramp",
+      "score": 2,
+      "reason": "The mana package exists to reach the expensive portals, but it is support rather than the deck's identity."
+    },
+    {
+      "name": "spell copy",
+      "score": 2,
+      "reason": "Invasion of Vryn and See Double can copy the right spell at the right moment, but the list is not primarily a copy deck."
+    },
+    {
+      "name": "stax",
+      "score": 2,
+      "reason": "Mirror of Life Trapping delays every creature opponents cast while this deck's blinked creatures never feed it. It is the only prison piece left."
+    },
+    {
+      "name": "tokens",
+      "score": 2,
+      "reason": "Chrome Host Seedshark, Aether Channeler, Multiversal Recruitment, and Sunder the Gateway make bodies, but the token plan is now support."
+    },
+    {
+      "name": "battles",
+      "score": 1,
+      "reason": "Invasion of Vryn remains a useful threshold card, but battles are now incidental."
+    },
+    {
+      "name": "chaos",
+      "score": 1,
+      "reason": "Mirror of Life Trapping and Phyrexian Portal add uncertainty, but the symmetrical chaos artifact is gone."
+    },
+    {
+      "name": "theft",
+      "score": 1,
+      "reason": "Portal to Phyrexia can reanimate opposing creatures, but theft is incidental."
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "arena_id": 71795,
+  "artist": "John Stanko",
+  "artist_ids": [
+    "b0f038a0-73b5-4806-918e-9cd11b5f92e1"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 467759,
+  "cmc": 2.0,
+  "collector_number": "13",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 4756,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Some protection requires a bit of finesse.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a24e8dba-5c86-4e32-8a52-61402f7fe9f0",
+  "illustration_id": "8eee236f-022d-4058-b9cf-2188eb2b6fbc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:19:03Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/2/a24e8dba-5c86-4e32-8a52-61402f7fe9f0.webp?1783930743",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/2/a24e8dba-5c86-4e32-8a52-61402f7fe9f0.jpg?1783930743",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/2/a24e8dba-5c86-4e32-8a52-61402f7fe9f0.jpg?1783930743",
+    "crop": "https://cards.scryfall.io/crop/front/a/2/a24e8dba-5c86-4e32-8a52-61402f7fe9f0.webp?1783930743",
+    "display": "https://cards.scryfall.io/display/front/a/2/a24e8dba-5c86-4e32-8a52-61402f7fe9f0.webp?1783930743",
+    "grid": "https://cards.scryfall.io/grid/front/a/2/a24e8dba-5c86-4e32-8a52-61402f7fe9f0.webp?1783930743",
+    "large": "https://cards.scryfall.io/large/front/a/2/a24e8dba-5c86-4e32-8a52-61402f7fe9f0.jpg?1783930743",
+    "normal": "https://cards.scryfall.io/normal/front/a/2/a24e8dba-5c86-4e32-8a52-61402f7fe9f0.jpg?1783930743",
+    "png": "https://cards.scryfall.io/png/front/a/2/a24e8dba-5c86-4e32-8a52-61402f7fe9f0.png?1783930743",
+    "small": "https://cards.scryfall.io/small/front/a/2/a24e8dba-5c86-4e32-8a52-61402f7fe9f0.jpg?1783930743",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/2/a24e8dba-5c86-4e32-8a52-61402f7fe9f0.webp?1783930743"
+  },
+  "keywords": [
+    "Flash"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "mtgo_id": 81253,
+  "multiverse_ids": [
+    485336
+  ],
+  "name": "Containment Priest",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8a76a9b9-3127-45fe-b20f-a8f643276281",
+  "oracle_text": "Flash\nIf a nontoken creature would enter and it wasn't cast, exile it instead.",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2020-06-16",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.28",
+    "eur_foil": "1.15",
+    "tix": "3.25",
+    "usd": "0.64",
+    "usd_etched": null,
+    "usd_foil": "0.71"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8a76a9b9-3127-45fe-b20f-a8f643276281&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/81253?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=467759&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F215511%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Containment+Priest",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=485336&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DContainment%2BPriest",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DContainment%2BPriest"
+  },
+  "released_at": "2020-07-03",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a24e8dba-5c86-4e32-8a52-61402f7fe9f0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/m21?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/m21/13/containment-priest?utm_source=api",
+  "security_stamp": "oval",
+  "set": "m21",
+  "set_id": "bc94aba1-7376-4e02-a12d-3a2efb66ab0f",
+  "set_name": "Core Set 2021",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Am21&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/bc94aba1-7376-4e02-a12d-3a2efb66ab0f",
+  "story_spotlight": false,
+  "tcgplayer_id": 215511,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Human Cleric",
+  "uri": "https://api.scryfall.com/cards/a24e8dba-5c86-4e32-8a52-61402f7fe9f0",
+  "variation": false
+}

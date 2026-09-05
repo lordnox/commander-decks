@@ -1,0 +1,158 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "5f3034f6-145f-4e60-9e55-c4054fd8e70f",
+      "name": "Bird",
+      "object": "related_card",
+      "type_line": "Token Creature — Bird",
+      "uri": "https://api.scryfall.com/cards/5f3034f6-145f-4e60-9e55-c4054fd8e70f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "2026190a-1463-4b55-923c-bc00c85ef3e0",
+      "name": "Aether Channeler",
+      "object": "related_card",
+      "type_line": "Creature — Human Wizard",
+      "uri": "https://api.scryfall.com/cards/2026190a-1463-4b55-923c-bc00c85ef3e0"
+    }
+  ],
+  "arena_id": 82094,
+  "artist": "Caio Monteiro",
+  "artist_ids": [
+    "d5053eb6-af72-47a0-b6e8-023cc3b9aefb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 672649,
+  "cmc": 3.0,
+  "collector_number": "42",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1545,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "60afeb75-2c1e-4634-8c83-88b1dddb77c2",
+  "illustration_id": "c5d73a78-cfe6-486b-9d24-3dd0e22e9026",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:42:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/0/60afeb75-2c1e-4634-8c83-88b1dddb77c2.webp?1783921355",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/0/60afeb75-2c1e-4634-8c83-88b1dddb77c2.jpg?1783921355",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/0/60afeb75-2c1e-4634-8c83-88b1dddb77c2.jpg?1783921355",
+    "crop": "https://cards.scryfall.io/crop/front/6/0/60afeb75-2c1e-4634-8c83-88b1dddb77c2.webp?1783921355",
+    "display": "https://cards.scryfall.io/display/front/6/0/60afeb75-2c1e-4634-8c83-88b1dddb77c2.webp?1783921355",
+    "grid": "https://cards.scryfall.io/grid/front/6/0/60afeb75-2c1e-4634-8c83-88b1dddb77c2.webp?1783921355",
+    "large": "https://cards.scryfall.io/large/front/6/0/60afeb75-2c1e-4634-8c83-88b1dddb77c2.jpg?1783921355",
+    "normal": "https://cards.scryfall.io/normal/front/6/0/60afeb75-2c1e-4634-8c83-88b1dddb77c2.jpg?1783921355",
+    "png": "https://cards.scryfall.io/png/front/6/0/60afeb75-2c1e-4634-8c83-88b1dddb77c2.png?1783921355",
+    "small": "https://cards.scryfall.io/small/front/6/0/60afeb75-2c1e-4634-8c83-88b1dddb77c2.jpg?1783921355",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/0/60afeb75-2c1e-4634-8c83-88b1dddb77c2.webp?1783921355"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 102560,
+  "multiverse_ids": [
+    574522
+  ],
+  "name": "Aether Channeler",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "fb220f46-f8b8-4804-baa4-e7d50b4871f7",
+  "oracle_text": "When this creature enters, choose one —\n• Create a 1/1 white Bird creature token with flying.\n• Return another target nonland permanent to its owner's hand.\n• Draw a card.",
+  "oversized": false,
+  "penny_rank": 1041,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2022-08-25",
+    "source": "TCGplayer",
+    "source_uri": "https://twitter.com/MTGatTCGplayer/status/1562801982846353411"
+  },
+  "prices": {
+    "eur": "0.49",
+    "eur_foil": "1.13",
+    "tix": "0.02",
+    "usd": "0.39",
+    "usd_etched": null,
+    "usd_foil": "0.36"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Afb220f46-f8b8-4804-baa4-e7d50b4871f7&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/102560?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=672649&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F283511%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Aether+Channeler",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=574522&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAether%2BChanneler",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAether%2BChanneler"
+  },
+  "released_at": "2022-09-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/60afeb75-2c1e-4634-8c83-88b1dddb77c2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dmu?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dmu/42/aether-channeler?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dmu",
+  "set_id": "4e47a6cd-cdeb-4b0f-8f24-cfe1a0127cb3",
+  "set_name": "Dominaria United",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Admu&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4e47a6cd-cdeb-4b0f-8f24-cfe1a0127cb3",
+  "story_spotlight": false,
+  "tcgplayer_id": 283511,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Wizard",
+  "uri": "https://api.scryfall.com/cards/60afeb75-2c1e-4634-8c83-88b1dddb77c2",
+  "variation": false
+}

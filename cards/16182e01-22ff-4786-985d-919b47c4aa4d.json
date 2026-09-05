@@ -1,0 +1,181 @@
+{
+  "arena_id": 87418,
+  "artist": "Piotr Dura",
+  "artist_ids": [
+    "aff176e8-1d15-432e-ad1d-207a474decba"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Piotr Dura",
+      "artist_id": "aff176e8-1d15-432e-ad1d-207a474decba",
+      "colors": [],
+      "illustration_id": "50a49604-d121-4836-bc0e-c304e85ca233",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.webp?1783913729",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.jpg?1783913729",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.jpg?1783913729",
+        "crop": "https://cards.scryfall.io/crop/front/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.webp?1783913729",
+        "display": "https://cards.scryfall.io/display/front/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.webp?1783913729",
+        "grid": "https://cards.scryfall.io/grid/front/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.webp?1783913729",
+        "large": "https://cards.scryfall.io/large/front/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.jpg?1783913729",
+        "normal": "https://cards.scryfall.io/normal/front/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.jpg?1783913729",
+        "png": "https://cards.scryfall.io/png/front/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.png?1783913729",
+        "small": "https://cards.scryfall.io/small/front/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.jpg?1783913729",
+        "thumb": "https://cards.scryfall.io/thumb/front/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.webp?1783913729"
+      },
+      "mana_cost": "{3}",
+      "name": "Matzalantli, the Great Door",
+      "object": "card_face",
+      "oracle_text": "{T}: Draw a card, then discard a card.\n{4}, {T}: Transform Matzalantli. Activate only if there are four or more permanent types among cards in your graveyard. (Artifact, battle, creature, enchantment, land, and planeswalker are permanent types.)",
+      "type_line": "Legendary Artifact"
+    },
+    {
+      "artist": "Piotr Dura",
+      "artist_id": "aff176e8-1d15-432e-ad1d-207a474decba",
+      "colors": [],
+      "flavor_text": "Centuries ago, under siege from the Mycotyrant, the Oltec sealed the Core off from the world... until Huatli's party arrived.",
+      "illustration_id": "0ea24b16-e668-461a-88f1-ad688a3c62b1",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.webp?1783913729",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.jpg?1783913729",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.jpg?1783913729",
+        "crop": "https://cards.scryfall.io/crop/back/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.webp?1783913729",
+        "display": "https://cards.scryfall.io/display/back/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.webp?1783913729",
+        "grid": "https://cards.scryfall.io/grid/back/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.webp?1783913729",
+        "large": "https://cards.scryfall.io/large/back/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.jpg?1783913729",
+        "normal": "https://cards.scryfall.io/normal/back/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.jpg?1783913729",
+        "png": "https://cards.scryfall.io/png/back/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.png?1783913729",
+        "small": "https://cards.scryfall.io/small/back/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.jpg?1783913729",
+        "thumb": "https://cards.scryfall.io/thumb/back/b/4/b4c31b29-06ba-436d-a3d9-18f4796c39be.webp?1783913729"
+      },
+      "mana_cost": "",
+      "name": "The Core",
+      "object": "card_face",
+      "oracle_text": "(Transforms from Matzalantli.)\nFathomless descent — {T}: Add X mana of any one color, where X is the number of permanent cards in your graveyard.",
+      "type_line": "Legendary Land"
+    }
+  ],
+  "cardmarket_id": 741102,
+  "cmc": 3.0,
+  "collector_number": "256",
+  "color_identity": [],
+  "digital": false,
+  "edhrec_rank": 1778,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b4c31b29-06ba-436d-a3d9-18f4796c39be",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:35:29Z",
+  "keywords": [
+    "Transform",
+    "Fathomless descent"
+  ],
+  "lang": "en",
+  "layout": "transform",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 118352,
+  "multiverse_ids": [
+    636977,
+    636978
+  ],
+  "name": "Matzalantli, the Great Door // The Core",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "16182e01-22ff-4786-985d-919b47c4aa4d",
+  "oversized": false,
+  "penny_rank": 4535,
+  "preview": {
+    "previewed_at": "2023-10-25",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "1.98",
+    "eur_foil": "2.76",
+    "tix": "0.02",
+    "usd": "2.88",
+    "usd_etched": null,
+    "usd_foil": "3.98"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A16182e01-22ff-4786-985d-919b47c4aa4d&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/118352?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=741102&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F524378%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Matzalantli%2C+the+Great+Door",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=636977&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMatzalantli%252C%2Bthe%2BGreat%2BDoor%2B%252F%252F%2BThe%2BCore",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMatzalantli%252C%2Bthe%2BGreat%2BDoor%2B%252F%252F%2BThe%2BCore"
+  },
+  "released_at": "2023-11-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b4c31b29-06ba-436d-a3d9-18f4796c39be/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lci?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lci/256/matzalantli-the-great-door-the-core?utm_source=api",
+  "security_stamp": "oval",
+  "set": "lci",
+  "set_id": "70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "set_name": "The Lost Caverns of Ixalan",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alci&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "story_spotlight": true,
+  "tcgplayer_id": 524378,
+  "textless": false,
+  "type_line": "Legendary Artifact // Legendary Land",
+  "uri": "https://api.scryfall.com/cards/b4c31b29-06ba-436d-a3d9-18f4796c39be",
+  "variation": false
+}

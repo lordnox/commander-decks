@@ -1,0 +1,135 @@
+{
+  "arena_id": 67766,
+  "artist": "Lucas Graciano",
+  "artist_ids": [
+    "ce98f39c-7cdd-47e6-a520-6c50443bb4c2"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 360310,
+  "cmc": 2.0,
+  "collector_number": "43",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 4329,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "If you can't find a doorway, make one.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5d6178ed-6353-4733-81e1-7b3dc592c3bd",
+  "illustration_id": "d82cd403-c694-47b3-ab81-5d49ae764af1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:23:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/d/5d6178ed-6353-4733-81e1-7b3dc592c3bd.webp?1783934592",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/d/5d6178ed-6353-4733-81e1-7b3dc592c3bd.jpg?1783934592",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/d/5d6178ed-6353-4733-81e1-7b3dc592c3bd.jpg?1783934592",
+    "crop": "https://cards.scryfall.io/crop/front/5/d/5d6178ed-6353-4733-81e1-7b3dc592c3bd.webp?1783934592",
+    "display": "https://cards.scryfall.io/display/front/5/d/5d6178ed-6353-4733-81e1-7b3dc592c3bd.webp?1783934592",
+    "grid": "https://cards.scryfall.io/grid/front/5/d/5d6178ed-6353-4733-81e1-7b3dc592c3bd.webp?1783934592",
+    "large": "https://cards.scryfall.io/large/front/5/d/5d6178ed-6353-4733-81e1-7b3dc592c3bd.jpg?1783934592",
+    "normal": "https://cards.scryfall.io/normal/front/5/d/5d6178ed-6353-4733-81e1-7b3dc592c3bd.jpg?1783934592",
+    "png": "https://cards.scryfall.io/png/front/5/d/5d6178ed-6353-4733-81e1-7b3dc592c3bd.png?1783934592",
+    "small": "https://cards.scryfall.io/small/front/5/d/5d6178ed-6353-4733-81e1-7b3dc592c3bd.jpg?1783934592",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/d/5d6178ed-6353-4733-81e1-7b3dc592c3bd.webp?1783934592"
+  },
+  "keywords": [
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 68247,
+  "multiverse_ids": [
+    447179
+  ],
+  "name": "Aether Tunnel",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0a90d1fb-7a76-4b62-b001-4a539a8e5df1",
+  "oracle_text": "Enchant creature\nEnchanted creature gets +1/+0 and can't be blocked.",
+  "oversized": false,
+  "penny_rank": 11282,
+  "prices": {
+    "eur": "0.63",
+    "eur_foil": "2.53",
+    "tix": "0.03",
+    "usd": "0.62",
+    "usd_etched": null,
+    "usd_foil": "3.06"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0a90d1fb-7a76-4b62-b001-4a539a8e5df1&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/68247?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=360310&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F169303%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Aether+Tunnel",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=447179&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAether%2BTunnel",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAether%2BTunnel"
+  },
+  "released_at": "2018-07-13",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5d6178ed-6353-4733-81e1-7b3dc592c3bd/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/m19?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/m19/43/aether-tunnel?utm_source=api",
+  "set": "m19",
+  "set_id": "2f5f2509-56db-414d-9a7e-6e312ec3760c",
+  "set_name": "Core Set 2019",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Am19&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/2f5f2509-56db-414d-9a7e-6e312ec3760c",
+  "story_spotlight": false,
+  "tcgplayer_id": 169303,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/5d6178ed-6353-4733-81e1-7b3dc592c3bd",
+  "variation": false
+}

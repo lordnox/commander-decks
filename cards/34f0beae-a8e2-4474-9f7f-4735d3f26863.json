@@ -1,0 +1,141 @@
+{
+  "arena_id": 80155,
+  "artist": "Robin Olausson",
+  "artist_ids": [
+    "adb9ad6d-6173-454b-8b50-a102b182548b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 652151,
+  "cmc": 1.0,
+  "collector_number": "4",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 7267,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Saving a stranger's life is an excellent recruitment method. Luckily, peril is so easy to come by.\"\n—Falco Spara",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "2069310a-9fb6-41b7-bbd5-849e3df05632",
+  "illustration_id": "9ce53b73-2d94-4008-987c-9e91e71c600b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:12:42Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/0/2069310a-9fb6-41b7-bbd5-849e3df05632.webp?1783923162",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/0/2069310a-9fb6-41b7-bbd5-849e3df05632.jpg?1783923162",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/0/2069310a-9fb6-41b7-bbd5-849e3df05632.jpg?1783923162",
+    "crop": "https://cards.scryfall.io/crop/front/2/0/2069310a-9fb6-41b7-bbd5-849e3df05632.webp?1783923162",
+    "display": "https://cards.scryfall.io/display/front/2/0/2069310a-9fb6-41b7-bbd5-849e3df05632.webp?1783923162",
+    "grid": "https://cards.scryfall.io/grid/front/2/0/2069310a-9fb6-41b7-bbd5-849e3df05632.webp?1783923162",
+    "large": "https://cards.scryfall.io/large/front/2/0/2069310a-9fb6-41b7-bbd5-849e3df05632.jpg?1783923162",
+    "normal": "https://cards.scryfall.io/normal/front/2/0/2069310a-9fb6-41b7-bbd5-849e3df05632.jpg?1783923162",
+    "png": "https://cards.scryfall.io/png/front/2/0/2069310a-9fb6-41b7-bbd5-849e3df05632.png?1783923162",
+    "small": "https://cards.scryfall.io/small/front/2/0/2069310a-9fb6-41b7-bbd5-849e3df05632.jpg?1783923162",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/0/2069310a-9fb6-41b7-bbd5-849e3df05632.webp?1783923162"
+  },
+  "keywords": [
+    "Scry"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}",
+  "mtgo_id": 98227,
+  "multiverse_ids": [
+    555205
+  ],
+  "name": "Boon of Safety",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "34f0beae-a8e2-4474-9f7f-4735d3f26863",
+  "oracle_text": "Put a shield counter on target creature. (If it would be dealt damage or destroyed, remove a shield counter from it instead.)\nScry 1.",
+  "oversized": false,
+  "penny_rank": 10481,
+  "preview": {
+    "previewed_at": "2022-04-14",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://twitter.com/mtgjp/status/1514536607764070402"
+  },
+  "prices": {
+    "eur": "0.15",
+    "eur_foil": "0.21",
+    "tix": "0.03",
+    "usd": "0.34",
+    "usd_etched": null,
+    "usd_foil": "0.36"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A34f0beae-a8e2-4474-9f7f-4735d3f26863&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/98227?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=652151&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F269046%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Boon+of+Safety",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=555205&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBoon%2Bof%2BSafety",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBoon%2Bof%2BSafety"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2069310a-9fb6-41b7-bbd5-849e3df05632/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/snc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/snc/4/boon-of-safety?utm_source=api",
+  "set": "snc",
+  "set_id": "df837242-8c15-42e4-b049-c933a02dc501",
+  "set_name": "Streets of New Capenna",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asnc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/df837242-8c15-42e4-b049-c933a02dc501",
+  "story_spotlight": false,
+  "tcgplayer_id": 269046,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/2069310a-9fb6-41b7-bbd5-849e3df05632",
+  "variation": false,
+  "watermark": "brokers"
+}

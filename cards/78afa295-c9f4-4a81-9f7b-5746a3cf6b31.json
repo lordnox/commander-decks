@@ -1,0 +1,138 @@
+{
+  "artist": "Bram Sels",
+  "artist_ids": [
+    "2e90d3c1-e8ac-45c7-9d5a-63385c1a384d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 723615,
+  "cmc": 4.0,
+  "collector_number": "100",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 18164,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Every path ever charted by an Omenseeker is etched into her eyes.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c190eceb-f6d8-408f-bbc4-df0fefb778ad",
+  "illustration_id": "4652985d-ccef-4218-b033-60b77db827b7",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:08:16Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/1/c190eceb-f6d8-408f-bbc4-df0fefb778ad.webp?1783915696",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/1/c190eceb-f6d8-408f-bbc4-df0fefb778ad.jpg?1783915696",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/1/c190eceb-f6d8-408f-bbc4-df0fefb778ad.jpg?1783915696",
+    "crop": "https://cards.scryfall.io/crop/front/c/1/c190eceb-f6d8-408f-bbc4-df0fefb778ad.webp?1783915696",
+    "display": "https://cards.scryfall.io/display/front/c/1/c190eceb-f6d8-408f-bbc4-df0fefb778ad.webp?1783915696",
+    "grid": "https://cards.scryfall.io/grid/front/c/1/c190eceb-f6d8-408f-bbc4-df0fefb778ad.webp?1783915696",
+    "large": "https://cards.scryfall.io/large/front/c/1/c190eceb-f6d8-408f-bbc4-df0fefb778ad.jpg?1783915696",
+    "normal": "https://cards.scryfall.io/normal/front/c/1/c190eceb-f6d8-408f-bbc4-df0fefb778ad.jpg?1783915696",
+    "png": "https://cards.scryfall.io/png/front/c/1/c190eceb-f6d8-408f-bbc4-df0fefb778ad.png?1783915696",
+    "small": "https://cards.scryfall.io/small/front/c/1/c190eceb-f6d8-408f-bbc4-df0fefb778ad.jpg?1783915696",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/1/c190eceb-f6d8-408f-bbc4-df0fefb778ad.webp?1783915696"
+  },
+  "keywords": [
+    "Scry"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "mtgo_id": 115299,
+  "multiverse_ids": [
+    622708
+  ],
+  "name": "Inga Rune-Eyes",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "78afa295-c9f4-4a81-9f7b-5746a3cf6b31",
+  "oracle_text": "When Inga Rune-Eyes enters, scry 3.\nWhen Inga Rune-Eyes dies, draw three cards if three or more creatures died this turn.",
+  "oversized": false,
+  "penny_rank": 17119,
+  "power": "3",
+  "prices": {
+    "eur": "0.04",
+    "eur_foil": "0.07",
+    "tix": "0.04",
+    "usd": "0.11",
+    "usd_etched": null,
+    "usd_foil": "0.11"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A78afa295-c9f4-4a81-9f7b-5746a3cf6b31&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/115299?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=723615&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F507306%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Inga+Rune-Eyes",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=622708&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DInga%2BRune-Eyes",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DInga%2BRune-Eyes"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c190eceb-f6d8-408f-bbc4-df0fefb778ad/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/100/inga-rune-eyes?utm_source=api",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 507306,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Legendary Creature — Human Wizard",
+  "uri": "https://api.scryfall.com/cards/c190eceb-f6d8-408f-bbc4-df0fefb778ad",
+  "variation": false
+}

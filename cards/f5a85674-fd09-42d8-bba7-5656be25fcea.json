@@ -1,0 +1,135 @@
+{
+  "artist": "Jeff Miracola",
+  "artist_ids": [
+    "9b465bde-3656-4495-ace4-af4ce29999ed"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 688403,
+  "cmc": 4.0,
+  "collector_number": "49",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 18240,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Quick, Rhirhok—teach me to swim!\"\n—Makht, goblin casualty",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "600b315b-58f8-4b1b-b210-f09e3e5e3b27",
+  "illustration_id": "9f426a08-35d3-4e4b-a289-f1635a08eaf9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:54:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/0/600b315b-58f8-4b1b-b210-f09e3e5e3b27.webp?1783918495",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/0/600b315b-58f8-4b1b-b210-f09e3e5e3b27.jpg?1783918495",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/0/600b315b-58f8-4b1b-b210-f09e3e5e3b27.jpg?1783918495",
+    "crop": "https://cards.scryfall.io/crop/front/6/0/600b315b-58f8-4b1b-b210-f09e3e5e3b27.webp?1783918495",
+    "display": "https://cards.scryfall.io/display/front/6/0/600b315b-58f8-4b1b-b210-f09e3e5e3b27.webp?1783918495",
+    "grid": "https://cards.scryfall.io/grid/front/6/0/600b315b-58f8-4b1b-b210-f09e3e5e3b27.webp?1783918495",
+    "large": "https://cards.scryfall.io/large/front/6/0/600b315b-58f8-4b1b-b210-f09e3e5e3b27.jpg?1783918495",
+    "normal": "https://cards.scryfall.io/normal/front/6/0/600b315b-58f8-4b1b-b210-f09e3e5e3b27.jpg?1783918495",
+    "png": "https://cards.scryfall.io/png/front/6/0/600b315b-58f8-4b1b-b210-f09e3e5e3b27.png?1783918495",
+    "small": "https://cards.scryfall.io/small/front/6/0/600b315b-58f8-4b1b-b210-f09e3e5e3b27.jpg?1783918495",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/0/600b315b-58f8-4b1b-b210-f09e3e5e3b27.webp?1783918495"
+  },
+  "keywords": [
+    "Defender"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "mtgo_id": 107587,
+  "multiverse_ids": [
+    598923
+  ],
+  "name": "Floodgate",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f5a85674-fd09-42d8-bba7-5656be25fcea",
+  "oracle_text": "Defender\nWhen this creature has flying, sacrifice it.\nWhen this creature leaves the battlefield, it deals damage to each nonblue creature without flying equal to half the number of Islands you control, rounded down.",
+  "oversized": false,
+  "penny_rank": 14014,
+  "power": "0",
+  "prices": {
+    "eur": "0.12",
+    "eur_foil": "0.15",
+    "tix": "0.04",
+    "usd": "0.17",
+    "usd_etched": null,
+    "usd_foil": "0.30"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af5a85674-fd09-42d8-bba7-5656be25fcea&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/107587?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=688403&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F457967%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Floodgate",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=598923&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFloodgate",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFloodgate"
+  },
+  "released_at": "2023-01-13",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/600b315b-58f8-4b1b-b210-f09e3e5e3b27/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dmr/49/floodgate?utm_source=api",
+  "set": "dmr",
+  "set_id": "ca4c2884-e539-4b7f-980d-5d6a50220f2a",
+  "set_name": "Dominaria Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Admr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/ca4c2884-e539-4b7f-980d-5d6a50220f2a",
+  "story_spotlight": false,
+  "tcgplayer_id": 457967,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Creature — Wall",
+  "uri": "https://api.scryfall.com/cards/600b315b-58f8-4b1b-b210-f09e3e5e3b27",
+  "variation": false
+}

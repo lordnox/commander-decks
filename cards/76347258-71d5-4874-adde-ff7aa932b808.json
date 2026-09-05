@@ -1,0 +1,131 @@
+{
+  "artist": "Paolo Parente",
+  "artist_ids": [
+    "d48dd097-720d-476a-8722-6a02854ae28b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 3471,
+  "cmc": 1.0,
+  "collector_number": "51",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 10218,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Teferi wanted no part of Urza's battle plans, but both agreed the Phyrexian portal must be closed.",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c000a02f-6b7e-4925-a938-59e645e980d7",
+  "illustration_id": "a7d30b52-7cb7-418c-badb-765d75e3118c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:28:29Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/0/c000a02f-6b7e-4925-a938-59e645e980d7.webp?1783945709",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/0/c000a02f-6b7e-4925-a938-59e645e980d7.jpg?1783945709",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/0/c000a02f-6b7e-4925-a938-59e645e980d7.jpg?1783945709",
+    "crop": "https://cards.scryfall.io/crop/front/c/0/c000a02f-6b7e-4925-a938-59e645e980d7.webp?1783945709",
+    "display": "https://cards.scryfall.io/display/front/c/0/c000a02f-6b7e-4925-a938-59e645e980d7.webp?1783945709",
+    "grid": "https://cards.scryfall.io/grid/front/c/0/c000a02f-6b7e-4925-a938-59e645e980d7.webp?1783945709",
+    "large": "https://cards.scryfall.io/large/front/c/0/c000a02f-6b7e-4925-a938-59e645e980d7.jpg?1783945709",
+    "normal": "https://cards.scryfall.io/normal/front/c/0/c000a02f-6b7e-4925-a938-59e645e980d7.jpg?1783945709",
+    "png": "https://cards.scryfall.io/png/front/c/0/c000a02f-6b7e-4925-a938-59e645e980d7.png?1783945709",
+    "small": "https://cards.scryfall.io/small/front/c/0/c000a02f-6b7e-4925-a938-59e645e980d7.jpg?1783945709",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/0/c000a02f-6b7e-4925-a938-59e645e980d7.webp?1783945709"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_foil_id": 14400,
+  "mtgo_id": 14399,
+  "multiverse_ids": [
+    23000
+  ],
+  "name": "Disrupt",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "76347258-71d5-4874-adde-ff7aa932b808",
+  "oracle_text": "Counter target instant or sorcery spell unless its controller pays {1}.\nDraw a card.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.54",
+    "eur_foil": "18.45",
+    "tix": "0.04",
+    "usd": "1.07",
+    "usd_etched": null,
+    "usd_foil": "72.83"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A76347258-71d5-4874-adde-ff7aa932b808&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/14399?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=3471&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F7475%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Disrupt",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=23000&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDisrupt",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDisrupt"
+  },
+  "released_at": "2000-10-02",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c000a02f-6b7e-4925-a938-59e645e980d7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/inv?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/inv/51/disrupt?utm_source=api",
+  "set": "inv",
+  "set_id": "b9ae5e02-7726-47ca-b5e4-5ec402b41cd1",
+  "set_name": "Invasion",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ainv&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/b9ae5e02-7726-47ca-b5e4-5ec402b41cd1",
+  "story_spotlight": false,
+  "tcgplayer_id": 7475,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/c000a02f-6b7e-4925-a938-59e645e980d7",
+  "variation": false
+}
