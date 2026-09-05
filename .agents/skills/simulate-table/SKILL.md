@@ -248,6 +248,8 @@ Before reporting:
 
 The replay JSON is the simulation's terminal output. Invoke
 `render-table-replay` separately when the user wants an HTML viewer.
+Invoke `review-table` when they want a postmortem of this file or of every
+game a deck has on disk.
 
 ## 5. Report in chat
 
@@ -270,4 +272,5 @@ table-games/<slug>.json
    metagame.
 
 Do not edit, reassess, or recategorize decks from a table result unless the
-user asks to act on it.
+user asks to act on it. Grading the line or the 99 from recorded games is
+`review-table`, not this skill.
