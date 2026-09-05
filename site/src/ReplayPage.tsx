@@ -28,6 +28,8 @@ type Preview = {
   note?: string
   counters?: Record<string, number>
   tapped?: boolean
+  token?: boolean
+  commander?: boolean
 }
 
 type Hover = {
@@ -112,6 +114,7 @@ const CardTile = ({
   const { name, details } = cardInfo(game, value, entry)
   const stats = currentStats(details, entry)
   const counters = Object.entries(entry?.counters ?? {}).filter(([, count]) => count)
+  const token = Boolean(entry?.token || entry?.token_id)
 
   return (
     <button
@@ -123,6 +126,8 @@ const CardTile = ({
           note: entry?.note,
           counters: entry?.counters,
           tapped: entry?.tapped,
+          token,
+          commander: entry?.commander,
         })
       }
       {...hoverProps(name, details, onHover)}
@@ -163,16 +168,23 @@ const CardTile = ({
           {stats}
         </span>
       )}
-      {entry?.commander && (
-        <span className="absolute left-1 top-1 rounded-md bg-gold-300 px-1.5 py-0.5 text-[0.55rem] font-black uppercase text-ink-950">
-          C
-        </span>
-      )}
-      {entry?.tapped && (
-        <span className="absolute left-1 top-1 rounded-md bg-ink-950/90 px-1.5 py-0.5 text-[0.55rem] font-bold uppercase text-stone-200">
-          tapped
-        </span>
-      )}
+      <span className="absolute left-1 top-1 flex flex-wrap gap-0.5">
+        {entry?.commander && (
+          <span className="rounded-md bg-gold-300 px-1.5 py-0.5 text-[0.55rem] font-black uppercase text-ink-950">
+            C
+          </span>
+        )}
+        {token && (
+          <span className="rounded-md bg-moss-300 px-1.5 py-0.5 text-[0.55rem] font-black uppercase text-ink-950">
+            T
+          </span>
+        )}
+        {entry?.tapped && (
+          <span className="rounded-md bg-ink-950/90 px-1.5 py-0.5 text-[0.55rem] font-bold uppercase text-stone-200">
+            tapped
+          </span>
+        )}
+      </span>
       {counters.length > 0 && (
         <span className="absolute right-1 top-1 max-w-[85%] rounded-md bg-moss-300 px-1.5 py-0.5 text-right text-[0.55rem] font-black leading-tight text-ink-950">
           {counters.map(([kind, count]) => `${count} ${kind}`).join(' · ')}
@@ -733,6 +745,16 @@ const CardPreview = ({
           </p>
         )}
         <div className="mt-5 flex flex-wrap gap-2 text-xs">
+          {preview.commander && (
+            <span className="rounded-full bg-gold-300 px-3 py-1.5 font-bold uppercase text-ink-950">
+              Commander
+            </span>
+          )}
+          {preview.token && (
+            <span className="rounded-full bg-moss-300 px-3 py-1.5 font-bold uppercase text-ink-950">
+              Token
+            </span>
+          )}
           {preview.tapped && (
             <span className="rounded-full bg-white/10 px-3 py-1.5">Tapped</span>
           )}
