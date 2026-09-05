@@ -15,6 +15,7 @@ does not apply Magic rules.
 | `result` | `{winner, ended, turn, summary}` — `ended` is `win`, `draw`, or `truncated` |
 | `horizon` | Optional `{throughTurn, extraTurns, fromTurn}` — stop after this turn unless someone wins sooner |
 | `seats` | Four objects, `id` `p1`–`p4` |
+| `references` | Mixed array of players, cards, and deals; index is the ID |
 | `catalog` | Map of card name → `{scryfall_uri, image_small, image_normal, type_line, mana_cost, oracle_text, stats}` |
 | `tokens` | Map of exact Scryfall token printing ID → compact token details and images |
 | `token_sources` | Map of seat → source card name → exact token printing IDs |
@@ -24,6 +25,48 @@ does not apply Magic rules.
 
 `id`, `name` (brew title), `deck` (path), `commanders`, `plan`, `mulligans`,
 `color` (CSS color for the seat chip).
+
+### References
+
+A glossary at the top of the file. Players, cards, and deals share one
+array; the ID is the index (`0`, `1`, `2`, …). Structured fields cite that
+number. Prose never does: `summary`, `notes`, `decision.reason`, and deal
+`terms` use brew titles and Oracle names so a human can read the log without
+the table.
+
+```json
+"references": [
+  { "kind": "player", "name": "The Polyfisher", "seat": "p1", "commander": 4 },
+  { "kind": "player", "name": "Unwanted Presents", "seat": "p2", "commander": 5 },
+  { "kind": "player", "name": "Foggy Blood Transfusion", "seat": "p3", "commander": 6 },
+  { "kind": "player", "name": "Thousand Cuts", "seat": "p4", "commander": 7 },
+  { "kind": "card", "name": "Jalira, Master Polymorphist" },
+  { "kind": "card", "name": "Jon Irenicus, Shattered One" },
+  { "kind": "card", "name": "Lady Evangela" },
+  { "kind": "card", "name": "Sygg, River Cutthroat" },
+  { "kind": "card", "name": "Yukora, the Prisoner" },
+  {
+    "kind": "deal",
+    "from": 1,
+    "to": [3],
+    "terms": "Jon will not exile the Yukora copy this turn. Sygg will not target or attack Jon until Jon's next turn. Rug and Vile Consumption are exempt.",
+    "if_refused": "Cast Yukora now.",
+    "expires": "start of Unwanted Presents' next turn"
+  }
+]
+```
+
+`kind` is `player`, `card`, or `deal`. Seat ids `p1`–`p4` stay on the player
+row and in `event.seat` / `state.players` — those are turn-order keys, not
+glossary IDs. Card rows hold the Oracle name; images stay in `catalog` keyed
+by that name. Deal rows hold the full terms once. Later snapshots keep
+`{ "id": 9, "status": "accepted" }`.
+
+Write players first, then cards in catalog key order, then deals in offer
+order. `decision.available`, `decision.held`, `deal.from`, `deal.to`,
+`decision.honors_deal`, and `event.cards` use indexes. Zone lists stay as
+card names so a snapshot is readable without the table. Old replays may omit
+`references`.
 
 ## Event
 
@@ -35,13 +78,15 @@ does not apply Magic rules.
 | `seat` | Acting seat, or `null` |
 | `kind` | See below |
 | `summary` | Short log line |
-| `cards` | Names to highlight (cast, drawn, attacking) |
+| `cards` | Reference indexes or Oracle names to highlight (cast, drawn, attacking) |
 | `notes` | Optional rules or politics aside |
-| `state` | Full public board after the event |
+| `decision` | Optional why-this-play object; required on a pass that leaves unused mana |
+| `deal` | Optional table-talk payload on `talk` / `deal` events |
+| `state` | Full public board after the event, including `deals` |
 
 `kind`: `setup`, `keep`, `mulligan`, `draw`, `play_land`, `cast`, `activate`,
 `resolve`, `move`, `attack`, `block`, `damage`, `life`, `counters`, `eliminate`,
-`win`, `pass`, `note`.
+`win`, `pass`, `note`, `think`, `talk`, `deal`.
 
 Every turn after setup needs an `untap` event and a separate normal draw event:
 
@@ -77,6 +122,9 @@ using the battlefield entry's `note`.
   "turn": 3,
   "phase": "main1",
   "stack": [{"name": "Counterspell", "controller": "p2", "text": "on Cultivate"}],
+  "deals": [
+    { "id": 9, "status": "accepted", "offered_event": 162, "resolved_event": 168 }
+  ],
   "players": {
     "p1": {
       "life": 37,
@@ -109,6 +157,62 @@ using the battlefield entry's `note`.
 Battlefield entries may omit `token`, `token_id`, `commander`, `counters`,
 and `note`.
 Do **not** put remaining library names in `state`.
+
+### Decisions
+
+Record why unused mana, attacks, or abilities were left on the table. Attach
+`decision` to the `pass`, or emit a preceding `think` event. Old replays may
+omit it; new ones must not pass with unused playable spells and no reason.
+
+| Field | Meaning |
+|---|---|
+| `open_mana` | Untapped mana available right now |
+| `available` | Legal plays, as reference indexes |
+| `held` | The subset not taken, as reference indexes |
+| `held_for` | Short tag: `protection`, `instant speed`, `politics`, `wait for commander`, `unplayable` |
+| `play_later` | When the held line will fire, if known |
+| `reason` | One or two sentences the seat would actually say, using names not indexes |
+| `honors_deal` | Optional deal index this hold is keeping |
+
+```json
+{
+  "kind": "think",
+  "summary": "The Polyfisher has four mana open and does not activate Jalira.",
+  "decision": {
+    "open_mana": 4,
+    "available": [4],
+    "held": [4],
+    "held_for": "instant speed",
+    "play_later": "end step of the opponent to her right, or in response to removal on the fodder",
+    "reason": "The ability has no timing restriction. Firing it now costs the chance to sacrifice Artisans if someone points removal at them."
+  }
+}
+```
+
+A `think` or `talk` event uses the phase where the decision happened. Do
+not insert one between `untap` and the normal `draw`.
+
+### Politics
+
+`talk` is spoken table talk. `deal` is a state change on an offer (accept,
+counter, reject, breach, expire). Put the full terms on the deal row in
+`references`. Events and snapshots cite that row's index.
+
+```json
+{
+  "kind": "talk",
+  "seat": "p2",
+  "summary": "Unwanted Presents offers Thousand Cuts a deal over Yukora.",
+  "deal": {
+    "id": 9,
+    "action": "offer"
+  }
+}
+```
+
+Terms must be specific, observable, and things the speaker can actually do.
+Symmetrical taxes cannot be promised away. Hidden cards cannot be promised
+unless the term is conditional on drawing them.
 
 ### Power and toughness
 
