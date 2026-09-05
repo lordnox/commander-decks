@@ -1,0 +1,146 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "248ade83-ac57-42d6-985c-1e4cc3639f36",
+      "name": "Saproling",
+      "object": "related_card",
+      "type_line": "Token Creature — Saproling",
+      "uri": "https://api.scryfall.com/cards/248ade83-ac57-42d6-985c-1e4cc3639f36"
+    },
+    {
+      "component": "combo_piece",
+      "id": "aa533845-4c4b-4072-aa39-8e56ce7ec325",
+      "name": "Thallid Devourer",
+      "object": "related_card",
+      "type_line": "Creature — Fungus",
+      "uri": "https://api.scryfall.com/cards/aa533845-4c4b-4072-aa39-8e56ce7ec325"
+    }
+  ],
+  "artist": "Ron Spencer",
+  "artist_ids": [
+    "dab52c11-0564-4207-a4a1-c1735c946a65"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 7491,
+  "cmc": 3.0,
+  "collector_number": "75",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 15507,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "1993",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "aa533845-4c4b-4072-aa39-8e56ce7ec325",
+  "illustration_id": "0bbf11ed-cc32-4efa-9faa-f91bdd180435",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T13:04:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/a/aa533845-4c4b-4072-aa39-8e56ce7ec325.webp?1783947884",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/a/aa533845-4c4b-4072-aa39-8e56ce7ec325.jpg?1783947884",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/a/aa533845-4c4b-4072-aa39-8e56ce7ec325.jpg?1783947884",
+    "crop": "https://cards.scryfall.io/crop/front/a/a/aa533845-4c4b-4072-aa39-8e56ce7ec325.webp?1783947884",
+    "display": "https://cards.scryfall.io/display/front/a/a/aa533845-4c4b-4072-aa39-8e56ce7ec325.webp?1783947884",
+    "grid": "https://cards.scryfall.io/grid/front/a/a/aa533845-4c4b-4072-aa39-8e56ce7ec325.webp?1783947884",
+    "large": "https://cards.scryfall.io/large/front/a/a/aa533845-4c4b-4072-aa39-8e56ce7ec325.jpg?1783947884",
+    "normal": "https://cards.scryfall.io/normal/front/a/a/aa533845-4c4b-4072-aa39-8e56ce7ec325.jpg?1783947884",
+    "png": "https://cards.scryfall.io/png/front/a/a/aa533845-4c4b-4072-aa39-8e56ce7ec325.png?1783947884",
+    "small": "https://cards.scryfall.io/small/front/a/a/aa533845-4c4b-4072-aa39-8e56ce7ec325.jpg?1783947884",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/a/aa533845-4c4b-4072-aa39-8e56ce7ec325.webp?1783947884"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}{G}",
+  "multiverse_ids": [
+    1928
+  ],
+  "name": "Thallid Devourer",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b7326fd9-7648-4db3-b506-61a7de8a4094",
+  "oracle_text": "At the beginning of your upkeep, put a spore counter on this creature.\nRemove three spore counters from this creature: Create a 1/1 green Saproling creature token.\nSacrifice a Saproling: This creature gets +1/+2 until end of turn.",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "0.47",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.38",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab7326fd9-7648-4db3-b506-61a7de8a4094&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Thallid+Devourer&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=7491&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F3755%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Thallid+Devourer",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=1928&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThallid%2BDevourer",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThallid%2BDevourer"
+  },
+  "released_at": "1994-11-01",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/aa533845-4c4b-4072-aa39-8e56ce7ec325/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fem?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fem/75/thallid-devourer?utm_source=api",
+  "set": "fem",
+  "set_id": "cf7390b1-341a-4ae8-a325-da0f5f322f13",
+  "set_name": "Fallen Empires",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afem&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/cf7390b1-341a-4ae8-a325-da0f5f322f13",
+  "story_spotlight": false,
+  "tcgplayer_id": 3755,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Fungus",
+  "uri": "https://api.scryfall.com/cards/aa533845-4c4b-4072-aa39-8e56ce7ec325",
+  "variation": false
+}

@@ -1,0 +1,128 @@
+{
+  "artist": "Rob Alexander",
+  "artist_ids": [
+    "35906871-6c78-4ab2-9ed1-e6792c8efb74"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 320649,
+  "cmc": 0.0,
+  "collector_number": "30",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 5802,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "14394198-0993-46ee-a3ea-5c7084a78772",
+  "illustration_id": "259f3315-4114-42e1-b2d2-5abe3a49918d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:31:22Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/4/14394198-0993-46ee-a3ea-5c7084a78772.webp?1783935082",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/4/14394198-0993-46ee-a3ea-5c7084a78772.jpg?1783935082",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/4/14394198-0993-46ee-a3ea-5c7084a78772.jpg?1783935082",
+    "crop": "https://cards.scryfall.io/crop/front/1/4/14394198-0993-46ee-a3ea-5c7084a78772.webp?1783935082",
+    "display": "https://cards.scryfall.io/display/front/1/4/14394198-0993-46ee-a3ea-5c7084a78772.webp?1783935082",
+    "grid": "https://cards.scryfall.io/grid/front/1/4/14394198-0993-46ee-a3ea-5c7084a78772.webp?1783935082",
+    "large": "https://cards.scryfall.io/large/front/1/4/14394198-0993-46ee-a3ea-5c7084a78772.jpg?1783935082",
+    "normal": "https://cards.scryfall.io/normal/front/1/4/14394198-0993-46ee-a3ea-5c7084a78772.jpg?1783935082",
+    "png": "https://cards.scryfall.io/png/front/1/4/14394198-0993-46ee-a3ea-5c7084a78772.png?1783935082",
+    "small": "https://cards.scryfall.io/small/front/1/4/14394198-0993-46ee-a3ea-5c7084a78772.jpg?1783935082",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/4/14394198-0993-46ee-a3ea-5c7084a78772.webp?1783935082"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [
+    442766
+  ],
+  "name": "Treetop Village",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b53f216d-1592-4eee-b204-502a805fbc8c",
+  "oracle_text": "This land enters tapped.\n{T}: Add {G}.\n{1}{G}: This land becomes a 3/3 green Ape creature with trample until end of turn. It's still a land. (It can deal excess combat damage to the player or planeswalker it's attacking.)",
+  "oversized": false,
+  "penny_rank": 1882,
+  "prices": {
+    "eur": "0.33",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.38",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab53f216d-1592-4eee-b204-502a805fbc8c&unique=prints",
+  "produced_mana": [
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Treetop+Village&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=320649&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F162880%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Treetop+Village",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=442766&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTreetop%2BVillage",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTreetop%2BVillage"
+  },
+  "released_at": "2018-04-06",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/14394198-0993-46ee-a3ea-5c7084a78772/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ddu?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ddu/30/treetop-village?utm_source=api",
+  "set": "ddu",
+  "set_id": "01e30e53-f292-4c39-ab09-435b015877f5",
+  "set_name": "Duel Decks: Elves vs. Inventors",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Addu&unique=prints",
+  "set_type": "duel_deck",
+  "set_uri": "https://api.scryfall.com/sets/01e30e53-f292-4c39-ab09-435b015877f5",
+  "story_spotlight": false,
+  "tcgplayer_id": 162880,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/14394198-0993-46ee-a3ea-5c7084a78772",
+  "variation": false
+}

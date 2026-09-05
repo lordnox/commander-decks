@@ -1,0 +1,133 @@
+{
+  "artist": "Trevor Claxton",
+  "artist_ids": [
+    "35d39e75-5d6c-4318-9136-38cdfff34a05"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 294303,
+  "cmc": 3.0,
+  "collector_number": "65",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 17754,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "On Jund, everything eventually ends up in something else's stomach.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "a77f0a5f-b350-4baf-a71a-861fb1f5f976",
+  "illustration_id": "b2e379b9-96a5-4a9f-9bf5-8c23f2ae9de2",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:00:27Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/7/a77f0a5f-b350-4baf-a71a-861fb1f5f976.webp?1783936827",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/7/a77f0a5f-b350-4baf-a71a-861fb1f5f976.jpg?1783936827",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/7/a77f0a5f-b350-4baf-a71a-861fb1f5f976.jpg?1783936827",
+    "crop": "https://cards.scryfall.io/crop/front/a/7/a77f0a5f-b350-4baf-a71a-861fb1f5f976.webp?1783936827",
+    "display": "https://cards.scryfall.io/display/front/a/7/a77f0a5f-b350-4baf-a71a-861fb1f5f976.webp?1783936827",
+    "grid": "https://cards.scryfall.io/grid/front/a/7/a77f0a5f-b350-4baf-a71a-861fb1f5f976.webp?1783936827",
+    "large": "https://cards.scryfall.io/large/front/a/7/a77f0a5f-b350-4baf-a71a-861fb1f5f976.jpg?1783936827",
+    "normal": "https://cards.scryfall.io/normal/front/a/7/a77f0a5f-b350-4baf-a71a-861fb1f5f976.jpg?1783936827",
+    "png": "https://cards.scryfall.io/png/front/a/7/a77f0a5f-b350-4baf-a71a-861fb1f5f976.png?1783936827",
+    "small": "https://cards.scryfall.io/small/front/a/7/a77f0a5f-b350-4baf-a71a-861fb1f5f976.jpg?1783936827",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/7/a77f0a5f-b350-4baf-a71a-861fb1f5f976.webp?1783936827"
+  },
+  "keywords": [
+    "Flash",
+    "Devour"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "multiverse_ids": [
+    423490
+  ],
+  "name": "Gluttonous Slime",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5797684a-a022-45d2-aa2e-4d375b33017e",
+  "oracle_text": "Flash\nDevour 1 (As this creature enters, you may sacrifice any number of creatures. It enters with that many +1/+1 counters on it.)",
+  "oversized": false,
+  "penny_rank": 16956,
+  "power": "2",
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5797684a-a022-45d2-aa2e-4d375b33017e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Gluttonous+Slime&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=294303&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F125432%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Gluttonous+Slime",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=423490&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGluttonous%2BSlime",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGluttonous%2BSlime"
+  },
+  "released_at": "2016-11-25",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a77f0a5f-b350-4baf-a71a-861fb1f5f976/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/pca?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/pca/65/gluttonous-slime?utm_source=api",
+  "set": "pca",
+  "set_id": "ceadd605-dfba-4998-b96d-e8e8138aa20f",
+  "set_name": "Planechase Anthology",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Apca&unique=prints",
+  "set_type": "planechase",
+  "set_uri": "https://api.scryfall.com/sets/ceadd605-dfba-4998-b96d-e8e8138aa20f",
+  "story_spotlight": false,
+  "tcgplayer_id": 125432,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Ooze",
+  "uri": "https://api.scryfall.com/cards/a77f0a5f-b350-4baf-a71a-861fb1f5f976",
+  "variation": false
+}

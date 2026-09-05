@@ -1,0 +1,151 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "0bf3d41e-cd0a-46bd-8b89-8855906ea6b5",
+      "name": "Saproling",
+      "object": "related_card",
+      "type_line": "Token Creature — Saproling",
+      "uri": "https://api.scryfall.com/cards/0bf3d41e-cd0a-46bd-8b89-8855906ea6b5"
+    },
+    {
+      "component": "combo_piece",
+      "id": "862a2871-57be-42f5-9097-d821013d3b58",
+      "name": "Fists of Ironwood",
+      "object": "related_card",
+      "type_line": "Enchantment — Aura",
+      "uri": "https://api.scryfall.com/cards/862a2871-57be-42f5-9097-d821013d3b58"
+    }
+  ],
+  "artist": "Glen Angus",
+  "artist_ids": [
+    "7be3b9e4-de9b-4a3d-884e-e67b9681d409"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 748492,
+  "cmc": 2.0,
+  "collector_number": "139",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 10608,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Saprolings add the three and the four to the \"one-two punch.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "862a2871-57be-42f5-9097-d821013d3b58",
+  "illustration_id": "46a78e25-f5fb-4d47-b043-78a1927a2618",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:28:23Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/6/862a2871-57be-42f5-9097-d821013d3b58.webp?1783913303",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/6/862a2871-57be-42f5-9097-d821013d3b58.jpg?1783913303",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/6/862a2871-57be-42f5-9097-d821013d3b58.jpg?1783913303",
+    "crop": "https://cards.scryfall.io/crop/front/8/6/862a2871-57be-42f5-9097-d821013d3b58.webp?1783913303",
+    "display": "https://cards.scryfall.io/display/front/8/6/862a2871-57be-42f5-9097-d821013d3b58.webp?1783913303",
+    "grid": "https://cards.scryfall.io/grid/front/8/6/862a2871-57be-42f5-9097-d821013d3b58.webp?1783913303",
+    "large": "https://cards.scryfall.io/large/front/8/6/862a2871-57be-42f5-9097-d821013d3b58.jpg?1783913303",
+    "normal": "https://cards.scryfall.io/normal/front/8/6/862a2871-57be-42f5-9097-d821013d3b58.jpg?1783913303",
+    "png": "https://cards.scryfall.io/png/front/8/6/862a2871-57be-42f5-9097-d821013d3b58.png?1783913303",
+    "small": "https://cards.scryfall.io/small/front/8/6/862a2871-57be-42f5-9097-d821013d3b58.jpg?1783913303",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/6/862a2871-57be-42f5-9097-d821013d3b58.webp?1783913303"
+  },
+  "keywords": [
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 120805,
+  "multiverse_ids": [
+    643146
+  ],
+  "name": "Fists of Ironwood",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2f6a5278-23bf-47b2-a2b9-dfff7d96f3dd",
+  "oracle_text": "Enchant creature\nWhen this Aura enters, create two 1/1 green Saproling creature tokens.\nEnchanted creature has trample.",
+  "oversized": false,
+  "penny_rank": 6006,
+  "prices": {
+    "eur": "0.07",
+    "eur_foil": "0.12",
+    "tix": "0.04",
+    "usd": "0.22",
+    "usd_etched": null,
+    "usd_foil": "0.27"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2f6a5278-23bf-47b2-a2b9-dfff7d96f3dd&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/120805?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=748492&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F531079%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Fists+of+Ironwood",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=643146&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFists%2Bof%2BIronwood",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFists%2Bof%2BIronwood"
+  },
+  "released_at": "2024-01-12",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/862a2871-57be-42f5-9097-d821013d3b58/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rvr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rvr/139/fists-of-ironwood?utm_source=api",
+  "set": "rvr",
+  "set_id": "fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "set_name": "Ravnica Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arvr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "story_spotlight": false,
+  "tcgplayer_id": 531079,
+  "textless": false,
+  "type_line": "Enchantment — Aura",
+  "uri": "https://api.scryfall.com/cards/862a2871-57be-42f5-9097-d821013d3b58",
+  "variation": false
+}

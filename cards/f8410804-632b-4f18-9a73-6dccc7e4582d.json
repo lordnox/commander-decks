@@ -1,0 +1,175 @@
+{
+  "arena_id": 73347,
+  "artist": "Karl Kopinski",
+  "artist_ids": [
+    "0fad2c48-a56e-4a0b-b512-224f6f238f20"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Karl Kopinski",
+      "artist_id": "0fad2c48-a56e-4a0b-b512-224f6f238f20",
+      "colors": [
+        "R"
+      ],
+      "flavor_text": "\"The toll is steep, but the cliffs are steeper.\"\n—Samila, Murasa Expeditionary House",
+      "illustration_id": "dce4d519-74c6-4c07-914c-36402988ded1",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.webp?1783929363",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.jpg?1783929363",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.jpg?1783929363",
+        "crop": "https://cards.scryfall.io/crop/front/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.webp?1783929363",
+        "display": "https://cards.scryfall.io/display/front/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.webp?1783929363",
+        "grid": "https://cards.scryfall.io/grid/front/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.webp?1783929363",
+        "large": "https://cards.scryfall.io/large/front/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.jpg?1783929363",
+        "normal": "https://cards.scryfall.io/normal/front/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.jpg?1783929363",
+        "png": "https://cards.scryfall.io/png/front/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.png?1783929363",
+        "small": "https://cards.scryfall.io/small/front/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.jpg?1783929363",
+        "thumb": "https://cards.scryfall.io/thumb/front/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.webp?1783929363"
+      },
+      "mana_cost": "{2}{R}",
+      "name": "Kazuul's Fury",
+      "object": "card_face",
+      "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nKazuul's Fury deals damage equal to the sacrificed creature's power to any target.",
+      "type_line": "Instant"
+    },
+    {
+      "artist": "Karl Kopinski",
+      "artist_id": "0fad2c48-a56e-4a0b-b512-224f6f238f20",
+      "colors": [],
+      "flavor_text": "\"The path up the cliffs is nothing but steep switchbacks and rickety lifts, made by elves, maintained by humans, and guarded by ogres. But it's the best way into the heart of Murasa.\"\n—Samila, Murasa Expeditionary House",
+      "illustration_id": "c04e8715-2451-4452-937f-819d43c78603",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.webp?1783929363",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.jpg?1783929363",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.jpg?1783929363",
+        "crop": "https://cards.scryfall.io/crop/back/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.webp?1783929363",
+        "display": "https://cards.scryfall.io/display/back/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.webp?1783929363",
+        "grid": "https://cards.scryfall.io/grid/back/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.webp?1783929363",
+        "large": "https://cards.scryfall.io/large/back/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.jpg?1783929363",
+        "normal": "https://cards.scryfall.io/normal/back/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.jpg?1783929363",
+        "png": "https://cards.scryfall.io/png/back/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.png?1783929363",
+        "small": "https://cards.scryfall.io/small/back/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.jpg?1783929363",
+        "thumb": "https://cards.scryfall.io/thumb/back/7/5/75240bbc-adc7-48ff-9523-c79776d710d3.webp?1783929363"
+      },
+      "mana_cost": "",
+      "name": "Kazuul's Cliffs",
+      "object": "card_face",
+      "oracle_text": "This land enters tapped.\n{T}: Add {R}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 495735,
+  "cmc": 3.0,
+  "collector_number": "146",
+  "color_identity": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 1628,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "75240bbc-adc7-48ff-9523-c79776d710d3",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:56:03Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 83265,
+  "multiverse_ids": [
+    491786,
+    491787
+  ],
+  "name": "Kazuul's Fury // Kazuul's Cliffs",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f8410804-632b-4f18-9a73-6dccc7e4582d",
+  "oversized": false,
+  "penny_rank": 2617,
+  "preview": {
+    "previewed_at": "2020-09-04",
+    "source": "The Third Power",
+    "source_uri": "https://www.mtgcast.com/podcasts/the-third-power/posts/the-third-power-episode-80-cube-a-la-mode-the-third-power-s-exclusive-zendikar-preview-cards-and-flexibility-in-cube-e9d0ac78f6"
+  },
+  "prices": {
+    "eur": "0.77",
+    "eur_foil": "1.28",
+    "tix": "0.03",
+    "usd": "0.72",
+    "usd_etched": null,
+    "usd_foil": "1.01"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af8410804-632b-4f18-9a73-6dccc7e4582d&unique=prints",
+  "produced_mana": [
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/83265?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=495735&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F222039%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Kazuul%27s+Fury",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=491786&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKazuul%2527s%2BFury%2B%252F%252F%2BKazuul%2527s%2BCliffs",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKazuul%2527s%2BFury%2B%252F%252F%2BKazuul%2527s%2BCliffs"
+  },
+  "released_at": "2020-09-25",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/75240bbc-adc7-48ff-9523-c79776d710d3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/znr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/znr/146/kazuuls-fury-kazuuls-cliffs?utm_source=api",
+  "set": "znr",
+  "set_id": "f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "set_name": "Zendikar Rising",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aznr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "story_spotlight": false,
+  "tcgplayer_id": 222039,
+  "textless": false,
+  "type_line": "Instant // Land",
+  "uri": "https://api.scryfall.com/cards/75240bbc-adc7-48ff-9523-c79776d710d3",
+  "variation": false
+}

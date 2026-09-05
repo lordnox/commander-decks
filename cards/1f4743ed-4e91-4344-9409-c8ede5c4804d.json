@@ -1,0 +1,139 @@
+{
+  "artist": "Ralph Horsley",
+  "artist_ids": [
+    "a51444a8-eb4b-4615-a663-d1d418591ccb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 722786,
+  "cmc": 4.0,
+  "collector_number": "276",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 9172,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "6efe9126-15ba-468e-a15a-7f9cbb779cf6",
+  "illustration_id": "ede3d7f0-6459-462e-a716-449bf9e48953",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:07:16Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/e/6efe9126-15ba-468e-a15a-7f9cbb779cf6.webp?1783915636",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/e/6efe9126-15ba-468e-a15a-7f9cbb779cf6.jpg?1783915636",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/e/6efe9126-15ba-468e-a15a-7f9cbb779cf6.jpg?1783915636",
+    "crop": "https://cards.scryfall.io/crop/front/6/e/6efe9126-15ba-468e-a15a-7f9cbb779cf6.webp?1783915636",
+    "display": "https://cards.scryfall.io/display/front/6/e/6efe9126-15ba-468e-a15a-7f9cbb779cf6.webp?1783915636",
+    "grid": "https://cards.scryfall.io/grid/front/6/e/6efe9126-15ba-468e-a15a-7f9cbb779cf6.webp?1783915636",
+    "large": "https://cards.scryfall.io/large/front/6/e/6efe9126-15ba-468e-a15a-7f9cbb779cf6.jpg?1783915636",
+    "normal": "https://cards.scryfall.io/normal/front/6/e/6efe9126-15ba-468e-a15a-7f9cbb779cf6.jpg?1783915636",
+    "png": "https://cards.scryfall.io/png/front/6/e/6efe9126-15ba-468e-a15a-7f9cbb779cf6.png?1783915636",
+    "small": "https://cards.scryfall.io/small/front/6/e/6efe9126-15ba-468e-a15a-7f9cbb779cf6.jpg?1783915636",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/e/6efe9126-15ba-468e-a15a-7f9cbb779cf6.webp?1783915636"
+  },
+  "keywords": [
+    "Devour"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}{G}",
+  "mtgo_id": 114781,
+  "multiverse_ids": [
+    627740
+  ],
+  "name": "Bloodspore Thrinax",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1f4743ed-4e91-4344-9409-c8ede5c4804d",
+  "oracle_text": "Devour 1 (As this creature enters, you may sacrifice any number of creatures. It enters with that many +1/+1 counters on it.)\nEach other creature you control enters with an additional X +1/+1 counters on it, where X is the number of +1/+1 counters on this creature.",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2023-07-14",
+    "source": "Laughing Dragon",
+    "source_uri": "https://twitter.com/LaughingMtg/status/1679928850497802240"
+  },
+  "prices": {
+    "eur": "0.21",
+    "eur_foil": "0.48",
+    "tix": "0.13",
+    "usd": "0.34",
+    "usd_etched": null,
+    "usd_foil": "0.36"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1f4743ed-4e91-4344-9409-c8ede5c4804d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/114781?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=722786&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F504660%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bloodspore+Thrinax",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=627740&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBloodspore%2BThrinax",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBloodspore%2BThrinax"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/6efe9126-15ba-468e-a15a-7f9cbb779cf6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/276/bloodspore-thrinax?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 504660,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Lizard",
+  "uri": "https://api.scryfall.com/cards/6efe9126-15ba-468e-a15a-7f9cbb779cf6",
+  "variation": false
+}

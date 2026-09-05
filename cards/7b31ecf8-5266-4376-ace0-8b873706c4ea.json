@@ -1,0 +1,126 @@
+{
+  "artist": "Carl Critchlow",
+  "artist_ids": [
+    "17948f16-611a-44b8-8d10-9895a0bdfff1"
+  ],
+  "booster": false,
+  "border_color": "gold",
+  "card_back_id": "420c2336-e212-4109-8525-b0fc69201351",
+  "cardmarket_id": 249558,
+  "cmc": 5.0,
+  "collector_number": "jt113",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 19034,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "93ebc493-451e-495a-8e1e-b972d0abf4c4",
+  "illustration_id": "c257d052-88fa-42e4-97fa-9fe9352e79f5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:21:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/3/93ebc493-451e-495a-8e1e-b972d0abf4c4.webp?1783945306",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/3/93ebc493-451e-495a-8e1e-b972d0abf4c4.jpg?1783945306",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/3/93ebc493-451e-495a-8e1e-b972d0abf4c4.jpg?1783945306",
+    "crop": "https://cards.scryfall.io/crop/front/9/3/93ebc493-451e-495a-8e1e-b972d0abf4c4.webp?1783945306",
+    "display": "https://cards.scryfall.io/display/front/9/3/93ebc493-451e-495a-8e1e-b972d0abf4c4.webp?1783945306",
+    "grid": "https://cards.scryfall.io/grid/front/9/3/93ebc493-451e-495a-8e1e-b972d0abf4c4.webp?1783945306",
+    "large": "https://cards.scryfall.io/large/front/9/3/93ebc493-451e-495a-8e1e-b972d0abf4c4.jpg?1783945306",
+    "normal": "https://cards.scryfall.io/normal/front/9/3/93ebc493-451e-495a-8e1e-b972d0abf4c4.jpg?1783945306",
+    "png": "https://cards.scryfall.io/png/front/9/3/93ebc493-451e-495a-8e1e-b972d0abf4c4.png?1783945306",
+    "small": "https://cards.scryfall.io/small/front/9/3/93ebc493-451e-495a-8e1e-b972d0abf4c4.jpg?1783945306",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/3/93ebc493-451e-495a-8e1e-b972d0abf4c4.webp?1783945306"
+  },
+  "keywords": [
+    "Fading"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{G}",
+  "multiverse_ids": [],
+  "name": "Saproling Burst",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7b31ecf8-5266-4376-ace0-8b873706c4ea",
+  "oracle_text": "Fading 7 (This enchantment enters with seven fade counters on it. At the beginning of your upkeep, remove a fade counter from it. If you can't, sacrifice it.)\nRemove a fade counter from this enchantment: Create a green Saproling creature token. It has \"This token's power and toughness are each equal to the number of fade counters on Saproling Burst.\"\nWhen this enchantment leaves the battlefield, destroy all tokens created with this enchantment. They can't be regenerated.",
+  "oversized": false,
+  "penny_rank": 2834,
+  "prices": {
+    "eur": "3.32",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "2.38",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7b31ecf8-5266-4376-ace0-8b873706c4ea&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Saproling+Burst&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=249558&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F165094%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Saproling+Burst",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSaproling%2BBurst",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSaproling%2BBurst"
+  },
+  "released_at": "2001-08-08",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/93ebc493-451e-495a-8e1e-b972d0abf4c4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/wc01?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/wc01/jt113/saproling-burst?utm_source=api",
+  "set": "wc01",
+  "set_id": "4d62d576-cf71-46e8-b0db-dfff03f36cb1",
+  "set_name": "World Championship Decks 2001",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awc01&unique=prints",
+  "set_type": "memorabilia",
+  "set_uri": "https://api.scryfall.com/sets/4d62d576-cf71-46e8-b0db-dfff03f36cb1",
+  "story_spotlight": false,
+  "tcgplayer_id": 165094,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/93ebc493-451e-495a-8e1e-b972d0abf4c4",
+  "variation": false
+}

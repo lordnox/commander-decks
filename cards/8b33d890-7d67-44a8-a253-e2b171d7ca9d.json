@@ -1,0 +1,152 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "248ade83-ac57-42d6-985c-1e4cc3639f36",
+      "name": "Saproling",
+      "object": "related_card",
+      "type_line": "Token Creature — Saproling",
+      "uri": "https://api.scryfall.com/cards/248ade83-ac57-42d6-985c-1e4cc3639f36"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0b915355-4e98-44df-81bd-961a3d3c86b8",
+      "name": "Sprout Swarm",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/0b915355-4e98-44df-81bd-961a3d3c86b8"
+    }
+  ],
+  "artist": "Chippy",
+  "artist_ids": [
+    "a36f01a0-e51a-48b2-a556-b9b3bc73f969"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 15130,
+  "cmc": 2.0,
+  "collector_number": "138",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 5617,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "0b915355-4e98-44df-81bd-961a3d3c86b8",
+  "illustration_id": "7248992d-8c1f-4656-a519-a62ab7bfd30c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:44:58Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/b/0b915355-4e98-44df-81bd-961a3d3c86b8.webp?1783943098",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/b/0b915355-4e98-44df-81bd-961a3d3c86b8.jpg?1783943098",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/b/0b915355-4e98-44df-81bd-961a3d3c86b8.jpg?1783943098",
+    "crop": "https://cards.scryfall.io/crop/front/0/b/0b915355-4e98-44df-81bd-961a3d3c86b8.webp?1783943098",
+    "display": "https://cards.scryfall.io/display/front/0/b/0b915355-4e98-44df-81bd-961a3d3c86b8.webp?1783943098",
+    "grid": "https://cards.scryfall.io/grid/front/0/b/0b915355-4e98-44df-81bd-961a3d3c86b8.webp?1783943098",
+    "large": "https://cards.scryfall.io/large/front/0/b/0b915355-4e98-44df-81bd-961a3d3c86b8.jpg?1783943098",
+    "normal": "https://cards.scryfall.io/normal/front/0/b/0b915355-4e98-44df-81bd-961a3d3c86b8.jpg?1783943098",
+    "png": "https://cards.scryfall.io/png/front/0/b/0b915355-4e98-44df-81bd-961a3d3c86b8.png?1783943098",
+    "small": "https://cards.scryfall.io/small/front/0/b/0b915355-4e98-44df-81bd-961a3d3c86b8.jpg?1783943098",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/b/0b915355-4e98-44df-81bd-961a3d3c86b8.webp?1783943098"
+  },
+  "keywords": [
+    "Buyback",
+    "Convoke"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_foil_id": 26813,
+  "mtgo_id": 26812,
+  "multiverse_ids": [
+    136042
+  ],
+  "name": "Sprout Swarm",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8b33d890-7d67-44a8-a253-e2b171d7ca9d",
+  "oracle_text": "Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.)\nBuyback {3} (You may pay an additional {3} as you cast this spell. If you do, put this card into your hand as it resolves.)\nCreate a 1/1 green Saproling creature token.",
+  "oversized": false,
+  "penny_rank": 6429,
+  "prices": {
+    "eur": "2.05",
+    "eur_foil": "18.19",
+    "tix": "0.05",
+    "usd": "4.99",
+    "usd_etched": null,
+    "usd_foil": "53.88"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8b33d890-7d67-44a8-a253-e2b171d7ca9d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/26812?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=15130&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F14996%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sprout+Swarm",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=136042&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSprout%2BSwarm",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSprout%2BSwarm"
+  },
+  "released_at": "2007-05-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0b915355-4e98-44df-81bd-961a3d3c86b8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fut?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fut/138/sprout-swarm?utm_source=api",
+  "set": "fut",
+  "set_id": "bf951ddb-4445-4923-87cb-3fe4ac3c6b9a",
+  "set_name": "Future Sight",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afut&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/bf951ddb-4445-4923-87cb-3fe4ac3c6b9a",
+  "story_spotlight": false,
+  "tcgplayer_id": 14996,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/0b915355-4e98-44df-81bd-961a3d3c86b8",
+  "variation": false
+}
