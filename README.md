@@ -7,7 +7,13 @@ A conversation-driven workspace for importing, resolving, categorizing, assessin
 - [Bracket definitions](BRACKET-DEFINITIONS.md)
 - [Deck ideas](DECK-IDEAS.md)
 - [Skills](SKILLS.md)
-- [Table games](table-games/README.md) — recorded four-player replays; the viewers in [`pages/`](pages) are what GitHub Pages serves once the repo allows Pages
+- [Table games](table-games/README.md) — recorded four-player replays and their recaps
+
+## Watch the table games
+
+**[lordnox.github.io/commander-decks](https://lordnox.github.io/commander-decks/)** lists every recorded four-player game and steps through it turn by turn.
+
+GitHub Pages serves that site from [`docs/`](docs) on `main`, so the link works once Pages is enabled for this repository. Each game also has a Markdown recap in [`table-games/`](table-games/README.md).
 
 ## Deck primers
 

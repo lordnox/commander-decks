@@ -86,7 +86,7 @@ Do not dump HTML source into chat.
 
 ## 3. Store and report
 
-The served site is the tracked `pages/` directory: one `<slug>.html` per game
+The served site is the tracked `docs/` directory: one `<slug>.html` per game
 plus the generated `index.html` and `.nojekyll`. Rebuild both after a viewer
 change and commit the result:
 
@@ -95,22 +95,22 @@ bun run table:render
 bun run table:pages
 ```
 
-`build_pages.py` regenerates `pages/index.html` from the replay JSON, so a new
+`build_pages.py` regenerates `docs/index.html` from the replay JSON, so a new
 game appears in the listing without hand-editing HTML. It warns about a
-`pages/*.html` whose JSON is gone instead of deleting it; remove that file
+`docs/*.html` whose JSON is gone instead of deleting it; remove that file
 yourself once the game is really retired.
 
 Replay logs stay scratch (`table-games/*.json` is gitignored). To keep a game,
-`git add -f` its JSON, commit its `pages/<slug>.html`, and add a short
+`git add -f` its JSON, commit its `docs/<slug>.html`, and add a short
 `table-games/<slug>.md` recap because GitHub renders neither JSON nor HTML.
 
-The Pages workflow on `main` uploads `pages/` as-is, so an uncommitted render
-never reaches the site. Pages must be enabled for the repository (public, or a
-plan that includes private Pages); the index is then
+GitHub Pages serves `main` at `/docs`, so an uncommitted render never reaches
+the site and no build runs in CI. Pages must be enabled for the repository
+(public, or a plan that includes private Pages); the index is then
 `https://lordnox.github.io/commander-decks/`.
 
 Return the HTML path:
 
 ```text
-pages/<slug>.html
+docs/<slug>.html
 ```

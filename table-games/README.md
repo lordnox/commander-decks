@@ -13,7 +13,7 @@ bun run table:render
 ```
 
 Pass one JSON path to refresh a single game. The `render-table-replay` skill
-validates the log and writes `../pages/<slug>.html`: a self-contained viewer with a
+validates the log and writes `../docs/<slug>.html`: a self-contained viewer with a
 felt table, life totals, exact token art, current power and toughness in the
 corner of each creature in play, counter and status chips, a centre panel
 naming the current event, the stack,
@@ -23,21 +23,22 @@ that may look at the top of their library — Fblthp, Bolas's Citadel — show t
 card in its own zone. Open the HTML in a browser; GitHub will not render it
 inline.
 
-Rendered games live in the tracked [`pages/`](../pages) directory, which is
-what GitHub Pages serves. Rebuild its listing after rendering:
+Rendered games live in the tracked [`docs/`](../docs) directory, which is what
+GitHub Pages serves (source: branch `main`, folder `/docs`). Rebuild its
+listing after rendering:
 
 ```bash
 bun run table:pages
 ```
 
-That regenerates `pages/index.html` from the replay JSON. After GitHub Pages is
-enabled, the live index is
-[lordnox.github.io/commander-decks](https://lordnox.github.io/commander-decks/),
-deployed on push to `main`. This repository is private, so Pages needs a public
-repo or a plan that includes private Pages.
+That regenerates `docs/index.html` from the replay JSON. Once Pages is enabled,
+the live index is
+[lordnox.github.io/commander-decks](https://lordnox.github.io/commander-decks/).
+This repository is private, so Pages needs a public repo or a plan that
+includes private Pages.
 
 Replay logs are gitignored so ordinary runs stay scratch. To keep a game,
-`git add -f` its JSON, commit `pages/<slug>.html`, and add a `<slug>.md` recap,
+`git add -f` its JSON, commit `docs/<slug>.html`, and add a `<slug>.md` recap,
 since neither JSON nor HTML is readable in a pull request.
 
 To ask what went wrong in those logs — missing lands, ramp, or interaction in

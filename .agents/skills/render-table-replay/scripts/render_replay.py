@@ -13,7 +13,7 @@ from pathlib import Path
 TEMPLATE = Path(__file__).with_name("replay.html")
 ROOT = Path(__file__).resolve().parents[4]
 TABLE_GAMES = ROOT / "table-games"
-PAGES = ROOT / "pages"
+DOCS = ROOT / "docs"
 PT = re.compile(r"^[^/\s]+/[^/\s]+$")
 
 
@@ -319,7 +319,7 @@ def replay_paths(explicit: list[Path]) -> list[Path]:
 def render_file(log: Path, out: Path | None) -> Path:
     game = json.loads(log.read_text(encoding="utf-8"))
     html = render(game)
-    target = out or PAGES / f"{log.stem}.html"
+    target = out or DOCS / f"{log.stem}.html"
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(html, encoding="utf-8")
     try:
@@ -331,7 +331,7 @@ def render_file(log: Path, out: Path | None) -> Path:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Validate replay JSON and write pages/<slug>.html with the current "
+            "Validate replay JSON and write docs/<slug>.html with the current "
             "viewer. With no paths, rebuild every finished table-games/*.json file."
         )
     )
@@ -344,7 +344,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--out",
         type=Path,
-        help="HTML path. Default pages/<slug>.html; only valid for a single replay.",
+        help="HTML path. Default docs/<slug>.html; only valid for a single replay.",
     )
     return parser.parse_args()
 
