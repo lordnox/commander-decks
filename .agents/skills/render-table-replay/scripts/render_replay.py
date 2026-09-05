@@ -92,6 +92,74 @@ def resolve_name(value: object, rows: list[dict]) -> str:
     return str(value)
 
 
+def deck_tokens(deck: str) -> dict:
+    try:
+        data = json.loads((ROOT / deck / "tokens.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def token_printing(name: str, data: dict, catalog: dict) -> tuple[str, dict] | None:
+    """A deck's printing of `name`, preferring one a card in this game makes."""
+    entries = {
+        token_id: entry
+        for token_id, entry in (data.get("tokens") or {}).items()
+        if isinstance(entry, dict)
+        and normalized_name(entry.get("name") or "") == normalized_name(name)
+    }
+    if not entries:
+        return None
+    sources: dict[str, list[str]] = {}
+    for card, token_ids in (data.get("produced_by") or {}).items():
+        for token_id in token_ids or []:
+            if token_id in entries:
+                sources.setdefault(token_id, []).append(card)
+
+    def rank(item: tuple[str, dict]) -> tuple[int, str, str]:
+        token_id = item[0]
+        cards = sorted(sources.get(token_id) or [])
+        played = [card for card in cards if card in catalog]
+        return (0 if played else 1, (played or cards or [""])[0], token_id)
+
+    return sorted(entries.items(), key=rank)[0]
+
+
+def backfill_tokens(
+    seats: list, events: list[dict], catalog: dict, tokens: dict, rows: list[dict]
+) -> None:
+    """Point a token recorded without `token_id` at its deck's printing."""
+    decks = {
+        seat.get("id"): seat.get("deck")
+        for seat in seats
+        if isinstance(seat, dict) and seat.get("deck")
+    }
+    files: dict[str, dict] = {}
+    picks: dict[tuple[str, str], str | None] = {}
+    for event in events:
+        players = (event.get("state") or {}).get("players") or {}
+        for seat_id, player in players.items():
+            deck = decks.get(seat_id)
+            if not isinstance(player, dict) or not deck:
+                continue
+            for entry in player.get("battlefield") or []:
+                if not isinstance(entry, dict) or not entry.get("token"):
+                    continue
+                if entry.get("token_id") or not entry.get("name"):
+                    continue
+                name = resolve_name(entry["name"], rows)
+                key = (seat_id, normalized_name(name))
+                if key not in picks:
+                    if deck not in files:
+                        files[deck] = deck_tokens(deck)
+                    found = token_printing(name, files[deck], catalog)
+                    picks[key] = found[0] if found else None
+                    if found:
+                        tokens.setdefault(found[0], found[1])
+                if picks[key]:
+                    entry["token_id"] = picks[key]
+
+
 def referenced_cards(events: list[dict], references: list[dict] | None = None) -> tuple[set[str], set[str], set[str]]:
     names: set[str] = set()
     token_names: set[str] = set()
@@ -259,9 +327,10 @@ def public_game(game: dict) -> dict:
     catalog = cleaned.get("catalog")
     if not isinstance(catalog, dict):
         raise ValueError("replay JSON needs a card catalog")
-    names, token_names, token_ids = referenced_cards(
-        events, references if isinstance(references, list) else None
-    )
+    rows = references if isinstance(references, list) else []
+    tokens = dict(cleaned.get("tokens") or {})
+    backfill_tokens(seats, events, catalog, tokens, rows)
+    names, token_names, token_ids = referenced_cards(events, rows)
     missing = sorted(names - set(catalog) - token_names)
     if missing:
         raise ValueError(f"catalog is missing referenced cards: {', '.join(missing)}")
@@ -270,7 +339,6 @@ def public_game(game: dict) -> dict:
         for name, entry in catalog.items() if name in names
     }
     backfill_faces(cleaned["catalog"])
-    tokens = cleaned.get("tokens") or {}
     missing_tokens = sorted(token_ids - set(tokens))
     if missing_tokens:
         raise ValueError(
@@ -280,12 +348,7 @@ def public_game(game: dict) -> dict:
         token_id: entry for token_id, entry in tokens.items()
         if token_id in token_ids
     }
-    validate_faces(
-        events,
-        cleaned["catalog"],
-        cleaned["tokens"],
-        references if isinstance(references, list) else [],
-    )
+    validate_faces(events, cleaned["catalog"], cleaned["tokens"], rows)
     return cleaned
 
 

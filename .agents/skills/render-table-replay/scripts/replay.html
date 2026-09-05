@@ -488,7 +488,26 @@
       return front.includes("/") ? front.split("/") : null
     }
 
-    /** Printed power and toughness plus the counters the snapshot records. */
+    const NOTE_PT = /(?:^|[\s;,(])([-+]?[\dX*]+)\/([-+]?[\dX*]+)(?=$|[\s;,)])/
+    const CREATURE_NOTE = /\b(crew|crewed|animat|becomes? a creature|is a creature)\b/i
+
+    /**
+     * Whether the snapshot's permanent is a creature right now. A printed body
+     * is not enough: a Vehicle needs crew, and a Spacecraft needs enough charge
+     * counters to meet its station threshold.
+     */
+    const creatureInPlay = (entry, info) => {
+      if (/\bCreature\b/.test(info.type_line || "")) return true
+      if (CREATURE_NOTE.test(entry.note || "")) return true
+      const station = /artifact creature at (\d+)\+/i.exec(info.oracle_text || "")
+      const charge = Number((entry.counters || {}).charge) || 0
+      return Boolean(station) && charge >= Number(station[1])
+    }
+
+    /**
+     * Printed power and toughness plus the counters the snapshot records, or
+     * the body a token's note states when the token has no printing.
+     */
     const currentPT = (entry, info) => {
       const stated = entry.pt
         || (entry.power != null && entry.toughness != null
@@ -496,8 +515,10 @@
           : "")
       if (stated) return { text: String(stated), modified: true }
 
-      const printed = printedPT(info)
+      const noted = NOTE_PT.exec(entry.note || "")
+      const printed = printedPT(info) || (noted && [noted[1], noted[2]])
       if (!printed) return null
+      if (!noted && !creatureInPlay(entry, info)) return null
       const counters = entry.counters || {}
       const shift = (Number(counters["+1/+1"]) || 0) - (Number(counters["-1/-1"]) || 0)
       const shifted = (value) => {
