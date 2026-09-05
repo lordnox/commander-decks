@@ -5,6 +5,7 @@ A conversation-driven workspace for importing, resolving, categorizing, assessin
 - [How to](HOW-TO.md)
 - [House rules](DECISIONS.md)
 - [Bracket definitions](BRACKET-DEFINITIONS.md)
+- [Interaction](INTERACTION.md)
 - [Deck ideas](DECK-IDEAS.md)
 - [Skills](SKILLS.md)
 - [Table games](table-games/README.md) — recorded four-player replays and their recaps

@@ -52,7 +52,7 @@ Search **per job**, not one dump of Dimir. Typical axes:
 - protection, evasion, ramp, graveyard conversion
 - cards that combine two of those verbs
 
-Look for **multifunctional** cards: one card that covers two or more of this deck's jobs. Also look for **packages**: two cards that together do something neither does well, in the manner of Vanish into Memory + Wall of Blood (instant-speed life-for-cards). That pair is an example of the *kind* of interaction, not a card to add unless this deck actually wants it. Details: [lessons.md](lessons.md).
+Look for **multifunctional** cards: one card that covers two or more of this deck's jobs. Also look for **packages**: two cards that together do something neither does well, in the manner of Vanish into Memory + Wall of Blood (instant-speed life-for-cards). That pair is an example of the *kind* of interaction, not a card to add unless this deck actually wants it. Details: [lessons.md](lessons.md). For removal, protection, fogs, wipes, and stax slots, classify the incumbent against [`INTERACTION.md`](../../../INTERACTION.md) before searching so the challenger still does that bucket's job.
 
 Verify every shortlist name with collection or exact named lookup. Check Game Changer status against the cached block in root `BRACKET-DEFINITIONS.md` before recommending.
 

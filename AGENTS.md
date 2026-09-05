@@ -59,6 +59,8 @@ Every deck folder is `decks/<rating>_<commander>-<name>/` in kebab-case.
 
 When bracket, power, expected win turn, Game Changer caps, or pod fit come up, read [`BRACKET-DEFINITIONS.md`](BRACKET-DEFINITIONS.md), then the skill that owns the task (`assess-deck`, `autobrew-deck`, `design-deck`, or `simulate-deck`). That file is the only bracket source and carries a cached Game Changers snapshot, so do not fetch Wizards pages or query `is:gamechanger` per assessment; refresh it deliberately with `.agents/skills/assess-deck/scripts/update_game_changers.py`.
 
+When interaction density, removal vs protection, wipes vs pinpoint answers, or fogs vs stacks come up, read [`INTERACTION.md`](INTERACTION.md). Categorize slots by why they are in the 99, not by a single "run more interaction" count.
+
 Use `autobrew-deck` when the agent should choose and iterate a deck with little or no input, `simulate-deck` for read-only goldfishing and stress tests of any resolved deck, `simulate-table` for a four-player game among stored decks and its replay JSON, `render-table-replay` to validate and publish a replay to the React player, `review-table` to diagnose recorded table games (list gaps vs pilot errors), `design-deck` when collaboratively brewing from a theme, `deck-ideas` when parking a brew that is not a 99, `deck-workspace` for import and validation, `scryfall-lookup` for card searches, `audit-deck` for a slot-by-slot Scryfall review of a stored 99, `deck-primer` when creating or updating a play guide, `tag-deck` for Archidekt deck tags, `assess-deck` for bracket, power, or expected-win-turn analysis, and `rank-deck` for jankiness, fun, oppressiveness, and per-deck identity goals.
 
 ## Chat card presentation
@@ -69,6 +71,7 @@ In conversation (not primers or `decklist.txt`), featured card lists should show
 
 - `DECISIONS.md`: kitchen-table house rules that apply to every deck
 - `BRACKET-DEFINITIONS.md`: Commander Bracket intent, Incremental Core texture, printed caps, cached Game Changers snapshot, and this table's Parley reading
+- `INTERACTION.md`: protection vs disruption tree, in-hand vs on-board trade-off, and how aggro / midrange / control slant their answer packages
 - `DECK-IDEAS.md`: grilled brews that are queued or parked, not a `decks/` folder yet
 - `table-games/`: replay JSON from `simulate-table` plus each game's Markdown recap (JSON gitignored except committed examples)
 - `site/`: React and Tailwind source for the GitHub Pages replay index and player; generated public replay JSON and metadata go under ignored `site/public/`
