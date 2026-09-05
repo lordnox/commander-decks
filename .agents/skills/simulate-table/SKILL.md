@@ -4,7 +4,7 @@ description: >-
   Play a four-player Commander game among resolved decks, each trying to
   win from its primer, and record a deterministic replay JSON file. Use when
   the user asks for a table game, pod sim, four-deck match, multiplayer
-  simulation, or matchup. Rendering that file as HTML belongs to
+  simulation, or matchup. Publishing that file to the React player belongs to
   render-table-replay. Goldfish-only tests stay on simulate-deck.
 ---
 
@@ -251,7 +251,7 @@ Before reporting:
    `table-games/<slug>.json`.
 
 The replay JSON is the simulation's terminal output. Invoke
-`render-table-replay` separately when the user wants an HTML viewer.
+`render-table-replay` separately when the user wants it in the React player.
 Invoke `review-table` when they want a postmortem of this file or of every
 game a deck has on disk.
 
@@ -271,7 +271,7 @@ action. Then:
 table-games/<slug>.json
 ```
 
-4. If `render-table-replay` was also requested, link its HTML path.
+4. If `render-table-replay` was also requested, link its React player URL.
 5. Limits: imperfect judging, truncated turns, and that one seed is not a
    metagame.
 

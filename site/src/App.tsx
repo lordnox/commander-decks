@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, type CSSProperties } from 'react'
+import { ReplayPage } from './ReplayPage'
 
 type Seat = {
   id: string
@@ -127,7 +128,7 @@ const GameCard = ({ game }: { game: Game }) => (
       )}
 
       <a
-        href={`${base}replays/${game.slug}.html`}
+        href={`${base}?game=${encodeURIComponent(game.slug)}`}
         className="mt-auto inline-flex items-center justify-between rounded-2xl bg-moss-300 px-5 py-3.5 font-bold text-ink-950 transition hover:bg-gold-300 focus:outline-none focus:ring-2 focus:ring-gold-300 focus:ring-offset-2 focus:ring-offset-ink-900"
       >
         Watch replay
@@ -137,7 +138,7 @@ const GameCard = ({ game }: { game: Game }) => (
   </article>
 )
 
-export const App = () => {
+const ArchivePage = () => {
   const [games, setGames] = useState<Game[]>([])
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState<'all' | Game['ended']>('all')
@@ -273,4 +274,9 @@ export const App = () => {
       </footer>
     </div>
   )
+}
+
+export const App = () => {
+  const slug = new URLSearchParams(window.location.search).get('game')
+  return slug ? <ReplayPage slug={slug} /> : <ArchivePage />
 }

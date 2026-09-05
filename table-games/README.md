@@ -6,32 +6,29 @@ printings with `bun run deck:tokens -- <deck names>`, then start with
 <table>.json --turns 3`, which prepares `<slug>.working.json` for the agent to
 play and leaves the recorded replay alone.
 
-Rebuild every stored replay with the current HTML viewer:
+Validate and publish every stored replay for the React player:
 
 ```bash
 bun run table:render
 ```
 
 Pass one JSON path to refresh a single game. The `render-table-replay` skill
-validates the log and writes `../site/public/replays/<slug>.html`: a
-self-contained viewer with a felt table, life totals, exact token art, current
-power and toughness in the corner of each creature in play, counter and status
-chips, a centre panel naming the current event, the stack,
-fixed transport controls, a collapsible event log, a step slider, and a hover
-preview that shows the large card with its counters and notes spelled out. Seats
-that may look at the top of their library — Fblthp, Bolas's Citadel — show that
-card in its own zone. Open the HTML in a browser; GitHub will not render it
-inline.
+validates the log and writes sanitized
+`../site/public/replays/<slug>.json`. The React player reads that payload and
+shows the four seats, life and library totals, zones and card art, current
+event, stack, decisions and deals, autoplay controls, a navigable event log,
+and a card inspector. Seats that may look at the top of their library —
+Fblthp, Bolas's Citadel — show that card in its own zone.
 
-The React and Tailwind index lives in [`site/`](../site). Rebuild its generated
-replays and metadata, then create the production site:
+The React and Tailwind index and player live in [`site/`](../site). Rebuild
+their generated data, then create the production site:
 
 ```bash
 bun run site:prepare
 bun run build
 ```
 
-The first command writes replay HTML and `games.json` under ignored
+The first command writes public replay JSON and `games.json` under ignored
 `site/public/`; Vite writes the complete static site to ignored `dist/`.
 GitHub Actions performs the same build and deploys `dist/`. Once Pages uses
 **GitHub Actions** as its source, the live index is
@@ -51,11 +48,11 @@ loads a full snapshot JSON into chat.
 ## Recorded games
 
 - [Homer vs Sin vs Osgir vs Hazel](seed1729-homer-sin-osgir-hazel.md)
-  ([watch](https://lordnox.github.io/commander-decks/seed1729-homer-sin-osgir-hazel.html))
+  ([watch](https://lordnox.github.io/commander-decks/?game=seed1729-homer-sin-osgir-hazel))
   — seed 1729, truncated at turn 12; Sin-fall leads after commander-killing Homer.
 - [Sygg vs The Twelfth Doctor vs Osgir vs Bartolomé](seed1729-sygg-doctor-osgir-bartolome.md)
-  ([watch](https://lordnox.github.io/commander-decks/seed1729-sygg-doctor-osgir-bartolome.html))
+  ([watch](https://lordnox.github.io/commander-decks/?game=seed1729-sygg-doctor-osgir-bartolome))
   — seed 1729, Bartolomé combo win on turn 5.
 - [Jalira vs Jon vs Evangela vs Sygg](seed1729-jalira-jon-eva-sygg.md)
-  ([watch](https://lordnox.github.io/commander-decks/seed1729-jalira-jon-eva-sygg.html))
+  ([watch](https://lordnox.github.io/commander-decks/?game=seed1729-jalira-jon-eva-sygg))
   — seed 1729, truncated at turn 12; The Polyfisher leads after trampling out Thousand Cuts.

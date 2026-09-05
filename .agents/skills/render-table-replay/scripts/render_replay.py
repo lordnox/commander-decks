@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate replay JSON and render a self-contained HTML table viewer."""
+"""Validate replay logs and publish sanitized JSON for the React player."""
 
 from __future__ import annotations
 
@@ -10,7 +10,6 @@ import sys
 import unicodedata
 from pathlib import Path
 
-TEMPLATE = Path(__file__).with_name("replay.html")
 ROOT = Path(__file__).resolve().parents[4]
 TABLE_GAMES = ROOT / "table-games"
 REPLAYS = ROOT / "site" / "public" / "replays"
@@ -352,15 +351,6 @@ def public_game(game: dict) -> dict:
     return cleaned
 
 
-def render(game: dict) -> str:
-    payload = json.dumps(public_game(game), ensure_ascii=False)
-    payload = payload.replace("<", "\\u003c")
-    template = TEMPLATE.read_text(encoding="utf-8")
-    if "__GAME_JSON__" not in template:
-        raise ValueError(f"missing __GAME_JSON__ placeholder in {TEMPLATE}")
-    return template.replace("__GAME_JSON__", payload)
-
-
 def replay_paths(explicit: list[Path]) -> list[Path]:
     if explicit:
         resolved = []
@@ -381,10 +371,14 @@ def replay_paths(explicit: list[Path]) -> list[Path]:
 
 def render_file(log: Path, out: Path | None) -> Path:
     game = json.loads(log.read_text(encoding="utf-8"))
-    html = render(game)
-    target = out or REPLAYS / f"{log.stem}.html"
+    payload = json.dumps(
+        public_game(game),
+        ensure_ascii=False,
+        separators=(",", ":"),
+    )
+    target = out or REPLAYS / f"{log.stem}.json"
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(html, encoding="utf-8")
+    target.write_text(payload, encoding="utf-8")
     try:
         return target.relative_to(ROOT)
     except ValueError:
@@ -394,8 +388,8 @@ def render_file(log: Path, out: Path | None) -> Path:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Validate replay JSON and write site/public/replays/<slug>.html with "
-            "the current viewer. With no paths, rebuild every finished "
+            "Validate replay JSON and write site/public/replays/<slug>.json for "
+            "the React player. With no paths, rebuild every finished "
             "table-games/*.json file."
         )
     )
@@ -409,7 +403,7 @@ def parse_args() -> argparse.Namespace:
         "--out",
         type=Path,
         help=(
-            "HTML path. Default site/public/replays/<slug>.html; "
+            "JSON path. Default site/public/replays/<slug>.json; "
             "only valid for a single replay."
         ),
     )

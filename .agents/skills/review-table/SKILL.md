@@ -14,7 +14,8 @@ description: >-
 Read recorded `simulate-table` replays and say what went wrong. This skill
 does not play a new game and does not edit a 99. Findings are a diagnosis.
 Follow `simulate-table` only when the user wants another match; follow
-`render-table-replay` only when they want the HTML viewer.
+`render-table-replay` only when they want the game published to the React
+player.
 
 Two modes. Pick one from the request; if both are in scope, run them as
 separate reports.

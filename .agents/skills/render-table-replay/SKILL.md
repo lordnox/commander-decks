@@ -1,10 +1,10 @@
 ---
 name: render-table-replay
 description: >-
-  Validate a simulate-table replay JSON file and render it as a self-contained,
-  step-through HTML Commander table. Use when the user asks to view, watch,
-  visualize, render, or open a recorded table game. This skill does not play or
-  reinterpret the game.
+  Validate a simulate-table replay JSON file and publish sanitized data for the
+  React step-through Commander table. Use when the user asks to view, watch,
+  visualize, render, or open a recorded table game. This skill does not play
+  or reinterpret the game.
 ---
 
 # Render Table Replay
@@ -12,17 +12,17 @@ description: >-
 Transform an existing replay file without changing its game decisions:
 
 ```text
-simulate-table → replay JSON → render-table-replay → HTML
+simulate-table → replay JSON → validation/public JSON → React player
 ```
 
-The JSON remains the source of truth. The HTML viewer must not repair illegal
-plays, reorder events, infer missing draws, or continue a truncated game.
+The recorded JSON remains the source of truth. The React player must not repair
+illegal plays, reorder events, infer missing draws, or continue a truncated game.
 Judging those decisions belongs to `review-table`.
 
 ## 1. Validate the input
 
-Read `.agents/skills/simulate-table/schema.md`, then rebuild HTML from the
-current viewer template:
+Read `.agents/skills/simulate-table/schema.md`, then validate and publish the
+public replay payload:
 
 ```bash
 bun run table:render
@@ -30,8 +30,8 @@ bun run table:render -- table-games/<slug>.json
 ```
 
 No arguments rewrites every finished `table-games/*.json` file (not
-`*.working.json`) as `site/public/replays/<slug>.html`. That is the command
-after viewer or template changes. A single path still accepts `--out`.
+`*.working.json`) as `site/public/replays/<slug>.json`. That is the command
+after player or schema changes. A single path still accepts `--out`.
 
 The renderer rejects:
 
@@ -52,7 +52,7 @@ The renderer rejects:
 - malformed rows in `references`;
 - a `revealed_top` list longer than that seat's `library_count`.
 
-It trims unused catalog entries before embedding JSON in the HTML, and fills in
+It trims unused catalog entries before publishing JSON, and fills in
 missing per-side `faces` art from the `cards/` cache so replays recorded before
 that field still show the correct side of a double-faced card. A battlefield
 token recorded without a `token_id` also gets one: the renderer matches its name
@@ -62,7 +62,7 @@ an empty frame.
 
 ## 2. Check the viewer
 
-Open the HTML when browser tools are available and verify:
+Open the React route `?game=<slug>` when browser tools are available and verify:
 
 1. header and transport controls remain visible while the page scrolls;
 2. Previous, Play/Pause, Next, slider, arrow keys, `j`, `k`, and space work;
@@ -85,16 +85,17 @@ Open the HTML when browser tools are available and verify:
     counting `+1/+1` counters and any recorded `pt`; a printed body alone does
     not qualify, so an uncrewed Vehicle and a Spacecraft below its station
     threshold show none;
-11. counters and `note` segments show as chips on the card, and hovering it
-    lists them in full under the large image;
+11. counters and status show on the card, and selecting it opens the inspector
+    with Oracle text, counters, notes, and its Scryfall link;
 12. narrow layouts remain usable with the fixed controls and collapsed log.
 
-Do not dump HTML source into chat.
+Do not dump replay JSON into chat.
 
 ## 3. Build and report
 
-The React index lives under `site/`. Replay HTML and compact index metadata are
-generated into `site/public/`, which Vite copies into `dist/`:
+The React index and player live under `site/`. Sanitized replay payloads and
+compact index metadata are generated into `site/public/`, which Vite copies
+into `dist/`:
 
 ```bash
 bun run site:prepare
@@ -104,12 +105,12 @@ bun run build
 `site:prepare` runs `table:render` and then `table:pages`.
 `build_pages.py` regenerates `site/public/games.json` from the replay JSON, so
 a new game appears in the React index without hand-editing it. It warns about a
-`site/public/replays/*.html` whose JSON is gone instead of deleting it; remove
+`site/public/replays/*.json` whose source log is gone instead of deleting it; remove
 that file yourself once the game is really retired.
 
 Replay logs stay scratch (`table-games/*.json` is gitignored). To keep a game,
 `git add -f` its JSON and add a short `table-games/<slug>.md` recap. Generated
-HTML, metadata, and `dist/` remain ignored; GitHub Actions rebuilds them from
+public JSON, metadata, and `dist/` remain ignored; GitHub Actions rebuilds them from
 the committed JSON.
 
 GitHub Pages must use **GitHub Actions** as its source. The workflow typechecks
@@ -117,8 +118,8 @@ and builds the Vite app, then deploys `dist/`. Pages must also be enabled for
 the repository (public, or a plan that includes private Pages); the index is
 then `https://lordnox.github.io/commander-decks/`.
 
-Return the generated HTML path:
+Return the React URL:
 
 ```text
-site/public/replays/<slug>.html
+https://lordnox.github.io/commander-decks/?game=<slug>
 ```

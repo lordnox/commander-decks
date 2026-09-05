@@ -47,3 +47,23 @@ body {
   background: #e6d27a;
   color: #071410;
 }
+
+* {
+  scrollbar-color: rgb(115 180 159 / 45%) transparent;
+  scrollbar-width: thin;
+}
+
+button,
+a,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #e6d27a;
+  outline-offset: 2px;
+}

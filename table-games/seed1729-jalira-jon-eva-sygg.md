@@ -1,7 +1,7 @@
 # The Polyfisher vs Unwanted Presents vs Foggy Blood Transfusion vs Thousand Cuts — seed 1729
 
 Four-player Bracket 2+ game recorded with `simulate-table`. Turn order is
-clockwise from p1. The renderer also wrote a companion HTML file.
+clockwise from p1. The React player reads its validated public replay data.
 
 **Result:** truncated at turn 12. [The Polyfisher](../decks/2+_jalira-the-polyfisher/README.md)
 leads after [Ancient Stone Idol](https://scryfall.com/card/mkc/222/ancient-stone-idol)
@@ -66,8 +66,7 @@ The horizon stops with Jalira ahead and no lethal on the remaining seats.
 
 ## Watch it
 
-[Watch on GitHub Pages](https://lordnox.github.io/commander-decks/seed1729-jalira-jon-eva-sygg.html).
-The HTML is also self-contained if you open it locally.
+[Watch on GitHub Pages](https://lordnox.github.io/commander-decks/?game=seed1729-jalira-jon-eva-sygg).
 
 ```bash
 bun run table:render -- table-games/seed1729-jalira-jon-eva-sygg.json

@@ -63,14 +63,12 @@ because Eye is an enchantment rather than a creature.
 
 ## Watch it
 
-[Watch on GitHub Pages](https://lordnox.github.io/commander-decks/seed1729-sygg-doctor-osgir-bartolome.html).
-The generated `../site/public/replays/seed1729-sygg-doctor-osgir-bartolome.html`
-is also self-contained: open it in a browser for the felt table, life totals,
-the current event in the centre, the
-stack, a 101-step slider, fixed transport controls, a collapsible event log,
-and card art on hover. From turn 4 the Borrowed Time seat also shows a Top of
-library zone, because [Fblthp, Lost on the Range](https://scryfall.com/card/otj/183/fblthp-lost-on-the-range)
-makes that card public.
+[Watch on GitHub Pages](https://lordnox.github.io/commander-decks/?game=seed1729-sygg-doctor-osgir-bartolome).
+The React player shows the table, life totals, current event, stack, timeline,
+fixed transport controls, and a card inspector. From turn 4 the Borrowed Time
+seat also shows a Top of library zone, because [Fblthp, Lost on the
+Range](https://scryfall.com/card/otj/183/fblthp-lost-on-the-range) makes that
+card public.
 
 Regenerate it from the log with:
 
