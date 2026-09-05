@@ -5,7 +5,13 @@ import {
   useState,
   type CSSProperties,
 } from 'react'
-import { cardInfo, currentStats, resolveName } from './cards'
+import {
+  battlefieldRow,
+  cardInfo,
+  currentStats,
+  resolveName,
+  type BattlefieldRow,
+} from './cards'
 import { combatLines } from './combat'
 import type {
   BattlefieldCard,
@@ -176,6 +182,52 @@ const CardTile = ({
   )
 }
 
+const ZoneHeading = ({ label, count }: { label: string; count: number }) => (
+  <div className="mb-2 flex items-center gap-2">
+    <h4 className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-stone-400">
+      {label}
+    </h4>
+    <span className="rounded-full bg-white/5 px-1.5 text-[0.62rem] text-stone-500">
+      {count}
+    </span>
+  </div>
+)
+
+const CardRow = ({
+  game,
+  cards,
+  compact,
+  action,
+  onPreview,
+  onHover,
+}: {
+  game: ReplayGame
+  cards: Array<string | number | BattlefieldCard>
+  compact?: boolean
+  action: Set<string>
+  onPreview: (preview: Preview) => void
+  onHover: HoverHandler
+}) => (
+  <div className="flex flex-wrap gap-2 pb-1">
+    {cards.map((card, index) => {
+      const entry = typeof card === 'object' ? card : undefined
+      const value = entry?.name ?? (card as string | number)
+      return (
+        <CardTile
+          key={`${String(value)}-${index}`}
+          game={game}
+          value={value}
+          entry={entry}
+          compact={compact}
+          active={action.has(resolveName(game, value))}
+          onPreview={onPreview}
+          onHover={onHover}
+        />
+      )
+    })}
+  </div>
+)
+
 const Zone = ({
   game,
   label,
@@ -197,29 +249,70 @@ const Zone = ({
 
   return (
     <section className="mt-4">
-      <div className="mb-2 flex items-center gap-2">
-        <h4 className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-stone-400">
-          {label}
-        </h4>
-        <span className="rounded-full bg-white/5 px-1.5 text-[0.62rem] text-stone-500">
-          {cards.length}
-        </span>
-      </div>
-      <div className="flex flex-wrap gap-2 pb-1">
-        {cards.map((card, index) => {
-          const entry = typeof card === 'object' ? card : undefined
-          const value = entry?.name ?? (card as string | number)
+      <ZoneHeading label={label} count={cards.length} />
+      <CardRow
+        game={game}
+        cards={cards}
+        compact={compact}
+        action={action}
+        onPreview={onPreview}
+        onHover={onHover}
+      />
+    </section>
+  )
+}
+
+const boardRows: Array<{ id: BattlefieldRow; label: string }> = [
+  { id: 'creatures', label: 'Creatures & vehicles' },
+  { id: 'permanents', label: 'Artifacts & enchantments' },
+  { id: 'planeswalkers', label: 'Planeswalkers & battles' },
+  { id: 'mana', label: 'Lands & mana' },
+  { id: 'other', label: 'Other permanents' },
+]
+
+const Battlefield = ({
+  game,
+  cards,
+  action,
+  onPreview,
+  onHover,
+}: {
+  game: ReplayGame
+  cards: BattlefieldCard[]
+  action: Set<string>
+  onPreview: (preview: Preview) => void
+  onHover: HoverHandler
+}) => {
+  if (cards.length === 0) return null
+
+  const rows = new Map<BattlefieldRow, BattlefieldCard[]>()
+  for (const entry of cards) {
+    const { details } = cardInfo(game, entry.name, entry)
+    const row = battlefieldRow(details, entry)
+    rows.set(row, [...(rows.get(row) ?? []), entry])
+  }
+
+  return (
+    <section className="mt-4">
+      <ZoneHeading label="Battlefield" count={cards.length} />
+      <div className="space-y-2">
+        {boardRows.map(({ id, label }) => {
+          const row = rows.get(id)
+          if (!row) return null
           return (
-            <CardTile
-              key={`${String(value)}-${index}`}
-              game={game}
-              value={value}
-              entry={entry}
-              compact={compact}
-              active={action.has(resolveName(game, value))}
-              onPreview={onPreview}
-              onHover={onHover}
-            />
+            <div key={id}>
+              <p className="mb-1 text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-stone-600">
+                {label}
+              </p>
+              <CardRow
+                game={game}
+                cards={row}
+                compact={id === 'mana'}
+                action={action}
+                onPreview={onPreview}
+                onHover={onHover}
+              />
+            </div>
           )
         })}
       </div>
@@ -316,9 +409,8 @@ const SeatPanel = ({
         onPreview={onPreview}
         onHover={onHover}
       />
-      <Zone
+      <Battlefield
         game={game}
-        label="Battlefield"
         cards={state.battlefield}
         action={action}
         onPreview={onPreview}
