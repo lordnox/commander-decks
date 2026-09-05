@@ -57,8 +57,8 @@ hits with Sin at 40, Osgir at 37, Hazel at 15.
 
 ## Watch it
 
-[Watch on GitHub Pages](https://lordnox.github.io/commander-decks/seed1729-homer-sin-osgir-hazel.html).
-The HTML is also self-contained if you open it locally.
+[Watch on GitHub Pages](https://lordnox.github.io/commander-decks/?game=seed1729-homer-sin-osgir-hazel).
+The React player reads the validated public replay data.
 
 Regenerate it from the log with:
 

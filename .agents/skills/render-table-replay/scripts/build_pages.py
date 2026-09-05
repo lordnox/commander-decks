@@ -56,9 +56,9 @@ def main() -> int:
         return 1
 
     missing = [
-        REPLAYS / f"{log.stem}.html"
+        REPLAYS / f"{log.stem}.json"
         for log in logs
-        if not (REPLAYS / f"{log.stem}.html").is_file()
+        if not (REPLAYS / f"{log.stem}.json").is_file()
     ]
     if missing:
         for replay in missing:
@@ -70,7 +70,7 @@ def main() -> int:
         return 1
 
     slugs = {log.stem for log in logs}
-    for stale in sorted(REPLAYS.glob("*.html")):
+    for stale in sorted(REPLAYS.glob("*.json")):
         if stale.stem not in slugs:
             print(
                 f"WARNING: {stale.relative_to(ROOT)} has no replay JSON",
