@@ -64,7 +64,7 @@ because Eye is an enchantment rather than a creature.
 ## Watch it
 
 [Watch on GitHub Pages](https://lordnox.github.io/commander-decks/seed1729-sygg-doctor-osgir-bartolome.html).
-`seed1729-sygg-doctor-osgir-bartolome.html` is also self-contained: open it in a
+`../pages/seed1729-sygg-doctor-osgir-bartolome.html` is also self-contained: open it in a
 browser for the felt table, life totals, the current event in the centre, the
 stack, a 101-step slider, fixed transport controls, a collapsible event log,
 and card art on hover. From turn 4 the Borrowed Time seat also shows a Top of
