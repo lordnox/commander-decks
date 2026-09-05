@@ -310,12 +310,28 @@ const statLine = (cache: Json) => {
     .join(" // ")
 }
 
+/** One entry per side of a card that prints its faces on separate images. */
+export const cardFaces = (cache: Json) => {
+  const faces = (cache.card_faces ?? []).filter((face: Json) => face.image_uris?.small)
+  if (faces.length < 2) return undefined
+  return faces.map((face: Json) => ({
+    name: face.name || "",
+    image_small: face.image_uris.small || "",
+    image_normal: face.image_uris.normal || face.image_uris.small || "",
+    type_line: face.type_line || "",
+    mana_cost: face.mana_cost || "",
+    oracle_text: face.oracle_text || "",
+    stats: face.power != null ? `${face.power}/${face.toughness}` : "",
+  }))
+}
+
 const catalogEntry = async (entry: Json, repo: string) => {
   const card = entry.card ?? {}
   const cache = typeof entry.cache === "string"
     ? await readJson(join(repo, entry.cache)).catch(() => ({}))
     : {}
   const uris = imageUris(cache)
+  const faces = cardFaces(cache)
   return {
     scryfall_uri: cache.scryfall_uri || entry.scryfall_uri || "",
     image_small: uris.small || "",
@@ -324,6 +340,7 @@ const catalogEntry = async (entry: Json, repo: string) => {
     mana_cost: cache.mana_cost || card.mana_cost || joinedFaces(cache, "mana_cost"),
     oracle_text: cache.oracle_text || card.oracle_text || joinedFaces(cache, "oracle_text"),
     stats: statLine(cache),
+    ...(faces ? { faces } : {}),
   }
 }
 

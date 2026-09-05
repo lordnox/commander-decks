@@ -16,7 +16,7 @@ does not apply Magic rules.
 | `horizon` | Optional `{throughTurn, extraTurns, fromTurn}` — stop after this turn unless someone wins sooner |
 | `seats` | Four objects, `id` `p1`–`p4` |
 | `references` | Mixed array of players, cards, and deals; index is the ID |
-| `catalog` | Map of card name → `{scryfall_uri, image_small, image_normal, type_line, mana_cost, oracle_text, stats}` |
+| `catalog` | Map of card name → `{scryfall_uri, image_small, image_normal, type_line, mana_cost, oracle_text, stats}`, plus `faces` on cards printed with one image per side |
 | `tokens` | Map of exact Scryfall token printing ID → compact token details and images |
 | `token_sources` | Map of seat → source card name → exact token printing IDs |
 | `events` | Ordered list; index `0` is the opening snapshot |
@@ -112,7 +112,7 @@ land that follows it.
 Split and modal cards are one catalog key using the full `A // B` name, with
 faces joined by ` // ` in `type_line` and `oracle_text`. Refer to them by that
 full name in `hand`, `battlefield`, and `cards`, and say which face is in play
-using the battlefield entry's `note`.
+using the battlefield entry's `face` (see [Faces](#faces)).
 
 ## State
 
@@ -155,7 +155,7 @@ using the battlefield entry's `note`.
 ```
 
 Battlefield entries may omit `token`, `token_id`, `commander`, `counters`,
-and `note`.
+`note`, and `face`.
 Do **not** put remaining library names in `state`.
 
 ### Decisions
@@ -251,8 +251,46 @@ Each segment becomes its own chip. Goad, attachment (`enchanting`, `equipping`,
 `attached`), copy, haste, and the monarch get their own icon; any other segment
 gets a neutral dot. Hovering the card lists every segment in full, so write the
 segment for a reader rather than as a code: `enchanting Sun Titan`, not
-`aura:st`. Also use `note` to say which face of a split, modal, or transformed
-card is in play.
+`aura:st`.
+
+### Faces
+
+A card whose sides are printed as separate images — modal double-faced,
+transforming, or a double-faced token — carries a `faces` list in its catalog
+entry, front side first:
+
+```json
+"faces": [
+  {
+    "name": "Malakir Rebirth",
+    "image_small": "https://cards.scryfall.io/small/front/…jpg",
+    "image_normal": "https://cards.scryfall.io/normal/front/…jpg",
+    "type_line": "Instant",
+    "mana_cost": "{B}",
+    "oracle_text": "…",
+    "stats": ""
+  },
+  { "name": "Malakir Mire", "type_line": "Land", "…": "…" }
+]
+```
+
+`deal-table.ts` writes it from the cached Scryfall object, and the renderer
+backfills it from `cards/` for replays recorded before the field existed. Cards
+printed as one image — split, adventure, Room — have no `faces`.
+
+Name the side in play with the battlefield entry's `face`, using the face name,
+`front`, `back`, or the index:
+
+```json
+{"name": "Malakir Rebirth // Malakir Mire", "face": "Malakir Mire", "tapped": false}
+```
+
+The viewer then draws that side's art, name, and printed power and toughness,
+so a transformed creature shows its back-side stats without a `pt`. When `face`
+is absent it falls back to the side named in `note` (including `transformed`),
+and then to the only side that can be a permanent, which covers an MDFC land
+half. Hand, graveyard, exile, command, and `revealed_top` always show the front
+side.
 
 ### Tokens
 
@@ -276,6 +314,10 @@ The ID chooses the image and Oracle characteristics. This matters when several
 tokens share a name but differ in color, stats, abilities, or art. Tokens
 copied from another permanent may omit `token_id` when there is no printed
 token matching the copied object.
+
+A double-faced token printing holds two different tokens under one ID, so its
+entry carries `faces` and the battlefield entry needs `face` to say which one
+is on the table.
 
 ### Revealed top of library
 

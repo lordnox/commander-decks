@@ -7,10 +7,86 @@ import argparse
 import json
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 TEMPLATE = Path(__file__).with_name("replay.html")
 PT = re.compile(r"^[^/\s]+/[^/\s]+$")
+
+
+def normalized_name(name: str) -> str:
+    value = unicodedata.normalize("NFKD", name).casefold()
+    return " ".join(value.split())
+
+
+def cache_root() -> Path | None:
+    for base in Path(__file__).resolve().parents:
+        if (base / "cards" / "index.json").is_file():
+            return base
+    return None
+
+
+def cached_faces(cache: dict) -> list[dict] | None:
+    faces = [
+        face for face in cache.get("card_faces") or []
+        if (face.get("image_uris") or {}).get("small")
+    ]
+    if len(faces) < 2:
+        return None
+    return [
+        {
+            "name": face.get("name") or "",
+            "image_small": face["image_uris"].get("small") or "",
+            "image_normal": face["image_uris"].get("normal")
+            or face["image_uris"].get("small") or "",
+            "type_line": face.get("type_line") or "",
+            "mana_cost": face.get("mana_cost") or "",
+            "oracle_text": face.get("oracle_text") or "",
+            "stats": f"{face['power']}/{face['toughness']}" if face.get("power") is not None else "",
+        }
+        for face in faces
+    ]
+
+
+def backfill_faces(catalog: dict) -> None:
+    """Give pre-`faces` replays the per-side art the viewer needs."""
+    wanted = [
+        name for name, entry in catalog.items()
+        if isinstance(entry, dict) and not entry.get("faces") and " // " in name
+    ]
+    root = cache_root()
+    if not wanted or root is None:
+        return
+    try:
+        index = json.loads((root / "cards" / "index.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return
+    aliases = {
+        normalized_name(alias): oracle_id
+        for alias, oracle_id in (index.get("names") or {}).items()
+    }
+    for name in wanted:
+        oracle_id = aliases.get(normalized_name(name))
+        if not oracle_id:
+            continue
+        try:
+            cache = json.loads((root / "cards" / f"{oracle_id}.json").read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        faces = cached_faces(cache)
+        if faces:
+            catalog[name]["faces"] = faces
+
+
+def resolve_name(value: object, rows: list[dict]) -> str:
+    if isinstance(value, bool) or not isinstance(value, (int, str)):
+        return str(value)
+    row = None
+    if isinstance(value, int) and 0 <= value < len(rows):
+        row = rows[value]
+    if isinstance(row, dict) and row.get("kind") in {"card", "player"} and row.get("name"):
+        return row["name"]
+    return str(value)
 
 
 def referenced_cards(events: list[dict], references: list[dict] | None = None) -> tuple[set[str], set[str], set[str]]:
@@ -20,14 +96,7 @@ def referenced_cards(events: list[dict], references: list[dict] | None = None) -
     rows = references or []
 
     def resolve(value: object) -> str:
-        if isinstance(value, bool) or not isinstance(value, (int, str)):
-            return str(value)
-        row = None
-        if isinstance(value, int) and 0 <= value < len(rows):
-            row = rows[value]
-        if isinstance(row, dict) and row.get("kind") in {"card", "player"} and row.get("name"):
-            return row["name"]
-        return str(value)
+        return resolve_name(value, rows)
 
     for event in events:
         names.update(resolve(name) for name in event.get("cards") or [])
@@ -52,6 +121,39 @@ def referenced_cards(events: list[dict], references: list[dict] | None = None) -
                     if entry.get("token_id"):
                         token_ids.add(entry["token_id"])
     return names, token_names, token_ids
+
+
+def validate_faces(events: list[dict], catalog: dict, tokens: dict, rows: list[dict]) -> None:
+    for event in events:
+        players = (event.get("state") or {}).get("players") or {}
+        for player in players.values():
+            if not isinstance(player, dict):
+                continue
+            for entry in player.get("battlefield") or []:
+                if not isinstance(entry, dict) or entry.get("face") in (None, ""):
+                    continue
+                face = entry["face"]
+                name = resolve_name(entry.get("name"), rows)
+                if isinstance(face, bool) or not isinstance(face, (int, str)):
+                    raise ValueError(
+                        f"event {event['id']}: {name} face must be a face name or index"
+                    )
+                source = tokens.get(entry.get("token_id")) or catalog.get(name) or {}
+                faces = source.get("faces") or []
+                if not faces:
+                    continue
+                if isinstance(face, int):
+                    if not 0 <= face < len(faces):
+                        raise ValueError(
+                            f"event {event['id']}: {name} has no face {face}"
+                        )
+                    continue
+                known = {normalized_name(item.get("name") or "") for item in faces}
+                known.update({"front", "back"})
+                if normalized_name(face) not in known:
+                    raise ValueError(
+                        f"event {event['id']}: {name} has no face {face!r}"
+                    )
 
 
 def validate_turn_draws(events: list[dict]) -> None:
@@ -161,8 +263,10 @@ def public_game(game: dict) -> dict:
     if missing:
         raise ValueError(f"catalog is missing referenced cards: {', '.join(missing)}")
     cleaned["catalog"] = {
-        name: entry for name, entry in catalog.items() if name in names
+        name: dict(entry) if isinstance(entry, dict) else entry
+        for name, entry in catalog.items() if name in names
     }
+    backfill_faces(cleaned["catalog"])
     tokens = cleaned.get("tokens") or {}
     missing_tokens = sorted(token_ids - set(tokens))
     if missing_tokens:
@@ -173,6 +277,12 @@ def public_game(game: dict) -> dict:
         token_id: entry for token_id, entry in tokens.items()
         if token_id in token_ids
     }
+    validate_faces(
+        events,
+        cleaned["catalog"],
+        cleaned["tokens"],
+        references if isinstance(references, list) else [],
+    )
     return cleaned
 
 

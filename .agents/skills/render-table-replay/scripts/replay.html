@@ -424,6 +424,53 @@
       return (row && row.kind === "deal" && row.terms) || ""
     }
 
+    const PERMANENT_TYPE = /\b(Artifact|Battle|Creature|Enchantment|Land|Planeswalker)\b/
+    const BACK_NOTE = /\b(transformed|transforms|back face|back side|night side|flip side|flipped)\b/i
+    const FRONT_NOTE = /\bfront (face|side)\b/i
+
+    const faceFromNote = (note, faces) => {
+      const text = String(note || "").toLowerCase()
+      if (!text) return -1
+      let pick = -1
+      let longest = 0
+      faces.forEach((face, i) => {
+        const name = String(face.name || "").toLowerCase()
+        if (name && name.length > longest && text.includes(name)) {
+          pick = i
+          longest = name.length
+        }
+      })
+      if (pick >= 0) return pick
+      if (BACK_NOTE.test(text)) return faces.length - 1
+      if (FRONT_NOTE.test(text)) return 0
+      return -1
+    }
+
+    /**
+     * Which printed side of a double-faced card the snapshot shows: the `face`
+     * field when set, otherwise the side its `note` names, otherwise the only
+     * side that can be a permanent.
+     */
+    const faceInPlay = (entry, info, inPlay) => {
+      const faces = info.faces
+      if (!Array.isArray(faces) || faces.length < 2) return null
+      let pick = -1
+      if (typeof entry.face === "number") pick = entry.face
+      if (typeof entry.face === "string" && entry.face) {
+        pick = /^front$/i.test(entry.face)
+          ? 0
+          : /^back$/i.test(entry.face)
+            ? faces.length - 1
+            : faces.findIndex((face) =>
+                String(face.name || "").toLowerCase() === entry.face.trim().toLowerCase())
+      }
+      if (pick < 0 && inPlay) pick = faceFromNote(entry.note, faces)
+      if (pick < 0 && inPlay && !PERMANENT_TYPE.test(faces[0].type_line || "")) {
+        pick = faces.findIndex((face) => PERMANENT_TYPE.test(face.type_line || ""))
+      }
+      return faces[pick] || null
+    }
+
     const printedPT = (info) => {
       if (info.power != null && info.toughness != null) {
         return [String(info.power), String(info.toughness)]
@@ -492,15 +539,18 @@
     }
 
     const cardHtml = (name, extra = {}, inPlay = false) => {
-      const printed = label(name)
-      const info = (extra.token_id ? tokens[extra.token_id] : catalog[printed] || catalog[name]) || {}
-      const src = info.image_small || ""
+      const full = label(name)
+      const info = (extra.token_id ? tokens[extra.token_id] : catalog[full] || catalog[name]) || {}
+      const face = faceInPlay(extra, info, inPlay)
+      const view = face || info
+      const printed = face?.name || full
+      const src = view.image_small || ""
       const href = info.scryfall_uri || "#"
       const classes = `${extra.tapped ? " tapped" : ""}${extra.token ? " token" : ""}`
       const image = src
         ? `<img src="${esc(src)}" alt="${esc(printed)}">`
         : `<span style="display:block;padding:1.2rem .2rem;text-align:center;font-size:10px">${esc(printed)}</span>`
-      const stats = inPlay ? currentPT(extra, info) : null
+      const stats = inPlay ? currentPT(extra, view) : null
       const badge = stats
         ? `<span class="pt${stats.modified ? " modified" : ""}">${esc(stats.text)}</span>`
         : ""
@@ -513,7 +563,8 @@
       const detail = marks.length
         ? ` data-detail="${details.push({ name: printed, stats, entry: extra, notes }) - 1}"`
         : ""
-      return `<a class="card${classes}" href="${esc(href)}" target="_blank" rel="noreferrer" title="${esc(printed)}" data-preview="${esc(info.image_normal || src)}"${detail}>${image}${badge}${chips}</a>`
+      const title = face && face.name !== full ? `${printed} (${full})` : printed
+      return `<a class="card${classes}" href="${esc(href)}" target="_blank" rel="noreferrer" title="${esc(title)}" data-preview="${esc(view.image_normal || src)}"${detail}>${image}${badge}${chips}</a>`
     }
 
     const zone = (title, entries, extra = "", inPlay = false) => {

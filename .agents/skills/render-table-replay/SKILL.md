@@ -44,10 +44,13 @@ The renderer rejects:
 - token IDs referenced by battlefield entries but absent from the token
   catalog;
 - a battlefield `pt` that is not `power/toughness`;
+- a battlefield `face` that the card does not have;
 - malformed rows in `references`;
 - a `revealed_top` list longer than that seat's `library_count`.
 
-It trims unused catalog entries before embedding JSON in the HTML.
+It trims unused catalog entries before embedding JSON in the HTML, and fills in
+missing per-side `faces` art from the `cards/` cache so replays recorded before
+that field still show the correct side of a double-faced card.
 
 ## 2. Check the viewer
 
@@ -66,11 +69,14 @@ Open the HTML when browser tools are available and verify:
 7. a seat with `revealed_top` shows a Top of library zone above its
    battlefield;
 8. battlefield tokens with `token_id` show the exact art named by that ID;
-9. creatures in play show current power and toughness in the card corner,
-   counting `+1/+1` counters and any recorded `pt`;
-10. counters and `note` segments show as chips on the card, and hovering it
+9. a double-faced permanent shows the side in play — the land half of an MDFC,
+   the back of a transformed creature — while hand and graveyard copies stay on
+   the front;
+10. creatures in play show current power and toughness in the card corner,
+    counting `+1/+1` counters and any recorded `pt`;
+11. counters and `note` segments show as chips on the card, and hovering it
     lists them in full under the large image;
-11. narrow layouts remain usable with the fixed controls and collapsed log.
+12. narrow layouts remain usable with the fixed controls and collapsed log.
 
 Do not dump HTML source into chat.
 

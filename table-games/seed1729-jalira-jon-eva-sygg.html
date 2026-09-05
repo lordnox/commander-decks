@@ -195,6 +195,16 @@
     }
     .now-text { margin: 0; color: #f0d9a8; font-size: 1rem; font-weight: 600; }
     .now-note { margin: 0.35rem 0 0; color: var(--muted); font-size: 12px; }
+    .now-think { margin: 0.35rem 0 0; color: #c9e4d4; font-size: 12px; }
+    .deals-panel {
+      padding: 0.45rem 0.6rem;
+      border: 1px dashed #7aa89a88;
+      border-radius: 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .deals-panel h3 { margin: 0 0 0.25rem; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .deals-panel p { margin: 0.2rem 0 0; }
     .stack-panel {
       min-height: 72px;
       padding: 0.5rem;
@@ -366,6 +376,7 @@
     const events = GAME.events || []
     const catalog = GAME.catalog || {}
     const tokens = GAME.tokens || {}
+    const refs = GAME.references || []
     let index = 0
     let timer = null
     let details = []
@@ -394,6 +405,71 @@
       .replace(/&/g, "&amp;")
       .replace(/"/g, "&quot;")
       .replace(/</g, "&lt;")
+
+    const rowAt = (value) => {
+      if (typeof value === "number") return refs[value]
+      if (typeof value === "string" && /^\d+$/.test(value)) return refs[Number(value)]
+      return undefined
+    }
+
+    const label = (value) => {
+      const row = rowAt(value)
+      if (!row) return value
+      if (row.kind === "card" || row.kind === "player") return row.name || value
+      return value
+    }
+
+    const dealTerms = (id) => {
+      const row = rowAt(id)
+      return (row && row.kind === "deal" && row.terms) || ""
+    }
+
+    const PERMANENT_TYPE = /\b(Artifact|Battle|Creature|Enchantment|Land|Planeswalker)\b/
+    const BACK_NOTE = /\b(transformed|transforms|back face|back side|night side|flip side|flipped)\b/i
+    const FRONT_NOTE = /\bfront (face|side)\b/i
+
+    const faceFromNote = (note, faces) => {
+      const text = String(note || "").toLowerCase()
+      if (!text) return -1
+      let pick = -1
+      let longest = 0
+      faces.forEach((face, i) => {
+        const name = String(face.name || "").toLowerCase()
+        if (name && name.length > longest && text.includes(name)) {
+          pick = i
+          longest = name.length
+        }
+      })
+      if (pick >= 0) return pick
+      if (BACK_NOTE.test(text)) return faces.length - 1
+      if (FRONT_NOTE.test(text)) return 0
+      return -1
+    }
+
+    /**
+     * Which printed side of a double-faced card the snapshot shows: the `face`
+     * field when set, otherwise the side its `note` names, otherwise the only
+     * side that can be a permanent.
+     */
+    const faceInPlay = (entry, info, inPlay) => {
+      const faces = info.faces
+      if (!Array.isArray(faces) || faces.length < 2) return null
+      let pick = -1
+      if (typeof entry.face === "number") pick = entry.face
+      if (typeof entry.face === "string" && entry.face) {
+        pick = /^front$/i.test(entry.face)
+          ? 0
+          : /^back$/i.test(entry.face)
+            ? faces.length - 1
+            : faces.findIndex((face) =>
+                String(face.name || "").toLowerCase() === entry.face.trim().toLowerCase())
+      }
+      if (pick < 0 && inPlay) pick = faceFromNote(entry.note, faces)
+      if (pick < 0 && inPlay && !PERMANENT_TYPE.test(faces[0].type_line || "")) {
+        pick = faces.findIndex((face) => PERMANENT_TYPE.test(face.type_line || ""))
+      }
+      return faces[pick] || null
+    }
 
     const printedPT = (info) => {
       if (info.power != null && info.toughness != null) {
@@ -463,14 +539,18 @@
     }
 
     const cardHtml = (name, extra = {}, inPlay = false) => {
-      const info = (extra.token_id ? tokens[extra.token_id] : catalog[name]) || {}
-      const src = info.image_small || ""
+      const full = label(name)
+      const info = (extra.token_id ? tokens[extra.token_id] : catalog[full] || catalog[name]) || {}
+      const face = faceInPlay(extra, info, inPlay)
+      const view = face || info
+      const printed = face?.name || full
+      const src = view.image_small || ""
       const href = info.scryfall_uri || "#"
       const classes = `${extra.tapped ? " tapped" : ""}${extra.token ? " token" : ""}`
       const image = src
-        ? `<img src="${esc(src)}" alt="${esc(name)}">`
-        : `<span style="display:block;padding:1.2rem .2rem;text-align:center;font-size:10px">${esc(name)}</span>`
-      const stats = inPlay ? currentPT(extra, info) : null
+        ? `<img src="${esc(src)}" alt="${esc(printed)}">`
+        : `<span style="display:block;padding:1.2rem .2rem;text-align:center;font-size:10px">${esc(printed)}</span>`
+      const stats = inPlay ? currentPT(extra, view) : null
       const badge = stats
         ? `<span class="pt${stats.modified ? " modified" : ""}">${esc(stats.text)}</span>`
         : ""
@@ -481,9 +561,10 @@
           ).join("")}</span>`
         : ""
       const detail = marks.length
-        ? ` data-detail="${details.push({ name, stats, entry: extra, notes }) - 1}"`
+        ? ` data-detail="${details.push({ name: printed, stats, entry: extra, notes }) - 1}"`
         : ""
-      return `<a class="card${classes}" href="${esc(href)}" target="_blank" rel="noreferrer" title="${esc(name)}" data-preview="${esc(info.image_normal || src)}"${detail}>${image}${badge}${chips}</a>`
+      const title = face && face.name !== full ? `${printed} (${full})` : printed
+      return `<a class="card${classes}" href="${esc(href)}" target="_blank" rel="noreferrer" title="${esc(title)}" data-preview="${esc(view.image_normal || src)}"${detail}>${image}${badge}${chips}</a>`
     }
 
     const zone = (title, entries, extra = "", inPlay = false) => {
@@ -522,10 +603,28 @@
       }
       const state = event.state || { players: {}, stack: [] }
       const stack = (state.stack || []).length
-        ? state.stack.map((item) => `${esc(item.controller || "")}: ${esc(item.name)}${item.text ? ` — ${esc(item.text)}` : ""}`).join("<br>")
+        ? state.stack.map((item) => `${esc(label(item.controller || ""))}: ${esc(label(item.name))}${item.text ? ` — ${esc(item.text)}` : ""}`).join("<br>")
         : "<span class='meta'>Empty</span>"
       const actor = seats.find((seat) => seat.id === event.seat)
       const position = `Turn ${event.turn || 0} · ${event.phase || ""} · ${index + 1}/${events.length}`
+      const aside = event.notes || event.note || ""
+      const think = event.decision?.reason
+        ? `<p class="now-think">${esc(event.decision.reason)}</p>`
+        : ""
+      const talkId = event.deal?.id
+      const talk = talkId != null
+        ? `<p class="now-note">${esc(event.deal.action ? `${event.deal.action}: ` : "")}${esc(dealTerms(talkId) || event.deal.terms || "")}</p>`
+        : event.deal?.terms
+          ? `<p class="now-note">${esc(event.deal.action ? `${event.deal.action}: ` : "")}${esc(event.deal.terms)}</p>`
+          : ""
+      const liveDeals = (state.deals || []).filter((deal) =>
+        ["open", "accepted", "counter"].includes(deal.status)
+      )
+      const dealsHtml = liveDeals.length
+        ? `<div class="deals-panel"><h3>Deals</h3>${liveDeals.map((deal) =>
+            `<p>${esc(deal.id ?? "")} · ${esc(deal.status || "")}: ${esc(dealTerms(deal.id) || deal.terms || "")}</p>`
+          ).join("")}</div>`
+        : ""
       details = []
       table.innerHTML = seats
         .map((seat) => renderSeat(seat, state.players[seat.id], state.active === seat.id))
@@ -533,8 +632,11 @@
           <div class="now-panel">
             <p class="now-meta">${esc(position)}${actor ? ` · ${esc(actor.name)}` : ""}</p>
             <p class="now-text">${esc(event.summary || "")}</p>
-            ${event.note ? `<p class="now-note">${esc(event.note)}</p>` : ""}
+            ${aside ? `<p class="now-note">${esc(aside)}</p>` : ""}
+            ${think}
+            ${talk}
           </div>
+          ${dealsHtml}
           <div class="stack-panel"><h3>Stack</h3>${stack}</div>
         </div>`
       clock.textContent = position
