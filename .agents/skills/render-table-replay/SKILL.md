@@ -54,7 +54,11 @@ The renderer rejects:
 
 It trims unused catalog entries before embedding JSON in the HTML, and fills in
 missing per-side `faces` art from the `cards/` cache so replays recorded before
-that field still show the correct side of a double-faced card.
+that field still show the correct side of a double-faced card. A battlefield
+token recorded without a `token_id` also gets one: the renderer matches its name
+against that seat's `decks/<deck>/tokens.json`, prefers a printing made by a card
+in this game, and embeds that entry so the token shows art and a body instead of
+an empty frame.
 
 ## 2. Check the viewer
 
@@ -72,12 +76,15 @@ Open the HTML when browser tools are available and verify:
    when present;
 7. a seat with `revealed_top` shows a Top of library zone above its
    battlefield;
-8. battlefield tokens with `token_id` show the exact art named by that ID;
+8. battlefield tokens with `token_id` show the exact art named by that ID, and a
+   token without one shows the printing backfilled from its deck;
 9. a double-faced permanent shows the side in play — the land half of an MDFC,
    the back of a transformed creature — while hand and graveyard copies stay on
    the front;
 10. creatures in play show current power and toughness in the card corner,
-    counting `+1/+1` counters and any recorded `pt`;
+    counting `+1/+1` counters and any recorded `pt`; a printed body alone does
+    not qualify, so an uncrewed Vehicle and a Spacecraft below its station
+    threshold show none;
 11. counters and `note` segments show as chips on the card, and hovering it
     lists them in full under the large image;
 12. narrow layouts remain usable with the fixed controls and collapsed log.
