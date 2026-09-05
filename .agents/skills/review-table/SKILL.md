@@ -27,9 +27,10 @@ separate reports.
 
 ## 1. Gather replays
 
-Replays live in `table-games/*.json`. Scratch files are gitignored; committed
-examples still count. Do not load a full replay into chat. Always run the
-summarizer first:
+Finished replays live in `table-games/*.json`. Scratch files are gitignored;
+committed examples still count. The default scan excludes
+`*.working.json`, which contains continuation state rather than a finished
+game. Do not load a full replay into chat. Always run the summarizer first:
 
 ```bash
 python3 .agents/skills/review-table/scripts/summarize_replays.py --list
@@ -56,6 +57,11 @@ before judging. Read [schema.md](../simulate-table/schema.md) only when a
 flag or snapshot looks malformed. Heuristics for flags:
 [heuristics.md](heuristics.md).
 
+Current replays have a mixed `references` glossary. The summarizer resolves
+numeric card, player, and deal IDs into names and terms. It marks older files
+as `format: legacy`; those lack recorded reasons and politics, so do not infer
+intent from silence.
+
 ## 2. Mode A — list
 
 Ask: given these seats, what should the 99 have done that it could not?
@@ -70,9 +76,9 @@ For the focus deck, across every matching replay:
 4. Interaction: answers in hand or deck versus the threats that actually
    killed or buried the plan.
 5. Dead cards: `never_deployed` that are not legitimate held interaction.
-   Use categories from that deck's `cards.json`. A card that sat in hand
-   while the game ended is a candidate; a counter held against a real stack
-   is not "bad".
+   Use categories from that deck's `cards.json` and check `decisions`: a card
+   explicitly held for protection, politics, or a later window is not "bad"
+   merely because it finished in hand.
 6. Win setup: did the deck assemble its documented combo or engine, or did
    the list never draw the missing piece?
 
@@ -101,14 +107,23 @@ For each requested seat, or every seat if unspecified:
    speed **before** sacrificing them. Example: five Squirrel tokens that
    will be food for a sac outlet this turn should swing first unless
    blocking or a fog is the actual plan.
-4. Open mana: `flags.unused_reactive` is a lead, not a verdict. Confirm
-   the seat had a legal, useful counter, removal, fog, or instant-speed
-   draw and a reason to cast it. Holding the last Counterspell through a
-   win on the stack is a miss; holding it through a random rock is not.
+4. Open mana: inspect recorded `decision.available`, `held`, `held_for`,
+   `play_later`, and `reason` first. Check whether the stated later window
+   happened and whether the seat followed through. `flags.unused_reactive`
+   is only a fallback lead; holding the last Counterspell through a win on
+   the stack is a miss, while holding it through a random rock is not.
 5. Sequencing vs. the stack: play the spell that needs to resolve before
    the one that needs mana open; do not tap out into a known answer if the
    primer would wait.
-6. Rules-illegal or snapshot-incoherent events are **sim bugs**, not list
+6. Politics: inspect `politics.references`, its `talk` / `deal` events, and
+   the final deal status. Check whether an irreversible play should have
+   opened negotiation, whether terms were legal and useful, and whether a
+   seat honored, completed, expired, or explicitly breached an accepted
+   deal. Never invent unrecorded table talk.
+7. `flags.unexplained_holds` means a current-format pass left cards and mana
+   without the required `think` / `decision`; classify it as incomplete
+   replay evidence before calling the underlying play bad.
+8. Rules-illegal or snapshot-incoherent events are **sim bugs**, not list
    or pilot lessons. Say that and stop grading the line.
 
 Do not blame the 99 in Mode B unless the correct play was impossible
@@ -129,7 +144,8 @@ Mode A:
 Mode B:
 
 - Per seat, the worst two or three lines, each citing turn, event summary,
-  and the better legal play from cards then available.
+  recorded reason or deal when present, and the better legal play from cards
+  then available.
 - Flags the summarizer raised that you rejected, in one short list.
 
 Featured cards in chat use small Scryfall images per
