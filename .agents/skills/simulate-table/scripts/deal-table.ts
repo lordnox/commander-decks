@@ -382,8 +382,8 @@ const tableTokens = (seats: Seat[]) => ({
 
 const loadSeats = async (decks: Deck[], seed: number) => {
   const random = seededRandom(seed)
-  return Promise.all(
-    decks.map(async (deck, index): Promise<Seat> => {
+  const loaded = await Promise.all(
+    decks.map(async (deck, index) => {
       const { library, entries } = await loadManifest(deck.path)
       const tokenData = await loadTokens(deck.path)
       return {
@@ -392,10 +392,14 @@ const loadSeats = async (decks: Deck[], seed: number) => {
         id: SEAT_IDS[index],
         color: SEAT_COLORS[index],
         entries,
-        candidates: dealCandidates(library, random),
+        library,
       }
     }),
   )
+  return loaded.map((seat) => ({
+    ...seat,
+    candidates: dealCandidates(seat.library, random),
+  }))
 }
 
 const renderMarkdown = (seats: Seat[], seed: number) => {
@@ -448,22 +452,37 @@ const previewPayload = async (seats: Seat[], options: Options) => ({
 })
 
 const parseBottoms = (values: string[]) => {
-  const bottoms = Object.fromEntries(SEAT_IDS.map((seat) => [seat, [] as string[]]))
+  const bottoms = Object.fromEntries(SEAT_IDS.map((seat) => [seat, ""]))
   for (const value of values) {
     const split = value.indexOf("=")
     if (split < 0) throw new Error(`bottom must be seat=Card,Card: ${value}`)
     const seat = value.slice(0, split).trim()
     if (!(seat in bottoms)) throw new Error(`unknown seat in --bottom: ${seat}`)
-    bottoms[seat] = value
-      .slice(split + 1)
-      .split(",")
-      .map((card) => card.trim())
-      .filter(Boolean)
+    const cards = value.slice(split + 1).trim()
+    bottoms[seat] = bottoms[seat] ? `${bottoms[seat]},${cards}` : cards
   }
   return bottoms
 }
 
-const applyLondon = (candidate: Candidate, bottom: string[]) => {
+const splitBottomCards = (raw: string, hand: string[]) => {
+  if (!raw) return [] as string[]
+  const names = [...new Set(hand)].sort((a, b) => b.length - a.length)
+  const cards: string[] = []
+  let rest = raw.trim()
+  while (rest) {
+    const found = names.find((name) => rest === name || rest.startsWith(`${name},`))
+    if (!found) {
+      throw new Error(`cannot parse bottom "${raw}"; remaining "${rest}"; hand is ${hand.join(", ")}`)
+    }
+    cards.push(found)
+    rest = rest.slice(found.length)
+    if (rest.startsWith(",")) rest = rest.slice(1).trim()
+  }
+  return cards
+}
+
+const applyLondon = (candidate: Candidate, bottomRaw: string) => {
+  const bottom = splitBottomCards(bottomRaw, candidate.hand)
   if (bottom.length !== candidate.mulligans) {
     throw new Error(
       `mulligan ${candidate.mulligans} needs ${candidate.mulligans} bottom card(s)`,
@@ -519,6 +538,7 @@ const applyGame = async (seats: Seat[], options: Options) => {
     const mulligans = counts[index]
     const candidate = seat.candidates.find((item) => item.mulligans === mulligans)!
     const kept = applyLondon(candidate, bottoms[seat.id])
+    const bottomed = splitBottomCards(bottoms[seat.id], candidate.hand)
     players[seat.id] = emptyPlayer(
       seat.commanders,
       kept.hand,
@@ -535,7 +555,7 @@ const applyGame = async (seats: Seat[], options: Options) => {
       summary:
         mulligans === 0
           ? `${seat.title} keeps 7`
-          : `${seat.title} mulligans ${mulligans}, bottoms ${bottoms[seat.id].join(", ")}`,
+          : `${seat.title} mulligans ${mulligans}, bottoms ${bottomed.join(", ")}`,
       cards: kept.hand,
       notes: "",
     })
