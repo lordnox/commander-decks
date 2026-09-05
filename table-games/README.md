@@ -21,9 +21,10 @@ fixed transport controls, a collapsible event log, a step slider, and a hover
 preview that shows the large card with its counters and notes spelled out. Seats
 that may look at the top of their library — Fblthp, Bolas's Citadel — show that
 card in its own zone. Open the HTML in a browser; GitHub will not render it
-inline. The live index is
+inline. After GitHub Pages is enabled, the live index is
 [lordnox.github.io/commander-decks](https://lordnox.github.io/commander-decks/),
-built on push to `main` by GitHub Pages.
+built on push to `main`. This repository is private, so Pages needs a public
+repo or a plan that includes private Pages.
 
 Rebuild the Pages listing locally after rendering:
 

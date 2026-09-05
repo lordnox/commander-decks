@@ -91,8 +91,9 @@ one, `git add -f` both files and add a short `<slug>.md` recap because GitHub
 renders neither JSON nor HTML.
 
 GitHub Pages lists every finished replay at
-`https://lordnox.github.io/commander-decks/`. After a viewer change, rebuild
-HTML then the site:
+`https://lordnox.github.io/commander-decks/` once Pages is enabled (public
+repository, or a plan that includes private Pages). After a viewer change,
+rebuild HTML then the site:
 
 ```bash
 bun run table:render
