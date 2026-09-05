@@ -41,6 +41,40 @@ def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def reference_row(references: list[dict], value: object) -> dict | None:
+    if isinstance(value, bool) or not isinstance(value, int):
+        return None
+    if value < 0 or value >= len(references):
+        return None
+    row = references[value]
+    return row if isinstance(row, dict) else None
+
+
+def reference_name(references: list[dict], value: object) -> str:
+    row = reference_row(references, value)
+    if row and row.get("kind") in {"card", "player"} and row.get("name"):
+        return str(row["name"])
+    return str(value)
+
+
+def resolve_cards(references: list[dict], values: list[object]) -> list[str]:
+    return [reference_name(references, value) for value in values]
+
+
+def deal_reference(references: list[dict], value: object) -> dict:
+    row = reference_row(references, value)
+    if not row or row.get("kind") != "deal":
+        return {"id": value, "missing_reference": True}
+    return {
+        "id": value,
+        "from": reference_name(references, row.get("from")),
+        "to": resolve_cards(references, row.get("to") or []),
+        "terms": row.get("terms") or "",
+        "if_refused": row.get("if_refused") or "",
+        "expires": row.get("expires") or "",
+    }
+
+
 def replay_paths(explicit: list[str]) -> list[Path]:
     if explicit:
         paths = [Path(item).expanduser() for item in explicit]
@@ -53,7 +87,11 @@ def replay_paths(explicit: list[str]) -> list[Path]:
         return resolved
     if not TABLE_GAMES.is_dir():
         return []
-    return sorted(TABLE_GAMES.glob("*.json"))
+    return sorted(
+        path
+        for path in TABLE_GAMES.glob("*.json")
+        if not path.name.endswith(".working.json")
+    )
 
 
 def catalog_entry(catalog: dict, name: str) -> dict:
@@ -116,7 +154,8 @@ def compact_permanent(entry: dict) -> dict:
     return compact
 
 
-def compact_player(player: dict) -> dict:
+def compact_player(player: dict, references: list[dict] | None = None) -> dict:
+    rows = references or []
     battlefield = [
         compact_permanent(entry)
         for entry in player.get("battlefield") or []
@@ -128,12 +167,12 @@ def compact_player(player: dict) -> dict:
         "commander_damage": player.get("commander_damage") or {},
         "commander_tax": player.get("commander_tax") or 0,
         "library_count": player.get("library_count"),
-        "hand": list(player.get("hand") or []),
+        "hand": resolve_cards(rows, player.get("hand") or []),
         "battlefield": battlefield,
-        "graveyard": list(player.get("graveyard") or []),
-        "exile": list(player.get("exile") or []),
-        "command": list(player.get("command") or []),
-        "revealed_top": list(player.get("revealed_top") or []),
+        "graveyard": resolve_cards(rows, player.get("graveyard") or []),
+        "exile": resolve_cards(rows, player.get("exile") or []),
+        "command": resolve_cards(rows, player.get("command") or []),
+        "revealed_top": resolve_cards(rows, player.get("revealed_top") or []),
     }
 
 
@@ -159,17 +198,46 @@ def token_creatures(catalog: dict, battlefield: list[dict]) -> list[str]:
     return names
 
 
-def event_log(event: dict) -> dict:
-    return {
+def compact_decision(decision: dict, references: list[dict]) -> dict:
+    if not decision:
+        return {}
+    compact = {
+        "open_mana": decision.get("open_mana"),
+        "available": resolve_cards(references, decision.get("available") or []),
+        "held": resolve_cards(references, decision.get("held") or []),
+        "held_for": decision.get("held_for") or "",
+        "play_later": decision.get("play_later") or "",
+        "reason": decision.get("reason") or "",
+    }
+    if "honors_deal" in decision:
+        compact["honors_deal"] = deal_reference(
+            references, decision.get("honors_deal")
+        )
+    return compact
+
+
+def event_log(event: dict, references: list[dict] | None = None) -> dict:
+    rows = references or []
+    compact = {
         "id": event.get("id"),
         "turn": event.get("turn"),
         "phase": event.get("phase"),
         "seat": event.get("seat"),
         "kind": event.get("kind"),
         "summary": event.get("summary") or "",
-        "cards": list(event.get("cards") or []),
+        "cards": resolve_cards(rows, event.get("cards") or []),
         "notes": event.get("notes") or "",
     }
+    decision = compact_decision(event.get("decision") or {}, rows)
+    if decision:
+        compact["decision"] = decision
+    deal = event.get("deal") or {}
+    if deal:
+        compact["deal"] = {
+            **deal_reference(rows, deal.get("id")),
+            "action": deal.get("action") or "",
+        }
+    return compact
 
 
 def players_of(event: dict) -> dict:
@@ -214,6 +282,11 @@ def list_entry(path: Path, game: dict) -> dict:
     result = game.get("result") or {}
     return {
         "file": str(path.relative_to(ROOT)),
+        "format": (
+            "references-decisions-politics"
+            if game.get("references")
+            else "legacy"
+        ),
         "seed": game.get("seed"),
         "headline": game.get("headline"),
         "result": result,
@@ -230,13 +303,15 @@ def list_entry(path: Path, game: dict) -> dict:
     }
 
 
-def track_hands(events: list[dict]) -> dict[str, dict[str, set[str]]]:
+def track_hands(
+    events: list[dict], references: list[dict]
+) -> dict[str, dict[str, set[str]]]:
     seen: dict[str, set[str]] = defaultdict(set)
     spent: dict[str, set[str]] = defaultdict(set)
     for event in events:
         kind = event.get("kind")
         seat = event.get("seat")
-        cards = [name for name in event.get("cards") or [] if name]
+        cards = resolve_cards(references, event.get("cards") or [])
         if kind in {"keep", "draw"} and seat:
             seen[seat].update(cards)
         if kind in {"cast", "play_land", "activate"} and seat:
@@ -286,7 +361,9 @@ def missed_land_drops(catalog: dict, events: list[dict]) -> list[dict]:
     return flags
 
 
-def unused_reactive(catalog: dict, events: list[dict]) -> list[dict]:
+def unused_reactive(
+    catalog: dict, events: list[dict], references: list[dict]
+) -> list[dict]:
     flags = []
     for index, event in enumerate(events):
         if event.get("kind") not in {"cast", "attack"}:
@@ -324,7 +401,7 @@ def unused_reactive(catalog: dict, events: list[dict]) -> list[dict]:
                     "reactive_in_hand": reactive,
                     "untapped_mana": mana,
                     "stack": [
-                        item.get("name")
+                        reference_name(references, item.get("name"))
                         for item in stack
                         if isinstance(item, dict) and item.get("name")
                     ],
@@ -333,7 +410,9 @@ def unused_reactive(catalog: dict, events: list[dict]) -> list[dict]:
     return flags
 
 
-def sac_before_attack(catalog: dict, events: list[dict]) -> list[dict]:
+def sac_before_attack(
+    catalog: dict, events: list[dict], references: list[dict]
+) -> list[dict]:
     flags = []
     by_turn: dict[tuple[int, str], list[dict]] = defaultdict(list)
     for event in events:
@@ -367,15 +446,22 @@ def sac_before_attack(catalog: dict, events: list[dict]) -> list[dict]:
                 "turn": turn,
                 "seat": seat,
                 "tokens_before": tokens,
-                "sacrifices": [event_log(item) for item in sacrificed],
-                "attack": event_log(attack),
+                "sacrifices": [
+                    event_log(item, references) for item in sacrificed
+                ],
+                "attack": event_log(attack, references),
             }
         )
     return flags
 
 
-def never_deployed(catalog: dict, events: list[dict], categories: dict[str, dict[str, list[str]]]) -> dict[str, list[dict]]:
-    tracked = track_hands(events)
+def never_deployed(
+    catalog: dict,
+    events: list[dict],
+    categories: dict[str, dict[str, list[str]]],
+    references: list[dict],
+) -> dict[str, list[dict]]:
+    tracked = track_hands(events, references)
     report: dict[str, list[dict]] = {}
     for seat_id, bags in tracked.items():
         leftover = sorted((bags["seen"] - bags["spent"]) & bags["final_hand"])
@@ -394,7 +480,9 @@ def never_deployed(catalog: dict, events: list[dict], categories: dict[str, dict
     return report
 
 
-def turn_summaries(catalog: dict, events: list[dict]) -> list[dict]:
+def turn_summaries(
+    catalog: dict, events: list[dict], references: list[dict]
+) -> list[dict]:
     grouped: dict[int, list[dict]] = defaultdict(list)
     for event in events:
         turn = event.get("turn") or 0
@@ -408,7 +496,7 @@ def turn_summaries(catalog: dict, events: list[dict]) -> list[dict]:
             seat_events = [item for item in group if item.get("seat") == seat_id]
             last = seat_events[-1] if seat_events else group[-1]
             player = players_of(last).get(seat_id) or {}
-            compact = compact_player(player)
+            compact = compact_player(player, references)
             battlefield = player.get("battlefield") or []
             seats[seat_id] = {
                 **compact,
@@ -423,36 +511,122 @@ def turn_summaries(catalog: dict, events: list[dict]) -> list[dict]:
                     name
                     for item in seat_events
                     if item.get("kind") == "draw"
-                    for name in item.get("cards") or []
+                    for name in resolve_cards(
+                        references, item.get("cards") or []
+                    )
                 ],
                 "cast": [
                     name
                     for item in seat_events
                     if item.get("kind") == "cast"
-                    for name in item.get("cards") or []
+                    for name in resolve_cards(
+                        references, item.get("cards") or []
+                    )
                 ],
                 "lands_played": [
                     name
                     for item in seat_events
                     if item.get("kind") == "play_land"
-                    for name in item.get("cards") or []
+                    for name in resolve_cards(
+                        references, item.get("cards") or []
+                    )
                 ],
                 "attacked": [
                     name
                     for item in seat_events
                     if item.get("kind") == "attack"
-                    for name in item.get("cards") or []
+                    for name in resolve_cards(
+                        references, item.get("cards") or []
+                    )
                 ],
-                "actions": [event_log(item) for item in seat_events],
+                "actions": [
+                    event_log(item, references) for item in seat_events
+                ],
             }
         turns.append({"turn": turn, "seats": seats})
     return turns
+
+
+def recorded_decisions(
+    events: list[dict], references: list[dict]
+) -> list[dict]:
+    return [
+        event_log(event, references)
+        for event in events
+        if event.get("decision")
+    ]
+
+
+def politics_log(events: list[dict], references: list[dict]) -> dict:
+    deals = [
+        deal_reference(references, index)
+        for index, row in enumerate(references)
+        if isinstance(row, dict) and row.get("kind") == "deal"
+    ]
+    events_with_deals = [
+        event_log(event, references)
+        for event in events
+        if event.get("kind") in {"talk", "deal"} or event.get("deal")
+    ]
+    final_state = (events[-1].get("state") or {}) if events else {}
+    active = []
+    for state_deal in final_state.get("deals") or []:
+        if not isinstance(state_deal, dict):
+            continue
+        active.append(
+            {
+                **deal_reference(references, state_deal.get("id")),
+                "status": state_deal.get("status") or "",
+                "offered_event": state_deal.get("offered_event"),
+                "resolved_event": state_deal.get("resolved_event"),
+            }
+        )
+    return {"references": deals, "events": events_with_deals, "final": active}
+
+
+def unexplained_holds(
+    catalog: dict, events: list[dict], references: list[dict]
+) -> list[dict]:
+    if not references:
+        return []
+    flags = []
+    for index, event in enumerate(events):
+        if event.get("kind") != "pass" or event.get("decision"):
+            continue
+        previous = events[index - 1] if index else {}
+        if (
+            previous.get("seat") == event.get("seat")
+            and previous.get("kind") == "think"
+            and previous.get("decision")
+        ):
+            continue
+        seat = event.get("seat")
+        player = players_of(event).get(seat) or {}
+        mana = untapped_mana_sources(
+            catalog, player.get("battlefield") or []
+        )
+        hand = list(player.get("hand") or [])
+        if not mana or not hand:
+            continue
+        flags.append(
+            {
+                "event": event.get("id"),
+                "turn": event.get("turn"),
+                "phase": event.get("phase"),
+                "seat": seat,
+                "untapped_mana": mana,
+                "cards_in_hand": hand,
+                "summary": event.get("summary") or "",
+            }
+        )
+    return flags
 
 
 def digest_game(path: Path, game: dict, seat_query: str | None) -> dict:
     seats = game.get("seats") or []
     catalog = game.get("catalog") or {}
     events = game.get("events") or []
+    references = game.get("references") or []
     focus = [
         seat.get("id")
         for seat in seats
@@ -467,17 +641,29 @@ def digest_game(path: Path, game: dict, seat_query: str | None) -> dict:
         **list_entry(path, game),
         "horizon": game.get("horizon"),
         "starting_life": game.get("starting_life"),
+        "format": "references-decisions-politics" if references else "legacy",
         "event_count": len(events),
-        "events": [event_log(event) for event in events],
-        "turns": turn_summaries(catalog, events),
+        "events": [event_log(event, references) for event in events],
+        "turns": turn_summaries(catalog, events, references),
+        "decisions": recorded_decisions(events, references),
+        "politics": politics_log(events, references),
         "flags": {
             "missed_land_drops": missed_land_drops(catalog, events),
-            "unused_reactive": unused_reactive(catalog, events),
-            "sac_before_attack": sac_before_attack(catalog, events),
+            "unused_reactive": unused_reactive(
+                catalog, events, references
+            ),
+            "sac_before_attack": sac_before_attack(
+                catalog, events, references
+            ),
+            "unexplained_holds": unexplained_holds(
+                catalog, events, references
+            ),
         },
-        "never_deployed": never_deployed(catalog, events, categories),
+        "never_deployed": never_deployed(
+            catalog, events, categories, references
+        ),
         "final": {
-            seat_id: compact_player(player)
+            seat_id: compact_player(player, references)
             for seat_id, player in players_of(events[-1] if events else {}).items()
         },
     }
