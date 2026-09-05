@@ -1,5 +1,3 @@
 # Four-player table replays (see simulate-table skill).
-# Scratch by default; commit a game deliberately with `git add -f`.
+# Replay logs are scratch by default; commit a game deliberately with `git add -f`.
 table-games/*.json
-table-games/*.html
-_site/

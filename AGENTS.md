@@ -70,7 +70,8 @@ In conversation (not primers or `decklist.txt`), featured card lists should show
 - `DECISIONS.md`: kitchen-table house rules that apply to every deck
 - `BRACKET-DEFINITIONS.md`: Commander Bracket intent, Incremental Core texture, printed caps, cached Game Changers snapshot, and this table's Parley reading
 - `DECK-IDEAS.md`: grilled brews that are queued or parked, not a `decks/` folder yet
-- `table-games/`: replay JSON from `simulate-table` and optional HTML from `render-table-replay` (gitignored except committed examples and this folder's README)
+- `table-games/`: replay JSON from `simulate-table` plus each game's Markdown recap (JSON gitignored except committed examples)
+- `pages/`: the GitHub Pages site — one `<slug>.html` per replay from `render-table-replay` and the generated `index.html` listing them
 - `decks/<rating>_<commander>-<name>/decklist.txt`: original user-supplied deck list
 - `decks/<rating>_<commander>-<name>/cards.json`: resolved quantities, effective categories, and compact embedded Oracle details
 - `decks/<rating>_<commander>-<name>/tokens.json`: exact related Scryfall token printings, keyed by printing ID and source card

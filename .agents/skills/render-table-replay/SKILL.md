@@ -30,8 +30,8 @@ bun run table:render -- table-games/<slug>.json
 ```
 
 No arguments rewrites every finished `table-games/*.json` file (not
-`*.working.json`) next to itself as `<slug>.html`. That is the command after
-viewer or template changes. A single path still accepts `--out`.
+`*.working.json`) as `pages/<slug>.html`. That is the command after viewer or
+template changes. A single path still accepts `--out`.
 
 The renderer rejects:
 
@@ -86,22 +86,31 @@ Do not dump HTML source into chat.
 
 ## 3. Store and report
 
-Replays are scratch by default (`table-games/` ignores JSON and HTML). To keep
-one, `git add -f` both files and add a short `<slug>.md` recap because GitHub
-renders neither JSON nor HTML.
-
-GitHub Pages lists every finished replay at
-`https://lordnox.github.io/commander-decks/` once Pages is enabled (public
-repository, or a plan that includes private Pages). After a viewer change,
-rebuild HTML then the site:
+The served site is the tracked `pages/` directory: one `<slug>.html` per game
+plus the generated `index.html` and `.nojekyll`. Rebuild both after a viewer
+change and commit the result:
 
 ```bash
 bun run table:render
 bun run table:pages
 ```
 
-The Pages workflow on `main` runs the same pair. Return the HTML path:
+`build_pages.py` regenerates `pages/index.html` from the replay JSON, so a new
+game appears in the listing without hand-editing HTML. It warns about a
+`pages/*.html` whose JSON is gone instead of deleting it; remove that file
+yourself once the game is really retired.
+
+Replay logs stay scratch (`table-games/*.json` is gitignored). To keep a game,
+`git add -f` its JSON, commit its `pages/<slug>.html`, and add a short
+`table-games/<slug>.md` recap because GitHub renders neither JSON nor HTML.
+
+The Pages workflow on `main` uploads `pages/` as-is, so an uncommitted render
+never reaches the site. Pages must be enabled for the repository (public, or a
+plan that includes private Pages); the index is then
+`https://lordnox.github.io/commander-decks/`.
+
+Return the HTML path:
 
 ```text
-table-games/<slug>.html
+pages/<slug>.html
 ```

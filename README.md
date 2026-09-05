@@ -7,7 +7,7 @@ A conversation-driven workspace for importing, resolving, categorizing, assessin
 - [Bracket definitions](BRACKET-DEFINITIONS.md)
 - [Deck ideas](DECK-IDEAS.md)
 - [Skills](SKILLS.md)
-- [Table games](table-games/README.md) — recorded four-player replays; GitHub Pages publishes the viewers when the repo allows Pages
+- [Table games](table-games/README.md) — recorded four-player replays; the viewers in [`pages/`](pages) are what GitHub Pages serves once the repo allows Pages
 
 ## Deck primers
 

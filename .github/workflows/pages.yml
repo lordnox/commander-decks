@@ -22,13 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Rebuild replay HTML
-        run: python3 .agents/skills/render-table-replay/scripts/render_replay.py
-      - name: Build Pages site
-        run: python3 .agents/skills/render-table-replay/scripts/build_pages.py
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: pages
       - id: deployment
         uses: actions/deploy-pages@v4

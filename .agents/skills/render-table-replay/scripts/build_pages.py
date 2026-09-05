@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
-"""Build a GitHub Pages site that lists every finished table replay."""
+"""Write pages/index.html listing every finished table replay in pages/."""
 
 from __future__ import annotations
 
 import html
 import json
-import shutil
 import sys
 from pathlib import Path
 
-from render_replay import ROOT, replay_paths
-
-SITE = ROOT / "_site"
+from render_replay import PAGES, ROOT, replay_paths
 
 
 def ended_label(ended: str) -> str:
@@ -154,27 +151,32 @@ def main() -> int:
         print(f"ERROR: {error}", file=sys.stderr)
         return 1
 
-    if SITE.exists():
-        shutil.rmtree(SITE)
-    SITE.mkdir(parents=True)
+    PAGES.mkdir(parents=True, exist_ok=True)
 
     cards = []
     missing = 0
     for log in logs:
-        html_path = log.with_suffix(".html")
+        html_path = PAGES / f"{log.stem}.html"
         if not html_path.is_file():
-            print(f"ERROR: missing {html_path.relative_to(ROOT)}; run bun run table:render", file=sys.stderr)
+            print(
+                f"ERROR: missing {html_path.relative_to(ROOT)}; run bun run table:render",
+                file=sys.stderr,
+            )
             missing += 1
             continue
-        shutil.copy2(html_path, SITE / html_path.name)
         cards.append(game_card(log))
 
     if missing:
         return 1
 
-    (SITE / "index.html").write_text(index_html(cards), encoding="utf-8")
-    (SITE / ".nojekyll").write_text("", encoding="utf-8")
-    print(SITE.relative_to(ROOT))
+    slugs = {log.stem for log in logs}
+    for stale in sorted(PAGES.glob("*.html")):
+        if stale.stem not in slugs and stale.name != "index.html":
+            print(f"WARNING: {stale.relative_to(ROOT)} has no replay JSON", file=sys.stderr)
+
+    (PAGES / "index.html").write_text(index_html(cards), encoding="utf-8")
+    (PAGES / ".nojekyll").write_text("", encoding="utf-8")
+    print((PAGES / "index.html").relative_to(ROOT))
     return 0
 
 
