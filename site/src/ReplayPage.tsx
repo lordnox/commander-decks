@@ -24,23 +24,84 @@ type Preview = {
   tapped?: boolean
 }
 
+type Hover = {
+  name: string
+  details: CardDetails
+  anchor: { top: number; bottom: number; left: number; right: number }
+}
+
+type HoverHandler = (hover: Hover | null) => void
+
 const base = import.meta.env.BASE_URL
 
 const phaseLabel = (phase: string) =>
   phase.replace(/(\D)(\d)/, '$1 $2').replace(/^./, (letter) => letter.toUpperCase())
+
+const canHover = () => window.matchMedia('(hover: hover)').matches
+
+/**
+ * Cards the current event touches. The event's own cards belong to the acting
+ * seat, so a drawn Island does not light up every Island at the table.
+ */
+const actionNames = (game: ReplayGame, event: ReplayEvent) => {
+  const seatCards = new Set<string>()
+  const tableCards = new Set<string>()
+  const add = (target: Set<string>, value?: string | number | null) => {
+    if (value === undefined || value === null) return
+    target.add(resolveName(game, value))
+  }
+
+  event.cards?.forEach((card) => add(seatCards, card))
+  event.combat?.attackers?.forEach((attacker) => add(tableCards, attacker.card))
+  event.combat?.blocks?.forEach((block) => {
+    add(tableCards, block.attacker)
+    block.blockers.forEach((blocker) => add(tableCards, blocker))
+  })
+  event.combat?.unblocked?.forEach((card) => add(tableCards, card))
+  event.damage?.forEach((hit) => add(tableCards, hit.source))
+  event.state.stack.forEach((item) => add(tableCards, item.name))
+
+  return {
+    forSeat: (seat: string) =>
+      seat === event.seat ? new Set([...tableCards, ...seatCards]) : tableCards,
+  }
+}
+
+const hoverProps = (name: string, details: CardDetails, onHover: HoverHandler) => ({
+  onMouseEnter: (mouseEvent: { currentTarget: HTMLElement }) => {
+    if (!canHover()) return
+    const rect = mouseEvent.currentTarget.getBoundingClientRect()
+    onHover({
+      name,
+      details,
+      anchor: {
+        top: rect.top,
+        bottom: rect.bottom,
+        left: rect.left,
+        right: rect.right,
+      },
+    })
+  },
+  onMouseLeave: () => onHover(null),
+  onBlur: () => onHover(null),
+})
 
 const CardTile = ({
   game,
   value,
   entry,
   compact = false,
+  active = false,
   onPreview,
+  onHover,
 }: {
   game: ReplayGame
   value: string | number
   entry?: BattlefieldCard
   compact?: boolean
+  active?: boolean
   onPreview: (preview: Preview) => void
+  onHover: HoverHandler
 }) => {
   const { name, details } = cardInfo(game, value, entry)
   const stats = currentStats(details, entry)
@@ -58,11 +119,16 @@ const CardTile = ({
           tapped: entry?.tapped,
         })
       }
+      {...hoverProps(name, details, onHover)}
       className={`group/card relative shrink-0 overflow-hidden rounded-xl border text-left shadow-lg shadow-black/20 transition hover:-translate-y-1 hover:border-gold-300/60 focus:outline-none focus:ring-2 focus:ring-gold-300 ${
         compact
           ? 'h-24 w-[4.25rem] border-white/10'
           : 'h-32 w-[5.7rem] border-white/15'
-      } ${entry?.tapped ? 'opacity-70' : ''}`}
+      } ${entry?.tapped ? 'opacity-70' : ''} ${
+        active
+          ? 'z-10 -translate-y-1 border-gold-300 shadow-[0_0_0_2px_#e6d27a,0_0_1.5rem_rgba(230,210,122,0.45)]'
+          : ''
+      }`}
       title={name}
     >
       {details.image_small || details.image_normal ? (
@@ -79,11 +145,15 @@ const CardTile = ({
           {name}
         </span>
       )}
-      <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/75 to-transparent px-2 pb-1.5 pt-6 text-[0.62rem] font-semibold leading-tight text-white">
+      <span
+        className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/75 to-transparent px-2 pb-1.5 pt-6 text-[0.62rem] font-semibold leading-tight text-white ${
+          stats ? 'pr-9' : ''
+        }`}
+      >
         {name}
       </span>
       {stats && (
-        <span className="absolute right-1 top-1 rounded-md border border-white/20 bg-black/80 px-1.5 py-0.5 text-[0.6rem] font-bold text-white">
+        <span className="absolute bottom-1 right-1 rounded-md border border-white/20 bg-black/85 px-1.5 py-0.5 text-[0.6rem] font-bold text-white">
           {stats}
         </span>
       )}
@@ -98,7 +168,7 @@ const CardTile = ({
         </span>
       )}
       {counters.length > 0 && (
-        <span className="absolute bottom-8 right-1 rounded-md bg-moss-300 px-1.5 py-0.5 text-[0.55rem] font-black text-ink-950">
+        <span className="absolute right-1 top-1 max-w-[85%] rounded-md bg-moss-300 px-1.5 py-0.5 text-right text-[0.55rem] font-black leading-tight text-ink-950">
           {counters.map(([kind, count]) => `${count} ${kind}`).join(' · ')}
         </span>
       )}
@@ -111,13 +181,17 @@ const Zone = ({
   label,
   cards,
   compact,
+  action,
   onPreview,
+  onHover,
 }: {
   game: ReplayGame
   label: string
   cards: Array<string | number | BattlefieldCard>
   compact?: boolean
+  action: Set<string>
   onPreview: (preview: Preview) => void
+  onHover: HoverHandler
 }) => {
   if (cards.length === 0) return null
 
@@ -131,7 +205,7 @@ const Zone = ({
           {cards.length}
         </span>
       </div>
-      <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-2">
+      <div className="flex flex-wrap gap-2 pb-1">
         {cards.map((card, index) => {
           const entry = typeof card === 'object' ? card : undefined
           const value = entry?.name ?? (card as string | number)
@@ -142,7 +216,9 @@ const Zone = ({
               value={value}
               entry={entry}
               compact={compact}
+              active={action.has(resolveName(game, value))}
               onPreview={onPreview}
+              onHover={onHover}
             />
           )
         })}
@@ -156,13 +232,17 @@ const SeatPanel = ({
   seat,
   state,
   active,
+  action,
   onPreview,
+  onHover,
 }: {
   game: ReplayGame
   seat: ReplaySeat
   state: PlayerState
   active: boolean
+  action: Set<string>
   onPreview: (preview: Preview) => void
+  onHover: HoverHandler
 }) => {
   const commanderDamage = Object.entries(state.commander_damage ?? {}).filter(
     ([, damage]) => damage > 0,
@@ -232,41 +312,53 @@ const SeatPanel = ({
         label="Top of library"
         cards={state.revealed_top ?? []}
         compact
+        action={action}
         onPreview={onPreview}
+        onHover={onHover}
       />
       <Zone
         game={game}
         label="Battlefield"
         cards={state.battlefield}
+        action={action}
         onPreview={onPreview}
+        onHover={onHover}
       />
       <Zone
         game={game}
         label="Hand"
         cards={state.hand}
         compact
+        action={action}
         onPreview={onPreview}
+        onHover={onHover}
       />
       <Zone
         game={game}
         label="Command"
         cards={state.command}
         compact
+        action={action}
         onPreview={onPreview}
+        onHover={onHover}
       />
       <Zone
         game={game}
         label="Graveyard"
         cards={state.graveyard}
         compact
+        action={action}
         onPreview={onPreview}
+        onHover={onHover}
       />
       <Zone
         game={game}
         label="Exile"
         cards={state.exile}
         compact
+        action={action}
         onPreview={onPreview}
+        onHover={onHover}
       />
     </article>
   )
@@ -276,10 +368,12 @@ const EventStory = ({
   game,
   event,
   onPreview,
+  onHover,
 }: {
   game: ReplayGame
   event: ReplayEvent
   onPreview: (preview: Preview) => void
+  onHover: HoverHandler
 }) => {
   const seat = game.seats.find((item) => item.id === event.seat)
   const combat = combatLines(game, event)
@@ -313,7 +407,8 @@ const EventStory = ({
                 type="button"
                 key={`${String(card)}-${index}`}
                 onClick={() => onPreview({ name, details })}
-                className="rounded-full border border-white/10 bg-black/20 px-3 py-1.5 text-xs font-semibold text-stone-200 hover:border-gold-300/50"
+                {...hoverProps(name, details, onHover)}
+                className="rounded-full border border-gold-300/40 bg-gold-400/10 px-3 py-1.5 text-xs font-semibold text-stone-100 hover:border-gold-300"
               >
                 {name}
               </button>
@@ -384,20 +479,115 @@ const EventStory = ({
           </div>
         </div>
       )}
-      {event.state.stack.length > 0 && (
-        <div className="mt-4 rounded-2xl border border-purple-300/20 bg-purple-500/10 p-4">
-          <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-purple-200">
-            Stack
+    </section>
+  )
+}
+
+const StackOverlay = ({
+  game,
+  stack,
+  onPreview,
+  onHover,
+}: {
+  game: ReplayGame
+  stack: ReplayEvent['state']['stack']
+  onPreview: (preview: Preview) => void
+  onHover: HoverHandler
+}) => {
+  const [open, setOpen] = useState(true)
+
+  return (
+    <aside className="pointer-events-none fixed bottom-24 left-3 z-40 w-[min(20rem,calc(100vw-1.5rem))] sm:left-5">
+      <div className="pointer-events-auto overflow-hidden rounded-2xl border border-purple-300/30 bg-ink-900/90 shadow-2xl shadow-black/40 backdrop-blur-xl">
+        <button
+          type="button"
+          onClick={() => setOpen((current) => !current)}
+          className="flex w-full items-center justify-between gap-3 bg-purple-500/15 px-4 py-2.5 text-left"
+        >
+          <span className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-purple-200">
+            Stack · {stack.length}
+          </span>
+          <span className="text-xs text-stone-400">{open ? '▾' : '▸'}</span>
+        </button>
+        {open && (
+          <ol className="max-h-[45vh] overflow-y-auto p-2">
+            {[...stack].reverse().map((item, index) => {
+              const { name, details } = cardInfo(game, item.name)
+              const controller = game.seats.find((seat) => seat.id === item.controller)
+              return (
+                <li key={`${String(item.name)}-${index}`}>
+                  <button
+                    type="button"
+                    onClick={() => onPreview({ name, details })}
+                    {...hoverProps(name, details, onHover)}
+                    className="w-full rounded-xl px-2.5 py-2 text-left transition hover:bg-white/5"
+                  >
+                    <span className="flex items-baseline gap-2">
+                      <span className="text-[0.6rem] tabular-nums text-stone-600">
+                        {stack.length - index}
+                      </span>
+                      <span className="text-sm font-semibold text-stone-100">
+                        {name}
+                      </span>
+                      {controller && (
+                        <span
+                          className="text-[0.6rem] font-bold uppercase"
+                          style={{ color: controller.color }}
+                        >
+                          {controller.name}
+                        </span>
+                      )}
+                    </span>
+                    {item.text && (
+                      <span className="mt-1 block text-xs leading-5 text-stone-400">
+                        {item.text}
+                      </span>
+                    )}
+                  </button>
+                </li>
+              )
+            })}
+          </ol>
+        )}
+      </div>
+    </aside>
+  )
+}
+
+const HoverCard = ({ hover }: { hover: Hover }) => {
+  const image = hover.details.image_normal || hover.details.image_small
+  const width = 15 * 16
+  const height = width * 1.4
+  const gap = 14
+  const right = hover.anchor.right + gap
+  const left =
+    right + width < window.innerWidth ? right : Math.max(12, hover.anchor.left - width - gap)
+  const top = Math.min(
+    Math.max(12, hover.anchor.top + (hover.anchor.bottom - hover.anchor.top) / 2 - height / 2),
+    Math.max(12, window.innerHeight - height - 12),
+  )
+
+  return (
+    <div
+      className="pointer-events-none fixed z-[60] hidden overflow-hidden rounded-2xl border border-white/20 bg-ink-900 shadow-2xl shadow-black/60 sm:block"
+      style={{ left, top, width }}
+    >
+      {image ? (
+        <img src={image} alt={hover.name} className="w-full" />
+      ) : (
+        <div className="p-4">
+          <p className="font-display text-lg text-stone-50">{hover.name}</p>
+          <p className="mt-1 text-xs text-stone-400">
+            {hover.details.mana_cost} {hover.details.type_line}
           </p>
-          {event.state.stack.map((item, index) => (
-            <p key={`${String(item.name)}-${index}`} className="mt-2 text-sm">
-              <strong>{resolveName(game, item.name)}</strong>
-              {item.text ? ` — ${item.text}` : ''}
+          {hover.details.oracle_text && (
+            <p className="mt-3 whitespace-pre-line text-xs leading-5 text-stone-300">
+              {hover.details.oracle_text}
             </p>
-          ))}
+          )}
         </div>
       )}
-    </section>
+    </div>
   )
 }
 
@@ -494,6 +684,7 @@ export const ReplayPage = ({ slug }: { slug: string }) => {
     window.matchMedia('(min-width: 1024px)').matches,
   )
   const [preview, setPreview] = useState<Preview | null>(null)
+  const [hover, setHover] = useState<Hover | null>(null)
   const [error, setError] = useState('')
   const logRef = useRef<HTMLOListElement>(null)
 
@@ -518,6 +709,16 @@ export const ReplayPage = ({ slug }: { slug: string }) => {
     setIndex(Math.min(Math.max(next, 0), lastIndex))
     setPlaying(false)
   }
+
+  const action = useMemo(
+    () =>
+      game && event
+        ? actionNames(game, event)
+        : { forSeat: () => new Set<string>() },
+    [game, event],
+  )
+
+  useEffect(() => setHover(null), [index])
 
   useEffect(() => {
     if (!playing || !game) return
@@ -564,6 +765,7 @@ export const ReplayPage = ({ slug }: { slug: string }) => {
       }
       if (keyboardEvent.key === 'Escape') {
         setPreview(null)
+        setHover(null)
         setLogOpen(false)
       }
     }
@@ -628,7 +830,12 @@ export const ReplayPage = ({ slug }: { slug: string }) => {
         }`}
       >
         <div className="min-w-0">
-          <EventStory game={game} event={event} onPreview={setPreview} />
+          <EventStory
+            game={game}
+            event={event}
+            onPreview={setPreview}
+            onHover={setHover}
+          />
           <div className="mt-5 grid min-w-0 gap-4 xl:grid-cols-2">
             {orderedSeats.map((seat) => (
               <SeatPanel
@@ -637,7 +844,9 @@ export const ReplayPage = ({ slug }: { slug: string }) => {
                 seat={seat}
                 state={event.state.players[seat.id]}
                 active={event.state.active === seat.id}
+                action={action.forSeat(seat.id)}
                 onPreview={setPreview}
+                onHover={setHover}
               />
             ))}
           </div>
@@ -702,7 +911,15 @@ export const ReplayPage = ({ slug }: { slug: string }) => {
             disabled={index === 0}
             className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold disabled:opacity-30"
           >
-            Previous
+            Prev
+          </button>
+          <button
+            type="button"
+            onClick={() => move(index + 1)}
+            disabled={index === lastIndex}
+            className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold disabled:opacity-30"
+          >
+            Next
           </button>
           <button
             type="button"
@@ -723,16 +940,19 @@ export const ReplayPage = ({ slug }: { slug: string }) => {
           <span className="hidden min-w-20 text-right text-xs tabular-nums text-stone-400 sm:block">
             {index + 1} / {game.events.length}
           </span>
-          <button
-            type="button"
-            onClick={() => move(index + 1)}
-            disabled={index === lastIndex}
-            className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold disabled:opacity-30"
-          >
-            Next
-          </button>
         </div>
       </div>
+
+      {event.state.stack.length > 0 && (
+        <StackOverlay
+          game={game}
+          stack={event.state.stack}
+          onPreview={setPreview}
+          onHover={setHover}
+        />
+      )}
+
+      {hover && !preview && <HoverCard hover={hover} />}
 
       {preview && (
         <CardPreview preview={preview} onClose={() => setPreview(null)} />
