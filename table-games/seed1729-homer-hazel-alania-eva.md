@@ -19,7 +19,7 @@ Homer mulliganed twice to four lands plus [Irenicus's Vile Duplication](https://
 
 ## Turning points
 
-**Turn 2–4 — seeds.** Hazel plays [Squirrel Sanctuary](https://scryfall.com/card/mh2/174/squirrel-sanctuary), then [Experimental Confectioner](https://scryfall.com/card/woe/314/experimental-confectioner) and [Honored Dreyleader](https://scryfall.com/card/blb/178/honored-dreyleader). Alania tutors [Tasha's Hideous Laughter](https://scryfall.com/card/afr/78/tashas-hideous-laughter) third from the top with [Long-Term Plans](https://scryfall.com/card/scg/38/long-term-plans) and casts Alania on turn 4. Eva lands [Baird, Steward of Argive](https://scryfall.com/card/cmm/15/baird-steward-of-argive).
+**Turn 1–4 — seeds.** Hazel opens on [Squirrel Sanctuary](https://scryfall.com/card/mh2/174/squirrel-sanctuary) off the first Forest and starts swinging at Alania on turn two, then adds [Experimental Confectioner](https://scryfall.com/card/woe/314/experimental-confectioner) and [Honored Dreyleader](https://scryfall.com/card/blb/178/honored-dreyleader). Alania tutors [Tasha's Hideous Laughter](https://scryfall.com/card/afr/78/tashas-hideous-laughter) third from the top with [Long-Term Plans](https://scryfall.com/card/scg/38/long-term-plans) and casts Alania on turn 4. Eva lands [Baird, Steward of Argive](https://scryfall.com/card/cmm/15/baird-steward-of-argive).
 
 **Turn 5 — both commanders.** Homer finally has green-blue from [Simic Growth Chamber](https://scryfall.com/card/dis/180/simic-growth-chamber). Hazel casts Hazel. The Squirrel keeps pecking Alania.
 
