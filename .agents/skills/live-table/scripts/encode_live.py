@@ -226,6 +226,15 @@ def _map_seat(
     return out
 
 
+def select_event(events: list, event_id: int | None) -> dict:
+    if event_id is None:
+        return events[-1]
+    for event in events:
+        if event.get("id") == event_id:
+            return event
+    raise ValueError(f"replay has no event with id {event_id}")
+
+
 def build_snapshot(
     replay: dict,
     *,
@@ -233,14 +242,15 @@ def build_snapshot(
     talk: str,
     waiting: str,
     public: bool = False,
+    event_id: int | None = None,
 ) -> dict:
     events = replay.get("events") or []
     if not events:
         raise ValueError("replay has no events")
-    last = events[-1]
+    last = select_event(events, event_id)
     state = last.get("state") or {}
     if not isinstance(state, dict):
-        raise ValueError("last event state must be an object")
+        raise ValueError(f"event {last.get('id')} state must be an object")
 
     players = state.get("players") or {}
     if not isinstance(players, dict):
@@ -308,6 +318,11 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--base", default=DEFAULT_BASE, help="live page base URL")
     parser.add_argument(
+        "--event",
+        type=int,
+        help="event id to snapshot (default: the last event)",
+    )
+    parser.add_argument(
         "--json",
         action="store_true",
         help="write the uncompressed snapshot JSON to stdout",
@@ -326,6 +341,7 @@ def main(argv: list[str] | None = None) -> int:
             talk=args.talk,
             waiting=args.waiting,
             public=True,
+            event_id=args.event,
         )
         if args.json:
             json.dump(snapshot, sys.stdout, separators=(",", ":"), ensure_ascii=False)
@@ -341,6 +357,7 @@ def main(argv: list[str] | None = None) -> int:
         talk=args.talk,
         waiting=args.waiting,
         public=False,
+        event_id=args.event,
     )
     if args.json:
         json.dump(private, sys.stdout, separators=(",", ":"), ensure_ascii=False)
@@ -353,6 +370,7 @@ def main(argv: list[str] | None = None) -> int:
         talk=args.talk,
         waiting=args.waiting,
         public=True,
+        event_id=args.event,
     )
     private_payload = encode_payload(private)
     public_payload = encode_payload(public)
