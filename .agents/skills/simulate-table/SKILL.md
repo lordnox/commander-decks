@@ -428,9 +428,13 @@ Before reporting:
 1. Confirm every seat has a pregame plan, every untap has a preceding turn
    plan, and every draw has a following impact update.
 2. Replay each seat's mana and zone changes from the previous snapshot.
-3. Confirm every draw has a preceding draw event and decrements the library.
-4. Confirm triggered abilities occur in the correct phase and before the next
-   untap.
+3. Confirm every draw decrements the library, its impact plan names that
+   seat's draw rather than the previous seat's, and the preceding turn plan
+   did not know the unrevealed card.
+4. Confirm every cast, trigger, and resolution is a separate event in stack
+   order. Resolve mandatory draw-step, enter, landfall, combat-damage, death,
+   and second-draw triggers before advancing phases; summaries name source,
+   effect, and targets.
 5. At every main phase, repeat the deterministic-win check against the cards
    then available. A missed win invalidates the simulation. A pass with
    unused mana and no `think` / `decision` is also a miss unless every
@@ -448,19 +452,20 @@ Before reporting:
 9. Confirm a `cast` or `play_land` snapshot does not show the new permanent
    tapped unless its Oracle text can enter tapped. Summoning sickness is
    not tapped.
-10. Confirm `decision.open_mana` is not far below the number of untapped
-   lands in that snapshot.
+10. Confirm `decision.open_mana` follows an actual filter/rock payment
+    sequence and is not far below the snapshot's available mana. A Signet or
+    filter without an input is zero open mana.
 11. Confirm private plan text and `decision.reason` do not name a card that
-    exists only in
-    another seat's hand.
+    exists only in another seat's hand or an unrevealed library position.
 12. Remove `_libraries`, keep only `library_count`, and write compact JSON to
     `table-games/<slug>.json`.
 
 `render-table-replay` always checks that commanders still exist in a zone.
 Run `bun run table:render -- table-games/<slug>.json --strict` on a **new**
-recording so illegal ETB taps, impossible `open_mana`, and hidden-card
-reasons fail the build. Do not rewrite an old replay to satisfy `--strict`
-unless the user asked for a new game.
+recording so illegal ETB taps, impossible `open_mana`, hidden-card reasons,
+pre-draw topdeck knowledge, and wrong-seat draw updates fail the build. Do not
+rewrite an old replay to satisfy `--strict` unless the user asked for a new
+game.
 
 The replay JSON is the simulation's terminal output. Invoke
 `render-table-replay` separately when the user wants it in the React player.
