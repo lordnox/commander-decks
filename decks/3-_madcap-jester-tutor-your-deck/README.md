@@ -168,3 +168,7 @@ This list tutors *their* decks, not this one. When a search-exile resolves with 
 ## Weaknesses
 
 A 3/2 dies to any removal. Search-exile is blank without Madcap or another overlay. Hideous Laughter into three land-heavy libraries can exile twenty mana of nothing useful. [Knowledge Pool](https://scryfall.com/card/mbs/111/knowledge-pool?utm_source=api) and [Uba Mask](https://scryfall.com/card/chk/272/uba-mask?utm_source=api) are symmetrical if this seat is tapped out. Graveyard-based decks lose less to library exile than combo decks do.
+
+## Maybeboard
+
+[Fevered Suspicion](https://scryfall.com/card/afc/47/fevered-suspicion?utm_source=api) would have each opponent exile to a nonland, let this seat cast those spells for free, then Rebound the same dump. Eight mana keeps it off the 99 while [Tasha's Hideous Laughter](https://scryfall.com/card/afr/78/tashas-hideous-laughter?utm_source=api) and [Siphon Insight](https://scryfall.com/card/otc/242/siphon-insight?utm_source=api) already occupy the mass-exile and cheap-steal roles.
