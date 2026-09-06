@@ -156,6 +156,7 @@ export type ReplayEvent = {
 export type ReplayGame = {
   schema: number
   planning?: number
+  played_at?: string
   seed: number
   starting_life: number
   headline: string

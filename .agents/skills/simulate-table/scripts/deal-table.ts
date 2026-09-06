@@ -639,6 +639,7 @@ const applyGame = async (seats: Seat[], options: Options) => {
   return {
     schema: 2,
     planning: 1,
+    played_at: new Date().toISOString(),
     seed: options.seed,
     starting_life: 40,
     headline: "In progress",

@@ -344,6 +344,12 @@ export const ReplayPage = ({ slug }: { slug: string }) => {
               {game.headline}
             </h1>
             <p className="text-xs text-stone-500">
+              {game.played_at
+                ? `${new Intl.DateTimeFormat(undefined, {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                  }).format(new Date(game.played_at))} · `
+                : ''}
               Seed {game.seed} · Event {index + 1} of {game.events.length}
             </p>
           </div>

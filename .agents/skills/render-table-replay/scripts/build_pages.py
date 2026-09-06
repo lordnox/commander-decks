@@ -4,7 +4,9 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 from render_replay import REPLAYS, ROOT, replay_paths
@@ -15,6 +17,76 @@ GAMES_JSON = ROOT / "site" / "public" / "games.json"
 def commander_art(game: dict, commander: str) -> str:
     entry = (game.get("catalog") or {}).get(commander) or {}
     return entry.get("image_normal") or entry.get("image_small") or ""
+
+
+def parse_played_at(value: object) -> datetime | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    if text.endswith("Z"):
+        text = f"{text[:-1]}+00:00"
+    try:
+        parsed = datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return parsed.replace(tzinfo=timezone.utc)
+    return parsed
+
+
+def git_added_at(log: Path) -> str | None:
+    try:
+        result = subprocess.run(
+            [
+                "git",
+                "log",
+                "--follow",
+                "--diff-filter=A",
+                "--format=%aI",
+                "--",
+                str(log.relative_to(ROOT)),
+            ],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError:
+        return None
+    lines = [line.strip() for line in result.stdout.splitlines() if line.strip()]
+    return lines[-1] if lines else None
+
+
+def file_mtime_iso(log: Path) -> str:
+    return datetime.fromtimestamp(log.stat().st_mtime, tz=timezone.utc).isoformat()
+
+
+def played_at_iso(log: Path, game: dict) -> str:
+    recorded = parse_played_at(game.get("played_at"))
+    if recorded is not None:
+        return recorded.isoformat()
+    added = parse_played_at(git_added_at(log))
+    if added is not None:
+        return added.isoformat()
+    return file_mtime_iso(log)
+
+
+def rank_games(games: list[dict]) -> list[dict]:
+    """Oldest game is index 1; return newest first."""
+    ranked = sorted(
+        games,
+        key=lambda game: (
+            parse_played_at(game.get("played_at"))
+            or datetime.min.replace(tzinfo=timezone.utc),
+            game.get("slug") or "",
+        ),
+    )
+    numbered = [
+        {**game, "index": index}
+        for index, game in enumerate(ranked, start=1)
+    ]
+    numbered.reverse()
+    return numbered
 
 
 def public_game(log: Path) -> dict:
@@ -32,6 +104,7 @@ def public_game(log: Path) -> dict:
         "turn": result.get("turn"),
         "ended": result.get("ended") or "unknown",
         "winner": (winner or {}).get("name") if winner else None,
+        "played_at": played_at_iso(log, game),
         "seats": [
             {
                 "id": seat.get("id"),
@@ -77,7 +150,7 @@ def main() -> int:
                 file=sys.stderr,
             )
 
-    games = [public_game(log) for log in logs]
+    games = rank_games([public_game(log) for log in logs])
     GAMES_JSON.parent.mkdir(parents=True, exist_ok=True)
     GAMES_JSON.write_text(
         json.dumps(games, ensure_ascii=False, indent=2) + "\n",

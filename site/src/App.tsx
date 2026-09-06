@@ -20,7 +20,18 @@ type Game = {
   turn: number
   ended: 'win' | 'draw' | 'truncated' | 'unknown'
   winner: string | null
+  played_at?: string
+  index?: number
   seats: Seat[]
+}
+
+const formatPlayedAt = (value: string) => {
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return null
+  return new Intl.DateTimeFormat(undefined, {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  }).format(date)
 }
 
 const statusLabel: Record<Game['ended'], string> = {
@@ -114,17 +125,30 @@ const GameCard = ({ game }: { game: Game }) => (
 
     <div className="flex min-h-72 flex-col p-6">
       <div className="mb-4 flex items-center justify-between gap-3">
-        <span
-          className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] ${
-            game.ended === 'win'
-              ? 'bg-gold-400/15 text-gold-300'
-              : 'bg-moss-400/15 text-moss-200'
-          }`}
-        >
-          {statusLabel[game.ended]}
-        </span>
-        <span className="text-xs font-medium tracking-wide text-stone-400">
-          Seed {game.seed} · Turn {game.turn}
+        <div className="flex flex-wrap items-center gap-2">
+          {game.index != null && (
+            <span
+              className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold tabular-nums tracking-[0.12em] text-stone-200"
+              title={`Played ${game.index} of the recorded tables, oldest first`}
+            >
+              #{game.index}
+            </span>
+          )}
+          <span
+            className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] ${
+              game.ended === 'win'
+                ? 'bg-gold-400/15 text-gold-300'
+                : 'bg-moss-400/15 text-moss-200'
+            }`}
+          >
+            {statusLabel[game.ended]}
+          </span>
+        </div>
+        <span className="text-right text-xs font-medium tracking-wide text-stone-400">
+          {game.played_at ? formatPlayedAt(game.played_at) ?? 'Date unknown' : null}
+          <span className={game.played_at ? 'mt-0.5 block' : undefined}>
+            Seed {game.seed} · Turn {game.turn}
+          </span>
         </span>
       </div>
 
@@ -172,19 +196,26 @@ const ArchivePage = () => {
 
   const filteredGames = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase()
-    return games.filter((game) => {
-      const matchesStatus = status === 'all' || game.ended === status
-      const haystack = [
-        game.headline,
-        game.summary,
-        game.winner,
-        ...game.seats.flatMap((seat) => [seat.name, seat.commander]),
-      ]
-        .filter(Boolean)
-        .join(' ')
-        .toLocaleLowerCase()
-      return matchesStatus && (!needle || haystack.includes(needle))
-    })
+    return games
+      .filter((game) => {
+        const matchesStatus = status === 'all' || game.ended === status
+        const haystack = [
+          game.headline,
+          game.summary,
+          game.winner,
+          ...game.seats.flatMap((seat) => [seat.name, seat.commander]),
+        ]
+          .filter(Boolean)
+          .join(' ')
+          .toLocaleLowerCase()
+        return matchesStatus && (!needle || haystack.includes(needle))
+      })
+      .slice()
+      .sort((left, right) => {
+        const byIndex = (right.index ?? 0) - (left.index ?? 0)
+        if (byIndex) return byIndex
+        return Date.parse(right.played_at ?? '') - Date.parse(left.played_at ?? '')
+      })
   }, [games, query, status])
 
   return (

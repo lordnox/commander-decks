@@ -458,7 +458,7 @@ Before reporting:
 11. Confirm private plan text and `decision.reason` do not name a card that
     exists only in another seat's hand or an unrevealed library position.
 12. Remove `_libraries`, keep only `library_count`, and write compact JSON to
-    `table-games/<slug>.json`.
+    `table-games/<slug>.json`. Keep `played_at` from the opening deal.
 
 `render-table-replay` always checks that commanders still exist in a zone.
 Run `bun run table:render -- table-games/<slug>.json --strict` on a **new**

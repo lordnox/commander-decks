@@ -15,6 +15,7 @@ demand combat detail from them.
 |---|---|
 | `schema` | `2` (`1` is a legacy replay without combat records) |
 | `planning` | Optional planning contract version. New deals write `1`; old replays omit it. |
+| `played_at` | ISO-8601 timestamp when the table was dealt / recorded. The archive sorts newest first and numbers games from oldest = 1. |
 | `seed` | Deal seed |
 | `starting_life` | Usually `40` |
 | `headline` | One-line result |
