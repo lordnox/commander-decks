@@ -15,8 +15,11 @@ information changes (counter, block, removal of a planned card, illegal next
 step, politics fork). Then you pause, encode a NOW snapshot, and post:
 
 ```text
-https://lordnox.github.io/commander-decks/live?s=<payload>
+https://lordnox.github.io/commander-decks/live/?game=<slug>&event=<id>&you=<seat>
 ```
+
+Always use `/live/` with the trailing slash. GitHub Pages redirects `/live`
+and that can drop a fragment.
 
 The user looks at the Pages board, writes in the page textbox if they want,
 copies the plan, and pastes it in chat.
@@ -61,12 +64,18 @@ The pasted chat line is the standing plan. Execute it in order.
 
 ## Encode and post
 
+When the game is already published, prefer a short link (no payload):
+
 ```bash
 python3 .agents/skills/live-table/scripts/encode_live.py table-games/<slug>.json \
-  --you p2 --talk "..." --waiting "What do you do?"
+  --game <slug> --event <id> --you p2 --talk "..." --waiting "What do you do?"
 ```
 
-Add `--event <id>` to snapshot an earlier frame instead of the last one. Use it
+For an unpublished game, omit `--game` so the encoder emits a self-contained
+`?s=<payload>` URL. Warn and publish instead if that query is over ~6000
+characters; the encoder still prints `#s=` past 8000.
+
+Add `--event <id>` to pick an earlier frame instead of the last one. Use it
 when the human takes over a recorded game mid-log: pick the frame **before**
 that seat's next own decision, since every later play by that seat was an agent
 choice and is now discarded.
@@ -75,15 +84,12 @@ Use the live session path when that is the working file. Pass the human seat as
 `--you`. Put table talk and the current standing plan in `--talk`; the prompt
 in `--waiting`.
 
-Chat posts the **private** live URL (viewer hand included for `--you`). Mention
-the Pages UI has **Copy public link** for sharing (hands stripped). Hidden
-libraries never go in the URL.
-
-Prefer `?s=<payload>`. The encoder prints `#s=` instead when the query would
-exceed 8000 characters.
+Chat posts the **private** live URL (viewer hand included for `--you`, or the
+matching short link). Mention the Pages UI has **Copy public link** for sharing
+(hands stripped). Hidden libraries never go in the URL.
 
 ## After the game
 
 Optional: hand the finished replay to `render-table-replay` for the archive
-player (`?game=`). Live `/live?s=` is only the current NOW frame — do not treat
-it as a recorded game.
+player. Live `/live/` is only the current NOW frame — do not treat a payload
+link as a recorded game.

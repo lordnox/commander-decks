@@ -6,16 +6,27 @@ from __future__ import annotations
 import argparse
 import base64
 import json
+import re
 import sys
 import zlib
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 
-DEFAULT_BASE = "https://lordnox.github.io/commander-decks/live"
+DEFAULT_BASE = "https://lordnox.github.io/commander-decks/live/"
 PAYLOAD_PREFIX = "v1."
+CHAT_WARN_CHARS = 6000
 QUERY_WARN_CHARS = 8000
 SEAT_IDS = ("p1", "p2", "p3", "p4")
+SCRYFALL_IMAGE_ID_RE = re.compile(
+    r"cards\.scryfall\.io/[^/]+/(?:front|back)/[0-9a-f]/[0-9a-f]/"
+    r"([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})",
+    re.IGNORECASE,
+)
+UUID_RE = re.compile(
+    r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+    re.IGNORECASE,
+)
 
 
 def decode_payload(s: str) -> dict:
@@ -42,6 +53,7 @@ def encode_payload(snapshot: dict) -> str:
 
 
 CATALOG_FIELDS = (
+    "id",
     "scryfall_uri",
     "image_small",
     "image_normal",
@@ -52,6 +64,7 @@ CATALOG_FIELDS = (
     "faces",
 )
 FACE_FIELDS = (
+    "id",
     "name",
     "image_small",
     "image_normal",
@@ -60,14 +73,57 @@ FACE_FIELDS = (
     "oracle_text",
     "stats",
 )
+TEXT_FIELDS = ("type_line", "mana_cost", "oracle_text", "stats")
+
+
+def live_base(base: str) -> str:
+    return base if base.endswith("/") else f"{base}/"
 
 
 def snapshot_url(base: str, payload: str, *, hash_form: bool = False) -> str:
-    root = base.rstrip("/")
+    root = live_base(base)
     encoded = quote(payload, safe="._-")
     if hash_form:
         return f"{root}#s={encoded}"
     return f"{root}?s={encoded}"
+
+
+def short_link(
+    base: str,
+    *,
+    game: str,
+    event: int | None = None,
+    you: str | None = None,
+    talk: str = "",
+    waiting: str = "",
+) -> str:
+    root = live_base(base)
+    parts = [f"game={quote(game, safe='')}"]
+    if event is not None:
+        parts.append(f"event={event}")
+    if you:
+        parts.append(f"you={quote(you, safe='')}")
+    if talk:
+        parts.append(f"talk={quote(talk, safe='')}")
+    if waiting:
+        parts.append(f"waiting={quote(waiting, safe='')}")
+    return f"{root}?{'&'.join(parts)}"
+
+
+def _scryfall_id_from_image_urls(*urls: Any) -> str | None:
+    for url in urls:
+        if not isinstance(url, str) or not url:
+            continue
+        match = SCRYFALL_IMAGE_ID_RE.search(url)
+        if match:
+            return match.group(1).lower()
+    return None
+
+
+def _as_uuid(value: Any) -> str | None:
+    if isinstance(value, str) and UUID_RE.fullmatch(value):
+        return value.lower()
+    return None
 
 
 def _as_name(value: Any) -> str | None:
@@ -131,16 +187,42 @@ def _collect_names(snapshot: dict) -> set[str]:
     return names
 
 
+def _compact_face(face: Any) -> Any:
+    if not isinstance(face, dict):
+        return face
+    recovered = _scryfall_id_from_image_urls(face.get("image_small"), face.get("image_normal"))
+    if recovered is None:
+        recovered = _as_uuid(face.get("id"))
+    if recovered:
+        out: dict[str, Any] = {"id": recovered}
+        name = face.get("name")
+        if isinstance(name, str) and name:
+            out["name"] = name
+        for key in TEXT_FIELDS:
+            if key in face and face[key]:
+                out[key] = face[key]
+        return out
+    return {key: face[key] for key in FACE_FIELDS if key in face and face[key]}
+
+
 def _compact_card(details: Any) -> Any:
     if not isinstance(details, dict):
         return details
-    out = {key: details[key] for key in CATALOG_FIELDS if key in details and details[key]}
+    recovered = _scryfall_id_from_image_urls(details.get("image_small"), details.get("image_normal"))
+    if recovered is None:
+        recovered = _as_uuid(details.get("id"))
     faces = details.get("faces")
+    if recovered:
+        out: dict[str, Any] = {"id": recovered}
+        for key in TEXT_FIELDS:
+            if key in details and details[key]:
+                out[key] = details[key]
+        if isinstance(faces, list):
+            out["faces"] = [_compact_face(face) for face in faces]
+        return out
+    out = {key: details[key] for key in CATALOG_FIELDS if key in details and details[key]}
     if isinstance(faces, list):
-        out["faces"] = [
-            {key: face[key] for key in FACE_FIELDS if isinstance(face, dict) and key in face and face[key]}
-            for face in faces
-        ]
+        out["faces"] = [_compact_face(face) for face in faces]
     return out
 
 
@@ -327,10 +409,35 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="write the uncompressed snapshot JSON to stdout",
     )
+    parser.add_argument(
+        "--game",
+        help="published replay slug; emit a short ?game= link instead of a payload",
+    )
     args = parser.parse_args(argv)
 
     if not args.public and not args.you:
         parser.error("--you is required unless --public is set")
+
+    if args.game:
+        if args.public:
+            print(
+                short_link(
+                    args.base,
+                    game=args.game,
+                    event=args.event,
+                    you=None,
+                    talk=args.talk,
+                    waiting=args.waiting,
+                )
+            )
+            return 0
+        print(
+            f"private: {short_link(args.base, game=args.game, event=args.event, you=args.you, talk=args.talk, waiting=args.waiting)}"
+        )
+        print(
+            f"public:  {short_link(args.base, game=args.game, event=args.event, you=None, talk=args.talk, waiting=args.waiting)}"
+        )
+        return 0
 
     replay = load_replay(args.replay)
 
@@ -348,7 +455,22 @@ def main(argv: list[str] | None = None) -> int:
             sys.stdout.write("\n")
             return 0
         payload = encode_payload(snapshot)
-        print(snapshot_url(args.base, payload))
+        url = snapshot_url(args.base, payload)
+        if len(url) > CHAT_WARN_CHARS:
+            print(
+                f"warning: query URL is {len(url)} characters "
+                f"(over {CHAT_WARN_CHARS}); publish the game and use --game instead of a payload link",
+                file=sys.stderr,
+            )
+        if len(url) > QUERY_WARN_CHARS:
+            print(
+                f"warning: query URL is {len(url)} characters "
+                f"(over {QUERY_WARN_CHARS}); posting hash form so hosts do not truncate",
+                file=sys.stderr,
+            )
+            print(snapshot_url(args.base, payload, hash_form=True))
+            return 0
+        print(url)
         return 0
 
     private = build_snapshot(
@@ -376,6 +498,12 @@ def main(argv: list[str] | None = None) -> int:
     public_payload = encode_payload(public)
     private_query = snapshot_url(args.base, private_payload)
     public_query = snapshot_url(args.base, public_payload)
+    if len(private_query) > CHAT_WARN_CHARS:
+        print(
+            f"warning: private query URL is {len(private_query)} characters "
+            f"(over {CHAT_WARN_CHARS}); publish the game and use --game instead of a payload link",
+            file=sys.stderr,
+        )
     use_hash = len(private_query) > QUERY_WARN_CHARS
     if use_hash:
         print(
