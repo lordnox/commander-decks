@@ -385,6 +385,117 @@ class LiveTableEncodeTests(unittest.TestCase):
             self.assertIn("hand", private_snap["seats"][1])
             self.assertTrue(all("hand" not in seat for seat in public_snap["seats"]))
 
+    def test_cli_game_short_link(self):
+        import tempfile
+        from io import StringIO
+        import contextlib
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "fake.json"
+            path.write_text(json.dumps(FAKE_REPLAY), encoding="utf-8")
+            stdout = StringIO()
+            with contextlib.redirect_stdout(stdout):
+                code = encode_live.main(
+                    [
+                        str(path),
+                        "--game",
+                        "seed1729-homer-sin-osgir-hazel",
+                        "--event",
+                        "131",
+                        "--you",
+                        "p1",
+                        "--talk",
+                        "hold the line",
+                        "--waiting",
+                        "block or no?",
+                    ]
+                )
+            self.assertEqual(code, 0)
+            lines = stdout.getvalue().strip().splitlines()
+            self.assertEqual(len(lines), 2)
+            private_url = lines[0].split(" ", 1)[1]
+            public_url = lines[1].split("  ", 1)[1]
+            self.assertTrue(private_url.startswith(encode_live.DEFAULT_BASE + "?"))
+            self.assertIn("game=seed1729-homer-sin-osgir-hazel", private_url)
+            self.assertIn("event=131", private_url)
+            self.assertIn("you=p1", private_url)
+            self.assertIn("talk=hold%20the%20line", private_url)
+            self.assertIn("waiting=block%20or%20no%3F", private_url)
+            self.assertNotIn("you=", public_url)
+            self.assertIn("game=seed1729-homer-sin-osgir-hazel", public_url)
+            self.assertIn("event=131", public_url)
+            self.assertNotIn("s=v1.", private_url)
+            self.assertNotIn("s=v1.", public_url)
+
+            stdout = StringIO()
+            with contextlib.redirect_stdout(stdout):
+                code = encode_live.main(
+                    [
+                        str(path),
+                        "--game",
+                        "seed1729-homer-sin-osgir-hazel",
+                        "--you",
+                        "p2",
+                        "--talk",
+                        "",
+                        "--waiting",
+                        "",
+                    ]
+                )
+            self.assertEqual(code, 0)
+            no_event = stdout.getvalue()
+            self.assertNotIn("event=", no_event)
+            self.assertIn("you=p2", no_event.splitlines()[0])
+            self.assertNotIn("talk=", no_event)
+            self.assertNotIn("waiting=", no_event)
+
+    def test_base_keeps_trailing_slash_before_query(self):
+        url = encode_live.snapshot_url(encode_live.DEFAULT_BASE, "v1.abc")
+        self.assertTrue(url.startswith("https://lordnox.github.io/commander-decks/live/?"))
+        self.assertNotIn("/live?", url)
+        hashed = encode_live.snapshot_url(encode_live.DEFAULT_BASE, "v1.abc", hash_form=True)
+        self.assertTrue(hashed.startswith("https://lordnox.github.io/commander-decks/live/#"))
+        self.assertEqual(encode_live.DEFAULT_BASE, "https://lordnox.github.io/commander-decks/live/")
+
+    def test_catalog_uses_scryfall_id_instead_of_image_urls(self):
+        card_id = "cc0b3756-2eb1-4558-8d0c-4b5b8c2d9e01"
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        replay["catalog"]["Sol Ring"] = {
+            "scryfall_uri": "https://scryfall.com/card/x/5/sol-ring",
+            "image_small": f"https://cards.scryfall.io/small/front/c/c/{card_id}.jpg?123",
+            "image_normal": f"https://cards.scryfall.io/normal/front/c/c/{card_id}.jpg?123",
+            "type_line": "Artifact",
+            "mana_cost": "{1}",
+            "oracle_text": "{T}: Add {C}{C}.",
+            "stats": "",
+            "faces": [
+                {
+                    "name": "Sol Ring",
+                    "image_small": f"https://cards.scryfall.io/small/front/c/c/{card_id}.jpg?123",
+                    "image_normal": f"https://cards.scryfall.io/normal/front/c/c/{card_id}.jpg?123",
+                    "type_line": "Artifact",
+                }
+            ],
+        }
+        private = encode_live.build_snapshot(
+            replay,
+            you="p2",
+            talk="",
+            waiting="What do you do?",
+            public=False,
+        )
+        entry = private["catalog"]["Sol Ring"]
+        self.assertEqual(entry["id"], card_id)
+        self.assertNotIn("image_small", entry)
+        self.assertNotIn("image_normal", entry)
+        self.assertNotIn("scryfall_uri", entry)
+        self.assertEqual(entry["type_line"], "Artifact")
+        self.assertEqual(entry["faces"][0]["id"], card_id)
+        self.assertNotIn("image_small", entry["faces"][0])
+        leftover = private["catalog"]["Forest"]
+        self.assertNotIn("id", leftover)
+        self.assertIn("image_small", leftover)
+
 
 if __name__ == "__main__":
     unittest.main()
