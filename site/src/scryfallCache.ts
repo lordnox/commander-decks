@@ -6,6 +6,7 @@ const databaseName = 'commander-cards'
 const storeName = 'cards'
 const cacheTtl = 7 * 24 * 60 * 60 * 1000
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+const batchDelay = 100
 
 type ScryfallImages = {
   small?: string
@@ -56,10 +57,15 @@ const cardStats = ({
   return loyalty ?? defense ?? ''
 }
 
+const joinedFaces = (
+  faces: NonNullable<ScryfallCard['card_faces']>,
+  field: 'type_line' | 'mana_cost' | 'oracle_text',
+) => faces.map((face) => face[field] ?? '').filter(Boolean).join(' // ')
+
 const convertFace = (face: NonNullable<ScryfallCard['card_faces']>[number]): CardFace => ({
   name: face.name,
   image_small: face.image_uris?.small ?? '',
-  image_normal: face.image_uris?.normal ?? '',
+  image_normal: face.image_uris?.normal ?? face.image_uris?.small ?? '',
   type_line: face.type_line ?? '',
   mana_cost: face.mana_cost ?? '',
   oracle_text: face.oracle_text ?? '',
@@ -67,18 +73,21 @@ const convertFace = (face: NonNullable<ScryfallCard['card_faces']>[number]): Car
 })
 
 export const scryfallCardToDetails = (card: ScryfallCard): CardDetails => {
+  const faces = card.card_faces ?? []
+  const illustratedFaces = faces.filter((face) => face.image_uris?.small)
+  const parentImages = card.image_uris ?? illustratedFaces[0]?.image_uris
   const details: CardDetails = {
     id: card.id.toLowerCase(),
     scryfall_uri: card.scryfall_uri,
-    image_small: card.image_uris?.small,
-    image_normal: card.image_uris?.normal,
-    type_line: card.type_line ?? '',
-    mana_cost: card.mana_cost ?? '',
-    oracle_text: card.oracle_text ?? '',
+    image_small: parentImages?.small,
+    image_normal: parentImages?.normal ?? parentImages?.small,
+    type_line: card.type_line || joinedFaces(faces, 'type_line'),
+    mana_cost: card.mana_cost || joinedFaces(faces, 'mana_cost'),
+    oracle_text: card.oracle_text || joinedFaces(faces, 'oracle_text'),
     stats: cardStats(card),
   }
-  if (card.card_faces?.length) {
-    details.faces = card.card_faces.map(convertFace)
+  if (illustratedFaces.length >= 2) {
+    details.faces = illustratedFaces.map(convertFace)
   }
   return details
 }
@@ -146,8 +155,9 @@ const openCardDatabase = () =>
   })
 
 const readCachedCards = async (ids: string[], now: number) => {
-  const found = new Map<string, CardDetails>()
-  if (ids.length === 0) return found
+  const fresh = new Map<string, CardDetails>()
+  const stale = new Map<string, CardDetails>()
+  if (ids.length === 0) return { fresh, stale }
 
   const database = await openCardDatabase()
   try {
@@ -158,9 +168,9 @@ const readCachedCards = async (ids: string[], now: number) => {
         const request = store.get(id)
         request.onsuccess = () => {
           const cached = request.result as CachedCard | undefined
-          if (cached && now - cached.fetchedAt < cacheTtl) {
-            found.set(id, cached.details)
-          }
+          if (!cached) return
+          const target = now - cached.fetchedAt < cacheTtl ? fresh : stale
+          target.set(id, cached.details)
         }
       }
       transaction.oncomplete = () => resolve()
@@ -170,7 +180,7 @@ const readCachedCards = async (ids: string[], now: number) => {
   } finally {
     database.close()
   }
-  return found
+  return { fresh, stale }
 }
 
 const writeCachedCards = async (cards: Map<string, CardDetails>, fetchedAt: number) => {
@@ -192,7 +202,10 @@ const writeCachedCards = async (cards: Map<string, CardDetails>, fetchedAt: numb
   }
 }
 
-const fetchCardBatch = async (ids: string[]) => {
+const wait = (milliseconds: number) =>
+  new Promise((resolve) => globalThis.setTimeout(resolve, milliseconds))
+
+const fetchCardBatch = async (ids: string[], retry = true): Promise<Map<string, CardDetails>> => {
   const response = await fetch(collectionUrl, {
     method: 'POST',
     headers: {
@@ -203,6 +216,11 @@ const fetchCardBatch = async (ids: string[]) => {
       identifiers: ids.map((id) => ({ id })),
     }),
   })
+  if (response.status === 429 && retry) {
+    const retryAfter = Number(response.headers.get('Retry-After'))
+    await wait(Number.isFinite(retryAfter) ? retryAfter * 1000 : batchDelay)
+    return fetchCardBatch(ids, false)
+  }
   if (!response.ok) {
     throw new Error(
       `Could not load card details from Scryfall (${response.status} ${response.statusText})`,
@@ -245,22 +263,35 @@ export const hydrateLiveSnapshot = async (snapshot: LiveSnapshot) => {
         .filter(isScryfallId),
     ),
   ]
-  if (ids.length === 0) return snapshot
+  if (ids.length === 0) return { snapshot, complete: true }
 
   const now = Date.now()
-  const cached = await readCachedCards(ids, now).catch(() => new Map<string, CardDetails>())
-  const missing = ids.filter((id) => !cached.has(id))
+  const cached = await readCachedCards(ids, now).catch(() => ({
+    fresh: new Map<string, CardDetails>(),
+    stale: new Map<string, CardDetails>(),
+  }))
+  const missing = ids.filter((id) => !cached.fresh.has(id))
   const fetched = new Map<string, CardDetails>()
-  for (const batch of batchScryfallIds(missing)) {
-    const cards = await fetchCardBatch(batch)
-    for (const [id, details] of cards) fetched.set(id, details)
+  const batches = batchScryfallIds(missing)
+  for (const [index, batch] of batches.entries()) {
+    if (index > 0) await wait(batchDelay)
+    try {
+      const cards = await fetchCardBatch(batch)
+      for (const [id, details] of cards) fetched.set(id, details)
+    } catch {
+      // Keep cache hits and successful earlier batches; unresolved cards render by name.
+    }
   }
   void writeCachedCards(fetched, now).catch(() => undefined)
 
-  const hydrated = new Map([...cached, ...fetched])
+  const hydrated = new Map([...cached.stale, ...cached.fresh, ...fetched])
+  const unresolved = ids.filter((id) => !hydrated.has(id))
   return {
-    ...snapshot,
-    catalog: mergeCatalog(snapshot.catalog, hydrated),
-    tokens: snapshot.tokens ? mergeCatalog(snapshot.tokens, hydrated) : undefined,
+    snapshot: {
+      ...snapshot,
+      catalog: mergeCatalog(snapshot.catalog, hydrated),
+      tokens: snapshot.tokens ? mergeCatalog(snapshot.tokens, hydrated) : undefined,
+    },
+    complete: unresolved.length === 0,
   }
 }
