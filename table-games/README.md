@@ -47,6 +47,9 @@ loads a full snapshot JSON into chat.
 
 ## Recorded games
 
+- [Iname vs Bartolomé vs The Twelfth Doctor vs Sin](seed1729-iname-bartolome-doctor-sin.md)
+  ([watch](https://lordnox.github.io/commander-decks/?game=seed1729-iname-bartolome-doctor-sin))
+  — seed 1729, Death Aspect wins on turn 9 with The Capitoline Triad's 9/9 emblem.
 - [Homer vs Hazel vs Alania vs Eva](seed1729-homer-hazel-alania-eva.md)
   ([watch](https://lordnox.github.io/commander-decks/?game=seed1729-homer-hazel-alania-eva))
   — seed 1729, truncated at turn 12; Misty Critters leads after commander-killing Alania.
