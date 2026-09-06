@@ -1,0 +1,97 @@
+1 Arcane Denial (msc) 147
+1 Arcane Signet (ecc) 56
+1 Bear Umbra (nec) 113
+1 Birds of Paradise (msc) 170
+1 Boseiju, Who Endures (pneo) 266s
+1 Breeding Pool (rna) 246
+1 Canopy Cover (wwk) 98
+1 Cascade Bluffs (a25) 237
+1 Chandra's Ignition (ori) 137
+1 Command Tower (who) 265
+1 Counterspell (cmm) 81
+1 Cyclonic Rift (c14) 104 [Maybeboard{noDeck}{noPrice}]
+1 Deflecting Swat (cmm) 214
+1 Delayed Blast Fireball (clb) 630
+1 Delighted Halfling (ltr) 774
+1 Doc Aurlock, Grizzled Genius (otj) 201
+1 Exotic Orchard (c21) 288
+1 Expel from Orazca (rix) 37
+1 Exploration (2xm) 351
+1 Farseek (lcc) 242
+1 Fierce Guardianship (cmm) 94
+1 Fire-Lit Thicket (shm) 271
+1 Flooded Grove (a25) 239
+4 Forest (m21) 272
+1 Gaea's Gift (bro) 182
+1 Guild Artisan (clb) 179
+1 Haldan, Avid Arcanist (c20) 2 [Commander{top}]
+1 Helm of the Host (blc) 276 [Maybeboard{noDeck}{noPrice}]
+1 Hinder (2xm) 54
+1 Hinterland Harbor (lcc) 336
+1 Hunter's Insight (cmr) 232
+1 Irenicus's Vile Duplication (clb) 78
+4 Island (m21) 264
+1 Jeska's Will (clb) 799
+1 Ketria Triome (plst) IKO-250
+1 Legolas's Quick Reflexes (ltc) 493
+1 Leyline Immersion (mat) 21
+1 Mana Drain (2x2) 57
+1 Mana Geyser (scd) 151 [Maybeboard{noDeck}{noPrice}]
+1 Mark of Sakiko (bok) 135
+1 Memory Lapse (sta) 16
+1 Mistrise Village (tdm) 261
+1 Misty Rainforest (mh2) 250
+1 Moraug, Fury of Akoum (eoc) 89
+3 Mountain (stx) 373
+1 Nature's Claim (plst) IMA-177
+1 Nature's Lore (cmm) 904
+1 Negate (rix) 44
+1 Noxious Revival (onc) 110
+1 Otawara, Soaring City (neo) 271
+1 Overpowering Attack (acr) 37
+1 Pako, Arcane Retriever (c20) 13 [Commander{top}]
+1 Passionate Archaeologist (clb) 656
+1 Prismatic Vista (mh1) 244
+1 Quantum Misalignment (who) 52
+1 Rejuvenating Springs (cmm) 424
+1 Relentless Assault (cmr) 416
+1 Return of the Wildspeaker (clb) 831
+1 Rhystic Study (wot) 25 [Maybeboard{noDeck}{noPrice}]
+1 Rishkar's Expertise (nec) 127
+1 Rootbound Crag (who) 511
+1 Savage Beating (cmm) 252
+1 Scalding Tarn (mm3) 244
+1 Sea Gate Restoration // Sea Gate, Reborn (znr) 76
+1 Seize the Day (sld) 480
+1 Shadowspear (thb) 236
+1 Shatterskull Smashing // Shatterskull, the Hammer Pass (znr) 161
+1 Sol Ring (woc) 149
+1 Song of Creation (iko) 210
+1 Soul Immolation (ecl) 321
+1 Spire Garden (pclb) 361s
+1 Steam Vents (rtr) 247
+1 Stomping Ground (gtc) 247
+1 Stubborn Denial (ktk) 56
+1 Sulfur Falls (lcc) 354
+1 Summer Bloom (2x2) 160
+1 Swiftfoot Boots (lcc) 314
+1 Sword of Feast and Famine (2xm) 364
+1 Sylvan Library (dmr) 179
+1 Talisman of Creativity (msc) 218
+1 Talisman of Curiosity (drc) 140
+1 Talisman of Impulse (m3c) 311
+1 Temporal Spring (apc) 125
+1 The Last Agni Kai (tla) 144
+1 The Lost and the Damned (40k) 129
+1 The One Ring (ltr) 451 [Maybeboard{noDeck}{noPrice}]
+1 The Reaver Cleaver (dmc) 84
+1 Three Visits (cmm) 913
+1 Tinder Wall (ice) 270
+1 Training Center (plst) CMR-358
+1 Underworld Breach (thb) 161
+1 Utopia Sprawl (wot) 63
+1 Valakut Awakening // Valakut Stoneforge (znr) 174
+1 Wild Growth (pip) 208
+1 Wilderness Reclamation (c20) 196
+1 Winged Boots (afc) 20
+1 Wooded Foothills (ktk) 249

@@ -1,0 +1,132 @@
+{
+  "artist": "Kim Sokol",
+  "artist_ids": [
+    "f2bd4ad3-6359-4592-9b34-90a70cfe1b61"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764952,
+  "cmc": 2.0,
+  "collector_number": "124",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1895,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Get carried away.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "116361c4-fddd-440a-ad02-8d71df733231",
+  "illustration_id": "4f7c23ea-20de-48f0-a30a-e4aa3e8e3e7f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:05:33Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/1/116361c4-fddd-440a-ad02-8d71df733231.webp?1783911933",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/1/116361c4-fddd-440a-ad02-8d71df733231.jpg?1783911933",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/1/116361c4-fddd-440a-ad02-8d71df733231.jpg?1783911933",
+    "crop": "https://cards.scryfall.io/crop/front/1/1/116361c4-fddd-440a-ad02-8d71df733231.webp?1783911933",
+    "display": "https://cards.scryfall.io/display/front/1/1/116361c4-fddd-440a-ad02-8d71df733231.webp?1783911933",
+    "grid": "https://cards.scryfall.io/grid/front/1/1/116361c4-fddd-440a-ad02-8d71df733231.webp?1783911933",
+    "large": "https://cards.scryfall.io/large/front/1/1/116361c4-fddd-440a-ad02-8d71df733231.jpg?1783911933",
+    "normal": "https://cards.scryfall.io/normal/front/1/1/116361c4-fddd-440a-ad02-8d71df733231.jpg?1783911933",
+    "png": "https://cards.scryfall.io/png/front/1/1/116361c4-fddd-440a-ad02-8d71df733231.png?1783911933",
+    "small": "https://cards.scryfall.io/small/front/1/1/116361c4-fddd-440a-ad02-8d71df733231.jpg?1783911933",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/1/116361c4-fddd-440a-ad02-8d71df733231.webp?1783911933"
+  },
+  "keywords": [
+    "Equip"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 124707,
+  "multiverse_ids": [
+    658568
+  ],
+  "name": "Winged Boots",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a178a789-1f5f-46ca-a90b-574bd236a671",
+  "oracle_text": "Equipped creature has flying and ward {4}. (Whenever equipped creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {4}.)\nEquip {1}",
+  "oversized": false,
+  "prices": {
+    "eur": "8.37",
+    "eur_foil": null,
+    "tix": "10.24",
+    "usd": "8.77",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa178a789-1f5f-46ca-a90b-574bd236a671&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124707?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764952&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F545294%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Winged+Boots",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=658568&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWinged%2BBoots",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWinged%2BBoots"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/116361c4-fddd-440a-ad02-8d71df733231/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otc/124/winged-boots?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otc",
+  "set_id": "d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "set_name": "Outlaws of Thunder Junction Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "story_spotlight": false,
+  "tcgplayer_id": 545294,
+  "textless": false,
+  "type_line": "Artifact — Equipment",
+  "uri": "https://api.scryfall.com/cards/116361c4-fddd-440a-ad02-8d71df733231",
+  "variation": false
+}

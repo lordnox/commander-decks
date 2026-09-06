@@ -1,0 +1,135 @@
+{
+  "artist": "Isis",
+  "artist_ids": [
+    "4d12227a-8657-48b7-884a-ff70cc6428a5"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 748388,
+  "cmc": 2.0,
+  "collector_number": "40",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 54,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The Izzet specialize in unnatural disaster.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": true,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe",
+  "illustration_id": "a7281300-93de-4e46-92ae-1b4359772ce9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:28:59Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/f/dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe.webp?1783913339",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/f/dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe.jpg?1783913339",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/f/dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe.jpg?1783913339",
+    "crop": "https://cards.scryfall.io/crop/front/d/f/dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe.webp?1783913339",
+    "display": "https://cards.scryfall.io/display/front/d/f/dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe.webp?1783913339",
+    "grid": "https://cards.scryfall.io/grid/front/d/f/dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe.webp?1783913339",
+    "large": "https://cards.scryfall.io/large/front/d/f/dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe.jpg?1783913339",
+    "normal": "https://cards.scryfall.io/normal/front/d/f/dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe.jpg?1783913339",
+    "png": "https://cards.scryfall.io/png/front/d/f/dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe.png?1783913339",
+    "small": "https://cards.scryfall.io/small/front/d/f/dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe.jpg?1783913339",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/f/dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe.webp?1783913339"
+  },
+  "keywords": [
+    "Overload"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 120607,
+  "multiverse_ids": [
+    643047
+  ],
+  "name": "Cyclonic Rift",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d75b9c82-1b49-4c3e-a1b5-aeef57d6644b",
+  "oracle_text": "Return target nonland permanent you don't control to its owner's hand.\nOverload {6}{U} (You may cast this spell for its overload cost. If you do, change \"target\" in its text to \"each.\")",
+  "oversized": false,
+  "penny_rank": 604,
+  "prices": {
+    "eur": "37.04",
+    "eur_foil": "32.30",
+    "tix": "2.37",
+    "usd": "39.37",
+    "usd_etched": null,
+    "usd_foil": "42.82"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad75b9c82-1b49-4c3e-a1b5-aeef57d6644b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/120607?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=748388&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F530800%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Cyclonic+Rift",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=643047&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCyclonic%2BRift",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCyclonic%2BRift"
+  },
+  "released_at": "2024-01-12",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rvr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rvr/40/cyclonic-rift?utm_source=api",
+  "security_stamp": "oval",
+  "set": "rvr",
+  "set_id": "fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "set_name": "Ravnica Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arvr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "story_spotlight": false,
+  "tcgplayer_id": 530800,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe",
+  "variation": false,
+  "watermark": "izzet"
+}

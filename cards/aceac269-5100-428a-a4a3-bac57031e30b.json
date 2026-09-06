@@ -1,0 +1,165 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "770b988d-4f31-4746-8c23-4ed8d9a6b393",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/770b988d-4f31-4746-8c23-4ed8d9a6b393"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5a331542-11e4-49dc-be2f-ee56f07ccee0",
+      "name": "Guild Artisan",
+      "object": "related_card",
+      "type_line": "Legendary Enchantment — Background",
+      "uri": "https://api.scryfall.com/cards/5a331542-11e4-49dc-be2f-ee56f07ccee0"
+    }
+  ],
+  "artist": "Mark Behm",
+  "artist_ids": [
+    "ccf77963-723f-4137-b364-7417079e8ab9"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 659233,
+  "cmc": 2.0,
+  "collector_number": "179",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 3593,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Your discerning eye for value makes you nearly impossible to swindle.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "abe5cc84-db39-4f64-b877-599880a8729a",
+  "illustration_id": "a423979b-59d8-48bb-9725-da08f1a0e013",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:05:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/b/abe5cc84-db39-4f64-b877-599880a8729a.webp?1783922737",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/b/abe5cc84-db39-4f64-b877-599880a8729a.jpg?1783922737",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/b/abe5cc84-db39-4f64-b877-599880a8729a.jpg?1783922737",
+    "crop": "https://cards.scryfall.io/crop/front/a/b/abe5cc84-db39-4f64-b877-599880a8729a.webp?1783922737",
+    "display": "https://cards.scryfall.io/display/front/a/b/abe5cc84-db39-4f64-b877-599880a8729a.webp?1783922737",
+    "grid": "https://cards.scryfall.io/grid/front/a/b/abe5cc84-db39-4f64-b877-599880a8729a.webp?1783922737",
+    "large": "https://cards.scryfall.io/large/front/a/b/abe5cc84-db39-4f64-b877-599880a8729a.jpg?1783922737",
+    "normal": "https://cards.scryfall.io/normal/front/a/b/abe5cc84-db39-4f64-b877-599880a8729a.jpg?1783922737",
+    "png": "https://cards.scryfall.io/png/front/a/b/abe5cc84-db39-4f64-b877-599880a8729a.png?1783922737",
+    "small": "https://cards.scryfall.io/small/front/a/b/abe5cc84-db39-4f64-b877-599880a8729a.jpg?1783922737",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/b/abe5cc84-db39-4f64-b877-599880a8729a.webp?1783922737"
+  },
+  "keywords": [
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}",
+  "mtgo_id": 100382,
+  "multiverse_ids": [
+    563062
+  ],
+  "name": "Guild Artisan",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "aceac269-5100-428a-a4a3-bac57031e30b",
+  "oracle_text": "Commander creatures you own have \"Whenever this creature attacks a player, if no opponent has more life than that player, you create two Treasure tokens.\" (They're artifacts with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2022-05-17",
+    "source": "Carola Sincera",
+    "source_uri": "https://twitter.com/acog_geek4ever/status/1526561884274667520"
+  },
+  "prices": {
+    "eur": "0.21",
+    "eur_foil": "0.54",
+    "tix": "2.87",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": "1.58"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aaceac269-5100-428a-a4a3-bac57031e30b&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/100382?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=659233&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F272738%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Guild+Artisan",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=563062&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGuild%2BArtisan",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGuild%2BArtisan"
+  },
+  "released_at": "2022-06-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/abe5cc84-db39-4f64-b877-599880a8729a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/179/guild-artisan?utm_source=api",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 272738,
+  "textless": false,
+  "type_line": "Legendary Enchantment — Background",
+  "uri": "https://api.scryfall.com/cards/abe5cc84-db39-4f64-b877-599880a8729a",
+  "variation": false
+}

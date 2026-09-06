@@ -1,0 +1,139 @@
+{
+  "artist": "Rudy Siswanto",
+  "artist_ids": [
+    "23f86db1-9103-49bb-83d5-0fda18143921"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 834094,
+  "cmc": 6.0,
+  "collector_number": "89",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 986,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "4481eab8-9e7d-4db8-b1f2-fdf5ee1919a2",
+  "illustration_id": "c71abc36-e1d9-4821-972c-a6c7f864185c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:27:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/4/4481eab8-9e7d-4db8-b1f2-fdf5ee1919a2.webp?1783906037",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/4/4481eab8-9e7d-4db8-b1f2-fdf5ee1919a2.jpg?1783906037",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/4/4481eab8-9e7d-4db8-b1f2-fdf5ee1919a2.jpg?1783906037",
+    "crop": "https://cards.scryfall.io/crop/front/4/4/4481eab8-9e7d-4db8-b1f2-fdf5ee1919a2.webp?1783906037",
+    "display": "https://cards.scryfall.io/display/front/4/4/4481eab8-9e7d-4db8-b1f2-fdf5ee1919a2.webp?1783906037",
+    "grid": "https://cards.scryfall.io/grid/front/4/4/4481eab8-9e7d-4db8-b1f2-fdf5ee1919a2.webp?1783906037",
+    "large": "https://cards.scryfall.io/large/front/4/4/4481eab8-9e7d-4db8-b1f2-fdf5ee1919a2.jpg?1783906037",
+    "normal": "https://cards.scryfall.io/normal/front/4/4/4481eab8-9e7d-4db8-b1f2-fdf5ee1919a2.jpg?1783906037",
+    "png": "https://cards.scryfall.io/png/front/4/4/4481eab8-9e7d-4db8-b1f2-fdf5ee1919a2.png?1783906037",
+    "small": "https://cards.scryfall.io/small/front/4/4/4481eab8-9e7d-4db8-b1f2-fdf5ee1919a2.jpg?1783906037",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/4/4481eab8-9e7d-4db8-b1f2-fdf5ee1919a2.webp?1783906037"
+  },
+  "keywords": [
+    "Landfall"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{R}{R}",
+  "mtgo_id": 142315,
+  "multiverse_ids": [],
+  "name": "Moraug, Fury of Akoum",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6288c0cb-cf32-4ae9-abf0-104ec71654fa",
+  "oracle_text": "Each creature you control gets +1/+0 for each time it has attacked this turn.\nLandfall — Whenever a land you control enters, if it's your main phase, there's an additional combat phase after this phase. At the beginning of that combat, untap all creatures you control.",
+  "oversized": false,
+  "power": "6",
+  "preview": {
+    "previewed_at": "2025-07-09",
+    "source": "The Command Zone",
+    "source_uri": "https://www.youtube.com/watch?v=HxXLWC_JRdM"
+  },
+  "prices": {
+    "eur": "2.49",
+    "eur_foil": null,
+    "tix": "0.12",
+    "usd": "2.17",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6288c0cb-cf32-4ae9-abf0-104ec71654fa&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/142315?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=834094&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F641971%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Moraug%2C+Fury+of+Akoum",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMoraug%252C%2BFury%2Bof%2BAkoum",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMoraug%252C%2BFury%2Bof%2BAkoum"
+  },
+  "released_at": "2025-08-01",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "A4F9E959156D68855A1027198D75C281A7273A8D236183DE3999F21A6611C1C5",
+  "rulings_uri": "https://api.scryfall.com/cards/4481eab8-9e7d-4db8-b1f2-fdf5ee1919a2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eoc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eoc/89/moraug-fury-of-akoum?utm_source=api",
+  "security_stamp": "oval",
+  "set": "eoc",
+  "set_id": "b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "set_name": "Edge of Eternities Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "story_spotlight": false,
+  "tcgplayer_id": 641971,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Legendary Creature — Minotaur Warrior",
+  "uri": "https://api.scryfall.com/cards/4481eab8-9e7d-4db8-b1f2-fdf5ee1919a2",
+  "variation": false
+}

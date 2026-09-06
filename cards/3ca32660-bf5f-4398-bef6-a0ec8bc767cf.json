@@ -1,0 +1,163 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "6fc27b30-8c8e-434c-a72c-e1d409efc1ae",
+      "name": "Doc Aurlock, Grizzled Genius",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Bear Druid",
+      "uri": "https://api.scryfall.com/cards/6fc27b30-8c8e-434c-a72c-e1d409efc1ae"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f07677af-88a4-4ff5-b591-e1e3ac05235d",
+      "name": "Plot",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/f07677af-88a4-4ff5-b591-e1e3ac05235d"
+    }
+  ],
+  "arena_id": 90547,
+  "artist": "Jesper Ejsing",
+  "artist_ids": [
+    "a5f8354a-8b51-4e59-96b2-0e3aeae4fa1d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764051,
+  "cmc": 2.0,
+  "collector_number": "201",
+  "color_identity": [
+    "G",
+    "U"
+  ],
+  "colors": [
+    "G",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2520,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Learning stops only when you close your mind off to wonder.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "6fc27b30-8c8e-434c-a72c-e1d409efc1ae",
+  "illustration_id": "e4de32c5-eed1-44d8-85fa-11e2508848e9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:03:16Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/f/6fc27b30-8c8e-434c-a72c-e1d409efc1ae.webp?1783911796",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/f/6fc27b30-8c8e-434c-a72c-e1d409efc1ae.jpg?1783911796",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/f/6fc27b30-8c8e-434c-a72c-e1d409efc1ae.jpg?1783911796",
+    "crop": "https://cards.scryfall.io/crop/front/6/f/6fc27b30-8c8e-434c-a72c-e1d409efc1ae.webp?1783911796",
+    "display": "https://cards.scryfall.io/display/front/6/f/6fc27b30-8c8e-434c-a72c-e1d409efc1ae.webp?1783911796",
+    "grid": "https://cards.scryfall.io/grid/front/6/f/6fc27b30-8c8e-434c-a72c-e1d409efc1ae.webp?1783911796",
+    "large": "https://cards.scryfall.io/large/front/6/f/6fc27b30-8c8e-434c-a72c-e1d409efc1ae.jpg?1783911796",
+    "normal": "https://cards.scryfall.io/normal/front/6/f/6fc27b30-8c8e-434c-a72c-e1d409efc1ae.jpg?1783911796",
+    "png": "https://cards.scryfall.io/png/front/6/f/6fc27b30-8c8e-434c-a72c-e1d409efc1ae.png?1783911796",
+    "small": "https://cards.scryfall.io/small/front/6/f/6fc27b30-8c8e-434c-a72c-e1d409efc1ae.jpg?1783911796",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/f/6fc27b30-8c8e-434c-a72c-e1d409efc1ae.webp?1783911796"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}{U}",
+  "mtgo_id": 124313,
+  "multiverse_ids": [
+    655142
+  ],
+  "name": "Doc Aurlock, Grizzled Genius",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3ca32660-bf5f-4398-bef6-a0ec8bc767cf",
+  "oracle_text": "Spells you cast from your graveyard or from exile cost {2} less to cast.\nPlotting cards from your hand costs {2} less.",
+  "oversized": false,
+  "penny_rank": 4572,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2024-03-29",
+    "source": "Gamerbraves",
+    "source_uri": "https://www.gamerbraves.com/mtg-outlaws-of-thunder-junction-doc-aurlock-grizzled-genius-opens-up-spell-exile-strategies/"
+  },
+  "prices": {
+    "eur": "0.29",
+    "eur_foil": "0.90",
+    "tix": "0.03",
+    "usd": "0.40",
+    "usd_etched": null,
+    "usd_foil": "0.63"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3ca32660-bf5f-4398-bef6-a0ec8bc767cf&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124313?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764051&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544683%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Doc+Aurlock%2C+Grizzled+Genius",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=655142&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDoc%2BAurlock%252C%2BGrizzled%2BGenius",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDoc%2BAurlock%252C%2BGrizzled%2BGenius"
+  },
+  "released_at": "2024-04-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/6fc27b30-8c8e-434c-a72c-e1d409efc1ae/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otj?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otj/201/doc-aurlock-grizzled-genius?utm_source=api",
+  "set": "otj",
+  "set_id": "55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "set_name": "Outlaws of Thunder Junction",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotj&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "story_spotlight": false,
+  "tcgplayer_id": 544683,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Legendary Creature — Bear Druid",
+  "uri": "https://api.scryfall.com/cards/6fc27b30-8c8e-434c-a72c-e1d409efc1ae",
+  "variation": false
+}

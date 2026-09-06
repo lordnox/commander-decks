@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "title": "Pako — Walkies",
+  "summary": "Extra-combat Pako voltron that exiles every library, then Haldan casts the fetch-countered pile.",
+  "tags": [
+    {
+      "name": "voltron",
+      "score": 5,
+      "reason": "Pako is the attacker: extra combats, auras, equipment, and protection all sit on that body."
+    },
+    {
+      "name": "extra combats",
+      "score": 5,
+      "reason": "Five extra-combat cards plus Moraug landfall exist to repeat Pako's attack trigger."
+    },
+    {
+      "name": "theft",
+      "score": 4,
+      "reason": "Haldan spends opponents' exiled noncreature spells and lands as the main midgame resource."
+    },
+    {
+      "name": "exile",
+      "score": 4,
+      "reason": "Pako stocks exile every attack; Archaeologist, Doc Aurlock, Lost and the Damned, and Fireball pay off casts from exile."
+    },
+    {
+      "name": "commander matters",
+      "score": 4,
+      "reason": "Guild Artisan, Passionate Archaeologist, Leyline Immersion, free commander spells, and Overpowering Attack freerunning all key off the commanders."
+    },
+    {
+      "name": "equipment",
+      "score": 3,
+      "reason": "Sword, Cleaver, Shadowspear, and both boots are the combat-mana and protection package."
+    },
+    {
+      "name": "auras",
+      "score": 3,
+      "reason": "Bear Umbra, Canopy Cover, Mark of Sakiko, Leyline Immersion, and the Forest auras are dedicated enchantments on Pako or lands."
+    },
+    {
+      "name": "clones",
+      "score": 3,
+      "reason": "Irenicus and Quantum Misalignment make nonlegendary extra Pakos; Helm sits on the maybeboard."
+    },
+    {
+      "name": "treasure",
+      "score": 2,
+      "reason": "Guild Artisan and The Reaver Cleaver make Treasures as combat mana, not a Treasure deck."
+    },
+    {
+      "name": "landfall",
+      "score": 2,
+      "reason": "Moraug is the landfall extra-combat payoff; Exploration and Summer Bloom feed him."
+    },
+    {
+      "name": "spellslinger",
+      "score": 2,
+      "reason": "A large instant and sorcery suite supports combat rather than a storm or prowess plan."
+    }
+  ]
+}

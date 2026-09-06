@@ -1,0 +1,159 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "6e817a37-235f-46fd-b857-9003b2264d10",
+      "name": "The One Ring",
+      "object": "related_card",
+      "type_line": "Legendary Artifact",
+      "uri": "https://api.scryfall.com/cards/6e817a37-235f-46fd-b857-9003b2264d10"
+    },
+    {
+      "component": "combo_piece",
+      "id": "23b91af8-eff9-402a-8ba8-ab470c5c1a44",
+      "name": "A-The One Ring",
+      "object": "related_card",
+      "type_line": "Legendary Artifact",
+      "uri": "https://api.scryfall.com/cards/23b91af8-eff9-402a-8ba8-ab470c5c1a44"
+    }
+  ],
+  "arena_id": 84938,
+  "artist": "Veli Nyström",
+  "artist_ids": [
+    "96cd183c-bfca-4e48-9a5b-a4acd82f8364"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 701676,
+  "cmc": 4.0,
+  "collector_number": "246",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 91,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": true,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": false,
+  "id": "d5806e68-1054-458e-866d-1f2470f682b2",
+  "illustration_id": "fa27f28e-747b-4490-aa17-329059fc5390",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T04:17:19Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/5/d5806e68-1054-458e-866d-1f2470f682b2.webp?1783916239",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/5/d5806e68-1054-458e-866d-1f2470f682b2.jpg?1783916239",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/5/d5806e68-1054-458e-866d-1f2470f682b2.jpg?1783916239",
+    "crop": "https://cards.scryfall.io/crop/front/d/5/d5806e68-1054-458e-866d-1f2470f682b2.webp?1783916239",
+    "display": "https://cards.scryfall.io/display/front/d/5/d5806e68-1054-458e-866d-1f2470f682b2.webp?1783916239",
+    "grid": "https://cards.scryfall.io/grid/front/d/5/d5806e68-1054-458e-866d-1f2470f682b2.webp?1783916239",
+    "large": "https://cards.scryfall.io/large/front/d/5/d5806e68-1054-458e-866d-1f2470f682b2.jpg?1783916239",
+    "normal": "https://cards.scryfall.io/normal/front/d/5/d5806e68-1054-458e-866d-1f2470f682b2.jpg?1783916239",
+    "png": "https://cards.scryfall.io/png/front/d/5/d5806e68-1054-458e-866d-1f2470f682b2.png?1783916239",
+    "small": "https://cards.scryfall.io/small/front/d/5/d5806e68-1054-458e-866d-1f2470f682b2.jpg?1783916239",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/5/d5806e68-1054-458e-866d-1f2470f682b2.webp?1783916239"
+  },
+  "keywords": [
+    "Indestructible"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "banned",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "banned",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}",
+  "mtgo_id": 112402,
+  "multiverse_ids": [
+    617076
+  ],
+  "name": "The One Ring",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3aa83ed2-f48b-4ce6-a614-2c54ddf50538",
+  "oracle_text": "Indestructible\nWhen The One Ring enters, if you cast it, you gain protection from everything until your next turn.\nAt the beginning of your upkeep, you lose 1 life for each burden counter on The One Ring.\n{T}: Put a burden counter on The One Ring, then draw a card for each burden counter on The One Ring.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-03-13",
+    "source": "IGN",
+    "source_uri": "https://www.ign.com/articles/lord-of-the-rings-magic-the-gathering-cards-gandalf-one-ring-spoilers"
+  },
+  "prices": {
+    "eur": "87.01",
+    "eur_foil": "109.95",
+    "tix": "1.36",
+    "usd": "122.01",
+    "usd_etched": null,
+    "usd_foil": "135.59"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3aa83ed2-f48b-4ce6-a614-2c54ddf50538&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/112402?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=701676&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F487805%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+One+Ring",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=617076&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BOne%2BRing",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BOne%2BRing"
+  },
+  "released_at": "2023-06-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d5806e68-1054-458e-866d-1f2470f682b2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ltr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ltr/246/the-one-ring?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "ltr",
+  "set_id": "08078706-ac5d-439b-8f01-894d38751367",
+  "set_name": "The Lord of the Rings: Tales of Middle-earth",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Altr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/08078706-ac5d-439b-8f01-894d38751367",
+  "story_spotlight": false,
+  "tcgplayer_id": 487805,
+  "textless": false,
+  "type_line": "Legendary Artifact",
+  "uri": "https://api.scryfall.com/cards/d5806e68-1054-458e-866d-1f2470f682b2",
+  "variation": false
+}

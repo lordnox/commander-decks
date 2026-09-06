@@ -1,0 +1,138 @@
+{
+  "artist": "Jonas De Ro",
+  "artist_ids": [
+    "561ebf9e-8d93-4b57-8156-8826d0c19601"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 790938,
+  "cmc": 1.0,
+  "collector_number": "215",
+  "color_identity": [
+    "G",
+    "R"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 2419,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "future",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ac2014af-7cbc-4b0a-8292-8ccd18bc9d45",
+  "illustration_id": "e5c2af45-be71-4055-b1d9-597685423a10",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:42:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/c/ac2014af-7cbc-4b0a-8292-8ccd18bc9d45.webp?1783910555",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/c/ac2014af-7cbc-4b0a-8292-8ccd18bc9d45.jpg?1783910555",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/c/ac2014af-7cbc-4b0a-8292-8ccd18bc9d45.jpg?1783910555",
+    "crop": "https://cards.scryfall.io/crop/front/a/c/ac2014af-7cbc-4b0a-8292-8ccd18bc9d45.webp?1783910555",
+    "display": "https://cards.scryfall.io/display/front/a/c/ac2014af-7cbc-4b0a-8292-8ccd18bc9d45.webp?1783910555",
+    "grid": "https://cards.scryfall.io/grid/front/a/c/ac2014af-7cbc-4b0a-8292-8ccd18bc9d45.webp?1783910555",
+    "large": "https://cards.scryfall.io/large/front/a/c/ac2014af-7cbc-4b0a-8292-8ccd18bc9d45.jpg?1783910555",
+    "normal": "https://cards.scryfall.io/normal/front/a/c/ac2014af-7cbc-4b0a-8292-8ccd18bc9d45.jpg?1783910555",
+    "png": "https://cards.scryfall.io/png/front/a/c/ac2014af-7cbc-4b0a-8292-8ccd18bc9d45.png?1783910555",
+    "small": "https://cards.scryfall.io/small/front/a/c/ac2014af-7cbc-4b0a-8292-8ccd18bc9d45.jpg?1783910555",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/c/ac2014af-7cbc-4b0a-8292-8ccd18bc9d45.webp?1783910555"
+  },
+  "keywords": [
+    "Defender"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}",
+  "mtgo_id": 134354,
+  "multiverse_ids": [
+    677492
+  ],
+  "name": "Tinder Wall",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "dd2f698c-b3b4-4dc8-9950-9be03ca7dc9e",
+  "oracle_text": "Defender (This creature can't attack.)\nSacrifice this creature: Add {R}{R}.\n{R}, Sacrifice this creature: It deals 2 damage to target creature it's blocking.",
+  "oversized": false,
+  "penny_rank": 663,
+  "power": "0",
+  "prices": {
+    "eur": "2.13",
+    "eur_foil": "81.92",
+    "tix": "0.53",
+    "usd": "2.19",
+    "usd_etched": null,
+    "usd_foil": "105.29"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Add2f698c-b3b4-4dc8-9950-9be03ca7dc9e&unique=prints",
+  "produced_mana": [
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/134354?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=790938&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F563284%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Tinder+Wall",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=677492&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTinder%2BWall",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTinder%2BWall"
+  },
+  "released_at": "2024-08-02",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ac2014af-7cbc-4b0a-8292-8ccd18bc9d45/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mb2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mb2/215/tinder-wall?utm_source=api",
+  "set": "mb2",
+  "set_id": "1e6879fe-2f29-4ad7-8d42-7f5bfb469f4a",
+  "set_name": "Mystery Booster 2",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amb2&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/1e6879fe-2f29-4ad7-8d42-7f5bfb469f4a",
+  "story_spotlight": false,
+  "tcgplayer_id": 563284,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Plant Wall",
+  "uri": "https://api.scryfall.com/cards/ac2014af-7cbc-4b0a-8292-8ccd18bc9d45",
+  "variation": false
+}

@@ -1,0 +1,133 @@
+{
+  "artist": "John Matson",
+  "artist_ids": [
+    "a1685587-4b55-446b-b420-c37b202ed3f1"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 3237,
+  "cmc": 3.0,
+  "collector_number": "125",
+  "color_identity": [
+    "G",
+    "U"
+  ],
+  "colors": [
+    "G",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 17806,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "One splash of the spring's water knocks you clear into last week.",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b584dfd1-a56c-406e-8504-47ea136dc102",
+  "illustration_id": "e4200d72-5154-4de6-8c32-93775f77cea9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:22:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/5/b584dfd1-a56c-406e-8504-47ea136dc102.webp?1783945330",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/5/b584dfd1-a56c-406e-8504-47ea136dc102.jpg?1783945330",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/5/b584dfd1-a56c-406e-8504-47ea136dc102.jpg?1783945330",
+    "crop": "https://cards.scryfall.io/crop/front/b/5/b584dfd1-a56c-406e-8504-47ea136dc102.webp?1783945330",
+    "display": "https://cards.scryfall.io/display/front/b/5/b584dfd1-a56c-406e-8504-47ea136dc102.webp?1783945330",
+    "grid": "https://cards.scryfall.io/grid/front/b/5/b584dfd1-a56c-406e-8504-47ea136dc102.webp?1783945330",
+    "large": "https://cards.scryfall.io/large/front/b/5/b584dfd1-a56c-406e-8504-47ea136dc102.jpg?1783945330",
+    "normal": "https://cards.scryfall.io/normal/front/b/5/b584dfd1-a56c-406e-8504-47ea136dc102.jpg?1783945330",
+    "png": "https://cards.scryfall.io/png/front/b/5/b584dfd1-a56c-406e-8504-47ea136dc102.png?1783945330",
+    "small": "https://cards.scryfall.io/small/front/b/5/b584dfd1-a56c-406e-8504-47ea136dc102.jpg?1783945330",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/5/b584dfd1-a56c-406e-8504-47ea136dc102.webp?1783945330"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}{U}",
+  "mtgo_foil_id": 16309,
+  "mtgo_id": 16308,
+  "multiverse_ids": [
+    25832
+  ],
+  "name": "Temporal Spring",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1d7a4e9c-b3c9-421e-b5f4-82d51d7d5125",
+  "oracle_text": "Put target permanent on top of its owner's library.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.18",
+    "eur_foil": "4.32",
+    "tix": "0.04",
+    "usd": "0.15",
+    "usd_etched": null,
+    "usd_foil": "7.07"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1d7a4e9c-b3c9-421e-b5f4-82d51d7d5125&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/16308?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=3237&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F8039%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Temporal+Spring",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=25832&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTemporal%2BSpring",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTemporal%2BSpring"
+  },
+  "released_at": "2001-06-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b584dfd1-a56c-406e-8504-47ea136dc102/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/apc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/apc/125/temporal-spring?utm_source=api",
+  "set": "apc",
+  "set_id": "e4e00913-d08d-4899-86ea-5cf631e09ce0",
+  "set_name": "Apocalypse",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aapc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e4e00913-d08d-4899-86ea-5cf631e09ce0",
+  "story_spotlight": false,
+  "tcgplayer_id": 8039,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/b584dfd1-a56c-406e-8504-47ea136dc102",
+  "variation": false
+}

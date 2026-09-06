@@ -1,0 +1,16 @@
+{
+  "goals": [
+    "Voltron",
+    "Theft"
+  ],
+  "scores": {
+    "jankiness": 6,
+    "fun": 9,
+    "oppressiveness": 6,
+    "identity": {
+      "Voltron": 9,
+      "Theft": 8
+    }
+  },
+  "notes": "Pako is the protected, evasive primary closer, while every attack stocks opposing cards for Haldan. Random exile piles and combat sequencing create highly varied games, but efficient ramp, free interaction, and the established partner shell keep jank moderate; repeated theft and extra combats raise table pressure without forming a lock."
+}

@@ -1,0 +1,2324 @@
+{
+  "cards": [
+    {
+      "cache": "cards/ab1cc360-b9de-48d9-9983-4dfe4a7d2a37.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Counter target spell. Its controller may draw up to two cards at the beginning of the next turn's upkeep.\nYou draw a card at the beginning of the next turn's upkeep.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "card-draw",
+        "counterspell"
+      ],
+      "category_source": "universal",
+      "name": "Arcane Denial",
+      "oracle_id": "ab1cc360-b9de-48d9-9983-4dfe4a7d2a37",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/147/arcane-denial?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Arcane Denial"
+    },
+    {
+      "cache": "cards/0bc7f093-bef0-4f1a-852c-4b75ebf54838.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Arcane Signet",
+      "oracle_id": "0bc7f093-bef0-4f1a-852c-4b75ebf54838",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/192/arcane-signet?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Arcane Signet"
+    },
+    {
+      "cache": "cards/44661108-d72f-4d02-9303-7e4b0ecf7e9c.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Umbra armor",
+          "Enchant"
+        ],
+        "mana_cost": "{2}{G}{G}",
+        "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2 and has \"Whenever this creature attacks, untap all lands you control.\"\nUmbra armor (If enchanted creature would be destroyed, instead remove all damage from it and destroy this Aura.)",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "combat-mana",
+        "aura",
+        "protection"
+      ],
+      "category_source": "deck",
+      "name": "Bear Umbra",
+      "oracle_id": "44661108-d72f-4d02-9303-7e4b0ecf7e9c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/nec/113/bear-umbra?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Bear Umbra"
+    },
+    {
+      "cache": "cards/d3a0b660-358c-41bd-9cd2-41fbf3491b1a.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{G}",
+        "oracle_text": "Flying\n{T}: Add one mana of any color.",
+        "power": "0",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "toughness": "1",
+        "type_line": "Creature — Bird"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Birds of Paradise",
+      "oracle_id": "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/170/birds-of-paradise?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Birds of Paradise"
+    },
+    {
+      "cache": "cards/bf1341dd-41a3-49f6-87ec-63170dde4324.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Channel"
+        ],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {G}.\nChannel — {1}{G}, Discard this card: Destroy target artifact, enchantment, or nonbasic land an opponent controls. That player may search their library for a land card with a basic land type, put it onto the battlefield, then shuffle. This ability costs {1} less to activate for each legendary creature you control.",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "removal",
+        "discard"
+      ],
+      "category_source": "universal",
+      "name": "Boseiju, Who Endures",
+      "oracle_id": "bf1341dd-41a3-49f6-87ec-63170dde4324",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/266/boseiju-who-endures?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Boseiju, Who Endures"
+    },
+    {
+      "cache": "cards/20283c4a-f1f0-42f0-bc08-6da87474426b.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {G} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "produced_mana": [
+          "G",
+          "U"
+        ],
+        "type_line": "Land — Forest Island"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Breeding Pool",
+      "oracle_id": "20283c4a-f1f0-42f0-bc08-6da87474426b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/279/breeding-pool?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Breeding Pool"
+    },
+    {
+      "cache": "cards/5b84101e-7e23-437d-835c-409bc061ecbb.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Enchant creature\nEnchanted creature can't be blocked except by creatures with flying or reach.\nEnchanted creature can't be the target of spells or abilities your opponents control.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "protection",
+        "evasion",
+        "aura"
+      ],
+      "category_source": "deck",
+      "name": "Canopy Cover",
+      "oracle_id": "5b84101e-7e23-437d-835c-409bc061ecbb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/wwk/98/canopy-cover?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Canopy Cover"
+    },
+    {
+      "cache": "cards/f1603384-4361-49c9-98aa-7785fc3504c4.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{U/R}, {T}: Add {U}{U}, {U}{R}, or {R}{R}.",
+        "produced_mana": [
+          "C",
+          "R",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Cascade Bluffs",
+      "oracle_id": "f1603384-4361-49c9-98aa-7785fc3504c4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/364/cascade-bluffs?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Cascade Bluffs"
+    },
+    {
+      "cache": "cards/f61680da-606e-4d16-b0a0-361aa5210901.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{R}{R}",
+        "oracle_text": "Target creature you control deals damage equal to its power to each other creature and each opponent.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "win-condition",
+        "board-wipe"
+      ],
+      "category_source": "deck",
+      "name": "Chandra's Ignition",
+      "oracle_id": "f61680da-606e-4d16-b0a0-361aa5210901",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lcc/220/chandras-ignition?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Chandra's Ignition"
+    },
+    {
+      "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "universal",
+      "name": "Command Tower",
+      "oracle_id": "0895c9b7-ae7d-4bb3-af17-3b75deb50a25",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/233/command-tower?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Command Tower"
+    },
+    {
+      "cache": "cards/cc187110-1148-4090-bbb8-e205694a39f5.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{U}{U}",
+        "oracle_text": "Counter target spell.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "counterspell"
+      ],
+      "category_source": "universal",
+      "name": "Counterspell",
+      "oracle_id": "cc187110-1148-4090-bbb8-e205694a39f5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/114/counterspell?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Counterspell"
+    },
+    {
+      "cache": "cards/d75b9c82-1b49-4c3e-a1b5-aeef57d6644b.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Overload"
+        ],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Return target nonland permanent you don't control to its owner's hand.\nOverload {6}{U} (You may cast this spell for its overload cost. If you do, change \"target\" in its text to \"each.\")",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "category_source": "decklist",
+      "name": "Cyclonic Rift",
+      "oracle_id": "d75b9c82-1b49-4c3e-a1b5-aeef57d6644b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rvr/40/cyclonic-rift?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "submitted_name": "Cyclonic Rift"
+    },
+    {
+      "cache": "cards/ae120613-97d6-4393-b39d-c3e6c076f5d6.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{R}",
+        "oracle_text": "If you control a commander, you may cast this spell without paying its mana cost.\nYou may choose new targets for target spell or ability.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "deck",
+      "name": "Deflecting Swat",
+      "oracle_id": "ae120613-97d6-4393-b39d-c3e6c076f5d6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/214/deflecting-swat?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Deflecting Swat"
+    },
+    {
+      "cache": "cards/99915b5a-5092-4900-8824-6de2aab1b2c1.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Foretell"
+        ],
+        "mana_cost": "{1}{R}{R}",
+        "oracle_text": "Delayed Blast Fireball deals 2 damage to each opponent and each creature they control. If this spell was cast from exile, it deals 5 damage to each opponent and each creature they control instead.\nForetell {4}{R}{R} (During your turn, you may pay {2} and exile this card from your hand face down. Cast it on a later turn for its foretell cost.)",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "removal",
+        "exile-payoff"
+      ],
+      "category_source": "deck",
+      "name": "Delayed Blast Fireball",
+      "oracle_id": "99915b5a-5092-4900-8824-6de2aab1b2c1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/676/delayed-blast-fireball?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Delayed Blast Fireball"
+    },
+    {
+      "cache": "cards/f9d3b046-0b95-4103-a630-4b3fb88bb60b.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{G}",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a legendary spell, and that spell can't be countered.",
+        "power": "1",
+        "produced_mana": [
+          "B",
+          "C",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "toughness": "2",
+        "type_line": "Creature — Halfling Citizen"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Delighted Halfling",
+      "oracle_id": "f9d3b046-0b95-4103-a630-4b3fb88bb60b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ltr/158/delighted-halfling?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Delighted Halfling"
+    },
+    {
+      "cache": "cards/3ca32660-bf5f-4398-bef6-a0ec8bc767cf.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{G}{U}",
+        "oracle_text": "Spells you cast from your graveyard or from exile cost {2} less to cast.\nPlotting cards from your hand costs {2} less.",
+        "power": "2",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Bear Druid"
+      },
+      "categories": [
+        "exile-cast"
+      ],
+      "category_source": "deck",
+      "name": "Doc Aurlock, Grizzled Genius",
+      "oracle_id": "3ca32660-bf5f-4398-bef6-a0ec8bc767cf",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otj/201/doc-aurlock-grizzled-genius?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Doc Aurlock, Grizzled Genius"
+    },
+    {
+      "cache": "cards/27b047e3-0d41-45e2-98e9-9391d7923a1e.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "universal",
+      "name": "Exotic Orchard",
+      "oracle_id": "27b047e3-0d41-45e2-98e9-9391d7923a1e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/79/exotic-orchard?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Exotic Orchard"
+    },
+    {
+      "cache": "cards/a6e12be3-4166-4bd7-8254-e28b7c8588c7.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Ascend"
+        ],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Ascend (If you control ten or more permanents, you get the city's blessing for the rest of the game.)\nReturn target nonland permanent to its owner's hand. If you have the city's blessing, you may put that permanent on top of its owner's library instead.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "bounce"
+      ],
+      "category_source": "deck",
+      "name": "Expel from Orazca",
+      "oracle_id": "a6e12be3-4166-4bd7-8254-e28b7c8588c7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rix/37/expel-from-orazca?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Expel from Orazca"
+    },
+    {
+      "cache": "cards/0c2841bb-038c-4fbf-8360-bc0a1522b58d.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{G}",
+        "oracle_text": "You may play an additional land on each of your turns.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Exploration",
+      "oracle_id": "0c2841bb-038c-4fbf-8360-bc0a1522b58d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmr/159/exploration?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Exploration"
+    },
+    {
+      "cache": "cards/495e52e6-4c2b-4574-9474-eadbdcc8b4ac.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Search your library for a Plains, Island, Swamp, or Mountain card, put it onto the battlefield tapped, then shuffle.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Farseek",
+      "oracle_id": "495e52e6-4c2b-4574-9474-eadbdcc8b4ac",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/173/farseek?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Farseek"
+    },
+    {
+      "cache": "cards/d09c9cba-fdd2-479b-ad5d-d05181c3e3f9.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "If you control a commander, you may cast this spell without paying its mana cost.\nCounter target noncreature spell.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "counterspell"
+      ],
+      "category_source": "deck",
+      "name": "Fierce Guardianship",
+      "oracle_id": "d09c9cba-fdd2-479b-ad5d-d05181c3e3f9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/94/fierce-guardianship?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Fierce Guardianship"
+    },
+    {
+      "cache": "cards/d99a1d9a-7721-4331-bf22-1c6ee0bd825a.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{R/G}, {T}: Add {R}{R}, {R}{G}, or {G}{G}.",
+        "produced_mana": [
+          "C",
+          "G",
+          "R"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Fire-Lit Thicket",
+      "oracle_id": "d99a1d9a-7721-4331-bf22-1c6ee0bd825a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/317/fire-lit-thicket?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Fire-Lit Thicket"
+    },
+    {
+      "cache": "cards/dc974eb4-72b9-4213-887b-8ee684b93420.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{G/U}, {T}: Add {G}{G}, {G}{U}, or {U}{U}.",
+        "produced_mana": [
+          "C",
+          "G",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Flooded Grove",
+      "oracle_id": "dc974eb4-72b9-4213-887b-8ee684b93420",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/373/flooded-grove?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Flooded Grove"
+    },
+    {
+      "cache": "cards/b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {G}.)",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Basic Land — Forest"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Forest",
+      "oracle_id": "b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6",
+      "quantity": 4,
+      "scryfall_uri": "https://scryfall.com/card/trk/325/forest?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Forest"
+    },
+    {
+      "cache": "cards/2cb95721-56c8-4008-8055-579a5a97fc8b.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Put a +1/+1 counter on target creature you control. It gains reach, trample, hexproof, and indestructible until end of turn. (It can't be the target of spells or abilities your opponents control. Damage and effects that say \"destroy\" don't destroy it.)",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "universal",
+      "name": "Gaea's Gift",
+      "oracle_id": "2cb95721-56c8-4008-8055-579a5a97fc8b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/bro/182/gaeas-gift?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Gaea's Gift"
+    },
+    {
+      "cache": "cards/aceac269-5100-428a-a4a3-bac57031e30b.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Treasure"
+        ],
+        "mana_cost": "{1}{R}",
+        "oracle_text": "Commander creatures you own have \"Whenever this creature attacks a player, if no opponent has more life than that player, you create two Treasure tokens.\" (They're artifacts with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Legendary Enchantment — Background"
+      },
+      "categories": [
+        "combat-mana",
+        "token-production"
+      ],
+      "category_source": "deck",
+      "name": "Guild Artisan",
+      "oracle_id": "aceac269-5100-428a-a4a3-bac57031e30b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/179/guild-artisan?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Guild Artisan"
+    },
+    {
+      "cache": "cards/6a0b78fb-3838-47d9-8d1a-b6b0c0e8927d.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Partner with",
+          "Partner"
+        ],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Partner with Pako, Arcane Retriever (When this creature enters, target player may put Pako into their hand from their library, then shuffle.)\nYou may play lands and cast noncreature spells from among cards you exiled that have fetch counters on them, and you may spend mana as though it were mana of any color to cast those spells.",
+        "power": "1",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Human Wizard"
+      },
+      "categories": [
+        "Commander{top}"
+      ],
+      "category_source": "decklist",
+      "name": "Haldan, Avid Arcanist",
+      "oracle_id": "6a0b78fb-3838-47d9-8d1a-b6b0c0e8927d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c20/2/haldan-avid-arcanist?utm_source=api",
+      "submitted_categories": [
+        "Commander{top}"
+      ],
+      "submitted_name": "Haldan, Avid Arcanist"
+    },
+    {
+      "cache": "cards/83b43aba-bf9c-4da2-967d-9daa632e97d2.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Equip"
+        ],
+        "mana_cost": "{4}",
+        "oracle_text": "At the beginning of combat on your turn, create a token that's a copy of equipped creature, except the token isn't legendary. That token gains haste.\nEquip {5}",
+        "type_line": "Legendary Artifact — Equipment"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "category_source": "decklist",
+      "name": "Helm of the Host",
+      "oracle_id": "83b43aba-bf9c-4da2-967d-9daa632e97d2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/200/helm-of-the-host?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "submitted_name": "Helm of the Host"
+    },
+    {
+      "cache": "cards/c9db6b94-a7b1-4b93-b454-4dead8f85e34.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}{U}",
+        "oracle_text": "Counter target spell. If that spell is countered this way, put that card on your choice of the top or bottom of its owner's library instead of into that player's graveyard.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "counterspell"
+      ],
+      "category_source": "deck",
+      "name": "Hinder",
+      "oracle_id": "c9db6b94-a7b1-4b93-b454-4dead8f85e34",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/54/hinder?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Hinder"
+    },
+    {
+      "cache": "cards/fb5a3403-7f0b-406c-8c4f-d693be010ca6.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control a Forest or an Island.\n{T}: Add {G} or {U}.",
+        "produced_mana": [
+          "G",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Hinterland Harbor",
+      "oracle_id": "fb5a3403-7f0b-406c-8c4f-d693be010ca6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/250/hinterland-harbor?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Hinterland Harbor"
+    },
+    {
+      "cache": "cards/cf8a0782-f545-445e-abac-d9063dad696b.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Choose target creature you control. Whenever that creature deals combat damage to a player or planeswalker this turn, draw that many cards.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "universal",
+      "name": "Hunter's Insight",
+      "oracle_id": "cf8a0782-f545-445e-abac-d9063dad696b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/296/hunters-insight?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Hunter's Insight"
+    },
+    {
+      "cache": "cards/a3faf698-1dac-45ef-9c43-c8cead489ffc.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Create a token that's a copy of target creature you control, except the token has flying and it isn't legendary.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "copy"
+      ],
+      "category_source": "deck",
+      "name": "Irenicus's Vile Duplication",
+      "oracle_id": "a3faf698-1dac-45ef-9c43-c8cead489ffc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/78/irenicuss-vile-duplication?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Irenicus's Vile Duplication"
+    },
+    {
+      "cache": "cards/b2c6aa39-2d2a-459c-a555-fb48ba993373.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U}.)",
+        "produced_mana": [
+          "U"
+        ],
+        "type_line": "Basic Land — Island"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Island",
+      "oracle_id": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
+      "quantity": 4,
+      "scryfall_uri": "https://scryfall.com/card/trk/319/island?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Island"
+    },
+    {
+      "cache": "cards/0fd114c4-092b-4e28-b0dc-ef529f3bc73e.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{R}",
+        "oracle_text": "Choose one. If you control a commander as you cast this spell, you may choose both instead.\n• Add {R} for each card in target opponent's hand.\n• Exile the top three cards of your library. You may play them this turn.",
+        "produced_mana": [
+          "R"
+        ],
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Jeska's Will",
+      "oracle_id": "0fd114c4-092b-4e28-b0dc-ef529f3bc73e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/156/jeskas-will?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Jeska's Will"
+    },
+    {
+      "cache": "cards/6bae00e8-06cf-4ac4-a1cc-757e454109fe.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Cycling"
+        ],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {G}, {U}, or {R}.)\nThis land enters tapped.\nCycling {3} ({3}, Discard this card: Draw a card.)",
+        "produced_mana": [
+          "G",
+          "R",
+          "U"
+        ],
+        "type_line": "Land — Forest Island Mountain"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ],
+      "category_source": "universal",
+      "name": "Ketria Triome",
+      "oracle_id": "6bae00e8-06cf-4ac4-a1cc-757e454109fe",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/iko/250/ketria-triome?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Ketria Triome"
+    },
+    {
+      "cache": "cards/59154c04-6bc5-4b95-af1f-6de5fed05649.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Split second"
+        ],
+        "mana_cost": "{G}",
+        "oracle_text": "Split second (As long as this spell is on the stack, players can't cast spells or activate abilities that aren't mana abilities.)\nUntap target creature. Until end of turn, it gains reach, hexproof, and \"Whenever this creature becomes tapped, it deals damage equal to its power to up to one target creature.\"",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "universal",
+      "name": "Legolas's Quick Reflexes",
+      "oracle_id": "59154c04-6bc5-4b95-af1f-6de5fed05649",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ltc/493/legolass-quick-reflexes?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Legolas's Quick Reflexes"
+    },
+    {
+      "cache": "cards/aa6c4079-72e1-4b2e-bd26-9399298c6105.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{3}{G}",
+        "oracle_text": "Enchant legendary creature\nEnchanted creature has ward {2} and \"{T}: Add five mana in any combination of colors. Spend this mana only to cast spells.\"",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "ramp",
+        "aura",
+        "protection"
+      ],
+      "category_source": "deck",
+      "name": "Leyline Immersion",
+      "oracle_id": "aa6c4079-72e1-4b2e-bd26-9399298c6105",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mat/21/leyline-immersion?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Leyline Immersion"
+    },
+    {
+      "cache": "cards/74d3277a-38e5-4732-afed-084a56148f20.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{U}{U}",
+        "oracle_text": "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Instant"
+      },
+      "categories": [
+        "ramp",
+        "counterspell"
+      ],
+      "category_source": "universal",
+      "name": "Mana Drain",
+      "oracle_id": "74d3277a-38e5-4732-afed-084a56148f20",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2x2/57/mana-drain?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Mana Drain"
+    },
+    {
+      "cache": "cards/a8dba58b-2956-492e-ae30-49db2ae68e53.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{R}{R}",
+        "oracle_text": "Add {R} for each tapped land your opponents control.",
+        "produced_mana": [
+          "R"
+        ],
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "category_source": "decklist",
+      "name": "Mana Geyser",
+      "oracle_id": "a8dba58b-2956-492e-ae30-49db2ae68e53",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/247/mana-geyser?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "submitted_name": "Mana Geyser"
+    },
+    {
+      "cache": "cards/18a98d44-54ee-4d6d-ab32-27e294ac8995.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Enchant creature\nEnchanted creature has \"Whenever this creature deals combat damage to a player, add that much {G}. Until end of turn, you don't lose this mana as steps and phases end.\"",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "combat-mana"
+      ],
+      "category_source": "deck",
+      "name": "Mark of Sakiko",
+      "oracle_id": "18a98d44-54ee-4d6d-ab32-27e294ac8995",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/bok/135/mark-of-sakiko?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Mark of Sakiko"
+    },
+    {
+      "cache": "cards/bbfb3e4a-b389-4391-8141-13b68c0ef2e0.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Counter target spell. If that spell is countered this way, put it on top of its owner's library instead of into that player's graveyard.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "counterspell"
+      ],
+      "category_source": "deck",
+      "name": "Memory Lapse",
+      "oracle_id": "bbfb3e4a-b389-4391-8141-13b68c0ef2e0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ema/60/memory-lapse?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Memory Lapse"
+    },
+    {
+      "cache": "cards/339f5334-b65a-445a-a016-20e997e0b4bb.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control a Mountain or a Forest.\n{T}: Add {U}.\n{U}, {T}: The next spell you cast this turn can't be countered.",
+        "produced_mana": [
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Mistrise Village",
+      "oracle_id": "339f5334-b65a-445a-a016-20e997e0b4bb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdm/261/mistrise-village?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Mistrise Village"
+    },
+    {
+      "cache": "cards/09dd85aa-47bc-4713-a9b9-8b52ff2285ed.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Forest or Island card, put it onto the battlefield, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "sacrifice"
+      ],
+      "category_source": "universal",
+      "name": "Misty Rainforest",
+      "oracle_id": "09dd85aa-47bc-4713-a9b9-8b52ff2285ed",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/250/misty-rainforest?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Misty Rainforest"
+    },
+    {
+      "cache": "cards/6288c0cb-cf32-4ae9-abf0-104ec71654fa.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Landfall"
+        ],
+        "mana_cost": "{4}{R}{R}",
+        "oracle_text": "Each creature you control gets +1/+0 for each time it has attacked this turn.\nLandfall — Whenever a land you control enters, if it's your main phase, there's an additional combat phase after this phase. At the beginning of that combat, untap all creatures you control.",
+        "power": "6",
+        "toughness": "6",
+        "type_line": "Legendary Creature — Minotaur Warrior"
+      },
+      "categories": [
+        "extra-combat"
+      ],
+      "category_source": "deck",
+      "name": "Moraug, Fury of Akoum",
+      "oracle_id": "6288c0cb-cf32-4ae9-abf0-104ec71654fa",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/89/moraug-fury-of-akoum?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Moraug, Fury of Akoum"
+    },
+    {
+      "cache": "cards/a3fb7228-e76b-4e96-a40e-20b5fed75685.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {R}.)",
+        "produced_mana": [
+          "R"
+        ],
+        "type_line": "Basic Land — Mountain"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Mountain",
+      "oracle_id": "a3fb7228-e76b-4e96-a40e-20b5fed75685",
+      "quantity": 3,
+      "scryfall_uri": "https://scryfall.com/card/trk/323/mountain?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Mountain"
+    },
+    {
+      "cache": "cards/6d4e558e-9109-4918-a082-fdcbaffd516b.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{G}",
+        "oracle_text": "Destroy target artifact or enchantment. Its controller gains 4 life.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "universal",
+      "name": "Nature's Claim",
+      "oracle_id": "6d4e558e-9109-4918-a082-fdcbaffd516b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ima/177/natures-claim?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Nature's Claim"
+    },
+    {
+      "cache": "cards/78826359-fe63-44ad-adc4-a17ffcd710e4.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Search your library for a Forest card, put that card onto the battlefield, then shuffle.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Nature's Lore",
+      "oracle_id": "78826359-fe63-44ad-adc4-a17ffcd710e4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/177/natures-lore?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Nature's Lore"
+    },
+    {
+      "cache": "cards/3407fe41-fdd3-4119-8f70-4bc4590a379f.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Counter target noncreature spell.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "counterspell"
+      ],
+      "category_source": "deck",
+      "name": "Negate",
+      "oracle_id": "3407fe41-fdd3-4119-8f70-4bc4590a379f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmt/47/negate?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Negate"
+    },
+    {
+      "cache": "cards/97cabeda-9fe3-490d-99b4-4c8d87c17157.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{G/P}",
+        "oracle_text": "({G/P} can be paid with either {G} or 2 life.)\nPut target card from a graveyard on top of its owner's library.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "recursion"
+      ],
+      "category_source": "deck",
+      "name": "Noxious Revival",
+      "oracle_id": "97cabeda-9fe3-490d-99b4-4c8d87c17157",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/nph/118/noxious-revival?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Noxious Revival"
+    },
+    {
+      "cache": "cards/e9b6a394-691c-425a-9307-76d8edc7375e.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Channel"
+        ],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {U}.\nChannel — {3}{U}, Discard this card: Return target artifact, creature, enchantment, or planeswalker to its owner's hand. This ability costs {1} less to activate for each legendary creature you control.",
+        "produced_mana": [
+          "U"
+        ],
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "removal"
+      ],
+      "category_source": "universal",
+      "name": "Otawara, Soaring City",
+      "oracle_id": "e9b6a394-691c-425a-9307-76d8edc7375e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/271/otawara-soaring-city?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Otawara, Soaring City"
+    },
+    {
+      "cache": "cards/e31235f0-1f25-4158-b46e-cacde2f58b7e.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Freerunning"
+        ],
+        "mana_cost": "{3}{R}{R}",
+        "oracle_text": "Freerunning {2}{R} (You may cast this spell for its freerunning cost if you dealt combat damage to a player this turn with an Assassin or commander.)\nUntap all creatures you control that attacked this turn. If it's your main phase, there is an additional combat phase after this phase, followed by an additional main phase.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "extra-combat"
+      ],
+      "category_source": "deck",
+      "name": "Overpowering Attack",
+      "oracle_id": "e31235f0-1f25-4158-b46e-cacde2f58b7e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/acr/37/overpowering-attack?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Overpowering Attack"
+    },
+    {
+      "cache": "cards/680a3e17-5144-4e97-bc59-9f5fc3ad6514.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Partner with",
+          "Haste",
+          "Partner"
+        ],
+        "mana_cost": "{3}{R}{G}",
+        "oracle_text": "Partner with Haldan, Avid Arcanist\nHaste\nWhenever Pako attacks, exile the top card of each player's library and put a fetch counter on each of them. Put a +1/+1 counter on Pako for each noncreature card exiled this way.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Elemental Dog"
+      },
+      "categories": [
+        "Commander{top}"
+      ],
+      "category_source": "decklist",
+      "name": "Pako, Arcane Retriever",
+      "oracle_id": "680a3e17-5144-4e97-bc59-9f5fc3ad6514",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c20/13/pako-arcane-retriever?utm_source=api",
+      "submitted_categories": [
+        "Commander{top}"
+      ],
+      "submitted_name": "Pako, Arcane Retriever"
+    },
+    {
+      "cache": "cards/6299d18e-a6a7-414c-85c0-d57a8e7d2627.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{R}",
+        "oracle_text": "Commander creatures you own have \"Whenever you cast a spell from exile, this creature deals damage equal to that spell's mana value to target opponent.\"",
+        "type_line": "Legendary Enchantment — Background"
+      },
+      "categories": [
+        "exile-payoff",
+        "win-condition"
+      ],
+      "category_source": "deck",
+      "name": "Passionate Archaeologist",
+      "oracle_id": "6299d18e-a6a7-414c-85c0-d57a8e7d2627",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/656/passionate-archaeologist?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Passionate Archaeologist"
+    },
+    {
+      "cache": "cards/032b8a0d-491a-4a12-ab9f-689010054d5b.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ],
+      "category_source": "universal",
+      "name": "Prismatic Vista",
+      "oracle_id": "032b8a0d-491a-4a12-ab9f-689010054d5b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh1/244/prismatic-vista?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Prismatic Vista"
+    },
+    {
+      "cache": "cards/197582b9-4c86-41a3-ad0c-789a0db8e087.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Rebound"
+        ],
+        "mana_cost": "{4}{U}",
+        "oracle_text": "Create a token that's a copy of target creature you control, except it isn't legendary.\nRebound (If you cast this spell from your hand, exile it as it resolves. At the beginning of your next upkeep, you may cast this card from exile without paying its mana cost.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "copy"
+      ],
+      "category_source": "deck",
+      "name": "Quantum Misalignment",
+      "oracle_id": "197582b9-4c86-41a3-ad0c-789a0db8e087",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/152/quantum-misalignment?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Quantum Misalignment"
+    },
+    {
+      "cache": "cards/d1620449-930a-4895-a143-fd2a0a3c8b17.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {G} or {U}.",
+        "produced_mana": [
+          "G",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Rejuvenating Springs",
+      "oracle_id": "d1620449-930a-4895-a143-fd2a0a3c8b17",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/260/rejuvenating-springs?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Rejuvenating Springs"
+    },
+    {
+      "cache": "cards/dc1c0e8c-d0c1-445c-968f-7dec91e5d5fc.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{R}{R}",
+        "oracle_text": "Untap all creatures that attacked this turn. After this main phase, there is an additional combat phase followed by an additional main phase.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "extra-combat"
+      ],
+      "category_source": "deck",
+      "name": "Relentless Assault",
+      "oracle_id": "dc1c0e8c-d0c1-445c-968f-7dec91e5d5fc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmr/416/relentless-assault?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Relentless Assault"
+    },
+    {
+      "cache": "cards/2b76f9e9-cd28-4eaf-8674-215c34263f96.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{4}{G}",
+        "oracle_text": "Choose one —\n• Draw cards equal to the greatest power among non-Human creatures you control.\n• Non-Human creatures you control get +3/+3 until end of turn.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "universal",
+      "name": "Return of the Wildspeaker",
+      "oracle_id": "2b76f9e9-cd28-4eaf-8674-215c34263f96",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecc/115/return-of-the-wildspeaker?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Return of the Wildspeaker"
+    },
+    {
+      "cache": "cards/53236dd7-845a-444c-96d5-f41ed7325d8f.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Whenever an opponent casts a spell, you may draw a card unless that player pays {1}.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "category_source": "decklist",
+      "name": "Rhystic Study",
+      "oracle_id": "53236dd7-845a-444c-96d5-f41ed7325d8f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/j22/114/rhystic-study?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "submitted_name": "Rhystic Study"
+    },
+    {
+      "cache": "cards/97407cd0-2bd2-4074-94d3-4ec3d243fa78.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{4}{G}{G}",
+        "oracle_text": "Draw cards equal to the greatest power among creatures you control.\nYou may cast a spell with mana value 5 or less from your hand without paying its mana cost.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "universal",
+      "name": "Rishkar's Expertise",
+      "oracle_id": "97407cd0-2bd2-4074-94d3-4ec3d243fa78",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lcc/254/rishkars-expertise?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Rishkar's Expertise"
+    },
+    {
+      "cache": "cards/9516c4c1-d72d-434f-97e1-6a862434a169.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control a Mountain or a Forest.\n{T}: Add {R} or {G}.",
+        "produced_mana": [
+          "G",
+          "R"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Rootbound Crag",
+      "oracle_id": "9516c4c1-d72d-434f-97e1-6a862434a169",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/261/rootbound-crag?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Rootbound Crag"
+    },
+    {
+      "cache": "cards/89d1cd45-8148-4396-a9b8-e0f495e94b5b.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Entwine"
+        ],
+        "mana_cost": "{3}{R}{R}",
+        "oracle_text": "Cast this spell only during combat on your turn.\nChoose one —\n• Creatures you control gain double strike until end of turn.\n• Untap all creatures you control. After this phase, there is an additional combat phase.\nEntwine {1}{R} (Choose both if you pay the entwine cost.)",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "extra-combat"
+      ],
+      "category_source": "deck",
+      "name": "Savage Beating",
+      "oracle_id": "89d1cd45-8148-4396-a9b8-e0f495e94b5b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/252/savage-beating?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Savage Beating"
+    },
+    {
+      "cache": "cards/cb027150-848c-4a66-88ad-e20222304dd8.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "sacrifice"
+      ],
+      "category_source": "universal",
+      "name": "Scalding Tarn",
+      "oracle_id": "cb027150-848c-4a66-88ad-e20222304dd8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/254/scalding-tarn?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Scalding Tarn"
+    },
+    {
+      "cache": "cards/4a8d41fe-e04d-484b-a7d1-19be311e6ca7.json",
+      "card": {
+        "cmc": 7.0,
+        "faces": [
+          {
+            "mana_cost": "{4}{U}{U}{U}",
+            "name": "Sea Gate Restoration",
+            "oracle_text": "Draw cards equal to the number of cards in your hand plus one. You have no maximum hand size for the rest of the game.",
+            "type_line": "Sorcery"
+          },
+          {
+            "mana_cost": "",
+            "name": "Sea Gate, Reborn",
+            "oracle_text": "As this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {U}.",
+            "type_line": "Land"
+          }
+        ],
+        "keywords": [],
+        "produced_mana": [
+          "U"
+        ],
+        "type_line": "Sorcery // Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw"
+      ],
+      "category_source": "universal",
+      "name": "Sea Gate Restoration // Sea Gate, Reborn",
+      "oracle_id": "4a8d41fe-e04d-484b-a7d1-19be311e6ca7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/znr/76/sea-gate-restoration-sea-gate-reborn?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Sea Gate Restoration // Sea Gate, Reborn"
+    },
+    {
+      "cache": "cards/2a6abd59-e448-46f1-9af8-bb9040645971.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Flashback"
+        ],
+        "mana_cost": "{3}{R}",
+        "oracle_text": "Untap target creature. After this main phase, there is an additional combat phase followed by an additional main phase.\nFlashback {2}{R} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "extra-combat"
+      ],
+      "category_source": "deck",
+      "name": "Seize the Day",
+      "oracle_id": "2a6abd59-e448-46f1-9af8-bb9040645971",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/166/seize-the-day?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Seize the Day"
+    },
+    {
+      "cache": "cards/8b27326f-e7b8-4a4d-b589-df459246d19a.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Equip"
+        ],
+        "mana_cost": "{1}",
+        "oracle_text": "Equipped creature gets +1/+1 and has trample and lifelink.\n{1}: Permanents your opponents control lose hexproof and indestructible until end of turn.\nEquip {2}",
+        "type_line": "Legendary Artifact — Equipment"
+      },
+      "categories": [
+        "equipment",
+        "protection"
+      ],
+      "category_source": "deck",
+      "name": "Shadowspear",
+      "oracle_id": "8b27326f-e7b8-4a4d-b589-df459246d19a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/thb/236/shadowspear?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Shadowspear"
+    },
+    {
+      "cache": "cards/78301998-fd9b-4cd5-afad-dbcb43cac2a7.json",
+      "card": {
+        "cmc": 2.0,
+        "faces": [
+          {
+            "mana_cost": "{X}{R}{R}",
+            "name": "Shatterskull Smashing",
+            "oracle_text": "Shatterskull Smashing deals X damage divided as you choose among up to two target creatures and/or planeswalkers. If X is 6 or more, Shatterskull Smashing deals twice X damage divided as you choose among them instead.",
+            "type_line": "Sorcery"
+          },
+          {
+            "mana_cost": "",
+            "name": "Shatterskull, the Hammer Pass",
+            "oracle_text": "As this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {R}.",
+            "type_line": "Land"
+          }
+        ],
+        "keywords": [],
+        "produced_mana": [
+          "R"
+        ],
+        "type_line": "Sorcery // Land"
+      },
+      "categories": [
+        "land",
+        "removal"
+      ],
+      "category_source": "deck",
+      "name": "Shatterskull Smashing // Shatterskull, the Hammer Pass",
+      "oracle_id": "78301998-fd9b-4cd5-afad-dbcb43cac2a7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/znr/161/shatterskull-smashing-shatterskull-the-hammer-pass?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Shatterskull Smashing // Shatterskull, the Hammer Pass"
+    },
+    {
+      "cache": "cards/6ad8011d-3471-4369-9d68-b264cc027487.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "{T}: Add {C}{C}.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Sol Ring",
+      "oracle_id": "6ad8011d-3471-4369-9d68-b264cc027487",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/211/sol-ring?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Sol Ring"
+    },
+    {
+      "cache": "cards/75b73eb2-dafd-43db-9e96-7e1995d9849f.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}{U}{R}",
+        "oracle_text": "You may play an additional land on each of your turns.\nWhenever you cast a spell, draw two cards.\nAt the beginning of your end step, discard your hand.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "card-draw",
+        "discard"
+      ],
+      "category_source": "universal",
+      "name": "Song of Creation",
+      "oracle_id": "75b73eb2-dafd-43db-9e96-7e1995d9849f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/iko/210/song-of-creation?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Song of Creation"
+    },
+    {
+      "cache": "cards/338747e8-bed8-4e60-8b19-5c2b80799477.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{R}{R}",
+        "oracle_text": "As an additional cost to cast this spell, blight X. X can't be greater than the greatest toughness among creatures you control. (Put X -1/-1 counters on a creature you control.)\nSoul Immolation deals X damage to each opponent and each creature they control.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "win-condition"
+      ],
+      "category_source": "deck",
+      "name": "Soul Immolation",
+      "oracle_id": "338747e8-bed8-4e60-8b19-5c2b80799477",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecl/156/soul-immolation?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Soul Immolation"
+    },
+    {
+      "cache": "cards/45fe016e-1a09-410c-bbe3-4663ba06c5b7.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {R} or {G}.",
+        "produced_mana": [
+          "G",
+          "R"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Spire Garden",
+      "oracle_id": "45fe016e-1a09-410c-bbe3-4663ba06c5b7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmc/75/spire-garden?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Spire Garden"
+    },
+    {
+      "cache": "cards/17039058-822d-409f-938c-b727a366ba63.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "produced_mana": [
+          "R",
+          "U"
+        ],
+        "type_line": "Land — Island Mountain"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Steam Vents",
+      "oracle_id": "17039058-822d-409f-938c-b727a366ba63",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/298/steam-vents?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Steam Vents"
+    },
+    {
+      "cache": "cards/16052b52-ade1-406f-a06b-ce7ea607fb63.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {R} or {G}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "produced_mana": [
+          "G",
+          "R"
+        ],
+        "type_line": "Land — Mountain Forest"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Stomping Ground",
+      "oracle_id": "16052b52-ade1-406f-a06b-ce7ea607fb63",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/299/stomping-ground?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Stomping Ground"
+    },
+    {
+      "cache": "cards/3adc3af3-5086-4d61-b38c-c1dddeaeebe6.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Ferocious"
+        ],
+        "mana_cost": "{U}",
+        "oracle_text": "Counter target noncreature spell unless its controller pays {1}.\nFerocious — If you control a creature with power 4 or greater, counter that spell instead.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "counterspell"
+      ],
+      "category_source": "deck",
+      "name": "Stubborn Denial",
+      "oracle_id": "3adc3af3-5086-4d61-b38c-c1dddeaeebe6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ktk/56/stubborn-denial?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Stubborn Denial"
+    },
+    {
+      "cache": "cards/6a6c5e17-6465-4a1f-9d63-8a3ce2edc522.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control an Island or a Mountain.\n{T}: Add {U} or {R}.",
+        "produced_mana": [
+          "R",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Sulfur Falls",
+      "oracle_id": "6a6c5e17-6465-4a1f-9d63-8a3ce2edc522",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/269/sulfur-falls?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Sulfur Falls"
+    },
+    {
+      "cache": "cards/e5df4597-1647-4ac2-bdb3-a517598d1431.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "You may play up to three additional lands this turn.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Summer Bloom",
+      "oracle_id": "e5df4597-1647-4ac2-bdb3-a517598d1431",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2x2/160/summer-bloom?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Summer Bloom"
+    },
+    {
+      "cache": "cards/c8b143ad-43ec-4e0d-a440-e348daa31391.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Equip"
+        ],
+        "mana_cost": "{2}",
+        "oracle_text": "Equipped creature has hexproof and haste. (It can't be the target of spells or abilities your opponents control. It can attack and {T} no matter when it came under your control.)\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)",
+        "type_line": "Artifact — Equipment"
+      },
+      "categories": [
+        "protection",
+        "equipment"
+      ],
+      "category_source": "deck",
+      "name": "Swiftfoot Boots",
+      "oracle_id": "c8b143ad-43ec-4e0d-a440-e348daa31391",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/77/swiftfoot-boots?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Swiftfoot Boots"
+    },
+    {
+      "cache": "cards/d0901053-6de0-46d0-9ee3-8d40510236c1.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Equip"
+        ],
+        "mana_cost": "{3}",
+        "oracle_text": "Equipped creature gets +2/+2 and has protection from black and from green.\nWhenever equipped creature deals combat damage to a player, that player discards a card and you untap all lands you control.\nEquip {2}",
+        "type_line": "Artifact — Equipment"
+      },
+      "categories": [
+        "equipment",
+        "protection",
+        "combat-mana"
+      ],
+      "category_source": "deck",
+      "name": "Sword of Feast and Famine",
+      "oracle_id": "d0901053-6de0-46d0-9ee3-8d40510236c1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/296/sword-of-feast-and-famine?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Sword of Feast and Famine"
+    },
+    {
+      "cache": "cards/92eed395-62ca-4293-882b-8565c40daab5.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "At the beginning of your draw step, you may draw two additional cards. If you do, choose two cards in your hand drawn this turn. For each of those cards, pay 4 life or put the card on top of your library.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "universal",
+      "name": "Sylvan Library",
+      "oracle_id": "92eed395-62ca-4293-882b-8565c40daab5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmr/179/sylvan-library?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Sylvan Library"
+    },
+    {
+      "cache": "cards/14d2979d-5728-42d7-a027-0eb1f754655d.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {U} or {R}. This artifact deals 1 damage to you.",
+        "produced_mana": [
+          "C",
+          "R",
+          "U"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Talisman of Creativity",
+      "oracle_id": "14d2979d-5728-42d7-a027-0eb1f754655d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/218/talisman-of-creativity?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Talisman of Creativity"
+    },
+    {
+      "cache": "cards/8c34b089-aad1-476e-958a-3077bf1bbb51.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {G} or {U}. This artifact deals 1 damage to you.",
+        "produced_mana": [
+          "C",
+          "G",
+          "U"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Talisman of Curiosity",
+      "oracle_id": "8c34b089-aad1-476e-958a-3077bf1bbb51",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/241/talisman-of-curiosity?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Talisman of Curiosity"
+    },
+    {
+      "cache": "cards/f2ccc9e8-8e92-4f8c-8728-8c748630e0dd.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {R} or {G}. This artifact deals 1 damage to you.",
+        "produced_mana": [
+          "C",
+          "G",
+          "R"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Talisman of Impulse",
+      "oracle_id": "f2ccc9e8-8e92-4f8c-8728-8c748630e0dd",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/332/talisman-of-impulse?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Talisman of Impulse"
+    },
+    {
+      "cache": "cards/1d7a4e9c-b3c9-421e-b5f4-82d51d7d5125.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}{U}",
+        "oracle_text": "Put target permanent on top of its owner's library.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "bounce"
+      ],
+      "category_source": "deck",
+      "name": "Temporal Spring",
+      "oracle_id": "1d7a4e9c-b3c9-421e-b5f4-82d51d7d5125",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/apc/125/temporal-spring?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Temporal Spring"
+    },
+    {
+      "cache": "cards/fd1998c0-c18e-4310-82de-b6320be5fe10.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Fight"
+        ],
+        "mana_cost": "{1}{R}",
+        "oracle_text": "Target creature you control fights target creature an opponent controls. If the creature the opponent controls is dealt excess damage this way, add that much {R}.\nUntil end of turn, you don't lose unspent red mana as steps and phases end.",
+        "produced_mana": [
+          "R"
+        ],
+        "type_line": "Instant"
+      },
+      "categories": [
+        "removal",
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "The Last Agni Kai",
+      "oracle_id": "fd1998c0-c18e-4310-82de-b6320be5fe10",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tla/144/the-last-agni-kai?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "The Last Agni Kai"
+    },
+    {
+      "cache": "cards/22e70ad0-1a9c-4d9e-8cc1-ebea485282ca.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}{R}",
+        "oracle_text": "Whenever a land you control enters from anywhere other than your hand or you cast a spell from anywhere other than your hand, create a 3/3 red Spawn creature token.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "exile-cast",
+        "token-production"
+      ],
+      "category_source": "deck",
+      "name": "The Lost and the Damned",
+      "oracle_id": "22e70ad0-1a9c-4d9e-8cc1-ebea485282ca",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/40k/129/the-lost-and-the-damned?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "The Lost and the Damned"
+    },
+    {
+      "cache": "cards/3aa83ed2-f48b-4ce6-a614-2c54ddf50538.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Indestructible"
+        ],
+        "mana_cost": "{4}",
+        "oracle_text": "Indestructible\nWhen The One Ring enters, if you cast it, you gain protection from everything until your next turn.\nAt the beginning of your upkeep, you lose 1 life for each burden counter on The One Ring.\n{T}: Put a burden counter on The One Ring, then draw a card for each burden counter on The One Ring.",
+        "type_line": "Legendary Artifact"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "category_source": "decklist",
+      "name": "The One Ring",
+      "oracle_id": "3aa83ed2-f48b-4ce6-a614-2c54ddf50538",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ltr/246/the-one-ring?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "submitted_name": "The One Ring"
+    },
+    {
+      "cache": "cards/37a2a31d-51e6-4c07-b4c2-b206ad40eb42.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Treasure",
+          "Equip"
+        ],
+        "mana_cost": "{2}{R}",
+        "oracle_text": "Equipped creature gets +1/+1 and has trample and \"Whenever this creature deals combat damage to a player or planeswalker, create that many Treasure tokens.\"\nEquip {3}",
+        "type_line": "Legendary Artifact — Equipment"
+      },
+      "categories": [
+        "equipment",
+        "combat-mana",
+        "token-production"
+      ],
+      "category_source": "deck",
+      "name": "The Reaver Cleaver",
+      "oracle_id": "37a2a31d-51e6-4c07-b4c2-b206ad40eb42",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmc/8/the-reaver-cleaver?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "The Reaver Cleaver"
+    },
+    {
+      "cache": "cards/1b882a0e-0ede-4d1a-bd1a-9b7cffbcde8e.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Search your library for a Forest card, put it onto the battlefield, then shuffle.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Three Visits",
+      "oracle_id": "1b882a0e-0ede-4d1a-bd1a-9b7cffbcde8e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/181/three-visits?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Three Visits"
+    },
+    {
+      "cache": "cards/dd2f698c-b3b4-4dc8-9950-9be03ca7dc9e.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Defender"
+        ],
+        "mana_cost": "{G}",
+        "oracle_text": "Defender (This creature can't attack.)\nSacrifice this creature: Add {R}{R}.\n{R}, Sacrifice this creature: It deals 2 damage to target creature it's blocking.",
+        "power": "0",
+        "produced_mana": [
+          "R"
+        ],
+        "toughness": "3",
+        "type_line": "Creature — Plant Wall"
+      },
+      "categories": [
+        "ramp",
+        "sacrifice"
+      ],
+      "category_source": "universal",
+      "name": "Tinder Wall",
+      "oracle_id": "dd2f698c-b3b4-4dc8-9950-9be03ca7dc9e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mb2/215/tinder-wall?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Tinder Wall"
+    },
+    {
+      "cache": "cards/e3570ac7-c593-40e3-bbd6-ec3da6d8158d.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {U} or {R}.",
+        "produced_mana": [
+          "R",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Training Center",
+      "oracle_id": "e3570ac7-c593-40e3-bbd6-ec3da6d8158d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/434/training-center?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Training Center"
+    },
+    {
+      "cache": "cards/27e0948b-9916-473b-8d8c-a51bdfbc7457.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{R}",
+        "oracle_text": "Each nonland card in your graveyard has escape. The escape cost is equal to the card's mana cost plus exile three other cards from your graveyard. (You may cast cards from your graveyard for their escape cost.)\nAt the beginning of the end step, sacrifice this enchantment.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "recursion"
+      ],
+      "category_source": "deck",
+      "name": "Underworld Breach",
+      "oracle_id": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/thb/161/underworld-breach?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Underworld Breach"
+    },
+    {
+      "cache": "cards/00d8efa6-a2d9-4249-8da7-b45173675329.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{G}",
+        "oracle_text": "Enchant Forest\nAs this Aura enters, choose a color.\nWhenever enchanted Forest is tapped for mana, its controller adds an additional one mana of the chosen color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Utopia Sprawl",
+      "oracle_id": "00d8efa6-a2d9-4249-8da7-b45173675329",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rvr/159/utopia-sprawl?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Utopia Sprawl"
+    },
+    {
+      "cache": "cards/ff0ab867-b710-4b1a-baed-95fc3cf68f79.json",
+      "card": {
+        "cmc": 3.0,
+        "faces": [
+          {
+            "mana_cost": "{2}{R}",
+            "name": "Valakut Awakening",
+            "oracle_text": "Put any number of cards from your hand on the bottom of your library, then draw that many cards plus one.",
+            "type_line": "Instant"
+          },
+          {
+            "mana_cost": "",
+            "name": "Valakut Stoneforge",
+            "oracle_text": "This land enters tapped.\n{T}: Add {R}.",
+            "type_line": "Land"
+          }
+        ],
+        "keywords": [],
+        "produced_mana": [
+          "R"
+        ],
+        "type_line": "Instant // Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw"
+      ],
+      "category_source": "universal",
+      "name": "Valakut Awakening // Valakut Stoneforge",
+      "oracle_id": "ff0ab867-b710-4b1a-baed-95fc3cf68f79",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/znr/174/valakut-awakening-valakut-stoneforge?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Valakut Awakening // Valakut Stoneforge"
+    },
+    {
+      "cache": "cards/706ae742-1807-44b7-a4fa-f2e26f61519a.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{G}",
+        "oracle_text": "Enchant land\nWhenever enchanted land is tapped for mana, its controller adds an additional {G}.",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Wild Growth",
+      "oracle_id": "706ae742-1807-44b7-a4fa-f2e26f61519a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/195/wild-growth?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Wild Growth"
+    },
+    {
+      "cache": "cards/6f856f99-4cb4-479d-958d-964220965ed6.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{G}",
+        "oracle_text": "At the beginning of your end step, untap all lands you control.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Wilderness Reclamation",
+      "oracle_id": "6f856f99-4cb4-479d-958d-964220965ed6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/205/wilderness-reclamation?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Wilderness Reclamation"
+    },
+    {
+      "cache": "cards/a178a789-1f5f-46ca-a90b-574bd236a671.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Equip"
+        ],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Equipped creature has flying and ward {4}. (Whenever equipped creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {4}.)\nEquip {1}",
+        "type_line": "Artifact — Equipment"
+      },
+      "categories": [
+        "protection",
+        "equipment",
+        "evasion"
+      ],
+      "category_source": "deck",
+      "name": "Winged Boots",
+      "oracle_id": "a178a789-1f5f-46ca-a90b-574bd236a671",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/124/winged-boots?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Winged Boots"
+    },
+    {
+      "cache": "cards/6587a463-a108-4854-b6d1-944e89b8c8a4.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Forest card, put it onto the battlefield, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "sacrifice"
+      ],
+      "category_source": "universal",
+      "name": "Wooded Foothills",
+      "oracle_id": "6587a463-a108-4854-b6d1-944e89b8c8a4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/236/wooded-foothills?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Wooded Foothills"
+    }
+  ],
+  "categorized_cards": 97,
+  "generated_at": "2026-09-04T12:36:53.843671+00:00",
+  "maybeboard_cards": 5,
+  "maybeboard_unique_cards": 5,
+  "resolved_unique_cards": 97,
+  "schema_version": 3,
+  "source": "decks/3+_pako-walkies/decklist.txt",
+  "total_cards": 100,
+  "unique_cards": 92,
+  "unresolved": []
+}

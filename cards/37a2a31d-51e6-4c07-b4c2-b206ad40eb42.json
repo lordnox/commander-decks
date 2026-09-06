@@ -1,0 +1,158 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "a18cf0ef-1720-4bb1-9af2-8d59c2b553f9",
+      "name": "The Reaver Cleaver",
+      "object": "related_card",
+      "type_line": "Legendary Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/a18cf0ef-1720-4bb1-9af2-8d59c2b553f9"
+    },
+    {
+      "component": "token",
+      "id": "55c46e7d-a436-4e61-9fea-d725787b43a9",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/55c46e7d-a436-4e61-9fea-d725787b43a9"
+    }
+  ],
+  "artist": "Yigit Koroglu",
+  "artist_ids": [
+    "a24479f8-6d9e-40f9-bede-f29899922b97"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 671743,
+  "cmc": 3.0,
+  "collector_number": "8",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 541,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5bcd1591-b5b9-49fc-9f2a-45f31ed1871e",
+  "illustration_id": "afd1b542-25de-46b0-aadb-a16cb1cdcaf4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:44:36Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/b/5bcd1591-b5b9-49fc-9f2a-45f31ed1871e.webp?1783921476",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/b/5bcd1591-b5b9-49fc-9f2a-45f31ed1871e.jpg?1783921476",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/b/5bcd1591-b5b9-49fc-9f2a-45f31ed1871e.jpg?1783921476",
+    "crop": "https://cards.scryfall.io/crop/front/5/b/5bcd1591-b5b9-49fc-9f2a-45f31ed1871e.webp?1783921476",
+    "display": "https://cards.scryfall.io/display/front/5/b/5bcd1591-b5b9-49fc-9f2a-45f31ed1871e.webp?1783921476",
+    "grid": "https://cards.scryfall.io/grid/front/5/b/5bcd1591-b5b9-49fc-9f2a-45f31ed1871e.webp?1783921476",
+    "large": "https://cards.scryfall.io/large/front/5/b/5bcd1591-b5b9-49fc-9f2a-45f31ed1871e.jpg?1783921476",
+    "normal": "https://cards.scryfall.io/normal/front/5/b/5bcd1591-b5b9-49fc-9f2a-45f31ed1871e.jpg?1783921476",
+    "png": "https://cards.scryfall.io/png/front/5/b/5bcd1591-b5b9-49fc-9f2a-45f31ed1871e.png?1783921476",
+    "small": "https://cards.scryfall.io/small/front/5/b/5bcd1591-b5b9-49fc-9f2a-45f31ed1871e.jpg?1783921476",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/b/5bcd1591-b5b9-49fc-9f2a-45f31ed1871e.webp?1783921476"
+  },
+  "keywords": [
+    "Treasure",
+    "Equip"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}",
+  "mtgo_id": 103054,
+  "multiverse_ids": [
+    580156
+  ],
+  "name": "The Reaver Cleaver",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "37a2a31d-51e6-4c07-b4c2-b206ad40eb42",
+  "oracle_text": "Equipped creature gets +1/+1 and has trample and \"Whenever this creature deals combat damage to a player or planeswalker, create that many Treasure tokens.\"\nEquip {3}",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2022-08-19",
+    "source": "Star City Games",
+    "source_uri": "https://cdn.discordapp.com/attachments/1010266312280375349/1010266466005811221/2022-08-19_20-16-47.png"
+  },
+  "prices": {
+    "eur": "16.56",
+    "eur_foil": null,
+    "tix": "0.54",
+    "usd": "32.28",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A37a2a31d-51e6-4c07-b4c2-b206ad40eb42&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/103054?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=671743&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F282860%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+Reaver+Cleaver",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=580156&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BReaver%2BCleaver",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BReaver%2BCleaver"
+  },
+  "released_at": "2022-09-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5bcd1591-b5b9-49fc-9f2a-45f31ed1871e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dmc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dmc/8/the-reaver-cleaver?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dmc",
+  "set_id": "78076b27-f888-4723-b27c-44074accd261",
+  "set_name": "Dominaria United Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Admc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/78076b27-f888-4723-b27c-44074accd261",
+  "story_spotlight": false,
+  "tcgplayer_id": 282860,
+  "textless": false,
+  "type_line": "Legendary Artifact — Equipment",
+  "uri": "https://api.scryfall.com/cards/5bcd1591-b5b9-49fc-9f2a-45f31ed1871e",
+  "variation": false
+}
