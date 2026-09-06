@@ -1,0 +1,139 @@
+{
+  "artist": "Tyler Jacobson",
+  "artist_ids": [
+    "522af130-8db4-4b4b-950c-6e2b246339cf"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 284788,
+  "cmc": 6.0,
+  "collector_number": "206",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 2757,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "As the great scourge passed by, Zendikar shivered, then lay silent.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "devoid"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d6252913-7b8e-4746-91e0-658ce13cdf18",
+  "illustration_id": "4973ed23-1706-457c-94e7-f6d8c93a3123",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:23:01Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/6/d6252913-7b8e-4746-91e0-658ce13cdf18.webp?1783938181",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/6/d6252913-7b8e-4746-91e0-658ce13cdf18.jpg?1783938181",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/6/d6252913-7b8e-4746-91e0-658ce13cdf18.jpg?1783938181",
+    "crop": "https://cards.scryfall.io/crop/front/d/6/d6252913-7b8e-4746-91e0-658ce13cdf18.webp?1783938181",
+    "display": "https://cards.scryfall.io/display/front/d/6/d6252913-7b8e-4746-91e0-658ce13cdf18.webp?1783938181",
+    "grid": "https://cards.scryfall.io/grid/front/d/6/d6252913-7b8e-4746-91e0-658ce13cdf18.webp?1783938181",
+    "large": "https://cards.scryfall.io/large/front/d/6/d6252913-7b8e-4746-91e0-658ce13cdf18.jpg?1783938181",
+    "normal": "https://cards.scryfall.io/normal/front/d/6/d6252913-7b8e-4746-91e0-658ce13cdf18.jpg?1783938181",
+    "png": "https://cards.scryfall.io/png/front/d/6/d6252913-7b8e-4746-91e0-658ce13cdf18.png?1783938181",
+    "small": "https://cards.scryfall.io/small/front/d/6/d6252913-7b8e-4746-91e0-658ce13cdf18.jpg?1783938181",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/6/d6252913-7b8e-4746-91e0-658ce13cdf18.webp?1783938181"
+  },
+  "keywords": [
+    "Devoid"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{U}{B}",
+  "mtgo_foil_id": 58718,
+  "mtgo_id": 58717,
+  "multiverse_ids": [
+    402036
+  ],
+  "name": "Sire of Stagnation",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ed6607f4-20ab-4d3f-a8af-bcc148423336",
+  "oracle_text": "Devoid (This card has no color.)\nWhenever a land an opponent controls enters, that player exiles the top two cards of their library and you draw two cards.",
+  "oversized": false,
+  "penny_rank": 9622,
+  "power": "5",
+  "prices": {
+    "eur": "1.19",
+    "eur_foil": "4.81",
+    "tix": "0.02",
+    "usd": "2.28",
+    "usd_etched": null,
+    "usd_foil": "8.42"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aed6607f4-20ab-4d3f-a8af-bcc148423336&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/58717?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=284788&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F105548%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sire+of+Stagnation",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=402036&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSire%2Bof%2BStagnation",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSire%2Bof%2BStagnation"
+  },
+  "released_at": "2015-10-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d6252913-7b8e-4746-91e0-658ce13cdf18/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/bfz?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/bfz/206/sire-of-stagnation?utm_source=api",
+  "security_stamp": "oval",
+  "set": "bfz",
+  "set_id": "91719374-7ac5-4afa-ada8-5da964dcf1d4",
+  "set_name": "Battle for Zendikar",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abfz&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/91719374-7ac5-4afa-ada8-5da964dcf1d4",
+  "story_spotlight": false,
+  "tcgplayer_id": 105548,
+  "textless": false,
+  "toughness": "7",
+  "type_line": "Creature — Eldrazi",
+  "uri": "https://api.scryfall.com/cards/d6252913-7b8e-4746-91e0-658ce13cdf18",
+  "variation": false
+}

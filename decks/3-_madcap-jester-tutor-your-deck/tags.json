@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "title": "Madcap Jester — Tutor Your Deck",
+  "summary": "Grixis overlay that exiles cards from opponents' libraries and plays them, including tutoring their decks with Jester's Cap.",
+  "tags": [
+    {
+      "name": "theft",
+      "score": 5,
+      "reason": "The plan is to play cards exiled from opponents' libraries."
+    },
+    {
+      "name": "exile",
+      "score": 5,
+      "reason": "Almost every engine moves cards from their libraries into exile rather than the graveyard."
+    },
+    {
+      "name": "chaos",
+      "score": 4,
+      "reason": "Uba Mask, Memory Vessel, and Knowledge Pool create shared-cast piles and stolen spells."
+    },
+    {
+      "name": "commander matters",
+      "score": 4,
+      "reason": "Search-exile and Tasha's Hideous Laughter only convert while Madcap (or a similar overlay) is in play."
+    },
+    {
+      "name": "mill",
+      "score": 3,
+      "reason": "Library exile and Consuming Aberration are a real backup, not the namesake joke."
+    },
+    {
+      "name": "artifacts",
+      "score": 2,
+      "reason": "Cap, Scepter, Totem, Wands, Vessel, Mask, and rocks, but artifacts are tools not a payoff tribe."
+    },
+    {
+      "name": "control",
+      "score": 2,
+      "reason": "Pointed removal and redirection exist to protect the Jester, not to lock the table."
+    }
+  ]
+}

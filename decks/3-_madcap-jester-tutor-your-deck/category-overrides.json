@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "cards": {
+    "3378fef3-4d8c-4d9e-a338-4abb6f70d410": {
+      "name": "Aqueous Form",
+      "categories": ["evasion", "scry"]
+    },
+    "7c779721-cd1b-4696-9ae9-68ccc284ed2a": {
+      "name": "Aetherize",
+      "categories": ["board-wipe", "bounce"]
+    },
+    "c02fdb2e-10bb-49fc-bce0-b31b6fad8e38": {
+      "name": "Bitter Ordeal",
+      "categories": ["exile", "library-control"]
+    },
+    "0b95c115-6745-4ce1-896b-9021e93c161e": {
+      "name": "Chaos Wand",
+      "categories": ["exile", "theft"]
+    },
+    "f947808c-a1cc-41ea-9d06-e1279a0da527": {
+      "name": "Compulsive Research",
+      "categories": ["card-draw", "discard"]
+    },
+    "9b55fb72-237d-4935-b645-8ebc6eb4140e": {
+      "name": "Consuming Aberration",
+      "categories": ["mill", "win-condition"]
+    },
+    "6106ba65-f07b-41ec-8b59-e052bbde5529": {
+      "name": "Court of Locthwain",
+      "categories": ["exile", "theft", "monarch"]
+    },
+    "f8526509-2e14-4ac0-b1de-cf4ee7d4f875": {
+      "name": "Earwig Squad",
+      "categories": ["exile", "library-control"]
+    },
+    "16090270-0ac5-404c-b0c8-a6c8a4b508a4": {
+      "name": "Ensnared by the Mara",
+      "categories": ["exile", "theft"]
+    },
+    "078def07-ae5d-4591-8db6-d156834aab97": {
+      "name": "Etali, Primal Storm",
+      "categories": ["exile", "theft"]
+    },
+    "36e937a9-e15e-4404-bcdd-c2b0943a34ad": {
+      "name": "Extract",
+      "categories": ["exile", "library-control"]
+    },
+    "4fc5f871-a809-4a4a-adfb-eb4cd52837c8": {
+      "name": "Fallen Shinobi",
+      "categories": ["exile", "theft"]
+    },
+    "aee82122-d13e-4175-b499-9dde718e4da9": {
+      "name": "Siphon Insight",
+      "categories": ["exile", "theft"]
+    },
+    "a7ebe748-c3de-402f-8a6e-236a6413c0f8": {
+      "name": "Lobotomy",
+      "categories": ["exile", "library-control"]
+    },
+    "a731e87b-8d99-4b64-8ee3-8e540d652366": {
+      "name": "Malakir Rebirth // Malakir Mire",
+      "categories": ["land", "protection"]
+    },
+    "0179bc62-823e-46b9-b536-342904fedafc": {
+      "name": "Memory Vessel",
+      "categories": ["exile", "theft"]
+    },
+    "cee06ea6-8bad-4858-b78e-04879a825bbe": {
+      "name": "Neurok Stealthsuit",
+      "categories": ["protection"]
+    },
+    "7ffae8f8-3006-4969-a339-6d30678f87ea": {
+      "name": "Night's Whisper",
+      "categories": ["card-draw"]
+    },
+    "d39b9f64-dc9b-413f-8d05-e21ef46d6756": {
+      "name": "Oblivion Sower",
+      "categories": ["exile", "ramp"]
+    },
+    "e5128230-3535-4f77-8b97-20d0791e7b1d": {
+      "name": "Psychic Surgery",
+      "categories": ["exile", "library-control"]
+    },
+    "1579bf86-4400-4467-88e8-1c5ba1209804": {
+      "name": "Recoil",
+      "categories": ["removal", "discard"]
+    },
+    "68abaca6-a86a-46e3-b5b8-9860bb6425d2": {
+      "name": "Rootwater Thief",
+      "categories": ["exile", "library-control"]
+    },
+    "c6207f6a-a624-4754-88f5-dbe700c841ff": {
+      "name": "Sign in Blood",
+      "categories": ["card-draw"]
+    },
+    "ed6607f4-20ab-4d3f-a8af-bcc148423336": {
+      "name": "Sire of Stagnation",
+      "categories": ["exile", "card-draw"]
+    },
+    "6807167a-e290-4259-940e-3cbbfa75d0a1": {
+      "name": "Stolen Strategy",
+      "categories": ["exile", "theft"]
+    },
+    "e352f5b9-6406-4914-bc79-f24608be6bc9": {
+      "name": "Tasha's Hideous Laughter",
+      "categories": ["exile", "theft"]
+    },
+    "766c644c-04fe-4b01-93dd-09a50d78d01f": {
+      "name": "Uba Mask",
+      "categories": ["exile", "theft"]
+    },
+    "8f1123dd-19b7-402b-8ecd-ab62494c9fd5": {
+      "name": "Wand of Wonder",
+      "categories": ["exile", "theft"]
+    },
+    "9ad4f730-a18e-4a7c-a468-a926c718c741": {
+      "name": "Whispersilk Cloak",
+      "categories": ["protection", "evasion"]
+    },
+    "467c526a-02a7-405d-98de-c632ea83519b": {
+      "name": "You Find Some Prisoners",
+      "categories": ["exile", "theft", "removal"]
+    }
+  }
+}

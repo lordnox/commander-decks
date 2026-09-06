@@ -1,0 +1,135 @@
+{
+  "artist": "Warren Mahy",
+  "artist_ids": [
+    "002c739e-aa1f-4c1d-921b-37cb2d1b1c5b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 262043,
+  "cmc": 5.0,
+  "collector_number": "82",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 19939,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c12759ab-97c7-406a-bf57-eec74839f8f6",
+  "illustration_id": "b1040d0d-c612-4a17-86e5-4ebf8d1b2779",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:53:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/1/c12759ab-97c7-406a-bf57-eec74839f8f6.webp?1783939990",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/1/c12759ab-97c7-406a-bf57-eec74839f8f6.jpg?1783939990",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/1/c12759ab-97c7-406a-bf57-eec74839f8f6.jpg?1783939990",
+    "crop": "https://cards.scryfall.io/crop/front/c/1/c12759ab-97c7-406a-bf57-eec74839f8f6.webp?1783939990",
+    "display": "https://cards.scryfall.io/display/front/c/1/c12759ab-97c7-406a-bf57-eec74839f8f6.webp?1783939990",
+    "grid": "https://cards.scryfall.io/grid/front/c/1/c12759ab-97c7-406a-bf57-eec74839f8f6.webp?1783939990",
+    "large": "https://cards.scryfall.io/large/front/c/1/c12759ab-97c7-406a-bf57-eec74839f8f6.jpg?1783939990",
+    "normal": "https://cards.scryfall.io/normal/front/c/1/c12759ab-97c7-406a-bf57-eec74839f8f6.jpg?1783939990",
+    "png": "https://cards.scryfall.io/png/front/c/1/c12759ab-97c7-406a-bf57-eec74839f8f6.png?1783939990",
+    "small": "https://cards.scryfall.io/small/front/c/1/c12759ab-97c7-406a-bf57-eec74839f8f6.jpg?1783939990",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/1/c12759ab-97c7-406a-bf57-eec74839f8f6.webp?1783939990"
+  },
+  "keywords": [
+    "Prowl"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_foil_id": 48755,
+  "mtgo_id": 48754,
+  "multiverse_ids": [
+    370530
+  ],
+  "name": "Earwig Squad",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f8526509-2e14-4ac0-b1de-cf4ee7d4f875",
+  "oracle_text": "Prowl {2}{B} (You may cast this for its prowl cost if you dealt combat damage to a player this turn with a Goblin or Rogue.)\nWhen this creature enters, if its prowl cost was paid, search target opponent's library for three cards and exile them. Then that player shuffles.",
+  "oversized": false,
+  "penny_rank": 3265,
+  "power": "5",
+  "prices": {
+    "eur": "0.49",
+    "eur_foil": "1.57",
+    "tix": "0.02",
+    "usd": "0.44",
+    "usd_etched": null,
+    "usd_foil": "0.77"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af8526509-2e14-4ac0-b1de-cf4ee7d4f875&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/48754?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=262043&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F68349%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Earwig+Squad",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=370530&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEarwig%2BSquad",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEarwig%2BSquad"
+  },
+  "released_at": "2013-06-07",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c12759ab-97c7-406a-bf57-eec74839f8f6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mma?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mma/82/earwig-squad?utm_source=api",
+  "set": "mma",
+  "set_id": "0b7020f2-336d-4706-9ce6-f6710b9ebd5c",
+  "set_name": "Modern Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amma&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/0b7020f2-336d-4706-9ce6-f6710b9ebd5c",
+  "story_spotlight": false,
+  "tcgplayer_id": 68349,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Goblin Rogue",
+  "uri": "https://api.scryfall.com/cards/c12759ab-97c7-406a-bf57-eec74839f8f6",
+  "variation": false
+}

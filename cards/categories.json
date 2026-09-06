@@ -9675,8 +9675,197 @@
       "categories": [
         "protection"
       ]
+    },
+    "60f3857d-2dcd-427e-aa0f-e2028bbc5acc": {
+      "name": "The Madcap Jester",
+      "categories": [
+        "other"
+      ]
+    },
+    "3378fef3-4d8c-4d9e-a338-4abb6f70d410": {
+      "name": "Aqueous Form",
+      "categories": [
+        "other"
+      ]
+    },
+    "c02fdb2e-10bb-49fc-bce0-b31b6fad8e38": {
+      "name": "Bitter Ordeal",
+      "categories": [
+        "other"
+      ]
+    },
+    "0b95c115-6745-4ce1-896b-9021e93c161e": {
+      "name": "Chaos Wand",
+      "categories": [
+        "other"
+      ]
+    },
+    "05878e49-93ad-4144-9c50-a0bb86126c2e": {
+      "name": "Chart a Course",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "f947808c-a1cc-41ea-9d06-e1279a0da527": {
+      "name": "Compulsive Research",
+      "categories": [
+        "discard"
+      ]
+    },
+    "9b55fb72-237d-4935-b645-8ebc6eb4140e": {
+      "name": "Consuming Aberration",
+      "categories": [
+        "other"
+      ]
+    },
+    "6106ba65-f07b-41ec-8b59-e052bbde5529": {
+      "name": "Court of Locthwain",
+      "categories": [
+        "other"
+      ]
+    },
+    "63398c02-6fb1-481d-9d9f-81063532fbc0": {
+      "name": "Dragonskull Summit",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "f8526509-2e14-4ac0-b1de-cf4ee7d4f875": {
+      "name": "Earwig Squad",
+      "categories": [
+        "other"
+      ]
+    },
+    "078def07-ae5d-4591-8db6-d156834aab97": {
+      "name": "Etali, Primal Storm",
+      "categories": [
+        "other"
+      ]
+    },
+    "36e937a9-e15e-4404-bcdd-c2b0943a34ad": {
+      "name": "Extract",
+      "categories": [
+        "other"
+      ]
+    },
+    "3d6fa57a-aa53-4b5c-b8af-a7612c823117": {
+      "name": "Faithless Looting",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "4fc5f871-a809-4a4a-adfb-eb4cd52837c8": {
+      "name": "Fallen Shinobi",
+      "categories": [
+        "other"
+      ]
+    },
+    "51545f6e-d0e3-4b4c-bc73-c731f85e26b0": {
+      "name": "Fevered Suspicion",
+      "categories": [
+        "other"
+      ]
+    },
+    "a7ebe748-c3de-402f-8a6e-236a6413c0f8": {
+      "name": "Lobotomy",
+      "categories": [
+        "other"
+      ]
+    },
+    "0179bc62-823e-46b9-b536-342904fedafc": {
+      "name": "Memory Vessel",
+      "categories": [
+        "other"
+      ]
+    },
+    "cee06ea6-8bad-4858-b78e-04879a825bbe": {
+      "name": "Neurok Stealthsuit",
+      "categories": [
+        "other"
+      ]
+    },
+    "d39b9f64-dc9b-413f-8d05-e21ef46d6756": {
+      "name": "Oblivion Sower",
+      "categories": [
+        "other"
+      ]
+    },
+    "58a2d15f-1b4b-4303-b524-8cc0d1b3e7d2": {
+      "name": "Painful Truths",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "e5128230-3535-4f77-8b97-20d0791e7b1d": {
+      "name": "Psychic Surgery",
+      "categories": [
+        "other"
+      ]
+    },
+    "5e62b51d-faec-4aa0-9504-cf2c282d08ea": {
+      "name": "Rakdos Charm",
+      "categories": [
+        "removal"
+      ]
+    },
+    "1579bf86-4400-4467-88e8-1c5ba1209804": {
+      "name": "Recoil",
+      "categories": [
+        "discard"
+      ]
+    },
+    "68abaca6-a86a-46e3-b5b8-9860bb6425d2": {
+      "name": "Rootwater Thief",
+      "categories": [
+        "other"
+      ]
+    },
+    "ed6607f4-20ab-4d3f-a8af-bcc148423336": {
+      "name": "Sire of Stagnation",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "6807167a-e290-4259-940e-3cbbfa75d0a1": {
+      "name": "Stolen Strategy",
+      "categories": [
+        "other"
+      ]
+    },
+    "6257c2fd-005f-41e3-8a72-af76df1eb134": {
+      "name": "Terminate",
+      "categories": [
+        "removal"
+      ]
+    },
+    "766c644c-04fe-4b01-93dd-09a50d78d01f": {
+      "name": "Uba Mask",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "8f1123dd-19b7-402b-8ecd-ab62494c9fd5": {
+      "name": "Wand of Wonder",
+      "categories": [
+        "other"
+      ]
+    },
+    "9ad4f730-a18e-4a7c-a468-a926c718c741": {
+      "name": "Whispersilk Cloak",
+      "categories": [
+        "other"
+      ]
+    },
+    "467c526a-02a7-405d-98de-c632ea83519b": {
+      "name": "You Find Some Prisoners",
+      "categories": [
+        "removal"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-06T17:13:47.646571+00:00"
+  "updated_at": "2026-09-06T22:22:10.299147+00:00"
 }

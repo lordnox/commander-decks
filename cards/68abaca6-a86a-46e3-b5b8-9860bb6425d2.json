@@ -1,0 +1,133 @@
+{
+  "artist": "Ron Spears",
+  "artist_ids": [
+    "fce9030b-86bd-4439-b06a-920a1eeb184c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 11763,
+  "cmc": 2.0,
+  "collector_number": "40",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 20672,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "38addef3-1dd7-41a1-9706-3be5c86a58c9",
+  "illustration_id": "effc38c8-d532-40a2-83fd-d6035098f3c6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:30:33Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/8/38addef3-1dd7-41a1-9706-3be5c86a58c9.webp?1783945833",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/8/38addef3-1dd7-41a1-9706-3be5c86a58c9.jpg?1783945833",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/8/38addef3-1dd7-41a1-9706-3be5c86a58c9.jpg?1783945833",
+    "crop": "https://cards.scryfall.io/crop/front/3/8/38addef3-1dd7-41a1-9706-3be5c86a58c9.webp?1783945833",
+    "display": "https://cards.scryfall.io/display/front/3/8/38addef3-1dd7-41a1-9706-3be5c86a58c9.webp?1783945833",
+    "grid": "https://cards.scryfall.io/grid/front/3/8/38addef3-1dd7-41a1-9706-3be5c86a58c9.webp?1783945833",
+    "large": "https://cards.scryfall.io/large/front/3/8/38addef3-1dd7-41a1-9706-3be5c86a58c9.jpg?1783945833",
+    "normal": "https://cards.scryfall.io/normal/front/3/8/38addef3-1dd7-41a1-9706-3be5c86a58c9.jpg?1783945833",
+    "png": "https://cards.scryfall.io/png/front/3/8/38addef3-1dd7-41a1-9706-3be5c86a58c9.png?1783945833",
+    "small": "https://cards.scryfall.io/small/front/3/8/38addef3-1dd7-41a1-9706-3be5c86a58c9.jpg?1783945833",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/8/38addef3-1dd7-41a1-9706-3be5c86a58c9.webp?1783945833"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_foil_id": 13966,
+  "mtgo_id": 13965,
+  "multiverse_ids": [
+    22889
+  ],
+  "name": "Rootwater Thief",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "68abaca6-a86a-46e3-b5b8-9860bb6425d2",
+  "oracle_text": "{U}: This creature gains flying until end of turn.\nWhenever this creature deals combat damage to a player, you may pay {2}. If you do, search that player's library for a card and exile it, then the player shuffles.",
+  "oversized": false,
+  "penny_rank": 8437,
+  "power": "1",
+  "prices": {
+    "eur": "2.11",
+    "eur_foil": "27.75",
+    "tix": "0.39",
+    "usd": "2.40",
+    "usd_etched": null,
+    "usd_foil": "40.95"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A68abaca6-a86a-46e3-b5b8-9860bb6425d2&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/13965?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=11763&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F7217%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rootwater+Thief",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=22889&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRootwater%2BThief",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRootwater%2BThief"
+  },
+  "released_at": "2000-02-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/38addef3-1dd7-41a1-9706-3be5c86a58c9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/nem?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/nem/40/rootwater-thief?utm_source=api",
+  "set": "nem",
+  "set_id": "fa5d1fdb-f781-473d-b14d-50396d40d43f",
+  "set_name": "Nemesis",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Anem&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/fa5d1fdb-f781-473d-b14d-50396d40d43f",
+  "story_spotlight": false,
+  "tcgplayer_id": 7217,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Merfolk Rogue",
+  "uri": "https://api.scryfall.com/cards/38addef3-1dd7-41a1-9706-3be5c86a58c9",
+  "variation": false
+}

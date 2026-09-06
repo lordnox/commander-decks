@@ -1,0 +1,135 @@
+{
+  "arena_id": 94014,
+  "artist": "James Ryman",
+  "artist_ids": [
+    "3852bbc9-11c0-4fe3-8722-a06ad7e2bcc5"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 795822,
+  "cmc": 2.0,
+  "collector_number": "586",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1945,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "While other pirates prowl for treasure, Captain Parrish plunders secrets.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7599d459-fe71-48f4-8c65-0f519bb63a68",
+  "illustration_id": "66a9bdee-5088-4f19-94cf-1e436f5e5f6a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:15:36Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/5/7599d459-fe71-48f4-8c65-0f519bb63a68.webp?1783908936",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/5/7599d459-fe71-48f4-8c65-0f519bb63a68.jpg?1783908936",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/5/7599d459-fe71-48f4-8c65-0f519bb63a68.jpg?1783908936",
+    "crop": "https://cards.scryfall.io/crop/front/7/5/7599d459-fe71-48f4-8c65-0f519bb63a68.webp?1783908936",
+    "display": "https://cards.scryfall.io/display/front/7/5/7599d459-fe71-48f4-8c65-0f519bb63a68.webp?1783908936",
+    "grid": "https://cards.scryfall.io/grid/front/7/5/7599d459-fe71-48f4-8c65-0f519bb63a68.webp?1783908936",
+    "large": "https://cards.scryfall.io/large/front/7/5/7599d459-fe71-48f4-8c65-0f519bb63a68.jpg?1783908936",
+    "normal": "https://cards.scryfall.io/normal/front/7/5/7599d459-fe71-48f4-8c65-0f519bb63a68.jpg?1783908936",
+    "png": "https://cards.scryfall.io/png/front/7/5/7599d459-fe71-48f4-8c65-0f519bb63a68.png?1783908936",
+    "small": "https://cards.scryfall.io/small/front/7/5/7599d459-fe71-48f4-8c65-0f519bb63a68.jpg?1783908936",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/5/7599d459-fe71-48f4-8c65-0f519bb63a68.webp?1783908936"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 134508,
+  "multiverse_ids": [
+    680725
+  ],
+  "name": "Chart a Course",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "05878e49-93ad-4144-9c50-a0bb86126c2e",
+  "oracle_text": "Draw two cards. Then discard a card unless you attacked this turn.",
+  "oversized": false,
+  "penny_rank": 898,
+  "prices": {
+    "eur": "0.15",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.16",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A05878e49-93ad-4144-9c50-a0bb86126c2e&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "startercollection"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/134508?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=795822&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F590989%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Chart+a+Course",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=680725&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DChart%2Ba%2BCourse",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DChart%2Ba%2BCourse"
+  },
+  "released_at": "2024-11-15",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7599d459-fe71-48f4-8c65-0f519bb63a68/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fdn/586/chart-a-course?utm_source=api",
+  "set": "fdn",
+  "set_id": "a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "set_name": "Foundations",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afdn&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "story_spotlight": false,
+  "tcgplayer_id": 590989,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/7599d459-fe71-48f4-8c65-0f519bb63a68",
+  "variation": false
+}
