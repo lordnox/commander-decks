@@ -64,8 +64,19 @@ already looks complete.
 
 ## 2. Spend mana for a reason
 
-On each main phase, name the best legal sequence that uses this turn's
-mana, then the leftover. Typical misses:
+On each main phase, first write a lethal worksheet for every plausible
+finisher in hand:
+
+1. list its complete legal sequence, mana, targets, and choices;
+2. expand searches into the cards they may find and any immediate actions
+   those cards enable, such as cracking fetched fetch lands;
+3. include all resulting triggers and additional-trigger effects;
+4. compare the result with current life totals, poison, commander damage, or
+   library counts.
+
+If a worksheet wins through the visible interaction, take it before comparing
+value plays. Then name the best legal sequence that uses this turn's mana and
+the leftover. Typical misses:
 
 - Casting the cheap engine on an empty board instead of "saving" it.
 - Casting the commander when the tax is payable and the body or ability
@@ -149,7 +160,9 @@ and expiry. Each seat compares the offer with its active plan before answering.
 
 Before passing the turn or taking a "nothing to do" combat:
 
-1. Can this seat win or force a win from cards now available?
+1. Can this seat win or force a win from cards now available? For every tutor
+   or search in the line, did the calculation include the abilities and
+   triggers of the cards it can find?
 2. Can this seat mill, drain, or damage enough to **eliminate** a player
    this turn? Target the people who die; do not split a lethal effect
    across the table for flavor.
