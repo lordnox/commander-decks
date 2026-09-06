@@ -353,6 +353,172 @@ def validate_combat_shape(event: dict, rows: list[dict]) -> None:
             raise ValueError(f"event {event_id}: a damage entry needs an integer amount")
 
 
+def player_card_names(player: dict, rows: list[dict], zones: tuple[str, ...]) -> list[str]:
+    names: list[str] = []
+    for zone in zones:
+        for item in player.get(zone) or []:
+            names.append(resolve_name(item, rows))
+    for entry in player.get("battlefield") or []:
+        if isinstance(entry, dict) and entry.get("name"):
+            names.append(resolve_name(entry["name"], rows))
+    return names
+
+
+def commander_in_player(player: dict, commander: str, rows: list[dict]) -> bool:
+    target = normalized_name(commander)
+    return any(
+        normalized_name(name) == target
+        for name in player_card_names(
+            player, rows, ("hand", "graveyard", "exile", "command")
+        )
+    )
+
+
+def validate_commanders_present(seats: list, events: list[dict], rows: list[dict]) -> None:
+    last = events[-1]
+    players = (last.get("state") or {}).get("players") or {}
+    for seat in seats:
+        if not isinstance(seat, dict):
+            continue
+        player = players.get(seat.get("id")) or {}
+        if int(player.get("life") or 0) <= 0:
+            continue
+        for commander in seat.get("commanders") or []:
+            if any(
+                commander_in_player(other, commander, rows)
+                for other in players.values()
+                if isinstance(other, dict)
+            ):
+                continue
+            raise ValueError(
+                f"event {last.get('id')}: {seat.get('id')} is missing "
+                f"{commander} from every zone"
+            )
+
+
+def oracle_allows_tapped_entry(catalog: dict, name: str) -> bool:
+    entry = catalog.get(name) or {}
+    text = f"{entry.get('oracle_text') or ''} {' '.join(face.get('oracle_text') or '' for face in entry.get('faces') or [])}"
+    folded = text.casefold()
+    return "enters tapped" in folded or "enters the battlefield tapped" in folded
+
+
+def named_battlefield(player: dict, name: str, rows: list[dict]) -> list[dict]:
+    target = normalized_name(name)
+    return [
+        entry
+        for entry in player.get("battlefield") or []
+        if isinstance(entry, dict)
+        and normalized_name(resolve_name(entry.get("name"), rows)) == target
+    ]
+
+
+def validate_enter_untapped(
+    events: list[dict], catalog: dict, rows: list[dict]
+) -> None:
+    for index, event in enumerate(events):
+        if event.get("kind") not in {"cast", "play_land"} or index == 0:
+            continue
+        seat = event.get("seat")
+        prev = ((events[index - 1].get("state") or {}).get("players") or {}).get(seat) or {}
+        curr = ((event.get("state") or {}).get("players") or {}).get(seat) or {}
+        for card in event.get("cards") or []:
+            name = resolve_name(card, rows)
+            if oracle_allows_tapped_entry(catalog, name):
+                continue
+            prev_tapped = sum(1 for entry in named_battlefield(prev, name, rows) if entry.get("tapped"))
+            curr_tapped = sum(1 for entry in named_battlefield(curr, name, rows) if entry.get("tapped"))
+            if curr_tapped > prev_tapped:
+                raise ValueError(
+                    f"event {event.get('id')}: {name} entered tapped, but its "
+                    "Oracle text does not let it enter tapped"
+                )
+
+
+def is_land_name(catalog: dict, name: str) -> bool:
+    type_line = (catalog.get(name) or {}).get("type_line") or ""
+    faces = (catalog.get(name) or {}).get("faces") or []
+    if "Land" in type_line:
+        return True
+    return any("Land" in (face.get("type_line") or "") for face in faces)
+
+
+def validate_open_mana(events: list[dict], catalog: dict, rows: list[dict]) -> None:
+    for event in events:
+        decision = event.get("decision") or {}
+        if "open_mana" not in decision:
+            continue
+        open_mana = decision["open_mana"]
+        if not isinstance(open_mana, int) or isinstance(open_mana, bool):
+            continue
+        player = ((event.get("state") or {}).get("players") or {}).get(event.get("seat")) or {}
+        lands = 0
+        for entry in player.get("battlefield") or []:
+            if not isinstance(entry, dict) or entry.get("tapped"):
+                continue
+            name = resolve_name(entry.get("name"), rows)
+            if is_land_name(catalog, name):
+                lands += 1
+        if lands >= 3 and open_mana + 2 < lands:
+            raise ValueError(
+                f"event {event.get('id')}: decision.open_mana is {open_mana} "
+                f"but the snapshot has {lands} untapped lands"
+            )
+
+
+def public_card_names(state: dict, rows: list[dict]) -> set[str]:
+    names: set[str] = set()
+    for item in state.get("stack") or []:
+        if isinstance(item, dict) and item.get("name"):
+            names.add(resolve_name(item["name"], rows))
+    for player in (state.get("players") or {}).values():
+        if not isinstance(player, dict):
+            continue
+        names.update(
+            player_card_names(player, rows, ("graveyard", "exile", "command", "revealed_top"))
+        )
+    return {normalized_name(name) for name in names}
+
+
+def hidden_hand_names(state: dict, seat: str, rows: list[dict]) -> set[str]:
+    names: set[str] = set()
+    for other_id, player in ((state.get("players") or {}).items()):
+        if other_id == seat or not isinstance(player, dict):
+            continue
+        names.update(resolve_name(card, rows) for card in player.get("hand") or [])
+    return {normalized_name(name) for name in names}
+
+
+def mentioned_catalog_names(text: str, catalog: dict) -> list[str]:
+    found = []
+    for name in sorted(catalog, key=len, reverse=True):
+        if name and name in text:
+            found.append(name)
+            text = text.replace(name, " ")
+    return found
+
+
+def validate_hidden_reasons(events: list[dict], catalog: dict, rows: list[dict]) -> None:
+    for event in events:
+        reason = ((event.get("decision") or {}).get("reason") or "") + " " + (event.get("notes") or "")
+        if not reason.strip():
+            continue
+        state = event.get("state") or {}
+        public = public_card_names(state, rows)
+        hidden = hidden_hand_names(state, event.get("seat"), rows)
+        own_hand = {
+            normalized_name(resolve_name(card, rows))
+            for card in ((state.get("players") or {}).get(event.get("seat")) or {}).get("hand") or []
+        }
+        for name in mentioned_catalog_names(reason, catalog):
+            key = normalized_name(name)
+            if key in hidden and key not in public and key not in own_hand:
+                raise ValueError(
+                    f"event {event.get('id')}: {event.get('seat')} cited hidden "
+                    f"card {name}"
+                )
+
+
 def validate_combat_flow(events: list[dict], seat_ids: set[str], rows: list[dict]) -> None:
     """Require declare attackers, declare blockers, and typed damage."""
     attack: dict = {}
@@ -406,7 +572,7 @@ def validate_combat_flow(events: list[dict], seat_ids: set[str], rows: list[dict
             )
 
 
-def public_game(game: dict) -> dict:
+def public_game(game: dict, *, strict: bool = False) -> dict:
     cleaned = dict(game)
     cleaned.pop("_libraries", None)
     if cleaned.get("schema") not in SCHEMAS:
@@ -480,6 +646,12 @@ def public_game(game: dict) -> dict:
         validate_combat_shape(event, rows)
     if cleaned["schema"] >= 2:
         validate_combat_flow(events, {seat.get("id") for seat in seats}, rows)
+        catalog = cleaned.get("catalog") if isinstance(cleaned.get("catalog"), dict) else {}
+        validate_commanders_present(seats, events, rows)
+        if strict:
+            validate_enter_untapped(events, catalog, rows)
+            validate_open_mana(events, catalog, rows)
+            validate_hidden_reasons(events, catalog, rows)
 
     catalog = cleaned.get("catalog")
     if not isinstance(catalog, dict):
@@ -527,10 +699,10 @@ def replay_paths(explicit: list[Path]) -> list[Path]:
     )
 
 
-def render_file(log: Path, out: Path | None) -> Path:
+def render_file(log: Path, out: Path | None, *, strict: bool = False) -> Path:
     game = json.loads(log.read_text(encoding="utf-8"))
     payload = json.dumps(
-        public_game(game),
+        public_game(game, strict=strict),
         ensure_ascii=False,
         separators=(",", ":"),
     )
@@ -565,6 +737,15 @@ def parse_args() -> argparse.Namespace:
             "only valid for a single replay."
         ),
     )
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help=(
+            "Also reject illegal ETB taps, impossible open_mana, and hidden "
+            "cards named in another seat's reason. Required for a new "
+            "simulate-table recording."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -585,7 +766,7 @@ def main() -> int:
     failed = 0
     for log in paths:
         try:
-            print(render_file(log, args.out))
+            print(render_file(log, args.out, strict=args.strict))
         except (OSError, ValueError, json.JSONDecodeError) as error:
             print(f"ERROR: {log}: {error}", file=sys.stderr)
             failed += 1

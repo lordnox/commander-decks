@@ -352,6 +352,10 @@ const SeatPanel = ({
   const commanderDamage = Object.entries(state.commander_damage ?? {}).filter(
     ([, damage]) => damage > 0,
   )
+  const commanderLabel = (source: string) => {
+    const owner = game.seats.find((item) => item.id === source)
+    return owner?.commanders.join(" + ") || owner?.name || source
+  }
 
   return (
     <article
@@ -407,7 +411,7 @@ const SeatPanel = ({
             key={source}
             className="rounded-full bg-red-500/10 px-2.5 py-1 text-red-200"
           >
-            {damage} from {game.seats.find((item) => item.id === source)?.name}
+            {damage} from {commanderLabel(source)}
           </span>
         ))}
       </div>

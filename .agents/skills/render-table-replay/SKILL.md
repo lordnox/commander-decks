@@ -26,7 +26,7 @@ public replay payload:
 
 ```bash
 bun run table:render
-bun run table:render -- table-games/<slug>.json
+bun run table:render -- table-games/<slug>.json --strict
 ```
 
 No arguments rewrites every finished `table-games/*.json` file (not
@@ -60,6 +60,14 @@ rejected for an `attack` without `combat.attackers`, a defending seat that
 never declared blockers, a `block` that declines without `decision.reason`,
 or combat damage with no declared attack that turn. Schema 1 replays predate
 the combat record and are validated only on the fields they carry.
+
+`--strict` is required for a newly recorded game. It also rejects a living
+player whose commander has vanished from every zone, a `cast`/`play_land`
+that shows the new permanent tapped when Oracle does not allow it, a
+`decision.open_mana` far below the untapped lands in that snapshot, and a
+reason or note that names a card sitting only in another seat's hand.
+Published older replays may fail `--strict`; default render still publishes
+them.
 
 It trims unused catalog entries before publishing JSON, and fills in
 missing per-side `faces` art from the `cards/` cache so replays recorded before
