@@ -16,6 +16,29 @@ export const resolveName = (game: ReplayGame, value: string | number) => {
   return reference?.name ?? String(value)
 }
 
+export const withCardUrls = (name: string, details: CardDetails) => {
+  const id = details.id
+  const imageRoot = id
+    ? `https://cards.scryfall.io`
+    : ''
+  const imagePath = id
+    ? `front/${id[0]}/${id[1]}/${id}.jpg`
+    : ''
+
+  return {
+    ...details,
+    scryfall_uri:
+      details.scryfall_uri ||
+      `https://scryfall.com/search?q=${encodeURIComponent(`!"${name}"`)}`,
+    image_small:
+      details.image_small ||
+      (id ? `${imageRoot}/small/${imagePath}` : undefined),
+    image_normal:
+      details.image_normal ||
+      (id ? `${imageRoot}/normal/${imagePath}` : undefined),
+  }
+}
+
 const selectedFace = (
   details: CardDetails,
   entry?: BattlefieldCard,
@@ -49,9 +72,10 @@ export const cardInfo = (
   const details =
     (entry?.token_id && game.tokens?.[entry.token_id]) || game.catalog[name] || {}
   const face = selectedFace(details, entry)
+  const selected = face ? { ...details, ...face } : details
   return {
     name: face?.name || name,
-    details: face ? { ...details, ...face } : details,
+    details: withCardUrls(face?.name || name, selected),
   }
 }
 

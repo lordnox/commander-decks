@@ -2,6 +2,7 @@ import type {
   BattlefieldCard,
   CardDetails,
   ReplayCombat,
+  ReplayGame,
 } from './replayTypes'
 
 export type LiveSeat = {
@@ -15,7 +16,7 @@ export type LiveSeat = {
   commander_tax?: number
   library_count: number
   hand_count: number
-  hand?: string[]
+  hand?: Array<string | number>
   battlefield: BattlefieldCard[]
   graveyard: Array<string | number>
   exile: Array<string | number>
@@ -43,7 +44,21 @@ export type LiveSnapshot = {
   tokens?: Record<string, CardDetails>
 }
 
-const seatOrder = ['p1', 'p2', 'p3', 'p4']
+const seatOrder = ['p1', 'p2', 'p3', 'p4'] as const
+
+export type LiveRequest =
+  | {
+      kind: 'payload'
+      payload: string
+    }
+  | {
+      kind: 'replay'
+      game: string
+      eventId?: number
+      you?: string
+      talk: string
+      waiting: string
+    }
 
 export const normalizeSeats = (seats: LiveSnapshot['seats']) => {
   if (Array.isArray(seats)) {
@@ -86,7 +101,7 @@ const deflate = async (bytes: Uint8Array) => {
   return new Uint8Array(await new Response(stream).arrayBuffer())
 }
 
-export const readLivePayload = (location = window.location) => {
+export const readLivePayload = (location: Pick<Location, 'search' | 'hash'> = window.location) => {
   const query = new URLSearchParams(location.search).get('s')
   if (query) return query
 
@@ -95,6 +110,114 @@ export const readLivePayload = (location = window.location) => {
   if (hash.startsWith('s=')) return decodeURIComponent(hash.slice(2))
   if (hash.startsWith('v1.')) return hash
   return null
+}
+
+export const readLiveRequest = (
+  location: Pick<Location, 'search' | 'hash'> = window.location,
+): LiveRequest | null => {
+  const payload = readLivePayload(location)
+  if (payload) return { kind: 'payload', payload }
+
+  const query = new URLSearchParams(location.search)
+  const game = query.get('game')
+  if (!game) return null
+  if (!/^[a-z0-9][a-z0-9-]*$/i.test(game)) {
+    throw new Error('This live game link is not valid')
+  }
+
+  const event = query.get('event')
+  if (event !== null && !/^\d+$/.test(event)) {
+    throw new Error('This live event id is not valid')
+  }
+
+  const you = query.get('you') || undefined
+  if (you && !seatOrder.includes(you as (typeof seatOrder)[number])) {
+    throw new Error('This live viewer seat is not valid')
+  }
+
+  return {
+    kind: 'replay',
+    game,
+    eventId: event === null ? undefined : Number(event),
+    you,
+    talk: query.get('talk') ?? '',
+    waiting: query.get('waiting') ?? 'What do you do?',
+  }
+}
+
+export const replayToLiveSnapshot = (
+  replay: ReplayGame,
+  options: {
+    eventId?: number
+    you?: string
+    talk?: string
+    waiting?: string
+  } = {},
+) => {
+  if (!Array.isArray(replay.events) || replay.events.length === 0) {
+    throw new Error('This replay has no events')
+  }
+
+  const event = options.eventId === undefined
+    ? replay.events.at(-1)
+    : replay.events.find(({ id }) => id === options.eventId)
+  if (!event) {
+    throw new Error(`This replay has no event with id ${options.eventId}`)
+  }
+  if (!event.state || typeof event.state.players !== 'object') {
+    throw new Error(`Event ${event.id} has no table state`)
+  }
+
+  const metadata = new Map(replay.seats.map((seat) => [seat.id, seat]))
+  const seats = seatOrder.map((id) => {
+    const seat = metadata.get(id)
+    const player = event.state.players[id]
+    const hand = [...(player?.hand ?? [])]
+    const snapshotSeat: LiveSeat = {
+      id,
+      name: seat?.name || id,
+      commanders: [...(seat?.commanders ?? [])],
+      color: seat?.color || '#888888',
+      life: player?.life ?? replay.starting_life ?? 40,
+      poison: player?.poison ?? 0,
+      commander_damage: { ...(player?.commander_damage ?? {}) },
+      commander_tax: player?.commander_tax ?? 0,
+      library_count: player?.library_count ?? 0,
+      hand_count: player?.hand_count ?? hand.length,
+      battlefield: [...(player?.battlefield ?? [])],
+      graveyard: [...(player?.graveyard ?? [])],
+      exile: [...(player?.exile ?? [])],
+      command: [...(player?.command ?? [])],
+    }
+
+    if (options.you === id) snapshotSeat.hand = hand
+    if (player?.revealed_top !== undefined) {
+      snapshotSeat.revealed_top = [...player.revealed_top]
+    }
+    return snapshotSeat
+  })
+
+  const stateWithCombat = event.state as typeof event.state & {
+    combat?: ReplayCombat
+  }
+  const snapshot: LiveSnapshot = {
+    v: 1,
+    you: options.you ?? null,
+    headline: replay.headline,
+    waiting: options.waiting ?? 'What do you do?',
+    talk: options.talk ?? '',
+    turn: event.state.turn ?? event.turn,
+    phase: event.state.phase ?? event.phase,
+    active: event.state.active || event.seat || '',
+    stack: [...(event.state.stack ?? [])],
+    seats,
+    catalog: replay.catalog,
+    tokens: replay.tokens,
+  }
+
+  const combat = event.combat ?? stateWithCombat.combat
+  if (combat) snapshot.combat = combat
+  return snapshot
 }
 
 export const isLivePath = (pathname = window.location.pathname) => {

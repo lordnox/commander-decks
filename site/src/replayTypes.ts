@@ -9,6 +9,7 @@ export type CardFace = {
 }
 
 export type CardDetails = {
+  id?: string
   scryfall_uri?: string
   image_small?: string
   image_normal?: string
@@ -37,6 +38,7 @@ export type PlayerState = {
   commander_damage?: Record<string, number>
   commander_tax?: number
   library_count: number
+  hand_count?: number
   hand: Array<string | number>
   battlefield: BattlefieldCard[]
   graveyard: Array<string | number>
