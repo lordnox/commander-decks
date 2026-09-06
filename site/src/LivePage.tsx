@@ -163,8 +163,10 @@ export const LivePage = () => {
           try {
             const hydrated = await hydrateLiveSnapshot(decoded)
             if (!cancelled) {
-              setSnapshot(hydrated)
-              setHydrationStatus('')
+              setSnapshot(hydrated.snapshot)
+              setHydrationStatus(
+                hydrated.complete ? '' : 'Some card details could not be loaded',
+              )
             }
           } catch {
             if (!cancelled) {
