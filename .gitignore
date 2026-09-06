@@ -1,6 +1,7 @@
 # Four-player table replays (see simulate-table skill).
 # Replay logs are scratch by default; commit a game deliberately with `git add -f`.
 table-games/*.json
+table-games/*.live.json
 
 # GitHub Pages build output.
 node_modules/
