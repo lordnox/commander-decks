@@ -3,15 +3,40 @@
 One public "now" frame for the GitHub Pages player. Not a replay. No event
 log, no libraries, no other players' hands.
 
-Canonical URL:
+Always keep the trailing slash on `/live/`. GitHub Pages redirects `/live` to
+`/live/`, and a redirect can drop the fragment.
+
+## Two link forms
+
+**Short link — preferred whenever the game is already published.** The page
+fetches the public replay itself, so the URL stays about 80 characters and
+survives chat, mail, and phones intact.
 
 ```text
-https://lordnox.github.io/commander-decks/live?s=<payload>
+https://lordnox.github.io/commander-decks/live/?game=<slug>&event=<id>&you=<seat>
 ```
 
-The page also reads a hash payload (`#s=<payload>` or `#<payload>`) when the
-query string is empty. Prefer the query form in chat. Hash is the fallback
-when a payload is too long for a query.
+| Parameter | Meaning |
+|---|---|
+| `game` | Published replay slug, fetched from `<base>replays/<slug>.json` |
+| `event` | Event id to show; omit for the last event |
+| `you` | Viewer seat `p1`–`p4`; omit for a public board |
+| `talk` | Optional table talk / standing plan |
+| `waiting` | Optional prompt, default `What do you do?` |
+
+The page must render only the `you` seat's hand and reduce every other seat to
+`hand_count`, even though the fetched replay contains all hands.
+
+**Payload link — for a game that is not published.** Self-contained, no fetch:
+
+```text
+https://lordnox.github.io/commander-decks/live/?s=<payload>
+```
+
+The page also reads `#s=<payload>` or `#<payload>` when the query string is
+empty. Prefer the query form; use the hash only past 8000 characters. A payload
+link over ~6000 characters is fragile in chat, so publish the game and send a
+short link instead.
 
 ## Wire payload
 
@@ -41,7 +66,7 @@ before compression.
 | `stack` | `{name, controller?, text?}[]` |
 | `combat` | Optional replay combat object (attackers, blocks, possible blockers) |
 | `seats` | Four seats, `p1`–`p4` clockwise |
-| `catalog` | Card name → `{scryfall_uri, image_small, image_normal, type_line?, mana_cost?, oracle_text?, stats?, faces?}` |
+| `catalog` | Card name → `{id?, scryfall_uri?, image_small?, image_normal?, type_line?, mana_cost?, oracle_text?, stats?, faces?}` |
 | `tokens` | Optional token catalog, same shape as replay |
 
 ### Seat
@@ -68,6 +93,20 @@ before compression.
 Public encode **must** drop every `hand` array and set `you` to null. Keep
 `hand_count`. `revealed_top` stays when the table can see it; private
 look-at-top stays only on the matching `you` seat.
+
+### Catalog `id`
+
+A payload catalog entry may carry the Scryfall card `id` instead of image URLs.
+The page rebuilds them, which is far smaller than storing two URLs per card:
+
+```text
+https://cards.scryfall.io/small/front/<id[0]>/<id[1]>/<id>.jpg
+https://cards.scryfall.io/normal/front/<id[0]>/<id[1]>/<id>.jpg
+```
+
+When `scryfall_uri` is absent, link the card by exact name search instead of
+guessing a printing URL. An explicit `image_small`, `image_normal`, or
+`scryfall_uri` always wins over a derived one, so older payloads keep working.
 
 The encoder snapshots the last event by default; `--event <id>` picks an
 earlier frame from the same log.
