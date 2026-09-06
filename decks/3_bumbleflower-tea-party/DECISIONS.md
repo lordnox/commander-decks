@@ -10,6 +10,15 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Rules** — Oracle readings and stack order that were checked.
 - **Talks** — dated session notes so an argument does not live only in chat.
 
+## Goals
+
+- **+1/+1 Counters** — The 99 grows bodies and closes through those counters, not a separate combo.
+- **Group Hug** — Extra cards for the table are part of the engine; the deck still taxes those extras rather than winning by generosity. Flash is supporting, not a scored goal.
+
+## Rankings
+
+See `rankings.json`. 2026-09-06: jankiness 7, fun 8, oppressiveness 6, +1/+1 Counters 9, Group Hug 7. Loki crime targeting, gift second-draws, and Increment keep Jank off the staple floor. Mean is FoW and Seedborn windows, not a lock. Hug scores below Counters because donated cards exist to feed payoffs.
+
 ## Cards in
 
 - **Ms. Bumbleflower** — Commander: every spell gives an opponent a card, a +1/+1 counter, and flying until end of turn, and the second trigger of the turn draws two. Replacements must still convert casting spells into counters plus a second-spell draw.
@@ -119,6 +128,7 @@ Maybeboard (`{noDeck}`) stays outside the 99:
 - Loki draws from abilities this deck controls targeting; the primer names Bumbleflower as the usual trigger, not spell targeting.
 - Triumph of the Hordes is the listed closer, not an infect tribal plan.
 - Force of Will is a cached Game Changer and Sol Ring is kitchen-table permanent fast mana; both stay because the list was imported unchanged.
+- Assessment sentence: usual close is turn eight to ten combat or Triumph; the turn-six line needs Sol Ring plus a grown board, so it is "reasonably" not "unlikely," but it is not the expected pace. Seedborn Muse is the second cached Game Changer (snapshot 2026-09-03). Teferi's Protection stays maybeboard and is not counted.
 
 ## Rules
 
@@ -132,3 +142,9 @@ Maybeboard (`{noDeck}`) stays outside the 99:
 ### 2026-09-06 — Import
 
 Imported the submitted 99 as **Bumbleflower — Tea Party**. Bracketed section headings were rewritten to unbracketed `COMMANDER` / type labels so the resolver would not fuzzy-match them as cards. Maybeboard lines received `Maybeboard{noDeck}{noPrice}`. Force of Will and Sol Ring remain as submitted.
+
+### 2026-09-06 — Assessment and rankings
+
+Rated **Bracket 3** (middle). Cached Game Changers in the 100: Force of Will, Seedborn Muse (2 of 3 allowed). Printed Core excludes Game Changers, so this cannot advertise as 2 without a spoken footnote. Win texture is incremental counters with Triumph as an Upgraded from-hand dump once the board exists. No tutors, no two-card infinite. Sol Ring is kitchen-table 4+ fast mana and is footnoted, not counted against the GC cap.
+
+Goldfish sample (seeds 1729 and 2718, London keeps): commander usually on turn three with Sol Ring or turn four on lands plus a rock. Triumph without a board is a mulligan-ship. Interactive games lose a turn or two when Bumbleflower dies. Identity goals locked as **+1/+1 Counters** and **Group Hug**; Flash is supporting only.
