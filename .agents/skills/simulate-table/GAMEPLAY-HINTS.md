@@ -6,6 +6,23 @@ second primer. Primer and `AGENT-HINTS.md` still win on that deck's plan.
 Walk the checklist against the **current** snapshot. Do not reuse last
 turn's `think` text. Do not invent hold-up that the cards cannot pay.
 
+## A. Plan cycle
+
+- After keeps, write a `game` plan from the primer, opening hand, opposing
+  decklists, and likely political tools.
+- Before each untap, write a `turn` plan: desired end state, land sequence,
+  mana sequence, mandatory upkeep triggers, optional triggers to decline,
+  interaction deadline, and contingencies.
+- Immediately after drawing, write an `impact` update. If the card does not
+  improve the line, restate the current plan with `status: kept`. If it does,
+  replace the line with `status: revised`.
+- Recheck after public reveals, responses, and accepted deals. Do not abandon
+  a concrete line merely because a new card appeared.
+
+Plans are concise intentions for the replay and a replacement pilot, not
+private chain-of-thought. Other seats do not hear them unless converted into
+`talk`.
+
 ## 0. Snapshot first
 
 From the public board plus this seat's private hand, command zone, and
@@ -22,6 +39,13 @@ library top (only if an effect reveals it):
 
 A pass with unused mana, unused attacks, or an unused `{T}` ability needs a
 fresh `decision` that lists those options.
+
+Do not resolve every optional trigger by reflex. Compare it with the current
+turn plan. For example, returning Bloodghast on landfall before Living Death
+can strand it in the graveyard after the battlefield sacrifice; decline the
+`may` trigger unless that positioning is intentional. Conversely, do not miss
+a mandatory or beneficial upkeep trigger merely because the main-phase plan
+already looks complete.
 
 ## 1. Permanents enter as printed
 
@@ -54,6 +78,9 @@ mana, then the leftover. Typical misses:
 Holding mana is legal only when a **named** card in hand or a **named**
 activated ability will fire in a **named** later window. `{T}` abilities
 with no mana cost are not "held up"; they fire in the window they affect.
+For interaction, identify the actual deadline. Do not hold an instant through
+an entire turn when the threat cannot trigger before this seat untaps and gets
+another main phase.
 
 ## 3. Additional triggers add instances
 
@@ -68,16 +95,17 @@ end step, not the next player's untap.
 
 ## 4. Hidden information
 
-A seat may use only:
+A seat may know submitted decklists, primers, and established deck plans from
+prior games. It may use only current-zone information from:
 
 - the public board, stack, graveyards, exile, command zones, life, and
   revealed cards;
 - its own hand, library order, and private notes.
 
-It may not name an opponent's unrevealed search, bottom, or hand card in
-`decision.reason`, attack notes, or table talk. "They tutored, so I assume
-a generic answer" is allowed; "attack to stop Tasha" is not, unless Tasha
-was revealed.
+It may name a known deck's usual card or win condition, but may not claim that
+card is currently in an opponent's hand, unrevealed search, library position,
+or bottom. "That deck can win with Mortal Combat" is allowed; "they have
+Mortal Combat in hand" is not unless it was revealed.
 
 ## 5. Combat
 
@@ -105,6 +133,17 @@ effect (Volcanic Offering, Council's Judgment, a wipe, a shared fog),
 open a `talk` window **before** committing. Terms use public information.
 Group-slug and tax effects cannot be promised away if they are
 symmetrical.
+
+Also talk before a crisis when the board offers mutual value. If Sokrates is
+untapped and no longer summoning sick, its controller should advertise the
+tool: invite a creature to attack, prevent the damage to the player, and let
+both players draw half that creature's power. Name the creature and proposed
+target. A struggling opponent may request the same exchange and offer a fixed
+nonaggression period. A large-creature controller may propose it to help both
+seats draw toward an answer to the current leader.
+
+Plain coordination is `talk`. Future promises are a `deal`, with exact terms
+and expiry. Each seat compares the offer with its active plan before answering.
 
 ## 7. Closing check
 

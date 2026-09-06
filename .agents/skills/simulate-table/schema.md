@@ -14,6 +14,7 @@ demand combat detail from them.
 | Field | Meaning |
 |---|---|
 | `schema` | `2` (`1` is a legacy replay without combat records) |
+| `planning` | Optional planning contract version. New deals write `1`; old replays omit it. |
 | `seed` | Deal seed |
 | `starting_life` | Usually `40` |
 | `headline` | One-line result |
@@ -79,13 +80,14 @@ card names so a snapshot is readable without the table. Old replays may omit
 |---|---|
 | `id` | Integer, stable |
 | `turn` | `0` during setup |
-| `phase` | `setup`, `untap`, `upkeep`, `draw`, `main1`, `combat`, `main2`, `end`, or `priority` |
+| `phase` | `setup`, `planning`, `untap`, `upkeep`, `draw`, `impact`, `main1`, `combat`, `main2`, `end`, or `priority` |
 | `seat` | Acting seat, or `null` |
 | `kind` | See below |
 | `summary` | Short log line |
 | `cards` | Reference indexes or Oracle names to highlight (cast, drawn, attacking) |
 | `notes` | Optional rules or politics aside |
 | `decision` | Optional why-this-play object; required on a pass that leaves unused mana |
+| `plan` | Optional structured game, turn, or impact plan on a `think` event |
 | `deal` | Optional table-talk payload on `talk` / `deal` events |
 | `combat` | Combat step payload on `attack` / `block` / combat `damage` events |
 | `damage` | List of damage entries on a `damage` event |
@@ -205,6 +207,45 @@ omit it; new ones must not pass with unused playable spells and no reason.
 
 A `think` or `talk` event uses the phase where the decision happened. Do
 not insert one between `untap` and the normal `draw`.
+
+### Plans
+
+Replays with top-level `planning: 1` record concise intentions, not private
+chain-of-thought. Every seat creates a `game` plan after keeps and before turn
+one. Before each of its untap steps it creates a `turn` plan from information
+currently available. Every draw is followed by an `impact` plan that either
+restates the still-valid plan with `status: "kept"` or replaces it with
+`status: "revised"`. Public reveals, responses, and deals get another impact
+update when they materially change the line.
+
+```json
+{
+  "kind": "think",
+  "phase": "planning",
+  "seat": "p1",
+  "summary": "Death Aspect plans to tutor Living Death and cast it this turn.",
+  "plan": {
+    "scope": "turn",
+    "status": "set",
+    "summary": "Tutor Living Death, then cast it.",
+    "details": "Beseech the Mirror and Cabal Ritual turn the completed Iname mill into a recovery.",
+    "steps": [
+      "Untap and resolve mandatory upkeep triggers",
+      "Use Cabal Ritual to reach Beseech plus Living Death mana",
+      "Rebuild the Spirit board"
+    ]
+  },
+  "state": {}
+}
+```
+
+`scope` is `game`, `turn`, or `impact`; `status` is `set`, `kept`, or
+`revised`. `summary` is the short text shown beside the commander in the
+viewer. It must describe the current plan, even when an impact did not change
+it. `details` explains the relevant game facts and `steps` is the intended
+sequence. Plan events are visible to the replay audience but are not public
+table speech and must not be copied into another seat's packet. Use `talk` for
+anything opponents hear.
 
 ### Politics
 
