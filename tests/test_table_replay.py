@@ -33,7 +33,7 @@ def state(turn, phase, osgir_tapped=True):
             "hand": [],
             "battlefield": [],
             "graveyard": [],
-            "command": [],
+            "command": list(seat["commanders"]),
         }
         for seat in SEATS
     }
@@ -108,6 +108,9 @@ def game(schema=2, osgir_tapped=True):
         "seats": copy.deepcopy(SEATS),
         "catalog": {
             "Osgir, the Reconstructor": {"type_line": "Legendary Creature"},
+            "Hazel of the Rootbloom": {"type_line": "Legendary Creature"},
+            "Sin, Spira's Punishment": {"type_line": "Legendary Creature"},
+            "Homer, the Hermit": {"type_line": "Legendary Creature"},
             "Squirrel": {"type_line": "Token Creature"},
         },
         "events": events,
@@ -191,6 +194,97 @@ class CombatRecordTests(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "without a declared attack"):
             render_replay.public_game(replay)
+
+
+class PlayInvariantTests(unittest.TestCase):
+    def test_commander_must_remain_in_a_zone(self):
+        replay = game()
+        last = replay["events"][-1]
+        last["state"]["players"]["p1"]["command"] = []
+        last["state"]["players"]["p1"]["battlefield"] = []
+
+        with self.assertRaisesRegex(ValueError, "missing Osgir"):
+            render_replay.public_game(replay)
+
+    def test_cast_permanent_does_not_enter_tapped(self):
+        replay = game()
+        catalog = {
+            "Phial of Galadriel": {
+                "type_line": "Legendary Artifact",
+                "oracle_text": "{T}: Add one mana of any color.",
+            }
+        }
+        empty = {
+            "life": 40,
+            "library_count": 80,
+            "hand": [],
+            "battlefield": [],
+            "graveyard": [],
+            "command": ["Osgir, the Reconstructor"],
+        }
+        events = [
+            {
+                "id": 0,
+                "kind": "setup",
+                "seat": None,
+                "state": {"players": {"p1": empty}},
+            },
+            {
+                "id": 1,
+                "kind": "cast",
+                "seat": "p1",
+                "cards": ["Phial of Galadriel"],
+                "state": {
+                    "players": {
+                        "p1": {
+                            **empty,
+                            "battlefield": [
+                                {"name": "Phial of Galadriel", "tapped": True}
+                            ],
+                        }
+                    }
+                },
+            },
+        ]
+
+        with self.assertRaisesRegex(ValueError, "entered tapped"):
+            render_replay.validate_enter_untapped(events, catalog, [])
+
+    def test_open_mana_cannot_ignore_untapped_lands(self):
+        catalog = {"Island": {"type_line": "Basic Land — Island"}}
+        events = [
+            {
+                "id": 1,
+                "seat": "p1",
+                "decision": {"open_mana": 0, "reason": "Hold interaction."},
+                "state": {
+                    "players": {
+                        "p1": {
+                            "battlefield": [
+                                {"name": "Island", "tapped": False},
+                                {"name": "Island", "tapped": False},
+                                {"name": "Island", "tapped": False},
+                            ]
+                        }
+                    }
+                },
+            }
+        ]
+
+        with self.assertRaisesRegex(ValueError, "open_mana is 0"):
+            render_replay.validate_open_mana(events, catalog, [])
+
+    def test_reason_cannot_cite_another_hand(self):
+        replay = game()
+        replay["catalog"]["Tasha's Hideous Laughter"] = {"type_line": "Sorcery"}
+        event = replay["events"][3]
+        event["decision"] = {
+            "reason": "Attack to stop Tasha's Hideous Laughter."
+        }
+        event["state"]["players"]["p3"]["hand"] = ["Tasha's Hideous Laughter"]
+
+        with self.assertRaisesRegex(ValueError, "hidden card"):
+            render_replay.public_game(replay, strict=True)
 
 
 if __name__ == "__main__":
