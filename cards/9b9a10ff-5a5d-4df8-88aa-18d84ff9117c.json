@@ -1,0 +1,133 @@
+{
+  "arena_id": 98313,
+  "artist": "Alexander Forssberg",
+  "artist_ids": [
+    "85908891-3cc7-42b0-9b54-27ed0fe89c53"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 857963,
+  "cmc": 3.0,
+  "collector_number": "168",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 276,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Sozin's comet is arriving and our destinies are upon us!\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2555ec7b-5cc2-4ffd-9344-6368019feff9",
+  "illustration_id": "38a35385-648e-482f-8f73-1507db8d18e8",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:06:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/5/2555ec7b-5cc2-4ffd-9344-6368019feff9.webp?1783904804",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/5/2555ec7b-5cc2-4ffd-9344-6368019feff9.jpg?1783904804",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/5/2555ec7b-5cc2-4ffd-9344-6368019feff9.jpg?1783904804",
+    "crop": "https://cards.scryfall.io/crop/front/2/5/2555ec7b-5cc2-4ffd-9344-6368019feff9.webp?1783904804",
+    "display": "https://cards.scryfall.io/display/front/2/5/2555ec7b-5cc2-4ffd-9344-6368019feff9.webp?1783904804",
+    "grid": "https://cards.scryfall.io/grid/front/2/5/2555ec7b-5cc2-4ffd-9344-6368019feff9.webp?1783904804",
+    "large": "https://cards.scryfall.io/large/front/2/5/2555ec7b-5cc2-4ffd-9344-6368019feff9.jpg?1783904804",
+    "normal": "https://cards.scryfall.io/normal/front/2/5/2555ec7b-5cc2-4ffd-9344-6368019feff9.jpg?1783904804",
+    "png": "https://cards.scryfall.io/png/front/2/5/2555ec7b-5cc2-4ffd-9344-6368019feff9.png?1783904804",
+    "small": "https://cards.scryfall.io/small/front/2/5/2555ec7b-5cc2-4ffd-9344-6368019feff9.jpg?1783904804",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/5/2555ec7b-5cc2-4ffd-9344-6368019feff9.webp?1783904804"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "multiverse_ids": [],
+  "name": "Inspiring Call",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9b9a10ff-5a5d-4df8-88aa-18d84ff9117c",
+  "oracle_text": "Draw a card for each creature you control with a +1/+1 counter on it. Those creatures gain indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy them.)",
+  "oversized": false,
+  "penny_rank": 7965,
+  "prices": {
+    "eur": "0.68",
+    "eur_foil": "0.84",
+    "tix": null,
+    "usd": "0.41",
+    "usd_etched": null,
+    "usd_foil": "3.14"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9b9a10ff-5a5d-4df8-88aa-18d84ff9117c&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Inspiring+Call&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=857963&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F662422%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Inspiring+Call",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DInspiring%2BCall",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DInspiring%2BCall"
+  },
+  "released_at": "2025-11-21",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "0CEE679DA6C5C9B6A74282E50C3666B7A50AD096923E951C5B0A301AB6100BD3",
+  "rulings_uri": "https://api.scryfall.com/cards/2555ec7b-5cc2-4ffd-9344-6368019feff9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tle?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tle/168/inspiring-call?utm_source=api",
+  "set": "tle",
+  "set_id": "a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "set_name": "Avatar: The Last Airbender Eternal",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atle&unique=prints",
+  "set_type": "eternal",
+  "set_uri": "https://api.scryfall.com/sets/a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "story_spotlight": false,
+  "tcgplayer_id": 662422,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/2555ec7b-5cc2-4ffd-9344-6368019feff9",
+  "variation": false
+}

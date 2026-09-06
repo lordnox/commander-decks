@@ -1,0 +1,182 @@
+{
+  "arena_id": 105114,
+  "artist": "Aaron J. Riley & Eric Wilkerson",
+  "artist_ids": [
+    "f21b412c-aef5-4d15-88be-4f40615acde3",
+    "525ec49d-a7c8-4ddc-96aa-58cf5ad5e937"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Aaron J. Riley",
+      "artist_id": "f21b412c-aef5-4d15-88be-4f40615acde3",
+      "colors": [
+        "U",
+        "W"
+      ],
+      "illustration_id": "0386898c-efa9-43db-9bb8-89e2463fd748",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.webp?1783902911",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.jpg?1783902911",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.jpg?1783902911",
+        "crop": "https://cards.scryfall.io/crop/front/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.webp?1783902911",
+        "display": "https://cards.scryfall.io/display/front/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.webp?1783902911",
+        "grid": "https://cards.scryfall.io/grid/front/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.webp?1783902911",
+        "large": "https://cards.scryfall.io/large/front/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.jpg?1783902911",
+        "normal": "https://cards.scryfall.io/normal/front/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.jpg?1783902911",
+        "png": "https://cards.scryfall.io/png/front/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.png?1783902911",
+        "small": "https://cards.scryfall.io/small/front/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.jpg?1783902911",
+        "thumb": "https://cards.scryfall.io/thumb/front/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.webp?1783902911"
+      },
+      "mana_cost": "{1}{W}{U}",
+      "name": "King T'Challa",
+      "object": "card_face",
+      "oracle_text": "Flash\nWhenever a player draws their second card each turn, you draw a card.\n{4}{W}{U}: Transform King T'Challa. Activate only as a sorcery.",
+      "power": "3",
+      "toughness": "2",
+      "type_line": "Legendary Creature — Human Noble Hero"
+    },
+    {
+      "artist": "Eric Wilkerson",
+      "artist_id": "525ec49d-a7c8-4ddc-96aa-58cf5ad5e937",
+      "colors": [
+        "U",
+        "W"
+      ],
+      "illustration_id": "d9f06a81-ebf6-4e64-adf3-61b2308c11dc",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.webp?1783902911",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.jpg?1783902911",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.jpg?1783902911",
+        "crop": "https://cards.scryfall.io/crop/back/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.webp?1783902911",
+        "display": "https://cards.scryfall.io/display/back/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.webp?1783902911",
+        "grid": "https://cards.scryfall.io/grid/back/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.webp?1783902911",
+        "large": "https://cards.scryfall.io/large/back/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.jpg?1783902911",
+        "normal": "https://cards.scryfall.io/normal/back/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.jpg?1783902911",
+        "png": "https://cards.scryfall.io/png/back/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.png?1783902911",
+        "small": "https://cards.scryfall.io/small/back/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.jpg?1783902911",
+        "thumb": "https://cards.scryfall.io/thumb/back/a/d/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975.webp?1783902911"
+      },
+      "mana_cost": "{4}{W}{U}",
+      "name": "Black Panther, Hope Enduring",
+      "object": "card_face",
+      "oracle_text": "Flash\nDouble strike\nPrevent all damage that would be dealt to Black Panther.\nWhenever Black Panther deals combat damage to a player, draw a card.",
+      "power": "3",
+      "toughness": "3",
+      "type_line": "Legendary Creature — Human Warrior Hero"
+    }
+  ],
+  "cardmarket_id": 890581,
+  "cmc": 3.0,
+  "collector_number": "219",
+  "color_identity": [
+    "U",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 6705,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "add7d3ce-aa58-4da0-8c2a-cfd01c3a8975",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:35:11Z",
+  "keywords": [
+    "Transform",
+    "Double strike",
+    "Flash"
+  ],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 152625,
+  "multiverse_ids": [],
+  "name": "King T'Challa // Black Panther, Hope Enduring",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "fe00278d-4385-4e3f-919c-12a794fd86f5",
+  "oversized": false,
+  "prices": {
+    "eur": "11.49",
+    "eur_foil": "14.14",
+    "tix": "0.81",
+    "usd": "10.82",
+    "usd_etched": null,
+    "usd_foil": "13.51"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Afe00278d-4385-4e3f-919c-12a794fd86f5&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/152625?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=890581&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F696324%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=King+T%27Challa",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKing%2BT%2527Challa%2B%252F%252F%2BBlack%2BPanther%252C%2BHope%2BEnduring",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKing%2BT%2527Challa%2B%252F%252F%2BBlack%2BPanther%252C%2BHope%2BEnduring"
+  },
+  "released_at": "2026-06-26",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "B83C6A8DBB947ECBFEF20A47898E4E0B8164330FB6FC3CE8CFB3642657A60F61",
+  "rulings_uri": "https://api.scryfall.com/cards/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msh?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msh/219/king-tchalla-black-panther-hope-enduring?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msh",
+  "set_id": "ba9bf625-681c-4a4e-ab48-399b2fecac6b",
+  "set_name": "Marvel Super Heroes",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsh&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/ba9bf625-681c-4a4e-ab48-399b2fecac6b",
+  "story_spotlight": false,
+  "tcgplayer_id": 696324,
+  "textless": false,
+  "type_line": "Legendary Creature — Human Noble Hero // Legendary Creature — Human Warrior Hero",
+  "uri": "https://api.scryfall.com/cards/add7d3ce-aa58-4da0-8c2a-cfd01c3a8975",
+  "variation": false
+}

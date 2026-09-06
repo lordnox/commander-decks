@@ -1,0 +1,150 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "794e01e7-430c-43cf-ba2b-1028cd088148",
+      "name": "Chasm Skulker",
+      "object": "related_card",
+      "type_line": "Creature — Squid Horror",
+      "uri": "https://api.scryfall.com/cards/794e01e7-430c-43cf-ba2b-1028cd088148"
+    },
+    {
+      "component": "token",
+      "id": "44ea459b-b655-4106-9f24-9bdb440e04b1",
+      "name": "Squid",
+      "object": "related_card",
+      "type_line": "Token Creature — Squid",
+      "uri": "https://api.scryfall.com/cards/44ea459b-b655-4106-9f24-9bdb440e04b1"
+    }
+  ],
+  "artist": "Jack Wang",
+  "artist_ids": [
+    "331942ac-401c-4af3-9d70-85f67717496c"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 705645,
+  "cmc": 3.0,
+  "collector_number": "218",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 705,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "794e01e7-430c-43cf-ba2b-1028cd088148",
+  "illustration_id": "ba70e583-fc60-47b9-b623-5f0714e852a0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:32:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/9/794e01e7-430c-43cf-ba2b-1028cd088148.webp?1783917173",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/9/794e01e7-430c-43cf-ba2b-1028cd088148.jpg?1783917173",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/9/794e01e7-430c-43cf-ba2b-1028cd088148.jpg?1783917173",
+    "crop": "https://cards.scryfall.io/crop/front/7/9/794e01e7-430c-43cf-ba2b-1028cd088148.webp?1783917173",
+    "display": "https://cards.scryfall.io/display/front/7/9/794e01e7-430c-43cf-ba2b-1028cd088148.webp?1783917173",
+    "grid": "https://cards.scryfall.io/grid/front/7/9/794e01e7-430c-43cf-ba2b-1028cd088148.webp?1783917173",
+    "large": "https://cards.scryfall.io/large/front/7/9/794e01e7-430c-43cf-ba2b-1028cd088148.jpg?1783917173",
+    "normal": "https://cards.scryfall.io/normal/front/7/9/794e01e7-430c-43cf-ba2b-1028cd088148.jpg?1783917173",
+    "png": "https://cards.scryfall.io/png/front/7/9/794e01e7-430c-43cf-ba2b-1028cd088148.png?1783917173",
+    "small": "https://cards.scryfall.io/small/front/7/9/794e01e7-430c-43cf-ba2b-1028cd088148.jpg?1783917173",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/9/794e01e7-430c-43cf-ba2b-1028cd088148.webp?1783917173"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 110884,
+  "multiverse_ids": [
+    612466
+  ],
+  "name": "Chasm Skulker",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "69facbc7-3859-4716-b627-5199571fb3cf",
+  "oracle_text": "Whenever you draw a card, put a +1/+1 counter on this creature.\nWhen this creature dies, create X 1/1 blue Squid creature tokens with islandwalk, where X is the number of +1/+1 counters on this creature. (They can't be blocked as long as defending player controls an Island.)",
+  "oversized": false,
+  "penny_rank": 6873,
+  "power": "1",
+  "prices": {
+    "eur": "0.57",
+    "eur_foil": null,
+    "tix": "0.22",
+    "usd": "0.89",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A69facbc7-3859-4716-b627-5199571fb3cf&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/110884?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=705645&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F491517%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Chasm+Skulker",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=612466&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DChasm%2BSkulker",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DChasm%2BSkulker"
+  },
+  "released_at": "2023-04-21",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/794e01e7-430c-43cf-ba2b-1028cd088148/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/moc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/moc/218/chasm-skulker?utm_source=api",
+  "security_stamp": "oval",
+  "set": "moc",
+  "set_id": "6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "set_name": "March of the Machine Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "story_spotlight": false,
+  "tcgplayer_id": 491517,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Squid Horror",
+  "uri": "https://api.scryfall.com/cards/794e01e7-430c-43cf-ba2b-1028cd088148",
+  "variation": false
+}

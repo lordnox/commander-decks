@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "cec5cc8b-bc15-415a-bde6-6c783f8d0b0b",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/cec5cc8b-bc15-415a-bde6-6c783f8d0b0b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7625bc1f-d76c-4354-988b-4b58e054a3b7",
+      "name": "Monologue Tax",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/7625bc1f-d76c-4354-988b-4b58e054a3b7"
+    }
+  ],
+  "artist": "Vilhelmas Banys",
+  "artist_ids": [
+    "020fbe69-3549-4d96-bb71-c1688925b1fb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 891814,
+  "cmc": 3.0,
+  "collector_number": "139",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 1085,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Never interrupt a villain when they are making a long-winded mistake.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ee68d390-11cb-4617-a9ee-6e8cf7ff0e55",
+  "illustration_id": "a500eece-5c2c-4a86-be2e-90990c137ecd",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:40:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/e/ee68d390-11cb-4617-a9ee-6e8cf7ff0e55.webp?1783903246",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/e/ee68d390-11cb-4617-a9ee-6e8cf7ff0e55.jpg?1783903246",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/e/ee68d390-11cb-4617-a9ee-6e8cf7ff0e55.jpg?1783903246",
+    "crop": "https://cards.scryfall.io/crop/front/e/e/ee68d390-11cb-4617-a9ee-6e8cf7ff0e55.webp?1783903246",
+    "display": "https://cards.scryfall.io/display/front/e/e/ee68d390-11cb-4617-a9ee-6e8cf7ff0e55.webp?1783903246",
+    "grid": "https://cards.scryfall.io/grid/front/e/e/ee68d390-11cb-4617-a9ee-6e8cf7ff0e55.webp?1783903246",
+    "large": "https://cards.scryfall.io/large/front/e/e/ee68d390-11cb-4617-a9ee-6e8cf7ff0e55.jpg?1783903246",
+    "normal": "https://cards.scryfall.io/normal/front/e/e/ee68d390-11cb-4617-a9ee-6e8cf7ff0e55.jpg?1783903246",
+    "png": "https://cards.scryfall.io/png/front/e/e/ee68d390-11cb-4617-a9ee-6e8cf7ff0e55.png?1783903246",
+    "small": "https://cards.scryfall.io/small/front/e/e/ee68d390-11cb-4617-a9ee-6e8cf7ff0e55.jpg?1783903246",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/e/ee68d390-11cb-4617-a9ee-6e8cf7ff0e55.webp?1783903246"
+  },
+  "keywords": [
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 150747,
+  "multiverse_ids": [],
+  "name": "Monologue Tax",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ace8e88e-ca6a-4bdf-8c6d-1b914fc00259",
+  "oracle_text": "Whenever an opponent casts their second spell each turn, you create a Treasure token.",
+  "oversized": false,
+  "prices": {
+    "eur": "1.06",
+    "eur_foil": null,
+    "tix": "0.22",
+    "usd": "1.26",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aace8e88e-ca6a-4bdf-8c6d-1b914fc00259&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150747?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891814&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F697527%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Monologue+Tax",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMonologue%2BTax",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMonologue%2BTax"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "996DA9023A5D7FCAF370E576FE2C446BFF5C1F072D7033B4078AFA87E575AD1F",
+  "rulings_uri": "https://api.scryfall.com/cards/ee68d390-11cb-4617-a9ee-6e8cf7ff0e55/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/139/monologue-tax?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 697527,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/ee68d390-11cb-4617-a9ee-6e8cf7ff0e55",
+  "variation": false
+}

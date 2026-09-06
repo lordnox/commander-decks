@@ -1,0 +1,143 @@
+{
+  "artist": "Tyler Jacobson",
+  "artist_ids": [
+    "522af130-8db4-4b4b-950c-6e2b246339cf"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753418,
+  "cmc": 3.0,
+  "collector_number": "218",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [
+    "G",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 2130,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"The Lowlands refuse to suffer at the whims of the High City.\"",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "28c1b84a-a21b-4df1-9fc9-5b387fb56810",
+  "illustration_id": "cf388610-36fc-4c10-a665-dfa8037abad9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-08-10T17:01:13Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/8/28c1b84a-a21b-4df1-9fc9-5b387fb56810.webp?1786381273",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/8/28c1b84a-a21b-4df1-9fc9-5b387fb56810.jpg?1786381273",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/8/28c1b84a-a21b-4df1-9fc9-5b387fb56810.jpg?1786381273",
+    "crop": "https://cards.scryfall.io/crop/front/2/8/28c1b84a-a21b-4df1-9fc9-5b387fb56810.webp?1786381273",
+    "display": "https://cards.scryfall.io/display/front/2/8/28c1b84a-a21b-4df1-9fc9-5b387fb56810.webp?1786381273",
+    "grid": "https://cards.scryfall.io/grid/front/2/8/28c1b84a-a21b-4df1-9fc9-5b387fb56810.webp?1786381273",
+    "large": "https://cards.scryfall.io/large/front/2/8/28c1b84a-a21b-4df1-9fc9-5b387fb56810.jpg?1786381273",
+    "normal": "https://cards.scryfall.io/normal/front/2/8/28c1b84a-a21b-4df1-9fc9-5b387fb56810.jpg?1786381273",
+    "png": "https://cards.scryfall.io/png/front/2/8/28c1b84a-a21b-4df1-9fc9-5b387fb56810.png?1786381273",
+    "small": "https://cards.scryfall.io/small/front/2/8/28c1b84a-a21b-4df1-9fc9-5b387fb56810.jpg?1786381273",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/8/28c1b84a-a21b-4df1-9fc9-5b387fb56810.webp?1786381273"
+  },
+  "keywords": [
+    "Parley"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}{W}",
+  "mtgo_id": 122584,
+  "multiverse_ids": [
+    650312
+  ],
+  "name": "Selvala, Explorer Returned",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b628a39b-c923-473d-900a-1617f47ecb76",
+  "oracle_text": "Parley — {T}: Each player reveals the top card of their library. For each nonland card revealed this way, add {G} and you gain 1 life. Then each player draws a card. (Activate only as an instant.)",
+  "oversized": false,
+  "penny_rank": 3903,
+  "power": "2",
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": null,
+    "tix": "0.03",
+    "usd": "0.25",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab628a39b-c923-473d-900a-1617f47ecb76&unique=prints",
+  "produced_mana": [
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122584?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753418&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535696%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Selvala%2C+Explorer+Returned",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=650312&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSelvala%252C%2BExplorer%2BReturned",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSelvala%252C%2BExplorer%2BReturned"
+  },
+  "released_at": "2024-02-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/28c1b84a-a21b-4df1-9fc9-5b387fb56810/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkc/218/selvala-explorer-returned?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkc",
+  "set_id": "286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "set_name": "Murders at Karlov Manor Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "story_spotlight": false,
+  "tcgplayer_id": 535696,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Elf Scout",
+  "uri": "https://api.scryfall.com/cards/28c1b84a-a21b-4df1-9fc9-5b387fb56810",
+  "variation": false
+}

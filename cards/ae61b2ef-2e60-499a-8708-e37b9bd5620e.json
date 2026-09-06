@@ -1,0 +1,159 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "836c9684-06bf-45c8-8706-449def571e66",
+      "name": "Aligned Heart",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/836c9684-06bf-45c8-8706-449def571e66"
+    },
+    {
+      "component": "token",
+      "id": "633d2d10-def7-426f-8496-ed6b45684299",
+      "name": "Monk",
+      "object": "related_card",
+      "type_line": "Token Creature — Monk",
+      "uri": "https://api.scryfall.com/cards/633d2d10-def7-426f-8496-ed6b45684299"
+    }
+  ],
+  "artist": "Aurore Folny",
+  "artist_ids": [
+    "02f6cdda-7a80-4184-853d-20b28d580868"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818676,
+  "cmc": 3.0,
+  "collector_number": "12",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 5241,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "When hearts and minds align, so too do actions.",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "a235cbda-3dc3-4aed-a911-90f26c330157",
+  "illustration_id": "8c4aeef4-2c2d-4842-afd6-0ae304615bcd",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:46:24Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/2/a235cbda-3dc3-4aed-a911-90f26c330157.webp?1783907184",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/2/a235cbda-3dc3-4aed-a911-90f26c330157.jpg?1783907184",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/2/a235cbda-3dc3-4aed-a911-90f26c330157.jpg?1783907184",
+    "crop": "https://cards.scryfall.io/crop/front/a/2/a235cbda-3dc3-4aed-a911-90f26c330157.webp?1783907184",
+    "display": "https://cards.scryfall.io/display/front/a/2/a235cbda-3dc3-4aed-a911-90f26c330157.webp?1783907184",
+    "grid": "https://cards.scryfall.io/grid/front/a/2/a235cbda-3dc3-4aed-a911-90f26c330157.webp?1783907184",
+    "large": "https://cards.scryfall.io/large/front/a/2/a235cbda-3dc3-4aed-a911-90f26c330157.jpg?1783907184",
+    "normal": "https://cards.scryfall.io/normal/front/a/2/a235cbda-3dc3-4aed-a911-90f26c330157.jpg?1783907184",
+    "png": "https://cards.scryfall.io/png/front/a/2/a235cbda-3dc3-4aed-a911-90f26c330157.png?1783907184",
+    "small": "https://cards.scryfall.io/small/front/a/2/a235cbda-3dc3-4aed-a911-90f26c330157.jpg?1783907184",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/2/a235cbda-3dc3-4aed-a911-90f26c330157.webp?1783907184"
+  },
+  "keywords": [
+    "Flurry"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 138041,
+  "multiverse_ids": [
+    695941
+  ],
+  "name": "Aligned Heart",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ae61b2ef-2e60-499a-8708-e37b9bd5620e",
+  "oracle_text": "Flurry — Whenever you cast your second spell each turn, put a rally counter on this enchantment. Then create a 1/1 white Monk creature token with prowess for each rally counter on it. (Whenever you cast a noncreature spell, the token gets +1/+1 until end of turn.)",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2025-03-19",
+    "source": "The Command Zone",
+    "source_uri": "https://youtu.be/e-P3IO_aAhI"
+  },
+  "prices": {
+    "eur": "0.36",
+    "eur_foil": null,
+    "tix": "2.60",
+    "usd": "0.25",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aae61b2ef-2e60-499a-8708-e37b9bd5620e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138041?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818676&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624145%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Aligned+Heart",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=695941&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAligned%2BHeart",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAligned%2BHeart"
+  },
+  "released_at": "2025-04-11",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a235cbda-3dc3-4aed-a911-90f26c330157/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/12/aligned-heart?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624145,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/a235cbda-3dc3-4aed-a911-90f26c330157",
+  "variation": false,
+  "watermark": "jeskai"
+}

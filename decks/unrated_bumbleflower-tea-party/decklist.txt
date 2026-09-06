@@ -1,0 +1,109 @@
+COMMANDER
+1 Ms. Bumbleflower [Commander{top},card-draw,+1/+1-counters,group-hug]
+
+CREATURES
+1 Aang, Swift Savior
+1 Basking Broodscale
+1 Chasm Skulker
+1 Cosmogrand Zenith
+1 Dreamtide Whale
+1 Dusk Legion Duelist
+1 Emrakul's Messenger
+1 Endurance
+1 Faerie Mastermind
+1 Final-Word Phantom
+1 Freestrider Lookout
+1 Glen Elendra Archmage
+1 Guardian of Faith
+1 High Fae Trickster
+1 Incubation Druid
+1 Jolrael, Mwonvuli Recluse
+1 Kami of Whispered Hopes
+1 Kid Loki
+1 King T'Challa
+1 Ledger Shredder
+1 Loki, God of Mischief
+1 Mikey & Leo, Chaos & Order
+1 Minn, Wily Illusionist
+1 Ouroboroid
+1 Pensive Professor
+1 Rishkar, Peema Renegade
+1 Seedborn Muse
+1 Selvala, Explorer Returned
+1 Tataru Taru
+1 Whitemane Lion
+
+ARTIFACTS
+1 Arcane Signet
+1 Bender's Waterskin
+1 Fellwar Stone
+1 Sol Ring
+1 Swiftfoot Boots
+1 The Ozolith
+1 Thought Vessel
+
+INSTANTS
+1 An Offer You Can't Refuse
+1 Counterspell
+1 Dovin's Veto
+1 Force of Will
+1 Generous Gift
+1 Heroic Intervention
+1 Inspiring Call
+1 Long River's Pull
+1 Mental Misstep
+1 Rewind
+1 Ripples of Potential
+1 Swords to Plowshares
+1 View from Above
+
+SORCERIES
+1 Doomskar
+1 Farseek
+1 Promise of Loyalty
+1 Triumph of the Hordes
+1 Wear Down
+
+ENCHANTMENTS
+1 Aligned Heart
+1 Burgeoning
+1 Gleaming Splendor
+1 Monologue Tax
+1 On the Trail
+1 Trouble in Pairs
+1 Wizard Class
+
+LANDS
+1 Adarkar Wastes
+1 Breeding Pool
+1 Brushland
+1 Canopy Vista
+1 Command Tower
+1 Exotic Orchard
+1 Flooded Grove
+4 Forest
+1 Glacial Fortress
+1 Hallowed Fountain
+1 Hinterland Harbor
+4 Island
+1 Meticulous Archive
+1 Mistrise Village
+1 Overflowing Basin
+4 Plains
+1 Prairie Stream
+1 Rejuvenating Springs
+1 Reliquary Tower
+1 Seaside Citadel
+1 Skycloud Expanse
+1 Sungrass Prairie
+1 Sunpetal Grove
+1 Temple Garden
+1 Temple of Enlightenment
+1 Temple of Mystery
+1 Temple of Plenty
+1 Yavimaya Coast
+
+MAYBEBOARD
+1 Dawn's Truce [Maybeboard{noDeck}{noPrice}]
+1 Smuggler's Share [Maybeboard{noDeck}{noPrice}]
+1 Teferi's Protection [Maybeboard{noDeck}{noPrice}]

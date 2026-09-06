@@ -1,0 +1,139 @@
+{
+  "arena_id": 104957,
+  "artist": "Mintautas Šukys",
+  "artist_ids": [
+    "33147af8-b09e-4cb3-8e21-5271314c3c1e"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 891517,
+  "cmc": 1.0,
+  "collector_number": "63",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 11009,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"A lie is nothing but a story. We can choose to tell a different one.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "5c9ff69e-6489-49f3-b401-64856f0b7c11",
+  "illustration_id": "934b3f53-79e5-4afd-975d-3810da701bf6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:35:56Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/c/5c9ff69e-6489-49f3-b401-64856f0b7c11.webp?1783902956",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/c/5c9ff69e-6489-49f3-b401-64856f0b7c11.jpg?1783902956",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/c/5c9ff69e-6489-49f3-b401-64856f0b7c11.jpg?1783902956",
+    "crop": "https://cards.scryfall.io/crop/front/5/c/5c9ff69e-6489-49f3-b401-64856f0b7c11.webp?1783902956",
+    "display": "https://cards.scryfall.io/display/front/5/c/5c9ff69e-6489-49f3-b401-64856f0b7c11.webp?1783902956",
+    "grid": "https://cards.scryfall.io/grid/front/5/c/5c9ff69e-6489-49f3-b401-64856f0b7c11.webp?1783902956",
+    "large": "https://cards.scryfall.io/large/front/5/c/5c9ff69e-6489-49f3-b401-64856f0b7c11.jpg?1783902956",
+    "normal": "https://cards.scryfall.io/normal/front/5/c/5c9ff69e-6489-49f3-b401-64856f0b7c11.jpg?1783902956",
+    "png": "https://cards.scryfall.io/png/front/5/c/5c9ff69e-6489-49f3-b401-64856f0b7c11.png?1783902956",
+    "small": "https://cards.scryfall.io/small/front/5/c/5c9ff69e-6489-49f3-b401-64856f0b7c11.jpg?1783902956",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/c/5c9ff69e-6489-49f3-b401-64856f0b7c11.webp?1783902956"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_id": 152311,
+  "multiverse_ids": [],
+  "name": "Kid Loki",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "19ef0329-08de-4835-8079-2e791e19f3a6",
+  "oracle_text": "Each creature you control that you've put one or more +1/+1 counters on this turn has hexproof.\nWhenever you draw your second card each turn, put a +1/+1 counter on Kid Loki.",
+  "oversized": false,
+  "penny_rank": 980,
+  "power": "1",
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": "0.35",
+    "tix": "0.03",
+    "usd": "0.33",
+    "usd_etched": null,
+    "usd_foil": "0.35"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A19ef0329-08de-4835-8079-2e791e19f3a6&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/152311?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=891517&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F696988%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Kid+Loki",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKid%2BLoki",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKid%2BLoki"
+  },
+  "released_at": "2026-06-26",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "79C78A63065F3DCFA7E703ADF8FBAB34C777B60460502CF51E21D5AFD823070C",
+  "rulings_uri": "https://api.scryfall.com/cards/5c9ff69e-6489-49f3-b401-64856f0b7c11/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msh?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msh/63/kid-loki?utm_source=api",
+  "set": "msh",
+  "set_id": "ba9bf625-681c-4a4e-ab48-399b2fecac6b",
+  "set_name": "Marvel Super Heroes",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsh&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/ba9bf625-681c-4a4e-ab48-399b2fecac6b",
+  "story_spotlight": false,
+  "tcgplayer_id": 696988,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Legendary Creature — God Hero Villain",
+  "uri": "https://api.scryfall.com/cards/5c9ff69e-6489-49f3-b401-64856f0b7c11",
+  "variation": false
+}

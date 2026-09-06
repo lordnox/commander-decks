@@ -1,0 +1,133 @@
+{
+  "artist": "Piotr Dura",
+  "artist_ids": [
+    "aff176e8-1d15-432e-ad1d-207a474decba"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 881747,
+  "cmc": 0.0,
+  "collector_number": "414",
+  "color_identity": [
+    "G",
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 330,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "258077cf-edef-40fe-ab46-03c965ebe990",
+  "illustration_id": "7a680051-8ecd-42e0-aea6-eaf532aef0db",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:48:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/5/258077cf-edef-40fe-ab46-03c965ebe990.webp?1783903715",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/5/258077cf-edef-40fe-ab46-03c965ebe990.jpg?1783903715",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/5/258077cf-edef-40fe-ab46-03c965ebe990.jpg?1783903715",
+    "crop": "https://cards.scryfall.io/crop/front/2/5/258077cf-edef-40fe-ab46-03c965ebe990.webp?1783903715",
+    "display": "https://cards.scryfall.io/display/front/2/5/258077cf-edef-40fe-ab46-03c965ebe990.webp?1783903715",
+    "grid": "https://cards.scryfall.io/grid/front/2/5/258077cf-edef-40fe-ab46-03c965ebe990.webp?1783903715",
+    "large": "https://cards.scryfall.io/large/front/2/5/258077cf-edef-40fe-ab46-03c965ebe990.jpg?1783903715",
+    "normal": "https://cards.scryfall.io/normal/front/2/5/258077cf-edef-40fe-ab46-03c965ebe990.jpg?1783903715",
+    "png": "https://cards.scryfall.io/png/front/2/5/258077cf-edef-40fe-ab46-03c965ebe990.png?1783903715",
+    "small": "https://cards.scryfall.io/small/front/2/5/258077cf-edef-40fe-ab46-03c965ebe990.jpg?1783903715",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/5/258077cf-edef-40fe-ab46-03c965ebe990.webp?1783903715"
+  },
+  "keywords": [
+    "Scry"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 149293,
+  "multiverse_ids": [],
+  "name": "Temple of Mystery",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7e26f0b7-20e6-46d5-8130-d98c14d6aa29",
+  "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {G} or {U}.",
+  "oversized": false,
+  "penny_rank": 465,
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": null,
+    "tix": "0.13",
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7e26f0b7-20e6-46d5-8130-d98c14d6aa29&unique=prints",
+  "produced_mana": [
+    "G",
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/149293?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=881747&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F687561%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Temple+of+Mystery",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTemple%2Bof%2BMystery",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTemple%2Bof%2BMystery"
+  },
+  "released_at": "2026-04-24",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "2931CEF02B42CD66F813AEC1E2CB686FE8813B387E9FAE480300B814E5974C00",
+  "rulings_uri": "https://api.scryfall.com/cards/258077cf-edef-40fe-ab46-03c965ebe990/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/soc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/soc/414/temple-of-mystery?utm_source=api",
+  "security_stamp": "oval",
+  "set": "soc",
+  "set_id": "97fab8d1-480a-419d-ab14-663968e29b9c",
+  "set_name": "Secrets of Strixhaven Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/97fab8d1-480a-419d-ab14-663968e29b9c",
+  "story_spotlight": false,
+  "tcgplayer_id": 687561,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/258077cf-edef-40fe-ab46-03c965ebe990",
+  "variation": false
+}

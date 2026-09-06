@@ -1,0 +1,139 @@
+{
+  "arena_id": 104959,
+  "artist": "Vilhelmas Banys",
+  "artist_ids": [
+    "020fbe69-3549-4d96-bb71-c1688925b1fb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 890549,
+  "cmc": 2.0,
+  "collector_number": "65",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 9303,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Foolish heroes. Loki can match you trick for trick, and *then* some.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "236c437f-ee9d-4145-a4db-b665908089cf",
+  "illustration_id": "03ae4d39-9764-426b-a118-bcdf137ae291",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:35:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/3/236c437f-ee9d-4145-a4db-b665908089cf.webp?1783902955",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/3/236c437f-ee9d-4145-a4db-b665908089cf.jpg?1783902955",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/3/236c437f-ee9d-4145-a4db-b665908089cf.jpg?1783902955",
+    "crop": "https://cards.scryfall.io/crop/front/2/3/236c437f-ee9d-4145-a4db-b665908089cf.webp?1783902955",
+    "display": "https://cards.scryfall.io/display/front/2/3/236c437f-ee9d-4145-a4db-b665908089cf.webp?1783902955",
+    "grid": "https://cards.scryfall.io/grid/front/2/3/236c437f-ee9d-4145-a4db-b665908089cf.webp?1783902955",
+    "large": "https://cards.scryfall.io/large/front/2/3/236c437f-ee9d-4145-a4db-b665908089cf.jpg?1783902955",
+    "normal": "https://cards.scryfall.io/normal/front/2/3/236c437f-ee9d-4145-a4db-b665908089cf.jpg?1783902955",
+    "png": "https://cards.scryfall.io/png/front/2/3/236c437f-ee9d-4145-a4db-b665908089cf.png?1783902955",
+    "small": "https://cards.scryfall.io/small/front/2/3/236c437f-ee9d-4145-a4db-b665908089cf.jpg?1783902955",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/3/236c437f-ee9d-4145-a4db-b665908089cf.webp?1783902955"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 152315,
+  "multiverse_ids": [],
+  "name": "Loki, God of Mischief",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c112852f-61d5-4b94-b864-c7d0b5333b29",
+  "oracle_text": "Whenever a player or permanent becomes the target of an ability you control, draw a card. This ability triggers only once each turn.",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "4.36",
+    "eur_foil": "5.39",
+    "tix": "4.98",
+    "usd": "2.27",
+    "usd_etched": null,
+    "usd_foil": "2.82"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac112852f-61d5-4b94-b864-c7d0b5333b29&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/152315?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=890549&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F696274%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Loki%2C+God+of+Mischief",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLoki%252C%2BGod%2Bof%2BMischief",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLoki%252C%2BGod%2Bof%2BMischief"
+  },
+  "released_at": "2026-06-26",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "D57E132D88ED68F07AD622F064072FAAB7B1EAE5272453CED86F75FF8FBDE7F3",
+  "rulings_uri": "https://api.scryfall.com/cards/236c437f-ee9d-4145-a4db-b665908089cf/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msh?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msh/65/loki-god-of-mischief?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msh",
+  "set_id": "ba9bf625-681c-4a4e-ab48-399b2fecac6b",
+  "set_name": "Marvel Super Heroes",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsh&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/ba9bf625-681c-4a4e-ab48-399b2fecac6b",
+  "story_spotlight": false,
+  "tcgplayer_id": 696274,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Legendary Creature — God Sorcerer Villain",
+  "uri": "https://api.scryfall.com/cards/236c437f-ee9d-4145-a4db-b665908089cf",
+  "variation": false
+}

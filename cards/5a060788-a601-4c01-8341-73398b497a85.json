@@ -1,0 +1,130 @@
+{
+  "artist": "Erikas Perl",
+  "artist_ids": [
+    "39cb50cf-0223-43c7-bd96-afb5f05c7e43"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753273,
+  "cmc": 2.0,
+  "collector_number": "39",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 4765,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Where the victim's journey ends, the investigator's begins.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "e5cf1f9f-2e35-49b1-af47-75fbe11f7b7e",
+  "illustration_id": "2f498390-ee1d-4d8d-9507-c6af2ba5790d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:24:01Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/5/e5cf1f9f-2e35-49b1-af47-75fbe11f7b7e.webp?1783913041",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/5/e5cf1f9f-2e35-49b1-af47-75fbe11f7b7e.jpg?1783913041",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/5/e5cf1f9f-2e35-49b1-af47-75fbe11f7b7e.jpg?1783913041",
+    "crop": "https://cards.scryfall.io/crop/front/e/5/e5cf1f9f-2e35-49b1-af47-75fbe11f7b7e.webp?1783913041",
+    "display": "https://cards.scryfall.io/display/front/e/5/e5cf1f9f-2e35-49b1-af47-75fbe11f7b7e.webp?1783913041",
+    "grid": "https://cards.scryfall.io/grid/front/e/5/e5cf1f9f-2e35-49b1-af47-75fbe11f7b7e.webp?1783913041",
+    "large": "https://cards.scryfall.io/large/front/e/5/e5cf1f9f-2e35-49b1-af47-75fbe11f7b7e.jpg?1783913041",
+    "normal": "https://cards.scryfall.io/normal/front/e/5/e5cf1f9f-2e35-49b1-af47-75fbe11f7b7e.jpg?1783913041",
+    "png": "https://cards.scryfall.io/png/front/e/5/e5cf1f9f-2e35-49b1-af47-75fbe11f7b7e.png?1783913041",
+    "small": "https://cards.scryfall.io/small/front/e/5/e5cf1f9f-2e35-49b1-af47-75fbe11f7b7e.jpg?1783913041",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/5/e5cf1f9f-2e35-49b1-af47-75fbe11f7b7e.webp?1783913041"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 122832,
+  "multiverse_ids": [
+    649977
+  ],
+  "name": "On the Trail",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5a060788-a601-4c01-8341-73398b497a85",
+  "oracle_text": "Whenever you draw your second card each turn, you may put a land card from your hand onto the battlefield tapped.",
+  "oversized": false,
+  "prices": {
+    "eur": "2.27",
+    "eur_foil": null,
+    "tix": "3.92",
+    "usd": "4.21",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5a060788-a601-4c01-8341-73398b497a85&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122832?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753273&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535661%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=On+the+Trail",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=649977&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOn%2Bthe%2BTrail",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOn%2Bthe%2BTrail"
+  },
+  "released_at": "2024-02-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e5cf1f9f-2e35-49b1-af47-75fbe11f7b7e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkc/39/on-the-trail?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkc",
+  "set_id": "286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "set_name": "Murders at Karlov Manor Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "story_spotlight": false,
+  "tcgplayer_id": 535661,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/e5cf1f9f-2e35-49b1-af47-75fbe11f7b7e",
+  "variation": false
+}

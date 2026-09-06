@@ -1,0 +1,132 @@
+{
+  "artist": "Erica Yang",
+  "artist_ids": [
+    "fcc15b63-b280-49da-9fee-f862824a2fc8"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 245870,
+  "cmc": 1.0,
+  "collector_number": "38",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 462,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Your first mistake was thinking I would let you live long enough to make a second.\"\n—Sarnvax, Gitaxian sective",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "61e9c6df-1c84-4eab-9076-a4feb6347c10",
+  "illustration_id": "493e0cb0-ff48-43c0-b1bf-f531da2c5ebb",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:15:19Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/1/61e9c6df-1c84-4eab-9076-a4feb6347c10.webp?1783941319",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/1/61e9c6df-1c84-4eab-9076-a4feb6347c10.jpg?1783941319",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/1/61e9c6df-1c84-4eab-9076-a4feb6347c10.jpg?1783941319",
+    "crop": "https://cards.scryfall.io/crop/front/6/1/61e9c6df-1c84-4eab-9076-a4feb6347c10.webp?1783941319",
+    "display": "https://cards.scryfall.io/display/front/6/1/61e9c6df-1c84-4eab-9076-a4feb6347c10.webp?1783941319",
+    "grid": "https://cards.scryfall.io/grid/front/6/1/61e9c6df-1c84-4eab-9076-a4feb6347c10.webp?1783941319",
+    "large": "https://cards.scryfall.io/large/front/6/1/61e9c6df-1c84-4eab-9076-a4feb6347c10.jpg?1783941319",
+    "normal": "https://cards.scryfall.io/normal/front/6/1/61e9c6df-1c84-4eab-9076-a4feb6347c10.jpg?1783941319",
+    "png": "https://cards.scryfall.io/png/front/6/1/61e9c6df-1c84-4eab-9076-a4feb6347c10.png?1783941319",
+    "small": "https://cards.scryfall.io/small/front/6/1/61e9c6df-1c84-4eab-9076-a4feb6347c10.jpg?1783941319",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/1/61e9c6df-1c84-4eab-9076-a4feb6347c10.webp?1783941319"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "banned",
+    "modern": "banned",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "restricted"
+  },
+  "mana_cost": "{U/P}",
+  "mtgo_foil_id": 39921,
+  "mtgo_id": 39920,
+  "multiverse_ids": [
+    230066
+  ],
+  "name": "Mental Misstep",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1a0770e6-b093-4439-baff-6889a50ba12e",
+  "oracle_text": "({U/P} can be paid with either {U} or 2 life.)\nCounter target spell with mana value 1.",
+  "oversized": false,
+  "prices": {
+    "eur": "6.39",
+    "eur_foil": "144.17",
+    "tix": "0.03",
+    "usd": "8.80",
+    "usd_etched": null,
+    "usd_foil": "168.75"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1a0770e6-b093-4439-baff-6889a50ba12e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/39920?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=245870&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F39543%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mental+Misstep",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=230066&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMental%2BMisstep",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMental%2BMisstep"
+  },
+  "released_at": "2011-05-13",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/61e9c6df-1c84-4eab-9076-a4feb6347c10/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/nph?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/nph/38/mental-misstep?utm_source=api",
+  "set": "nph",
+  "set_id": "e8e356d8-6d01-4dab-aa07-d0999dc9359f",
+  "set_name": "New Phyrexia",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Anph&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e8e356d8-6d01-4dab-aa07-d0999dc9359f",
+  "story_spotlight": false,
+  "tcgplayer_id": 39543,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/61e9c6df-1c84-4eab-9076-a4feb6347c10",
+  "variation": false,
+  "watermark": "phyrexian"
+}

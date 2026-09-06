@@ -1,0 +1,593 @@
+{
+  "schema_version": 1,
+  "cards": {
+    "027dd013-baa7-4111-b3c9-f4d1414e9c45": {
+      "name": "Glacial Fortress",
+      "categories": [
+        "land"
+      ]
+    },
+    "0895c9b7-ae7d-4bb3-af17-3b75deb50a25": {
+      "name": "Command Tower",
+      "categories": [
+        "land"
+      ]
+    },
+    "0a28dff0-2bd6-4105-b73a-b6c4735833fd": {
+      "name": "Sungrass Prairie",
+      "categories": [
+        "land"
+      ]
+    },
+    "0bc7f093-bef0-4f1a-852c-4b75ebf54838": {
+      "name": "Arcane Signet",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "1946ded1-5f53-409f-b0a6-5433bb0357d2": {
+      "name": "The Ozolith",
+      "categories": [
+        "+1/+1-counters"
+      ]
+    },
+    "19ef0329-08de-4835-8079-2e791e19f3a6": {
+      "name": "Kid Loki",
+      "categories": [
+        "protection",
+        "+1/+1-counters",
+        "card-draw"
+      ]
+    },
+    "1a0770e6-b093-4439-baff-6889a50ba12e": {
+      "name": "Mental Misstep",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "1b388371-f9ef-45b4-82a3-ca20a8cd7807": {
+      "name": "Dovin's Veto",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "20283c4a-f1f0-42f0-bc08-6da87474426b": {
+      "name": "Breeding Pool",
+      "categories": [
+        "land"
+      ]
+    },
+    "234a734b-ba28-4f1b-9d01-3c3e7d516590": {
+      "name": "An Offer You Can't Refuse",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "24882fa2-3fe9-4c1b-aa3d-0e6488b9db27": {
+      "name": "Heroic Intervention",
+      "categories": [
+        "protection"
+      ]
+    },
+    "27905301-333e-4cdd-90cf-188159fcf8e9": {
+      "name": "Wear Down",
+      "categories": [
+        "removal",
+        "group-hug"
+      ]
+    },
+    "27b047e3-0d41-45e2-98e9-9391d7923a1e": {
+      "name": "Exotic Orchard",
+      "categories": [
+        "land"
+      ]
+    },
+    "28c1a4a0-f58c-4d07-a918-51ff8a74f050": {
+      "name": "High Fae Trickster",
+      "categories": [
+        "flash-enabler",
+        "flash"
+      ]
+    },
+    "2ae77795-6a80-498b-bf69-6fd612f601e4": {
+      "name": "Seaside Citadel",
+      "categories": [
+        "land"
+      ]
+    },
+    "30367a59-a812-41d4-a451-80d9071dd4a4": {
+      "name": "Dusk Legion Duelist",
+      "categories": [
+        "card-draw",
+        "+1/+1-counters"
+      ]
+    },
+    "339f5334-b65a-445a-a016-20e997e0b4bb": {
+      "name": "Mistrise Village",
+      "categories": [
+        "land"
+      ]
+    },
+    "34428f42-03ac-4795-8286-6cbea796df2b": {
+      "name": "Incubation Druid",
+      "categories": [
+        "ramp",
+        "+1/+1-counters"
+      ]
+    },
+    "36f68aa3-9955-46f1-bc87-497f16ef5222": {
+      "name": "Wizard Class",
+      "categories": [
+        "card-draw",
+        "+1/+1-counters"
+      ]
+    },
+    "38ece0fa-2c94-4eae-b6ab-74b783862f3e": {
+      "name": "Doomskar",
+      "categories": [
+        "board-wipe"
+      ]
+    },
+    "3a128587-c751-4b27-b608-d4e47646b80e": {
+      "name": "View from Above",
+      "categories": [
+        "evasion",
+        "card-draw"
+      ]
+    },
+    "3bc46467-323f-4cbf-9d0a-f3d2ae3c3a34": {
+      "name": "Bender's Waterskin",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "3ded0c0c-40ce-4d14-a9a6-b023bc19ee0e": {
+      "name": "Triumph of the Hordes",
+      "categories": [
+        "win-condition"
+      ]
+    },
+    "402ec768-76fb-474e-ae74-babc90d833c4": {
+      "name": "Sunpetal Grove",
+      "categories": [
+        "land"
+      ]
+    },
+    "40b36bc6-c185-4bda-99e7-0118953c2c97": {
+      "name": "Yavimaya Coast",
+      "categories": [
+        "land"
+      ]
+    },
+    "45bcebd0-5e93-4433-b92f-b4c161d04bd6": {
+      "name": "Ripples of Potential",
+      "categories": [
+        "proliferate",
+        "protection"
+      ]
+    },
+    "463865bc-087e-477b-9e86-84e77f1ad931": {
+      "name": "Seedborn Muse",
+      "categories": [
+        "untap"
+      ]
+    },
+    "495e52e6-4c2b-4574-9474-eadbdcc8b4ac": {
+      "name": "Farseek",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "4b8736e2-fc41-4a25-bb6c-7351afc40981": {
+      "name": "Pensive Professor",
+      "categories": [
+        "card-draw",
+        "+1/+1-counters"
+      ]
+    },
+    "50d6fd91-23d3-4d32-804f-6233e4386904": {
+      "name": "Ouroboroid",
+      "categories": [
+        "+1/+1-counters",
+        "win-condition"
+      ]
+    },
+    "5330e24a-8568-446e-840a-594cd08bd1bc": {
+      "name": "Prairie Stream",
+      "categories": [
+        "land"
+      ]
+    },
+    "5a060788-a601-4c01-8341-73398b497a85": {
+      "name": "On the Trail",
+      "categories": [
+        "ramp",
+        "card-draw"
+      ]
+    },
+    "5ac8e01c-b0a7-4855-a122-1cd26b07c4a5": {
+      "name": "Overflowing Basin",
+      "categories": [
+        "land"
+      ]
+    },
+    "5eb8b497-ec9a-4a89-ad29-1ec3ca82da7c": {
+      "name": "Brushland",
+      "categories": [
+        "land"
+      ]
+    },
+    "5f3f68b5-8c6a-4181-bb8a-9c73967d198a": {
+      "name": "Glen Elendra Archmage",
+      "categories": [
+        "counterspell",
+        "recursion"
+      ]
+    },
+    "69facbc7-3859-4716-b627-5199571fb3cf": {
+      "name": "Chasm Skulker",
+      "categories": [
+        "card-draw",
+        "+1/+1-counters",
+        "token-production"
+      ]
+    },
+    "6ad8011d-3471-4369-9d68-b264cc027487": {
+      "name": "Sol Ring",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "70dd5013-f18f-4501-882f-70590c424e20": {
+      "name": "Tataru Taru",
+      "categories": [
+        "card-draw",
+        "group-hug",
+        "token-production"
+      ]
+    },
+    "761021ce-4559-464e-aa03-85c2fe78e267": {
+      "name": "Rishkar, Peema Renegade",
+      "categories": [
+        "ramp",
+        "+1/+1-counters"
+      ]
+    },
+    "76f335d0-7f71-4b1a-b60d-73de954cbe2c": {
+      "name": "Skycloud Expanse",
+      "categories": [
+        "land"
+      ]
+    },
+    "7e26f0b7-20e6-46d5-8130-d98c14d6aa29": {
+      "name": "Temple of Mystery",
+      "categories": [
+        "land"
+      ]
+    },
+    "88cf4c1a-5863-45fc-b76d-7ad33b175b2b": {
+      "name": "Burgeoning",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "89f43e27-790b-4ca1-8ba7-0882b31e0783": {
+      "name": "Temple of Enlightenment",
+      "categories": [
+        "land"
+      ]
+    },
+    "8e04a5e0-e22c-430b-a39a-c9f38e16ea86": {
+      "name": "Guardian of Faith",
+      "categories": [
+        "protection",
+        "flash"
+      ]
+    },
+    "95560508-7ac9-4be9-8a3f-3c7d5b52807b": {
+      "name": "Fellwar Stone",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "956381ba-6d37-4a8a-846c-bad79222dbee": {
+      "name": "Force of Will",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "9965d9c5-2ebf-4a6c-930e-55c5890979be": {
+      "name": "Thought Vessel",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "9b9a10ff-5a5d-4df8-88aa-18d84ff9117c": {
+      "name": "Inspiring Call",
+      "categories": [
+        "card-draw",
+        "protection"
+      ]
+    },
+    "a7c69802-99c4-4778-934e-cc09ba58c267": {
+      "name": "Basking Broodscale",
+      "categories": [
+        "+1/+1-counters",
+        "token-production",
+        "ramp"
+      ]
+    },
+    "a86117c1-b83d-4350-9a10-a23b7e67e1bd": {
+      "name": "Mikey & Leo, Chaos & Order",
+      "categories": [
+        "card-draw",
+        "+1/+1-counters"
+      ]
+    },
+    "a984db23-40ea-428d-829f-e944267280f8": {
+      "name": "Faerie Mastermind",
+      "categories": [
+        "card-draw",
+        "group-hug",
+        "flash"
+      ]
+    },
+    "ace8e88e-ca6a-4bdf-8c6d-1b914fc00259": {
+      "name": "Monologue Tax",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "ae61b2ef-2e60-499a-8708-e37b9bd5620e": {
+      "name": "Aligned Heart",
+      "categories": [
+        "second-spell-payoff",
+        "token-production"
+      ]
+    },
+    "b1544f21-7e98-461b-aed5-e748b0168c52": {
+      "name": "Swords to Plowshares",
+      "categories": [
+        "removal"
+      ]
+    },
+    "b2c6aa39-2d2a-459c-a555-fb48ba993373": {
+      "name": "Island",
+      "categories": [
+        "land"
+      ]
+    },
+    "b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6": {
+      "name": "Forest",
+      "categories": [
+        "land"
+      ]
+    },
+    "b628a39b-c923-473d-900a-1617f47ecb76": {
+      "name": "Selvala, Explorer Returned",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "group-hug"
+      ]
+    },
+    "b7d3e234-0954-4422-96c0-cda91101faa3": {
+      "name": "Freestrider Lookout",
+      "categories": [
+        "ramp",
+        "crime"
+      ]
+    },
+    "bb27bfdf-fe8d-45bd-ad62-8118dce06eda": {
+      "name": "Rewind",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "bc71ebf6-2056-41f7-be35-b2e5c34afa99": {
+      "name": "Plains",
+      "categories": [
+        "land"
+      ]
+    },
+    "c01aeaa5-1d3b-4493-9575-30175dcd780d": {
+      "name": "Gleaming Splendor",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "group-hug"
+      ]
+    },
+    "c112852f-61d5-4b94-b864-c7d0b5333b29": {
+      "name": "Loki, God of Mischief",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "c23e5b80-08d2-4e24-9908-fe2aa4f30f6f": {
+      "name": "Reliquary Tower",
+      "categories": [
+        "land"
+      ]
+    },
+    "c85d824b-c190-4d04-ab99-918ad0e6516c": {
+      "name": "Endurance",
+      "categories": [
+        "graveyard-hate",
+        "flash"
+      ]
+    },
+    "c8b143ad-43ec-4e0d-a440-e348daa31391": {
+      "name": "Swiftfoot Boots",
+      "categories": [
+        "protection"
+      ]
+    },
+    "cbf09050-39d0-463b-96db-9e22011ae0d8": {
+      "name": "Aang, Swift Savior",
+      "categories": [
+        "blink",
+        "flash",
+        "+1/+1-counters"
+      ]
+    },
+    "cc187110-1148-4090-bbb8-e205694a39f5": {
+      "name": "Counterspell",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "ccfb8b4d-651c-418a-aa19-cb23105b3f2f": {
+      "name": "Meticulous Archive",
+      "categories": [
+        "land"
+      ]
+    },
+    "d1620449-930a-4895-a143-fd2a0a3c8b17": {
+      "name": "Rejuvenating Springs",
+      "categories": [
+        "land"
+      ]
+    },
+    "d4212d44-d6a0-4c5b-9c54-bc90f36828dd": {
+      "name": "Minn, Wily Illusionist",
+      "categories": [
+        "card-draw",
+        "token-production"
+      ]
+    },
+    "d5ad26cc-2bdb-46b7-b8bf-dd099d5fa09b": {
+      "name": "Adarkar Wastes",
+      "categories": [
+        "land"
+      ]
+    },
+    "dc974eb4-72b9-4213-887b-8ee684b93420": {
+      "name": "Flooded Grove",
+      "categories": [
+        "land"
+      ]
+    },
+    "dcb7e046-f01b-497c-88e5-57794eb30ce5": {
+      "name": "Canopy Vista",
+      "categories": [
+        "land"
+      ]
+    },
+    "e1d294e8-67b1-4a4a-86b8-f98f28a327d9": {
+      "name": "Promise of Loyalty",
+      "categories": [
+        "board-wipe"
+      ]
+    },
+    "e2cd65f6-7cbc-497c-bdc9-698ff17da31e": {
+      "name": "Cosmogrand Zenith",
+      "categories": [
+        "second-spell-payoff",
+        "token-production",
+        "+1/+1-counters"
+      ]
+    },
+    "e521322b-0e83-458c-8936-7021a80ee279": {
+      "name": "Temple of Plenty",
+      "categories": [
+        "land"
+      ]
+    },
+    "e8d6084b-9b72-438e-a30a-851b888f3e4d": {
+      "name": "Whitemane Lion",
+      "categories": [
+        "blink",
+        "flash"
+      ]
+    },
+    "e9117015-1050-44dd-a46b-e7ffe2085fae": {
+      "name": "Ledger Shredder",
+      "categories": [
+        "card-draw",
+        "second-spell-payoff"
+      ]
+    },
+    "ee8c0b4c-03c5-4da5-b4f1-028c845384af": {
+      "name": "Dreamtide Whale",
+      "categories": [
+        "proliferate",
+        "second-spell-payoff"
+      ]
+    },
+    "f07db0f7-7d25-4395-9af3-6b0ca9197b61": {
+      "name": "Final-Word Phantom",
+      "categories": [
+        "flash-enabler",
+        "flash"
+      ]
+    },
+    "f122624f-f30d-444e-a62a-939829241045": {
+      "name": "Kami of Whispered Hopes",
+      "categories": [
+        "+1/+1-counters",
+        "ramp"
+      ]
+    },
+    "f1409c9e-f0d9-49e1-b02e-d0f04a658331": {
+      "name": "Emrakul's Messenger",
+      "categories": [
+        "card-draw",
+        "token-production",
+        "ramp"
+      ]
+    },
+    "f1750962-a87c-49f6-b731-02ae971ac6ea": {
+      "name": "Hallowed Fountain",
+      "categories": [
+        "land"
+      ]
+    },
+    "f1993767-1d07-49c8-b8dc-04ec9840a999": {
+      "name": "Long River's Pull",
+      "categories": [
+        "counterspell",
+        "group-hug"
+      ]
+    },
+    "f349f58b-8cc8-45e4-9565-2b46fdf976c9": {
+      "name": "Trouble in Pairs",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "f413a83d-a40d-434c-b20a-4c707c0527fa": {
+      "name": "Temple Garden",
+      "categories": [
+        "land"
+      ]
+    },
+    "f8640899-2458-40f2-98a3-35c402ee9a7a": {
+      "name": "Jolrael, Mwonvuli Recluse",
+      "categories": [
+        "card-draw",
+        "token-production",
+        "win-condition"
+      ]
+    },
+    "fae37e28-e137-4177-b973-fa8b4dd8f409": {
+      "name": "Generous Gift",
+      "categories": [
+        "removal"
+      ]
+    },
+    "fb5a3403-7f0b-406c-8c4f-d693be010ca6": {
+      "name": "Hinterland Harbor",
+      "categories": [
+        "land"
+      ]
+    },
+    "fe00278d-4385-4e3f-919c-12a794fd86f5": {
+      "name": "King T'Challa",
+      "categories": [
+        "card-draw",
+        "flash"
+      ]
+    }
+  }
+}

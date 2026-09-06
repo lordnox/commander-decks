@@ -1,0 +1,138 @@
+{
+  "arena_id": 71845,
+  "artist": "Dermot Power",
+  "artist_ids": [
+    "4162c8c0-8ded-497c-b29e-131e43dfae5e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 466479,
+  "cmc": 4.0,
+  "collector_number": "63",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1015,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"The best denials are simply that: a beginning and end unchanged, a dream with no memory.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b832abcc-9ffd-47bf-827a-01b303c610ee",
+  "illustration_id": "b56d4c59-f996-4749-8663-85036614ecb4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:18:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/8/b832abcc-9ffd-47bf-827a-01b303c610ee.webp?1783930724",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/8/b832abcc-9ffd-47bf-827a-01b303c610ee.jpg?1783930724",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/8/b832abcc-9ffd-47bf-827a-01b303c610ee.jpg?1783930724",
+    "crop": "https://cards.scryfall.io/crop/front/b/8/b832abcc-9ffd-47bf-827a-01b303c610ee.webp?1783930724",
+    "display": "https://cards.scryfall.io/display/front/b/8/b832abcc-9ffd-47bf-827a-01b303c610ee.webp?1783930724",
+    "grid": "https://cards.scryfall.io/grid/front/b/8/b832abcc-9ffd-47bf-827a-01b303c610ee.webp?1783930724",
+    "large": "https://cards.scryfall.io/large/front/b/8/b832abcc-9ffd-47bf-827a-01b303c610ee.jpg?1783930724",
+    "normal": "https://cards.scryfall.io/normal/front/b/8/b832abcc-9ffd-47bf-827a-01b303c610ee.jpg?1783930724",
+    "png": "https://cards.scryfall.io/png/front/b/8/b832abcc-9ffd-47bf-827a-01b303c610ee.png?1783930724",
+    "small": "https://cards.scryfall.io/small/front/b/8/b832abcc-9ffd-47bf-827a-01b303c610ee.jpg?1783930724",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/8/b832abcc-9ffd-47bf-827a-01b303c610ee.webp?1783930724"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}{U}",
+  "mtgo_id": 81353,
+  "multiverse_ids": [
+    485386
+  ],
+  "name": "Rewind",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "bb27bfdf-fe8d-45bd-ad62-8118dce06eda",
+  "oracle_text": "Counter target spell. Untap up to four lands.",
+  "oversized": false,
+  "penny_rank": 2681,
+  "preview": {
+    "previewed_at": "2020-06-06",
+    "source": "Gabriel Nassif",
+    "source_uri": "https://twitter.com/gabnassif/status/1269323093912236032"
+  },
+  "prices": {
+    "eur": "0.59",
+    "eur_foil": "0.60",
+    "tix": "0.03",
+    "usd": "0.63",
+    "usd_etched": null,
+    "usd_foil": "0.94"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abb27bfdf-fe8d-45bd-ad62-8118dce06eda&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/81353?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=466479&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F215472%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rewind",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=485386&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRewind",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRewind"
+  },
+  "released_at": "2020-07-03",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b832abcc-9ffd-47bf-827a-01b303c610ee/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/m21?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/m21/63/rewind?utm_source=api",
+  "set": "m21",
+  "set_id": "bc94aba1-7376-4e02-a12d-3a2efb66ab0f",
+  "set_name": "Core Set 2021",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Am21&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/bc94aba1-7376-4e02-a12d-3a2efb66ab0f",
+  "story_spotlight": false,
+  "tcgplayer_id": 215472,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/b832abcc-9ffd-47bf-827a-01b303c610ee",
+  "variation": false
+}

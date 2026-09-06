@@ -1,0 +1,140 @@
+{
+  "arena_id": 91739,
+  "artist": "Iris Compiet",
+  "artist_ids": [
+    "aa807c8c-d07f-4f09-90d3-b2cbf5b86dbf"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 777654,
+  "cmc": 2.0,
+  "collector_number": "203",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 2395,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The birdfolk guards flitted angrily. \"Seriously, Timbles? Again?!\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "fded2b83-3b7d-4c8c-83c4-0624a1069628",
+  "illustration_id": "11041b17-18b9-4eb3-9c7b-7a6b54641928",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:46:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/d/fded2b83-3b7d-4c8c-83c4-0624a1069628.webp?1783910800",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/d/fded2b83-3b7d-4c8c-83c4-0624a1069628.jpg?1783910800",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/d/fded2b83-3b7d-4c8c-83c4-0624a1069628.jpg?1783910800",
+    "crop": "https://cards.scryfall.io/crop/front/f/d/fded2b83-3b7d-4c8c-83c4-0624a1069628.webp?1783910800",
+    "display": "https://cards.scryfall.io/display/front/f/d/fded2b83-3b7d-4c8c-83c4-0624a1069628.webp?1783910800",
+    "grid": "https://cards.scryfall.io/grid/front/f/d/fded2b83-3b7d-4c8c-83c4-0624a1069628.webp?1783910800",
+    "large": "https://cards.scryfall.io/large/front/f/d/fded2b83-3b7d-4c8c-83c4-0624a1069628.jpg?1783910800",
+    "normal": "https://cards.scryfall.io/normal/front/f/d/fded2b83-3b7d-4c8c-83c4-0624a1069628.jpg?1783910800",
+    "png": "https://cards.scryfall.io/png/front/f/d/fded2b83-3b7d-4c8c-83c4-0624a1069628.png?1783910800",
+    "small": "https://cards.scryfall.io/small/front/f/d/fded2b83-3b7d-4c8c-83c4-0624a1069628.jpg?1783910800",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/d/fded2b83-3b7d-4c8c-83c4-0624a1069628.webp?1783910800"
+  },
+  "keywords": [
+    "Gift"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 129651,
+  "multiverse_ids": [
+    669117
+  ],
+  "name": "Wear Down",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "27905301-333e-4cdd-90cf-188159fcf8e9",
+  "oracle_text": "Gift a card (You may promise an opponent a gift as you cast this spell. If you do, they draw a card before its other effects.)\nDestroy target artifact or enchantment. If the gift was promised, instead destroy two target artifacts and/or enchantments.",
+  "oversized": false,
+  "penny_rank": 6918,
+  "preview": {
+    "previewed_at": "2024-07-09",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/products/bloomburrow/card-image-gallery"
+  },
+  "prices": {
+    "eur": "0.14",
+    "eur_foil": "0.21",
+    "tix": "0.03",
+    "usd": "0.29",
+    "usd_etched": null,
+    "usd_foil": "0.31"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A27905301-333e-4cdd-90cf-188159fcf8e9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/129651?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=777654&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F558376%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wear+Down",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=669117&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWear%2BDown",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWear%2BDown"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/fded2b83-3b7d-4c8c-83c4-0624a1069628/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/203/wear-down?utm_source=api",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": false,
+  "tcgplayer_id": 558376,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/fded2b83-3b7d-4c8c-83c4-0624a1069628",
+  "variation": false
+}

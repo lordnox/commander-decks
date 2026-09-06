@@ -1,0 +1,140 @@
+{
+  "arena_id": 91545,
+  "artist": "Justin Gerard",
+  "artist_ids": [
+    "7548479e-1d37-42e1-ade0-9d88748f2f47"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 778134,
+  "cmc": 2.0,
+  "collector_number": "9",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 354,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "8f72bfa0-efef-48ce-aff8-d5818ed71ba6",
+  "illustration_id": "2d9af1e3-e6df-4f31-a98c-4968ecb1a281",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:47:43Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/f/8f72bfa0-efef-48ce-aff8-d5818ed71ba6.webp?1783910863",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/f/8f72bfa0-efef-48ce-aff8-d5818ed71ba6.jpg?1783910863",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/f/8f72bfa0-efef-48ce-aff8-d5818ed71ba6.jpg?1783910863",
+    "crop": "https://cards.scryfall.io/crop/front/8/f/8f72bfa0-efef-48ce-aff8-d5818ed71ba6.webp?1783910863",
+    "display": "https://cards.scryfall.io/display/front/8/f/8f72bfa0-efef-48ce-aff8-d5818ed71ba6.webp?1783910863",
+    "grid": "https://cards.scryfall.io/grid/front/8/f/8f72bfa0-efef-48ce-aff8-d5818ed71ba6.webp?1783910863",
+    "large": "https://cards.scryfall.io/large/front/8/f/8f72bfa0-efef-48ce-aff8-d5818ed71ba6.jpg?1783910863",
+    "normal": "https://cards.scryfall.io/normal/front/8/f/8f72bfa0-efef-48ce-aff8-d5818ed71ba6.jpg?1783910863",
+    "png": "https://cards.scryfall.io/png/front/8/f/8f72bfa0-efef-48ce-aff8-d5818ed71ba6.png?1783910863",
+    "small": "https://cards.scryfall.io/small/front/8/f/8f72bfa0-efef-48ce-aff8-d5818ed71ba6.jpg?1783910863",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/f/8f72bfa0-efef-48ce-aff8-d5818ed71ba6.webp?1783910863"
+  },
+  "keywords": [
+    "Gift"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "mtgo_id": 129263,
+  "multiverse_ids": [
+    668923
+  ],
+  "name": "Dawn's Truce",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "37c06f89-db36-4937-9404-2b07cd22e1a6",
+  "oracle_text": "Gift a card (You may promise an opponent a gift as you cast this spell. If you do, they draw a card before its other effects.)\nYou and permanents you control gain hexproof until end of turn. If the gift was promised, permanents you control also gain indestructible until end of turn.",
+  "oversized": false,
+  "penny_rank": 6004,
+  "preview": {
+    "previewed_at": "2024-07-11",
+    "source": "Giraffa Nat",
+    "source_uri": "https://twitter.com/giraffanat/status/1811474111681397010"
+  },
+  "prices": {
+    "eur": "9.32",
+    "eur_foil": "10.16",
+    "tix": "0.02",
+    "usd": "10.84",
+    "usd_etched": null,
+    "usd_foil": "10.67"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A37c06f89-db36-4937-9404-2b07cd22e1a6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/129263?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=778134&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F559037%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dawn%27s+Truce",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=668923&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDawn%2527s%2BTruce",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDawn%2527s%2BTruce"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8f72bfa0-efef-48ce-aff8-d5818ed71ba6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/9/dawns-truce?utm_source=api",
+  "security_stamp": "oval",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": true,
+  "tcgplayer_id": 559037,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/8f72bfa0-efef-48ce-aff8-d5818ed71ba6",
+  "variation": false
+}
