@@ -31,6 +31,7 @@ import {
   type Hover,
   type Preview,
 } from './TableBoard'
+import { hydrateLiveSnapshot } from './scryfallCache'
 
 const base = import.meta.env.BASE_URL
 
@@ -133,6 +134,7 @@ export const LivePage = () => {
   const [plan, setPlan] = useState('')
   const [hidden, setHidden] = useState(false)
   const [status, setStatus] = useState('')
+  const [hydrationStatus, setHydrationStatus] = useState('')
   const planRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
@@ -151,20 +153,38 @@ export const LivePage = () => {
           return
         }
 
-        const decoded = request.kind === 'payload'
-          ? await decodeLivePayload(request.payload)
-          : await (async () => {
-              const response = await fetch(`${base}replays/${request.game}.json`)
-              if (!response.ok) {
-                throw new Error('Could not load this published game')
-              }
-              const replay = await response.json() as ReplayGame
-              return replayToLiveSnapshot(replay, request)
-            })()
+        if (request.kind === 'payload') {
+          const decoded = await decodeLivePayload(request.payload)
+          if (cancelled) return
+          setSnapshot(decoded)
+          setError('')
+          setLoading(false)
+          setHydrationStatus('Loading card details…')
+          try {
+            const hydrated = await hydrateLiveSnapshot(decoded)
+            if (!cancelled) {
+              setSnapshot(hydrated)
+              setHydrationStatus('')
+            }
+          } catch {
+            if (!cancelled) {
+              setHydrationStatus('Some card details could not be loaded')
+            }
+          }
+          return
+        }
+
+        const response = await fetch(`${base}replays/${request.game}.json`)
+        if (!response.ok) {
+          throw new Error('Could not load this published game')
+        }
+        const replay = await response.json() as ReplayGame
+        const decoded = replayToLiveSnapshot(replay, request)
 
         if (cancelled) return
         setSnapshot(decoded)
         setError('')
+        setHydrationStatus('')
       } catch (reason: unknown) {
         if (cancelled) return
         setSnapshot(null)
@@ -297,6 +317,9 @@ export const LivePage = () => {
               Live snapshot · Turn {snapshot.turn} · {phaseLabel(snapshot.phase)}
               {activeSeat ? ` · ${activeSeat.name}` : ''}
             </p>
+            {hydrationStatus && (
+              <p className="text-xs text-gold-300">{hydrationStatus}</p>
+            )}
           </div>
           <button
             type="button"

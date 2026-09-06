@@ -4,6 +4,7 @@ import type {
   ReplayCombat,
   ReplayGame,
 } from './replayTypes'
+import { compactLiveSnapshot } from './scryfallCache'
 
 export type LiveSeat = {
   id: string
@@ -250,12 +251,13 @@ export const encodeLivePayload = async (snapshot: LiveSnapshot) => {
 
 /** Public encode: drop every hand array and clear `you`. Keep hand_count. */
 export const encodePublicLivePayload = async (snapshot: LiveSnapshot) => {
-  const seats = normalizeSeats(snapshot.seats).map((seat) => {
+  const compact = compactLiveSnapshot(snapshot)
+  const seats = normalizeSeats(compact.seats).map((seat) => {
     const { hand: _hand, ...rest } = seat
     return rest
   })
   return encodeLivePayload({
-    ...snapshot,
+    ...compact,
     you: null,
     seats,
   })
