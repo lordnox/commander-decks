@@ -182,3 +182,9 @@ Meloku the Clouded Mirror became the fortieth land. Command Tower and the three 
 ### 2026-08-26 — Rumble over the clock
 
 - **Malevolent Rumble** — Replaces Perpetual Timepiece. Same dumpster job at two mana, with a permanent to hand and a Spawn, instead of mill-two-a-turn and a library-shuffle valve. The Hedge Shredder chain can still empty the library; finish by pointing Homer triggers at opponents rather than shuffling back.
+
+### 2026-09-06 — Scapeshift lethal must be expanded
+
+The seed-1729 table replay missed a deterministic turn-six win. With Homer and Roaming Throne on the battlefield, each land entry mills every targeted opponent for 8. Playing Forest, casting Scapeshift by sacrificing six lands, finding six lands including four fetch lands, and cracking those fetches creates eleven land entries and mills each opponent for 88, more than their 84–86 remaining cards.
+
+The pilot must treat Scapeshift as a search tree rather than only six land entries: enumerate legal lands still in the library, include immediate fetch activations and automatic sacrifice lands, verify enough legal fetch targets remain, and compare exact outward mill with the largest opposing library before choosing any setup play. Once the calculation is lethal, target every opponent and take the win.

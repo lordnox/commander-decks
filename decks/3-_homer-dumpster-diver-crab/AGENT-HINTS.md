@@ -4,14 +4,21 @@ Primer owns the plan. This file is the seat checklist.
 
 ## Always ask
 
-1. How many Homers, how many seafood (Crabs and type-changers), how many
-   **additional-trigger** permanents, how many lands will enter this turn?
-2. Mill per opponent this turn if every extra land engine is used
-   (fetch, Glaciers, bounce, Harrow, Dreamscape Artist)?
-3. Should this trigger hit only us (still stocking) or **every opponent**
+1. How many Homers, how many total seafood permanents (including creatures
+   affected by type-changers), how many **additional-trigger** permanents, and
+   how many lands will enter this turn?
+2. What is the largest legal landfall line from the current hand? Expand every
+   search: list the lands Scapeshift or another effect can find, then count
+   fetch cracks, automatic Hideout-style sacrifices, Glaciers, bounce lands,
+   Harrow, and Dreamscape Artist as additional entries.
+3. Compute exact mill per opponent as
+   `2 × land entries × Homers × seafood × (1 + additional-trigger effects)`.
+   Compare it with the largest opposing library. If it reaches that number,
+   take the win before considering a setup or value permanent.
+4. Should this trigger hit only us (still stocking) or **every opponent**
    (lethal or close)? Homer targets any number of players and does not
    split X among them.
-4. Is Roaming Throne, Virtue of Knowledge, Yarok, or Ancient Greenwarden
+5. Is Roaming Throne, Virtue of Knowledge, Yarok, or Ancient Greenwarden
    in hand or already in play and unused in the count?
 
 ## Sequencing
@@ -28,6 +35,11 @@ Primer owns the plan. This file is the seat checklist.
 - Land drop order: put the extra-entry land onto the battlefield **before**
   dumping a basic. Misty Rainforest as the drop, then crack it, then
   activate Thawing Glaciers, is three landfall events.
+- Scapeshift is a search tree, not only one entry per sacrificed land. With
+  one Homer and Roaming Throne, play Forest, sacrifice six lands, find six
+  lands including four fetches, then crack all four: eleven entries mill each
+  opponent for 88. Verify enough legal fetch targets remain, then take this
+  line whenever it empties every opposing library.
 - Do not mill this seat once outward mill can kill. Point lethal triggers
   at opponents only.
 
