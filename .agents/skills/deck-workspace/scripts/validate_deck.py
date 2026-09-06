@@ -437,6 +437,12 @@ def validate(deck_dir: Path, repo_root: Path, *, require_decisions: bool = True)
     elif require_decisions:
         errors.append("missing decisions.json or DECISIONS.md")
 
+    hints_path = deck_dir / "AGENT-HINTS.md"
+    if hints_path.is_file():
+        hints_text = hints_path.read_text(encoding="utf-8")
+        if not re.search(r"^##\s+Always ask\s*$", hints_text, re.IGNORECASE | re.MULTILINE):
+            errors.append("AGENT-HINTS.md needs a ## Always ask section")
+
     return errors, warnings
 
 

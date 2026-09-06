@@ -162,8 +162,9 @@ using the battlefield entry's `face` (see [Faces](#faces)).
 ```
 
 Battlefield entries may omit `token`, `token_id`, `commander`, `counters`,
-`note`, and `face`.
-Do **not** put remaining library names in `state`.
+`note`, and `face`. `tapped` is physical tap state only. A creature with
+summoning sickness stays `tapped: false` unless something actually tapped
+it. Do **not** put remaining library names in `state`.
 
 ### Decisions
 

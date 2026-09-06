@@ -53,8 +53,10 @@ python3 .agents/skills/review-table/scripts/summarize_replays.py \
 If the user names no files and no deck, list every replay and ask which mode
 and which seats, unless only one replay exists.
 
-Read each matching deck's primer, `cards.json` categories, and `DECISIONS.md`
-before judging. Read [schema.md](../simulate-table/schema.md) only when a
+Read each matching deck's primer, `cards.json` categories, `DECISIONS.md`,
+and `AGENT-HINTS.md` when present before judging. Read
+[GAMEPLAY-HINTS.md](../simulate-table/GAMEPLAY-HINTS.md) for the generic
+pilot checklist. Read [schema.md](../simulate-table/schema.md) only when a
 flag or snapshot looks malformed. Heuristics for flags:
 [heuristics.md](heuristics.md).
 
