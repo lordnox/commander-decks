@@ -257,10 +257,13 @@ class LiveTableEncodeTests(unittest.TestCase):
             waiting="What do you do?",
             public=False,
         )
-        payload = encode_live.encode_payload(private)
-        self.assertTrue(payload.startswith("v1."))
-        decoded = encode_live.decode_payload(payload)
-        self.assertEqual(decoded, private)
+        payload = encode_live.encode_payload(private, replay=FAKE_REPLAY)
+        self.assertTrue(payload.startswith("v2."))
+        decoded = encode_live.decode_snapshot(payload, replay=FAKE_REPLAY)
+        self.assertEqual(decoded["you"], "p2")
+        self.assertEqual(decoded["seats"][1]["hand"], ["Forest", "Cultivate"])
+        self.assertEqual(decoded["stack"][0]["name"], "Counterspell")
+        self.assertEqual(decoded["seats"][1]["battlefield"][0]["name"], "Sol Ring")
 
     def test_event_id_selects_that_snapshot(self):
         opening = encode_live.build_snapshot(
@@ -374,12 +377,12 @@ class LiveTableEncodeTests(unittest.TestCase):
             self.assertTrue(lines[1].startswith("public:  "))
             private_url = lines[0].split(" ", 1)[1]
             public_url = lines[1].split("  ", 1)[1]
-            self.assertIn("?s=v1.", private_url)
-            self.assertIn("?s=v1.", public_url)
+            self.assertIn("?s=v2.", private_url)
+            self.assertIn("?s=v2.", public_url)
             private_payload = private_url.split("?s=", 1)[1]
             public_payload = public_url.split("?s=", 1)[1]
-            private_snap = encode_live.decode_payload(private_payload)
-            public_snap = encode_live.decode_payload(public_payload)
+            private_snap = encode_live.decode_snapshot(private_payload, replay=FAKE_REPLAY)
+            public_snap = encode_live.decode_snapshot(public_payload, replay=FAKE_REPLAY)
             self.assertEqual(private_snap["you"], "p2")
             self.assertIsNone(public_snap["you"])
             self.assertIn("hand", private_snap["seats"][1])
@@ -424,8 +427,8 @@ class LiveTableEncodeTests(unittest.TestCase):
             self.assertNotIn("you=", public_url)
             self.assertIn("game=seed1729-homer-sin-osgir-hazel", public_url)
             self.assertIn("event=131", public_url)
-            self.assertNotIn("s=v1.", private_url)
-            self.assertNotIn("s=v1.", public_url)
+            self.assertNotIn("s=v2.", private_url)
+            self.assertNotIn("s=v2.", public_url)
 
             stdout = StringIO()
             with contextlib.redirect_stdout(stdout):
@@ -551,6 +554,38 @@ class LiveTableEncodeTests(unittest.TestCase):
             "stats": "2/2",
         }
         self.assertEqual(encode_live._compact_card(details), details)
+
+
+    def test_v2_payload_uses_deck_slots_instead_of_catalog(self):
+        replay_path = ROOT / "table-games" / "seed1729-jalira-jon-eva-sygg.json"
+        replay = json.loads(replay_path.read_text(encoding="utf-8"))
+        private = encode_live.build_snapshot(
+            replay,
+            you="p1",
+            talk="Keep the board.",
+            waiting="What do you do?",
+            public=False,
+        )
+        raw = json.dumps(private, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+        v1 = "v1." + __import__("base64").urlsafe_b64encode(
+            __import__("zlib").compress(raw)
+        ).rstrip(b"=").decode("ascii")
+        payload = encode_live.encode_payload(private, replay=replay)
+        wire = encode_live.decode_payload(payload)
+        self.assertTrue(payload.startswith("v2."))
+        self.assertEqual(wire["v"], 2)
+        self.assertIn("d", wire)
+        self.assertNotIn("catalog", wire)
+        self.assertLess(len(payload), len(v1) // 2)
+        expanded = encode_live.decode_snapshot(payload, replay=replay)
+        self.assertEqual(expanded["you"], "p1")
+        self.assertEqual(expanded["seats"][0]["life"], private["seats"][0]["life"])
+        self.assertEqual(
+            [card["name"] for card in expanded["seats"][0]["battlefield"]],
+            [card["name"] for card in private["seats"][0]["battlefield"]],
+        )
+        self.assertIn("hand", expanded["seats"][0])
+        self.assertNotIn("hand", expanded["seats"][1])
 
 
 if __name__ == "__main__":

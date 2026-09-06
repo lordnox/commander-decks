@@ -5,10 +5,18 @@ import type {
   ReplayGame,
 } from './replayTypes'
 import { compactLiveSnapshot } from './scryfallCache'
+import {
+  compactLiveWire,
+  expandLiveWire,
+  loadDeckIndexes,
+  type DeckIndex,
+  type LiveWireV2,
+} from './liveCompact'
 
 export type LiveSeat = {
   id: string
   name: string
+  deck?: string
   commanders: string[]
   color: string
   life: number
@@ -43,6 +51,8 @@ export type LiveSnapshot = {
   seats: LiveSeat[] | Record<string, LiveSeat>
   catalog: Record<string, CardDetails>
   tokens?: Record<string, CardDetails>
+  decks?: string[]
+  deckIndexes?: Record<string, DeckIndex>
 }
 
 const seatOrder = ['p1', 'p2', 'p3', 'p4'] as const
@@ -109,7 +119,7 @@ export const readLivePayload = (location: Pick<Location, 'search' | 'hash'> = wi
   const hash = location.hash.replace(/^#/, '')
   if (!hash) return null
   if (hash.startsWith('s=')) return decodeURIComponent(hash.slice(2))
-  if (hash.startsWith('v1.')) return hash
+  if (hash.startsWith('v1.') || hash.startsWith('v2.')) return hash
   return null
 }
 
@@ -177,6 +187,7 @@ export const replayToLiveSnapshot = (
     const snapshotSeat: LiveSeat = {
       id,
       name: seat?.name || id,
+      deck: seat?.deck || '',
       commanders: [...(seat?.commanders ?? [])],
       color: seat?.color || '#888888',
       life: player?.life ?? replay.starting_life ?? 40,
@@ -218,6 +229,9 @@ export const replayToLiveSnapshot = (
 
   const combat = event.combat ?? stateWithCombat.combat
   if (combat) snapshot.combat = combat
+  snapshot.decks = replay.seats
+    .map((seat) => seat.deck?.split('/').filter(Boolean).at(-1) || '')
+    .filter(Boolean)
   return snapshot
 }
 
@@ -227,26 +241,40 @@ export const isLivePath = (pathname = window.location.pathname) => {
 }
 
 export const decodeLivePayload = async (payload: string) => {
-  if (!payload.startsWith('v1.')) {
+  const prefix = payload.startsWith('v2.') ? 'v2.' : payload.startsWith('v1.') ? 'v1.' : null
+  if (!prefix) {
     throw new Error('Unknown live snapshot version')
   }
-  const encoded = payload.slice(3)
+  const encoded = payload.slice(prefix.length)
   if (!encoded) throw new Error('Empty live snapshot payload')
 
   const inflated = await inflate(base64UrlToBytes(encoded))
   const json = new TextDecoder().decode(inflated)
-  const snapshot = JSON.parse(json) as LiveSnapshot
-  if (snapshot.v !== 1) throw new Error('Unsupported live snapshot version')
-  if (!snapshot.headline || !snapshot.catalog) {
+  const snapshot = JSON.parse(json) as LiveSnapshot | LiveWireV2
+  if (snapshot.v !== 1 && snapshot.v !== 2) {
+    throw new Error('Unsupported live snapshot version')
+  }
+  if (snapshot.v === 1 && (!snapshot.headline || !snapshot.catalog)) {
+    throw new Error('Live snapshot is missing required fields')
+  }
+  if (snapshot.v === 2 && !snapshot.h) {
     throw new Error('Live snapshot is missing required fields')
   }
   return snapshot
 }
 
+export const openLivePayload = async (payload: string, base: string) => {
+  const decoded = await decodeLivePayload(payload)
+  if (decoded.v === 1) return decoded
+  const indexes = await loadDeckIndexes(decoded.d ?? [], base)
+  return expandLiveWire(decoded, indexes)
+}
+
 export const encodeLivePayload = async (snapshot: LiveSnapshot) => {
-  const json = JSON.stringify(snapshot)
+  const wire = compactLiveWire(compactLiveSnapshot(snapshot))
+  const json = JSON.stringify(wire)
   const compressed = await deflate(new TextEncoder().encode(json))
-  return `v1.${bytesToBase64Url(compressed)}`
+  return `v2.${bytesToBase64Url(compressed)}`
 }
 
 /** Public encode: drop every hand array and clear `you`. Keep hand_count. */

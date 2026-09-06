@@ -6,10 +6,10 @@ import {
 } from 'react'
 import { combatLines } from './combat'
 import {
-  decodeLivePayload,
   encodePublicLivePayload,
   isLivePath,
   normalizeSeats,
+  openLivePayload,
   planStorageKey,
   readLiveRequest,
   replayToLiveSnapshot,
@@ -38,7 +38,7 @@ const base = import.meta.env.BASE_URL
 const toReplaySeat = (seat: LiveSeat): ReplaySeat => ({
   id: seat.id,
   name: seat.name,
-  deck: '',
+  deck: seat.deck || '',
   commanders: seat.commanders,
   plan: '',
   mulligans: 0,
@@ -112,7 +112,7 @@ const EmptyLiveState = ({ reason }: { reason?: string }) => (
       URL like{' '}
       <code className="rounded bg-white/5 px-1.5 py-0.5 text-gold-300">
         /live/?game=my-game&amp;you=p1</code>{' '}
-      from the agent, or use a snapshot payload that starts with <code>v1.</code>.
+          from the agent, or use a snapshot payload that starts with <code>v2.</code>.
     </p>
     {reason && (
       <p className="mt-4 rounded-2xl border border-red-400/30 bg-red-950/40 p-4 text-sm text-red-200">
@@ -154,7 +154,7 @@ export const LivePage = () => {
         }
 
         if (request.kind === 'payload') {
-          const decoded = await decodeLivePayload(request.payload)
+          const decoded = await openLivePayload(request.payload, base)
           if (cancelled) return
           setSnapshot(decoded)
           setError('')
