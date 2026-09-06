@@ -71,7 +71,9 @@ inspect every selectable deck.
 
 The helper prints, for each seat, three London candidates (keep 7, mulligan 1,
 mulligan 2) and a card catalog with Scryfall images. Choose a keep the way
-that deck would: lands and early plan first, not a perfect hand.
+that deck would: lands and early plan first, not a perfect hand. For every
+rejected candidate, write a concise reason that names the missing resource or
+plan requirement.
 
 Apply the keeps:
 
@@ -82,12 +84,17 @@ bun run table:deal -- \
   --seed 1729 \
   --apply \
   --mulligans 0,1,0,0 \
-  --bottom p2=Mountain,Forest \
+  --bottom p2=Mountain \
+  --mulligan-reason p2:1="One land cannot cast the deck's setup pieces" \
   --out table-games/<slug>.json
 ```
 
 `--bottom` is London cards sent to the bottom, named exactly, comma-separated
-per seat. Omit seats that kept seven.
+per seat. Omit seats that kept seven. `--mulligan-reason` is required once for
+each rejected seven-card hand: attempts are numbered from 1, so a seat taking
+two mulligans needs both `p2:1=...` and `p2:2=...`. The replay records each
+complete rejected hand with its reason, then the complete kept candidate
+before London bottoms.
 
 Keep the apply JSON private while playing (it contains libraries). The replay
 file must store **library counts only**.

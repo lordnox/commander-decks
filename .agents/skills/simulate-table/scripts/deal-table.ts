@@ -35,6 +35,7 @@ type Options = {
   deckQueries: string[]
   format: "markdown" | "json"
   list: boolean
+  mulliganReasons: string[]
   mulligans: string
   out?: string
   repo: string
@@ -203,6 +204,7 @@ const parseArgs = (args: string[]): Options => {
     deckQueries: [],
     format: "markdown",
     list: false,
+    mulliganReasons: [],
     mulligans: "0,0,0,0",
     repo: ROOT,
     seed: 1729,
@@ -221,6 +223,7 @@ const parseArgs = (args: string[]): Options => {
     else if (arg === "--bottom") options.bottom.push(value())
     else if (arg === "--format") options.format = value() as Options["format"]
     else if (arg === "--list") options.list = true
+    else if (arg === "--mulligan-reason") options.mulliganReasons.push(value())
     else if (arg === "--mulligans") options.mulligans = value()
     else if (arg === "--out") options.out = value()
     else if (arg === "--repo") options.repo = resolve(value())
@@ -242,6 +245,8 @@ Options:
   --apply                   Write opening game state
   --mulligans 0,1,0,0      Kept candidate per seat
   --bottom p2=Card,Card     London bottoms; repeat per seat
+  --mulligan-reason p2:1=TEXT
+                            Why a seven-card hand was rejected; repeat per mulligan
   --out PATH                Write output to a file
   --repo PATH               Repository root`)
       process.exit(0)
@@ -464,6 +469,29 @@ const parseBottoms = (values: string[]) => {
   return bottoms
 }
 
+const parseMulliganReasons = (values: string[]) => {
+  const reasons: Record<string, Record<number, string>> = Object.fromEntries(
+    SEAT_IDS.map((seat) => [seat, {}]),
+  )
+  for (const value of values) {
+    const split = value.indexOf("=")
+    const target = value.slice(0, split).trim()
+    const match = target.match(/^(p[1-4]):([1-2])$/)
+    if (split < 0 || !match) {
+      throw new Error(`mulligan reason must be seat:attempt=TEXT: ${value}`)
+    }
+    const [, seat, attemptRaw] = match
+    const attempt = Number(attemptRaw)
+    const reason = value.slice(split + 1).trim()
+    if (!reason) throw new Error(`mulligan reason cannot be empty: ${value}`)
+    if (reasons[seat][attempt]) {
+      throw new Error(`duplicate mulligan reason for ${seat}:${attempt}`)
+    }
+    reasons[seat][attempt] = reason
+  }
+  return reasons
+}
+
 const splitBottomCards = (raw: string, hand: string[]) => {
   if (!raw) return [] as string[]
   const names = [...new Set(hand)].sort((a, b) => b.length - a.length)
@@ -529,14 +557,34 @@ const applyGame = async (seats: Seat[], options: Options) => {
     throw new Error("--mulligans must be four integers from 0 to 2")
   }
   const bottoms = parseBottoms(options.bottom)
+  const mulliganReasons = parseMulliganReasons(options.mulliganReasons)
   const players: Json = {}
   const libraries: Json = {}
   const publicSeats: Json[] = []
-  const keeps: Json[] = []
+  const openingEvents: Json[] = []
 
   seats.forEach((seat, index) => {
     const mulligans = counts[index]
     const candidate = seat.candidates.find((item) => item.mulligans === mulligans)!
+    for (let attempt = 1; attempt <= mulligans; attempt += 1) {
+      const rejected = seat.candidates.find((item) => item.mulligans === attempt - 1)!
+      const reason = mulliganReasons[seat.id][attempt]
+      if (!reason) {
+        throw new Error(
+          `${seat.id} mulligan ${attempt} needs --mulligan-reason ${seat.id}:${attempt}=TEXT`,
+        )
+      }
+      openingEvents.push({
+        turn: 0,
+        phase: "setup",
+        seat: seat.id,
+        kind: "mulligan",
+        summary: `${seat.title} takes mulligan ${attempt}`,
+        cards: rejected.hand,
+        notes: "The complete rejected seven-card hand is shown.",
+        decision: { reason },
+      })
+    }
     const kept = applyLondon(candidate, bottoms[seat.id])
     const bottomed = splitBottomCards(bottoms[seat.id], candidate.hand)
     players[seat.id] = emptyPlayer(
@@ -547,17 +595,20 @@ const applyGame = async (seats: Seat[], options: Options) => {
     )
     libraries[seat.id] = kept.library
     publicSeats.push({ ...publicSeat(seat), mulligans })
-    keeps.push({
+    openingEvents.push({
       turn: 0,
       phase: "setup",
       seat: seat.id,
-      kind: mulligans === 0 ? "keep" : "mulligan",
+      kind: "keep",
       summary:
         mulligans === 0
           ? `${seat.title} keeps 7`
-          : `${seat.title} mulligans ${mulligans}, bottoms ${bottomed.join(", ")}`,
-      cards: kept.hand,
-      notes: "",
+          : `${seat.title} keeps ${7 - mulligans}, bottoms ${bottomed.join(", ")}`,
+      cards: candidate.hand,
+      notes:
+        mulligans === 0
+          ? "The complete kept hand is shown."
+          : "The complete seven-card candidate is shown before London bottoms.",
     })
   })
 
@@ -578,7 +629,7 @@ const applyGame = async (seats: Seat[], options: Options) => {
       cards: [],
       notes: "",
     },
-    ...keeps,
+    ...openingEvents,
   ].map((event, id) => ({
     id,
     ...event,

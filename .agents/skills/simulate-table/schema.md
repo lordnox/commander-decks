@@ -95,6 +95,12 @@ card names so a snapshot is readable without the table. Old replays may omit
 `resolve`, `move`, `attack`, `block`, `damage`, `life`, `counters`, `eliminate`,
 `win`, `pass`, `note`, `think`, `talk`, `deal`.
 
+Each rejected London candidate gets its own `mulligan` event. Its `cards`
+contains the complete seven-card hand and `decision.reason` explains why it
+was rejected. The final `keep` event also contains the complete seven-card
+candidate; after one or more mulligans, its summary names the cards put on the
+bottom while the state snapshot contains the resulting smaller hand.
+
 Every turn after setup needs an `untap` event and a separate normal draw event:
 
 ```json
