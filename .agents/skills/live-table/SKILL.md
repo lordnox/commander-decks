@@ -74,8 +74,8 @@ Chat posts the **private** live URL (viewer hand included for `--you`). Mention
 the Pages UI has **Copy public link** for sharing (hands stripped). Hidden
 libraries never go in the URL.
 
-Prefer `?s=<payload>`. Hash form is only a fallback when the query is too long
-(see schema).
+Prefer `?s=<payload>`. The encoder prints `#s=` instead when the query would
+exceed 8000 characters.
 
 ## After the game
 

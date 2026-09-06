@@ -41,8 +41,33 @@ def encode_payload(snapshot: dict) -> str:
     return PAYLOAD_PREFIX + encoded
 
 
-def snapshot_url(base: str, payload: str) -> str:
-    return f"{base.rstrip('/')}?s={quote(payload, safe='._-')}"
+CATALOG_FIELDS = (
+    "scryfall_uri",
+    "image_small",
+    "image_normal",
+    "type_line",
+    "mana_cost",
+    "oracle_text",
+    "stats",
+    "faces",
+)
+FACE_FIELDS = (
+    "name",
+    "image_small",
+    "image_normal",
+    "type_line",
+    "mana_cost",
+    "oracle_text",
+    "stats",
+)
+
+
+def snapshot_url(base: str, payload: str, *, hash_form: bool = False) -> str:
+    root = base.rstrip("/")
+    encoded = quote(payload, safe="._-")
+    if hash_form:
+        return f"{root}#s={encoded}"
+    return f"{root}?s={encoded}"
 
 
 def _as_name(value: Any) -> str | None:
@@ -106,10 +131,23 @@ def _collect_names(snapshot: dict) -> set[str]:
     return names
 
 
+def _compact_card(details: Any) -> Any:
+    if not isinstance(details, dict):
+        return details
+    out = {key: details[key] for key in CATALOG_FIELDS if key in details and details[key]}
+    faces = details.get("faces")
+    if isinstance(faces, list):
+        out["faces"] = [
+            {key: face[key] for key in FACE_FIELDS if isinstance(face, dict) and key in face and face[key]}
+            for face in faces
+        ]
+    return out
+
+
 def _trim_catalog(catalog: dict | None, names: set[str]) -> dict:
     if not isinstance(catalog, dict):
         return {}
-    return {name: catalog[name] for name in names if name in catalog}
+    return {name: _compact_card(catalog[name]) for name in names if name in catalog}
 
 
 def _trim_tokens(tokens: dict | None, snapshot: dict) -> dict | None:
@@ -316,16 +354,22 @@ def main(argv: list[str] | None = None) -> int:
         waiting=args.waiting,
         public=True,
     )
-    private_url = snapshot_url(args.base, encode_payload(private))
-    public_url = snapshot_url(args.base, encode_payload(public))
-    if len(private_url) > QUERY_WARN_CHARS:
+    private_payload = encode_payload(private)
+    public_payload = encode_payload(public)
+    private_query = snapshot_url(args.base, private_payload)
+    public_query = snapshot_url(args.base, public_payload)
+    use_hash = len(private_query) > QUERY_WARN_CHARS
+    if use_hash:
         print(
-            f"warning: private query URL is {len(private_url)} characters "
-            f"(over {QUERY_WARN_CHARS}); prefer the hash form if hosts truncate",
+            f"warning: private query URL is {len(private_query)} characters "
+            f"(over {QUERY_WARN_CHARS}); posting hash form so hosts do not truncate",
             file=sys.stderr,
         )
-    print(f"private: {private_url}")
-    print(f"public:  {public_url}")
+        print(f"private: {snapshot_url(args.base, private_payload, hash_form=True)}")
+        print(f"public:  {snapshot_url(args.base, public_payload, hash_form=True)}")
+        return 0
+    print(f"private: {private_query}")
+    print(f"public:  {public_query}")
     return 0
 
 
