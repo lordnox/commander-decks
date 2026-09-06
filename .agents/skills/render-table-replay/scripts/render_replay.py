@@ -570,6 +570,16 @@ def plan_allows_unknown_name(text: str, name: str) -> bool:
     return False
 
 
+def mentions_card_name(text: str, name: str) -> bool:
+    return bool(
+        re.search(
+            rf"(?<![\w]){re.escape(name)}(?![\w])",
+            text,
+            flags=re.IGNORECASE,
+        )
+    )
+
+
 def validate_plan_draw_knowledge(
     events: list[dict], catalog: dict, rows: list[dict]
 ) -> None:
@@ -605,7 +615,7 @@ def validate_plan_draw_knowledge(
             known |= card_names(player.get("revealed_top") or [], rows)
             for name in drawn:
                 if (
-                    name.casefold() in text.casefold()
+                    mentions_card_name(text, name)
                     and normalized_name(name) not in known
                     and not plan_allows_unknown_name(text, name)
                 ):

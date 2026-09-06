@@ -409,6 +409,35 @@ class PlanDrawKnowledgeTests(unittest.TestCase):
 
         render_replay.validate_plan_draw_knowledge(events, {"Boltwave": {}}, [])
 
+    def test_basic_next_draw_does_not_match_part_of_land_name(self):
+        events = [
+            {
+                "id": 0,
+                "turn": 5,
+                "phase": "planning",
+                "seat": "p1",
+                "kind": "think",
+                "plan": {
+                    "scope": "turn",
+                    "status": "set",
+                    "summary": "Play Misty Rainforest, then cast the commander.",
+                },
+                "state": self.plan_state(hand=["Misty Rainforest"]),
+            },
+            {
+                "id": 1,
+                "turn": 5,
+                "phase": "draw",
+                "seat": "p1",
+                "kind": "draw",
+                "cards": ["Forest"],
+                "state": state(5, "draw"),
+            },
+        ]
+        catalog = {"Forest": {}, "Misty Rainforest": {}}
+
+        render_replay.validate_plan_draw_knowledge(events, catalog, [])
+
     def test_impact_plan_cannot_claim_previous_seat_draw(self):
         events = [
             {
