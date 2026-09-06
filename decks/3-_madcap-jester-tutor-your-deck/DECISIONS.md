@@ -157,7 +157,7 @@ Winner: Madcap, because the video lock and because Cap / Extract / Rootwater Thi
 
 ## Cards out
 
-- **Fevered Suspicion** — Eight mana with Rebound. Goldfish seed 1729 run 8 kept it in the seven and never spent it by turn five. Replaced by Siphon Insight so the slot is a two-mana overlay-independent steal.
+- **Fevered Suspicion** — Eight mana with Rebound. Goldfish seed 1729 run 8 kept it in the seven and never spent it by turn five. Replaced by Siphon Insight so the slot is a two-mana overlay-independent steal. Parked on the maybeboard rather than dropped from the file.
 
 ## Rankings
 
@@ -218,4 +218,8 @@ Win texture is Upgraded: Tasha's plus Madcap is a from-hand dump of stolen cards
 | Interactive | 9–11 | Recast tax; search-exile is blank without overlay |
 
 Pregame: Bracket 3− Grixis library-theft, no Game Changers, usually converting by five or six and closing eight or nine, with an unlikely Tasha's dump on six.
+
+### 2026-09-07 — Fevered Suspicion maybeboard
+
+User asked to keep Fevered Suspicion on the maybe list. It stays `{noDeck}`: the dump-and-Rebound line is real with Madcap, but eight mana is why it is not in the 99.
 

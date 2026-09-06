@@ -2311,13 +2311,37 @@
       "scryfall_uri": "https://scryfall.com/card/afr/169/you-find-some-prisoners?utm_source=api",
       "submitted_categories": [],
       "submitted_name": "You Find Some Prisoners"
+    },
+    {
+      "cache": "cards/51545f6e-d0e3-4b4c-bc73-c731f85e26b0.json",
+      "card": {
+        "cmc": 8.0,
+        "keywords": [
+          "Rebound"
+        ],
+        "mana_cost": "{6}{B}{R}",
+        "oracle_text": "Each opponent exiles cards from the top of their library until they exile a nonland card. You may cast any number of spells from among those nonland cards without paying their mana costs.\nRebound (If you cast this spell from your hand, exile it as it resolves. At the beginning of your next upkeep, you may cast this card from exile without paying its mana cost.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "category_source": "decklist",
+      "name": "Fevered Suspicion",
+      "oracle_id": "51545f6e-d0e3-4b4c-bc73-c731f85e26b0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/afc/47/fevered-suspicion?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "submitted_name": "Fevered Suspicion"
     }
   ],
-  "categorized_cards": 97,
-  "generated_at": "2026-09-06T22:29:04.901227+00:00",
-  "maybeboard_cards": 0,
-  "maybeboard_unique_cards": 0,
-  "resolved_unique_cards": 97,
+  "categorized_cards": 98,
+  "generated_at": "2026-09-06T22:47:12.507621+00:00",
+  "maybeboard_cards": 1,
+  "maybeboard_unique_cards": 1,
+  "resolved_unique_cards": 98,
   "schema_version": 3,
   "source": "decks/3-_madcap-jester-tutor-your-deck/decklist.txt",
   "total_cards": 100,

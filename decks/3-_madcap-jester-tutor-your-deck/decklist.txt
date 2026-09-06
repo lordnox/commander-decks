@@ -98,3 +98,4 @@
 1 Whispersilk Cloak
 1 Xander's Lounge
 1 You Find Some Prisoners
+1 Fevered Suspicion [Maybeboard{noDeck}{noPrice}]
