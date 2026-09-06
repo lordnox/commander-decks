@@ -69,7 +69,8 @@ that shows the new permanent tapped when Oracle does not allow it, a
 reason or note that names a card sitting only in another seat's hand.
 For a replay with `planning: 1`, strict mode also requires four pregame plans,
 a turn plan immediately before every untap, and an impact update immediately
-after every draw.
+after every draw. It rejects a turn plan that knows its unrevealed next draw
+and an impact plan that says the previous seat's card was its own draw.
 Published older replays may fail `--strict`; default render still publishes
 them.
 

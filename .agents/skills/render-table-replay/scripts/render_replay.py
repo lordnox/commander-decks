@@ -533,6 +533,110 @@ def validate_hidden_reasons(events: list[dict], catalog: dict, rows: list[dict])
                 )
 
 
+def plan_text(event: dict) -> str:
+    plan = event.get("plan") or {}
+    return " ".join(
+        [
+            plan.get("summary") or "",
+            plan.get("details") or "",
+            " ".join(plan.get("steps") or []),
+        ]
+    )
+
+
+def card_names(items: list, rows: list[dict]) -> set[str]:
+    return {
+        normalized_name(resolve_name(item, rows))
+        for item in items
+        if resolve_name(item, rows)
+    }
+
+
+def plan_allows_unknown_name(text: str, name: str) -> bool:
+    start = 0
+    folded = text.casefold()
+    target = name.casefold()
+    while (index := folded.find(target, start)) >= 0:
+        context = folded[max(0, index - 60): index + len(target) + 40]
+        if re.search(
+            r"\b(if|unless|search|tutor|find|fetch|draw into|topdeck|hope|"
+            r"play around|expect|usual|win condition)\b",
+            context,
+        ):
+            return True
+        start = index + len(target)
+    return False
+
+
+def validate_plan_draw_knowledge(
+    events: list[dict], catalog: dict, rows: list[dict]
+) -> None:
+    for index, event in enumerate(events):
+        plan = event.get("plan") or {}
+        scope = plan.get("scope")
+        text = plan_text(event)
+        if not text or scope not in {"turn", "impact"}:
+            continue
+
+        if scope == "turn":
+            draw = next(
+                (
+                    candidate
+                    for candidate in events[index + 1:]
+                    if candidate.get("kind") == "draw"
+                    and candidate.get("seat") == event.get("seat")
+                ),
+                None,
+            )
+            if not draw:
+                continue
+            drawn = [
+                resolve_name(item, rows)
+                for item in draw.get("cards") or []
+                if resolve_name(item, rows)
+            ]
+            player = ((event.get("state") or {}).get("players") or {}).get(
+                event.get("seat")
+            ) or {}
+            known = public_card_names(event.get("state") or {}, rows)
+            known |= card_names(player.get("hand") or [], rows)
+            known |= card_names(player.get("revealed_top") or [], rows)
+            for name in drawn:
+                if (
+                    name in text
+                    and normalized_name(name) not in known
+                    and not plan_allows_unknown_name(text, name)
+                ):
+                    raise ValueError(
+                        f"event {event.get('id')}: turn plan knew unrevealed "
+                        f"next draw {name}"
+                    )
+
+        if scope == "impact" and index:
+            draw = events[index - 1]
+            if (
+                draw.get("kind") != "draw"
+                or draw.get("seat") != event.get("seat")
+                or draw.get("turn") != event.get("turn")
+            ):
+                continue
+            actual = {
+                resolve_name(item, rows) for item in draw.get("cards") or []
+            }
+            claimed = {
+                name
+                for name in mentioned_catalog_names(text, catalog)
+                if f"drew {name}".casefold() in text.casefold()
+            }
+            wrong = sorted(claimed - actual)
+            if wrong:
+                raise ValueError(
+                    f"event {event.get('id')}: impact plan says it drew "
+                    f"{', '.join(wrong)}, but the preceding draw was "
+                    f"{', '.join(sorted(actual)) or 'unnamed'}"
+                )
+
+
 def validate_plans(events: list[dict], seat_ids: set[str], required: bool) -> None:
     for event in events:
         plan = event.get("plan")
@@ -741,6 +845,8 @@ def public_game(game: dict, *, strict: bool = False) -> dict:
             validate_enter_untapped(events, catalog, rows)
             validate_open_mana(events, catalog, rows)
             validate_hidden_reasons(events, catalog, rows)
+            if cleaned.get("planning") == 1:
+                validate_plan_draw_knowledge(events, catalog, rows)
 
     catalog = cleaned.get("catalog")
     if not isinstance(catalog, dict):

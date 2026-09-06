@@ -284,6 +284,135 @@ class PlanRecordTests(unittest.TestCase):
         render_replay.validate_plans([], {seat["id"] for seat in SEATS}, False)
 
 
+class PlanDrawKnowledgeTests(unittest.TestCase):
+    def plan_state(self, hand=None, revealed_top=None):
+        snapshot = state(5, "planning")
+        snapshot["players"]["p1"]["hand"] = hand or []
+        snapshot["players"]["p1"]["revealed_top"] = revealed_top or []
+        return snapshot
+
+    def test_turn_plan_cannot_know_unrevealed_next_draw(self):
+        events = [
+            {
+                "id": 0,
+                "turn": 5,
+                "phase": "planning",
+                "seat": "p1",
+                "kind": "think",
+                "plan": {
+                    "scope": "turn",
+                    "status": "set",
+                    "summary": "Cast Boltwave after the land drop.",
+                },
+                "state": self.plan_state(),
+            },
+            {
+                "id": 1,
+                "turn": 5,
+                "phase": "draw",
+                "seat": "p1",
+                "kind": "draw",
+                "cards": ["Boltwave"],
+                "state": state(5, "draw"),
+            },
+        ]
+
+        with self.assertRaisesRegex(ValueError, "knew unrevealed next draw Boltwave"):
+            render_replay.validate_plan_draw_knowledge(
+                events, {"Boltwave": {}}, []
+            )
+
+    def test_turn_plan_may_name_search_target_that_is_next_draw(self):
+        events = [
+            {
+                "id": 0,
+                "turn": 5,
+                "phase": "planning",
+                "seat": "p1",
+                "kind": "think",
+                "plan": {
+                    "scope": "turn",
+                    "status": "set",
+                    "summary": "Tutor for Boltwave if the damage is lethal.",
+                },
+                "state": self.plan_state(),
+            },
+            {
+                "id": 1,
+                "turn": 5,
+                "phase": "draw",
+                "seat": "p1",
+                "kind": "draw",
+                "cards": ["Boltwave"],
+                "state": state(5, "draw"),
+            },
+        ]
+
+        render_replay.validate_plan_draw_knowledge(events, {"Boltwave": {}}, [])
+
+    def test_impact_plan_cannot_claim_previous_seat_draw(self):
+        events = [
+            {
+                "id": 0,
+                "turn": 7,
+                "phase": "draw",
+                "seat": "p4",
+                "kind": "draw",
+                "cards": ["Goblin Electromancer"],
+                "state": state(7, "draw"),
+            },
+            {
+                "id": 1,
+                "turn": 7,
+                "phase": "impact",
+                "seat": "p4",
+                "kind": "think",
+                "plan": {
+                    "scope": "impact",
+                    "status": "kept",
+                    "summary": "Hold the first instant.",
+                    "details": "Drew Snow-Covered Swamp.",
+                },
+                "state": state(7, "impact"),
+            },
+        ]
+        catalog = {"Goblin Electromancer": {}, "Snow-Covered Swamp": {}}
+
+        with self.assertRaisesRegex(ValueError, "preceding draw was Goblin Electromancer"):
+            render_replay.validate_plan_draw_knowledge(events, catalog, [])
+
+    def test_impact_plan_may_name_its_actual_draw(self):
+        events = [
+            {
+                "id": 0,
+                "turn": 7,
+                "phase": "draw",
+                "seat": "p4",
+                "kind": "draw",
+                "cards": ["Goblin Electromancer"],
+                "state": state(7, "draw"),
+            },
+            {
+                "id": 1,
+                "turn": 7,
+                "phase": "impact",
+                "seat": "p4",
+                "kind": "think",
+                "plan": {
+                    "scope": "impact",
+                    "status": "revised",
+                    "summary": "Cast Goblin Electromancer.",
+                    "details": "Drew Goblin Electromancer.",
+                },
+                "state": state(7, "impact"),
+            },
+        ]
+
+        render_replay.validate_plan_draw_knowledge(
+            events, {"Goblin Electromancer": {}}, []
+        )
+
+
 class PlayInvariantTests(unittest.TestCase):
     def test_commander_must_remain_in_a_zone(self):
         replay = game()
