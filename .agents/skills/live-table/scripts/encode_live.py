@@ -229,7 +229,7 @@ def _compact_card(details: Any) -> Any:
 def _trim_catalog(catalog: dict | None, names: set[str]) -> dict:
     if not isinstance(catalog, dict):
         return {}
-    return {name: _compact_card(catalog[name]) for name in names if name in catalog}
+    return {name: _compact_card(catalog[name]) for name in sorted(names) if name in catalog}
 
 
 def _trim_tokens(tokens: dict | None, snapshot: dict) -> dict | None:
