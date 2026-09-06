@@ -164,7 +164,10 @@ For every seat, every turn, the seat agent:
    graveyard, command zone, and known cards for a deterministic win or forced
    winning line. Write a `turn` plan with the desired end state, intended
    sequence, mana, land sequencing, mandatory upkeep triggers, and named
-   contingencies. Walk the full line, including mana and legal targets.
+   contingencies. Walk the full line, including mana and legal targets. For
+   each plausible finisher, expand legal searches into the cards they find
+   and immediate actions those cards enable, then compare exact damage, mill,
+   poison, or commander damage with every opponent's current threshold.
 2. After each draw, reveal, resolved response, or accepted deal gives the seat
    new information, compare it with the active plan. Record an `impact` plan:
    `kept` restates the unchanged line and why the information does not beat it;
@@ -413,7 +416,9 @@ Before reporting:
 5. At every main phase, repeat the deterministic-win check against the cards
    then available. A missed win invalidates the simulation. A pass with
    unused mana and no `think` / `decision` is also a miss unless every
-   remaining card is uncastable.
+   remaining card is uncastable. For a search-based finisher, validation must
+   enumerate legal search targets and their immediate activations or triggers;
+   treating the searched cards as inert is not a completed win check.
 6. Confirm every combat has `attack`, `block`, and `damage` events, that the
    attackers' tapped state matches the snapshot, and that each damage entry
    is typed `combat` or `noncombat`.
