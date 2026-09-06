@@ -66,6 +66,11 @@ python3 .agents/skills/live-table/scripts/encode_live.py table-games/<slug>.json
   --you p2 --talk "..." --waiting "What do you do?"
 ```
 
+Add `--event <id>` to snapshot an earlier frame instead of the last one. Use it
+when the human takes over a recorded game mid-log: pick the frame **before**
+that seat's next own decision, since every later play by that seat was an agent
+choice and is now discarded.
+
 Use the live session path when that is the working file. Pass the human seat as
 `--you`. Put table talk and the current standing plan in `--talk`; the prompt
 in `--waiting`.

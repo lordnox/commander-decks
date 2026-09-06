@@ -262,6 +262,31 @@ class LiveTableEncodeTests(unittest.TestCase):
         decoded = encode_live.decode_payload(payload)
         self.assertEqual(decoded, private)
 
+    def test_event_id_selects_that_snapshot(self):
+        opening = encode_live.build_snapshot(
+            FAKE_REPLAY,
+            you="p2",
+            talk="",
+            waiting="Keep or mulligan?",
+            public=False,
+            event_id=0,
+        )
+        self.assertEqual(opening["turn"], 0)
+        self.assertEqual(opening["phase"], "setup")
+        self.assertEqual(opening["stack"], [])
+        by_id = {seat["id"]: seat for seat in opening["seats"]}
+        self.assertEqual(by_id["p2"]["hand"], ["Forest", "Sol Ring", "Cultivate"])
+
+        with self.assertRaises(ValueError):
+            encode_live.build_snapshot(
+                FAKE_REPLAY,
+                you="p2",
+                talk="",
+                waiting="",
+                public=False,
+                event_id=999,
+            )
+
     def test_public_snapshot_redacts_hands_and_you(self):
         public = encode_live.build_snapshot(
             FAKE_REPLAY,

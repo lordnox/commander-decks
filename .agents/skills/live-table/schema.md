@@ -69,6 +69,9 @@ Public encode **must** drop every `hand` array and set `you` to null. Keep
 `hand_count`. `revealed_top` stays when the table can see it; private
 look-at-top stays only on the matching `you` seat.
 
+The encoder snapshots the last event by default; `--event <id>` picks an
+earlier frame from the same log.
+
 ## Session file (private, not Pages)
 
 Working hot-seat games may keep `table-games/<slug>.live.json` locally
