@@ -119,7 +119,7 @@ rules log. Split the work:
 | Role | Who | Sees | Returns |
 |---|---|---|---|
 | Game master | This agent | Public board, stack, all libraries (private), catalog, Oracle | Legal events and snapshots in the replay |
-| Seat `p1`–`p4` | One persistent subagent each | Public board plus **only that seat's** hand, library, and command zone | Proposed actions and a `decision` for leftover mana |
+| Seat `p1`–`p4` | One persistent subagent each | Sanitized seat packet: public board plus **only that seat's** hand, command zone, and `revealed_top` | Proposed actions and a `decision` for leftover mana |
 
 After the opening keep, launch four `generalPurpose` subagents (the Task
 tool). Resume the **same** four agent IDs through the whole game so each
@@ -135,17 +135,26 @@ make a seat recoverable if its persistent agent is interrupted.
 
 Each priority window:
 
-1. The game master writes a seat packet: turn, phase, stack, public
-   snapshots, that seat's private hand and command zone, its latest game and
-   turn plans, legal timing, and the questions in GAMEPLAY-HINTS plus
-   AGENT-HINTS. Never include another seat's hand, library, unrevealed search,
-   or private plan.
+1. The game master generates a seat packet; never assemble one by copying the
+   latest replay event:
+
+   ```bash
+   bun run table:packet -- table-games/<slug>.json --seat p3
+   ```
+
+   Send the generated JSON unchanged with the primer, GAMEPLAY-HINTS, and
+   AGENT-HINTS. It includes the turn, phase, stack, public snapshots, that
+   seat's private hand, command zone, `revealed_top`, and latest own plans. It
+   strips `_libraries`, other hands and plans, and the names/cards of other
+   seats' draws. Never send the continuation brief, because it prints every
+   library top for the game master.
 2. The seat agent answers with ordered proposed actions (cast, activate,
    play land, attack, block, talk, pass) and, on a pass, a `decision` whose
    `open_mana` is counted from the packet's untapped permanents.
 3. The game master checks Oracle, costs, tax, timing, hidden information,
-   and additional-trigger counts. Illegal or leaked proposals are rejected
-   with the rule that failed; the same seat agent revises.
+   static power/toughness, and every resulting trigger. Illegal or leaked
+   proposals are rejected with the rule that failed; the same seat agent
+   revises.
 4. Only then append events and snapshots. The game master never invents a
    "better" line for a seat except to refuse an illegal one.
 
@@ -161,7 +170,7 @@ and `_libraries`.
 For every seat, every turn, the seat agent:
 
 1. **Before untap**, inspect the complete hand, battlefield,
-   graveyard, command zone, and known cards for a deterministic win or forced
+   graveyard, command zone, `revealed_top`, and known public cards for a deterministic win or forced
    winning line. Write a `turn` plan with the desired end state, intended
    sequence, mana, land sequencing, mandatory upkeep triggers, and named
    contingencies. Walk the full line, including mana and legal targets. For
@@ -172,15 +181,17 @@ For every seat, every turn, the seat agent:
    new information, compare it with the active plan. Record an `impact` plan:
    `kept` restates the unchanged line and why the information does not beat it;
    `revised` replaces the line and says what changed. A drawn card does not
-   silently erase the pre-draw plan.
+   silently erase the pre-draw plan. Name the card from **this seat's
+   immediately preceding draw event**; never reuse the previous seat's draw.
 3. Play that deck's plan, not a generic good-stuff pilot. Setup pieces are not
    automatically better than ramp: compare what each sequence unlocks on the
    next turn. Walk [`GAMEPLAY-HINTS.md`](GAMEPLAY-HINTS.md) and that deck's
    `AGENT-HINTS.md` before passing.
-4. Spend mana legally. Track tapped lands, commander tax, summoning sickness,
-   once-per-turn clauses, replacement effects, and **additional-trigger**
-   permanents. Summoning sickness is not tapped: a creature that does not
-   say it enters tapped enters untapped.
+4. Spend mana legally. Walk filters and rocks as ordered payments, preserving
+   an independently usable colored source when possible. Track tapped lands,
+   commander tax, summoning sickness, once-per-turn clauses, replacement
+   effects, static P/T, and every triggered ability. Summoning sickness is not
+   tapped: a creature that does not say it enters tapped enters untapped.
 5. Interact when the primer would: hold up counters, fogs, removal, or
    politics rather than dump the hand because it is a sim. A pass with
    unused mana is a recorded decision, not silence. Recalculate `open_mana`
@@ -192,8 +203,9 @@ For every seat, every turn, the seat agent:
    irreversible leverage (board wipe, lethal, lock gift, counter, targeted
    removal). Record offers, answers, and active deals in the replay.
 7. Never tutor, draw, or produce a card that was not in hand, in a known
-   zone, or actually found by a resolved search of that library. Never name
-   another seat's hidden card in a reason.
+   zone, or actually found by a resolved search of that library. The seat
+   does not know its unrevealed top card. Never name another seat's hidden
+   card in a reason.
 8. Walk claimed loops; "fat once" is not infinite.
 9. When a seat may look at the top of its library — Fblthp, Bolas's Citadel,
    Oracle of Mul Daya, Future Sight — decide from that card and publish it in
@@ -227,9 +239,12 @@ chat-only commentary.
 
 Every normal draw step is its own `draw` event, even when the card is
 immediately played, discarded, revealed, replaced, or taxed. Extra draws and
-their replacement/tax result are separate events too. Put triggered abilities
-on the end step where they actually trigger; never defer a trigger across the
-next player's untap.
+their replacement/tax result are separate events too. Record a spell's cast,
+each triggered ability it causes, and its resolution as separate events in
+stack order. A trigger summary says what source triggered, what effect it has,
+and every target. A permanent does not see the cast that put it onto the
+battlefield. Put end-step triggered abilities on the end step where they
+actually trigger; never defer a trigger across the next player's untap.
 
 If the game hits the turn cap with multiple players alive, stop and name the
 leader rather than inventing a win.
@@ -241,11 +256,14 @@ Plans are concise, replay-visible intentions, not hidden chain-of-thought:
 - `game` — written once per seat after keeps and before turn one; names the
   primer plan, opening route, interaction posture, and political leverage.
 - `turn` — written immediately before that seat's untap; says what the seat
-  wants to accomplish this turn and lists the intended sequence. Use
-  `phase: "planning"`.
+  wants to accomplish this turn and lists the intended sequence from cards
+  currently visible to that seat. It cannot name the coming draw unless that
+  card is already in `revealed_top`. Use `phase: "planning"`.
 - `impact` — written immediately after that seat draws and whenever later
   information materially changes the line. Use `status: "kept"` when the plan
-  survives and `status: "revised"` when it changes. Use `phase: "impact"`.
+  survives and `status: "revised"` when it changes. Its details must refer to
+  that immediately preceding draw, not a prior seat's draw. Use
+  `phase: "impact"`.
 
 The latest plan replaces the previous current-plan summary in the viewer, so
 an impact that keeps the line must restate that line rather than merely saying

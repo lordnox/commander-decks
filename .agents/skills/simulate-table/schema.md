@@ -122,7 +122,18 @@ Every turn after setup needs an `untap` event and a separate normal draw event:
 The draw snapshot includes the card in hand and the decremented
 `library_count`. Record replacement effects and payments in that event. Extra
 draws are additional `draw` events. Do not combine a draw with the spell or
-land that follows it.
+land that follows it. The named card is private to that seat during play:
+redact another seat's draw `summary` and `cards` from seat-agent packets even
+though the completed replay reveals it to the audience.
+
+Record the stack in causal order. A `cast` event puts the spell on the stack;
+it does not also make that spell a battlefield permanent. Record every
+triggered ability caused by the cast as its own event whose summary names the
+source, effect, and targets, then record the spell's `resolve` event. The same
+rule applies to enter, landfall, attack, combat-damage, death, and
+second-draw triggers. An Aura cast names the creature it targets directly in
+the cast summary; its battlefield `note` records the attachment only after it
+resolves.
 
 Split and modal cards are one catalog key using the full `A // B` name, with
 faces joined by ` // ` in `type_line` and `oracle_text`. Refer to them by that
@@ -218,6 +229,11 @@ restates the still-valid plan with `status: "kept"` or replaces it with
 `status: "revised"`. Public reveals, responses, and deals get another impact
 update when they materially change the line.
 
+A turn plan cannot name the next draw unless that card was already in the
+seat's hand, public, or in its `revealed_top`. An impact plan is bound to the
+immediately preceding draw event for the same seat and must not describe a
+previous seat's draw as its own.
+
 ```json
 {
   "kind": "think",
@@ -246,6 +262,11 @@ it. `details` explains the relevant game facts and `steps` is the intended
 sequence. Plan events are visible to the replay audience but are not public
 table speech and must not be copied into another seat's packet. Use `talk` for
 anything opponents hear.
+
+Seat packets are not replay snapshots. Generate them with `table:packet`.
+They omit `_libraries`, other seats' hands and private plans, and card names
+from other seats' draw events. Only the game master may inspect hidden library
+order.
 
 ### Politics
 
