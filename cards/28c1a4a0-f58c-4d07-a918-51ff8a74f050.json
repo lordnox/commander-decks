@@ -1,0 +1,143 @@
+{
+  "arena_id": 93753,
+  "artist": "Justyna Dura",
+  "artist_ids": [
+    "d2340aef-8ca9-4e0d-864c-6a4e8d5e350a"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 795560,
+  "cmc": 4.0,
+  "collector_number": "40",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 869,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "To the High Fae, spells that take a human years to master come as easily as breathing.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7f1b93ea-1ec1-4010-9343-765742f5088b",
+  "illustration_id": "e79d5657-eb24-4dc8-a51b-b78f5a335733",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:18:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/f/7f1b93ea-1ec1-4010-9343-765742f5088b.webp?1783909118",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/f/7f1b93ea-1ec1-4010-9343-765742f5088b.jpg?1783909118",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/f/7f1b93ea-1ec1-4010-9343-765742f5088b.jpg?1783909118",
+    "crop": "https://cards.scryfall.io/crop/front/7/f/7f1b93ea-1ec1-4010-9343-765742f5088b.webp?1783909118",
+    "display": "https://cards.scryfall.io/display/front/7/f/7f1b93ea-1ec1-4010-9343-765742f5088b.webp?1783909118",
+    "grid": "https://cards.scryfall.io/grid/front/7/f/7f1b93ea-1ec1-4010-9343-765742f5088b.webp?1783909118",
+    "large": "https://cards.scryfall.io/large/front/7/f/7f1b93ea-1ec1-4010-9343-765742f5088b.jpg?1783909118",
+    "normal": "https://cards.scryfall.io/normal/front/7/f/7f1b93ea-1ec1-4010-9343-765742f5088b.jpg?1783909118",
+    "png": "https://cards.scryfall.io/png/front/7/f/7f1b93ea-1ec1-4010-9343-765742f5088b.png?1783909118",
+    "small": "https://cards.scryfall.io/small/front/7/f/7f1b93ea-1ec1-4010-9343-765742f5088b.jpg?1783909118",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/f/7f1b93ea-1ec1-4010-9343-765742f5088b.webp?1783909118"
+  },
+  "keywords": [
+    "Flying",
+    "Flash"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "mtgo_id": 133648,
+  "multiverse_ids": [
+    679117
+  ],
+  "name": "High Fae Trickster",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "28c1a4a0-f58c-4d07-a918-51ff8a74f050",
+  "oracle_text": "Flash (You may cast this spell any time you could cast an instant.)\nFlying\nYou may cast spells as though they had flash.",
+  "oversized": false,
+  "power": "4",
+  "preview": {
+    "previewed_at": "2024-10-28",
+    "source": "Hooked Gamers",
+    "source_uri": "https://www.hookedgamers.com/features/2024/10/28/exclusive_card_reveal_for_magic_the_gathering_-_foundations.html"
+  },
+  "prices": {
+    "eur": "5.93",
+    "eur_foil": "6.99",
+    "tix": "0.02",
+    "usd": "4.94",
+    "usd_etched": null,
+    "usd_foil": "5.60"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A28c1a4a0-f58c-4d07-a918-51ff8a74f050&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/133648?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=795560&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F590835%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=High+Fae+Trickster",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=679117&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHigh%2BFae%2BTrickster",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHigh%2BFae%2BTrickster"
+  },
+  "released_at": "2024-11-15",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7f1b93ea-1ec1-4010-9343-765742f5088b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fdn/40/high-fae-trickster?utm_source=api",
+  "security_stamp": "oval",
+  "set": "fdn",
+  "set_id": "a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "set_name": "Foundations",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afdn&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "story_spotlight": false,
+  "tcgplayer_id": 590835,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Faerie Wizard",
+  "uri": "https://api.scryfall.com/cards/7f1b93ea-1ec1-4010-9343-765742f5088b",
+  "variation": false
+}

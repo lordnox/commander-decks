@@ -1,0 +1,150 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "f1ced678-5cfd-49ff-9420-6ee52d5edf5a",
+      "name": "Smuggler's Share",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/f1ced678-5cfd-49ff-9420-6ee52d5edf5a"
+    },
+    {
+      "component": "token",
+      "id": "804c5c79-0b1f-4e2d-83d4-0518a615265a",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/804c5c79-0b1f-4e2d-83d4-0518a615265a"
+    }
+  ],
+  "artist": "Aaron Miller",
+  "artist_ids": [
+    "fc021f3d-773a-4706-bbe7-f602324f511f"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753511,
+  "cmc": 3.0,
+  "collector_number": "84",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 1688,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "One way or another, everyone gets paid what they're owed.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f1ced678-5cfd-49ff-9420-6ee52d5edf5a",
+  "illustration_id": "ac5d6984-bf6a-48d9-8213-7ceadcbb0986",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:23:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/1/f1ced678-5cfd-49ff-9420-6ee52d5edf5a.webp?1783913024",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/1/f1ced678-5cfd-49ff-9420-6ee52d5edf5a.jpg?1783913024",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/1/f1ced678-5cfd-49ff-9420-6ee52d5edf5a.jpg?1783913024",
+    "crop": "https://cards.scryfall.io/crop/front/f/1/f1ced678-5cfd-49ff-9420-6ee52d5edf5a.webp?1783913024",
+    "display": "https://cards.scryfall.io/display/front/f/1/f1ced678-5cfd-49ff-9420-6ee52d5edf5a.webp?1783913024",
+    "grid": "https://cards.scryfall.io/grid/front/f/1/f1ced678-5cfd-49ff-9420-6ee52d5edf5a.webp?1783913024",
+    "large": "https://cards.scryfall.io/large/front/f/1/f1ced678-5cfd-49ff-9420-6ee52d5edf5a.jpg?1783913024",
+    "normal": "https://cards.scryfall.io/normal/front/f/1/f1ced678-5cfd-49ff-9420-6ee52d5edf5a.jpg?1783913024",
+    "png": "https://cards.scryfall.io/png/front/f/1/f1ced678-5cfd-49ff-9420-6ee52d5edf5a.png?1783913024",
+    "small": "https://cards.scryfall.io/small/front/f/1/f1ced678-5cfd-49ff-9420-6ee52d5edf5a.jpg?1783913024",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/1/f1ced678-5cfd-49ff-9420-6ee52d5edf5a.webp?1783913024"
+  },
+  "keywords": [
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 122308,
+  "multiverse_ids": [
+    650178
+  ],
+  "name": "Smuggler's Share",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "17b29350-4f37-4552-8192-4856b15345f9",
+  "oracle_text": "At the beginning of each end step, draw a card for each opponent who drew two or more cards this turn, then create a Treasure token for each opponent who had two or more lands enter the battlefield under their control this turn.",
+  "oversized": false,
+  "prices": {
+    "eur": "8.94",
+    "eur_foil": null,
+    "tix": "11.40",
+    "usd": "10.57",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A17b29350-4f37-4552-8192-4856b15345f9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122308?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753511&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535641%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Smuggler%27s+Share",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=650178&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSmuggler%2527s%2BShare",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSmuggler%2527s%2BShare"
+  },
+  "released_at": "2024-02-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f1ced678-5cfd-49ff-9420-6ee52d5edf5a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkc/84/smugglers-share?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkc",
+  "set_id": "286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "set_name": "Murders at Karlov Manor Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "story_spotlight": false,
+  "tcgplayer_id": 535641,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/f1ced678-5cfd-49ff-9420-6ee52d5edf5a",
+  "variation": false
+}

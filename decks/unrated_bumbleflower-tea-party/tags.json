@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Bant extra-spell counters: Bumbleflower grows the team and draws two on the second spell, while opponents keep the extra cards.",
+  "tags": [
+    {
+      "name": "+1/+1 counters",
+      "score": 5,
+      "reason": "Bumbleflower, Ouroboroid, Kami, Ozolith, Dusk Legion Duelist, and Triumph close through counters rather than a separate combo."
+    },
+    {
+      "name": "draw",
+      "score": 5,
+      "reason": "The commander, second-draw creatures, Trouble in Pairs, Wizard Class, and hug taxes all convert extra cards into the plan."
+    },
+    {
+      "name": "commander matters",
+      "score": 4,
+      "reason": "Crime land, Loki draws, flying until end of turn, and the second-spell draw all key off Bumbleflower staying in play."
+    },
+    {
+      "name": "control",
+      "score": 3,
+      "reason": "A real counter suite plus two sweepers and cheap removal, pointed at protecting the engine rather than a lock."
+    },
+    {
+      "name": "flash",
+      "score": 3,
+      "reason": "High Fae Trickster, Final-Word Phantom, Seedborn Muse, and several flash creatures spend mana on other turns."
+    },
+    {
+      "name": "group hug",
+      "score": 3,
+      "reason": "Bumbleflower, gift spells, Faerie Mastermind, Gleaming Splendor, Selvala, and Tataru donate cards or mana as the cost of the engine."
+    },
+    {
+      "name": "midrange",
+      "score": 3,
+      "reason": "The list wins by growing a board over several turns, not by a two-card combo or a turn-three kill."
+    },
+    {
+      "name": "politics",
+      "score": 2,
+      "reason": "Gift counters, Promise of Loyalty, and who receives Bumbleflower's card are real choices, not the win."
+    },
+    {
+      "name": "proliferate",
+      "score": 2,
+      "reason": "Dreamtide Whale and Ripples of Potential spread counters; the deck still functions without them."
+    },
+    {
+      "name": "spellslinger",
+      "score": 2,
+      "reason": "Casting two spells a turn is the engine, but the payoffs are creatures and counters, not a storm kill."
+    },
+    {
+      "name": "tokens",
+      "score": 2,
+      "reason": "Zenith, Aligned Heart, Jolrael, Minn, Broodscale, and Messenger make tokens, but they support counters rather than a token anthem plan."
+    },
+    {
+      "name": "blink",
+      "score": 1,
+      "reason": "Whitemane Lion and Aang interact with the battlefield; there is no ETB-blink core."
+    },
+    {
+      "name": "infect",
+      "score": 1,
+      "reason": "Triumph of the Hordes is the listed closer, not an infect creature package."
+    }
+  ]
+}

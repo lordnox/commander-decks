@@ -1,0 +1,163 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "e32795e1-5548-43ef-8cd6-c605a19ef708",
+      "name": "Eldrazi Spawn",
+      "object": "related_card",
+      "type_line": "Token Creature — Eldrazi Spawn",
+      "uri": "https://api.scryfall.com/cards/e32795e1-5548-43ef-8cd6-c605a19ef708"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5feba5d6-99a6-4e9b-8a7d-90d955868fc3",
+      "name": "Basking Broodscale",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi Lizard",
+      "uri": "https://api.scryfall.com/cards/5feba5d6-99a6-4e9b-8a7d-90d955868fc3"
+    }
+  ],
+  "arena_id": 90995,
+  "artist": "Caio Monteiro",
+  "artist_ids": [
+    "d5053eb6-af72-47a0-b6e8-023cc3b9aefb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 771075,
+  "cmc": 2.0,
+  "collector_number": "145",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 2115,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "devoid"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "5feba5d6-99a6-4e9b-8a7d-90d955868fc3",
+  "illustration_id": "d1b7bd61-dcdb-48a4-840a-cf11be95b48e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:23Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/f/5feba5d6-99a6-4e9b-8a7d-90d955868fc3.webp?1783911263",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/f/5feba5d6-99a6-4e9b-8a7d-90d955868fc3.jpg?1783911263",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/f/5feba5d6-99a6-4e9b-8a7d-90d955868fc3.jpg?1783911263",
+    "crop": "https://cards.scryfall.io/crop/front/5/f/5feba5d6-99a6-4e9b-8a7d-90d955868fc3.webp?1783911263",
+    "display": "https://cards.scryfall.io/display/front/5/f/5feba5d6-99a6-4e9b-8a7d-90d955868fc3.webp?1783911263",
+    "grid": "https://cards.scryfall.io/grid/front/5/f/5feba5d6-99a6-4e9b-8a7d-90d955868fc3.webp?1783911263",
+    "large": "https://cards.scryfall.io/large/front/5/f/5feba5d6-99a6-4e9b-8a7d-90d955868fc3.jpg?1783911263",
+    "normal": "https://cards.scryfall.io/normal/front/5/f/5feba5d6-99a6-4e9b-8a7d-90d955868fc3.jpg?1783911263",
+    "png": "https://cards.scryfall.io/png/front/5/f/5feba5d6-99a6-4e9b-8a7d-90d955868fc3.png?1783911263",
+    "small": "https://cards.scryfall.io/small/front/5/f/5feba5d6-99a6-4e9b-8a7d-90d955868fc3.jpg?1783911263",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/f/5feba5d6-99a6-4e9b-8a7d-90d955868fc3.webp?1783911263"
+  },
+  "keywords": [
+    "Devoid",
+    "Adapt"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "banned",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 126307,
+  "multiverse_ids": [
+    662297
+  ],
+  "name": "Basking Broodscale",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a7c69802-99c4-4778-934e-cc09ba58c267",
+  "oracle_text": "Devoid (This card has no color.)\n{1}{G}: Adapt 1. (If this creature has no +1/+1 counters on it, put a +1/+1 counter on it.)\nWhenever one or more +1/+1 counters are put on this creature, you may create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\"",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2024-05-17",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/news/magic-story/flames-2016-01-20"
+  },
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": "0.42",
+    "tix": "0.03",
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": "0.50"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa7c69802-99c4-4778-934e-cc09ba58c267&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126307?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=771075&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552176%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Basking+Broodscale",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662297&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBasking%2BBroodscale",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBasking%2BBroodscale"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5feba5d6-99a6-4e9b-8a7d-90d955868fc3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/145/basking-broodscale?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552176,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Eldrazi Lizard",
+  "uri": "https://api.scryfall.com/cards/5feba5d6-99a6-4e9b-8a7d-90d955868fc3",
+  "variation": false
+}

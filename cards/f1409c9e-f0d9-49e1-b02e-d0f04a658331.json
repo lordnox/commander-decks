@@ -1,0 +1,164 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "e32795e1-5548-43ef-8cd6-c605a19ef708",
+      "name": "Eldrazi Spawn",
+      "object": "related_card",
+      "type_line": "Token Creature — Eldrazi Spawn",
+      "uri": "https://api.scryfall.com/cards/e32795e1-5548-43ef-8cd6-c605a19ef708"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f0f818d7-320c-47b9-a083-40007f3d91ea",
+      "name": "Emrakul's Messenger",
+      "object": "related_card",
+      "type_line": "Creature — Eldrazi Faerie Rogue",
+      "uri": "https://api.scryfall.com/cards/f0f818d7-320c-47b9-a083-40007f3d91ea"
+    }
+  ],
+  "arena_id": 90910,
+  "artist": "David Álvarez",
+  "artist_ids": [
+    "c3004e2c-d372-4faa-90db-f1274e75ef41"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 772131,
+  "cmc": 2.0,
+  "collector_number": "61",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 2544,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Obey her will! Don't be a fool! Submit your mind to Emrakul!\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "devoid"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "f0f818d7-320c-47b9-a083-40007f3d91ea",
+  "illustration_id": "babbb11e-2d52-446e-af4a-f16d10828cd3",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/0/f0f818d7-320c-47b9-a083-40007f3d91ea.webp?1783911291",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/0/f0f818d7-320c-47b9-a083-40007f3d91ea.jpg?1783911291",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/0/f0f818d7-320c-47b9-a083-40007f3d91ea.jpg?1783911291",
+    "crop": "https://cards.scryfall.io/crop/front/f/0/f0f818d7-320c-47b9-a083-40007f3d91ea.webp?1783911291",
+    "display": "https://cards.scryfall.io/display/front/f/0/f0f818d7-320c-47b9-a083-40007f3d91ea.webp?1783911291",
+    "grid": "https://cards.scryfall.io/grid/front/f/0/f0f818d7-320c-47b9-a083-40007f3d91ea.webp?1783911291",
+    "large": "https://cards.scryfall.io/large/front/f/0/f0f818d7-320c-47b9-a083-40007f3d91ea.jpg?1783911291",
+    "normal": "https://cards.scryfall.io/normal/front/f/0/f0f818d7-320c-47b9-a083-40007f3d91ea.jpg?1783911291",
+    "png": "https://cards.scryfall.io/png/front/f/0/f0f818d7-320c-47b9-a083-40007f3d91ea.png?1783911291",
+    "small": "https://cards.scryfall.io/small/front/f/0/f0f818d7-320c-47b9-a083-40007f3d91ea.jpg?1783911291",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/0/f0f818d7-320c-47b9-a083-40007f3d91ea.webp?1783911291"
+  },
+  "keywords": [
+    "Flying",
+    "Devoid"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 126139,
+  "multiverse_ids": [
+    662213
+  ],
+  "name": "Emrakul's Messenger",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f1409c9e-f0d9-49e1-b02e-d0f04a658331",
+  "oracle_text": "Devoid (This card has no color.)\nFlying\nWhenever you draw your second card each turn, create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\"",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2024-05-24",
+    "source": "Ryan Nicholas",
+    "source_uri": "https://x.com/tronisbad/status/1794087452505677908"
+  },
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": "0.45",
+    "tix": "0.03",
+    "usd": "0.37",
+    "usd_etched": null,
+    "usd_foil": "0.66"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af1409c9e-f0d9-49e1-b02e-d0f04a658331&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126139?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=772131&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552822%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Emrakul%27s+Messenger",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662213&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEmrakul%2527s%2BMessenger",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEmrakul%2527s%2BMessenger"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f0f818d7-320c-47b9-a083-40007f3d91ea/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/61/emrakuls-messenger?utm_source=api",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552822,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Eldrazi Faerie Rogue",
+  "uri": "https://api.scryfall.com/cards/f0f818d7-320c-47b9-a083-40007f3d91ea",
+  "variation": false
+}

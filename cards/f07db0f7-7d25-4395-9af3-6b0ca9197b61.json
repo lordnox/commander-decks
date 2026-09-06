@@ -1,0 +1,135 @@
+{
+  "artist": "Anthony Devine",
+  "artist_ids": [
+    "13a4bbe4-4e02-4403-8ecd-58f7744b994f"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753256,
+  "cmc": 3.0,
+  "collector_number": "22",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 8012,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Just one more thing . . .\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7a51d392-58dc-483e-81f7-2d51e64e54ff",
+  "illustration_id": "7376678f-e66a-4f03-b76c-db05fa42b83c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:24:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/a/7a51d392-58dc-483e-81f7-2d51e64e54ff.webp?1783913049",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/a/7a51d392-58dc-483e-81f7-2d51e64e54ff.jpg?1783913049",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/a/7a51d392-58dc-483e-81f7-2d51e64e54ff.jpg?1783913049",
+    "crop": "https://cards.scryfall.io/crop/front/7/a/7a51d392-58dc-483e-81f7-2d51e64e54ff.webp?1783913049",
+    "display": "https://cards.scryfall.io/display/front/7/a/7a51d392-58dc-483e-81f7-2d51e64e54ff.webp?1783913049",
+    "grid": "https://cards.scryfall.io/grid/front/7/a/7a51d392-58dc-483e-81f7-2d51e64e54ff.webp?1783913049",
+    "large": "https://cards.scryfall.io/large/front/7/a/7a51d392-58dc-483e-81f7-2d51e64e54ff.jpg?1783913049",
+    "normal": "https://cards.scryfall.io/normal/front/7/a/7a51d392-58dc-483e-81f7-2d51e64e54ff.jpg?1783913049",
+    "png": "https://cards.scryfall.io/png/front/7/a/7a51d392-58dc-483e-81f7-2d51e64e54ff.png?1783913049",
+    "small": "https://cards.scryfall.io/small/front/7/a/7a51d392-58dc-483e-81f7-2d51e64e54ff.jpg?1783913049",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/a/7a51d392-58dc-483e-81f7-2d51e64e54ff.webp?1783913049"
+  },
+  "keywords": [
+    "Flying",
+    "Flash"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 122798,
+  "multiverse_ids": [
+    649960
+  ],
+  "name": "Final-Word Phantom",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f07db0f7-7d25-4395-9af3-6b0ca9197b61",
+  "oracle_text": "Flash\nFlying\nDuring each opponent's end step, you may cast spells as though they had flash.",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": "0.95",
+    "eur_foil": null,
+    "tix": "4.38",
+    "usd": "1.98",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af07db0f7-7d25-4395-9af3-6b0ca9197b61&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122798?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753256&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535699%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Final-Word+Phantom",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=649960&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFinal-Word%2BPhantom",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFinal-Word%2BPhantom"
+  },
+  "released_at": "2024-02-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7a51d392-58dc-483e-81f7-2d51e64e54ff/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkc/22/final-word-phantom?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkc",
+  "set_id": "286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "set_name": "Murders at Karlov Manor Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "story_spotlight": false,
+  "tcgplayer_id": 535699,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Spirit Detective",
+  "uri": "https://api.scryfall.com/cards/7a51d392-58dc-483e-81f7-2d51e64e54ff",
+  "variation": false
+}

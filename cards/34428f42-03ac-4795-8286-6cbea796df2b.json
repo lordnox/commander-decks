@@ -1,0 +1,141 @@
+{
+  "artist": "Daniel Ljunggren",
+  "artist_ids": [
+    "0fbd4798-76eb-46d5-a5d4-1e3a25870e34"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 705833,
+  "cmc": 2.0,
+  "collector_number": "302",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 646,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b3d8c95e-09b9-46d6-80e9-95adb2c2ea9d",
+  "illustration_id": "a0a0a56a-2eda-4f2d-ada6-a4c2edd70ff8",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:32:19Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/3/b3d8c95e-09b9-46d6-80e9-95adb2c2ea9d.webp?1783917139",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/3/b3d8c95e-09b9-46d6-80e9-95adb2c2ea9d.jpg?1783917139",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/3/b3d8c95e-09b9-46d6-80e9-95adb2c2ea9d.jpg?1783917139",
+    "crop": "https://cards.scryfall.io/crop/front/b/3/b3d8c95e-09b9-46d6-80e9-95adb2c2ea9d.webp?1783917139",
+    "display": "https://cards.scryfall.io/display/front/b/3/b3d8c95e-09b9-46d6-80e9-95adb2c2ea9d.webp?1783917139",
+    "grid": "https://cards.scryfall.io/grid/front/b/3/b3d8c95e-09b9-46d6-80e9-95adb2c2ea9d.webp?1783917139",
+    "large": "https://cards.scryfall.io/large/front/b/3/b3d8c95e-09b9-46d6-80e9-95adb2c2ea9d.jpg?1783917139",
+    "normal": "https://cards.scryfall.io/normal/front/b/3/b3d8c95e-09b9-46d6-80e9-95adb2c2ea9d.jpg?1783917139",
+    "png": "https://cards.scryfall.io/png/front/b/3/b3d8c95e-09b9-46d6-80e9-95adb2c2ea9d.png?1783917139",
+    "small": "https://cards.scryfall.io/small/front/b/3/b3d8c95e-09b9-46d6-80e9-95adb2c2ea9d.jpg?1783917139",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/3/b3d8c95e-09b9-46d6-80e9-95adb2c2ea9d.webp?1783917139"
+  },
+  "keywords": [
+    "Adapt"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{G}",
+  "mtgo_id": 111060,
+  "multiverse_ids": [
+    612550
+  ],
+  "name": "Incubation Druid",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "34428f42-03ac-4795-8286-6cbea796df2b",
+  "oracle_text": "{T}: Add one mana of any type that a land you control could produce. If this creature has a +1/+1 counter on it, add three mana of that type instead.\n{3}{G}{G}: Adapt 3. (If this creature has no +1/+1 counters on it, put three +1/+1 counters on it.)",
+  "oversized": false,
+  "penny_rank": 4636,
+  "power": "0",
+  "prices": {
+    "eur": "1.75",
+    "eur_foil": null,
+    "tix": "1.16",
+    "usd": "2.87",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A34428f42-03ac-4795-8286-6cbea796df2b&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/111060?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=705833&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F491791%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Incubation+Druid",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=612550&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIncubation%2BDruid",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIncubation%2BDruid"
+  },
+  "released_at": "2023-04-21",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b3d8c95e-09b9-46d6-80e9-95adb2c2ea9d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/moc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/moc/302/incubation-druid?utm_source=api",
+  "security_stamp": "oval",
+  "set": "moc",
+  "set_id": "6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "set_name": "March of the Machine Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "story_spotlight": false,
+  "tcgplayer_id": 491791,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Elf Druid",
+  "uri": "https://api.scryfall.com/cards/b3d8c95e-09b9-46d6-80e9-95adb2c2ea9d",
+  "variation": false
+}

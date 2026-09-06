@@ -1,0 +1,189 @@
+{
+  "arena_id": 97483,
+  "artist": "Tetsuko",
+  "artist_ids": [
+    "c84b5825-0235-451f-bff2-9c54901c7a2f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Tetsuko",
+      "artist_id": "c84b5825-0235-451f-bff2-9c54901c7a2f",
+      "colors": [
+        "U",
+        "W"
+      ],
+      "illustration_id": "4b8ae5df-6efb-4bd0-aa42-b9c21ce8d048",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.webp?1783904937",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.jpg?1783904937",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.jpg?1783904937",
+        "crop": "https://cards.scryfall.io/crop/front/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.webp?1783904937",
+        "display": "https://cards.scryfall.io/display/front/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.webp?1783904937",
+        "grid": "https://cards.scryfall.io/grid/front/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.webp?1783904937",
+        "large": "https://cards.scryfall.io/large/front/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.jpg?1783904937",
+        "normal": "https://cards.scryfall.io/normal/front/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.jpg?1783904937",
+        "png": "https://cards.scryfall.io/png/front/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.png?1783904937",
+        "small": "https://cards.scryfall.io/small/front/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.jpg?1783904937",
+        "thumb": "https://cards.scryfall.io/thumb/front/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.webp?1783904937"
+      },
+      "mana_cost": "{1}{W}{U}",
+      "name": "Aang, Swift Savior",
+      "object": "card_face",
+      "oracle_text": "Flash\nFlying\nWhen Aang enters, airbend up to one other target creature or spell. (Exile it. While it's exiled, its owner may cast it for {2} rather than its mana cost.)\nWaterbend {8}: Transform Aang.",
+      "power": "2",
+      "toughness": "3",
+      "type_line": "Legendary Creature — Human Avatar Ally",
+      "watermark": "watertribe"
+    },
+    {
+      "artist": "Tetsuko",
+      "artist_id": "c84b5825-0235-451f-bff2-9c54901c7a2f",
+      "colors": [],
+      "flavor_text": "With the death of the moon spirit, the Avatar's tides of vengeance crashed over the Fire Nation fleet.",
+      "illustration_id": "10dd6227-6392-43cb-945f-dc9213330487",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.webp?1783904937",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.jpg?1783904937",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.jpg?1783904937",
+        "crop": "https://cards.scryfall.io/crop/back/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.webp?1783904937",
+        "display": "https://cards.scryfall.io/display/back/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.webp?1783904937",
+        "grid": "https://cards.scryfall.io/grid/back/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.webp?1783904937",
+        "large": "https://cards.scryfall.io/large/back/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.jpg?1783904937",
+        "normal": "https://cards.scryfall.io/normal/back/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.jpg?1783904937",
+        "png": "https://cards.scryfall.io/png/back/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.png?1783904937",
+        "small": "https://cards.scryfall.io/small/back/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.jpg?1783904937",
+        "thumb": "https://cards.scryfall.io/thumb/back/8/2/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4.webp?1783904937"
+      },
+      "mana_cost": "",
+      "name": "Aang and La, Ocean's Fury",
+      "object": "card_face",
+      "oracle_text": "Reach, trample\nWhenever Aang and La attack, put a +1/+1 counter on each tapped creature you control.",
+      "power": "5",
+      "toughness": "5",
+      "type_line": "Legendary Creature — Avatar Spirit Ally"
+    }
+  ],
+  "cardmarket_id": 857480,
+  "cmc": 3.0,
+  "collector_number": "204",
+  "color_identity": [
+    "U",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 3724,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:08:57Z",
+  "keywords": [
+    "Flying",
+    "Reach",
+    "Airbend",
+    "Transform",
+    "Trample",
+    "Flash",
+    "Waterbend"
+  ],
+  "lang": "en",
+  "layout": "transform",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 144896,
+  "multiverse_ids": [],
+  "name": "Aang, Swift Savior // Aang and La, Ocean's Fury",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cbf09050-39d0-463b-96db-9e22011ae0d8",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2025-10-31",
+    "source": "Avatar Legends",
+    "source_uri": "https://www.instagram.com/p/DQe9PSnDCjG/?img_index=2"
+  },
+  "prices": {
+    "eur": "3.11",
+    "eur_foil": "3.55",
+    "tix": "0.10",
+    "usd": "2.48",
+    "usd_etched": null,
+    "usd_foil": "3.30"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acbf09050-39d0-463b-96db-9e22011ae0d8&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/144896?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=857480&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F661919%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Aang%2C+Swift+Savior",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAang%252C%2BSwift%2BSavior%2B%252F%252F%2BAang%2Band%2BLa%252C%2BOcean%2527s%2BFury",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAang%252C%2BSwift%2BSavior%2B%252F%252F%2BAang%2Band%2BLa%252C%2BOcean%2527s%2BFury"
+  },
+  "released_at": "2025-11-21",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "A24AC7CD3DD8D40792635E2E500C3B216DB62F132D53BCCE1D057474A5031345",
+  "rulings_uri": "https://api.scryfall.com/cards/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tla?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tla/204/aang-swift-savior-aang-and-la-oceans-fury?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tla",
+  "set_id": "118f7e64-5caa-4cb7-99a8-184f4d3a7422",
+  "set_name": "Avatar: The Last Airbender",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atla&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/118f7e64-5caa-4cb7-99a8-184f4d3a7422",
+  "story_spotlight": false,
+  "tcgplayer_id": 661919,
+  "textless": false,
+  "type_line": "Legendary Creature — Human Avatar Ally // Legendary Creature — Avatar Spirit Ally",
+  "uri": "https://api.scryfall.com/cards/82866a0e-485a-4f7e-8c49-f7d9ff3f4ad4",
+  "variation": false
+}

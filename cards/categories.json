@@ -898,7 +898,7 @@
       "categories": [
         "commander-top"
       ],
-      "name": "Bartolom\u00e9 del Presidio"
+      "name": "Bartolomé del Presidio"
     },
     "f73da5d8-fd15-4315-ad3c-c86c28087285": {
       "categories": [
@@ -9275,8 +9275,408 @@
         "exile",
         "theft"
       ]
+    },
+    "25636214-c6ea-4655-a5e8-98e735da5b05": {
+      "name": "Ms. Bumbleflower",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "cbf09050-39d0-463b-96db-9e22011ae0d8": {
+      "name": "Aang, Swift Savior // Aang and La, Ocean's Fury",
+      "categories": [
+        "other"
+      ]
+    },
+    "a7c69802-99c4-4778-934e-cc09ba58c267": {
+      "name": "Basking Broodscale",
+      "categories": [
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "69facbc7-3859-4716-b627-5199571fb3cf": {
+      "name": "Chasm Skulker",
+      "categories": [
+        "card-draw",
+        "token-production"
+      ]
+    },
+    "e2cd65f6-7cbc-497c-bdc9-698ff17da31e": {
+      "name": "Cosmogrand Zenith",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "ee8c0b4c-03c5-4da5-b4f1-028c845384af": {
+      "name": "Dreamtide Whale",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "30367a59-a812-41d4-a451-80d9071dd4a4": {
+      "name": "Dusk Legion Duelist",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "f1409c9e-f0d9-49e1-b02e-d0f04a658331": {
+      "name": "Emrakul's Messenger",
+      "categories": [
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "c85d824b-c190-4d04-ab99-918ad0e6516c": {
+      "name": "Endurance",
+      "categories": [
+        "other"
+      ]
+    },
+    "f07db0f7-7d25-4395-9af3-6b0ca9197b61": {
+      "name": "Final-Word Phantom",
+      "categories": [
+        "other"
+      ]
+    },
+    "5f3f68b5-8c6a-4181-bb8a-9c73967d198a": {
+      "name": "Glen Elendra Archmage",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "8e04a5e0-e22c-430b-a39a-c9f38e16ea86": {
+      "name": "Guardian of Faith",
+      "categories": [
+        "other"
+      ]
+    },
+    "28c1a4a0-f58c-4d07-a918-51ff8a74f050": {
+      "name": "High Fae Trickster",
+      "categories": [
+        "other"
+      ]
+    },
+    "34428f42-03ac-4795-8286-6cbea796df2b": {
+      "name": "Incubation Druid",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "f8640899-2458-40f2-98a3-35c402ee9a7a": {
+      "name": "Jolrael, Mwonvuli Recluse",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "f122624f-f30d-444e-a62a-939829241045": {
+      "name": "Kami of Whispered Hopes",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "19ef0329-08de-4835-8079-2e791e19f3a6": {
+      "name": "Kid Loki",
+      "categories": [
+        "protection"
+      ]
+    },
+    "fe00278d-4385-4e3f-919c-12a794fd86f5": {
+      "name": "King T'Challa // Black Panther, Hope Enduring",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "e9117015-1050-44dd-a46b-e7ffe2085fae": {
+      "name": "Ledger Shredder",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "c112852f-61d5-4b94-b864-c7d0b5333b29": {
+      "name": "Loki, God of Mischief",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "a86117c1-b83d-4350-9a10-a23b7e67e1bd": {
+      "name": "Mikey & Leo, Chaos & Order",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "d4212d44-d6a0-4c5b-9c54-bc90f36828dd": {
+      "name": "Minn, Wily Illusionist",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "50d6fd91-23d3-4d32-804f-6233e4386904": {
+      "name": "Ouroboroid",
+      "categories": [
+        "other"
+      ]
+    },
+    "4b8736e2-fc41-4a25-bb6c-7351afc40981": {
+      "name": "Pensive Professor",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "761021ce-4559-464e-aa03-85c2fe78e267": {
+      "name": "Rishkar, Peema Renegade",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "b628a39b-c923-473d-900a-1617f47ecb76": {
+      "name": "Selvala, Explorer Returned",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "70dd5013-f18f-4501-882f-70590c424e20": {
+      "name": "Tataru Taru",
+      "categories": [
+        "card-draw",
+        "token-production"
+      ]
+    },
+    "e8d6084b-9b72-438e-a30a-851b888f3e4d": {
+      "name": "Whitemane Lion",
+      "categories": [
+        "other"
+      ]
+    },
+    "c8b143ad-43ec-4e0d-a440-e348daa31391": {
+      "name": "Swiftfoot Boots",
+      "categories": [
+        "protection"
+      ]
+    },
+    "1946ded1-5f53-409f-b0a6-5433bb0357d2": {
+      "name": "The Ozolith",
+      "categories": [
+        "other"
+      ]
+    },
+    "956381ba-6d37-4a8a-846c-bad79222dbee": {
+      "name": "Force of Will",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "9b9a10ff-5a5d-4df8-88aa-18d84ff9117c": {
+      "name": "Inspiring Call",
+      "categories": [
+        "card-draw",
+        "protection"
+      ]
+    },
+    "1a0770e6-b093-4439-baff-6889a50ba12e": {
+      "name": "Mental Misstep",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "bb27bfdf-fe8d-45bd-ad62-8118dce06eda": {
+      "name": "Rewind",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "45bcebd0-5e93-4433-b92f-b4c161d04bd6": {
+      "name": "Ripples of Potential",
+      "categories": [
+        "other"
+      ]
+    },
+    "3a128587-c751-4b27-b608-d4e47646b80e": {
+      "name": "View from Above",
+      "categories": [
+        "other"
+      ]
+    },
+    "38ece0fa-2c94-4eae-b6ab-74b783862f3e": {
+      "name": "Doomskar",
+      "categories": [
+        "board-wipe"
+      ]
+    },
+    "27905301-333e-4cdd-90cf-188159fcf8e9": {
+      "name": "Wear Down",
+      "categories": [
+        "card-draw",
+        "removal"
+      ]
+    },
+    "ae61b2ef-2e60-499a-8708-e37b9bd5620e": {
+      "name": "Aligned Heart",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "c01aeaa5-1d3b-4493-9575-30175dcd780d": {
+      "name": "Gleaming Splendor",
+      "categories": [
+        "card-draw",
+        "token-production"
+      ]
+    },
+    "ace8e88e-ca6a-4bdf-8c6d-1b914fc00259": {
+      "name": "Monologue Tax",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "5a060788-a601-4c01-8341-73398b497a85": {
+      "name": "On the Trail",
+      "categories": [
+        "other"
+      ]
+    },
+    "f349f58b-8cc8-45e4-9565-2b46fdf976c9": {
+      "name": "Trouble in Pairs",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "36f68aa3-9955-46f1-bc87-497f16ef5222": {
+      "name": "Wizard Class",
+      "categories": [
+        "ramp",
+        "card-draw"
+      ]
+    },
+    "5eb8b497-ec9a-4a89-ad29-1ec3ca82da7c": {
+      "name": "Brushland",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "dc974eb4-72b9-4213-887b-8ee684b93420": {
+      "name": "Flooded Grove",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "fb5a3403-7f0b-406c-8c4f-d693be010ca6": {
+      "name": "Hinterland Harbor",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "ccfb8b4d-651c-418a-aa19-cb23105b3f2f": {
+      "name": "Meticulous Archive",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "5ac8e01c-b0a7-4855-a122-1cd26b07c4a5": {
+      "name": "Overflowing Basin",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "5330e24a-8568-446e-840a-594cd08bd1bc": {
+      "name": "Prairie Stream",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "d1620449-930a-4895-a143-fd2a0a3c8b17": {
+      "name": "Rejuvenating Springs",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "c23e5b80-08d2-4e24-9908-fe2aa4f30f6f": {
+      "name": "Reliquary Tower",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "2ae77795-6a80-498b-bf69-6fd612f601e4": {
+      "name": "Seaside Citadel",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "76f335d0-7f71-4b1a-b60d-73de954cbe2c": {
+      "name": "Skycloud Expanse",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "0a28dff0-2bd6-4105-b73a-b6c4735833fd": {
+      "name": "Sungrass Prairie",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "f413a83d-a40d-434c-b20a-4c707c0527fa": {
+      "name": "Temple Garden",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "89f43e27-790b-4ca1-8ba7-0882b31e0783": {
+      "name": "Temple of Enlightenment",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "7e26f0b7-20e6-46d5-8130-d98c14d6aa29": {
+      "name": "Temple of Mystery",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "40b36bc6-c185-4bda-99e7-0118953c2c97": {
+      "name": "Yavimaya Coast",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "37c06f89-db36-4937-9404-2b07cd22e1a6": {
+      "name": "Dawn's Truce",
+      "categories": [
+        "card-draw",
+        "protection"
+      ]
+    },
+    "17b29350-4f37-4552-8192-4856b15345f9": {
+      "name": "Smuggler's Share",
+      "categories": [
+        "card-draw",
+        "token-production"
+      ]
+    },
+    "0d4ecdb1-ec90-497f-a7a4-1c68092b8757": {
+      "name": "Teferi's Protection",
+      "categories": [
+        "protection"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-01T21:25:19.795245+00:00"
+  "updated_at": "2026-09-06T17:13:47.646571+00:00"
 }

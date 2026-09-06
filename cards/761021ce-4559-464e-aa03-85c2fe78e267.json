@@ -1,0 +1,144 @@
+{
+  "artist": "Todd Lockwood",
+  "artist_ids": [
+    "d0b9f3cc-13fb-42b6-bc43-b034728e5c7b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 721921,
+  "cmc": 3.0,
+  "collector_number": "317",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 865,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Aether is the soul of Kaladesh, and all souls should be free.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "88f4aecc-b728-4960-8131-1e5aa6c3c030",
+  "illustration_id": "45fc4489-40d3-495c-995f-f025684d573c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:07:02Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/8/88f4aecc-b728-4960-8131-1e5aa6c3c030.webp?1783915622",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/8/88f4aecc-b728-4960-8131-1e5aa6c3c030.jpg?1783915622",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/8/88f4aecc-b728-4960-8131-1e5aa6c3c030.jpg?1783915622",
+    "crop": "https://cards.scryfall.io/crop/front/8/8/88f4aecc-b728-4960-8131-1e5aa6c3c030.webp?1783915622",
+    "display": "https://cards.scryfall.io/display/front/8/8/88f4aecc-b728-4960-8131-1e5aa6c3c030.webp?1783915622",
+    "grid": "https://cards.scryfall.io/grid/front/8/8/88f4aecc-b728-4960-8131-1e5aa6c3c030.webp?1783915622",
+    "large": "https://cards.scryfall.io/large/front/8/8/88f4aecc-b728-4960-8131-1e5aa6c3c030.jpg?1783915622",
+    "normal": "https://cards.scryfall.io/normal/front/8/8/88f4aecc-b728-4960-8131-1e5aa6c3c030.jpg?1783915622",
+    "png": "https://cards.scryfall.io/png/front/8/8/88f4aecc-b728-4960-8131-1e5aa6c3c030.png?1783915622",
+    "small": "https://cards.scryfall.io/small/front/8/8/88f4aecc-b728-4960-8131-1e5aa6c3c030.jpg?1783915622",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/8/88f4aecc-b728-4960-8131-1e5aa6c3c030.webp?1783915622"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "mtgo_id": 114863,
+  "multiverse_ids": [
+    627781
+  ],
+  "name": "Rishkar, Peema Renegade",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "761021ce-4559-464e-aa03-85c2fe78e267",
+  "oracle_text": "When Rishkar enters, put a +1/+1 counter on each of up to two target creatures.\nEach creature you control with a counter on it has \"{T}: Add {G}.\"",
+  "oversized": false,
+  "penny_rank": 3929,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2023-07-12",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.youtube.com/watch?v=3JghsHd5iMw"
+  },
+  "prices": {
+    "eur": "0.25",
+    "eur_foil": "0.58",
+    "tix": "0.04",
+    "usd": "0.25",
+    "usd_etched": null,
+    "usd_foil": "0.51"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A761021ce-4559-464e-aa03-85c2fe78e267&unique=prints",
+  "produced_mana": [
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/114863?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=721921&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F503606%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rishkar%2C+Peema+Renegade",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=627781&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRishkar%252C%2BPeema%2BRenegade",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRishkar%252C%2BPeema%2BRenegade"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/88f4aecc-b728-4960-8131-1e5aa6c3c030/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/317/rishkar-peema-renegade?utm_source=api",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 503606,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Elf Druid",
+  "uri": "https://api.scryfall.com/cards/88f4aecc-b728-4960-8131-1e5aa6c3c030",
+  "variation": false
+}

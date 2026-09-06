@@ -1,0 +1,143 @@
+{
+  "arena_id": 90908,
+  "artist": "Ron Spears",
+  "artist_ids": [
+    "fce9030b-86bd-4439-b06a-920a1eeb184c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 772104,
+  "cmc": 3.0,
+  "collector_number": "59",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1201,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "fd7dc03e-2a61-482a-b7eb-6cdb7f375fd8",
+  "illustration_id": "49acded0-1aab-4b06-bdb0-a2a02f3c1c44",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:54:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/d/fd7dc03e-2a61-482a-b7eb-6cdb7f375fd8.webp?1783911291",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/d/fd7dc03e-2a61-482a-b7eb-6cdb7f375fd8.jpg?1783911291",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/d/fd7dc03e-2a61-482a-b7eb-6cdb7f375fd8.jpg?1783911291",
+    "crop": "https://cards.scryfall.io/crop/front/f/d/fd7dc03e-2a61-482a-b7eb-6cdb7f375fd8.webp?1783911291",
+    "display": "https://cards.scryfall.io/display/front/f/d/fd7dc03e-2a61-482a-b7eb-6cdb7f375fd8.webp?1783911291",
+    "grid": "https://cards.scryfall.io/grid/front/f/d/fd7dc03e-2a61-482a-b7eb-6cdb7f375fd8.webp?1783911291",
+    "large": "https://cards.scryfall.io/large/front/f/d/fd7dc03e-2a61-482a-b7eb-6cdb7f375fd8.jpg?1783911291",
+    "normal": "https://cards.scryfall.io/normal/front/f/d/fd7dc03e-2a61-482a-b7eb-6cdb7f375fd8.jpg?1783911291",
+    "png": "https://cards.scryfall.io/png/front/f/d/fd7dc03e-2a61-482a-b7eb-6cdb7f375fd8.png?1783911291",
+    "small": "https://cards.scryfall.io/small/front/f/d/fd7dc03e-2a61-482a-b7eb-6cdb7f375fd8.jpg?1783911291",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/d/fd7dc03e-2a61-482a-b7eb-6cdb7f375fd8.webp?1783911291"
+  },
+  "keywords": [
+    "Vanishing",
+    "Proliferate"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 126135,
+  "multiverse_ids": [
+    662211
+  ],
+  "name": "Dreamtide Whale",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ee8c0b4c-03c5-4da5-b4f1-028c845384af",
+  "oracle_text": "Vanishing 2 (This creature enters with two time counters on it. At the beginning of your upkeep, remove a time counter from it. When the last is removed, sacrifice it.)\nWhenever a player casts their second spell each turn, proliferate. (Choose any number of permanents and/or players, then give each another counter of each kind already there.)",
+  "oversized": false,
+  "penny_rank": 5344,
+  "power": "7",
+  "preview": {
+    "previewed_at": "2024-05-28",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/products/modern-horizons-3/card-image-gallery"
+  },
+  "prices": {
+    "eur": "3.38",
+    "eur_foil": "3.97",
+    "tix": "0.02",
+    "usd": "2.84",
+    "usd_etched": null,
+    "usd_foil": "3.11"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aee8c0b4c-03c5-4da5-b4f1-028c845384af&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126135?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=772104&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552815%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dreamtide+Whale",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=662211&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDreamtide%2BWhale",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDreamtide%2BWhale"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/fd7dc03e-2a61-482a-b7eb-6cdb7f375fd8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/59/dreamtide-whale?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552815,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Creature — Whale",
+  "uri": "https://api.scryfall.com/cards/fd7dc03e-2a61-482a-b7eb-6cdb7f375fd8",
+  "variation": false
+}
