@@ -41,6 +41,8 @@ bun run build
 
 The first command writes public replay JSON and `games.json` under ignored
 `site/public/`; Vite writes the complete static site to ignored `dist/`.
+The archive lists games newest-first, with a play-order number (oldest = #1)
+and the time each table was recorded.
 GitHub Actions performs the same build and deploys `dist/`. Once Pages uses
 **GitHub Actions** as its source, the live index is
 [lordnox.github.io/commander-decks](https://lordnox.github.io/commander-decks/).

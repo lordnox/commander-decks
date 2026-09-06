@@ -131,7 +131,9 @@ bun run build
 
 `site:prepare` runs `table:render` and then `table:pages`.
 `build_pages.py` regenerates `site/public/games.json` from the replay JSON, so
-a new game appears in the React index without hand-editing it. It warns about a
+a new game appears in the React index without hand-editing it. The index is
+newest-first and includes `played_at` plus a play-order `index` (oldest game
+is 1). It warns about a
 `site/public/replays/*.json` whose source log is gone instead of deleting it; remove
 that file yourself once the game is really retired.
 
