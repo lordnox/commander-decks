@@ -1,0 +1,133 @@
+{
+  "artist": "D. Alexander Gregory",
+  "artist_ids": [
+    "38433e15-f0f5-4223-a985-2d13c4aa0922"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 3544,
+  "cmc": 4.0,
+  "collector_number": "255",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "colors": [
+    "B",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 30055,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ff307dbb-4ab6-457b-be56-47106864bf61",
+  "illustration_id": "17ec7800-b950-4a0a-a285-71ffcb413685",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:27:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/f/ff307dbb-4ab6-457b-be56-47106864bf61.webp?1783945660",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/f/ff307dbb-4ab6-457b-be56-47106864bf61.jpg?1783945660",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/f/ff307dbb-4ab6-457b-be56-47106864bf61.jpg?1783945660",
+    "crop": "https://cards.scryfall.io/crop/front/f/f/ff307dbb-4ab6-457b-be56-47106864bf61.webp?1783945660",
+    "display": "https://cards.scryfall.io/display/front/f/f/ff307dbb-4ab6-457b-be56-47106864bf61.webp?1783945660",
+    "grid": "https://cards.scryfall.io/grid/front/f/f/ff307dbb-4ab6-457b-be56-47106864bf61.webp?1783945660",
+    "large": "https://cards.scryfall.io/large/front/f/f/ff307dbb-4ab6-457b-be56-47106864bf61.jpg?1783945660",
+    "normal": "https://cards.scryfall.io/normal/front/f/f/ff307dbb-4ab6-457b-be56-47106864bf61.jpg?1783945660",
+    "png": "https://cards.scryfall.io/png/front/f/f/ff307dbb-4ab6-457b-be56-47106864bf61.png?1783945660",
+    "small": "https://cards.scryfall.io/small/front/f/f/ff307dbb-4ab6-457b-be56-47106864bf61.jpg?1783945660",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/f/ff307dbb-4ab6-457b-be56-47106864bf61.webp?1783945660"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}{B}",
+  "mtgo_foil_id": 14474,
+  "mtgo_id": 14473,
+  "multiverse_ids": [
+    23170
+  ],
+  "name": "Lobotomy",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a7ebe748-c3de-402f-8a6e-236a6413c0f8",
+  "oracle_text": "Target player reveals their hand, then you choose a card other than a basic land card from it. Search that player's graveyard, hand, and library for all cards with the same name as the chosen card and exile them. Then that player shuffles.",
+  "oversized": false,
+  "penny_rank": 2859,
+  "prices": {
+    "eur": "0.30",
+    "eur_foil": "3.12",
+    "tix": "0.04",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": "4.84"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa7ebe748-c3de-402f-8a6e-236a6413c0f8&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/14473?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=3544&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F7548%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Lobotomy",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=23170&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLobotomy",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLobotomy"
+  },
+  "released_at": "2000-10-02",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ff307dbb-4ab6-457b-be56-47106864bf61/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/inv?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/inv/255/lobotomy?utm_source=api",
+  "set": "inv",
+  "set_id": "b9ae5e02-7726-47ca-b5e4-5ec402b41cd1",
+  "set_name": "Invasion",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ainv&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/b9ae5e02-7726-47ca-b5e4-5ec402b41cd1",
+  "story_spotlight": false,
+  "tcgplayer_id": 7548,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/ff307dbb-4ab6-457b-be56-47106864bf61",
+  "variation": false
+}

@@ -1,0 +1,144 @@
+{
+  "arena_id": 93907,
+  "artist": "Raymond Swanland",
+  "artist_ids": [
+    "e956bacc-077d-4c12-b6bc-ba798b718af9"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 795378,
+  "cmc": 6.0,
+  "collector_number": "194",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 268,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The storm rages and the earth breaks.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b6af9894-95b5-4c8e-902f-a9ba70f02e4a",
+  "illustration_id": "a32e3b92-e0b6-47c9-a5a1-ed9c8e568e96",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:17:47Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/6/b6af9894-95b5-4c8e-902f-a9ba70f02e4a.webp?1783909067",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/6/b6af9894-95b5-4c8e-902f-a9ba70f02e4a.jpg?1783909067",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/6/b6af9894-95b5-4c8e-902f-a9ba70f02e4a.jpg?1783909067",
+    "crop": "https://cards.scryfall.io/crop/front/b/6/b6af9894-95b5-4c8e-902f-a9ba70f02e4a.webp?1783909067",
+    "display": "https://cards.scryfall.io/display/front/b/6/b6af9894-95b5-4c8e-902f-a9ba70f02e4a.webp?1783909067",
+    "grid": "https://cards.scryfall.io/grid/front/b/6/b6af9894-95b5-4c8e-902f-a9ba70f02e4a.webp?1783909067",
+    "large": "https://cards.scryfall.io/large/front/b/6/b6af9894-95b5-4c8e-902f-a9ba70f02e4a.jpg?1783909067",
+    "normal": "https://cards.scryfall.io/normal/front/b/6/b6af9894-95b5-4c8e-902f-a9ba70f02e4a.jpg?1783909067",
+    "png": "https://cards.scryfall.io/png/front/b/6/b6af9894-95b5-4c8e-902f-a9ba70f02e4a.png?1783909067",
+    "small": "https://cards.scryfall.io/small/front/b/6/b6af9894-95b5-4c8e-902f-a9ba70f02e4a.jpg?1783909067",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/6/b6af9894-95b5-4c8e-902f-a9ba70f02e4a.webp?1783909067"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{R}{R}",
+  "mtgo_id": 133414,
+  "multiverse_ids": [
+    679936
+  ],
+  "name": "Etali, Primal Storm",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "078def07-ae5d-4591-8db6-d156834aab97",
+  "oracle_text": "Whenever Etali attacks, exile the top card of each player's library, then you may cast any number of spells from among those cards without paying their mana costs.",
+  "oversized": false,
+  "penny_rank": 4994,
+  "power": "6",
+  "preview": {
+    "previewed_at": "2024-10-28",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.47",
+    "eur_foil": "0.62",
+    "tix": "0.02",
+    "usd": "0.67",
+    "usd_etched": null,
+    "usd_foil": "0.77"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A078def07-ae5d-4591-8db6-d156834aab97&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/133414?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=795378&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F589767%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Etali%2C+Primal+Storm",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=679936&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEtali%252C%2BPrimal%2BStorm",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEtali%252C%2BPrimal%2BStorm"
+  },
+  "released_at": "2024-11-15",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b6af9894-95b5-4c8e-902f-a9ba70f02e4a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fdn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fdn/194/etali-primal-storm?utm_source=api",
+  "security_stamp": "oval",
+  "set": "fdn",
+  "set_id": "a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "set_name": "Foundations",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afdn&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/a7ecb771-d1b6-4dec-8cf5-8d45179f21e0",
+  "story_spotlight": false,
+  "tcgplayer_id": 589767,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Legendary Creature — Elder Dinosaur",
+  "uri": "https://api.scryfall.com/cards/b6af9894-95b5-4c8e-902f-a9ba70f02e4a",
+  "variation": false
+}

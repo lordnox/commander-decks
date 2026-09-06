@@ -1,0 +1,131 @@
+{
+  "artist": "Matt Cavotta",
+  "artist_ids": [
+    "2e6a0611-9411-4ba4-98e3-c0e18cbf9f83"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 2497,
+  "cmc": 1.0,
+  "collector_number": "85",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 16569,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "To say Nixar had a splitting headache would be a bit of an understatement.",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "97f99a3d-d811-4666-aac8-5957068157dc",
+  "illustration_id": "bc9d700b-8404-4a29-bfde-3c73eae64b74",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:21:00Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/7/97f99a3d-d811-4666-aac8-5957068157dc.webp?1783945260",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/7/97f99a3d-d811-4666-aac8-5957068157dc.jpg?1783945260",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/7/97f99a3d-d811-4666-aac8-5957068157dc.jpg?1783945260",
+    "crop": "https://cards.scryfall.io/crop/front/9/7/97f99a3d-d811-4666-aac8-5957068157dc.webp?1783945260",
+    "display": "https://cards.scryfall.io/display/front/9/7/97f99a3d-d811-4666-aac8-5957068157dc.webp?1783945260",
+    "grid": "https://cards.scryfall.io/grid/front/9/7/97f99a3d-d811-4666-aac8-5957068157dc.webp?1783945260",
+    "large": "https://cards.scryfall.io/large/front/9/7/97f99a3d-d811-4666-aac8-5957068157dc.jpg?1783945260",
+    "normal": "https://cards.scryfall.io/normal/front/9/7/97f99a3d-d811-4666-aac8-5957068157dc.jpg?1783945260",
+    "png": "https://cards.scryfall.io/png/front/9/7/97f99a3d-d811-4666-aac8-5957068157dc.png?1783945260",
+    "small": "https://cards.scryfall.io/small/front/9/7/97f99a3d-d811-4666-aac8-5957068157dc.jpg?1783945260",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/7/97f99a3d-d811-4666-aac8-5957068157dc.webp?1783945260"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_foil_id": 16898,
+  "mtgo_id": 16897,
+  "multiverse_ids": [
+    29849
+  ],
+  "name": "Extract",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "36e937a9-e15e-4404-bcdd-c2b0943a34ad",
+  "oracle_text": "Search target player's library for a card and exile it. Then that player shuffles.",
+  "oversized": false,
+  "prices": {
+    "eur": "2.39",
+    "eur_foil": "20.24",
+    "tix": "0.28",
+    "usd": "5.04",
+    "usd_etched": null,
+    "usd_foil": "33.79"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A36e937a9-e15e-4404-bcdd-c2b0943a34ad&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/16897?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=2497&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F9360%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Extract",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=29849&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DExtract",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DExtract"
+  },
+  "released_at": "2001-10-01",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/97f99a3d-d811-4666-aac8-5957068157dc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ody?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ody/85/extract?utm_source=api",
+  "set": "ody",
+  "set_id": "b0d90d2d-494a-4224-bfa0-36ce5ee281b1",
+  "set_name": "Odyssey",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aody&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/b0d90d2d-494a-4224-bfa0-36ce5ee281b1",
+  "story_spotlight": false,
+  "tcgplayer_id": 9360,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/97f99a3d-d811-4666-aac8-5957068157dc",
+  "variation": false
+}

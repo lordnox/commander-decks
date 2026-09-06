@@ -1,0 +1,2326 @@
+{
+  "cards": [
+    {
+      "cache": "cards/60f3857d-2dcd-427e-aa0f-e2028bbc5acc.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}{B}{R}",
+        "oracle_text": "Whenever The Madcap Jester attacks, each opponent exiles the top card of their library.\nWhenever a spell or ability you control causes one or more cards to be exiled from an opponent's library, you may play those cards until the end of your next turn. Mana of any type can be spent to cast spells this way.",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Clown Wizard"
+      },
+      "categories": [
+        "Commander{top}"
+      ],
+      "category_source": "decklist",
+      "name": "The Madcap Jester",
+      "oracle_id": "60f3857d-2dcd-427e-aa0f-e2028bbc5acc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/44/the-madcap-jester?utm_source=api",
+      "submitted_categories": [
+        "Commander{top}"
+      ],
+      "submitted_name": "The Madcap Jester"
+    },
+    {
+      "cache": "cards/3378fef3-4d8c-4d9e-a338-4abb6f70d410.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Enchant",
+          "Scry"
+        ],
+        "mana_cost": "{U}",
+        "oracle_text": "Enchant creature\nEnchanted creature can't be blocked.\nWhenever enchanted creature attacks, scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "evasion",
+        "scry"
+      ],
+      "category_source": "deck",
+      "name": "Aqueous Form",
+      "oracle_id": "3378fef3-4d8c-4d9e-a338-4abb6f70d410",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmr/56/aqueous-form?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Aqueous Form"
+    },
+    {
+      "cache": "cards/7c779721-cd1b-4696-9ae9-68ccc284ed2a.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Return all attacking creatures to their owner's hand.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "board-wipe",
+        "bounce"
+      ],
+      "category_source": "deck",
+      "name": "Aetherize",
+      "oracle_id": "7c779721-cd1b-4696-9ae9-68ccc284ed2a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/151/aetherize?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Aetherize"
+    },
+    {
+      "cache": "cards/13ff3222-91cb-4796-a34e-899ed817694c.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {B} or {R}.)",
+        "produced_mana": [
+          "B",
+          "R"
+        ],
+        "type_line": "Land — Swamp Mountain"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Badlands",
+      "oracle_id": "13ff3222-91cb-4796-a34e-899ed817694c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/30a/570/badlands?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Badlands"
+    },
+    {
+      "cache": "cards/37688720-03de-4eca-a82d-a0afe8d58adc.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Deathtouch",
+          "Flying"
+        ],
+        "mana_cost": "{U}{B}",
+        "oracle_text": "Flying, deathtouch\nWhen this creature enters, draw a card.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Artifact Creature — Bird"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "universal",
+      "name": "Baleful Strix",
+      "oracle_id": "37688720-03de-4eca-a82d-a0afe8d58adc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/215/baleful-strix?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Baleful Strix"
+    },
+    {
+      "cache": "cards/c02fdb2e-10bb-49fc-bce0-b31b6fad8e38.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Gravestorm"
+        ],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Search target player's library for a card and exile it. Then that player shuffles.\nGravestorm (When you cast this spell, copy it for each permanent put into a graveyard this turn. You may choose new targets for the copies.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "exile",
+        "library-control"
+      ],
+      "category_source": "deck",
+      "name": "Bitter Ordeal",
+      "oracle_id": "c02fdb2e-10bb-49fc-bce0-b31b6fad8e38",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fut/80/bitter-ordeal?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Bitter Ordeal"
+    },
+    {
+      "cache": "cards/43985bbc-a0f6-4812-984e-392bc8562633.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {B} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "produced_mana": [
+          "B",
+          "R"
+        ],
+        "type_line": "Land — Swamp Mountain"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Blood Crypt",
+      "oracle_id": "43985bbc-a0f6-4812-984e-392bc8562633",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/278/blood-crypt?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Blood Crypt"
+    },
+    {
+      "cache": "cards/04b7362d-0490-4cb0-b5d7-2a7732f659ce.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\nWhen this land enters, exile target player's graveyard.\n{T}: Add {B}.",
+        "produced_mana": [
+          "B"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "universal",
+      "name": "Bojuka Bog",
+      "oracle_id": "04b7362d-0490-4cb0-b5d7-2a7732f659ce",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/363/bojuka-bog?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Bojuka Bog"
+    },
+    {
+      "cache": "cards/c20a96f7-aa5a-4c15-b8b1-806685c99b27.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{R}",
+        "oracle_text": "This spell costs {3} less to cast if you control a creature with power 4 or greater.\nChange the target of target spell or ability with a single target.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "universal",
+      "name": "Bolt Bend",
+      "oracle_id": "c20a96f7-aa5a-4c15-b8b1-806685c99b27",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tle/163/bolt-bend?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Bolt Bend"
+    },
+    {
+      "cache": "cards/0b95c115-6745-4ce1-896b-9021e93c161e.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "{4}, {T}: Target opponent exiles cards from the top of their library until they exile an instant or sorcery card. You may cast that card without paying its mana cost. Then put the exiled cards that weren't cast this way on the bottom of that library in a random order.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "exile",
+        "theft"
+      ],
+      "category_source": "deck",
+      "name": "Chaos Wand",
+      "oracle_id": "0b95c115-6745-4ce1-896b-9021e93c161e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/254/chaos-wand?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Chaos Wand"
+    },
+    {
+      "cache": "cards/07a0cba9-8768-4fd9-a3d5-b0f83b4bf8e8.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{R}",
+        "oracle_text": "The owner of target permanent shuffles it into their library, then reveals the top card of their library. If it's a permanent card, they put it onto the battlefield.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "universal",
+      "name": "Chaos Warp",
+      "oracle_id": "07a0cba9-8768-4fd9-a3d5-b0f83b4bf8e8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/72/chaos-warp?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Chaos Warp"
+    },
+    {
+      "cache": "cards/05878e49-93ad-4144-9c50-a0bb86126c2e.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Draw two cards. Then discard a card unless you attacked this turn.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "card-draw",
+        "discard"
+      ],
+      "category_source": "universal",
+      "name": "Chart a Course",
+      "oracle_id": "05878e49-93ad-4144-9c50-a0bb86126c2e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/586/chart-a-course?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Chart a Course"
+    },
+    {
+      "cache": "cards/f25351e3-539b-4bbc-b92d-6480acf4d722.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "Whenever this land becomes tapped, it deals 1 damage to you.\n{T}: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "City of Brass",
+      "oracle_id": "f25351e3-539b-4bbc-b92d-6480acf4d722",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmc/62/city-of-brass?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "City of Brass"
+    },
+    {
+      "cache": "cards/008cb342-79f5-4df6-a6b7-0e9e22ed693f.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "{T}: Add one mana of any color.\n{T}: Put a charge counter on this artifact.\nAt the beginning of your first main phase, remove all charge counters from this artifact. Add one mana of any color for each charge counter removed this way.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp",
+        "mana-fixing"
+      ],
+      "category_source": "universal",
+      "name": "Coalition Relic",
+      "oracle_id": "008cb342-79f5-4df6-a6b7-0e9e22ed693f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmc/180/coalition-relic?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Coalition Relic"
+    },
+    {
+      "cache": "cards/21d700e8-0255-418e-96a0-6fe05b3f836d.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "This artifact enters tapped.\nAs this artifact enters, choose a color.\n{T}: Add one mana of the chosen color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Snow Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Coldsteel Heart",
+      "oracle_id": "21d700e8-0255-418e-96a0-6fe05b3f836d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2x2/301/coldsteel-heart?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Coldsteel Heart"
+    },
+    {
+      "cache": "cards/0895c9b7-ae7d-4bb3-af17-3b75deb50a25.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "universal",
+      "name": "Command Tower",
+      "oracle_id": "0895c9b7-ae7d-4bb3-af17-3b75deb50a25",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/233/command-tower?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Command Tower"
+    },
+    {
+      "cache": "cards/f947808c-a1cc-41ea-9d06-e1279a0da527.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Target player draws three cards. Then that player discards two cards unless they discard a land card.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "card-draw",
+        "discard"
+      ],
+      "category_source": "deck",
+      "name": "Compulsive Research",
+      "oracle_id": "f947808c-a1cc-41ea-9d06-e1279a0da527",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/147/compulsive-research?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Compulsive Research"
+    },
+    {
+      "cache": "cards/9b55fb72-237d-4935-b645-8ebc6eb4140e.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{U}{B}",
+        "oracle_text": "Consuming Aberration's power and toughness are each equal to the number of cards in your opponents' graveyards.\nWhenever you cast a spell, each opponent reveals cards from the top of their library until they reveal a land card, then puts those cards into their graveyard.",
+        "power": "*",
+        "toughness": "*",
+        "type_line": "Creature — Horror"
+      },
+      "categories": [
+        "mill",
+        "win-condition"
+      ],
+      "category_source": "deck",
+      "name": "Consuming Aberration",
+      "oracle_id": "9b55fb72-237d-4935-b645-8ebc6eb4140e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/283/consuming-aberration?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Consuming Aberration"
+    },
+    {
+      "cache": "cards/6106ba65-f07b-41ec-8b59-e052bbde5529.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{B}{B}",
+        "oracle_text": "When this enchantment enters, you become the monarch.\nAt the beginning of your upkeep, exile the top card of target opponent's library. You may play that card for as long as it remains exiled, and mana of any type can be spent to cast it. If you're the monarch, until end of turn, you may cast a spell from among cards exiled with this enchantment without paying its mana cost.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "exile",
+        "theft",
+        "monarch"
+      ],
+      "category_source": "deck",
+      "name": "Court of Locthwain",
+      "oracle_id": "6106ba65-f07b-41ec-8b59-e052bbde5529",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/woc/23/court-of-locthwain?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Court of Locthwain"
+    },
+    {
+      "cache": "cards/7190debf-708b-4f41-9714-0d0a5bd5a74e.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {U}, {B}, or {R}.",
+        "produced_mana": [
+          "B",
+          "R",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Crumbling Necropolis",
+      "oracle_id": "7190debf-708b-4f41-9714-0d0a5bd5a74e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/237/crumbling-necropolis?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Crumbling Necropolis"
+    },
+    {
+      "cache": "cards/e7eb7ac8-08ab-419b-8508-987afd0bb93b.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Whenever an opponent attacks you and/or one or more planeswalkers you control, exile the top card of that player's library. You may play that card for as long as it remains exiled, and you may spend mana as though it were mana of any color to cast it.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "exile",
+        "theft"
+      ],
+      "category_source": "universal",
+      "name": "Cunning Rhetoric",
+      "oracle_id": "e7eb7ac8-08ab-419b-8508-987afd0bb93b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/129/cunning-rhetoric?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Cunning Rhetoric"
+    },
+    {
+      "cache": "cards/4869a530-757f-4364-8d8e-4dc8001f433c.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{1}, {T}: Add {U}{B}.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Darkwater Catacombs",
+      "oracle_id": "4869a530-757f-4364-8d8e-4dc8001f433c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/355/darkwater-catacombs?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Darkwater Catacombs"
+    },
+    {
+      "cache": "cards/7d881c57-0bd9-4c57-aa4a-b10808b86143.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{1}, {T}: Add {U}{B}.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Dimir Signet",
+      "oracle_id": "7d881c57-0bd9-4c57-aa4a-b10808b86143",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clu/221/dimir-signet?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Dimir Signet"
+    },
+    {
+      "cache": "cards/63398c02-6fb1-481d-9d9f-81063532fbc0.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control a Swamp or a Mountain.\n{T}: Add {B} or {R}.",
+        "produced_mana": [
+          "B",
+          "R"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Dragonskull Summit",
+      "oracle_id": "63398c02-6fb1-481d-9d9f-81063532fbc0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/238/dragonskull-summit?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Dragonskull Summit"
+    },
+    {
+      "cache": "cards/819fc966-434e-470f-91e9-a38df974ad17.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control an Island or a Swamp.\n{T}: Add {U} or {B}.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Drowned Catacomb",
+      "oracle_id": "819fc966-434e-470f-91e9-a38df974ad17",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/239/drowned-catacomb?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Drowned Catacomb"
+    },
+    {
+      "cache": "cards/f8526509-2e14-4ac0-b1de-cf4ee7d4f875.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Prowl"
+        ],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Prowl {2}{B} (You may cast this for its prowl cost if you dealt combat damage to a player this turn with a Goblin or Rogue.)\nWhen this creature enters, if its prowl cost was paid, search target opponent's library for three cards and exile them. Then that player shuffles.",
+        "power": "5",
+        "toughness": "3",
+        "type_line": "Creature — Goblin Rogue"
+      },
+      "categories": [
+        "exile",
+        "library-control"
+      ],
+      "category_source": "deck",
+      "name": "Earwig Squad",
+      "oracle_id": "f8526509-2e14-4ac0-b1de-cf4ee7d4f875",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mma/82/earwig-squad?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Earwig Squad"
+    },
+    {
+      "cache": "cards/16090270-0ac5-404c-b0c8-a6c8a4b508a4.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{R}{R}",
+        "oracle_text": "Each opponent faces a villainous choice — They exile cards from the top of their library until they exile a nonland card, then you may cast that card without paying its mana cost, or that player exiles the top four cards of their library and Ensnared by the Mara deals damage equal to the total mana value of those exiled cards to that player.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "exile",
+        "theft"
+      ],
+      "category_source": "deck",
+      "name": "Ensnared by the Mara",
+      "oracle_id": "16090270-0ac5-404c-b0c8-a6c8a4b508a4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/who/84/ensnared-by-the-mara?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Ensnared by the Mara"
+    },
+    {
+      "cache": "cards/078def07-ae5d-4591-8db6-d156834aab97.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{4}{R}{R}",
+        "oracle_text": "Whenever Etali attacks, exile the top card of each player's library, then you may cast any number of spells from among those cards without paying their mana costs.",
+        "power": "6",
+        "toughness": "6",
+        "type_line": "Legendary Creature — Elder Dinosaur"
+      },
+      "categories": [
+        "exile",
+        "theft"
+      ],
+      "category_source": "deck",
+      "name": "Etali, Primal Storm",
+      "oracle_id": "078def07-ae5d-4591-8db6-d156834aab97",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/194/etali-primal-storm?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Etali, Primal Storm"
+    },
+    {
+      "cache": "cards/27b047e3-0d41-45e2-98e9-9391d7923a1e.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "universal",
+      "name": "Exotic Orchard",
+      "oracle_id": "27b047e3-0d41-45e2-98e9-9391d7923a1e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/79/exotic-orchard?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Exotic Orchard"
+    },
+    {
+      "cache": "cards/36e937a9-e15e-4404-bcdd-c2b0943a34ad.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{U}",
+        "oracle_text": "Search target player's library for a card and exile it. Then that player shuffles.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "exile",
+        "library-control"
+      ],
+      "category_source": "deck",
+      "name": "Extract",
+      "oracle_id": "36e937a9-e15e-4404-bcdd-c2b0943a34ad",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ody/85/extract?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Extract"
+    },
+    {
+      "cache": "cards/437b2dab-15e0-4b9a-a204-58622d37a3b3.json",
+      "card": {
+        "cmc": 4,
+        "keywords": [],
+        "mana_cost": "{3}{U}",
+        "oracle_text": "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "universal",
+      "name": "Fact or Fiction",
+      "oracle_id": "437b2dab-15e0-4b9a-a204-58622d37a3b3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/91/fact-or-fiction?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Fact or Fiction"
+    },
+    {
+      "cache": "cards/3d6fa57a-aa53-4b5c-b8af-a7612c823117.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Flashback"
+        ],
+        "mana_cost": "{R}",
+        "oracle_text": "Draw two cards, then discard two cards.\nFlashback {2}{R} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "card-draw",
+        "discard"
+      ],
+      "category_source": "universal",
+      "name": "Faithless Looting",
+      "oracle_id": "3d6fa57a-aa53-4b5c-b8af-a7612c823117",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/244/faithless-looting?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Faithless Looting"
+    },
+    {
+      "cache": "cards/4fc5f871-a809-4a4a-adfb-eb4cd52837c8.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Ninjutsu"
+        ],
+        "mana_cost": "{3}{U}{B}",
+        "oracle_text": "Ninjutsu {2}{U}{B} ({2}{U}{B}, Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand tapped and attacking.)\nWhenever this creature deals combat damage to a player, that player exiles the top two cards of their library. Until end of turn, you may play those cards without paying their mana costs.",
+        "power": "5",
+        "toughness": "4",
+        "type_line": "Creature — Zombie Ninja"
+      },
+      "categories": [
+        "exile",
+        "theft"
+      ],
+      "category_source": "deck",
+      "name": "Fallen Shinobi",
+      "oracle_id": "4fc5f871-a809-4a4a-adfb-eb4cd52837c8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/226/fallen-shinobi?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Fallen Shinobi"
+    },
+    {
+      "cache": "cards/5825997b-10d7-4a36-972c-a80ddd90b8ed.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Destroy target creature or enchantment an opponent controls. You lose life equal to that permanent's mana value.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "universal",
+      "name": "Feed the Swarm",
+      "oracle_id": "5825997b-10d7-4a36-972c-a80ddd90b8ed",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tle/257/feed-the-swarm?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Feed the Swarm"
+    },
+    {
+      "cache": "cards/95560508-7ac9-4be9-8a3f-3c7d5b52807b.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Fellwar Stone",
+      "oracle_id": "95560508-7ac9-4be9-8a3f-3c7d5b52807b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/74/fellwar-stone?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Fellwar Stone"
+    },
+    {
+      "cache": "cards/aee82122-d13e-4175-b499-9dde718e4da9.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Flashback"
+        ],
+        "mana_cost": "{U}{B}",
+        "oracle_text": "Look at the top two cards of target opponent's library. Exile one of them face down and put the other on the bottom of that library. You may play the exiled card for as long as it remains exiled, and you may spend mana as though it were mana of any color to cast that spell.\nFlashback {1}{U}{B}",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "exile",
+        "theft"
+      ],
+      "category_source": "deck",
+      "name": "Siphon Insight",
+      "oracle_id": "aee82122-d13e-4175-b499-9dde718e4da9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/242/siphon-insight?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Siphon Insight"
+    },
+    {
+      "cache": "cards/16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}",
+        "oracle_text": "Draw two cards, then discard two cards. Untap up to three lands.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "card-draw",
+        "discard"
+      ],
+      "category_source": "universal",
+      "name": "Frantic Search",
+      "oracle_id": "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tle/159/frantic-search?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Frantic Search"
+    },
+    {
+      "cache": "cards/e16f79c1-ffbb-4893-b62a-d4e9d15e2b16.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Treasure"
+        ],
+        "mana_cost": "{2}{B}{B}",
+        "oracle_text": "Whenever a player casts a spell they don't own, that player creates a Treasure token.\nWhenever a creature deals combat damage to one of your opponents, its controller looks at the top card of that opponent's library and exiles it face down. They may play that card for as long as it remains exiled. Mana of any type can be spent to cast a spell this way.",
+        "power": "3",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Aetherborn Rogue"
+      },
+      "categories": [
+        "exile",
+        "theft",
+        "token-production"
+      ],
+      "category_source": "universal",
+      "name": "Gonti, Night Minister",
+      "oracle_id": "e16f79c1-ffbb-4893-b62a-d4e9d15e2b16",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dft/87/gonti-night-minister?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Gonti, Night Minister"
+    },
+    {
+      "cache": "cards/fa798a3d-7797-4795-b251-a45f0429d169.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "{2}, {T}, Sacrifice this artifact: Search target opponent's library for a card and exile it. Then that player shuffles. Until the beginning of your next upkeep, you may play that card. At the beginning of your next upkeep, if you haven't played it, put it into its owner's graveyard.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "exile",
+        "theft",
+        "tutor"
+      ],
+      "category_source": "universal",
+      "name": "Grinning Totem",
+      "oracle_id": "fa798a3d-7797-4795-b251-a45f0429d169",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsb/110/grinning-totem?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Grinning Totem"
+    },
+    {
+      "cache": "cards/30ec73ad-c7a1-4527-8dc6-44bdd65b9ba6.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "Change the target of target spell with a single target. You lose life equal to that spell's mana value.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "protection",
+        "interaction"
+      ],
+      "category_source": "universal",
+      "name": "Imp's Mischief",
+      "oracle_id": "30ec73ad-c7a1-4527-8dc6-44bdd65b9ba6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/167/imps-mischief?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Imp's Mischief"
+    },
+    {
+      "cache": "cards/b2c6aa39-2d2a-459c-a555-fb48ba993373.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U}.)",
+        "produced_mana": [
+          "U"
+        ],
+        "type_line": "Basic Land — Island"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Island",
+      "oracle_id": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
+      "quantity": 3,
+      "scryfall_uri": "https://scryfall.com/card/trk/319/island?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Island"
+    },
+    {
+      "cache": "cards/2fda4fe7-8b0c-489c-a000-6d358e614e34.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{1}, {T}: Add {U}{R}.",
+        "produced_mana": [
+          "R",
+          "U"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Izzet Signet",
+      "oracle_id": "2fda4fe7-8b0c-489c-a000-6d358e614e34",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/320/izzet-signet?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Izzet Signet"
+    },
+    {
+      "cache": "cards/8783a94a-d0b2-4291-a550-dbcf8e16bf4b.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "{2}, {T}, Sacrifice this artifact: Search target player's library for three cards and exile them. Then that player shuffles.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "exile",
+        "library-control"
+      ],
+      "category_source": "universal",
+      "name": "Jester's Cap",
+      "oracle_id": "8783a94a-d0b2-4291-a550-dbcf8e16bf4b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmr/227/jesters-cap?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Jester's Cap"
+    },
+    {
+      "cache": "cards/396b943c-b45d-4e5b-a9c1-f70bc603ee9f.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "When this artifact enters, exile the top five cards of target player's library face down. You may look at those cards for as long as they remain exiled.\n{2}, {T}, Put a card exiled with this artifact into its owner's graveyard: Counter target spell if it has the same name as that card.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "counterspell",
+        "exile"
+      ],
+      "category_source": "universal",
+      "name": "Jester's Scepter",
+      "oracle_id": "396b943c-b45d-4e5b-a9c1-f70bc603ee9f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/csp/137/jesters-scepter?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Jester's Scepter"
+    },
+    {
+      "cache": "cards/cb53bd72-dee8-46fa-b0f9-1eee3a99379a.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Imprint"
+        ],
+        "mana_cost": "{6}",
+        "oracle_text": "Imprint — When this artifact enters, each player exiles the top three cards of their library.\nWhenever a player casts a spell from their hand, that player exiles it. If the player does, they may cast a spell from among other cards exiled with this artifact without paying its mana cost.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "exile",
+        "theft"
+      ],
+      "category_source": "universal",
+      "name": "Knowledge Pool",
+      "oracle_id": "cb53bd72-dee8-46fa-b0f9-1eee3a99379a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbs/111/knowledge-pool?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Knowledge Pool"
+    },
+    {
+      "cache": "cards/a7ebe748-c3de-402f-8a6e-236a6413c0f8.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{U}{B}",
+        "oracle_text": "Target player reveals their hand, then you choose a card other than a basic land card from it. Search that player's graveyard, hand, and library for all cards with the same name as the chosen card and exile them. Then that player shuffles.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "exile",
+        "library-control"
+      ],
+      "category_source": "deck",
+      "name": "Lobotomy",
+      "oracle_id": "a7ebe748-c3de-402f-8a6e-236a6413c0f8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inv/255/lobotomy?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Lobotomy"
+    },
+    {
+      "cache": "cards/819e1765-8325-4e6f-89c1-63ea86de369f.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {B} or {R}.",
+        "produced_mana": [
+          "B",
+          "R"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Luxury Suite",
+      "oracle_id": "819e1765-8325-4e6f-89c1-63ea86de369f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/252/luxury-suite?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Luxury Suite"
+    },
+    {
+      "cache": "cards/a731e87b-8d99-4b64-8ee3-8e540d652366.json",
+      "card": {
+        "cmc": 1.0,
+        "faces": [
+          {
+            "mana_cost": "{B}",
+            "name": "Malakir Rebirth",
+            "oracle_text": "Choose target creature. You lose 2 life. Until end of turn, that creature gains \"When this creature dies, return it to the battlefield tapped under its owner's control.\"",
+            "type_line": "Instant"
+          },
+          {
+            "mana_cost": "",
+            "name": "Malakir Mire",
+            "oracle_text": "This land enters tapped.\n{T}: Add {B}.",
+            "type_line": "Land"
+          }
+        ],
+        "keywords": [],
+        "produced_mana": [
+          "B"
+        ],
+        "type_line": "Instant // Land"
+      },
+      "categories": [
+        "land",
+        "protection"
+      ],
+      "category_source": "deck",
+      "name": "Malakir Rebirth // Malakir Mire",
+      "oracle_id": "a731e87b-8d99-4b64-8ee3-8e540d652366",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/znr/111/malakir-rebirth-malakir-mire?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Malakir Rebirth // Malakir Mire"
+    },
+    {
+      "cache": "cards/0179bc62-823e-46b9-b536-342904fedafc.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{R}{R}",
+        "oracle_text": "{T}, Exile this artifact: Each player exiles the top seven cards of their library. Until your next turn, players may play cards they exiled this way, and they can't play cards from their hand. Activate only as a sorcery.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "exile",
+        "theft"
+      ],
+      "category_source": "deck",
+      "name": "Memory Vessel",
+      "oracle_id": "0179bc62-823e-46b9-b536-342904fedafc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/big/13/memory-vessel?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Memory Vessel"
+    },
+    {
+      "cache": "cards/c97361b5-af16-4a7b-af85-a429dbaf4ad2.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add {C}.\n{1}, {T}, Sacrifice this artifact: Draw a card.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Mind Stone",
+      "oracle_id": "c97361b5-af16-4a7b-af85-a429dbaf4ad2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/76/mind-stone?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Mind Stone"
+    },
+    {
+      "cache": "cards/bd004c9d-771e-4e63-a97d-a2259c096af8.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {U} or {B}.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Morphic Pool",
+      "oracle_id": "bd004c9d-771e-4e63-a97d-a2259c096af8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/357/morphic-pool?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Morphic Pool"
+    },
+    {
+      "cache": "cards/a3fb7228-e76b-4e96-a40e-20b5fed75685.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {R}.)",
+        "produced_mana": [
+          "R"
+        ],
+        "type_line": "Basic Land — Mountain"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Mountain",
+      "oracle_id": "a3fb7228-e76b-4e96-a40e-20b5fed75685",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/323/mountain?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Mountain"
+    },
+    {
+      "cache": "cards/613a8774-165e-4cf6-ad43-124f9ffc9980.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Flying",
+          "Crew"
+        ],
+        "mana_cost": "{4}",
+        "oracle_text": "Flying\nWhen this Vehicle enters, exile target player's graveyard.\nWhenever this Vehicle deals combat damage to a player, you may put a creature card exiled with this Vehicle onto the battlefield under your control.\nCrew 3",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Artifact — Vehicle"
+      },
+      "categories": [
+        "graveyard-hate",
+        "exile",
+        "theft"
+      ],
+      "category_source": "universal",
+      "name": "Nautiloid Ship",
+      "oracle_id": "613a8774-165e-4cf6-ad43-124f9ffc9980",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/328/nautiloid-ship?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Nautiloid Ship"
+    },
+    {
+      "cache": "cards/cee06ea6-8bad-4858-b78e-04879a825bbe.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Equip"
+        ],
+        "mana_cost": "{2}",
+        "oracle_text": "Equipped creature has shroud. (It can't be the target of spells or abilities.)\n{U}{U}: Attach this Equipment to target creature you control.\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)",
+        "type_line": "Artifact — Equipment"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "deck",
+      "name": "Neurok Stealthsuit",
+      "oracle_id": "cee06ea6-8bad-4858-b78e-04879a825bbe",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/5dn/140/neurok-stealthsuit?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Neurok Stealthsuit"
+    },
+    {
+      "cache": "cards/7ffae8f8-3006-4969-a339-6d30678f87ea.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{B}",
+        "oracle_text": "You draw two cards and lose 2 life.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "deck",
+      "name": "Night's Whisper",
+      "oracle_id": "7ffae8f8-3006-4969-a339-6d30678f87ea",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/hoc/189/nights-whisper?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Night's Whisper"
+    },
+    {
+      "cache": "cards/d39b9f64-dc9b-413f-8d05-e21ef46d6756.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{6}",
+        "oracle_text": "When you cast this spell, target opponent exiles the top four cards of their library, then you may put any number of land cards that player owns from exile onto the battlefield under your control.",
+        "power": "5",
+        "toughness": "8",
+        "type_line": "Creature — Eldrazi"
+      },
+      "categories": [
+        "exile",
+        "ramp"
+      ],
+      "category_source": "deck",
+      "name": "Oblivion Sower",
+      "oracle_id": "d39b9f64-dc9b-413f-8d05-e21ef46d6756",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/77/oblivion-sower?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Oblivion Sower"
+    },
+    {
+      "cache": "cards/e9b6a394-691c-425a-9307-76d8edc7375e.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Channel"
+        ],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {U}.\nChannel — {3}{U}, Discard this card: Return target artifact, creature, enchantment, or planeswalker to its owner's hand. This ability costs {1} less to activate for each legendary creature you control.",
+        "produced_mana": [
+          "U"
+        ],
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "removal"
+      ],
+      "category_source": "universal",
+      "name": "Otawara, Soaring City",
+      "oracle_id": "e9b6a394-691c-425a-9307-76d8edc7375e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/271/otawara-soaring-city?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Otawara, Soaring City"
+    },
+    {
+      "cache": "cards/58a2d15f-1b4b-4303-b524-8cc0d1b3e7d2.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Converge"
+        ],
+        "mana_cost": "{2}{B}",
+        "oracle_text": "Converge — You draw X cards and lose X life, where X is the number of colors of mana spent to cast this spell.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "universal",
+      "name": "Painful Truths",
+      "oracle_id": "58a2d15f-1b4b-4303-b524-8cc0d1b3e7d2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecc/82/painful-truths?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Painful Truths"
+    },
+    {
+      "cache": "cards/e3056f28-868b-401a-a528-7528d639bdeb.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add {C}.\n{1}, {T}: Add one mana of any color.",
+        "produced_mana": [
+          "B",
+          "C",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Prismatic Lens",
+      "oracle_id": "e3056f28-868b-401a-a528-7528d639bdeb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/264/prismatic-lens?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Prismatic Lens"
+    },
+    {
+      "cache": "cards/e5128230-3535-4f77-8b97-20d0791e7b1d.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Whenever an opponent shuffles their library, you may look at the top two cards of that library. You may exile one of those cards. Then put the rest on top of that library in any order.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "exile",
+        "library-control"
+      ],
+      "category_source": "deck",
+      "name": "Psychic Surgery",
+      "oracle_id": "e5128230-3535-4f77-8b97-20d0791e7b1d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/nph/44/psychic-surgery?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Psychic Surgery"
+    },
+    {
+      "cache": "cards/5e62b51d-faec-4aa0-9504-cf2c282d08ea.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{B}{R}",
+        "oracle_text": "Choose one —\n• Exile target player's graveyard.\n• Destroy target artifact.\n• Each creature deals 1 damage to its controller.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "universal",
+      "name": "Rakdos Charm",
+      "oracle_id": "5e62b51d-faec-4aa0-9504-cf2c282d08ea",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/125/rakdos-charm?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Rakdos Charm"
+    },
+    {
+      "cache": "cards/3adb7681-977f-4a32-9ec8-51481b958268.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{1}, {T}: Add {B}{R}.",
+        "produced_mana": [
+          "B",
+          "R"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Rakdos Signet",
+      "oracle_id": "3adb7681-977f-4a32-9ec8-51481b958268",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/250/rakdos-signet?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Rakdos Signet"
+    },
+    {
+      "cache": "cards/70dc830e-d05b-4fc7-88dd-879e140b3fbf.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Manifest"
+        ],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Exile target creature. Its controller manifests the top card of their library. (That player puts the top card of their library onto the battlefield face down as a 2/2 creature. If it's a creature card, it can be turned face up any time for its mana cost.)",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "universal",
+      "name": "Reality Shift",
+      "oracle_id": "70dc830e-d05b-4fc7-88dd-879e140b3fbf",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/199/reality-shift?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Reality Shift"
+    },
+    {
+      "cache": "cards/1579bf86-4400-4467-88e8-1c5ba1209804.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}{B}",
+        "oracle_text": "Return target permanent to its owner's hand. Then that player discards a card.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "removal",
+        "discard"
+      ],
+      "category_source": "deck",
+      "name": "Recoil",
+      "oracle_id": "1579bf86-4400-4467-88e8-1c5ba1209804",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmr/197/recoil?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Recoil"
+    },
+    {
+      "cache": "cards/f29dc596-2121-4421-8463-15f6c2e8b9b3.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{4}, {T}: Target creature can't be blocked this turn.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "universal",
+      "name": "Rogue's Passage",
+      "oracle_id": "f29dc596-2121-4421-8463-15f6c2e8b9b3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/hoc/212/rogues-passage?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Rogue's Passage"
+    },
+    {
+      "cache": "cards/68abaca6-a86a-46e3-b5b8-9860bb6425d2.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "{U}: This creature gains flying until end of turn.\nWhenever this creature deals combat damage to a player, you may pay {2}. If you do, search that player's library for a card and exile it, then the player shuffles.",
+        "power": "1",
+        "toughness": "2",
+        "type_line": "Creature — Merfolk Rogue"
+      },
+      "categories": [
+        "exile",
+        "library-control"
+      ],
+      "category_source": "deck",
+      "name": "Rootwater Thief",
+      "oracle_id": "68abaca6-a86a-46e3-b5b8-9860bb6425d2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/nem/40/rootwater-thief?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Rootwater Thief"
+    },
+    {
+      "cache": "cards/e3d08582-85ba-48c4-a453-4a5a385a0c3e.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Kicker"
+        ],
+        "mana_cost": "{B}{B}{B}",
+        "oracle_text": "Kicker {7} (You may pay an additional {7} as you cast this spell.)\nSearch target player's library for up to three cards, exile them, then that player shuffles. If this spell was kicked, instead search that player's library for up to fifteen cards, exile them, then that player shuffles.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "exile",
+        "library-control"
+      ],
+      "category_source": "universal",
+      "name": "Sadistic Sacrament",
+      "oracle_id": "e3d08582-85ba-48c4-a453-4a5a385a0c3e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/zen/110/sadistic-sacrament?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Sadistic Sacrament"
+    },
+    {
+      "cache": "cards/15687ee3-3cdb-4a8f-a726-46b73bceb792.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{1}, {T}: Add {B}{R}.",
+        "produced_mana": [
+          "B",
+          "R"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Shadowblood Ridge",
+      "oracle_id": "15687ee3-3cdb-4a8f-a726-46b73bceb792",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/296/shadowblood-ridge?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Shadowblood Ridge"
+    },
+    {
+      "cache": "cards/0fe16212-66c3-4e45-a641-7391e9b2e304.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {U} or {R}. This land deals 1 damage to you.",
+        "produced_mana": [
+          "C",
+          "R",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Shivan Reef",
+      "oracle_id": "0fe16212-66c3-4e45-a641-7391e9b2e304",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/404/shivan-reef?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Shivan Reef"
+    },
+    {
+      "cache": "cards/c6207f6a-a624-4754-88f5-dbe700c841ff.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{B}{B}",
+        "oracle_text": "Target player draws two cards and loses 2 life.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "deck",
+      "name": "Sign in Blood",
+      "oracle_id": "c6207f6a-a624-4754-88f5-dbe700c841ff",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/156/sign-in-blood?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Sign in Blood"
+    },
+    {
+      "cache": "cards/bcc6eece-75ea-494c-b33a-d4477d504e0b.json",
+      "card": {
+        "cmc": 3.0,
+        "faces": [
+          {
+            "mana_cost": "{1}{U}{U}",
+            "name": "Sink into Stupor",
+            "oracle_text": "Return target spell or nonland permanent an opponent controls to its owner's hand.",
+            "type_line": "Instant"
+          },
+          {
+            "mana_cost": "",
+            "name": "Soporific Springs",
+            "oracle_text": "As this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {U}.",
+            "type_line": "Land"
+          }
+        ],
+        "keywords": [],
+        "produced_mana": [
+          "U"
+        ],
+        "type_line": "Instant // Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Sink into Stupor // Soporific Springs",
+      "oracle_id": "bcc6eece-75ea-494c-b33a-d4477d504e0b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/241/sink-into-stupor-soporific-springs?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Sink into Stupor // Soporific Springs"
+    },
+    {
+      "cache": "cards/ed6607f4-20ab-4d3f-a8af-bcc148423336.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Devoid"
+        ],
+        "mana_cost": "{4}{U}{B}",
+        "oracle_text": "Devoid (This card has no color.)\nWhenever a land an opponent controls enters, that player exiles the top two cards of their library and you draw two cards.",
+        "power": "5",
+        "toughness": "7",
+        "type_line": "Creature — Eldrazi"
+      },
+      "categories": [
+        "exile",
+        "card-draw"
+      ],
+      "category_source": "deck",
+      "name": "Sire of Stagnation",
+      "oracle_id": "ed6607f4-20ab-4d3f-a8af-bcc148423336",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/bfz/206/sire-of-stagnation?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Sire of Stagnation"
+    },
+    {
+      "cache": "cards/390f1b56-264e-4336-83be-dc1fe79bfdcf.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {B} or {R}.)\nThis land enters tapped unless you control two or more basic lands.",
+        "produced_mana": [
+          "B",
+          "R"
+        ],
+        "type_line": "Land — Swamp Mountain"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Smoldering Marsh",
+      "oracle_id": "390f1b56-264e-4336-83be-dc1fe79bfdcf",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/266/smoldering-marsh?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Smoldering Marsh"
+    },
+    {
+      "cache": "cards/b5e9599f-9561-4e3f-9904-9a4dab98cabb.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "This artifact enters tapped.\n{T}: Add one mana of any color that a basic land you control could produce.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp",
+        "mana-fixing"
+      ],
+      "category_source": "universal",
+      "name": "Star Compass",
+      "oracle_id": "b5e9599f-9561-4e3f-9904-9a4dab98cabb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ima/229/star-compass?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Star Compass"
+    },
+    {
+      "cache": "cards/17039058-822d-409f-938c-b727a366ba63.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "produced_mana": [
+          "R",
+          "U"
+        ],
+        "type_line": "Land — Island Mountain"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Steam Vents",
+      "oracle_id": "17039058-822d-409f-938c-b727a366ba63",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/298/steam-vents?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Steam Vents"
+    },
+    {
+      "cache": "cards/6807167a-e290-4259-940e-3cbbfa75d0a1.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{4}{R}",
+        "oracle_text": "At the beginning of your upkeep, exile the top card of each opponent's library. Until end of turn, you may cast spells from among those exiled cards, and you may spend mana as though it were mana of any color to cast those spells.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "exile",
+        "theft"
+      ],
+      "category_source": "deck",
+      "name": "Stolen Strategy",
+      "oracle_id": "6807167a-e290-4259-940e-3cbbfa75d0a1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/807/stolen-strategy?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Stolen Strategy"
+    },
+    {
+      "cache": "cards/4722105b-0085-4bb8-bca1-9de0d3eb5600.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control two or more other lands.\n{T}: Add {U} or {R}.",
+        "produced_mana": [
+          "R",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Stormcarved Coast",
+      "oracle_id": "4722105b-0085-4bb8-bca1-9de0d3eb5600",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sos/263/stormcarved-coast?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Stormcarved Coast"
+    },
+    {
+      "cache": "cards/6a6c5e17-6465-4a1f-9d63-8a3ce2edc522.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you control an Island or a Mountain.\n{T}: Add {U} or {R}.",
+        "produced_mana": [
+          "R",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Sulfur Falls",
+      "oracle_id": "6a6c5e17-6465-4a1f-9d63-8a3ce2edc522",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/269/sulfur-falls?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Sulfur Falls"
+    },
+    {
+      "cache": "cards/f5c38c01-4a40-469f-91a0-7479daf4e8e7.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {B} or {R}. This land deals 1 damage to you.",
+        "produced_mana": [
+          "B",
+          "C",
+          "R"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Sulfurous Springs",
+      "oracle_id": "f5c38c01-4a40-469f-91a0-7479daf4e8e7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/185/sulfurous-springs?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Sulfurous Springs"
+    },
+    {
+      "cache": "cards/cd2c90ac-2b04-461c-92f3-939871b6b6a3.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped unless you control two or more basic lands.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land — Island Swamp"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Sunken Hollow",
+      "oracle_id": "cd2c90ac-2b04-461c-92f3-939871b6b6a3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/271/sunken-hollow?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Sunken Hollow"
+    },
+    {
+      "cache": "cards/56719f6a-1a6c-4c0a-8d21-18f7d7350b68.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {B}.)",
+        "produced_mana": [
+          "B"
+        ],
+        "type_line": "Basic Land — Swamp"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "universal",
+      "name": "Swamp",
+      "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
+      "quantity": 2,
+      "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Swamp"
+    },
+    {
+      "cache": "cards/ac2dd694-d2f1-4025-8400-12332bdc882a.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Mill",
+          "Channel"
+        ],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {B}.\nChannel — {3}{B}, Discard this card: Mill three cards, then return a creature or planeswalker card from your graveyard to your hand. This ability costs {1} less to activate for each legendary creature you control.",
+        "produced_mana": [
+          "B"
+        ],
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "recursion",
+        "discard"
+      ],
+      "category_source": "universal",
+      "name": "Takenuma, Abandoned Mire",
+      "oracle_id": "ac2dd694-d2f1-4025-8400-12332bdc882a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/278/takenuma-abandoned-mire?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Takenuma, Abandoned Mire"
+    },
+    {
+      "cache": "cards/e352f5b9-6406-4914-bc79-f24608be6bc9.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{U}{U}",
+        "oracle_text": "Each opponent exiles cards from the top of their library until that player has exiled cards with total mana value 20 or greater.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "exile",
+        "theft"
+      ],
+      "category_source": "deck",
+      "name": "Tasha's Hideous Laughter",
+      "oracle_id": "e352f5b9-6406-4914-bc79-f24608be6bc9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/afr/78/tashas-hideous-laughter?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Tasha's Hideous Laughter"
+    },
+    {
+      "cache": "cards/6257c2fd-005f-41e3-8a72-af76df1eb134.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{B}{R}",
+        "oracle_text": "Destroy target creature. It can't be regenerated.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "universal",
+      "name": "Terminate",
+      "oracle_id": "6257c2fd-005f-41e3-8a72-af76df1eb134",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/189/terminate?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Terminate"
+    },
+    {
+      "cache": "cards/a9a84fbb-0972-4a3d-bdae-a3b01219b35d.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Landwalk",
+          "Islandwalk"
+        ],
+        "mana_cost": "{1}{U}{U}",
+        "oracle_text": "Islandwalk (This creature can't be blocked as long as defending player controls an Island.)\nWhenever Thada Adel deals combat damage to a player, search that player's library for an artifact card and exile it. Then that player shuffles. Until end of turn, you may play that card.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Merfolk Rogue"
+      },
+      "categories": [
+        "theft",
+        "exile"
+      ],
+      "category_source": "universal",
+      "name": "Thada Adel, Acquisitor",
+      "oracle_id": "a9a84fbb-0972-4a3d-bdae-a3b01219b35d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/wwk/40/thada-adel-acquisitor?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Thada Adel, Acquisitor"
+    },
+    {
+      "cache": "cards/68b51d58-7566-4a26-8c31-8da32799bea7.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{1}{U}{B}",
+        "oracle_text": "Flying\nWhenever this creature deals combat damage to a player, look at the top three cards of that player's library, exile one of them face down, then put the rest into their graveyard. You may cast that card for as long as it remains exiled, and mana of any type can be spent to cast that spell.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Specter"
+      },
+      "categories": [
+        "exile",
+        "theft"
+      ],
+      "category_source": "universal",
+      "name": "Thief of Sanity",
+      "oracle_id": "68b51d58-7566-4a26-8c31-8da32799bea7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/243/thief-of-sanity?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Thief of Sanity"
+    },
+    {
+      "cache": "cards/e3570ac7-c593-40e3-bbd6-ec3da6d8158d.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {U} or {R}.",
+        "produced_mana": [
+          "R",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Training Center",
+      "oracle_id": "e3570ac7-c593-40e3-bbd6-ec3da6d8158d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/434/training-center?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Training Center"
+    },
+    {
+      "cache": "cards/766c644c-04fe-4b01-93dd-09a50d78d01f.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "If a player would draw a card, that player exiles that card face up instead.\nEach player may play lands and cast spells from among cards they exiled with this artifact this turn.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "exile",
+        "theft"
+      ],
+      "category_source": "deck",
+      "name": "Uba Mask",
+      "oracle_id": "766c644c-04fe-4b01-93dd-09a50d78d01f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/chk/272/uba-mask?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Uba Mask"
+    },
+    {
+      "cache": "cards/857febd9-cdd7-4f8e-a852-d88084b0cfbc.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}: Add {U} or {B}. This land deals 1 damage to you.",
+        "produced_mana": [
+          "B",
+          "C",
+          "U"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Underground River",
+      "oracle_id": "857febd9-cdd7-4f8e-a852-d88084b0cfbc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/321/underground-river?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Underground River"
+    },
+    {
+      "cache": "cards/4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U} or {B}.)",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land — Island Swamp"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Underground Sea",
+      "oracle_id": "4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/30a/578/underground-sea?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Underground Sea"
+    },
+    {
+      "cache": "cards/c718911c-c955-4eb9-9e16-be4bd49a4e4e.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U} or {R}.)",
+        "produced_mana": [
+          "R",
+          "U"
+        ],
+        "type_line": "Land — Island Mountain"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Volcanic Island",
+      "oracle_id": "c718911c-c955-4eb9-9e16-be4bd49a4e4e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sum/291/volcanic-island?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Volcanic Island"
+    },
+    {
+      "cache": "cards/8f1123dd-19b7-402b-8ecd-ab62494c9fd5.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{R}",
+        "oracle_text": "{4}, {T}: Roll a d20. Each opponent exiles cards from the top of their library until they exile an instant or sorcery card, then shuffles the rest into their library. You may cast up to X instant and/or sorcery spells from among cards exiled this way without paying their mana costs.\n1—9 | X is one.\n10—19 | X is two.\n20 | X is three.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "exile",
+        "theft"
+      ],
+      "category_source": "deck",
+      "name": "Wand of Wonder",
+      "oracle_id": "8f1123dd-19b7-402b-8ecd-ab62494c9fd5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/204/wand-of-wonder?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Wand of Wonder"
+    },
+    {
+      "cache": "cards/fc9ec820-4245-4a96-b009-5308a818ca58.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "produced_mana": [
+          "B",
+          "U"
+        ],
+        "type_line": "Land — Island Swamp"
+      },
+      "categories": [
+        "land",
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Watery Grave",
+      "oracle_id": "fc9ec820-4245-4a96-b009-5308a818ca58",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/306/watery-grave?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Watery Grave"
+    },
+    {
+      "cache": "cards/31f15274-301b-47c5-ba19-0ced04520878.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "{2}, {T}, Sacrifice this artifact: Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "universal",
+      "name": "Wayfarer's Bauble",
+      "oracle_id": "31f15274-301b-47c5-ba19-0ced04520878",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/hoc/211/wayfarers-bauble?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Wayfarer's Bauble"
+    },
+    {
+      "cache": "cards/9ad4f730-a18e-4a7c-a468-a926c718c741.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Equip"
+        ],
+        "mana_cost": "{3}",
+        "oracle_text": "Equipped creature can't be blocked and has shroud. (It can't be the target of spells or abilities.)\nEquip {2}",
+        "type_line": "Artifact — Equipment"
+      },
+      "categories": [
+        "protection",
+        "evasion"
+      ],
+      "category_source": "deck",
+      "name": "Whispersilk Cloak",
+      "oracle_id": "9ad4f730-a18e-4a7c-a468-a926c718c741",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/225/whispersilk-cloak?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Whispersilk Cloak"
+    },
+    {
+      "cache": "cards/8291543f-d086-48aa-b2b7-5481ca8c9198.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Cycling"
+        ],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {U}, {B}, or {R}.)\nThis land enters tapped.\nCycling {3} ({3}, Discard this card: Draw a card.)",
+        "produced_mana": [
+          "B",
+          "R",
+          "U"
+        ],
+        "type_line": "Land — Island Swamp Mountain"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ],
+      "category_source": "universal",
+      "name": "Xander's Lounge",
+      "oracle_id": "8291543f-d086-48aa-b2b7-5481ca8c9198",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/snc/260/xanders-lounge?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Xander's Lounge"
+    },
+    {
+      "cache": "cards/467c526a-02a7-405d-98de-c632ea83519b.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{R}",
+        "oracle_text": "Choose one —\n• Break Their Chains — Destroy target artifact.\n• Interrogate Them — Exile the top three cards of target opponent's library. Choose one of them. Until the end of your next turn, you may play that card, and you may spend mana as though it were mana of any color to cast it.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "exile",
+        "theft",
+        "removal"
+      ],
+      "category_source": "deck",
+      "name": "You Find Some Prisoners",
+      "oracle_id": "467c526a-02a7-405d-98de-c632ea83519b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/afr/169/you-find-some-prisoners?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "You Find Some Prisoners"
+    }
+  ],
+  "categorized_cards": 97,
+  "generated_at": "2026-09-06T22:29:04.901227+00:00",
+  "maybeboard_cards": 0,
+  "maybeboard_unique_cards": 0,
+  "resolved_unique_cards": 97,
+  "schema_version": 3,
+  "source": "decks/3-_madcap-jester-tutor-your-deck/decklist.txt",
+  "total_cards": 100,
+  "unique_cards": 97,
+  "unresolved": []
+}

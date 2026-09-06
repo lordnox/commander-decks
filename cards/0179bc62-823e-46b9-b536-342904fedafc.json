@@ -1,0 +1,132 @@
+{
+  "arena_id": 90674,
+  "artist": "Diego Gisbert",
+  "artist_ids": [
+    "3f4e975d-092c-40e4-b850-2d582bf4b5cb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764291,
+  "cmc": 5.0,
+  "collector_number": "13",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 15668,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2e37a5cd-887d-4b41-97f7-ae0bba85436b",
+  "illustration_id": "be3d7d06-a6a3-40d4-9306-4593c64b070c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:06:39Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/e/2e37a5cd-887d-4b41-97f7-ae0bba85436b.webp?1783911999",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/e/2e37a5cd-887d-4b41-97f7-ae0bba85436b.jpg?1783911999",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/e/2e37a5cd-887d-4b41-97f7-ae0bba85436b.jpg?1783911999",
+    "crop": "https://cards.scryfall.io/crop/front/2/e/2e37a5cd-887d-4b41-97f7-ae0bba85436b.webp?1783911999",
+    "display": "https://cards.scryfall.io/display/front/2/e/2e37a5cd-887d-4b41-97f7-ae0bba85436b.webp?1783911999",
+    "grid": "https://cards.scryfall.io/grid/front/2/e/2e37a5cd-887d-4b41-97f7-ae0bba85436b.webp?1783911999",
+    "large": "https://cards.scryfall.io/large/front/2/e/2e37a5cd-887d-4b41-97f7-ae0bba85436b.jpg?1783911999",
+    "normal": "https://cards.scryfall.io/normal/front/2/e/2e37a5cd-887d-4b41-97f7-ae0bba85436b.jpg?1783911999",
+    "png": "https://cards.scryfall.io/png/front/2/e/2e37a5cd-887d-4b41-97f7-ae0bba85436b.png?1783911999",
+    "small": "https://cards.scryfall.io/small/front/2/e/2e37a5cd-887d-4b41-97f7-ae0bba85436b.jpg?1783911999",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/e/2e37a5cd-887d-4b41-97f7-ae0bba85436b.webp?1783911999"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{R}{R}",
+  "mtgo_id": 125387,
+  "multiverse_ids": [
+    660309
+  ],
+  "name": "Memory Vessel",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0179bc62-823e-46b9-b536-342904fedafc",
+  "oracle_text": "{T}, Exile this artifact: Each player exiles the top seven cards of their library. Until your next turn, players may play cards they exiled this way, and they can't play cards from their hand. Activate only as a sorcery.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.38",
+    "eur_foil": "0.48",
+    "tix": "0.02",
+    "usd": "0.34",
+    "usd_etched": null,
+    "usd_foil": "0.48"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0179bc62-823e-46b9-b536-342904fedafc&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/125387?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764291&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544940%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Memory+Vessel",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=660309&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMemory%2BVessel",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMemory%2BVessel"
+  },
+  "released_at": "2024-04-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2e37a5cd-887d-4b41-97f7-ae0bba85436b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/big?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/big/13/memory-vessel?utm_source=api",
+  "security_stamp": "oval",
+  "set": "big",
+  "set_id": "14332d2c-ba93-4498-bf3f-9d601f88f783",
+  "set_name": "The Big Score",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abig&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/14332d2c-ba93-4498-bf3f-9d601f88f783",
+  "story_spotlight": false,
+  "tcgplayer_id": 544940,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/2e37a5cd-887d-4b41-97f7-ae0bba85436b",
+  "variation": false
+}

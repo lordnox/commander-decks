@@ -1,0 +1,132 @@
+{
+  "arena_id": 77274,
+  "artist": "Lie Setiawan",
+  "artist_ids": [
+    "6f771d3f-310e-4aa4-841f-5ba4ba9f025a"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 571250,
+  "cmc": 2.0,
+  "collector_number": "169",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 4436,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "0f2a95ae-feb2-42c3-99b4-9ea7a491d326",
+  "illustration_id": "b50b1db5-d243-4e13-b43b-e154d2ea983d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:07:49Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/f/0f2a95ae-feb2-42c3-99b4-9ea7a491d326.webp?1783926469",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/f/0f2a95ae-feb2-42c3-99b4-9ea7a491d326.jpg?1783926469",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/f/0f2a95ae-feb2-42c3-99b4-9ea7a491d326.jpg?1783926469",
+    "crop": "https://cards.scryfall.io/crop/front/0/f/0f2a95ae-feb2-42c3-99b4-9ea7a491d326.webp?1783926469",
+    "display": "https://cards.scryfall.io/display/front/0/f/0f2a95ae-feb2-42c3-99b4-9ea7a491d326.webp?1783926469",
+    "grid": "https://cards.scryfall.io/grid/front/0/f/0f2a95ae-feb2-42c3-99b4-9ea7a491d326.webp?1783926469",
+    "large": "https://cards.scryfall.io/large/front/0/f/0f2a95ae-feb2-42c3-99b4-9ea7a491d326.jpg?1783926469",
+    "normal": "https://cards.scryfall.io/normal/front/0/f/0f2a95ae-feb2-42c3-99b4-9ea7a491d326.jpg?1783926469",
+    "png": "https://cards.scryfall.io/png/front/0/f/0f2a95ae-feb2-42c3-99b4-9ea7a491d326.png?1783926469",
+    "small": "https://cards.scryfall.io/small/front/0/f/0f2a95ae-feb2-42c3-99b4-9ea7a491d326.jpg?1783926469",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/f/0f2a95ae-feb2-42c3-99b4-9ea7a491d326.webp?1783926469"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}",
+  "mtgo_id": 91840,
+  "multiverse_ids": [
+    527456
+  ],
+  "name": "You Find Some Prisoners",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "467c526a-02a7-405d-98de-c632ea83519b",
+  "oracle_text": "Choose one —\n• Break Their Chains — Destroy target artifact.\n• Interrogate Them — Exile the top three cards of target opponent's library. Choose one of them. Until the end of your next turn, you may play that card, and you may spend mana as though it were mana of any color to cast it.",
+  "oversized": false,
+  "penny_rank": 8471,
+  "prices": {
+    "eur": "0.17",
+    "eur_foil": "0.37",
+    "tix": "0.03",
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": "2.40"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A467c526a-02a7-405d-98de-c632ea83519b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/91840?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=571250&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243172%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=You+Find+Some+Prisoners",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=527456&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DYou%2BFind%2BSome%2BPrisoners",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DYou%2BFind%2BSome%2BPrisoners"
+  },
+  "released_at": "2021-07-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0f2a95ae-feb2-42c3-99b4-9ea7a491d326/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afr/169/you-find-some-prisoners?utm_source=api",
+  "set": "afr",
+  "set_id": "e1ef87ba-ba92-4573-817f-543b996d2851",
+  "set_name": "Adventures in the Forgotten Realms",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e1ef87ba-ba92-4573-817f-543b996d2851",
+  "story_spotlight": false,
+  "tcgplayer_id": 243172,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/0f2a95ae-feb2-42c3-99b4-9ea7a491d326",
+  "variation": false
+}
