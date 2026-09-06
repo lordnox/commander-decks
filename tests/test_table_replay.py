@@ -350,6 +350,65 @@ class PlanDrawKnowledgeTests(unittest.TestCase):
 
         render_replay.validate_plan_draw_knowledge(events, {"Boltwave": {}}, [])
 
+    def test_unrelated_if_does_not_excuse_topdeck_knowledge(self):
+        events = [
+            {
+                "id": 0,
+                "turn": 5,
+                "phase": "planning",
+                "seat": "p1",
+                "kind": "think",
+                "plan": {
+                    "scope": "turn",
+                    "status": "set",
+                    "summary": "Cast Boltwave if Alania is tapped.",
+                },
+                "state": self.plan_state(),
+            },
+            {
+                "id": 1,
+                "turn": 5,
+                "phase": "draw",
+                "seat": "p1",
+                "kind": "draw",
+                "cards": ["Boltwave"],
+                "state": state(5, "draw"),
+            },
+        ]
+
+        with self.assertRaisesRegex(ValueError, "knew unrevealed next draw Boltwave"):
+            render_replay.validate_plan_draw_knowledge(
+                events, {"Boltwave": {}}, []
+            )
+
+    def test_hypothetical_draw_is_allowed(self):
+        events = [
+            {
+                "id": 0,
+                "turn": 5,
+                "phase": "planning",
+                "seat": "p1",
+                "kind": "think",
+                "plan": {
+                    "scope": "turn",
+                    "status": "set",
+                    "summary": "If I draw Boltwave, cast it before combat.",
+                },
+                "state": self.plan_state(),
+            },
+            {
+                "id": 1,
+                "turn": 5,
+                "phase": "draw",
+                "seat": "p1",
+                "kind": "draw",
+                "cards": ["Boltwave"],
+                "state": state(5, "draw"),
+            },
+        ]
+
+        render_replay.validate_plan_draw_knowledge(events, {"Boltwave": {}}, [])
+
     def test_impact_plan_cannot_claim_previous_seat_draw(self):
         events = [
             {

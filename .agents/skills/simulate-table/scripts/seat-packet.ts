@@ -35,6 +35,12 @@ const sanitizeEvent = (game: Json, event: Json, actingSeat: string) => {
   const sanitized = clone(event)
   delete sanitized.state
 
+  if (event.seat !== actingSeat) {
+    delete sanitized.decision
+    delete sanitized.plan
+    delete sanitized.notes
+  }
+
   if (event.seat !== actingSeat && event.kind === 'draw') {
     sanitized.summary = `${seatName(game, event.seat)} draws a card.`
     sanitized.cards = []
@@ -44,6 +50,11 @@ const sanitizeEvent = (game: Json, event: Json, actingSeat: string) => {
     sanitized.summary = `${seatName(game, event.seat)} ${event.kind}s.`
     sanitized.cards = []
     delete sanitized.decision
+  }
+
+  if (event.seat !== actingSeat && event.kind === 'pass') {
+    sanitized.summary = `${seatName(game, event.seat)} passes.`
+    sanitized.cards = []
   }
 
   return sanitized

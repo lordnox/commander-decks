@@ -492,9 +492,9 @@ def hidden_hand_names(state: dict, seat: str, rows: list[dict]) -> set[str]:
 def mentioned_catalog_names(text: str, catalog: dict) -> list[str]:
     found = []
     for name in sorted(catalog, key=len, reverse=True):
-        if name and name in text:
+        if name and re.search(re.escape(name), text, flags=re.IGNORECASE):
             found.append(name)
-            text = text.replace(name, " ")
+            text = re.sub(re.escape(name), " ", text, flags=re.IGNORECASE)
     return found
 
 
@@ -559,8 +559,10 @@ def plan_allows_unknown_name(text: str, name: str) -> bool:
     while (index := folded.find(target, start)) >= 0:
         context = folded[max(0, index - 60): index + len(target) + 40]
         if re.search(
-            r"\b(if|unless|search|tutor|find|fetch|draw into|topdeck|hope|"
-            r"play around|expect|usual|win condition)\b",
+            r"\b(search|tutor|find|fetch|draw into|topdeck|play around|"
+            r"usual|win condition)\b|"
+            r"\bif (?:i |we )?draw\b|\bif .{0,30} is drawn\b|"
+            r"\bhope to draw\b",
             context,
         ):
             return True
@@ -603,7 +605,7 @@ def validate_plan_draw_knowledge(
             known |= card_names(player.get("revealed_top") or [], rows)
             for name in drawn:
                 if (
-                    name in text
+                    name.casefold() in text.casefold()
                     and normalized_name(name) not in known
                     and not plan_allows_unknown_name(text, name)
                 ):

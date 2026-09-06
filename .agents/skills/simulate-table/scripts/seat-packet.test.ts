@@ -77,6 +77,26 @@ const game = () => ({
         },
       },
     },
+    {
+      id: 4,
+      turn: 7,
+      phase: 'main1',
+      seat: 'p3',
+      kind: 'pass',
+      summary: 'Hybrid Theory holds Withering Wisps.',
+      decision: {
+        available: ['Withering Wisps'],
+        held: ['Withering Wisps'],
+        reason: 'Keep Withering Wisps hidden for next turn.',
+      },
+      state: {
+        active: 'p4',
+        players: {
+          p3: player(['Snow-Covered Swamp', 'Withering Wisps'], ['Forest']),
+          p4: player(['Goblin Electromancer'], ['Island']),
+        },
+      },
+    },
   ],
   catalog: {},
   references: [],
@@ -93,6 +113,7 @@ describe('buildSeatPacket', () => {
     })
     expect(packet.history.some((event: any) => event.seat === 'p3' && event.plan)).toBe(false)
     expect(JSON.stringify(packet)).not.toContain('Snow-Covered Swamp')
+    expect(JSON.stringify(packet)).not.toContain('Withering Wisps')
   })
 
   test('keeps the acting seat draw, hand, and latest plan', () => {
@@ -110,10 +131,19 @@ describe('buildSeatPacket', () => {
     const packet = buildSeatPacket(game(), 'p4')
 
     expect(packet.state.players.p3.hand).toBeUndefined()
-    expect(packet.state.players.p3.hand_count).toBe(1)
+    expect(packet.state.players.p3.hand_count).toBe(2)
     expect(packet.state.players.p3.revealed_top).toBeUndefined()
     expect(JSON.stringify(packet)).not.toContain('"_libraries"')
     expect(JSON.stringify(packet)).not.toContain('"Forest"')
+  })
+
+  test('redacts a foreign pass and its private decision', () => {
+    const packet = buildSeatPacket(game(), 'p4')
+    const pass = packet.history.find((event: any) => event.kind === 'pass')
+
+    expect(pass).toMatchObject({ summary: 'Hybrid Theory passes.', cards: [] })
+    expect(pass.decision).toBeUndefined()
+    expect(pass.notes).toBeUndefined()
   })
 
   test('rejects an unknown seat', () => {
