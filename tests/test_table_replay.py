@@ -196,6 +196,94 @@ class CombatRecordTests(unittest.TestCase):
             render_replay.public_game(replay)
 
 
+class PlanRecordTests(unittest.TestCase):
+    def planning_events(self):
+        events = [
+            {
+                "id": index,
+                "turn": 0,
+                "phase": "planning",
+                "seat": seat["id"],
+                "kind": "think",
+                "plan": {
+                    "scope": "game",
+                    "status": "set",
+                    "summary": f"{seat['name']} follows its primer.",
+                },
+            }
+            for index, seat in enumerate(SEATS)
+        ]
+        events.extend(
+            [
+                {
+                    "id": 4,
+                    "turn": 1,
+                    "phase": "planning",
+                    "seat": "p1",
+                    "kind": "think",
+                    "plan": {
+                        "scope": "turn",
+                        "status": "set",
+                        "summary": "Develop mana, then cast the commander.",
+                        "steps": ["Play a land", "Cast a mana rock"],
+                    },
+                },
+                {
+                    "id": 5,
+                    "turn": 1,
+                    "phase": "untap",
+                    "seat": "p1",
+                    "kind": "untap",
+                },
+                {
+                    "id": 6,
+                    "turn": 1,
+                    "phase": "draw",
+                    "seat": "p1",
+                    "kind": "draw",
+                },
+                {
+                    "id": 7,
+                    "turn": 1,
+                    "phase": "impact",
+                    "seat": "p1",
+                    "kind": "think",
+                    "plan": {
+                        "scope": "impact",
+                        "status": "kept",
+                        "summary": "Develop mana, then cast the commander.",
+                    },
+                },
+            ]
+        )
+        return events
+
+    def test_complete_plan_cycle_passes(self):
+        render_replay.validate_plans(
+            self.planning_events(), {seat["id"] for seat in SEATS}, True
+        )
+
+    def test_untap_without_turn_plan_is_rejected(self):
+        events = self.planning_events()
+        del events[4]
+
+        with self.assertRaisesRegex(ValueError, "preceding turn plan"):
+            render_replay.validate_plans(
+                events, {seat["id"] for seat in SEATS}, True
+            )
+
+    def test_draw_without_impact_plan_is_rejected(self):
+        events = self.planning_events()[:-1]
+
+        with self.assertRaisesRegex(ValueError, "following impact plan"):
+            render_replay.validate_plans(
+                events, {seat["id"] for seat in SEATS}, True
+            )
+
+    def test_old_replay_does_not_require_plan_cycle(self):
+        render_replay.validate_plans([], {seat["id"] for seat in SEATS}, False)
+
+
 class PlayInvariantTests(unittest.TestCase):
     def test_commander_must_remain_in_a_zone(self):
         replay = game()

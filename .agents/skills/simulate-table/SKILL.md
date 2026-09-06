@@ -121,14 +121,21 @@ After the opening keep, launch four `generalPurpose` subagents (the Task
 tool). Resume the **same** four agent IDs through the whole game so each
 pilot keeps its plan. If a seat agent dies, relaunch it with the primer,
 [`GAMEPLAY-HINTS.md`](GAMEPLAY-HINTS.md), that deck's `AGENT-HINTS.md`,
-and a compact recap of its public history — never another seat's hand.
+and its recorded `plan` events plus a compact recap of its public history —
+never another seat's hand.
+
+Before turn one, each seat agent returns a concise `game` plan grounded in its
+primer, opening hand, commander, known opposing decklists, and likely political
+tools. Record all four as `think` events with `phase: "planning"`. These plans
+make a seat recoverable if its persistent agent is interrupted.
 
 Each priority window:
 
 1. The game master writes a seat packet: turn, phase, stack, public
-   snapshots, that seat's private hand and command zone, legal timing, and
-   the questions in GAMEPLAY-HINTS plus AGENT-HINTS. Never include another
-   seat's hand, library, or unrevealed search.
+   snapshots, that seat's private hand and command zone, its latest game and
+   turn plans, legal timing, and the questions in GAMEPLAY-HINTS plus
+   AGENT-HINTS. Never include another seat's hand, library, unrevealed search,
+   or private plan.
 2. The seat agent answers with ordered proposed actions (cast, activate,
    play land, attack, block, talk, pass) and, on a pass, a `decision` whose
    `open_mana` is counted from the packet's untapped permanents.
@@ -149,53 +156,59 @@ and `_libraries`.
 
 For every seat, every turn, the seat agent:
 
-1. Before choosing a value play, inspect the complete hand, battlefield,
+1. **Before untap**, inspect the complete hand, battlefield,
    graveyard, command zone, and known cards for a deterministic win or forced
-   winning line. Walk the full line, including mana and legal targets. Take it
-   unless playing around a specific visible answer is stronger.
-2. Play that deck's plan, not a generic good-stuff pilot. Setup pieces are not
+   winning line. Write a `turn` plan with the desired end state, intended
+   sequence, mana, land sequencing, mandatory upkeep triggers, and named
+   contingencies. Walk the full line, including mana and legal targets.
+2. After each draw, reveal, resolved response, or accepted deal gives the seat
+   new information, compare it with the active plan. Record an `impact` plan:
+   `kept` restates the unchanged line and why the information does not beat it;
+   `revised` replaces the line and says what changed. A drawn card does not
+   silently erase the pre-draw plan.
+3. Play that deck's plan, not a generic good-stuff pilot. Setup pieces are not
    automatically better than ramp: compare what each sequence unlocks on the
    next turn. Walk [`GAMEPLAY-HINTS.md`](GAMEPLAY-HINTS.md) and that deck's
    `AGENT-HINTS.md` before passing.
-3. Spend mana legally. Track tapped lands, commander tax, summoning sickness,
+4. Spend mana legally. Track tapped lands, commander tax, summoning sickness,
    once-per-turn clauses, replacement effects, and **additional-trigger**
    permanents. Summoning sickness is not tapped: a creature that does not
    say it enters tapped enters untapped.
-4. Interact when the primer would: hold up counters, fogs, removal, or
+5. Interact when the primer would: hold up counters, fogs, removal, or
    politics rather than dump the hand because it is a sim. A pass with
    unused mana is a recorded decision, not silence. Recalculate `open_mana`
    from the snapshot; do not copy last turn's `think` text.
-5. Attack, race, or stall according to the win condition, threat assessment,
+6. Attack, race, or stall according to the win condition, threat assessment,
    and life totals, and play the whole combat as three recorded steps
-   (see [3e](#3e-combat)). Do not kingmake unless that deck's documented plan
+   (see [3f](#3f-combat)). Do not kingmake unless that deck's documented plan
    is political. Politics is a game action: negotiate before spending
    irreversible leverage (board wipe, lethal, lock gift, counter, targeted
    removal). Record offers, answers, and active deals in the replay.
-6. Never tutor, draw, or produce a card that was not in hand, in a known
+7. Never tutor, draw, or produce a card that was not in hand, in a known
    zone, or actually found by a resolved search of that library. Never name
    another seat's hidden card in a reason.
-7. Walk claimed loops; "fat once" is not infinite.
-8. When a seat may look at the top of its library — Fblthp, Bolas's Citadel,
+8. Walk claimed loops; "fat once" is not infinite.
+9. When a seat may look at the top of its library — Fblthp, Bolas's Citadel,
    Oracle of Mul Daya, Future Sight — decide from that card and publish it in
    `revealed_top` (see [schema.md](schema.md)), refreshed whenever the top
    changes.
-9. When creating a token, read that source card under the seat's
+10. When creating a token, read that source card under the seat's
    `token_sources` and put its exact Scryfall ID in the battlefield entry's
    `token_id`. Do not choose a same-name token by memory; printed tokens with
    the same name can have different characteristics.
-10. Record `+1/+1` and `-1/-1` counters in `counters`; the viewer adds them to
+11. Record `+1/+1` and `-1/-1` counters in `counters`; the viewer adds them to
     the printed power and toughness. When anything else changes those values —
     an anthem, Aura, Equipment, pump spell, or animated land — put the
     resulting values in the battlefield entry's `pt`.
-11. Keep every other counter kind in `counters` too, and put the rest of a
+12. Keep every other counter kind in `counters` too, and put the rest of a
     permanent's state in `note` as `;`-separated segments such as
     `enchanting Sun Titan; goaded`. The viewer turns both into icons on the
     card and spells them out on the hover preview.
-12. When a double-faced permanent enters or transforms, name the side in play
+13. When a double-faced permanent enters or transforms, name the side in play
     in the battlefield entry's `face`, for example
     `"face": "Malakir Mire"` for the land half of an MDFC. The viewer draws
     that side's art, name, and printed power and toughness.
-13. Keep each of that seat's commanders in `command`, on the battlefield, in
+14. Keep each of that seat's commanders in `command`, on the battlefield, in
     graveyard, in exile, or in hand. A living player with an empty `command`
     list and no commander permanent has dropped the commander — a sim bug.
 
@@ -214,7 +227,31 @@ next player's untap.
 If the game hits the turn cap with multiple players alive, stop and name the
 leader rather than inventing a win.
 
-## 3c. Recorded decisions
+## 3c. Recorded plans
+
+Plans are concise, replay-visible intentions, not hidden chain-of-thought:
+
+- `game` — written once per seat after keeps and before turn one; names the
+  primer plan, opening route, interaction posture, and political leverage.
+- `turn` — written immediately before that seat's untap; says what the seat
+  wants to accomplish this turn and lists the intended sequence. Use
+  `phase: "planning"`.
+- `impact` — written immediately after that seat draws and whenever later
+  information materially changes the line. Use `status: "kept"` when the plan
+  survives and `status: "revised"` when it changes. Use `phase: "impact"`.
+
+The latest plan replaces the previous current-plan summary in the viewer, so
+an impact that keeps the line must restate that line rather than merely saying
+"no change." Resolve mandatory upkeep triggers even when the plan intends to
+win another way. If a land is drawn after a land drop is already selected,
+compare their sequencing, enters-tapped cost, channel utility, bounce or fetch
+landfall, and colored mana before keeping or revising the plan.
+
+Plan events are private seat notes shown to the replay audience. Other seat
+agents do not receive them. Anything meant to influence opponents is a public
+`talk` event.
+
+## 3d. Recorded decisions
 
 Before a seat passes priority with unused mana, unused attacks, or an unused
 activated ability, emit a `think` event (or attach `decision` to the `pass`).
@@ -242,7 +279,7 @@ Do not invent a hold that the deck would not take. If the primer would dump
 the hand, dump it and skip the `think`. A silent pass with four open mana and
 a three-mana creature in hand is a missed record.
 
-## 3d. Politics
+## 3e. Politics
 
 Commander is not four goldfishes. Before an irreversible line that another
 seat would bargain over, open a negotiation window:
@@ -266,12 +303,33 @@ seat would bargain over, open a negotiation window:
 7. Copy `{ id, status }` into every later snapshot until the deal expires,
    completes, or breaks. Full terms live only on the `references` row.
 
+Agents know the submitted decklists and primers from prior games, so they may
+name a known deck's usual win condition or interaction. They do not know which
+of those cards is currently in an opponent's hand or library position unless
+revealed.
+
+Do not wait only for wipes and lethal. Proactively offer mutually useful,
+observable exchanges:
+
+- A prevention deck with Sokrates may invite a small attack, prevent its
+  player damage, and let both players draw.
+- A player short on cards may ask the Sokrates player for that exchange and
+  offer a fixed nonaggression period.
+- A player holding a large creature may offer an attack into prevention so
+  both seats draw toward an answer to the leader.
+
+Record the spoken proposal as `talk`; use a `deal` when it includes future
+promises such as "no attacks or targeted effects against you for two turns."
+The offering seat must explain why the deal advances its current plan, and
+the answering seat evaluates the deal against its own plan rather than
+accepting for flavor.
+
 When writing the replay, put `references` immediately after `seats`: four
 player rows, then one card row per catalog name in key order, then every deal
 in offer order. The ID is the array index. `summary`, `reason`, and `terms`
 always use names, never indexes.
 
-## 3e. Combat
+## 3f. Combat
 
 The defending seats are players, not a damage sponge. Play every combat as
 three events — `attack`, `block`, `damage` — with the fields in
@@ -315,7 +373,7 @@ keys "whenever ~ deals combat damage" triggers and commander damage off that
 split, so a summary says "deals 4 combat damage" only when it is combat
 damage.
 
-## 3f. Continue
+## 3g. Continue
 
 To play extra turns of an existing replay:
 
@@ -342,30 +400,33 @@ are recorded, refresh `headline` and `result`, drop `horizon` and
 
 Before reporting:
 
-1. Replay each seat's mana and zone changes from the previous snapshot.
-2. Confirm every draw has a preceding draw event and decrements the library.
-3. Confirm triggered abilities occur in the correct phase and before the next
+1. Confirm every seat has a pregame plan, every untap has a preceding turn
+   plan, and every draw has a following impact update.
+2. Replay each seat's mana and zone changes from the previous snapshot.
+3. Confirm every draw has a preceding draw event and decrements the library.
+4. Confirm triggered abilities occur in the correct phase and before the next
    untap.
-4. At every main phase, repeat the deterministic-win check against the cards
+5. At every main phase, repeat the deterministic-win check against the cards
    then available. A missed win invalidates the simulation. A pass with
    unused mana and no `think` / `decision` is also a miss unless every
    remaining card is uncastable.
-5. Confirm every combat has `attack`, `block`, and `damage` events, that the
+6. Confirm every combat has `attack`, `block`, and `damage` events, that the
    attackers' tapped state matches the snapshot, and that each damage entry
    is typed `combat` or `noncombat`.
-6. Confirm `state.deals` is copied forward after an accepted offer, and that
+7. Confirm `state.deals` is copied forward after an accepted offer, and that
    a later breach has a `deal` event with `action: "breach"`.
-7. Confirm each living seat's commanders still exist in some zone (that
+8. Confirm each living seat's commanders still exist in some zone (that
    seat's `command` list, battlefield, graveyard, exile, or hand, or another
    seat's battlefield if stolen).
-8. Confirm a `cast` or `play_land` snapshot does not show the new permanent
+9. Confirm a `cast` or `play_land` snapshot does not show the new permanent
    tapped unless its Oracle text can enter tapped. Summoning sickness is
    not tapped.
-9. Confirm `decision.open_mana` is not far below the number of untapped
+10. Confirm `decision.open_mana` is not far below the number of untapped
    lands in that snapshot.
-10. Confirm `decision.reason` does not name a card that exists only in
+11. Confirm private plan text and `decision.reason` do not name a card that
+    exists only in
     another seat's hand.
-11. Remove `_libraries`, keep only `library_count`, and write compact JSON to
+12. Remove `_libraries`, keep only `library_count`, and write compact JSON to
     `table-games/<slug>.json`.
 
 `render-table-replay` always checks that commanders still exist in a zone.

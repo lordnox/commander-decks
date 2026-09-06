@@ -19,6 +19,7 @@ import type {
   PlayerState,
   ReplayEvent,
   ReplayGame,
+  ReplayPlan,
   ReplaySeat,
 } from './replayTypes'
 
@@ -338,6 +339,7 @@ const SeatPanel = ({
   state,
   active,
   action,
+  currentPlan,
   onPreview,
   onHover,
 }: {
@@ -346,6 +348,7 @@ const SeatPanel = ({
   state: PlayerState
   active: boolean
   action: Set<string>
+  currentPlan?: ReplayPlan
   onPreview: (preview: Preview) => void
   onHover: HoverHandler
 }) => {
@@ -375,9 +378,28 @@ const SeatPanel = ({
               {seat.name}
             </h3>
           </div>
-          <p className="mt-1 truncate text-xs text-stone-400">
-            {seat.commanders.join(' + ')}
-          </p>
+          <div className="mt-1 flex min-w-0 items-center gap-2 text-xs text-stone-400">
+            <p className="truncate">{seat.commanders.join(' + ')}</p>
+            {currentPlan && (
+              <span
+                className="group relative inline-flex min-w-0 items-center gap-1 text-moss-200"
+                aria-label={`Current plan: ${currentPlan.summary}`}
+                tabIndex={0}
+              >
+                <span aria-hidden="true">💭</span>
+                <span className="max-w-40 truncate">{currentPlan.summary}</span>
+                <span className="pointer-events-none absolute left-0 top-full z-30 mt-2 hidden w-72 rounded-xl border border-moss-300/20 bg-ink-950 p-3 text-xs leading-5 text-stone-200 shadow-2xl group-hover:block group-focus:block">
+                  <strong className="block text-moss-200">Current plan</strong>
+                  {currentPlan.summary}
+                  {currentPlan.steps && currentPlan.steps.length > 0 && (
+                    <span className="mt-2 block text-stone-400">
+                      {currentPlan.steps.join(' → ')}
+                    </span>
+                  )}
+                </span>
+              </span>
+            )}
+          </div>
         </div>
         <div className="shrink-0 text-right">
           <p className="font-display text-3xl leading-none text-stone-50">
@@ -541,6 +563,29 @@ const EventStory = ({
               <li key={`${index}-${line}`}>{line}</li>
             ))}
           </ul>
+        </div>
+      )}
+      {event.plan && (
+        <div className="mt-4 rounded-2xl border border-moss-300/20 bg-moss-500/5 p-4">
+          <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-moss-200">
+            💭 {event.plan.scope} plan
+            {event.plan.status ? ` · ${event.plan.status}` : ''}
+          </p>
+          <p className="mt-2 text-sm font-semibold leading-6 text-stone-100">
+            {event.plan.summary}
+          </p>
+          {event.plan.details && (
+            <p className="mt-2 text-sm leading-6 text-stone-300">
+              {event.plan.details}
+            </p>
+          )}
+          {event.plan.steps && event.plan.steps.length > 0 && (
+            <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm leading-6 text-stone-300">
+              {event.plan.steps.map((step, stepIndex) => (
+                <li key={`${stepIndex}-${step}`}>{step}</li>
+              ))}
+            </ol>
+          )}
         </div>
       )}
       {event.notes && (
@@ -842,6 +887,14 @@ export const ReplayPage = ({ slug }: { slug: string }) => {
         : { forSeat: () => new Set<string>() },
     [game, event],
   )
+  const currentPlans = useMemo(() => {
+    const plans = new Map<string, ReplayPlan>()
+    if (!game) return plans
+    for (const item of game.events.slice(0, index + 1)) {
+      if (item.seat && item.plan) plans.set(item.seat, item.plan)
+    }
+    return plans
+  }, [game, index])
 
   useEffect(() => setHover(null), [index])
 
@@ -970,6 +1023,7 @@ export const ReplayPage = ({ slug }: { slug: string }) => {
                 state={event.state.players[seat.id]}
                 active={event.state.active === seat.id}
                 action={action.forSeat(seat.id)}
+                currentPlan={currentPlans.get(seat.id)}
                 onPreview={setPreview}
                 onHover={setHover}
               />

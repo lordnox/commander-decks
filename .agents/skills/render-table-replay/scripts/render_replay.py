@@ -500,7 +500,21 @@ def mentioned_catalog_names(text: str, catalog: dict) -> list[str]:
 
 def validate_hidden_reasons(events: list[dict], catalog: dict, rows: list[dict]) -> None:
     for event in events:
-        reason = ((event.get("decision") or {}).get("reason") or "") + " " + (event.get("notes") or "")
+        plan = event.get("plan") or {}
+        plan_text = " ".join(
+            [
+                plan.get("summary") or "",
+                plan.get("details") or "",
+                " ".join(plan.get("steps") or []),
+            ]
+        )
+        reason = " ".join(
+            [
+                (event.get("decision") or {}).get("reason") or "",
+                event.get("notes") or "",
+                plan_text,
+            ]
+        )
         if not reason.strip():
             continue
         state = event.get("state") or {}
@@ -516,6 +530,79 @@ def validate_hidden_reasons(events: list[dict], catalog: dict, rows: list[dict])
                 raise ValueError(
                     f"event {event.get('id')}: {event.get('seat')} cited hidden "
                     f"card {name}"
+                )
+
+
+def validate_plans(events: list[dict], seat_ids: set[str], required: bool) -> None:
+    for event in events:
+        plan = event.get("plan")
+        if plan is None:
+            continue
+        event_id = event.get("id")
+        if event.get("kind") != "think":
+            raise ValueError(f"event {event_id}: plan payload requires kind think")
+        if event.get("seat") not in seat_ids:
+            raise ValueError(f"event {event_id}: plan needs a seat")
+        if not isinstance(plan, dict):
+            raise ValueError(f"event {event_id}: plan must be an object")
+        scope = plan.get("scope")
+        if scope not in {"game", "turn", "impact"}:
+            raise ValueError(f"event {event_id}: plan scope must be game, turn, or impact")
+        if not isinstance(plan.get("summary"), str) or not plan["summary"].strip():
+            raise ValueError(f"event {event_id}: plan needs a summary")
+        expected_phase = "impact" if scope == "impact" else "planning"
+        if event.get("phase") != expected_phase:
+            raise ValueError(
+                f"event {event_id}: {scope} plan must use phase {expected_phase}"
+            )
+        status = plan.get("status")
+        allowed_statuses = {"kept", "revised"} if scope == "impact" else {"set"}
+        if status not in allowed_statuses:
+            allowed = " or ".join(sorted(allowed_statuses))
+            raise ValueError(f"event {event_id}: {scope} plan status must be {allowed}")
+        steps = plan.get("steps")
+        if steps is not None and (
+            not isinstance(steps, list)
+            or any(not isinstance(step, str) or not step.strip() for step in steps)
+        ):
+            raise ValueError(f"event {event_id}: plan steps must be non-empty strings")
+
+    if not required:
+        return
+
+    first_turn = next(
+        (index for index, event in enumerate(events) if event.get("turn", 0) > 0),
+        len(events),
+    )
+    game_plans = {
+        event.get("seat")
+        for event in events[:first_turn]
+        if (event.get("plan") or {}).get("scope") == "game"
+    }
+    missing = sorted(seat_ids - game_plans)
+    if missing:
+        raise ValueError(f"planning: missing pregame plan for {', '.join(missing)}")
+
+    for index, event in enumerate(events):
+        if event.get("phase") == "untap" and event.get("turn", 0) > 0:
+            previous = events[index - 1] if index else {}
+            if (
+                previous.get("seat") != event.get("seat")
+                or previous.get("turn") != event.get("turn")
+                or (previous.get("plan") or {}).get("scope") != "turn"
+            ):
+                raise ValueError(
+                    f"event {event.get('id')}: untap needs an immediately preceding turn plan"
+                )
+        if event.get("kind") == "draw":
+            following = events[index + 1] if index + 1 < len(events) else {}
+            if (
+                following.get("seat") != event.get("seat")
+                or following.get("turn") != event.get("turn")
+                or (following.get("plan") or {}).get("scope") != "impact"
+            ):
+                raise ValueError(
+                    f"event {event.get('id')}: draw needs an immediately following impact plan"
                 )
 
 
@@ -642,10 +729,12 @@ def public_game(game: dict, *, strict: bool = False) -> dict:
 
     validate_turn_draws(events)
     rows = references if isinstance(references, list) else []
+    seat_ids = {seat.get("id") for seat in seats}
+    validate_plans(events, seat_ids, cleaned.get("planning") == 1 and strict)
     for event in events:
         validate_combat_shape(event, rows)
     if cleaned["schema"] >= 2:
-        validate_combat_flow(events, {seat.get("id") for seat in seats}, rows)
+        validate_combat_flow(events, seat_ids, rows)
         catalog = cleaned.get("catalog") if isinstance(cleaned.get("catalog"), dict) else {}
         validate_commanders_present(seats, events, rows)
         if strict:

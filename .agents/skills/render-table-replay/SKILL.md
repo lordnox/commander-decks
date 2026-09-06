@@ -66,6 +66,9 @@ player whose commander has vanished from every zone, a `cast`/`play_land`
 that shows the new permanent tapped when Oracle does not allow it, a
 `decision.open_mana` far below the untapped lands in that snapshot, and a
 reason or note that names a card sitting only in another seat's hand.
+For a replay with `planning: 1`, strict mode also requires four pregame plans,
+a turn plan immediately before every untap, and an impact update immediately
+after every draw.
 Published older replays may fail `--strict`; default render still publishes
 them.
 
@@ -106,7 +109,10 @@ Open the React route `?game=<slug>` when browser tools are available and verify:
     with Oracle text, counters, notes, and its Scryfall link;
 12. combat events list attackers and their defenders, the blockers each seat
     could have used, the blocks declared, and damage marked combat or not;
-13. narrow layouts remain usable with the fixed controls and collapsed log.
+13. plan events show their scope, status, summary, details, and steps, while
+    each seat shows the latest plan beside its commander with a hover/focus
+    explanation;
+14. narrow layouts remain usable with the fixed controls and collapsed log.
 
 Do not dump replay JSON into chat.
 

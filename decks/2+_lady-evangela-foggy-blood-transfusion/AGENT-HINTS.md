@@ -31,10 +31,27 @@ Primer owns the plan. This file is the seat checklist.
 
 ## Combat
 
-This deck does not attack. Block with Souls or Baird when the math is
-good, **and** still fire prevention at the rest of the team. Baird's tax
-is the **attacker's** cost; this seat does not pay it, but the attack is
-illegal if they did not.
+This deck does not attack for damage, but it may arrange a harmless Sokrates
+attack to draw cards. Block with Souls or Baird when the math is good, **and**
+still fire prevention at the rest of the team. Baird's tax is the
+**attacker's** cost; this seat does not pay it, but the attack is illegal if
+they did not.
+
+## Politics
+
+Sokrates is a public card-selection tool once untapped:
+
+- Offer to attack a willing player with a small creature, tap Sokrates to
+  prevent that creature's player damage, and let both seats draw.
+- Invite an opponent's larger creature to attack this seat under the same
+  prevention when both seats need cards to answer the leader.
+- Name the attacker, the prevented player, and the expected draw count.
+- Ask what the other seat offers in return. A promise such as no attacks or
+  targeted effects for two turns is a recorded deal with an expiry.
+
+Do not wait for another pilot to notice Sokrates. Advertise the exchange
+before combat. Do not make it when the draw is more likely to give the leader
+a win than to help this seat stabilize.
 
 ## Closing
 

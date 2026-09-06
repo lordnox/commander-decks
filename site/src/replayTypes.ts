@@ -77,6 +77,14 @@ export type ReplayDecision = {
   honors_deal?: number
 }
 
+export type ReplayPlan = {
+  scope: 'game' | 'turn' | 'impact'
+  status?: 'set' | 'kept' | 'revised'
+  summary: string
+  details?: string
+  steps?: string[]
+}
+
 export type CombatAttacker = {
   card: string | number
   defender: string | number
@@ -119,6 +127,7 @@ export type ReplayEvent = {
   combat?: ReplayCombat
   damage?: ReplayDamage[]
   decision?: ReplayDecision
+  plan?: ReplayPlan
   deal?: {
     id: number
     action: string
@@ -144,6 +153,7 @@ export type ReplayEvent = {
 
 export type ReplayGame = {
   schema: number
+  planning?: number
   seed: number
   starting_life: number
   headline: string
