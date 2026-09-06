@@ -161,7 +161,13 @@ Winner: Madcap, because the video lock and because Cap / Extract / Rootwater Thi
 
 ## Rankings
 
-2026-09-07: Jank 8, Fun 8, Mean 6, Theft 9. Cap/Tasha's dumps raise Mean; old search-exile and the Vessel/Mask race keep Jank and Fun up.
+2026-09-07: Jank 9, Fun 8, Mean 6, Theft 9. Jank is the Cap/Scepter/Mask/Vessel rules stack, not the duals. Fun is the timed stolen hand. Mean is named exile plus Tasha's, not stax. Theft is the repeating plan even when Madcap is missing, via Stolen Strategy, Gonti, Thief of Sanity, Siphon Insight, and Etali.
+
+## Primer
+
+The assessment blockquote names the usual *win* around turn eight to nine. Turn-five goldfish measured Madcap on board, which is conversion setup, not lethal.
+
+## Talks
 
 ### 2026-09-07 — Goldfish after Siphon Insight
 
@@ -207,17 +213,33 @@ Turn five does not establish a turn-eight win. Conversion after Tasha's was not 
 
 ### 2026-09-07 — Assessment
 
-Cached Game Changers snapshot 2026-09-03: **0** in this 99. No extra turns, no two-card infinites, no permanent fast mana, no one-shot rituals. Search-exile tutors *their* libraries, not this one.
+Source: [`BRACKET-DEFINITIONS.md`](../../BRACKET-DEFINITIONS.md) (Incremental Core vs Upgraded dump texture, printed caps, Parley). Cached Game Changers snapshot **2026-09-03** (53 names): **0** in the 99. [Fevered Suspicion](https://scryfall.com/card/afc/47/fevered-suspicion) is maybeboard only and is not on that list.
 
-Win texture is Upgraded: Tasha's plus Madcap is a from-hand dump of stolen cards. Normal pace is still Incremental-feeling because the 3/2 has to live and the window is one turn cycle. Official Core excludes Game Changers and wants eight turns; this list's dump permission is why it is 3 not 2. It is 3− not 3 or 3+ because commander dependence, old Cap/Extract density, and goldfish showing setup rather than a compact T6 kill.
+| Axis | Finding |
+|---|---|
+| Game Changers | 0 of 53 |
+| Combos | None. Tasha's is fat-once exile; Madcap grants a timed play window, not a loop |
+| Tutors | No own-library tutors. Extract, Cap, Totem, Sacrament, Earwig, Thada, Lobotomy, Rootwater Thief, Bitter Ordeal search *their* libraries |
+| Fast mana | None. Signets, Lens, Compass, Heart, Mind Stone, Fellwar, Relic, and Bauble are ramp. No Sol Ring-class permanents (kitchen-table 4+ even though Wizards omits Sol Ring) and no rituals |
+| Interaction | Pointed removal (Terminate, Reality Shift, Chaos Warp, Recoil, Feed the Swarm, Rakdos Charm), one fog-shaped bounce (Aetherize), stack redirect (Imp's Mischief, Bolt Bend). No free counters |
+| Consistency | 37 lands, ten two-plus-mana rocks plus Bauble, Grixis duals. Goldfish 12/12 Madcap by turn five after one London at most in 11/12. Recast after removal failed 1 of 3 traced seats |
+| Win conditions | Spend stolen cards in the Madcap window; combat with evasive Jester plus stolen creatures; Consuming Aberration if libraries are already thin |
 
-| Estimate | Turn | Basis |
-|---|---|---|
-| High roll | 6 | Madcap on 3–4, Tasha's on 5–6, spend the pile |
-| Normal goldfish | 8–9 | Attack-exile plus engines, then a stolen board |
-| Interactive | 9–11 | Recast tax; search-exile is blank without overlay |
+**High roll (turn 6, unlikely):** land, rock, lands into Madcap on turn 4 (`{1}{U}{B}{R}`), Tasha's on turn 5 (`{1}{U}{U}`) with leftover mana, spend through end of turn 6. Needs both cards, a useful exile pile, and no removal on the 3/2. That is a dump from hand, not a table-wide "you win the game" spell.
 
-Pregame: Bracket 3− Grixis library-theft, no Game Changers, usually converting by five or six and closing eight or nine, with an unlikely Tasha's dump on six.
+**Normal goldfish (turn 8–9):** Madcap attacks from turn 5, engines such as Stolen Strategy or Court of Locthwain drip exile, then a midgame Tasha's or Vessel converts a board. Turn-five tests did not walk lethal.
+
+**Interactive (turn 9–11):** commander tax 6 blanks Cap/Extract until recast; overlay-independent theft still runs.
+
+**Why not 2:** Tasha's plus Madcap is Upgraded dump texture (from-hand conversion after accrued mana), not Incremental Core's must-sit-on-the-board shape. Official Bracket 2 also expects an eight-turn floor as satisfaction; the dump option is why the default advertised bracket is 3.
+
+**Why not 3 or 3+:** no Game Changers, fragile 3/2, many search-exile cards dead without the overlay, and the normal close is still eight-plus. 3+ would need a compact repeatable turn-six kill.
+
+**Why not 4:** no fast mana, no free disruption, not built to end on turn four.
+
+Pregame: Bracket 3− Grixis library-theft deck with no Game Changers. Usually threatens a win around turn eight to nine after Madcap converts exile into a timed hand; an unlikely turn-six Tasha's with the Jester already in play can dump a stolen pile in one window.
+
+Directory prefix stays `3-_`.
 
 ### 2026-09-07 — Fevered Suspicion maybeboard
 

@@ -1,12 +1,12 @@
 {
   "goals": ["Theft"],
   "scores": {
-    "jankiness": 8,
+    "jankiness": 9,
     "fun": 8,
     "oppressiveness": 6,
     "identity": {
       "Theft": 9
     }
   },
-  "notes": "Old search-exile toys plus Uba Mask and Memory Vessel races keep jank high. Playing their cards every game is the fun. Oppressiveness is the Cap/Tasha's dump, not a lock; opponents still play until their piles are spent."
+  "notes": "Cap, Extract, Scepter look-then-cast, Uba Mask priority, and Memory Vessel races are the jank. Fun is choosing which of their cards to spend in a short window. Mean is stripping named cards and dumping Tasha's, not a lock."
 }
