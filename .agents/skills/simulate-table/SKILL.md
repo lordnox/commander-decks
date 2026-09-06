@@ -19,6 +19,10 @@ A table result is entertainment and a matchup sketch, not a power rating and
 not authorization to edit any deck. Do not re-record an old seed unless the
 user asks for a new game.
 
+When the user takes a seat (hot-seat / live table / `/live`), follow
+[`live-table`](../live-table/SKILL.md): mark the `human` seat, pause for their
+lines, and keep writing replay events the same way.
+
 ## 1. Pick the pod
 
 1. Inspect directories under `decks/` and match requested decks. Confirm

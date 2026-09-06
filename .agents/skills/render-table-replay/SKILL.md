@@ -17,7 +17,8 @@ simulate-table → replay JSON → validation/public JSON → React player
 
 The recorded JSON remains the source of truth. The React player must not repair
 illegal plays, reorder events, infer missing draws, or continue a truncated game.
-Judging those decisions belongs to `review-table`.
+Judging those decisions belongs to `review-table`. Live `/live?s=` snapshots are
+not replays — do not treat them as a recorded game (`live-table`).
 
 ## 1. Validate the input
 

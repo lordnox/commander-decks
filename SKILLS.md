@@ -75,3 +75,23 @@ Assess Commander Bracket and expected win turn. Use this only when the user asks
 It reads [`BRACKET-DEFINITIONS.md`](BRACKET-DEFINITIONS.md) and the stored list rather than the theme, then writes an evidence-based pregame description. Bracket intent, printed caps, and the cached Game Changers snapshot all come from that one file; nothing is fetched per assessment. It does not change the 99 unless the user separately asks.
 
 See [`.agents/skills/assess-deck/SKILL.md`](.agents/skills/assess-deck/SKILL.md).
+
+## `simulate-table`
+
+Play a four-player game among resolved decks and write replay JSON. Use this for a table game, pod sim, or matchup. Publishing the log belongs to `render-table-replay`; a human taking a seat mid-game belongs to `live-table`.
+
+See [`.agents/skills/simulate-table/SKILL.md`](.agents/skills/simulate-table/SKILL.md).
+
+## `render-table-replay`
+
+Validate a recorded replay and publish it for the React step-through player (`?game=`). Live `/live` snapshots are not replays — use `live-table` for those.
+
+See [`.agents/skills/render-table-replay/SKILL.md`](.agents/skills/render-table-replay/SKILL.md).
+
+## `live-table`
+
+Hot-seat Commander: the human pilots one seat; the agent pilots the other three and judges. Use this when the user takes over a seat, wants a live table, or plays via `/live`.
+
+Deal with `simulate-table`, pause on decisions, encode a NOW snapshot, and post the private live URL. Standing plans come from chat paste; continue from the session file.
+
+See [`.agents/skills/live-table/SKILL.md`](.agents/skills/live-table/SKILL.md).
