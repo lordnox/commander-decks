@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import { isLivePath } from './liveCodec'
 import { LivePage } from './LivePage'
+import { gameHref, reloadFresh, withRefresh } from './refresh'
 import { ReplayPage } from './ReplayPage'
 
 type Seat = {
@@ -21,8 +22,6 @@ type Game = {
   winner: string | null
   seats: Seat[]
 }
-
-const base = import.meta.env.BASE_URL
 
 const statusLabel: Record<Game['ended'], string> = {
   win: 'Finished',
@@ -60,6 +59,19 @@ const SearchIcon = () => (
       stroke="currentColor"
       strokeLinecap="round"
       strokeWidth="1.5"
+    />
+  </svg>
+)
+
+const RefreshIcon = () => (
+  <svg viewBox="0 0 20 20" aria-hidden="true" className="size-4">
+    <path
+      d="M16.5 10a6.5 6.5 0 1 1-2.1-4.8M16.5 3v3.5H13"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.6"
     />
   </svg>
 )
@@ -130,7 +142,7 @@ const GameCard = ({ game }: { game: Game }) => (
       )}
 
       <a
-        href={`${base}?game=${encodeURIComponent(game.slug)}`}
+        href={gameHref(game.slug)}
         className="mt-auto inline-flex items-center justify-between rounded-2xl bg-moss-300 px-5 py-3.5 font-bold text-ink-950 transition hover:bg-gold-300 focus:outline-none focus:ring-2 focus:ring-gold-300 focus:ring-offset-2 focus:ring-offset-ink-900"
       >
         Watch replay
@@ -147,7 +159,7 @@ const ArchivePage = () => {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    fetch(`${base}games.json`)
+    fetch(withRefresh('games.json'))
       .then((response) => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`)
         return response.json() as Promise<Game[]>
@@ -249,6 +261,15 @@ const ArchivePage = () => {
                 <option value="draw">Draw</option>
               </select>
             </label>
+            <button
+              type="button"
+              onClick={reloadFresh}
+              title="Reload past the browser cache"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-ink-900/80 px-4 py-3 text-sm font-semibold text-stone-300 outline-none hover:bg-white/10 hover:text-white focus:border-moss-300"
+            >
+              <RefreshIcon />
+              Refresh
+            </button>
           </div>
         </div>
 
