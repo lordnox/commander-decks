@@ -11,7 +11,8 @@ import {
   isLivePath,
   normalizeSeats,
   planStorageKey,
-  readLivePayload,
+  readLiveRequest,
+  replayToLiveSnapshot,
   type LiveSeat,
   type LiveSnapshot,
 } from './liveCodec'
@@ -109,8 +110,8 @@ const EmptyLiveState = ({ reason }: { reason?: string }) => (
       This page shows one current Commander board from a chat hot-seat link. Open a
       URL like{' '}
       <code className="rounded bg-white/5 px-1.5 py-0.5 text-gold-300">
-        /live?s=v1.…</code>{' '}
-      from the agent, or paste a payload that starts with <code>v1.</code>.
+        /live/?game=my-game&amp;you=p1</code>{' '}
+      from the agent, or use a snapshot payload that starts with <code>v1.</code>.
     </p>
     {reason && (
       <p className="mt-4 rounded-2xl border border-red-400/30 bg-red-950/40 p-4 text-sm text-red-200">
@@ -136,29 +137,48 @@ export const LivePage = () => {
 
   useEffect(() => {
     if (!isLivePath()) return
-    const payload = readLivePayload()
-    if (!payload) {
-      setLoading(false)
-      setSnapshot(null)
-      setError('')
-      return
-    }
     let cancelled = false
     setLoading(true)
-    decodeLivePayload(payload)
-      .then((decoded) => {
+
+    const load = async () => {
+      try {
+        const request = readLiveRequest()
+        if (!request) {
+          if (!cancelled) {
+            setSnapshot(null)
+            setError('')
+          }
+          return
+        }
+
+        const decoded = request.kind === 'payload'
+          ? await decodeLivePayload(request.payload)
+          : await (async () => {
+              const response = await fetch(`${base}replays/${request.game}.json`)
+              if (!response.ok) {
+                throw new Error('Could not load this published game')
+              }
+              const replay = await response.json() as ReplayGame
+              return replayToLiveSnapshot(replay, request)
+            })()
+
         if (cancelled) return
         setSnapshot(decoded)
         setError('')
-      })
-      .catch((reason: unknown) => {
+      } catch (reason: unknown) {
         if (cancelled) return
         setSnapshot(null)
-        setError(reason instanceof Error ? reason.message : 'Could not decode snapshot')
-      })
-      .finally(() => {
+        setError(
+          reason instanceof Error
+            ? reason.message
+            : 'Could not open this live table',
+        )
+      } finally {
         if (!cancelled) setLoading(false)
-      })
+      }
+    }
+
+    void load()
     return () => {
       cancelled = true
     }
@@ -239,7 +259,7 @@ export const LivePage = () => {
   const copyPublicLink = async () => {
     if (!snapshot) return
     const payload = await encodePublicLivePayload(snapshot)
-    const url = new URL(`${base}live`, window.location.origin)
+    const url = new URL(`${base}live/`, window.location.origin)
     url.searchParams.set('s', payload)
     await navigator.clipboard.writeText(url.toString())
     flash('Public link copied')
