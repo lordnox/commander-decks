@@ -58,6 +58,9 @@ loads a full snapshot JSON into chat.
 
 ## Recorded games
 
+- [Tea Party vs Sin-fall vs Hybrid Theory vs Divergent Laughter](seed1729-tea-party-sin-indoraptor-alania.md)
+  ([watch](https://lordnox.github.io/commander-decks/?game=seed1729-tea-party-sin-indoraptor-alania))
+  — seed 1729, truncated at turn 12; Hybrid Theory leads after commander-killing Divergent Laughter.
 - [Iname vs Bartolomé vs The Twelfth Doctor vs Sin](seed1729-iname-bartolome-doctor-sin.md)
   ([watch](https://lordnox.github.io/commander-decks/?game=seed1729-iname-bartolome-doctor-sin))
   — seed 1729, Death Aspect wins on turn 9 with The Capitoline Triad's 9/9 emblem.
