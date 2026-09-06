@@ -507,21 +507,28 @@ const EventStory = ({
         {event.summary}
       </h2>
       {event.cards && event.cards.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-2">
-          {event.cards.map((card, index) => {
-            const { name, details } = cardInfo(game, card)
-            return (
-              <button
-                type="button"
-                key={`${String(card)}-${index}`}
-                onClick={() => onPreview({ name, details })}
-                {...hoverProps(name, details, onHover)}
-                className="rounded-full border border-gold-300/40 bg-gold-400/10 px-3 py-1.5 text-xs font-semibold text-stone-100 hover:border-gold-300"
-              >
-                {name}
-              </button>
-            )
-          })}
+        <div className="mt-4">
+          {(event.kind === 'keep' || event.kind === 'mulligan') && (
+            <p className="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-gold-300">
+              {event.kind === 'mulligan' ? 'Rejected seven-card hand' : 'Kept candidate'}
+            </p>
+          )}
+          <div className="flex flex-wrap gap-2">
+            {event.cards.map((card, index) => {
+              const { name, details } = cardInfo(game, card)
+              return (
+                <button
+                  type="button"
+                  key={`${String(card)}-${index}`}
+                  onClick={() => onPreview({ name, details })}
+                  {...hoverProps(name, details, onHover)}
+                  className="rounded-full border border-gold-300/40 bg-gold-400/10 px-3 py-1.5 text-xs font-semibold text-stone-100 hover:border-gold-300"
+                >
+                  {name}
+                </button>
+              )
+            })}
+          </div>
         </div>
       )}
       {combat.length > 0 && (
