@@ -66,7 +66,7 @@ Prefer a table for interchangeable roles and tutor decisions. Explain representa
 
 ### Describe the deck as it stands
 
-The primer documents the current 100 cards for someone about to pilot them. It is not a change log.
+The primer documents the current 100 cards for someone about to pilot them. It is not a change log. Seat-agent checklists for `simulate-table` belong in `AGENT-HINTS.md`, not here.
 
 - Do not write swap history: no "X replaces Y", "Z left for W", "the Talismans were cut", or land or slot counts as `38 → 37`.
 - Do not compare a current card against a card that is no longer in the deck, and do not justify a card by what it beat.

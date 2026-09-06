@@ -20,7 +20,10 @@ and stop unless the user separately asks for changes.
 ## 1. Load the deck
 
 1. Inspect directories directly under `decks/` and identify the requested deck.
-2. Read its `decklist.txt`, `cards.json`, primer, and `DECISIONS.md`.
+2. Read its `decklist.txt`, `cards.json`, primer, `DECISIONS.md`, and
+   `AGENT-HINTS.md` when that file exists. Read
+   `.agents/skills/simulate-table/GAMEPLAY-HINTS.md` for tap, tax, hidden
+   information, and additional-trigger rules.
 3. Run `validate_deck.py`. Stop on unresolved cards, invalid deck size, missing
    commander data, or errors that make draws unreliable.
 4. Use Oracle details embedded in `cards.json`; use `scryfall-lookup` only for
@@ -99,8 +102,9 @@ its mana, timing, and legal target. Test commander removal twice when the deck
 is commander-dependent.
 
 Treat tapped lands, conditional mana, summoning sickness, commander tax,
-timing restrictions, replacement effects, and once-per-turn clauses exactly.
-Walk claimed loops; "fat once" is not infinite.
+timing restrictions, replacement effects, additional-trigger permanents, and
+once-per-turn clauses exactly. Summoning sickness is not tapped. Walk claimed
+loops; "fat once" is not infinite.
 
 ## 5. Run stress branches
 
