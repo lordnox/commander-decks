@@ -211,15 +211,9 @@ def _compact_card(details: Any) -> Any:
     recovered = _scryfall_id_from_image_urls(details.get("image_small"), details.get("image_normal"))
     if recovered is None:
         recovered = _as_uuid(details.get("id"))
-    faces = details.get("faces")
     if recovered:
-        out: dict[str, Any] = {"id": recovered}
-        for key in TEXT_FIELDS:
-            if key in details and details[key]:
-                out[key] = details[key]
-        if isinstance(faces, list):
-            out["faces"] = [_compact_face(face) for face in faces]
-        return out
+        return {"id": recovered}
+    faces = details.get("faces")
     out = {key: details[key] for key in CATALOG_FIELDS if key in details and details[key]}
     if isinstance(faces, list):
         out["faces"] = [_compact_face(face) for face in faces]
@@ -249,17 +243,17 @@ def _trim_tokens(tokens: dict | None, snapshot: dict) -> dict | None:
             if entry.get("token") and isinstance(name, str):
                 keep.add(name)
     if not keep:
-        return {key: tokens[key] for key in tokens}
+        return None
     trimmed = {}
     for key, value in tokens.items():
         if key in keep:
-            trimmed[key] = value
+            trimmed[key] = _compact_card(value)
             continue
         if isinstance(value, dict) and value.get("name") in keep:
-            trimmed[key] = value
+            trimmed[key] = _compact_card(value)
             continue
         if isinstance(value, dict) and value.get("id") in keep:
-            trimmed[key] = value
+            trimmed[key] = _compact_card(value)
     return trimmed or None
 
 

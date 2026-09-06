@@ -27,7 +27,8 @@ https://lordnox.github.io/commander-decks/live/?game=<slug>&event=<id>&you=<seat
 The page must render only the `you` seat's hand and reduce every other seat to
 `hand_count`, even though the fetched replay contains all hands.
 
-**Payload link — for a game that is not published.** Self-contained, no fetch:
+**Payload link — for a game that is not published.** Self-contained game state;
+the browser may fetch card display details from Scryfall:
 
 ```text
 https://lordnox.github.io/commander-decks/live/?s=<payload>
@@ -66,7 +67,7 @@ before compression.
 | `stack` | `{name, controller?, text?}[]` |
 | `combat` | Optional replay combat object (attackers, blocks, possible blockers) |
 | `seats` | Four seats, `p1`–`p4` clockwise |
-| `catalog` | Card name → `{id?, scryfall_uri?, image_small?, image_normal?, type_line?, mana_cost?, oracle_text?, stats?, faces?}` |
+| `catalog` | Card name → `{id}` when a Scryfall printing is known, otherwise inline fallback details |
 | `tokens` | Optional token catalog, same shape as replay |
 
 ### Seat
@@ -94,19 +95,21 @@ Public encode **must** drop every `hand` array and set `you` to null. Keep
 `hand_count`. `revealed_top` stays when the table can see it; private
 look-at-top stays only on the matching `you` seat.
 
-### Catalog `id`
+### Catalog hydration
 
-A payload catalog entry may carry the Scryfall card `id` instead of image URLs.
-The page rebuilds them, which is far smaller than storing two URLs per card:
+When a Scryfall printing is known, payload catalog and token entries contain
+only its printing `id`; do not inline rules, faces, image URLs, or other card
+details. The browser batches missing IDs into Scryfall collection requests of
+at most 75 identifiers and caches the compact display data in the
+`commander-cards` IndexedDB database for seven days.
 
-```text
-https://cards.scryfall.io/small/front/<id[0]>/<id[1]>/<id>.jpg
-https://cards.scryfall.io/normal/front/<id[0]>/<id[1]>/<id>.jpg
-```
+If Scryfall or IndexedDB fails, the payload still renders card names and IDs;
+hydration is an enhancement, not a requirement for opening the board. Entries
+without a recoverable printing ID retain their inline fallback details.
 
-When `scryfall_uri` is absent, link the card by exact name search instead of
-guessing a printing URL. An explicit `image_small`, `image_normal`, or
-`scryfall_uri` always wins over a derived one, so older payloads keep working.
+Published replay short links use the replay's full catalog and do not hydrate
+through Scryfall. Older payloads carrying explicit rules, faces, or images
+remain supported and those explicit fields win over hydrated values.
 
 The encoder snapshots the last event by default; `--event <id>` picks an
 earlier frame from the same log.

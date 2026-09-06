@@ -73,7 +73,9 @@ python3 .agents/skills/live-table/scripts/encode_live.py table-games/<slug>.json
 
 For an unpublished game, omit `--game` so the encoder emits a self-contained
 `?s=<payload>` URL. Warn and publish instead if that query is over ~6000
-characters; the encoder still prints `#s=` past 8000.
+characters; the encoder still prints `#s=` past 8000. Payload links carry only
+Scryfall printing IDs when available and hydrate card details client-side; do
+not inline card details when an ID exists.
 
 Add `--event <id>` to pick an earlier frame instead of the last one. Use it
 when the human takes over a recorded game mid-log: pick the frame **before**

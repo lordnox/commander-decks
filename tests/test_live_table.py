@@ -485,16 +485,72 @@ class LiveTableEncodeTests(unittest.TestCase):
             public=False,
         )
         entry = private["catalog"]["Sol Ring"]
-        self.assertEqual(entry["id"], card_id)
-        self.assertNotIn("image_small", entry)
-        self.assertNotIn("image_normal", entry)
-        self.assertNotIn("scryfall_uri", entry)
-        self.assertEqual(entry["type_line"], "Artifact")
-        self.assertEqual(entry["faces"][0]["id"], card_id)
-        self.assertNotIn("image_small", entry["faces"][0])
+        self.assertEqual(entry, {"id": card_id})
         leftover = private["catalog"]["Forest"]
         self.assertNotIn("id", leftover)
         self.assertIn("image_small", leftover)
+
+    def test_visible_tokens_are_compacted_and_unused_tokens_are_dropped(self):
+        token_id = "11111111-2222-4333-8444-555555555555"
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        replay["tokens"] = {
+            "treasure": {
+                "id": token_id,
+                "name": "Treasure",
+                "image_small": "https://example.test/treasure.jpg",
+                "type_line": "Token Artifact — Treasure",
+                "oracle_text": "{T}, Sacrifice this artifact: Add one mana of any color.",
+            },
+            "unused": {
+                "name": "Clue",
+                "type_line": "Token Artifact — Clue",
+            },
+        }
+        replay["events"][-1]["state"]["players"]["p2"]["battlefield"].append(
+            {
+                "name": "Treasure",
+                "token": True,
+                "token_id": "treasure",
+            }
+        )
+
+        snapshot = encode_live.build_snapshot(
+            replay,
+            you="p2",
+            talk="",
+            waiting="",
+            public=False,
+        )
+        self.assertEqual(snapshot["tokens"], {"treasure": {"id": token_id}})
+
+    def test_token_catalog_is_omitted_when_no_tokens_are_visible(self):
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        replay["tokens"] = {
+            "clue": {
+                "name": "Clue",
+                "type_line": "Token Artifact — Clue",
+            }
+        }
+        snapshot = encode_live.build_snapshot(
+            replay,
+            you="p2",
+            talk="",
+            waiting="",
+            public=False,
+        )
+        self.assertNotIn("tokens", snapshot)
+
+    def test_inline_fallback_details_remain_without_recoverable_id(self):
+        details = {
+            "scryfall_uri": "https://scryfall.com/search?q=custom",
+            "image_small": "https://example.test/custom-small.jpg",
+            "image_normal": "https://example.test/custom-normal.jpg",
+            "type_line": "Token Creature — Custom",
+            "mana_cost": "{2}",
+            "oracle_text": "This fallback remains readable.",
+            "stats": "2/2",
+        }
+        self.assertEqual(encode_live._compact_card(details), details)
 
 
 if __name__ == "__main__":
