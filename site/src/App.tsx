@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState, type CSSProperties } from 'react'
+import { isLivePath } from './liveCodec'
+import { LivePage } from './LivePage'
 import { ReplayPage } from './ReplayPage'
 
 type Seat = {
@@ -277,6 +279,7 @@ const ArchivePage = () => {
 }
 
 export const App = () => {
+  if (isLivePath()) return <LivePage />
   const slug = new URLSearchParams(window.location.search).get('game')
   return slug ? <ReplayPage slug={slug} /> : <ArchivePage />
 }
