@@ -13,8 +13,12 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import compact_live as cl  # noqa: E402
+
 DEFAULT_BASE = "https://lordnox.github.io/commander-decks/live/"
-PAYLOAD_PREFIX = "v1."
+PAYLOAD_PREFIX = "v2."
+LEGACY_PREFIX = "v1."
 CHAT_WARN_CHARS = 6000
 QUERY_WARN_CHARS = 8000
 SEAT_IDS = ("p1", "p2", "p3", "p4")
@@ -35,9 +39,14 @@ def decode_payload(s: str) -> dict:
         raw = raw[1:]
     if raw.startswith("s="):
         raw = raw[2:]
-    if not raw.startswith(PAYLOAD_PREFIX):
+    prefix = None
+    for candidate in (PAYLOAD_PREFIX, LEGACY_PREFIX):
+        if raw.startswith(candidate):
+            prefix = candidate
+            break
+    if prefix is None:
         raise ValueError(f"unknown live payload prefix (expected {PAYLOAD_PREFIX!r})")
-    body = raw[len(PAYLOAD_PREFIX) :]
+    body = raw[len(prefix) :]
     pad = "=" * (-len(body) % 4)
     data = zlib.decompress(base64.urlsafe_b64decode(body + pad))
     obj = json.loads(data.decode("utf-8"))
@@ -46,10 +55,46 @@ def decode_payload(s: str) -> dict:
     return obj
 
 
-def encode_payload(snapshot: dict) -> str:
-    raw = json.dumps(snapshot, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+def decode_snapshot(
+    payload: str,
+    replay: dict | None = None,
+    indexes: dict | None = None,
+) -> dict:
+    wire = decode_payload(payload)
+    if wire.get("v") != 2:
+        return wire
+    loaded = indexes
+    if loaded is None and replay is not None:
+        loaded = cl.indexes_from_replay(replay)
+    return cl.expand_snapshot(wire, loaded or {})
+
+
+def encode_payload(
+    snapshot: dict,
+    replay: dict | None = None,
+    indexes: dict | None = None,
+) -> str:
+    wire = snapshot
+    if snapshot.get("v") != 2:
+        wire = cl.compact_snapshot(snapshot, replay=replay, indexes=indexes)
+        catalog = wire.get("g")
+        if isinstance(catalog, dict):
+            wire["g"] = {
+                name: _compact_card(details) for name, details in catalog.items()
+            }
+        tokens = wire.get("o")
+        if isinstance(tokens, list):
+            packed = []
+            for item in tokens:
+                if isinstance(item, list) and len(item) >= 2:
+                    packed.append([item[0], _compact_card(item[1])])
+                else:
+                    packed.append(item)
+            wire["o"] = packed
+    raw = json.dumps(wire, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
     encoded = base64.urlsafe_b64encode(zlib.compress(raw)).rstrip(b"=").decode("ascii")
-    return PAYLOAD_PREFIX + encoded
+    version = wire.get("v", 2)
+    return f"v{version}." + encoded
 
 
 CATALOG_FIELDS = (
@@ -273,6 +318,7 @@ def _map_seat(
     out: dict[str, Any] = {
         "id": seat_id,
         "name": seat_meta.get("name") or seat_id,
+        "deck": seat_meta.get("deck") or "",
         "commanders": list(seat_meta.get("commanders") or []),
         "color": seat_meta.get("color") or "#888888",
         "life": player.get("life", 40),
@@ -448,7 +494,7 @@ def main(argv: list[str] | None = None) -> int:
             json.dump(snapshot, sys.stdout, separators=(",", ":"), ensure_ascii=False)
             sys.stdout.write("\n")
             return 0
-        payload = encode_payload(snapshot)
+        payload = encode_payload(snapshot, replay=replay)
         url = snapshot_url(args.base, payload)
         if len(url) > CHAT_WARN_CHARS:
             print(
@@ -488,8 +534,8 @@ def main(argv: list[str] | None = None) -> int:
         public=True,
         event_id=args.event,
     )
-    private_payload = encode_payload(private)
-    public_payload = encode_payload(public)
+    private_payload = encode_payload(private, replay=replay)
+    public_payload = encode_payload(public, replay=replay)
     private_query = snapshot_url(args.base, private_payload)
     public_query = snapshot_url(args.base, public_payload)
     if len(private_query) > CHAT_WARN_CHARS:

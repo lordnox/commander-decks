@@ -11,11 +11,13 @@ play and leaves the recorded replay alone.
 - **Replay** (archive): `https://lordnox.github.io/commander-decks/?game=<slug>`
   — full event log from a finished `table-games/<slug>.json` published by
   `render-table-replay`.
-- **Live** (NOW only): `https://lordnox.github.io/commander-decks/live?s=<payload>`
-  — one hot-seat snapshot from `live-table`. No event history. Private links
-  include the viewer hand; use the page's Copy public link to share without
-  hands. Working files may be `table-games/<slug>.live.json` (gitignored,
-  may keep `_libraries`); they are not the Pages payload.
+- **Live** (NOW only): `https://lordnox.github.io/commander-decks/live/?s=<payload>`
+  — one hot-seat snapshot from `live-table`. Payload links (`v2.`) name the
+  four deck slugs and point at card slots in those 99s; the page downloads
+  `decks/<slug>.json`. No event history. Private links include the viewer
+  hand; use the page's Copy public link to share without hands. Working files
+  may be `table-games/<slug>.live.json` (gitignored, may keep `_libraries`);
+  they are not the Pages payload.
 
 Validate and publish every stored replay for the React player:
 
@@ -39,8 +41,9 @@ bun run site:prepare
 bun run build
 ```
 
-The first command writes public replay JSON and `games.json` under ignored
-`site/public/`; Vite writes the complete static site to ignored `dist/`.
+The first command writes public replay JSON, `games.json`, and compact
+`decks/<slug>.json` card tables under ignored `site/public/`; Vite writes the
+complete static site to ignored `dist/`.
 The archive lists games newest-first, with a play-order number (oldest = #1)
 and the time each table was recorded.
 GitHub Actions performs the same build and deploys `dist/`. Once Pages uses

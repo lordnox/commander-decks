@@ -8,3 +8,4 @@ node_modules/
 dist/
 site/public/games.json
 site/public/replays/
+site/public/decks/
