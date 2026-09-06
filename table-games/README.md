@@ -6,6 +6,17 @@ printings with `bun run deck:tokens -- <deck names>`, then start with
 <table>.json --turns 3`, which prepares `<slug>.working.json` for the agent to
 play and leaves the recorded replay alone.
 
+## Live vs replay URLs
+
+- **Replay** (archive): `https://lordnox.github.io/commander-decks/?game=<slug>`
+  — full event log from a finished `table-games/<slug>.json` published by
+  `render-table-replay`.
+- **Live** (NOW only): `https://lordnox.github.io/commander-decks/live?s=<payload>`
+  — one hot-seat snapshot from `live-table`. No event history. Private links
+  include the viewer hand; use the page's Copy public link to share without
+  hands. Working files may be `table-games/<slug>.live.json` (gitignored,
+  may keep `_libraries`); they are not the Pages payload.
+
 Validate and publish every stored replay for the React player:
 
 ```bash
