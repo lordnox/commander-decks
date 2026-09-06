@@ -114,11 +114,12 @@ Let:
 
 - n be the number of creature copies of [Homer](https://scryfall.com/card/mbc/40/homer-the-hermit?utm_source=api);
 - m be the number of other permanents that count as a Crab, Lobster, Nautilus, Starfish, or Trilobite;
-- L be the number of lands entering.
+- d be the number of applicable additional-trigger effects; and
+- L be every land entry in the complete line, including lands found by cracking fetch lands that [**Scapeshift**](https://scryfall.com/card/m19/201/scapeshift?utm_source=api) or another search puts onto the battlefield.
 
-Without trigger doublers, each targeted player mills:
+Each targeted player mills:
 
-2 × L × n × (n + m)
+2 × L × n × (n + m) × (1 + d)
 
 Three Homers and [**Firdoch Core**](https://scryfall.com/card/ecl/255/firdoch-core?utm_source=api) therefore mill 24 cards per land:
 
@@ -131,6 +132,8 @@ With [**Roaming Throne**](https://scryfall.com/card/lci/258/roaming-throne?utm_s
 That example includes three Homers, [Firdoch Core](https://scryfall.com/card/ecl/255/firdoch-core?utm_source=api), and [Roaming Throne](https://scryfall.com/card/lci/258/roaming-throne?utm_source=api). Four land entries mill each opponent for 240.
 
 [**Yarok, the Desecrated**](https://scryfall.com/card/ecc/136/yarok-the-desecrated?utm_source=api), [**Ancient Greenwarden**](https://scryfall.com/card/otc/186/ancient-greenwarden?utm_source=api), [**Virtue of Knowledge**](https://scryfall.com/card/woe/76/virtue-of-knowledge-vantress-visions?utm_source=api), and [**Roaming Throne**](https://scryfall.com/card/lci/258/roaming-throne?utm_source=api) each add another trigger rather than multiplying one another. [**Strionic Resonator**](https://scryfall.com/card/moc/384/strionic-resonator?utm_source=api) copies one chosen trigger.
+
+Before any value play, calculate the largest legal landfall burst from the current hand and library searches. One [Homer](https://scryfall.com/card/mbc/40/homer-the-hermit?utm_source=api) plus [Roaming Throne](https://scryfall.com/card/lci/258/roaming-throne?utm_source=api) mills each opponent for 8 per land entry. Playing a land, then sacrificing six lands to [Scapeshift](https://scryfall.com/card/m19/201/scapeshift?utm_source=api) for six replacements including four fetch lands, creates eleven total land entries after the four fetches are cracked and mills each opponent for 88. Compare that total with the largest opposing library and take the win instead of deploying another setup permanent.
 
 
 
