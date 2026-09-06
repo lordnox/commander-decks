@@ -6,6 +6,7 @@ import {
 } from 'react'
 import { cardInfo, resolveName } from './cards'
 import { combatLines } from './combat'
+import { archiveHref, withRefresh } from './refresh'
 import type {
   ReplayEvent,
   ReplayGame,
@@ -21,8 +22,6 @@ import {
   type Hover,
   type Preview,
 } from './TableBoard'
-
-const base = import.meta.env.BASE_URL
 
 /**
  * Cards the current event touches. The event's own cards belong to the acting
@@ -215,7 +214,7 @@ export const ReplayPage = ({ slug }: { slug: string }) => {
   const logRef = useRef<HTMLOListElement>(null)
 
   useEffect(() => {
-    fetch(`${base}replays/${encodeURIComponent(slug)}.json`)
+    fetch(withRefresh(`replays/${encodeURIComponent(slug)}.json`))
       .then((response) => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`)
         return response.json() as Promise<ReplayGame>
@@ -312,7 +311,7 @@ export const ReplayPage = ({ slug }: { slug: string }) => {
       <main className="mx-auto max-w-xl px-5 py-20 text-center">
         <h1 className="font-display text-3xl">Replay unavailable</h1>
         <p className="mt-3 text-stone-400">{error}</p>
-        <a href={base} className="mt-6 inline-flex text-gold-300">
+        <a href={archiveHref()} className="mt-6 inline-flex text-gold-300">
           ← Return to all games
         </a>
       </main>
@@ -335,7 +334,7 @@ export const ReplayPage = ({ slug }: { slug: string }) => {
       <header className="sticky top-0 z-30 border-b border-white/10 bg-ink-950/90 px-4 py-3 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[110rem] items-center gap-3">
           <a
-            href={base}
+            href={archiveHref()}
             className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold text-stone-300 hover:bg-white/10 hover:text-white"
           >
             ← All games

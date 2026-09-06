@@ -51,6 +51,17 @@ Replay logs are gitignored so ordinary runs stay scratch. To keep a game,
 `git add -f` its JSON and add a `<slug>.md` recap. Generated site files are
 rebuilt in Actions.
 
+Pages serves `index.html` and `games.json` with `max-age=600` and no
+fingerprint in their names, so a browser can show a deploy-old archive for ten
+minutes after a new game lands. The archive's **Refresh** button stamps `t` on
+the URL and reloads; the page carries that stamp into its game links and data
+fetches, so one reload freshens the index and the replay together. A shared
+link can carry it too:
+
+```text
+https://lordnox.github.io/commander-decks/?game=<slug>&t=<unix-seconds>
+```
+
 To ask what went wrong in those logs — missing lands, ramp, or interaction in
 a 99, versus a seat playing the cards it had in the wrong order — follow
 `review-table`. Start with `bun run table:review -- --list` so the agent never
