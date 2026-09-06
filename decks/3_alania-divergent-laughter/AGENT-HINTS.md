@@ -11,6 +11,8 @@ Primer owns the plan. This file is the seat checklist.
    before it resolves?
 4. Is Otawara still in hand, and is there a Mountain or other red source
    that can take the land drop instead?
+5. Which untapped source independently produces `{U}` after the main spell?
+   A filter or Signet with nothing to feed it is not interaction mana.
 
 ## Sequencing
 
@@ -23,6 +25,15 @@ Primer owns the plan. This file is the seat checklist.
   turn.
 - Cast Arcane Signet and other rocks instead of passing with six unused
   mana because "Alania costs too much."
+- Walk every filter payment. Ferrous Lake and Izzet Signet each consume
+  `{1}` and make `{U}{R}`. Chain both when needed, then leave Training Center
+  untapped instead of leaving an inert filter.
+- Alania costs `{3}{U}{R}`. Three ordinary lands plus Ferrous Lake into Izzet
+  Signet produce five; do not delay her because the two filters were counted
+  as only one mana together.
+- With one independent `{U}` left after Alania, March of Swirling Mist can
+  phase one creature by exiling a blue card to reduce its `{1}{U}` cost to
+  `{U}`. Use that line against a repeated commander-damage attacker.
 - **Volcanic Offering** destroys a land **and** a creature, then an
   opponent does the same. Name both types. If Hazel is the archenemy,
   talk first and ask another seat to point both halves at that board.
