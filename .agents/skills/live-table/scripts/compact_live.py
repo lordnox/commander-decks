@@ -31,7 +31,7 @@ PHASES = (
     "priority",
 )
 COMBAT_STEPS = ("attackers", "blockers", "first_strike_damage", "combat_damage")
-DEFAULT_WAITING = "What do you do?"
+DEFAULT_WAITING = "Would this line work? Confirm or replace it."
 FLAG_TAPPED = 1
 FLAG_TOKEN = 2
 FLAG_COMMANDER = 4

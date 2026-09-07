@@ -45,3 +45,10 @@ Primer owns the plan. This file is the seat checklist.
 If another seat shows graveyard exile, state which public jackpot Sin needs
 and negotiate before committing more cards. A short nonaggression offer can
 be worth more than losing the whole prepared graveyard.
+
+Before eliminating a laggard, compare the complete exchange: blockers and
+Zombies lost, cards or mana spent, retaliation opened, and which remaining
+seat inherits the table. Keeping a weak player alive is correct when that
+player still pressures the leader and cannot profitably threaten Sin before
+the next reassessment. Make that a one-rotation posture, not a permanent
+promise.

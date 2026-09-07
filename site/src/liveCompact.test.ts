@@ -10,7 +10,7 @@ const snapshot = (): LiveSnapshot => ({
   v: 1,
   you: 'p2',
   headline: 'Test table',
-  waiting: 'What do you do?',
+  waiting: 'Would this line work? Confirm or replace it.',
   talk: 'Hold up.',
   turn: 3,
   phase: 'main1',

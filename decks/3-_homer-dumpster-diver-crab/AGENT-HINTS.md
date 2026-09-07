@@ -45,8 +45,17 @@ Primer owns the plan. This file is the seat checklist.
 
 ## Combat
 
-Homer almost never attacks. Skip combat unless a clone with evasion is
-the actual clock.
+Count the mill line first. Usually keep Homer out of combat, but use an
+evasive body, deathtouch trade, or lifelink attack when it changes survival
+or creates a faster deterministic win. Before skipping combat, calculate
+life, commander damage, blocks, and lifelink alongside the library clock.
+
+## Politics
+
+When Dumpster-Diver Crab is the laggard, offer short cooperation against the
+current leader if it buys a specific landfall window. Do not promise permanent
+mill immunity: target selection is the deck's win condition, and the threat
+ranking can change before the deal expires.
 
 ## Closing
 

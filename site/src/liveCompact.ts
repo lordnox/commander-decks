@@ -55,7 +55,7 @@ export const COMBAT_STEPS = [
   'first_strike_damage',
   'combat_damage',
 ] as const
-export const DEFAULT_WAITING = 'What do you do?'
+export const DEFAULT_WAITING = 'Would this line work? Confirm or replace it.'
 const FLAG_TAPPED = 1
 const FLAG_TOKEN = 2
 const FLAG_COMMANDER = 4

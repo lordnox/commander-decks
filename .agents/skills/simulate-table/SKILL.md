@@ -165,6 +165,12 @@ each named answerer.
 Seat agents do not write replay JSON. The game master owns schema, IDs,
 and `_libraries`.
 
+After each seat's end step and before the next untap, the game master audits
+the snapshot against Oracle: active faces and printed stats, counters,
+attachments and continuous P/T changes, commander-zone choices, the
+controller and condition of every trigger, and all mandatory end-step and
+cleanup actions. Correct a mismatch before another seat plans from it.
+
 ### 3b. Seat checklist
 
 For every seat, every turn, the seat agent:
@@ -173,7 +179,9 @@ For every seat, every turn, the seat agent:
    graveyard, command zone, `revealed_top`, and known public cards for a deterministic win or forced
    winning line. Write a `turn` plan with the desired end state, intended
    sequence, mana, land sequencing, mandatory upkeep triggers, and named
-   contingencies. Walk the full line, including mana and legal targets. For
+   contingencies. Name the current leader and laggard, who benefits from each
+   plausible elimination, and this seat's political posture. Walk the full
+   line, including mana and legal targets. For
    each plausible finisher, expand legal searches into the cards they find
    and immediate actions those cards enable, then compare exact damage, mill,
    poison, or commander damage with every opponent's current threshold.
@@ -257,8 +265,10 @@ Plans are concise, replay-visible intentions, not hidden chain-of-thought:
   primer plan, opening route, interaction posture, and political leverage.
 - `turn` — written immediately before that seat's untap; says what the seat
   wants to accomplish this turn and lists the intended sequence from cards
-  currently visible to that seat. It cannot name the coming draw unless that
-  card is already in `revealed_top`. Use `phase: "planning"`.
+  currently visible to that seat. Its details identify the current leader,
+  laggard, beneficiary of a likely elimination, and political posture. It
+  cannot name the coming draw unless that card is already in `revealed_top`.
+  Use `phase: "planning"`.
 - `impact` — written immediately after that seat draws and whenever later
   information materially changes the line. Use `status: "kept"` when the plan
   survives and `status: "revised"` when it changes. Its details must refer to
@@ -366,6 +376,12 @@ combat keywords. Before committing, look at what each defender can actually
 block with: their untapped creatures, their power and toughness, and their
 open mana. Record those creatures in `combat.possible_blockers`, so the
 reader can see the attack the attacking seat chose to make.
+
+Record the lethal arithmetic in `notes` or `decision`: expected unblocked and
+trample damage, life after simultaneous damage and lifelink, commander damage,
+poison, and which blockers must be removed or occupied. If one evasive
+attacker is already lethal, justify every additional attacker or leave it
+home.
 
 An attack that hands the defender a free kill is a pilot error, not flavor. A
 4/4 swinging into ten untapped 1/1s and a 3/5 is a gift unless the attacking

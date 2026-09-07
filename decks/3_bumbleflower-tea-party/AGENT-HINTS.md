@@ -12,11 +12,15 @@ Primer owns the plan. This file is the seat checklist.
    future turns on curve.
 4. Which untapped creatures have a free attack? Ms. Bumbleflower has
    vigilance and stays available after attacking.
+5. Is Tea Party the current leader on cards, mana, board, or clock? If so,
+   expect coordinated removal and preserve the smallest protection package
+   that keeps the engine alive.
 
 ## Sequencing
 
-- Ms. Bumbleflower does not trigger for her own cast. She must already be on
-  the battlefield when a later spell is cast.
+- Ms. Bumbleflower does not trigger for her own cast or for any opponent's
+  spell. She must already be on the battlefield when **Tea Party** casts a
+  later spell.
 - Hold Wizard Class or another cheap spell for the post-Bumbleflower turn
   when the opening hand already has the land and creature sequence. Do not
   spend the one-mana spell early merely for level 1.
@@ -34,8 +38,15 @@ Primer owns the plan. This file is the seat checklist.
 
 - Apply all Chasm Skulker counters before combat. Send it and Freestrider
   Lookout when no profitable block or protection deadline competes.
-- Attack with Ms. Bumbleflower whenever the 1 damage is free. Vigilance means
-  combat does not spend her as a blocker.
+- Attack with Ms. Bumbleflower when the damage is free and she is not needed
+  for another combat action. Vigilance usually leaves her available to block.
+- Before declaring, find the minimum lethal package after flying, blocks,
+  trample, commander damage, poison, and known lifelink. If one flier already
+  kills, do not expose Seedborn Muse or value creatures merely to make the
+  attack larger.
+- Mental Misstep is a lethal-combat tool when a mana-value-one protection
+  spell is the only reason the defender survives. Recalculate the final life
+  total before deciding to hold it.
 
 ## Closing
 

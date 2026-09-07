@@ -6,6 +6,7 @@ import type {
 } from './replayTypes'
 import { compactLiveSnapshot } from './scryfallCache'
 import {
+  DEFAULT_WAITING,
   compactLiveWire,
   expandLiveWire,
   loadDeckIndexes,
@@ -152,7 +153,7 @@ export const readLiveRequest = (
     eventId: event === null ? undefined : Number(event),
     you,
     talk: query.get('talk') ?? '',
-    waiting: query.get('waiting') ?? 'What do you do?',
+    waiting: query.get('waiting') ?? DEFAULT_WAITING,
   }
 }
 
@@ -216,7 +217,7 @@ export const replayToLiveSnapshot = (
     v: 1,
     you: options.you ?? null,
     headline: replay.headline,
-    waiting: options.waiting ?? 'What do you do?',
+    waiting: options.waiting ?? DEFAULT_WAITING,
     talk: options.talk ?? '',
     turn: event.state.turn ?? event.turn,
     phase: event.state.phase ?? event.phase,

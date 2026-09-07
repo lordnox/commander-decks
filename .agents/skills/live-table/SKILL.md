@@ -10,9 +10,12 @@ description: >-
 # Live Table
 
 Chat hot-seat Commander: the user pilots one seat; you (the agent) pilot the
-other three and judge. The user announces a LINE in chat. You execute until
-information changes (counter, block, removal of a planned card, illegal next
-step, politics fork). Then you pause, encode a NOW snapshot, and post:
+other three and judge. The user proposes a LINE in chat. Before changing the
+game, walk its mana, timing, targets, triggers, combat arithmetic, and visible
+responses, then answer whether it works. Wait for the user to confirm or
+replace the line. After confirmation, execute until information changes
+(counter, block, removal of a planned card, illegal next step, politics fork).
+Then pause, encode a NOW snapshot, and post:
 
 ```text
 https://lordnox.github.io/commander-decks/live/?game=<slug>&event=<id>&you=<seat>
@@ -53,14 +56,23 @@ changed under their standing plan:
 Skip empty bookkeeping (untap with nothing to do, pure phase labels, opponent
 auto-passes with no interaction). Do not spam snapshots.
 
+On the human's main phase, attacker declaration, blocker declaration, or stack
+decision, propose one legal candidate when useful and phrase the pause as
+`Would this line work? ... Confirm or replace it.` A user proposal is analysis,
+not authorization to append events. Do not commit it until the user confirms
+after seeing the checked sequence and likely responses.
+
 ## Standing plan
 
-The pasted chat line is the standing plan. Execute it in order.
+The confirmed chat line is the standing plan. Execute it in order.
 
 - On interrupt (counter, unexpected block, removal of a planned card, illegal
   next step, politics fork): **STOP**. Do not invent the rest of the line.
 - Re-encode NOW, post the live URL, and ask what they do next.
 - Never assume post-counter sequencing from the old plan.
+- After completing the confirmed human turn, run the same Oracle, stats,
+  commander-zone, and trigger audit required by `simulate-table` before the
+  next untap.
 
 ## Encode and post
 
@@ -68,7 +80,8 @@ When the game is already published, prefer a short link (no payload):
 
 ```bash
 python3 .agents/skills/live-table/scripts/encode_live.py table-games/<slug>.json \
-  --game <slug> --event <id> --you p2 --talk "..." --waiting "What do you do?"
+  --game <slug> --event <id> --you p2 --talk "..." \
+  --waiting "Would this line work? Confirm or replace it."
 ```
 
 For an unpublished game, omit `--game` so the encoder emits a self-contained

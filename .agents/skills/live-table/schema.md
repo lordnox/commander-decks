@@ -22,7 +22,7 @@ https://lordnox.github.io/commander-decks/live/?game=<slug>&event=<id>&you=<seat
 | `event` | Event id to show; omit for the last event |
 | `you` | Viewer seat `p1`–`p4`; omit for a public board |
 | `talk` | Optional table talk / standing plan |
-| `waiting` | Optional prompt, default `What do you do?` |
+| `waiting` | Optional prompt, default `Would this line work? Confirm or replace it.` |
 
 The page must render only the `you` seat's hand and reduce every other seat to
 `hand_count`, even though the fetched replay contains all hands.
@@ -81,7 +81,7 @@ Battlefield flags: tapped `1`, token `2`, commander `4`. `extra` holds `p` /
 | `v` | `2` |
 | `y` | Viewer seat `0`–`3`; omit on a public link |
 | `h` | Headline |
-| `w` | Prompt; omit when it is `What do you do?` |
+| `w` | Prompt; omit when it is `Would this line work? Confirm or replace it.` |
 | `k` | Table talk / standing plan; omit when empty |
 | `t` | Turn number |
 | `p` | Phase index |
@@ -109,7 +109,7 @@ this object.
 | `v` | `1` |
 | `you` | Viewer seat `p1`–`p4`, or omit/`null` on a public link |
 | `headline` | Short table title |
-| `waiting` | Prompt for the human, e.g. `What do you do?` |
+| `waiting` | Prompt for the human, e.g. `Would this line work? Confirm or replace it.` |
 | `talk` | Table talk and the current standing plan |
 | `turn` | Turn number |
 | `phase` | Same strings as replay: `setup`, `untap`, `upkeep`, `draw`, `main1`, `combat`, `main2`, `end`, `priority` |
