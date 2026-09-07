@@ -12,6 +12,9 @@ Primer owns the plan. This file is the seat checklist.
    phase, blink, counter, or recur the current leader's board?
 4. Which seat is the current leader, and does protecting a laggard for one
    rotation improve Graveyard Shift's chance to assemble a loop?
+5. Is Bartolomé completing a line now? Commander tax counts prior command-zone
+   casts, not returns to the command zone; do not spend the turn on a bare
+   sacrifice outlet when a setup creature or held answer advances more.
 
 ## Sequencing
 
@@ -26,6 +29,18 @@ Primer owns the plan. This file is the seat checklist.
 - Preserve the mana and body required for the next loop step when helping
   another seat. Political assistance should also remove leader resources or
   buy a named setup turn.
+- Compare Bartolomé with every setup creature before casting. Emeritus of Woe
+  enters prepared and threatens a Demonic Tutor copy; if it draws removal,
+  Bartolomé is safer, and if it survives, it finds the missing combo piece.
+- Dimir House Guard is both a body and Transmute `{1}{B}{B}` for any mana-value
+  four card. Enumerate Enduring Renewal, Pitiless Plunderer, Ratadrabik,
+  Emeritus of Woe, and the other legal targets before choosing to cast it.
+  With Ashnod's Altar already in play, Enduring Renewal is usually the first
+  engine to compare.
+- Preserve Disenchant mana against a live Portal to Phyrexia or comparable
+  permanent engine. Casting Dimir House Guard while leaving `{W}` open is
+  stronger than tapping out for a commander that has nothing profitable to
+  sacrifice.
 
 ## Politics
 

@@ -45,11 +45,14 @@ library top (only if an effect reveals it):
    can pay it **right now**.
 4. Triggered abilities that already happened this turn and ones that must
    still fire before passing: draw, enter, cast, attack, combat-damage,
-   landfall, death, and second-draw triggers all count.
+   landfall, death, and second-draw triggers all count. Keep a per-turn ledger
+   for "only once each turn", "the second time", and each player's second
+   draw; do not reset it between phases.
 5. Legal attacks, legal blocks, and activated abilities that cost no mana.
 
 A pass with unused mana, unused attacks, or an unused `{T}` ability needs a
-fresh `decision` that lists those options.
+fresh `decision` that lists those options. `available: []` is wrong when an
+untapped utility land, permanent, sacrifice ability, or castable card remains.
 
 Do not resolve every optional trigger by reflex. Compare it with the current
 turn plan. For example, returning Bloodghast on landfall before Living Death
@@ -109,6 +112,13 @@ chain, walk both. Prefer spending filters and rocks while leaving a land that
 independently produces the interaction color untapped. A filter left without
 an input is not `open_mana`.
 
+Write the same ordered payment into the plan when mana determines the line.
+Recount from the snapshot after the land drop and after every spell. If the
+events take a different line than the current plan, revise the plan before
+continuing. "Commander first" and "not faster" are conclusions, not reasons:
+compare what each legal line puts on board, which answer it invites, what
+interaction stays open, and what it enables next turn.
+
 Holding mana is legal only when a **named** card in hand or a **named**
 activated ability will fire in a **named** later window. `{T}` abilities
 with no mana cost are not "held up"; they fire in the window they affect.
@@ -143,6 +153,15 @@ effect, and every target directly in the event summary. Do not compress this
 to `Y enters; A draws and B gets a counter`, because that wording hides
 whether entering Y actually caused the ability. Do not hide an Aura target
 only in the battlefield `note`.
+
+Keep `state.stack` honest at every step. The cast event adds the spell; each
+cast trigger is added above it; those triggers resolve before the spell; only
+then can a permanent enter and cause enter triggers. Record each trigger as a
+separate event so the viewer can show the pending list.
+
+Untap effects are state changes too. Seedborn Muse and similar cards untap the
+recorded permanents during every other player's untap step. Update the
+snapshot before spending that mana later in the turn.
 
 ## 4. Hidden information
 
@@ -195,6 +214,12 @@ Prevention and fogs: activate or cast them in the combat they change.
 Sokrates-style "prevent combat damage that creature would deal to a
 player" abilities fire **before** damage, usually for a tap and no mana.
 A fog in hand while this seat "stays on fogs" and takes 18 is a miss.
+
+Before accepting blockers as inevitable, inspect every removal spell and
+ability in hand. If one blocker is the only object preventing lethal, include
+its targeting cost, ward cost, protection, and the permanents or mana needed
+to pay those costs. Paying expendable resources to remove that blocker is
+usually correct when it eliminates a player immediately.
 
 ## 6. Politics
 
@@ -255,7 +280,13 @@ Before passing the turn or taking a "nothing to do" combat:
     printed condition, and was its source in the required zone then? Re-run
     this causal check even for abilities already resolved. A permanent cannot
     trigger from the cast that puts itself onto the battlefield.
+12. Does the per-turn trigger ledger contain every trigger and prevent every
+    "only once each turn" ability from firing twice?
+13. Does the event sequence still match the current plan's stated mana and
+    actions? If not, revise the plan before the next event.
+14. If a random effect was narrowed, were all current outcomes compared and
+    was the lost upside worth the certainty?
 
 If an available win, elimination, land drop, trigger, or safe attack was left
 unused, the line needs a recorded reason or is wrong. If any audit in items
-8–11 fails, correct the snapshot before the next untap.
+8–14 fails, correct the snapshot before the next untap.

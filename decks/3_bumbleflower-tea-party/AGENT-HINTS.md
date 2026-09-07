@@ -15,6 +15,10 @@ Primer owns the plan. This file is the seat checklist.
 5. Is Tea Party the current leader on cards, mana, board, or clock? If so,
    expect coordinated removal and preserve the smallest protection package
    that keeps the engine alive.
+6. Who has drawn zero or one card this turn? Distribute Bumbleflower gifts to
+   turn on King T'Challa, Trouble in Pairs, and Tea Party's own second draw
+   without feeding the current leader or stocking an opposing graveyard
+   engine.
 
 ## Sequencing
 
@@ -33,6 +37,17 @@ Primer owns the plan. This file is the seat checklist.
   Chasm Skulker and may cross a Gleaming Splendor second-draw threshold.
 - A Bumbleflower trigger is one crime even though it targets both an opponent
   and a creature.
+- With King T'Challa in hand, cast and resolve King before the next spell.
+  Give the first Bumbleflower draw to a player with no draw yet, then give
+  that same player their second draw after King enters. King's trigger also
+  sees Tea Party draw its second card from Bumbleflower.
+- Endurance is free interaction when a green card can pay evoke. Aim it at
+  the graveyard powering the live repeatable threat, not a yard whose stolen
+  value is already being removed by another spell.
+- Seedborn Muse is the deck's strongest engine with Ms. Bumbleflower: it
+  reloads mana on every opposing untap for flash spells, interaction, and
+  additional two-spell turns. Record each untap, protect Muse with the same
+  urgency as Bumbleflower, and expect the table to remove it.
 
 ## Combat
 
@@ -44,6 +59,11 @@ Primer owns the plan. This file is the seat checklist.
   trample, commander damage, poison, and known lifelink. If one flier already
   kills, do not expose Seedborn Muse or value creatures merely to make the
   attack larger.
+- If one blocker prevents lethal, compare removal before declaring attacks.
+  Include ward costs: expendable mana rocks, tax pieces, or newly cast bodies
+  are worth sacrificing when Swords to Plowshares opens an immediate
+  ten-poison kill. Send only the minimum lethal attacker and leave Muse and
+  other engines home.
 - Mental Misstep is a lethal-combat tool when a mana-value-one protection
   spell is the only reason the defender survives. Recalculate the final life
   total before deciding to hold it.

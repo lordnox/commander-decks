@@ -12,6 +12,9 @@ Primer owns the plan. This file is the seat checklist.
    be cast for ten?
 4. Can graveyard filtering remove an excess jackpot while turning into land
    or ramp?
+5. Does an untapped Horizon of Progress convert a stranded land into an extra
+   land drop, or sacrifice itself to draw while becoming Sin fuel? A pass
+   must compare both modes.
 
 ## Malevolent Rumble
 
@@ -39,6 +42,14 @@ Primer owns the plan. This file is the seat checklist.
 - Buried Alive is correct only when the graveyard has enough lands and needs
   a jackpot. Do not put three competing stop cards in merely because the
   spell can find three creatures.
+- Before Pit of Offerings, Cling to Dust, or another filter narrows Sin's
+  random pool, enumerate every current hit and compare its immediate impact.
+  Ugin may answer a colored board more completely than Portal to Phyrexia,
+  whose opponents choose their sacrifices; leaving several strong hits can be
+  better than spending a resource to force one familiar jackpot.
+- Treat Horizon of Progress as a spell in pass decisions. `{3}, {T}` unloads
+  a land-heavy hand; `{1}, {T}`, sacrifice draws and adds a land permanent to
+  Sin's graveyard. Do not report `available: []` while either mode is legal.
 
 ## Politics
 
