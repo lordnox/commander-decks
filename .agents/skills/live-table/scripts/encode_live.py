@@ -432,7 +432,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("replay", type=Path, help="simulate-table replay JSON path")
     parser.add_argument("--you", choices=SEAT_IDS, help="viewer seat for the private link")
     parser.add_argument("--talk", default="", help="table talk / standing plan")
-    parser.add_argument("--waiting", default="What do you do?", help="prompt for the human")
+    parser.add_argument(
+        "--waiting",
+        default=cl.DEFAULT_WAITING,
+        help="prompt for the human",
+    )
     parser.add_argument(
         "--public",
         action="store_true",

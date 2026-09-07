@@ -249,12 +249,18 @@ FAKE_REPLAY = {
 
 
 class LiveTableEncodeTests(unittest.TestCase):
+    def test_default_prompt_requires_confirmation(self):
+        self.assertEqual(
+            encode_live.cl.DEFAULT_WAITING,
+            "Would this line work? Confirm or replace it.",
+        )
+
     def test_payload_prefix_and_round_trip(self):
         private = encode_live.build_snapshot(
             FAKE_REPLAY,
             you="p2",
             talk="Hold up Counterspell.",
-            waiting="What do you do?",
+            waiting=encode_live.cl.DEFAULT_WAITING,
             public=False,
         )
         payload = encode_live.encode_payload(private, replay=FAKE_REPLAY)
@@ -295,7 +301,7 @@ class LiveTableEncodeTests(unittest.TestCase):
             FAKE_REPLAY,
             you=None,
             talk="Hold up Counterspell.",
-            waiting="What do you do?",
+            waiting=encode_live.cl.DEFAULT_WAITING,
             public=True,
         )
         self.assertIsNone(public["you"])
@@ -313,7 +319,7 @@ class LiveTableEncodeTests(unittest.TestCase):
             FAKE_REPLAY,
             you="p2",
             talk="Hold up Counterspell.",
-            waiting="What do you do?",
+            waiting=encode_live.cl.DEFAULT_WAITING,
             public=False,
         )
         self.assertEqual(private["you"], "p2")
@@ -348,7 +354,7 @@ class LiveTableEncodeTests(unittest.TestCase):
                         "--talk",
                         "Hold up.",
                         "--waiting",
-                        "What do you do?",
+                        "Would this line work? Confirm or replace it.",
                         "--json",
                     ]
                 )
@@ -367,7 +373,7 @@ class LiveTableEncodeTests(unittest.TestCase):
                         "--talk",
                         "Hold up.",
                         "--waiting",
-                        "What do you do?",
+                        "Would this line work? Confirm or replace it.",
                     ]
                 )
             self.assertEqual(code, 0)
@@ -484,7 +490,7 @@ class LiveTableEncodeTests(unittest.TestCase):
             replay,
             you="p2",
             talk="",
-            waiting="What do you do?",
+            waiting=encode_live.cl.DEFAULT_WAITING,
             public=False,
         )
         entry = private["catalog"]["Sol Ring"]
@@ -563,7 +569,7 @@ class LiveTableEncodeTests(unittest.TestCase):
             replay,
             you="p1",
             talk="Keep the board.",
-            waiting="What do you do?",
+            waiting=encode_live.cl.DEFAULT_WAITING,
             public=False,
         )
         raw = json.dumps(private, separators=(",", ":"), ensure_ascii=False).encode("utf-8")

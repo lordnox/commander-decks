@@ -5,6 +5,9 @@ second primer. Primer and `AGENT-HINTS.md` still win on that deck's plan.
 
 Walk the checklist against the **current** snapshot. Do not reuse last
 turn's `think` text. Do not invent hold-up that the cards cannot pay.
+Strategic claims should say `usually`, `unless`, or `given this board`.
+Reserve `never` and `always` for rules, hidden information, and other facts
+that have no board-dependent exception.
 
 ## A. Plan cycle
 
@@ -12,7 +15,8 @@ turn's `think` text. Do not invent hold-up that the cards cannot pay.
   decklists, and likely political tools.
 - Before each untap, write a `turn` plan: desired end state, land sequence,
   mana sequence, mandatory upkeep triggers, optional triggers to decline,
-  interaction deadline, and contingencies.
+  interaction deadline, contingencies, current leader and laggard, and the
+  political posture that follows from that ranking.
 - Immediately after drawing, write an `impact` update. If the card does not
   improve the line, restate the current plan with `status: kept`. If it does,
   replace the line with `status: revised`.
@@ -32,6 +36,9 @@ From the public board plus this seat's private hand, command zone, and
 library top (only if an effect reveals it):
 
 1. Life, poison, commander damage, and who can actually die this rotation.
+   Rank the current leader and laggard from board, cards available, clock,
+   resilience, and open answers — life total alone is not the ranking.
+   For every plausible elimination, name who benefits if that player leaves.
 2. Untapped permanents this seat can tap for mana, their colors, and
    **`open_mana` counted from those permanents**, never from memory.
 3. Commanders still in the command zone, their tax, and whether this seat
@@ -155,6 +162,19 @@ power/toughness after anthems, and their open mana. Do not send a 1/1 at a
 3/5 with no trick, pump, sacrifice outlet, deal, or race math. Put the
 reason on the `attack` event or do not attack.
 
+Before declaring attackers, write the combat arithmetic for each defender:
+
+1. Apply printed or active face stats, counters, Auras, Equipment, anthems,
+   pumps, and damage already marked.
+2. Assign the defender's legal blocks, then total unblocked damage and
+   trample overflow against life, 21 commander damage, and 10 poison.
+3. Include first strike, double strike, deathtouch, prevention, lifelink, and
+   simultaneous damage. Lifelink from a blocker can keep its controller alive
+   through damage dealt in the same combat step.
+4. If one evasive attacker is already lethal, explain what each additional
+   attacker gains. Keep bodies home when they only create profitable blocks
+   or expose value without changing the kill.
+
 Conversely, take free attacks. Vigilance bodies stay available; mana creatures
 untap next turn and may attack when no profitable block, tap ability, tax, or
 defensive deadline competes. Apply static P/T abilities before judging combat.
@@ -174,9 +194,15 @@ A fog in hand while this seat "stays on fogs" and takes 18 is a miss.
 
 ## 6. Politics
 
-When one seat is clearly winning the table and this seat has a split
-effect (Volcanic Offering, Council's Judgment, a wipe, a shared fog),
-open a `talk` window **before** committing. Terms use public information.
+Reassess leader, laggard, and political posture every turn. A laggard can be a
+useful temporary ally against the leader; eliminating that ally may simply
+hand the table to the next seat. Before removal, a wipe, or lethal, say who
+inherits the advantage and whether the acting seat benefits.
+
+When the current ranking or an irreversible line makes coordination useful,
+open a `talk` window **before** committing. Split effects (Volcanic Offering,
+Council's Judgment, a wipe, a shared fog) are obvious bargaining windows.
+Terms use public information.
 Group-slug and tax effects cannot be promised away if they are
 symmetrical.
 
@@ -195,6 +221,8 @@ seats draw toward an answer to the current leader.
 
 Plain coordination is `talk`. Future promises are a `deal`, with exact terms
 and expiry. Each seat compares the offer with its active plan before answering.
+Prefer short, observable terms. Open-ended `never` or `always` promises are
+usually bad offers because the board and threat ranking will change.
 
 ## 7. Closing check
 
@@ -213,5 +241,13 @@ Before passing the turn or taking a "nothing to do" combat:
 6. Did every additional-trigger permanent actually add instances?
 7. Did every safe attacker attack, or does the decision explain why it stayed
    home?
+8. Do every permanent's printed or active-face stats, counters, attachments,
+   continuous effects, and recorded `pt` agree with the current board?
+9. When a commander moved to the graveyard or exile, did its owner explicitly
+   choose whether to move it to the command zone?
+10. For every trigger, did the correct controller perform the triggering
+    action (`you cast`, `you draw`, `a land enters under your control`)?
 
-If any answer is yes and this seat passed, the line is wrong.
+If an available win, elimination, land drop, trigger, or safe attack was left
+unused, the line needs a recorded reason or is wrong. If any audit in items
+8–10 fails, correct the snapshot before the next untap.
