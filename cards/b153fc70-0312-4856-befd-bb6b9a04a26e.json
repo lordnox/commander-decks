@@ -1,0 +1,134 @@
+{
+  "arena_id": 87255,
+  "artist": "Olivier Bernard",
+  "artist_ids": [
+    "11c6f325-68c2-4f2a-972d-98d2ffe6c224"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 743998,
+  "cmc": 3.0,
+  "collector_number": "110",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 12571,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The more creatures that plunge to their deaths in the abyss, the more angry Echoes that arise to drag others down.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b5bf6c25-a7d7-40b6-aa19-f852d348967f",
+  "illustration_id": "9b8e1dce-42ed-4e73-9c1d-e1558b64033a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:36:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/5/b5bf6c25-a7d7-40b6-aa19-f852d348967f.webp?1783913777",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/5/b5bf6c25-a7d7-40b6-aa19-f852d348967f.jpg?1783913777",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/5/b5bf6c25-a7d7-40b6-aa19-f852d348967f.jpg?1783913777",
+    "crop": "https://cards.scryfall.io/crop/front/b/5/b5bf6c25-a7d7-40b6-aa19-f852d348967f.webp?1783913777",
+    "display": "https://cards.scryfall.io/display/front/b/5/b5bf6c25-a7d7-40b6-aa19-f852d348967f.webp?1783913777",
+    "grid": "https://cards.scryfall.io/grid/front/b/5/b5bf6c25-a7d7-40b6-aa19-f852d348967f.webp?1783913777",
+    "large": "https://cards.scryfall.io/large/front/b/5/b5bf6c25-a7d7-40b6-aa19-f852d348967f.jpg?1783913777",
+    "normal": "https://cards.scryfall.io/normal/front/b/5/b5bf6c25-a7d7-40b6-aa19-f852d348967f.jpg?1783913777",
+    "png": "https://cards.scryfall.io/png/front/b/5/b5bf6c25-a7d7-40b6-aa19-f852d348967f.png?1783913777",
+    "small": "https://cards.scryfall.io/small/front/b/5/b5bf6c25-a7d7-40b6-aa19-f852d348967f.jpg?1783913777",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/5/b5bf6c25-a7d7-40b6-aa19-f852d348967f.webp?1783913777"
+  },
+  "keywords": [
+    "Descend"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}{B}",
+  "mtgo_id": 118026,
+  "multiverse_ids": [
+    636815
+  ],
+  "name": "Join the Dead",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b153fc70-0312-4856-befd-bb6b9a04a26e",
+  "oracle_text": "Target creature gets -5/-5 until end of turn.\nDescend 4 — That creature gets -10/-10 until end of turn instead if there are four or more permanent cards in your graveyard.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.11",
+    "eur_foil": "0.16",
+    "tix": "0.03",
+    "usd": "0.17",
+    "usd_etched": null,
+    "usd_foil": "0.26"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab153fc70-0312-4856-befd-bb6b9a04a26e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/118026?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=743998&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F526349%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Join+the+Dead",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=636815&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DJoin%2Bthe%2BDead",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DJoin%2Bthe%2BDead"
+  },
+  "released_at": "2023-11-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b5bf6c25-a7d7-40b6-aa19-f852d348967f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lci?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lci/110/join-the-dead?utm_source=api",
+  "set": "lci",
+  "set_id": "70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "set_name": "The Lost Caverns of Ixalan",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alci&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "story_spotlight": false,
+  "tcgplayer_id": 526349,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/b5bf6c25-a7d7-40b6-aa19-f852d348967f",
+  "variation": false
+}

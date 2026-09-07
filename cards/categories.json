@@ -9864,8 +9864,38 @@
       "categories": [
         "removal"
       ]
+    },
+    "45d5cd4c-7285-4507-8cbf-eace7a734f41": {
+      "name": "Price of Fame",
+      "categories": [
+        "removal"
+      ]
+    },
+    "ef4c478c-7019-4ec0-8edf-2a3078a8e97a": {
+      "name": "Drag to the Roots",
+      "categories": [
+        "removal"
+      ]
+    },
+    "b153fc70-0312-4856-befd-bb6b9a04a26e": {
+      "name": "Join the Dead",
+      "categories": [
+        "other"
+      ]
+    },
+    "af105cda-1f7c-4868-9407-a97c46bd762d": {
+      "name": "Black Sun's Twilight",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "fd74f8eb-0253-42dd-8277-186d4934da38": {
+      "name": "Dismember",
+      "categories": [
+        "other"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-06T22:22:10.299147+00:00"
+  "updated_at": "2026-09-07T22:44:46.549524+00:00"
 }

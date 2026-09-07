@@ -1592,8 +1592,13 @@
     "uba mask": "766c644c-04fe-4b01-93dd-09a50d78d01f",
     "wand of wonder": "8f1123dd-19b7-402b-8ecd-ab62494c9fd5",
     "whispersilk cloak": "9ad4f730-a18e-4a7c-a468-a926c718c741",
-    "you find some prisoners": "467c526a-02a7-405d-98de-c632ea83519b"
+    "you find some prisoners": "467c526a-02a7-405d-98de-c632ea83519b",
+    "price of fame": "45d5cd4c-7285-4507-8cbf-eace7a734f41",
+    "drag to the roots": "ef4c478c-7019-4ec0-8edf-2a3078a8e97a",
+    "join the dead": "b153fc70-0312-4856-befd-bb6b9a04a26e",
+    "black sun's twilight": "af105cda-1f7c-4868-9407-a97c46bd762d",
+    "dismember": "fd74f8eb-0253-42dd-8277-186d4934da38"
   },
   "schema_version": 1,
-  "updated_at": "2026-09-06T22:22:10.299147+00:00"
+  "updated_at": "2026-09-07T22:44:46.549524+00:00"
 }

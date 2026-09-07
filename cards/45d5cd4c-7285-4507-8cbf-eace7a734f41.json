@@ -1,0 +1,131 @@
+{
+  "artist": "Winona Nelson",
+  "artist_ids": [
+    "e45fe8d3-75d6-42c9-a2df-e945ad81ea27"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753414,
+  "cmc": 4.0,
+  "collector_number": "135",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 4434,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "e9054114-6740-4e2d-ae40-ccfb5e497d67",
+  "illustration_id": "06bfe238-3081-4d96-866b-cd7b9bcc2db9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:23:25Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/9/e9054114-6740-4e2d-ae40-ccfb5e497d67.webp?1783913005",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/9/e9054114-6740-4e2d-ae40-ccfb5e497d67.jpg?1783913005",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/9/e9054114-6740-4e2d-ae40-ccfb5e497d67.jpg?1783913005",
+    "crop": "https://cards.scryfall.io/crop/front/e/9/e9054114-6740-4e2d-ae40-ccfb5e497d67.webp?1783913005",
+    "display": "https://cards.scryfall.io/display/front/e/9/e9054114-6740-4e2d-ae40-ccfb5e497d67.webp?1783913005",
+    "grid": "https://cards.scryfall.io/grid/front/e/9/e9054114-6740-4e2d-ae40-ccfb5e497d67.webp?1783913005",
+    "large": "https://cards.scryfall.io/large/front/e/9/e9054114-6740-4e2d-ae40-ccfb5e497d67.jpg?1783913005",
+    "normal": "https://cards.scryfall.io/normal/front/e/9/e9054114-6740-4e2d-ae40-ccfb5e497d67.jpg?1783913005",
+    "png": "https://cards.scryfall.io/png/front/e/9/e9054114-6740-4e2d-ae40-ccfb5e497d67.png?1783913005",
+    "small": "https://cards.scryfall.io/small/front/e/9/e9054114-6740-4e2d-ae40-ccfb5e497d67.jpg?1783913005",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/9/e9054114-6740-4e2d-ae40-ccfb5e497d67.webp?1783913005"
+  },
+  "keywords": [
+    "Surveil"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "mtgo_id": 122410,
+  "multiverse_ids": [
+    650229
+  ],
+  "name": "Price of Fame",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "45d5cd4c-7285-4507-8cbf-eace7a734f41",
+  "oracle_text": "This spell costs {2} less to cast if it targets a legendary creature.\nDestroy target creature.\nSurveil 2. (Look at the top two cards of your library, then put any number of them into your graveyard and the rest on top of your library in any order.)",
+  "oversized": false,
+  "penny_rank": 7565,
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": null,
+    "tix": "0.05",
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A45d5cd4c-7285-4507-8cbf-eace7a734f41&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122410?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753414&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535768%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Price+of+Fame",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=650229&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPrice%2Bof%2BFame",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPrice%2Bof%2BFame"
+  },
+  "released_at": "2024-02-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e9054114-6740-4e2d-ae40-ccfb5e497d67/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkc/135/price-of-fame?utm_source=api",
+  "set": "mkc",
+  "set_id": "286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "set_name": "Murders at Karlov Manor Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "story_spotlight": false,
+  "tcgplayer_id": 535768,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/e9054114-6740-4e2d-ae40-ccfb5e497d67",
+  "variation": false
+}
