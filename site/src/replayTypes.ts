@@ -140,6 +140,7 @@ export type ReplayEvent = {
     phase: string
     stack: Array<{
       name: string | number
+      kind?: 'spell' | 'trigger' | 'ability'
       controller?: string
       text?: string
     }>

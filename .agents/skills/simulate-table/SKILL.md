@@ -287,7 +287,9 @@ counter and flying until end of turn.` A permanent does not see the cast that
 put it onto the battlefield, so that summary would be illegal if the named
 spell were Ms. Bumbleflower herself. Put end-step triggered abilities on the
 end step where they actually trigger; never defer a trigger across the next
-player's untap.
+player's untap. Use `kind: "trigger"` when the ability goes on the stack and
+add a stack row with the source name, `kind: "trigger"`, controller, printed
+condition, effect, and targets. Its later `resolve` event removes that row.
 
 If the game hits the turn cap with multiple players alive, stop and name the
 leader rather than inventing a win.
