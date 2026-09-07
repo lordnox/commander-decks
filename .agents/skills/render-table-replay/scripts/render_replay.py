@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[4]
 TABLE_GAMES = ROOT / "table-games"
 REPLAYS = ROOT / "site" / "public" / "replays"
 PT = re.compile(r"^[^/\s]+/[^/\s]+$")
+TURN_SUMMARY = re.compile(r"^\s*Turn\s+(\d+)\b", re.IGNORECASE)
 SCHEMAS = {1, 2}
 COMBAT_STEPS = {"attackers", "blockers", "first_strike_damage", "combat_damage"}
 DAMAGE_STEPS = {"first_strike_damage", "combat_damage"}
@@ -466,6 +467,19 @@ def validate_open_mana(events: list[dict], catalog: dict, rows: list[dict]) -> N
             )
 
 
+def validate_turn_labels(events: list[dict]) -> None:
+    """Keep human-facing untap labels on the replay's turn convention."""
+    for event in events:
+        if event.get("phase") != "untap":
+            continue
+        match = TURN_SUMMARY.match(event.get("summary") or "")
+        if match and int(match.group(1)) != event.get("turn"):
+            raise ValueError(
+                f"event {event.get('id')}: untap summary says turn "
+                f"{match.group(1)} but event.turn is {event.get('turn')}"
+            )
+
+
 def public_card_names(state: dict, rows: list[dict]) -> set[str]:
     names: set[str] = set()
     for item in state.get("stack") or []:
@@ -854,6 +868,7 @@ def public_game(game: dict, *, strict: bool = False) -> dict:
         catalog = cleaned.get("catalog") if isinstance(cleaned.get("catalog"), dict) else {}
         validate_commanders_present(seats, events, rows)
         if strict:
+            validate_turn_labels(events)
             validate_enter_untapped(events, catalog, rows)
             validate_open_mana(events, catalog, rows)
             validate_hidden_reasons(events, catalog, rows)

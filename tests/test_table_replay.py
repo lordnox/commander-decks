@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / ".agents/skills/render-table-replay/scripts/render_replay.py"
+SUMMARY_SCRIPT = ROOT / ".agents/skills/review-table/scripts/summarize_replays.py"
 
 
 def load_script():
@@ -16,6 +17,16 @@ def load_script():
 
 
 render_replay = load_script()
+
+
+def load_summary_script():
+    spec = importlib.util.spec_from_file_location("summarize_replays", SUMMARY_SCRIPT)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+summarize_replays = load_summary_script()
 
 SEATS = [
     {"id": "p1", "name": "Attacker", "commanders": ["Osgir, the Reconstructor"]},
@@ -155,6 +166,23 @@ class CombatRecordTests(unittest.TestCase):
 
         render_replay.public_game(replay)
 
+    def test_review_does_not_flag_reason_when_no_block_was_legal(self):
+        replay = game()
+        replay["events"][3]["combat"]["possible_blockers"] = {"p2": []}
+        replay["events"][4]["combat"]["blocks"] = []
+
+        flags = summarize_replays.combat_records(replay["events"], [])
+
+        self.assertEqual(flags, [])
+
+    def test_review_flags_unexplained_decline_when_block_was_legal(self):
+        replay = game()
+        replay["events"][4]["combat"]["blocks"] = []
+
+        flags = summarize_replays.combat_records(replay["events"], [])
+
+        self.assertEqual(flags[0]["missing"], ["block reason"])
+
     def test_untyped_damage_is_rejected(self):
         replay = game()
         del replay["events"][5]["damage"][0]["type"]
@@ -194,6 +222,18 @@ class CombatRecordTests(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "without a declared attack"):
             render_replay.public_game(replay)
+
+
+class TurnLabelTests(unittest.TestCase):
+    def test_matching_untap_turn_label_passes(self):
+        render_replay.validate_turn_labels(game()["events"])
+
+    def test_mismatched_untap_turn_label_is_rejected(self):
+        replay = game()
+        replay["events"][1]["summary"] = "Turn 16 — Attacker untaps."
+
+        with self.assertRaisesRegex(ValueError, "summary says turn 16"):
+            render_replay.validate_turn_labels(replay["events"])
 
 
 class PlanRecordTests(unittest.TestCase):
