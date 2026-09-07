@@ -595,6 +595,117 @@ class PlayInvariantTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "entered tapped"):
             render_replay.validate_enter_untapped(events, catalog, [])
 
+    def test_cast_spell_must_stay_on_stack_until_its_own_resolution(self):
+        events = [
+            {
+                "id": 1,
+                "kind": "cast",
+                "cards": ["Seedborn Muse"],
+                "state": {"stack": [{"name": "Seedborn Muse"}]},
+            },
+            {
+                "id": 2,
+                "kind": "resolve",
+                "cards": ["Ms. Bumbleflower"],
+                "state": {"stack": [{"name": "Seedborn Muse"}]},
+            },
+            {
+                "id": 3,
+                "kind": "resolve",
+                "cards": ["Seedborn Muse"],
+                "state": {"stack": []},
+            },
+        ]
+
+        render_replay.validate_cast_stacks(events, [])
+
+    def test_cast_spell_cannot_disappear_during_its_trigger(self):
+        events = [
+            {
+                "id": 1,
+                "kind": "cast",
+                "cards": ["Loki, God of Mischief"],
+                "state": {"stack": [{"name": "Loki, God of Mischief"}]},
+            },
+            {
+                "id": 2,
+                "kind": "resolve",
+                "cards": ["Ms. Bumbleflower"],
+                "state": {"stack": []},
+            },
+        ]
+
+        with self.assertRaisesRegex(ValueError, "left state.stack"):
+            render_replay.validate_cast_stacks(events, [])
+
+    def test_cast_spell_must_appear_on_stack(self):
+        events = [
+            {
+                "id": 1,
+                "kind": "cast",
+                "cards": ["Sin, Spira's Punishment"],
+                "state": {"stack": []},
+            }
+        ]
+
+        with self.assertRaisesRegex(ValueError, "must put it on state.stack"):
+            render_replay.validate_cast_stacks(events, [])
+
+    def test_token_must_resolve_to_permanent_metadata(self):
+        events = [
+            {
+                "id": 1,
+                "state": {
+                    "players": {
+                        "p1": {
+                            "battlefield": [
+                                {
+                                    "name": "Elephant",
+                                    "token": True,
+                                    "token_id": "copy",
+                                    "pt": "3/3",
+                                }
+                            ]
+                        }
+                    }
+                },
+            }
+        ]
+        tokens = {"copy": {"name": "Copy", "type_line": "Token"}}
+
+        with self.assertRaisesRegex(ValueError, "permanent type metadata"):
+            render_replay.validate_token_metadata(events, {}, tokens, [])
+
+    def test_token_can_use_exact_printing_or_copied_card_metadata(self):
+        exact = [
+            {
+                "id": 1,
+                "state": {
+                    "players": {
+                        "p1": {
+                            "battlefield": [
+                                {
+                                    "name": "Elephant",
+                                    "token": True,
+                                    "token_id": "elephant",
+                                },
+                                {"name": "Forest", "token": True},
+                            ]
+                        }
+                    }
+                },
+            }
+        ]
+        catalog = {"Forest": {"type_line": "Basic Land — Forest"}}
+        tokens = {
+            "elephant": {
+                "name": "Elephant",
+                "type_line": "Token Creature — Elephant",
+            }
+        }
+
+        render_replay.validate_token_metadata(exact, catalog, tokens, [])
+
     def test_open_mana_cannot_ignore_untapped_lands(self):
         catalog = {"Island": {"type_line": "Basic Land — Island"}}
         events = [

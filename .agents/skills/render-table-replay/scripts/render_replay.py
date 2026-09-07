@@ -19,6 +19,9 @@ SCHEMAS = {1, 2}
 COMBAT_STEPS = {"attackers", "blockers", "first_strike_damage", "combat_damage"}
 DAMAGE_STEPS = {"first_strike_damage", "combat_damage"}
 DAMAGE_TYPES = {"combat", "noncombat"}
+PERMANENT_TYPE = re.compile(
+    r"\b(Artifact|Battle|Creature|Enchantment|Land|Planeswalker)\b"
+)
 
 
 def normalized_name(name: str) -> str:
@@ -247,6 +250,77 @@ def validate_faces(events: list[dict], catalog: dict, tokens: dict, rows: list[d
                 if normalized_name(face) not in known:
                     raise ValueError(
                         f"event {event['id']}: {name} has no face {face!r}"
+                    )
+
+
+def stack_names(event: dict, rows: list[dict]) -> list[str]:
+    return [
+        resolve_name(item.get("name"), rows)
+        for item in (event.get("state") or {}).get("stack") or []
+        if isinstance(item, dict) and item.get("name")
+    ]
+
+
+def validate_cast_stacks(events: list[dict], rows: list[dict]) -> None:
+    for index, event in enumerate(events):
+        if event.get("kind") != "cast":
+            continue
+        cards = event.get("cards") or []
+        if not cards:
+            raise ValueError(f"event {event['id']}: cast needs its spell in cards")
+        spell = resolve_name(cards[0], rows)
+        if spell not in stack_names(event, rows):
+            raise ValueError(
+                f"event {event['id']}: cast of {spell} must put it on state.stack"
+            )
+
+        for later in events[index + 1 :]:
+            if spell in stack_names(later, rows):
+                continue
+            resolved = {
+                resolve_name(card, rows) for card in later.get("cards") or []
+            }
+            if later.get("kind") not in {"move", "resolve"} or spell not in resolved:
+                raise ValueError(
+                    f"event {later['id']}: {spell} left state.stack without its "
+                    "own resolve or move event"
+                )
+            break
+        else:
+            raise ValueError(
+                f"event {event['id']}: cast of {spell} never leaves state.stack"
+            )
+
+
+def validate_token_metadata(
+    events: list[dict], catalog: dict, tokens: dict, rows: list[dict]
+) -> None:
+    checked: set[tuple[str, str | None]] = set()
+    for event in events:
+        players = (event.get("state") or {}).get("players") or {}
+        for player in players.values():
+            if not isinstance(player, dict):
+                continue
+            for entry in player.get("battlefield") or []:
+                if not isinstance(entry, dict) or not entry.get("token"):
+                    continue
+                name = resolve_name(entry.get("name"), rows)
+                token_id = entry.get("token_id")
+                key = (name, token_id)
+                if key in checked:
+                    continue
+                checked.add(key)
+                source = tokens.get(token_id) if token_id else catalog.get(name)
+                type_line = (
+                    source.get("type_line")
+                    if isinstance(source, dict)
+                    else ""
+                ) or ""
+                if not PERMANENT_TYPE.search(type_line):
+                    reference = f"token_id {token_id}" if token_id else "catalog name"
+                    raise ValueError(
+                        f"event {event['id']}: {name} token's {reference} does not "
+                        "resolve to permanent type metadata"
                     )
 
 
@@ -869,6 +943,7 @@ def public_game(game: dict, *, strict: bool = False) -> dict:
         validate_commanders_present(seats, events, rows)
         if strict:
             validate_turn_labels(events)
+            validate_cast_stacks(events, rows)
             validate_enter_untapped(events, catalog, rows)
             validate_open_mana(events, catalog, rows)
             validate_hidden_reasons(events, catalog, rows)
@@ -899,6 +974,10 @@ def public_game(game: dict, *, strict: bool = False) -> dict:
         token_id: entry for token_id, entry in tokens.items()
         if token_id in token_ids
     }
+    if strict:
+        validate_token_metadata(
+            events, cleaned["catalog"], cleaned["tokens"], rows
+        )
     validate_faces(events, cleaned["catalog"], cleaned["tokens"], rows)
     return cleaned
 
