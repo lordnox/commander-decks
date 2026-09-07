@@ -700,7 +700,22 @@ def combat_records(events: list[dict], references: list[dict]) -> list[dict]:
             if not answered:
                 missing.append("blockers")
         elif kind == "block":
-            if not combat.get("blocks") and not (event.get("decision") or {}).get("reason"):
+            could_block = True
+            for previous in reversed(events[:index]):
+                if previous.get("turn") != event.get("turn"):
+                    break
+                if previous.get("kind") != "attack":
+                    continue
+                possible = (
+                    (previous.get("combat") or {}).get("possible_blockers") or {}
+                )
+                could_block = possible.get(event.get("seat"), True)
+                break
+            if (
+                not combat.get("blocks")
+                and could_block
+                and not (event.get("decision") or {}).get("reason")
+            ):
                 missing.append("block reason")
         elif kind == "damage":
             entries = event.get("damage") or []
