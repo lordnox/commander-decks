@@ -219,6 +219,20 @@ export const ZoneHeading = ({ label, count }: { label: string; count: number }) 
   </div>
 )
 
+/** A zone the viewer chose to keep off screen: the count stays, the cards never render. */
+export const HiddenZone = ({ label, count }: { label: string; count: number }) => {
+  if (count === 0) return null
+
+  return (
+    <section className="mt-4">
+      <ZoneHeading label={label} count={count} />
+      <p className="rounded-xl border border-dashed border-white/15 bg-white/[0.03] px-3 py-2 text-xs text-stone-400">
+        Hidden — {count === 1 ? '1 card is' : `${count} cards are`} kept off screen
+      </p>
+    </section>
+  )
+}
+
 export const CardRow = ({
   game,
   cards,
@@ -500,8 +514,10 @@ export const SeatPanel = ({
         onHover={onHover}
         onInsertName={onInsertName}
       />
-      {showHand && (
-        <div className={concealHand ? 'select-none blur-md' : undefined} aria-hidden={concealHand}>
+      {showHand &&
+        (concealHand ? (
+          <HiddenZone label="Hand" count={displayedHandCount} />
+        ) : (
           <Zone
             game={game}
             label="Hand"
@@ -511,10 +527,9 @@ export const SeatPanel = ({
             copyable={copyable}
             onPreview={onPreview}
             onHover={onHover}
-            onInsertName={concealHand ? undefined : onInsertName}
+            onInsertName={onInsertName}
           />
-        </div>
-      )}
+        ))}
       <Zone
         game={game}
         label="Command"

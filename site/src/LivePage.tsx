@@ -268,6 +268,15 @@ export const LivePage = () => {
     window.setTimeout(() => setStatus(''), 1800)
   }
 
+  const toggleHidden = () => {
+    const next = !hidden
+    setHidden(next)
+    if (next) {
+      setPreview(null)
+      setHover(null)
+    }
+  }
+
   const onInsertName = (name: string) => {
     if (hidden) return
     setPlan((current) => insertAtCursor(planRef.current, current, name))
@@ -325,7 +334,8 @@ export const LivePage = () => {
           </div>
           <button
             type="button"
-            onClick={() => setHidden((current) => !current)}
+            onClick={toggleHidden}
+            aria-pressed={hidden}
             className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold text-stone-300 hover:bg-white/10"
           >
             {hidden ? 'Show hand & plan' : 'Hide hand & plan'}
@@ -400,7 +410,7 @@ export const LivePage = () => {
                 key={seat.id}
                 game={game}
                 seat={toReplaySeat(seat)}
-                state={toPlayerState(seat, isYou)}
+                state={toPlayerState(seat, isYou && !hidden)}
                 active={snapshot.active === seat.id}
                 action={new Set()}
                 handCount={seat.hand_count}
@@ -437,24 +447,37 @@ export const LivePage = () => {
               <button
                 type="button"
                 onClick={() => setPlan('')}
-                className="rounded-xl bg-white/5 px-3 py-1.5 text-sm font-semibold text-stone-200 hover:bg-white/10"
+                disabled={hidden}
+                className="rounded-xl bg-white/5 px-3 py-1.5 text-sm font-semibold text-stone-200 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/5"
               >
                 Clear
               </button>
             </div>
           </div>
-          <textarea
-            ref={planRef}
-            value={plan}
-            onChange={(event) => setPlan(event.target.value)}
-            rows={3}
-            placeholder="Write the line you will paste back into chat…"
-            className={`w-full resize-y rounded-2xl border border-white/10 bg-ink-900/90 px-4 py-3 text-sm leading-6 text-stone-100 outline-none placeholder:text-stone-500 focus:border-moss-300 ${
-              hidden ? 'select-none blur-md' : ''
-            }`}
-            aria-hidden={hidden}
-            readOnly={hidden}
-          />
+          {hidden ? (
+            <div className="flex min-h-[6.5rem] w-full flex-wrap items-center justify-between gap-3 rounded-2xl border border-dashed border-white/15 bg-ink-900/60 px-4 py-3 text-sm text-stone-400">
+              <span>
+                Plan hidden
+                {plan.length > 0 && ` — ${plan.length} characters kept off screen`}
+              </span>
+              <button
+                type="button"
+                onClick={toggleHidden}
+                className="rounded-xl bg-white/5 px-3 py-1.5 text-sm font-semibold text-stone-200 hover:bg-white/10"
+              >
+                Show
+              </button>
+            </div>
+          ) : (
+            <textarea
+              ref={planRef}
+              value={plan}
+              onChange={(event) => setPlan(event.target.value)}
+              rows={3}
+              placeholder="Write the line you will paste back into chat…"
+              className="w-full resize-y rounded-2xl border border-white/10 bg-ink-900/90 px-4 py-3 text-sm leading-6 text-stone-100 outline-none placeholder:text-stone-500 focus:border-moss-300"
+            />
+          )}
         </div>
       </div>
 
