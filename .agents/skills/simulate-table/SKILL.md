@@ -168,8 +168,12 @@ and `_libraries`.
 After each seat's end step and before the next untap, the game master audits
 the snapshot against Oracle: active faces and printed stats, counters,
 attachments and continuous P/T changes, commander-zone choices, the
-controller and condition of every trigger, and all mandatory end-step and
-cleanup actions. Correct a mismatch before another seat plans from it.
+controller, source, condition, and cause of every trigger, and all mandatory
+end-step and cleanup actions. For each trigger, point to the immediately
+preceding event that satisfied its printed condition and confirm its source
+existed in the required zone at that moment. A permanent on the stack does not
+see the cast that will put it onto the battlefield. Correct a mismatch before
+another seat plans from it.
 
 ### 3b. Seat checklist
 
@@ -249,10 +253,19 @@ Every normal draw step is its own `draw` event, even when the card is
 immediately played, discarded, revealed, replaced, or taxed. Extra draws and
 their replacement/tax result are separate events too. Record a spell's cast,
 each triggered ability it causes, and its resolution as separate events in
-stack order. A trigger summary says what source triggered, what effect it has,
-and every target. A permanent does not see the cast that put it onto the
-battlefield. Put end-step triggered abilities on the end step where they
-actually trigger; never defer a trigger across the next player's untap.
+stack order. A trigger summary explicitly says **which ability triggered,
+which immediately preceding game action satisfied its condition, what the
+ability does, and every target**. Use this shape:
+`Source's "trigger condition" ability triggers because [card/player performed
+the matching action]; [effect and targets].` Do not merely say that a permanent
+entered and then list unrelated-looking results. For example:
+`Ms. Bumbleflower's "Whenever you cast a spell" ability triggers because Tea
+Party cast Seedborn Muse; Sin-fall draws a card and Seedborn Muse gets a +1/+1
+counter and flying until end of turn.` A permanent does not see the cast that
+put it onto the battlefield, so that summary would be illegal if the named
+spell were Ms. Bumbleflower herself. Put end-step triggered abilities on the
+end step where they actually trigger; never defer a trigger across the next
+player's untap.
 
 If the game hits the turn cap with multiple players alive, stop and name the
 leader rather than inventing a win.
@@ -449,8 +462,12 @@ Before reporting:
    did not know the unrevealed card.
 4. Confirm every cast, trigger, and resolution is a separate event in stack
    order. Resolve mandatory draw-step, enter, landfall, combat-damage, death,
-   and second-draw triggers before advancing phases; summaries name source,
-   effect, and targets.
+   and second-draw triggers before advancing phases. Each trigger summary
+   names the ability's source and printed condition, the preceding event that
+   satisfied that condition, its effect, and every target. Re-run that causal
+   check at end of turn even when the trigger already resolved; reject
+   self-seeing cast triggers and any trigger whose source was absent or whose
+   controller did not perform a required `you` action.
 5. At every main phase, repeat the deterministic-win check against the cards
    then available. A missed win invalidates the simulation. A pass with
    unused mana and no `think` / `decision` is also a miss unless every

@@ -71,8 +71,10 @@ The confirmed chat line is the standing plan. Execute it in order.
 - Re-encode NOW, post the live URL, and ask what they do next.
 - Never assume post-counter sequencing from the old plan.
 - After completing the confirmed human turn, run the same Oracle, stats,
-  commander-zone, and trigger audit required by `simulate-table` before the
-  next untap.
+  commander-zone, and trigger-causality audit required by `simulate-table`
+  before the next untap. For every trigger already recorded, identify the
+  preceding event that satisfied its printed condition and confirm the source
+  existed then; correct the game if those facts do not line up.
 
 ## Encode and post
 
