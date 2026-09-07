@@ -91,7 +91,7 @@ When a deck list is submitted, the agent must:
 8. Cache shared card data and universal categories under `cards/`.
 9. Create the deck primer at `decks/<rating>_<commander>-<name>/README.md`.
 10. Score official Archidekt tags into `tags.json` and show cutoff badges on the primer and the root README.
-11. Regenerate the `Deck primers` index in the root README, which is grouped by bracket and built from every deck's `tags.json`.
+11. Regenerate the `Deck primers` index in the root README, which is ordered by [kitchen-table power](POWER-RANKINGS.md) and built from every deck's `tags.json`.
 12. Add a decision log with a How to use section, inclusion reasons for every unique card, a primer link to that file, plus cuts, primer notes, rules checks, and talks when those come up.
 13. Validate deck size, released-card Commander legality, categories, cache coverage, primer contract, tag badges, and decision-log coverage. Unreleased cards are allowed; see [DECISIONS.md](DECISIONS.md).
 14. Report unresolved names before analyzing the deck.

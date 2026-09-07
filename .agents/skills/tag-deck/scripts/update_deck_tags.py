@@ -34,7 +34,11 @@ def update_surfaces(deck_dir: Path, *, check: bool = False) -> int:
     if not root_readme.is_file():
         raise FileNotFoundError(f"missing root README: {root_readme}")
     original_root = root_readme.read_text(encoding="utf-8")
-    index_block = deck_tags.index_section(deck_tags.index_entries(root, catalog))
+    entries = deck_tags.index_entries(root, catalog)
+    ranking_errors = deck_tags.power_ranking_errors(root, entries)
+    if ranking_errors:
+        raise ValueError("; ".join(ranking_errors))
+    index_block = deck_tags.index_section(entries)
     updated_root = deck_tags.replace_primer_index(original_root, index_block)
 
     outdated = deck_tags.deck_rankings.sync_badges(root, check=check)
