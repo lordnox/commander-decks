@@ -150,13 +150,18 @@ Each priority window:
    library top for the game master.
 2. The seat agent answers with ordered proposed actions (cast, activate,
    play land, attack, block, talk, pass) and, on a pass, a `decision` whose
-   `open_mana` is counted from the packet's untapped permanents.
+   `open_mana` is counted from the packet's untapped permanents. The proposal
+   compares materially different legal lines by immediate board, cards,
+   interaction left open, and next-turn setup. "Commander first", "not
+   faster", or "wait" is not a reason without that comparison.
 3. The game master checks Oracle, costs, tax, timing, hidden information,
    static power/toughness, and every resulting trigger. Illegal or leaked
    proposals are rejected with the rule that failed; the same seat agent
    revises.
 4. Only then append events and snapshots. The game master never invents a
-   "better" line for a seat except to refuse an illegal one.
+   "better" line for a seat except to refuse an illegal one. After execution,
+   compare the events with the accepted plan; if the seat spent different
+   mana or took a different line, record a revised impact plan first.
 
 Combat is two packets: attackers from the active seat, then blockers from
 each defending seat. Politics is a packet to the offering seat, then to
@@ -174,6 +179,15 @@ preceding event that satisfied its printed condition and confirm its source
 existed in the required zone at that moment. A permanent on the stack does not
 see the cast that will put it onto the battlefield. Correct a mismatch before
 another seat plans from it.
+
+Keep a per-turn trigger ledger keyed by source ability and controller. Mark
+every trigger when its condition happens, then mark its resolution or legal
+decline. Use it to enforce "only once each turn", "the second time", and
+once-per-player thresholds. Reset it only when the turn changes, not when the
+active player changes phases. Seedborn Muse and similar effects must create
+an explicit untap event or updated snapshot during every other player's untap
+step; mana spent later cannot come from permanents the replay still shows
+tapped.
 
 ### 3b. Seat checklist
 
@@ -204,6 +218,8 @@ For every seat, every turn, the seat agent:
    commander tax, summoning sickness, once-per-turn clauses, replacement
    effects, static P/T, and every triggered ability. Summoning sickness is not
    tapped: a creature that does not say it enters tapped enters untapped.
+   Commander tax is `{2}` for each previous time that commander was **cast
+   from the command zone**; moving it back there does not increase tax.
 5. Interact when the primer would: hold up counters, fogs, removal, or
    politics rather than dump the hand because it is a sim. A pass with
    unused mana is a recorded decision, not silence. Recalculate `open_mana`
@@ -219,27 +235,31 @@ For every seat, every turn, the seat agent:
    does not know its unrevealed top card. Never name another seat's hidden
    card in a reason.
 8. Walk claimed loops; "fat once" is not infinite.
-9. When a seat may look at the top of its library — Fblthp, Bolas's Citadel,
+9. Before spending a card or trigger to narrow a random outcome, enumerate
+   the current legal outcomes, compare their immediate board impact and
+   follow-up value, and explain why certainty is worth losing the alternatives.
+   Randomness is not itself a reason to force the most familiar hit.
+10. When a seat may look at the top of its library — Fblthp, Bolas's Citadel,
    Oracle of Mul Daya, Future Sight — decide from that card and publish it in
    `revealed_top` (see [schema.md](schema.md)), refreshed whenever the top
    changes.
-10. When creating a token, read that source card under the seat's
+11. When creating a token, read that source card under the seat's
    `token_sources` and put its exact Scryfall ID in the battlefield entry's
    `token_id`. Do not choose a same-name token by memory; printed tokens with
    the same name can have different characteristics.
-11. Record `+1/+1` and `-1/-1` counters in `counters`; the viewer adds them to
+12. Record `+1/+1` and `-1/-1` counters in `counters`; the viewer adds them to
     the printed power and toughness. When anything else changes those values —
     an anthem, Aura, Equipment, pump spell, or animated land — put the
     resulting values in the battlefield entry's `pt`.
-12. Keep every other counter kind in `counters` too, and put the rest of a
+13. Keep every other counter kind in `counters` too, and put the rest of a
     permanent's state in `note` as `;`-separated segments such as
     `enchanting Sun Titan; goaded`. The viewer turns both into icons on the
     card and spells them out on the hover preview.
-13. When a double-faced permanent enters or transforms, name the side in play
+14. When a double-faced permanent enters or transforms, name the side in play
     in the battlefield entry's `face`, for example
     `"face": "Malakir Mire"` for the land half of an MDFC. The viewer draws
     that side's art, name, and printed power and toughness.
-14. Keep each of that seat's commanders in `command`, on the battlefield, in
+15. Keep each of that seat's commanders in `command`, on the battlefield, in
     graveyard, in exile, or in hand. A living player with an empty `command`
     list and no commander permanent has dropped the commander — a sim bug.
 
@@ -303,10 +323,14 @@ agents do not receive them. Anything meant to influence opponents is a public
 
 Before a seat passes priority with unused mana, unused attacks, or an unused
 activated ability, emit a `think` event (or attach `decision` to the `pass`).
-List every legal play that mana could still buy, then name the ones held and
-why. Typical reasons: hold-up for a named counter or fog; wait for instant
-speed on the last opponent's end step; the card is a present that needs the
-commander; dumping it would kingmake.
+List every legal play that mana could still buy **and every usable untapped
+activated ability**, including utility lands and zero-mana `{T}` or sacrifice
+abilities, then name the ones held and why. `available: []` is false when one
+of those actions exists. Compare the best materially different lines; state
+what each produces now, what interaction remains open, and what it unlocks
+next turn. Typical reasons: hold-up for a named counter or fog; wait for
+instant speed on the last opponent's end step; the card is a present that
+needs the commander; dumping it would kingmake.
 
 ```json
 {
@@ -468,29 +492,36 @@ Before reporting:
    check at end of turn even when the trigger already resolved; reject
    self-seeing cast triggers and any trigger whose source was absent or whose
    controller did not perform a required `you` action.
-5. At every main phase, repeat the deterministic-win check against the cards
+5. Confirm every cast snapshot puts that spell on `state.stack`, triggered
+   abilities appear above the spell that caused them, and the resolving or
+   countering event removes the correct object. A spell cannot enter before
+   its cast triggers resolve.
+6. At every main phase, repeat the deterministic-win check against the cards
    then available. A missed win invalidates the simulation. A pass with
    unused mana and no `think` / `decision` is also a miss unless every
    remaining card is uncastable. For a search-based finisher, validation must
    enumerate legal search targets and their immediate activations or triggers;
    treating the searched cards as inert is not a completed win check.
-6. Confirm every combat has `attack`, `block`, and `damage` events, that the
+7. Confirm every combat has `attack`, `block`, and `damage` events, that the
    attackers' tapped state matches the snapshot, and that each damage entry
    is typed `combat` or `noncombat`.
-7. Confirm `state.deals` is copied forward after an accepted offer, and that
+8. Confirm `state.deals` is copied forward after an accepted offer, and that
    a later breach has a `deal` event with `action: "breach"`.
-8. Confirm each living seat's commanders still exist in some zone (that
+9. Confirm each living seat's commanders still exist in some zone (that
    seat's `command` list, battlefield, graveyard, exile, or hand, or another
    seat's battlefield if stolen).
-9. Confirm a `cast` or `play_land` snapshot does not show the new permanent
+10. Confirm a `cast` or `play_land` snapshot does not show the new permanent
    tapped unless its Oracle text can enter tapped. Summoning sickness is
    not tapped.
-10. Confirm `decision.open_mana` follows an actual filter/rock payment
+11. Confirm `decision.open_mana` follows an actual filter/rock payment
     sequence and is not far below the snapshot's available mana. A Signet or
     filter without an input is zero open mana.
-11. Confirm private plan text and `decision.reason` do not name a card that
+12. Confirm private plan text and `decision.reason` do not name a card that
     exists only in another seat's hand or an unrevealed library position.
-12. Remove `_libraries`, keep only `library_count`, and write compact JSON to
+13. Confirm every battlefield token resolves to exact token metadata or a
+    named copied permanent, including a permanent type line. Generic Copy
+    placeholder art must not replace the copied card's Oracle characteristics.
+14. Remove `_libraries`, keep only `library_count`, and write compact JSON to
     `table-games/<slug>.json`. Keep `played_at` from the opening deal.
 
 `render-table-replay` always checks that commanders still exist in a zone.

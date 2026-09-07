@@ -85,7 +85,8 @@ This log records why every card entered the list. Future changes should append a
 - **Undead Butler** — Mills and recurs a creature.
 - **Greedy Freebooter** — Treasure plus scry; the Enduring Renewal partner.
 - **Corpse Dance** — Instant reanimation with buyback for loops.
-- **Dimir House Guard** — Transmute for the three-mana combo piece and a sac outlet.
+- **Dimir House Guard** — Transmute for a mana-value-four combo or setup
+  piece; it is also a regenerating sacrifice outlet.
 - **Demonic Bargain** — Tutor at the cost of exile; finds Ozox or a payoff.
 - **Emeritus of Woe // Demonic Tutor** — Modal tutor that is also a creature.
 - **Grim Servant** — Tutors a cheap permanent when it dies.
@@ -124,3 +125,14 @@ This log records why every card entered the list. Future changes should append a
 - **Mariposa Military Base** — Surveil / mill land.
 - **Plains** — White basic.
 - **Swamp** — Black basic.
+
+## Talks
+
+### 2026-09-07 — Seed 1729 table lesson
+
+Do not default to recasting Bartolomé when it is only a bare sacrifice outlet.
+Compare Emeritus of Woe as removal bait plus a prepared Demonic Tutor, or
+Dimir House Guard as a body while Disenchant remains open. House Guard's
+Transmute finds mana-value-four cards, especially Enduring Renewal beside an
+existing Ashnod's Altar. Commander tax increases only when Bartolomé is cast
+from the command zone, not when it returns there.

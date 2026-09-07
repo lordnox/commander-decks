@@ -148,3 +148,14 @@ Imported the submitted 99 as **Bumbleflower — Tea Party**. Bracketed section h
 Rated **Bracket 3** (middle). Cached Game Changers in the 100: Force of Will, Seedborn Muse (2 of 3 allowed). Printed Core excludes Game Changers, so this cannot advertise as 2 without a spoken footnote. Win texture is incremental counters with Triumph as an Upgraded from-hand dump once the board exists. No tutors, no two-card infinite. Sol Ring is kitchen-table 4+ fast mana and is footnoted, not counted against the GC cap.
 
 Goldfish sample (seeds 1729 and 2718, London keeps): commander usually on turn three with Sol Ring or turn four on lands plus a rock. Triumph without a board is a mulligan-ship. Interactive games lose a turn or two when Bumbleflower dies. Identity goals locked as **+1/+1 Counters** and **Group Hug**; Flash is supporting only.
+
+### 2026-09-07 — Seed 1729 table lesson
+
+Seedborn Muse is broken with Ms. Bumbleflower: every opposing untap reloads
+mana for flash interaction and another two-spell engine turn. Protect it and
+expect it to attract removal. Sequence King T'Challa before the spell that
+gives an opponent their second card, so King sees that draw and Tea Party's
+own second draw from Bumbleflower. Endurance should empty the graveyard
+powering the live repeatable threat. With Triumph, remove the sole blocker
+before combat—even through a payable ward—when Bumbleflower alone presents
+ten poison, and keep the remaining value creatures home.

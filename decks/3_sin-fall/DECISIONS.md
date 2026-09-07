@@ -171,3 +171,12 @@ Sin makes tapped token copies, but that is not a Clone/Sakashima package. Keep t
 Source is [`BRACKET-DEFINITIONS.md`](../../BRACKET-DEFINITIONS.md) (Upgraded texture, six-turn floor as satisfaction, printed cap of three Game Changers in Bracket 3) and its Scryfall `is:gamechanger` snapshot dated **2026-09-03** (53 names). The 99 still hits exactly two: **Crop Rotation** and **Field of the Dead**. That remains a hard exclude from Brackets 1–2 without a spoken footnote, and it is inside the Bracket 3 cap. No extra-turn package, no mass land denial of opponents, no two-card infinite. Rechecked Oracle: Sin creates **tapped** copies and repeats only while the exiled card is a land, so a turn-five [Portal to Phyrexia](https://scryfall.com/card/bro/240/portal-to-phyrexia) token is a blowout enter trigger, not a table kill that turn. [Rain of Filth](https://scryfall.com/card/usg/151/rain-of-filth) is a one-shot ritual (extra mana this turn by sacrificing lands); it is not Sol Ring-class permanent fast mana. Lotus Field enters tapped and sacs two lands. Yard tutors (**Entomb**, **Buried Alive**, **Unmarked Grave**) plus [Malevolent Rumble](https://scryfall.com/card/mh3/161/malevolent-rumble) keep the jackpot line consistent without moving the ceiling to turn four.
 
 Stay **Bracket 3** (middle), folder `3_`. Usual goldfish still threatens around turn seven (Sin on five or six, win on the next combat or X-spell). Credible high roll still presents Sin plus a Portal copy as early as turn five with Burgeoning/extra lands and Entomb. Not 3−: two Game Changers, compact yard tutors, and a from-hand jackpot after accumulation. Not 3+ or 4: no Mox/Vault/Cradle package, no free counters, copies enter tapped, and the exceptional line does not reliably end the game on turn four or five.
+
+### 2026-09-07 — Seed 1729 table lesson
+
+Horizon of Progress is an active setup piece, not a passive land: its extra
+land mode unloads a land-heavy hand, while sacrificing it draws and adds land
+fuel for Sin. Before using Pit of Offerings or another filter to force one
+jackpot, compare every random hit. In this game Ugin could have exiled the
+colored board more completely than Portal to Phyrexia's opponent-chosen
+sacrifices, so certainty was not automatically worth removing Ugin.
