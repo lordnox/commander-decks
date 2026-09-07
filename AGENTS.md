@@ -40,7 +40,7 @@ Whenever the user posts a deck list or asks to begin work on a stored list:
 9. Create or refresh the deck's `README.md` by following the `deck-primer` skill.
 10. Follow `tag-deck`: score official Archidekt tags into `tags.json` and show cutoff badges on the primer and root README.
 11. Follow `rank-deck` when goals are declared: write `rankings.json` and show the score badges on the primer; the root index repeats them after the bracket badge.
-12. Regenerate the `Deck primers` index in the root README with `python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<deck-name>`. The whole block between the `deck-index` markers is a generated comparison table built from every deck's directory prefix, `rankings.json`, primer title, and `tags.json`; never hand-edit it.
+12. Regenerate the `Deck primers` index in the root README with `python3 .agents/skills/tag-deck/scripts/update_deck_tags.py decks/<deck-name>`. The whole block between the `deck-index` markers is a generated comparison table built from `power-rankings.json` order, every deck's directory prefix, `rankings.json`, primer title, and `tags.json`; never hand-edit it. Append a new deck's slug to `power-rankings.json` (see `POWER-RANKINGS.md`).
 13. Add `DECISIONS.md` with a `## How to use` definition, one inclusion entry per unique deck card under `## Cards in`, and a primer link to that file. After swaps, primer rewrites, assessments, or rules arguments, append `## Cards out`, `## Primer`, `## Rules`, or `## Talks`.
 14. Run `python3 .agents/skills/deck-workspace/scripts/validate_deck.py decks/<deck-name>` (decision logs are required by default).
 15. Do not analyze or recommend changes until resolution or validation errors are reported or fixed.
@@ -69,6 +69,7 @@ In conversation (not primers or `decklist.txt`), featured card lists should show
 
 ## Repository structure
 
+- `POWER-RANKINGS.md` / `power-rankings.json`: kitchen-table power order for the root deck index; not Commander Bracket and not `rank-deck` scores
 - `DECISIONS.md`: kitchen-table house rules that apply to every deck
 - `BRACKET-DEFINITIONS.md`: Commander Bracket intent, Incremental Core texture, printed caps, cached Game Changers snapshot, and this table's Parley reading
 - `INTERACTION.md`: protection vs disruption tree, in-hand vs on-board trade-off, and how aggro / midrange / control slant their answer packages

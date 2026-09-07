@@ -42,6 +42,8 @@ DECK_PREFIX = re.compile(r"^(?P<bracket>\d+)(?P<modifier>[+-]?)_")
 SHIELD_COLORS = {5: "0b6b58", 4: "2f7d6a", 3: "5f8b84"}
 SHIELD_FALLBACK_COLOR = "6b7f7a"
 INDEX_SCORE_HEADERS = ("Jank", "Fun", "Mean")
+POWER_RANKINGS_PATH = "power-rankings.json"
+UNRATED_PREFIX = "unrated_"
 
 
 def repository_root(start: Path) -> Path:
@@ -206,6 +208,29 @@ def bracket_position(deck_dir_name: str) -> tuple[int, int]:
     return (int(match.group("bracket")), rank)
 
 
+def deck_slug(deck_dir_name: str) -> str:
+    """Stable id after the rating prefix, so a bracket rename keeps the same rank."""
+    match = DECK_PREFIX.match(deck_dir_name)
+    if match:
+        return deck_dir_name[match.end() :]
+    if deck_dir_name.startswith(UNRATED_PREFIX):
+        return deck_dir_name[len(UNRATED_PREFIX) :]
+    return deck_dir_name
+
+
+def load_power_order(root: Path) -> list[str]:
+    path = root / POWER_RANKINGS_PATH
+    if not path.is_file():
+        return []
+    data = json.loads(path.read_text(encoding="utf-8"))
+    order = data.get("order")
+    if not isinstance(order, list) or not all(isinstance(slug, str) and slug for slug in order):
+        raise ValueError(f"{path}: order must be a list of deck slugs")
+    if len(set(order)) != len(order):
+        raise ValueError(f"{path}: duplicate slugs in order")
+    return order
+
+
 def bracket_badge(deck_dir_name: str) -> str:
     match = DECK_PREFIX.match(deck_dir_name)
     if not match:
@@ -239,6 +264,7 @@ def index_entries(root: Path, catalog: dict) -> list[dict]:
             goal_cell = ""
         entries.append(
             {
+                "slug": deck_slug(deck_dir.name),
                 "bracket": bracket,
                 "rank": rank,
                 "badge": bracket_badge(deck_dir.name),
@@ -248,8 +274,36 @@ def index_entries(root: Path, catalog: dict) -> list[dict]:
                 "goals": goal_cell,
             }
         )
-    entries.sort(key=lambda entry: (entry["bracket"], entry["rank"], entry["title"].casefold()))
+    power_order = {slug: index for index, slug in enumerate(load_power_order(root))}
+    entries.sort(
+        key=lambda entry: (
+            0 if entry["slug"] in power_order else 1,
+            power_order.get(entry["slug"], 0),
+            entry["bracket"],
+            entry["rank"],
+            entry["title"].casefold(),
+        )
+    )
     return entries
+
+
+def power_ranking_errors(root: Path, entries: list[dict]) -> list[str]:
+    path = root / POWER_RANKINGS_PATH
+    if not path.is_file():
+        return []
+    order = load_power_order(root)
+    present = {entry["slug"] for entry in entries}
+    missing = [slug for slug in present if slug not in set(order)]
+    extra = [slug for slug in order if slug not in present]
+    errors = []
+    if missing:
+        errors.append(
+            f"{path}: add {', '.join(sorted(missing))} to order "
+            "(new decks go at the bottom until placed)"
+        )
+    if extra:
+        errors.append(f"{path}: remove unknown slugs {', '.join(extra)}")
+    return errors
 
 
 def index_row(entry: dict) -> str:

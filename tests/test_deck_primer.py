@@ -651,5 +651,124 @@ class DeckRankingTests(unittest.TestCase):
         self.assertIsNone(deck_rankings.load_rankings(Path("/tmp/does-not-exist-deck")))
 
 
+class PowerRankingTests(unittest.TestCase):
+    def test_slug_strips_rating_prefix(self):
+        self.assertEqual(deck_tags.deck_slug("3+_bartolome-graveyard-shift"), "bartolome-graveyard-shift")
+        self.assertEqual(deck_tags.deck_slug("3-_homer-dumpster-diver-crab"), "homer-dumpster-diver-crab")
+        self.assertEqual(deck_tags.deck_slug("3_sin-fall"), "sin-fall")
+        self.assertEqual(deck_tags.deck_slug("unrated_new-brew"), "new-brew")
+
+    def test_index_follows_power_order_not_bracket(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            catalog_dir = root / ".agents/skills/tag-deck"
+            catalog_dir.mkdir(parents=True)
+            (root / "cards").mkdir()
+            (root / "decks").mkdir()
+            (catalog_dir / "archidekt-tags.json").write_text(
+                json.dumps({
+                    "schema_version": 1,
+                    "default_cutoff": 3,
+                    "tags": [
+                        {
+                            "name": "combo",
+                            "slug": "combo",
+                            "url": "https://archidekt.com/tags/combo",
+                        },
+                    ],
+                }),
+                encoding="utf-8",
+            )
+            (root / "power-rankings.json").write_text(
+                json.dumps({
+                    "schema_version": 1,
+                    "order": ["slow-deck", "fast-deck"],
+                }),
+                encoding="utf-8",
+            )
+            (root / "README.md").write_text(
+                "## Deck primers\n\n<!-- deck-index:start -->\n<!-- deck-index:end -->\n",
+                encoding="utf-8",
+            )
+            tags = {
+                "schema_version": 1,
+                "cutoff": 3,
+                "summary": "Test.",
+                "tags": [{"name": "combo", "score": 5, "reason": "Primary plan."}],
+            }
+            for folder, title in (
+                ("2+_slow-deck", "Slow deck"),
+                ("3+_fast-deck", "Fast deck"),
+            ):
+                deck_dir = root / "decks" / folder
+                deck_dir.mkdir()
+                (deck_dir / "tags.json").write_text(json.dumps(tags), encoding="utf-8")
+                (deck_dir / "README.md").write_text(
+                    f"# {title}\n\n> Bracket test.\n\n"
+                    "[![Open in Archidekt]"
+                    "(https://img.shields.io/badge/Open%20in%20Archidekt-0b6b58?style=for-the-badge)]"
+                    "(https://archidekt.com/sandbox?deck=%5B%5D)\n",
+                    encoding="utf-8",
+                )
+
+            slow = root / "decks/2+_slow-deck"
+            self.assertEqual(update_deck_tags.update_surfaces(slow), 0)
+            overview = (root / "README.md").read_text(encoding="utf-8")
+            slow_at = overview.index("Slow deck")
+            fast_at = overview.index("Fast deck")
+            self.assertLess(slow_at, fast_at)
+
+    def test_missing_power_slug_fails(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            catalog_dir = root / ".agents/skills/tag-deck"
+            catalog_dir.mkdir(parents=True)
+            (root / "cards").mkdir()
+            deck_dir = root / "decks/3_left-out"
+            deck_dir.mkdir(parents=True)
+            (catalog_dir / "archidekt-tags.json").write_text(
+                json.dumps({
+                    "schema_version": 1,
+                    "default_cutoff": 3,
+                    "tags": [
+                        {
+                            "name": "combo",
+                            "slug": "combo",
+                            "url": "https://archidekt.com/tags/combo",
+                        },
+                    ],
+                }),
+                encoding="utf-8",
+            )
+            (root / "power-rankings.json").write_text(
+                json.dumps({"schema_version": 1, "order": ["other-deck"]}),
+                encoding="utf-8",
+            )
+            (deck_dir / "tags.json").write_text(
+                json.dumps({
+                    "schema_version": 1,
+                    "cutoff": 3,
+                    "summary": "Test.",
+                    "tags": [{"name": "combo", "score": 5, "reason": "Primary plan."}],
+                }),
+                encoding="utf-8",
+            )
+            (deck_dir / "README.md").write_text(
+                "# Left out\n\n> Bracket 3.\n\n"
+                "[![Open in Archidekt]"
+                "(https://img.shields.io/badge/Open%20in%20Archidekt-0b6b58?style=for-the-badge)]"
+                "(https://archidekt.com/sandbox?deck=%5B%5D)\n",
+                encoding="utf-8",
+            )
+            (root / "README.md").write_text(
+                "## Deck primers\n\n<!-- deck-index:start -->\n<!-- deck-index:end -->\n",
+                encoding="utf-8",
+            )
+            with self.assertRaises(ValueError) as raised:
+                update_deck_tags.update_surfaces(deck_dir)
+            self.assertIn("left-out", str(raised.exception))
+            self.assertIn("other-deck", str(raised.exception))
+
+
 if __name__ == "__main__":
     unittest.main()

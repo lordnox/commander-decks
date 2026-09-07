@@ -56,7 +56,7 @@ See [`.agents/skills/deck-primer/SKILL.md`](.agents/skills/deck-primer/SKILL.md)
 
 Score official Archidekt deck tags into `tags.json` and render badges. Use this on import, primer refresh, or when the user asks for archetypes or README badges.
 
-Tags are deck-level (for example `graveyard` or `tokens`), not card categories such as `ramp`. Scores are 1–5 against the catalog in `.agents/skills/tag-deck/archidekt-tags.json`. Badges at or above the cutoff appear on the primer and in the generated root README index.
+Tags are deck-level (for example `graveyard` or `tokens`), not card categories such as `ramp`. Scores are 1–5 against the catalog in `.agents/skills/tag-deck/archidekt-tags.json`. Badges at or above the cutoff appear on the primer and in the generated root README index, which is ordered by [POWER-RANKINGS.md](POWER-RANKINGS.md).
 
 See [`.agents/skills/tag-deck/SKILL.md`](.agents/skills/tag-deck/SKILL.md).
 

@@ -9,7 +9,7 @@ description: >-
 
 # Rank Deck
 
-Score the deck as built. Do not change the 99 unless the user separately asks. Read this skill when ranking, comparing identity, or deciding between build paths that would move a deck's goals.
+Score the deck as built. Do not change the 99 unless the user separately asks. Read this skill when ranking, comparing identity, or deciding between build paths that would move a deck's goals. Cross-deck table power lives in root `POWER-RANKINGS.md` / `power-rankings.json`; do not encode it here.
 
 ## House bar for every deck
 
