@@ -333,28 +333,32 @@
       "submitted_name": "Virtue of Knowledge"
     },
     {
-      "cache": "cards/cf751552-156f-4f81-ac94-9814dce099f9.json",
+      "cache": "cards/45d5cd4c-7285-4507-8cbf-eace7a734f41.json",
       "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{2}",
-        "oracle_text": "{2}, {T}: Copy target triggered ability you control. You may choose new targets for the copy. (A triggered ability uses the words \"when,\" \"whenever,\" or \"at.\")",
-        "type_line": "Artifact"
+        "cmc": 4.0,
+        "keywords": [
+          "Surveil"
+        ],
+        "mana_cost": "{3}{B}",
+        "oracle_text": "This spell costs {2} less to cast if it targets a legendary creature.\nDestroy target creature.\nSurveil 2. (Look at the top two cards of your library, then put any number of them into your graveyard and the rest on top of your library in any order.)",
+        "type_line": "Instant"
       },
       "categories": [
-        "Trigger Shenanigans",
-        "Copy"
+        "Removal",
+        "Interaction",
+        "Dumpster Diving"
       ],
       "category_source": "decklist",
-      "name": "Strionic Resonator",
-      "oracle_id": "cf751552-156f-4f81-ac94-9814dce099f9",
+      "name": "Price of Fame",
+      "oracle_id": "45d5cd4c-7285-4507-8cbf-eace7a734f41",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/moc/384/strionic-resonator?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mkc/135/price-of-fame?utm_source=api",
       "submitted_categories": [
-        "Trigger Shenanigans",
-        "Copy"
+        "Removal",
+        "Interaction",
+        "Dumpster Diving"
       ],
-      "submitted_name": "Strionic Resonator"
+      "submitted_name": "Price of Fame"
     },
     {
       "cache": "cards/126c75c0-414b-4e55-8747-2b5566ce716f.json",
@@ -471,32 +475,30 @@
       "submitted_name": "Masked Vandal"
     },
     {
-      "cache": "cards/b81eaa2f-0554-41c6-bdf6-d1cb73b8f56f.json",
+      "cache": "cards/ef4c478c-7019-4ec0-8edf-2a3078a8e97a.json",
       "card": {
-        "cmc": 3.0,
+        "cmc": 4.0,
         "keywords": [
-          "Changeling"
+          "Delirium"
         ],
-        "mana_cost": "{2}{G}",
-        "oracle_text": "Changeling (This card is every creature type.)\nAs this creature enters, choose a creature type.\nYou may look at the top card of your library any time.\nYou may cast creature spells of the chosen type from the top of your library.",
-        "power": "2",
-        "toughness": "3",
-        "type_line": "Creature — Shapeshifter"
+        "mana_cost": "{2}{B}{G}",
+        "oracle_text": "Delirium — This spell costs {2} less to cast as long as there are four or more card types among cards in your graveyard.\nDestroy target nonland permanent.",
+        "type_line": "Instant"
       },
       "categories": [
-        "Seafood Disguise",
-        "Card Advantage"
+        "Removal",
+        "Interaction"
       ],
       "category_source": "decklist",
-      "name": "Realmwalker",
-      "oracle_id": "b81eaa2f-0554-41c6-bdf6-d1cb73b8f56f",
+      "name": "Drag to the Roots",
+      "oracle_id": "ef4c478c-7019-4ec0-8edf-2a3078a8e97a",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/ecc/114/realmwalker?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/dsk/213/drag-to-the-roots?utm_source=api",
       "submitted_categories": [
-        "Seafood Disguise",
-        "Card Advantage"
+        "Removal",
+        "Interaction"
       ],
-      "submitted_name": "Realmwalker"
+      "submitted_name": "Drag to the Roots"
     },
     {
       "cache": "cards/98441834-7da0-4d9f-88a4-a342a9b2a4c3.json",
@@ -1214,30 +1216,30 @@
       "submitted_name": "Awaken the Woods"
     },
     {
-      "cache": "cards/334c284e-7bc3-4c18-9f8d-4d846f80008e.json",
+      "cache": "cards/b153fc70-0312-4856-befd-bb6b9a04a26e.json",
       "card": {
-        "cmc": 6.0,
+        "cmc": 3.0,
         "keywords": [
-          "Foretell"
+          "Descend"
         ],
-        "mana_cost": "{4}{B}{B}",
-        "oracle_text": "Choose a creature type. Return up to two creature cards of that type from your graveyard to the battlefield. If this spell was foretold, return all creature cards of that type from your graveyard to the battlefield instead.\nForetell {5}{B}{B} (During your turn, you may pay {2} and exile this card from your hand face down. Cast it on a later turn for its foretell cost.)",
-        "type_line": "Sorcery"
+        "mana_cost": "{1}{B}{B}",
+        "oracle_text": "Target creature gets -5/-5 until end of turn.\nDescend 4 — That creature gets -10/-10 until end of turn instead if there are four or more permanent cards in your graveyard.",
+        "type_line": "Instant"
       },
       "categories": [
-        "Creature Recursion",
-        "Finisher"
+        "Removal",
+        "Interaction"
       ],
       "category_source": "decklist",
-      "name": "Haunting Voyage",
-      "oracle_id": "334c284e-7bc3-4c18-9f8d-4d846f80008e",
+      "name": "Join the Dead",
+      "oracle_id": "b153fc70-0312-4856-befd-bb6b9a04a26e",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/ecc/75/haunting-voyage?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/lci/110/join-the-dead?utm_source=api",
       "submitted_categories": [
-        "Creature Recursion",
-        "Finisher"
+        "Removal",
+        "Interaction"
       ],
-      "submitted_name": "Haunting Voyage"
+      "submitted_name": "Join the Dead"
     },
     {
       "cache": "cards/352b64d2-2ae5-44ee-a64f-94932ef545d3.json",
@@ -1314,30 +1316,30 @@
       "submitted_name": "Stitch Together"
     },
     {
-      "cache": "cards/1920254f-0f65-4426-aabc-f3807476b67b.json",
+      "cache": "cards/af105cda-1f7c-4868-9407-a97c46bd762d.json",
       "card": {
-        "cmc": 5,
-        "keywords": [
-          "Flashback"
-        ],
-        "mana_cost": "{3}{B}{G}",
-        "oracle_text": "This spell costs {1} less to cast for each creature that died this turn.\nReturn target creature card from your graveyard to the battlefield.\nFlashback {5}{B}{G} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
-        "type_line": "Sorcery"
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{X}{B}",
+        "oracle_text": "Up to one target creature gets -X/-X until end of turn. If X is 5 or more, return a creature card with mana value X or less from your graveyard to the battlefield tapped.",
+        "type_line": "Instant"
       },
       "categories": [
-        "Creature Recursion",
-        "Dumpster Diving"
+        "Removal",
+        "Interaction",
+        "Creature Recursion"
       ],
       "category_source": "decklist",
-      "name": "Diregraf Rebirth",
-      "oracle_id": "1920254f-0f65-4426-aabc-f3807476b67b",
+      "name": "Black Sun's Twilight",
+      "oracle_id": "af105cda-1f7c-4868-9407-a97c46bd762d",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mid/220/diregraf-rebirth?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/one/84/black-suns-twilight?utm_source=api",
       "submitted_categories": [
-        "Creature Recursion",
-        "Dumpster Diving"
+        "Removal",
+        "Interaction",
+        "Creature Recursion"
       ],
-      "submitted_name": "Diregraf Rebirth"
+      "submitted_name": "Black Sun's Twilight"
     },
     {
       "cache": "cards/0ab9539d-3461-4936-95cd-4c229308c4a4.json",
@@ -1478,28 +1480,28 @@
       "submitted_name": "Tamiyo's Safekeeping"
     },
     {
-      "cache": "cards/debc69ea-372a-4720-838a-16856cd50b07.json",
+      "cache": "cards/fd74f8eb-0253-42dd-8277-186d4934da38.json",
       "card": {
-        "cmc": 1.0,
+        "cmc": 3.0,
         "keywords": [],
-        "mana_cost": "{X}{U}",
-        "oracle_text": "As an additional cost to cast this spell, you may exile any number of blue cards from your hand. This spell costs {2} less to cast for each card exiled this way.\nUp to X target creatures phase out. (While they're phased out, they're treated as though they don't exist. Each one phases in before its controller untaps during their next untap step.)",
+        "mana_cost": "{1}{B/P}{B/P}",
+        "oracle_text": "({B/P} can be paid with either {B} or 2 life.)\nTarget creature gets -5/-5 until end of turn.",
         "type_line": "Instant"
       },
       "categories": [
-        "Protection",
+        "Removal",
         "Interaction"
       ],
       "category_source": "decklist",
-      "name": "March of Swirling Mist",
-      "oracle_id": "debc69ea-372a-4720-838a-16856cd50b07",
+      "name": "Dismember",
+      "oracle_id": "fd74f8eb-0253-42dd-8277-186d4934da38",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/neo/61/march-of-swirling-mist?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mm2/79/dismember?utm_source=api",
       "submitted_categories": [
-        "Protection",
+        "Removal",
         "Interaction"
       ],
-      "submitted_name": "March of Swirling Mist"
+      "submitted_name": "Dismember"
     },
     {
       "cache": "cards/ab1cc360-b9de-48d9-9983-4dfe4a7d2a37.json",
@@ -2474,22 +2476,63 @@
       "category_source": "decklist",
       "name": "Swamp",
       "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
-      "quantity": 2,
+      "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/trk/321/swamp?utm_source=api",
       "submitted_categories": [
         "Land"
       ],
       "submitted_name": "Swamp"
+    },
+    {
+      "cache": "cards/053a69d8-2b5e-4f14-8b02-ca405891dc4a.json",
+      "card": {
+        "cmc": 4.0,
+        "faces": [
+          {
+            "mana_cost": "{2}{B}{B}",
+            "name": "Fell the Profane",
+            "oracle_text": "Destroy target creature or planeswalker.",
+            "type_line": "Instant"
+          },
+          {
+            "mana_cost": "",
+            "name": "Fell Mire",
+            "oracle_text": "As this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {B}.",
+            "type_line": "Land"
+          }
+        ],
+        "keywords": [],
+        "produced_mana": [
+          "B"
+        ],
+        "type_line": "Instant // Land"
+      },
+      "categories": [
+        "Removal",
+        "Interaction",
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Fell the Profane // Fell Mire",
+      "oracle_id": "053a69d8-2b5e-4f14-8b02-ca405891dc4a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/244/fell-the-profane-fell-mire?utm_source=api",
+      "submitted_categories": [
+        "Removal",
+        "Interaction",
+        "Land"
+      ],
+      "submitted_name": "Fell the Profane // Fell Mire"
     }
   ],
-  "categorized_cards": 92,
-  "generated_at": "2026-08-26T09:23:02.619587+00:00",
+  "categorized_cards": 93,
+  "generated_at": "2026-09-07T22:44:46.549524+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
-  "resolved_unique_cards": 92,
+  "resolved_unique_cards": 93,
   "schema_version": 3,
   "source": "decks/3-_homer-dumpster-diver-crab/decklist.txt",
   "total_cards": 100,
-  "unique_cards": 92,
+  "unique_cards": 93,
   "unresolved": []
 }

@@ -1,0 +1,142 @@
+{
+  "arena_id": 92307,
+  "artist": "Deruchenko Alexander",
+  "artist_ids": [
+    "806f6ff9-6ed4-4e93-998a-a562c0b792e6"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 786598,
+  "cmc": 4.0,
+  "collector_number": "213",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [
+    "B",
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 4190,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Valgavoth commands us to feed the trees. Let our blood be their mulch, our flesh their soil.\"\n—Victor, Valgavoth's seneschal",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "46f46095-6479-46b0-9e59-194d83f86a46",
+  "illustration_id": "50db0f1c-dde2-48d7-a6b5-78d622b19862",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:24:04Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/6/46f46095-6479-46b0-9e59-194d83f86a46.webp?1783909444",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/6/46f46095-6479-46b0-9e59-194d83f86a46.jpg?1783909444",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/6/46f46095-6479-46b0-9e59-194d83f86a46.jpg?1783909444",
+    "crop": "https://cards.scryfall.io/crop/front/4/6/46f46095-6479-46b0-9e59-194d83f86a46.webp?1783909444",
+    "display": "https://cards.scryfall.io/display/front/4/6/46f46095-6479-46b0-9e59-194d83f86a46.webp?1783909444",
+    "grid": "https://cards.scryfall.io/grid/front/4/6/46f46095-6479-46b0-9e59-194d83f86a46.webp?1783909444",
+    "large": "https://cards.scryfall.io/large/front/4/6/46f46095-6479-46b0-9e59-194d83f86a46.jpg?1783909444",
+    "normal": "https://cards.scryfall.io/normal/front/4/6/46f46095-6479-46b0-9e59-194d83f86a46.jpg?1783909444",
+    "png": "https://cards.scryfall.io/png/front/4/6/46f46095-6479-46b0-9e59-194d83f86a46.png?1783909444",
+    "small": "https://cards.scryfall.io/small/front/4/6/46f46095-6479-46b0-9e59-194d83f86a46.jpg?1783909444",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/6/46f46095-6479-46b0-9e59-194d83f86a46.webp?1783909444"
+  },
+  "keywords": [
+    "Delirium"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{G}",
+  "mtgo_id": 130557,
+  "multiverse_ids": [
+    673618
+  ],
+  "name": "Drag to the Roots",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ef4c478c-7019-4ec0-8edf-2a3078a8e97a",
+  "oracle_text": "Delirium — This spell costs {2} less to cast as long as there are four or more card types among cards in your graveyard.\nDestroy target nonland permanent.",
+  "oversized": false,
+  "penny_rank": 3096,
+  "preview": {
+    "previewed_at": "2024-09-03",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.youtube.com/watch?v=8mYQLkstDs8"
+  },
+  "prices": {
+    "eur": "0.16",
+    "eur_foil": "0.23",
+    "tix": "0.03",
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": "0.33"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aef4c478c-7019-4ec0-8edf-2a3078a8e97a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130557?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=786598&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F575293%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Drag+to+the+Roots",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=673618&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDrag%2Bto%2Bthe%2BRoots",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDrag%2Bto%2Bthe%2BRoots"
+  },
+  "released_at": "2024-09-27",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/46f46095-6479-46b0-9e59-194d83f86a46/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsk/213/drag-to-the-roots?utm_source=api",
+  "set": "dsk",
+  "set_id": "a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "set_name": "Duskmourn: House of Horror",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a111d8a9-b647-48ec-afab-2b78f92173f5",
+  "story_spotlight": false,
+  "tcgplayer_id": 575293,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/46f46095-6479-46b0-9e59-194d83f86a46",
+  "variation": false
+}

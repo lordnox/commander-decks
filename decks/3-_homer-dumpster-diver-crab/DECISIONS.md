@@ -43,14 +43,12 @@ This log records why every card entered the initial list. Future changes should 
 - **Yarok, the Desecrated** — Adds another Homer trigger for every land or permanent entering.
 - **Ancient Greenwarden** — Doubles landfall, replays lands from the graveyard, and supplies a large body.
 - **Virtue of Knowledge // Vantress Visions** — Permanent trigger doubler on one face and a one-shot trigger copy on the other.
-- **Strionic Resonator** — Copies the most valuable Homer or recursion trigger already on the stack.
 
 ### Seafood disguises
 
 - **Firdoch Core** — The cleanest example of the deck's philosophy: mana rock and seafood count in one card.
 - **Maskwood Nexus** — Makes every creature and creature card seafood, then creates additional changelings.
 - **Masked Vandal** — A changeling that raises Homer's count and supplies artifact or enchantment removal.
-- **Realmwalker** — A changeling that turns the type-changing package into top-of-library creature access.
 
 ### Dumpster diving
 
@@ -82,7 +80,6 @@ This log records why every card entered the initial list. Future changes should 
 
 ### Recovering the discarded crew
 
-- **Haunting Voyage** — With a type changer, naming Crab returns the entire creature package from the graveyard.
 - **Dread Return** — Can be milled safely and flashes back by sacrificing spare creatures or tokens.
 - **Victimize** — Converts one utility creature into two clones or engine pieces from the graveyard.
 - **Bala Ged Recovery // Bala Ged Sanctuary** — Recovers any key card while functioning as a land when necessary.
@@ -90,7 +87,6 @@ This log records why every card entered the initial list. Future changes should 
 ### Protection and interaction
 
 - **Tamiyo's Safekeeping** — Cheap protection for Homer or a crucial artifact, enchantment, or land.
-- **March of Swirling Mist** — Protects several Homers simultaneously and can remove blockers or opposing creatures temporarily.
 - **Arcane Denial** — Flexible protection against sweepers and graveyard hate without a demanding mana cost.
 - **Tear Asunder** — Flexible artifact, enchantment, and late-game permanent exile.
 - **Raise the Palisade** — Naming Crab becomes a one-sided creature reset under a type-changing effect.
@@ -128,10 +124,9 @@ This log records why every card entered the initial list. Future changes should 
 - **Dakmor Salvage** — Dredgeable land that is easy to recover and replay.
 - **Forest ×5** — Supports green-heavy setup spells, Harrow, fetch lands, and Myriad Landscape.
 - **Island ×4** — Supports Homer, clone spells, and blue interaction.
-- **Swamp ×2** — Supplies fetchable black sources for recursion and interaction.
+- **Swamp ×1** — Fetchable black for recursion and interaction.
 - **Deathsprout** — Instant-speed creature removal that also fetches a basic and makes a landfall trigger, replacing Crop Rotation without a Game Changer.
 - **Stitch Together** — Cheap threshold reanimation that turns a milled Yarok or clone into a battlefield piece.
-- **Diregraf Rebirth** — Direct reanimation with flashback, so milling it is still useful.
 - **Incarnation Technique** — Mills five then reanimates, with demonstrate as a political extra body.
 - **Fact or Fiction** — Instant card advantage that also stocks the graveyard.
 - **Fortune's Favor** — Hidden-information Fact or Fiction that sends the unchosen pile to the graveyard.
@@ -142,10 +137,22 @@ This log records why every card entered the initial list. Future changes should 
 - **Zimone and Dina** — Sacrifice, draw, and off-turn landfall engine.
 - **Mole Man, Moloid Master** — Recurring graveyard land plays plus a disposable self-milling Moloid on every landfall.
 - **Crawling Sensation** — Deliberate self-mill and Insect fodder whenever lands enter the graveyard.
+- **Dismember** — Instant −5/−5, usually one mana and four life, so it can fire after a land drop.
+- **Join the Dead** — Instant −5/−5 that becomes −10/−10 once Descend 4 is online in the dumpster.
+- **Price of Fame** — Two mana against a legendary creature, four otherwise, and surveil 2 into the yard.
+- **Drag to the Roots** — Any nonland at `{B}{G}` once delirium is online, which this list reaches quickly.
+- **Black Sun's Twilight** — Instant −X/−X that reanimates a milled creature of mana value X or less when X is 5 or more.
+- **Fell the Profane // Fell Mire** — Instant creature or planeswalker kill, or a land drop. The land face is not Swamp-typed.
 
 ## Cards out
 
 - **Perpetual Timepiece** — Replaced by Malevolent Rumble. Repeatable mill-two and the graveyard-shuffle safety valve were slower than a two-mana permanent-plus-yard dump with a Spawn.
+- **March of Swirling Mist** — Protection that did not police opposing engines; Dismember holds up as real removal.
+- **Strionic Resonator** — Four mana before copying one trigger; Price of Fame answers a legendary threat and fills the yard.
+- **Realmwalker** — Seafood body that did not disguise the rest of the board; Drag to the Roots answers any nonland.
+- **Haunting Voyage** — Expensive mass recursion that needed Maskwood Nexus; Join the Dead is instant disruption instead.
+- **Diregraf Rebirth** — Slow flashback reanimation; Black Sun's Twilight still recovers a creature when X is 5 or more.
+- **Swamp (second copy)** — Fell Mire keeps the land count at 40 without a second basic Swamp.
 
 ## Talks
 
@@ -188,3 +195,14 @@ Meloku the Clouded Mirror became the fortieth land. Command Tower and the three 
 The seed-1729 table replay missed a deterministic turn-six win. With Homer and Roaming Throne on the battlefield, each land entry mills every targeted opponent for 8. Playing Forest, casting Scapeshift by sacrificing six lands, finding six lands including four fetch lands, and cracking those fetches creates eleven land entries and mills each opponent for 88, more than their 84–86 remaining cards.
 
 The pilot must treat Scapeshift as a search tree rather than only six land entries: enumerate legal lands still in the library, include immediate fetch activations and automatic sacrifice lands, verify enough legal fetch targets remain, and compare exact outward mill with the largest opposing library before choosing any setup play. Once the calculation is lethal, target every opponent and take the win.
+
+### 2026-09-08 — Instant answers without exchanging the old package
+
+The list needed more disruption that can fire on turns 4–6 after a land drop, not a one-for-one swap of existing answers. Five instants and one MDFC land enter while Pile On, Tear Asunder, Deathsprout, the wipes, and Fortune's Favor stay.
+
+- **Dismember** — Replaces March of Swirling Mist.
+- **Price of Fame** — Replaces Strionic Resonator.
+- **Drag to the Roots** — Replaces Realmwalker.
+- **Join the Dead** — Replaces Haunting Voyage.
+- **Black Sun's Twilight** — Replaces Diregraf Rebirth.
+- **Fell the Profane // Fell Mire** — Replaces the second basic Swamp. The land face is not a Swamp, so fetches cannot find it.
