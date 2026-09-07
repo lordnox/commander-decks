@@ -130,11 +130,12 @@ though the completed replay reveals it to the audience.
 Record the stack in causal order. A `cast` event puts the spell on the stack;
 it does not also make that spell a battlefield permanent. Record every
 triggered ability caused by the cast as its own event whose summary names the
-source, effect, and targets, then record the spell's `resolve` event. The same
-rule applies to enter, landfall, attack, combat-damage, death, and
-second-draw triggers. An Aura cast names the creature it targets directly in
-the cast summary; its battlefield `note` records the attachment only after it
-resolves.
+printed ability, exact cause, effect, and targets. Keep the original spell in
+`state.stack` while those triggers resolve, then remove it in its own
+`resolve` or `move` event. The same rule applies to enter, landfall, attack,
+combat-damage, death, and second-draw triggers. An Aura cast names the
+creature it targets directly in the cast summary; its battlefield `note`
+records the attachment only after it resolves.
 
 Split and modal cards are one catalog key using the full `A // B` name, with
 faces joined by ` // ` in `type_line` and `oracle_text`. Refer to them by that
@@ -184,7 +185,11 @@ using the battlefield entry's `face` (see [Faces](#faces)).
 Battlefield entries may omit `token`, `token_id`, `commander`, `counters`,
 `note`, and `face`. `tapped` is physical tap state only. A creature with
 summoning sickness stays `tapped: false` unless something actually tapped
-it. Do **not** put remaining library names in `state`.
+it. A predefined token uses the exact `token_id` listed for its source card;
+a token copy uses the copied permanent's catalog name and omits `token_id`
+instead of pointing at a generic Copy helper. Every battlefield token must
+therefore resolve to a permanent type line. Do **not** put remaining library
+names in `state`.
 
 ### Decisions
 
@@ -195,7 +200,7 @@ omit it; new ones must not pass with unused playable spells and no reason.
 | Field | Meaning |
 |---|---|
 | `open_mana` | Untapped mana available right now |
-| `available` | Legal plays, as reference indexes |
+| `available` | Legal spells and activated abilities, including untapped utility permanents, as reference indexes |
 | `held` | The subset not taken, as reference indexes |
 | `held_for` | Short tag: `protection`, `instant speed`, `politics`, `wait for commander`, `unplayable` |
 | `play_later` | When the held line will fire, if known |
@@ -218,7 +223,10 @@ omit it; new ones must not pass with unused playable spells and no reason.
 ```
 
 A `think` or `talk` event uses the phase where the decision happened. Do
-not insert one between `untap` and the normal `draw`.
+not insert one between `untap` and the normal `draw`. `available: []` is
+invalid while an untapped utility land, `{T}` ability, sacrifice ability, or
+castable spell remains; `reason` explains why the best alternative lost, not
+only which line was chosen.
 
 ### Plans
 

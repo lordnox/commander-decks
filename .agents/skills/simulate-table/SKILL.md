@@ -243,10 +243,12 @@ For every seat, every turn, the seat agent:
    Oracle of Mul Daya, Future Sight — decide from that card and publish it in
    `revealed_top` (see [schema.md](schema.md)), refreshed whenever the top
    changes.
-11. When creating a token, read that source card under the seat's
+11. When creating a predefined token, read that source card under the seat's
    `token_sources` and put its exact Scryfall ID in the battlefield entry's
    `token_id`. Do not choose a same-name token by memory; printed tokens with
-   the same name can have different characteristics.
+   the same name can have different characteristics. For a token copy, use
+   the copied permanent's name and omit `token_id`; a generic Copy helper card
+   has no Oracle characteristics and must not override the named permanent.
 12. Record `+1/+1` and `-1/-1` counters in `counters`; the viewer adds them to
     the printed power and toughness. When anything else changes those values —
     an anthem, Aura, Equipment, pump spell, or animated land — put the
