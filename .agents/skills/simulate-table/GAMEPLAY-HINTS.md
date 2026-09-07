@@ -134,11 +134,15 @@ not see its own cast and an enter trigger has not happened. Record separate
 events in order:
 
 1. `Card X is cast targeting T`.
-2. `Permanent Y triggers: effect D targeting T`.
+2. `Permanent Y's "printed trigger condition" ability triggers because Card X
+   was cast/entered/died/etc.; effect D targets T`.
 3. `Card X resolves` and only then enters or applies its effect.
 
-Name the source, effect, and every target directly in the event summary. Do
-not hide an Aura target only in the battlefield `note`.
+Name the source, printed trigger condition, immediately preceding cause,
+effect, and every target directly in the event summary. Do not compress this
+to `Y enters; A draws and B gets a counter`, because that wording hides
+whether entering Y actually caused the ability. Do not hide an Aura target
+only in the battlefield `note`.
 
 ## 4. Hidden information
 
@@ -247,7 +251,11 @@ Before passing the turn or taking a "nothing to do" combat:
    choose whether to move it to the command zone?
 10. For every trigger, did the correct controller perform the triggering
     action (`you cast`, `you draw`, `a land enters under your control`)?
+11. For every trigger, which immediately preceding event satisfied its
+    printed condition, and was its source in the required zone then? Re-run
+    this causal check even for abilities already resolved. A permanent cannot
+    trigger from the cast that puts itself onto the battlefield.
 
 If an available win, elimination, land drop, trigger, or safe attack was left
 unused, the line needs a recorded reason or is wrong. If any audit in items
-8–10 fails, correct the snapshot before the next untap.
+8–11 fails, correct the snapshot before the next untap.
