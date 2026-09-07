@@ -19,7 +19,7 @@ Every unique card needs a Cards in line. The other headings appear when there is
 
 ## Rankings
 
-See `rankings.json`. First pass: jank 9, fun 8, mean 6, Mill 9, Landfall 8. Combo speed without extra-turn locks.
+See `rankings.json`. 2026-09-08: jank 8, fun 9, mean 6, Mill 9, Landfall 8. Instant answers made the pilot game richer and the 99 slightly less weird; the mill burst is unchanged.
 
 ## Cards in
 
@@ -206,3 +206,13 @@ The list needed more disruption that can fire on turns 4–6 after a land drop, 
 - **Join the Dead** — Replaces Haunting Voyage.
 - **Black Sun's Twilight** — Replaces Diregraf Rebirth.
 - **Fell the Profane // Fell Mire** — Replaces the second basic Swamp. The land face is not a Swamp, so fetches cannot find it.
+
+### 2026-09-08 — Reassess and rerank after the interaction package
+
+Game Changers: **0**, matched against `BRACKET-DEFINITIONS.md` snapshot **2026-09-03**. No Crop Rotation, no Demonic Tutor, no fast mana. Sol Ring is absent; kitchen-table 4+ would apply if it were here.
+
+Win texture is still Upgraded: lands and Homers accrue, then [Scapeshift](https://scryfall.com/card/m19/201/scapeshift), [Splendid Reclamation](https://scryfall.com/card/eoc/108/splendid-reclamation), or a clone burst dumps libraries in one turn. That is not Incremental Core. Normal goldfish is still **turn seven** (Homer on four or five, a safe copy, then a mass land entry). The seed-1729 Scapeshift tree is a **strong turn-six** high roll, not the average. [Hedge Shredder](https://scryfall.com/card/dsk/183/hedge-shredder) chaining milled lands remains an **unlikely turn-four** line.
+
+The new instants ([Dismember](https://scryfall.com/card/mm2/79/dismember), [Join the Dead](https://scryfall.com/card/lci/110/join-the-dead), [Price of Fame](https://scryfall.com/card/mkc/135/price-of-fame), [Drag to the Roots](https://scryfall.com/card/dsk/213/drag-to-the-roots), [Black Sun's Twilight](https://scryfall.com/card/one/84/black-suns-twilight), [Fell the Profane](https://scryfall.com/card/mh3/244/fell-the-profane-fell-mire)) raise interactive resilience. They do not compact the mill or add tutors. Losing [Strionic Resonator](https://scryfall.com/card/moc/384/strionic-resonator) and [Haunting Voyage](https://scryfall.com/card/ecc/75/haunting-voyage) slightly thins the finish. Stay **3−**: Upgraded dump, usual T7, not middle-3 consistency or 3+ compactness. Not Bracket 2: the win is a from-hand/board dump, not a telegraphed incremental race. Not Bracket 4: no Game Changers, no permanent fast mana, T4 is a nut.
+
+Rankings: jank **9→8**, fun **8→9**, mean **6**, Mill **9**, Landfall **8**. Efficient answers and the Resonator cut made the 99 less weird. Hold-up versus dumpster is a real pilot choice. Mean is still one library empty, not a lock.

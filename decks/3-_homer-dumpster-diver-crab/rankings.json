@@ -4,13 +4,13 @@
     "Landfall"
   ],
   "scores": {
-    "jankiness": 9,
-    "fun": 8,
+    "jankiness": 8,
+    "fun": 9,
     "oppressiveness": 6,
     "identity": {
       "Mill": 9,
       "Landfall": 8
     }
   },
-  "notes": "The win is pointing copied Homers outward. Setup is dump lands then replay them; jank is seafood-count math, Nanogene, and legend-safe clones. Mean is a one-turn library empty, not stax. Crab tribal is not a goal."
+  "notes": "The win is still copied Homers emptying libraries in one landfall burst. Jank dropped a point: Dismember, Price of Fame, and Fell the Profane are efficient answers, and Strionic Resonator left. Fun rose: hold-up versus dumpster sequencing. Mean stays a one-turn mill, not stax."
 }
