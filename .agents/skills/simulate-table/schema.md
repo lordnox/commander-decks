@@ -94,9 +94,9 @@ card names so a snapshot is readable without the table. Old replays may omit
 | `damage` | List of damage entries on a `damage` event |
 | `state` | Full public board after the event, including `deals` |
 
-`kind`: `setup`, `keep`, `mulligan`, `draw`, `play_land`, `cast`, `activate`,
-`resolve`, `move`, `attack`, `block`, `damage`, `life`, `counters`, `eliminate`,
-`win`, `pass`, `note`, `think`, `talk`, `deal`.
+`kind`: `setup`, `keep`, `mulligan`, `draw`, `play_land`, `cast`, `trigger`,
+`activate`, `resolve`, `move`, `attack`, `block`, `damage`, `life`, `counters`,
+`eliminate`, `win`, `pass`, `note`, `think`, `talk`, `deal`.
 
 Each rejected London candidate gets its own `mulligan` event. Its `cards`
 contains the complete seven-card hand and `decision.reason` explains why it
@@ -131,8 +131,11 @@ Record the stack in causal order. A `cast` event puts the spell on the stack;
 it does not also make that spell a battlefield permanent. Record every
 triggered ability caused by the cast as its own event whose summary names the
 printed ability, exact cause, effect, and targets. Keep the original spell in
-`state.stack` while those triggers resolve, then remove it in its own
-`resolve` or `move` event. The same rule applies to enter, landfall, attack,
+`state.stack` while a `trigger` event adds each ability above it. The trigger's
+stack row uses the source card as `name`, `kind: "trigger"`, and the printed
+ability plus targets in `text`, so the viewer shows the pending trigger list.
+Resolve each trigger separately, then remove the spell in its own `resolve`
+or `move` event. The same rule applies to enter, landfall, attack,
 combat-damage, death, and second-draw triggers. An Aura cast names the
 creature it targets directly in the cast summary; its battlefield `note`
 records the attachment only after it resolves.
@@ -149,7 +152,16 @@ using the battlefield entry's `face` (see [Faces](#faces)).
   "active": "p1",
   "turn": 3,
   "phase": "main1",
-  "stack": [{"name": "Counterspell", "controller": "p2", "text": "on Cultivate"}],
+  "stack": [
+    {"name": "Cultivate", "controller": "p1", "text": "spell"},
+    {
+      "name": "Ms. Bumbleflower",
+      "kind": "trigger",
+      "controller": "p1",
+      "text": "Whenever you cast a spell — p3 draws; counter and flying target Seedborn Muse"
+    },
+    {"name": "Counterspell", "controller": "p2", "text": "targets Cultivate"}
+  ],
   "deals": [
     { "id": 9, "status": "accepted", "offered_event": 162, "resolved_event": 168 }
   ],

@@ -292,6 +292,35 @@ def validate_cast_stacks(events: list[dict], rows: list[dict]) -> None:
             )
 
 
+def validate_trigger_stacks(events: list[dict], rows: list[dict]) -> None:
+    for event in events:
+        if event.get("kind") != "trigger":
+            continue
+        cards = event.get("cards") or []
+        if not cards:
+            raise ValueError(
+                f"event {event['id']}: trigger needs its source in cards"
+            )
+        source = resolve_name(cards[0], rows)
+        matching = [
+            item
+            for item in (event.get("state") or {}).get("stack") or []
+            if isinstance(item, dict)
+            and item.get("kind") == "trigger"
+            and resolve_name(item.get("name"), rows) == source
+        ]
+        if not matching:
+            raise ValueError(
+                f"event {event['id']}: {source} trigger must appear on "
+                "state.stack with kind trigger"
+            )
+        if not any((item.get("text") or "").strip() for item in matching):
+            raise ValueError(
+                f"event {event['id']}: {source} trigger needs its ability text "
+                "on state.stack"
+            )
+
+
 def validate_token_metadata(
     events: list[dict], catalog: dict, tokens: dict, rows: list[dict]
 ) -> None:
@@ -944,6 +973,7 @@ def public_game(game: dict, *, strict: bool = False) -> dict:
         if strict:
             validate_turn_labels(events)
             validate_cast_stacks(events, rows)
+            validate_trigger_stacks(events, rows)
             validate_enter_untapped(events, catalog, rows)
             validate_open_mana(events, catalog, rows)
             validate_hidden_reasons(events, catalog, rows)

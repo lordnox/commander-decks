@@ -651,6 +651,34 @@ class PlayInvariantTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "must put it on state.stack"):
             render_replay.validate_cast_stacks(events, [])
 
+    def test_trigger_must_appear_on_stack_with_ability_text(self):
+        event = {
+            "id": 2,
+            "kind": "trigger",
+            "cards": ["Ms. Bumbleflower"],
+            "state": {
+                "stack": [
+                    {"name": "Seedborn Muse", "kind": "spell"},
+                    {
+                        "name": "Ms. Bumbleflower",
+                        "kind": "trigger",
+                        "text": "Whenever you cast a spell — p3 draws",
+                    },
+                ]
+            },
+        }
+
+        render_replay.validate_trigger_stacks([event], [])
+
+        event["state"]["stack"][1].pop("kind")
+        with self.assertRaisesRegex(ValueError, "must appear on state.stack"):
+            render_replay.validate_trigger_stacks([event], [])
+
+        event["state"]["stack"][1]["kind"] = "trigger"
+        event["state"]["stack"][1]["text"] = ""
+        with self.assertRaisesRegex(ValueError, "needs its ability text"):
+            render_replay.validate_trigger_stacks([event], [])
+
     def test_token_must_resolve_to_permanent_metadata(self):
         events = [
             {

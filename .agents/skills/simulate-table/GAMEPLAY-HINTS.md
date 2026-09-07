@@ -155,9 +155,11 @@ whether entering Y actually caused the ability. Do not hide an Aura target
 only in the battlefield `note`.
 
 Keep `state.stack` honest at every step. The cast event adds the spell; each
-cast trigger is added above it; those triggers resolve before the spell; only
-then can a permanent enter and cause enter triggers. Record each trigger as a
-separate event so the viewer can show the pending list.
+cast trigger gets its own `kind: "trigger"` event and stack row above it;
+those triggers resolve before the spell; only then can a permanent enter and
+cause enter triggers. The stack row names the source and carries
+`kind: "trigger"` plus the printed ability, effect, and targets in `text`, so
+the viewer can show the pending list.
 
 Untap effects are state changes too. Seedborn Muse and similar cards untap the
 recorded permanents during every other player's untap step. Update the
