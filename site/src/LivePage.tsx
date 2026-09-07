@@ -311,7 +311,7 @@ export const LivePage = () => {
   const activeSeat = seats.find((seat) => seat.id === snapshot.active)
 
   return (
-    <div className="min-h-screen pb-56">
+    <div className={`min-h-screen ${hidden ? 'pb-8' : 'pb-56'}`}>
       <header className="sticky top-0 z-30 border-b border-white/10 bg-ink-950/90 px-4 py-3 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[110rem] flex-wrap items-center gap-3">
           <a
@@ -414,8 +414,7 @@ export const LivePage = () => {
                 active={snapshot.active === seat.id}
                 action={new Set()}
                 handCount={seat.hand_count}
-                showHand={isYou}
-                concealHand={isYou && hidden}
+                showHand={isYou && !hidden}
                 copyable
                 onPreview={setPreview}
                 onHover={setHover}
@@ -426,49 +425,34 @@ export const LivePage = () => {
         </div>
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-ink-950/95 px-4 py-3 shadow-2xl backdrop-blur-xl">
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-            <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-moss-200">
-              Your plan
-              {snapshot.you ? ` · ${snapshot.you}` : ' · spectator'}
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {status && (
-                <span className="text-xs font-semibold text-gold-300">{status}</span>
-              )}
-              <button
-                type="button"
-                onClick={() => void copyPlan()}
-                className="rounded-xl bg-white/5 px-3 py-1.5 text-sm font-semibold text-stone-200 hover:bg-white/10"
-              >
-                Copy plan
-              </button>
-              <button
-                type="button"
-                onClick={() => setPlan('')}
-                disabled={hidden}
-                className="rounded-xl bg-white/5 px-3 py-1.5 text-sm font-semibold text-stone-200 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/5"
-              >
-                Clear
-              </button>
+      {!hidden && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-ink-950/95 px-4 py-3 shadow-2xl backdrop-blur-xl">
+          <div className="mx-auto max-w-5xl">
+            <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+              <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-moss-200">
+                Your plan
+                {snapshot.you ? ` · ${snapshot.you}` : ' · spectator'}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {status && (
+                  <span className="text-xs font-semibold text-gold-300">{status}</span>
+                )}
+                <button
+                  type="button"
+                  onClick={() => void copyPlan()}
+                  className="rounded-xl bg-white/5 px-3 py-1.5 text-sm font-semibold text-stone-200 hover:bg-white/10"
+                >
+                  Copy plan
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPlan('')}
+                  className="rounded-xl bg-white/5 px-3 py-1.5 text-sm font-semibold text-stone-200 hover:bg-white/10"
+                >
+                  Clear
+                </button>
+              </div>
             </div>
-          </div>
-          {hidden ? (
-            <div className="flex min-h-[6.5rem] w-full flex-wrap items-center justify-between gap-3 rounded-2xl border border-dashed border-white/15 bg-ink-900/60 px-4 py-3 text-sm text-stone-400">
-              <span>
-                Plan hidden
-                {plan.length > 0 && ` — ${plan.length} characters kept off screen`}
-              </span>
-              <button
-                type="button"
-                onClick={toggleHidden}
-                className="rounded-xl bg-white/5 px-3 py-1.5 text-sm font-semibold text-stone-200 hover:bg-white/10"
-              >
-                Show
-              </button>
-            </div>
-          ) : (
             <textarea
               ref={planRef}
               value={plan}
@@ -477,16 +461,16 @@ export const LivePage = () => {
               placeholder="Write the line you will paste back into chat…"
               className="w-full resize-y rounded-2xl border border-white/10 bg-ink-900/90 px-4 py-3 text-sm leading-6 text-stone-100 outline-none placeholder:text-stone-500 focus:border-moss-300"
             />
-          )}
+          </div>
         </div>
-      </div>
+      )}
 
       {snapshot.stack.length > 0 && (
         <StackOverlay
           game={game}
           stack={snapshot.stack}
           copyable
-          bottomClassName="bottom-56"
+          bottomClassName={hidden ? 'bottom-5' : 'bottom-56'}
           onPreview={setPreview}
           onHover={setHover}
           onInsertName={onInsertName}

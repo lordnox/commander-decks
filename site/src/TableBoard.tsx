@@ -219,20 +219,6 @@ export const ZoneHeading = ({ label, count }: { label: string; count: number }) 
   </div>
 )
 
-/** A zone the viewer chose to keep off screen: the count stays, the cards never render. */
-export const HiddenZone = ({ label, count }: { label: string; count: number }) => {
-  if (count === 0) return null
-
-  return (
-    <section className="mt-4">
-      <ZoneHeading label={label} count={count} />
-      <p className="rounded-xl border border-dashed border-white/15 bg-white/[0.03] px-3 py-2 text-xs text-stone-400">
-        Hidden — {count === 1 ? '1 card is' : `${count} cards are`} kept off screen
-      </p>
-    </section>
-  )
-}
-
 export const CardRow = ({
   game,
   cards,
@@ -387,7 +373,6 @@ export const SeatPanel = ({
   currentPlan,
   handCount,
   showHand = true,
-  concealHand = false,
   copyable = false,
   onPreview,
   onHover,
@@ -401,7 +386,6 @@ export const SeatPanel = ({
   currentPlan?: ReplayPlan
   handCount?: number
   showHand?: boolean
-  concealHand?: boolean
   copyable?: boolean
   onPreview: (preview: Preview) => void
   onHover: HoverHandler
@@ -514,22 +498,19 @@ export const SeatPanel = ({
         onHover={onHover}
         onInsertName={onInsertName}
       />
-      {showHand &&
-        (concealHand ? (
-          <HiddenZone label="Hand" count={displayedHandCount} />
-        ) : (
-          <Zone
-            game={game}
-            label="Hand"
-            cards={state.hand}
-            compact
-            action={action}
-            copyable={copyable}
-            onPreview={onPreview}
-            onHover={onHover}
-            onInsertName={onInsertName}
-          />
-        ))}
+      {showHand && (
+        <Zone
+          game={game}
+          label="Hand"
+          cards={state.hand}
+          compact
+          action={action}
+          copyable={copyable}
+          onPreview={onPreview}
+          onHover={onHover}
+          onInsertName={onInsertName}
+        />
+      )}
       <Zone
         game={game}
         label="Command"
