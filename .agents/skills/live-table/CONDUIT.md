@@ -46,7 +46,13 @@ Keep `/live/` trailing slash. Payload `?s=` and short `?game=` links remain vali
 {"type":"plan","text":"…"}
 ```
 
-`type` is `plan` | `confirm` | `replace`. `text` is the line. POST as `X-Live-Conduit-Kind: snapshot` (replace previous plan) unless appending a follow-up, then `delta` is allowed; the page uses `snapshot`.
+`type` is `plan` | `confirm` | `replace` | `join` | `ready` | `rules` | `talk`.
+POST as `X-Live-Conduit-Kind: snapshot` (latest message wins) unless appending a
+follow-up, then `delta` is allowed; the page uses `snapshot`.
+
+A seat is a capability. Host does not record whether the client is an agent, a
+browser, or a person. Anyone with that seat’s read keys sees that seat’s private
+view.
 
 ## Watch
 

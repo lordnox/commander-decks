@@ -61,21 +61,25 @@ Arrow functions, no semicolons, return types only when inference fails.
 Same binary, different subcommand:
 
 ```
-bun live-runner/src/cli.ts host --slug <slug> --human p1 --decks d1,d2,d3,d4
+bun live-runner/src/cli.ts host --slug <slug>
 bun live-runner/src/cli.ts seat --invite <file-or-json>
 bun live-runner/src/cli.ts resume --slug <slug>
 bun live-runner/src/cli.ts stop --slug <slug>
 ```
 
-`host` mints (or reuses `table-games/<slug>.conduit.json`), writes session,
-prints four invites, watches all four inboxes until start. After start,
-watches inboxes and writes `host` plus each `pN` snapshot.
+**Host does not know or care who pilots a seat** (Cursor, Pages, Ollama, another person). A seat is a capability: valid keys may connect, watch, and write that inbox. Host:
 
-`seat` never mints. Loads one invite (that seat only), posts `join`, watches
-`host` read. Agent seats: on `waiting`, post plan/confirm when a brain exists;
-until then log and idle.
+- mints bins and prints four invites
+- watches four inboxes (and optional rules/talk)
+- checks integrity: four distinct `join`s, legal inbox JSON, snapshot writes succeed, generations move
+- deals when four `join`s exist (decks come from join payloads, not from `--human` / `--decks` on host)
+- publishes NOW to `host` (public) and each `pN` (that seat’s private view)
+- puts table talk on the snapshot (`k`) so every viewer sees it
+- answers rules questions posted to any inbox (`type: "rules"`) by writing talk + a reply snapshot
 
-Human `/live-game` does not use this process. Pages + Cursor chat.
+**Seat runner** is one client of those keys, not a special class of player. Pages `/live/?host=&you=&seat=&inbox=` and a Cursor `live-table` skill with the same invite are the same seat. Anyone with that invite sees the game through that seat’s eyes (hand included on `seatRead`).
+
+`seat` never mints. It posts `join` (deck + name), then watches `hostRead` / `seatRead`. It does not tell the host “I am an agent”.
 
 ### Invite (seat-safe)
 
@@ -105,17 +109,20 @@ Keep `{ "type": "plan"|"confirm"|"replace", "text": "..." }`.
 Add:
 
 ```
-{ "type": "join", "you": "p2", "name": "Mishra brew title", "deck": "decks/..." }
+{ "type": "join", "you": "p2", "name": "brew title", "deck": "decks/..." }
 { "type": "ready", "you": "p2" }
+{ "type": "rules", "text": "does this trigger on ETB?" }
+{ "type": "talk", "text": "I'll pass if you don't pump" }
 ```
 
-`join` is a snapshot on that seat's inbox (replace). Host starts when every
-non-human seat has `join`. `--human` may skip join (Pages player).
+`join` is a snapshot on that seat's inbox. Host starts when all four seats have
+`join`. No skip for a "human" seat — Pages/skill/runner all send `join` (the
+skill can send it when the user names a deck).
 
 ### Session file
 
 `table-games/<slug>.runner.json` (gitignore): role host|seat, slug, origin,
-you?, human?, decks, bins, lastGen per bin label, pid?, phase lobby|play|ended.
+you?, decks-from-joins, bins, lastGen per bin label, pid?, phase lobby|play|ended.
 
 Host may store all nine pairs. Seat session stores invite fields plus lastGen
 for host and that inbox.
@@ -143,13 +150,13 @@ poll loop. HTTP GET only on startup/resume to seed lastGen.
 ## Host loop
 
 1. Mint or load conduit keys.
-2. Write invite-p1.json … invite-p4.json.
+2. Write invite-p1.json … invite-p4.json (and Pages URLs). Same invite for
+   runner, skill, or browser.
 3. Watch four inboxes.
-4. On join, record deck/name.
-5. When ready: existing `table:deal` into `<slug>.live.json`. Do not reimplement
-   deal. Then encode_live.py --conduit (or equivalent appends).
-6. Play (v1): on human plan/confirm, log and hook `onHumanPlan`. Agent seats:
-   stub `onSeatTurn` logs waiting. Brain is G later.
+4. On join, record deck/name for the deal. Do not record controller type.
+5. Four joins: `table:deal` using those four decks. Then publish snapshots.
+6. Play: any inbox `plan`/`confirm`/`replace`/`talk`/`rules` is just a message
+   from that seat. Host applies or answers; it does not branch on "human".
 
 Host is the only writer of `host` and `pN` bins.
 
@@ -170,7 +177,7 @@ Host is the only writer of `host` and `pN` bins.
 Local IDE/CLI agent: yes, if detached from the agent shell.
 
 ```
-nohup bun live-runner/src/cli.ts host --slug <slug> --human p2 --decks ... \
+nohup bun live-runner/src/cli.ts host --slug <slug> \
   >> table-games/<slug>.runner.log 2>&1 &
 echo $! > table-games/<slug>.runner.pid
 ```
@@ -194,8 +201,8 @@ Foreground bun in the agent terminal dies with that terminal. Always pid+log.
 
 ## Out of scope (v1)
 
-Rules engine, Ollama, Cursor SDK, replacing Pages, mint-auth deploy, server-side
-deltas, four LLM seats in one process (v2: in-process seat modules).
+Oracle/rules engine (host still *answers* rules questions in table talk),
+Ollama, Cursor SDK, replacing Pages, mint-auth deploy, server-side deltas.
 
 ---
 
@@ -216,4 +223,4 @@ deltas, four LLM seats in one process (v2: in-process seat modules).
 - seat --invite from another terminal posts join; host log shows it.
 - kill -9 host; resume --slug reconnects with from= and does not remint.
 - Agent recipe: background start, pid file, log, kill -0 after the reply.
-- Human still uses /live/?host=&you=&seat=&inbox=.
+- Human still uses /live/?host=&you=&seat=&inbox= with the same invite as a seat runner.
