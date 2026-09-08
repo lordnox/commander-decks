@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs'
+import { readFileSync, writeFileSync } from 'node:fs'
 import type { LobbyState } from './lobby'
 import {
   SEAT_IDS,
@@ -10,6 +10,9 @@ import {
 import { replayPath } from './session'
 
 type ReplayEvent = {
+  id?: number
+  turn?: number
+  phase?: string
   kind?: string
   seat?: string | null
   seats?: unknown
@@ -17,6 +20,12 @@ type ReplayEvent = {
   state?: {
     active?: string
   }
+}
+
+const playerList = (seats: SeatId[], state: LobbyState) => {
+  const names = seats.map((seat) => state.occupants[seat]?.name ?? seat)
+  if (names.length < 2) return names[0] ?? ''
+  return `${names.slice(0, -1).join(', ')} and ${names.at(-1)}`
 }
 
 const namedResponders = (
@@ -79,5 +88,52 @@ export const acceptsPlayAction = (
   const action = message.type as PlayAction
   return message.actionId === state.actionIds[seat]
     && (state.actions[seat] ?? []).includes(action)
+}
+
+/** Record a pass without an agent when other responders keep the same window open. */
+export const applyIntermediatePass = (
+  root: string,
+  slug: string,
+  state: LobbyState,
+  seat: SeatId,
+) => {
+  const responders = SEAT_IDS.filter(
+    (candidate) => state.actions[candidate]?.includes('pass'),
+  )
+  if (!responders.includes(seat) || responders.length < 2) return false
+
+  const path = replayPath(slug, root)
+  const replay = JSON.parse(readFileSync(path, 'utf8')) as {
+    events: ReplayEvent[]
+  }
+  const last = replay.events.at(-1)
+  if (!last || last.kind !== 'priority' || !last.state) return false
+
+  const remaining = responders.filter((candidate) => candidate !== seat)
+  const nextId = (last.id ?? replay.events.length - 1) + 1
+  const windowName = (last.summary ?? 'Priority').split(':', 1)[0]
+  replay.events.push(
+    {
+      id: nextId,
+      turn: last.turn,
+      phase: 'priority',
+      seat,
+      kind: 'pass',
+      summary: `${state.occupants[seat]?.name ?? seat} takes no action in this priority window.`,
+      state: structuredClone(last.state),
+    },
+    {
+      id: nextId + 1,
+      turn: last.turn,
+      phase: 'priority',
+      seat: null,
+      kind: 'priority',
+      summary: `${windowName}: ${playerList(remaining, state)} may plan a response or pass.`,
+      seats: remaining,
+      state: structuredClone(last.state),
+    },
+  )
+  writeFileSync(path, `${JSON.stringify(replay, null, 2)}\n`)
+  return true
 }
 
