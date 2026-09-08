@@ -112,6 +112,7 @@ Battlefield flags: tapped `1`, token `2`, commander `4`. `extra` holds `p` /
 | `g` | Compact catalog for those extras only |
 | `o` | Visible tokens as `[key, details]` |
 | `z` | Four seat arrays |
+| `e` | Up to 20 recent redacted events as `[id, turn, phase, seat, kind, summary]` |
 | `s` | Stack: ref, `[ref, controller]`, or `[ref, controller, text]` |
 | `m` | Packed combat |
 
@@ -130,6 +131,7 @@ this object.
 | `headline` | Short table title |
 | `waiting` | Prompt for the human, e.g. `Would this line work? Confirm or replace it.` |
 | `talk` | Table talk and the current standing plan |
+| `events` | Up to 20 recent redacted event summaries for the viewer timeline |
 | `turn` | Turn number |
 | `phase` | Same strings as replay: `setup`, `untap`, `upkeep`, `draw`, `main1`, `combat`, `main2`, `end`, `priority` |
 | `active` | Active seat |

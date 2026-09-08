@@ -270,6 +270,7 @@ class LiveTableEncodeTests(unittest.TestCase):
         self.assertEqual(decoded["seats"][1]["hand"], ["Forest", "Cultivate"])
         self.assertEqual(decoded["stack"][0]["name"], "Counterspell")
         self.assertEqual(decoded["seats"][1]["battlefield"][0]["name"], "Sol Ring")
+        self.assertEqual(decoded["events"][-1]["summary"], "Beta casts Sol Ring.")
 
     def test_event_id_selects_that_snapshot(self):
         opening = encode_live.build_snapshot(
@@ -334,6 +335,52 @@ class LiveTableEncodeTests(unittest.TestCase):
         self.assertEqual(private["turn"], 1)
         self.assertEqual(private["phase"], "main1")
         self.assertEqual(private["active"], "p2")
+
+    def test_event_feed_redacts_other_seats_hidden_information(self):
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        replay["events"][0].update(
+            seat="p1",
+            kind="draw",
+            summary="Alpha draws Secret Hand.",
+        )
+        replay["events"][1].update(
+            seat="p2",
+            kind="pass",
+            summary="Beta passes holding Cultivate.",
+        )
+
+        private = encode_live.build_snapshot(
+            replay,
+            you="p1",
+            talk="",
+            waiting="",
+            public=False,
+        )
+        public = encode_live.build_snapshot(
+            replay,
+            you=None,
+            talk="",
+            waiting="",
+            public=True,
+        )
+
+        self.assertEqual(private["events"][0]["summary"], "Alpha draws Secret Hand.")
+        self.assertEqual(private["events"][1]["summary"], "Beta passes.")
+        self.assertEqual(public["events"][0]["summary"], "Alpha draws a card.")
+        self.assertEqual(public["events"][1]["summary"], "Beta passes.")
+        self.assertNotIn("Cultivate", json.dumps(private["events"]))
+        self.assertNotIn("Secret Hand", json.dumps(public["events"]))
+
+    def test_event_feed_stops_at_selected_event(self):
+        opening = encode_live.build_snapshot(
+            FAKE_REPLAY,
+            you="p2",
+            talk="",
+            waiting="",
+            public=False,
+            event_id=0,
+        )
+        self.assertEqual([event["id"] for event in opening["events"]], [0])
 
     def test_cli_json_and_urls(self):
         import tempfile

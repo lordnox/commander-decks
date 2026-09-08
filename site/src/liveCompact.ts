@@ -27,6 +27,7 @@ export type LiveWireV2 = {
   g?: Record<string, CardDetails>
   o?: Array<[string, CardDetails]>
   z: unknown[]
+  e?: Array<[number, number, number, number, string, string]>
   s?: unknown[]
   m?: Record<string, unknown>
 }
@@ -284,6 +285,18 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
   if (you >= 0) wire.y = you
   if (snapshot.waiting && snapshot.waiting !== DEFAULT_WAITING) wire.w = snapshot.waiting
   if (snapshot.talk) wire.k = snapshot.talk
+  if (snapshot.events?.length) {
+    wire.e = snapshot.events.map((event) => [
+      event.id,
+      event.turn,
+      Math.max(0, PHASES.indexOf(event.phase as (typeof PHASES)[number])),
+      event.seat
+        ? SEAT_IDS.indexOf(event.seat as (typeof SEAT_IDS)[number])
+        : -1,
+      event.kind,
+      event.summary,
+    ])
+  }
   if (slugs.some(Boolean)) wire.d = slugs
   const colors = seats.map((seat, index) => seat.color || SEAT_COLORS[index])
   if (colors.some((color, index) => color !== SEAT_COLORS[index])) wire.c = colors
@@ -426,6 +439,14 @@ export const expandLiveWire = (
     headline: wire.h,
     waiting: wire.w || DEFAULT_WAITING,
     talk: wire.k || '',
+    events: (wire.e ?? []).map((event) => ({
+      id: event[0],
+      turn: event[1],
+      phase: PHASES[event[2]] ?? 'main1',
+      seat: event[3] >= 0 ? SEAT_IDS[event[3]] : null,
+      kind: event[4],
+      summary: event[5],
+    })),
     turn: wire.t,
     phase: PHASES[wire.p] ?? 'main1',
     active: SEAT_IDS[wire.a] ?? 'p1',

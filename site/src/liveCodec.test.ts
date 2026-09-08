@@ -2,7 +2,10 @@ import { describe, expect, test } from 'bun:test'
 import {
   conduitPrivateUrl,
   conduitPublicUrl,
+  encodePublicLivePayload,
+  openLivePayload,
   readLiveRequest,
+  type LiveSnapshot,
 } from './liveCodec'
 
 const host = 'a'.repeat(43)
@@ -96,4 +99,45 @@ describe('conduit links', () => {
     expect(url.searchParams.has('seat')).toBeFalse()
     expect(url.searchParams.has('inbox')).toBeFalse()
   })
+})
+
+test('public payload redacts a private draw summary', async () => {
+  const snapshot = {
+    v: 1,
+    you: 'p1',
+    headline: 'Test',
+    turn: 1,
+    phase: 'draw',
+    active: 'p1',
+    stack: [],
+    seats: [{
+      id: 'p1',
+      name: 'Alpha',
+      commanders: [],
+      color: '#c45c26',
+      life: 40,
+      library_count: 90,
+      hand_count: 8,
+      hand: ['Secret Card'],
+      battlefield: [],
+      graveyard: [],
+      exile: [],
+      command: [],
+    }],
+    events: [{
+      id: 1,
+      turn: 1,
+      phase: 'draw',
+      seat: 'p1',
+      kind: 'draw',
+      summary: 'Alpha draws Secret Card.',
+    }],
+    catalog: {},
+  } satisfies LiveSnapshot
+
+  const payload = await encodePublicLivePayload(snapshot)
+  const publicSnapshot = await openLivePayload(payload, '/')
+  expect(publicSnapshot.you).toBeNull()
+  expect(publicSnapshot.events?.[0].summary).toBe('Alpha draws a card.')
+  expect(JSON.stringify(publicSnapshot)).not.toContain('Secret Card')
 })

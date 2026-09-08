@@ -358,6 +358,47 @@ def select_event(events: list, event_id: int | None) -> dict:
     raise ValueError(f"replay has no event with id {event_id}")
 
 
+def _event_feed(
+    events: list,
+    *,
+    last: dict,
+    you: str | None,
+    seats_meta: dict,
+) -> list[dict[str, Any]]:
+    feed = []
+    for event in events:
+        seat_id = event.get("seat")
+        name = (seats_meta.get(seat_id) or {}).get("name") or seat_id or "Table"
+        kind = event.get("kind") or "event"
+        phase = event.get("phase") or ""
+        summary = event.get("summary") or f"{name}: {kind.replace('_', ' ')}."
+
+        if kind == "think":
+            summary = f"{name} is thinking."
+        elif kind == "draw" and seat_id != you:
+            summary = f"{name} draws a card."
+        elif kind == "pass" and seat_id != you:
+            summary = (
+                f"{name} ends the turn."
+                if phase == "end"
+                else f"{name} passes."
+            )
+
+        feed.append(
+            {
+                "id": event.get("id"),
+                "turn": event.get("turn", 0),
+                "phase": phase,
+                "seat": seat_id,
+                "kind": kind,
+                "summary": summary,
+            }
+        )
+        if event is last:
+            break
+    return feed[-20:]
+
+
 def build_snapshot(
     replay: dict,
     *,
@@ -394,6 +435,12 @@ def build_snapshot(
         "headline": replay.get("headline") or "",
         "waiting": waiting,
         "talk": talk,
+        "events": _event_feed(
+            events,
+            last=last,
+            you=viewer,
+            seats_meta=seats_meta,
+        ),
         "turn": state.get("turn", last.get("turn", 0)),
         "phase": state.get("phase", last.get("phase", "setup")),
         "active": state.get("active", last.get("seat")),
