@@ -49,7 +49,7 @@ def mint(origin: str, api_key: str | None, labels=BIN_LABELS) -> dict:
     if api_key:
         headers["Authorization"] = f"Bearer {api_key}"
         headers["X-API-Key"] = api_key
-    body = json.dumps({"labels": list(labels)}, separators=(",", ":")).encode("utf-8")
+    body = json.dumps({"bins": list(labels)}, separators=(",", ":")).encode("utf-8")
     with _request(origin, "/v1/mint", method="POST", data=body, headers=headers) as response:
         return json.loads(response.read().decode("utf-8"))
 

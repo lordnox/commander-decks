@@ -83,7 +83,7 @@ class ConduitClientTests(unittest.TestCase):
         request = urlopen.call_args.args[0]
         self.assertEqual(request.full_url, "https://conduit.test/v1/mint")
         self.assertEqual(request.method, "POST")
-        self.assertEqual(json.loads(request.data), {"labels": list(conduit_client.BIN_LABELS)})
+        self.assertEqual(json.loads(request.data), {"bins": list(conduit_client.BIN_LABELS)})
         self.assertEqual(request.get_header("Authorization"), "Bearer secret")
         self.assertEqual(request.get_header("X-api-key"), "secret")
 
@@ -204,7 +204,6 @@ class EncodeConduitTests(unittest.TestCase):
                         "--game",
                         "fallback",
                         "--conduit",
-                        "--conduit-keys",
                     ]
                 )
 
