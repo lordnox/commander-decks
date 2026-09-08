@@ -142,9 +142,10 @@ hydrates the rest client-side. Do not inline card details when an ID exists.
 
 ## Long-running host/seat (no poll)
 
-A Cursor chat must not poll conduit. The Bun **live-runner** (`live-runner/IMPLEMENTATION.md`)
-holds WebSockets and session files. Chat starts it in the background (pid + log)
-and exits. Human `/live-game` still uses Pages + this skill.
+A Cursor chat must not poll conduit. The Bun **live-runner**
+(`live-runner/PLAN.md`, `live-runner/IMPLEMENTATION.md`) holds WebSockets and
+session files. Chat starts it in the background (pid + log) and exits. Human
+`/live` still uses Pages + this skill.
 
 ## After the game
 
