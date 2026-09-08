@@ -69,38 +69,25 @@ bun live-runner/src/cli.ts stop --slug <slug>
 
 **Host does not know or care who pilots a seat** (Cursor, Pages, Ollama, another person). A seat is a capability: valid keys may connect, watch, and write that inbox. Host:
 
-- mints bins and prints four invites
-- watches four inboxes (and optional rules/talk)
-- checks integrity: four distinct `join`s, legal inbox JSON, snapshot writes succeed, generations move
-- deals when four `join`s exist (decks come from join payloads, not from `--human` / `--decks` on host)
-- publishes NOW to `host` (public) and each `pN` (that seat’s private view)
-- puts table talk on the snapshot (`k`) so every viewer sees it
-- answers rules questions posted to any inbox (`type: "rules"`) by writing talk + a reply snapshot
+- mints bins and prints four **pipe invites** (`seatRead|inboxWrite`) plus one spectator string (host read only)
+- may `--assign p3,p1,p4,p2` (clockwise from first seat) or **shuffle** which invite goes to which person; labels `p1`–`p4` stay table geometry
+- after four `join`s: **d20 per seat** (or one roll + turn order clockwise from highest); first player is host work, written into talk + snapshot `a`
+- watches four inboxes
+- checks integrity: four joins, legal JSON, snapshot writes, generations
+- publishes NOW to `host` and each `pN`
+- table talk on snapshot `k`; answers `rules` in talk
 
-**Seat runner** is one client of those keys, not a special class of player. Pages `/live/?host=&you=&seat=&inbox=` and a Cursor `live-table` skill with the same invite are the same seat. Anyone with that invite sees the game through that seat’s eyes (hand included on `seatRead`).
+**Seat client** (Pages, skill, or `seat` runner): parse `k` / `read|mailbox`. Watch `readKey`. If mailbox present, POST inbox. `you` is not sent to the host as a query flag.
 
-`seat` never mints. It posts `join` (deck + name), then watches `hostRead` / `seatRead`. It does not tell the host “I am an agent”.
+`seat` never mints. `join` can omit `you`; host maps the inbox to a seat by which bin was written.
 
 ### Invite (seat-safe)
 
-Also written as `table-games/<slug>.invite-p2.json` (gitignored):
+Chat string: `<seatRead>|<inboxWrite>`
 
-```
-{
-  "v": 1,
-  "origin": "https://conduit.app.kopelke.online",
-  "slug": "tea-party",
-  "you": "p2",
-  "hostRead": "...",
-  "seatRead": "...",
-  "seatWrite": "...",
-  "inboxWrite": "...",
-  "inboxRead": "..."
-}
-```
+Spectator: `<hostRead>`
 
-Host prints this and the Pages private URL. Never include other seats' keys or
-host write.
+JSON on disk (gitignored) can keep the split fields for the runner; the user-facing token is the pipe form. Never host write. `you` is inferred from which bin the read key belongs to, or from snapshot `y`.
 
 ### Inbox
 
@@ -109,8 +96,8 @@ Keep `{ "type": "plan"|"confirm"|"replace", "text": "..." }`.
 Add:
 
 ```
-{ "type": "join", "you": "p2", "name": "brew title", "deck": "decks/..." }
-{ "type": "ready", "you": "p2" }
+{ "type": "join", "name": "brew title", "deck": "decks/..." }
+{ "type": "ready" }
 { "type": "rules", "text": "does this trigger on ETB?" }
 { "type": "talk", "text": "I'll pass if you don't pump" }
 ```
@@ -150,11 +137,10 @@ poll loop. HTTP GET only on startup/resume to seed lastGen.
 ## Host loop
 
 1. Mint or load conduit keys.
-2. Write invite-p1.json … invite-p4.json (and Pages URLs). Same invite for
-   runner, skill, or browser.
+2. Write four pipe invites (optionally shuffled). Spectator = host read.
 3. Watch four inboxes.
-4. On join, record deck/name for the deal. Do not record controller type.
-5. Four joins: `table:deal` using those four decks. Then publish snapshots.
+4. On join, bind that inbox → seat; record deck/name.
+5. Four joins: roll d20s, set turn order / first player, `table:deal`, publish.
 6. Play: any inbox `plan`/`confirm`/`replace`/`talk`/`rules` is just a message
    from that seat. Host applies or answers; it does not branch on "human".
 
@@ -164,9 +150,9 @@ Host is the only writer of `host` and `pN` bins.
 
 ## Seat loop
 
-1. Parse invite.
-2. Append join to inbox.
-3. Watch hostRead.
+1. Parse `read|mailbox` (or JSON).
+2. Append join to mailbox.
+3. Watch readKey (that is the view).
 4. Persist lastGen.
 5. SIGTERM exits; resume with role seat.
 
@@ -223,4 +209,4 @@ Ollama, Cursor SDK, replacing Pages, mint-auth deploy, server-side deltas.
 - seat --invite from another terminal posts join; host log shows it.
 - kill -9 host; resume --slug reconnects with from= and does not remint.
 - Agent recipe: background start, pid file, log, kill -0 after the reply.
-- Human still uses /live/?host=&you=&seat=&inbox= with the same invite as a seat runner.
+- Human still uses /live/?k=<read>%7C<mailbox> (same string as chat).
