@@ -51,6 +51,7 @@ export type LiveSnapshot = {
   waiting?: string
   talk?: string
   judge?: string
+  youAct?: boolean
   events?: LiveEvent[]
   turn: number
   phase: string

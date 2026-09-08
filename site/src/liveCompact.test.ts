@@ -13,6 +13,7 @@ const snapshot = (): LiveSnapshot => ({
   waiting: 'Would this line work? Confirm or replace it.',
   talk: 'Hold up.',
   judge: 'Beta has priority.',
+  youAct: true,
   events: [
     {
       id: 8,
@@ -141,5 +142,6 @@ describe('live compact v2', () => {
     expect(expanded.events).toEqual(original.events)
     expect(expanded.awaiting).toBe('p3')
     expect(expanded.judge).toBe('Beta has priority.')
+    expect(expanded.youAct).toBe(true)
   })
 })

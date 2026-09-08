@@ -376,7 +376,7 @@ class LiveTableEncodeTests(unittest.TestCase):
     def test_empty_prompt_falls_back_to_the_awaited_seat(self):
         snapshot = encode_live.build_snapshot(
             FAKE_REPLAY,
-            you="p4",
+            you="p2",
             talk="",
             waiting="",
             public=False,
@@ -386,9 +386,14 @@ class LiveTableEncodeTests(unittest.TestCase):
             "Beta (p2) is up: confirm, replace, or respond.",
         )
 
-    def test_empty_prompt_in_an_open_window_asks_for_a_response(self):
+    def test_empty_prompt_in_a_window_naming_nobody_asks_everyone(self):
         replay = json.loads(json.dumps(FAKE_REPLAY))
-        replay["events"][1].update(seat=None, kind="priority", phase="priority")
+        replay["events"][1].update(
+            seat=None,
+            kind="priority",
+            phase="priority",
+            summary="End step priority is open.",
+        )
 
         snapshot = encode_live.build_snapshot(
             replay,
@@ -402,7 +407,7 @@ class LiveTableEncodeTests(unittest.TestCase):
     def test_generic_default_prompt_is_replaced_by_the_awaited_seat(self):
         snapshot = encode_live.build_snapshot(
             FAKE_REPLAY,
-            you="p4",
+            you="p2",
             talk="",
             waiting=encode_live.cl.DEFAULT_WAITING,
             public=False,
@@ -412,10 +417,96 @@ class LiveTableEncodeTests(unittest.TestCase):
             "Beta (p2) is up: confirm, replace, or respond.",
         )
 
+    def test_prompt_for_another_seat_is_not_shown_to_this_viewer(self):
+        asked = encode_live.build_snapshot(
+            FAKE_REPLAY,
+            you="p2",
+            talk="",
+            waiting="Pass, holding Pact of the Titan. Confirm or replace it.",
+            public=False,
+        )
+        bystander = encode_live.build_snapshot(
+            FAKE_REPLAY,
+            you="p4",
+            talk="",
+            waiting="Pass, holding Pact of the Titan. Confirm or replace it.",
+            public=False,
+        )
+
+        self.assertTrue(asked["youAct"])
+        self.assertEqual(
+            asked["waiting"],
+            "Pass, holding Pact of the Titan. Confirm or replace it.",
+        )
+        self.assertFalse(bystander["youAct"])
+        self.assertEqual(bystander["waiting"], "Waiting on Beta (p2).")
+        self.assertNotIn("Pact of the Titan", json.dumps(bystander))
+
+    def test_open_window_asks_only_its_named_seats(self):
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        replay["events"][1].update(
+            seat=None,
+            kind="priority",
+            phase="priority",
+            seats=["p2", "p3"],
+            summary="End step priority: Beta and Gamma may respond or pass.",
+        )
+
+        responder = encode_live.build_snapshot(
+            replay, you="p3", talk="", waiting="Respond or pass.", public=False
+        )
+        bystander = encode_live.build_snapshot(
+            replay, you="p4", talk="", waiting="Respond or pass.", public=False
+        )
+
+        self.assertTrue(responder["youAct"])
+        self.assertEqual(responder["waiting"], "Respond or pass.")
+        self.assertFalse(bystander["youAct"])
+        self.assertEqual(bystander["waiting"], "Waiting on Beta (p2) and Gamma (p3).")
+
+    def test_window_without_seats_falls_back_to_named_players(self):
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        replay["events"][1].update(
+            seat=None,
+            kind="priority",
+            phase="priority",
+            summary="End step priority: Beta may respond or pass.",
+        )
+
+        responder = encode_live.build_snapshot(
+            replay, you="p2", talk="", waiting="Respond or pass.", public=False
+        )
+        bystander = encode_live.build_snapshot(
+            replay, you="p1", talk="", waiting="Respond or pass.", public=False
+        )
+
+        self.assertTrue(responder["youAct"])
+        self.assertFalse(bystander["youAct"])
+        self.assertEqual(bystander["waiting"], "Waiting on Beta (p2).")
+
+    def test_public_board_never_claims_an_action(self):
+        public = encode_live.build_snapshot(
+            FAKE_REPLAY,
+            you=None,
+            talk="",
+            waiting="Confirm or replace it.",
+            public=True,
+        )
+        self.assertFalse(public["youAct"])
+        self.assertEqual(public["waiting"], "Waiting on Beta (p2).")
+
+    def test_you_act_survives_the_v2_round_trip(self):
+        snapshot = encode_live.build_snapshot(
+            FAKE_REPLAY, you="p2", talk="", waiting="Confirm it.", public=False
+        )
+        payload = encode_live.encode_payload(snapshot, replay=FAKE_REPLAY)
+        decoded = encode_live.decode_snapshot(payload, replay=FAKE_REPLAY)
+        self.assertTrue(decoded["youAct"])
+
     def test_host_prompt_wins_over_the_fallback(self):
         snapshot = encode_live.build_snapshot(
             FAKE_REPLAY,
-            you="p4",
+            you="p2",
             talk="",
             waiting="Confirm Forest then pass.",
             public=False,

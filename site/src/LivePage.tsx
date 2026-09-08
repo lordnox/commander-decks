@@ -444,19 +444,7 @@ export const LivePage = () => {
   const awaitingSeat = seats.find((seat) => seat.id === snapshot.awaiting)
   const lastEvent = snapshot.events?.at(-1)
   const priorityOpen = lastEvent?.kind === 'priority'
-  const viewerSeat = seats.find((seat) => seat.id === snapshot.you)
-  const priorityForYou = Boolean(
-    priorityOpen
-    && viewerSeat
-    && (
-      lastEvent.summary.includes(viewerSeat.name)
-      || lastEvent.summary.includes(`(${viewerSeat.id})`)
-    ),
-  )
-  const yourAction = Boolean(
-    snapshot.you
-    && (snapshot.awaiting === snapshot.you || priorityForYou),
-  )
+  const yourAction = Boolean(snapshot.you && snapshot.youAct)
   const canSend = request?.kind === 'conduit' && Boolean(request.inbox)
 
   return (

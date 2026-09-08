@@ -103,6 +103,7 @@ Battlefield flags: tapped `1`, token `2`, commander `4`. `extra` holds `p` /
 | `w` | Prompt; omit when it is `Would this line work? Confirm or replace it.` |
 | `k` | Explicit player table talk; omit when empty |
 | `j` | Latest public judge note; omit when empty; never contains hidden information |
+| `u` | `1` when the prompt is addressed to this viewer; omit otherwise |
 | `t` | Turn number |
 | `p` | Phase index |
 | `a` | Active seat `0`–`3` |
@@ -134,6 +135,7 @@ this object.
 | `waiting` | Prompt for the human, e.g. `Would this line work? Confirm or replace it.` |
 | `talk` | Explicit player table talk |
 | `judge` | Latest public judge note; never contains hidden information |
+| `youAct` | Whether the prompt is addressed to this viewer |
 | `events` | Up to 20 recent redacted event summaries for the viewer timeline |
 | `turn` | Turn number |
 | `phase` | Same strings as replay: `setup`, `untap`, `upkeep`, `draw`, `main1`, `combat`, `main2`, `end`, `priority` |

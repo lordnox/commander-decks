@@ -18,6 +18,7 @@ export type LiveWireV2 = {
   w?: string
   k?: string
   j?: string
+  u?: number
   t: number
   p: number
   a: number
@@ -292,6 +293,7 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
   if (snapshot.waiting && snapshot.waiting !== DEFAULT_WAITING) wire.w = snapshot.waiting
   if (snapshot.talk) wire.k = snapshot.talk
   if (snapshot.judge) wire.j = snapshot.judge
+  if (snapshot.youAct) wire.u = 1
   if (snapshot.events?.length) {
     wire.e = snapshot.events.map((event) => [
       event.id,
@@ -447,6 +449,7 @@ export const expandLiveWire = (
     waiting: wire.w || DEFAULT_WAITING,
     talk: wire.k || '',
     judge: wire.j || '',
+    youAct: Boolean(wire.u),
     events: (wire.e ?? []).map((event) => ({
       id: event[0],
       turn: event[1],

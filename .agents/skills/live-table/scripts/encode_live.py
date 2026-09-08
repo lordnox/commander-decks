@@ -416,6 +416,36 @@ def _awaiting_seat(last: dict, state: dict, seat_order: list[str]) -> str | None
     return active
 
 
+def _seat_name(seat_id: str, seats_meta: dict) -> str:
+    return (seats_meta.get(seat_id) or {}).get("name") or seat_id
+
+
+def _asked_seats(last: dict, awaiting: str | None, seats_meta: dict) -> list[str]:
+    """Seats the current prompt is addressed to.
+
+    An open window may name several; anything else is the one awaited seat.
+    """
+    if last.get("kind") != "priority":
+        return [awaiting] if awaiting else []
+    named = last.get("seats")
+    if isinstance(named, list):
+        return [seat for seat in named if seat in SEAT_IDS]
+    summary = last.get("summary") or ""
+    return [
+        seat
+        for seat in SEAT_IDS
+        if seat in summary or _seat_name(seat, seats_meta) in summary
+    ]
+
+
+def _waiting_on(asked: list[str], seats_meta: dict) -> str:
+    """What a seat that was not asked should read instead of someone else's ask."""
+    names = [f"{_seat_name(seat, seats_meta)} ({seat})" for seat in asked]
+    if len(names) == 1:
+        return f"Waiting on {names[0]}."
+    return f"Waiting on {', '.join(names[:-1])} and {names[-1]}."
+
+
 def _needs_prompt(waiting: str) -> bool:
     """The generic default names no seat, so a stalled table cannot read it."""
     return not waiting or waiting == cl.DEFAULT_WAITING
@@ -461,16 +491,22 @@ def build_snapshot(
         seats.append(_map_seat(meta, player, you=viewer, public=public))
 
     awaiting = _awaiting_seat(last, state, list(SEAT_IDS))
+    asked = _asked_seats(last, awaiting, seats_meta)
+    you_act = bool(viewer and viewer in asked)
+    prompt = (
+        _fallback_prompt(awaiting, seats_meta)
+        if _needs_prompt(waiting)
+        else waiting
+    )
+    if asked and not you_act:
+        prompt = _waiting_on(asked, seats_meta)
 
     snapshot: dict[str, Any] = {
         "v": 1,
         "you": viewer,
+        "youAct": you_act,
         "headline": replay.get("headline") or "",
-        "waiting": (
-            _fallback_prompt(awaiting, seats_meta)
-            if _needs_prompt(waiting)
-            else waiting
-        ),
+        "waiting": prompt,
         "talk": talk,
         "judge": judge,
         "events": _event_feed(
