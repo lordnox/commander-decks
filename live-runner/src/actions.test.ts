@@ -10,7 +10,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import {
   acceptsPlayAction,
-  applyIntermediatePass,
+  applyDeterministicPass,
   replayActions,
 } from './actions'
 import { createLobby } from './lobby'
@@ -113,7 +113,7 @@ describe('play actions', () => {
       state: { active: 'p1', turn: 2, phase: 'priority', players: {} },
     })
 
-    expect(applyIntermediatePass(root, 'test', state, 'p2')).toBe(true)
+    expect(applyDeterministicPass(root, 'test', state, 'p2')).toBe(true)
     const replay = JSON.parse(
       readFileSync(join(root, 'table-games', 'test.json'), 'utf8'),
     )
@@ -130,17 +130,53 @@ describe('play actions', () => {
     expect(replay.events.at(-1).summary).toContain('Alpha and Gamma')
   })
 
-  test('leaves the final pass for the judge', () => {
+  test('finishes an empty end step on the correct round', () => {
+    const state = createLobby()
+    state.firstPlayer = 'p1'
+    state.occupants = {
+      p1: { name: 'Alpha', deck: 'decks/a' },
+      p2: { name: 'Beta', deck: 'decks/b' },
+    }
+    state.actions = { p4: ['plan', 'pass'] }
+    const root = rootWithEvent({
+      id: 3,
+      turn: 2,
+      kind: 'priority',
+      summary: 'End step priority: Delta may respond or pass.',
+      seats: ['p4'],
+      state: { active: 'p1', turn: 2, phase: 'priority', stack: [] },
+    })
+
+    expect(applyDeterministicPass(root, 'test', state, 'p4')).toBe(true)
+    const replay = JSON.parse(
+      readFileSync(join(root, 'table-games', 'test.json'), 'utf8'),
+    )
+    expect(replay.events.at(-1)).toMatchObject({
+      id: 6,
+      turn: 2,
+      phase: 'planning',
+      seat: 'p2',
+      summary: 'Turn 2 — Beta to act.',
+      state: {
+        active: 'p2',
+        turn: 2,
+        phase: 'planning',
+      },
+    })
+  })
+
+  test('leaves a final stack pass for the judge', () => {
     const state = createLobby()
     state.actions = { p4: ['plan', 'pass'] }
     const root = rootWithEvent({
       id: 3,
       kind: 'priority',
+      summary: 'Stack priority: Delta may respond or pass.',
       seats: ['p4'],
-      state: { active: 'p4' },
+      state: { active: 'p1', stack: ['Spell'] },
     })
 
-    expect(applyIntermediatePass(root, 'test', state, 'p4')).toBe(false)
+    expect(applyDeterministicPass(root, 'test', state, 'p4')).toBe(false)
   })
 })
 

@@ -6,7 +6,7 @@ import {
 } from './conduit'
 import {
   acceptsPlayAction,
-  applyIntermediatePass,
+  applyDeterministicPass,
   replayActions,
   sameActions,
   setSeatActions,
@@ -188,9 +188,9 @@ export const runHost = async (options: {
 
     const beforeActions = structuredClone(state.actions)
     applyInbox(state, seat, message)
-    const intermediatePass = message.type === 'pass'
-      && applyIntermediatePass(root, slug, state, seat)
-    if (intermediatePass) {
+    const deterministicPass = message.type === 'pass'
+      && applyDeterministicPass(root, slug, state, seat)
+    if (deterministicPass) {
       state.actions = replayActions(root, slug, state)
       state.judge = `${state.occupants[seat]?.name ?? seat} passes.`
       state.waiting = 'Priority is still open.'
