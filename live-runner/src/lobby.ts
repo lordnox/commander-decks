@@ -2,6 +2,8 @@ import {
   SEAT_IDS,
   type InboxMessage,
   type LobbyPhase,
+  type SeatActionIds,
+  type SeatActions,
   type SeatId,
 } from './protocol'
 
@@ -11,7 +13,7 @@ export type Occupant = {
 }
 
 export type LobbyState = {
-  communicationVersion: 2
+  communicationVersion: 3
   phase: LobbyPhase
   occupants: Partial<Record<SeatId, Occupant>>
   ready: SeatId[]
@@ -22,7 +24,16 @@ export type LobbyState = {
   judge: string
   waiting: string
   active: SeatId
+  actions: SeatActions
+  actionIds: SeatActionIds
 }
+
+const emptyActionIds = (): SeatActionIds => ({
+  p1: 0,
+  p2: 0,
+  p3: 0,
+  p4: 0,
+})
 
 const clockwiseFrom = (start: SeatId) => {
   const index = SEAT_IDS.indexOf(start)
@@ -85,7 +96,7 @@ const nextSeat = (from: SeatId) =>
   SEAT_IDS[(SEAT_IDS.indexOf(from) + 1) % SEAT_IDS.length]
 
 export const createLobby = (headline = 'Live table'): LobbyState => ({
-  communicationVersion: 2,
+  communicationVersion: 3,
   phase: 'gathering',
   occupants: {},
   ready: [],
@@ -95,6 +106,8 @@ export const createLobby = (headline = 'Live table'): LobbyState => ({
   judge: headline,
   waiting: 'Waiting for players (0/4)',
   active: 'p1',
+  actions: {},
+  actionIds: emptyActionIds(),
 })
 
 export type LobbyParts = {
@@ -105,7 +118,7 @@ export type LobbyParts = {
 
 /** Sessions written before `lobby` existed only kept these three fields. */
 export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
-  communicationVersion: 2,
+  communicationVersion: 3,
   phase: parts.phase,
   occupants: { ...parts.occupants },
   ready: [],
@@ -115,19 +128,29 @@ export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
   judge: 'Host reconnected.',
   waiting: parts.phase === 'play' ? 'Play. Send a plan when it is your action.' : 'Host reconnected.',
   active: parts.firstPlayer,
+  actions: {},
+  actionIds: emptyActionIds(),
 })
 
-export const restoreLobby = (saved: LobbyState | undefined, headline: string) => {
+export const restoreLobby = (
+  saved: LobbyState | undefined,
+  headline: string,
+): LobbyState => {
   if (!saved) return createLobby(headline)
-  const migrated = saved.communicationVersion !== 2
+  const migrated = saved.communicationVersion !== 3
+  const legacyCommunication = ![2, 3].includes(saved.communicationVersion)
   return {
     ...saved,
-    communicationVersion: 2,
+    communicationVersion: 3,
     occupants: { ...saved.occupants },
     ready: [...saved.ready],
     pregameRemaining: [...saved.pregameRemaining],
-    talk: migrated ? '' : saved.talk,
-    judge: migrated ? 'Host resumed. Earlier control messages were cleared.' : saved.judge,
+    talk: legacyCommunication ? '' : saved.talk,
+    judge: legacyCommunication
+      ? 'Host resumed. Earlier control messages were cleared.'
+      : saved.judge,
+    actions: migrated ? {} : saved.actions,
+    actionIds: migrated ? emptyActionIds() : saved.actionIds,
   }
 }
 

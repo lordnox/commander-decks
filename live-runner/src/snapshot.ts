@@ -5,6 +5,7 @@ import type { LobbyState } from './lobby'
 const HIDDEN = 0
 const ABSENT = 0
 const COLORS = ['#c45c26', '#2f6f64', '#4a5d9e', '#8a3d6b']
+const ACTION_BITS = { plan: 1, confirm: 2, replace: 4, pass: 8 } as const
 
 const emptyPackedSeat = () => [
   [40, 0, 0, 99, 0],
@@ -43,7 +44,19 @@ export const lobbyWire = (state: LobbyState, you?: SeatId) => {
     c: COLORS,
     z: SEAT_IDS.map(() => emptyPackedSeat()),
   }
-  if (you) wire.y = SEAT_IDS.indexOf(you)
+  if (you) {
+    wire.y = SEAT_IDS.indexOf(you)
+    const actions = state.actions[you] ?? []
+    const actionMask = actions.reduce(
+      (mask, action) => mask | ACTION_BITS[action],
+      0,
+    )
+    if (actionMask) {
+      wire.u = 1
+      wire.r = actionMask
+    }
+    wire.i = state.actionIds[you]
+  }
   return wire
 }
 

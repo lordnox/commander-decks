@@ -1,4 +1,9 @@
-import { SEAT_IDS, type SeatId } from './protocol'
+import {
+  SEAT_IDS,
+  type SeatActionIds,
+  type SeatActions,
+  type SeatId,
+} from './protocol'
 import { keysPath, replayPath } from './session'
 
 const ENCODER = '.agents/skills/live-table/scripts/encode_live.py'
@@ -10,9 +15,11 @@ export const publishReplay = async (options: {
   talk: string
   judge: string
   waiting: string
+  actions: SeatActions
+  actionIds: SeatActionIds
   event?: number
 }) => {
-  const { slug, root, talk, judge, waiting } = options
+  const { slug, root, talk, judge, waiting, actions, actionIds } = options
   for (const seat of SEAT_IDS satisfies readonly SeatId[]) {
     const args = [
       ENCODER,
@@ -25,6 +32,10 @@ export const publishReplay = async (options: {
       judge,
       '--waiting',
       waiting,
+      '--actions-json',
+      JSON.stringify(actions),
+      '--action-ids-json',
+      JSON.stringify(actionIds),
       '--conduit',
       '--conduit-keys',
       keysPath(slug, root),

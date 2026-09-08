@@ -160,6 +160,7 @@ export const LivePage = () => {
   const [status, setStatus] = useState('')
   const [conduitStatus, setConduitStatus] = useState('')
   const [hydrationStatus, setHydrationStatus] = useState('')
+  const [sentActionId, setSentActionId] = useState<number | null>(null)
   const planRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
@@ -300,6 +301,10 @@ export const LivePage = () => {
   }, [plan, snapshot])
 
   useEffect(() => {
+    setSentActionId(null)
+  }, [snapshot?.actionId])
+
+  useEffect(() => {
     const onKeyDown = (keyboardEvent: KeyboardEvent) => {
       if (keyboardEvent.key === 'Escape') {
         setPreview(null)
@@ -386,14 +391,21 @@ export const LivePage = () => {
 
   const sendInbox = async (type = inboxType) => {
     if (request?.kind !== 'conduit' || !request.inbox) return
+    const playAction = ['plan', 'confirm', 'replace', 'pass'].includes(type)
+    if (playAction && !snapshot?.actions?.includes(type as 'plan' | 'confirm' | 'replace' | 'pass')) {
+      flash('That action is not available now')
+      return
+    }
+    if (playAction && sentActionId === snapshot?.actionId) return
     try {
       let message: object
+      const action = playAction ? { actionId: snapshot?.actionId } : {}
       if (type === 'ready') {
         message = { type: 'ready' }
       } else if (type === 'pass') {
-        message = { type: 'pass' }
+        message = { type: 'pass', ...action }
       } else if (type === 'confirm') {
-        message = { type: 'confirm', text: plan.trim() || undefined }
+        message = { type: 'confirm', text: plan.trim() || undefined, ...action }
       } else if (type === 'join') {
         const separator = plan.includes('|') ? '|' : '\n'
         const split = plan.indexOf(separator)
@@ -408,13 +420,16 @@ export const LivePage = () => {
           cards: plan.split(',').map((card) => card.trim()).filter(Boolean),
         }
       } else {
-        message = { type, text: plan }
+        message = { type, text: plan, ...action }
       }
       await appendSnapshot(
         request.origin,
         request.inbox,
         JSON.stringify(message),
       )
+      if (playAction && snapshot?.actionId !== undefined) {
+        setSentActionId(snapshot.actionId)
+      }
       flash(type === 'pass' ? 'Passed' : type === 'confirm' ? 'Confirmed' : 'Message sent')
     } catch (reason: unknown) {
       flash(reason instanceof Error ? reason.message : 'Could not send message')
@@ -446,6 +461,11 @@ export const LivePage = () => {
   const priorityOpen = lastEvent?.kind === 'priority'
   const yourAction = Boolean(snapshot.you && snapshot.youAct)
   const canSend = request?.kind === 'conduit' && Boolean(request.inbox)
+  const actionPending = sentActionId === snapshot.actionId
+  const canPass = Boolean(snapshot.actions?.includes('pass'))
+  const canConfirm = Boolean(snapshot.actions?.includes('confirm'))
+  const canPlan = Boolean(snapshot.actions?.includes('plan'))
+  const canReplace = Boolean(snapshot.actions?.includes('replace'))
 
   return (
     <div className={`min-h-screen ${hidePlan ? 'pb-8' : 'pb-56'}`}>
@@ -532,22 +552,28 @@ export const LivePage = () => {
               {snapshot.waiting || 'The judge is advancing the game.'}
             </p>
           </div>
-          {yourAction && canSend && (
+          {yourAction && canSend && (canPass || canConfirm) && (
             <div className="mt-3 grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => void sendInbox('pass')}
-                className="rounded-xl bg-gold-300 px-3 py-2 text-sm font-black text-ink-950 hover:bg-gold-200"
-              >
-                Pass
-              </button>
-              <button
-                type="button"
-                onClick={() => void sendInbox('confirm')}
-                className="rounded-xl bg-white/10 px-3 py-2 text-sm font-bold text-stone-100 hover:bg-white/15"
-              >
-                Confirm
-              </button>
+              {canPass && (
+                <button
+                  type="button"
+                  onClick={() => void sendInbox('pass')}
+                  disabled={actionPending}
+                  className="rounded-xl bg-gold-300 px-3 py-2 text-sm font-black text-ink-950 hover:bg-gold-200 disabled:cursor-wait disabled:opacity-40"
+                >
+                  {actionPending ? 'Sent…' : 'Pass'}
+                </button>
+              )}
+              {canConfirm && (
+                <button
+                  type="button"
+                  onClick={() => void sendInbox('confirm')}
+                  disabled={actionPending}
+                  className="rounded-xl bg-white/10 px-3 py-2 text-sm font-bold text-stone-100 hover:bg-white/15 disabled:cursor-wait disabled:opacity-40"
+                >
+                  {actionPending ? 'Sent…' : 'Confirm'}
+                </button>
+              )}
             </div>
           )}
           {priorityOpen && lastEvent && (
@@ -713,30 +739,34 @@ export const LivePage = () => {
                 >
                   Copy text
                 </button>
-                <button
-                  type="button"
-                  onClick={() => void sendInbox('pass')}
-                  disabled={!canSend}
-                  className="rounded-xl bg-gold-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-200 disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  Pass / no action
-                </button>
-                <button
-                  type="button"
-                  onClick={() => void sendInbox('confirm')}
-                  disabled={!canSend}
-                  className="rounded-xl bg-white/10 px-3 py-1.5 text-sm font-bold text-stone-100 hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  Confirm plan
-                </button>
+                {canPass && (
+                  <button
+                    type="button"
+                    onClick={() => void sendInbox('pass')}
+                    disabled={!canSend || actionPending}
+                    className="rounded-xl bg-gold-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-200 disabled:cursor-wait disabled:opacity-40"
+                  >
+                    {actionPending ? 'Sent…' : 'Pass / no action'}
+                  </button>
+                )}
+                {canConfirm && (
+                  <button
+                    type="button"
+                    onClick={() => void sendInbox('confirm')}
+                    disabled={!canSend || actionPending}
+                    className="rounded-xl bg-white/10 px-3 py-1.5 text-sm font-bold text-stone-100 hover:bg-white/15 disabled:cursor-wait disabled:opacity-40"
+                  >
+                    {actionPending ? 'Sent…' : 'Confirm plan'}
+                  </button>
+                )}
                 <select
                   value={inboxType}
                   onChange={(event) => setInboxType(event.target.value as InboxType)}
                   aria-label="Inbox message type"
                   className="rounded-xl border border-white/10 bg-ink-900 px-2 py-1.5 text-sm text-stone-200"
                 >
-                  <option value="plan">Propose a plan</option>
-                  <option value="replace">Replace my plan</option>
+                  <option value="plan" disabled={!canPlan}>Propose a plan</option>
+                  <option value="replace" disabled={!canReplace}>Replace my plan</option>
                   <option value="rules">Ask the judge</option>
                   <option value="talk">Table talk</option>
                   <optgroup label="Game setup">
@@ -752,6 +782,11 @@ export const LivePage = () => {
                   disabled={
                     request?.kind !== 'conduit'
                     || !request.inbox
+                    || actionPending
+                    || (
+                      ['plan', 'replace'].includes(inboxType)
+                      && !snapshot.actions?.includes(inboxType as 'plan' | 'replace')
+                    )
                     || (!plan.trim() && !['ready', 'pregame'].includes(inboxType))
                   }
                   className="rounded-xl bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-300 disabled:cursor-not-allowed disabled:opacity-40"

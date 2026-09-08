@@ -44,6 +44,8 @@ export type LiveEvent = {
   summary: string
 }
 
+export type LiveAction = 'plan' | 'confirm' | 'replace' | 'pass'
+
 export type LiveSnapshot = {
   v: 1
   you?: string | null
@@ -52,6 +54,8 @@ export type LiveSnapshot = {
   talk?: string
   judge?: string
   youAct?: boolean
+  actions?: LiveAction[]
+  actionId?: number
   events?: LiveEvent[]
   turn: number
   phase: string

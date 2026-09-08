@@ -4,6 +4,12 @@ import {
   mint,
   originFromEnv,
 } from './conduit'
+import {
+  acceptsPlayAction,
+  replayActions,
+  sameActions,
+  setSeatActions,
+} from './actions'
 import { invokeHostAgent } from './brain'
 import {
   applyInbox,
@@ -21,6 +27,7 @@ import {
   parseInbox,
   SEAT_IDS,
   type InboxMessage,
+  type PlayAction,
   type SeatId,
 } from './protocol'
 import {
@@ -58,6 +65,8 @@ const publish = async (
       talk: state.talk,
       judge: state.judge,
       waiting: state.waiting,
+      actions: state.actions,
+      actionIds: state.actionIds,
     })
     return
   }
@@ -112,6 +121,13 @@ export const runHost = async (options: {
     savedHost?.lobby ?? (savedHost ? lobbyFromParts(savedHost) : undefined),
     slug,
   )
+  if (
+    state.phase === 'play'
+    && hasReplay(slug, root)
+    && Object.keys(state.actions).length === 0
+  ) {
+    state.actions = replayActions(root, slug, state)
+  }
   if (savedHost) {
     logLine(logFile, `resumed phase ${state.phase}`)
   }
@@ -153,6 +169,23 @@ export const runHost = async (options: {
     generation: number,
     message: InboxMessage,
   ) => {
+    const playAction = (
+      ['plan', 'confirm', 'replace', 'pass'] as PlayAction[]
+    ).includes(message.type as PlayAction)
+    if (state.phase === 'play' && playAction) {
+      if (!acceptsPlayAction(state, seat, message)) {
+        logLine(
+          logFile,
+          `${seat} stale ${message.type} ignored `
+          + `(got ${message.actionId ?? 'none'}, current ${state.actionIds[seat]})`,
+        )
+        state.judge = `${seat}: stale or unavailable ${message.type} ignored. Refresh before acting.`
+        await publish(slug, root, origin, bins, state)
+        return
+      }
+    }
+
+    const beforeActions = structuredClone(state.actions)
     applyInbox(state, seat, message)
     if (agentEnabled && state.phase === 'play' && hasReplay(slug, root)) {
       try {
@@ -167,11 +200,33 @@ export const runHost = async (options: {
         const judge = result.judge || result.talk
         if (judge) state.judge = judge
         if (result.waiting) state.waiting = result.waiting
+        if (message.type === 'plan' || message.type === 'replace') {
+          const next = result.allowedActions
+            ?? (/confirm/i.test(result.waiting ?? '') ? ['confirm', 'replace'] : ['replace'])
+          state.actions = setSeatActions(state.actions, seat, next)
+        } else if (
+          (message.type === 'confirm' || message.type === 'pass')
+          && result.replayChanged
+        ) {
+          state.actions = replayActions(root, slug, state)
+        } else if (message.type === 'confirm') {
+          state.actions = setSeatActions(state.actions, seat, ['replace'])
+        }
       } catch (reason) {
         const error = reason instanceof Error ? reason.message : String(reason)
         logLine(logFile, `agent failed: ${error}`)
         state.judge = 'Judging agent failed; the message is journalled for retry.'
         state.waiting = 'Host needs attention. Do not send another game action yet.'
+      }
+    }
+    if (playAction) {
+      for (const actionSeat of SEAT_IDS) {
+        if (
+          actionSeat === seat
+          || !sameActions(beforeActions[actionSeat], state.actions[actionSeat])
+        ) {
+          state.actionIds[actionSeat] += 1
+        }
       }
     }
     session.phase = state.phase

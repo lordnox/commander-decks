@@ -104,6 +104,8 @@ Battlefield flags: tapped `1`, token `2`, commander `4`. `extra` holds `p` /
 | `k` | Explicit player table talk; omit when empty |
 | `j` | Latest public judge note; omit when empty; never contains hidden information |
 | `u` | `1` when the prompt is addressed to this viewer; omit otherwise |
+| `r` | Allowed action bitmask: plan `1`, confirm `2`, replace `4`, pass `8` |
+| `i` | Per-seat action ID; play messages must echo it |
 | `t` | Turn number |
 | `p` | Phase index |
 | `a` | Active seat `0`–`3` |
@@ -136,6 +138,8 @@ this object.
 | `talk` | Explicit player table talk |
 | `judge` | Latest public judge note; never contains hidden information |
 | `youAct` | Whether the prompt is addressed to this viewer |
+| `actions` | Play actions currently accepted from this viewer |
+| `actionId` | Per-seat ID echoed by the next play action |
 | `events` | Up to 20 recent redacted event summaries for the viewer timeline |
 | `turn` | Turn number |
 | `phase` | Same strings as replay: `setup`, `untap`, `upkeep`, `draw`, `main1`, `combat`, `main2`, `end`, `priority` |

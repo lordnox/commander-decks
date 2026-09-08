@@ -44,6 +44,10 @@ describe('inbox', () => {
     })
     expect(parseInbox('{"type":"ready"}')).toEqual({ type: 'ready' })
     expect(parseInbox('{"type":"pass"}')).toEqual({ type: 'pass' })
+    expect(parseInbox('{"type":"pass","actionId":7}')).toEqual({
+      type: 'pass',
+      actionId: 7,
+    })
     expect(parseInbox('{"type":"swap","with":"p3"}')).toEqual({
       type: 'swap',
       with: 'p3',

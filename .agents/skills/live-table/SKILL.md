@@ -88,6 +88,11 @@ decision, propose one legal candidate when useful and phrase the pause as
 not authorization to append events. Do not commit it until the user confirms
 after seeing the checked sequence and likely responses.
 
+Every play prompt also publishes the actions that seat may currently send and
+a per-seat action ID. The client echoes that ID. Reject stale, duplicate, or
+unavailable play actions without invoking the judge. Do not let one priority
+responder invalidate another responder's still-open action ID.
+
 ## Phase walk and priority windows
 
 At a judged table every seat watches its own bin, so the log is the only way a
