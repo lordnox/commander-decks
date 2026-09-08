@@ -138,9 +138,10 @@ Do exactly one host step:
   only those seats and keep the window open. Otherwise advance the game.
   When the final pass closes an end-step window, append cleanup and then a
   planning event for the next active seat. That event uses the next turn
-  number, phase "planning", and the next active seat in both event and state.
-  Never leave the published frame on the previous turn's end step while
-  asking for the next turn's plan.
+  round number (unchanged for the next clockwise seat; increment only when
+  order wraps back to the first player), phase "planning", and the next active
+  seat in both event and state. Never leave the published frame on the
+  previous seat's end step while asking for the next seat's plan.
 - rules: answer the Magic rules question without changing the replay.
 - talk: it is already visible as social table talk. Only change the replay if it is an actual accepted/broken
   deal that the replay schema records.

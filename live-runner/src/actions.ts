@@ -19,6 +19,9 @@ type ReplayEvent = {
   summary?: string
   state?: {
     active?: string
+    turn?: number
+    phase?: string
+    stack?: unknown[]
   }
 }
 
@@ -90,8 +93,8 @@ export const acceptsPlayAction = (
     && (state.actions[seat] ?? []).includes(action)
 }
 
-/** Record a pass without an agent when other responders keep the same window open. */
-export const applyIntermediatePass = (
+/** Record priority passes that do not require rules or game-state judgment. */
+export const applyDeterministicPass = (
   root: string,
   slug: string,
   state: LobbyState,
@@ -100,7 +103,7 @@ export const applyIntermediatePass = (
   const responders = SEAT_IDS.filter(
     (candidate) => state.actions[candidate]?.includes('pass'),
   )
-  if (!responders.includes(seat) || responders.length < 2) return false
+  if (!responders.includes(seat)) return false
 
   const path = replayPath(slug, root)
   const replay = JSON.parse(readFileSync(path, 'utf8')) as {
@@ -109,20 +112,21 @@ export const applyIntermediatePass = (
   const last = replay.events.at(-1)
   if (!last || last.kind !== 'priority' || !last.state) return false
 
-  const remaining = responders.filter((candidate) => candidate !== seat)
   const nextId = (last.id ?? replay.events.length - 1) + 1
   const windowName = (last.summary ?? 'Priority').split(':', 1)[0]
-  replay.events.push(
-    {
-      id: nextId,
-      turn: last.turn,
-      phase: 'priority',
-      seat,
-      kind: 'pass',
-      summary: `${state.occupants[seat]?.name ?? seat} takes no action in this priority window.`,
-      state: structuredClone(last.state),
-    },
-    {
+  const pass = {
+    id: nextId,
+    turn: last.turn,
+    phase: 'priority',
+    seat,
+    kind: 'pass',
+    summary: `${state.occupants[seat]?.name ?? seat} takes no action in this priority window.`,
+    state: structuredClone(last.state),
+  }
+
+  const remaining = responders.filter((candidate) => candidate !== seat)
+  if (remaining.length > 0) {
+    replay.events.push(pass, {
       id: nextId + 1,
       turn: last.turn,
       phase: 'priority',
@@ -131,8 +135,50 @@ export const applyIntermediatePass = (
       summary: `${windowName}: ${playerList(remaining, state)} may plan a response or pass.`,
       seats: remaining,
       state: structuredClone(last.state),
-    },
-  )
+    })
+  } else {
+    const active = last.state.active as SeatId
+    const emptyStack = (last.state.stack ?? []).length === 0
+    if (
+      !SEAT_IDS.includes(active)
+      || !emptyStack
+      || !/^end step priority/i.test(last.summary ?? '')
+    ) {
+      return false
+    }
+    const next = SEAT_IDS[(SEAT_IDS.indexOf(active) + 1) % SEAT_IDS.length]
+    const turn = last.turn ?? last.state.turn ?? 0
+    const nextTurn = turn + (next === state.firstPlayer ? 1 : 0)
+    const cleanupState = structuredClone(last.state)
+    cleanupState.active = active
+    cleanupState.turn = turn
+    cleanupState.phase = 'end'
+    const planningState = structuredClone(last.state)
+    planningState.active = next
+    planningState.turn = nextTurn
+    planningState.phase = 'planning'
+    replay.events.push(
+      pass,
+      {
+        id: nextId + 1,
+        turn,
+        phase: 'end',
+        seat: active,
+        kind: 'note',
+        summary: `Cleanup — no actions. ${state.occupants[active]?.name ?? active}'s turn ends.`,
+        state: cleanupState,
+      },
+      {
+        id: nextId + 2,
+        turn: nextTurn,
+        phase: 'planning',
+        seat: next,
+        kind: 'think',
+        summary: `Turn ${nextTurn} — ${state.occupants[next]?.name ?? next} to act.`,
+        state: planningState,
+      },
+    )
+  }
   writeFileSync(path, `${JSON.stringify(replay, null, 2)}\n`)
   return true
 }
