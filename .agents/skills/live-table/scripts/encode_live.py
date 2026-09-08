@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import base64
 import json
+import os
 import re
 import sys
 import zlib
@@ -15,6 +16,7 @@ from urllib.parse import quote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import compact_live as cl  # noqa: E402
+import conduit_client as conduit  # noqa: E402
 
 DEFAULT_BASE = "https://lordnox.github.io/commander-decks/live/"
 PAYLOAD_PREFIX = "v2."
@@ -427,6 +429,22 @@ def load_replay(path: Path) -> dict:
     return data
 
 
+def load_conduit_keys(path: Path | None) -> tuple[str, dict]:
+    if path and path.exists():
+        saved = json.loads(path.read_text(encoding="utf-8"))
+        return saved["origin"].rstrip("/"), saved["bins"]
+
+    origin = conduit.origin_from_env()
+    minted = conduit.mint(origin, os.environ.get("LIVE_CONDUIT_API_KEY"))
+    bins = minted["bins"]
+    if path:
+        path.write_text(
+            json.dumps({"origin": origin, "bins": bins}, indent=2) + "\n",
+            encoding="utf-8",
+        )
+    return origin, bins
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("replay", type=Path, help="simulate-table replay JSON path")
@@ -457,12 +475,26 @@ def main(argv: list[str] | None = None) -> int:
         "--game",
         help="published replay slug; emit a short ?game= link instead of a payload",
     )
+    parser.add_argument(
+        "--conduit",
+        action="store_true",
+        help="publish private and public snapshots through live-conduit",
+    )
+    parser.add_argument(
+        "--conduit-keys",
+        type=Path,
+        nargs="?",
+        const=True,
+        help="reuse or persist live-conduit keys (default: REPLAY.conduit.json)",
+    )
     args = parser.parse_args(argv)
+    if args.conduit_keys is True:
+        args.conduit_keys = args.replay.with_suffix(".conduit.json")
 
     if not args.public and not args.you:
         parser.error("--you is required unless --public is set")
 
-    if args.game:
+    if args.game and not args.conduit:
         if args.public:
             print(
                 short_link(
@@ -494,6 +526,18 @@ def main(argv: list[str] | None = None) -> int:
             public=True,
             event_id=args.event,
         )
+        if args.conduit:
+            origin, bins = load_conduit_keys(args.conduit_keys)
+            payload = encode_payload(snapshot, replay=replay)
+            conduit.append(origin, bins["host"]["write"], payload.encode("utf-8"))
+            print(
+                conduit.conduit_public_url(
+                    args.base,
+                    host_read=bins["host"]["read"],
+                    origin=origin,
+                )
+            )
+            return 0
         if args.json:
             json.dump(snapshot, sys.stdout, separators=(",", ":"), ensure_ascii=False)
             sys.stdout.write("\n")
@@ -540,6 +584,38 @@ def main(argv: list[str] | None = None) -> int:
     )
     private_payload = encode_payload(private, replay=replay)
     public_payload = encode_payload(public, replay=replay)
+    if args.conduit:
+        origin, bins = load_conduit_keys(args.conduit_keys)
+        conduit.append(
+            origin,
+            bins[args.you]["write"],
+            private_payload.encode("utf-8"),
+        )
+        conduit.append(
+            origin,
+            bins["host"]["write"],
+            public_payload.encode("utf-8"),
+        )
+        print(
+            "private: "
+            + conduit.conduit_private_url(
+                args.base,
+                host_read=bins["host"]["read"],
+                you=args.you,
+                seat_read=bins[args.you]["read"],
+                inbox_write=bins[f"{args.you}-inbox"]["write"],
+                origin=origin,
+            )
+        )
+        print(
+            "public:  "
+            + conduit.conduit_public_url(
+                args.base,
+                host_read=bins["host"]["read"],
+                origin=origin,
+            )
+        )
+        return 0
     private_query = snapshot_url(args.base, private_payload)
     public_query = snapshot_url(args.base, public_payload)
     if len(private_query) > CHAT_WARN_CHARS:
