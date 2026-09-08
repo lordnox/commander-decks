@@ -483,12 +483,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--conduit-keys",
         type=Path,
-        nargs="?",
-        const=True,
         help="reuse or persist live-conduit keys (default: REPLAY.conduit.json)",
     )
     args = parser.parse_args(argv)
-    if args.conduit_keys is True:
+    if args.conduit and args.conduit_keys is None:
         args.conduit_keys = args.replay.with_suffix(".conduit.json")
 
     if not args.public and not args.you:

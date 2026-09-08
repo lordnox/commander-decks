@@ -200,6 +200,7 @@ export const LivePage = () => {
           const latest = await getLatestSnapshot(request.origin, readKey)
           if (cancelled) return
           if (latest) await openBody(latest)
+          if (cancelled) return
           watch = watchSnapshots(
             request.origin,
             readKey,
@@ -212,6 +213,10 @@ export const LivePage = () => {
               }
             },
           )
+          if (cancelled) {
+            watch.close()
+            watch = null
+          }
           return
         }
 
@@ -384,7 +389,14 @@ export const LivePage = () => {
   if (loading) {
     return <p className="p-10 text-center text-stone-400">Opening the live table…</p>
   }
-  if (!snapshot || !game) return <EmptyLiveState reason={error || undefined} />
+  if (!snapshot || !game) {
+    if (request?.kind === 'conduit' && !error) {
+      return (
+        <p className="p-10 text-center text-stone-400">Waiting for the table…</p>
+      )
+    }
+    return <EmptyLiveState reason={error || undefined} />
+  }
 
   const orderedSeats = snapshot.you
     ? [
