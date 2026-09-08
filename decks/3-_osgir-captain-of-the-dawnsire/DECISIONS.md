@@ -149,3 +149,8 @@ Assigned **Bracket 3−** from the [Commander format page](https://magic.wizards
 ### 2026-09-01 — Identity goals
 
 Locked **Spacecraft** and **Redirect**. The plan is fetch Dawnsire, station it, then burn with redirected damage. Rankings identity moved off Artifacts/Aikido: Spacecraft 5 (thin fetch: Gamble, Reckless Handling, Oswald; Engineer cannot return a five), Redirect 8 (reflectors plus Arcbond and Gideon's Sacrifice).
+
+### 2026-09-08 — Live table vs Nethroi, Mishra, Homer
+
+Lost on the draw after Homer's Lumra. Hulls and a stationed Gunship were the board; [Chain Reaction](https://scryfall.com/card/soc/121/chain-reaction) was already milled and there was no Arcbond. Kitchen-table power among those four stays Osgir above Nethroi and Mishra. "One turn from burning the table" was a misread of this 99's actual close.
+
