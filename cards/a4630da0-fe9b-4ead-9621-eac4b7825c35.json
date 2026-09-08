@@ -1,0 +1,140 @@
+{
+  "arena_id": 78879,
+  "artist": "Brian Valeza",
+  "artist_ids": [
+    "bb2a9339-bbe4-445f-9736-3c43379ee076"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 582688,
+  "cmc": 1.0,
+  "collector_number": "87",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2894,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"May the ocean take it\"\n—Nephalia expression meaning\n\"good riddance\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "43411ade-be80-4535-8baa-7055e78496df",
+  "illustration_id": "dc7a8a77-b9e1-489a-a669-e2563c353508",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:41:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/3/43411ade-be80-4535-8baa-7055e78496df.webp?1783924878",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/3/43411ade-be80-4535-8baa-7055e78496df.jpg?1783924878",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/3/43411ade-be80-4535-8baa-7055e78496df.jpg?1783924878",
+    "crop": "https://cards.scryfall.io/crop/front/4/3/43411ade-be80-4535-8baa-7055e78496df.webp?1783924878",
+    "display": "https://cards.scryfall.io/display/front/4/3/43411ade-be80-4535-8baa-7055e78496df.webp?1783924878",
+    "grid": "https://cards.scryfall.io/grid/front/4/3/43411ade-be80-4535-8baa-7055e78496df.webp?1783924878",
+    "large": "https://cards.scryfall.io/large/front/4/3/43411ade-be80-4535-8baa-7055e78496df.jpg?1783924878",
+    "normal": "https://cards.scryfall.io/normal/front/4/3/43411ade-be80-4535-8baa-7055e78496df.jpg?1783924878",
+    "png": "https://cards.scryfall.io/png/front/4/3/43411ade-be80-4535-8baa-7055e78496df.png?1783924878",
+    "small": "https://cards.scryfall.io/small/front/4/3/43411ade-be80-4535-8baa-7055e78496df.jpg?1783924878",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/3/43411ade-be80-4535-8baa-7055e78496df.webp?1783924878"
+  },
+  "keywords": [
+    "Cleave"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "banned",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_id": 94490,
+  "multiverse_ids": [
+    540931
+  ],
+  "name": "Wash Away",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a4630da0-fe9b-4ead-9621-eac4b7825c35",
+  "oracle_text": "Cleave {1}{U}{U} (You may cast this spell for its cleave cost. If you do, remove the words in square brackets.)\nCounter target spell [that wasn't cast from its owner's hand].",
+  "oversized": false,
+  "penny_rank": 4931,
+  "preview": {
+    "previewed_at": "2021-11-04",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/card-image-gallery/innistrad-crimson-vow"
+  },
+  "prices": {
+    "eur": "0.95",
+    "eur_foil": "1.72",
+    "tix": "0.03",
+    "usd": "0.64",
+    "usd_etched": null,
+    "usd_foil": "1.16"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa4630da0-fe9b-4ead-9621-eac4b7825c35&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/94490?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=582688&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F253534%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wash+Away",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=540931&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWash%2BAway",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWash%2BAway"
+  },
+  "released_at": "2021-11-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/43411ade-be80-4535-8baa-7055e78496df/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/vow?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/vow/87/wash-away?utm_source=api",
+  "set": "vow",
+  "set_id": "8144b676-569f-4716-8005-bc8f0778f3fa",
+  "set_name": "Innistrad: Crimson Vow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Avow&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/8144b676-569f-4716-8005-bc8f0778f3fa",
+  "story_spotlight": false,
+  "tcgplayer_id": 253534,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/43411ade-be80-4535-8baa-7055e78496df",
+  "variation": false
+}

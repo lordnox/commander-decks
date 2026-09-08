@@ -9894,8 +9894,14 @@
       "categories": [
         "other"
       ]
+    },
+    "a4630da0-fe9b-4ead-9621-eac4b7825c35": {
+      "name": "Wash Away",
+      "categories": [
+        "counterspell"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-07T22:44:46.549524+00:00"
+  "updated_at": "2026-09-08T14:42:13.273649+00:00"
 }
