@@ -2267,12 +2267,12 @@
     }
   ],
   "categorized_cards": 96,
-  "generated_at": "2026-09-08T19:13:33.005482+00:00",
+  "generated_at": "2026-09-08T19:15:17.600460+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 96,
   "schema_version": 3,
-  "source": "decks/unrated_jhoira-hot-tub-time-machine/decklist.txt",
+  "source": "decks/2_jhoira-hot-tub-time-machine/decklist.txt",
   "total_cards": 100,
   "unique_cards": 96,
   "unresolved": []
