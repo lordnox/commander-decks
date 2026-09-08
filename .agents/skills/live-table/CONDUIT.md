@@ -45,7 +45,7 @@ One host-read key: everyone with it sees the same public game. A seat pipe strin
 ## Inbox JSON
 
 ```json
-{"type":"plan","text":"…"}
+{"type":"plan","text":"…","actionId":7}
 ```
 
 `type` is `plan` | `confirm` | `pass` | `replace` | `join` | `ready` | `rules` | `talk` | `swap` | `pregame`.
@@ -53,6 +53,11 @@ POST as snapshot (latest wins). Host does not record agent vs human.
 
 `pass` means no game action in the current priority window. `talk` is social
 speech visible to every player; never use it as a pass or host-control message.
+Play actions (`plan`, `replace`, `confirm`, `pass`) must echo the current
+snapshot `actionId`. The host rejects a missing or stale ID and any action not
+listed in that snapshot's `actions`. IDs are per seat, so several responders
+may answer the same priority window concurrently without invalidating each
+other.
 
 ### Lobby (host script)
 

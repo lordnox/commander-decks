@@ -19,6 +19,8 @@ export type LiveWireV2 = {
   k?: string
   j?: string
   u?: number
+  r?: number
+  i?: number
   t: number
   p: number
   a: number
@@ -65,6 +67,12 @@ const FLAG_TOKEN = 2
 const FLAG_COMMANDER = 4
 const HIDDEN = 0
 const ABSENT = 0
+const ACTION_BITS = {
+  plan: 1,
+  confirm: 2,
+  replace: 4,
+  pass: 8,
+} as const
 
 const normalize = (name: string) => name.toLowerCase().split(/\s+/).join(' ')
 
@@ -294,6 +302,12 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
   if (snapshot.talk) wire.k = snapshot.talk
   if (snapshot.judge) wire.j = snapshot.judge
   if (snapshot.youAct) wire.u = 1
+  const actionMask = (snapshot.actions ?? []).reduce(
+    (mask, action) => mask | ACTION_BITS[action],
+    0,
+  )
+  if (actionMask) wire.r = actionMask
+  if (snapshot.actionId !== undefined) wire.i = snapshot.actionId
   if (snapshot.events?.length) {
     wire.e = snapshot.events.map((event) => [
       event.id,
@@ -450,6 +464,10 @@ export const expandLiveWire = (
     talk: wire.k || '',
     judge: wire.j || '',
     youAct: Boolean(wire.u),
+    actions: Object.entries(ACTION_BITS)
+      .filter(([, bit]) => ((wire.r ?? 0) & bit) !== 0)
+      .map(([action]) => action as keyof typeof ACTION_BITS),
+    actionId: wire.i,
     events: (wire.e ?? []).map((event) => ({
       id: event[0],
       turn: event[1],

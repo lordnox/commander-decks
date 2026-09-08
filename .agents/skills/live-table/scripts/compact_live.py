@@ -407,6 +407,14 @@ def compact_snapshot(
         wire["j"] = judge
     if snapshot.get("youAct"):
         wire["u"] = 1
+    action_bits = {"plan": 1, "confirm": 2, "replace": 4, "pass": 8}
+    actions = snapshot.get("actions") or []
+    mask = sum(action_bits.get(action, 0) for action in actions)
+    if mask:
+        wire["r"] = mask
+    action_id = snapshot.get("actionId")
+    if isinstance(action_id, int):
+        wire["i"] = action_id
     events = snapshot.get("events") or []
     if events:
         wire["e"] = [
@@ -688,6 +696,17 @@ def expand_snapshot(wire: dict, indexes: dict[str, list[dict[str, Any]]] | None 
         "talk": wire.get("k") or "",
         "judge": wire.get("j") or "",
         "youAct": bool(wire.get("u")),
+        "actions": [
+            action
+            for action, bit in {
+                "plan": 1,
+                "confirm": 2,
+                "replace": 4,
+                "pass": 8,
+            }.items()
+            if (wire.get("r") or 0) & bit
+        ],
+        "actionId": wire.get("i"),
         "events": [
             {
                 "id": event[0],

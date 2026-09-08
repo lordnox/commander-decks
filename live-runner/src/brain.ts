@@ -9,7 +9,12 @@ import {
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { logLine } from './log'
-import type { InboxMessage, SeatId } from './protocol'
+import {
+  PLAY_ACTIONS,
+  type InboxMessage,
+  type PlayAction,
+  type SeatId,
+} from './protocol'
 import {
   journalPath,
   replayPath,
@@ -21,6 +26,29 @@ export type AgentResult = {
   talk?: string
   waiting?: string
   replayChanged?: boolean
+  allowedActions?: PlayAction[]
+}
+
+export const enforceResultPolicy = (
+  result: AgentResult,
+  message: InboxMessage,
+  seat: SeatId,
+): AgentResult => {
+  if (!result.replayChanged || ['confirm', 'pass', 'talk'].includes(message.type)) {
+    return result
+  }
+  const planCheck = message.type === 'plan' || message.type === 'replace'
+  return {
+    ...result,
+    replayChanged: false,
+    judge: planCheck
+      ? 'The host rejected a state change attempted while checking a plan.'
+      : 'The host rejected a state change attempted by a non-game action.',
+    waiting: planCheck
+      ? `${seat}: send a replacement plan. Nothing was executed.`
+      : result.waiting,
+    allowedActions: planCheck ? ['replace'] : result.allowedActions,
+  }
 }
 
 const run = async (
@@ -118,7 +146,10 @@ Never access conduit credentials. They are intentionally absent. Never commit,
 push, or edit deck files.
 
 Write table-games/${slug}.agent-result.json containing one JSON object:
-{"judge":"short public judge note","waiting":"specific next prompt","replayChanged":false}
+{"judge":"short public judge note","waiting":"specific next prompt","replayChanged":false,"allowedActions":["confirm","replace"]}
+
+For plan/replace, allowedActions must be ["confirm","replace"] when the line is
+legal, or ["replace"] when it is not. For other message types, omit it.
 
 The judge note and waiting prompt are public to every seat. Never name or
 analyze a card from a player's hidden hand, library, or private plan there.
@@ -232,7 +263,7 @@ export const invokeHostAgent = async (options: {
     if (!existsSync(resultPath)) {
       throw new Error('host agent did not write agent-result.json')
     }
-    const result = JSON.parse(readFileSync(resultPath, 'utf8')) as AgentResult
+    let result = JSON.parse(readFileSync(resultPath, 'utf8')) as AgentResult
     if (result.talk !== undefined && (
       typeof result.talk !== 'string' || result.talk.length > 4000
     )) {
@@ -248,6 +279,15 @@ export const invokeHostAgent = async (options: {
     )) {
       throw new Error('host agent returned invalid waiting prompt')
     }
+    if (result.allowedActions !== undefined && (
+      !Array.isArray(result.allowedActions)
+      || result.allowedActions.some(
+        (action) => !PLAY_ACTIONS.includes(action),
+      )
+    )) {
+      throw new Error('host agent returned invalid allowed actions')
+    }
+    result = enforceResultPolicy(result, message, seat)
     if (result.replayChanged) {
       validateReplayReplacement(sourceReplay, scratchReplay)
       cpSync(scratchReplay, sourceReplay)

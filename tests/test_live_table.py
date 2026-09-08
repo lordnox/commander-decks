@@ -497,11 +497,79 @@ class LiveTableEncodeTests(unittest.TestCase):
 
     def test_you_act_survives_the_v2_round_trip(self):
         snapshot = encode_live.build_snapshot(
-            FAKE_REPLAY, you="p2", talk="", waiting="Confirm it.", public=False
+            FAKE_REPLAY,
+            you="p2",
+            talk="",
+            waiting="Confirm it.",
+            actions={"p2": ["confirm", "replace"]},
+            action_ids={"p1": 0, "p2": 7, "p3": 0, "p4": 0},
+            public=False,
         )
         payload = encode_live.encode_payload(snapshot, replay=FAKE_REPLAY)
         decoded = encode_live.decode_snapshot(payload, replay=FAKE_REPLAY)
         self.assertTrue(decoded["youAct"])
+        self.assertEqual(decoded["actions"], ["confirm", "replace"])
+        self.assertEqual(decoded["actionId"], 7)
+
+    def test_structured_actions_give_each_priority_seat_the_right_prompt(self):
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        replay["events"][1].update(
+            seat=None,
+            kind="priority",
+            phase="priority",
+            seats=["p2", "p3"],
+            summary="Beta and Gamma have priority.",
+        )
+        actions = {
+            "p2": ["plan", "pass"],
+            "p3": ["confirm", "replace"],
+        }
+        action_ids = {"p1": 1, "p2": 2, "p3": 3, "p4": 4}
+
+        responder = encode_live.build_snapshot(
+            replay,
+            you="p2",
+            talk="",
+            waiting="Gamma: confirm or replace the checked line.",
+            actions=actions,
+            action_ids=action_ids,
+            public=False,
+        )
+        confirmer = encode_live.build_snapshot(
+            replay,
+            you="p3",
+            talk="",
+            waiting="Gamma: confirm or replace the checked line.",
+            actions=actions,
+            action_ids=action_ids,
+            public=False,
+        )
+        bystander = encode_live.build_snapshot(
+            replay,
+            you="p4",
+            talk="",
+            waiting="Gamma: confirm or replace the checked line.",
+            actions=actions,
+            action_ids=action_ids,
+            public=False,
+        )
+
+        self.assertEqual(
+            responder["waiting"],
+            "Priority is open. Plan a response or pass.",
+        )
+        self.assertEqual(responder["actions"], ["plan", "pass"])
+        self.assertEqual(responder["actionId"], 2)
+        self.assertEqual(
+            confirmer["waiting"],
+            "Gamma: confirm or replace the checked line.",
+        )
+        self.assertEqual(confirmer["actions"], ["confirm", "replace"])
+        self.assertEqual(
+            bystander["waiting"],
+            "Waiting on Beta (p2) and Gamma (p3).",
+        )
+        self.assertEqual(bystander["actions"], [])
 
     def test_host_prompt_wins_over_the_fallback(self):
         snapshot = encode_live.build_snapshot(

@@ -25,7 +25,12 @@ export type LobbyPhase =
 export type BinPair = { read: string; write: string }
 export type Invite = { read: string; mailbox?: string }
 
-export type InboxMessage =
+export const PLAY_ACTIONS = ['plan', 'confirm', 'replace', 'pass'] as const
+export type PlayAction = (typeof PLAY_ACTIONS)[number]
+export type SeatActions = Partial<Record<SeatId, PlayAction[]>>
+export type SeatActionIds = Record<SeatId, number>
+
+type InboxPayload =
   | { type: 'plan'; text: string }
   | { type: 'confirm'; text?: string }
   | { type: 'pass' }
@@ -36,6 +41,8 @@ export type InboxMessage =
   | { type: 'pregame'; cards: string[] }
   | { type: 'rules'; text: string }
   | { type: 'talk'; text: string }
+
+export type InboxMessage = InboxPayload & { actionId?: number }
 
 export const KEY_RE = /^[A-Za-z0-9_-]{40,44}$/
 
@@ -71,17 +78,26 @@ export const parseInbox = (raw: string): InboxMessage | null => {
   }
   if (!value || typeof value !== 'object' || !('type' in value)) return null
   const message = value as InboxMessage & { text?: string; name?: string; deck?: string; with?: string; cards?: unknown }
+  const actionId = typeof message.actionId === 'number' && Number.isSafeInteger(message.actionId)
+    ? message.actionId
+    : undefined
+  const parsed = <T extends InboxPayload>(payload: T): InboxMessage => ({
+    ...payload,
+    ...(actionId === undefined ? {} : { actionId }),
+  })
   switch (message.type) {
     case 'plan':
     case 'replace':
-      return typeof message.text === 'string' ? { type: message.type, text: message.text } : null
+      return typeof message.text === 'string'
+        ? parsed({ type: message.type, text: message.text })
+        : null
     case 'confirm':
-      return {
+      return parsed({
         type: 'confirm',
         text: typeof message.text === 'string' ? message.text : undefined,
-      }
+      })
     case 'pass':
-      return { type: 'pass' }
+      return parsed({ type: 'pass' })
     case 'join':
       return typeof message.name === 'string' && typeof message.deck === 'string'
         ? { type: 'join', name: message.name, deck: message.deck }

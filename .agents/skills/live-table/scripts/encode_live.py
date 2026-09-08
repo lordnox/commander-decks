@@ -466,6 +466,8 @@ def build_snapshot(
     talk: str,
     waiting: str,
     judge: str = "",
+    actions: dict[str, list[str]] | None = None,
+    action_ids: dict[str, int] | None = None,
     public: bool = False,
     event_id: int | None = None,
 ) -> dict:
@@ -491,20 +493,34 @@ def build_snapshot(
         seats.append(_map_seat(meta, player, you=viewer, public=public))
 
     awaiting = _awaiting_seat(last, state, list(SEAT_IDS))
-    asked = _asked_seats(last, awaiting, seats_meta)
-    you_act = bool(viewer and viewer in asked)
+    asked = (
+        [seat for seat in SEAT_IDS if actions.get(seat)]
+        if actions is not None
+        else _asked_seats(last, awaiting, seats_meta)
+    )
+    viewer_actions = list((actions or {}).get(viewer, [])) if viewer else []
+    you_act = bool(
+        viewer_actions
+        if actions is not None
+        else viewer and viewer in asked
+    )
     prompt = (
         _fallback_prompt(awaiting, seats_meta)
         if _needs_prompt(waiting)
         else waiting
     )
-    if asked and not you_act:
+    if actions is not None and you_act and last.get("kind") == "priority":
+        if set(viewer_actions).issubset({"plan", "pass"}):
+            prompt = "Priority is open. Plan a response or pass."
+    elif asked and not you_act:
         prompt = _waiting_on(asked, seats_meta)
 
     snapshot: dict[str, Any] = {
         "v": 1,
         "you": viewer,
         "youAct": you_act,
+        "actions": viewer_actions,
+        "actionId": (action_ids or {}).get(viewer) if viewer else None,
         "headline": replay.get("headline") or "",
         "waiting": prompt,
         "talk": talk,
@@ -572,6 +588,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--you", choices=SEAT_IDS, help="viewer seat for the private link")
     parser.add_argument("--talk", default="", help="table talk / standing plan")
     parser.add_argument("--judge", default="", help="latest public judge note")
+    parser.add_argument("--actions-json", help="allowed play actions keyed by seat")
+    parser.add_argument("--action-ids-json", help="current action id keyed by seat")
     parser.add_argument(
         "--waiting",
         default=cl.DEFAULT_WAITING,
@@ -608,6 +626,8 @@ def main(argv: list[str] | None = None) -> int:
         help="reuse or persist live-conduit keys (default: REPLAY.conduit.json)",
     )
     args = parser.parse_args(argv)
+    actions = json.loads(args.actions_json) if args.actions_json else None
+    action_ids = json.loads(args.action_ids_json) if args.action_ids_json else None
     if args.conduit and args.conduit_keys is None:
         args.conduit_keys = args.replay.with_suffix(".conduit.json")
 
@@ -644,6 +664,8 @@ def main(argv: list[str] | None = None) -> int:
             talk=args.talk,
             waiting=args.waiting,
             judge=args.judge,
+            actions=actions,
+            action_ids=action_ids,
             public=True,
             event_id=args.event,
         )
@@ -688,6 +710,8 @@ def main(argv: list[str] | None = None) -> int:
         talk=args.talk,
         waiting=args.waiting,
         judge=args.judge,
+        actions=actions,
+        action_ids=action_ids,
         public=False,
         event_id=args.event,
     )
@@ -702,6 +726,8 @@ def main(argv: list[str] | None = None) -> int:
         talk=args.talk,
         waiting=args.waiting,
         judge=args.judge,
+        actions=actions,
+        action_ids=action_ids,
         public=True,
         event_id=args.event,
     )
