@@ -371,6 +371,42 @@ class LiveTableEncodeTests(unittest.TestCase):
         self.assertNotIn("Cultivate", json.dumps(private["events"]))
         self.assertNotIn("Secret Hand", json.dumps(public["events"]))
 
+    def test_empty_prompt_falls_back_to_the_awaited_seat(self):
+        snapshot = encode_live.build_snapshot(
+            FAKE_REPLAY,
+            you="p4",
+            talk="",
+            waiting="",
+            public=False,
+        )
+        self.assertEqual(
+            snapshot["waiting"],
+            "Beta (p2) is up: confirm, replace, or respond.",
+        )
+
+    def test_empty_prompt_in_an_open_window_asks_for_a_response(self):
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        replay["events"][1].update(seat=None, kind="priority", phase="priority")
+
+        snapshot = encode_live.build_snapshot(
+            replay,
+            you="p4",
+            talk="",
+            waiting="",
+            public=False,
+        )
+        self.assertEqual(snapshot["waiting"], "Priority is open. Respond or pass.")
+
+    def test_host_prompt_wins_over_the_fallback(self):
+        snapshot = encode_live.build_snapshot(
+            FAKE_REPLAY,
+            you="p4",
+            talk="",
+            waiting="Confirm Forest then pass.",
+            public=False,
+        )
+        self.assertEqual(snapshot["waiting"], "Confirm Forest then pass.")
+
     def test_awaiting_seat_steps_past_a_finished_turn(self):
         replay = json.loads(json.dumps(FAKE_REPLAY))
         replay["events"][1].update(
