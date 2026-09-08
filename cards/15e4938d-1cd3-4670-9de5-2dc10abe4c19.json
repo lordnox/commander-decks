@@ -1,0 +1,141 @@
+{
+  "artist": "Kev Walker",
+  "artist_ids": [
+    "f366a0ee-a0cd-466d-ba6a-90058c7a31a6"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 544106,
+  "cmc": 0.0,
+  "collector_number": "198",
+  "color_identity": [
+    "R"
+  ],
+  "color_indicator": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 3685,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c7937e12-76d9-4030-a68c-7a93a3c852cb",
+  "illustration_id": "67eb58c8-2906-4a67-86ab-8267e8a253b5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:29:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/7/c7937e12-76d9-4030-a68c-7a93a3c852cb.webp?1783927784",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/7/c7937e12-76d9-4030-a68c-7a93a3c852cb.jpg?1783927784",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/7/c7937e12-76d9-4030-a68c-7a93a3c852cb.jpg?1783927784",
+    "crop": "https://cards.scryfall.io/crop/front/c/7/c7937e12-76d9-4030-a68c-7a93a3c852cb.webp?1783927784",
+    "display": "https://cards.scryfall.io/display/front/c/7/c7937e12-76d9-4030-a68c-7a93a3c852cb.webp?1783927784",
+    "grid": "https://cards.scryfall.io/grid/front/c/7/c7937e12-76d9-4030-a68c-7a93a3c852cb.webp?1783927784",
+    "large": "https://cards.scryfall.io/large/front/c/7/c7937e12-76d9-4030-a68c-7a93a3c852cb.jpg?1783927784",
+    "normal": "https://cards.scryfall.io/normal/front/c/7/c7937e12-76d9-4030-a68c-7a93a3c852cb.jpg?1783927784",
+    "png": "https://cards.scryfall.io/png/front/c/7/c7937e12-76d9-4030-a68c-7a93a3c852cb.png?1783927784",
+    "small": "https://cards.scryfall.io/small/front/c/7/c7937e12-76d9-4030-a68c-7a93a3c852cb.jpg?1783927784",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/7/c7937e12-76d9-4030-a68c-7a93a3c852cb.webp?1783927784"
+  },
+  "keywords": [
+    "Suspend"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 86771,
+  "multiverse_ids": [
+    509563
+  ],
+  "name": "Wheel of Fate",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "15e4938d-1cd3-4670-9de5-2dc10abe4c19",
+  "oracle_text": "Suspend 4—{1}{R} (Rather than cast this card from your hand, pay {1}{R} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)\nEach player discards their hand, then draws seven cards.",
+  "oversized": false,
+  "penny_rank": 3397,
+  "preview": {
+    "previewed_at": "2021-03-02",
+    "source": "BIG MAGIC",
+    "source_uri": "https://twitter.com/MtgBigmagic/status/1366675002066538498"
+  },
+  "prices": {
+    "eur": "1.14",
+    "eur_foil": "4.78",
+    "tix": "0.08",
+    "usd": "3.38",
+    "usd_etched": null,
+    "usd_foil": "7.21"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A15e4938d-1cd3-4670-9de5-2dc10abe4c19&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/86771?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=544106&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F233890%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wheel+of+Fate",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=509563&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWheel%2Bof%2BFate",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWheel%2Bof%2BFate"
+  },
+  "released_at": "2021-03-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c7937e12-76d9-4030-a68c-7a93a3c852cb/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tsr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tsr/198/wheel-of-fate?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tsr",
+  "set_id": "11e90d1b-0502-43e6-b056-e24836523c13",
+  "set_name": "Time Spiral Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atsr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/11e90d1b-0502-43e6-b056-e24836523c13",
+  "story_spotlight": false,
+  "tcgplayer_id": 233890,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/c7937e12-76d9-4030-a68c-7a93a3c852cb",
+  "variation": false
+}

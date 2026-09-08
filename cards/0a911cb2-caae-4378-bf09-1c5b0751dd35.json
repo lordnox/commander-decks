@@ -1,0 +1,131 @@
+{
+  "artist": "Zoltan Boros & Gabor Szikszai",
+  "artist_ids": [
+    "1885e6cb-c827-4896-994e-3d0a027d602f",
+    "44c3877f-8771-43dc-9e40-f4c765f59d2e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 22449,
+  "cmc": 7.0,
+  "collector_number": "55",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 16027,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c9850489-c056-4b17-8743-a5b514d8edf4",
+  "illustration_id": "313317fd-29d8-4b5f-bdc9-04087a87668b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:26:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/9/c9850489-c056-4b17-8743-a5b514d8edf4.webp?1783942000",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/9/c9850489-c056-4b17-8743-a5b514d8edf4.jpg?1783942000",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/9/c9850489-c056-4b17-8743-a5b514d8edf4.jpg?1783942000",
+    "crop": "https://cards.scryfall.io/crop/front/c/9/c9850489-c056-4b17-8743-a5b514d8edf4.webp?1783942000",
+    "display": "https://cards.scryfall.io/display/front/c/9/c9850489-c056-4b17-8743-a5b514d8edf4.webp?1783942000",
+    "grid": "https://cards.scryfall.io/grid/front/c/9/c9850489-c056-4b17-8743-a5b514d8edf4.webp?1783942000",
+    "large": "https://cards.scryfall.io/large/front/c/9/c9850489-c056-4b17-8743-a5b514d8edf4.jpg?1783942000",
+    "normal": "https://cards.scryfall.io/normal/front/c/9/c9850489-c056-4b17-8743-a5b514d8edf4.jpg?1783942000",
+    "png": "https://cards.scryfall.io/png/front/c/9/c9850489-c056-4b17-8743-a5b514d8edf4.png?1783942000",
+    "small": "https://cards.scryfall.io/small/front/c/9/c9850489-c056-4b17-8743-a5b514d8edf4.jpg?1783942000",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/9/c9850489-c056-4b17-8743-a5b514d8edf4.webp?1783942000"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{U}{U}{U}",
+  "mtgo_foil_id": 36331,
+  "mtgo_id": 36330,
+  "multiverse_ids": [
+    198301
+  ],
+  "name": "Cast Through Time",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0a911cb2-caae-4378-bf09-1c5b0751dd35",
+  "oracle_text": "Instant and sorcery spells you control have rebound. (Exile the spell as it resolves if you cast it from your hand. At the beginning of your next upkeep, you may cast that card from exile without paying its mana cost.)",
+  "oversized": false,
+  "prices": {
+    "eur": "1.77",
+    "eur_foil": "5.43",
+    "tix": "0.02",
+    "usd": "2.46",
+    "usd_etched": null,
+    "usd_foil": "5.66"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0a911cb2-caae-4378-bf09-1c5b0751dd35&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/36330?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=22449&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F34749%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Cast+Through+Time",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=198301&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCast%2BThrough%2BTime",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCast%2BThrough%2BTime"
+  },
+  "released_at": "2010-04-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c9850489-c056-4b17-8743-a5b514d8edf4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/roe?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/roe/55/cast-through-time?utm_source=api",
+  "set": "roe",
+  "set_id": "eadb8a82-ec56-4623-b50e-42e7e60cb535",
+  "set_name": "Rise of the Eldrazi",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aroe&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/eadb8a82-ec56-4623-b50e-42e7e60cb535",
+  "story_spotlight": false,
+  "tcgplayer_id": 34749,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/c9850489-c056-4b17-8743-a5b514d8edf4",
+  "variation": false
+}

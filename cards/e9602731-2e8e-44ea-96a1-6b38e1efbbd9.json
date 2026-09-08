@@ -1,0 +1,133 @@
+{
+  "artist": "Ron Spears",
+  "artist_ids": [
+    "fce9030b-86bd-4439-b06a-920a1eeb184c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 548186,
+  "cmc": 1.0,
+  "collector_number": "185",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 11643,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"It's difficult to heal a rift after it begins wandering about on its own.\"\n—Teferi",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "39dd1bc9-734b-41c6-941f-f9ed5eaa2337",
+  "illustration_id": "7de998f2-ed80-4047-a7d0-2d99f61b77b1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:29:49Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/9/39dd1bc9-734b-41c6-941f-f9ed5eaa2337.webp?1783927789",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/9/39dd1bc9-734b-41c6-941f-f9ed5eaa2337.jpg?1783927789",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/9/39dd1bc9-734b-41c6-941f-f9ed5eaa2337.jpg?1783927789",
+    "crop": "https://cards.scryfall.io/crop/front/3/9/39dd1bc9-734b-41c6-941f-f9ed5eaa2337.webp?1783927789",
+    "display": "https://cards.scryfall.io/display/front/3/9/39dd1bc9-734b-41c6-941f-f9ed5eaa2337.webp?1783927789",
+    "grid": "https://cards.scryfall.io/grid/front/3/9/39dd1bc9-734b-41c6-941f-f9ed5eaa2337.webp?1783927789",
+    "large": "https://cards.scryfall.io/large/front/3/9/39dd1bc9-734b-41c6-941f-f9ed5eaa2337.jpg?1783927789",
+    "normal": "https://cards.scryfall.io/normal/front/3/9/39dd1bc9-734b-41c6-941f-f9ed5eaa2337.jpg?1783927789",
+    "png": "https://cards.scryfall.io/png/front/3/9/39dd1bc9-734b-41c6-941f-f9ed5eaa2337.png?1783927789",
+    "small": "https://cards.scryfall.io/small/front/3/9/39dd1bc9-734b-41c6-941f-f9ed5eaa2337.jpg?1783927789",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/9/39dd1bc9-734b-41c6-941f-f9ed5eaa2337.webp?1783927789"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{R}",
+  "mtgo_id": 86741,
+  "multiverse_ids": [
+    509550
+  ],
+  "name": "Rift Elemental",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e9602731-2e8e-44ea-96a1-6b38e1efbbd9",
+  "oracle_text": "{1}{R}, Remove a time counter from a permanent you control or suspended card you own: This creature gets +2/+0 until end of turn.",
+  "oversized": false,
+  "penny_rank": 12071,
+  "power": "1",
+  "prices": {
+    "eur": "0.18",
+    "eur_foil": "0.13",
+    "tix": "0.04",
+    "usd": "0.24",
+    "usd_etched": null,
+    "usd_foil": "0.40"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae9602731-2e8e-44ea-96a1-6b38e1efbbd9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/86741?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=548186&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F234336%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rift+Elemental",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=509550&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRift%2BElemental",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRift%2BElemental"
+  },
+  "released_at": "2021-03-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/39dd1bc9-734b-41c6-941f-f9ed5eaa2337/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tsr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tsr/185/rift-elemental?utm_source=api",
+  "set": "tsr",
+  "set_id": "11e90d1b-0502-43e6-b056-e24836523c13",
+  "set_name": "Time Spiral Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atsr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/11e90d1b-0502-43e6-b056-e24836523c13",
+  "story_spotlight": false,
+  "tcgplayer_id": 234336,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Elemental",
+  "uri": "https://api.scryfall.com/cards/39dd1bc9-734b-41c6-941f-f9ed5eaa2337",
+  "variation": false
+}

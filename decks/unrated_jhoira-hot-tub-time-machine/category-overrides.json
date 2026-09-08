@@ -1,0 +1,425 @@
+{
+  "schema_version": 1,
+  "cards": {
+    "9728dec9-d482-4c7a-8cdc-44d010dc878d": {
+      "name": "Ancestral Vision",
+      "categories": [
+        "card-draw",
+        "suspend"
+      ]
+    },
+    "15e4938d-1cd3-4670-9de5-2dc10abe4c19": {
+      "name": "Wheel of Fate",
+      "categories": [
+        "card-draw",
+        "discard",
+        "suspend"
+      ]
+    },
+    "aa5e9269-b1db-4bf0-a548-24f999f60e44": {
+      "name": "Inevitable Betrayal",
+      "categories": [
+        "theft",
+        "suspend"
+      ]
+    },
+    "1773c4e8-dc08-482a-9f26-30ef96c5b200": {
+      "name": "Inspiring Refrain",
+      "categories": [
+        "card-draw",
+        "suspend"
+      ]
+    },
+    "515c522f-51d5-4f6d-b9b1-ea3c7f6a378e": {
+      "name": "Rousing Refrain",
+      "categories": [
+        "ramp",
+        "suspend"
+      ]
+    },
+    "2097ac9e-0f9b-4cd0-8537-2518195e4549": {
+      "name": "Reality Strobe",
+      "categories": [
+        "removal",
+        "bounce",
+        "suspend"
+      ]
+    },
+    "2c7c42e1-b097-4443-aa02-1f1dfcbb9732": {
+      "name": "Arc Blade",
+      "categories": [
+        "removal",
+        "suspend"
+      ]
+    },
+    "2b8afa9f-4236-4c02-a8d5-3c145caecfd6": {
+      "name": "Rift Bolt",
+      "categories": [
+        "removal",
+        "suspend"
+      ]
+    },
+    "6cf5edd6-1ca2-46a5-83b4-7ddff590ef96": {
+      "name": "Shivan Meteor",
+      "categories": [
+        "removal",
+        "suspend"
+      ]
+    },
+    "0366ccfd-c717-4ea2-8176-86e184f920f4": {
+      "name": "Faithless Salvaging",
+      "categories": [
+        "card-draw",
+        "discard",
+        "rebound"
+      ]
+    },
+    "0a911cb2-caae-4378-bf09-1c5b0751dd35": {
+      "name": "Cast Through Time",
+      "categories": [
+        "rebound",
+        "spell-synergy"
+      ]
+    },
+    "54e2d2ff-51d2-48a5-ab2e-7d9de8c78b7e": {
+      "name": "Epochrasite",
+      "categories": [
+        "suspend",
+        "finisher"
+      ]
+    },
+    "54de4a7f-86f4-4029-80f7-bc25d6509cc8": {
+      "name": "Deep-Sea Kraken",
+      "categories": [
+        "suspend",
+        "finisher",
+        "evasion"
+      ]
+    },
+    "406b4b1d-756b-4062-897d-3693832086a0": {
+      "name": "Greater Gargadon",
+      "categories": [
+        "suspend",
+        "finisher",
+        "sacrifice"
+      ]
+    },
+    "73f808f0-3d56-46c9-967b-d452bb3611af": {
+      "name": "Gargadon",
+      "categories": [
+        "suspend",
+        "finisher"
+      ]
+    },
+    "a1399cb8-f22a-487e-b539-2db47b09a790": {
+      "name": "Aeon Chronicler",
+      "categories": [
+        "card-draw",
+        "suspend",
+        "finisher"
+      ]
+    },
+    "c77b89ec-4514-4e62-a508-2012f38a3e15": {
+      "name": "Errant Ephemeron",
+      "categories": [
+        "suspend",
+        "finisher"
+      ]
+    },
+    "ae2e6ffd-fb93-4c47-88e7-e84460eefbe5": {
+      "name": "Riftwing Cloudskate",
+      "categories": [
+        "suspend",
+        "bounce",
+        "removal"
+      ]
+    },
+    "a4fa2afe-52fc-4ad0-a694-693cb9c88096": {
+      "name": "Pardic Dragon",
+      "categories": [
+        "suspend",
+        "finisher"
+      ]
+    },
+    "ba5fa5ca-f72d-49dd-9f86-e6e1292f5bf0": {
+      "name": "Detritivore",
+      "categories": [
+        "suspend",
+        "finisher",
+        "removal"
+      ]
+    },
+    "29ccf76e-dfa3-4144-8ec2-6d56ae0bfa9e": {
+      "name": "Chronozoa",
+      "categories": [
+        "token-production",
+        "time-counters"
+      ]
+    },
+    "9b14c20f-c4ee-42ea-99cd-099b4eb25883": {
+      "name": "Sinister Concierge",
+      "categories": [
+        "removal",
+        "suspend"
+      ]
+    },
+    "c99f59c0-5cce-41a4-908f-d34e2c697419": {
+      "name": "The Ninth Doctor",
+      "categories": [
+        "extra-upkeep",
+        "time-counters"
+      ]
+    },
+    "959acb66-84ca-4535-bca2-ad591895735e": {
+      "name": "Niv-Mizzet, the Firemind",
+      "categories": [
+        "card-draw",
+        "finisher"
+      ]
+    },
+    "e9602731-2e8e-44ea-96a1-6b38e1efbbd9": {
+      "name": "Rift Elemental",
+      "categories": [
+        "timer-hack"
+      ]
+    },
+    "daff0e7b-08f2-435f-97b9-9b000e94ffa8": {
+      "name": "Paradox Haze",
+      "categories": [
+        "extra-upkeep",
+        "timer-hack"
+      ]
+    },
+    "3e1b32a9-27a4-4550-a644-ebe254e1f512": {
+      "name": "Clockspinning",
+      "categories": [
+        "timer-hack"
+      ]
+    },
+    "57939644-6f9a-4653-920b-f2d28559a9ca": {
+      "name": "Timecrafting",
+      "categories": [
+        "timer-hack"
+      ]
+    },
+    "b86b1878-65a9-48df-9727-1e80683d7e86": {
+      "name": "Fury Charm",
+      "categories": [
+        "timer-hack",
+        "removal"
+      ]
+    },
+    "efa3e524-1591-4036-81ec-74199cee25aa": {
+      "name": "Timebender",
+      "categories": [
+        "timer-hack"
+      ]
+    },
+    "afe11d79-1edd-4175-9cdd-11e475240e7a": {
+      "name": "Jhoira's Timebug",
+      "categories": [
+        "timer-hack"
+      ]
+    },
+    "3afe854a-7daa-4745-a5d9-04879e5d940a": {
+      "name": "Shivan Sand-Mage",
+      "categories": [
+        "timer-hack"
+      ]
+    },
+    "fef9425d-82d5-470b-9cbc-8c03a001099e": {
+      "name": "Suspend",
+      "categories": [
+        "removal",
+        "timer-hack"
+      ]
+    },
+    "983caa3f-7089-4e66-825d-4086a5adb9bb": {
+      "name": "Delay",
+      "categories": [
+        "counterspell",
+        "suspend"
+      ]
+    },
+    "048f4bb9-c5da-42d4-9af0-bd8754afce1a": {
+      "name": "Venser's Diffusion",
+      "categories": [
+        "bounce",
+        "timer-hack"
+      ]
+    },
+    "4c7f3fbf-6b68-492f-893d-853c73cfa463": {
+      "name": "Distortion Strike",
+      "categories": [
+        "evasion",
+        "rebound"
+      ]
+    },
+    "8a05ec32-7b0c-4f23-a4f7-413301c2a70a": {
+      "name": "Coastal Piracy",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "32e9aa23-fc0a-4b82-82f9-1659c304428c": {
+      "name": "Careful Study",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "e744dbb6-2d56-462a-8d49-d79c73944048": {
+      "name": "Portent",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "56956afd-db53-4542-816b-490c8b0bbcf7": {
+      "name": "Serum Visions",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "fa85c5a2-8e83-4624-a35a-a0bbf17ecbb4": {
+      "name": "Think Twice",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c": {
+      "name": "Frantic Search",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "f6bd2902-7f8b-419e-bbc7-bcab0c1b7e01": {
+      "name": "Impulse",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "66810ef7-ea3a-4afa-92f0-b21ec52cc8d0": {
+      "name": "Shadow Rift",
+      "categories": [
+        "evasion",
+        "card-draw"
+      ]
+    },
+    "c6815bbb-24a5-4c9f-bf30-6190bc766d05": {
+      "name": "Recurring Insight",
+      "categories": [
+        "card-draw",
+        "rebound"
+      ]
+    },
+    "fa482ded-b24c-4f9e-948e-d0620e907b8b": {
+      "name": "Surreal Memoir",
+      "categories": [
+        "recursion",
+        "rebound"
+      ]
+    },
+    "847b5be5-cb0c-4857-bcd9-c5cfe55fdaeb": {
+      "name": "Keep Watch",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "77637eff-2963-4402-88f3-ca346f762fc8": {
+      "name": "Capsize",
+      "categories": [
+        "bounce",
+        "removal"
+      ]
+    },
+    "ab1cc360-b9de-48d9-9983-4dfe4a7d2a37": {
+      "name": "Arcane Denial",
+      "categories": [
+        "counterspell",
+        "card-draw"
+      ]
+    },
+    "bbfb3e4a-b389-4391-8141-13b68c0ef2e0": {
+      "name": "Memory Lapse",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "6f7ef1d1-c441-41ba-b7d6-6b7727ffcf04": {
+      "name": "Repulse",
+      "categories": [
+        "bounce",
+        "card-draw"
+      ]
+    },
+    "07a0cba9-8768-4fd9-a3d5-b0f83b4bf8e8": {
+      "name": "Chaos Warp",
+      "categories": [
+        "removal"
+      ]
+    },
+    "fdd94383-b573-439a-8e1c-925af887c5a6": {
+      "name": "Evacuation",
+      "categories": [
+        "board-wipe",
+        "bounce"
+      ]
+    },
+    "d001febc-d511-4e65-a631-91dc9415056b": {
+      "name": "Pyrokinesis",
+      "categories": [
+        "removal"
+      ]
+    },
+    "34d112c3-cc2d-4428-bd7f-568bda61bd30": {
+      "name": "Starstorm",
+      "categories": [
+        "board-wipe",
+        "card-draw"
+      ]
+    },
+    "2fda4fe7-8b0c-489c-a000-6d358e614e34": {
+      "name": "Izzet Signet",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "14d2979d-5728-42d7-a027-0eb1f754655d": {
+      "name": "Talisman of Creativity",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "95560508-7ac9-4be9-8a3f-3c7d5b52807b": {
+      "name": "Fellwar Stone",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "c97361b5-af16-4a7b-af85-a429dbaf4ad2": {
+      "name": "Mind Stone",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "2224b6e0-c5ff-45d0-84e3-83758c5fc99f": {
+      "name": "Sky Diamond",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "97b477d8-2e05-475e-8ed6-7d680cb21cd9": {
+      "name": "Fire Diamond",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "31f15274-301b-47c5-ba19-0ced04520878": {
+      "name": "Wayfarer's Bauble",
+      "categories": [
+        "ramp"
+      ]
+    }
+  }
+}

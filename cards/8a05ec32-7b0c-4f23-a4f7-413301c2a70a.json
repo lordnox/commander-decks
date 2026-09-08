@@ -1,0 +1,136 @@
+{
+  "arena_id": 98301,
+  "artist": "Nathaniel Himawan",
+  "artist_ids": [
+    "ae1e4729-d4ec-4d0f-8c71-883fc7358005"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 857918,
+  "cmc": 4.0,
+  "collector_number": "156",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1509,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Earth Nation! Fire Nation! Water Nation! So long as bargains are your inclination, you're welcome here!\"\n—Pirate peddler",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "3c3d9916-76c4-425a-a215-6226d0921f0b",
+  "illustration_id": "9a0b2dac-666f-4246-820c-76710cba6595",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:06:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/c/3c3d9916-76c4-425a-a215-6226d0921f0b.webp?1783904806",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/c/3c3d9916-76c4-425a-a215-6226d0921f0b.jpg?1783904806",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/c/3c3d9916-76c4-425a-a215-6226d0921f0b.jpg?1783904806",
+    "crop": "https://cards.scryfall.io/crop/front/3/c/3c3d9916-76c4-425a-a215-6226d0921f0b.webp?1783904806",
+    "display": "https://cards.scryfall.io/display/front/3/c/3c3d9916-76c4-425a-a215-6226d0921f0b.webp?1783904806",
+    "grid": "https://cards.scryfall.io/grid/front/3/c/3c3d9916-76c4-425a-a215-6226d0921f0b.webp?1783904806",
+    "large": "https://cards.scryfall.io/large/front/3/c/3c3d9916-76c4-425a-a215-6226d0921f0b.jpg?1783904806",
+    "normal": "https://cards.scryfall.io/normal/front/3/c/3c3d9916-76c4-425a-a215-6226d0921f0b.jpg?1783904806",
+    "png": "https://cards.scryfall.io/png/front/3/c/3c3d9916-76c4-425a-a215-6226d0921f0b.png?1783904806",
+    "small": "https://cards.scryfall.io/small/front/3/c/3c3d9916-76c4-425a-a215-6226d0921f0b.jpg?1783904806",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/c/3c3d9916-76c4-425a-a215-6226d0921f0b.webp?1783904806"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}{U}",
+  "multiverse_ids": [],
+  "name": "Coastal Piracy",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8a05ec32-7b0c-4f23-a4f7-413301c2a70a",
+  "oracle_text": "Whenever a creature you control deals combat damage to an opponent, you may draw a card.",
+  "oversized": false,
+  "penny_rank": 16642,
+  "prices": {
+    "eur": "0.64",
+    "eur_foil": "0.87",
+    "tix": null,
+    "usd": "0.25",
+    "usd_etched": null,
+    "usd_foil": "1.45"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8a05ec32-7b0c-4f23-a4f7-413301c2a70a&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Coastal+Piracy&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=857918&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F662460%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Coastal+Piracy",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCoastal%2BPiracy",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCoastal%2BPiracy"
+  },
+  "released_at": "2025-11-21",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "4BDA7F60A6A0004A40C63E6122E2828E3AEC98A688F7DCA49A14073D40C89D58",
+  "rulings_uri": "https://api.scryfall.com/cards/3c3d9916-76c4-425a-a215-6226d0921f0b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tle?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tle/156/coastal-piracy?utm_source=api",
+  "set": "tle",
+  "set_id": "a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "set_name": "Avatar: The Last Airbender Eternal",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atle&unique=prints",
+  "set_type": "eternal",
+  "set_uri": "https://api.scryfall.com/sets/a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "story_spotlight": false,
+  "tcgplayer_id": 662460,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/3c3d9916-76c4-425a-a215-6226d0921f0b",
+  "variation": false
+}

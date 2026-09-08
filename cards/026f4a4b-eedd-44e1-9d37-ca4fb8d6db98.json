@@ -1,0 +1,139 @@
+{
+  "artist": "Richard Wright",
+  "artist_ids": [
+    "7b1b0ce9-2c58-4321-a2a7-cdc94feae082"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 374514,
+  "cmc": 0.0,
+  "collector_number": "238",
+  "color_identity": [
+    "R",
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 856,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Where water is the canvas and lava the paint.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a3aab13c-9d9d-4507-ae5d-da979990ae1b",
+  "illustration_id": "37d80866-741a-49c0-9d3d-aa0a74a18186",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:57:48Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/3/a3aab13c-9d9d-4507-ae5d-da979990ae1b.webp?1783933068",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/3/a3aab13c-9d9d-4507-ae5d-da979990ae1b.jpg?1783933068",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/3/a3aab13c-9d9d-4507-ae5d-da979990ae1b.jpg?1783933068",
+    "crop": "https://cards.scryfall.io/crop/front/a/3/a3aab13c-9d9d-4507-ae5d-da979990ae1b.webp?1783933068",
+    "display": "https://cards.scryfall.io/display/front/a/3/a3aab13c-9d9d-4507-ae5d-da979990ae1b.webp?1783933068",
+    "grid": "https://cards.scryfall.io/grid/front/a/3/a3aab13c-9d9d-4507-ae5d-da979990ae1b.webp?1783933068",
+    "large": "https://cards.scryfall.io/large/front/a/3/a3aab13c-9d9d-4507-ae5d-da979990ae1b.jpg?1783933068",
+    "normal": "https://cards.scryfall.io/normal/front/a/3/a3aab13c-9d9d-4507-ae5d-da979990ae1b.jpg?1783933068",
+    "png": "https://cards.scryfall.io/png/front/a/3/a3aab13c-9d9d-4507-ae5d-da979990ae1b.png?1783933068",
+    "small": "https://cards.scryfall.io/small/front/a/3/a3aab13c-9d9d-4507-ae5d-da979990ae1b.jpg?1783933068",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/3/a3aab13c-9d9d-4507-ae5d-da979990ae1b.webp?1783933068"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 72848,
+  "multiverse_ids": [
+    464187
+  ],
+  "name": "Fiery Islet",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "026f4a4b-eedd-44e1-9d37-ca4fb8d6db98",
+  "oracle_text": "{T}, Pay 1 life: Add {U} or {R}.\n{1}, {T}, Sacrifice this land: Draw a card.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2019-05-21",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/card-preview/lands-horizon-2019-05-21"
+  },
+  "prices": {
+    "eur": "4.11",
+    "eur_foil": "15.78",
+    "tix": "3.35",
+    "usd": "5.60",
+    "usd_etched": null,
+    "usd_foil": "21.17"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A026f4a4b-eedd-44e1-9d37-ca4fb8d6db98&unique=prints",
+  "produced_mana": [
+    "R",
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/72848?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=374514&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F190806%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Fiery+Islet",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=464187&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFiery%2BIslet",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFiery%2BIslet"
+  },
+  "released_at": "2019-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a3aab13c-9d9d-4507-ae5d-da979990ae1b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh1?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh1/238/fiery-islet?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh1",
+  "set_id": "d7efccd6-55bc-4fb8-9138-e72577510a99",
+  "set_name": "Modern Horizons",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh1&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/d7efccd6-55bc-4fb8-9138-e72577510a99",
+  "story_spotlight": false,
+  "tcgplayer_id": 190806,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/a3aab13c-9d9d-4507-ae5d-da979990ae1b",
+  "variation": false
+}

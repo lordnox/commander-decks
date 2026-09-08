@@ -1,0 +1,132 @@
+{
+  "artist": "Hideaki Takamura",
+  "artist_ids": [
+    "49b6270b-1b28-4e03-b503-522f97dc3a78"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 15039,
+  "cmc": 3.0,
+  "collector_number": "47",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 26266,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Each reality is but the dream of another, and each sleeper a god unknowing.\"",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "fbedfc40-7c2f-4a6e-8157-219cafca3548",
+  "illustration_id": "08f68d58-41ca-478e-b88b-1c99a1a6b7bd",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:45:19Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/b/fbedfc40-7c2f-4a6e-8157-219cafca3548.webp?1783943119",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/b/fbedfc40-7c2f-4a6e-8157-219cafca3548.jpg?1783943119",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/b/fbedfc40-7c2f-4a6e-8157-219cafca3548.jpg?1783943119",
+    "crop": "https://cards.scryfall.io/crop/front/f/b/fbedfc40-7c2f-4a6e-8157-219cafca3548.webp?1783943119",
+    "display": "https://cards.scryfall.io/display/front/f/b/fbedfc40-7c2f-4a6e-8157-219cafca3548.webp?1783943119",
+    "grid": "https://cards.scryfall.io/grid/front/f/b/fbedfc40-7c2f-4a6e-8157-219cafca3548.webp?1783943119",
+    "large": "https://cards.scryfall.io/large/front/f/b/fbedfc40-7c2f-4a6e-8157-219cafca3548.jpg?1783943119",
+    "normal": "https://cards.scryfall.io/normal/front/f/b/fbedfc40-7c2f-4a6e-8157-219cafca3548.jpg?1783943119",
+    "png": "https://cards.scryfall.io/png/front/f/b/fbedfc40-7c2f-4a6e-8157-219cafca3548.png?1783943119",
+    "small": "https://cards.scryfall.io/small/front/f/b/fbedfc40-7c2f-4a6e-8157-219cafca3548.jpg?1783943119",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/b/fbedfc40-7c2f-4a6e-8157-219cafca3548.webp?1783943119"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_foil_id": 26885,
+  "mtgo_id": 26884,
+  "multiverse_ids": [
+    136197
+  ],
+  "name": "Venser's Diffusion",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "048f4bb9-c5da-42d4-9af0-bd8754afce1a",
+  "oracle_text": "Return target nonland permanent or suspended card to its owner's hand.",
+  "oversized": false,
+  "penny_rank": 18030,
+  "prices": {
+    "eur": "0.11",
+    "eur_foil": "0.49",
+    "tix": "0.03",
+    "usd": "0.17",
+    "usd_etched": null,
+    "usd_foil": "0.50"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A048f4bb9-c5da-42d4-9af0-bd8754afce1a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/26884?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=15039&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F15015%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Venser%27s+Diffusion",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=136197&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVenser%2527s%2BDiffusion",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVenser%2527s%2BDiffusion"
+  },
+  "released_at": "2007-05-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/fbedfc40-7c2f-4a6e-8157-219cafca3548/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fut?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fut/47/vensers-diffusion?utm_source=api",
+  "set": "fut",
+  "set_id": "bf951ddb-4445-4923-87cb-3fe4ac3c6b9a",
+  "set_name": "Future Sight",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afut&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/bf951ddb-4445-4923-87cb-3fe4ac3c6b9a",
+  "story_spotlight": false,
+  "tcgplayer_id": 15015,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/fbedfc40-7c2f-4a6e-8157-219cafca3548",
+  "variation": false
+}

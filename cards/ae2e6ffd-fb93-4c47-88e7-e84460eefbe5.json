@@ -1,0 +1,135 @@
+{
+  "artist": "Carl Critchlow",
+  "artist_ids": [
+    "17948f16-611a-44b8-8d10-9895a0bdfff1"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 543766,
+  "cmc": 5.0,
+  "collector_number": "82",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 18420,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "1a2b228d-db4d-44a3-b208-6cf7a9f57da6",
+  "illustration_id": "0356678e-41b9-4ed9-8fb7-73f98ee5deb9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:30:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/a/1a2b228d-db4d-44a3-b208-6cf7a9f57da6.webp?1783927840",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/a/1a2b228d-db4d-44a3-b208-6cf7a9f57da6.jpg?1783927840",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/a/1a2b228d-db4d-44a3-b208-6cf7a9f57da6.jpg?1783927840",
+    "crop": "https://cards.scryfall.io/crop/front/1/a/1a2b228d-db4d-44a3-b208-6cf7a9f57da6.webp?1783927840",
+    "display": "https://cards.scryfall.io/display/front/1/a/1a2b228d-db4d-44a3-b208-6cf7a9f57da6.webp?1783927840",
+    "grid": "https://cards.scryfall.io/grid/front/1/a/1a2b228d-db4d-44a3-b208-6cf7a9f57da6.webp?1783927840",
+    "large": "https://cards.scryfall.io/large/front/1/a/1a2b228d-db4d-44a3-b208-6cf7a9f57da6.jpg?1783927840",
+    "normal": "https://cards.scryfall.io/normal/front/1/a/1a2b228d-db4d-44a3-b208-6cf7a9f57da6.jpg?1783927840",
+    "png": "https://cards.scryfall.io/png/front/1/a/1a2b228d-db4d-44a3-b208-6cf7a9f57da6.png?1783927840",
+    "small": "https://cards.scryfall.io/small/front/1/a/1a2b228d-db4d-44a3-b208-6cf7a9f57da6.jpg?1783927840",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/a/1a2b228d-db4d-44a3-b208-6cf7a9f57da6.webp?1783927840"
+  },
+  "keywords": [
+    "Flying",
+    "Suspend"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{U}",
+  "mtgo_id": 86527,
+  "multiverse_ids": [
+    509447
+  ],
+  "name": "Riftwing Cloudskate",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ae2e6ffd-fb93-4c47-88e7-e84460eefbe5",
+  "oracle_text": "Flying\nWhen this creature enters, return target permanent to its owner's hand.\nSuspend 3—{1}{U} (Rather than cast this card from your hand, you may pay {1}{U} and exile it with three time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost. It has haste.)",
+  "oversized": false,
+  "penny_rank": 1607,
+  "power": "2",
+  "prices": {
+    "eur": "0.09",
+    "eur_foil": "0.42",
+    "tix": "0.04",
+    "usd": "0.22",
+    "usd_etched": null,
+    "usd_foil": "0.47"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aae2e6ffd-fb93-4c47-88e7-e84460eefbe5&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/86527?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=543766&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F233865%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Riftwing+Cloudskate",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=509447&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRiftwing%2BCloudskate",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRiftwing%2BCloudskate"
+  },
+  "released_at": "2021-03-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1a2b228d-db4d-44a3-b208-6cf7a9f57da6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tsr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tsr/82/riftwing-cloudskate?utm_source=api",
+  "set": "tsr",
+  "set_id": "11e90d1b-0502-43e6-b056-e24836523c13",
+  "set_name": "Time Spiral Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atsr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/11e90d1b-0502-43e6-b056-e24836523c13",
+  "story_spotlight": false,
+  "tcgplayer_id": 233865,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Illusion",
+  "uri": "https://api.scryfall.com/cards/1a2b228d-db4d-44a3-b208-6cf7a9f57da6",
+  "variation": false
+}
