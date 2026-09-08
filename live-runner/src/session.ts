@@ -1,8 +1,14 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import {
+  appendFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { BinPair, LobbyPhase, SeatId } from './protocol'
-import type { Occupant } from './lobby'
+import type { LobbyState, Occupant } from './lobby'
 import { SEAT_IDS } from './protocol'
 
 export type HostSession = {
@@ -14,6 +20,7 @@ export type HostSession = {
   phase: LobbyPhase
   occupants: Partial<Record<SeatId, Occupant>>
   firstPlayer: SeatId
+  lobby?: LobbyState
   pid?: number
 }
 
@@ -54,6 +61,15 @@ export const logPath = (slug: string, root = repoRoot()) =>
 export const keysPath = (slug: string, root = repoRoot()) =>
   join(root, 'table-games', `${slug}.conduit.json`)
 
+export const replayPath = (slug: string, root = repoRoot()) =>
+  join(root, 'table-games', `${slug}.json`)
+
+export const journalPath = (slug: string, root = repoRoot()) =>
+  join(root, 'table-games', `${slug}.inbox.jsonl`)
+
+export const hasReplay = (slug: string, root = repoRoot()) =>
+  existsSync(replayPath(slug, root))
+
 export const loadSession = (slug: string, root = repoRoot()) => {
   const path = sessionPath(slug, root)
   if (!existsSync(path)) return null
@@ -88,6 +104,31 @@ export const saveKeys = (
 
 export const writePid = (slug: string, pid: number, root = repoRoot()) => {
   writeFileSync(pidPath(slug, root), `${pid}\n`)
+}
+
+export const journalInbox = (
+  slug: string,
+  entry: { seat: SeatId; generation: number; message: unknown },
+  root = repoRoot(),
+) => {
+  appendFileSync(
+    journalPath(slug, root),
+    `${JSON.stringify({ at: new Date().toISOString(), ...entry })}\n`,
+  )
+}
+
+export const readJournal = (slug: string, root = repoRoot()) => {
+  const path = journalPath(slug, root)
+  if (!existsSync(path)) return []
+  return readFileSync(path, 'utf8')
+    .split('\n')
+    .filter(Boolean)
+    .map((line) => JSON.parse(line) as {
+      at: string
+      seat: SeatId
+      generation: number
+      message: unknown
+    })
 }
 
 export const readPid = (slug: string, root = repoRoot()) => {

@@ -44,7 +44,7 @@ const announceSeats = (state: LobbyState) => {
   state.phase = 'seated'
   state.ready = []
   state.pendingSwap = undefined
-  state.waiting = 'Seats assigned. Swap or stay?'
+  state.waiting = 'Seats assigned. Send ready to confirm, or swap.'
   appendTalk(state, `Seating:\n${seatingLines(state)}`)
 }
 
@@ -88,6 +88,16 @@ export const createLobby = (headline = 'Live table'): LobbyState => ({
   waiting: 'Waiting for players (0/4)',
   active: 'p1',
 })
+
+export const restoreLobby = (saved: LobbyState | undefined, headline: string) =>
+  saved
+    ? {
+        ...saved,
+        occupants: { ...saved.occupants },
+        ready: [...saved.ready],
+        pregameRemaining: [...saved.pregameRemaining],
+      }
+    : createLobby(headline)
 
 export const rollTurnOrder = (
   state: LobbyState,

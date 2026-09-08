@@ -4,8 +4,9 @@ import {
   mint,
   originFromEnv,
 } from './conduit'
-import { applyInbox, createLobby, rollTurnOrder, type LobbyState } from './lobby'
+import { applyInbox, restoreLobby, rollTurnOrder, type LobbyState } from './lobby'
 import { logLine } from './log'
+import { publishReplay } from './publish'
 import {
   formatInvite,
   inboxLabel,
@@ -16,9 +17,13 @@ import {
 } from './protocol'
 import {
   emptyLastGen,
+  hasReplay,
+  journalInbox,
+  journalPath,
   keysPath,
   loadKeys,
-  logPath,
+  loadSession,
+  repoRoot,
   saveKeys,
   saveSession,
   type HostSession,
@@ -30,7 +35,23 @@ const PAGES = 'https://lordnox.github.io/commander-decks/live/'
 
 const d20 = () => 1 + Math.floor(Math.random() * 20)
 
-const publish = async (origin: string, bins: HostSession['bins'], state: LobbyState) => {
+/** Lobby frames come from this process; a dealt game is encoded from the replay. */
+const publish = async (
+  slug: string,
+  root: string,
+  origin: string,
+  bins: HostSession['bins'],
+  state: LobbyState,
+) => {
+  if (state.phase === 'play' && hasReplay(slug, root)) {
+    await publishReplay({
+      slug,
+      root,
+      talk: state.talk,
+      waiting: state.waiting,
+    })
+    return
+  }
   await appendSnapshot(origin, bins.host.write, encodeLobby(state))
   for (const seat of SEAT_IDS) {
     await appendSnapshot(origin, bins[seat].write, encodeLobby(state, seat))
@@ -68,27 +89,38 @@ export const runHost = async (options: {
   root?: string
   logFile?: string
 }) => {
-  const { slug, root, logFile } = options
+  const { slug, logFile } = options
+  const root = options.root ?? repoRoot()
   const keys = await ensureHostKeys(slug, root)
   const { origin, bins } = keys
   logLine(logFile, keys.minted ? `minted ${keysPath(slug, root)}` : `reused ${keysPath(slug, root)}`)
   printInvites(origin, bins, logFile)
+
+  const saved = loadSession(slug, root)
+  const savedHost = saved?.role === 'host' ? saved : null
+  const state = restoreLobby(savedHost?.lobby, slug)
+  if (savedHost?.lobby) {
+    logLine(logFile, `resumed phase ${state.phase}`)
+  }
+  if (state.phase === 'play' && hasReplay(slug, root)) {
+    logLine(logFile, `judging from ${slug}.json; inbox journal ${journalPath(slug, root)}`)
+  }
   logLine(logFile, 'listen')
 
-  const state = createLobby(slug)
   const session: HostSession = {
     role: 'host',
     slug,
     origin,
     bins,
-    lastGen: emptyLastGen(),
+    lastGen: savedHost?.lastGen ?? emptyLastGen(),
     phase: state.phase,
     occupants: state.occupants,
     firstPlayer: state.firstPlayer,
+    lobby: state,
     pid: process.pid,
   }
   saveSession(session, root)
-  await publish(origin, bins, state)
+  await publish(slug, root, origin, bins, state)
 
   const maybeRoll = async () => {
     if (state.phase !== 'seated' || state.ready.length !== 4 || state.pendingSwap) return
@@ -97,7 +129,7 @@ export const runHost = async (options: {
     session.phase = state.phase
     session.firstPlayer = state.firstPlayer
     saveSession(session, root)
-    await publish(origin, bins, state)
+    await publish(slug, root, origin, bins, state)
   }
 
   const watchers = SEAT_IDS.map((seat) => {
@@ -114,12 +146,14 @@ export const runHost = async (options: {
           return
         }
         logLine(logFile, `${seat} ${message.type}`)
+        journalInbox(slug, { seat, generation, message }, root)
         applyInbox(state, seat, message)
         session.phase = state.phase
         session.occupants = state.occupants
         session.firstPlayer = state.firstPlayer
+        session.lobby = state
         saveSession(session, root)
-        void publish(origin, bins, state).then(() => maybeRoll())
+        void publish(slug, root, origin, bins, state).then(() => maybeRoll())
       },
       { from: session.lastGen[label] },
     )

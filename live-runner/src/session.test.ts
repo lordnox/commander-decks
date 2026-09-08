@@ -4,11 +4,13 @@ import { join } from 'node:path'
 import { describe, expect, mock, test } from 'bun:test'
 import { mint } from './conduit'
 import { ensureHostKeys } from './host'
-import { createLobby } from './lobby'
+import { applyInbox, createLobby, restoreLobby } from './lobby'
 import { BIN_LABELS } from './protocol'
 import {
+  journalInbox,
   loadSession,
   pidAlive,
+  readJournal,
   saveKeys,
   saveSession,
 } from './session'
@@ -45,6 +47,48 @@ describe('session', () => {
       root,
     )
     expect(loadSession('pod', root)?.role).toBe('host')
+  })
+
+  test('a restored host keeps its seating instead of an empty lobby', () => {
+    const root = mkdtempSync(join(tmpdir(), 'live-runner-'))
+    mkdirGames(root)
+    const lobby = createLobby('pod')
+    applyInbox(lobby, 'p2', { type: 'join', name: 'Tea Party', deck: 'decks/tea' })
+    saveSession(
+      {
+        role: 'host',
+        slug: 'pod',
+        origin: 'https://example.test',
+        bins: fakeBins(),
+        lastGen: { 'p2-inbox': 4 },
+        phase: lobby.phase,
+        occupants: lobby.occupants,
+        firstPlayer: lobby.firstPlayer,
+        lobby,
+      },
+      root,
+    )
+    const saved = loadSession('pod', root)
+    const restored = restoreLobby(
+      saved?.role === 'host' ? saved.lobby : undefined,
+      'pod',
+    )
+    expect(restored.occupants.p2?.name).toBe('Tea Party')
+    expect(restored.talk).toContain('joined as p2')
+  })
+
+  test('inbox messages are journalled for the judge', () => {
+    const root = mkdtempSync(join(tmpdir(), 'live-runner-'))
+    mkdirGames(root)
+    journalInbox('pod', { seat: 'p1', generation: 7, message: { type: 'ready' } }, root)
+    journalInbox(
+      'pod',
+      { seat: 'p4', generation: 8, message: { type: 'talk', text: "I'll keep these 7" } },
+      root,
+    )
+    const journal = readJournal('pod', root)
+    expect(journal.map((entry) => entry.seat)).toEqual(['p1', 'p4'])
+    expect(journal[1].message).toEqual({ type: 'talk', text: "I'll keep these 7" })
   })
 })
 
