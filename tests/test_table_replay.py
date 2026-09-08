@@ -770,6 +770,15 @@ class PlayInvariantTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "hidden card"):
             render_replay.public_game(replay, strict=True)
 
+    def test_reason_may_name_a_basic_land_in_another_hand(self):
+        replay = game()
+        replay["catalog"]["Island"] = {"type_line": "Basic Land — Island"}
+        event = replay["events"][3]
+        event["decision"] = {"reason": "Fetch an Island for the second blue source."}
+        event["state"]["players"]["p3"]["hand"] = ["Island"]
+
+        render_replay.public_game(replay, strict=True)
+
 
 if __name__ == "__main__":
     unittest.main()

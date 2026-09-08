@@ -606,6 +606,12 @@ def hidden_hand_names(state: dict, seat: str, rows: list[dict]) -> set[str]:
     return {normalized_name(name) for name in names}
 
 
+def is_basic_land(name: str, catalog: dict) -> bool:
+    entry = catalog.get(name)
+    type_line = entry.get("type_line") if isinstance(entry, dict) else ""
+    return "Basic Land" in (type_line or "")
+
+
 def mentioned_catalog_names(text: str, catalog: dict) -> list[str]:
     found = []
     for name in sorted(catalog, key=len, reverse=True):
@@ -643,6 +649,10 @@ def validate_hidden_reasons(events: list[dict], catalog: dict, rows: list[dict])
         }
         for name in mentioned_catalog_names(reason, catalog):
             key = normalized_name(name)
+            if is_basic_land(name, catalog):
+                # Naming a basic land leaks nothing: a plan that says "fetch an
+                # Island" is not reading an opponent's hand.
+                continue
             if key in hidden and key not in public and key not in own_hand:
                 raise ValueError(
                     f"event {event.get('id')}: {event.get('seat')} cited hidden "
