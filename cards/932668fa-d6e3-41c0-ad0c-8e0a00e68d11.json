@@ -1,0 +1,131 @@
+{
+  "artist": "Mathias Kollros",
+  "artist_ids": [
+    "2ae0dd12-047c-4efb-80d7-bccc3bac5fba"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 788723,
+  "cmc": 8.0,
+  "collector_number": "136",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1380,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "bd594aeb-f5cc-4435-8ea8-c35c5824b58c",
+  "illustration_id": "d2102537-6787-4f20-a7a0-034e89c2994d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:27:02Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/d/bd594aeb-f5cc-4435-8ea8-c35c5824b58c.webp?1783909622",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/d/bd594aeb-f5cc-4435-8ea8-c35c5824b58c.jpg?1783909622",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/d/bd594aeb-f5cc-4435-8ea8-c35c5824b58c.jpg?1783909622",
+    "crop": "https://cards.scryfall.io/crop/front/b/d/bd594aeb-f5cc-4435-8ea8-c35c5824b58c.webp?1783909622",
+    "display": "https://cards.scryfall.io/display/front/b/d/bd594aeb-f5cc-4435-8ea8-c35c5824b58c.webp?1783909622",
+    "grid": "https://cards.scryfall.io/grid/front/b/d/bd594aeb-f5cc-4435-8ea8-c35c5824b58c.webp?1783909622",
+    "large": "https://cards.scryfall.io/large/front/b/d/bd594aeb-f5cc-4435-8ea8-c35c5824b58c.jpg?1783909622",
+    "normal": "https://cards.scryfall.io/normal/front/b/d/bd594aeb-f5cc-4435-8ea8-c35c5824b58c.jpg?1783909622",
+    "png": "https://cards.scryfall.io/png/front/b/d/bd594aeb-f5cc-4435-8ea8-c35c5824b58c.png?1783909622",
+    "small": "https://cards.scryfall.io/small/front/b/d/bd594aeb-f5cc-4435-8ea8-c35c5824b58c.jpg?1783909622",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/d/bd594aeb-f5cc-4435-8ea8-c35c5824b58c.webp?1783909622"
+  },
+  "keywords": [
+    "Cycling"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{6}{B}{B}",
+  "mtgo_id": 130895,
+  "multiverse_ids": [
+    676009
+  ],
+  "name": "Decree of Pain",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "932668fa-d6e3-41c0-ad0c-8e0a00e68d11",
+  "oracle_text": "Destroy all creatures. They can't be regenerated. Draw a card for each creature destroyed this way.\nCycling {3}{B}{B} ({3}{B}{B}, Discard this card: Draw a card.)\nWhen you cycle this card, all creatures get -2/-2 until end of turn.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.27",
+    "eur_foil": null,
+    "tix": "0.25",
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A932668fa-d6e3-41c0-ad0c-8e0a00e68d11&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130895?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=788723&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F579004%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Decree+of+Pain",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676009&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDecree%2Bof%2BPain",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDecree%2Bof%2BPain"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/bd594aeb-f5cc-4435-8ea8-c35c5824b58c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/136/decree-of-pain?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 579004,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/bd594aeb-f5cc-4435-8ea8-c35c5824b58c",
+  "variation": false
+}

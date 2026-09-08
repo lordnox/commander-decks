@@ -1,0 +1,131 @@
+{
+  "artist": "Wayne England",
+  "artist_ids": [
+    "62dc90c0-4bc2-4d42-ad76-59cad9243566"
+  ],
+  "booster": true,
+  "border_color": "white",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 2934,
+  "cmc": 4.0,
+  "collector_number": "172",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 11744,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "As the foul beast appeared, arcane lightning crackled around it.",
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "780f9197-e910-4c7a-bb4b-2c4a94903c39",
+  "illustration_id": "9d05bee6-1a64-4485-9307-5cd12c94c9cf",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:24:36Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/8/780f9197-e910-4c7a-bb4b-2c4a94903c39.webp?1783945476",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/8/780f9197-e910-4c7a-bb4b-2c4a94903c39.jpg?1783945476",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/8/780f9197-e910-4c7a-bb4b-2c4a94903c39.jpg?1783945476",
+    "crop": "https://cards.scryfall.io/crop/front/7/8/780f9197-e910-4c7a-bb4b-2c4a94903c39.webp?1783945476",
+    "display": "https://cards.scryfall.io/display/front/7/8/780f9197-e910-4c7a-bb4b-2c4a94903c39.webp?1783945476",
+    "grid": "https://cards.scryfall.io/grid/front/7/8/780f9197-e910-4c7a-bb4b-2c4a94903c39.webp?1783945476",
+    "large": "https://cards.scryfall.io/large/front/7/8/780f9197-e910-4c7a-bb4b-2c4a94903c39.jpg?1783945476",
+    "normal": "https://cards.scryfall.io/normal/front/7/8/780f9197-e910-4c7a-bb4b-2c4a94903c39.jpg?1783945476",
+    "png": "https://cards.scryfall.io/png/front/7/8/780f9197-e910-4c7a-bb4b-2c4a94903c39.png?1783945476",
+    "small": "https://cards.scryfall.io/small/front/7/8/780f9197-e910-4c7a-bb4b-2c4a94903c39.jpg?1783945476",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/8/780f9197-e910-4c7a-bb4b-2c4a94903c39.webp?1783945476"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}{R}",
+  "mtgo_foil_id": 15339,
+  "mtgo_id": 15338,
+  "multiverse_ids": [
+    25678
+  ],
+  "name": "Aether Flash",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a3c35742-e306-49b6-b042-db4f685c6f86",
+  "oracle_text": "Whenever a creature enters, this enchantment deals 2 damage to it.",
+  "oversized": false,
+  "penny_rank": 4498,
+  "prices": {
+    "eur": "0.92",
+    "eur_foil": null,
+    "tix": "0.05",
+    "usd": "0.84",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa3c35742-e306-49b6-b042-db4f685c6f86&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/15338?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=2934&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F3159%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Aether+Flash",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=25678&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAether%2BFlash",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAether%2BFlash"
+  },
+  "released_at": "2001-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/780f9197-e910-4c7a-bb4b-2c4a94903c39/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/7ed?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/7ed/172/aether-flash?utm_source=api",
+  "set": "7ed",
+  "set_id": "230f38aa-9511-4db8-a3aa-aeddbc3f7bb9",
+  "set_name": "Seventh Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A7ed&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/230f38aa-9511-4db8-a3aa-aeddbc3f7bb9",
+  "story_spotlight": false,
+  "tcgplayer_id": 3159,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/780f9197-e910-4c7a-bb4b-2c4a94903c39",
+  "variation": false
+}

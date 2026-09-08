@@ -1,0 +1,18 @@
+{
+  "goals": [
+    "Creatureless",
+    "Board Control",
+    "Big Mana Burn"
+  ],
+  "scores": {
+    "jankiness": 8,
+    "fun": 7,
+    "oppressiveness": 8,
+    "identity": {
+      "Creatureless": 10,
+      "Board Control": 9,
+      "Big Mana Burn": 8
+    }
+  },
+  "notes": "The 99 is literally creatureless and uses unusual old enchantments plus finite Cube math. Sequencing locks, mana, and symmetrical doublers gives the pilot decisions, but repeated entrance and upkeep denial is deliberately oppressive to creature decks."
+}

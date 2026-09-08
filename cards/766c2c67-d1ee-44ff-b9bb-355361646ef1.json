@@ -1,0 +1,137 @@
+{
+  "arena_id": 77230,
+  "artist": "Kieran Yanner",
+  "artist_ids": [
+    "aa7e89ed-d294-4633-9057-ce04dacfcfa4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 571499,
+  "cmc": 1.0,
+  "collector_number": "125",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 7087,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b7faf899-96b7-454e-b634-6684c2d72f26",
+  "illustration_id": "d0b9bb50-cdcc-4c61-88a6-72c915c09279",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:08:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/7/b7faf899-96b7-454e-b634-6684c2d72f26.webp?1783926487",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/7/b7faf899-96b7-454e-b634-6684c2d72f26.jpg?1783926487",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/7/b7faf899-96b7-454e-b634-6684c2d72f26.jpg?1783926487",
+    "crop": "https://cards.scryfall.io/crop/front/b/7/b7faf899-96b7-454e-b634-6684c2d72f26.webp?1783926487",
+    "display": "https://cards.scryfall.io/display/front/b/7/b7faf899-96b7-454e-b634-6684c2d72f26.webp?1783926487",
+    "grid": "https://cards.scryfall.io/grid/front/b/7/b7faf899-96b7-454e-b634-6684c2d72f26.webp?1783926487",
+    "large": "https://cards.scryfall.io/large/front/b/7/b7faf899-96b7-454e-b634-6684c2d72f26.jpg?1783926487",
+    "normal": "https://cards.scryfall.io/normal/front/b/7/b7faf899-96b7-454e-b634-6684c2d72f26.jpg?1783926487",
+    "png": "https://cards.scryfall.io/png/front/b/7/b7faf899-96b7-454e-b634-6684c2d72f26.png?1783926487",
+    "small": "https://cards.scryfall.io/small/front/b/7/b7faf899-96b7-454e-b634-6684c2d72f26.jpg?1783926487",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/7/b7faf899-96b7-454e-b634-6684c2d72f26.webp?1783926487"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "class",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 91752,
+  "multiverse_ids": [
+    527412
+  ],
+  "name": "Warlock Class",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "766c2c67-d1ee-44ff-b9bb-355361646ef1",
+  "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nAt the beginning of your end step, if a creature died this turn, each opponent loses 1 life.\n{1}{B}: Level 2\nWhen this Class becomes level 2, look at the top three cards of your library. Put one of them into your hand and the rest into your graveyard.\n{6}{B}: Level 3\nAt the beginning of your end step, each opponent loses life equal to the life they lost this turn. (Damage causes loss of life.)",
+  "oversized": false,
+  "penny_rank": 5308,
+  "preview": {
+    "previewed_at": "2021-07-02",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/feature/adventures-forgotten-realms-mechanics-2021-07-02"
+  },
+  "prices": {
+    "eur": "0.17",
+    "eur_foil": "0.34",
+    "tix": "0.03",
+    "usd": "0.18",
+    "usd_etched": null,
+    "usd_foil": "0.39"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A766c2c67-d1ee-44ff-b9bb-355361646ef1&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/91752?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=571499&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243330%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Warlock+Class",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=527412&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWarlock%2BClass",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWarlock%2BClass"
+  },
+  "released_at": "2021-07-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b7faf899-96b7-454e-b634-6684c2d72f26/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afr/125/warlock-class?utm_source=api",
+  "set": "afr",
+  "set_id": "e1ef87ba-ba92-4573-817f-543b996d2851",
+  "set_name": "Adventures in the Forgotten Realms",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e1ef87ba-ba92-4573-817f-543b996d2851",
+  "story_spotlight": false,
+  "tcgplayer_id": 243330,
+  "textless": false,
+  "type_line": "Enchantment — Class",
+  "uri": "https://api.scryfall.com/cards/b7faf899-96b7-454e-b634-6684c2d72f26",
+  "variation": false
+}

@@ -1,0 +1,127 @@
+{
+  "artist": "Brian Snõddy",
+  "artist_ids": [
+    "770b4e16-de76-49ed-949f-84e6d2e06d25"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 6416,
+  "cmc": 3.0,
+  "collector_number": "204",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 19654,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "1993",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "65acce56-8674-471e-9d5e-91b7e3f672c1",
+  "illustration_id": "4a680b68-ebef-48df-bab4-0ab7202bce1a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:58:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/5/65acce56-8674-471e-9d5e-91b7e3f672c1.webp?1783947486",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/5/65acce56-8674-471e-9d5e-91b7e3f672c1.jpg?1783947486",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/5/65acce56-8674-471e-9d5e-91b7e3f672c1.jpg?1783947486",
+    "crop": "https://cards.scryfall.io/crop/front/6/5/65acce56-8674-471e-9d5e-91b7e3f672c1.webp?1783947486",
+    "display": "https://cards.scryfall.io/display/front/6/5/65acce56-8674-471e-9d5e-91b7e3f672c1.webp?1783947486",
+    "grid": "https://cards.scryfall.io/grid/front/6/5/65acce56-8674-471e-9d5e-91b7e3f672c1.webp?1783947486",
+    "large": "https://cards.scryfall.io/large/front/6/5/65acce56-8674-471e-9d5e-91b7e3f672c1.jpg?1783947486",
+    "normal": "https://cards.scryfall.io/normal/front/6/5/65acce56-8674-471e-9d5e-91b7e3f672c1.jpg?1783947486",
+    "png": "https://cards.scryfall.io/png/front/6/5/65acce56-8674-471e-9d5e-91b7e3f672c1.png?1783947486",
+    "small": "https://cards.scryfall.io/small/front/6/5/65acce56-8674-471e-9d5e-91b7e3f672c1.jpg?1783947486",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/5/65acce56-8674-471e-9d5e-91b7e3f672c1.webp?1783947486"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}",
+  "multiverse_ids": [
+    2640
+  ],
+  "name": "Mudslide",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ac1d7dfe-1454-46a9-acf6-66ae86b6a6c5",
+  "oracle_text": "Creatures without flying don't untap during their controllers' untap steps.\nAt the beginning of each player's upkeep, that player may choose any number of tapped creatures without flying they control and pay {2} for each creature chosen this way. If the player does, untap those creatures.",
+  "oversized": false,
+  "penny_rank": 7910,
+  "prices": {
+    "eur": "4.96",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "7.57",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aac1d7dfe-1454-46a9-acf6-66ae86b6a6c5&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Mudslide&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=6416&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F4812%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mudslide",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=2640&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMudslide",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMudslide"
+  },
+  "released_at": "1995-06-03",
+  "reprint": false,
+  "reserved": true,
+  "rulings_uri": "https://api.scryfall.com/cards/65acce56-8674-471e-9d5e-91b7e3f672c1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ice?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ice/204/mudslide?utm_source=api",
+  "set": "ice",
+  "set_id": "b0e08eea-5c01-4406-a6e2-dcd09c5e5b67",
+  "set_name": "Ice Age",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aice&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/b0e08eea-5c01-4406-a6e2-dcd09c5e5b67",
+  "story_spotlight": false,
+  "tcgplayer_id": 4812,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/65acce56-8674-471e-9d5e-91b7e3f672c1",
+  "variation": false
+}

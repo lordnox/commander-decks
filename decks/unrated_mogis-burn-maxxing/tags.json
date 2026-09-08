@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Creatureless Rakdos control: tax creature boards, double artifact mana, and finish with oversized X-burn.",
+  "tags": [
+    {
+      "name": "burn",
+      "score": 5,
+      "reason": "Large X-damage and life-loss spells are the primary finish."
+    },
+    {
+      "name": "control",
+      "score": 5,
+      "reason": "Permanent taxes and sweepers constrain creature development."
+    },
+    {
+      "name": "big mana",
+      "score": 4,
+      "reason": "Coffers, Black Market, Mana Geyser, rocks, and Doubling Cube fund the finish."
+    },
+    {
+      "name": "artifacts",
+      "score": 3,
+      "reason": "The mana engine relies on artifacts and repeated untaps."
+    },
+    {
+      "name": "stax",
+      "score": 3,
+      "reason": "Tabernacle, Smoke, Mudslide, and entrance punishers restrict creature play."
+    },
+    {
+      "name": "group slug",
+      "score": 2,
+      "reason": "Mogis and attack taxes drain the table, but X-burn remains the main kill."
+    },
+    {
+      "name": "spellslinger",
+      "score": 1,
+      "reason": "Instants and sorceries finish the game without forming a cast-count engine."
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "artist": "Scott Bailey",
+  "artist_ids": [
+    "0ebb52bf-cf87-4c03-b975-2d9df7095334"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 3665,
+  "cmc": 5.0,
+  "collector_number": "125",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 15822,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The cruelest strain of plague keeps its hosts alive long enough to return home and infect their families.",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ac86055d-ce08-4b05-a92c-45e007ca0ba4",
+  "illustration_id": "41e241e7-0306-40a4-8032-bce4582c4ba1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:28:11Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/c/ac86055d-ce08-4b05-a92c-45e007ca0ba4.webp?1783945691",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/c/ac86055d-ce08-4b05-a92c-45e007ca0ba4.jpg?1783945691",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/c/ac86055d-ce08-4b05-a92c-45e007ca0ba4.jpg?1783945691",
+    "crop": "https://cards.scryfall.io/crop/front/a/c/ac86055d-ce08-4b05-a92c-45e007ca0ba4.webp?1783945691",
+    "display": "https://cards.scryfall.io/display/front/a/c/ac86055d-ce08-4b05-a92c-45e007ca0ba4.webp?1783945691",
+    "grid": "https://cards.scryfall.io/grid/front/a/c/ac86055d-ce08-4b05-a92c-45e007ca0ba4.webp?1783945691",
+    "large": "https://cards.scryfall.io/large/front/a/c/ac86055d-ce08-4b05-a92c-45e007ca0ba4.jpg?1783945691",
+    "normal": "https://cards.scryfall.io/normal/front/a/c/ac86055d-ce08-4b05-a92c-45e007ca0ba4.jpg?1783945691",
+    "png": "https://cards.scryfall.io/png/front/a/c/ac86055d-ce08-4b05-a92c-45e007ca0ba4.png?1783945691",
+    "small": "https://cards.scryfall.io/small/front/a/c/ac86055d-ce08-4b05-a92c-45e007ca0ba4.jpg?1783945691",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/c/ac86055d-ce08-4b05-a92c-45e007ca0ba4.webp?1783945691"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{B}",
+  "mtgo_foil_id": 14622,
+  "mtgo_id": 14621,
+  "multiverse_ids": [
+    23057
+  ],
+  "name": "Spreading Plague",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6c134ef7-5c2f-4e4c-ae40-ef338fbf41e6",
+  "oracle_text": "Whenever a creature enters, destroy all other creatures that share a color with it. They can't be regenerated.",
+  "oversized": false,
+  "prices": {
+    "eur": "6.66",
+    "eur_foil": "38.85",
+    "tix": "0.78",
+    "usd": "11.53",
+    "usd_etched": null,
+    "usd_foil": "120.00"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6c134ef7-5c2f-4e4c-ae40-ef338fbf41e6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/14621?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=3665&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F7672%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Spreading+Plague",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=23057&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSpreading%2BPlague",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSpreading%2BPlague"
+  },
+  "released_at": "2000-10-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ac86055d-ce08-4b05-a92c-45e007ca0ba4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/inv?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/inv/125/spreading-plague?utm_source=api",
+  "set": "inv",
+  "set_id": "b9ae5e02-7726-47ca-b5e4-5ec402b41cd1",
+  "set_name": "Invasion",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ainv&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/b9ae5e02-7726-47ca-b5e4-5ec402b41cd1",
+  "story_spotlight": false,
+  "tcgplayer_id": 7672,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/ac86055d-ce08-4b05-a92c-45e007ca0ba4",
+  "variation": false
+}
