@@ -105,6 +105,7 @@ Battlefield flags: tapped `1`, token `2`, commander `4`. `extra` holds `p` /
 | `t` | Turn number |
 | `p` | Phase index |
 | `a` | Active seat `0`–`3` |
+| `q` | Seat the judge is waiting on `0`–`3`; steps past a seat that just ended its turn |
 | `d` | Four deck folder slugs |
 | `n` | Four brew titles |
 | `c` | Four CSS colors; omit when they match the default seat palette |
@@ -135,6 +136,7 @@ this object.
 | `turn` | Turn number |
 | `phase` | Same strings as replay: `setup`, `untap`, `upkeep`, `draw`, `main1`, `combat`, `main2`, `end`, `priority` |
 | `active` | Active seat |
+| `awaiting` | Seat the judge needs a message from next |
 | `stack` | `{name, controller?, text?}[]` |
 | `combat` | Optional replay combat object (attackers, blocks, possible blockers) |
 | `seats` | Four seats, `p1`–`p4` clockwise |

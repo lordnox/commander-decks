@@ -371,6 +371,49 @@ class LiveTableEncodeTests(unittest.TestCase):
         self.assertNotIn("Cultivate", json.dumps(private["events"]))
         self.assertNotIn("Secret Hand", json.dumps(public["events"]))
 
+    def test_awaiting_seat_steps_past_a_finished_turn(self):
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        replay["events"][1].update(
+            seat="p1",
+            kind="pass",
+            phase="end",
+            summary="Alpha ends the turn.",
+        )
+        replay["events"][1]["state"]["active"] = "p1"
+
+        snapshot = encode_live.build_snapshot(
+            replay,
+            you="p4",
+            talk="",
+            waiting="",
+            public=False,
+        )
+        self.assertEqual(snapshot["active"], "p1")
+        self.assertEqual(snapshot["awaiting"], "p2")
+
+    def test_awaiting_seat_is_the_active_seat_mid_turn(self):
+        snapshot = encode_live.build_snapshot(
+            FAKE_REPLAY,
+            you="p4",
+            talk="",
+            waiting="",
+            public=False,
+        )
+        self.assertEqual(snapshot["awaiting"], "p2")
+        self.assertEqual(snapshot["active"], "p2")
+
+    def test_awaiting_seat_survives_the_v2_round_trip(self):
+        snapshot = encode_live.build_snapshot(
+            FAKE_REPLAY,
+            you="p4",
+            talk="",
+            waiting="",
+            public=False,
+        )
+        payload = encode_live.encode_payload(snapshot, replay=FAKE_REPLAY)
+        decoded = encode_live.decode_snapshot(payload, replay=FAKE_REPLAY)
+        self.assertEqual(decoded["awaiting"], "p2")
+
     def test_event_feed_stops_at_selected_event(self):
         opening = encode_live.build_snapshot(
             FAKE_REPLAY,

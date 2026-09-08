@@ -54,6 +54,7 @@ export type LiveSnapshot = {
   turn: number
   phase: string
   active: string
+  awaiting?: string | null
   stack: Array<{
     name: string | number
     controller?: string

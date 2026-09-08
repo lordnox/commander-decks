@@ -399,6 +399,20 @@ def _event_feed(
     return feed[-20:]
 
 
+def _awaiting_seat(last: dict, state: dict, seat_order: list[str]) -> str:
+    """Seat the judge needs a message from next.
+
+    A turn that ended leaves the finished seat as `state.active`, so step to the
+    next seat in turn order instead of repeating the one that just passed.
+    """
+    active = state.get("active") or last.get("seat") or seat_order[0]
+    if last.get("kind") == "pass" and last.get("phase") == "end":
+        seat_id = last.get("seat") or active
+        if seat_id in seat_order:
+            return seat_order[(seat_order.index(seat_id) + 1) % len(seat_order)]
+    return active
+
+
 def build_snapshot(
     replay: dict,
     *,
@@ -444,6 +458,7 @@ def build_snapshot(
         "turn": state.get("turn", last.get("turn", 0)),
         "phase": state.get("phase", last.get("phase", "setup")),
         "active": state.get("active", last.get("seat")),
+        "awaiting": _awaiting_seat(last, state, list(SEAT_IDS)),
         "stack": list(state.get("stack") or []),
         "seats": seats,
     }
