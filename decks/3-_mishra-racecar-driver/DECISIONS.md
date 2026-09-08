@@ -137,3 +137,10 @@ This log records why every card entered the list. Future changes should append a
 - **Island** — Basic for fetches and colorless-proof blue.
 - **Mountain** — Basic red.
 - **Swamp** — Basic black.
+
+## Talks
+
+### 2026-09-08 — Live table vs Nethroi, Osgir, Homer
+
+Loudest Incremental pressure of the pod (Wellspring, Paladin, Copter) and still lost on the draw after Homer's Lumra. Kitchen-table power among those four stays last: usual close is eight or nine. Threat-respect at that table was Homers, then this combat engine; that is not a row move past Hazel.
+

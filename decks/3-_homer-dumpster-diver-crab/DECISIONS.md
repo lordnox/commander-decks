@@ -216,3 +216,8 @@ Win texture is still Upgraded: lands and Homers accrue, then [Scapeshift](https:
 The new instants ([Dismember](https://scryfall.com/card/mm2/79/dismember), [Join the Dead](https://scryfall.com/card/lci/110/join-the-dead), [Price of Fame](https://scryfall.com/card/mkc/135/price-of-fame), [Drag to the Roots](https://scryfall.com/card/dsk/213/drag-to-the-roots), [Black Sun's Twilight](https://scryfall.com/card/one/84/black-suns-twilight), [Fell the Profane](https://scryfall.com/card/mh3/244/fell-the-profane-fell-mire)) raise interactive resilience. They do not compact the mill or add tutors. Losing [Strionic Resonator](https://scryfall.com/card/moc/384/strionic-resonator) and [Haunting Voyage](https://scryfall.com/card/ecc/75/haunting-voyage) slightly thins the finish. Stay **3−**: Upgraded dump, usual T7, not middle-3 consistency or 3+ compactness. Not Bracket 2: the win is a from-hand/board dump, not a telegraphed incremental race. Not Bracket 4: no Game Changers, no permanent fast mana, T4 is a nut.
 
 Rankings: jank **9→8**, fun **8→9**, mean **6**, Mill **9**, Landfall **8**. Efficient answers and the Resonator cut made the 99 less weird. Hold-up versus dumpster is a real pilot choice. Mean is still one library empty, not a lock.
+
+### 2026-09-08 — Live table vs Nethroi, Mishra, Osgir
+
+Won on turn 10: [Lumra, Bellow of the Woods](https://scryfall.com/card/blb/183/lumra-bellow-of-the-woods) returned the yard after two missed land drops. Kitchen-table power among those four stays Homer above Osgir, Nethroi, then Mishra (`POWER-RANKINGS.md`). Looking small steered removal at Mishra; that is table talk, not a row move.
+

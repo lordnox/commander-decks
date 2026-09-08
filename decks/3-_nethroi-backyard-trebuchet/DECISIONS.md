@@ -159,3 +159,8 @@ Assigned **Bracket 3−**:
 - Credible high roll is a haste Tree of Perdition around turn five, not a table-win on turn four.
 - Normal goldfish: threaten around turn seven or eight (mutate dump or Tree plus Captain).
 - Interactive game: commander tax and graveyard hate push wins toward turn nine or later.
+
+### 2026-09-08 — Live table vs Mishra, Osgir, Homer
+
+Lost on the draw after Homer's Lumra. Stickfingers died to hulls; [Catapult Fodder](https://scryfall.com/search?q=%22Catapult+Fodder%22) showed up in a mill with Eternal Witness still in hand. Talking Homer into a Technique mill fed the yard and did not buy a trebuchet. Kitchen-table power among those four stays Nethroi above Mishra and below Osgir.
+
