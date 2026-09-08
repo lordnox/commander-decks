@@ -2,6 +2,7 @@
 # Replay logs are scratch by default; commit a game deliberately with `git add -f`.
 table-games/*.json
 table-games/*.live.json
+table-games/*.conduit.json
 
 # GitHub Pages build output.
 node_modules/

@@ -6,6 +6,25 @@ log, no libraries, no other players' hands.
 Always keep the trailing slash on `/live/`. GitHub Pages redirects `/live` to
 `/live/`, and a redirect can drop the fragment.
 
+## Conduit links
+
+Hot-seat transport is conduit: Pages watches the `host` bin; **Send plan**
+writes the seat inbox. Query params, mint labels, inbox JSON, and watch
+frames are frozen in [`CONDUIT.md`](CONDUIT.md). Do not invent extra params.
+
+Private (post this once; later snapshots update bins, not the URL):
+
+```text
+https://lordnox.github.io/commander-decks/live/?host=<hostRead>&you=<seat>&seat=<seatRead>&inbox=<inboxWrite>
+```
+
+Public (Copy public link): `?host=<hostRead>` only. Optional `c` = conduit
+origin (no trailing slash). Omit `c` on the default origin.
+
+The `v1` / `v2` payload shapes below still apply: the host and seat bins hold
+the same `v2.` snapshot bytes the encoder produces. Payload `?s=` and short
+`?game=` links remain valid fallbacks when mint fails.
+
 ## Two link forms
 
 **Short link — preferred whenever the game is already published.** The page
@@ -168,5 +187,8 @@ earlier frame from the same log.
 
 Working hot-seat games may keep `table-games/<slug>.live.json` locally
 (gitignored). Shape: replay fields plus `_libraries`, `human` (`p1`–`p4`),
-`talk`, `waiting`, and optional `plan` (standing line). Strip `_libraries`
-before any public commit. The Pages URL is only the snapshot, never this file.
+`talk`, `waiting`, optional `plan` (standing line), and optional `_conduit`
+keys. A gitignored `table-games/<slug>.conduit.json` may hold the same mint
+keys (`--conduit-keys`). Strip `_libraries` and all write keys before any
+public commit. The Pages URL is only the snapshot (or conduit read keys),
+never this file.

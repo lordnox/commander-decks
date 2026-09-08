@@ -11,13 +11,16 @@ play and leaves the recorded replay alone.
 - **Replay** (archive): `https://lordnox.github.io/commander-decks/?game=<slug>`
   — full event log from a finished `table-games/<slug>.json` published by
   `render-table-replay`.
-- **Live** (NOW only): `https://lordnox.github.io/commander-decks/live/?s=<payload>`
-  — one hot-seat snapshot from `live-table`. Payload links (`v2.`) name the
-  four deck slugs and point at card slots in those 99s; the page downloads
-  `decks/<slug>.json`. No event history. Private links include the viewer
-  hand; use the page's Copy public link to share without hands. Working files
-  may be `table-games/<slug>.live.json` (gitignored, may keep `_libraries`);
-  they are not the Pages payload.
+- **Live** (NOW only): `https://lordnox.github.io/commander-decks/live/?host=<hostRead>&you=<seat>&seat=<seatRead>&inbox=<inboxWrite>`
+  — one hot-seat snapshot from `live-table` via conduit. Pages watches the
+  host bin; the human writes plans to the inbox. Always `/live/` with the
+  trailing slash. Public share is `?host=<hostRead>` only (no write keys).
+  Payload `?s=` and short `?game=` links remain fallbacks when mint fails.
+  Payload links (`v2.`) name the four deck slugs and point at card slots in
+  those 99s; the page downloads `decks/<slug>.json`. No event history.
+  Working files may be `table-games/<slug>.live.json` (gitignored, may keep
+  `_libraries` and `_conduit`); they are not the Pages payload. Mint keys
+  may also live in gitignored `table-games/<slug>.conduit.json`.
 
 Validate and publish every stored replay for the React player:
 
