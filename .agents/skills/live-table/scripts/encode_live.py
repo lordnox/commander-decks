@@ -416,8 +416,13 @@ def _awaiting_seat(last: dict, state: dict, seat_order: list[str]) -> str | None
     return active
 
 
+def _needs_prompt(waiting: str) -> bool:
+    """The generic default names no seat, so a stalled table cannot read it."""
+    return not waiting or waiting == cl.DEFAULT_WAITING
+
+
 def _fallback_prompt(awaiting: str | None, seats_meta: dict) -> str:
-    """A frame with no prompt asks nobody for anything, so the table stalls."""
+    """A frame with no real prompt asks nobody for anything, so play stalls."""
     if not awaiting:
         return "Priority is open. Respond or pass."
     name = (seats_meta.get(awaiting) or {}).get("name") or awaiting
@@ -460,7 +465,11 @@ def build_snapshot(
         "v": 1,
         "you": viewer,
         "headline": replay.get("headline") or "",
-        "waiting": waiting or _fallback_prompt(awaiting, seats_meta),
+        "waiting": (
+            _fallback_prompt(awaiting, seats_meta)
+            if _needs_prompt(waiting)
+            else waiting
+        ),
         "talk": talk,
         "events": _event_feed(
             events,

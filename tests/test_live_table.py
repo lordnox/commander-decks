@@ -397,6 +397,19 @@ class LiveTableEncodeTests(unittest.TestCase):
         )
         self.assertEqual(snapshot["waiting"], "Priority is open. Respond or pass.")
 
+    def test_generic_default_prompt_is_replaced_by_the_awaited_seat(self):
+        snapshot = encode_live.build_snapshot(
+            FAKE_REPLAY,
+            you="p4",
+            talk="",
+            waiting=encode_live.cl.DEFAULT_WAITING,
+            public=False,
+        )
+        self.assertEqual(
+            snapshot["waiting"],
+            "Beta (p2) is up: confirm, replace, or respond.",
+        )
+
     def test_host_prompt_wins_over_the_fallback(self):
         snapshot = encode_live.build_snapshot(
             FAKE_REPLAY,
