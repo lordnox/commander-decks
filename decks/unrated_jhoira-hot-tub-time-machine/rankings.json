@@ -1,0 +1,13 @@
+{
+  "goals": ["Suspend", "Redo"],
+  "scores": {
+    "jankiness": 8,
+    "fun": 8,
+    "oppressiveness": 4,
+    "identity": {
+      "Suspend": 9,
+      "Redo": 7
+    }
+  },
+  "notes": "Jhoira plus a Time Spiral–era suspend pile with timer hacks and rebound; telegraphed free casts, not locks or extra-turn chains. Mean stays low until big suspended bodies connect."
+}

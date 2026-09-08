@@ -1,0 +1,138 @@
+{
+  "artist": "Bud Cook",
+  "artist_ids": [
+    "4c3be2d4-73e6-4005-b897-8ac65b9c8660"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 566817,
+  "cmc": 2.0,
+  "collector_number": "122",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 8693,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "All that's left are broken beliefs.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c6ed4077-4ed5-48fb-91c9-a9195d652978",
+  "illustration_id": "35d71970-e77e-4297-a1e1-82e7d7060ddb",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:14:05Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/6/c6ed4077-4ed5-48fb-91c9-a9195d652978.webp?1783926845",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/6/c6ed4077-4ed5-48fb-91c9-a9195d652978.jpg?1783926845",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/6/c6ed4077-4ed5-48fb-91c9-a9195d652978.jpg?1783926845",
+    "crop": "https://cards.scryfall.io/crop/front/c/6/c6ed4077-4ed5-48fb-91c9-a9195d652978.webp?1783926845",
+    "display": "https://cards.scryfall.io/display/front/c/6/c6ed4077-4ed5-48fb-91c9-a9195d652978.webp?1783926845",
+    "grid": "https://cards.scryfall.io/grid/front/c/6/c6ed4077-4ed5-48fb-91c9-a9195d652978.webp?1783926845",
+    "large": "https://cards.scryfall.io/large/front/c/6/c6ed4077-4ed5-48fb-91c9-a9195d652978.jpg?1783926845",
+    "normal": "https://cards.scryfall.io/normal/front/c/6/c6ed4077-4ed5-48fb-91c9-a9195d652978.jpg?1783926845",
+    "png": "https://cards.scryfall.io/png/front/c/6/c6ed4077-4ed5-48fb-91c9-a9195d652978.png?1783926845",
+    "small": "https://cards.scryfall.io/small/front/c/6/c6ed4077-4ed5-48fb-91c9-a9195d652978.jpg?1783926845",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/6/c6ed4077-4ed5-48fb-91c9-a9195d652978.webp?1783926845"
+  },
+  "keywords": [
+    "Rebound"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}",
+  "mtgo_id": 90617,
+  "multiverse_ids": [
+    522198
+  ],
+  "name": "Faithless Salvaging",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0366ccfd-c717-4ea2-8176-86e184f920f4",
+  "oracle_text": "Discard a card, then draw a card.\nRebound (If you cast this spell from your hand, exile it as it resolves. At the beginning of your next upkeep, you may cast this card from exile without paying its mana cost.)",
+  "oversized": false,
+  "penny_rank": 3349,
+  "preview": {
+    "previewed_at": "2021-06-01",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.10",
+    "eur_foil": "0.20",
+    "tix": "0.03",
+    "usd": "0.23",
+    "usd_etched": null,
+    "usd_foil": "0.31"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0366ccfd-c717-4ea2-8176-86e184f920f4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/90617?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=566817&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F240204%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Faithless+Salvaging",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=522198&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFaithless%2BSalvaging",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFaithless%2BSalvaging"
+  },
+  "released_at": "2021-06-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c6ed4077-4ed5-48fb-91c9-a9195d652978/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh2/122/faithless-salvaging?utm_source=api",
+  "set": "mh2",
+  "set_id": "c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "set_name": "Modern Horizons 2",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh2&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "story_spotlight": false,
+  "tcgplayer_id": 240204,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/c6ed4077-4ed5-48fb-91c9-a9195d652978",
+  "variation": false
+}

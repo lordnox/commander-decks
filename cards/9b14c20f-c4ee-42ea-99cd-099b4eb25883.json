@@ -1,0 +1,135 @@
+{
+  "artist": "Tomas Duchek",
+  "artist_ids": [
+    "ceb3ce65-efa6-4bcc-b2a3-33e83a047528"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 652419,
+  "cmc": 2.0,
+  "collector_number": "30",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 10603,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "434a43a4-cd03-4ddf-8e36-edff02be33b2",
+  "illustration_id": "1af32949-135b-4da8-ba95-84fe4c1288ce",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:16:08Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/3/434a43a4-cd03-4ddf-8e36-edff02be33b2.webp?1783923368",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/3/434a43a4-cd03-4ddf-8e36-edff02be33b2.jpg?1783923368",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/3/434a43a4-cd03-4ddf-8e36-edff02be33b2.jpg?1783923368",
+    "crop": "https://cards.scryfall.io/crop/front/4/3/434a43a4-cd03-4ddf-8e36-edff02be33b2.webp?1783923368",
+    "display": "https://cards.scryfall.io/display/front/4/3/434a43a4-cd03-4ddf-8e36-edff02be33b2.webp?1783923368",
+    "grid": "https://cards.scryfall.io/grid/front/4/3/434a43a4-cd03-4ddf-8e36-edff02be33b2.webp?1783923368",
+    "large": "https://cards.scryfall.io/large/front/4/3/434a43a4-cd03-4ddf-8e36-edff02be33b2.jpg?1783923368",
+    "normal": "https://cards.scryfall.io/normal/front/4/3/434a43a4-cd03-4ddf-8e36-edff02be33b2.jpg?1783923368",
+    "png": "https://cards.scryfall.io/png/front/4/3/434a43a4-cd03-4ddf-8e36-edff02be33b2.png?1783923368",
+    "small": "https://cards.scryfall.io/small/front/4/3/434a43a4-cd03-4ddf-8e36-edff02be33b2.jpg?1783923368",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/3/434a43a4-cd03-4ddf-8e36-edff02be33b2.webp?1783923368"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "multiverse_ids": [
+    598144
+  ],
+  "name": "Sinister Concierge",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9b14c20f-c4ee-42ea-99cd-099b4eb25883",
+  "oracle_text": "When this creature dies, you may exile it and put three time counters on it. If you do, exile up to one target creature and put three time counters on it. Each card exiled this way that doesn't have suspend gains suspend. (For each card with suspend, its owner removes a time counter from it at the beginning of their upkeep. When the last is removed, they may cast it without paying its mana cost. Those creature spells have haste.)",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2022-04-18",
+    "source": "Wargamer",
+    "source_uri": "https://www.wargamer.com/magic-the-gathering/streets-of-new-capenna-commander-deck-maestros-massacre-reveal"
+  },
+  "prices": {
+    "eur": "3.76",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "1.03",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9b14c20f-c4ee-42ea-99cd-099b4eb25883&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Sinister+Concierge&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=652419&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F269235%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sinister+Concierge",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=598144&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSinister%2BConcierge",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSinister%2BConcierge"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/434a43a4-cd03-4ddf-8e36-edff02be33b2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ncc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ncc/30/sinister-concierge?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ncc",
+  "set_id": "c51de34b-d4d6-4179-a432-573744ded119",
+  "set_name": "New Capenna Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ancc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c51de34b-d4d6-4179-a432-573744ded119",
+  "story_spotlight": false,
+  "tcgplayer_id": 269235,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Wizard",
+  "uri": "https://api.scryfall.com/cards/434a43a4-cd03-4ddf-8e36-edff02be33b2",
+  "variation": false
+}

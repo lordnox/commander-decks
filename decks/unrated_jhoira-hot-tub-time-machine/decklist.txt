@@ -1,0 +1,96 @@
+1x Jhoira of the Ghitu [Commander{top}]
+1x Ancestral Vision
+1x Wheel of Fate
+1x Inevitable Betrayal
+1x Inspiring Refrain
+1x Rousing Refrain
+1x Reality Strobe
+1x Arc Blade
+1x Rift Bolt
+1x Shivan Meteor
+1x Faithless Salvaging
+1x Cast Through Time
+1x Epochrasite
+1x Deep-Sea Kraken
+1x Greater Gargadon
+1x Gargadon
+1x Aeon Chronicler
+1x Errant Ephemeron
+1x Riftwing Cloudskate
+1x Pardic Dragon
+1x Detritivore
+1x Chronozoa
+1x Sinister Concierge
+1x The Ninth Doctor
+1x Niv-Mizzet, the Firemind
+1x Rift Elemental
+1x Paradox Haze
+1x Clockspinning
+1x Timecrafting
+1x Fury Charm
+1x Timebender
+1x Jhoira's Timebug
+1x Shivan Sand-Mage
+1x Suspend
+1x Delay
+1x Venser's Diffusion
+1x Distortion Strike
+1x Coastal Piracy
+1x Careful Study
+1x Portent
+1x Serum Visions
+1x Think Twice
+1x Frantic Search
+1x Impulse
+1x Shadow Rift
+1x Recurring Insight
+1x Surreal Memoir
+1x Keep Watch
+1x Capsize
+1x Arcane Denial
+1x Memory Lapse
+1x Repulse
+1x Chaos Warp
+1x Evacuation
+1x Pyrokinesis
+1x Starstorm
+1x Izzet Signet
+1x Talisman of Creativity
+1x Fellwar Stone
+1x Mind Stone
+1x Sky Diamond
+1x Fire Diamond
+1x Wayfarer's Bauble
+1x Command Tower
+1x Steam Vents
+1x Training Center
+1x Stormcarved Coast
+1x Frostboil Snarl
+1x Cascade Bluffs
+1x Shivan Reef
+1x Sulfur Falls
+1x Spirebluff Canal
+1x Fiery Islet
+1x Scalding Tarn
+1x Misty Rainforest
+1x Wooded Foothills
+1x Flooded Strand
+1x Volcanic Island
+1x Wandering Fumarole
+1x Izzet Boilerworks
+1x Temple of Epiphany
+1x Desolate Lighthouse
+1x Halimar Depths
+1x Mystic Sanctuary
+1x Otawara, Soaring City
+1x Rivendell
+1x Reliquary Tower
+1x Riptide Laboratory
+1x Mikokoro, Center of the Sea
+1x Myriad Landscape
+1x Lonely Sandbar
+1x Forgotten Cave
+1x Smoldering Crater
+1x Swiftwater Cliffs
+4x Island
+2x Mountain

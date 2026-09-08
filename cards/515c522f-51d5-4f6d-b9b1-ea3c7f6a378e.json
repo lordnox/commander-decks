@@ -1,0 +1,132 @@
+{
+  "artist": "Izzy",
+  "artist_ids": [
+    "2c3d2473-ff5d-4309-8194-e0b2def2ab65"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 881572,
+  "cmc": 5.0,
+  "collector_number": "253",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 2764,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2b3ec666-0e57-4c42-872c-51799e0b5c68",
+  "illustration_id": "66991033-d446-43bc-a829-4d70f4802c1a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:49:32Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/b/2b3ec666-0e57-4c42-872c-51799e0b5c68.webp?1783903772",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/b/2b3ec666-0e57-4c42-872c-51799e0b5c68.jpg?1783903772",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/b/2b3ec666-0e57-4c42-872c-51799e0b5c68.jpg?1783903772",
+    "crop": "https://cards.scryfall.io/crop/front/2/b/2b3ec666-0e57-4c42-872c-51799e0b5c68.webp?1783903772",
+    "display": "https://cards.scryfall.io/display/front/2/b/2b3ec666-0e57-4c42-872c-51799e0b5c68.webp?1783903772",
+    "grid": "https://cards.scryfall.io/grid/front/2/b/2b3ec666-0e57-4c42-872c-51799e0b5c68.webp?1783903772",
+    "large": "https://cards.scryfall.io/large/front/2/b/2b3ec666-0e57-4c42-872c-51799e0b5c68.jpg?1783903772",
+    "normal": "https://cards.scryfall.io/normal/front/2/b/2b3ec666-0e57-4c42-872c-51799e0b5c68.jpg?1783903772",
+    "png": "https://cards.scryfall.io/png/front/2/b/2b3ec666-0e57-4c42-872c-51799e0b5c68.png?1783903772",
+    "small": "https://cards.scryfall.io/small/front/2/b/2b3ec666-0e57-4c42-872c-51799e0b5c68.jpg?1783903772",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/b/2b3ec666-0e57-4c42-872c-51799e0b5c68.webp?1783903772"
+  },
+  "keywords": [
+    "Suspend"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{R}{R}",
+  "mtgo_id": 148973,
+  "multiverse_ids": [],
+  "name": "Rousing Refrain",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "515c522f-51d5-4f6d-b9b1-ea3c7f6a378e",
+  "oracle_text": "Add {R} for each card in target opponent's hand. Until end of turn, you don't lose this mana as steps and phases end. Exile Rousing Refrain with three time counters on it.\nSuspend 3—{1}{R} (Rather than cast this card from your hand, you may pay {1}{R} and exile it with three time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+  "oversized": false,
+  "prices": {
+    "eur": "0.27",
+    "eur_foil": null,
+    "tix": "0.45",
+    "usd": "0.29",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A515c522f-51d5-4f6d-b9b1-ea3c7f6a378e&unique=prints",
+  "produced_mana": [
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/148973?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=881572&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F687351%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rousing+Refrain",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRousing%2BRefrain",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRousing%2BRefrain"
+  },
+  "released_at": "2026-04-24",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "A149949B294A3775146F9A69A32D561807D39410C031F7D04B38C11F4014203B",
+  "rulings_uri": "https://api.scryfall.com/cards/2b3ec666-0e57-4c42-872c-51799e0b5c68/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/soc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/soc/253/rousing-refrain?utm_source=api",
+  "security_stamp": "oval",
+  "set": "soc",
+  "set_id": "97fab8d1-480a-419d-ab14-663968e29b9c",
+  "set_name": "Secrets of Strixhaven Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/97fab8d1-480a-419d-ab14-663968e29b9c",
+  "story_spotlight": false,
+  "tcgplayer_id": 687351,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/2b3ec666-0e57-4c42-872c-51799e0b5c68",
+  "variation": false
+}

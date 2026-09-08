@@ -1,0 +1,154 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "a77c1ac0-5548-42b0-aa46-d532b3518632",
+      "name": "Chronozoa",
+      "object": "related_card",
+      "type_line": "Creature — Illusion",
+      "uri": "https://api.scryfall.com/cards/a77c1ac0-5548-42b0-aa46-d532b3518632"
+    },
+    {
+      "component": "token",
+      "id": "f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/f4e87a11-b3b1-47b2-bd73-f4c78d6fbe6c"
+    }
+  ],
+  "artist": "James Wong",
+  "artist_ids": [
+    "d276a889-30f8-4d63-a1bc-b5e2e3b6809a"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 14216,
+  "cmc": 4.0,
+  "collector_number": "37",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 12181,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a77c1ac0-5548-42b0-aa46-d532b3518632",
+  "illustration_id": "80154afe-d8cb-4ab4-bb54-04bd1ea6b8c3",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:46:02Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/7/a77c1ac0-5548-42b0-aa46-d532b3518632.webp?1783943162",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/7/a77c1ac0-5548-42b0-aa46-d532b3518632.jpg?1783943162",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/7/a77c1ac0-5548-42b0-aa46-d532b3518632.jpg?1783943162",
+    "crop": "https://cards.scryfall.io/crop/front/a/7/a77c1ac0-5548-42b0-aa46-d532b3518632.webp?1783943162",
+    "display": "https://cards.scryfall.io/display/front/a/7/a77c1ac0-5548-42b0-aa46-d532b3518632.webp?1783943162",
+    "grid": "https://cards.scryfall.io/grid/front/a/7/a77c1ac0-5548-42b0-aa46-d532b3518632.webp?1783943162",
+    "large": "https://cards.scryfall.io/large/front/a/7/a77c1ac0-5548-42b0-aa46-d532b3518632.jpg?1783943162",
+    "normal": "https://cards.scryfall.io/normal/front/a/7/a77c1ac0-5548-42b0-aa46-d532b3518632.jpg?1783943162",
+    "png": "https://cards.scryfall.io/png/front/a/7/a77c1ac0-5548-42b0-aa46-d532b3518632.png?1783943162",
+    "small": "https://cards.scryfall.io/small/front/a/7/a77c1ac0-5548-42b0-aa46-d532b3518632.jpg?1783943162",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/7/a77c1ac0-5548-42b0-aa46-d532b3518632.webp?1783943162"
+  },
+  "keywords": [
+    "Flying",
+    "Vanishing"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "mtgo_foil_id": 26220,
+  "mtgo_id": 26219,
+  "multiverse_ids": [
+    111066
+  ],
+  "name": "Chronozoa",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "29ccf76e-dfa3-4144-8ec2-6d56ae0bfa9e",
+  "oracle_text": "Flying\nVanishing 3 (This creature enters with three time counters on it. At the beginning of your upkeep, remove a time counter from it. When the last is removed, sacrifice it.)\nWhen this creature dies, if it had no time counters on it, create two tokens that are copies of it.",
+  "oversized": false,
+  "penny_rank": 10712,
+  "power": "3",
+  "prices": {
+    "eur": "2.34",
+    "eur_foil": "6.53",
+    "tix": "0.02",
+    "usd": "6.73",
+    "usd_etched": null,
+    "usd_foil": "16.05"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A29ccf76e-dfa3-4144-8ec2-6d56ae0bfa9e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/26219?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=14216&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F14698%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Chronozoa",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=111066&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DChronozoa",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DChronozoa"
+  },
+  "released_at": "2007-02-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a77c1ac0-5548-42b0-aa46-d532b3518632/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/plc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/plc/37/chronozoa?utm_source=api",
+  "set": "plc",
+  "set_id": "5a1b571c-73e9-4c14-b9d4-a62507d85789",
+  "set_name": "Planar Chaos",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aplc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5a1b571c-73e9-4c14-b9d4-a62507d85789",
+  "story_spotlight": false,
+  "tcgplayer_id": 14698,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Illusion",
+  "uri": "https://api.scryfall.com/cards/a77c1ac0-5548-42b0-aa46-d532b3518632",
+  "variation": false
+}

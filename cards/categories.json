@@ -9900,8 +9900,421 @@
       "categories": [
         "counterspell"
       ]
+    },
+    "ad3f4ec9-9905-421b-98ed-78bb6fc9b450": {
+      "name": "Jhoira of the Ghitu",
+      "categories": [
+        "other"
+      ]
+    },
+    "9728dec9-d482-4c7a-8cdc-44d010dc878d": {
+      "name": "Ancestral Vision",
+      "categories": [
+        "other"
+      ]
+    },
+    "15e4938d-1cd3-4670-9de5-2dc10abe4c19": {
+      "name": "Wheel of Fate",
+      "categories": [
+        "discard"
+      ]
+    },
+    "aa5e9269-b1db-4bf0-a548-24f999f60e44": {
+      "name": "Inevitable Betrayal",
+      "categories": [
+        "other"
+      ]
+    },
+    "1773c4e8-dc08-482a-9f26-30ef96c5b200": {
+      "name": "Inspiring Refrain",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "515c522f-51d5-4f6d-b9b1-ea3c7f6a378e": {
+      "name": "Rousing Refrain",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "2097ac9e-0f9b-4cd0-8537-2518195e4549": {
+      "name": "Reality Strobe",
+      "categories": [
+        "other"
+      ]
+    },
+    "2c7c42e1-b097-4443-aa02-1f1dfcbb9732": {
+      "name": "Arc Blade",
+      "categories": [
+        "other"
+      ]
+    },
+    "2b8afa9f-4236-4c02-a8d5-3c145caecfd6": {
+      "name": "Rift Bolt",
+      "categories": [
+        "other"
+      ]
+    },
+    "6cf5edd6-1ca2-46a5-83b4-7ddff590ef96": {
+      "name": "Shivan Meteor",
+      "categories": [
+        "other"
+      ]
+    },
+    "0366ccfd-c717-4ea2-8176-86e184f920f4": {
+      "name": "Faithless Salvaging",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "0a911cb2-caae-4378-bf09-1c5b0751dd35": {
+      "name": "Cast Through Time",
+      "categories": [
+        "other"
+      ]
+    },
+    "54e2d2ff-51d2-48a5-ab2e-7d9de8c78b7e": {
+      "name": "Epochrasite",
+      "categories": [
+        "other"
+      ]
+    },
+    "54de4a7f-86f4-4029-80f7-bc25d6509cc8": {
+      "name": "Deep-Sea Kraken",
+      "categories": [
+        "other"
+      ]
+    },
+    "406b4b1d-756b-4062-897d-3693832086a0": {
+      "name": "Greater Gargadon",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "73f808f0-3d56-46c9-967b-d452bb3611af": {
+      "name": "Gargadon",
+      "categories": [
+        "other"
+      ]
+    },
+    "a1399cb8-f22a-487e-b539-2db47b09a790": {
+      "name": "Aeon Chronicler",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "c77b89ec-4514-4e62-a508-2012f38a3e15": {
+      "name": "Errant Ephemeron",
+      "categories": [
+        "other"
+      ]
+    },
+    "ae2e6ffd-fb93-4c47-88e7-e84460eefbe5": {
+      "name": "Riftwing Cloudskate",
+      "categories": [
+        "other"
+      ]
+    },
+    "a4fa2afe-52fc-4ad0-a694-693cb9c88096": {
+      "name": "Pardic Dragon",
+      "categories": [
+        "other"
+      ]
+    },
+    "ba5fa5ca-f72d-49dd-9f86-e6e1292f5bf0": {
+      "name": "Detritivore",
+      "categories": [
+        "removal"
+      ]
+    },
+    "29ccf76e-dfa3-4144-8ec2-6d56ae0bfa9e": {
+      "name": "Chronozoa",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "9b14c20f-c4ee-42ea-99cd-099b4eb25883": {
+      "name": "Sinister Concierge",
+      "categories": [
+        "removal"
+      ]
+    },
+    "c99f59c0-5cce-41a4-908f-d34e2c697419": {
+      "name": "The Ninth Doctor",
+      "categories": [
+        "other"
+      ]
+    },
+    "959acb66-84ca-4535-bca2-ad591895735e": {
+      "name": "Niv-Mizzet, the Firemind",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "e9602731-2e8e-44ea-96a1-6b38e1efbbd9": {
+      "name": "Rift Elemental",
+      "categories": [
+        "other"
+      ]
+    },
+    "daff0e7b-08f2-435f-97b9-9b000e94ffa8": {
+      "name": "Paradox Haze",
+      "categories": [
+        "other"
+      ]
+    },
+    "3e1b32a9-27a4-4550-a644-ebe254e1f512": {
+      "name": "Clockspinning",
+      "categories": [
+        "other"
+      ]
+    },
+    "57939644-6f9a-4653-920b-f2d28559a9ca": {
+      "name": "Timecrafting",
+      "categories": [
+        "other"
+      ]
+    },
+    "b86b1878-65a9-48df-9727-1e80683d7e86": {
+      "name": "Fury Charm",
+      "categories": [
+        "removal"
+      ]
+    },
+    "efa3e524-1591-4036-81ec-74199cee25aa": {
+      "name": "Timebender",
+      "categories": [
+        "other"
+      ]
+    },
+    "afe11d79-1edd-4175-9cdd-11e475240e7a": {
+      "name": "Jhoira's Timebug",
+      "categories": [
+        "other"
+      ]
+    },
+    "3afe854a-7daa-4745-a5d9-04879e5d940a": {
+      "name": "Shivan Sand-Mage",
+      "categories": [
+        "other"
+      ]
+    },
+    "fef9425d-82d5-470b-9cbc-8c03a001099e": {
+      "name": "Suspend",
+      "categories": [
+        "removal"
+      ]
+    },
+    "048f4bb9-c5da-42d4-9af0-bd8754afce1a": {
+      "name": "Venser's Diffusion",
+      "categories": [
+        "other"
+      ]
+    },
+    "4c7f3fbf-6b68-492f-893d-853c73cfa463": {
+      "name": "Distortion Strike",
+      "categories": [
+        "other"
+      ]
+    },
+    "8a05ec32-7b0c-4f23-a4f7-413301c2a70a": {
+      "name": "Coastal Piracy",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "32e9aa23-fc0a-4b82-82f9-1659c304428c": {
+      "name": "Careful Study",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "fa85c5a2-8e83-4624-a35a-a0bbf17ecbb4": {
+      "name": "Think Twice",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "c6815bbb-24a5-4c9f-bf30-6190bc766d05": {
+      "name": "Recurring Insight",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "fa482ded-b24c-4f9e-948e-d0620e907b8b": {
+      "name": "Surreal Memoir",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "847b5be5-cb0c-4857-bcd9-c5cfe55fdaeb": {
+      "name": "Keep Watch",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "77637eff-2963-4402-88f3-ca346f762fc8": {
+      "name": "Capsize",
+      "categories": [
+        "other"
+      ]
+    },
+    "bbfb3e4a-b389-4391-8141-13b68c0ef2e0": {
+      "name": "Memory Lapse",
+      "categories": [
+        "counterspell"
+      ]
+    },
+    "6f7ef1d1-c441-41ba-b7d6-6b7727ffcf04": {
+      "name": "Repulse",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "fdd94383-b573-439a-8e1c-925af887c5a6": {
+      "name": "Evacuation",
+      "categories": [
+        "other"
+      ]
+    },
+    "d001febc-d511-4e65-a631-91dc9415056b": {
+      "name": "Pyrokinesis",
+      "categories": [
+        "other"
+      ]
+    },
+    "34d112c3-cc2d-4428-bd7f-568bda61bd30": {
+      "name": "Starstorm",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "97b477d8-2e05-475e-8ed6-7d680cb21cd9": {
+      "name": "Fire Diamond",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "7137aae6-260d-41de-8b4e-42a8cf752697": {
+      "name": "Frostboil Snarl",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "026f4a4b-eedd-44e1-9d37-ca4fb8d6db98": {
+      "name": "Fiery Islet",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "f3c7af78-a77d-4134-82a2-a5ce84285a84": {
+      "name": "Flooded Strand",
+      "categories": [
+        "land",
+        "sacrifice"
+      ]
+    },
+    "1cb9d94a-3039-4f2e-8fcc-6996f9a45f74": {
+      "name": "Izzet Boilerworks",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "79f94050-d850-41ca-b1db-5ae0cf743f0a": {
+      "name": "Temple of Epiphany",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "aa6dbdf2-2379-4ff5-8a6c-70258784dc35": {
+      "name": "Desolate Lighthouse",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "42d121a2-5266-483a-ab16-e0a8073cd6a3": {
+      "name": "Halimar Depths",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "2550099d-b3e2-4eb6-9f36-0fc412828ca6": {
+      "name": "Rivendell",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "444d50dd-a44a-42db-bbf6-d0978e3bd6a3": {
+      "name": "Riptide Laboratory",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "a4580a1d-141e-449b-9018-e0258130634b": {
+      "name": "Mikokoro, Center of the Sea",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "765863c8-1be0-4bb1-9e9c-db7701cffde3": {
+      "name": "Lonely Sandbar",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "394c6de5-7957-4a0b-a6b9-ee0c707cd022": {
+      "name": "Forgotten Cave",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "be09e83f-6486-4f42-8d2e-416cb95173f9": {
+      "name": "Smoldering Crater",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "2f4ad084-2062-44c0-9975-15f100204531": {
+      "name": "Swiftwater Cliffs",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "741c51f1-cfbe-4c29-ac8f-ca6bcd2652f9": {
+      "name": "Wandering Fumarole",
+      "categories": [
+        "land",
+        "ramp"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-08T14:42:13.273649+00:00"
+  "updated_at": "2026-09-08T19:13:33.005482+00:00"
 }

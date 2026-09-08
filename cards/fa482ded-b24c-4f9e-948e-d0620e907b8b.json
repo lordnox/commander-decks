@@ -1,0 +1,137 @@
+{
+  "artist": "Jaime Jones",
+  "artist_ids": [
+    "92f6c2c1-fa57-4b52-99c4-0fd866c13dc9"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 665753,
+  "cmc": 4.0,
+  "collector_number": "127",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 19422,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "e6c10004-eaef-4b19-828f-a0f9bde82984",
+  "illustration_id": "ca700fbd-13f6-4be0-b906-c90aa042f64e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:51:20Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/6/e6c10004-eaef-4b19-828f-a0f9bde82984.webp?1783921880",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/6/e6c10004-eaef-4b19-828f-a0f9bde82984.jpg?1783921880",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/6/e6c10004-eaef-4b19-828f-a0f9bde82984.jpg?1783921880",
+    "crop": "https://cards.scryfall.io/crop/front/e/6/e6c10004-eaef-4b19-828f-a0f9bde82984.webp?1783921880",
+    "display": "https://cards.scryfall.io/display/front/e/6/e6c10004-eaef-4b19-828f-a0f9bde82984.webp?1783921880",
+    "grid": "https://cards.scryfall.io/grid/front/e/6/e6c10004-eaef-4b19-828f-a0f9bde82984.webp?1783921880",
+    "large": "https://cards.scryfall.io/large/front/e/6/e6c10004-eaef-4b19-828f-a0f9bde82984.jpg?1783921880",
+    "normal": "https://cards.scryfall.io/normal/front/e/6/e6c10004-eaef-4b19-828f-a0f9bde82984.jpg?1783921880",
+    "png": "https://cards.scryfall.io/png/front/e/6/e6c10004-eaef-4b19-828f-a0f9bde82984.png?1783921880",
+    "small": "https://cards.scryfall.io/small/front/e/6/e6c10004-eaef-4b19-828f-a0f9bde82984.jpg?1783921880",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/6/e6c10004-eaef-4b19-828f-a0f9bde82984.webp?1783921880"
+  },
+  "keywords": [
+    "Rebound"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{R}",
+  "mtgo_id": 101738,
+  "multiverse_ids": [
+    571460
+  ],
+  "name": "Surreal Memoir",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "fa482ded-b24c-4f9e-948e-d0620e907b8b",
+  "oracle_text": "Return an instant card at random from your graveyard to your hand.\nRebound (If you cast this spell from your hand, exile it as it resolves. At the beginning of your next upkeep, you may cast this card from exile without paying its mana cost.)",
+  "oversized": false,
+  "penny_rank": 16234,
+  "preview": {
+    "previewed_at": "2022-06-21",
+    "source": "TokyoMTG",
+    "source_uri": "https://www.youtube.com/watch?v=SCOoqZBNeeQ"
+  },
+  "prices": {
+    "eur": "0.11",
+    "eur_foil": "0.19",
+    "tix": "0.04",
+    "usd": "0.20",
+    "usd_etched": null,
+    "usd_foil": "0.20"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Afa482ded-b24c-4f9e-948e-d0620e907b8b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/101738?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=665753&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F276654%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Surreal+Memoir",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=571460&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSurreal%2BMemoir",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSurreal%2BMemoir"
+  },
+  "released_at": "2022-07-08",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e6c10004-eaef-4b19-828f-a0f9bde82984/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/2x2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/2x2/127/surreal-memoir?utm_source=api",
+  "set": "2x2",
+  "set_id": "5a645837-b050-449f-ac90-1e7ccbf45031",
+  "set_name": "Double Masters 2022",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A2x2&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/5a645837-b050-449f-ac90-1e7ccbf45031",
+  "story_spotlight": false,
+  "tcgplayer_id": 276654,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/e6c10004-eaef-4b19-828f-a0f9bde82984",
+  "variation": false
+}

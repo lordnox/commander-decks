@@ -1,0 +1,141 @@
+{
+  "artist": "Franz Vohwinkel",
+  "artist_ids": [
+    "3a243c17-3baa-4b53-9599-645311cd7d3d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 566788,
+  "cmc": 0.0,
+  "collector_number": "47",
+  "color_identity": [
+    "U"
+  ],
+  "color_indicator": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 3088,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "71725895-38cd-4017-bbf0-0b7dc9b5db60",
+  "illustration_id": "70150b99-46dc-4b46-bce5-45968df7f5e4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:14:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/1/71725895-38cd-4017-bbf0-0b7dc9b5db60.webp?1783926877",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/1/71725895-38cd-4017-bbf0-0b7dc9b5db60.jpg?1783926877",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/1/71725895-38cd-4017-bbf0-0b7dc9b5db60.jpg?1783926877",
+    "crop": "https://cards.scryfall.io/crop/front/7/1/71725895-38cd-4017-bbf0-0b7dc9b5db60.webp?1783926877",
+    "display": "https://cards.scryfall.io/display/front/7/1/71725895-38cd-4017-bbf0-0b7dc9b5db60.webp?1783926877",
+    "grid": "https://cards.scryfall.io/grid/front/7/1/71725895-38cd-4017-bbf0-0b7dc9b5db60.webp?1783926877",
+    "large": "https://cards.scryfall.io/large/front/7/1/71725895-38cd-4017-bbf0-0b7dc9b5db60.jpg?1783926877",
+    "normal": "https://cards.scryfall.io/normal/front/7/1/71725895-38cd-4017-bbf0-0b7dc9b5db60.jpg?1783926877",
+    "png": "https://cards.scryfall.io/png/front/7/1/71725895-38cd-4017-bbf0-0b7dc9b5db60.png?1783926877",
+    "small": "https://cards.scryfall.io/small/front/7/1/71725895-38cd-4017-bbf0-0b7dc9b5db60.jpg?1783926877",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/1/71725895-38cd-4017-bbf0-0b7dc9b5db60.webp?1783926877"
+  },
+  "keywords": [
+    "Suspend"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 90463,
+  "multiverse_ids": [
+    522123
+  ],
+  "name": "Inevitable Betrayal",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "aa5e9269-b1db-4bf0-a548-24f999f60e44",
+  "oracle_text": "Suspend 3—{1}{U}{U} (Rather than cast this card from your hand, pay {1}{U}{U} and exile it with three time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)\nSearch target opponent's library for a creature card and put that card onto the battlefield under your control. Then that player shuffles.",
+  "oversized": false,
+  "penny_rank": 2912,
+  "preview": {
+    "previewed_at": "2021-06-01",
+    "source": "Skybilz",
+    "source_uri": "https://twitter.com/Skybilz/status/1399548363478011904"
+  },
+  "prices": {
+    "eur": "0.68",
+    "eur_foil": "1.15",
+    "tix": "0.02",
+    "usd": "1.49",
+    "usd_etched": null,
+    "usd_foil": "1.67"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aaa5e9269-b1db-4bf0-a548-24f999f60e44&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/90463?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=566788&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F240183%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Inevitable+Betrayal",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=522123&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DInevitable%2BBetrayal",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DInevitable%2BBetrayal"
+  },
+  "released_at": "2021-06-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/71725895-38cd-4017-bbf0-0b7dc9b5db60/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh2/47/inevitable-betrayal?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh2",
+  "set_id": "c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "set_name": "Modern Horizons 2",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh2&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "story_spotlight": false,
+  "tcgplayer_id": 240183,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/71725895-38cd-4017-bbf0-0b7dc9b5db60",
+  "variation": false
+}

@@ -1,0 +1,133 @@
+{
+  "artist": "John Avon",
+  "artist_ids": [
+    "798f3932-30e0-4420-aa3f-db4d613f89ca"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 672239,
+  "cmc": 0.0,
+  "collector_number": "217",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 1172,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Center of the Sea, Eye of the World, Shrine of Enlightenment. Seek it for answers. Seek it for healing. Seek it and return transformed.\"\n—Scroll fragment from the ruins of Minamo",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d80eb098-5433-4b1e-aad5-0fd31bf598dd",
+  "illustration_id": "3c529e10-c0fa-4138-b22e-c2dae9c510ef",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:43:04Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/8/d80eb098-5433-4b1e-aad5-0fd31bf598dd.webp?1783921384",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/8/d80eb098-5433-4b1e-aad5-0fd31bf598dd.jpg?1783921384",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/8/d80eb098-5433-4b1e-aad5-0fd31bf598dd.jpg?1783921384",
+    "crop": "https://cards.scryfall.io/crop/front/d/8/d80eb098-5433-4b1e-aad5-0fd31bf598dd.webp?1783921384",
+    "display": "https://cards.scryfall.io/display/front/d/8/d80eb098-5433-4b1e-aad5-0fd31bf598dd.webp?1783921384",
+    "grid": "https://cards.scryfall.io/grid/front/d/8/d80eb098-5433-4b1e-aad5-0fd31bf598dd.webp?1783921384",
+    "large": "https://cards.scryfall.io/large/front/d/8/d80eb098-5433-4b1e-aad5-0fd31bf598dd.jpg?1783921384",
+    "normal": "https://cards.scryfall.io/normal/front/d/8/d80eb098-5433-4b1e-aad5-0fd31bf598dd.jpg?1783921384",
+    "png": "https://cards.scryfall.io/png/front/d/8/d80eb098-5433-4b1e-aad5-0fd31bf598dd.png?1783921384",
+    "small": "https://cards.scryfall.io/small/front/d/8/d80eb098-5433-4b1e-aad5-0fd31bf598dd.jpg?1783921384",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/8/d80eb098-5433-4b1e-aad5-0fd31bf598dd.webp?1783921384"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 103324,
+  "multiverse_ids": [
+    578833
+  ],
+  "name": "Mikokoro, Center of the Sea",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a4580a1d-141e-449b-9018-e0258130634b",
+  "oracle_text": "{T}: Add {C}.\n{2}, {T}: Each player draws a card.",
+  "oversized": false,
+  "penny_rank": 2284,
+  "prices": {
+    "eur": "4.45",
+    "eur_foil": null,
+    "tix": "1.66",
+    "usd": "5.32",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa4580a1d-141e-449b-9018-e0258130634b&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/103324?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=672239&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F283001%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mikokoro%2C+Center+of+the+Sea",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=578833&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMikokoro%252C%2BCenter%2Bof%2Bthe%2BSea",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMikokoro%252C%2BCenter%2Bof%2Bthe%2BSea"
+  },
+  "released_at": "2022-09-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d80eb098-5433-4b1e-aad5-0fd31bf598dd/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dmc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dmc/217/mikokoro-center-of-the-sea?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dmc",
+  "set_id": "78076b27-f888-4723-b27c-44074accd261",
+  "set_name": "Dominaria United Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Admc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/78076b27-f888-4723-b27c-44074accd261",
+  "story_spotlight": false,
+  "tcgplayer_id": 283001,
+  "textless": false,
+  "type_line": "Legendary Land",
+  "uri": "https://api.scryfall.com/cards/d80eb098-5433-4b1e-aad5-0fd31bf598dd",
+  "variation": false
+}

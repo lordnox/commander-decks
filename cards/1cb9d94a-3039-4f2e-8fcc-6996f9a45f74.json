@@ -1,0 +1,132 @@
+{
+  "artist": "John Avon",
+  "artist_ids": [
+    "798f3932-30e0-4420-aa3f-db4d613f89ca"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764755,
+  "cmc": 0.0,
+  "collector_number": "302",
+  "color_identity": [
+    "R",
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 421,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "bfac9395-7ca5-48dd-ab83-7c26ada12f61",
+  "illustration_id": "69ce672a-f032-4cd2-9e17-5799f1cba825",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:04:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/f/bfac9395-7ca5-48dd-ab83-7c26ada12f61.webp?1783911875",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/f/bfac9395-7ca5-48dd-ab83-7c26ada12f61.jpg?1783911875",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/f/bfac9395-7ca5-48dd-ab83-7c26ada12f61.jpg?1783911875",
+    "crop": "https://cards.scryfall.io/crop/front/b/f/bfac9395-7ca5-48dd-ab83-7c26ada12f61.webp?1783911875",
+    "display": "https://cards.scryfall.io/display/front/b/f/bfac9395-7ca5-48dd-ab83-7c26ada12f61.webp?1783911875",
+    "grid": "https://cards.scryfall.io/grid/front/b/f/bfac9395-7ca5-48dd-ab83-7c26ada12f61.webp?1783911875",
+    "large": "https://cards.scryfall.io/large/front/b/f/bfac9395-7ca5-48dd-ab83-7c26ada12f61.jpg?1783911875",
+    "normal": "https://cards.scryfall.io/normal/front/b/f/bfac9395-7ca5-48dd-ab83-7c26ada12f61.jpg?1783911875",
+    "png": "https://cards.scryfall.io/png/front/b/f/bfac9395-7ca5-48dd-ab83-7c26ada12f61.png?1783911875",
+    "small": "https://cards.scryfall.io/small/front/b/f/bfac9395-7ca5-48dd-ab83-7c26ada12f61.jpg?1783911875",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/f/bfac9395-7ca5-48dd-ab83-7c26ada12f61.webp?1783911875"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 125067,
+  "multiverse_ids": [
+    658746
+  ],
+  "name": "Izzet Boilerworks",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1cb9d94a-3039-4f2e-8fcc-6996f9a45f74",
+  "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {U}{R}.",
+  "oversized": false,
+  "penny_rank": 563,
+  "prices": {
+    "eur": "0.30",
+    "eur_foil": null,
+    "tix": "0.04",
+    "usd": "0.35",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1cb9d94a-3039-4f2e-8fcc-6996f9a45f74&unique=prints",
+  "produced_mana": [
+    "R",
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/125067?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764755&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F545324%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Izzet+Boilerworks",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=658746&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIzzet%2BBoilerworks",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIzzet%2BBoilerworks"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/bfac9395-7ca5-48dd-ab83-7c26ada12f61/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otc/302/izzet-boilerworks?utm_source=api",
+  "set": "otc",
+  "set_id": "d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "set_name": "Outlaws of Thunder Junction Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "story_spotlight": false,
+  "tcgplayer_id": 545324,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/bfac9395-7ca5-48dd-ab83-7c26ada12f61",
+  "variation": false
+}

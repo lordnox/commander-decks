@@ -1,0 +1,132 @@
+{
+  "artist": "Christopher Moeller",
+  "artist_ids": [
+    "21e10012-06ae-44f2-b38d-3824dd2e73d4"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 296225,
+  "cmc": 10.0,
+  "collector_number": "3",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 5365,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "df5a543e-8416-4f01-91f5-e1ed87f1a510",
+  "illustration_id": "0f753685-6a01-4c89-9bbd-cb86241093e0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:56:20Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/f/df5a543e-8416-4f01-91f5-e1ed87f1a510.webp?1783936580",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/f/df5a543e-8416-4f01-91f5-e1ed87f1a510.jpg?1783936580",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/f/df5a543e-8416-4f01-91f5-e1ed87f1a510.jpg?1783936580",
+    "crop": "https://cards.scryfall.io/crop/front/d/f/df5a543e-8416-4f01-91f5-e1ed87f1a510.webp?1783936580",
+    "display": "https://cards.scryfall.io/display/front/d/f/df5a543e-8416-4f01-91f5-e1ed87f1a510.webp?1783936580",
+    "grid": "https://cards.scryfall.io/grid/front/d/f/df5a543e-8416-4f01-91f5-e1ed87f1a510.webp?1783936580",
+    "large": "https://cards.scryfall.io/large/front/d/f/df5a543e-8416-4f01-91f5-e1ed87f1a510.jpg?1783936580",
+    "normal": "https://cards.scryfall.io/normal/front/d/f/df5a543e-8416-4f01-91f5-e1ed87f1a510.jpg?1783936580",
+    "png": "https://cards.scryfall.io/png/front/d/f/df5a543e-8416-4f01-91f5-e1ed87f1a510.png?1783936580",
+    "small": "https://cards.scryfall.io/small/front/d/f/df5a543e-8416-4f01-91f5-e1ed87f1a510.jpg?1783936580",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/f/df5a543e-8416-4f01-91f5-e1ed87f1a510.webp?1783936580"
+  },
+  "keywords": [
+    "Suspend"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{7}{U}{U}{U}",
+  "multiverse_ids": [
+    426575
+  ],
+  "name": "Deep-Sea Kraken",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "54de4a7f-86f4-4029-80f7-bc25d6509cc8",
+  "oracle_text": "This creature can't be blocked.\nSuspend 9—{2}{U} (Rather than cast this card from your hand, you may pay {2}{U} and exile it with nine time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost. It has haste.)\nWhenever an opponent casts a spell, if this card is suspended, remove a time counter from it.",
+  "oversized": false,
+  "penny_rank": 8837,
+  "power": "6",
+  "prices": {
+    "eur": "0.64",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "1.62",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A54de4a7f-86f4-4029-80f7-bc25d6509cc8&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Deep-Sea+Kraken&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=296225&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F129469%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Deep-Sea+Kraken",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=426575&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDeep-Sea%2BKraken",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDeep-Sea%2BKraken"
+  },
+  "released_at": "2017-03-31",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/df5a543e-8416-4f01-91f5-e1ed87f1a510/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dds?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dds/3/deep-sea-kraken?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dds",
+  "set_id": "758fe4d1-ce2b-4106-8cec-820841d730af",
+  "set_name": "Duel Decks: Mind vs. Might",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adds&unique=prints",
+  "set_type": "duel_deck",
+  "set_uri": "https://api.scryfall.com/sets/758fe4d1-ce2b-4106-8cec-820841d730af",
+  "story_spotlight": false,
+  "tcgplayer_id": 129469,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Creature — Kraken",
+  "uri": "https://api.scryfall.com/cards/df5a543e-8416-4f01-91f5-e1ed87f1a510",
+  "variation": false
+}

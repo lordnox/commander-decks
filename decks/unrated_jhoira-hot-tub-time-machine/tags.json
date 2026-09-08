@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Suspend bombs in exile with Jhoira, soak timers with extra upkeeps, then free-cast haste creatures and redraw loops.",
+  "tags": [
+    {
+      "name": "suspend",
+      "score": 5,
+      "reason": "Commander and most payoffs are suspend or time-counter cards."
+    },
+    {
+      "name": "time counters",
+      "score": 5,
+      "reason": "Timer hacks, Paradox Haze, Ninth Doctor, and Chronozoa all manipulate time counters."
+    },
+    {
+      "name": "spellslinger",
+      "score": 3,
+      "reason": "Instants and sorceries for draw, rebound, Delay, and Capsize support the tub."
+    },
+    {
+      "name": "flashback",
+      "score": 2,
+      "reason": "Think Twice and Surreal Memoir redo; not the primary plan."
+    },
+    {
+      "name": "time lords",
+      "score": 2,
+      "reason": "The Ninth Doctor is a soak piece, not a Doctor's companion shell."
+    },
+    {
+      "name": "theft",
+      "score": 2,
+      "reason": "Inevitable Betrayal steals one big creature after cooking."
+    },
+    {
+      "name": "extra turns",
+      "score": 1,
+      "reason": "No extra-turn spells; only extra upkeeps from Paradox Haze and Ninth Doctor."
+    }
+  ]
+}

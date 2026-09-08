@@ -1,0 +1,133 @@
+{
+  "artist": "Adam Paquette",
+  "artist_ids": [
+    "89023dad-e6c0-41e0-83fb-eb2bfbbdc3f2"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 881745,
+  "cmc": 0.0,
+  "collector_number": "412",
+  "color_identity": [
+    "R",
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 287,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "cc63cd97-de9e-4d31-babb-aaad1277169e",
+  "illustration_id": "9a27cf66-d387-4e21-8fbd-5c90582b2a78",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:48:36Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/c/cc63cd97-de9e-4d31-babb-aaad1277169e.webp?1783903716",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/c/cc63cd97-de9e-4d31-babb-aaad1277169e.jpg?1783903716",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/c/cc63cd97-de9e-4d31-babb-aaad1277169e.jpg?1783903716",
+    "crop": "https://cards.scryfall.io/crop/front/c/c/cc63cd97-de9e-4d31-babb-aaad1277169e.webp?1783903716",
+    "display": "https://cards.scryfall.io/display/front/c/c/cc63cd97-de9e-4d31-babb-aaad1277169e.webp?1783903716",
+    "grid": "https://cards.scryfall.io/grid/front/c/c/cc63cd97-de9e-4d31-babb-aaad1277169e.webp?1783903716",
+    "large": "https://cards.scryfall.io/large/front/c/c/cc63cd97-de9e-4d31-babb-aaad1277169e.jpg?1783903716",
+    "normal": "https://cards.scryfall.io/normal/front/c/c/cc63cd97-de9e-4d31-babb-aaad1277169e.jpg?1783903716",
+    "png": "https://cards.scryfall.io/png/front/c/c/cc63cd97-de9e-4d31-babb-aaad1277169e.png?1783903716",
+    "small": "https://cards.scryfall.io/small/front/c/c/cc63cd97-de9e-4d31-babb-aaad1277169e.jpg?1783903716",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/c/cc63cd97-de9e-4d31-babb-aaad1277169e.webp?1783903716"
+  },
+  "keywords": [
+    "Scry"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 149289,
+  "multiverse_ids": [],
+  "name": "Temple of Epiphany",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "79f94050-d850-41ca-b1db-5ae0cf743f0a",
+  "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {U} or {R}.",
+  "oversized": false,
+  "penny_rank": 475,
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": null,
+    "tix": "0.20",
+    "usd": "0.23",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A79f94050-d850-41ca-b1db-5ae0cf743f0a&unique=prints",
+  "produced_mana": [
+    "R",
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/149289?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=881745&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F687557%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Temple+of+Epiphany",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTemple%2Bof%2BEpiphany",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTemple%2Bof%2BEpiphany"
+  },
+  "released_at": "2026-04-24",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "03CD5A5F391D7F22F15B1EC9EDE65EDF0569875CBB4C5FDEA1D8B0ED06FA83AE",
+  "rulings_uri": "https://api.scryfall.com/cards/cc63cd97-de9e-4d31-babb-aaad1277169e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/soc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/soc/412/temple-of-epiphany?utm_source=api",
+  "security_stamp": "oval",
+  "set": "soc",
+  "set_id": "97fab8d1-480a-419d-ab14-663968e29b9c",
+  "set_name": "Secrets of Strixhaven Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/97fab8d1-480a-419d-ab14-663968e29b9c",
+  "story_spotlight": false,
+  "tcgplayer_id": 687557,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/cc63cd97-de9e-4d31-babb-aaad1277169e",
+  "variation": false
+}

@@ -1,0 +1,133 @@
+{
+  "artist": "Goran Josic",
+  "artist_ids": [
+    "522bfda2-454a-4a74-b717-42930040f73a"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 301576,
+  "cmc": 1.0,
+  "collector_number": "52",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 6066,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "57556595-8ede-4a35-b3a4-0e6f8bfc4d9d",
+  "illustration_id": "b50881f3-8909-4cdb-a4d2-be11d0a3932b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:39:08Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/7/57556595-8ede-4a35-b3a4-0e6f8bfc4d9d.webp?1783935548",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/7/57556595-8ede-4a35-b3a4-0e6f8bfc4d9d.jpg?1783935548",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/7/57556595-8ede-4a35-b3a4-0e6f8bfc4d9d.jpg?1783935548",
+    "crop": "https://cards.scryfall.io/crop/front/5/7/57556595-8ede-4a35-b3a4-0e6f8bfc4d9d.webp?1783935548",
+    "display": "https://cards.scryfall.io/display/front/5/7/57556595-8ede-4a35-b3a4-0e6f8bfc4d9d.webp?1783935548",
+    "grid": "https://cards.scryfall.io/grid/front/5/7/57556595-8ede-4a35-b3a4-0e6f8bfc4d9d.webp?1783935548",
+    "large": "https://cards.scryfall.io/large/front/5/7/57556595-8ede-4a35-b3a4-0e6f8bfc4d9d.jpg?1783935548",
+    "normal": "https://cards.scryfall.io/normal/front/5/7/57556595-8ede-4a35-b3a4-0e6f8bfc4d9d.jpg?1783935548",
+    "png": "https://cards.scryfall.io/png/front/5/7/57556595-8ede-4a35-b3a4-0e6f8bfc4d9d.png?1783935548",
+    "small": "https://cards.scryfall.io/small/front/5/7/57556595-8ede-4a35-b3a4-0e6f8bfc4d9d.jpg?1783935548",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/7/57556595-8ede-4a35-b3a4-0e6f8bfc4d9d.webp?1783935548"
+  },
+  "keywords": [
+    "Rebound"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_foil_id": 65984,
+  "mtgo_id": 65983,
+  "multiverse_ids": [
+    438618
+  ],
+  "name": "Distortion Strike",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4c7f3fbf-6b68-492f-893d-853c73cfa463",
+  "oracle_text": "Target creature gets +1/+0 until end of turn and can't be blocked this turn.\nRebound (If you cast this spell from your hand, exile it as it resolves. At the beginning of your next upkeep, you may cast this card from exile without paying its mana cost.)",
+  "oversized": false,
+  "penny_rank": 2428,
+  "prices": {
+    "eur": "0.67",
+    "eur_foil": "1.30",
+    "tix": "0.04",
+    "usd": "0.76",
+    "usd_etched": null,
+    "usd_foil": "1.59"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4c7f3fbf-6b68-492f-893d-853c73cfa463&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/65983?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=301576&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F145410%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Distortion+Strike",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=438618&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDistortion%2BStrike",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDistortion%2BStrike"
+  },
+  "released_at": "2017-11-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/57556595-8ede-4a35-b3a4-0e6f8bfc4d9d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ima?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ima/52/distortion-strike?utm_source=api",
+  "set": "ima",
+  "set_id": "741bcd30-7709-4133-8919-f4b46483bed7",
+  "set_name": "Iconic Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aima&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/741bcd30-7709-4133-8919-f4b46483bed7",
+  "story_spotlight": false,
+  "tcgplayer_id": 145410,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/57556595-8ede-4a35-b3a4-0e6f8bfc4d9d",
+  "variation": false
+}

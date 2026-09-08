@@ -1,0 +1,135 @@
+{
+  "artist": "Paolo Parente",
+  "artist_ids": [
+    "d48dd097-720d-476a-8722-6a02854ae28b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 14275,
+  "cmc": 4.0,
+  "collector_number": "96",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 15170,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2ec01f4b-b3df-4e2b-ae93-2f2d0cc279bd",
+  "illustration_id": "3675a896-299e-4e58-b99b-ba840b932fe1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:45:50Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/e/2ec01f4b-b3df-4e2b-ae93-2f2d0cc279bd.webp?1783943150",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/e/2ec01f4b-b3df-4e2b-ae93-2f2d0cc279bd.jpg?1783943150",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/e/2ec01f4b-b3df-4e2b-ae93-2f2d0cc279bd.jpg?1783943150",
+    "crop": "https://cards.scryfall.io/crop/front/2/e/2ec01f4b-b3df-4e2b-ae93-2f2d0cc279bd.webp?1783943150",
+    "display": "https://cards.scryfall.io/display/front/2/e/2ec01f4b-b3df-4e2b-ae93-2f2d0cc279bd.webp?1783943150",
+    "grid": "https://cards.scryfall.io/grid/front/2/e/2ec01f4b-b3df-4e2b-ae93-2f2d0cc279bd.webp?1783943150",
+    "large": "https://cards.scryfall.io/large/front/2/e/2ec01f4b-b3df-4e2b-ae93-2f2d0cc279bd.jpg?1783943150",
+    "normal": "https://cards.scryfall.io/normal/front/2/e/2ec01f4b-b3df-4e2b-ae93-2f2d0cc279bd.jpg?1783943150",
+    "png": "https://cards.scryfall.io/png/front/2/e/2ec01f4b-b3df-4e2b-ae93-2f2d0cc279bd.png?1783943150",
+    "small": "https://cards.scryfall.io/small/front/2/e/2ec01f4b-b3df-4e2b-ae93-2f2d0cc279bd.jpg?1783943150",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/e/2ec01f4b-b3df-4e2b-ae93-2f2d0cc279bd.webp?1783943150"
+  },
+  "keywords": [
+    "Suspend"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}{R}",
+  "mtgo_foil_id": 26506,
+  "mtgo_id": 26505,
+  "multiverse_ids": [
+    126811
+  ],
+  "name": "Detritivore",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ba5fa5ca-f72d-49dd-9f86-e6e1292f5bf0",
+  "oracle_text": "Detritivore's power and toughness are each equal to the number of nonbasic land cards in your opponents' graveyards.\nSuspend X—{X}{3}{R}. X can't be 0. (Rather than cast this card from your hand, you may pay {X}{3}{R} and exile it with X time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost. It has haste.)\nWhenever a time counter is removed from this card while it's exiled, destroy target nonbasic land.",
+  "oversized": false,
+  "penny_rank": 5668,
+  "power": "*",
+  "prices": {
+    "eur": "0.86",
+    "eur_foil": "9.65",
+    "tix": "0.02",
+    "usd": "2.68",
+    "usd_etched": null,
+    "usd_foil": "9.89"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aba5fa5ca-f72d-49dd-9f86-e6e1292f5bf0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/26505?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=14275&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F14710%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Detritivore",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=126811&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDetritivore",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDetritivore"
+  },
+  "released_at": "2007-02-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2ec01f4b-b3df-4e2b-ae93-2f2d0cc279bd/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/plc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/plc/96/detritivore?utm_source=api",
+  "set": "plc",
+  "set_id": "5a1b571c-73e9-4c14-b9d4-a62507d85789",
+  "set_name": "Planar Chaos",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aplc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5a1b571c-73e9-4c14-b9d4-a62507d85789",
+  "story_spotlight": false,
+  "tcgplayer_id": 14710,
+  "textless": false,
+  "toughness": "*",
+  "type_line": "Creature — Lhurgoyf",
+  "uri": "https://api.scryfall.com/cards/2ec01f4b-b3df-4e2b-ae93-2f2d0cc279bd",
+  "variation": false
+}
