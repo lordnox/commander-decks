@@ -54,6 +54,19 @@ type InboxType =
   | 'rules'
   | 'talk'
 
+const TURN_STEPS = [
+  ['planning', 'Planning'],
+  ['untap', 'Untap'],
+  ['upkeep', 'Upkeep'],
+  ['draw', 'Draw'],
+  ['impact', 'Impact check'],
+  ['main1', 'First main'],
+  ['combat', 'Combat'],
+  ['main2', 'Second main'],
+  ['end', 'End step'],
+  ['priority', 'Priority'],
+] as const
+
 const toReplaySeat = (seat: LiveSeat): ReplaySeat => ({
   id: seat.id,
   name: seat.name,
@@ -510,32 +523,62 @@ export const LivePage = () => {
         </div>
       </header>
 
-      <main className="mx-auto grid max-w-[110rem] gap-5 px-3 py-5 sm:px-5 lg:grid-cols-[17rem_minmax(0,1fr)]">
+      <main className="mx-auto grid max-w-[110rem] gap-5 px-3 py-5 sm:px-5 lg:grid-cols-[minmax(0,1fr)_15rem]">
         <aside
-          className={`h-fit rounded-[1.5rem] border p-5 lg:sticky lg:top-24 ${
+          className={`h-fit rounded-[1.5rem] border p-5 backdrop-blur-sm lg:order-2 lg:sticky lg:top-24 ${
             yourAction
-              ? 'border-gold-300 bg-gold-400/15 shadow-lg shadow-gold-950/30'
-              : 'border-white/10 bg-ink-900/80'
+              ? 'border-gold-300/60 bg-gold-400/5 shadow-lg shadow-gold-950/20'
+              : 'border-white/10 bg-ink-950/30'
           }`}
         >
-          <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-stone-400">
-            Current turn
-          </p>
-          <p className="mt-2 font-display text-2xl text-stone-50">
+          <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-stone-500">
             Turn {snapshot.turn}
           </p>
-          <dl className="mt-4 space-y-3 text-sm">
+          <div className="mt-2 flex items-start gap-2.5">
+            <span
+              className="mt-1.5 size-2.5 shrink-0 rounded-full shadow-[0_0_12px_currentColor]"
+              style={{ color: activeSeat?.color, backgroundColor: activeSeat?.color }}
+            />
             <div>
-              <dt className="text-xs uppercase tracking-[0.12em] text-stone-500">Active player</dt>
-              <dd className="mt-1 font-semibold" style={{ color: activeSeat?.color }}>
+              <p className="font-display text-xl leading-tight text-stone-50">
                 {activeSeat?.name || snapshot.active}
-              </dd>
+              </p>
+              <p className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-stone-500">
+                Active player
+              </p>
             </div>
-            <div>
-              <dt className="text-xs uppercase tracking-[0.12em] text-stone-500">Step</dt>
-              <dd className="mt-1 font-semibold text-stone-100">{phaseLabel(snapshot.phase)}</dd>
-            </div>
-          </dl>
+          </div>
+
+          <nav className="mt-6" aria-label="Turn steps">
+            <ol className="relative space-y-0.5 before:absolute before:bottom-3 before:left-[0.3125rem] before:top-3 before:w-px before:bg-white/10">
+              {TURN_STEPS.map(([phase, label]) => {
+                const active = snapshot.phase === phase
+                return (
+                  <li
+                    key={phase}
+                    aria-current={active ? 'step' : undefined}
+                    className={`relative flex min-h-8 items-center gap-3 transition-opacity ${
+                      active ? 'opacity-100' : 'opacity-25'
+                    }`}
+                  >
+                    <span
+                      className={`relative z-10 block shrink-0 rounded-full border ${
+                        active
+                          ? 'size-3 border-current bg-current shadow-[0_0_10px_currentColor]'
+                          : 'ml-0.5 size-2 border-stone-300 bg-ink-950'
+                      }`}
+                      style={active ? { color: activeSeat?.color } : undefined}
+                    />
+                    <span className={`text-sm ${
+                      active ? 'font-semibold text-stone-50' : 'text-stone-300'
+                    }`}>
+                      {label}
+                    </span>
+                  </li>
+                )
+              })}
+            </ol>
+          </nav>
           <div
             className={`mt-5 rounded-xl border p-3 ${
               yourAction
@@ -581,7 +624,7 @@ export const LivePage = () => {
           )}
         </aside>
 
-        <div className="min-w-0">
+        <div className="min-w-0 lg:order-1">
         <section className="rounded-[1.5rem] border border-gold-300/20 bg-gradient-to-br from-gold-400/10 to-ink-900/80 p-5 shadow-2xl shadow-black/20 sm:p-6">
           <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-gold-300">
             <span>Turn {snapshot.turn}</span>
