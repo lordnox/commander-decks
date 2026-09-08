@@ -70,12 +70,11 @@ bun live-runner/src/cli.ts stop --slug <slug>
 **Host does not know or care who pilots a seat** (Cursor, Pages, Ollama, another person). A seat is a capability: valid keys may connect, watch, and write that inbox. Host:
 
 - mints bins and prints four **pipe invites** (`seatRead|inboxWrite`) plus one spectator string (host read only)
-- may `--assign p3,p1,p4,p2` (clockwise from first seat) or **shuffle** which invite goes to which person; labels `p1`–`p4` stay table geometry
-- after four `join`s: **d20 per seat** (or one roll + turn order clockwise from highest); first player is host work, written into talk + snapshot `a`
-- watches four inboxes
-- checks integrity: four joins, legal JSON, snapshot writes, generations
-- publishes NOW to `host` and each `pN`
-- table talk on snapshot `k`; answers `rules` in talk
+- gathers four `join`s, **assigns `pN`**, announces seating in talk, allows **swaps if everyone agrees** (players trade pipe keys; bins do not rename)
+- **d20** / turn order after seating is stable
+- **pregame in turn order** (starting player first): host asks each seat; seat answers `pregame` or skip
+- asks **can we start?**; four `ready`; seating talk clears ready
+- always keeps table talk on snapshot `k`
 
 **Seat client** (Pages, skill, or `seat` runner): parse `k` / `read|mailbox`. Watch `readKey`. If mailbox present, POST inbox. `you` is not sent to the host as a query flag.
 
@@ -98,21 +97,20 @@ Add:
 ```
 { "type": "join", "name": "brew title", "deck": "decks/..." }
 { "type": "ready" }
+{ "type": "swap", "with": "p3" }
+{ "type": "pregame", "cards": ["Leyline of Sanctity"] }
 { "type": "rules", "text": "does this trigger on ETB?" }
 { "type": "talk", "text": "I'll pass if you don't pump" }
 ```
 
-`join` is a snapshot on that seat's inbox. Host starts when all four seats have
-`join`. No skip for a "human" seat — Pages/skill/runner all send `join` (the
-skill can send it when the user names a deck).
+Host lobby is gather → seat (talk/swap) → dice → pregame (turn order) → four ready → play.
+Do not skip to deal on join alone.
 
 ### Session file
 
 `table-games/<slug>.runner.json` (gitignore): role host|seat, slug, origin,
-you?, decks-from-joins, bins, lastGen per bin label, pid?, phase lobby|play|ended.
-
-Host may store all nine pairs. Seat session stores invite fields plus lastGen
-for host and that inbox.
+you?, decks-from-joins, bins, lastGen per bin label, pid?, phase
+gathering | seated | pregame | ready | play | ended.
 
 Also: `table-games/<slug>.runner.log`, `table-games/<slug>.runner.pid`.
 
@@ -139,10 +137,10 @@ poll loop. HTTP GET only on startup/resume to seed lastGen.
 1. Mint or load conduit keys.
 2. Write four pipe invites (optionally shuffled). Spectator = host read.
 3. Watch four inboxes.
-4. On join, bind that inbox → seat; record deck/name.
-5. Four joins: roll d20s, set turn order / first player, `table:deal`, publish.
-6. Play: any inbox `plan`/`confirm`/`replace`/`talk`/`rules` is just a message
-   from that seat. Host applies or answers; it does not branch on "human".
+4. On join, bind mailbox → pN; record deck/name. Announce seating in talk.
+5. Seating open: swaps if all agree (trade pipe invites). Then d20 / first player.
+6. Pregame in turn order; then "can we start?"; four ready → deal and play.
+7. Play: plan/confirm/replace/talk/rules from any seat; host applies or answers.
 
 Host is the only writer of `host` and `pN` bins.
 
@@ -197,7 +195,7 @@ Ollama, Cursor SDK, replacing Pages, mint-auth deploy, server-side deltas.
 1. Invite round-trip; seat invite lacks host.write.
 2. Session save/load.
 3. Watch prefix decode (same 13-byte layout as site/src/liveConduit.ts).
-4. Host lobby: four joins -> phase play (mock conduit).
+4. Host lobby: join → seating/talk/swap → dice → pregame → four ready → play (mock).
 5. Resume does not mint if .conduit.json exists.
 6. stop with stale pid is ok.
 

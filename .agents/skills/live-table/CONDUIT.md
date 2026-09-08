@@ -48,8 +48,20 @@ One host-read key: everyone with it sees the same public game. A seat pipe strin
 {"type":"plan","text":"…"}
 ```
 
-`type` is `plan` | `confirm` | `replace` | `join` | `ready` | `rules` | `talk`.
+`type` is `plan` | `confirm` | `replace` | `join` | `ready` | `rules` | `talk` | `swap` | `pregame`.
 POST as snapshot (latest wins). Host does not record agent vs human.
+
+### Lobby (host script)
+
+Always publish **table talk** on snapshot `k` (host narration + relayed `talk`). Every viewer with a read key sees it.
+
+1. **Gather** — four `join`s (name + deck). Host binds each mailbox → `pN`.
+2. **Seat** — host announces assignment (`p1` … `p4` clockwise) in talk and asks if anyone wants to swap. `swap` names the other seat (or free text in `talk`). Host asks the table; if **all four** agree, those two **exchange pipe invites** (bins stay `p1`–`p4`; people trade keys). Then host re-announces seating.
+3. **Dice** — d20s (or one roll + clockwise). First player + turn order in talk and snapshot `a`.
+4. **Pregame** — in **turn order** (starting player first), host asks that seat for pregame (Leyline, Gemstone Caverns, …). Seat replies `{ "type": "pregame", "cards": ["…"] }` or skip. Host applies, then the next seat. Host is the judge.
+5. **Start?** — host asks if the game can begin. Each seat `{ "type": "ready" }`. Any new `talk`/`swap` about seating **clears ready** and returns to step 2 or 4 as needed. Four `ready` → deal/play.
+
+`waiting` on the snapshot is the current host prompt (`p2: pregame?`, `Can we start?`).
 
 ## Watch
 
