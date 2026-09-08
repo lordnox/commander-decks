@@ -6,6 +6,7 @@ import {
 } from './conduit'
 import {
   acceptsPlayAction,
+  applyIntermediatePass,
   replayActions,
   sameActions,
   setSeatActions,
@@ -187,7 +188,13 @@ export const runHost = async (options: {
 
     const beforeActions = structuredClone(state.actions)
     applyInbox(state, seat, message)
-    if (agentEnabled && state.phase === 'play' && hasReplay(slug, root)) {
+    const intermediatePass = message.type === 'pass'
+      && applyIntermediatePass(root, slug, state, seat)
+    if (intermediatePass) {
+      state.actions = replayActions(root, slug, state)
+      state.judge = `${state.occupants[seat]?.name ?? seat} passes.`
+      state.waiting = 'Priority is still open.'
+    } else if (agentEnabled && state.phase === 'play' && hasReplay(slug, root)) {
       try {
         const result = await invokeHostAgent({
           root,
