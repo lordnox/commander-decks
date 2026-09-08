@@ -92,6 +92,6 @@ See [`.agents/skills/render-table-replay/SKILL.md`](.agents/skills/render-table-
 
 Hot-seat Commander: the human pilots one seat; the agent pilots the other three and judges. Use this when the user takes over a seat, wants a live table, or plays via `/live`.
 
-Deal with `simulate-table`, pause on decisions, encode a NOW snapshot, and post the private live URL. Standing plans come from chat paste; continue from the session file.
+Deal with `simulate-table`, pause on decisions, encode a NOW snapshot into conduit (or payload/`--game` if mint fails), and post one private `/live/` URL. Standing plans come from the live inbox when using conduit; chat is rules analysis and confirmation backup. Continue from the session file.
 
 See [`.agents/skills/live-table/SKILL.md`](.agents/skills/live-table/SKILL.md).

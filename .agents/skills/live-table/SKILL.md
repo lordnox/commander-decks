@@ -10,36 +10,61 @@ description: >-
 # Live Table
 
 Chat hot-seat Commander: the user pilots one seat; you (the agent) pilot the
-other three and judge. The user proposes a LINE in chat. Before changing the
-game, walk its mana, timing, targets, triggers, combat arithmetic, and visible
-responses, then answer whether it works. Wait for the user to confirm or
-replace the line. After confirmation, execute until information changes
-(counter, block, removal of a planned card, illegal next step, politics fork).
-Then pause, encode a NOW snapshot, and post:
+other three and judge. GitHub Pages watches the conduit host bin. **Send plan**
+on the page writes the seat inbox. Chat is for rules analysis and confirmation
+backup, not the primary transport.
+
+The user proposes a LINE (`plan` from the inbox, or pasted in chat). Before
+changing the game, walk its mana, timing, targets, triggers, combat arithmetic,
+and visible responses, then answer whether it works. Wait for the user to
+confirm or replace the line (`confirm` / `replace`, or the same in chat). After
+confirmation, execute until information changes (counter, block, removal of a
+planned card, illegal next step, politics fork). Then pause, encode a NOW
+snapshot into conduit (host public + human seat private), and keep using the
+**same** private URL:
 
 ```text
-https://lordnox.github.io/commander-decks/live/?game=<slug>&event=<id>&you=<seat>
+https://lordnox.github.io/commander-decks/live/?host=<hostRead>&you=<seat>&seat=<seatRead>&inbox=<inboxWrite>
 ```
 
 Always use `/live/` with the trailing slash. GitHub Pages redirects `/live`
-and that can drop a fragment.
-
-The user looks at the Pages board, writes in the page textbox if they want,
-copies the plan, and pastes it in chat.
+and that can drop a fragment. Do not spam new `v2.` payload links when conduit
+is working. Hidden libraries never go in the URL. Write keys never go on a
+public link.
 
 This is **not** a rules engine and **not** the replay archive. Snapshot wire
-format: [`schema.md`](schema.md). Play-to-win for the other seats:
-[`simulate-table`](../simulate-table/SKILL.md).
+format: [`schema.md`](schema.md). Conduit bins, mint, inbox JSON, and URL
+params: [`CONDUIT.md`](CONDUIT.md) (frozen; do not invent extra query params).
+Play-to-win for the other seats: [`simulate-table`](../simulate-table/SKILL.md).
 
 ## Start / continue
 
 1. Deal and play with `simulate-table` as usual (pod, deal, seat agents, replay
    events). Mark one seat `human` (`p1`–`p4`).
-2. Persist working state as `table-games/<slug>.live.json` (gitignored). Keep
+2. Mint the nine bins (`host`, `p1`, `p1-inbox`, … `p4-inbox`) with
+   `LIVE_CONDUIT_API_KEY` and optional `LIVE_CONDUIT_URL`:
+
+   ```bash
+   python3 .agents/skills/live-table/scripts/encode_live.py table-games/<slug>.json \
+     --you p2 --conduit --conduit-keys table-games/<slug>.conduit.json
+   ```
+
+   Keys stay gitignored (`*.conduit.json`, and/or `_conduit` on
+   `table-games/<slug>.live.json`). Never commit them or put them in a replay.
+3. Persist working state as `table-games/<slug>.live.json` (gitignored). Keep
    `_libraries` only in that local file — never in the URL, never in a
    committed replay.
-3. Continue from the session file, not from chat history. Re-read
+4. Continue from the session file, not from chat history. Re-read
    `<slug>.live.json` every pause/resume.
+5. Pause → encode and **append** the public snapshot to the `host` bin and
+   the private snapshot to the human seat bin. Post **one** private `/live/`
+   URL (params above). Do not mint again or post a new payload URL on later
+   pauses unless the session lost conduit.
+6. Poll/watch the human inbox. Accept `plan` / `confirm` / `replace` JSON.
+   Same pause/confirm rules as below: a proposal is not authorization until
+   confirm.
+7. If mint fails, fall back to payload `?s=` or short `--game` links (see
+   Encode fallback).
 
 ## Pause policy
 
@@ -64,11 +89,13 @@ after seeing the checked sequence and likely responses.
 
 ## Standing plan
 
-The confirmed chat line is the standing plan. Execute it in order.
+The confirmed line (inbox `confirm`, or chat confirmation after analysis) is
+the standing plan. Execute it in order.
 
 - On interrupt (counter, unexpected block, removal of a planned card, illegal
   next step, politics fork): **STOP**. Do not invent the rest of the line.
-- Re-encode NOW, post the live URL, and ask what they do next.
+- Re-encode NOW into the same host + seat bins, keep the same live URL, and
+  ask what they do next.
 - Never assume post-counter sequencing from the old plan.
 - After completing the confirmed human turn, run the same Oracle, stats,
   commander-zone, and trigger-causality audit required by `simulate-table`
@@ -78,7 +105,25 @@ The confirmed chat line is the standing plan. Execute it in order.
 
 ## Encode and post
 
-When the game is already published, prefer a short link (no payload):
+Prefer conduit. Encode into bins (host body is the full `v2.…` ASCII snapshot
+string). Chat posts the **private** live URL once:
+
+```text
+https://lordnox.github.io/commander-decks/live/?host=<hostRead>&you=p2&seat=<p2Read>&inbox=<p2InboxWrite>
+```
+
+Optional `c` = conduit origin (no trailing slash). Omit `c` when it is the
+default. Mention the Pages UI has **Copy public link** (`?host=<hostRead>`
+only) for sharing. No write keys, no other seats' read keys, no `_libraries`.
+
+Use the live session path when that is the working file. Pass the human seat
+as `--you`. Put table talk and the current standing plan in `--talk`; the
+prompt in `--waiting`. Add `--event <id>` to pick an earlier frame instead of
+the last one (human takeover: frame **before** that seat's next own decision).
+
+### Encode fallback (mint failed)
+
+When the game is already published, a short link (no payload):
 
 ```bash
 python3 .agents/skills/live-table/scripts/encode_live.py table-games/<slug>.json \
@@ -94,21 +139,8 @@ prints `#s=` past 8000. Extra cards that are not in any 99 keep a tiny catalog
 of Scryfall printing IDs; the browser downloads `decks/<slug>.json` and
 hydrates the rest client-side. Do not inline card details when an ID exists.
 
-Add `--event <id>` to pick an earlier frame instead of the last one. Use it
-when the human takes over a recorded game mid-log: pick the frame **before**
-that seat's next own decision, since every later play by that seat was an agent
-choice and is now discarded.
-
-Use the live session path when that is the working file. Pass the human seat as
-`--you`. Put table talk and the current standing plan in `--talk`; the prompt
-in `--waiting`.
-
-Chat posts the **private** live URL (viewer hand included for `--you`, or the
-matching short link). Mention the Pages UI has **Copy public link** for sharing
-(hands stripped). Hidden libraries never go in the URL.
-
 ## After the game
 
-Optional: hand the finished replay to `render-table-replay` for the archive
-player. Live `/live/` is only the current NOW frame — do not treat a payload
-link as a recorded game.
+DELETE the bin write keys. Optional: hand the finished replay to
+`render-table-replay` for the archive player. Live `/live/` is only the current
+NOW frame — do not treat a payload or conduit snapshot as a recorded game.
