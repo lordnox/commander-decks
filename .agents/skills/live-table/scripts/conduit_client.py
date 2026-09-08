@@ -5,11 +5,13 @@ from __future__ import annotations
 
 import json
 import os
+from pathlib import Path
 from urllib.error import HTTPError
 from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 
 DEFAULT_ORIGIN = "https://conduit.app.kopelke.online"
+DEFAULT_ENV_PATH = Path.home() / ".config/commander-decks/live-conduit.env"
 BIN_LABELS = (
     "host",
     "p1",
@@ -23,8 +25,38 @@ BIN_LABELS = (
 )
 
 
+def load_env_file(path: Path | None = None) -> dict[str, str]:
+    env_path = path or DEFAULT_ENV_PATH
+    loaded: dict[str, str] = {}
+    try:
+        text = env_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        return loaded
+    for raw in text.splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip("'").strip('"')
+        if key:
+            loaded[key] = value
+    return loaded
+
+
+def env_value(name: str, path: Path | None = None) -> str | None:
+    existing = os.environ.get(name)
+    if existing:
+        return existing
+    return load_env_file(path).get(name)
+
+
 def origin_from_env() -> str:
-    return (os.environ.get("LIVE_CONDUIT_URL") or DEFAULT_ORIGIN).rstrip("/")
+    return (env_value("LIVE_CONDUIT_URL") or DEFAULT_ORIGIN).rstrip("/")
+
+
+def api_key_from_env() -> str | None:
+    return env_value("LIVE_CONDUIT_API_KEY")
 
 
 def _request(
