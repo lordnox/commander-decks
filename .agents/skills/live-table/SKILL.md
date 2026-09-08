@@ -114,7 +114,9 @@ on. A window is expensive — each seat's answer costs a judging round — so op
 the ones that matter and skip the ceremony.
 
 An open window names its responders and how to answer: `plan` to respond or
-`pass` for no action. `talk` is social speech only. Hold the game there. Execute a standing plan only up to the
+`pass` for no action. Put those seats on the event as `seats`, since the
+encoder shows the prompt only to the seats it is addressed to and gives
+everyone else a neutral `Waiting on …` line. `talk` is social speech only. Hold the game there. Execute a standing plan only up to the
 next window, then stop and publish.
 
 ## Standing plan

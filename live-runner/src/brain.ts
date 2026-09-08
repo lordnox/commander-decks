@@ -99,6 +99,8 @@ Do exactly one host step:
   phase. Stop at the next priority window or when information changes.
 - a priority window is an event with kind "priority" in phase "priority" that
   names the seats who may act and how (\`plan\` to respond, \`pass\` for no action).
+  List those seats on the event as "seats": ["p2","p3"] so each board can tell
+  whether the window is asking that viewer.
   Open one when an object goes on the stack, at declare attackers, at declare
   blockers, before combat damage when a trick would matter, at the active
   seat's end step, and on a politics fork. Do not open one where nothing can
@@ -122,6 +124,10 @@ The judge note and waiting prompt are public to every seat. Never name or
 analyze a card from a player's hidden hand, library, or private plan there.
 Put public game facts and the ruling only. Do not copy plans, confirms, passes,
 or rules questions into table talk.
+
+Address the waiting prompt to the seat you need a message from. Seats you did
+not ask are shown a neutral "Waiting on …" line instead, so do not write a
+prompt that only makes sense to one seat without naming who owes the answer.
 
 If you legally append events to the replay, set replayChanged true. Preserve
 _libraries in the working replay. The runner will validate and publish it.
