@@ -25,6 +25,7 @@ const snapshot = (): LiveSnapshot => ({
   turn: 3,
   phase: 'main1',
   active: 'p2',
+  awaiting: 'p3',
   stack: [{ name: 'Counterspell', controller: 'p1', text: 'on Sol Ring' }],
   seats: [
     {
@@ -137,5 +138,6 @@ describe('live compact v2', () => {
     expect(expanded.catalog.Forest).toEqual({ id: 'id-1' })
     expect(expanded.seats[0].hand).toBeUndefined()
     expect(expanded.events).toEqual(original.events)
+    expect(expanded.awaiting).toBe('p3')
   })
 })

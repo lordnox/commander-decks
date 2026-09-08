@@ -437,6 +437,7 @@ export const LivePage = () => {
       ].filter(Boolean) as LiveSeat[]
     : [seats[2], seats[1], seats[3], seats[0]].filter(Boolean)
   const activeSeat = seats.find((seat) => seat.id === snapshot.active)
+  const awaitingSeat = seats.find((seat) => seat.id === snapshot.awaiting)
 
   return (
     <div className={`min-h-screen ${hidden ? 'pb-8' : 'pb-56'}`}>
@@ -524,6 +525,20 @@ export const LivePage = () => {
                     </li>
                   )
                 })}
+                {awaitingSeat && (
+                  <li className="grid grid-cols-[auto_1fr] gap-3 border-t border-white/10 pt-2 text-sm leading-5">
+                    <span className="whitespace-nowrap text-xs font-bold uppercase tracking-[0.12em] text-gold-300">
+                      Judge
+                    </span>
+                    <span className="font-semibold text-stone-100">
+                      Waiting on{' '}
+                      <span style={{ color: awaitingSeat.color }}>{awaitingSeat.name}</span>
+                      {awaitingSeat.id === snapshot.you
+                        ? ' — that is you.'
+                        : ` (${awaitingSeat.id}).`}
+                    </span>
+                  </li>
+                )}
               </ol>
             </div>
           )}

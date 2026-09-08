@@ -20,6 +20,7 @@ export type LiveWireV2 = {
   t: number
   p: number
   a: number
+  q?: number
   d?: string[]
   n: string[]
   c?: string[]
@@ -283,6 +284,10 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
     z: packedSeats,
   }
   if (you >= 0) wire.y = you
+  const awaiting = snapshot.awaiting
+    ? SEAT_IDS.indexOf(snapshot.awaiting as (typeof SEAT_IDS)[number])
+    : -1
+  if (awaiting >= 0) wire.q = awaiting
   if (snapshot.waiting && snapshot.waiting !== DEFAULT_WAITING) wire.w = snapshot.waiting
   if (snapshot.talk) wire.k = snapshot.talk
   if (snapshot.events?.length) {
@@ -450,6 +455,7 @@ export const expandLiveWire = (
     turn: wire.t,
     phase: PHASES[wire.p] ?? 'main1',
     active: SEAT_IDS[wire.a] ?? 'p1',
+    awaiting: wire.q === undefined ? null : SEAT_IDS[wire.q] ?? null,
     stack: (wire.s ?? []).map((item) => {
       if (typeof item === 'number') return { name: lookupRef(item, lists, extras, tokens) as string | number }
       if (!Array.isArray(item)) return { name: String(item) }

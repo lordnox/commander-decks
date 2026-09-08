@@ -416,6 +416,9 @@ def compact_snapshot(
             for event in events
             if isinstance(event, dict)
         ]
+    awaiting = snapshot.get("awaiting")
+    if awaiting in SEAT_IDS:
+        wire["q"] = SEAT_IDS.index(awaiting)
     if any(slugs):
         wire["d"] = slugs
     names = [seat.get("name") or seat_id for seat, seat_id in zip(seats_in, SEAT_IDS)]
@@ -701,6 +704,11 @@ def expand_snapshot(wire: dict, indexes: dict[str, list[dict[str, Any]]] | None 
         "turn": wire.get("t", 0),
         "phase": PHASES[wire["p"]] if isinstance(wire.get("p"), int) and 0 <= wire["p"] < len(PHASES) else "main1",
         "active": SEAT_IDS[wire["a"]] if isinstance(wire.get("a"), int) and 0 <= wire["a"] < 4 else "p1",
+        "awaiting": (
+            SEAT_IDS[wire["q"]]
+            if isinstance(wire.get("q"), int) and 0 <= wire["q"] < 4
+            else None
+        ),
         "stack": _unpack_stack(wire.get("s") or [], **lookup),
         "seats": seats,
         "catalog": catalog_from_indexes(slugs, indexes or {}, wire.get("g")),
