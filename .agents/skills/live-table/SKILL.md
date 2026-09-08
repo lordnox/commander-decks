@@ -24,7 +24,7 @@ snapshot into conduit (host public + human seat private), and keep using the
 **same** private URL:
 
 ```text
-https://lordnox.github.io/commander-decks/live/?host=<hostRead>&you=<seat>&seat=<seatRead>&inbox=<inboxWrite>
+https://lordnox.github.io/commander-decks/live/?k=<seatRead>%7C<inboxWrite>
 ```
 
 Always use `/live/` with the trailing slash. GitHub Pages redirects `/live`
@@ -110,11 +110,11 @@ Prefer conduit. Encode into bins (host body is the full `v2.…` ASCII snapshot
 string). Chat posts the **private** live URL once:
 
 ```text
-https://lordnox.github.io/commander-decks/live/?host=<hostRead>&you=p2&seat=<p2Read>&inbox=<p2InboxWrite>
+https://lordnox.github.io/commander-decks/live/?k=<p2Read>%7C<p2InboxWrite>
 ```
 
 Optional `c` = conduit origin (no trailing slash). Omit `c` when it is the
-default. Mention the Pages UI has **Copy public link** (`?host=<hostRead>`
+default. Mention the Pages UI has **Copy public link** (`?k=<hostRead>`
 only) for sharing. No write keys, no other seats' read keys, no `_libraries`.
 
 Use the live session path when that is the working file. Pass the human seat

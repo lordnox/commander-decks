@@ -11,10 +11,10 @@ play and leaves the recorded replay alone.
 - **Replay** (archive): `https://lordnox.github.io/commander-decks/?game=<slug>`
   — full event log from a finished `table-games/<slug>.json` published by
   `render-table-replay`.
-- **Live** (NOW only): `https://lordnox.github.io/commander-decks/live/?host=<hostRead>&you=<seat>&seat=<seatRead>&inbox=<inboxWrite>`
+- **Live** (NOW only): `https://lordnox.github.io/commander-decks/live/?k=<seatRead>%7C<inboxWrite>`
   — one hot-seat snapshot from `live-table` via conduit. Pages watches the
   host bin; the human writes plans to the inbox. Always `/live/` with the
-  trailing slash. Public share is `?host=<hostRead>` only (no write keys).
+  trailing slash. Public share is `?k=<hostRead>` only (no write keys).
   Payload `?s=` and short `?game=` links remain fallbacks when mint fails.
   Payload links (`v2.`) name the four deck slugs and point at card slots in
   those 99s; the page downloads `decks/<slug>.json`. No event history.

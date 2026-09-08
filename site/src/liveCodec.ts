@@ -68,6 +68,7 @@ export type LiveRequest =
       kind: 'conduit'
       origin: string
       host: string
+      read: string
       you?: string
       seat?: string
       inbox?: string
@@ -140,6 +141,26 @@ export const readLiveRequest = (
   if (payload) return { kind: 'payload', payload }
 
   const query = new URLSearchParams(location.search)
+  const conduitKey = query.get('k')
+  if (conduitKey !== null) {
+    const pipe = conduitKey.indexOf('|')
+    const read = pipe < 0 ? conduitKey : conduitKey.slice(0, pipe)
+    const inbox = pipe < 0 ? undefined : conduitKey.slice(pipe + 1)
+    if (!/^[A-Za-z0-9_-]{40,44}$/.test(read)) {
+      throw new Error('This live conduit read key is not valid')
+    }
+    if (inbox !== undefined && !/^[A-Za-z0-9_-]{40,44}$/.test(inbox)) {
+      throw new Error('This live conduit inbox key is not valid')
+    }
+    return {
+      kind: 'conduit',
+      origin: conduitOrigin(location),
+      host: read,
+      read,
+      inbox,
+    }
+  }
+
   const host = query.get('host')
   if (host) {
     if (!/^[A-Za-z0-9_-]{40,44}$/.test(host)) {
@@ -153,6 +174,7 @@ export const readLiveRequest = (
       kind: 'conduit',
       origin: conduitOrigin(location),
       host,
+      read: you && query.get('seat') ? query.get('seat') as string : host,
       you,
       seat: query.get('seat') || undefined,
       inbox: query.get('inbox') || undefined,
@@ -196,12 +218,11 @@ const conduitUrl = (
   url.pathname = `${url.pathname.replace(/\/+$/, '')}/`
   url.search = ''
   url.hash = ''
-  url.searchParams.set('host', request.host)
-  if (includePrivate) {
-    if (request.you) url.searchParams.set('you', request.you)
-    if (request.seat) url.searchParams.set('seat', request.seat)
-    if (request.inbox) url.searchParams.set('inbox', request.inbox)
-  }
+  const read = includePrivate ? request.read : request.host
+  const key = includePrivate && request.inbox
+    ? `${read}|${request.inbox}`
+    : read
+  url.searchParams.set('k', key)
   if (request.origin !== DEFAULT_CONDUIT_ORIGIN) {
     url.searchParams.set('c', request.origin)
   }

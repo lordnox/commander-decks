@@ -128,12 +128,8 @@ def conduit_private_url(
     inbox_write: str,
     origin: str | None = None,
 ) -> str:
-    params = {
-        "host": host_read,
-        "you": you,
-        "seat": seat_read,
-        "inbox": inbox_write,
-    }
+    del host_read, you
+    params = {"k": f"{seat_read}|{inbox_write}"}
     selected_origin = (origin or origin_from_env()).rstrip("/")
     if selected_origin != DEFAULT_ORIGIN:
         params["c"] = selected_origin
@@ -146,7 +142,7 @@ def conduit_public_url(
     host_read: str,
     origin: str | None = None,
 ) -> str:
-    params = {"host": host_read}
+    params = {"k": host_read}
     selected_origin = (origin or origin_from_env()).rstrip("/")
     if selected_origin != DEFAULT_ORIGIN:
         params["c"] = selected_origin

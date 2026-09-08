@@ -15,6 +15,9 @@
     "table:render": "python3 .agents/skills/render-table-replay/scripts/render_replay.py",
     "table:pages": "python3 .agents/skills/render-table-replay/scripts/build_pages.py",
     "table:live": "python3 .agents/skills/live-table/scripts/encode_live.py",
+    "table:run": "bun live-runner/src/cli.ts",
+    "table:run:bg": "bun live-runner/src/cli.ts",
+    "test:live-runner": "bun test live-runner",
     "table:decks": "python3 .agents/skills/live-table/scripts/publish_deck_indexes.py",
     "site:prepare": "bun run table:render && bun run table:pages && bun run table:decks"
   },

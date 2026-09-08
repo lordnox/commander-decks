@@ -1,0 +1,100 @@
+import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+import { describe, expect, mock, test } from 'bun:test'
+import { mint } from './conduit'
+import { ensureHostKeys } from './host'
+import { createLobby } from './lobby'
+import { BIN_LABELS } from './protocol'
+import {
+  loadSession,
+  pidAlive,
+  saveKeys,
+  saveSession,
+} from './session'
+import { encodeLobby } from './snapshot'
+
+const fakeBins = () =>
+  Object.fromEntries(
+    BIN_LABELS.map((label) => [
+      label,
+      { read: `${label}-r`.padEnd(43, 'x'), write: `${label}-w`.padEnd(43, 'y') },
+    ]),
+  )
+
+const mkdirGames = (root: string) => {
+  writeFileSync(join(root, 'package.json'), '{}\n')
+  mkdirSync(join(root, 'table-games'), { recursive: true })
+}
+
+describe('session', () => {
+  test('save and load a host session', () => {
+    const root = mkdtempSync(join(tmpdir(), 'live-runner-'))
+    mkdirGames(root)
+    saveSession(
+      {
+        role: 'host',
+        slug: 'pod',
+        origin: 'https://example.test',
+        bins: fakeBins(),
+        lastGen: { host: 1 },
+        phase: 'gathering',
+        occupants: {},
+        firstPlayer: 'p1',
+      },
+      root,
+    )
+    expect(loadSession('pod', root)?.role).toBe('host')
+  })
+})
+
+describe('snapshot', () => {
+  test('lobby payload is v2', () => {
+    expect(encodeLobby(createLobby())).toStartWith('v2.')
+  })
+})
+
+describe('conduit mint', () => {
+  test('posts bins labels', async () => {
+    const fetchMock = mock(async (input: RequestInfo | URL, init?: RequestInit) => {
+      expect(String(input)).toBe('https://conduit.test/v1/mint')
+      expect(JSON.parse(String(init?.body))).toEqual({ bins: [...BIN_LABELS] })
+      return new Response(JSON.stringify({ bins: fakeBins() }), { status: 201 })
+    })
+    const original = globalThis.fetch
+    globalThis.fetch = fetchMock as typeof fetch
+    try {
+      const result = await mint('https://conduit.test', 'secret')
+      expect(result.bins.host.read.length).toBe(43)
+    } finally {
+      globalThis.fetch = original
+    }
+  })
+})
+
+describe('host keys', () => {
+  test('does not mint when conduit json exists', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'live-runner-'))
+    mkdirGames(root)
+    saveKeys('pod', 'https://saved.test', fakeBins(), root)
+    const fetchMock = mock(async () => {
+      throw new Error('should not mint')
+    })
+    const original = globalThis.fetch
+    globalThis.fetch = fetchMock as typeof fetch
+    try {
+      const keys = await ensureHostKeys('pod', root)
+      expect(keys.minted).toBe(false)
+      expect(keys.origin).toBe('https://saved.test')
+      expect(fetchMock).not.toHaveBeenCalled()
+    } finally {
+      globalThis.fetch = original
+    }
+  })
+})
+
+describe('stop', () => {
+  test('stale pid is not alive', () => {
+    expect(pidAlive(999999999)).toBe(false)
+  })
+})

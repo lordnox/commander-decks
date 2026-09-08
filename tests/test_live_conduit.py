@@ -78,12 +78,7 @@ class ConduitClientTests(unittest.TestCase):
         parsed = urlparse(private)
         self.assertEqual(
             parse_qs(parsed.query),
-            {
-                "host": ["host read"],
-                "you": ["p2"],
-                "seat": ["seat read"],
-                "inbox": ["inbox write"],
-            },
+            {"k": ["seat read|inbox write"]},
         )
         self.assertNotIn("c", parse_qs(parsed.query))
 
@@ -94,7 +89,7 @@ class ConduitClientTests(unittest.TestCase):
         )
         self.assertEqual(
             parse_qs(urlparse(public).query),
-            {"host": ["host"], "c": ["https://local.test"]},
+            {"k": ["host"], "c": ["https://local.test"]},
         )
 
     @patch.object(conduit_client, "urlopen")
@@ -196,14 +191,16 @@ class EncodeConduitTests(unittest.TestCase):
                 {"origin": "https://conduit.test", "bins": bins},
             )
             lines = stdout.getvalue().strip().splitlines()
-            self.assertIn("host=host-read", lines[0])
-            self.assertIn("you=p2", lines[0])
-            self.assertIn("seat=p2-read", lines[0])
-            self.assertIn("inbox=p2-inbox-write", lines[0])
+            private_query = parse_qs(urlparse(lines[0].removeprefix("private: ")).query)
+            public_query = parse_qs(urlparse(lines[1].removeprefix("public:  ")).query)
+            self.assertEqual(private_query["k"], ["p2-read|p2-inbox-write"])
+            self.assertNotIn("host", private_query)
+            self.assertNotIn("you", private_query)
+            self.assertNotIn("seat", private_query)
+            self.assertNotIn("inbox", private_query)
             self.assertIn("c=https%3A%2F%2Fconduit.test", lines[0])
-            self.assertNotIn("you=", lines[1])
-            self.assertNotIn("seat=", lines[1])
-            self.assertNotIn("inbox=", lines[1])
+            self.assertEqual(public_query["k"], ["host-read"])
+            self.assertNotIn("p2-inbox-write", public_query["k"][0])
 
     def test_cli_reuses_existing_keys_without_minting(self):
         bins = fake_bins()
