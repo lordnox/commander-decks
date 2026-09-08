@@ -402,6 +402,20 @@ def compact_snapshot(
     talk = snapshot.get("talk")
     if talk:
         wire["k"] = talk
+    events = snapshot.get("events") or []
+    if events:
+        wire["e"] = [
+            [
+                event.get("id", 0),
+                event.get("turn", 0),
+                _phase_index(event.get("phase")),
+                SEAT_IDS.index(event["seat"]) if event.get("seat") in SEAT_IDS else -1,
+                event.get("kind") or "event",
+                event.get("summary") or "",
+            ]
+            for event in events
+            if isinstance(event, dict)
+        ]
     if any(slugs):
         wire["d"] = slugs
     names = [seat.get("name") or seat_id for seat, seat_id in zip(seats_in, SEAT_IDS)]
@@ -664,6 +678,26 @@ def expand_snapshot(wire: dict, indexes: dict[str, list[dict[str, Any]]] | None 
         "headline": wire.get("h") or "",
         "waiting": wire.get("w") or DEFAULT_WAITING,
         "talk": wire.get("k") or "",
+        "events": [
+            {
+                "id": event[0],
+                "turn": event[1],
+                "phase": (
+                    PHASES[event[2]]
+                    if isinstance(event[2], int) and 0 <= event[2] < len(PHASES)
+                    else "main1"
+                ),
+                "seat": (
+                    SEAT_IDS[event[3]]
+                    if isinstance(event[3], int) and 0 <= event[3] < len(SEAT_IDS)
+                    else None
+                ),
+                "kind": event[4],
+                "summary": event[5],
+            }
+            for event in wire.get("e") or []
+            if isinstance(event, list) and len(event) >= 6
+        ],
         "turn": wire.get("t", 0),
         "phase": PHASES[wire["p"]] if isinstance(wire.get("p"), int) and 0 <= wire["p"] < len(PHASES) else "main1",
         "active": SEAT_IDS[wire["a"]] if isinstance(wire.get("a"), int) and 0 <= wire["a"] < 4 else "p1",

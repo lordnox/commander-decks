@@ -12,6 +12,16 @@ const snapshot = (): LiveSnapshot => ({
   headline: 'Test table',
   waiting: 'Would this line work? Confirm or replace it.',
   talk: 'Hold up.',
+  events: [
+    {
+      id: 8,
+      turn: 3,
+      phase: 'main1',
+      seat: 'p2',
+      kind: 'cast',
+      summary: 'Beta casts Cultivate.',
+    },
+  ],
   turn: 3,
   phase: 'main1',
   active: 'p2',
@@ -126,5 +136,6 @@ describe('live compact v2', () => {
     })
     expect(expanded.catalog.Forest).toEqual({ id: 'id-1' })
     expect(expanded.seats[0].hand).toBeUndefined()
+    expect(expanded.events).toEqual(original.events)
   })
 })

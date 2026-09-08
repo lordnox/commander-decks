@@ -35,12 +35,22 @@ export type LiveSeat = {
   revealed_top?: Array<string | number>
 }
 
+export type LiveEvent = {
+  id: number
+  turn: number
+  phase: string
+  seat?: string | null
+  kind: string
+  summary: string
+}
+
 export type LiveSnapshot = {
   v: 1
   you?: string | null
   headline: string
   waiting?: string
   talk?: string
+  events?: LiveEvent[]
   turn: number
   phase: string
   active: string
@@ -367,10 +377,25 @@ export const encodePublicLivePayload = async (snapshot: LiveSnapshot) => {
     const { hand: _hand, ...rest } = seat
     return rest
   })
+  const seatNames = new Map(seats.map((seat) => [seat.id, seat.name]))
+  const events = compact.events?.map((event) => {
+    const name = event.seat ? seatNames.get(event.seat) ?? event.seat : 'Table'
+    if (event.kind === 'draw') {
+      return { ...event, summary: `${name} draws a card.` }
+    }
+    if (event.kind === 'pass') {
+      return {
+        ...event,
+        summary: event.phase === 'end' ? `${name} ends the turn.` : `${name} passes.`,
+      }
+    }
+    return event
+  })
   return encodeLivePayload({
     ...compact,
     you: null,
     seats,
+    events,
   })
 }
 

@@ -499,10 +499,43 @@ export const LivePage = () => {
               {snapshot.waiting}
             </h2>
           )}
+          {snapshot.events && snapshot.events.length > 0 && (
+            <div className="mt-5 rounded-2xl border border-white/10 bg-black/15 p-4">
+              <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-moss-200">
+                Game log
+              </p>
+              <ol className="mt-3 space-y-2">
+                {snapshot.events.slice(-20).map((event) => {
+                  const seat = seats.find(({ id }) => id === event.seat)
+                  return (
+                    <li
+                      key={event.id}
+                      className="grid grid-cols-[auto_1fr] gap-3 text-sm leading-5"
+                    >
+                      <span className="whitespace-nowrap text-xs text-stone-500">
+                        T{event.turn} · {phaseLabel(event.phase)}
+                      </span>
+                      <span
+                        className={event.kind === 'think' ? 'italic text-stone-400' : 'text-stone-200'}
+                        style={event.kind === 'think' && seat ? { color: seat.color } : undefined}
+                      >
+                        {event.summary}
+                      </span>
+                    </li>
+                  )
+                })}
+              </ol>
+            </div>
+          )}
           {snapshot.talk && (
-            <p className="mt-4 border-l-2 border-moss-300 pl-4 text-sm leading-6 text-stone-300 whitespace-pre-wrap">
-              {snapshot.talk}
-            </p>
+            <div className="mt-4 border-l-2 border-moss-300 pl-4">
+              <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-moss-200">
+                Table talk
+              </p>
+              <p className="mt-2 text-sm leading-6 text-stone-300 whitespace-pre-wrap">
+                {snapshot.talk}
+              </p>
+            </div>
           )}
           {combat.length > 0 && (
             <div className="mt-4 rounded-2xl border border-orange-300/20 bg-orange-500/5 p-4">
