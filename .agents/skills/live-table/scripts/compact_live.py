@@ -232,11 +232,14 @@ def _pack_battlefield(entries: list, table: CardTable, *, prefer: int) -> list:
         if not isinstance(entry, dict):
             packed.append(table.card_ref(entry, prefer=prefer))
             continue
-        if entry.get("token"):
-            token_id = entry.get("token_id")
-            if not isinstance(token_id, str) or not token_id:
-                token_id = _as_name(entry) or "token"
+        token_id = entry.get("token_id") if entry.get("token") else None
+        if isinstance(token_id, str) and token_id:
             ref = table.token_ref(token_id, {"name": _as_name(entry)})
+        elif entry.get("token"):
+            # A token copy of a printed card has no token printing of its own.
+            # Point at the card so the board keeps its art, type line, and
+            # Oracle text; the token flag still travels in the packed flags.
+            ref = table.card_ref(entry, prefer=prefer)
         else:
             ref = table.card_ref(entry, prefer=prefer)
         flags = _pack_flags(entry)

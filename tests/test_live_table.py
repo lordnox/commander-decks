@@ -593,6 +593,27 @@ class LiveTableEncodeTests(unittest.TestCase):
         self.assertIn("hand", expanded["seats"][0])
         self.assertNotIn("hand", expanded["seats"][1])
 
+    def test_token_copy_of_a_printed_card_keeps_that_card_slot(self):
+        replay_path = ROOT / "table-games" / "seed1729-jalira-jon-eva-sygg.json"
+        replay = json.loads(replay_path.read_text(encoding="utf-8"))
+        board = replay["events"][-1]["state"]["players"]["p1"]["battlefield"]
+        printed = board[0]["name"]
+        board.append({"name": printed, "token": True})
+        private = encode_live.build_snapshot(
+            replay,
+            you="p1",
+            talk="",
+            waiting="",
+            public=False,
+        )
+        payload = encode_live.encode_payload(private, replay=replay)
+        expanded = encode_live.decode_snapshot(payload, replay=replay)
+        copy = expanded["seats"][0]["battlefield"][-1]
+        self.assertEqual(copy["name"], printed)
+        self.assertTrue(copy["token"])
+        self.assertNotIn("token_id", copy)
+        self.assertIn("id", expanded["catalog"][printed])
+
 
 if __name__ == "__main__":
     unittest.main()
