@@ -118,10 +118,10 @@ push, or edit deck files.
 Write table-games/${slug}.agent-result.json containing one JSON object:
 {"judge":"short public judge note","waiting":"specific next prompt","replayChanged":false}
 
-The judge note is public to every seat. Never name or analyze a card from a
-player's hidden hand, library, or private plan there. Put public game facts and
-the ruling only. Do not copy plans, confirms, passes, or rules questions into
-table talk.
+The judge note and waiting prompt are public to every seat. Never name or
+analyze a card from a player's hidden hand, library, or private plan there.
+Put public game facts and the ruling only. Do not copy plans, confirms, passes,
+or rules questions into table talk.
 
 If you legally append events to the replay, set replayChanged true. Preserve
 _libraries in the working replay. The runner will validate and publish it.
@@ -249,6 +249,9 @@ export const invokeHostAgent = async (options: {
     const publicReplay = result.replayChanged ? scratchReplay : sourceReplay
     if (result.judge) result.judge = redactHiddenCards(result.judge, publicReplay)
     if (result.talk) result.talk = redactHiddenCards(result.talk, publicReplay)
+    if (result.waiting) {
+      result.waiting = redactHiddenCards(result.waiting, publicReplay)
+    }
     logLine(logFile, `agent done ${seat} generation ${generation}`)
     return result
   } finally {
