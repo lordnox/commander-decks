@@ -1,11 +1,12 @@
-# live-runner — implementation plan
+# live-runner — target
 
 Long-running Bun process that hosts or sits at a live table. It is the event
 loop: WebSocket to conduit, state on disk, brains only on a frame. Cursor
 chat does not poll.
 
-Source of truth for the first cut. Do not invent extra bins, query params, or
-inbox types beyond `.agents/skills/live-table/CONDUIT.md`.
+Build order and lobby FSM: [`PLAN.md`](PLAN.md).
+Do not invent extra bins, query params, or inbox types beyond
+`.agents/skills/live-table/CONDUIT.md`.
 
 Product: live-runner
 Entry: `bun live-runner/src/cli.ts`
