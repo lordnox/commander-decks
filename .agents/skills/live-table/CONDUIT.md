@@ -16,29 +16,31 @@ Frozen for the `/live` + `live-table` cut. Do not invent extra query params or i
 
 | Label | Write | Read | Body |
 |---|---|---|---|
-| `host` | agent | anyone with the public link | public v2 snapshot bytes (`v2.` zlib payload, **no** `v2.` prefix on the wire — raw compressed payload **or** the same bytes `encode_live.encode_payload` produces including `v2.` prefix). **Use the full `v2.…` ASCII string as the snapshot body** so the page can `openLivePayload`. |
-| `p1`…`p4` | agent | that seat | private v2 snapshot (`you` set, hand included) |
-| `pN-inbox` | that human | agent | UTF-8 JSON inbox message |
+| `host` | host | spectators | public v2 snapshot (`v2.` string as body) |
+| `p1`…`p4` | host | that seat | private v2 snapshot (`y` set, hand included) |
+| `pN-inbox` | that seat | host | UTF-8 JSON |
 
-Keys live only in gitignored `table-games/<slug>.live.json` under `_conduit`. Never in a committed replay. Never put write keys or other seats' read keys on a public URL.
+Never put host write in an invite.
 
-## Pages URL
-
-Private:
+## Chat invite (one string)
 
 ```text
-https://lordnox.github.io/commander-decks/live/?host=<hostRead>&you=p2&seat=<p2Read>&inbox=<p2InboxWrite>
+<readKey>|<mailboxWrite>
 ```
 
-Optional `c` = conduit origin (no trailing slash). Omit `c` when it is the default.
+- `readKey` — GET/watch this bin. **Host read** = public table (no hands). **Seat read** = that seat’s private NOW (`y` set, hand included).
+- `mailboxWrite` — POST that seat’s inbox. Omit for spectate (readKey only).
 
-Public (Copy public link):
+Pages: `/live/?k=<readKey>` or `/live/?k=<readKey>%7C<mailboxWrite>`. Optional `c`. Trailing slash on `/live/`.
 
-```text
-https://lordnox.github.io/commander-decks/live/?host=<hostRead>
-```
+Do not put `you` or `seat` in the URL. After decode, `you` is snapshot `y`. Spectators omit `y`. Copy public link = host read only.
 
-Keep `/live/` trailing slash. Payload `?s=` and short `?game=` links remain valid fallbacks.
+### What `you` and `seat` used to do
+
+- `you=p2` — UI whose hand / order. Redundant if the body has `y`.
+- `seat=` — extra read key next to `host=`. One `k=` replaces both: the key you hold is the board you see.
+
+One host-read key: everyone with it sees the same public game. A seat pipe string is a different read key (that hand). Payload `?s=` and `?game=` stay as fallbacks.
 
 ## Inbox JSON
 
@@ -47,17 +49,12 @@ Keep `/live/` trailing slash. Payload `?s=` and short `?game=` links remain vali
 ```
 
 `type` is `plan` | `confirm` | `replace` | `join` | `ready` | `rules` | `talk`.
-POST as `X-Live-Conduit-Kind: snapshot` (latest message wins) unless appending a
-follow-up, then `delta` is allowed; the page uses `snapshot`.
-
-A seat is a capability. Host does not record whether the client is an agent, a
-browser, or a person. Anyone with that seat’s read keys sees that seat’s private
-view.
+POST as snapshot (latest wins). Host does not record agent vs human.
 
 ## Watch
 
-`wss://<origin>/v1/watch`, first text message `{ "read": "<readKey>", "snapshotsOnly": true }`. Binary frames: `u32 bodyLength | u8 kind | u64 generation | body` (big-endian). `kind` 0 = snapshot.
+`wss://<origin>/v1/watch`, first text `{ "read": "<readKey>", "from"?, "snapshotsOnly": true }`. Prefix: `u32 bodyLength | u8 kind | u64 generation | body`. `kind` 0 = snapshot.
 
 ## Seat layout
 
-On the live page, put the `you` seat first (top-left). Then the other seats in `p1`–`p4` order excluding `you`. Spectators keep `p3, p2, p4, p1`.
+Snapshot `you` / `y` first (top-left). Spectators (no `y`): `p3, p2, p4, p1`.
