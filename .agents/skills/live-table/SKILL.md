@@ -140,6 +140,12 @@ prints `#s=` past 8000. Extra cards that are not in any 99 keep a tiny catalog
 of Scryfall printing IDs; the browser downloads `decks/<slug>.json` and
 hydrates the rest client-side. Do not inline card details when an ID exists.
 
+## Long-running host/seat (no poll)
+
+A Cursor chat must not poll conduit. The Bun **live-runner** (`live-runner/IMPLEMENTATION.md`)
+holds WebSockets and session files. Chat starts it in the background (pid + log)
+and exits. Human `/live-game` still uses Pages + this skill.
+
 ## After the game
 
 DELETE the bin write keys. Optional: hand the finished replay to

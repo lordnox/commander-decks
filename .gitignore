@@ -3,6 +3,10 @@
 table-games/*.json
 table-games/*.live.json
 table-games/*.conduit.json
+table-games/*.runner.json
+table-games/*.runner.log
+table-games/*.runner.pid
+table-games/*.invite-p*.json
 
 # Local secrets (API keys, etc.).
 .env
