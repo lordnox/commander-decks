@@ -193,7 +193,12 @@ export const runHost = async (options: {
     if (deterministicPass) {
       state.actions = replayActions(root, slug, state)
       state.judge = `${state.occupants[seat]?.name ?? seat} passes.`
-      state.waiting = 'Priority is still open.'
+      const next = SEAT_IDS.find(
+        (candidate) => state.actions[candidate]?.includes('plan'),
+      )
+      state.waiting = deterministicPass === 'turn' && next
+        ? `${state.occupants[next]?.name ?? next}: send a turn plan.`
+        : 'Priority is still open.'
     } else if (agentEnabled && state.phase === 'play' && hasReplay(slug, root)) {
       try {
         const result = await invokeHostAgent({

@@ -136,6 +136,8 @@ export const applyDeterministicPass = (
       seats: remaining,
       state: structuredClone(last.state),
     })
+    writeFileSync(path, `${JSON.stringify(replay, null, 2)}\n`)
+    return 'priority'
   } else {
     const active = last.state.active as SeatId
     const emptyStack = (last.state.stack ?? []).length === 0
@@ -180,6 +182,6 @@ export const applyDeterministicPass = (
     )
   }
   writeFileSync(path, `${JSON.stringify(replay, null, 2)}\n`)
-  return true
+  return 'turn'
 }
 

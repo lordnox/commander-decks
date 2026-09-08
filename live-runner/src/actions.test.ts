@@ -113,7 +113,7 @@ describe('play actions', () => {
       state: { active: 'p1', turn: 2, phase: 'priority', players: {} },
     })
 
-    expect(applyDeterministicPass(root, 'test', state, 'p2')).toBe(true)
+    expect(applyDeterministicPass(root, 'test', state, 'p2')).toBe('priority')
     const replay = JSON.parse(
       readFileSync(join(root, 'table-games', 'test.json'), 'utf8'),
     )
@@ -147,7 +147,7 @@ describe('play actions', () => {
       state: { active: 'p1', turn: 2, phase: 'priority', stack: [] },
     })
 
-    expect(applyDeterministicPass(root, 'test', state, 'p4')).toBe(true)
+    expect(applyDeterministicPass(root, 'test', state, 'p4')).toBe('turn')
     const replay = JSON.parse(
       readFileSync(join(root, 'table-games', 'test.json'), 'utf8'),
     )
