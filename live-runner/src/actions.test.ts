@@ -1,8 +1,18 @@
 import { afterEach, describe, expect, test } from 'bun:test'
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import {
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { acceptsPlayAction, replayActions } from './actions'
+import {
+  acceptsPlayAction,
+  applyIntermediatePass,
+  replayActions,
+} from './actions'
 import { createLobby } from './lobby'
 
 const roots: string[] = []
@@ -80,6 +90,57 @@ describe('play actions', () => {
       'p3',
       { type: 'confirm', actionId: 7 },
     )).toBe(true)
+  })
+
+  test('records intermediate passes without judging the unchanged window', () => {
+    const state = createLobby()
+    state.occupants = {
+      p1: { name: 'Alpha', deck: 'decks/a' },
+      p2: { name: 'Beta', deck: 'decks/b' },
+      p3: { name: 'Gamma', deck: 'decks/c' },
+    }
+    state.actions = {
+      p1: ['plan', 'pass'],
+      p2: ['plan', 'pass'],
+      p3: ['plan', 'pass'],
+    }
+    const root = rootWithEvent({
+      id: 9,
+      turn: 2,
+      kind: 'priority',
+      summary: 'End step priority: Alpha, Beta, and Gamma may respond.',
+      seats: ['p1', 'p2', 'p3'],
+      state: { active: 'p1', turn: 2, phase: 'priority', players: {} },
+    })
+
+    expect(applyIntermediatePass(root, 'test', state, 'p2')).toBe(true)
+    const replay = JSON.parse(
+      readFileSync(join(root, 'table-games', 'test.json'), 'utf8'),
+    )
+    expect(replay.events.at(-2)).toMatchObject({
+      id: 10,
+      seat: 'p2',
+      kind: 'pass',
+    })
+    expect(replay.events.at(-1)).toMatchObject({
+      id: 11,
+      kind: 'priority',
+      seats: ['p1', 'p3'],
+    })
+    expect(replay.events.at(-1).summary).toContain('Alpha and Gamma')
+  })
+
+  test('leaves the final pass for the judge', () => {
+    const state = createLobby()
+    state.actions = { p4: ['plan', 'pass'] }
+    const root = rootWithEvent({
+      id: 3,
+      kind: 'priority',
+      seats: ['p4'],
+      state: { active: 'p4' },
+    })
+
+    expect(applyIntermediatePass(root, 'test', state, 'p4')).toBe(false)
   })
 })
 
