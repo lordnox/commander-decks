@@ -402,6 +402,9 @@ def compact_snapshot(
     talk = snapshot.get("talk")
     if talk:
         wire["k"] = talk
+    judge = snapshot.get("judge")
+    if judge:
+        wire["j"] = judge
     events = snapshot.get("events") or []
     if events:
         wire["e"] = [
@@ -681,6 +684,7 @@ def expand_snapshot(wire: dict, indexes: dict[str, list[dict[str, Any]]] | None 
         "headline": wire.get("h") or "",
         "waiting": wire.get("w") or DEFAULT_WAITING,
         "talk": wire.get("k") or "",
+        "judge": wire.get("j") or "",
         "events": [
             {
                 "id": event[0],

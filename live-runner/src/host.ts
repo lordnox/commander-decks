@@ -56,6 +56,7 @@ const publish = async (
       slug,
       root,
       talk: state.talk,
+      judge: state.judge,
       waiting: state.waiting,
     })
     return
@@ -163,16 +164,13 @@ export const runHost = async (options: {
           message,
           logFile,
         })
-        if (result.talk) {
-          state.talk = state.talk
-            ? `${state.talk}\nHost: ${result.talk}`
-            : `Host: ${result.talk}`
-        }
+        const judge = result.judge || result.talk
+        if (judge) state.judge = judge
         if (result.waiting) state.waiting = result.waiting
       } catch (reason) {
         const error = reason instanceof Error ? reason.message : String(reason)
         logLine(logFile, `agent failed: ${error}`)
-        state.talk = `${state.talk}\nHost: judging agent failed; the message is journalled for retry.`
+        state.judge = 'Judging agent failed; the message is journalled for retry.'
         state.waiting = 'Host needs attention. Do not send another game action yet.'
       }
     }

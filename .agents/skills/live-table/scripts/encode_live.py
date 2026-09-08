@@ -435,6 +435,7 @@ def build_snapshot(
     you: str | None,
     talk: str,
     waiting: str,
+    judge: str = "",
     public: bool = False,
     event_id: int | None = None,
 ) -> dict:
@@ -471,6 +472,7 @@ def build_snapshot(
             else waiting
         ),
         "talk": talk,
+        "judge": judge,
         "events": _event_feed(
             events,
             last=last,
@@ -533,6 +535,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("replay", type=Path, help="simulate-table replay JSON path")
     parser.add_argument("--you", choices=SEAT_IDS, help="viewer seat for the private link")
     parser.add_argument("--talk", default="", help="table talk / standing plan")
+    parser.add_argument("--judge", default="", help="latest public judge note")
     parser.add_argument(
         "--waiting",
         default=cl.DEFAULT_WAITING,
@@ -604,6 +607,7 @@ def main(argv: list[str] | None = None) -> int:
             you=None,
             talk=args.talk,
             waiting=args.waiting,
+            judge=args.judge,
             public=True,
             event_id=args.event,
         )
@@ -647,6 +651,7 @@ def main(argv: list[str] | None = None) -> int:
         you=args.you,
         talk=args.talk,
         waiting=args.waiting,
+        judge=args.judge,
         public=False,
         event_id=args.event,
     )
@@ -660,6 +665,7 @@ def main(argv: list[str] | None = None) -> int:
         you=None,
         talk=args.talk,
         waiting=args.waiting,
+        judge=args.judge,
         public=True,
         event_id=args.event,
     )

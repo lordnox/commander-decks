@@ -85,7 +85,7 @@ gathering → seated → (dice) → pregame → ready → play
 | (dice) | `Rolling turn order` | host rolls; write first player into snapshot `a` and talk |
 | pregame | `pN: pregame?` (turn order, starting player first) | `pregame` `{cards}` or skip; host applies, next seat |
 | ready | `Can we start?` | four `ready`; seating talk/`swap` → seated |
-| play | from simulate-table pause policy | `plan` / `confirm` / `replace` / `talk` / `rules` |
+| play | from simulate-table pause policy | `plan` / `confirm` / `pass` / `replace` / `talk` / `rules` |
 
 Host always posts talk after a step. `rules` and `talk` never skip a lobby
 step; they append to `k`. Host answers rules in talk (no engine).
@@ -109,7 +109,7 @@ Done when: second terminal `seat --invite` shows in host log.
    decode. Keep reading legacy `host`/`you`/`seat`/`inbox` so old links work
    until they rot.
 2. Copy public link = `?k=<hostRead>` only.
-3. Send: `plan` | `confirm` | `replace` plus lobby types the human needs
+3. Send: `plan` | `confirm` | `pass` | `replace` plus lobby types the human needs
    (`join`, `ready`, `swap`, `pregame`, `talk`). Keep the form small: type
    dropdown or one JSON box is enough for v1.
 4. `encode_live.py` prints pipe URLs (`?k=`), not `host=&you=&seat=&inbox=`.

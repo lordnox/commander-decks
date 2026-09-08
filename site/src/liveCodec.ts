@@ -50,6 +50,7 @@ export type LiveSnapshot = {
   headline: string
   waiting?: string
   talk?: string
+  judge?: string
   events?: LiveEvent[]
   turn: number
   phase: string

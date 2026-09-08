@@ -261,6 +261,7 @@ class LiveTableEncodeTests(unittest.TestCase):
             you="p2",
             talk="Hold up Counterspell.",
             waiting=encode_live.cl.DEFAULT_WAITING,
+            judge="Beta has priority.",
             public=False,
         )
         payload = encode_live.encode_payload(private, replay=FAKE_REPLAY)
@@ -271,6 +272,7 @@ class LiveTableEncodeTests(unittest.TestCase):
         self.assertEqual(decoded["stack"][0]["name"], "Counterspell")
         self.assertEqual(decoded["seats"][1]["battlefield"][0]["name"], "Sol Ring")
         self.assertEqual(decoded["events"][-1]["summary"], "Beta casts Sol Ring.")
+        self.assertEqual(decoded["judge"], "Beta has priority.")
 
     def test_event_id_selects_that_snapshot(self):
         opening = encode_live.build_snapshot(
