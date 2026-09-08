@@ -35,6 +35,7 @@ export const lobbyWire = (state: LobbyState, you?: SeatId) => {
     h: names.join(' / ') || 'Live table',
     w: state.waiting,
     k: state.talk,
+    j: state.judge,
     t: 0,
     p: 0,
     a: SEAT_IDS.indexOf(state.active),

@@ -11,6 +11,7 @@ export type Occupant = {
 }
 
 export type LobbyState = {
+  communicationVersion: 2
   phase: LobbyPhase
   occupants: Partial<Record<SeatId, Occupant>>
   ready: SeatId[]
@@ -18,6 +19,7 @@ export type LobbyState = {
   firstPlayer: SeatId
   pregameRemaining: SeatId[]
   talk: string
+  judge: string
   waiting: string
   active: SeatId
 }
@@ -36,8 +38,12 @@ const seatingLines = (state: LobbyState) =>
     return occupant ? `${seat}: ${occupant.name}` : `${seat}: (empty)`
   }).join('\n')
 
-const appendTalk = (state: LobbyState, line: string) => {
+const appendTableTalk = (state: LobbyState, line: string) => {
   state.talk = state.talk ? `${state.talk}\n${line}` : line
+}
+
+const setJudge = (state: LobbyState, line: string) => {
+  state.judge = line
 }
 
 const announceSeats = (state: LobbyState) => {
@@ -45,7 +51,7 @@ const announceSeats = (state: LobbyState) => {
   state.ready = []
   state.pendingSwap = undefined
   state.waiting = 'Seats assigned. Send ready to confirm, or swap.'
-  appendTalk(state, `Seating:\n${seatingLines(state)}`)
+  setJudge(state, `Seating:\n${seatingLines(state)}`)
 }
 
 const beginPregame = (state: LobbyState) => {
@@ -56,7 +62,7 @@ const beginPregame = (state: LobbyState) => {
   const current = state.pregameRemaining[0]
   state.active = current
   state.waiting = `${current}: pregame?`
-  appendTalk(
+  setJudge(
     state,
     `Turn order starts at ${state.firstPlayer}. Pregame in turn order.`,
   )
@@ -66,25 +72,27 @@ const askStart = (state: LobbyState) => {
   state.phase = 'ready'
   state.ready = []
   state.waiting = 'Can we start?'
-  appendTalk(state, 'Can we start? Each seat send ready.')
+  setJudge(state, 'Can we start? Each seat send ready.')
 }
 
 const startPlay = (state: LobbyState) => {
   state.phase = 'play'
   state.waiting = 'Play. Send a plan when it is your action.'
-  appendTalk(state, 'All seats ready. Dealing.')
+  setJudge(state, 'All seats ready. Dealing.')
 }
 
 const nextSeat = (from: SeatId) =>
   SEAT_IDS[(SEAT_IDS.indexOf(from) + 1) % SEAT_IDS.length]
 
 export const createLobby = (headline = 'Live table'): LobbyState => ({
+  communicationVersion: 2,
   phase: 'gathering',
   occupants: {},
   ready: [],
   firstPlayer: 'p1',
   pregameRemaining: [],
-  talk: headline,
+  talk: '',
+  judge: headline,
   waiting: 'Waiting for players (0/4)',
   active: 'p1',
 })
@@ -97,25 +105,31 @@ export type LobbyParts = {
 
 /** Sessions written before `lobby` existed only kept these three fields. */
 export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
+  communicationVersion: 2,
   phase: parts.phase,
   occupants: { ...parts.occupants },
   ready: [],
   firstPlayer: parts.firstPlayer,
   pregameRemaining: [],
-  talk: 'Host reconnected.',
+  talk: '',
+  judge: 'Host reconnected.',
   waiting: parts.phase === 'play' ? 'Play. Send a plan when it is your action.' : 'Host reconnected.',
   active: parts.firstPlayer,
 })
 
-export const restoreLobby = (saved: LobbyState | undefined, headline: string) =>
-  saved
-    ? {
-        ...saved,
-        occupants: { ...saved.occupants },
-        ready: [...saved.ready],
-        pregameRemaining: [...saved.pregameRemaining],
-      }
-    : createLobby(headline)
+export const restoreLobby = (saved: LobbyState | undefined, headline: string) => {
+  if (!saved) return createLobby(headline)
+  const migrated = saved.communicationVersion !== 2
+  return {
+    ...saved,
+    communicationVersion: 2,
+    occupants: { ...saved.occupants },
+    ready: [...saved.ready],
+    pregameRemaining: [...saved.pregameRemaining],
+    talk: migrated ? '' : saved.talk,
+    judge: migrated ? 'Host resumed. Earlier control messages were cleared.' : saved.judge,
+  }
+}
 
 export const rollTurnOrder = (
   state: LobbyState,
@@ -124,7 +138,7 @@ export const rollTurnOrder = (
   const ranked = [...SEAT_IDS].sort((a, b) => rolls[b] - rolls[a] || a.localeCompare(b))
   state.firstPlayer = ranked[0]
   state.active = ranked[0]
-  appendTalk(
+  setJudge(
     state,
     `d20: ${SEAT_IDS.map((seat) => `${seat}=${rolls[seat]}`).join(', ')}. First: ${state.firstPlayer}.`,
   )
@@ -137,7 +151,7 @@ export const applyInbox = (
   message: InboxMessage,
 ): LobbyState => {
   if (message.type === 'talk') {
-    appendTalk(state, `${from}: ${message.text}`)
+    appendTableTalk(state, `${from}: ${message.text}`)
     if (state.phase === 'ready' || state.phase === 'seated') {
       const seating = /seat|swap/i.test(message.text)
       if (seating && state.phase === 'ready') {
@@ -149,7 +163,7 @@ export const applyInbox = (
   }
 
   if (message.type === 'rules') {
-    appendTalk(state, `${from} (rules): ${message.text}`)
+    setJudge(state, `${from} asked a rules question.`)
     return state
   }
 
@@ -158,7 +172,7 @@ export const applyInbox = (
     state.occupants[from] = { name: message.name, deck: message.deck }
     const count = occupied(state).length
     state.waiting = `Waiting for players (${count}/4)`
-    appendTalk(state, `${message.name} joined as ${from}.`)
+    setJudge(state, `${message.name} joined as ${from}.`)
     if (count === 4) announceSeats(state)
     return state
   }
@@ -173,7 +187,7 @@ export const applyInbox = (
     state.pendingSwap = { a: from, b: message.with, votes: [from] }
     state.ready = []
     state.waiting = `Swap ${from} and ${message.with}? All must agree (ready).`
-    appendTalk(state, `${from} wants to swap with ${message.with}.`)
+    setJudge(state, `${from} wants to swap with ${message.with}.`)
     return state
   }
 
@@ -190,7 +204,7 @@ export const applyInbox = (
           state.occupants[a] = right
           state.occupants[b] = left
           state.pendingSwap = undefined
-          appendTalk(
+          setJudge(
             state,
             `Swap agreed. ${a} and ${b}: trade pipe invites. Bins stay ${SEAT_IDS.join(', ')}.`,
           )
@@ -200,7 +214,7 @@ export const applyInbox = (
       }
       if (!state.ready.includes(from)) state.ready = [...state.ready, from]
       if (state.ready.length === 4) {
-        appendTalk(state, 'Seating stands.')
+        setJudge(state, 'Seating stands.')
         state.waiting = 'Rolling turn order'
       }
       return state
@@ -218,7 +232,7 @@ export const applyInbox = (
     const current = state.pregameRemaining[0]
     if (from !== current) return state
     const cards = message.cards.filter(Boolean)
-    appendTalk(
+    setJudge(
       state,
       cards.length > 0
         ? `${from} pregame: ${cards.join(', ')}`
@@ -238,14 +252,21 @@ export const applyInbox = (
   if (message.type === 'plan' || message.type === 'replace') {
     if (state.phase !== 'play') return state
     state.waiting = `Would this line work?\n${message.text}`
-    appendTalk(state, `${from} ${message.type}: ${message.text}`)
+    setJudge(state, `${from} sent a ${message.type}.`)
     return state
   }
 
   if (message.type === 'confirm') {
     if (state.phase !== 'play') return state
-    appendTalk(state, `${from} confirms.`)
+    setJudge(state, `${from} confirms.`)
     state.waiting = 'Confirmed. Host applying the line.'
+    return state
+  }
+
+  if (message.type === 'pass') {
+    if (state.phase !== 'play') return state
+    setJudge(state, `${from} passes.`)
+    state.waiting = 'Pass received. Host advancing priority.'
     return state
   }
 

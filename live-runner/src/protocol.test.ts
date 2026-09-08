@@ -43,6 +43,7 @@ describe('inbox', () => {
       deck: 'decks/x',
     })
     expect(parseInbox('{"type":"ready"}')).toEqual({ type: 'ready' })
+    expect(parseInbox('{"type":"pass"}')).toEqual({ type: 'pass' })
     expect(parseInbox('{"type":"swap","with":"p3"}')).toEqual({
       type: 'swap',
       with: 'p3',

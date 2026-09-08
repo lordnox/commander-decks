@@ -74,7 +74,8 @@ describe('session', () => {
       'pod',
     )
     expect(restored.occupants.p2?.name).toBe('Tea Party')
-    expect(restored.talk).toContain('joined as p2')
+    expect(restored.talk).toBe('')
+    expect(restored.judge).toContain('joined as p2')
   })
 
   test('a session written before lobby state still resumes into play', () => {

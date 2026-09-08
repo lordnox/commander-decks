@@ -40,7 +40,7 @@ https://lordnox.github.io/commander-decks/live/?game=<slug>&event=<id>&you=<seat
 | `game` | Published replay slug, fetched from `<base>replays/<slug>.json` |
 | `event` | Event id to show; omit for the last event |
 | `you` | Viewer seat `p1`–`p4`; omit for a public board |
-| `talk` | Optional table talk / standing plan |
+| `talk` | Optional explicit player table talk |
 | `waiting` | Optional prompt, default `Would this line work? Confirm or replace it.` |
 
 The page must render only the `you` seat's hand and reduce every other seat to
@@ -101,7 +101,8 @@ Battlefield flags: tapped `1`, token `2`, commander `4`. `extra` holds `p` /
 | `y` | Viewer seat `0`–`3`; omit on a public link |
 | `h` | Headline |
 | `w` | Prompt; omit when it is `Would this line work? Confirm or replace it.` |
-| `k` | Table talk / standing plan; omit when empty |
+| `k` | Explicit player table talk; omit when empty |
+| `j` | Latest public judge note; omit when empty; never contains hidden information |
 | `t` | Turn number |
 | `p` | Phase index |
 | `a` | Active seat `0`–`3` |
@@ -131,7 +132,8 @@ this object.
 | `you` | Viewer seat `p1`–`p4`, or omit/`null` on a public link |
 | `headline` | Short table title |
 | `waiting` | Prompt for the human, e.g. `Would this line work? Confirm or replace it.` |
-| `talk` | Table talk and the current standing plan |
+| `talk` | Explicit player table talk |
+| `judge` | Latest public judge note; never contains hidden information |
 | `events` | Up to 20 recent redacted event summaries for the viewer timeline |
 | `turn` | Turn number |
 | `phase` | Same strings as replay: `setup`, `untap`, `upkeep`, `draw`, `main1`, `combat`, `main2`, `end`, `priority` |

@@ -16,6 +16,8 @@ import {
 } from './session'
 
 export type AgentResult = {
+  judge?: string
+  /** Backward compatibility for results from an older host prompt. */
   talk?: string
   waiting?: string
   replayChanged?: boolean
@@ -96,13 +98,16 @@ Do exactly one host step:
   enter, including the empty ones (\`Upkeep — no triggers.\`), each on its own
   phase. Stop at the next priority window or when information changes.
 - a priority window is an event with kind "priority" in phase "priority" that
-  names the seats who may act and how (\`plan\` to respond, \`talk\` with a pass).
+  names the seats who may act and how (\`plan\` to respond, \`pass\` for no action).
   Open one when an object goes on the stack, at declare attackers, at declare
   blockers, before combat damage when a trick would matter, at the active
   seat's end step, and on a politics fork. Do not open one where nothing can
   respond; log the step and move on.
+- pass: record that this seat takes no action in the current priority window.
+  If other seats still owe a response, append another priority event naming
+  only those seats and keep the window open. Otherwise advance the game.
 - rules: answer the Magic rules question without changing the replay.
-- talk: relay it; only change the replay if it is an actual accepted/broken
+- talk: it is already visible as social table talk. Only change the replay if it is an actual accepted/broken
   deal that the replay schema records.
 - ready/join/swap/pregame: the deterministic host already handled it; summarize
   only if useful.
@@ -111,11 +116,40 @@ Never access conduit credentials. They are intentionally absent. Never commit,
 push, or edit deck files.
 
 Write table-games/${slug}.agent-result.json containing one JSON object:
-{"talk":"short public host response","waiting":"specific next prompt","replayChanged":false}
+{"judge":"short public judge note","waiting":"specific next prompt","replayChanged":false}
+
+The judge note is public to every seat. Never name or analyze a card from a
+player's hidden hand, library, or private plan there. Put public game facts and
+the ruling only. Do not copy plans, confirms, passes, or rules questions into
+table talk.
 
 If you legally append events to the replay, set replayChanged true. Preserve
 _libraries in the working replay. The runner will validate and publish it.
 `
+
+const escapePattern = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+export const redactHiddenCards = (note: string, replayPath: string) => {
+  const replay = JSON.parse(readFileSync(replayPath, 'utf8')) as {
+    events?: Array<{
+      state?: {
+        players?: Record<string, { hand?: unknown[] }>
+      }
+    }>
+  }
+  const players = replay.events?.at(-1)?.state?.players ?? {}
+  const hiddenNames = Object.values(players)
+    .flatMap((player) => player.hand ?? [])
+    .filter((card): card is string => typeof card === 'string' && card.length > 0)
+    .sort((left, right) => right.length - left.length)
+
+  return hiddenNames.reduce(
+    (publicNote, card) =>
+      publicNote.replace(new RegExp(escapePattern(card), 'gi'), 'a hidden card'),
+    note,
+  )
+}
 
 const validateReplayReplacement = (
   beforePath: string,
@@ -198,6 +232,11 @@ export const invokeHostAgent = async (options: {
     )) {
       throw new Error('host agent returned invalid talk')
     }
+    if (result.judge !== undefined && (
+      typeof result.judge !== 'string' || result.judge.length > 4000
+    )) {
+      throw new Error('host agent returned invalid judge note')
+    }
     if (result.waiting !== undefined && (
       typeof result.waiting !== 'string' || result.waiting.length > 1000
     )) {
@@ -207,6 +246,9 @@ export const invokeHostAgent = async (options: {
       validateReplayReplacement(sourceReplay, scratchReplay)
       cpSync(scratchReplay, sourceReplay)
     }
+    const publicReplay = result.replayChanged ? scratchReplay : sourceReplay
+    if (result.judge) result.judge = redactHiddenCards(result.judge, publicReplay)
+    if (result.talk) result.talk = redactHiddenCards(result.talk, publicReplay)
     logLine(logFile, `agent done ${seat} generation ${generation}`)
     return result
   } finally {

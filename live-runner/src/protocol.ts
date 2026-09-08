@@ -28,6 +28,7 @@ export type Invite = { read: string; mailbox?: string }
 export type InboxMessage =
   | { type: 'plan'; text: string }
   | { type: 'confirm'; text?: string }
+  | { type: 'pass' }
   | { type: 'replace'; text: string }
   | { type: 'join'; name: string; deck: string }
   | { type: 'ready' }
@@ -79,6 +80,8 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         type: 'confirm',
         text: typeof message.text === 'string' ? message.text : undefined,
       }
+    case 'pass':
+      return { type: 'pass' }
     case 'join':
       return typeof message.name === 'string' && typeof message.deck === 'string'
         ? { type: 'join', name: message.name, deck: message.deck }

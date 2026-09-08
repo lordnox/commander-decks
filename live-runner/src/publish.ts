@@ -8,10 +8,11 @@ export const publishReplay = async (options: {
   slug: string
   root: string
   talk: string
+  judge: string
   waiting: string
   event?: number
 }) => {
-  const { slug, root, talk, waiting } = options
+  const { slug, root, talk, judge, waiting } = options
   for (const seat of SEAT_IDS satisfies readonly SeatId[]) {
     const args = [
       ENCODER,
@@ -20,6 +21,8 @@ export const publishReplay = async (options: {
       seat,
       '--talk',
       talk,
+      '--judge',
+      judge,
       '--waiting',
       waiting,
       '--conduit',

@@ -24,7 +24,8 @@ describe('lobby', () => {
     expect(state.occupants.p1?.name).toBe('C')
     expect(state.occupants.p3?.name).toBe('A')
     expect(state.phase).toBe('seated')
-    expect(state.talk).toContain('trade pipe invites')
+    expect(state.judge).toContain('p1: C')
+    expect(state.talk).toBe('')
 
     for (const seat of SEAT_IDS) {
       applyInbox(state, seat, { type: 'ready' })
@@ -59,5 +60,19 @@ describe('lobby', () => {
       applyInbox(state, seat, { type: 'ready' })
     }
     expect(state.phase).toBe('play')
+  })
+
+  test('keeps control messages out of social table talk', () => {
+    const state = createLobby()
+    state.phase = 'play'
+
+    applyInbox(state, 'p1', { type: 'plan', text: 'Cast a hidden card.' })
+    applyInbox(state, 'p1', { type: 'confirm' })
+    applyInbox(state, 'p2', { type: 'pass' })
+    expect(state.talk).toBe('')
+    expect(state.judge).toBe('p2 passes.')
+
+    applyInbox(state, 'p4', { type: 'talk', text: 'Nice draw!' })
+    expect(state.talk).toBe('p4: Nice draw!')
   })
 })

@@ -48,12 +48,17 @@ One host-read key: everyone with it sees the same public game. A seat pipe strin
 {"type":"plan","text":"…"}
 ```
 
-`type` is `plan` | `confirm` | `replace` | `join` | `ready` | `rules` | `talk` | `swap` | `pregame`.
+`type` is `plan` | `confirm` | `pass` | `replace` | `join` | `ready` | `rules` | `talk` | `swap` | `pregame`.
 POST as snapshot (latest wins). Host does not record agent vs human.
+
+`pass` means no game action in the current priority window. `talk` is social
+speech visible to every player; never use it as a pass or host-control message.
 
 ### Lobby (host script)
 
-Always publish **table talk** on snapshot `k` (host narration + relayed `talk`). Every viewer with a read key sees it.
+Publish only explicit player **table talk** on snapshot `k`. Publish the latest
+public host ruling on `j`; it must not reveal cards in hidden zones or private
+plans. Every viewer with a read key sees both.
 
 1. **Gather** — four `join`s (name + deck). Host binds each mailbox → `pN`.
 2. **Seat** — host announces assignment (`p1` … `p4` clockwise) in talk and asks if anyone wants to swap. `swap` names the other seat (or free text in `talk`). Host asks the table; if **all four** agree, those two **exchange pipe invites** (bins stay `p1`–`p4`; people trade keys). Then host re-announces seating.

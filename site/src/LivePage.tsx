@@ -45,6 +45,7 @@ const base = import.meta.env.BASE_URL
 type InboxType =
   | 'plan'
   | 'confirm'
+  | 'pass'
   | 'replace'
   | 'join'
   | 'ready'
@@ -155,7 +156,7 @@ export const LivePage = () => {
   const [hover, setHover] = useState<Hover | null>(null)
   const [plan, setPlan] = useState('')
   const [inboxType, setInboxType] = useState<InboxType>('plan')
-  const [hidden, setHidden] = useState(false)
+  const [hidePlan, setHidePlan] = useState(false)
   const [status, setStatus] = useState('')
   const [conduitStatus, setConduitStatus] = useState('')
   const [hydrationStatus, setHydrationStatus] = useState('')
@@ -349,9 +350,9 @@ export const LivePage = () => {
     window.setTimeout(() => setStatus(''), 1800)
   }
 
-  const toggleHidden = () => {
-    const next = !hidden
-    setHidden(next)
+  const togglePlan = () => {
+    const next = !hidePlan
+    setHidePlan(next)
     if (next) {
       setPreview(null)
       setHover(null)
@@ -359,7 +360,6 @@ export const LivePage = () => {
   }
 
   const onInsertName = (name: string) => {
-    if (hidden) return
     setPlan((current) => insertAtCursor(planRef.current, current, name))
   }
 
@@ -384,34 +384,38 @@ export const LivePage = () => {
     flash('Public link copied')
   }
 
-  const sendInbox = async () => {
+  const sendInbox = async (type = inboxType) => {
     if (request?.kind !== 'conduit' || !request.inbox) return
     try {
       let message: object
-      if (inboxType === 'ready') {
+      if (type === 'ready') {
         message = { type: 'ready' }
-      } else if (inboxType === 'join') {
+      } else if (type === 'pass') {
+        message = { type: 'pass' }
+      } else if (type === 'confirm') {
+        message = { type: 'confirm', text: plan.trim() || undefined }
+      } else if (type === 'join') {
         const separator = plan.includes('|') ? '|' : '\n'
         const split = plan.indexOf(separator)
         const name = split < 0 ? plan.trim() : plan.slice(0, split).trim()
         const deck = split < 0 ? '' : plan.slice(split + 1).trim()
         message = { type: 'join', name, deck }
-      } else if (inboxType === 'swap') {
+      } else if (type === 'swap') {
         message = { type: 'swap', with: plan.trim() }
-      } else if (inboxType === 'pregame') {
+      } else if (type === 'pregame') {
         message = {
           type: 'pregame',
           cards: plan.split(',').map((card) => card.trim()).filter(Boolean),
         }
       } else {
-        message = { type: inboxType, text: plan }
+        message = { type, text: plan }
       }
       await appendSnapshot(
         request.origin,
         request.inbox,
         JSON.stringify(message),
       )
-      flash('Message sent')
+      flash(type === 'pass' ? 'Passed' : type === 'confirm' ? 'Confirmed' : 'Message sent')
     } catch (reason: unknown) {
       flash(reason instanceof Error ? reason.message : 'Could not send message')
     }
@@ -438,9 +442,25 @@ export const LivePage = () => {
     : [seats[2], seats[1], seats[3], seats[0]].filter(Boolean)
   const activeSeat = seats.find((seat) => seat.id === snapshot.active)
   const awaitingSeat = seats.find((seat) => seat.id === snapshot.awaiting)
+  const lastEvent = snapshot.events?.at(-1)
+  const priorityOpen = lastEvent?.kind === 'priority'
+  const viewerSeat = seats.find((seat) => seat.id === snapshot.you)
+  const priorityForYou = Boolean(
+    priorityOpen
+    && viewerSeat
+    && (
+      lastEvent.summary.includes(viewerSeat.name)
+      || lastEvent.summary.includes(`(${viewerSeat.id})`)
+    ),
+  )
+  const yourAction = Boolean(
+    snapshot.you
+    && (snapshot.awaiting === snapshot.you || priorityForYou),
+  )
+  const canSend = request?.kind === 'conduit' && Boolean(request.inbox)
 
   return (
-    <div className={`min-h-screen ${hidden ? 'pb-8' : 'pb-56'}`}>
+    <div className={`min-h-screen ${hidePlan ? 'pb-8' : 'pb-56'}`}>
       <header className="sticky top-0 z-30 border-b border-white/10 bg-ink-950/90 px-4 py-3 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[110rem] flex-wrap items-center gap-3">
           <a
@@ -466,11 +486,11 @@ export const LivePage = () => {
           </div>
           <button
             type="button"
-            onClick={toggleHidden}
-            aria-pressed={hidden}
+            onClick={togglePlan}
+            aria-pressed={hidePlan}
             className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold text-stone-300 hover:bg-white/10"
           >
-            {hidden ? 'Show hand & plan' : 'Hide hand & plan'}
+            {hidePlan ? 'Show plan' : 'Hide plan'}
           </button>
           <button
             type="button"
@@ -482,7 +502,72 @@ export const LivePage = () => {
         </div>
       </header>
 
-      <main className="mx-auto max-w-[110rem] px-3 py-5 sm:px-5">
+      <main className="mx-auto grid max-w-[110rem] gap-5 px-3 py-5 sm:px-5 lg:grid-cols-[17rem_minmax(0,1fr)]">
+        <aside
+          className={`h-fit rounded-[1.5rem] border p-5 lg:sticky lg:top-24 ${
+            yourAction
+              ? 'border-gold-300 bg-gold-400/15 shadow-lg shadow-gold-950/30'
+              : 'border-white/10 bg-ink-900/80'
+          }`}
+        >
+          <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-stone-400">
+            Current turn
+          </p>
+          <p className="mt-2 font-display text-2xl text-stone-50">
+            Turn {snapshot.turn}
+          </p>
+          <dl className="mt-4 space-y-3 text-sm">
+            <div>
+              <dt className="text-xs uppercase tracking-[0.12em] text-stone-500">Active player</dt>
+              <dd className="mt-1 font-semibold" style={{ color: activeSeat?.color }}>
+                {activeSeat?.name || snapshot.active}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-xs uppercase tracking-[0.12em] text-stone-500">Step</dt>
+              <dd className="mt-1 font-semibold text-stone-100">{phaseLabel(snapshot.phase)}</dd>
+            </div>
+          </dl>
+          <div
+            className={`mt-5 rounded-xl border p-3 ${
+              yourAction
+                ? 'border-gold-300/60 bg-gold-300/10'
+                : 'border-white/10 bg-black/15'
+            }`}
+          >
+            <p className={`text-xs font-black uppercase tracking-[0.14em] ${
+              yourAction ? 'text-gold-200' : 'text-stone-500'
+            }`}>
+              {yourAction ? 'Your action' : 'Waiting'}
+            </p>
+            <p className="mt-2 text-sm leading-5 text-stone-200">
+              {snapshot.waiting || 'The judge is advancing the game.'}
+            </p>
+          </div>
+          {yourAction && canSend && (
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => void sendInbox('pass')}
+                className="rounded-xl bg-gold-300 px-3 py-2 text-sm font-black text-ink-950 hover:bg-gold-200"
+              >
+                Pass
+              </button>
+              <button
+                type="button"
+                onClick={() => void sendInbox('confirm')}
+                className="rounded-xl bg-white/10 px-3 py-2 text-sm font-bold text-stone-100 hover:bg-white/15"
+              >
+                Confirm
+              </button>
+            </div>
+          )}
+          {priorityOpen && lastEvent && (
+            <p className="mt-3 text-xs leading-5 text-stone-400">{lastEvent.summary}</p>
+          )}
+        </aside>
+
+        <div className="min-w-0">
         <section className="rounded-[1.5rem] border border-gold-300/20 bg-gradient-to-br from-gold-400/10 to-ink-900/80 p-5 shadow-2xl shadow-black/20 sm:p-6">
           <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-gold-300">
             <span>Turn {snapshot.turn}</span>
@@ -558,6 +643,16 @@ export const LivePage = () => {
               </p>
             </div>
           )}
+          {snapshot.judge && (
+            <div className="mt-4 border-l-2 border-gold-300 pl-4">
+              <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-gold-200">
+                Judge note
+              </p>
+              <p className="mt-2 text-sm leading-6 text-stone-300 whitespace-pre-wrap">
+                {snapshot.judge}
+              </p>
+            </div>
+          )}
           {combat.length > 0 && (
             <div className="mt-4 rounded-2xl border border-orange-300/20 bg-orange-500/5 p-4">
               <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-orange-200">
@@ -595,11 +690,11 @@ export const LivePage = () => {
                 key={seat.id}
                 game={game}
                 seat={toReplaySeat(seat)}
-                state={toPlayerState(seat, isYou && !hidden)}
+                state={toPlayerState(seat, isYou)}
                 active={snapshot.active === seat.id}
                 action={new Set()}
                 handCount={seat.hand_count}
-                showHand={isYou && !hidden}
+                showHand={isYou}
                 copyable
                 onPreview={setPreview}
                 onHover={setHover}
@@ -608,14 +703,15 @@ export const LivePage = () => {
             )
           })}
         </div>
+        </div>
       </main>
 
-      {!hidden && (
+      {!hidePlan && (
         <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-ink-950/95 px-4 py-3 shadow-2xl backdrop-blur-xl">
           <div className="mx-auto max-w-5xl">
             <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
               <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-moss-200">
-                Your plan
+                Send to the table
                 {snapshot.you ? ` · ${snapshot.you}` : ' · spectator'}
               </p>
               <div className="flex flex-wrap gap-2">
@@ -627,7 +723,23 @@ export const LivePage = () => {
                   onClick={() => void copyPlan()}
                   className="rounded-xl bg-white/5 px-3 py-1.5 text-sm font-semibold text-stone-200 hover:bg-white/10"
                 >
-                  Copy plan
+                  Copy text
+                </button>
+                <button
+                  type="button"
+                  onClick={() => void sendInbox('pass')}
+                  disabled={!canSend}
+                  className="rounded-xl bg-gold-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-200 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Pass / no action
+                </button>
+                <button
+                  type="button"
+                  onClick={() => void sendInbox('confirm')}
+                  disabled={!canSend}
+                  className="rounded-xl bg-white/10 px-3 py-1.5 text-sm font-bold text-stone-100 hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Confirm plan
                 </button>
                 <select
                   value={inboxType}
@@ -635,15 +747,16 @@ export const LivePage = () => {
                   aria-label="Inbox message type"
                   className="rounded-xl border border-white/10 bg-ink-900 px-2 py-1.5 text-sm text-stone-200"
                 >
-                  <option value="plan">plan</option>
-                  <option value="confirm">confirm</option>
-                  <option value="replace">replace</option>
-                  <option value="join">join</option>
-                  <option value="ready">ready</option>
-                  <option value="swap">swap</option>
-                  <option value="pregame">pregame</option>
-                  <option value="rules">rules</option>
-                  <option value="talk">talk</option>
+                  <option value="plan">Propose a plan</option>
+                  <option value="replace">Replace my plan</option>
+                  <option value="rules">Ask the judge</option>
+                  <option value="talk">Table talk</option>
+                  <optgroup label="Game setup">
+                    <option value="join">Join seat</option>
+                    <option value="ready">Ready</option>
+                    <option value="swap">Request seat swap</option>
+                    <option value="pregame">Pregame actions</option>
+                  </optgroup>
                 </select>
                 <button
                   type="button"
@@ -651,7 +764,7 @@ export const LivePage = () => {
                   disabled={
                     request?.kind !== 'conduit'
                     || !request.inbox
-                    || (!plan.trim() && !['ready', 'pregame', 'confirm'].includes(inboxType))
+                    || (!plan.trim() && !['ready', 'pregame'].includes(inboxType))
                   }
                   className="rounded-xl bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-300 disabled:cursor-not-allowed disabled:opacity-40"
                 >
@@ -671,7 +784,13 @@ export const LivePage = () => {
               value={plan}
               onChange={(event) => setPlan(event.target.value)}
               rows={3}
-              placeholder="Write the line to send to the table…"
+              placeholder={
+                inboxType === 'talk'
+                  ? 'Say something socially to every player…'
+                  : inboxType === 'rules'
+                    ? 'Ask the judge a rules question…'
+                    : 'Describe the line for the judge to check…'
+              }
               className="w-full resize-y rounded-2xl border border-white/10 bg-ink-900/90 px-4 py-3 text-sm leading-6 text-stone-100 outline-none placeholder:text-stone-500 focus:border-moss-300"
             />
           </div>
@@ -683,7 +802,7 @@ export const LivePage = () => {
           game={game}
           stack={snapshot.stack}
           copyable
-          bottomClassName={hidden ? 'bottom-5' : 'bottom-56'}
+          bottomClassName={hidePlan ? 'bottom-5' : 'bottom-56'}
           onPreview={setPreview}
           onHover={setHover}
           onInsertName={onInsertName}

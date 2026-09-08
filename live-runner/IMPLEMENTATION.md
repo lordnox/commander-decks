@@ -98,11 +98,15 @@ Add:
 ```
 { "type": "join", "name": "brew title", "deck": "decks/..." }
 { "type": "ready" }
+{ "type": "pass" }
 { "type": "swap", "with": "p3" }
 { "type": "pregame", "cards": ["Leyline of Sanctity"] }
 { "type": "rules", "text": "does this trigger on ETB?" }
-{ "type": "talk", "text": "I'll pass if you don't pump" }
+{ "type": "talk", "text": "If you leave me alone, I won't attack you next turn." }
 ```
+
+`pass` means no action in the current priority window. `talk` is social speech
+visible to every seat, never a control message.
 
 Host lobby is gather → seat (talk/swap) → dice → pregame (turn order) → four ready → play.
 Do not skip to deal on join alone.
@@ -141,7 +145,7 @@ poll loop. HTTP GET only on startup/resume to seed lastGen.
 4. On join, bind mailbox → pN; record deck/name. Announce seating in talk.
 5. Seating open: swaps if all agree (trade pipe invites). Then d20 / first player.
 6. Pregame in turn order; then "can we start?"; four ready → deal and play.
-7. Play: plan/confirm/replace/talk/rules from any seat; host applies or answers.
+7. Play: plan/confirm/pass/replace/talk/rules from any seat; host applies or answers.
 
 Host is the only writer of `host` and `pN` bins.
 

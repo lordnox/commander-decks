@@ -61,7 +61,7 @@ Play-to-win for the other seats: [`simulate-table`](../simulate-table/SKILL.md).
    the private snapshot to the human seat bin. Post **one** private `/live/`
    URL (params above). Do not mint again or post a new payload URL on later
    pauses unless the session lost conduit.
-6. Poll/watch the human inbox. Accept `plan` / `confirm` / `replace` JSON.
+6. Poll/watch the human inbox. Accept `plan` / `confirm` / `replace` / `pass` JSON.
    Same pause/confirm rules as below: a proposal is not authorization until
    confirm.
 7. If mint fails, fall back to payload `?s=` or short `--game` links (see
@@ -113,8 +113,8 @@ onto an empty board, a draw with no triggers. Say the step happened and move
 on. A window is expensive — each seat's answer costs a judging round — so open
 the ones that matter and skip the ceremony.
 
-An open window names its responders and how to answer: `plan` to respond,
-`talk` with a pass. Hold the game there. Execute a standing plan only up to the
+An open window names its responders and how to answer: `plan` to respond or
+`pass` for no action. `talk` is social speech only. Hold the game there. Execute a standing plan only up to the
 next window, then stop and publish.
 
 ## Standing plan
@@ -147,8 +147,9 @@ default. Mention the Pages UI has **Copy public link** (`?k=<hostRead>`
 only) for sharing. No write keys, no other seats' read keys, no `_libraries`.
 
 Use the live session path when that is the working file. Pass the human seat
-as `--you`. Put table talk and the current standing plan in `--talk`; the
-prompt in `--waiting`. Add `--event <id>` to pick an earlier frame instead of
+as `--you`. Put only explicit player speech in `--talk`, the latest public
+ruling in `--judge`, and the actionable prompt in `--waiting`. Never expose
+hidden-hand or private-plan analysis in either public field. Add `--event <id>` to pick an earlier frame instead of
 the last one (human takeover: frame **before** that seat's next own decision).
 
 ### Encode fallback (mint failed)
