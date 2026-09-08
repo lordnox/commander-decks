@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { describe, expect, mock, test } from 'bun:test'
 import { mint } from './conduit'
 import { ensureHostKeys } from './host'
-import { applyInbox, createLobby, restoreLobby } from './lobby'
+import { applyInbox, createLobby, lobbyFromParts, restoreLobby } from './lobby'
 import { BIN_LABELS } from './protocol'
 import {
   journalInbox,
@@ -75,6 +75,17 @@ describe('session', () => {
     )
     expect(restored.occupants.p2?.name).toBe('Tea Party')
     expect(restored.talk).toContain('joined as p2')
+  })
+
+  test('a session written before lobby state still resumes into play', () => {
+    const legacy = lobbyFromParts({
+      phase: 'play',
+      occupants: { p1: { name: 'Borrowed Time', deck: 'decks/doctor' } },
+      firstPlayer: 'p1',
+    })
+    expect(legacy.phase).toBe('play')
+    expect(legacy.occupants.p1?.name).toBe('Borrowed Time')
+    expect(legacy.active).toBe('p1')
   })
 
   test('inbox messages are journalled for the judge', () => {

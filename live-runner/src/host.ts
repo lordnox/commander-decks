@@ -4,7 +4,13 @@ import {
   mint,
   originFromEnv,
 } from './conduit'
-import { applyInbox, restoreLobby, rollTurnOrder, type LobbyState } from './lobby'
+import {
+  applyInbox,
+  lobbyFromParts,
+  restoreLobby,
+  rollTurnOrder,
+  type LobbyState,
+} from './lobby'
 import { logLine } from './log'
 import { publishReplay } from './publish'
 import {
@@ -98,8 +104,11 @@ export const runHost = async (options: {
 
   const saved = loadSession(slug, root)
   const savedHost = saved?.role === 'host' ? saved : null
-  const state = restoreLobby(savedHost?.lobby, slug)
-  if (savedHost?.lobby) {
+  const state = restoreLobby(
+    savedHost?.lobby ?? (savedHost ? lobbyFromParts(savedHost) : undefined),
+    slug,
+  )
+  if (savedHost) {
     logLine(logFile, `resumed phase ${state.phase}`)
   }
   if (state.phase === 'play' && hasReplay(slug, root)) {

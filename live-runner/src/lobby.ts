@@ -89,6 +89,24 @@ export const createLobby = (headline = 'Live table'): LobbyState => ({
   active: 'p1',
 })
 
+export type LobbyParts = {
+  phase: LobbyPhase
+  occupants: Partial<Record<SeatId, Occupant>>
+  firstPlayer: SeatId
+}
+
+/** Sessions written before `lobby` existed only kept these three fields. */
+export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
+  phase: parts.phase,
+  occupants: { ...parts.occupants },
+  ready: [],
+  firstPlayer: parts.firstPlayer,
+  pregameRemaining: [],
+  talk: 'Host reconnected.',
+  waiting: parts.phase === 'play' ? 'Play. Send a plan when it is your action.' : 'Host reconnected.',
+  active: parts.firstPlayer,
+})
+
 export const restoreLobby = (saved: LobbyState | undefined, headline: string) =>
   saved
     ? {
