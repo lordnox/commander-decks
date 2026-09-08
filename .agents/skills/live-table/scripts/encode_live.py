@@ -416,6 +416,14 @@ def _awaiting_seat(last: dict, state: dict, seat_order: list[str]) -> str | None
     return active
 
 
+def _fallback_prompt(awaiting: str | None, seats_meta: dict) -> str:
+    """A frame with no prompt asks nobody for anything, so the table stalls."""
+    if not awaiting:
+        return "Priority is open. Respond or pass."
+    name = (seats_meta.get(awaiting) or {}).get("name") or awaiting
+    return f"{name} ({awaiting}) is up: confirm, replace, or respond."
+
+
 def build_snapshot(
     replay: dict,
     *,
@@ -446,11 +454,13 @@ def build_snapshot(
         player = players.get(seat_id) or {}
         seats.append(_map_seat(meta, player, you=viewer, public=public))
 
+    awaiting = _awaiting_seat(last, state, list(SEAT_IDS))
+
     snapshot: dict[str, Any] = {
         "v": 1,
         "you": viewer,
         "headline": replay.get("headline") or "",
-        "waiting": waiting,
+        "waiting": waiting or _fallback_prompt(awaiting, seats_meta),
         "talk": talk,
         "events": _event_feed(
             events,
@@ -461,7 +471,7 @@ def build_snapshot(
         "turn": state.get("turn", last.get("turn", 0)),
         "phase": state.get("phase", last.get("phase", "setup")),
         "active": state.get("active", last.get("seat")),
-        "awaiting": _awaiting_seat(last, state, list(SEAT_IDS)),
+        "awaiting": awaiting,
         "stack": list(state.get("stack") or []),
         "seats": seats,
     }
