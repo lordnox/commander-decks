@@ -13,6 +13,7 @@ import {
   type DeckIndex,
   type LiveWireV2,
 } from './liveCompact'
+import { DEFAULT_CONDUIT_ORIGIN, conduitOrigin } from './liveConduit'
 
 export type LiveSeat = {
   id: string
@@ -62,6 +63,14 @@ export type LiveRequest =
   | {
       kind: 'payload'
       payload: string
+    }
+  | {
+      kind: 'conduit'
+      origin: string
+      host: string
+      you?: string
+      seat?: string
+      inbox?: string
     }
   | {
       kind: 'replay'
@@ -131,6 +140,25 @@ export const readLiveRequest = (
   if (payload) return { kind: 'payload', payload }
 
   const query = new URLSearchParams(location.search)
+  const host = query.get('host')
+  if (host) {
+    if (!/^[A-Za-z0-9_-]{40,44}$/.test(host)) {
+      throw new Error('This live conduit host key is not valid')
+    }
+    const you = query.get('you') || undefined
+    if (you && !seatOrder.includes(you as (typeof seatOrder)[number])) {
+      throw new Error('This live viewer seat is not valid')
+    }
+    return {
+      kind: 'conduit',
+      origin: conduitOrigin(location),
+      host,
+      you,
+      seat: query.get('seat') || undefined,
+      inbox: query.get('inbox') || undefined,
+    }
+  }
+
   const game = query.get('game')
   if (!game) return null
   if (!/^[a-z0-9][a-z0-9-]*$/i.test(game)) {
@@ -156,6 +184,39 @@ export const readLiveRequest = (
     waiting: query.get('waiting') ?? DEFAULT_WAITING,
   }
 }
+
+type ConduitRequest = Extract<LiveRequest, { kind: 'conduit' }>
+
+const conduitUrl = (
+  request: ConduitRequest,
+  includePrivate: boolean,
+  pageUrl: string | URL = window.location.href,
+) => {
+  const url = new URL(pageUrl)
+  url.pathname = `${url.pathname.replace(/\/+$/, '')}/`
+  url.search = ''
+  url.hash = ''
+  url.searchParams.set('host', request.host)
+  if (includePrivate) {
+    if (request.you) url.searchParams.set('you', request.you)
+    if (request.seat) url.searchParams.set('seat', request.seat)
+    if (request.inbox) url.searchParams.set('inbox', request.inbox)
+  }
+  if (request.origin !== DEFAULT_CONDUIT_ORIGIN) {
+    url.searchParams.set('c', request.origin)
+  }
+  return url.toString()
+}
+
+export const conduitPrivateUrl = (
+  request: ConduitRequest,
+  pageUrl?: string | URL,
+) => conduitUrl(request, true, pageUrl)
+
+export const conduitPublicUrl = (
+  request: ConduitRequest,
+  pageUrl?: string | URL,
+) => conduitUrl(request, false, pageUrl)
 
 export const replayToLiveSnapshot = (
   replay: ReplayGame,

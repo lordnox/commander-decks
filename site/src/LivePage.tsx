@@ -6,6 +6,7 @@ import {
 } from 'react'
 import { combatLines } from './combat'
 import {
+  conduitPublicUrl,
   encodePublicLivePayload,
   isLivePath,
   normalizeSeats,
@@ -13,9 +14,15 @@ import {
   planStorageKey,
   readLiveRequest,
   replayToLiveSnapshot,
+  type LiveRequest,
   type LiveSeat,
   type LiveSnapshot,
 } from './liveCodec'
+import {
+  appendSnapshot,
+  getLatestSnapshot,
+  watchSnapshots,
+} from './liveConduit'
 import type {
   PlayerState,
   ReplayEvent,
@@ -112,7 +119,9 @@ const EmptyLiveState = ({ reason }: { reason?: string }) => (
       URL like{' '}
       <code className="rounded bg-white/5 px-1.5 py-0.5 text-gold-300">
         /live/?game=my-game&amp;you=p1</code>{' '}
-          from the agent, or use a snapshot payload that starts with <code>v2.</code>.
+      or <code className="rounded bg-white/5 px-1.5 py-0.5 text-gold-300">
+        /live/?host=read-key</code>{' '}
+      from the agent, or use a snapshot payload that starts with <code>v2.</code>
     </p>
     {reason && (
       <p className="mt-4 rounded-2xl border border-red-400/30 bg-red-950/40 p-4 text-sm text-red-200">
@@ -127,6 +136,7 @@ const EmptyLiveState = ({ reason }: { reason?: string }) => (
 
 export const LivePage = () => {
   const [snapshot, setSnapshot] = useState<LiveSnapshot | null>(null)
+  const [request, setRequest] = useState<LiveRequest | null>(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
   const [preview, setPreview] = useState<Preview | null>(null)
@@ -134,22 +144,74 @@ export const LivePage = () => {
   const [plan, setPlan] = useState('')
   const [hidden, setHidden] = useState(false)
   const [status, setStatus] = useState('')
+  const [conduitStatus, setConduitStatus] = useState('')
   const [hydrationStatus, setHydrationStatus] = useState('')
   const planRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
     if (!isLivePath()) return
     let cancelled = false
+    let watch: { close: () => void } | null = null
     setLoading(true)
 
     const load = async () => {
       try {
         const request = readLiveRequest()
+        setRequest(request)
         if (!request) {
           if (!cancelled) {
             setSnapshot(null)
             setError('')
           }
+          return
+        }
+
+        if (request.kind === 'conduit') {
+          const readKey =
+            request.you && request.seat ? request.seat : request.host
+          let update = 0
+          const openBody = async (bytes: Uint8Array) => {
+            const currentUpdate = ++update
+            try {
+              const payload = new TextDecoder().decode(bytes)
+              const decoded = await openLivePayload(payload, base)
+              if (cancelled || currentUpdate !== update) return
+              setSnapshot(decoded)
+              setError('')
+              setLoading(false)
+              setHydrationStatus('Loading card details…')
+              const hydrated = await hydrateLiveSnapshot(decoded)
+              if (cancelled || currentUpdate !== update) return
+              setSnapshot(hydrated.snapshot)
+              setHydrationStatus(
+                hydrated.complete ? '' : 'Some card details could not be loaded',
+              )
+            } catch (reason: unknown) {
+              if (cancelled || currentUpdate !== update) return
+              setError(
+                reason instanceof Error
+                  ? reason.message
+                  : 'Could not open this live table',
+              )
+              setLoading(false)
+            }
+          }
+
+          const latest = await getLatestSnapshot(request.origin, readKey)
+          if (cancelled) return
+          if (latest) await openBody(latest)
+          watch = watchSnapshots(
+            request.origin,
+            readKey,
+            (bytes) => void openBody(bytes),
+            (connected) => {
+              if (!cancelled) {
+                setConduitStatus(
+                  connected ? '' : 'Disconnected · reconnecting…',
+                )
+              }
+            },
+          )
           return
         }
 
@@ -203,6 +265,7 @@ export const LivePage = () => {
     void load()
     return () => {
       cancelled = true
+      watch?.close()
     }
   }, [])
 
@@ -289,11 +352,32 @@ export const LivePage = () => {
 
   const copyPublicLink = async () => {
     if (!snapshot) return
+    if (request?.kind === 'conduit') {
+      await navigator.clipboard.writeText(
+        conduitPublicUrl(request, window.location.href),
+      )
+      flash('Public link copied')
+      return
+    }
     const payload = await encodePublicLivePayload(snapshot)
     const url = new URL(`${base}live/`, window.location.origin)
     url.searchParams.set('s', payload)
     await navigator.clipboard.writeText(url.toString())
     flash('Public link copied')
+  }
+
+  const sendPlan = async () => {
+    if (request?.kind !== 'conduit' || !request.inbox) return
+    try {
+      await appendSnapshot(
+        request.origin,
+        request.inbox,
+        JSON.stringify({ type: 'plan', text: plan }),
+      )
+      flash('Plan sent')
+    } catch (reason: unknown) {
+      flash(reason instanceof Error ? reason.message : 'Could not send plan')
+    }
   }
 
   if (!isLivePath()) return <EmptyLiveState />
@@ -302,12 +386,12 @@ export const LivePage = () => {
   }
   if (!snapshot || !game) return <EmptyLiveState reason={error || undefined} />
 
-  const orderedSeats = [
-    seats[2],
-    seats[1],
-    seats[3],
-    seats[0],
-  ].filter(Boolean)
+  const orderedSeats = snapshot.you
+    ? [
+        seats.find((seat) => seat.id === snapshot.you),
+        ...seats.filter((seat) => seat.id !== snapshot.you),
+      ].filter(Boolean) as LiveSeat[]
+    : [seats[2], seats[1], seats[3], seats[0]].filter(Boolean)
   const activeSeat = seats.find((seat) => seat.id === snapshot.active)
 
   return (
@@ -330,6 +414,9 @@ export const LivePage = () => {
             </p>
             {hydrationStatus && (
               <p className="text-xs text-gold-300">{hydrationStatus}</p>
+            )}
+            {conduitStatus && (
+              <p className="text-xs text-orange-200">{conduitStatus}</p>
             )}
           </div>
           <button
@@ -446,6 +533,16 @@ export const LivePage = () => {
                 </button>
                 <button
                   type="button"
+                  onClick={() => void sendPlan()}
+                  disabled={
+                    request?.kind !== 'conduit' || !request.inbox || !plan.trim()
+                  }
+                  className="rounded-xl bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-300 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Send plan
+                </button>
+                <button
+                  type="button"
                   onClick={() => setPlan('')}
                   className="rounded-xl bg-white/5 px-3 py-1.5 text-sm font-semibold text-stone-200 hover:bg-white/10"
                 >
@@ -458,7 +555,7 @@ export const LivePage = () => {
               value={plan}
               onChange={(event) => setPlan(event.target.value)}
               rows={3}
-              placeholder="Write the line you will paste back into chat…"
+              placeholder="Write the line to send to the table…"
               className="w-full resize-y rounded-2xl border border-white/10 bg-ink-900/90 px-4 py-3 text-sm leading-6 text-stone-100 outline-none placeholder:text-stone-500 focus:border-moss-300"
             />
           </div>
