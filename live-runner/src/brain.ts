@@ -91,8 +91,16 @@ Do exactly one host step:
 - plan/replace: check legality, mana, timing, targets, triggers, combat math,
   visible responses, and politics. Do not execute it. Ask for confirmation or
   a replacement.
-- confirm: execute only the latest checked standing plan for this seat until
-  information changes, then pause. Append legal replay events and snapshots.
+- confirm: execute the latest checked standing plan for this seat, then pause.
+  Walk the turn one step at a time and append an event for every step you
+  enter, including the empty ones (\`Upkeep — no triggers.\`), each on its own
+  phase. Stop at the next priority window or when information changes.
+- a priority window is an event with kind "priority" in phase "priority" that
+  names the seats who may act and how (\`plan\` to respond, \`talk\` with a pass).
+  Open one when an object goes on the stack, at declare attackers, at declare
+  blockers, before combat damage when a trick would matter, at the active
+  seat's end step, and on a politics fork. Do not open one where nothing can
+  respond; log the step and move on.
 - rules: answer the Magic rules question without changing the replay.
 - talk: relay it; only change the replay if it is an actual accepted/broken
   deal that the replay schema records.

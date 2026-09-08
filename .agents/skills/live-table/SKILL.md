@@ -88,6 +88,35 @@ decision, propose one legal candidate when useful and phrase the pause as
 not authorization to append events. Do not commit it until the user confirms
 after seeing the checked sequence and likely responses.
 
+## Phase walk and priority windows
+
+At a judged table every seat watches its own bin, so the log is the only way a
+seat learns that its window arrived. Name each step you enter as its own event,
+even the empty ones, and say who may act.
+
+Walk untap, upkeep, draw, precombat main, beginning of combat, declare
+attackers, declare blockers, combat damage, postcombat main, end step, and
+cleanup. A step nothing happens in still gets one line that says so
+(`Upkeep — no triggers.`). Use the step's own phase on the event.
+
+**Open a window** — an event with `kind: "priority"` in phase `priority` that
+names the seats who may act — whenever a seat could legally change the outcome:
+
+- an object goes on the stack (spell, activated ability, triggered ability)
+- declare attackers and declare blockers
+- before combat damage, when a pump, fog, or removal would matter
+- the active seat's end step
+- a politics fork that changes someone's line
+
+Do not open a window where nothing can respond: an empty untap, a land drop
+onto an empty board, a draw with no triggers. Say the step happened and move
+on. A window is expensive — each seat's answer costs a judging round — so open
+the ones that matter and skip the ceremony.
+
+An open window names its responders and how to answer: `plan` to respond,
+`talk` with a pass. Hold the game there. Execute a standing plan only up to the
+next window, then stop and publish.
+
 ## Standing plan
 
 The confirmed line (inbox `confirm`, or chat confirmation after analysis) is
