@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import base64
 import json
-import os
 import re
 import sys
 import zlib
@@ -435,7 +434,7 @@ def load_conduit_keys(path: Path | None) -> tuple[str, dict]:
         return saved["origin"].rstrip("/"), saved["bins"]
 
     origin = conduit.origin_from_env()
-    minted = conduit.mint(origin, os.environ.get("LIVE_CONDUIT_API_KEY"))
+    minted = conduit.mint(origin, conduit.api_key_from_env())
     bins = minted["bins"]
     if path:
         path.write_text(

@@ -7,6 +7,7 @@ Frozen for the `/live` + `live-table` cut. Do not invent extra query params or i
 - Default origin: `https://conduit.app.kopelke.online`
 - Override: `LIVE_CONDUIT_URL` (agent/python) or `?c=` / `import.meta.env.VITE_LIVE_CONDUIT_URL`
 - Mint: `POST /v1/mint` with `LIVE_CONDUIT_API_KEY` as `Authorization: Bearer` or `X-API-Key`
+- Key source: process env, else `~/.config/commander-decks/live-conduit.env` (shared across worktrees; never committed)
 - Production may still accept mint without a key until that deploy lands; the client always sends the key when set
 
 ## Bins (mint labels, unique)

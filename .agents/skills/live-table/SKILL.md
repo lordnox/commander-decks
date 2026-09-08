@@ -41,8 +41,9 @@ Play-to-win for the other seats: [`simulate-table`](../simulate-table/SKILL.md).
 
 1. Deal and play with `simulate-table` as usual (pod, deal, seat agents, replay
    events). Mark one seat `human` (`p1`–`p4`).
-2. Mint the nine bins (`host`, `p1`, `p1-inbox`, … `p4-inbox`) with
-   `LIVE_CONDUIT_API_KEY` and optional `LIVE_CONDUIT_URL`:
+2. Mint the nine bins (`host`, `p1`, `p1-inbox`, … `p4-inbox`). The mint key
+   comes from `LIVE_CONDUIT_API_KEY` or `~/.config/commander-decks/live-conduit.env`
+   (`LIVE_CONDUIT_URL` optional):
 
    ```bash
    python3 .agents/skills/live-table/scripts/encode_live.py table-games/<slug>.json \

@@ -1,5 +1,6 @@
 import contextlib
 import json
+import os
 import sys
 import tempfile
 import unittest
@@ -42,6 +43,30 @@ def fake_bins():
 
 
 class ConduitClientTests(unittest.TestCase):
+    def test_env_file_fills_missing_process_env(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "live-conduit.env"
+            path.write_text(
+                "LIVE_CONDUIT_API_KEY=from-file\nLIVE_CONDUIT_URL=https://file.test/\n",
+                encoding="utf-8",
+            )
+            with patch.dict(os.environ, {}, clear=False):
+                os.environ.pop("LIVE_CONDUIT_API_KEY", None)
+                os.environ.pop("LIVE_CONDUIT_URL", None)
+                self.assertEqual(
+                    conduit_client.env_value("LIVE_CONDUIT_API_KEY", path),
+                    "from-file",
+                )
+                self.assertEqual(
+                    conduit_client.env_value("LIVE_CONDUIT_URL", path),
+                    "https://file.test/",
+                )
+                os.environ["LIVE_CONDUIT_API_KEY"] = "from-process"
+                self.assertEqual(
+                    conduit_client.env_value("LIVE_CONDUIT_API_KEY", path),
+                    "from-process",
+                )
+
     def test_url_builders(self):
         private = conduit_client.conduit_private_url(
             "https://example.test/live/",
