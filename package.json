@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "bun run site:prepare && vite",
     "build": "bun run site:prepare && vite build",
-    "test:site": "bun test site/src/scryfallCache.test.ts site/src/liveCompact.test.ts",
+    "test:site": "bun test site/src/scryfallCache.test.ts site/src/liveCompact.test.ts site/src/cards.test.ts",
     "typecheck": "tsc --noEmit",
     "deck:tokens": "bun .agents/skills/simulate-table/scripts/fetch-deck-tokens.ts",
     "table:deal": "bun .agents/skills/simulate-table/scripts/deal-table.ts",

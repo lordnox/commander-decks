@@ -69,8 +69,10 @@ export const cardInfo = (
   entry?: BattlefieldCard,
 ) => {
   const name = resolveName(game, value)
-  const details =
-    (entry?.token_id && game.tokens?.[entry.token_id]) || game.catalog[name] || {}
+  const token = entry?.token_id ? game.tokens?.[entry.token_id] : undefined
+  // A token printing can be a name-only stub, so the printed card of the same
+  // name still supplies the type line and Oracle text the board rows need.
+  const details = { ...(game.catalog[name] ?? {}), ...(token ?? {}) }
   const face = selectedFace(details, entry)
   const selected = face ? { ...details, ...face } : details
   return {
@@ -96,7 +98,6 @@ export const creatureInPlay = (
 
 /** A permanent that taps or sacrifices itself for mana sits with the lands. */
 const manaAbility = /(?:^|\n)[^\n]*:\s*Add\b/
-const bodyLater = /\b(Vehicle|Spacecraft|Station)\b/
 const sideboard = /\b(Planeswalker|Battle)\b/
 
 export type BattlefieldRow =
@@ -107,17 +108,18 @@ export type BattlefieldRow =
   | 'other'
 
 /**
- * Where a permanent belongs on the board. A Vehicle or Spacecraft lines up with
- * the creatures it is about to join, a Signet lines up with the lands it stands
- * in for, and anything unusual (an emblem, a Dungeon, a card with no Oracle
- * data) falls through to its own row rather than being forced into one.
+ * Where a permanent belongs on the board. An uncrewed Vehicle and a Spacecraft
+ * below its station threshold are still artifacts and sit with the artifacts
+ * until they actually become creatures, a Signet lines up with the lands it
+ * stands in for, and anything unusual (an emblem, a Dungeon, a card with no
+ * Oracle data) falls through to its own row rather than being forced into one.
  */
 export const battlefieldRow = (
   details: CardDetails,
   entry?: BattlefieldCard,
 ): BattlefieldRow => {
   const type = details.type_line ?? ''
-  if (creatureInPlay(details, entry) || bodyLater.test(type)) return 'creatures'
+  if (creatureInPlay(details, entry)) return 'creatures'
   if (sideboard.test(type)) return 'planeswalkers'
   if (/\bLand\b/.test(type)) return 'mana'
   if (manaAbility.test(details.oracle_text ?? '')) return 'mana'
