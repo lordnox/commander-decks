@@ -192,6 +192,62 @@
       "submitted_name": "Bloodstained Mire"
     },
     {
+      "cache": "cards/63b0538e-aa94-4e23-adf1-704cbf5bc3e5.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [
+          "Treasure"
+        ],
+        "mana_cost": "{6}{R}",
+        "oracle_text": "For each land you control, create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Brass's Bounty",
+      "oracle_id": "63b0538e-aa94-4e23-adf1-704cbf5bc3e5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/190/brasss-bounty?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Brass's Bounty"
+    },
+    {
+      "cache": "cards/3c7f2b29-9f42-41ab-a2d4-7a450fb0242d.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{B}",
+        "oracle_text": "Until end of turn, whenever a player taps a Swamp for mana, that player adds an additional {B}.",
+        "produced_mana": [
+          "B"
+        ],
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Bubbling Muck",
+      "oracle_id": "3c7f2b29-9f42-41ab-a2d4-7a450fb0242d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/uds/54/bubbling-muck?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Bubbling Muck"
+    },
+    {
       "cache": "cards/3644f316-f9a3-46c9-9b1e-747f86cf4ead.json",
       "card": {
         "cmc": 0.0,
@@ -296,6 +352,37 @@
       "submitted_name": "Canyon Slough"
     },
     {
+      "cache": "cards/09b895ff-e729-48d1-bfc1-ea5fd7adda6a.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{6}",
+        "oracle_text": "As this artifact enters, choose a color.\nCreatures you control of the chosen color get +1/+1.\nWhenever a land's ability causes you to add one or more mana of the chosen color, add an additional one mana of that color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp",
+        "Mana Doubling"
+      ],
+      "category_source": "decklist",
+      "name": "Caged Sun",
+      "oracle_id": "09b895ff-e729-48d1-bfc1-ea5fd7adda6a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cm2/178/caged-sun?utm_source=api",
+      "submitted_categories": [
+        "Ramp",
+        "Mana Doubling"
+      ],
+      "submitted_name": "Caged Sun"
+    },
+    {
       "cache": "cards/086b2564-9114-4ba2-94fd-b490f98f38a7.json",
       "card": {
         "cmc": 4.0,
@@ -338,6 +425,31 @@
         "Removal"
       ],
       "submitted_name": "Chaos Warp"
+    },
+    {
+      "cache": "cards/41eec4e8-92d3-4f98-9346-3a3e3cc602ce.json",
+      "card": {
+        "cmc": 8.0,
+        "keywords": [
+          "Triple",
+          "Convoke"
+        ],
+        "mana_cost": "{5}{R}{R}{R}",
+        "oracle_text": "Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.)\nIf a source you control would deal damage to a permanent or player, it deals triple that damage instead.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "Damage Amplifier"
+      ],
+      "category_source": "decklist",
+      "name": "City on Fire",
+      "oracle_id": "41eec4e8-92d3-4f98-9346-3a3e3cc602ce",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mom/135/city-on-fire?utm_source=api",
+      "submitted_categories": [
+        "Damage Amplifier"
+      ],
+      "submitted_name": "City on Fire"
     },
     {
       "cache": "cards/5d0f4665-aa10-4251-b590-129b59274fb3.json",
@@ -523,50 +635,33 @@
       "submitted_name": "Daretti, Scrap Savant"
     },
     {
-      "cache": "cards/b5516bc9-ec8d-4323-8748-96c49d7d0622.json",
+      "cache": "cards/79acdb37-8d52-4bc8-a7be-a7e92b6166e5.json",
       "card": {
-        "cmc": 6.0,
-        "keywords": [],
-        "mana_cost": "{4}{B}{B}",
-        "oracle_text": "Destroy all creatures. Each player loses life equal to the number of creatures they controlled that were destroyed this way.",
+        "cmc": 5.0,
+        "keywords": [
+          "Spell mastery"
+        ],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Search your library for a card, put that card into your hand, then shuffle.\nSpell mastery — If there are two or more instant and/or sorcery cards in your graveyard, add {B}{B}{B}.",
+        "produced_mana": [
+          "B"
+        ],
         "type_line": "Sorcery"
       },
       "categories": [
-        "Board Wipe",
-        "Damage"
+        "Tutor",
+        "Ramp"
       ],
       "category_source": "decklist",
-      "name": "Deadly Tempest",
-      "oracle_id": "b5516bc9-ec8d-4323-8748-96c49d7d0622",
+      "name": "Dark Petition",
+      "oracle_id": "79acdb37-8d52-4bc8-a7be-a7e92b6166e5",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/c21/140/deadly-tempest?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/ori/90/dark-petition?utm_source=api",
       "submitted_categories": [
-        "Board Wipe",
-        "Damage"
+        "Tutor",
+        "Ramp"
       ],
-      "submitted_name": "Deadly Tempest"
-    },
-    {
-      "cache": "cards/68d11f97-da97-4738-bb3e-e6730bd014e8.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "mana_cost": "{3}{B}",
-        "oracle_text": "Whenever a creature enters, that creature's controller may have target creature of their choice get -3/-3 until end of turn.",
-        "type_line": "Enchantment"
-      },
-      "categories": [
-        "Creature Lock"
-      ],
-      "category_source": "decklist",
-      "name": "Death Match",
-      "oracle_id": "68d11f97-da97-4738-bb3e-e6730bd014e8",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/ons/136/death-match?utm_source=api",
-      "submitted_categories": [
-        "Creature Lock"
-      ],
-      "submitted_name": "Death Match"
+      "submitted_name": "Dark Petition"
     },
     {
       "cache": "cards/aead53ef-ffcf-4ae2-ab81-40aa9627adc9.json",
@@ -669,6 +764,30 @@
       "submitted_name": "Dictate of the Twin Gods"
     },
     {
+      "cache": "cards/53cbc12d-e182-4cde-8967-9b2664daa817.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Buyback"
+        ],
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Buyback—Discard two cards. (You may discard two cards in addition to any other costs as you cast this spell. If you do, put this card into your hand as it resolves.)\nSearch your library for a card, put that card into your hand, then shuffle.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "Tutor"
+      ],
+      "category_source": "decklist",
+      "name": "Demonic Collusion",
+      "oracle_id": "53cbc12d-e182-4cde-8967-9b2664daa817",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsp/103/demonic-collusion?utm_source=api",
+      "submitted_categories": [
+        "Tutor"
+      ],
+      "submitted_name": "Demonic Collusion"
+    },
+    {
       "cache": "cards/9afd8f12-0796-4500-aaa3-10b4a46ef6ec.json",
       "card": {
         "cmc": 2.0,
@@ -721,31 +840,33 @@
       "submitted_name": "Dragonskull Summit"
     },
     {
-      "cache": "cards/0e2575be-c596-4c8c-bf07-7941ca065721.json",
+      "cache": "cards/6832f9e2-294a-44a2-8af9-eb16ccfdfc36.json",
       "card": {
-        "cmc": 6.0,
+        "cmc": 4.0,
         "keywords": [],
-        "mana_cost": "{6}",
-        "oracle_text": "{T}: Add {C}{C}{C}.\n{3}, {T}, Sacrifice this artifact: Draw three cards.",
+        "mana_cost": "{4}",
+        "oracle_text": "This artifact enters tapped.\n{T}: Put a charge counter on this artifact. Add X mana of any one color, where X is the number of charge counters on this artifact.",
         "produced_mana": [
-          "C"
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
         ],
         "type_line": "Artifact"
       },
       "categories": [
-        "Ramp",
-        "Draw"
+        "Ramp"
       ],
       "category_source": "decklist",
-      "name": "Dreamstone Hedron",
-      "oracle_id": "0e2575be-c596-4c8c-bf07-7941ca065721",
+      "name": "Empowered Autogenerator",
+      "oracle_id": "6832f9e2-294a-44a2-8af9-eb16ccfdfc36",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cmm/945/dreamstone-hedron?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/eoc/135/empowered-autogenerator?utm_source=api",
       "submitted_categories": [
-        "Ramp",
-        "Draw"
+        "Ramp"
       ],
-      "submitted_name": "Dreamstone Hedron"
+      "submitted_name": "Empowered Autogenerator"
     },
     {
       "cache": "cards/0a79237e-0811-4a8a-bd4d-db3ca91bff22.json",
@@ -845,28 +966,6 @@
       "submitted_name": "Fiery Emancipation"
     },
     {
-      "cache": "cards/aa7714b0-2bfb-458a-8ebf-37ec2c53383e.json",
-      "card": {
-        "cmc": 1.0,
-        "keywords": [],
-        "mana_cost": "{X}{R}",
-        "oracle_text": "This spell costs {1} more to cast for each target beyond the first.\nFireball deals X damage divided evenly, rounded down, among any number of targets.",
-        "type_line": "Sorcery"
-      },
-      "categories": [
-        "Win Condition"
-      ],
-      "category_source": "decklist",
-      "name": "Fireball",
-      "oracle_id": "aa7714b0-2bfb-458a-8ebf-37ec2c53383e",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/clb/175/fireball?utm_source=api",
-      "submitted_categories": [
-        "Win Condition"
-      ],
-      "submitted_name": "Fireball"
-    },
-    {
       "cache": "cards/5c87e2fa-77f1-4978-b25f-f14d227301d1.json",
       "card": {
         "cmc": 0.0,
@@ -915,30 +1014,6 @@
         "Damage Amplifier"
       ],
       "submitted_name": "Furnace of Rath"
-    },
-    {
-      "cache": "cards/1d5f0a1c-88e0-4603-97af-8ed47766812e.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [
-          "Buyback"
-        ],
-        "mana_cost": "{X}{R}{R}",
-        "oracle_text": "Buyback {3} (You may pay an additional {3} as you cast this spell. If you do, put this card into your hand as it resolves.)\nFanning the Flames deals X damage to any target.",
-        "type_line": "Sorcery"
-      },
-      "categories": [
-        "Win Condition"
-      ],
-      "category_source": "decklist",
-      "name": "Fanning the Flames",
-      "oracle_id": "1d5f0a1c-88e0-4603-97af-8ed47766812e",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/plst/STH-80/fanning-the-flames?utm_source=api",
-      "submitted_categories": [
-        "Win Condition"
-      ],
-      "submitted_name": "Fanning the Flames"
     },
     {
       "cache": "cards/9a02a9a7-39d9-4763-85d3-747a0540b60b.json",
@@ -1118,30 +1193,6 @@
       "submitted_name": "Manifold Key"
     },
     {
-      "cache": "cards/e4ab5ee4-4683-4219-9e15-31975e69efbb.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "mana_cost": "{3}{B}",
-        "oracle_text": "When this enchantment enters, you become the monarch.\nWhenever a creature attacks you or a planeswalker you control, that creature's controller loses 1 life.",
-        "type_line": "Enchantment"
-      },
-      "categories": [
-        "Creature Lock",
-        "Draw"
-      ],
-      "category_source": "decklist",
-      "name": "Marchesa's Decree",
-      "oracle_id": "e4ab5ee4-4683-4219-9e15-31975e69efbb",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cn2/44/marchesas-decree?utm_source=api",
-      "submitted_categories": [
-        "Creature Lock",
-        "Draw"
-      ],
-      "submitted_name": "Marchesa's Decree"
-    },
-    {
       "cache": "cards/800fb917-8898-4eba-9f94-aec6e9d75236.json",
       "card": {
         "cmc": 2.0,
@@ -1310,48 +1361,26 @@
       "submitted_name": "Night's Whisper"
     },
     {
-      "cache": "cards/b9538d53-480b-481a-abbf-83ab17e1a45b.json",
+      "cache": "cards/cf94cafc-527e-4b27-8a28-7807435aaccf.json",
       "card": {
-        "cmc": 4.0,
+        "cmc": 6.0,
         "keywords": [],
-        "mana_cost": "{2}{B}{B}",
-        "oracle_text": "Whenever a creature deals damage to you, destroy it.",
-        "type_line": "Enchantment"
+        "mana_cost": "{2/B}{2/B}{2/B}",
+        "oracle_text": "({2/B} can be paid with any two mana or with {B}. This card's mana value is 6.)\nSearch your library for a card with mana value less than or equal to the number of lands you control, reveal it, put it into your hand, then shuffle.",
+        "type_line": "Sorcery"
       },
       "categories": [
-        "Creature Lock"
+        "Tutor"
       ],
       "category_source": "decklist",
-      "name": "No Mercy",
-      "oracle_id": "b9538d53-480b-481a-abbf-83ab17e1a45b",
+      "name": "Beseech the Queen",
+      "oracle_id": "cf94cafc-527e-4b27-8a28-7807435aaccf",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/dmr/95/no-mercy?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/hop/19/beseech-the-queen?utm_source=api",
       "submitted_categories": [
-        "Creature Lock"
+        "Tutor"
       ],
-      "submitted_name": "No Mercy"
-    },
-    {
-      "cache": "cards/ebb24fc7-dc71-4712-8c2a-b5920f78e55d.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "mana_cost": "{3}{R}",
-        "oracle_text": "As this enchantment enters, choose Khans or Dragons.\n• Khans — At the beginning of your upkeep, exile the top card of your library. Until end of turn, you may play that card.\n• Dragons — Whenever a creature you control leaves the battlefield, this enchantment deals 1 damage to any target.",
-        "type_line": "Enchantment"
-      },
-      "categories": [
-        "Draw"
-      ],
-      "category_source": "decklist",
-      "name": "Outpost Siege",
-      "oracle_id": "ebb24fc7-dc71-4712-8c2a-b5920f78e55d",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/clb/804/outpost-siege?utm_source=api",
-      "submitted_categories": [
-        "Draw"
-      ],
-      "submitted_name": "Outpost Siege"
+      "submitted_name": "Beseech the Queen"
     },
     {
       "cache": "cards/5e62b51d-faec-4aa0-9504-cf2c282d08ea.json",
@@ -1426,6 +1455,32 @@
         "Draw"
       ],
       "submitted_name": "Read the Bones"
+    },
+    {
+      "cache": "cards/38394ee3-6726-4f91-bc25-36bce0c6aab9.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Buyback"
+        ],
+        "mana_cost": "{1}{R}{R}",
+        "oracle_text": "Buyback {3} (You may pay an additional {3} as you cast this spell. If you do, put this card into your hand as it resolves.)\nCopy target instant or sorcery spell. You may choose new targets for the copy.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Copy",
+        "Protection"
+      ],
+      "category_source": "decklist",
+      "name": "Reiterate",
+      "oracle_id": "38394ee3-6726-4f91-bc25-36bce0c6aab9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsr/182/reiterate?utm_source=api",
+      "submitted_categories": [
+        "Copy",
+        "Protection"
+      ],
+      "submitted_name": "Reiterate"
     },
     {
       "cache": "cards/f6069a4f-744e-43e8-9f8b-7c13b8b0187f.json",
@@ -1548,48 +1603,35 @@
       "submitted_name": "Smoldering Marsh"
     },
     {
-      "cache": "cards/8aa97d25-cd51-4ceb-b7eb-af64f0914a8c.json",
+      "cache": "cards/97159138-c34b-416e-b079-5c952383a243.json",
       "card": {
-        "cmc": 2.0,
+        "cmc": 3.0,
         "keywords": [],
-        "mana_cost": "{R}{R}",
-        "oracle_text": "Players can't untap more than one creature during their untap steps.",
+        "mana_cost": "{2}{R}",
+        "oracle_text": "Whenever a player taps a land for mana, that player adds one mana of any type that land produced.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
         "type_line": "Enchantment"
       },
       "categories": [
-        "Creature Lock"
+        "Ramp",
+        "Mana Doubling"
       ],
       "category_source": "decklist",
-      "name": "Smoke",
-      "oracle_id": "8aa97d25-cd51-4ceb-b7eb-af64f0914a8c",
+      "name": "Mana Flare",
+      "oracle_id": "97159138-c34b-416e-b079-5c952383a243",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/30a/468/smoke?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mb2/196/mana-flare?utm_source=api",
       "submitted_categories": [
-        "Creature Lock"
+        "Ramp",
+        "Mana Doubling"
       ],
-      "submitted_name": "Smoke"
-    },
-    {
-      "cache": "cards/6c134ef7-5c2f-4e4c-ae40-ef338fbf41e6.json",
-      "card": {
-        "cmc": 5.0,
-        "keywords": [],
-        "mana_cost": "{4}{B}",
-        "oracle_text": "Whenever a creature enters, destroy all other creatures that share a color with it. They can't be regenerated.",
-        "type_line": "Enchantment"
-      },
-      "categories": [
-        "Creature Lock"
-      ],
-      "category_source": "decklist",
-      "name": "Spreading Plague",
-      "oracle_id": "6c134ef7-5c2f-4e4c-ae40-ef338fbf41e6",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/inv/125/spreading-plague?utm_source=api",
-      "submitted_categories": [
-        "Creature Lock"
-      ],
-      "submitted_name": "Spreading Plague"
+      "submitted_name": "Mana Flare"
     },
     {
       "cache": "cards/48220e6c-5752-46e0-9b7f-f0eef274d929.json",
@@ -1816,6 +1858,33 @@
       "submitted_name": "Temple of Malice"
     },
     {
+      "cache": "cards/aed1f0cd-8df8-415f-afd6-ccfd12234334.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Delirium",
+          "Double"
+        ],
+        "mana_cost": "{X}{2}{R}",
+        "oracle_text": "Delirium — If a source you control would deal noncombat damage to a permanent or player while there are four or more card types among cards in your graveyard, it deals double that damage instead.\nWhen The Rollercrusher Ride enters, it deals X damage to each of up to X target creatures.",
+        "type_line": "Legendary Enchantment"
+      },
+      "categories": [
+        "Board Wipe",
+        "Damage Amplifier"
+      ],
+      "category_source": "decklist",
+      "name": "The Rollercrusher Ride",
+      "oracle_id": "aed1f0cd-8df8-415f-afd6-ccfd12234334",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsk/155/the-rollercrusher-ride?utm_source=api",
+      "submitted_categories": [
+        "Board Wipe",
+        "Damage Amplifier"
+      ],
+      "submitted_name": "The Rollercrusher Ride"
+    },
+    {
       "cache": "cards/127de52b-df75-4342-95a0-20d84c5bf916.json",
       "card": {
         "cmc": 2.0,
@@ -1931,28 +2000,6 @@
         "Board Wipe"
       ],
       "submitted_name": "Toxic Deluge"
-    },
-    {
-      "cache": "cards/153fac93-5d2b-4348-a468-a5eef6a12da3.json",
-      "card": {
-        "cmc": 4.0,
-        "keywords": [],
-        "mana_cost": "{4}",
-        "oracle_text": "Untap all artifacts you control during each other player's untap step.",
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Artifact Untap"
-      ],
-      "category_source": "decklist",
-      "name": "Unwinding Clock",
-      "oracle_id": "153fac93-5d2b-4348-a468-a5eef6a12da3",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/c18/228/unwinding-clock?utm_source=api",
-      "submitted_categories": [
-        "Artifact Untap"
-      ],
-      "submitted_name": "Unwinding Clock"
     },
     {
       "cache": "cards/db6174d7-211d-4817-b8e4-8384594c83f9.json",
@@ -2074,29 +2121,33 @@
       "submitted_name": "Wayfarer's Bauble"
     },
     {
-      "cache": "cards/b166b670-febc-4821-855e-f8d465644c03.json",
+      "cache": "cards/cfb8cdde-11f6-441a-942b-32d8c191fc90.json",
       "card": {
-        "cmc": 3.0,
+        "cmc": 4.0,
         "keywords": [],
-        "mana_cost": "{3}",
-        "oracle_text": "This artifact enters tapped.\n{T}: Add {C}{C}.",
+        "mana_cost": "{4}",
+        "oracle_text": "Nyx Lotus enters tapped.\n{T}: Choose a color. Add an amount of mana of that color equal to your devotion to that color. (Your devotion to a color is the number of mana symbols of that color in the mana costs of permanents you control.)",
         "produced_mana": [
-          "C"
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
         ],
-        "type_line": "Artifact"
+        "type_line": "Legendary Artifact"
       },
       "categories": [
         "Ramp"
       ],
       "category_source": "decklist",
-      "name": "Worn Powerstone",
-      "oracle_id": "b166b670-febc-4821-855e-f8d465644c03",
+      "name": "Nyx Lotus",
+      "oracle_id": "cfb8cdde-11f6-441a-942b-32d8c191fc90",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mh3/298/worn-powerstone?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/thb/235/nyx-lotus?utm_source=api",
       "submitted_categories": [
         "Ramp"
       ],
-      "submitted_name": "Worn Powerstone"
+      "submitted_name": "Nyx Lotus"
     },
     {
       "cache": "cards/b09206a4-8b73-4125-8b79-53f6fd511b16.json",
@@ -2122,12 +2173,12 @@
     }
   ],
   "categorized_cards": 87,
-  "generated_at": "2026-09-08T19:02:40.842012+00:00",
+  "generated_at": "2026-09-08T19:16:37.944039+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 87,
   "schema_version": 3,
-  "source": "decks/unrated_mogis-burn-maxxing/decklist.txt",
+  "source": "decks/3-_mogis-burn-maxxing/decklist.txt",
   "total_cards": 100,
   "unique_cards": 87,
   "unresolved": []

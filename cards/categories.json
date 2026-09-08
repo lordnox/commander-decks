@@ -898,7 +898,7 @@
       "categories": [
         "commander-top"
       ],
-      "name": "Bartolomé del Presidio"
+      "name": "Bartolom\u00e9 del Presidio"
     },
     "f73da5d8-fd15-4315-ad3c-c86c28087285": {
       "categories": [
@@ -10664,6 +10664,285 @@
         "card-draw",
         "token-production",
         "sacrifice"
+      ]
+    },
+    "a3c35742-e306-49b6-b042-db4f685c6f86": {
+      "name": "Aether Flash",
+      "categories": [
+        "other"
+      ]
+    },
+    "bceecc64-96f1-4e7b-8904-0aef90377764": {
+      "name": "Bedevil",
+      "categories": [
+        "removal"
+      ]
+    },
+    "21338b71-37f5-4121-9b84-565025ebcd17": {
+      "name": "Black Market",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "b13f97b3-56ae-4131-a93b-b162c8ff7cca": {
+      "name": "Caltrops",
+      "categories": [
+        "other"
+      ]
+    },
+    "2031b17c-0536-446f-a9aa-b46fe79b7ea7": {
+      "name": "Canyon Slough",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "5d0f4665-aa10-4251-b590-129b59274fb3": {
+      "name": "Clock of Omens",
+      "categories": [
+        "other"
+      ]
+    },
+    "9c2b262b-53c0-41a1-8f1a-0c336453d4bf": {
+      "name": "Comet Storm",
+      "categories": [
+        "other"
+      ]
+    },
+    "fbff7452-1da4-4cd0-8247-a625e4b4da2b": {
+      "name": "Crystal Chimes",
+      "categories": [
+        "recursion",
+        "sacrifice"
+      ]
+    },
+    "98a5bf1a-1088-4339-9a9b-6ee5e4956cf1": {
+      "name": "Cut // Ribbons",
+      "categories": [
+        "other"
+      ]
+    },
+    "ea9f4de3-fc35-435a-8dff-a5657d14a9bd": {
+      "name": "Daretti, Scrap Savant",
+      "categories": [
+        "card-draw",
+        "recursion",
+        "sacrifice",
+        "discard"
+      ]
+    },
+    "aead53ef-ffcf-4ae2-ab81-40aa9627adc9": {
+      "name": "Death Pits of Rath",
+      "categories": [
+        "other"
+      ]
+    },
+    "3d960d33-623a-4415-ae00-f8cffbc15f5a": {
+      "name": "Dictate of the Twin Gods",
+      "categories": [
+        "other"
+      ]
+    },
+    "9afd8f12-0796-4500-aaa3-10b4a46ef6ec": {
+      "name": "Doubling Cube",
+      "categories": [
+        "other"
+      ]
+    },
+    "52159875-354c-47f9-bb1c-cd65395fcc68": {
+      "name": "Fiery Emancipation",
+      "categories": [
+        "other"
+      ]
+    },
+    "5c87e2fa-77f1-4978-b25f-f14d227301d1": {
+      "name": "Foreboding Ruins",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "68715465-6cf9-4006-87e9-31f227fe9ed3": {
+      "name": "Furnace of Rath",
+      "categories": [
+        "other"
+      ]
+    },
+    "9a02a9a7-39d9-4763-85d3-747a0540b60b": {
+      "name": "Gilded Lotus",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "5004b84a-33b7-4f6f-b2c2-7086b9087535": {
+      "name": "Graven Cairns",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "9fe9650d-6c9b-4988-9ea4-79ba0d55a77b": {
+      "name": "Lethal Vapors",
+      "categories": [
+        "other"
+      ]
+    },
+    "a8dba58b-2956-492e-ae30-49db2ae68e53": {
+      "name": "Mana Geyser",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "370c37f7-2484-40e8-8fd9-c10cf6f5d5f2": {
+      "name": "Manifold Key",
+      "categories": [
+        "other"
+      ]
+    },
+    "800fb917-8898-4eba-9f94-aec6e9d75236": {
+      "name": "Mazemind Tome",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "e5912d21-e188-4b9e-8e92-a6e8196353c6": {
+      "name": "Mogis, God of Slaughter",
+      "categories": [
+        "protection",
+        "sacrifice"
+      ]
+    },
+    "ac1d7dfe-1454-46a9-acf6-66ae86b6a6c5": {
+      "name": "Mudslide",
+      "categories": [
+        "other"
+      ]
+    },
+    "916bd025-c44f-49c9-8d76-4b7b2f9a8ba3": {
+      "name": "Night of Souls' Betrayal",
+      "categories": [
+        "other"
+      ]
+    },
+    "5bf4d8d9-a2b2-4dba-ac05-9d4470a89db2": {
+      "name": "Read the Bones",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "62dac700-49f7-4745-af67-37d2a81dcebc": {
+      "name": "Scrap Mastery",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "48220e6c-5752-46e0-9b7f-f0eef274d929": {
+      "name": "Star of Extinction",
+      "categories": [
+        "removal"
+      ]
+    },
+    "115bc79e-a109-42d7-ac58-2ee8dc0a959f": {
+      "name": "Stinging Study",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "a61ceda1-5993-479e-945f-15753eeb7049": {
+      "name": "Tainted Aether",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "127de52b-df75-4342-95a0-20d84c5bf916": {
+      "name": "The Meathook Massacre",
+      "categories": [
+        "other"
+      ]
+    },
+    "69b409b3-fa16-4c79-8b46-215a7036ed46": {
+      "name": "The Tabernacle at Pendrell Vale",
+      "categories": [
+        "land"
+      ]
+    },
+    "a699c663-8131-4045-9265-a83e86609374": {
+      "name": "Thran Dynamo",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "30a0a6c2-1fbb-4784-ab96-22611d57e62c": {
+      "name": "Torment of Hailfire",
+      "categories": [
+        "sacrifice",
+        "discard"
+      ]
+    },
+    "09aeea91-b1dc-443f-a509-4758f052c0a7": {
+      "name": "Voltaic Key",
+      "categories": [
+        "other"
+      ]
+    },
+    "766c2c67-d1ee-44ff-b9bb-355361646ef1": {
+      "name": "Warlock Class",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "932668fa-d6e3-41c0-ad0c-8e0a00e68d11": {
+      "name": "Decree of Pain",
+      "categories": [
+        "card-draw",
+        "board-wipe",
+        "discard"
+      ]
+    },
+    "63b0538e-aa94-4e23-adf1-704cbf5bc3e5": {
+      "name": "Brass's Bounty",
+      "categories": [
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "09b895ff-e729-48d1-bfc1-ea5fd7adda6a": {
+      "name": "Caged Sun",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "41eec4e8-92d3-4f98-9346-3a3e3cc602ce": {
+      "name": "City on Fire",
+      "categories": [
+        "other"
+      ]
+    },
+    "6832f9e2-294a-44a2-8af9-eb16ccfdfc36": {
+      "name": "Empowered Autogenerator",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "97159138-c34b-416e-b079-5c952383a243": {
+      "name": "Mana Flare",
+      "categories": [
+        "other"
+      ]
+    },
+    "aed1f0cd-8df8-415f-afd6-ccfd12234334": {
+      "name": "The Rollercrusher Ride",
+      "categories": [
+        "other"
+      ]
+    },
+    "cfb8cdde-11f6-441a-942b-32d8c191fc90": {
+      "name": "Nyx Lotus",
+      "categories": [
+        "ramp"
       ]
     }
   },

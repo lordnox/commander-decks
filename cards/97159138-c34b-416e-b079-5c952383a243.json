@@ -1,0 +1,137 @@
+{
+  "artist": "Carl Critchlow",
+  "artist_ids": [
+    "17948f16-611a-44b8-8d10-9895a0bdfff1"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 790917,
+  "cmc": 3.0,
+  "collector_number": "196",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 3299,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "future",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "96b3ec16-f182-4ab7-9523-568be5ddb68e",
+  "illustration_id": "880a78bb-ab75-4ad7-890b-1133f84908d4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:42:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/6/96b3ec16-f182-4ab7-9523-568be5ddb68e.webp?1783910560",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/6/96b3ec16-f182-4ab7-9523-568be5ddb68e.jpg?1783910560",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/6/96b3ec16-f182-4ab7-9523-568be5ddb68e.jpg?1783910560",
+    "crop": "https://cards.scryfall.io/crop/front/9/6/96b3ec16-f182-4ab7-9523-568be5ddb68e.webp?1783910560",
+    "display": "https://cards.scryfall.io/display/front/9/6/96b3ec16-f182-4ab7-9523-568be5ddb68e.webp?1783910560",
+    "grid": "https://cards.scryfall.io/grid/front/9/6/96b3ec16-f182-4ab7-9523-568be5ddb68e.webp?1783910560",
+    "large": "https://cards.scryfall.io/large/front/9/6/96b3ec16-f182-4ab7-9523-568be5ddb68e.jpg?1783910560",
+    "normal": "https://cards.scryfall.io/normal/front/9/6/96b3ec16-f182-4ab7-9523-568be5ddb68e.jpg?1783910560",
+    "png": "https://cards.scryfall.io/png/front/9/6/96b3ec16-f182-4ab7-9523-568be5ddb68e.png?1783910560",
+    "small": "https://cards.scryfall.io/small/front/9/6/96b3ec16-f182-4ab7-9523-568be5ddb68e.jpg?1783910560",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/6/96b3ec16-f182-4ab7-9523-568be5ddb68e.webp?1783910560"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}",
+  "mtgo_id": 134316,
+  "multiverse_ids": [
+    677473
+  ],
+  "name": "Mana Flare",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "97159138-c34b-416e-b079-5c952383a243",
+  "oracle_text": "Whenever a player taps a land for mana, that player adds one mana of any type that land produced.",
+  "oversized": false,
+  "penny_rank": 6227,
+  "prices": {
+    "eur": "0.45",
+    "eur_foil": "2.88",
+    "tix": "0.30",
+    "usd": "0.47",
+    "usd_etched": null,
+    "usd_foil": "5.45"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A97159138-c34b-416e-b079-5c952383a243&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/134316?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=790917&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F563132%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mana+Flare",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=677473&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMana%2BFlare",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMana%2BFlare"
+  },
+  "released_at": "2024-08-02",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/96b3ec16-f182-4ab7-9523-568be5ddb68e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mb2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mb2/196/mana-flare?utm_source=api",
+  "set": "mb2",
+  "set_id": "1e6879fe-2f29-4ad7-8d42-7f5bfb469f4a",
+  "set_name": "Mystery Booster 2",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amb2&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/1e6879fe-2f29-4ad7-8d42-7f5bfb469f4a",
+  "story_spotlight": false,
+  "tcgplayer_id": 563132,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/96b3ec16-f182-4ab7-9523-568be5ddb68e",
+  "variation": false
+}
