@@ -69,7 +69,10 @@ export const appendSnapshot = async (
   const response = await fetch(binUrl(origin, writeKey), {
     method: 'POST',
     headers: { 'X-Live-Conduit-Kind': kind },
-    body: payload,
+    body: payload.buffer.slice(
+      payload.byteOffset,
+      payload.byteOffset + payload.byteLength,
+    ) as ArrayBuffer,
   })
   if (!response.ok) {
     throw new Error(`append failed (${response.status})`)

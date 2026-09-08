@@ -4,6 +4,7 @@ import {
   mint,
   originFromEnv,
 } from './conduit'
+import { invokeHostAgent } from './brain'
 import {
   applyInbox,
   lobbyFromParts,
@@ -19,6 +20,7 @@ import {
   pagesLiveUrl,
   parseInbox,
   SEAT_IDS,
+  type InboxMessage,
   type SeatId,
 } from './protocol'
 import {
@@ -94,6 +96,7 @@ export const runHost = async (options: {
   slug: string
   root?: string
   logFile?: string
+  agent?: boolean
 }) => {
   const { slug, logFile } = options
   const root = options.root ?? repoRoot()
@@ -114,6 +117,8 @@ export const runHost = async (options: {
   if (state.phase === 'play' && hasReplay(slug, root)) {
     logLine(logFile, `judging from ${slug}.json; inbox journal ${journalPath(slug, root)}`)
   }
+  const agentEnabled = options.agent ?? savedHost?.agent ?? false
+  if (agentEnabled) logLine(logFile, 'agent host enabled')
   logLine(logFile, 'listen')
 
   const session: HostSession = {
@@ -126,6 +131,7 @@ export const runHost = async (options: {
     occupants: state.occupants,
     firstPlayer: state.firstPlayer,
     lobby: state,
+    agent: agentEnabled,
     pid: process.pid,
   }
   saveSession(session, root)
@@ -141,6 +147,45 @@ export const runHost = async (options: {
     await publish(slug, root, origin, bins, state)
   }
 
+  const processInbox = async (
+    seat: SeatId,
+    generation: number,
+    message: InboxMessage,
+  ) => {
+    applyInbox(state, seat, message)
+    if (agentEnabled && state.phase === 'play' && hasReplay(slug, root)) {
+      try {
+        const result = await invokeHostAgent({
+          root,
+          slug,
+          seat,
+          generation,
+          message,
+          logFile,
+        })
+        if (result.talk) {
+          state.talk = state.talk
+            ? `${state.talk}\nHost: ${result.talk}`
+            : `Host: ${result.talk}`
+        }
+        if (result.waiting) state.waiting = result.waiting
+      } catch (reason) {
+        const error = reason instanceof Error ? reason.message : String(reason)
+        logLine(logFile, `agent failed: ${error}`)
+        state.talk = `${state.talk}\nHost: judging agent failed; the message is journalled for retry.`
+        state.waiting = 'Host needs attention. Do not send another game action yet.'
+      }
+    }
+    session.phase = state.phase
+    session.occupants = state.occupants
+    session.firstPlayer = state.firstPlayer
+    session.lobby = state
+    saveSession(session, root)
+    await publish(slug, root, origin, bins, state)
+    await maybeRoll()
+  }
+
+  let inboxQueue = Promise.resolve()
   const watchers = SEAT_IDS.map((seat) => {
     const label = inboxLabel(seat)
     return watchSnapshots(
@@ -156,13 +201,15 @@ export const runHost = async (options: {
         }
         logLine(logFile, `${seat} ${message.type}`)
         journalInbox(slug, { seat, generation, message }, root)
-        applyInbox(state, seat, message)
-        session.phase = state.phase
-        session.occupants = state.occupants
-        session.firstPlayer = state.firstPlayer
-        session.lobby = state
         saveSession(session, root)
-        void publish(slug, root, origin, bins, state).then(() => maybeRoll())
+        inboxQueue = inboxQueue
+          .then(() => processInbox(seat, generation, message))
+          .catch((reason) => {
+            logLine(
+              logFile,
+              `inbox processing failed: ${reason instanceof Error ? reason.message : String(reason)}`,
+            )
+          })
       },
       { from: session.lastGen[label] },
     )

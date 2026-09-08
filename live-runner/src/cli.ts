@@ -15,9 +15,9 @@ import { runSeat } from './seat'
 
 const usage = () => {
   console.log(`Usage:
-  bun live-runner/src/cli.ts host --slug <slug> [--fg]
+  bun live-runner/src/cli.ts host --slug <slug> [--agent] [--fg]
   bun live-runner/src/cli.ts seat --slug <slug> --invite <token-or-file> --name <name> --deck <deck> [--fg]
-  bun live-runner/src/cli.ts resume --slug <slug> [--fg]
+  bun live-runner/src/cli.ts resume --slug <slug> [--agent] [--fg]
   bun live-runner/src/cli.ts stop --slug <slug>`)
 }
 
@@ -72,6 +72,7 @@ export const main = async (argv = process.argv.slice(2)) => {
   const root = repoRoot()
   const slug = arg(argv, '--slug')
   const fg = flag(argv, '--fg') || process.env.LIVE_RUNNER_CHILD === '1'
+  const agent = flag(argv, '--agent')
 
   if (command === 'stop') {
     if (!slug) {
@@ -99,9 +100,21 @@ export const main = async (argv = process.argv.slice(2)) => {
       return 0
     }
     if (session.role === 'host') {
-      if (!fg) daemonize([fileURLToPath(import.meta.url), 'host', '--slug', slug], slug, root)
+      const hostArgv = [
+        fileURLToPath(import.meta.url),
+        'host',
+        '--slug',
+        slug,
+        ...(agent ? ['--agent'] : []),
+      ]
+      if (!fg) daemonize(hostArgv, slug, root)
       writePid(slug, process.pid, root)
-      await runHost({ slug, root, logFile: logPath(slug, root) })
+      await runHost({
+        slug,
+        root,
+        logFile: logPath(slug, root),
+        agent: agent || session.agent,
+      })
       await new Promise(() => {})
       return 0
     }
@@ -142,9 +155,21 @@ export const main = async (argv = process.argv.slice(2)) => {
   }
 
   if (command === 'host') {
-    if (!fg) daemonize([fileURLToPath(import.meta.url), 'host', '--slug', slug], slug, root)
+    const hostArgv = [
+      fileURLToPath(import.meta.url),
+      'host',
+      '--slug',
+      slug,
+      ...(agent ? ['--agent'] : []),
+    ]
+    if (!fg) daemonize(hostArgv, slug, root)
     writePid(slug, process.pid, root)
-    await runHost({ slug, root, logFile: logPath(slug, root) })
+    await runHost({
+      slug,
+      root,
+      logFile: logPath(slug, root),
+      agent,
+    })
     await new Promise(() => {})
     return 0
   }

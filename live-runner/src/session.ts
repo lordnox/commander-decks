@@ -21,6 +21,7 @@ export type HostSession = {
   occupants: Partial<Record<SeatId, Occupant>>
   firstPlayer: SeatId
   lobby?: LobbyState
+  agent?: boolean
   pid?: number
 }
 
