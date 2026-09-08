@@ -1,0 +1,174 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "18e448db-e60f-407c-95df-33d7ae12532f",
+      "name": "Radiant Solar",
+      "object": "related_card",
+      "type_line": "Creature — Angel",
+      "uri": "https://api.scryfall.com/cards/18e448db-e60f-407c-95df-33d7ae12532f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6f509dbe-6ec7-4438-ab36-e20be46c9922",
+      "name": "Dungeon of the Mad Mage",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/6f509dbe-6ec7-4438-ab36-e20be46c9922"
+    },
+    {
+      "component": "combo_piece",
+      "id": "59b11ff8-f118-4978-87dd-509dc0c8c932",
+      "name": "Lost Mine of Phandelver",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/59b11ff8-f118-4978-87dd-509dc0c8c932"
+    },
+    {
+      "component": "combo_piece",
+      "id": "70b284bd-7a8f-4b60-8238-f746bdc5b236",
+      "name": "Tomb of Annihilation",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/70b284bd-7a8f-4b60-8238-f746bdc5b236"
+    }
+  ],
+  "artist": "Alexander Mokhov",
+  "artist_ids": [
+    "3a6a9d37-e62c-44bd-90f2-f5126324e3f0"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 572187,
+  "cmc": 6.0,
+  "collector_number": "9",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 6923,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "fa0e443a-c479-40ab-9702-8beca3e5ab95",
+  "illustration_id": "d6ca4473-edd9-4a67-915e-e99a1364052d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:04:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/a/fa0e443a-c479-40ab-9702-8beca3e5ab95.webp?1783926257",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/a/fa0e443a-c479-40ab-9702-8beca3e5ab95.jpg?1783926257",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/a/fa0e443a-c479-40ab-9702-8beca3e5ab95.jpg?1783926257",
+    "crop": "https://cards.scryfall.io/crop/front/f/a/fa0e443a-c479-40ab-9702-8beca3e5ab95.webp?1783926257",
+    "display": "https://cards.scryfall.io/display/front/f/a/fa0e443a-c479-40ab-9702-8beca3e5ab95.webp?1783926257",
+    "grid": "https://cards.scryfall.io/grid/front/f/a/fa0e443a-c479-40ab-9702-8beca3e5ab95.webp?1783926257",
+    "large": "https://cards.scryfall.io/large/front/f/a/fa0e443a-c479-40ab-9702-8beca3e5ab95.jpg?1783926257",
+    "normal": "https://cards.scryfall.io/normal/front/f/a/fa0e443a-c479-40ab-9702-8beca3e5ab95.jpg?1783926257",
+    "png": "https://cards.scryfall.io/png/front/f/a/fa0e443a-c479-40ab-9702-8beca3e5ab95.png?1783926257",
+    "small": "https://cards.scryfall.io/small/front/f/a/fa0e443a-c479-40ab-9702-8beca3e5ab95.jpg?1783926257",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/a/fa0e443a-c479-40ab-9702-8beca3e5ab95.webp?1783926257"
+  },
+  "keywords": [
+    "Flying",
+    "Lifelink",
+    "Venture into the dungeon"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{W}",
+  "mtgo_id": 92504,
+  "multiverse_ids": [
+    531914
+  ],
+  "name": "Radiant Solar",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "21a86dcd-03e3-409b-b214-5feed07db584",
+  "oracle_text": "Flying, lifelink\nWhenever this creature or another nontoken creature you control enters, venture into the dungeon. (Enter the first room or advance to the next room.)\n{W}, Discard this card: Venture into the dungeon and you gain 3 life.",
+  "oversized": false,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2021-07-10",
+    "source": "MTG Muddstah",
+    "source_uri": "https://www.youtube.com/watch?v=JuG8gigPnlM"
+  },
+  "prices": {
+    "eur": "6.38",
+    "eur_foil": null,
+    "tix": "8.46",
+    "usd": "3.06",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A21a86dcd-03e3-409b-b214-5feed07db584&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/92504?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=572187&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243773%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Radiant+Solar",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=531914&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRadiant%2BSolar",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRadiant%2BSolar"
+  },
+  "released_at": "2021-07-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/fa0e443a-c479-40ab-9702-8beca3e5ab95/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afc/9/radiant-solar?utm_source=api",
+  "security_stamp": "oval",
+  "set": "afc",
+  "set_id": "db1b46f9-893c-4623-9465-985ff6e4472c",
+  "set_name": "Forgotten Realms Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/db1b46f9-893c-4623-9465-985ff6e4472c",
+  "story_spotlight": false,
+  "tcgplayer_id": 243773,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Creature — Angel",
+  "uri": "https://api.scryfall.com/cards/fa0e443a-c479-40ab-9702-8beca3e5ab95",
+  "variation": false
+}

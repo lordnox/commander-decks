@@ -1,0 +1,183 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "6f509dbe-6ec7-4438-ab36-e20be46c9922",
+      "name": "Dungeon of the Mad Mage",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/6f509dbe-6ec7-4438-ab36-e20be46c9922"
+    },
+    {
+      "component": "combo_piece",
+      "id": "59b11ff8-f118-4978-87dd-509dc0c8c932",
+      "name": "Lost Mine of Phandelver",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/59b11ff8-f118-4978-87dd-509dc0c8c932"
+    },
+    {
+      "component": "combo_piece",
+      "id": "735b16a4-c35a-4eec-94ed-8df6720240e0",
+      "name": "A-Cloister Gargoyle",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Gargoyle",
+      "uri": "https://api.scryfall.com/cards/735b16a4-c35a-4eec-94ed-8df6720240e0"
+    },
+    {
+      "component": "combo_piece",
+      "id": "70b284bd-7a8f-4b60-8238-f746bdc5b236",
+      "name": "Tomb of Annihilation",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/70b284bd-7a8f-4b60-8238-f746bdc5b236"
+    },
+    {
+      "component": "combo_piece",
+      "id": "ab380bf5-2202-4098-b850-2cb660ec5351",
+      "name": "Cloister Gargoyle",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Gargoyle",
+      "uri": "https://api.scryfall.com/cards/ab380bf5-2202-4098-b850-2cb660ec5351"
+    }
+  ],
+  "arena_id": 77112,
+  "artist": "Mark Zug",
+  "artist_ids": [
+    "48e2b98c-5467-4671-bd42-4c3746115117"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 570768,
+  "cmc": 3.0,
+  "collector_number": "7",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 14066,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "297bf274-d13d-4b75-b251-2d004b16b431",
+  "illustration_id": "5e8297bc-ae99-4db5-8977-9b14b112d5dc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:08:57Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/9/297bf274-d13d-4b75-b251-2d004b16b431.webp?1783926537",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/9/297bf274-d13d-4b75-b251-2d004b16b431.jpg?1783926537",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/9/297bf274-d13d-4b75-b251-2d004b16b431.jpg?1783926537",
+    "crop": "https://cards.scryfall.io/crop/front/2/9/297bf274-d13d-4b75-b251-2d004b16b431.webp?1783926537",
+    "display": "https://cards.scryfall.io/display/front/2/9/297bf274-d13d-4b75-b251-2d004b16b431.webp?1783926537",
+    "grid": "https://cards.scryfall.io/grid/front/2/9/297bf274-d13d-4b75-b251-2d004b16b431.webp?1783926537",
+    "large": "https://cards.scryfall.io/large/front/2/9/297bf274-d13d-4b75-b251-2d004b16b431.jpg?1783926537",
+    "normal": "https://cards.scryfall.io/normal/front/2/9/297bf274-d13d-4b75-b251-2d004b16b431.jpg?1783926537",
+    "png": "https://cards.scryfall.io/png/front/2/9/297bf274-d13d-4b75-b251-2d004b16b431.png?1783926537",
+    "small": "https://cards.scryfall.io/small/front/2/9/297bf274-d13d-4b75-b251-2d004b16b431.jpg?1783926537",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/9/297bf274-d13d-4b75-b251-2d004b16b431.webp?1783926537"
+  },
+  "keywords": [
+    "Venture into the dungeon"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 91516,
+  "multiverse_ids": [
+    527294
+  ],
+  "name": "Cloister Gargoyle",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e1e84b14-c521-4eb7-92ed-bde1131e8662",
+  "oracle_text": "When this creature enters, venture into the dungeon. (Enter the first room or advance to the next room.)\nAs long as you've completed a dungeon, this creature gets +3/+0 and has flying.",
+  "oversized": false,
+  "penny_rank": 13386,
+  "power": "0",
+  "preview": {
+    "previewed_at": "2021-06-26",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/card-image-gallery/adventures-in-the-forgotten-realms"
+  },
+  "prices": {
+    "eur": "0.12",
+    "eur_foil": "0.19",
+    "tix": "0.03",
+    "usd": "0.23",
+    "usd_etched": null,
+    "usd_foil": "0.34"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae1e84b14-c521-4eb7-92ed-bde1131e8662&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/91516?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=570768&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F242800%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Cloister+Gargoyle",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=527294&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCloister%2BGargoyle",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCloister%2BGargoyle"
+  },
+  "released_at": "2021-07-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/297bf274-d13d-4b75-b251-2d004b16b431/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afr/7/cloister-gargoyle?utm_source=api",
+  "set": "afr",
+  "set_id": "e1ef87ba-ba92-4573-817f-543b996d2851",
+  "set_name": "Adventures in the Forgotten Realms",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e1ef87ba-ba92-4573-817f-543b996d2851",
+  "story_spotlight": false,
+  "tcgplayer_id": 242800,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Artifact Creature — Gargoyle",
+  "uri": "https://api.scryfall.com/cards/297bf274-d13d-4b75-b251-2d004b16b431",
+  "variation": false
+}

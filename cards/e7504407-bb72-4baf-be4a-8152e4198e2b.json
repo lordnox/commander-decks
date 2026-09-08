@@ -1,0 +1,179 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "6f509dbe-6ec7-4438-ab36-e20be46c9922",
+      "name": "Dungeon of the Mad Mage",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/6f509dbe-6ec7-4438-ab36-e20be46c9922"
+    },
+    {
+      "component": "token",
+      "id": "267c4604-0366-471b-bad0-4e666d45310f",
+      "name": "Clue",
+      "object": "related_card",
+      "type_line": "Token Artifact — Clue",
+      "uri": "https://api.scryfall.com/cards/267c4604-0366-471b-bad0-4e666d45310f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "59b11ff8-f118-4978-87dd-509dc0c8c932",
+      "name": "Lost Mine of Phandelver",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/59b11ff8-f118-4978-87dd-509dc0c8c932"
+    },
+    {
+      "component": "combo_piece",
+      "id": "70b284bd-7a8f-4b60-8238-f746bdc5b236",
+      "name": "Tomb of Annihilation",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/70b284bd-7a8f-4b60-8238-f746bdc5b236"
+    },
+    {
+      "component": "combo_piece",
+      "id": "da218add-3891-41c7-86ea-5d655455a8b4",
+      "name": "Thorough Investigation",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/da218add-3891-41c7-86ea-5d655455a8b4"
+    }
+  ],
+  "artist": "Aaron J. Riley",
+  "artist_ids": [
+    "f21b412c-aef5-4d15-88be-4f40615acde3"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 572190,
+  "cmc": 3.0,
+  "collector_number": "12",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 7074,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a40e6034-aa05-4542-ac12-78e6a76d86e9",
+  "illustration_id": "20e0e099-2324-4d38-8587-2de48c6cb615",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:04:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/4/a40e6034-aa05-4542-ac12-78e6a76d86e9.webp?1783926257",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/4/a40e6034-aa05-4542-ac12-78e6a76d86e9.jpg?1783926257",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/4/a40e6034-aa05-4542-ac12-78e6a76d86e9.jpg?1783926257",
+    "crop": "https://cards.scryfall.io/crop/front/a/4/a40e6034-aa05-4542-ac12-78e6a76d86e9.webp?1783926257",
+    "display": "https://cards.scryfall.io/display/front/a/4/a40e6034-aa05-4542-ac12-78e6a76d86e9.webp?1783926257",
+    "grid": "https://cards.scryfall.io/grid/front/a/4/a40e6034-aa05-4542-ac12-78e6a76d86e9.webp?1783926257",
+    "large": "https://cards.scryfall.io/large/front/a/4/a40e6034-aa05-4542-ac12-78e6a76d86e9.jpg?1783926257",
+    "normal": "https://cards.scryfall.io/normal/front/a/4/a40e6034-aa05-4542-ac12-78e6a76d86e9.jpg?1783926257",
+    "png": "https://cards.scryfall.io/png/front/a/4/a40e6034-aa05-4542-ac12-78e6a76d86e9.png?1783926257",
+    "small": "https://cards.scryfall.io/small/front/a/4/a40e6034-aa05-4542-ac12-78e6a76d86e9.jpg?1783926257",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/4/a40e6034-aa05-4542-ac12-78e6a76d86e9.webp?1783926257"
+  },
+  "keywords": [
+    "Investigate",
+    "Venture into the dungeon"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 92510,
+  "multiverse_ids": [
+    531917
+  ],
+  "name": "Thorough Investigation",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e7504407-bb72-4baf-be4a-8152e4198e2b",
+  "oracle_text": "Whenever you attack, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")\nWhenever you sacrifice a Clue, venture into the dungeon. (Enter the first room or advance to the next room.)",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2021-07-10",
+    "source": "MTG Muddstah",
+    "source_uri": "https://www.youtube.com/watch?v=JuG8gigPnlM"
+  },
+  "prices": {
+    "eur": "2.86",
+    "eur_foil": null,
+    "tix": "2.87",
+    "usd": "2.31",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae7504407-bb72-4baf-be4a-8152e4198e2b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/92510?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=572190&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243776%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Thorough+Investigation",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=531917&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThorough%2BInvestigation",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThorough%2BInvestigation"
+  },
+  "released_at": "2021-07-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a40e6034-aa05-4542-ac12-78e6a76d86e9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afc/12/thorough-investigation?utm_source=api",
+  "security_stamp": "oval",
+  "set": "afc",
+  "set_id": "db1b46f9-893c-4623-9465-985ff6e4472c",
+  "set_name": "Forgotten Realms Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/db1b46f9-893c-4623-9465-985ff6e4472c",
+  "story_spotlight": false,
+  "tcgplayer_id": 243776,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/a40e6034-aa05-4542-ac12-78e6a76d86e9",
+  "variation": false
+}

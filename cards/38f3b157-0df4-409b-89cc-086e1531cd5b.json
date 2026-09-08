@@ -1,0 +1,131 @@
+{
+  "artist": "Scott Murphy",
+  "artist_ids": [
+    "07c7ac65-dfa6-4273-9c66-ec9d8f3e2226"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 788741,
+  "cmc": 5.0,
+  "collector_number": "142",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 245,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "00d001d0-fd29-4b7c-9d0e-9131b995f910",
+  "illustration_id": "752ec922-89ee-4a6f-ae75-60b66e04fc64",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:26:57Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/0/00d001d0-fd29-4b7c-9d0e-9131b995f910.webp?1783909617",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/0/00d001d0-fd29-4b7c-9d0e-9131b995f910.jpg?1783909617",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/0/00d001d0-fd29-4b7c-9d0e-9131b995f910.jpg?1783909617",
+    "crop": "https://cards.scryfall.io/crop/front/0/0/00d001d0-fd29-4b7c-9d0e-9131b995f910.webp?1783909617",
+    "display": "https://cards.scryfall.io/display/front/0/0/00d001d0-fd29-4b7c-9d0e-9131b995f910.webp?1783909617",
+    "grid": "https://cards.scryfall.io/grid/front/0/0/00d001d0-fd29-4b7c-9d0e-9131b995f910.webp?1783909617",
+    "large": "https://cards.scryfall.io/large/front/0/0/00d001d0-fd29-4b7c-9d0e-9131b995f910.jpg?1783909617",
+    "normal": "https://cards.scryfall.io/normal/front/0/0/00d001d0-fd29-4b7c-9d0e-9131b995f910.jpg?1783909617",
+    "png": "https://cards.scryfall.io/png/front/0/0/00d001d0-fd29-4b7c-9d0e-9131b995f910.png?1783909617",
+    "small": "https://cards.scryfall.io/small/front/0/0/00d001d0-fd29-4b7c-9d0e-9131b995f910.jpg?1783909617",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/0/00d001d0-fd29-4b7c-9d0e-9131b995f910.webp?1783909617"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_id": 130907,
+  "multiverse_ids": [
+    676015
+  ],
+  "name": "Gray Merchant of Asphodel",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "38f3b157-0df4-409b-89cc-086e1531cd5b",
+  "oracle_text": "When this creature enters, each opponent loses X life, where X is your devotion to black. You gain life equal to the life lost this way. (Each {B} in the mana costs of permanents you control counts toward your devotion to black.)",
+  "oversized": false,
+  "penny_rank": 881,
+  "power": "2",
+  "prices": {
+    "eur": "1.97",
+    "eur_foil": null,
+    "tix": "0.16",
+    "usd": "5.09",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A38f3b157-0df4-409b-89cc-086e1531cd5b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130907?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=788741&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F579034%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Gray+Merchant+of+Asphodel",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676015&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGray%2BMerchant%2Bof%2BAsphodel",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGray%2BMerchant%2Bof%2BAsphodel"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/00d001d0-fd29-4b7c-9d0e-9131b995f910/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/142/gray-merchant-of-asphodel?utm_source=api",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 579034,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Zombie",
+  "uri": "https://api.scryfall.com/cards/00d001d0-fd29-4b7c-9d0e-9131b995f910",
+  "variation": false
+}

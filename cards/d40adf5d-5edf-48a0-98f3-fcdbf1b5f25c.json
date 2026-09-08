@@ -1,0 +1,136 @@
+{
+  "artist": "Christopher Moeller",
+  "artist_ids": [
+    "21e10012-06ae-44f2-b38d-3824dd2e73d4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 290390,
+  "cmc": 4.0,
+  "collector_number": "99",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 11169,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "His victims don't have time to feel despair.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5b3a4f2a-57ea-4fa0-a76f-3e215a36d1f4",
+  "illustration_id": "a3d7f83c-9b41-4089-9c3d-02fb1f116e23",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:13:14Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/b/5b3a4f2a-57ea-4fa0-a76f-3e215a36d1f4.webp?1783937594",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/b/5b3a4f2a-57ea-4fa0-a76f-3e215a36d1f4.jpg?1783937594",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/b/5b3a4f2a-57ea-4fa0-a76f-3e215a36d1f4.jpg?1783937594",
+    "crop": "https://cards.scryfall.io/crop/front/5/b/5b3a4f2a-57ea-4fa0-a76f-3e215a36d1f4.webp?1783937594",
+    "display": "https://cards.scryfall.io/display/front/5/b/5b3a4f2a-57ea-4fa0-a76f-3e215a36d1f4.webp?1783937594",
+    "grid": "https://cards.scryfall.io/grid/front/5/b/5b3a4f2a-57ea-4fa0-a76f-3e215a36d1f4.webp?1783937594",
+    "large": "https://cards.scryfall.io/large/front/5/b/5b3a4f2a-57ea-4fa0-a76f-3e215a36d1f4.jpg?1783937594",
+    "normal": "https://cards.scryfall.io/normal/front/5/b/5b3a4f2a-57ea-4fa0-a76f-3e215a36d1f4.jpg?1783937594",
+    "png": "https://cards.scryfall.io/png/front/5/b/5b3a4f2a-57ea-4fa0-a76f-3e215a36d1f4.png?1783937594",
+    "small": "https://cards.scryfall.io/small/front/5/b/5b3a4f2a-57ea-4fa0-a76f-3e215a36d1f4.jpg?1783937594",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/b/5b3a4f2a-57ea-4fa0-a76f-3e215a36d1f4.webp?1783937594"
+  },
+  "keywords": [
+    "First strike"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "mtgo_foil_id": 60556,
+  "mtgo_id": 60555,
+  "multiverse_ids": [
+    413641
+  ],
+  "name": "Nekrataal",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d40adf5d-5edf-48a0-98f3-fcdbf1b5f25c",
+  "oracle_text": "First strike\nWhen this creature enters, destroy target nonartifact, nonblack creature. That creature can't be regenerated.",
+  "oversized": false,
+  "penny_rank": 2902,
+  "power": "2",
+  "prices": {
+    "eur": "0.15",
+    "eur_foil": "0.38",
+    "tix": "0.09",
+    "usd": "0.18",
+    "usd_etched": null,
+    "usd_foil": "0.39"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad40adf5d-5edf-48a0-98f3-fcdbf1b5f25c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/60555?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=290390&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F118763%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Nekrataal",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=413641&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DNekrataal",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DNekrataal"
+  },
+  "released_at": "2016-06-10",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5b3a4f2a-57ea-4fa0-a76f-3e215a36d1f4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ema?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ema/99/nekrataal?utm_source=api",
+  "set": "ema",
+  "set_id": "1f29f022-3ace-4c96-85e8-1f7b63aadf7e",
+  "set_name": "Eternal Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aema&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/1f29f022-3ace-4c96-85e8-1f7b63aadf7e",
+  "story_spotlight": false,
+  "tcgplayer_id": 118763,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Assassin",
+  "uri": "https://api.scryfall.com/cards/5b3a4f2a-57ea-4fa0-a76f-3e215a36d1f4",
+  "variation": false
+}

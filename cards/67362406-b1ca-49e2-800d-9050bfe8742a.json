@@ -1,0 +1,130 @@
+{
+  "artist": "Tristan Elwell",
+  "artist_ids": [
+    "94764133-a3a6-4bc4-b29b-2b328d9657f6"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 572259,
+  "cmc": 2.0,
+  "collector_number": "86",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 4376,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Merfolk don't always know what they're looking for, but they're certain once they find it.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "6d740928-bf61-4420-a403-63097538b97d",
+  "illustration_id": "c192fa94-2420-4c2d-a6fb-d103fb42a925",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:03:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/d/6d740928-bf61-4420-a403-63097538b97d.webp?1783926224",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/d/6d740928-bf61-4420-a403-63097538b97d.jpg?1783926224",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/d/6d740928-bf61-4420-a403-63097538b97d.jpg?1783926224",
+    "crop": "https://cards.scryfall.io/crop/front/6/d/6d740928-bf61-4420-a403-63097538b97d.webp?1783926224",
+    "display": "https://cards.scryfall.io/display/front/6/d/6d740928-bf61-4420-a403-63097538b97d.webp?1783926224",
+    "grid": "https://cards.scryfall.io/grid/front/6/d/6d740928-bf61-4420-a403-63097538b97d.webp?1783926224",
+    "large": "https://cards.scryfall.io/large/front/6/d/6d740928-bf61-4420-a403-63097538b97d.jpg?1783926224",
+    "normal": "https://cards.scryfall.io/normal/front/6/d/6d740928-bf61-4420-a403-63097538b97d.jpg?1783926224",
+    "png": "https://cards.scryfall.io/png/front/6/d/6d740928-bf61-4420-a403-63097538b97d.png?1783926224",
+    "small": "https://cards.scryfall.io/small/front/6/d/6d740928-bf61-4420-a403-63097538b97d.jpg?1783926224",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/d/6d740928-bf61-4420-a403-63097538b97d.webp?1783926224"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "multiverse_ids": [
+    532473
+  ],
+  "name": "Merfolk Looter",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "67362406-b1ca-49e2-800d-9050bfe8742a",
+  "oracle_text": "{T}: Draw a card, then discard a card.",
+  "oversized": false,
+  "penny_rank": 2684,
+  "power": "1",
+  "prices": {
+    "eur": "0.26",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.39",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A67362406-b1ca-49e2-800d-9050bfe8742a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Merfolk+Looter&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=572259&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243949%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Merfolk+Looter",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=532473&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMerfolk%2BLooter",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMerfolk%2BLooter"
+  },
+  "released_at": "2021-07-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/6d740928-bf61-4420-a403-63097538b97d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afc/86/merfolk-looter?utm_source=api",
+  "set": "afc",
+  "set_id": "db1b46f9-893c-4623-9465-985ff6e4472c",
+  "set_name": "Forgotten Realms Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/db1b46f9-893c-4623-9465-985ff6e4472c",
+  "story_spotlight": false,
+  "tcgplayer_id": 243949,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Merfolk Rogue",
+  "uri": "https://api.scryfall.com/cards/6d740928-bf61-4420-a403-63097538b97d",
+  "variation": false
+}
