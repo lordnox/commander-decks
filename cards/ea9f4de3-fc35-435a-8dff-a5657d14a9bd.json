@@ -1,0 +1,154 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "64ace1f4-51b5-4a6a-a730-859717efbd6d",
+      "name": "Daretti, Scrap Savant Emblem",
+      "object": "related_card",
+      "type_line": "Emblem — Daretti",
+      "uri": "https://api.scryfall.com/cards/64ace1f4-51b5-4a6a-a730-859717efbd6d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "30e32a0f-a9ce-4c0e-a305-bf3fa783ce4f",
+      "name": "Daretti, Scrap Savant",
+      "object": "related_card",
+      "type_line": "Legendary Planeswalker — Daretti",
+      "uri": "https://api.scryfall.com/cards/30e32a0f-a9ce-4c0e-a305-bf3fa783ce4f"
+    }
+  ],
+  "artist": "Dan Murayama Scott",
+  "artist_ids": [
+    "f852fa13-137e-40f2-bbc1-0f01df09c0e0"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 721922,
+  "cmc": 4.0,
+  "collector_number": "213",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 1993,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7cb9d4a0-66bd-454d-b676-80192a96c723",
+  "illustration_id": "f4a344a0-e517-4be0-bd13-c4393e5b9c72",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:07:36Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/c/7cb9d4a0-66bd-454d-b676-80192a96c723.webp?1783915656",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/c/7cb9d4a0-66bd-454d-b676-80192a96c723.jpg?1783915656",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/c/7cb9d4a0-66bd-454d-b676-80192a96c723.jpg?1783915656",
+    "crop": "https://cards.scryfall.io/crop/front/7/c/7cb9d4a0-66bd-454d-b676-80192a96c723.webp?1783915656",
+    "display": "https://cards.scryfall.io/display/front/7/c/7cb9d4a0-66bd-454d-b676-80192a96c723.webp?1783915656",
+    "grid": "https://cards.scryfall.io/grid/front/7/c/7cb9d4a0-66bd-454d-b676-80192a96c723.webp?1783915656",
+    "large": "https://cards.scryfall.io/large/front/7/c/7cb9d4a0-66bd-454d-b676-80192a96c723.jpg?1783915656",
+    "normal": "https://cards.scryfall.io/normal/front/7/c/7cb9d4a0-66bd-454d-b676-80192a96c723.jpg?1783915656",
+    "png": "https://cards.scryfall.io/png/front/7/c/7cb9d4a0-66bd-454d-b676-80192a96c723.png?1783915656",
+    "small": "https://cards.scryfall.io/small/front/7/c/7cb9d4a0-66bd-454d-b676-80192a96c723.jpg?1783915656",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/c/7cb9d4a0-66bd-454d-b676-80192a96c723.webp?1783915656"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "loyalty": "3",
+  "mana_cost": "{3}{R}",
+  "mtgo_id": 114653,
+  "multiverse_ids": [
+    627677
+  ],
+  "name": "Daretti, Scrap Savant",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ea9f4de3-fc35-435a-8dff-a5657d14a9bd",
+  "oracle_text": "+2: Discard up to two cards, then draw that many cards.\n−2: Sacrifice an artifact. If you do, return target artifact card from your graveyard to the battlefield.\n−10: You get an emblem with \"Whenever an artifact is put into your graveyard from the battlefield, return that card to the battlefield at the beginning of the next end step.\"\nDaretti, Scrap Savant can be your commander.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-07-12",
+    "source": "Adam The Gathering",
+    "source_uri": "https://twitter.com/AdamTheGatherin/status/1679157056702431234"
+  },
+  "prices": {
+    "eur": "0.98",
+    "eur_foil": "1.26",
+    "tix": "2.27",
+    "usd": "1.89",
+    "usd_etched": null,
+    "usd_foil": "2.32"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aea9f4de3-fc35-435a-8dff-a5657d14a9bd&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/114653?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=721922&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F503645%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Daretti%2C+Scrap+Savant",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=627677&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDaretti%252C%2BScrap%2BSavant",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDaretti%252C%2BScrap%2BSavant"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7cb9d4a0-66bd-454d-b676-80192a96c723/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/213/daretti-scrap-savant?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 503645,
+  "textless": false,
+  "type_line": "Legendary Planeswalker — Daretti",
+  "uri": "https://api.scryfall.com/cards/7cb9d4a0-66bd-454d-b676-80192a96c723",
+  "variation": false
+}
