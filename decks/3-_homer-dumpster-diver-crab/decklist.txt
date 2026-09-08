@@ -32,7 +32,7 @@
 1x Splendid Reclamation [Land Laundering,Finisher]
 1x Walk-In Closet // Forgotten Cellar [Land Recursion,Creature Recursion]
 1x Mole Man, Moloid Master [Land Recursion,Landfall,Token Production,Dumpster Diving]
-1x You Find the Villains' Lair [Counterspell,Interaction,Dumpster Diving,Card Selection]
+1x Wash Away [Counterspell,Interaction]
 1x Sakura-Tribe Scout [Land Laundering,Ramp]
 1x Zimone and Dina [Land Laundering,Card Advantage]
 1x Dreamscape Artist [Land Laundering,Dumpster Diving]

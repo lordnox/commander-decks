@@ -966,32 +966,30 @@
       "submitted_name": "Mole Man, Moloid Master"
     },
     {
-      "cache": "cards/41cdeb52-e90f-44f8-94d2-23aa032c4870.json",
+      "cache": "cards/a4630da0-fe9b-4ead-9621-eac4b7825c35.json",
       "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{1}{U}{U}",
-        "oracle_text": "Choose one —\n• Foil Their Scheme — Counter target spell.\n• Learn Their Secrets — Draw two cards, then discard two cards.",
+        "cmc": 1.0,
+        "keywords": [
+          "Cleave"
+        ],
+        "mana_cost": "{U}",
+        "oracle_text": "Cleave {1}{U}{U} (You may cast this spell for its cleave cost. If you do, remove the words in square brackets.)\nCounter target spell [that wasn't cast from its owner's hand].",
         "type_line": "Instant"
       },
       "categories": [
         "Counterspell",
-        "Interaction",
-        "Dumpster Diving",
-        "Card Selection"
+        "Interaction"
       ],
       "category_source": "decklist",
-      "name": "You Find the Villains' Lair",
-      "oracle_id": "41cdeb52-e90f-44f8-94d2-23aa032c4870",
+      "name": "Wash Away",
+      "oracle_id": "a4630da0-fe9b-4ead-9621-eac4b7825c35",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/afr/84/you-find-the-villains-lair?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/vow/87/wash-away?utm_source=api",
       "submitted_categories": [
         "Counterspell",
-        "Interaction",
-        "Dumpster Diving",
-        "Card Selection"
+        "Interaction"
       ],
-      "submitted_name": "You Find the Villains' Lair"
+      "submitted_name": "Wash Away"
     },
     {
       "cache": "cards/0c319f45-cb0f-4641-acd8-145768acb3fc.json",
@@ -2526,7 +2524,7 @@
     }
   ],
   "categorized_cards": 93,
-  "generated_at": "2026-09-07T22:44:46.549524+00:00",
+  "generated_at": "2026-09-08T14:42:13.273649+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 93,

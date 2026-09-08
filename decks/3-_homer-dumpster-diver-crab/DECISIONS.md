@@ -132,7 +132,7 @@ This log records why every card entered the initial list. Future changes should 
 - **Fortune's Favor** — Hidden-information Fact or Fiction that sends the unchosen pile to the graveyard.
 - **Keep Safe** — Protects a key permanent, counters the removal spell, and replaces itself.
 - **Pile On** — Instant creature or planeswalker removal whose surveil fills the graveyard.
-- **You Find the Villains' Lair** — Fair three-mana counterspell whose other mode draws two and discards two into the graveyard.
+- **Wash Away** — One blue to counter a spell not cast from hand, or cleaved `{1}{U}{U}` as a hard counter. Holds up after a land drop against a commander from the command zone.
 - **Awaken the Honored Dead** — Removal into self-mill into creature-or-land recovery after a discard.
 - **Zimone and Dina** — Sacrifice, draw, and off-turn landfall engine.
 - **Mole Man, Moloid Master** — Recurring graveyard land plays plus a disposable self-milling Moloid on every landfall.
@@ -153,6 +153,7 @@ This log records why every card entered the initial list. Future changes should 
 - **Haunting Voyage** — Expensive mass recursion that needed Maskwood Nexus; Join the Dead is instant disruption instead.
 - **Diregraf Rebirth** — Slow flashback reanimation; Black Sun's Twilight still recovers a creature when X is 5 or more.
 - **Swamp (second copy)** — Fell Mire keeps the land count at 40 without a second basic Swamp.
+- **You Find the Villains' Lair** — Three-mana hard counter that also loots. Fact or Fiction and Fortune's Favor already dump piles; Wash Away holds `{U}` against commanders from the command zone.
 
 ## Talks
 
@@ -220,4 +221,10 @@ Rankings: jank **9→8**, fun **8→9**, mean **6**, Mill **9**, Landfall **8**.
 ### 2026-09-08 — Live table vs Nethroi, Mishra, Osgir
 
 Won on turn 10: [Lumra, Bellow of the Woods](https://scryfall.com/card/blb/183/lumra-bellow-of-the-woods) returned the yard after two missed land drops. Kitchen-table power among those four stays Homer above Osgir, Nethroi, then Mishra (`POWER-RANKINGS.md`). Looking small steered removal at Mishra; that is table talk, not a row move.
+
+### 2026-09-08 — Wash Away for command-zone hold-up
+
+[You Find the Villains' Lair](https://scryfall.com/card/afr/84/you-find-the-villains-lair) overlapped [Arcane Denial](https://scryfall.com/card/msc/147/arcane-denial) at three mana and duplicated the loot job of [Fact or Fiction](https://scryfall.com/card/c21/119/fact-or-fiction) / [Fortune's Favor](https://scryfall.com/card/cn2/31/fortunes-favor). [Wash Away](https://scryfall.com/card/vow/87/wash-away) counters a commander from the command zone for `{U}` after a land drop, and still hard-counters from hand if cleaved. It does not kill a creature already in play.
+
+- **Wash Away** — Replaces You Find the Villains' Lair.
 
