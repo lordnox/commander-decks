@@ -15,7 +15,7 @@ describe('lobby', () => {
   test('join then seating, swap, dice, pregame, ready, play', () => {
     const state = joinAll()
     expect(state.phase).toBe('seated')
-    expect(state.waiting).toContain('Swap or stay')
+    expect(state.waiting).toContain('Send ready to confirm')
 
     applyInbox(state, 'p1', { type: 'swap', with: 'p3' })
     for (const seat of SEAT_IDS) {
