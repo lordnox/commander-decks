@@ -25,11 +25,13 @@ const run = async (
   command: string[],
   cwd: string,
   stdout: 'pipe' | 'ignore' = 'pipe',
+  env?: Record<string, string | undefined>,
 ) => {
   const child = Bun.spawn(command, {
     cwd,
     stdout,
     stderr: 'pipe',
+    env,
   })
   const [code, output, error] = await Promise.all([
     child.exited,
@@ -40,6 +42,27 @@ const run = async (
     throw new Error(`${command[0]} exited ${code}: ${error.trim()}`)
   }
   return output
+}
+
+/** Do not expose the host's conduit, git, cloud, or shell secrets to players. */
+const agentEnvironment = () => {
+  const names = [
+    'HOME',
+    'LANG',
+    'LC_ALL',
+    'LOGNAME',
+    'PATH',
+    'SHELL',
+    'TERM',
+    'TMPDIR',
+    'USER',
+    'XDG_CONFIG_HOME',
+  ]
+  return Object.fromEntries(
+    names
+      .map((name) => [name, process.env[name]])
+      .filter((entry): entry is [string, string] => Boolean(entry[1])),
+  )
 }
 
 const promptFor = (
@@ -155,12 +178,23 @@ export const invokeHostAgent = async (options: {
       ],
       scratch,
       'ignore',
+      agentEnvironment(),
     )
 
     if (!existsSync(resultPath)) {
       throw new Error('host agent did not write agent-result.json')
     }
     const result = JSON.parse(readFileSync(resultPath, 'utf8')) as AgentResult
+    if (result.talk !== undefined && (
+      typeof result.talk !== 'string' || result.talk.length > 4000
+    )) {
+      throw new Error('host agent returned invalid talk')
+    }
+    if (result.waiting !== undefined && (
+      typeof result.waiting !== 'string' || result.waiting.length > 1000
+    )) {
+      throw new Error('host agent returned invalid waiting prompt')
+    }
     if (result.replayChanged) {
       validateReplayReplacement(sourceReplay, scratchReplay)
       cpSync(scratchReplay, sourceReplay)
