@@ -42,6 +42,17 @@ import { hydrateLiveSnapshot } from './scryfallCache'
 
 const base = import.meta.env.BASE_URL
 
+type InboxType =
+  | 'plan'
+  | 'confirm'
+  | 'replace'
+  | 'join'
+  | 'ready'
+  | 'swap'
+  | 'pregame'
+  | 'rules'
+  | 'talk'
+
 const toReplaySeat = (seat: LiveSeat): ReplaySeat => ({
   id: seat.id,
   name: seat.name,
@@ -118,10 +129,11 @@ const EmptyLiveState = ({ reason }: { reason?: string }) => (
       This page shows one current Commander board from a chat hot-seat link. Open a
       URL like{' '}
       <code className="rounded bg-white/5 px-1.5 py-0.5 text-gold-300">
-        /live/?game=my-game&amp;you=p1</code>{' '}
+        /live/?k=read-key</code>{' '}
       or <code className="rounded bg-white/5 px-1.5 py-0.5 text-gold-300">
-        /live/?host=read-key</code>{' '}
-      from the agent, or use a snapshot payload that starts with <code>v2.</code>
+        /live/?k=read%7Cmailbox</code>{' '}
+      from the agent. Game links and snapshot payloads that start with <code>v2.</code>{' '}
+      remain available as fallbacks.
     </p>
     {reason && (
       <p className="mt-4 rounded-2xl border border-red-400/30 bg-red-950/40 p-4 text-sm text-red-200">
@@ -142,6 +154,7 @@ export const LivePage = () => {
   const [preview, setPreview] = useState<Preview | null>(null)
   const [hover, setHover] = useState<Hover | null>(null)
   const [plan, setPlan] = useState('')
+  const [inboxType, setInboxType] = useState<InboxType>('plan')
   const [hidden, setHidden] = useState(false)
   const [status, setStatus] = useState('')
   const [conduitStatus, setConduitStatus] = useState('')
@@ -168,7 +181,7 @@ export const LivePage = () => {
 
         if (request.kind === 'conduit') {
           const readKey =
-            request.you && request.seat ? request.seat : request.host
+            request.read ?? (request.you && request.seat ? request.seat : request.host)
           let update = 0
           const openBody = async (bytes: Uint8Array) => {
             const currentUpdate = ++update
@@ -371,17 +384,36 @@ export const LivePage = () => {
     flash('Public link copied')
   }
 
-  const sendPlan = async () => {
+  const sendInbox = async () => {
     if (request?.kind !== 'conduit' || !request.inbox) return
     try {
+      let message: object
+      if (inboxType === 'ready') {
+        message = { type: 'ready' }
+      } else if (inboxType === 'join') {
+        const separator = plan.includes('|') ? '|' : '\n'
+        const split = plan.indexOf(separator)
+        const name = split < 0 ? plan.trim() : plan.slice(0, split).trim()
+        const deck = split < 0 ? '' : plan.slice(split + 1).trim()
+        message = { type: 'join', name, deck }
+      } else if (inboxType === 'swap') {
+        message = { type: 'swap', with: plan.trim() }
+      } else if (inboxType === 'pregame') {
+        message = {
+          type: 'pregame',
+          cards: plan.split(',').map((card) => card.trim()).filter(Boolean),
+        }
+      } else {
+        message = { type: inboxType, text: plan }
+      }
       await appendSnapshot(
         request.origin,
         request.inbox,
-        JSON.stringify({ type: 'plan', text: plan }),
+        JSON.stringify(message),
       )
-      flash('Plan sent')
+      flash('Message sent')
     } catch (reason: unknown) {
-      flash(reason instanceof Error ? reason.message : 'Could not send plan')
+      flash(reason instanceof Error ? reason.message : 'Could not send message')
     }
   }
 
@@ -543,15 +575,33 @@ export const LivePage = () => {
                 >
                   Copy plan
                 </button>
+                <select
+                  value={inboxType}
+                  onChange={(event) => setInboxType(event.target.value as InboxType)}
+                  aria-label="Inbox message type"
+                  className="rounded-xl border border-white/10 bg-ink-900 px-2 py-1.5 text-sm text-stone-200"
+                >
+                  <option value="plan">plan</option>
+                  <option value="confirm">confirm</option>
+                  <option value="replace">replace</option>
+                  <option value="join">join</option>
+                  <option value="ready">ready</option>
+                  <option value="swap">swap</option>
+                  <option value="pregame">pregame</option>
+                  <option value="rules">rules</option>
+                  <option value="talk">talk</option>
+                </select>
                 <button
                   type="button"
-                  onClick={() => void sendPlan()}
+                  onClick={() => void sendInbox()}
                   disabled={
-                    request?.kind !== 'conduit' || !request.inbox || !plan.trim()
+                    request?.kind !== 'conduit'
+                    || !request.inbox
+                    || (!plan.trim() && !['ready', 'pregame', 'confirm'].includes(inboxType))
                   }
                   className="rounded-xl bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-300 disabled:cursor-not-allowed disabled:opacity-40"
                 >
-                  Send plan
+                  Send
                 </button>
                 <button
                   type="button"

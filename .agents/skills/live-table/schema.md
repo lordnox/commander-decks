@@ -15,10 +15,10 @@ frames are frozen in [`CONDUIT.md`](CONDUIT.md). Do not invent extra params.
 Private (post this once; later snapshots update bins, not the URL):
 
 ```text
-https://lordnox.github.io/commander-decks/live/?host=<hostRead>&you=<seat>&seat=<seatRead>&inbox=<inboxWrite>
+https://lordnox.github.io/commander-decks/live/?k=<seatRead>%7C<inboxWrite>
 ```
 
-Public (Copy public link): `?host=<hostRead>` only. Optional `c` = conduit
+Public (Copy public link): `?k=<hostRead>` only. Optional `c` = conduit
 origin (no trailing slash). Omit `c` on the default origin.
 
 The `v1` / `v2` payload shapes below still apply: the host and seat bins hold
