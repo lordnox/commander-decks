@@ -1,0 +1,155 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "2c65185b-6cf0-451d-985e-56aa45d9a57d",
+      "name": "Undercity // The Initiative",
+      "object": "related_card",
+      "type_line": "Dungeon — Undercity // Card",
+      "uri": "https://api.scryfall.com/cards/2c65185b-6cf0-451d-985e-56aa45d9a57d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b944490b-4366-46d1-b499-9c3f66c9ba35",
+      "name": "White Plume Adventurer",
+      "object": "related_card",
+      "type_line": "Creature — Orc Cleric",
+      "uri": "https://api.scryfall.com/cards/b944490b-4366-46d1-b499-9c3f66c9ba35"
+    }
+  ],
+  "artist": "Joseph Weston",
+  "artist_ids": [
+    "50365a81-fa9f-4fcf-aa83-6a57c63ad43e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 658453,
+  "cmc": 3.0,
+  "collector_number": "49",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 3272,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b256ddc8-8b12-434c-a610-1a872e948f2f",
+  "illustration_id": "0fe0c4d5-6ae4-4cfc-b36b-99629155da1c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:06:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/2/b256ddc8-8b12-434c-a610-1a872e948f2f.webp?1783922800",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/2/b256ddc8-8b12-434c-a610-1a872e948f2f.jpg?1783922800",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/2/b256ddc8-8b12-434c-a610-1a872e948f2f.jpg?1783922800",
+    "crop": "https://cards.scryfall.io/crop/front/b/2/b256ddc8-8b12-434c-a610-1a872e948f2f.webp?1783922800",
+    "display": "https://cards.scryfall.io/display/front/b/2/b256ddc8-8b12-434c-a610-1a872e948f2f.webp?1783922800",
+    "grid": "https://cards.scryfall.io/grid/front/b/2/b256ddc8-8b12-434c-a610-1a872e948f2f.webp?1783922800",
+    "large": "https://cards.scryfall.io/large/front/b/2/b256ddc8-8b12-434c-a610-1a872e948f2f.jpg?1783922800",
+    "normal": "https://cards.scryfall.io/normal/front/b/2/b256ddc8-8b12-434c-a610-1a872e948f2f.jpg?1783922800",
+    "png": "https://cards.scryfall.io/png/front/b/2/b256ddc8-8b12-434c-a610-1a872e948f2f.png?1783922800",
+    "small": "https://cards.scryfall.io/small/front/b/2/b256ddc8-8b12-434c-a610-1a872e948f2f.jpg?1783922800",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/2/b256ddc8-8b12-434c-a610-1a872e948f2f.webp?1783922800"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "banned",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "banned",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "banned",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 100096,
+  "multiverse_ids": [
+    562932
+  ],
+  "name": "White Plume Adventurer",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "51f091a7-9b0b-4362-8e9c-c174752f369b",
+  "oracle_text": "When this creature enters, you take the initiative.\nAt the beginning of each opponent's upkeep, untap a creature you control. If you've completed a dungeon, untap all creatures you control instead.",
+  "oversized": false,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2022-05-17",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/1486418408"
+  },
+  "prices": {
+    "eur": "2.20",
+    "eur_foil": "3.13",
+    "tix": "4.25",
+    "usd": "2.69",
+    "usd_etched": null,
+    "usd_foil": "2.11"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A51f091a7-9b0b-4362-8e9c-c174752f369b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/100096?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=658453&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F272541%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=White+Plume+Adventurer",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=562932&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWhite%2BPlume%2BAdventurer",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWhite%2BPlume%2BAdventurer"
+  },
+  "released_at": "2022-06-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b256ddc8-8b12-434c-a610-1a872e948f2f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/49/white-plume-adventurer?utm_source=api",
+  "security_stamp": "oval",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 272541,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Orc Cleric",
+  "uri": "https://api.scryfall.com/cards/b256ddc8-8b12-434c-a610-1a872e948f2f",
+  "variation": false
+}

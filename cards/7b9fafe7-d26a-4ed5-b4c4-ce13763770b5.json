@@ -1,0 +1,133 @@
+{
+  "artist": "Cliff Childs",
+  "artist_ids": [
+    "ed6f7e03-20ba-4c73-bdda-4a4928480721"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 743687,
+  "cmc": 0.0,
+  "collector_number": "335",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 441,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "All are welcome.",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "4b9c92f0-4242-4a3e-9ede-6a4935f5c75d",
+  "illustration_id": "aae9ede0-a9cf-46a4-bc10-bf5d84f092a3",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:37:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/b/4b9c92f0-4242-4a3e-9ede-6a4935f5c75d.webp?1783913830",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/b/4b9c92f0-4242-4a3e-9ede-6a4935f5c75d.jpg?1783913830",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/b/4b9c92f0-4242-4a3e-9ede-6a4935f5c75d.jpg?1783913830",
+    "crop": "https://cards.scryfall.io/crop/front/4/b/4b9c92f0-4242-4a3e-9ede-6a4935f5c75d.webp?1783913830",
+    "display": "https://cards.scryfall.io/display/front/4/b/4b9c92f0-4242-4a3e-9ede-6a4935f5c75d.webp?1783913830",
+    "grid": "https://cards.scryfall.io/grid/front/4/b/4b9c92f0-4242-4a3e-9ede-6a4935f5c75d.webp?1783913830",
+    "large": "https://cards.scryfall.io/large/front/4/b/4b9c92f0-4242-4a3e-9ede-6a4935f5c75d.jpg?1783913830",
+    "normal": "https://cards.scryfall.io/normal/front/4/b/4b9c92f0-4242-4a3e-9ede-6a4935f5c75d.jpg?1783913830",
+    "png": "https://cards.scryfall.io/png/front/4/b/4b9c92f0-4242-4a3e-9ede-6a4935f5c75d.png?1783913830",
+    "small": "https://cards.scryfall.io/small/front/4/b/4b9c92f0-4242-4a3e-9ede-6a4935f5c75d.jpg?1783913830",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/b/4b9c92f0-4242-4a3e-9ede-6a4935f5c75d.webp?1783913830"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 119070,
+  "multiverse_ids": [
+    640631
+  ],
+  "name": "Geier Reach Sanitarium",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7b9fafe7-d26a-4ed5-b4c4-ce13763770b5",
+  "oracle_text": "{T}: Add {C}.\n{2}, {T}: Each player draws a card, then discards a card.",
+  "oversized": false,
+  "penny_rank": 1713,
+  "prices": {
+    "eur": "2.15",
+    "eur_foil": null,
+    "tix": "1.22",
+    "usd": "3.35",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7b9fafe7-d26a-4ed5-b4c4-ce13763770b5&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/119070?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=743687&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F525830%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Geier+Reach+Sanitarium",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=640631&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGeier%2BReach%2BSanitarium",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGeier%2BReach%2BSanitarium"
+  },
+  "released_at": "2023-11-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4b9c92f0-4242-4a3e-9ede-6a4935f5c75d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lcc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lcc/335/geier-reach-sanitarium?utm_source=api",
+  "security_stamp": "oval",
+  "set": "lcc",
+  "set_id": "d253edc3-5bc7-4cf1-9446-a8540dedffa5",
+  "set_name": "The Lost Caverns of Ixalan Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alcc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d253edc3-5bc7-4cf1-9446-a8540dedffa5",
+  "story_spotlight": false,
+  "tcgplayer_id": 525830,
+  "textless": false,
+  "type_line": "Legendary Land",
+  "uri": "https://api.scryfall.com/cards/4b9c92f0-4242-4a3e-9ede-6a4935f5c75d",
+  "variation": false
+}

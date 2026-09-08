@@ -1,0 +1,130 @@
+{
+  "artist": "Robert Bliss",
+  "artist_ids": [
+    "df700ada-8491-4072-a261-e12b3225986d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 8101,
+  "cmc": 2.0,
+  "collector_number": "152",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 5155,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Life for life: this is the immutable law.\"\n—Panya, Granger Guildmage",
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "6e6499cb-6073-4c94-8c82-47f489094df5",
+  "illustration_id": "0ee336a4-2105-419a-a1b0-2415335e8042",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:51:24Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/e/6e6499cb-6073-4c94-8c82-47f489094df5.webp?1783947084",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/e/6e6499cb-6073-4c94-8c82-47f489094df5.jpg?1783947084",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/e/6e6499cb-6073-4c94-8c82-47f489094df5.jpg?1783947084",
+    "crop": "https://cards.scryfall.io/crop/front/6/e/6e6499cb-6073-4c94-8c82-47f489094df5.webp?1783947084",
+    "display": "https://cards.scryfall.io/display/front/6/e/6e6499cb-6073-4c94-8c82-47f489094df5.webp?1783947084",
+    "grid": "https://cards.scryfall.io/grid/front/6/e/6e6499cb-6073-4c94-8c82-47f489094df5.webp?1783947084",
+    "large": "https://cards.scryfall.io/large/front/6/e/6e6499cb-6073-4c94-8c82-47f489094df5.jpg?1783947084",
+    "normal": "https://cards.scryfall.io/normal/front/6/e/6e6499cb-6073-4c94-8c82-47f489094df5.jpg?1783947084",
+    "png": "https://cards.scryfall.io/png/front/6/e/6e6499cb-6073-4c94-8c82-47f489094df5.png?1783947084",
+    "small": "https://cards.scryfall.io/small/front/6/e/6e6499cb-6073-4c94-8c82-47f489094df5.jpg?1783947084",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/e/6e6499cb-6073-4c94-8c82-47f489094df5.webp?1783947084"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_foil_id": 7444,
+  "mtgo_id": 7443,
+  "multiverse_ids": [
+    3321
+  ],
+  "name": "Withering Boon",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6d87415b-0618-48e1-9510-320c4611ecda",
+  "oracle_text": "As an additional cost to cast this spell, pay 3 life.\nCounter target creature spell.",
+  "oversized": false,
+  "prices": {
+    "eur": "6.03",
+    "eur_foil": null,
+    "tix": "0.50",
+    "usd": "12.44",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6d87415b-0618-48e1-9510-320c4611ecda&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/7443?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=8101&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F5299%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Withering+Boon",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=3321&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWithering%2BBoon",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWithering%2BBoon"
+  },
+  "released_at": "1996-10-08",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/6e6499cb-6073-4c94-8c82-47f489094df5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mir?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mir/152/withering-boon?utm_source=api",
+  "set": "mir",
+  "set_id": "5f06acf3-8123-4a78-b2e7-089b0b775a4a",
+  "set_name": "Mirage",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amir&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5f06acf3-8123-4a78-b2e7-089b0b775a4a",
+  "story_spotlight": false,
+  "tcgplayer_id": 5299,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/6e6499cb-6073-4c94-8c82-47f489094df5",
+  "variation": false
+}

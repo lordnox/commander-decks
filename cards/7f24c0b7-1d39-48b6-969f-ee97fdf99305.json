@@ -1,0 +1,175 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "6f509dbe-6ec7-4438-ab36-e20be46c9922",
+      "name": "Dungeon of the Mad Mage",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/6f509dbe-6ec7-4438-ab36-e20be46c9922"
+    },
+    {
+      "component": "combo_piece",
+      "id": "59b11ff8-f118-4978-87dd-509dc0c8c932",
+      "name": "Lost Mine of Phandelver",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/59b11ff8-f118-4978-87dd-509dc0c8c932"
+    },
+    {
+      "component": "combo_piece",
+      "id": "8646ae5c-e757-4d16-bf2a-d48770d620fa",
+      "name": "Displacer Beast",
+      "object": "related_card",
+      "type_line": "Creature — Cat Beast",
+      "uri": "https://api.scryfall.com/cards/8646ae5c-e757-4d16-bf2a-d48770d620fa"
+    },
+    {
+      "component": "combo_piece",
+      "id": "70b284bd-7a8f-4b60-8238-f746bdc5b236",
+      "name": "Tomb of Annihilation",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/70b284bd-7a8f-4b60-8238-f746bdc5b236"
+    }
+  ],
+  "arena_id": 77159,
+  "artist": "Bryan Sola",
+  "artist_ids": [
+    "e6879299-a28b-48bc-8db1-9cafcf36de09"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 571300,
+  "cmc": 3.0,
+  "collector_number": "54",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 12725,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The only place you can be sure it's not is wherever it appears to be.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "95d5c36c-bcc8-459c-9f4b-b265ccdb1f06",
+  "illustration_id": "2857ed83-9b7d-4927-b6ef-fb369cfe92c7",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:08:36Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/5/95d5c36c-bcc8-459c-9f4b-b265ccdb1f06.webp?1783926516",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/5/95d5c36c-bcc8-459c-9f4b-b265ccdb1f06.jpg?1783926516",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/5/95d5c36c-bcc8-459c-9f4b-b265ccdb1f06.jpg?1783926516",
+    "crop": "https://cards.scryfall.io/crop/front/9/5/95d5c36c-bcc8-459c-9f4b-b265ccdb1f06.webp?1783926516",
+    "display": "https://cards.scryfall.io/display/front/9/5/95d5c36c-bcc8-459c-9f4b-b265ccdb1f06.webp?1783926516",
+    "grid": "https://cards.scryfall.io/grid/front/9/5/95d5c36c-bcc8-459c-9f4b-b265ccdb1f06.webp?1783926516",
+    "large": "https://cards.scryfall.io/large/front/9/5/95d5c36c-bcc8-459c-9f4b-b265ccdb1f06.jpg?1783926516",
+    "normal": "https://cards.scryfall.io/normal/front/9/5/95d5c36c-bcc8-459c-9f4b-b265ccdb1f06.jpg?1783926516",
+    "png": "https://cards.scryfall.io/png/front/9/5/95d5c36c-bcc8-459c-9f4b-b265ccdb1f06.png?1783926516",
+    "small": "https://cards.scryfall.io/small/front/9/5/95d5c36c-bcc8-459c-9f4b-b265ccdb1f06.jpg?1783926516",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/5/95d5c36c-bcc8-459c-9f4b-b265ccdb1f06.webp?1783926516"
+  },
+  "keywords": [
+    "Venture into the dungeon"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "mtgo_id": 91610,
+  "multiverse_ids": [
+    527341
+  ],
+  "name": "Displacer Beast",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7f24c0b7-1d39-48b6-969f-ee97fdf99305",
+  "oracle_text": "When this creature enters, venture into the dungeon. (Enter the first room or advance to the next room.)\nDisplacement — {3}{U}: Return this creature to its owner's hand.",
+  "oversized": false,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2021-07-01",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.10",
+    "eur_foil": "0.19",
+    "tix": "0.03",
+    "usd": "0.24",
+    "usd_etched": null,
+    "usd_foil": "0.31"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7f24c0b7-1d39-48b6-969f-ee97fdf99305&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/91610?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=571300&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243206%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Displacer+Beast",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=527341&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDisplacer%2BBeast",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDisplacer%2BBeast"
+  },
+  "released_at": "2021-07-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/95d5c36c-bcc8-459c-9f4b-b265ccdb1f06/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afr/54/displacer-beast?utm_source=api",
+  "set": "afr",
+  "set_id": "e1ef87ba-ba92-4573-817f-543b996d2851",
+  "set_name": "Adventures in the Forgotten Realms",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e1ef87ba-ba92-4573-817f-543b996d2851",
+  "story_spotlight": false,
+  "tcgplayer_id": 243206,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Cat Beast",
+  "uri": "https://api.scryfall.com/cards/95d5c36c-bcc8-459c-9f4b-b265ccdb1f06",
+  "variation": false
+}

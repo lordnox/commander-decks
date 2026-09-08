@@ -1,0 +1,13 @@
+{
+  "goals": ["Dungeon", "Loot"],
+  "scores": {
+    "jankiness": 7,
+    "fun": 8,
+    "oppressiveness": 4,
+    "identity": {
+      "Dungeon": 9,
+      "Loot": 8
+    }
+  },
+  "notes": "Most of the 99 is venture, initiative, or yard fuel; completing a floor is the loot drop. Mean stays low: no extra turns, no Game Changers, wipes and edicts are telegraphed. Jank is dungeon tracking plus old rocks, not a two-card loop."
+}

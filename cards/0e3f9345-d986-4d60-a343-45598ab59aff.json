@@ -1,0 +1,180 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "c9dbd2a5-1d12-4900-8487-92912d66c059",
+      "name": "Nadaar, Selfless Paladin",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Dragon Knight",
+      "uri": "https://api.scryfall.com/cards/c9dbd2a5-1d12-4900-8487-92912d66c059"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6f509dbe-6ec7-4438-ab36-e20be46c9922",
+      "name": "Dungeon of the Mad Mage",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/6f509dbe-6ec7-4438-ab36-e20be46c9922"
+    },
+    {
+      "component": "combo_piece",
+      "id": "59b11ff8-f118-4978-87dd-509dc0c8c932",
+      "name": "Lost Mine of Phandelver",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/59b11ff8-f118-4978-87dd-509dc0c8c932"
+    },
+    {
+      "component": "combo_piece",
+      "id": "70b284bd-7a8f-4b60-8238-f746bdc5b236",
+      "name": "Tomb of Annihilation",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/70b284bd-7a8f-4b60-8238-f746bdc5b236"
+    }
+  ],
+  "arena_id": 77132,
+  "artist": "Aaron Miller",
+  "artist_ids": [
+    "fc021f3d-773a-4706-bbe7-f602324f511f"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 570641,
+  "cmc": 3.0,
+  "collector_number": "27",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 6431,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "878a0d8c-11c1-4c65-9051-78e036ac496f",
+  "illustration_id": "0b15961e-8a08-4419-9799-4446c47a7df7",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:08:48Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/7/878a0d8c-11c1-4c65-9051-78e036ac496f.webp?1783926528",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/7/878a0d8c-11c1-4c65-9051-78e036ac496f.jpg?1783926528",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/7/878a0d8c-11c1-4c65-9051-78e036ac496f.jpg?1783926528",
+    "crop": "https://cards.scryfall.io/crop/front/8/7/878a0d8c-11c1-4c65-9051-78e036ac496f.webp?1783926528",
+    "display": "https://cards.scryfall.io/display/front/8/7/878a0d8c-11c1-4c65-9051-78e036ac496f.webp?1783926528",
+    "grid": "https://cards.scryfall.io/grid/front/8/7/878a0d8c-11c1-4c65-9051-78e036ac496f.webp?1783926528",
+    "large": "https://cards.scryfall.io/large/front/8/7/878a0d8c-11c1-4c65-9051-78e036ac496f.jpg?1783926528",
+    "normal": "https://cards.scryfall.io/normal/front/8/7/878a0d8c-11c1-4c65-9051-78e036ac496f.jpg?1783926528",
+    "png": "https://cards.scryfall.io/png/front/8/7/878a0d8c-11c1-4c65-9051-78e036ac496f.png?1783926528",
+    "small": "https://cards.scryfall.io/small/front/8/7/878a0d8c-11c1-4c65-9051-78e036ac496f.jpg?1783926528",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/7/878a0d8c-11c1-4c65-9051-78e036ac496f.webp?1783926528"
+  },
+  "keywords": [
+    "Vigilance",
+    "Venture into the dungeon"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 91556,
+  "multiverse_ids": [
+    527314
+  ],
+  "name": "Nadaar, Selfless Paladin",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0e3f9345-d986-4d60-a343-45598ab59aff",
+  "oracle_text": "Vigilance\nWhenever Nadaar enters or attacks, venture into the dungeon. (Enter the first room or advance to the next room.)\nOther creatures you control get +1/+1 as long as you've completed a dungeon.",
+  "oversized": false,
+  "penny_rank": 2391,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2021-06-24",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/feature/adventures-forgotten-realms-mechanics-2021-06-24"
+  },
+  "prices": {
+    "eur": "0.63",
+    "eur_foil": "0.83",
+    "tix": "0.02",
+    "usd": "0.40",
+    "usd_etched": null,
+    "usd_foil": "0.46"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0e3f9345-d986-4d60-a343-45598ab59aff&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/91556?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=570641&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F242779%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Nadaar%2C+Selfless+Paladin",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=527314&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DNadaar%252C%2BSelfless%2BPaladin",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DNadaar%252C%2BSelfless%2BPaladin"
+  },
+  "released_at": "2021-07-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/878a0d8c-11c1-4c65-9051-78e036ac496f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afr/27/nadaar-selfless-paladin?utm_source=api",
+  "security_stamp": "oval",
+  "set": "afr",
+  "set_id": "e1ef87ba-ba92-4573-817f-543b996d2851",
+  "set_name": "Adventures in the Forgotten Realms",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e1ef87ba-ba92-4573-817f-543b996d2851",
+  "story_spotlight": false,
+  "tcgplayer_id": 242779,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Legendary Creature — Dragon Knight",
+  "uri": "https://api.scryfall.com/cards/878a0d8c-11c1-4c65-9051-78e036ac496f",
+  "variation": false
+}

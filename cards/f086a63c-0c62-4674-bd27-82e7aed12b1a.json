@@ -1,0 +1,180 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "6f509dbe-6ec7-4438-ab36-e20be46c9922",
+      "name": "Dungeon of the Mad Mage",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/6f509dbe-6ec7-4438-ab36-e20be46c9922"
+    },
+    {
+      "component": "combo_piece",
+      "id": "59b11ff8-f118-4978-87dd-509dc0c8c932",
+      "name": "Lost Mine of Phandelver",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/59b11ff8-f118-4978-87dd-509dc0c8c932"
+    },
+    {
+      "component": "combo_piece",
+      "id": "7673def9-9f27-4382-b65b-ec616fae1768",
+      "name": "A-Dungeon Descent",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/7673def9-9f27-4382-b65b-ec616fae1768"
+    },
+    {
+      "component": "combo_piece",
+      "id": "70b284bd-7a8f-4b60-8238-f746bdc5b236",
+      "name": "Tomb of Annihilation",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/70b284bd-7a8f-4b60-8238-f746bdc5b236"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b9c7b02d-ac45-45b1-9f1b-2dbd2b5c3cdc",
+      "name": "Dungeon Descent",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/b9c7b02d-ac45-45b1-9f1b-2dbd2b5c3cdc"
+    }
+  ],
+  "arena_id": 77360,
+  "artist": "Kasia 'Kafis' Zielińska",
+  "artist_ids": [
+    "a662cb71-4770-4b49-8b03-2cf8497049a7"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 571278,
+  "cmc": 0.0,
+  "collector_number": "255",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 8847,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f4cccdbc-f4f4-42b6-9747-6ef703ff949a",
+  "illustration_id": "d6eb7173-ebde-49c3-81dd-5fdd240813c0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:07:15Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/4/f4cccdbc-f4f4-42b6-9747-6ef703ff949a.webp?1783926435",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/4/f4cccdbc-f4f4-42b6-9747-6ef703ff949a.jpg?1783926435",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/4/f4cccdbc-f4f4-42b6-9747-6ef703ff949a.jpg?1783926435",
+    "crop": "https://cards.scryfall.io/crop/front/f/4/f4cccdbc-f4f4-42b6-9747-6ef703ff949a.webp?1783926435",
+    "display": "https://cards.scryfall.io/display/front/f/4/f4cccdbc-f4f4-42b6-9747-6ef703ff949a.webp?1783926435",
+    "grid": "https://cards.scryfall.io/grid/front/f/4/f4cccdbc-f4f4-42b6-9747-6ef703ff949a.webp?1783926435",
+    "large": "https://cards.scryfall.io/large/front/f/4/f4cccdbc-f4f4-42b6-9747-6ef703ff949a.jpg?1783926435",
+    "normal": "https://cards.scryfall.io/normal/front/f/4/f4cccdbc-f4f4-42b6-9747-6ef703ff949a.jpg?1783926435",
+    "png": "https://cards.scryfall.io/png/front/f/4/f4cccdbc-f4f4-42b6-9747-6ef703ff949a.png?1783926435",
+    "small": "https://cards.scryfall.io/small/front/f/4/f4cccdbc-f4f4-42b6-9747-6ef703ff949a.jpg?1783926435",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/4/f4cccdbc-f4f4-42b6-9747-6ef703ff949a.webp?1783926435"
+  },
+  "keywords": [
+    "Venture into the dungeon"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 92012,
+  "multiverse_ids": [
+    527542
+  ],
+  "name": "Dungeon Descent",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f086a63c-0c62-4674-bd27-82e7aed12b1a",
+  "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{4}, {T}, Tap an untapped legendary creature you control: Venture into the dungeon. Activate only as a sorcery. (Enter the first room or advance to the next room.)",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2021-07-01",
+    "source": "PlayEDH",
+    "source_uri": "https://twitter.com/PlayEDHdiscord/status/1410250581109837824"
+  },
+  "prices": {
+    "eur": "0.22",
+    "eur_foil": "0.39",
+    "tix": "0.02",
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": "0.35"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af086a63c-0c62-4674-bd27-82e7aed12b1a&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/92012?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=571278&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243167%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dungeon+Descent",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=527542&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDungeon%2BDescent",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDungeon%2BDescent"
+  },
+  "released_at": "2021-07-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f4cccdbc-f4f4-42b6-9747-6ef703ff949a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afr/255/dungeon-descent?utm_source=api",
+  "security_stamp": "oval",
+  "set": "afr",
+  "set_id": "e1ef87ba-ba92-4573-817f-543b996d2851",
+  "set_name": "Adventures in the Forgotten Realms",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e1ef87ba-ba92-4573-817f-543b996d2851",
+  "story_spotlight": false,
+  "tcgplayer_id": 243167,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/f4cccdbc-f4f4-42b6-9747-6ef703ff949a",
+  "variation": false
+}

@@ -1,0 +1,177 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "6f509dbe-6ec7-4438-ab36-e20be46c9922",
+      "name": "Dungeon of the Mad Mage",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/6f509dbe-6ec7-4438-ab36-e20be46c9922"
+    },
+    {
+      "component": "combo_piece",
+      "id": "59b11ff8-f118-4978-87dd-509dc0c8c932",
+      "name": "Lost Mine of Phandelver",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/59b11ff8-f118-4978-87dd-509dc0c8c932"
+    },
+    {
+      "component": "combo_piece",
+      "id": "70b284bd-7a8f-4b60-8238-f746bdc5b236",
+      "name": "Tomb of Annihilation",
+      "object": "related_card",
+      "type_line": "Dungeon",
+      "uri": "https://api.scryfall.com/cards/70b284bd-7a8f-4b60-8238-f746bdc5b236"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9043519d-c9d8-4d08-b4a9-feaf792bc7a4",
+      "name": "Yuan-Ti Malison",
+      "object": "related_card",
+      "type_line": "Creature — Snake Rogue",
+      "uri": "https://api.scryfall.com/cards/9043519d-c9d8-4d08-b4a9-feaf792bc7a4"
+    }
+  ],
+  "arena_id": 77191,
+  "artist": "Oriana Menendez",
+  "artist_ids": [
+    "d09f4925-a6b9-48d7-89f7-4db6deab1c7c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 571217,
+  "cmc": 2.0,
+  "collector_number": "86",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 8545,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Silent. Slithering. Sinister.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "0f51afd9-7093-4aa3-ad5b-7383684d6285",
+  "illustration_id": "a16be774-682c-4802-93cc-78cf06129751",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:08:23Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/f/0f51afd9-7093-4aa3-ad5b-7383684d6285.webp?1783926503",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/f/0f51afd9-7093-4aa3-ad5b-7383684d6285.jpg?1783926503",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/f/0f51afd9-7093-4aa3-ad5b-7383684d6285.jpg?1783926503",
+    "crop": "https://cards.scryfall.io/crop/front/0/f/0f51afd9-7093-4aa3-ad5b-7383684d6285.webp?1783926503",
+    "display": "https://cards.scryfall.io/display/front/0/f/0f51afd9-7093-4aa3-ad5b-7383684d6285.webp?1783926503",
+    "grid": "https://cards.scryfall.io/grid/front/0/f/0f51afd9-7093-4aa3-ad5b-7383684d6285.webp?1783926503",
+    "large": "https://cards.scryfall.io/large/front/0/f/0f51afd9-7093-4aa3-ad5b-7383684d6285.jpg?1783926503",
+    "normal": "https://cards.scryfall.io/normal/front/0/f/0f51afd9-7093-4aa3-ad5b-7383684d6285.jpg?1783926503",
+    "png": "https://cards.scryfall.io/png/front/0/f/0f51afd9-7093-4aa3-ad5b-7383684d6285.png?1783926503",
+    "small": "https://cards.scryfall.io/small/front/0/f/0f51afd9-7093-4aa3-ad5b-7383684d6285.jpg?1783926503",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/f/0f51afd9-7093-4aa3-ad5b-7383684d6285.webp?1783926503"
+  },
+  "keywords": [
+    "Venture into the dungeon"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 91674,
+  "multiverse_ids": [
+    527373
+  ],
+  "name": "Yuan-Ti Malison",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f0e4dda1-2ffb-4353-a292-dcbc966967b4",
+  "oracle_text": "This creature can't be blocked as long as it's attacking alone.\nWhenever this creature deals combat damage to a player, venture into the dungeon. (Enter the first room or advance to the next room.)",
+  "oversized": false,
+  "penny_rank": 8814,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2021-07-01",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/card-preview/venture-dungeon-design-2021-06-30"
+  },
+  "prices": {
+    "eur": "0.36",
+    "eur_foil": "0.39",
+    "tix": "0.02",
+    "usd": "0.35",
+    "usd_etched": null,
+    "usd_foil": "0.36"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af0e4dda1-2ffb-4353-a292-dcbc966967b4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/91674?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=571217&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243122%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Yuan-Ti+Malison",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=527373&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DYuan-Ti%2BMalison",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DYuan-Ti%2BMalison"
+  },
+  "released_at": "2021-07-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0f51afd9-7093-4aa3-ad5b-7383684d6285/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afr/86/yuan-ti-malison?utm_source=api",
+  "security_stamp": "oval",
+  "set": "afr",
+  "set_id": "e1ef87ba-ba92-4573-817f-543b996d2851",
+  "set_name": "Adventures in the Forgotten Realms",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e1ef87ba-ba92-4573-817f-543b996d2851",
+  "story_spotlight": false,
+  "tcgplayer_id": 243122,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Snake Rogue",
+  "uri": "https://api.scryfall.com/cards/0f51afd9-7093-4aa3-ad5b-7383684d6285",
+  "variation": false
+}

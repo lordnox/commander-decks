@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Esper dungeon reanimator: mill or sac a creature each turn so Sefris ventures, then complete floors to loot the graveyard onto the battlefield.",
+  "tags": [
+    {
+      "name": "dungeon",
+      "score": 5,
+      "reason": "The repeating action is venturing and completing dungeons."
+    },
+    {
+      "name": "reanimator",
+      "score": 4,
+      "reason": "Sefris, Animate Dead, Victimize, and From the Catacombs win by returning creatures."
+    },
+    {
+      "name": "graveyard",
+      "score": 4,
+      "reason": "Creature cards in the yard are both the venture trigger and the loot pile."
+    },
+    {
+      "name": "self-mill",
+      "score": 3,
+      "reason": "Stitcher's Supplier, Buried Alive, and loot effects fill the yard on purpose."
+    },
+    {
+      "name": "aristocrats",
+      "score": 2,
+      "reason": "Sac outlets feed Sefris; they are not a drain engine."
+    },
+    {
+      "name": "cats",
+      "score": 2,
+      "reason": "Donut package exists, but cats are not the win."
+    },
+    {
+      "name": "blink",
+      "score": 2,
+      "reason": "Whitemane Lion, Ephemerate, and Displacer Beast recast enter-venture creatures."
+    },
+    {
+      "name": "midrange",
+      "score": 3,
+      "reason": "The deck wins by assembling a board over many turns, not a combo dump."
+    }
+  ]
+}

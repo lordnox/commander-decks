@@ -40,3 +40,4 @@ Hot-seat live table. Homer emptied the other three libraries on turn 10 with [Lu
 18. **Jalira — The Polyfisher** — Combat after a polymorph. Usual nine to eleven. Training Grounds plus Elixir can put a monster on four, which is not yet a win.
 19. **Sygg — Thousand Cuts** — Symmetric drain. Usual ten to twelve; a stacked wheel with Caress and charged Ascension can reasonably end around eight.
 20. **Lady Evangela — Foggy Blood Transfusion** — Draw-go aikido into Coffers drain. Wins around ten or later. Dense fogs and counters, no early kill.
+21. **Sefris — Dungeon Crawler Carl** — New autobrew; unplaced until the table has a read. Dungeon reanimator, Incremental Core target.

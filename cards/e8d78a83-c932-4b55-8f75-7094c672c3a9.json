@@ -1,0 +1,130 @@
+{
+  "artist": "Min Yum",
+  "artist_ids": [
+    "9cb65d6f-8851-4d56-9add-9eefa274bd1b"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 453713,
+  "cmc": 2.0,
+  "collector_number": "106",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 13874,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Once you've been dragged down the currents of time, you'll never quite trust your own permanence again.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a1501a42-e233-423b-b68a-1b76630bbccc",
+  "illustration_id": "0b6d795d-612c-4f81-8265-daceb5f8c0d0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:26:30Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/1/a1501a42-e233-423b-b68a-1b76630bbccc.webp?1783931190",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/1/a1501a42-e233-423b-b68a-1b76630bbccc.jpg?1783931190",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/1/a1501a42-e233-423b-b68a-1b76630bbccc.jpg?1783931190",
+    "crop": "https://cards.scryfall.io/crop/front/a/1/a1501a42-e233-423b-b68a-1b76630bbccc.webp?1783931190",
+    "display": "https://cards.scryfall.io/display/front/a/1/a1501a42-e233-423b-b68a-1b76630bbccc.webp?1783931190",
+    "grid": "https://cards.scryfall.io/grid/front/a/1/a1501a42-e233-423b-b68a-1b76630bbccc.webp?1783931190",
+    "large": "https://cards.scryfall.io/large/front/a/1/a1501a42-e233-423b-b68a-1b76630bbccc.jpg?1783931190",
+    "normal": "https://cards.scryfall.io/normal/front/a/1/a1501a42-e233-423b-b68a-1b76630bbccc.jpg?1783931190",
+    "png": "https://cards.scryfall.io/png/front/a/1/a1501a42-e233-423b-b68a-1b76630bbccc.png?1783931190",
+    "small": "https://cards.scryfall.io/small/front/a/1/a1501a42-e233-423b-b68a-1b76630bbccc.jpg?1783931190",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/1/a1501a42-e233-423b-b68a-1b76630bbccc.webp?1783931190"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{X}{W}{W}",
+  "multiverse_ids": [
+    482734
+  ],
+  "name": "Unexpectedly Absent",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e8d78a83-c932-4b55-8f75-7094c672c3a9",
+  "oracle_text": "Put target nonland permanent into its owner's library just beneath the top X cards of that library.",
+  "oversized": false,
+  "penny_rank": 784,
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.35",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae8d78a83-c932-4b55-8f75-7094c672c3a9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Unexpectedly+Absent&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=453713&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F212452%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Unexpectedly+Absent",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=482734&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DUnexpectedly%2BAbsent",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DUnexpectedly%2BAbsent"
+  },
+  "released_at": "2020-04-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a1501a42-e233-423b-b68a-1b76630bbccc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c20?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c20/106/unexpectedly-absent?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c20",
+  "set_id": "f60ec786-1f8d-42f7-9abc-0d880fe243f6",
+  "set_name": "Commander 2020",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac20&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/f60ec786-1f8d-42f7-9abc-0d880fe243f6",
+  "story_spotlight": false,
+  "tcgplayer_id": 212452,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/a1501a42-e233-423b-b68a-1b76630bbccc",
+  "variation": false
+}
