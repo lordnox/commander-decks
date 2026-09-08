@@ -117,7 +117,7 @@ describe('conduit mint', () => {
       return new Response(JSON.stringify({ bins: fakeBins() }), { status: 201 })
     })
     const original = globalThis.fetch
-    globalThis.fetch = fetchMock as typeof fetch
+    globalThis.fetch = fetchMock as unknown as typeof fetch
     try {
       const result = await mint('https://conduit.test', 'secret')
       expect(result.bins.host.read.length).toBe(43)
@@ -136,7 +136,7 @@ describe('host keys', () => {
       throw new Error('should not mint')
     })
     const original = globalThis.fetch
-    globalThis.fetch = fetchMock as typeof fetch
+    globalThis.fetch = fetchMock as unknown as typeof fetch
     try {
       const keys = await ensureHostKeys('pod', root)
       expect(keys.minted).toBe(false)
