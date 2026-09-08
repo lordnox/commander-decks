@@ -145,3 +145,47 @@ See `rankings.json`. First pass: jank 8, fun 8, mean 4, Suspend 9, Redo 7.
 
 **Mana budget (v1).** 37 true lands, 0 modal land backs. Commander `{1}{U}{R}` aims for turn 3 with an untapped dual or rock. Curve leans on 1–2 mana cantrips and hacks; bombs mostly enter via suspend rather than hardcast. Opening: 2–3 lands including U, keep hands that can cast Jhoira by turn 4 even if turn 3 is a stretch.
 
+### 2026-09-08 — v1 goldfish (seeds 1729 + 2718)
+
+**Model.** Incremental Core. Milestone by turn five: Jhoira on the battlefield and at least one card cooking (Jhoira load or native suspend ticking). Horizon five turns. London mulligan. Twelve runs: eight regression (seed 1729), four confirmation (seed 2718). Stress: after a representative pass, remove Jhoira once and check whether native suspend / rebound still advances the plan.
+
+**Keeps and bottoms (summary).**
+
+| Run | Seed | Keep | Bottomed | Jhoira turn | Cooking by T5 | Milestone | Failure |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 1729 | M1 (6) | Greater Gargadon | 3 | Rift Bolt suspend T1; load T4 | Pass | — |
+| 2 | 1729 | M2 (5) | Reality Strobe, Reliquary Tower | 3 | Load T4 after Bauble | Pass | — |
+| 3 | 1729 | 7 | — | 3 | Load T4; Spirebluff/Steam path | Pass | — |
+| 4 | 1729 | M2 (5) | Recurring Insight, Shivan Meteor | 4 | Load T5 | Pass | Slow Jhoira |
+| 5 | 1729 | 7 | — | 3 | Ancestral Vision T1 | Pass | — |
+| 6 | 1729 | 7 | — | 3 | Errant Ephemeron suspend | Pass | — |
+| 7 | 1729 | M1 (6) | Starstorm | 3 | Epochrasite / Clockspinning | Pass | — |
+| 8 | 1729 | 7 | — | 3 | Wheel of Fate T2 | Pass | — |
+| 9 | 2718 | 7 | — | 3 | Signet into load T4 | Pass | — |
+| 10 | 2718 | 7 | — | 3 | Think Twice; load / Timecrafting | Pass | — |
+| 11 | 2718 | 7 | — | 3–4 | Mind Stone; Inevitable Betrayal load | Pass | — |
+| 12 | 2718 | M2 (5) | Arc Blade, Inevitable Betrayal | 3 | Errant Ephemeron suspend | Pass | — |
+
+Exact keep notes: 1729-1 opened one land (Fiery Islet) and mulliganed; 1729-4 opened zero lands and double-mulliganed to Fellwar + two lands. 2718-4 opened two filter lands without a basic and double-mulliganed to Flooded Strand / Mountain / duals.
+
+**Stress (Bracket 2).** From 1729-5 after Jhoira + Ancestral Vision cooking: exile Jhoira with removal. Vision still resolves on schedule; Gargadon remains suspendable; Fire Diamond and Command Tower still cast native suspend without her. Plan continues — commander-independent suspend package holds.
+
+**Metric table.**
+
+| Metric | Result |
+| --- | --- |
+| Milestone passes | 12/12 |
+| Jhoira by turn 3 | 10/12 |
+| Jhoira by turn 4 | 12/12 |
+| Native suspend before Jhoira | 5/12 |
+| Systemic failures (≥3 same cause) | none |
+| Land-light mulligans | 3/12 needed ≥1 London |
+
+No v2 list change. Turn-five setup is solid; expected win turn remains untested past turn five (combat after free creatures need a longer horizon).
+
+### 2026-09-08 — assess-deck (target vs measured)
+
+**Target.** Incremental Core (Bracket 2), normal win ~9–10, no Game Changers, no permanent fast mana, no extra-turn plan.
+
+**Measured.** Still Bracket 2 / Incremental. Caps: 0 Game Changers (snapshot 2026-09-03). Barometers: no early two-card infinite, no extra turns as the plan, no mass land denial. Win texture is telegraphed suspend creatures and attrition bounce. Setup goldfish supports commander/engine by turn 3–4; expected win turn ~9–10 is an estimate from combat clock after free bodies, not a traced turn-eight sample. Position within bracket: **2** (middle) — consistent setup, soft early board, needs soak time. Weaknesses: exile hate, thin board before resolve turns, Jhoira as removal magnet. Match to target: aligned; no promotion/demotion.
+
