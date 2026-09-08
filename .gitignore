@@ -3,6 +3,9 @@
 table-games/*.json
 table-games/*.live.json
 
+# Local secrets (API keys, etc.).
+.env
+
 # GitHub Pages build output.
 node_modules/
 dist/
