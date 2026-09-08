@@ -517,7 +517,13 @@ export const LivePage = () => {
                         T{event.turn} · {phaseLabel(event.phase)}
                       </span>
                       <span
-                        className={event.kind === 'think' ? 'italic text-stone-400' : 'text-stone-200'}
+                        className={
+                          event.kind === 'think'
+                            ? 'italic text-stone-400'
+                            : event.kind === 'priority'
+                              ? 'font-semibold text-gold-200'
+                              : 'text-stone-200'
+                        }
                         style={event.kind === 'think' && seat ? { color: seat.color } : undefined}
                       >
                         {event.summary}

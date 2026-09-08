@@ -399,13 +399,16 @@ def _event_feed(
     return feed[-20:]
 
 
-def _awaiting_seat(last: dict, state: dict, seat_order: list[str]) -> str:
+def _awaiting_seat(last: dict, state: dict, seat_order: list[str]) -> str | None:
     """Seat the judge needs a message from next.
 
     A turn that ended leaves the finished seat as `state.active`, so step to the
-    next seat in turn order instead of repeating the one that just passed.
+    next seat in turn order instead of repeating the one that just passed. An
+    open priority window names its own responders, so defer to it.
     """
     active = state.get("active") or last.get("seat") or seat_order[0]
+    if last.get("kind") == "priority":
+        return last.get("seat")
     if last.get("kind") == "pass" and last.get("phase") == "end":
         seat_id = last.get("seat") or active
         if seat_id in seat_order:

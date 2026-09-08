@@ -391,6 +391,24 @@ class LiveTableEncodeTests(unittest.TestCase):
         self.assertEqual(snapshot["active"], "p1")
         self.assertEqual(snapshot["awaiting"], "p2")
 
+    def test_open_priority_window_defers_to_its_own_responders(self):
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        replay["events"][1].update(
+            seat=None,
+            kind="priority",
+            phase="priority",
+            summary="Priority to Beta, Gamma, Delta: respond or pass.",
+        )
+
+        snapshot = encode_live.build_snapshot(
+            replay,
+            you="p4",
+            talk="",
+            waiting="",
+            public=False,
+        )
+        self.assertIsNone(snapshot["awaiting"])
+
     def test_awaiting_seat_is_the_active_seat_mid_turn(self):
         snapshot = encode_live.build_snapshot(
             FAKE_REPLAY,
