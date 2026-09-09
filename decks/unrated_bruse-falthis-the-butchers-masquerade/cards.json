@@ -391,6 +391,33 @@
       "submitted_name": "Bruse Tarl, Boorish Herder"
     },
     {
+      "cache": "cards/a47d9ea3-95fe-4774-8e72-30e7f56756f4.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flying",
+          "Investigate"
+        ],
+        "mana_cost": "{2}{W}",
+        "oracle_text": "Flying\nWhenever you cast a creature spell with mana value 3 or less, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")",
+        "power": "2",
+        "toughness": "3",
+        "type_line": "Creature — Spirit Cleric"
+      },
+      "categories": [
+        "Draw"
+      ],
+      "category_source": "decklist",
+      "name": "Bygone Bishop",
+      "oracle_id": "a47d9ea3-95fe-4774-8e72-30e7f56756f4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/689/bygone-bishop?utm_source=api",
+      "submitted_categories": [
+        "Draw"
+      ],
+      "submitted_name": "Bygone Bishop"
+    },
+    {
       "cache": "cards/b7817579-df4d-41db-bb90-2aabac58f299.json",
       "card": {
         "cmc": 4.0,
@@ -609,28 +636,6 @@
         "Draw"
       ],
       "submitted_name": "Commander's Sphere"
-    },
-    {
-      "cache": "cards/038519b9-bca8-4b27-b5ac-2409595469d0.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{1}{B}",
-        "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nSearch your library for a card, put that card into your hand, then shuffle.",
-        "type_line": "Sorcery"
-      },
-      "categories": [
-        "Tutor"
-      ],
-      "category_source": "decklist",
-      "name": "Diabolic Intent",
-      "oracle_id": "038519b9-bca8-4b27-b5ac-2409595469d0",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/bro/89/diabolic-intent?utm_source=api",
-      "submitted_categories": [
-        "Tutor"
-      ],
-      "submitted_name": "Diabolic Intent"
     },
     {
       "cache": "cards/9b084cd4-cc21-4f3a-9ac5-1e1160a31aa6.json",
@@ -2162,7 +2167,7 @@
     }
   ],
   "categorized_cards": 83,
-  "generated_at": "2026-09-09T06:13:50.515875+00:00",
+  "generated_at": "2026-09-09T06:34:35.986848+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 83,

@@ -1,0 +1,151 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "d25234a6-cb8d-479a-90f5-9d1a1084277b",
+      "name": "Clue",
+      "object": "related_card",
+      "type_line": "Token Artifact — Clue",
+      "uri": "https://api.scryfall.com/cards/d25234a6-cb8d-479a-90f5-9d1a1084277b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "cf879fc7-9f84-40a7-a7be-9cc98a720af5",
+      "name": "Bygone Bishop",
+      "object": "related_card",
+      "type_line": "Creature — Spirit Cleric",
+      "uri": "https://api.scryfall.com/cards/cf879fc7-9f84-40a7-a7be-9cc98a720af5"
+    }
+  ],
+  "artist": "Jason A. Engle",
+  "artist_ids": [
+    "02e2b5de-4341-464c-8fdb-a1adbf873bc0"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 661709,
+  "cmc": 3.0,
+  "collector_number": "689",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 7400,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "cf879fc7-9f84-40a7-a7be-9cc98a720af5",
+  "illustration_id": "ac46155f-d64e-4fd5-b6bc-607827c5f6d7",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:01:32Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/f/cf879fc7-9f84-40a7-a7be-9cc98a720af5.webp?1783922492",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/f/cf879fc7-9f84-40a7-a7be-9cc98a720af5.jpg?1783922492",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/f/cf879fc7-9f84-40a7-a7be-9cc98a720af5.jpg?1783922492",
+    "crop": "https://cards.scryfall.io/crop/front/c/f/cf879fc7-9f84-40a7-a7be-9cc98a720af5.webp?1783922492",
+    "display": "https://cards.scryfall.io/display/front/c/f/cf879fc7-9f84-40a7-a7be-9cc98a720af5.webp?1783922492",
+    "grid": "https://cards.scryfall.io/grid/front/c/f/cf879fc7-9f84-40a7-a7be-9cc98a720af5.webp?1783922492",
+    "large": "https://cards.scryfall.io/large/front/c/f/cf879fc7-9f84-40a7-a7be-9cc98a720af5.jpg?1783922492",
+    "normal": "https://cards.scryfall.io/normal/front/c/f/cf879fc7-9f84-40a7-a7be-9cc98a720af5.jpg?1783922492",
+    "png": "https://cards.scryfall.io/png/front/c/f/cf879fc7-9f84-40a7-a7be-9cc98a720af5.png?1783922492",
+    "small": "https://cards.scryfall.io/small/front/c/f/cf879fc7-9f84-40a7-a7be-9cc98a720af5.jpg?1783922492",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/f/cf879fc7-9f84-40a7-a7be-9cc98a720af5.webp?1783922492"
+  },
+  "keywords": [
+    "Flying",
+    "Investigate"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "multiverse_ids": [
+    567506
+  ],
+  "name": "Bygone Bishop",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a47d9ea3-95fe-4774-8e72-30e7f56756f4",
+  "oracle_text": "Flying\nWhenever you cast a creature spell with mana value 3 or less, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")",
+  "oversized": false,
+  "penny_rank": 1417,
+  "power": "2",
+  "prices": {
+    "eur": "0.14",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.41",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa47d9ea3-95fe-4774-8e72-30e7f56756f4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Bygone+Bishop&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=661709&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F273682%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bygone+Bishop",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=567506&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBygone%2BBishop",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBygone%2BBishop"
+  },
+  "released_at": "2022-06-10",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/cf879fc7-9f84-40a7-a7be-9cc98a720af5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/689/bygone-bishop?utm_source=api",
+  "security_stamp": "oval",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 273682,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Spirit Cleric",
+  "uri": "https://api.scryfall.com/cards/cf879fc7-9f84-40a7-a7be-9cc98a720af5",
+  "variation": false
+}

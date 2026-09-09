@@ -10657,8 +10657,16 @@
       "categories": [
         "other"
       ]
+    },
+    "a47d9ea3-95fe-4774-8e72-30e7f56756f4": {
+      "name": "Bygone Bishop",
+      "categories": [
+        "card-draw",
+        "token-production",
+        "sacrifice"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-09T06:13:31.866223+00:00"
+  "updated_at": "2026-09-09T06:34:35.986848+00:00"
 }

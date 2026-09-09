@@ -75,7 +75,6 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 - **Imperial Recruiter** — Finds a creature with power 2 or less, which is nearly every morph body plus Skirk Alarmist and Goblin Maskmaker.
 - **Recruiter of the Guard** — Finds a creature with toughness 2 or less, covering the pieces the Recruiter above misses.
-- **Diabolic Intent** — Any card for {1}{B} at the cost of feeding a crawler to the dungeon. Thematically and mechanically the right price.
 - **Wishclaw Talisman** — Finds anything, then hands the tutor to an opponent. A sponsorship deal with the audience, and the drawback keeps it honest.
 - **Beseech the Queen** — Any card with mana value at or below your land count. Slow, old, and not a Game Changer.
 
@@ -89,6 +88,7 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 ### Card draw
 
+- **Bygone Bishop** — A face-down creature spell has mana value 0, so every masked crawler you cast investigates. A 3-mana flier that turns the deck's own deployment into a Clue engine.
 - **Night's Whisper** — Two cards for two mana and two life.
 - **Phyrexian Arena** — Recurring draw that does not need combat to connect.
 
@@ -128,6 +128,10 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Swamp** — Basic black source; seven of them.
 - **Wind-Scarred Crag** — Red-white tapland with a life buffer.
 
+## Cards out
+
+- **Diabolic Intent** → **Bygone Bishop** (2026-09-09) — The user rejected it on speed: as a sorcery that also demands a creature sacrifice, it asks the deck to give up a body at the one time it cannot spare one, and it cannot be held up. They asked for card advantage instead. A replacement tutor would have to be instant-speed to earn the slot back.
+
 ## Rules
 
 - A face-down creature is a 2/2 colourless creature with no name, no creature types, and no abilities. It keeps its own characteristics only once it is turned face up.
@@ -141,6 +145,7 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Gift of Doom** cast face down is a 2/2 creature, not an Aura. Turning it face up by sacrificing another creature lets you attach it to a creature at that time.
 - **Falthis** grants menace and deathtouch to commanders you control, which includes Falthis and Bruse Tarl but no other creature in the deck.
 - **Soul Collector** returns a creature that it damaged and that died in the same turn. Deathtouch from **Basilisk Collar** or **Gift of Doom** makes any amount of its damage lethal.
+- A face-down creature spell has no mana cost and **mana value 0** (CR 707.2). Every morph cast for {3} therefore satisfies **Bygone Bishop**'s "mana value 3 or less" clause, and the generic {3} paid to cast it face down does not change that.
 - No card in this deck appears on the cached Game Changers snapshot in `BRACKET-DEFINITIONS.md` dated 2026-09-03. The black tutors that would normally fill these slots — Demonic Tutor, Vampiric Tutor, Imperial Seal — are all on that list and were excluded for that reason.
 
 ## Talks
@@ -161,4 +166,12 @@ The user asked for two to four five-card combos representing Carl's extreme plan
 
 This request moves the deck off the Exhibition target agreed earlier. Five-card assembly plus five tutors is Core (Bracket 2) texture: still zero Game Changers, still telegraphed on the board, still slow enough to clear the eight-turn floor. Recorded here so the earlier Bracket 1 intent is not treated as the current target.
 
-Tutor selection was constrained by the Game Changers cap. Demonic Tutor, Vampiric Tutor, and Imperial Seal are all on the cached list, so the package is Imperial Recruiter, Recruiter of the Guard, Diabolic Intent, Wishclaw Talisman, and Beseech the Queen. Two of those are creature-only and one hands the tutor to an opponent, which keeps consistency below what an unrestricted black package would give.
+Tutor selection was constrained by the Game Changers cap. Demonic Tutor, Vampiric Tutor, and Imperial Seal are all on the cached list, so the package is Imperial Recruiter, Recruiter of the Guard, Wishclaw Talisman, and Beseech the Queen, plus Sunforger as an instant toolbox. Two of those are creature-only and one hands the tutor to an opponent, which keeps consistency below what an unrestricted black package would give.
+
+### 2026-09-09 — Tutor traded for a draw engine
+
+The user cut Diabolic Intent on speed and asked for card advantage in the slot. Bygone Bishop took it because it is not generic draw: a face-down creature spell has mana value 0, so all twenty-six masked crawlers trigger it, and the deck's normal turn — deploy a mask for {3} — becomes a Clue.
+
+Also considered: **Mentor of the Meek** (triggers on face-down 2/2s entering, but taxes {1} per draw and misses the crawlers that die before resolving), **Greed** (repeatable and colour-hungry at {3}{B}, but competes with flip costs for black mana), and **Ambition's Cost** (three cards at once, but a one-shot in a deck that already wanted a repeating engine). Bygone Bishop also completes a set with Grim Haruspex and Roshan, so the deck now draws when a crawler is cast, unmasked, and killed.
+
+Tutor count is now four, which is still inside the four-to-five the user asked for.
