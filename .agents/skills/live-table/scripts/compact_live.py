@@ -405,6 +405,13 @@ def compact_snapshot(
     judge = snapshot.get("judge")
     if judge:
         wire["j"] = judge
+    judge_history = snapshot.get("judgeHistory") or []
+    if judge_history:
+        wire["jh"] = [
+            [entry.get("id", 0), entry.get("type", ""), entry.get("summary", "")]
+            for entry in judge_history
+            if isinstance(entry, dict) and entry.get("summary")
+        ]
     if snapshot.get("youAct"):
         wire["u"] = 1
     action_bits = {"plan": 1, "confirm": 2, "replace": 4, "pass": 8}
@@ -695,6 +702,11 @@ def expand_snapshot(wire: dict, indexes: dict[str, list[dict[str, Any]]] | None 
         "waiting": wire.get("w") or DEFAULT_WAITING,
         "talk": wire.get("k") or "",
         "judge": wire.get("j") or "",
+        "judgeHistory": [
+            {"id": row[0], "type": row[1], "summary": row[2]}
+            for row in wire.get("jh") or []
+            if isinstance(row, list) and len(row) >= 3
+        ],
         "youAct": bool(wire.get("u")),
         "actions": [
             action

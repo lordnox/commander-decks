@@ -467,6 +467,8 @@ def build_snapshot(
     waiting: str,
     judge: str = "",
     seat_judges: dict[str, str] | None = None,
+    seat_waiting: dict[str, str] | None = None,
+    judge_history: dict[str, list[dict]] | None = None,
     actions: dict[str, list[str]] | None = None,
     action_ids: dict[str, int] | None = None,
     public: bool = False,
@@ -505,10 +507,11 @@ def build_snapshot(
         if actions is not None
         else viewer and viewer in asked
     )
+    viewer_waiting = (seat_waiting or {}).get(viewer, waiting) if viewer else waiting
     prompt = (
         _fallback_prompt(awaiting, seats_meta)
-        if _needs_prompt(waiting)
-        else waiting
+        if _needs_prompt(viewer_waiting)
+        else viewer_waiting
     )
     if actions is not None and you_act and last.get("kind") == "priority":
         if set(viewer_actions).issubset({"plan", "pass"}):
@@ -526,6 +529,7 @@ def build_snapshot(
         "waiting": prompt,
         "talk": talk,
         "judge": (seat_judges or {}).get(viewer, judge) if viewer else judge,
+        "judgeHistory": (judge_history or {}).get(viewer, []) if viewer else [],
         "events": _event_feed(
             events,
             last=last,
@@ -590,6 +594,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--talk", default="", help="table talk / standing plan")
     parser.add_argument("--judge", default="", help="latest public judge note")
     parser.add_argument("--seat-judges-json", help="private judge notes keyed by seat")
+    parser.add_argument("--seat-waiting-json", help="private prompts keyed by seat")
+    parser.add_argument("--judge-history-json", help="private judge history keyed by seat")
     parser.add_argument("--actions-json", help="allowed play actions keyed by seat")
     parser.add_argument("--action-ids-json", help="current action id keyed by seat")
     parser.add_argument(
@@ -633,6 +639,16 @@ def main(argv: list[str] | None = None) -> int:
         if args.seat_judges_json
         else None
     )
+    seat_waiting = (
+        json.loads(args.seat_waiting_json)
+        if args.seat_waiting_json
+        else None
+    )
+    judge_history = (
+        json.loads(args.judge_history_json)
+        if args.judge_history_json
+        else None
+    )
     actions = json.loads(args.actions_json) if args.actions_json else None
     action_ids = json.loads(args.action_ids_json) if args.action_ids_json else None
     if args.conduit and args.conduit_keys is None:
@@ -672,6 +688,8 @@ def main(argv: list[str] | None = None) -> int:
             waiting=args.waiting,
             judge=args.judge,
             seat_judges=seat_judges,
+            seat_waiting=seat_waiting,
+            judge_history=judge_history,
             actions=actions,
             action_ids=action_ids,
             public=True,
@@ -719,6 +737,8 @@ def main(argv: list[str] | None = None) -> int:
         waiting=args.waiting,
         judge=args.judge,
         seat_judges=seat_judges,
+        seat_waiting=seat_waiting,
+        judge_history=judge_history,
         actions=actions,
         action_ids=action_ids,
         public=False,
@@ -736,6 +756,8 @@ def main(argv: list[str] | None = None) -> int:
         waiting=args.waiting,
         judge=args.judge,
         seat_judges=seat_judges,
+        seat_waiting=seat_waiting,
+        judge_history=judge_history,
         actions=actions,
         action_ids=action_ids,
         public=True,

@@ -12,8 +12,14 @@ export type Occupant = {
   deck: string
 }
 
+export type JudgeHistoryEntry = {
+  id: number
+  type: string
+  summary: string
+}
+
 export type LobbyState = {
-  communicationVersion: 5
+  communicationVersion: 6
   phase: LobbyPhase
   occupants: Partial<Record<SeatId, Occupant>>
   ready: SeatId[]
@@ -24,6 +30,8 @@ export type LobbyState = {
   judge: string
   privateJudge: Partial<Record<SeatId, string>>
   waiting: string
+  privateWaiting: Partial<Record<SeatId, string>>
+  judgeHistory: Partial<Record<SeatId, JudgeHistoryEntry[]>>
   active: SeatId
   actions: SeatActions
   actionIds: SeatActionIds
@@ -57,6 +65,7 @@ const appendTableTalk = (state: LobbyState, line: string) => {
 const setJudge = (state: LobbyState, line: string) => {
   state.judge = line
   state.privateJudge = {}
+  state.privateWaiting = {}
 }
 
 const announceSeats = (state: LobbyState) => {
@@ -98,7 +107,7 @@ const nextSeat = (from: SeatId) =>
   SEAT_IDS[(SEAT_IDS.indexOf(from) + 1) % SEAT_IDS.length]
 
 export const createLobby = (headline = 'Live table'): LobbyState => ({
-  communicationVersion: 5,
+  communicationVersion: 6,
   phase: 'gathering',
   occupants: {},
   ready: [],
@@ -108,6 +117,8 @@ export const createLobby = (headline = 'Live table'): LobbyState => ({
   judge: headline,
   privateJudge: {},
   waiting: 'Waiting for players (0/4)',
+  privateWaiting: {},
+  judgeHistory: {},
   active: 'p1',
   actions: {},
   actionIds: emptyActionIds(),
@@ -121,7 +132,7 @@ export type LobbyParts = {
 
 /** Sessions written before `lobby` existed only kept these three fields. */
 export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
-  communicationVersion: 5,
+  communicationVersion: 6,
   phase: parts.phase,
   occupants: { ...parts.occupants },
   ready: [],
@@ -131,6 +142,8 @@ export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
   judge: 'Host reconnected.',
   privateJudge: {},
   waiting: parts.phase === 'play' ? 'Play. Send a plan when it is your action.' : 'Host reconnected.',
+  privateWaiting: {},
+  judgeHistory: {},
   active: parts.firstPlayer,
   actions: {},
   actionIds: emptyActionIds(),
@@ -144,10 +157,22 @@ export const restoreLobby = (
   const version = saved.communicationVersion as number
   const actionMigrated = version < 3
   const privacyMigrated = version < 5
-  const legacyCommunication = ![2, 3, 4, 5].includes(version)
+  const promptMigrated = version < 6
+  const legacyCommunication = ![2, 3, 4, 5, 6].includes(version)
+  const migratedHistory = Object.fromEntries(
+    Object.entries(saved.privateJudge ?? {}).map(([seat, note]) => [
+      seat,
+      [{
+        id: 0,
+        type: 'plan',
+        summary: note.split('\n').find(Boolean)?.replaceAll('**', '').slice(0, 400)
+          ?? 'Earlier checked line.',
+      }],
+    ]),
+  )
   return {
     ...saved,
-    communicationVersion: 5,
+    communicationVersion: 6,
     occupants: { ...saved.occupants },
     ready: [...saved.ready],
     pregameRemaining: [...saved.pregameRemaining],
@@ -156,6 +181,8 @@ export const restoreLobby = (
       ? 'Host resumed. Earlier judge details were cleared from the table.'
       : saved.judge,
     privateJudge: privacyMigrated ? {} : saved.privateJudge,
+    privateWaiting: promptMigrated ? {} : (saved.privateWaiting ?? {}),
+    judgeHistory: promptMigrated ? migratedHistory : (saved.judgeHistory ?? {}),
     actions: actionMigrated ? {} : saved.actions,
     actionIds: actionMigrated ? emptyActionIds() : saved.actionIds,
   }

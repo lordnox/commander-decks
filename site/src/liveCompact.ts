@@ -18,6 +18,7 @@ export type LiveWireV2 = {
   w?: string
   k?: string
   j?: string
+  jh?: Array<[number, string, string]>
   u?: number
   r?: number
   i?: number
@@ -301,6 +302,13 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
   if (snapshot.waiting && snapshot.waiting !== DEFAULT_WAITING) wire.w = snapshot.waiting
   if (snapshot.talk) wire.k = snapshot.talk
   if (snapshot.judge) wire.j = snapshot.judge
+  if (snapshot.judgeHistory?.length) {
+    wire.jh = snapshot.judgeHistory.map(({ id, type, summary }) => [
+      id,
+      type,
+      summary,
+    ])
+  }
   if (snapshot.youAct) wire.u = 1
   const actionMask = (snapshot.actions ?? []).reduce(
     (mask, action) => mask | ACTION_BITS[action],
@@ -463,6 +471,11 @@ export const expandLiveWire = (
     waiting: wire.w || DEFAULT_WAITING,
     talk: wire.k || '',
     judge: wire.j || '',
+    judgeHistory: (wire.jh ?? []).map(([id, type, summary]) => ({
+      id,
+      type,
+      summary,
+    })),
     youAct: Boolean(wire.u),
     actions: Object.entries(ACTION_BITS)
       .filter(([, bit]) => ((wire.r ?? 0) & bit) !== 0)

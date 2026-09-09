@@ -4,6 +4,7 @@ import {
   type SeatActions,
   type SeatId,
 } from './protocol'
+import type { JudgeHistoryEntry } from './lobby'
 import { keysPath, replayPath } from './session'
 
 const ENCODER = '.agents/skills/live-table/scripts/encode_live.py'
@@ -16,6 +17,8 @@ export const publishReplay = async (options: {
   judge: string
   privateJudge: Partial<Record<SeatId, string>>
   waiting: string
+  privateWaiting: Partial<Record<SeatId, string>>
+  judgeHistory: Partial<Record<SeatId, JudgeHistoryEntry[]>>
   actions: SeatActions
   actionIds: SeatActionIds
   event?: number
@@ -27,6 +30,8 @@ export const publishReplay = async (options: {
     judge,
     privateJudge,
     waiting,
+    privateWaiting,
+    judgeHistory,
     actions,
     actionIds,
   } = options
@@ -44,6 +49,10 @@ export const publishReplay = async (options: {
       JSON.stringify(privateJudge),
       '--waiting',
       waiting,
+      '--seat-waiting-json',
+      JSON.stringify(privateWaiting),
+      '--judge-history-json',
+      JSON.stringify(judgeHistory),
       '--actions-json',
       JSON.stringify(actions),
       '--action-ids-json',

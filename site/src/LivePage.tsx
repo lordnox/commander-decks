@@ -133,6 +133,31 @@ const insertAtCursor = (
   return next
 }
 
+const JudgeText = ({ text }: { text: string }) => (
+  <div className="space-y-3 text-sm leading-6 text-stone-300">
+    {text.trim().split(/\n{2,}/).map((paragraph, paragraphIndex) => (
+      <p key={`${paragraphIndex}-${paragraph.slice(0, 24)}`}>
+        {paragraph.split('\n').map((line, lineIndex) => (
+          <span key={`${lineIndex}-${line.slice(0, 24)}`} className="block">
+            {line.split(/(\*\*[^*]+\*\*)/g).filter(Boolean).map((part, partIndex) => (
+              part.startsWith('**') && part.endsWith('**')
+                ? (
+                    <strong
+                      key={`${partIndex}-${part}`}
+                      className="font-semibold text-stone-100"
+                    >
+                      {part.slice(2, -2)}
+                    </strong>
+                  )
+                : <span key={`${partIndex}-${part}`}>{part}</span>
+            ))}
+          </span>
+        ))}
+      </p>
+    ))}
+  </div>
+)
+
 const EmptyLiveState = ({ reason }: { reason?: string }) => (
   <main className="mx-auto max-w-xl px-5 py-20 text-center">
     <p className="text-xs font-bold uppercase tracking-[0.28em] text-gold-300">
@@ -728,14 +753,40 @@ export const LivePage = () => {
             </div>
           )}
           {snapshot.judge && (
-            <div className="mt-4 border-l-2 border-gold-300 pl-4">
-              <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-gold-200">
+            <details
+              key={snapshot.judge}
+              open={yourAction || undefined}
+              className="mt-4 border-l-2 border-gold-300 pl-4"
+            >
+              <summary className="cursor-pointer text-[0.65rem] font-bold uppercase tracking-[0.18em] text-gold-200">
                 Judge note
-              </p>
-              <p className="mt-2 text-sm leading-6 text-stone-300 whitespace-pre-wrap">
-                {snapshot.judge}
-              </p>
-            </div>
+              </summary>
+              <div className="mt-3">
+                <JudgeText text={snapshot.judge} />
+              </div>
+            </details>
+          )}
+          {snapshot.judgeHistory && snapshot.judgeHistory.length > 0 && (
+            <details className="mt-4 rounded-2xl border border-gold-300/15 bg-gold-400/5 p-4">
+              <summary className="cursor-pointer text-[0.65rem] font-bold uppercase tracking-[0.18em] text-gold-200">
+                Your judge history · {snapshot.judgeHistory.length}
+              </summary>
+              <ol className="mt-3 space-y-3">
+                {[...snapshot.judgeHistory].reverse().map((entry) => (
+                  <li
+                    key={`${entry.id}-${entry.type}`}
+                    className="border-b border-white/5 pb-3 last:border-0 last:pb-0"
+                  >
+                    <p className="text-[0.65rem] font-bold uppercase tracking-[0.14em] text-stone-500">
+                      {entry.type}
+                    </p>
+                    <p className="mt-1 text-sm leading-6 text-stone-300">
+                      {entry.summary}
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </details>
           )}
           {combat.length > 0 && (
             <div className="mt-4 rounded-2xl border border-orange-300/20 bg-orange-500/5 p-4">
