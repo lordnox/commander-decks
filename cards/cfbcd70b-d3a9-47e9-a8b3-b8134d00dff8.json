@@ -1,0 +1,155 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "cd0b42a0-5e08-406d-82b0-be5f72870c47",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/cd0b42a0-5e08-406d-82b0-be5f72870c47"
+    },
+    {
+      "component": "combo_piece",
+      "id": "bc78993c-ca67-43b3-a64d-ce0c3bc415bc",
+      "name": "Ruthless Ripper",
+      "object": "related_card",
+      "type_line": "Creature — Human Assassin",
+      "uri": "https://api.scryfall.com/cards/bc78993c-ca67-43b3-a64d-ce0c3bc415bc"
+    }
+  ],
+  "artist": "Clint Cearley",
+  "artist_ids": [
+    "03b75350-d5a0-4e3a-b3b4-8d4a5554385b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 319504,
+  "cmc": 1.0,
+  "collector_number": "107",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 13493,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "bc78993c-ca67-43b3-a64d-ce0c3bc415bc",
+  "illustration_id": "65d60b8b-9745-4bc4-910f-6588ed95f17e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:32:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/c/bc78993c-ca67-43b3-a64d-ce0c3bc415bc.webp?1783935157",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/c/bc78993c-ca67-43b3-a64d-ce0c3bc415bc.jpg?1783935157",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/c/bc78993c-ca67-43b3-a64d-ce0c3bc415bc.jpg?1783935157",
+    "crop": "https://cards.scryfall.io/crop/front/b/c/bc78993c-ca67-43b3-a64d-ce0c3bc415bc.webp?1783935157",
+    "display": "https://cards.scryfall.io/display/front/b/c/bc78993c-ca67-43b3-a64d-ce0c3bc415bc.webp?1783935157",
+    "grid": "https://cards.scryfall.io/grid/front/b/c/bc78993c-ca67-43b3-a64d-ce0c3bc415bc.webp?1783935157",
+    "large": "https://cards.scryfall.io/large/front/b/c/bc78993c-ca67-43b3-a64d-ce0c3bc415bc.jpg?1783935157",
+    "normal": "https://cards.scryfall.io/normal/front/b/c/bc78993c-ca67-43b3-a64d-ce0c3bc415bc.jpg?1783935157",
+    "png": "https://cards.scryfall.io/png/front/b/c/bc78993c-ca67-43b3-a64d-ce0c3bc415bc.png?1783935157",
+    "small": "https://cards.scryfall.io/small/front/b/c/bc78993c-ca67-43b3-a64d-ce0c3bc415bc.jpg?1783935157",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/c/bc78993c-ca67-43b3-a64d-ce0c3bc415bc.webp?1783935157"
+  },
+  "keywords": [
+    "Morph",
+    "Deathtouch"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_foil_id": 67129,
+  "mtgo_id": 67128,
+  "multiverse_ids": [
+    442096
+  ],
+  "name": "Ruthless Ripper",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cfbcd70b-d3a9-47e9-a8b3-b8134d00dff8",
+  "oracle_text": "Deathtouch\nMorph—Reveal a black card in your hand. (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)\nWhen this creature is turned face up, target player loses 2 life.",
+  "oversized": false,
+  "penny_rank": 8135,
+  "power": "1",
+  "prices": {
+    "eur": "0.12",
+    "eur_foil": "0.53",
+    "tix": "0.09",
+    "usd": "0.19",
+    "usd_etched": null,
+    "usd_foil": "0.31"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acfbcd70b-d3a9-47e9-a8b3-b8134d00dff8&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/67128?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=319504&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F161821%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ruthless+Ripper",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=442096&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRuthless%2BRipper",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRuthless%2BRipper"
+  },
+  "released_at": "2018-03-16",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/bc78993c-ca67-43b3-a64d-ce0c3bc415bc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/a25?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/a25/107/ruthless-ripper?utm_source=api",
+  "set": "a25",
+  "set_id": "41ee6e2f-69b3-4c53-8a8e-960f5e974cfc",
+  "set_name": "Masters 25",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aa25&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/41ee6e2f-69b3-4c53-8a8e-960f5e974cfc",
+  "story_spotlight": false,
+  "tcgplayer_id": 161821,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Assassin",
+  "uri": "https://api.scryfall.com/cards/bc78993c-ca67-43b3-a64d-ce0c3bc415bc",
+  "variation": false,
+  "watermark": "set"
+}

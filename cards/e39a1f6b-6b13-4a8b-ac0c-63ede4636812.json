@@ -1,0 +1,133 @@
+{
+  "artist": "Anthony Palumbo",
+  "artist_ids": [
+    "afd2d541-4140-41ae-a28f-862436458fcb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 293347,
+  "cmc": 4.0,
+  "collector_number": "30",
+  "color_identity": [
+    "R",
+    "W"
+  ],
+  "colors": [
+    "R",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 7393,
+  "finishes": [
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "125b552b-45ea-4e0b-94a9-8131c97a04c0",
+  "illustration_id": "cdb5802d-8f4c-46c6-904a-8115c180e334",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:04:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/2/125b552b-45ea-4e0b-94a9-8131c97a04c0.webp?1783937085",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/2/125b552b-45ea-4e0b-94a9-8131c97a04c0.jpg?1783937085",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/2/125b552b-45ea-4e0b-94a9-8131c97a04c0.jpg?1783937085",
+    "crop": "https://cards.scryfall.io/crop/front/1/2/125b552b-45ea-4e0b-94a9-8131c97a04c0.webp?1783937085",
+    "display": "https://cards.scryfall.io/display/front/1/2/125b552b-45ea-4e0b-94a9-8131c97a04c0.webp?1783937085",
+    "grid": "https://cards.scryfall.io/grid/front/1/2/125b552b-45ea-4e0b-94a9-8131c97a04c0.webp?1783937085",
+    "large": "https://cards.scryfall.io/large/front/1/2/125b552b-45ea-4e0b-94a9-8131c97a04c0.jpg?1783937085",
+    "normal": "https://cards.scryfall.io/normal/front/1/2/125b552b-45ea-4e0b-94a9-8131c97a04c0.jpg?1783937085",
+    "png": "https://cards.scryfall.io/png/front/1/2/125b552b-45ea-4e0b-94a9-8131c97a04c0.png?1783937085",
+    "small": "https://cards.scryfall.io/small/front/1/2/125b552b-45ea-4e0b-94a9-8131c97a04c0.jpg?1783937085",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/2/125b552b-45ea-4e0b-94a9-8131c97a04c0.webp?1783937085"
+  },
+  "keywords": [
+    "Partner"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}{W}",
+  "multiverse_ids": [
+    420647
+  ],
+  "name": "Bruse Tarl, Boorish Herder",
+  "nonfoil": false,
+  "object": "card",
+  "oracle_id": "e39a1f6b-6b13-4a8b-ac0c-63ede4636812",
+  "oracle_text": "Whenever Bruse Tarl enters or attacks, target creature you control gains double strike and lifelink until end of turn.\nPartner (You can have two commanders if both have partner.)",
+  "oversized": false,
+  "power": "3",
+  "prices": {
+    "eur": null,
+    "eur_foil": "3.72",
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": "6.07"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae39a1f6b-6b13-4a8b-ac0c-63ede4636812&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Bruse+Tarl%2C+Boorish+Herder&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=293347&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F123975%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Bruse+Tarl%2C+Boorish+Herder",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=420647&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBruse%2BTarl%252C%2BBoorish%2BHerder",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBruse%2BTarl%252C%2BBoorish%2BHerder"
+  },
+  "released_at": "2016-11-11",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/125b552b-45ea-4e0b-94a9-8131c97a04c0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c16?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c16/30/bruse-tarl-boorish-herder?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c16",
+  "set_id": "3e0d713a-b5cb-4287-81b9-a57d4dcaf415",
+  "set_name": "Commander 2016",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac16&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/3e0d713a-b5cb-4287-81b9-a57d4dcaf415",
+  "story_spotlight": false,
+  "tcgplayer_id": 123975,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Legendary Creature — Human Ally",
+  "uri": "https://api.scryfall.com/cards/125b552b-45ea-4e0b-94a9-8131c97a04c0",
+  "variation": false
+}

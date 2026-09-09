@@ -1,0 +1,154 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7",
+      "name": "Whipcorder",
+      "object": "related_card",
+      "type_line": "Creature — Human Soldier Rebel",
+      "uri": "https://api.scryfall.com/cards/3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5430da88-b72e-4d64-bd3c-b21062cac1c2",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/5430da88-b72e-4d64-bd3c-b21062cac1c2"
+    }
+  ],
+  "artist": "Ron Spencer",
+  "artist_ids": [
+    "dab52c11-0564-4207-a4a1-c1735c946a65"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 1691,
+  "cmc": 2.0,
+  "collector_number": "60",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 24040,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "His bolas whirl like galaxies, but it's his enemies who see stars.",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7",
+  "illustration_id": "7c1e94b6-ab67-4e19-a5e3-e28b05fcab72",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:18:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/b/3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7.webp?1783945089",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/b/3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7.jpg?1783945089",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/b/3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7.jpg?1783945089",
+    "crop": "https://cards.scryfall.io/crop/front/3/b/3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7.webp?1783945089",
+    "display": "https://cards.scryfall.io/display/front/3/b/3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7.webp?1783945089",
+    "grid": "https://cards.scryfall.io/grid/front/3/b/3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7.webp?1783945089",
+    "large": "https://cards.scryfall.io/large/front/3/b/3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7.jpg?1783945089",
+    "normal": "https://cards.scryfall.io/normal/front/3/b/3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7.jpg?1783945089",
+    "png": "https://cards.scryfall.io/png/front/3/b/3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7.png?1783945089",
+    "small": "https://cards.scryfall.io/small/front/3/b/3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7.jpg?1783945089",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/b/3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7.webp?1783945089"
+  },
+  "keywords": [
+    "Morph"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}{W}",
+  "mtgo_foil_id": 17700,
+  "mtgo_id": 17699,
+  "multiverse_ids": [
+    41024
+  ],
+  "name": "Whipcorder",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4a4c187e-e10b-4fd2-b70b-6401bb0595c5",
+  "oracle_text": "{W}, {T}: Tap target creature.\nMorph {W} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)",
+  "oversized": false,
+  "penny_rank": 13289,
+  "power": "2",
+  "prices": {
+    "eur": "0.90",
+    "eur_foil": "11.37",
+    "tix": "0.62",
+    "usd": "0.40",
+    "usd_etched": null,
+    "usd_foil": "15.39"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4a4c187e-e10b-4fd2-b70b-6401bb0595c5&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/17699?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=1691&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10322%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Whipcorder",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=41024&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWhipcorder",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWhipcorder"
+  },
+  "released_at": "2002-10-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ons?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ons/60/whipcorder?utm_source=api",
+  "set": "ons",
+  "set_id": "914a6c6d-cb3b-45e8-a2db-9978a2339faf",
+  "set_name": "Onslaught",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aons&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/914a6c6d-cb3b-45e8-a2db-9978a2339faf",
+  "story_spotlight": false,
+  "tcgplayer_id": 10322,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Human Soldier Rebel",
+  "uri": "https://api.scryfall.com/cards/3bf6987e-a6e4-4a88-af0b-cf3b2d2b80c7",
+  "variation": false
+}

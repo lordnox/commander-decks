@@ -1,0 +1,152 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "5430da88-b72e-4d64-bd3c-b21062cac1c2",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/5430da88-b72e-4d64-bd3c-b21062cac1c2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "cd7727a7-0cdf-4fd5-82b4-e6587c10ca80",
+      "name": "Cabal Executioner",
+      "object": "related_card",
+      "type_line": "Creature — Human Cleric",
+      "uri": "https://api.scryfall.com/cards/cd7727a7-0cdf-4fd5-82b4-e6587c10ca80"
+    }
+  ],
+  "artist": "Rebecca Guay",
+  "artist_ids": [
+    "f8f662fa-d597-46a3-afb2-91d6e13243e2"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 1761,
+  "cmc": 4.0,
+  "collector_number": "130",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 26072,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "cd7727a7-0cdf-4fd5-82b4-e6587c10ca80",
+  "illustration_id": "8d570fe3-11fa-4d02-8c61-97594e775889",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:17:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/d/cd7727a7-0cdf-4fd5-82b4-e6587c10ca80.webp?1783945073",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/d/cd7727a7-0cdf-4fd5-82b4-e6587c10ca80.jpg?1783945073",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/d/cd7727a7-0cdf-4fd5-82b4-e6587c10ca80.jpg?1783945073",
+    "crop": "https://cards.scryfall.io/crop/front/c/d/cd7727a7-0cdf-4fd5-82b4-e6587c10ca80.webp?1783945073",
+    "display": "https://cards.scryfall.io/display/front/c/d/cd7727a7-0cdf-4fd5-82b4-e6587c10ca80.webp?1783945073",
+    "grid": "https://cards.scryfall.io/grid/front/c/d/cd7727a7-0cdf-4fd5-82b4-e6587c10ca80.webp?1783945073",
+    "large": "https://cards.scryfall.io/large/front/c/d/cd7727a7-0cdf-4fd5-82b4-e6587c10ca80.jpg?1783945073",
+    "normal": "https://cards.scryfall.io/normal/front/c/d/cd7727a7-0cdf-4fd5-82b4-e6587c10ca80.jpg?1783945073",
+    "png": "https://cards.scryfall.io/png/front/c/d/cd7727a7-0cdf-4fd5-82b4-e6587c10ca80.png?1783945073",
+    "small": "https://cards.scryfall.io/small/front/c/d/cd7727a7-0cdf-4fd5-82b4-e6587c10ca80.jpg?1783945073",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/d/cd7727a7-0cdf-4fd5-82b4-e6587c10ca80.webp?1783945073"
+  },
+  "keywords": [
+    "Morph"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "mtgo_foil_id": 17934,
+  "mtgo_id": 17933,
+  "multiverse_ids": [
+    39851
+  ],
+  "name": "Cabal Executioner",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b7817579-df4d-41db-bb90-2aabac58f299",
+  "oracle_text": "Whenever this creature deals combat damage to a player, that player sacrifices a creature of their choice.\nMorph {3}{B}{B} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "0.18",
+    "eur_foil": "1.20",
+    "tix": "0.06",
+    "usd": "0.18",
+    "usd_etched": null,
+    "usd_foil": "1.45"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab7817579-df4d-41db-bb90-2aabac58f299&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/17933?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=1761&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10342%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Cabal+Executioner",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=39851&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCabal%2BExecutioner",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCabal%2BExecutioner"
+  },
+  "released_at": "2002-10-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/cd7727a7-0cdf-4fd5-82b4-e6587c10ca80/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ons?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ons/130/cabal-executioner?utm_source=api",
+  "set": "ons",
+  "set_id": "914a6c6d-cb3b-45e8-a2db-9978a2339faf",
+  "set_name": "Onslaught",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aons&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/914a6c6d-cb3b-45e8-a2db-9978a2339faf",
+  "story_spotlight": false,
+  "tcgplayer_id": 10342,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Human Cleric",
+  "uri": "https://api.scryfall.com/cards/cd7727a7-0cdf-4fd5-82b4-e6587c10ca80",
+  "variation": false
+}

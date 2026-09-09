@@ -1,0 +1,142 @@
+{
+  "artist": "Brian Snõddy",
+  "artist_ids": [
+    "770b4e16-de76-49ed-949f-84e6d2e06d25"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 566826,
+  "cmc": 3.0,
+  "collector_number": "294",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 1160,
+  "finishes": [
+    "nonfoil",
+    "foil",
+    "etched"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "683c4e13-525c-45c9-8832-bfe67965c34e",
+  "illustration_id": "23f2852f-f10e-45ae-baa2-262c1a511e64",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-09-09T01:25:50Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/8/683c4e13-525c-45c9-8832-bfe67965c34e.webp?1788917150",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/8/683c4e13-525c-45c9-8832-bfe67965c34e.jpg?1788917150",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/8/683c4e13-525c-45c9-8832-bfe67965c34e.jpg?1788917150",
+    "crop": "https://cards.scryfall.io/crop/front/6/8/683c4e13-525c-45c9-8832-bfe67965c34e.webp?1788917150",
+    "display": "https://cards.scryfall.io/display/front/6/8/683c4e13-525c-45c9-8832-bfe67965c34e.webp?1788917150",
+    "grid": "https://cards.scryfall.io/grid/front/6/8/683c4e13-525c-45c9-8832-bfe67965c34e.webp?1788917150",
+    "large": "https://cards.scryfall.io/large/front/6/8/683c4e13-525c-45c9-8832-bfe67965c34e.jpg?1788917150",
+    "normal": "https://cards.scryfall.io/normal/front/6/8/683c4e13-525c-45c9-8832-bfe67965c34e.jpg?1788917150",
+    "png": "https://cards.scryfall.io/png/front/6/8/683c4e13-525c-45c9-8832-bfe67965c34e.png?1788917150",
+    "small": "https://cards.scryfall.io/small/front/6/8/683c4e13-525c-45c9-8832-bfe67965c34e.jpg?1788917150",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/8/683c4e13-525c-45c9-8832-bfe67965c34e.webp?1788917150"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}{B}",
+  "mtgo_id": 91015,
+  "multiverse_ids": [
+    526265
+  ],
+  "name": "Vindicate",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "63c1ac21-e3d8-40c2-8c09-3f31c52992ef",
+  "oracle_text": "Destroy target permanent.",
+  "oversized": false,
+  "penny_rank": 138,
+  "preview": {
+    "previewed_at": "2021-05-28",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://cafe.naver.com/mtgkr?iframe_url_utf8=%2FArticleRead.nhn%253Fclubid%3D30250607%2526articleid%3D4060%2526referrerAllArticles%3Dtrue"
+  },
+  "prices": {
+    "eur": "0.87",
+    "eur_foil": "1.73",
+    "tix": "0.02",
+    "usd": "0.76",
+    "usd_etched": "1.42",
+    "usd_foil": "2.03"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A63c1ac21-e3d8-40c2-8c09-3f31c52992ef&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/91015?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=566826&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F240283%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vindicate",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=526265&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVindicate",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVindicate"
+  },
+  "released_at": "2021-06-18",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/683c4e13-525c-45c9-8832-bfe67965c34e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh2/294/vindicate?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh2",
+  "set_id": "c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "set_name": "Modern Horizons 2",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh2&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "story_spotlight": false,
+  "tcgplayer_etched_id": 240860,
+  "tcgplayer_id": 240283,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/683c4e13-525c-45c9-8832-bfe67965c34e",
+  "variation": false,
+  "watermark": "set"
+}

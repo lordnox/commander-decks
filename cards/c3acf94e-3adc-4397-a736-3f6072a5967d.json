@@ -1,0 +1,149 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "5430da88-b72e-4d64-bd3c-b21062cac1c2",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/5430da88-b72e-4d64-bd3c-b21062cac1c2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d1c8cff1-b289-41a4-9fa3-cc5e7ba70802",
+      "name": "Proteus Machine",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Shapeshifter",
+      "uri": "https://api.scryfall.com/cards/d1c8cff1-b289-41a4-9fa3-cc5e7ba70802"
+    }
+  ],
+  "artist": "Greg Staples",
+  "artist_ids": [
+    "93d65564-bf00-447b-8406-e2031f03b6b1"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 1134,
+  "cmc": 3.0,
+  "collector_number": "141",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 17618,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d1c8cff1-b289-41a4-9fa3-cc5e7ba70802",
+  "illustration_id": "ded96ada-2821-4598-988f-820e0a2acf0d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:14:22Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/1/d1c8cff1-b289-41a4-9fa3-cc5e7ba70802.webp?1783944862",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/1/d1c8cff1-b289-41a4-9fa3-cc5e7ba70802.jpg?1783944862",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/1/d1c8cff1-b289-41a4-9fa3-cc5e7ba70802.jpg?1783944862",
+    "crop": "https://cards.scryfall.io/crop/front/d/1/d1c8cff1-b289-41a4-9fa3-cc5e7ba70802.webp?1783944862",
+    "display": "https://cards.scryfall.io/display/front/d/1/d1c8cff1-b289-41a4-9fa3-cc5e7ba70802.webp?1783944862",
+    "grid": "https://cards.scryfall.io/grid/front/d/1/d1c8cff1-b289-41a4-9fa3-cc5e7ba70802.webp?1783944862",
+    "large": "https://cards.scryfall.io/large/front/d/1/d1c8cff1-b289-41a4-9fa3-cc5e7ba70802.jpg?1783944862",
+    "normal": "https://cards.scryfall.io/normal/front/d/1/d1c8cff1-b289-41a4-9fa3-cc5e7ba70802.jpg?1783944862",
+    "png": "https://cards.scryfall.io/png/front/d/1/d1c8cff1-b289-41a4-9fa3-cc5e7ba70802.png?1783944862",
+    "small": "https://cards.scryfall.io/small/front/d/1/d1c8cff1-b289-41a4-9fa3-cc5e7ba70802.jpg?1783944862",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/1/d1c8cff1-b289-41a4-9fa3-cc5e7ba70802.webp?1783944862"
+  },
+  "keywords": [
+    "Morph"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}",
+  "mtgo_foil_id": 18797,
+  "mtgo_id": 18796,
+  "multiverse_ids": [
+    46705
+  ],
+  "name": "Proteus Machine",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c3acf94e-3adc-4397-a736-3f6072a5967d",
+  "oracle_text": "Morph {0} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)\nWhen this creature is turned face up, it becomes the creature type of your choice. (This effect lasts indefinitely.)",
+  "oversized": false,
+  "penny_rank": 15992,
+  "power": "2",
+  "prices": {
+    "eur": "0.25",
+    "eur_foil": "2.12",
+    "tix": "0.04",
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": "3.76"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac3acf94e-3adc-4397-a736-3f6072a5967d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/18796?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=1134&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10958%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Proteus+Machine",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=46705&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DProteus%2BMachine",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DProteus%2BMachine"
+  },
+  "released_at": "2003-05-26",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d1c8cff1-b289-41a4-9fa3-cc5e7ba70802/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/scg?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/scg/141/proteus-machine?utm_source=api",
+  "set": "scg",
+  "set_id": "5133c3a1-1412-4ce6-a1f0-73b695966ded",
+  "set_name": "Scourge",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ascg&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5133c3a1-1412-4ce6-a1f0-73b695966ded",
+  "story_spotlight": false,
+  "tcgplayer_id": 10958,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Artifact Creature — Shapeshifter",
+  "uri": "https://api.scryfall.com/cards/d1c8cff1-b289-41a4-9fa3-cc5e7ba70802",
+  "variation": false
+}

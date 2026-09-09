@@ -1,0 +1,168 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "ed418a8b-f158-492d-a323-6265b3175292",
+      "name": "Goblin",
+      "object": "related_card",
+      "type_line": "Token Creature — Goblin",
+      "uri": "https://api.scryfall.com/cards/ed418a8b-f158-492d-a323-6265b3175292"
+    },
+    {
+      "component": "combo_piece",
+      "id": "192d77ef-e8b5-44e2-842b-2c1f342c1e69",
+      "name": "Ponyback Brigade",
+      "object": "related_card",
+      "type_line": "Creature — Goblin Warrior",
+      "uri": "https://api.scryfall.com/cards/192d77ef-e8b5-44e2-842b-2c1f342c1e69"
+    },
+    {
+      "component": "combo_piece",
+      "id": "bc513990-b4e8-498b-84d5-8317bc79a667",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/bc513990-b4e8-498b-84d5-8317bc79a667"
+    }
+  ],
+  "arena_id": 58319,
+  "artist": "Mark Zug",
+  "artist_ids": [
+    "48e2b98c-5467-4671-bd42-4c3746115117"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 269538,
+  "cmc": 6.0,
+  "collector_number": "191",
+  "color_identity": [
+    "B",
+    "R",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "R",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 25334,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "192d77ef-e8b5-44e2-842b-2c1f342c1e69",
+  "illustration_id": "6a94cb6f-c3f2-42ed-89a5-f4bb67085b94",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:37:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/9/192d77ef-e8b5-44e2-842b-2c1f342c1e69.webp?1783939055",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/9/192d77ef-e8b5-44e2-842b-2c1f342c1e69.jpg?1783939055",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/9/192d77ef-e8b5-44e2-842b-2c1f342c1e69.jpg?1783939055",
+    "crop": "https://cards.scryfall.io/crop/front/1/9/192d77ef-e8b5-44e2-842b-2c1f342c1e69.webp?1783939055",
+    "display": "https://cards.scryfall.io/display/front/1/9/192d77ef-e8b5-44e2-842b-2c1f342c1e69.webp?1783939055",
+    "grid": "https://cards.scryfall.io/grid/front/1/9/192d77ef-e8b5-44e2-842b-2c1f342c1e69.webp?1783939055",
+    "large": "https://cards.scryfall.io/large/front/1/9/192d77ef-e8b5-44e2-842b-2c1f342c1e69.jpg?1783939055",
+    "normal": "https://cards.scryfall.io/normal/front/1/9/192d77ef-e8b5-44e2-842b-2c1f342c1e69.jpg?1783939055",
+    "png": "https://cards.scryfall.io/png/front/1/9/192d77ef-e8b5-44e2-842b-2c1f342c1e69.png?1783939055",
+    "small": "https://cards.scryfall.io/small/front/1/9/192d77ef-e8b5-44e2-842b-2c1f342c1e69.jpg?1783939055",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/9/192d77ef-e8b5-44e2-842b-2c1f342c1e69.webp?1783939055"
+  },
+  "keywords": [
+    "Morph"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{R}{W}{B}",
+  "mtgo_foil_id": 54139,
+  "mtgo_id": 54138,
+  "multiverse_ids": [
+    386628
+  ],
+  "name": "Ponyback Brigade",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8cfb5181-8ab7-484b-8821-a62c561f762f",
+  "oracle_text": "When this creature enters or is turned face up, create three 1/1 red Goblin creature tokens.\nMorph {2}{R}{W}{B} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)",
+  "oversized": false,
+  "penny_rank": 12747,
+  "power": "2",
+  "prices": {
+    "eur": "0.06",
+    "eur_foil": "0.22",
+    "tix": "0.03",
+    "usd": "0.06",
+    "usd_etched": null,
+    "usd_foil": "0.41"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8cfb5181-8ab7-484b-8821-a62c561f762f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/54138?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=269538&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F93289%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ponyback+Brigade",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=386628&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPonyback%2BBrigade",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPonyback%2BBrigade"
+  },
+  "released_at": "2014-09-26",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/192d77ef-e8b5-44e2-842b-2c1f342c1e69/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ktk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ktk/191/ponyback-brigade?utm_source=api",
+  "set": "ktk",
+  "set_id": "6c7a715c-ded9-449e-89b0-c665773e9c3c",
+  "set_name": "Khans of Tarkir",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aktk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/6c7a715c-ded9-449e-89b0-c665773e9c3c",
+  "story_spotlight": false,
+  "tcgplayer_id": 93289,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Goblin Warrior",
+  "uri": "https://api.scryfall.com/cards/192d77ef-e8b5-44e2-842b-2c1f342c1e69",
+  "variation": false,
+  "watermark": "mardu"
+}

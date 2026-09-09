@@ -1,0 +1,154 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "5c0848dc-dd4c-48d0-a22f-bd1fba070b21",
+      "name": "Soul Collector",
+      "object": "related_card",
+      "type_line": "Creature — Vampire",
+      "uri": "https://api.scryfall.com/cards/5c0848dc-dd4c-48d0-a22f-bd1fba070b21"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5430da88-b72e-4d64-bd3c-b21062cac1c2",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/5430da88-b72e-4d64-bd3c-b21062cac1c2"
+    }
+  ],
+  "artist": "Matthew D. Wilson",
+  "artist_ids": [
+    "4fbafd13-0cf9-42a1-870d-7f8ea276f140"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 14143,
+  "cmc": 5.0,
+  "collector_number": "47",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 21394,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5c0848dc-dd4c-48d0-a22f-bd1fba070b21",
+  "illustration_id": "fa258b91-2cf2-4a72-8c97-9ddc30314535",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:47:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/c/5c0848dc-dd4c-48d0-a22f-bd1fba070b21.webp?1783943275",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/c/5c0848dc-dd4c-48d0-a22f-bd1fba070b21.jpg?1783943275",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/c/5c0848dc-dd4c-48d0-a22f-bd1fba070b21.jpg?1783943275",
+    "crop": "https://cards.scryfall.io/crop/front/5/c/5c0848dc-dd4c-48d0-a22f-bd1fba070b21.webp?1783943275",
+    "display": "https://cards.scryfall.io/display/front/5/c/5c0848dc-dd4c-48d0-a22f-bd1fba070b21.webp?1783943275",
+    "grid": "https://cards.scryfall.io/grid/front/5/c/5c0848dc-dd4c-48d0-a22f-bd1fba070b21.webp?1783943275",
+    "large": "https://cards.scryfall.io/large/front/5/c/5c0848dc-dd4c-48d0-a22f-bd1fba070b21.jpg?1783943275",
+    "normal": "https://cards.scryfall.io/normal/front/5/c/5c0848dc-dd4c-48d0-a22f-bd1fba070b21.jpg?1783943275",
+    "png": "https://cards.scryfall.io/png/front/5/c/5c0848dc-dd4c-48d0-a22f-bd1fba070b21.png?1783943275",
+    "small": "https://cards.scryfall.io/small/front/5/c/5c0848dc-dd4c-48d0-a22f-bd1fba070b21.jpg?1783943275",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/c/5c0848dc-dd4c-48d0-a22f-bd1fba070b21.webp?1783943275"
+  },
+  "keywords": [
+    "Flying",
+    "Morph"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_foil_id": 26198,
+  "mtgo_id": 26197,
+  "multiverse_ids": [
+    106644
+  ],
+  "name": "Soul Collector",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7b7b3a34-13ff-45d4-ad0d-ac4bad9d0581",
+  "oracle_text": "Flying\nWhenever a creature dealt damage by this creature this turn dies, return that card to the battlefield under your control.\nMorph {B}{B}{B} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)",
+  "oversized": false,
+  "penny_rank": 16160,
+  "power": "3",
+  "prices": {
+    "eur": "0.47",
+    "eur_foil": "2.66",
+    "tix": "0.02",
+    "usd": "0.41",
+    "usd_etched": null,
+    "usd_foil": "4.80"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7b7b3a34-13ff-45d4-ad0d-ac4bad9d0581&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/26197?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=14143&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F14642%3Fpage%3D1"
+  },
+  "rarity": "special",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Soul+Collector",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=106644&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSoul%2BCollector",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSoul%2BCollector"
+  },
+  "released_at": "2006-10-06",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5c0848dc-dd4c-48d0-a22f-bd1fba070b21/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tsb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tsb/47/soul-collector?utm_source=api",
+  "set": "tsb",
+  "set_id": "6519be58-b8cb-4cd7-9f5b-4db23364715b",
+  "set_name": "Time Spiral Timeshifted",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atsb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/6519be58-b8cb-4cd7-9f5b-4db23364715b",
+  "story_spotlight": false,
+  "tcgplayer_id": 14642,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Vampire",
+  "uri": "https://api.scryfall.com/cards/5c0848dc-dd4c-48d0-a22f-bd1fba070b21",
+  "variation": false
+}

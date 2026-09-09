@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "7a6b087b-a3ac-4c4d-a519-ec5584b4b42d",
+      "name": "Exalted Angel",
+      "object": "related_card",
+      "type_line": "Creature — Angel",
+      "uri": "https://api.scryfall.com/cards/7a6b087b-a3ac-4c4d-a519-ec5584b4b42d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5430da88-b72e-4d64-bd3c-b21062cac1c2",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/5430da88-b72e-4d64-bd3c-b21062cac1c2"
+    }
+  ],
+  "artist": "Michael Sutfin",
+  "artist_ids": [
+    "5ce7b3bd-53d2-49e6-b504-37191e8e9b17"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753314,
+  "cmc": 6.0,
+  "collector_number": "63",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 15157,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7a6b087b-a3ac-4c4d-a519-ec5584b4b42d",
+  "illustration_id": "d75cc975-0f7e-48e7-a693-453306e5a907",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:23:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/a/7a6b087b-a3ac-4c4d-a519-ec5584b4b42d.webp?1783913032",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/a/7a6b087b-a3ac-4c4d-a519-ec5584b4b42d.jpg?1783913032",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/a/7a6b087b-a3ac-4c4d-a519-ec5584b4b42d.jpg?1783913032",
+    "crop": "https://cards.scryfall.io/crop/front/7/a/7a6b087b-a3ac-4c4d-a519-ec5584b4b42d.webp?1783913032",
+    "display": "https://cards.scryfall.io/display/front/7/a/7a6b087b-a3ac-4c4d-a519-ec5584b4b42d.webp?1783913032",
+    "grid": "https://cards.scryfall.io/grid/front/7/a/7a6b087b-a3ac-4c4d-a519-ec5584b4b42d.webp?1783913032",
+    "large": "https://cards.scryfall.io/large/front/7/a/7a6b087b-a3ac-4c4d-a519-ec5584b4b42d.jpg?1783913032",
+    "normal": "https://cards.scryfall.io/normal/front/7/a/7a6b087b-a3ac-4c4d-a519-ec5584b4b42d.jpg?1783913032",
+    "png": "https://cards.scryfall.io/png/front/7/a/7a6b087b-a3ac-4c4d-a519-ec5584b4b42d.png?1783913032",
+    "small": "https://cards.scryfall.io/small/front/7/a/7a6b087b-a3ac-4c4d-a519-ec5584b4b42d.jpg?1783913032",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/a/7a6b087b-a3ac-4c4d-a519-ec5584b4b42d.webp?1783913032"
+  },
+  "keywords": [
+    "Flying",
+    "Morph"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{W}{W}",
+  "mtgo_id": 122266,
+  "multiverse_ids": [
+    650157
+  ],
+  "name": "Exalted Angel",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2f6e9ab8-6951-4c5f-bcde-0e96e0fe87f2",
+  "oracle_text": "Flying\nWhenever this creature deals damage, you gain that much life.\nMorph {2}{W}{W} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)",
+  "oversized": false,
+  "penny_rank": 2798,
+  "power": "4",
+  "prices": {
+    "eur": "1.82",
+    "eur_foil": null,
+    "tix": "20.26",
+    "usd": "1.30",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2f6e9ab8-6951-4c5f-bcde-0e96e0fe87f2&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122266?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753314&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535829%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Exalted+Angel",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=650157&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DExalted%2BAngel",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DExalted%2BAngel"
+  },
+  "released_at": "2024-02-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7a6b087b-a3ac-4c4d-a519-ec5584b4b42d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkc/63/exalted-angel?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkc",
+  "set_id": "286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "set_name": "Murders at Karlov Manor Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "story_spotlight": false,
+  "tcgplayer_id": 535829,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Creature — Angel",
+  "uri": "https://api.scryfall.com/cards/7a6b087b-a3ac-4c4d-a519-ec5584b4b42d",
+  "variation": false
+}
