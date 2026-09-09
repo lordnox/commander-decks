@@ -18,6 +18,7 @@
     "table:run": "bun live-runner/src/cli.ts",
     "table:run:bg": "bun live-runner/src/cli.ts",
     "test:live-runner": "bun test live-runner",
+    "test:rules": "bun test rules-engine",
     "typecheck:live-runner": "tsc --ignoreConfig --noEmit --strict --moduleResolution Bundler --module ESNext --target ES2022 --types bun live-runner/src/*.ts",
     "table:decks": "python3 .agents/skills/live-table/scripts/publish_deck_indexes.py",
     "site:prepare": "bun run table:render && bun run table:pages && bun run table:decks"
