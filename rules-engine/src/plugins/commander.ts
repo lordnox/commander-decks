@@ -50,18 +50,15 @@ export const commander: Plugin = {
       data.commanderTax = { ...tax, [object.id]: (tax[object.id] ?? 0) + 2 }
       return
     }
-    if (event.type === 'custom' && event.name === 'combatDamageDealt') {
-      const sourceId = event.payload?.sourceId
-      const target = event.payload?.target
-      const amount = event.payload?.amount
-      if (typeof sourceId !== 'string' || typeof target !== 'string' || typeof amount !== 'number') {
-        return
-      }
-      if (!draft.objects[sourceId]?.tags.includes('commander') || !draft.players[target]) return
-      const damage = commanderDamage(draft.players[target].data)
-      draft.players[target].data.commanderDamage = {
-        ...damage,
-        [sourceId]: (damage[sourceId] ?? 0) + amount,
+    if (event.type === 'combatDamage') {
+      if (event.target.kind !== 'player') return
+      const source = draft.objects[event.sourceId]
+      const player = draft.players[event.target.player]
+      if (!source?.tags.includes('commander') || !player) return
+      const tally = commanderDamage(player.data)
+      player.data.commanderDamage = {
+        ...tally,
+        [event.sourceId]: (tally[event.sourceId] ?? 0) + event.amount,
       }
     }
   },

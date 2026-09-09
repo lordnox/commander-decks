@@ -43,7 +43,7 @@ export {
 } from './formats'
 export { rules as reduceWithCatalog } from './kernel'
 export { bears, bolt, forest, newGame, yarokFixture } from './newGame'
-export { manaBurn } from './plugins'
+export { fog, manaBurn } from './plugins'
 export type { GameFormat } from './formats'
 export type { NewGameOptions } from './newGame'
 export type {

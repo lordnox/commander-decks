@@ -3,11 +3,13 @@ import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
 import { forest, newGame, yarokFixture } from '../testGame'
 import type { GameState, ReduceResult } from '../types'
+import { damage } from './damage'
 import { lands } from './lands'
 import { mana } from './mana'
 import { manaBurn } from './manaBurn'
+import { stateBased } from './stateBased'
 
-const catalog = createCatalog([mana, lands, manaBurn])
+const catalog = createCatalog([mana, lands, manaBurn, damage, stateBased])
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -18,7 +20,7 @@ const empty = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 }
 
 const base = () =>
   newGame({
-    builtinRules: ['mana', 'lands'],
+    builtinRules: ['mana', 'lands', 'damage', 'stateBased'],
     hands: { p1: [forest()] },
     battlefield: { p1: [forest()] },
   })
@@ -64,7 +66,7 @@ describe('manaBurn', () => {
 
   test('a permanent that grants manaBurn turns it on and off', () => {
     const state = newGame({
-      builtinRules: ['mana', 'lands'],
+      builtinRules: ['mana', 'lands', 'damage', 'stateBased'],
       hands: { p1: [yarokFixture()] },
     })
     const yarokId = Object.values(state.objects)[0].id

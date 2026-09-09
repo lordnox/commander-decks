@@ -1,5 +1,7 @@
 import { combat } from './combat'
 import { commander } from './commander'
+import { damage } from './damage'
+import { fog } from './fog'
 import { lands } from './lands'
 import { mana } from './mana'
 import { manaBurn } from './manaBurn'
@@ -17,13 +19,17 @@ export const builtInPlugins = [
   spells,
   stateBased,
   combat,
+  damage,
   commander,
   manaBurn,
+  fog,
 ]
 
 export {
   combat,
   commander,
+  damage,
+  fog,
   lands,
   mana,
   manaBurn,

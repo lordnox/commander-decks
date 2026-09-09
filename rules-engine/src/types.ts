@@ -126,6 +126,12 @@ export type GameEvent =
   | { type: 'declareBlockers'; seat: PlayerId; blockers: BlockerDecl[] }
   | { type: 'assignCombatDamage' }
   | {
+      type: 'combatDamage'
+      sourceId: string
+      target: TargetRef
+      amount: number
+    }
+  | {
       type: 'dealDamage'
       sourceId: string
       target: TargetRef

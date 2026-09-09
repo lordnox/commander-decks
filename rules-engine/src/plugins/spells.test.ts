@@ -3,6 +3,7 @@ import { createCatalog } from '../catalog'
 import { emptyMana } from '../draft'
 import { rules } from '../kernel'
 import { bolt, newGame } from '../testGame'
+import { damage } from './damage'
 import { payCost, spells } from './spells'
 
 describe('spells', () => {
@@ -12,10 +13,10 @@ describe('spells', () => {
   })
 
   test('casts and resolves Lightning Bolt', () => {
-    const catalog = createCatalog([spells])
+    const catalog = createCatalog([spells, damage])
     const state = newGame({
       hands: { p1: [bolt()] },
-      builtinRules: ['spells'],
+      builtinRules: ['spells', 'damage'],
     })
     const boltId = Object.values(state.objects)[0].id
     state.players.p1.mana.R = 1
