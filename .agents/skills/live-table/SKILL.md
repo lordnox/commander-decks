@@ -104,6 +104,11 @@ attackers, declare blockers, combat damage, postcombat main, end step, and
 cleanup. A step nothing happens in still gets one line that says so
 (`Upkeep — no triggers.`). Use the step's own phase on the event.
 
+Phase `planning` belongs only to a turn that has not stepped anywhere yet.
+When you pause mid-turn for someone's next decision, the pause event carries
+the step the game is actually in, since the board's step rail reads that phase
+and would otherwise walk back to the top of the turn.
+
 **Open a window** — an event with `kind: "priority"` in phase `priority` that
 names the seats who may act — whenever a seat could legally change the outcome:
 

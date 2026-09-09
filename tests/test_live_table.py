@@ -579,6 +579,51 @@ class LiveTableEncodeTests(unittest.TestCase):
             "summary": "Play Forest, then cast Cultivate — legal.",
         }])
 
+    def test_a_mid_turn_pause_keeps_the_step_the_turn_reached(self):
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        pause = json.loads(json.dumps(replay["events"][-1]))
+        pause.update(
+            id=99,
+            phase="planning",
+            kind="think",
+            summary="Beta to plan the rest of the first main.",
+        )
+        pause["state"]["phase"] = "planning"
+        replay["events"].append(pause)
+
+        resumed = encode_live.build_snapshot(
+            replay,
+            you="p2",
+            talk="",
+            waiting="Beta: confirm or replace your checked line.",
+            public=False,
+        )
+        self.assertEqual(resumed["phase"], "main1")
+
+    def test_a_turn_that_has_not_stepped_yet_is_still_planning(self):
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        opening = json.loads(json.dumps(replay["events"][-1]))
+        opening.update(
+            id=99,
+            turn=9,
+            phase="planning",
+            kind="think",
+            summary="Gamma to act.",
+            seat="p3",
+        )
+        opening["state"].update(turn=9, phase="planning", active="p3")
+        replay["events"].append(opening)
+
+        fresh = encode_live.build_snapshot(
+            replay,
+            you="p3",
+            talk="",
+            waiting="Gamma: send a turn plan.",
+            public=False,
+        )
+        self.assertEqual(fresh["turn"], 9)
+        self.assertEqual(fresh["phase"], "planning")
+
     def test_structured_actions_give_each_priority_seat_the_right_prompt(self):
         replay = json.loads(json.dumps(FAKE_REPLAY))
         replay["events"][1].update(

@@ -149,6 +149,10 @@ Do exactly one host step:
   order wraps back to the first player), phase "planning", and the next active
   seat in both event and state. Never leave the published frame on the
   previous seat's end step while asking for the next seat's plan.
+- phase "planning" belongs only to a turn that has not stepped anywhere yet.
+  A pause for a decision inside a turn carries the step the game is actually
+  in ("main1" after a first-main cast resolves, "combat" during combat), so
+  the board does not walk its step rail backwards.
 - rules: answer the Magic rules question without changing the replay.
 - talk: it is already visible as social table talk. Only change the replay if it is an actual accepted/broken
   deal that the replay schema records.
