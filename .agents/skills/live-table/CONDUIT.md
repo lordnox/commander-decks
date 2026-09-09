@@ -59,11 +59,17 @@ listed in that snapshot's `actions`. IDs are per seat, so several responders
 may answer the same priority window concurrently without invalidating each
 other.
 
+Plan checks and rules discussions are private. The originating seat bin gets
+the complete judge response. Every other seat bin and the public host bin get
+only a generic status such as `Tea Party submitted a plan and is conferring
+with the judge.` Do not publish a merely card-name-redacted analysis: mana,
+timing, and strategic clues can still reveal the private line.
+
 ### Lobby (host script)
 
-Publish only explicit player **table talk** on snapshot `k`. Publish the latest
-public host ruling on `j`; it must not reveal cards in hidden zones or private
-plans. Every viewer with a read key sees both.
+Publish only explicit player **table talk** on snapshot `k`. Snapshot `j` is
+the generic host status in public and other-seat bins, but the complete judge
+response in the originating seat's private bin.
 
 1. **Gather** — four `join`s (name + deck). Host binds each mailbox → `pN`.
 2. **Seat** — host announces assignment (`p1` … `p4` clockwise) in talk and asks if anyone wants to swap. `swap` names the other seat (or free text in `talk`). Host asks the table; if **all four** agree, those two **exchange pipe invites** (bins stay `p1`–`p4`; people trade keys). Then host re-announces seating.

@@ -63,6 +63,15 @@ const stopSlug = (slug: string, root: string) => {
   console.log('not running')
 }
 
+export const otherRunnerPid = (
+  slug: string,
+  root: string,
+  currentPid = process.pid,
+) => {
+  const pid = readPid(slug, root)
+  return pid && pid !== currentPid && pidAlive(pid) ? pid : null
+}
+
 export const main = async (argv = process.argv.slice(2)) => {
   const command = argv[0]
   if (!command || command === '--help' || command === '-h') {
@@ -155,6 +164,11 @@ export const main = async (argv = process.argv.slice(2)) => {
   }
 
   if (command === 'host') {
+    const running = otherRunnerPid(slug, root)
+    if (running) {
+      console.error(`host already running ${running}`)
+      return 1
+    }
     const hostArgv = [
       fileURLToPath(import.meta.url),
       'host',

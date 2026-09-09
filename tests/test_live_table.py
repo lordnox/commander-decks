@@ -274,6 +274,40 @@ class LiveTableEncodeTests(unittest.TestCase):
         self.assertEqual(decoded["events"][-1]["summary"], "Beta casts Sol Ring.")
         self.assertEqual(decoded["judge"], "Beta has priority.")
 
+    def test_private_judge_detail_only_reaches_its_seat(self):
+        kwargs = {
+            "replay": FAKE_REPLAY,
+            "talk": "",
+            "waiting": "Beta is conferring with the judge.",
+            "judge": "Beta submitted a plan and is conferring with the judge.",
+            "seat_judges": {
+                "p2": "Your full plan is legal: play Forest, then cast Cultivate."
+            },
+            "public": False,
+        }
+        p2 = encode_live.build_snapshot(you="p2", **kwargs)
+        p3 = encode_live.build_snapshot(you="p3", **kwargs)
+        public = encode_live.build_snapshot(
+            FAKE_REPLAY,
+            you=None,
+            talk="",
+            waiting="Beta is conferring with the judge.",
+            judge="Beta submitted a plan and is conferring with the judge.",
+            seat_judges={
+                "p2": "Your full plan is legal: play Forest, then cast Cultivate."
+            },
+            public=True,
+        )
+
+        self.assertIn("Cultivate", p2["judge"])
+        self.assertNotIn("Cultivate", json.dumps(p3))
+        self.assertNotIn("Cultivate", json.dumps(public))
+        self.assertEqual(
+            p3["judge"],
+            "Beta submitted a plan and is conferring with the judge.",
+        )
+        self.assertEqual(public["judge"], p3["judge"])
+
     def test_event_id_selects_that_snapshot(self):
         opening = encode_live.build_snapshot(
             FAKE_REPLAY,

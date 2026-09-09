@@ -91,9 +91,10 @@ describe('lobby', () => {
     } as unknown as LobbyState
 
     const restored = restoreLobby(saved, 'Pod')
-    expect(restored.communicationVersion).toBe(3)
+    expect(restored.communicationVersion).toBe(4)
     expect(restored.talk).toBe('p4: Good luck!')
     expect(restored.judge).toBe('Priority is open.')
+    expect(restored.privateJudge).toEqual({})
     expect(restored.actions).toEqual({})
     expect(restored.actionIds).toEqual({ p1: 0, p2: 0, p3: 0, p4: 0 })
   })

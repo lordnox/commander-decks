@@ -21,7 +21,10 @@ import {
 } from './session'
 
 export type AgentResult = {
+  /** Generic public status only. Never include plan contents or strategic detail. */
   judge?: string
+  /** Full response visible only in the originating seat's private bin. */
+  privateJudge?: string
   /** Backward compatibility for results from an older host prompt. */
   talk?: string
   waiting?: string
@@ -152,15 +155,18 @@ Never access conduit credentials. They are intentionally absent. Never commit,
 push, or edit deck files.
 
 Write table-games/${slug}.agent-result.json containing one JSON object:
-{"judge":"short public judge note","waiting":"specific next prompt","replayChanged":false,"allowedActions":["confirm","replace"]}
+{"judge":"generic public status","privateJudge":"full response for ${seat}","waiting":"specific next prompt","replayChanged":false,"allowedActions":["confirm","replace"]}
 
 For plan/replace, allowedActions must be ["confirm","replace"] when the line is
 legal, or ["replace"] when it is not. For other message types, omit it.
 
-The judge note and waiting prompt are public to every seat. Never name or
-analyze a card from a player's hidden hand, library, or private plan there.
-Put public game facts and the ruling only. Do not copy plans, confirms, passes,
-or rules questions into table talk.
+privateJudge is delivered only to ${seat}. Put the complete checked line,
+specific cards, mana reasoning, rules answer, and useful alternatives there.
+judge is public to every seat and spectator. It must only say that ${seat} is
+conferring with the judge or that a confirmed action was processed; never
+include plan contents, hidden-zone facts, strategic reasoning, mana clues, or
+card identities. Do not copy plans, confirms, passes, or rules questions into
+table talk.
 
 Address the waiting prompt to the seat you need a message from. Seats you did
 not ask are shown a neutral "Waiting on …" line instead, so do not write a
@@ -279,6 +285,11 @@ export const invokeHostAgent = async (options: {
       typeof result.judge !== 'string' || result.judge.length > 4000
     )) {
       throw new Error('host agent returned invalid judge note')
+    }
+    if (result.privateJudge !== undefined && (
+      typeof result.privateJudge !== 'string' || result.privateJudge.length > 8000
+    )) {
+      throw new Error('host agent returned invalid private judge note')
     }
     if (result.waiting !== undefined && (
       typeof result.waiting !== 'string' || result.waiting.length > 1000

@@ -154,9 +154,12 @@ default. Mention the Pages UI has **Copy public link** (`?k=<hostRead>`
 only) for sharing. No write keys, no other seats' read keys, no `_libraries`.
 
 Use the live session path when that is the working file. Pass the human seat
-as `--you`. Put only explicit player speech in `--talk`, the latest public
-ruling in `--judge`, and the actionable prompt in `--waiting`. Never expose
-hidden-hand or private-plan analysis in any public field. Add `--event <id>` to pick an earlier frame instead of
+as `--you`. Put only explicit player speech in `--talk`, a generic table status
+in `--judge`, the submitting seat's complete analysis in its private judge
+note, and the actionable prompt in `--waiting`. Other seats and spectators
+must learn only that the player is conferring with the judge. Redacting card
+names is not sufficient because deck knowledge can reveal the line from mana
+and strategic clues. Add `--event <id>` to pick an earlier frame instead of
 the last one (human takeover: frame **before** that seat's next own decision).
 
 ### Encode fallback (mint failed)

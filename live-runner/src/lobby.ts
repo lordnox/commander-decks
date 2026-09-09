@@ -13,7 +13,7 @@ export type Occupant = {
 }
 
 export type LobbyState = {
-  communicationVersion: 3
+  communicationVersion: 4
   phase: LobbyPhase
   occupants: Partial<Record<SeatId, Occupant>>
   ready: SeatId[]
@@ -22,6 +22,7 @@ export type LobbyState = {
   pregameRemaining: SeatId[]
   talk: string
   judge: string
+  privateJudge: Partial<Record<SeatId, string>>
   waiting: string
   active: SeatId
   actions: SeatActions
@@ -55,6 +56,7 @@ const appendTableTalk = (state: LobbyState, line: string) => {
 
 const setJudge = (state: LobbyState, line: string) => {
   state.judge = line
+  state.privateJudge = {}
 }
 
 const announceSeats = (state: LobbyState) => {
@@ -96,7 +98,7 @@ const nextSeat = (from: SeatId) =>
   SEAT_IDS[(SEAT_IDS.indexOf(from) + 1) % SEAT_IDS.length]
 
 export const createLobby = (headline = 'Live table'): LobbyState => ({
-  communicationVersion: 3,
+  communicationVersion: 4,
   phase: 'gathering',
   occupants: {},
   ready: [],
@@ -104,6 +106,7 @@ export const createLobby = (headline = 'Live table'): LobbyState => ({
   pregameRemaining: [],
   talk: '',
   judge: headline,
+  privateJudge: {},
   waiting: 'Waiting for players (0/4)',
   active: 'p1',
   actions: {},
@@ -118,7 +121,7 @@ export type LobbyParts = {
 
 /** Sessions written before `lobby` existed only kept these three fields. */
 export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
-  communicationVersion: 3,
+  communicationVersion: 4,
   phase: parts.phase,
   occupants: { ...parts.occupants },
   ready: [],
@@ -126,6 +129,7 @@ export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
   pregameRemaining: [],
   talk: '',
   judge: 'Host reconnected.',
+  privateJudge: {},
   waiting: parts.phase === 'play' ? 'Play. Send a plan when it is your action.' : 'Host reconnected.',
   active: parts.firstPlayer,
   actions: {},
@@ -137,11 +141,11 @@ export const restoreLobby = (
   headline: string,
 ): LobbyState => {
   if (!saved) return createLobby(headline)
-  const migrated = saved.communicationVersion !== 3
-  const legacyCommunication = ![2, 3].includes(saved.communicationVersion)
+  const migrated = saved.communicationVersion !== 4
+  const legacyCommunication = ![2, 3, 4].includes(saved.communicationVersion)
   return {
     ...saved,
-    communicationVersion: 3,
+    communicationVersion: 4,
     occupants: { ...saved.occupants },
     ready: [...saved.ready],
     pregameRemaining: [...saved.pregameRemaining],
@@ -149,6 +153,7 @@ export const restoreLobby = (
     judge: legacyCommunication
       ? 'Host resumed. Earlier control messages were cleared.'
       : saved.judge,
+    privateJudge: migrated ? {} : saved.privateJudge,
     actions: migrated ? {} : saved.actions,
     actionIds: migrated ? emptyActionIds() : saved.actionIds,
   }
