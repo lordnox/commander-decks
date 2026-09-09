@@ -3,11 +3,15 @@ import type { Plugin } from '../types'
 
 const taxedCost = (manaCost: string, tax: number) => `${manaCost}${tax > 0 ? `{${tax}}` : ''}`
 
-const commanderTax = (data: Record<string, unknown>) =>
-  typeof data.commanderTax === 'number' ? data.commanderTax : 0
+const numberMap = (value: unknown) =>
+  value && typeof value === 'object' && !Array.isArray(value)
+    ? (value as Record<string, number>)
+    : {}
 
-const commanderDamage = (data: Record<string, unknown>) =>
-  (data.commanderDamage ?? {}) as Record<string, number>
+const commanderTax = (data: Record<string, unknown>) => numberMap(data.commanderTax)
+const commanderDamage = (data: Record<string, unknown>) => numberMap(data.commanderDamage)
+const taxFor = (data: Record<string, unknown>, commanderId: string) =>
+  commanderTax(data)[commanderId] ?? 0
 
 export const commander: Plugin = {
   id: 'commander',
@@ -19,7 +23,7 @@ export const commander: Plugin = {
     if (object.owner !== event.seat || object.controller !== event.seat) {
       return 'commander is not owned and controlled by that seat'
     }
-    const cost = taxedCost(object.manaCost, commanderTax(state.players[event.seat].data))
+    const cost = taxedCost(object.manaCost, taxFor(state.players[event.seat].data, object.id))
     if (!payCost(state.players[event.seat].mana, cost)) return 'not enough mana for commander tax'
   },
   replace: ({ state, event }) => {
@@ -29,7 +33,7 @@ export const commander: Plugin = {
       return {
         ...event,
         additionalGeneric:
-          (event.additionalGeneric ?? 0) + commanderTax(state.players[event.seat].data),
+          (event.additionalGeneric ?? 0) + taxFor(state.players[event.seat].data, object.id),
       }
     }
     if (event.type !== 'move' || (event.to !== 'graveyard' && event.to !== 'exile')) return
@@ -42,7 +46,8 @@ export const commander: Plugin = {
       const object = state.objects[event.objectId]
       if (!object?.tags.includes('commander') || object.zone !== 'command') return
       const data = draft.players[event.seat].data
-      data.commanderTax = commanderTax(data) + 2
+      const tax = commanderTax(data)
+      data.commanderTax = { ...tax, [object.id]: (tax[object.id] ?? 0) + 2 }
       return
     }
     if (event.type === 'custom' && event.name === 'combatDamageDealt') {
