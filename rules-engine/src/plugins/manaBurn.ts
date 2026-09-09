@@ -27,13 +27,6 @@ const replace: Plugin['replace'] = ({ state, event, rule }) => {
 
 const apply: Plugin['apply'] = ({ event, draft, rule }) => {
   if (!isPrimary(draft, rule)) return
-  if (event.type === 'loseLife') {
-    const player = draft.players[event.seat]
-    player.life -= event.amount
-    if (player.life <= 0) player.lost = true
-    draft.note(`${event.seat} loses ${event.amount} life${event.source ? ` (${event.source})` : ''}`)
-    return
-  }
   if (event.type === 'custom' && event.name === 'clearMana') {
     for (const player of Object.values(draft.players)) player.mana = emptyMana()
     draft.note('mana pools empty')

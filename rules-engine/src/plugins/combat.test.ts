@@ -3,12 +3,13 @@ import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
 import { bears, newGame } from '../testGame'
 import { combat } from './combat'
+import { damage } from './damage'
 
 test('an unblocked attacker deals combat damage to the defending player', () => {
-  const catalog = createCatalog([combat])
+  const catalog = createCatalog([combat, damage])
   const state = newGame({
     battlefield: { p1: [bears()], p2: [bears()] },
-    builtinRules: ['combat'],
+    builtinRules: ['combat', 'damage'],
   })
   const attackerId = Object.values(state.objects).find((object) => object.controller === 'p1')!.id
   state.step = 'declareAttackers'

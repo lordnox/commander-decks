@@ -37,6 +37,11 @@ rules(state, { type: 'removeRule', pluginId: 'manaBurn' })
 Yarok fixture: `grantedRules: ['manaBurn']` so ETB/LTB toggles leftover-mana
 burn. That is a lifecycle demo, not Oracle Yarok.
 
+Damage is a chain: `combatDamage` → `dealDamage` → `loseLife`. Fog replaces
+`combatDamage` with nothing. Other effects can replace `dealDamage` or
+`loseLife`. Commander damage is recorded on `combatDamage`, so it still
+counts if only later steps are prevented.
+
 ## Tests
 
 ```bash

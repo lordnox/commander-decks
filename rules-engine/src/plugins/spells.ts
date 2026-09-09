@@ -100,14 +100,13 @@ export const spells: Plugin = {
       const object = draft.object(item.objectId)
       if (!object) return
 
-      if (object.name === 'Lightning Bolt') {
-        const target = item.targets[0]
-        if (target?.kind === 'player' && draft.players[target.player]) {
-          draft.players[target.player].life -= 3
-        } else if (target?.kind === 'object') {
-          const targetObject = draft.object(target.objectId)
-          if (targetObject) targetObject.damageMarked += 3
-        }
+      if (object.name === 'Lightning Bolt' && item.targets[0]) {
+        draft.enqueue({
+          type: 'dealDamage',
+          sourceId: object.id,
+          target: item.targets[0],
+          amount: 3,
+        })
       }
 
       if (object.types.includes('Creature')) {

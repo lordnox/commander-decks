@@ -95,41 +95,23 @@ export const combat: Plugin = {
         )
         const amount = attacker.power ?? 0
         if (blockers.length > 0) {
-          blockers[0].damageMarked += amount
+          draft.enqueue({
+            type: 'combatDamage',
+            sourceId: attacker.id,
+            target: { kind: 'object', objectId: blockers[0].id },
+            amount,
+          })
           continue
         }
 
         const defender = attacker.attacking
         if (!defender) continue
-        draft.players[defender].life -= amount
         draft.enqueue({
-          type: 'custom',
-          name: 'combatDamageDealt',
-          payload: { sourceId: attacker.id, target: defender, amount },
+          type: 'combatDamage',
+          sourceId: attacker.id,
+          target: { kind: 'player', player: defender },
+          amount,
         })
-      }
-      return
-    }
-
-    if (event.type === 'dealDamage') {
-      if (event.target.kind === 'player' && draft.players[event.target.player]) {
-        draft.players[event.target.player].life -= event.amount
-        if (event.combat) {
-          draft.enqueue({
-            type: 'custom',
-            name: 'combatDamageDealt',
-            payload: {
-              sourceId: event.sourceId,
-              target: event.target.player,
-              amount: event.amount,
-            },
-          })
-        }
-      } else {
-        const object = event.target.kind === 'object'
-          ? draft.object(event.target.objectId)
-          : undefined
-        if (object) object.damageMarked += event.amount
       }
     }
   },

@@ -46,6 +46,13 @@ rules(state, { type: 'move', objectId: yarok, to: 'graveyard' })
    `object.grantedRules`. After leaving, `removeRule` for that `sourceId`.
 6. **SBA loop** — collect `sba()` events, apply internally until none, cap 32.
 
+Damage is a chain of events, not a custom notification. `assignCombatDamage`
+enqueues `combatDamage`. That event applies commander-damage tracking, then
+enqueues `dealDamage`, which enqueues `loseLife` for players. A replacement
+that returns `null` stops the rest of the chain: Fog ends at `combatDamage`,
+Circle-of-Protection-style effects end at `dealDamage`, and “you can’t lose
+life” ends at `loseLife`.
+
 ## Plugin
 
 ```ts
@@ -74,7 +81,9 @@ state with the `addRule` event (or `grantedRules` on an object).
 | `lands` | one land per turn, playLand |
 | `spells` | castSpell, pay mana, move to stack |
 | `stateBased` | 0 life, 0 toughness, lethal damage, tokens, legend |
-| `combat` | attackers, blockers, combat damage |
+| `combat` | attackers, blockers, emits `combatDamage` |
+| `damage` | `combatDamage` → `dealDamage` → `loseLife` |
+| `fog` | **optional** — prevents `combatDamage` |
 | `commander` | Optional format rule: 21 damage, command zone, tax |
 | `manaBurn` | **optional** — leftover mana becomes unpreventable loss of life |
 
