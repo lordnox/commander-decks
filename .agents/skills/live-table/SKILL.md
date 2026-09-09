@@ -156,10 +156,12 @@ only) for sharing. No write keys, no other seats' read keys, no `_libraries`.
 Use the live session path when that is the working file. Pass the human seat
 as `--you`. Put only explicit player speech in `--talk`, a generic table status
 in `--judge`, the submitting seat's complete analysis in its private judge
-note, and the actionable prompt in `--waiting`. Other seats and spectators
-must learn only that the player is conferring with the judge. Redacting card
-names is not sufficient because deck knowledge can reveal the line from mana
-and strategic clues. Add `--event <id>` to pick an earlier frame instead of
+note, a one-sentence private history summary, and the exact actionable prompt
+in that seat's private waiting field. Keep both exact card names and sequence
+for the submitting seat. Other seats and spectators must learn only that the
+player is conferring with the judge. Redacting card names is not sufficient
+because deck knowledge can reveal the line from mana and strategic clues.
+Retain at most eight private summaries per seat. Add `--event <id>` to pick an earlier frame instead of
 the last one (human takeover: frame **before** that seat's next own decision).
 
 ### Encode fallback (mint failed)

@@ -13,6 +13,11 @@ const snapshot = (): LiveSnapshot => ({
   waiting: 'Would this line work? Confirm or replace it.',
   talk: 'Hold up.',
   judge: 'Beta has priority.',
+  judgeHistory: [{
+    id: 6,
+    type: 'plan',
+    summary: 'Play Forest, then cast Cultivate — legal.',
+  }],
   youAct: true,
   actions: ['confirm', 'replace'],
   actionId: 7,
@@ -144,6 +149,7 @@ describe('live compact v2', () => {
     expect(expanded.events).toEqual(original.events)
     expect(expanded.awaiting).toBe('p3')
     expect(expanded.judge).toBe('Beta has priority.')
+    expect(expanded.judgeHistory).toEqual(snapshot().judgeHistory)
     expect(expanded.youAct).toBe(true)
     expect(expanded.actions).toEqual(['confirm', 'replace'])
     expect(expanded.actionId).toBe(7)

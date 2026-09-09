@@ -46,6 +46,12 @@ export type LiveEvent = {
 
 export type LiveAction = 'plan' | 'confirm' | 'replace' | 'pass'
 
+export type JudgeHistoryEntry = {
+  id: number
+  type: string
+  summary: string
+}
+
 export type LiveSnapshot = {
   v: 1
   you?: string | null
@@ -53,6 +59,7 @@ export type LiveSnapshot = {
   waiting?: string
   talk?: string
   judge?: string
+  judgeHistory?: JudgeHistoryEntry[]
   youAct?: boolean
   actions?: LiveAction[]
   actionId?: number

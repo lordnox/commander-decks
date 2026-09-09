@@ -91,10 +91,12 @@ describe('lobby', () => {
     } as unknown as LobbyState
 
     const restored = restoreLobby(saved, 'Pod')
-    expect(restored.communicationVersion).toBe(5)
+    expect(restored.communicationVersion).toBe(6)
     expect(restored.talk).toBe('p4: Good luck!')
     expect(restored.judge).toContain('Earlier judge details were cleared')
     expect(restored.privateJudge).toEqual({})
+    expect(restored.privateWaiting).toEqual({})
+    expect(restored.judgeHistory).toEqual({})
     expect(restored.actions).toEqual({})
     expect(restored.actionIds).toEqual({ p1: 0, p2: 0, p3: 0, p4: 0 })
   })
@@ -110,10 +112,29 @@ describe('lobby', () => {
     } as unknown as LobbyState
 
     const restored = restoreLobby(saved, 'Pod')
-    expect(restored.communicationVersion).toBe(5)
+    expect(restored.communicationVersion).toBe(6)
     expect(restored.judge).toContain('Earlier judge details were cleared')
     expect(restored.privateJudge).toEqual({})
     expect(restored.actions).toEqual({ p2: ['plan', 'pass'] })
     expect(restored.actionIds).toEqual({ p1: 1, p2: 8, p3: 5, p4: 5 })
+  })
+
+  test('keeps the current private note as condensed seat history', () => {
+    const saved = {
+      ...createLobby(),
+      communicationVersion: 5,
+      privateJudge: {
+        p4: '**Checked line:** play Plains, cast Jet Medallion, then pass.\n\nLegal.',
+      },
+    } as unknown as LobbyState
+
+    const restored = restoreLobby(saved, 'Pod')
+    expect(restored.privateJudge.p4).toContain('Jet Medallion')
+    expect(restored.privateWaiting).toEqual({})
+    expect(restored.judgeHistory.p4).toEqual([{
+      id: 0,
+      type: 'plan',
+      summary: 'Checked line: play Plains, cast Jet Medallion, then pass.',
+    }])
   })
 })

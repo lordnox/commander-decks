@@ -60,10 +60,11 @@ may answer the same priority window concurrently without invalidating each
 other.
 
 Plan checks and rules discussions are private. The originating seat bin gets
-the complete judge response. Every other seat bin and the public host bin get
-only a generic status such as `Tea Party submitted a plan and is conferring
-with the judge.` Do not publish a merely card-name-redacted analysis: mana,
-timing, and strategic clues can still reveal the private line.
+the complete judge response, exact actionable prompt, and up to eight condensed
+history entries. Every other seat bin and the public host bin get only a
+generic status such as `Tea Party submitted a plan and is conferring with the
+judge.` Do not publish a merely card-name-redacted analysis: mana, timing, and
+strategic clues can still reveal the private line.
 
 ### Lobby (host script)
 

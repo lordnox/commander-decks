@@ -67,6 +67,8 @@ const publish = async (
       judge: state.judge,
       privateJudge: state.privateJudge,
       waiting: state.waiting,
+      privateWaiting: state.privateWaiting,
+      judgeHistory: state.judgeHistory,
       actions: state.actions,
       actionIds: state.actionIds,
     })
@@ -183,12 +185,14 @@ export const runHost = async (options: {
         )
         state.judge = `${seat}: stale or unavailable ${message.type} ignored. Refresh before acting.`
         state.privateJudge = {}
+        state.privateWaiting = {}
         await publish(slug, root, origin, bins, state)
         return
       }
     }
 
     const beforeActions = structuredClone(state.actions)
+    const beforeWaiting = state.waiting
     applyInbox(state, seat, message)
     const privateExchange = ['plan', 'replace', 'confirm', 'rules'].includes(
       message.type,
@@ -199,6 +203,7 @@ export const runHost = async (options: {
       state.actions = replayActions(root, slug, state)
       state.judge = `${state.occupants[seat]?.name ?? seat} passes.`
       state.privateJudge = {}
+      state.privateWaiting = {}
       const next = SEAT_IDS.find(
         (candidate) => state.actions[candidate]?.includes('plan'),
       )
@@ -210,6 +215,9 @@ export const runHost = async (options: {
         if (privateExchange) {
           const name = state.occupants[seat]?.name ?? seat
           state.privateJudge = {}
+          state.privateWaiting = {
+            [seat]: 'The judge is checking your message.',
+          }
           state.judge = message.type === 'confirm'
             ? `${name} confirmed a line; the judge is applying it.`
             : message.type === 'rules'
@@ -229,6 +237,25 @@ export const runHost = async (options: {
         const judge = result.privateJudge || result.judge || result.talk
         if (privateExchange) {
           if (judge) state.privateJudge = { [seat]: judge }
+          state.privateWaiting = result.privateWaiting
+            ? { [seat]: result.privateWaiting }
+            : {}
+          if (
+            result.privateSummary
+            && ['plan', 'replace', 'rules'].includes(message.type)
+          ) {
+            state.judgeHistory = {
+              ...state.judgeHistory,
+              [seat]: [
+                ...(state.judgeHistory[seat] ?? []),
+                {
+                  id: generation,
+                  type: message.type,
+                  summary: result.privateSummary.replaceAll('**', ''),
+                },
+              ].slice(-8),
+            }
+          }
           const name = state.occupants[seat]?.name ?? seat
           state.judge = message.type === 'confirm'
             ? `${name}'s confirmed line was processed.`
@@ -237,9 +264,17 @@ export const runHost = async (options: {
               : `${name} submitted a plan and is conferring with the judge.`
         } else if (judge) {
           state.privateJudge = {}
+          state.privateWaiting = {}
           state.judge = result.judge || result.talk || judge
         }
-        if (result.waiting) state.waiting = result.waiting
+        if (message.type === 'plan' || message.type === 'replace') {
+          const name = state.occupants[seat]?.name ?? seat
+          state.waiting = `${name}: confirm or replace your checked line.`
+        } else if (message.type === 'rules') {
+          state.waiting = beforeWaiting
+        } else if (result.waiting) {
+          state.waiting = result.waiting
+        }
         if (message.type === 'plan' || message.type === 'replace') {
           const next = result.allowedActions
             ?? (/confirm/i.test(result.waiting ?? '') ? ['confirm', 'replace'] : ['replace'])
@@ -257,6 +292,7 @@ export const runHost = async (options: {
         logLine(logFile, `agent failed: ${error}`)
         state.judge = 'Judging agent failed; the message is journalled for retry.'
         state.privateJudge = {}
+        state.privateWaiting = {}
         state.waiting = 'Host needs attention. Do not send another game action yet.'
       }
     }

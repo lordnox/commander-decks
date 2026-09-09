@@ -283,6 +283,16 @@ class LiveTableEncodeTests(unittest.TestCase):
             "seat_judges": {
                 "p2": "Your full plan is legal: play Forest, then cast Cultivate."
             },
+            "seat_waiting": {
+                "p2": "Play Forest, then cast Cultivate. Confirm or replace."
+            },
+            "judge_history": {
+                "p2": [{
+                    "id": 7,
+                    "type": "plan",
+                    "summary": "Play Forest, then cast Cultivate — legal.",
+                }]
+            },
             "public": False,
         }
         p2 = encode_live.build_snapshot(you="p2", **kwargs)
@@ -296,10 +306,22 @@ class LiveTableEncodeTests(unittest.TestCase):
             seat_judges={
                 "p2": "Your full plan is legal: play Forest, then cast Cultivate."
             },
+            seat_waiting={
+                "p2": "Play Forest, then cast Cultivate. Confirm or replace."
+            },
+            judge_history={
+                "p2": [{
+                    "id": 7,
+                    "type": "plan",
+                    "summary": "Play Forest, then cast Cultivate — legal.",
+                }]
+            },
             public=True,
         )
 
         self.assertIn("Cultivate", p2["judge"])
+        self.assertIn("Cultivate", p2["waiting"])
+        self.assertIn("Cultivate", p2["judgeHistory"][0]["summary"])
         self.assertNotIn("Cultivate", json.dumps(p3))
         self.assertNotIn("Cultivate", json.dumps(public))
         self.assertEqual(
@@ -535,6 +557,13 @@ class LiveTableEncodeTests(unittest.TestCase):
             you="p2",
             talk="",
             waiting="Confirm it.",
+            judge_history={
+                "p2": [{
+                    "id": 6,
+                    "type": "plan",
+                    "summary": "Play Forest, then cast Cultivate — legal.",
+                }]
+            },
             actions={"p2": ["confirm", "replace"]},
             action_ids={"p1": 0, "p2": 7, "p3": 0, "p4": 0},
             public=False,
@@ -544,6 +573,11 @@ class LiveTableEncodeTests(unittest.TestCase):
         self.assertTrue(decoded["youAct"])
         self.assertEqual(decoded["actions"], ["confirm", "replace"])
         self.assertEqual(decoded["actionId"], 7)
+        self.assertEqual(decoded["judgeHistory"], [{
+            "id": 6,
+            "type": "plan",
+            "summary": "Play Forest, then cast Cultivate — legal.",
+        }])
 
     def test_structured_actions_give_each_priority_seat_the_right_prompt(self):
         replay = json.loads(json.dumps(FAKE_REPLAY))
