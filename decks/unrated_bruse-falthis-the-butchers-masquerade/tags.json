@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "title": "Bruse Tarl & Falthis — The Butcher's Masquerade",
+  "summary": "Morph masquerade: hide the board behind face-down 2/2s, then unmask for free with Skirk Alarmist while Panoptic Projektor doubles the payoff.",
+  "tags": [
+    {
+      "name": "morph",
+      "score": 5,
+      "reason": "Twenty-six morph cards plus Skirk Alarmist, Panoptic Projektor, Dream Chisel, Goblin Maskmaker, Roshan, and Veiled Ascension built around them."
+    },
+    {
+      "name": "face-down",
+      "score": 5,
+      "reason": "The whole board deploys face down; unmasking timing is the deck's central decision."
+    },
+    {
+      "name": "combo",
+      "score": 4,
+      "reason": "Four named five-card Extreme Plans, each documented in the primer with its full sequence."
+    },
+    {
+      "name": "forced combat",
+      "score": 4,
+      "reason": "Disrupt Decorum, Kardur, Agitator Ant, and Bloodthirsty Blade goad the table into hunting each other."
+    },
+    {
+      "name": "toolbox",
+      "score": 4,
+      "reason": "Five tutors plus Sunforger assemble situational morph answers such as Skinthinner, Aphetto Exterminator, and Bane of the Living."
+    },
+    {
+      "name": "aggro",
+      "score": 3,
+      "reason": "The primary win is a masked alpha strike at +4/+4 rather than an engine grind."
+    },
+    {
+      "name": "politics",
+      "score": 3,
+      "reason": "Goad and Wishclaw Talisman make table negotiation part of every turn."
+    },
+    {
+      "name": "sacrifice",
+      "score": 3,
+      "reason": "Goblin Bombardment, Diabolic Intent, Gift of Doom, and Skirk Alarmist all convert bodies into effects."
+    },
+    {
+      "name": "equipment",
+      "score": 3,
+      "reason": "Basilisk Collar, Loxodon Warhammer, Mask of Memory, Sunforger, and Bloodthirsty Blade back the combat plan."
+    },
+    {
+      "name": "attack triggers",
+      "score": 3,
+      "reason": "Bruse Tarl, Ebonblade Reaper, Mask of Memory, Goblin Maskmaker, and Silent Specter all key off attacking."
+    },
+    {
+      "name": "tokens",
+      "score": 2,
+      "reason": "Ponyback Brigade and Kirtar's Wrath make tokens, but they are Bombardment fodder rather than a plan."
+    },
+    {
+      "name": "theft",
+      "score": 2,
+      "reason": "Soul Collector steals creatures it kills, but it is one card rather than a repeating axis."
+    },
+    {
+      "name": "midrange",
+      "score": 2,
+      "reason": "Curve and pace are midrange, though the deck is pointed at one telegraphed alpha strike."
+    },
+    {
+      "name": "cats",
+      "score": 1,
+      "reason": "Falthis is a Cat because Princess Donut is; there is no Cat package."
+    },
+    {
+      "name": "voltron",
+      "score": 1,
+      "reason": "Commander damage is a fallback route, not a build direction."
+    }
+  ]
+}
