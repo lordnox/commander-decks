@@ -18,6 +18,7 @@ import compact_live as cl  # noqa: E402
 import conduit_client as conduit  # noqa: E402
 
 DEFAULT_BASE = "https://lordnox.github.io/commander-decks/live/"
+PLANNING_PHASE = "planning"
 PAYLOAD_PREFIX = "v2."
 LEGACY_PREFIX = "v1."
 CHAT_WARN_CHARS = 6000
@@ -459,6 +460,36 @@ def _fallback_prompt(awaiting: str | None, seats_meta: dict) -> str:
     return f"{name} ({awaiting}) is up: confirm, replace, or respond."
 
 
+def _event_phase(event: dict) -> str | None:
+    return (event.get("state") or {}).get("phase") or event.get("phase")
+
+
+def _event_turn(event: dict) -> Any:
+    return (event.get("state") or {}).get("turn", event.get("turn"))
+
+
+def _current_phase(events: list, last: dict, phase: str, turn: Any) -> str:
+    """The step this turn actually reached.
+
+    A pause for someone's next decision is logged in phase `planning`, so a
+    frame taken mid-turn would otherwise walk the rail back to the top. Only
+    a turn that has not stepped anywhere yet is really planning.
+    """
+    if phase != PLANNING_PHASE:
+        return phase
+    index = next(
+        (position for position, event in enumerate(events) if event is last),
+        len(events) - 1,
+    )
+    for event in reversed(events[:index]):
+        if _event_turn(event) != turn:
+            break
+        earlier = _event_phase(event)
+        if earlier and earlier != PLANNING_PHASE:
+            return earlier
+    return phase
+
+
 def build_snapshot(
     replay: dict,
     *,
@@ -519,6 +550,9 @@ def build_snapshot(
     elif asked and not you_act:
         prompt = _waiting_on(asked, seats_meta)
 
+    turn = state.get("turn", last.get("turn", 0))
+    phase = state.get("phase", last.get("phase", "setup"))
+
     snapshot: dict[str, Any] = {
         "v": 1,
         "you": viewer,
@@ -536,8 +570,8 @@ def build_snapshot(
             you=viewer,
             seats_meta=seats_meta,
         ),
-        "turn": state.get("turn", last.get("turn", 0)),
-        "phase": state.get("phase", last.get("phase", "setup")),
+        "turn": turn,
+        "phase": _current_phase(events, last, phase, turn),
         "active": state.get("active", last.get("seat")),
         "awaiting": awaiting,
         "stack": list(state.get("stack") or []),
