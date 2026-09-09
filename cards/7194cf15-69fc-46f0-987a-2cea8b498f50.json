@@ -1,0 +1,134 @@
+{
+  "artist": "Clint Cearley",
+  "artist_ids": [
+    "03b75350-d5a0-4e3a-b3b4-8d4a5554385b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 250555,
+  "cmc": 5.0,
+  "collector_number": "94",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 9127,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"May you and all your kin waste and wither until your clan is no more!\"",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "1774d0a8-1cd3-4582-ace0-1caff92af0e7",
+  "illustration_id": "42b36ec5-5efe-4a97-b73f-a8758dfc6844",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:09:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/7/1774d0a8-1cd3-4582-ace0-1caff92af0e7.webp?1783940958",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/7/1774d0a8-1cd3-4582-ace0-1caff92af0e7.jpg?1783940958",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/7/1774d0a8-1cd3-4582-ace0-1caff92af0e7.jpg?1783940958",
+    "crop": "https://cards.scryfall.io/crop/front/1/7/1774d0a8-1cd3-4582-ace0-1caff92af0e7.webp?1783940958",
+    "display": "https://cards.scryfall.io/display/front/1/7/1774d0a8-1cd3-4582-ace0-1caff92af0e7.webp?1783940958",
+    "grid": "https://cards.scryfall.io/grid/front/1/7/1774d0a8-1cd3-4582-ace0-1caff92af0e7.webp?1783940958",
+    "large": "https://cards.scryfall.io/large/front/1/7/1774d0a8-1cd3-4582-ace0-1caff92af0e7.jpg?1783940958",
+    "normal": "https://cards.scryfall.io/normal/front/1/7/1774d0a8-1cd3-4582-ace0-1caff92af0e7.jpg?1783940958",
+    "png": "https://cards.scryfall.io/png/front/1/7/1774d0a8-1cd3-4582-ace0-1caff92af0e7.png?1783940958",
+    "small": "https://cards.scryfall.io/small/front/1/7/1774d0a8-1cd3-4582-ace0-1caff92af0e7.jpg?1783940958",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/7/1774d0a8-1cd3-4582-ace0-1caff92af0e7.webp?1783940958"
+  },
+  "keywords": [
+    "Enchant"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_foil_id": 42475,
+  "mtgo_id": 42474,
+  "multiverse_ids": [
+    227075
+  ],
+  "name": "Curse of Death's Hold",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7194cf15-69fc-46f0-987a-2cea8b498f50",
+  "oracle_text": "Enchant player\nCreatures enchanted player controls get -1/-1.",
+  "oversized": false,
+  "penny_rank": 2170,
+  "prices": {
+    "eur": "0.51",
+    "eur_foil": "2.13",
+    "tix": "0.02",
+    "usd": "0.87",
+    "usd_etched": null,
+    "usd_foil": "5.16"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7194cf15-69fc-46f0-987a-2cea8b498f50&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/42474?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=250555&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F52202%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Curse+of+Death%27s+Hold",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=227075&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCurse%2Bof%2BDeath%2527s%2BHold",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCurse%2Bof%2BDeath%2527s%2BHold"
+  },
+  "released_at": "2011-09-30",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1774d0a8-1cd3-4582-ace0-1caff92af0e7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/isd?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/isd/94/curse-of-deaths-hold?utm_source=api",
+  "set": "isd",
+  "set_id": "d1026945-2969-42b9-be53-f941405a58cb",
+  "set_name": "Innistrad",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aisd&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/d1026945-2969-42b9-be53-f941405a58cb",
+  "story_spotlight": false,
+  "tcgplayer_id": 52202,
+  "textless": false,
+  "type_line": "Enchantment — Aura Curse",
+  "uri": "https://api.scryfall.com/cards/1774d0a8-1cd3-4582-ace0-1caff92af0e7",
+  "variation": false
+}
