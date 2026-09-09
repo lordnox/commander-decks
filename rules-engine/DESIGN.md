@@ -39,6 +39,22 @@ History is also outside the kernel. `createHistory(state, rules)` records
 events plus before/after states without recursively placing history in
 `GameState`. Server and client may choose different retention policies.
 
+## Replay conversion
+
+`runReplayRounds(replay, throughRound)` bootstraps an authoritative game from
+the replay's final setup snapshot, converts the recorded draws, land plays,
+mana taps, casts, resolutions, discards, and step changes into `GameEvent`s,
+then runs each event through the normal reducer. Unknown library cards remain
+distinct hidden placeholders; revealed draws are placed on top in recorded
+order.
+
+`replayComparableState` maps the kernel's per-player-turn counter back to the
+replay's table-round counter and returns the fields both systems represent:
+active seat, phase, stack, life, poison, library count, and public zones. The
+legacy replay's aggregate commander tax and seat-keyed commander damage are
+not isomorphic to the kernel's per-commander object-ID maps, so they are not
+part of this projection.
+
 Active rules live **in the game state**. Catalog entries are code. A permanent
 that grants an effect does `{ type: 'addRule', pluginId, sourceId }`; leaving
 the battlefield does `{ type: 'removeRule', sourceId }`.

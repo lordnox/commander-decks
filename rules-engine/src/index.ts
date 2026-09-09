@@ -45,6 +45,12 @@ export { rules as reduceWithCatalog } from './kernel'
 export { bears, bolt, forest, newGame, timetwister, yarokFixture } from './newGame'
 export { createHistory } from './history'
 export {
+  replayComparableState,
+  replayExpectedState,
+  runReplayRounds,
+  type TableReplay,
+} from './replay'
+export {
   createClientGame,
   createServerGame,
   projectForViewer,
