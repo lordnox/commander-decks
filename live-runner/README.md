@@ -12,6 +12,8 @@ bun run table:run resume --slug my-pod
 ```
 
 Without `--fg` the process daemonizes (pid + log under `table-games/`).
+Starting a second host for the same slug is rejected while the recorded host
+PID is alive.
 
 Invites are `seatRead|inboxWrite`. Spectator is the host read key. Pages:
 `/live/?k=<token>`.

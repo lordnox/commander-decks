@@ -14,12 +14,22 @@ export const publishReplay = async (options: {
   root: string
   talk: string
   judge: string
+  privateJudge: Partial<Record<SeatId, string>>
   waiting: string
   actions: SeatActions
   actionIds: SeatActionIds
   event?: number
 }) => {
-  const { slug, root, talk, judge, waiting, actions, actionIds } = options
+  const {
+    slug,
+    root,
+    talk,
+    judge,
+    privateJudge,
+    waiting,
+    actions,
+    actionIds,
+  } = options
   for (const seat of SEAT_IDS satisfies readonly SeatId[]) {
     const args = [
       ENCODER,
@@ -30,6 +40,8 @@ export const publishReplay = async (options: {
       talk,
       '--judge',
       judge,
+      '--seat-judges-json',
+      JSON.stringify(privateJudge),
       '--waiting',
       waiting,
       '--actions-json',

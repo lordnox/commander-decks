@@ -102,7 +102,7 @@ Battlefield flags: tapped `1`, token `2`, commander `4`. `extra` holds `p` /
 | `h` | Headline |
 | `w` | Prompt; omit when it is `Would this line work? Confirm or replace it.` |
 | `k` | Explicit player table talk; omit when empty |
-| `j` | Latest public judge note; omit when empty; never contains hidden information |
+| `j` | Judge note for this bin: full analysis only in its originating private seat bin; generic status everywhere else |
 | `u` | `1` when the prompt is addressed to this viewer; omit otherwise |
 | `r` | Allowed action bitmask: plan `1`, confirm `2`, replace `4`, pass `8` |
 | `i` | Per-seat action ID; play messages must echo it |
@@ -136,7 +136,7 @@ this object.
 | `headline` | Short table title |
 | `waiting` | Prompt for the human, e.g. `Would this line work? Confirm or replace it.` |
 | `talk` | Explicit player table talk |
-| `judge` | Latest public judge note; never contains hidden information |
+| `judge` | Judge note for this viewer; private detail only for the originating seat |
 | `youAct` | Whether the prompt is addressed to this viewer |
 | `actions` | Play actions currently accepted from this viewer |
 | `actionId` | Per-seat ID echoed by the next play action |
