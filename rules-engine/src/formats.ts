@@ -2,6 +2,7 @@ import { combat } from './plugins/combat'
 import { commander } from './plugins/commander'
 import { damage } from './plugins/damage'
 import { fog } from './plugins/fog'
+import { unconfiguredHiddenInformation } from './plugins/hiddenInformation'
 import { lands } from './plugins/lands'
 import { mana } from './plugins/mana'
 import { manaBurn } from './plugins/manaBurn'
@@ -42,6 +43,7 @@ export const corePlugins = [
   stateBased,
   combat,
   damage,
+  unconfiguredHiddenInformation,
 ]
 
 export const optionalPlugins = [manaBurn, fog]

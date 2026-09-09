@@ -73,6 +73,15 @@ export const makeDraft = (state: GameState): Draft => {
   draft.move = (id, to) => {
     const object = draft.objects[id]
     if (!object) return undefined
+    const from = object.zone
+    const zones = draft.zoneOrder[object.owner]
+    zones[from] = zones[from].filter((objectId) => objectId !== id)
+    if (!zones[to].includes(id)) zones[to].push(id)
+    draft.zoneCounts[object.owner][from] = Math.max(
+      0,
+      draft.zoneCounts[object.owner][from] - 1,
+    )
+    draft.zoneCounts[object.owner][to] += 1
     object.zone = to
     if (to !== 'battlefield') {
       object.tapped = false

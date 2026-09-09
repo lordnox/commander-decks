@@ -1,6 +1,12 @@
 import { emptyMana } from './draft'
 import type { GameFormat } from './formats'
-import type { GameObject, GameState, PlayerId, PlayerState } from './types'
+import {
+  type GameObject,
+  type GameState,
+  type PlayerId,
+  type PlayerState,
+  type ZoneId,
+} from './types'
 
 export type CardTemplate = Omit<GameObject, 'id' | 'owner' | 'controller' | 'zone'> & {
   zone?: GameObject['zone']
@@ -62,11 +68,37 @@ const playerIds = (format: GameFormat, players?: number | PlayerId[]) => {
   return ids
 }
 
+const emptyZones = (): Record<ZoneId, string[]> => ({
+  battlefield: [],
+  stack: [],
+  hand: [],
+  library: [],
+  graveyard: [],
+  exile: [],
+  command: [],
+})
+
+const emptyZoneCounts = (): Record<ZoneId, number> => ({
+  battlefield: 0,
+  stack: 0,
+  hand: 0,
+  library: 0,
+  graveyard: 0,
+  exile: 0,
+  command: 0,
+})
+
 export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState => {
   const players = playerIds(format, opts?.players)
   const first = opts?.first ?? players[0]
   if (!players.includes(first)) throw new Error(`first player ${first} is not in the game`)
   const objects: GameState['objects'] = {}
+  const zoneOrder = Object.fromEntries(
+    players.map((playerId) => [playerId, emptyZones()]),
+  ) as GameState['zoneOrder']
+  const zoneCounts = Object.fromEntries(
+    players.map((playerId) => [playerId, emptyZoneCounts()]),
+  ) as GameState['zoneCounts']
   let nextId = 1
   const put = (playerId: PlayerId, zone: GameObject['zone'], template: CardTemplate) => {
     const id = `o${nextId}`
@@ -80,6 +112,9 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
       zone: template.zone ?? zone,
       tags: [...new Set([...template.tags, ...(format.tagsForZone?.(zone) ?? [])])],
     }
+    const actualZone = objects[id].zone
+    zoneOrder[playerId][actualZone].push(id)
+    zoneCounts[playerId][actualZone] += 1
     return id
   }
   for (const playerId of players) {
@@ -93,12 +128,15 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
   const builtin = opts?.builtinRules ?? format.rules
   return {
     format: format.id,
+    knowledge: { mode: 'authoritative', viewer: null },
     playerOrder: players,
     castableZones: format.castableZones ?? ['hand'],
     players: Object.fromEntries(
       players.map((playerId) => [playerId, player(format, playerId)]),
     ),
     objects,
+    zoneOrder,
+    zoneCounts,
     stack: [],
     active: first,
     priority: first,

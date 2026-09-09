@@ -21,6 +21,24 @@ const modern = newGame(modernRules, { players: ['alice', 'bob'] })
 arbitrary strings; `p1`…`pN` are generated only when a count is supplied.
 Commander damage and tax live in Commander-owned `player.data`, not the kernel.
 
+## Authoritative server and replica client
+
+Both runtimes call the same reducer and use the same format rules. They replace
+the `hiddenInformation` implementation:
+
+- **Server** owns complete objects and `zoneOrder`, resolves `draw` and
+  `shuffleLibrary`, and receives an injectable random source.
+- **Client** owns a viewer-specific projection. Libraries and opponents' hands
+  contain counts but no object identities. Local draw/shuffle are harmless
+  no-ops; hidden data changes only through an `authoritativeSync` from outside.
+
+`projectForViewer` is deliberately outside the kernel: redaction is a security
+boundary, not a game rule. Never send authoritative state to a client.
+
+History is also outside the kernel. `createHistory(state, rules)` records
+events plus before/after states without recursively placing history in
+`GameState`. Server and client may choose different retention policies.
+
 Active rules live **in the game state**. Catalog entries are code. A permanent
 that grants an effect does `{ type: 'addRule', pluginId, sourceId }`; leaving
 the battlefield does `{ type: 'removeRule', sourceId }`.
@@ -36,7 +54,7 @@ rules(state, { type: 'move', objectId: yarok, to: 'graveyard' })
 
 ## Pipeline
 
-1. If `state.ended` and the event is not `concede` / `addRule` / `removeRule`, reject.
+1. If `state.ended` and the event is not an administrative sync/rule event, reject.
 2. **Replace** — each `RuleInstance` may replace the event once (timestamp order).
    `null` prevents (state unchanged, `ok: true`, `prevented: true`).
    An array folds `rules` left-to-right.
@@ -83,6 +101,7 @@ state with the `addRule` event (or `grantedRules` on an object).
 | `stateBased` | 0 life, 0 toughness, lethal damage, tokens, legend |
 | `combat` | attackers, blockers, emits `combatDamage` |
 | `damage` | `combatDamage` → `dealDamage` → `loseLife` |
+| `hiddenInformation` | Server resolves hidden zones; client ingests redacted state |
 | `fog` | **optional** — prevents `combatDamage` |
 | `commander` | Optional format rule: 21 damage, command zone, tax |
 | `manaBurn` | **optional** — leftover mana becomes unpreventable loss of life |

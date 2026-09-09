@@ -3,12 +3,14 @@ import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
 import { bears, forest, newGame } from '../testGame'
 import type { GameState, ReduceResult, StackItem } from '../types'
+import { createAuthoritativeHiddenInformation } from './hiddenInformation'
 import { priority } from './priority'
 import { turnStructure } from './turnStructure'
 
-const catalog = createCatalog([turnStructure, priority])
+const hiddenInformation = createAuthoritativeHiddenInformation(() => 0.5)
+const catalog = createCatalog([turnStructure, priority, hiddenInformation])
 
-const builtinRules = ['turnStructure', 'priority']
+const builtinRules = ['turnStructure', 'priority', 'hiddenInformation']
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)

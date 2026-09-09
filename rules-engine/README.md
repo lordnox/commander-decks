@@ -21,9 +21,36 @@ const standard = newGame(standardRules) // two players, 20 life
 const modern = newGame(modernRules, { players: ['alice', 'bob'] })
 ```
 
-Use `createGame(format, options)` when you want the matching state and engine
-together. A custom format controls player count, starting life, active rules,
-plugin implementations, player-specific data, and deck-construction metadata.
+`createGame(format, options)` is the fail-closed base and refuses hidden-zone
+operations until a runtime profile is selected. A custom format controls player
+count, starting life, active rules, plugin implementations, player-specific
+data, and deck-construction metadata.
+
+Server and client use the same kernel with different hidden-information plugins:
+
+```ts
+const server = createServerGame(commanderRules, options, { random })
+const view = server.project(server.state, 'p1')
+const client = createClientGame(commanderRules, view)
+
+const drawn = server.rules(server.state, { type: 'draw', seat: 'p1' })
+if (drawn.ok) {
+  const nextView = server.project(drawn.state, 'p1')
+  client.sync(client.state, nextView)
+}
+```
+
+The server owns full hands, ordered libraries, shuffling, and draws. Client
+projections retain hidden-zone counts but omit library and opponent-hand
+identities. Hidden actions are client-side no-ops until the server sends a
+redacted sync.
+
+History wraps either reducer and stays outside game state:
+
+```ts
+const history = createHistory(server.state, server.rules)
+history.dispatch(event)
+```
 
 Active effects are `RuleInstance`s on the state. Plugin **code** lives in the
 catalog. A card that grants an effect lists `grantedRules`; moving it onto the
