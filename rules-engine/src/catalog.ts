@@ -6,6 +6,8 @@ export type PluginCatalog = {
   ids: () => string[]
 }
 
+export type { PluginCatalog as default }
+
 export const createCatalog = (plugins: Plugin[] = []): PluginCatalog => {
   const map = new Map(plugins.map((plugin) => [plugin.id, plugin]))
   return {

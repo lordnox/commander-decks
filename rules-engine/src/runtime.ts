@@ -7,7 +7,7 @@ import {
   replicaSnapshotError,
   replicaHiddenInformation,
 } from './plugins/hiddenInformation'
-import type { GameState, PlayerId } from './types'
+import type { GameEvent, GameState, PlayerId } from './types'
 
 export type ServerDependencies = {
   random: () => number
@@ -20,7 +20,7 @@ const createRuntimeEngine = (
   const catalog = createCatalog([...format.plugins, hiddenInformation])
   return {
     catalog,
-    rules: (state: GameState, event: import('./types').GameEvent) =>
+    rules: (state: GameState, event: GameEvent) =>
       rules(state, event, catalog),
     addPlugin: catalog.register,
   }

@@ -1,4 +1,4 @@
-import type { GameObject, GameState, ManaPool, PlayerId, ZoneId } from './types'
+import type { GameEvent, GameObject, GameState, ManaPool, PlayerId, ZoneId } from './types'
 
 export const emptyMana = (): ManaPool => ({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
 
@@ -39,15 +39,17 @@ export const nextPlayer = (state: GameState, player: PlayerId) => {
 }
 
 export type Draft = GameState & {
-  pending: import('./types').GameEvent[]
+  pending: GameEvent[]
   allocId: (prefix?: string) => string
   allocTs: () => number
-  enqueue: (event: import('./types').GameEvent) => void
+  enqueue: (event: GameEvent) => void
   note: (line: string) => void
   object: (id: string) => GameObject | undefined
   move: (id: string, to: ZoneId) => GameObject | undefined
   zoneOf: (zone: ZoneId, player?: PlayerId) => GameObject[]
 }
+
+export type { Draft as default }
 
 export const makeDraft = (state: GameState): Draft => {
   const draft = structuredClone(state) as Draft
