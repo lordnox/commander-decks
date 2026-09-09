@@ -43,9 +43,17 @@ export {
 } from './formats'
 export { rules as reduceWithCatalog } from './kernel'
 export { bears, bolt, forest, newGame, yarokFixture } from './newGame'
+export { createHistory } from './history'
+export {
+  createClientGame,
+  createServerGame,
+  projectForViewer,
+} from './runtime'
 export { fog, manaBurn } from './plugins'
 export type { GameFormat } from './formats'
+export type { History, HistoryEntry } from './history'
 export type { NewGameOptions } from './newGame'
+export type { ServerDependencies } from './runtime'
 export type {
   GameEvent,
   GameState,

@@ -178,6 +178,7 @@ export const reduceOnce = (
     && event.type !== 'addRule'
     && event.type !== 'removeRule'
     && event.type !== 'concede'
+    && event.type !== 'authoritativeSync'
   ) {
     return { ok: false, error: 'game has ended', state }
   }

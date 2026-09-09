@@ -17,12 +17,6 @@ export const STEPS: StepId[] = [
   'cleanup',
 ]
 
-/** `o2` sorts before `o10`; unknown shapes sink to the bottom of the library. */
-const idIndex = (id: string) => {
-  const digits = id.match(/\d+/)
-  return digits ? Number(digits[0]) : Number.MAX_SAFE_INTEGER
-}
-
 export const nextLivingPlayer = (draft: Draft, from: PlayerId) => {
   let player = nextPlayer(draft, from)
   for (let i = 0; i < draft.playerOrder.length; i += 1) {
@@ -36,11 +30,6 @@ export const emptyAllManaPools = (draft: Draft) => {
   for (const player of draft.playerOrder) draft.players[player].mana = emptyMana()
 }
 
-const libraryTop = (draft: Draft, player: PlayerId) =>
-  Object.values(draft.objects)
-    .filter((object) => object.zone === 'library' && object.owner === player)
-    .sort((a, b) => idIndex(a.id) - idIndex(b.id))[0]
-
 const onUntap = (draft: Draft) => {
   for (const object of draft.zoneOf('battlefield', draft.active)) {
     object.tapped = false
@@ -51,15 +40,7 @@ const onUntap = (draft: Draft) => {
 }
 
 const onDraw = (draft: Draft) => {
-  const seat = draft.active
-  const card = libraryTop(draft, seat)
-  if (!card) {
-    draft.players[seat].lost = true
-    draft.note(`${seat} draws from an empty library`)
-    return
-  }
-  draft.move(card.id, 'hand')
-  draft.note(`${seat} draws ${card.name}`)
+  draft.enqueue({ type: 'draw', seat: draft.active, count: 1 })
 }
 
 const onCleanup = (draft: Draft) => {

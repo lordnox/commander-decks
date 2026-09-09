@@ -1,13 +1,15 @@
 export type PlayerId = string
 
-export type ZoneId =
-  | 'battlefield'
-  | 'stack'
-  | 'hand'
-  | 'library'
-  | 'graveyard'
-  | 'exile'
-  | 'command'
+export const ZONE_IDS = [
+  'battlefield',
+  'stack',
+  'hand',
+  'library',
+  'graveyard',
+  'exile',
+  'command',
+] as const
+export type ZoneId = (typeof ZONE_IDS)[number]
 
 export type StepId =
   | 'untap'
@@ -87,10 +89,16 @@ export type PlayerState = {
 
 export type GameState = {
   format: string
+  knowledge: {
+    mode: 'authoritative' | 'replica'
+    viewer: PlayerId | null
+  }
   playerOrder: PlayerId[]
   castableZones: ZoneId[]
   players: Record<PlayerId, PlayerState>
   objects: Record<string, GameObject>
+  zoneOrder: Record<PlayerId, Record<ZoneId, string[]>>
+  zoneCounts: Record<PlayerId, Record<ZoneId, number>>
   stack: StackItem[]
   active: PlayerId
   priority: PlayerId | null
@@ -144,6 +152,8 @@ export type GameEvent =
   | { type: 'untap'; objectId: string }
   | { type: 'advanceStep' }
   | { type: 'draw'; seat: PlayerId; count?: number }
+  | { type: 'shuffleLibrary'; seat: PlayerId }
+  | { type: 'authoritativeSync'; snapshot: GameState }
   | { type: 'concede'; seat: PlayerId }
   | {
       type: 'addRule'

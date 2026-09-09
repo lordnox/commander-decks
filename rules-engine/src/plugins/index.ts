@@ -2,6 +2,10 @@ import { combat } from './combat'
 import { commander } from './commander'
 import { damage } from './damage'
 import { fog } from './fog'
+import {
+  replicaHiddenInformation,
+  unconfiguredHiddenInformation,
+} from './hiddenInformation'
 import { lands } from './lands'
 import { mana } from './mana'
 import { manaBurn } from './manaBurn'
@@ -20,9 +24,12 @@ export const builtInPlugins = [
   stateBased,
   combat,
   damage,
+  unconfiguredHiddenInformation,
   commander,
   manaBurn,
   fog,
+  replicaHiddenInformation,
+  unconfiguredHiddenInformation,
 ]
 
 export {
