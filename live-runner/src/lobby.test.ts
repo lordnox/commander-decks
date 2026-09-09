@@ -91,11 +91,29 @@ describe('lobby', () => {
     } as unknown as LobbyState
 
     const restored = restoreLobby(saved, 'Pod')
-    expect(restored.communicationVersion).toBe(4)
+    expect(restored.communicationVersion).toBe(5)
     expect(restored.talk).toBe('p4: Good luck!')
-    expect(restored.judge).toBe('Priority is open.')
+    expect(restored.judge).toContain('Earlier judge details were cleared')
     expect(restored.privateJudge).toEqual({})
     expect(restored.actions).toEqual({})
     expect(restored.actionIds).toEqual({ p1: 0, p2: 0, p3: 0, p4: 0 })
+  })
+
+  test('clears legacy judge detail without losing a live action window', () => {
+    const saved = {
+      ...createLobby(),
+      communicationVersion: 4,
+      judge: 'Strategic details from an old public note.',
+      privateJudge: {},
+      actions: { p2: ['plan', 'pass'] },
+      actionIds: { p1: 1, p2: 8, p3: 5, p4: 5 },
+    } as unknown as LobbyState
+
+    const restored = restoreLobby(saved, 'Pod')
+    expect(restored.communicationVersion).toBe(5)
+    expect(restored.judge).toContain('Earlier judge details were cleared')
+    expect(restored.privateJudge).toEqual({})
+    expect(restored.actions).toEqual({ p2: ['plan', 'pass'] })
+    expect(restored.actionIds).toEqual({ p1: 1, p2: 8, p3: 5, p4: 5 })
   })
 })

@@ -13,7 +13,7 @@ export type Occupant = {
 }
 
 export type LobbyState = {
-  communicationVersion: 4
+  communicationVersion: 5
   phase: LobbyPhase
   occupants: Partial<Record<SeatId, Occupant>>
   ready: SeatId[]
@@ -98,7 +98,7 @@ const nextSeat = (from: SeatId) =>
   SEAT_IDS[(SEAT_IDS.indexOf(from) + 1) % SEAT_IDS.length]
 
 export const createLobby = (headline = 'Live table'): LobbyState => ({
-  communicationVersion: 4,
+  communicationVersion: 5,
   phase: 'gathering',
   occupants: {},
   ready: [],
@@ -121,7 +121,7 @@ export type LobbyParts = {
 
 /** Sessions written before `lobby` existed only kept these three fields. */
 export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
-  communicationVersion: 4,
+  communicationVersion: 5,
   phase: parts.phase,
   occupants: { ...parts.occupants },
   ready: [],
@@ -141,21 +141,23 @@ export const restoreLobby = (
   headline: string,
 ): LobbyState => {
   if (!saved) return createLobby(headline)
-  const migrated = saved.communicationVersion !== 4
-  const legacyCommunication = ![2, 3, 4].includes(saved.communicationVersion)
+  const version = saved.communicationVersion as number
+  const actionMigrated = version < 3
+  const privacyMigrated = version < 5
+  const legacyCommunication = ![2, 3, 4, 5].includes(version)
   return {
     ...saved,
-    communicationVersion: 4,
+    communicationVersion: 5,
     occupants: { ...saved.occupants },
     ready: [...saved.ready],
     pregameRemaining: [...saved.pregameRemaining],
     talk: legacyCommunication ? '' : saved.talk,
-    judge: legacyCommunication
-      ? 'Host resumed. Earlier control messages were cleared.'
+    judge: privacyMigrated
+      ? 'Host resumed. Earlier judge details were cleared from the table.'
       : saved.judge,
-    privateJudge: migrated ? {} : saved.privateJudge,
-    actions: migrated ? {} : saved.actions,
-    actionIds: migrated ? emptyActionIds() : saved.actionIds,
+    privateJudge: privacyMigrated ? {} : saved.privateJudge,
+    actions: actionMigrated ? {} : saved.actions,
+    actionIds: actionMigrated ? emptyActionIds() : saved.actionIds,
   }
 }
 
