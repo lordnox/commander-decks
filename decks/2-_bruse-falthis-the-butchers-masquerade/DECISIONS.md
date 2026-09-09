@@ -10,6 +10,21 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 - **Rules** — Oracle readings and stack order that were checked.
 - **Talks** — dated session notes so an argument does not live only in chat.
 
+## Goals
+
+- **Character Casting** — Bruse Tarl must read as Carl, Falthis as Princess Donut, and the 99 as their crew rather than a generic dungeon engine.
+- **Sixth-Floor Masquerade** — Face-down creatures should make hidden identities central while goad represents the Hunting Grounds.
+- **Extreme Plans** — The deck should assemble elaborate, finite five-card schemes rather than defaulting to a compact infinite combo.
+
+## Rankings
+
+- **Jankiness: 9/10** — Twenty-seven masked crawlers, old morph rules, and five-card finite packages are deliberately convoluted.
+- **Fun: 8/10** — Hidden information, reveal timing, tutor choices, and goad politics create varied decisions; slow mana and fragile setups prevent a higher score.
+- **Oppressiveness: 3/10** — Goad and discard constrain opponents briefly, but there are no locks, extra turns, mass land denial, or compact deterministic wins.
+- **Character Casting: 6/10** — Carl and Donut are strongly represented in the command zone, but most of the crew remain anonymous masks rather than individually cast characters.
+- **Sixth-Floor Masquerade: 9/10** — Morph, face-down payoffs, masks, and the Hunt dominate the list.
+- **Extreme Plans: 7/10** — Three documented plans work as finite packages; the fourth is only political pressure and occasional theft because goad sends attackers away from you.
+
 ## Cards in
 
 ### Commanders
@@ -135,12 +150,13 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 ## Rules
 
 - A face-down creature is a 2/2 colourless creature with no name, no creature types, and no abilities. It keeps its own characteristics only once it is turned face up.
-- Turning a creature face up with an effect such as **Skirk Alarmist** does not use, and does not require paying, the morph cost. Morph costs only apply when the controller turns it up themselves.
+- Turning a creature face up with an effect such as **Skirk Alarmist** does not require paying the morph cost. The Alarmist's activated ability uses the stack; turning a creature face up by paying its own morph cost is the special action that does not use the stack.
 - **Panoptic Projektor** doubles triggered abilities of permanents *you control* that trigger from a face-down permanent being turned face up. **Master of Pearls** therefore gives +2/+2 twice, for +4/+4. It does not double the morph flip itself.
 - **Skirk Alarmist** sacrifices the flipped creature at the beginning of the next end step. For **Master of Pearls** the pump has already resolved, and for **Ponyback Brigade** the Goblin tokens stay behind. Losing the body is the intended cost.
 - **Ashcloud Phoenix** returns face down when it dies. The returned permanent has no abilities, so sacrificing it again does not return it a second time. This is a two-use card, not a loop.
 - Double strike creates two separate combat damage events, so **Ebonblade Reaper** triggers twice: a player at 40 goes to 20, then to 10. Its attack trigger costs you half your life rounded up, and that is life loss rather than damage, so **Fortune Thief** does not prevent it.
 - Goad forces a creature to attack each combat if able and to attack a player other than you if able. It does not stop that creature from blocking on other players' turns.
+- Because a creature goaded by you must attack another player if able, **Soul Collector** cannot block and recruit it in a normal multiplayer rotation. The goad cards clear blockers and create political pressure; they do not feed attackers to Soul Collector.
 - **Bloodthirsty Blade** attaches to a creature an opponent controls, which is legal because the Equipment's own ability moves it there.
 - **Gift of Doom** cast face down is a 2/2 creature, not an Aura. Turning it face up by sacrificing another creature lets you attach it to a creature at that time.
 - **Falthis** grants menace and deathtouch to commanders you control, which includes Falthis and Bruse Tarl but no other creature in the deck.
@@ -175,3 +191,31 @@ The user cut Diabolic Intent on speed and asked for card advantage in the slot. 
 Also considered: **Mentor of the Meek** (triggers on face-down 2/2s entering, but taxes {1} per draw and misses the crawlers that die before resolving), **Greed** (repeatable and colour-hungry at {3}{B}, but competes with flip costs for black mana), and **Ambition's Cost** (three cards at once, but a one-shot in a deck that already wanted a repeating engine). Bygone Bishop also completes a set with Grim Haruspex and Roshan, so the deck now draws when a crawler is cast, unmasked, and killed.
 
 Tutor count is now four, which is still inside the four-to-five the user asked for.
+
+### 2026-09-09 — Assessment, ranking, and setup goldfish
+
+Verdict: **Bracket 2− (Core)**. Pregame description: “Bracket 2− morph-combat deck. Usually wins around turns 11–13; a strong unopposed opening can cripple the first player around turn 7–8, but does not win the table then.”
+
+The list matches Core's incremental texture in `BRACKET-DEFINITIONS.md`: it builds a visible creature board, needs several permanents to survive, and closes through combat. The cached Game Changers snapshot dated 2026-09-03 matches zero cards in the manifest. There is no fast mana, extra turn, mass land denial, or infinite loop. Four tutors plus Sunforger's narrow instant search move it above Exhibition despite its theme-first construction. It stays at the lower edge of Core because the actual finishes are slow, fragile, and five-card packages are not compact combos.
+
+Twelve reproducible setup runs used seeds 1729 (eight) and 2718 (four), London mulligans up to two, draws through turn twelve, and a turn-five milestone of three mana sources plus either two masked crawlers or one crawler with an engine or tutor.
+
+| Metric | Result |
+| --- | --- |
+| Keepable with at most one mulligan | 12/12 |
+| Turn-five setup milestone | 12/12 |
+| Mana or colour failure | 2/12 |
+| Useful draw engine seen by turn five | 7/12 |
+| Some interaction available by turn five | 12/12 |
+| Immediate targeted answer available by turn five | 5/12 |
+| Full or functional Extreme Plan by turn twelve | 4/12 |
+
+The two mana failures were land stalls, not colour-identity failures: one hand stayed on two lands with Marble Diamond and Dream Chisel, while another stayed on three lands until turn ten. Morph still produced bodies through both stalls, but Bruse, Panoptic Projektor, and expensive reveal costs remained stranded.
+
+The credible high roll is not a table win: turn-two Skirk Alarmist, turn-three face-down Ebonblade Reaper, and turn-four Bruse can flip the Reaper and double-strike one undefended player down to roughly a quarter of their starting life, after losing half your own life and sacrificing the Reaper at end step. A full-table high roll needs turns 9–10; normal goldfish wins take turns 11–13; removing Panoptic Projektor or wiping the masked board pushes the deck to turn 13 or later.
+
+Stress results: commander removal passed because the morph engine operates without either commander, though losing Bruse removes the fastest double-strike pressure. Panoptic Projektor removal delayed three plans and failed recovery because the list has no artifact recursion. A board wipe delayed the primary alpha strike by at least three turns; Gift of Doom preserves only one creature. The interaction package is broad but slow: morph removal and sorcery wipes were common, while only Terminate and Chaos Warp regularly answered a must-answer permanent at instant speed.
+
+The assessment corrected two primer claims. Skirk Alarmist's activated ability uses the stack even though paying a morph cost does not. Also, goad sends opponents' creatures at other players, so Soul Collector cannot block and recruit them; “Recruit the Hunters” is a value line, not a deterministic five-card combo.
+
+Ranking goals are the constraints the user explicitly set during construction: Carl and Donut as commanders with their crew in the 99, the sixth-floor masquerade, and two to four five-card Extreme Plans.
