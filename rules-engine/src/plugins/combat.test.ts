@@ -1,7 +1,7 @@
 import { expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
-import { bears, newGame } from '../newGame'
+import { bears, newGame } from '../testGame'
 import { combat } from './combat'
 
 test('an unblocked attacker deals combat damage to the defending player', () => {
@@ -31,4 +31,27 @@ test('an unblocked attacker deals combat damage to the defending player', () => 
   expect(damaged.ok).toBe(true)
   if (!damaged.ok) return
   expect(damaged.state.players.p2.life).toBe(38)
+})
+
+test('an attacker cannot target a player outside the game', () => {
+  const catalog = createCatalog([combat])
+  const state = newGame({
+    battlefield: { p1: [bears()] },
+    builtinRules: ['combat'],
+  })
+  const attackerId = Object.values(state.objects)[0].id
+  state.step = 'declareAttackers'
+
+  const result = rules(
+    state,
+    {
+      type: 'declareAttackers',
+      seat: 'p1',
+      attackers: [{ objectId: attackerId, defender: 'spectator' }],
+    },
+    catalog,
+  )
+
+  expect(result.ok).toBe(false)
+  if (!result.ok) expect(result.error).toContain('not in the game')
 })

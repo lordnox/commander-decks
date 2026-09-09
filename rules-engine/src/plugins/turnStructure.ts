@@ -1,5 +1,5 @@
-import { emptyMana, nextSeat, type Draft } from '../draft'
-import { SEAT_IDS, type HookCtx, type Plugin, type SeatId, type StepId } from '../types'
+import { emptyMana, nextPlayer, type Draft } from '../draft'
+import type { HookCtx, PlayerId, Plugin, StepId } from '../types'
 
 export const STEPS: StepId[] = [
   'untap',
@@ -23,22 +23,22 @@ const idIndex = (id: string) => {
   return digits ? Number(digits[0]) : Number.MAX_SAFE_INTEGER
 }
 
-export const nextLivingSeat = (draft: Draft, from: SeatId) => {
-  let seat = nextSeat(from)
-  for (let i = 0; i < SEAT_IDS.length; i += 1) {
-    if (!draft.players[seat].lost) return seat
-    seat = nextSeat(seat)
+export const nextLivingPlayer = (draft: Draft, from: PlayerId) => {
+  let player = nextPlayer(draft, from)
+  for (let i = 0; i < draft.playerOrder.length; i += 1) {
+    if (!draft.players[player].lost) return player
+    player = nextPlayer(draft, player)
   }
-  return nextSeat(from)
+  return nextPlayer(draft, from)
 }
 
 export const emptyAllManaPools = (draft: Draft) => {
-  for (const seat of SEAT_IDS) draft.players[seat].mana = emptyMana()
+  for (const player of draft.playerOrder) draft.players[player].mana = emptyMana()
 }
 
-const libraryTop = (draft: Draft, seat: SeatId) =>
+const libraryTop = (draft: Draft, player: PlayerId) =>
   Object.values(draft.objects)
-    .filter((object) => object.zone === 'library' && object.owner === seat)
+    .filter((object) => object.zone === 'library' && object.owner === player)
     .sort((a, b) => idIndex(a.id) - idIndex(b.id))[0]
 
 const onUntap = (draft: Draft) => {
@@ -88,7 +88,7 @@ export const advanceTurnStep = (draft: Draft) => {
   const step = STEPS[(index + 1) % STEPS.length]
   draft.step = step
   if (wraps) {
-    draft.active = nextLivingSeat(draft, draft.active)
+    draft.active = nextLivingPlayer(draft, draft.active)
     draft.turn += 1
   }
   enterStep(draft, step)

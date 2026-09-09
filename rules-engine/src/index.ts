@@ -1,6 +1,8 @@
 import { createCatalog, type PluginCatalog } from './catalog'
+import { type GameFormat } from './formats'
 import { rules as reduce } from './kernel'
-import { defaultPlugins } from './plugins'
+import { newGame, type NewGameOptions } from './newGame'
+import { builtInPlugins } from './plugins'
 import type { GameEvent, GameState, Plugin, ReduceResult } from './types'
 
 export type Engine = {
@@ -9,8 +11,8 @@ export type Engine = {
   addPlugin: (plugin: Plugin) => () => void
 }
 
-export const createEngine = (plugins: Plugin[] = defaultPlugins): Engine => {
-  const catalog = createCatalog(plugins)
+export const createEngine = (format: GameFormat, plugins: Plugin[] = []): Engine => {
+  const catalog = createCatalog([...format.plugins, ...plugins])
   return {
     catalog,
     rules: (state, event) => reduce(state, event, catalog),
@@ -18,11 +20,38 @@ export const createEngine = (plugins: Plugin[] = defaultPlugins): Engine => {
   }
 }
 
-export const { rules, catalog, addPlugin } = createEngine()
+export const createGame = (format: GameFormat, options?: NewGameOptions) => {
+  const engine = createEngine(format)
+  return {
+    ...engine,
+    state: newGame(format, options),
+  }
+}
+
+/** Convenience reducer for built-in formats. RuleInstances select what is active. */
+export const catalog = createCatalog(builtInPlugins)
+export const rules = (state: GameState, event: GameEvent) => reduce(state, event, catalog)
+export const addPlugin = catalog.register
 
 export { createCatalog } from './catalog'
 export { emptyMana, parseManaCost, payFromPool, poolTotal } from './draft'
+export {
+  commanderRules,
+  coreRules,
+  modernRules,
+  standardRules,
+} from './formats'
 export { rules as reduceWithCatalog } from './kernel'
 export { bears, bolt, forest, newGame, yarokFixture } from './newGame'
-export { defaultPlugins, manaBurn } from './plugins'
-export type { GameEvent, GameState, Plugin, ReduceResult, RuleInstance } from './types'
+export { manaBurn } from './plugins'
+export type { GameFormat } from './formats'
+export type { NewGameOptions } from './newGame'
+export type {
+  GameEvent,
+  GameState,
+  PlayerId,
+  Plugin,
+  ReduceResult,
+  RuleInstance,
+  TargetRef,
+} from './types'

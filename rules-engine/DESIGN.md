@@ -7,6 +7,20 @@ const result = rules(state, event)
 // { ok: true, state } | { ok: false, error, state }
 ```
 
+The kernel has no fixed format or player count. `GameFormat` supplies starting
+life, runtime plugins, active rule IDs, deck-construction metadata, and optional
+per-player state:
+
+```ts
+const state = newGame(commanderRules, { players: 3 })
+const standard = newGame(standardRules)
+const modern = newGame(modernRules, { players: ['alice', 'bob'] })
+```
+
+`state.playerOrder` is authoritative for turns and priority. Player IDs are
+arbitrary strings; `p1`…`pN` are generated only when a count is supplied.
+Commander damage and tax live in Commander-owned `player.data`, not the kernel.
+
 Active rules live **in the game state**. Catalog entries are code. A permanent
 that grants an effect does `{ type: 'addRule', pluginId, sourceId }`; leaving
 the battlefield does `{ type: 'removeRule', sourceId }`.
@@ -61,11 +75,12 @@ state with the `addRule` event (or `grantedRules` on an object).
 | `spells` | castSpell, pay mana, move to stack |
 | `stateBased` | 0 life, 0 toughness, lethal damage, tokens, legend |
 | `combat` | attackers, blockers, combat damage |
-| `commander` | 21 damage, command zone, tax |
+| `commander` | Optional format rule: 21 damage, command zone, tax |
 | `manaBurn` | **optional** — leftover mana becomes unpreventable loss of life |
 
-Default `createEngine()` includes everything except `manaBurn`. Tests add it
-with `addRule` or a card `grantedRules: ['manaBurn']`.
+`coreRules`, `standardRules`, and `modernRules` omit `commander`.
+`commanderRules` adds it and starts players at 40 life. `manaBurn` is registered
+but inactive until an `addRule` event or card `grantedRules` enables it.
 
 ## Files
 

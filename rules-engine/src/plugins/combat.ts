@@ -1,7 +1,4 @@
-import type { Plugin, SeatId } from '../types'
-
-const isSeat = (target: string, players: Record<SeatId, unknown>): target is SeatId =>
-  target in players
+import type { Plugin } from '../types'
 
 export const combat: Plugin = {
   id: 'combat',
@@ -24,6 +21,8 @@ export const combat: Plugin = {
         if (object.tapped) return 'tapped creatures cannot attack'
         if (object.summoningSickness) return 'creatures with summoning sickness cannot attack'
         if (declaration.defender === event.seat) return 'a creature cannot attack its controller'
+        if (!state.players[declaration.defender]) return 'defender is not in the game'
+        if (state.players[declaration.defender].lost) return 'a player who lost cannot be attacked'
       }
     }
 
@@ -103,23 +102,33 @@ export const combat: Plugin = {
         const defender = attacker.attacking
         if (!defender) continue
         draft.players[defender].life -= amount
-        if (attacker.commander) {
-          const previous = draft.players[defender].commanderDamage[attacker.id] ?? 0
-          draft.players[defender].commanderDamage[attacker.id] = previous + amount
-        }
+        draft.enqueue({
+          type: 'custom',
+          name: 'combatDamageDealt',
+          payload: { sourceId: attacker.id, target: defender, amount },
+        })
       }
       return
     }
 
     if (event.type === 'dealDamage') {
-      if (isSeat(event.target, draft.players)) {
-        draft.players[event.target].life -= event.amount
-        if (event.combat && event.commander) {
-          const previous = draft.players[event.target].commanderDamage[event.sourceId] ?? 0
-          draft.players[event.target].commanderDamage[event.sourceId] = previous + event.amount
+      if (event.target.kind === 'player' && draft.players[event.target.player]) {
+        draft.players[event.target.player].life -= event.amount
+        if (event.combat) {
+          draft.enqueue({
+            type: 'custom',
+            name: 'combatDamageDealt',
+            payload: {
+              sourceId: event.sourceId,
+              target: event.target.player,
+              amount: event.amount,
+            },
+          })
         }
       } else {
-        const object = draft.object(event.target)
+        const object = event.target.kind === 'object'
+          ? draft.object(event.target.objectId)
+          : undefined
         if (object) object.damageMarked += event.amount
       }
     }

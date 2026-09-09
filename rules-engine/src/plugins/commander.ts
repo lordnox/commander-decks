@@ -3,35 +3,67 @@ import type { Plugin } from '../types'
 
 const taxedCost = (manaCost: string, tax: number) => `${manaCost}${tax > 0 ? `{${tax}}` : ''}`
 
+const commanderTax = (data: Record<string, unknown>) =>
+  typeof data.commanderTax === 'number' ? data.commanderTax : 0
+
+const commanderDamage = (data: Record<string, unknown>) =>
+  (data.commanderDamage ?? {}) as Record<string, number>
+
 export const commander: Plugin = {
   id: 'commander',
   legal: ({ state, event }) => {
     if (event.type !== 'castSpell') return
     const object = state.objects[event.objectId]
     if (!object || object.zone !== 'command') return
-    if (!object.commander) return 'only a commander can be cast from the command zone'
+    if (!object.tags.includes('commander')) return 'only a commander can be cast from the command zone'
     if (object.owner !== event.seat || object.controller !== event.seat) {
       return 'commander is not owned and controlled by that seat'
     }
-    const cost = taxedCost(object.manaCost, state.players[event.seat].commanderTax)
+    const cost = taxedCost(object.manaCost, commanderTax(state.players[event.seat].data))
     if (!payCost(state.players[event.seat].mana, cost)) return 'not enough mana for commander tax'
   },
   replace: ({ state, event }) => {
+    if (event.type === 'castSpell') {
+      const object = state.objects[event.objectId]
+      if (!object?.tags.includes('commander') || object.zone !== 'command') return
+      return {
+        ...event,
+        additionalGeneric:
+          (event.additionalGeneric ?? 0) + commanderTax(state.players[event.seat].data),
+      }
+    }
     if (event.type !== 'move' || (event.to !== 'graveyard' && event.to !== 'exile')) return
     const object = state.objects[event.objectId]
-    if (!object?.commander) return
+    if (!object?.tags.includes('commander')) return
     return { type: 'move', objectId: event.objectId, to: 'command' }
   },
   apply: ({ state, event, draft }) => {
-    if (event.type !== 'move' || event.to !== 'command') return
-    const object = draft.object(event.objectId)
-    if (!object?.commander || state.objects[event.objectId]?.zone === 'command') return
-    draft.players[object.owner].commanderTax += 2
+    if (event.type === 'castSpell') {
+      const object = state.objects[event.objectId]
+      if (!object?.tags.includes('commander') || object.zone !== 'command') return
+      const data = draft.players[event.seat].data
+      data.commanderTax = commanderTax(data) + 2
+      return
+    }
+    if (event.type === 'custom' && event.name === 'combatDamageDealt') {
+      const sourceId = event.payload?.sourceId
+      const target = event.payload?.target
+      const amount = event.payload?.amount
+      if (typeof sourceId !== 'string' || typeof target !== 'string' || typeof amount !== 'number') {
+        return
+      }
+      if (!draft.objects[sourceId]?.tags.includes('commander') || !draft.players[target]) return
+      const damage = commanderDamage(draft.players[target].data)
+      draft.players[target].data.commanderDamage = {
+        ...damage,
+        [sourceId]: (damage[sourceId] ?? 0) + amount,
+      }
+    }
   },
   sba: ({ draft }) => {
     for (const player of Object.values(draft.players)) {
       if (player.lost) continue
-      if (Object.values(player.commanderDamage).some((amount) => amount >= 21)) {
+      if (Object.values(commanderDamage(player.data)).some((amount) => amount >= 21)) {
         return [{ type: 'concede', seat: player.id }]
       }
     }

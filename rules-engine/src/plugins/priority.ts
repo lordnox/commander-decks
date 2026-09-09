@@ -1,6 +1,6 @@
 import type { Draft } from '../draft'
-import { SEAT_IDS, type HookCtx, type Plugin } from '../types'
-import { nextLivingSeat } from './turnStructure'
+import type { HookCtx, Plugin } from '../types'
+import { nextLivingPlayer } from './turnStructure'
 
 const PERMANENT_TYPES = ['Creature', 'Artifact', 'Enchantment', 'Land', 'Planeswalker', 'Battle']
 
@@ -31,10 +31,10 @@ const apply = ({ event, draft }: HookCtx) => {
   if (event.type !== 'passPriority') return
   if (!draft.passedInRow.includes(event.seat)) draft.passedInRow.push(event.seat)
 
-  const living = SEAT_IDS.filter((seat) => !draft.players[seat].lost)
+  const living = draft.playerOrder.filter((player) => !draft.players[player].lost)
   const allPassed = living.every((seat) => draft.passedInRow.includes(seat))
   if (!allPassed) {
-    draft.priority = nextLivingSeat(draft, event.seat)
+    draft.priority = nextLivingPlayer(draft, event.seat)
     return
   }
 

@@ -1,5 +1,6 @@
 import { emptyMana } from './draft'
-import { SEAT_IDS, type GameObject, type GameState, type PlayerState, type SeatId } from './types'
+import type { GameFormat } from './formats'
+import type { GameObject, GameState, PlayerId, PlayerState } from './types'
 
 export type CardTemplate = Omit<GameObject, 'id' | 'owner' | 'controller' | 'zone'> & {
   zone?: GameObject['zone']
@@ -23,63 +24,80 @@ const defaultObject = (): Omit<GameObject, 'id' | 'owner' | 'controller' | 'zone
   blocking: null,
   grantedRules: [],
   token: false,
-  commander: false,
+  tags: [],
 })
 
-const player = (id: SeatId): PlayerState => ({
+const player = (format: GameFormat, id: PlayerId): PlayerState => ({
   id,
-  life: 40,
+  life: format.startingLife,
   poison: 0,
-  commanderDamage: {},
-  commanderTax: 0,
   mana: emptyMana(),
   lost: false,
   landsPlayed: 0,
   landPlaysAllowed: 1,
+  data: format.createPlayerData?.(id) ?? {},
 })
 
-export const newGame = (opts?: {
-  first?: SeatId
-  libraries?: Partial<Record<SeatId, CardTemplate[]>>
-  hands?: Partial<Record<SeatId, CardTemplate[]>>
-  battlefield?: Partial<Record<SeatId, CardTemplate[]>>
-  command?: Partial<Record<SeatId, CardTemplate[]>>
+export type NewGameOptions = {
+  players?: number | PlayerId[]
+  first?: PlayerId
+  libraries?: Partial<Record<PlayerId, CardTemplate[]>>
+  hands?: Partial<Record<PlayerId, CardTemplate[]>>
+  battlefield?: Partial<Record<PlayerId, CardTemplate[]>>
+  command?: Partial<Record<PlayerId, CardTemplate[]>>
   builtinRules?: string[]
-}): GameState => {
-  const first = opts?.first ?? 'p1'
+}
+
+const playerIds = (format: GameFormat, players?: number | PlayerId[]) => {
+  const ids = Array.isArray(players)
+    ? players
+    : Array.from({ length: players ?? format.defaultPlayers }, (_, index) => `p${index + 1}`)
+  if (new Set(ids).size !== ids.length) throw new Error('player ids must be unique')
+  if (ids.length < (format.minPlayers ?? 1)) {
+    throw new Error(`${format.name} requires at least ${format.minPlayers ?? 1} players`)
+  }
+  if (format.maxPlayers && ids.length > format.maxPlayers) {
+    throw new Error(`${format.name} supports at most ${format.maxPlayers} players`)
+  }
+  return ids
+}
+
+export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState => {
+  const players = playerIds(format, opts?.players)
+  const first = opts?.first ?? players[0]
+  if (!players.includes(first)) throw new Error(`first player ${first} is not in the game`)
   const objects: GameState['objects'] = {}
   let nextId = 1
-  const put = (seat: SeatId, zone: GameObject['zone'], template: CardTemplate) => {
+  const put = (playerId: PlayerId, zone: GameObject['zone'], template: CardTemplate) => {
     const id = `o${nextId}`
     nextId += 1
     objects[id] = {
       ...defaultObject(),
       ...template,
       id,
-      owner: seat,
-      controller: seat,
+      owner: playerId,
+      controller: playerId,
       zone: template.zone ?? zone,
+      tags: [...new Set([...template.tags, ...(format.tagsForZone?.(zone) ?? [])])],
     }
     return id
   }
-  for (const seat of SEAT_IDS) {
-    for (const card of opts?.libraries?.[seat] ?? []) put(seat, 'library', card)
-    for (const card of opts?.hands?.[seat] ?? []) put(seat, 'hand', card)
-    for (const card of opts?.battlefield?.[seat] ?? []) put(seat, 'battlefield', card)
-    for (const card of opts?.command?.[seat] ?? []) put(seat, 'command', { ...card, commander: true })
+  for (const playerId of players) {
+    for (const card of opts?.libraries?.[playerId] ?? []) put(playerId, 'library', card)
+    for (const card of opts?.hands?.[playerId] ?? []) put(playerId, 'hand', card)
+    for (const card of opts?.battlefield?.[playerId] ?? []) put(playerId, 'battlefield', card)
+    for (const card of opts?.command?.[playerId] ?? []) {
+      put(playerId, 'command', card)
+    }
   }
-  const builtin = opts?.builtinRules ?? [
-    'turnStructure',
-    'priority',
-    'mana',
-    'lands',
-    'spells',
-    'stateBased',
-    'combat',
-    'commander',
-  ]
+  const builtin = opts?.builtinRules ?? format.rules
   return {
-    players: Object.fromEntries(SEAT_IDS.map((seat) => [seat, player(seat)])) as GameState['players'],
+    format: format.id,
+    playerOrder: players,
+    castableZones: format.castableZones ?? ['hand'],
+    players: Object.fromEntries(
+      players.map((playerId) => [playerId, player(format, playerId)]),
+    ),
     objects,
     stack: [],
     active: first,
@@ -120,7 +138,7 @@ export const forest = (): CardTemplate => ({
   attacking: null,
   blocking: null,
   token: false,
-  commander: false,
+  tags: [],
 })
 
 export const bears = (): CardTemplate => ({
@@ -141,7 +159,7 @@ export const bears = (): CardTemplate => ({
   attacking: null,
   blocking: null,
   token: false,
-  commander: false,
+  tags: [],
 })
 
 export const bolt = (): CardTemplate => ({
@@ -162,7 +180,7 @@ export const bolt = (): CardTemplate => ({
   attacking: null,
   blocking: null,
   token: false,
-  commander: false,
+  tags: [],
 })
 
 /** Fixture: entering installs manaBurn; leaving removes it. Not Oracle Yarok. */
@@ -184,5 +202,5 @@ export const yarokFixture = (): CardTemplate => ({
   attacking: null,
   blocking: null,
   token: false,
-  commander: false,
+  tags: [],
 })
