@@ -17,7 +17,7 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 ## Rankings
 
-Initial score: Jank 8, Fun 7, Mean 8, Creatureless 10, Board Control 9, Big Mana Burn 8. The Cube math and old enchantments are unusual and sequencing-heavy, but the visible creature denial is deliberately harsh.
+Initial score: Jank 8, Fun 7, Mean 8, Creatureless 10, Board Control 9, Big Mana Burn 8. After the 2026-09-09 fairness pass: Jank 9, Fun 8, Mean 7, Creatureless 10, Board Control 9, Big Mana Burn 8. Tabernacle leaving lowers table oppression; Mirage Mirror and Sculpting Steel raise jank.
 
 ## Cards in
 
@@ -25,13 +25,13 @@ Initial score: Jank 8, Fun 7, Mean 8, Creatureless 10, Board Control 9, Big Mana
 
 - **Mogis, God of Slaughter** — Commander and indestructible upkeep clock; gives Rakdos identity while usually remaining a noncreature enchantment.
 - **Aether Flash** — Namesake entrance punishment that kills small creatures and combines with Death Pits of Rath.
-- **Caltrops** — Colorless attack tax that turns every attacker into a damaged creature for Death Pits.
-- **Death Pits of Rath** — Converts any damage from Flash, Caltrops, or a sweeper into destruction.
+- **Curse of Death's Hold** — Permanent −1/−1 on one opponent's creatures, stacking with Night of Souls' Betrayal and Aether Flash.
+- **Death Pits of Rath** — Converts any damage from Flash, Gorge, or a sweeper into destruction.
+- **Engineered Plague** — Permanent −1/−1 against the dominant creature type, stacking with Night of Souls' Betrayal.
 - **Lethal Vapors** — Destroys every entering creature unless an opponent spends a turn to remove it.
 - **Mudslide** — Makes nonflying creatures pay during upkeep to untap, extending the upkeep-tax theme.
 - **Night of Souls' Betrayal** — Shrinks every creature and lets Aether Flash reach three-toughness bodies.
 - **Tainted Aether** — Every creature entering costs its controller a creature or land.
-- **The Tabernacle at Pendrell Vale** — The deck's one Game Changer; every creature requires an upkeep payment while the creatureless 99 breaks parity.
 
 ### Board wipes and removal
 
@@ -53,19 +53,18 @@ Initial score: Jank 8, Fun 7, Mean 8, Creatureless 10, Board Control 9, Big Mana
 
 - **Black Market** — Converts all the creature deaths into black mana for the closing X-spell.
 - **Mana Flare** — Symmetrical land doubler played immediately before this deck uses the extra mana.
-- **Brass's Bounty** — Stores one Treasure per land for a telegraphed next-turn burst and supplies artifacts to Clock of Omens.
 - **Bubbling Muck** — Old one-turn Swamp doubler that turns Urborg or a basic-heavy board into Cube fuel.
-- **Caged Sun** — Doubles one basic-land color and strengthens the black-heavy X-spell engine without adding creatures.
 - **Clock of Omens** — Taps spare artifacts to untap Doubling Cube or a large mana rock.
 - **Doubling Cube** — Namesake big-mana engine; turns accumulated mana into the X that ends the game.
-- **Empowered Autogenerator** — Grows with every activation and rewards the Key and Clock untap package.
 - **Everflowing Chalice** — Scalable artifact mana that remains useful both early and late.
 - **Gilded Lotus** — Produces three colored mana and benefits from artifact untapping.
+- **Liquimetal Torque** — Early colorless mana that can also turn a nonland into an artifact for Vandalblast, Rakdos Charm, or Sculpting Steel.
 - **Nyx Lotus** — Converts the deck's persistent black and red enchantment pips into artifact mana that Keys can reuse.
 - **Mana Geyser** — One-shot multiplayer mana burst that can be doubled before the finisher.
 - **Manifold Key** — Cheap second activation of Cube or a mana rock.
+- **Mirage Mirror** — Pays `{2}` to become Cube, Coffers, a lock enchantment, or an opponent's best permanent until end of turn.
 - **Rakdos Signet** — Early color fixing and ordinary ramp without permanent-fast-mana construction.
-- **Rings of Brighthearth** — Copies Key and Deserted Temple untaps, indirectly buying more Cube or Coffers activations; it does not copy either mana ability.
+- **Sculpting Steel** — Permanent copy of Cube, a large rock, or an opposing artifact.
 - **Talisman of Indulgence** — Early untapped Rakdos fixing.
 - **Thran Dynamo** — Large colorless rock that helps pay Cube's activation.
 - **Voltaic Key** — Cheapest artifact untapper for repeated Cube or rock activations.
@@ -74,14 +73,15 @@ Initial score: Jank 8, Fun 7, Mean 8, Creatureless 10, Board Control 9, Big Mana
 ### Draw and recovery
 
 - **Crystal Chimes** — Recovers the enchantment lock after mass removal.
-- **Daretti, Scrap Savant** — Filters dead cards and recurs Cube or another artifact without adding a creature.
-- **Mazemind Tome** — Early selection and cards from an artifact that Unwinding Clock can refresh.
+- **Chandra, Fire Artisan** — Repeatable impulse draw that also ping-damages if the exiled card is not played.
+- **Commune with Lava** — Instant-speed conversion of excess mana into a large exile-and-play refill.
+- **Endless Atlas** — Repeatable artifact draw once three Mountains or three Swamps are in play.
+- **Mazemind Tome** — Early selection and cards from an artifact that Keys can refresh.
 - **Night's Whisper** — Low-cost cards before the lock pieces come down.
 - **Beseech the Queen** — Finds Cube, a lock, or a finisher once enough lands are present without using a Game Changer tutor.
 - **Read the Bones** — Selection plus two cards to find lands or the missing package half.
 - **Demonic Collusion** — Reusable tutor that can turn spare cards into both the mana engine and the finisher.
 - **Dark Petition** — Finds either half of the finish and refunds three black mana once spell mastery is active.
-- **Scrap Mastery** — Rebuilds the artifact engine after removal.
 - **Stinging Study** — Draws four at instant speed from Mogis's mana value.
 - **Syphon Mind** — Multiplayer refill that also trims opposing answers.
 - **Warlock Class** — Filters at level two and later repeats opponents' life loss at end step.
@@ -92,7 +92,6 @@ Initial score: Jank 8, Fun 7, Mean 8, Creatureless 10, Board Control 9, Big Mana
 - **Crackle with Power** — Mana-inefficient early but the strongest conversion of Cube mana into three-player lethal.
 - **Dictate of the Twin Gods** — Flash lets the symmetrical doubler appear immediately before this deck's burn.
 - **Exsanguinate** — Drains every opponent and restores life lost while controlling the table.
-- **City on Fire** — Creatureless eight-mana triple-damage effect; the dead convoke text is accepted for a second asymmetrical amplifier.
 - **Fiery Emancipation** — Asymmetrical triple damage for the burn spells and Mogis.
 - **Furnace of Rath** — Efficient symmetrical doubler; sequencing waits until the deck can exploit it first.
 - **Reiterate** — Copies a finisher or opposing interaction; buyback makes excess mana useful without forming an included infinite-mana loop.
@@ -117,8 +116,9 @@ Initial score: Jank 8, Fun 7, Mean 8, Creatureless 10, Board Control 9, Big Mana
 - **Haunted Ridge** — Untapped Rakdos dual from turn three onward.
 - **Luxury Suite** — Multiplayer Rakdos dual that normally enters untapped.
 - **Mountain** — Resilient red source that supports fetches and avoids nonbasic punishment.
-- **Myriad Landscape** — Land drop that later adds two basics and two mana sources.
 - **Shadowblood Ridge** — Old filtering land that turns spare generic mana into Rakdos colors.
+- **Shivan Gorge** — Repeatable one damage to each opponent that scales with the damage amplifiers.
+- **Urza's Cave** — Untapped colorless land that later fetches Coffers, Urborg, Deserted Temple, or a missing color.
 - **Smoldering Marsh** — Fetchable typed dual that rewards the basic-land count.
 - **Sulfurous Springs** — Untapped color fixing with optional painless colorless mana.
 - **Swamp** — Resilient black source and the resource Cabal Coffers counts.
@@ -146,13 +146,26 @@ Initial score: Jank 8, Fun 7, Mean 8, Creatureless 10, Board Control 9, Big Mana
 - **Spreading Plague** — The creature-control package was already dense; City on Fire supplies a second asymmetrical triple-damage effect.
 - **Worn Powerstone** — Fixed two-mana production did not reward repeated untaps; Empowered Autogenerator grows each time it is reused.
 
+### 2026-09-09 — Fairness, shrink, and draw
+
+- **Caltrops** — Only mattered with Death Pits already in play; Engineered Plague is a second Night of Souls' Betrayal against the dominant type.
+- **City on Fire** — Eight mana with dead convoke; Curse of Death's Hold adds targeted permanent shrink instead.
+- **Rings of Brighthearth** — Cannot copy Doubling Cube's mana ability; Sculpting Steel copies Cube or a rock for real.
+- **Caged Sun** — Six mana and a dead anthem; Liquimetal Torque ramps earlier and opens artifact answers.
+- **Empowered Autogenerator** — Needs many turns to repay; Mirage Mirror copies Cube, Coffers, or an opposing engine for a turn.
+- **Brass's Bounty** — Seven-mana Treasure burst; Commune with Lava spends that mana on cards immediately.
+- **The Tabernacle at Pendrell Vale** — Fits the lock but is unfun at the table; Shivan Gorge keeps a fair damage land.
+- **Myriad Landscape** — Enters tapped for colorless; Urza's Cave enters untapped and finds the land that is actually missing.
+- **Daretti, Scrap Savant** — Looting without artifact density; Chandra, Fire Artisan is repeatable card access.
+- **Scrap Mastery** — Symmetrical artifact reset; Endless Atlas draws from the basic-land count.
+
 ## Rules
 
-- **Doubling Cube** — Scryfall's ruling explicitly identifies its activated ability as a mana ability, so Rings of Brighthearth cannot copy it. Each resolution doubles each type of unspent mana present at that resolution.
+- **Doubling Cube** — Scryfall's ruling explicitly identifies its activated ability as a mana ability, so it cannot be copied by effects that exclude mana abilities. Each resolution doubles each type of unspent mana present at that resolution.
 - **Mogis devotion** — Mogis contributes one black and one red devotion. If total devotion reaches seven, Mogis becomes a creature without entering, so Aether Flash does not trigger. Mogis remains indestructible.
 - **Damage and life loss** — Furnace and Fiery Emancipation modify damage, not Torment of Hailfire's life loss. Wound Reflection and Warlock Class care about life lost, including damage.
 - **Repercussion** — The creature is the damaged object, then Repercussion separately deals that much damage to its controller. Damage multipliers can modify both applicable events.
-- **Unwinding Clock** — Untapping Cube on opposing turns does not preserve mana by itself; it chiefly refreshes rocks and ensures Cube is ready on the next turn.
+- **Mirage Mirror** — The `{2}` activation is not a mana ability. Copying Doubling Cube until end of turn lets the Mirror tap for Cube's mana ability that turn; copying Cabal Coffers copies the land's `{2}, {T}` ability.
 
 ## Talks
 
@@ -209,3 +222,7 @@ Bracket 3−. The 2026-09-03 cached Game Changer snapshot identifies only The Ta
 The deck is not Bracket 2 because Tabernacle exceeds that printed zero-Game-Changer cap, the creature locks can remove meaningful choices from creature decks, and Cube can enable a large from-hand kill. It is not middle or high Bracket 3 because only 3/12 final hands killed by turn ten, interaction with noncreature engines was available in 6/12 by turn five, and artifact or enchantment removal commonly pushes the win beyond turn twelve.
 
 Measured win pace: credible high roll turn seven; normal goldfish turns ten to twelve; interactive game turn twelve or later. Pregame sentence: “Bracket 3− creatureless control deck with one Game Changer. Usually threatens a win around turns ten to twelve, with a turn-seven high roll.”
+
+### 2026-09-09 — Fairness and card-advantage pass
+
+Tabernacle leaves because it is unfun at this table even though it matches the lock. Rings, Caged Sun, Autogenerator, Brass's Bounty, Caltrops, City on Fire, Myriad, Daretti, and Scrap Mastery leave with it. Shrink density stays via Engineered Plague and Curse of Death's Hold. Draw increases with Chandra, Endless Atlas, and Commune with Lava. Mirage Mirror is the Autogenerator replacement because it copies Cube, Coffers, or an opposing permanent for a turn. Game Changer count is now zero against the 2026-09-03 snapshot. Bracket stays 3−: the creature locks and from-hand Cube finish still have Upgraded texture. Pregame sentence: “Bracket 3− creatureless control deck with no Game Changers. Usually threatens a win around turns ten to twelve, with a turn-seven high roll.”

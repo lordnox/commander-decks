@@ -1764,7 +1764,16 @@
     "empowered autogenerator": "6832f9e2-294a-44a2-8af9-eb16ccfdfc36",
     "mana flare": "97159138-c34b-416e-b079-5c952383a243",
     "the rollercrusher ride": "aed1f0cd-8df8-415f-afd6-ccfd12234334",
-    "nyx lotus": "cfb8cdde-11f6-441a-942b-32d8c191fc90"
+    "nyx lotus": "cfb8cdde-11f6-441a-942b-32d8c191fc90",
+    "chandra, fire artisan": "2867d539-6a63-4fae-aae2-a7fdd4dd9f28",
+    "engineered plague": "dc8210b4-8e17-4156-994b-e95e215e3e34",
+    "liquimetal torque": "b7d4b7dd-fbb1-4ca3-875f-ef13a95e66ad",
+    "curse of death's hold": "7194cf15-69fc-46f0-987a-2cea8b498f50",
+    "commune with lava": "f4aa0f64-d202-42a1-af62-0e53bbe87782",
+    "mirage mirror": "6a84eda1-7e72-4b5a-849f-b6e177565aeb",
+    "urza's cave": "4474ecee-0ec3-409b-90df-738d9313fe3c",
+    "endless atlas": "cb923c4d-1d2e-4039-90bb-72d1981b9738",
+    "shivan gorge": "e90a1381-c9c1-4f57-928c-5d19dc065274"
   },
   "schema_version": 1,
   "updated_at": "2026-09-09T06:34:35.986848+00:00"

@@ -1,0 +1,131 @@
+{
+  "artist": "Andrew Goldhawk",
+  "artist_ids": [
+    "f4a65a04-9e2e-4541-8d0e-f34e9517f092"
+  ],
+  "booster": true,
+  "border_color": "white",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 2895,
+  "cmc": 3.0,
+  "collector_number": "133",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 21440,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "A single germ can kill more soldiers than ten thousand blades.",
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b669e43e-3b11-42c9-8f20-0acce129e63c",
+  "illustration_id": "17af2f25-eeb7-407e-8a5c-f3908343004a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:25:04Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/6/b669e43e-3b11-42c9-8f20-0acce129e63c.webp?1783945504",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/6/b669e43e-3b11-42c9-8f20-0acce129e63c.jpg?1783945504",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/6/b669e43e-3b11-42c9-8f20-0acce129e63c.jpg?1783945504",
+    "crop": "https://cards.scryfall.io/crop/front/b/6/b669e43e-3b11-42c9-8f20-0acce129e63c.webp?1783945504",
+    "display": "https://cards.scryfall.io/display/front/b/6/b669e43e-3b11-42c9-8f20-0acce129e63c.webp?1783945504",
+    "grid": "https://cards.scryfall.io/grid/front/b/6/b669e43e-3b11-42c9-8f20-0acce129e63c.webp?1783945504",
+    "large": "https://cards.scryfall.io/large/front/b/6/b669e43e-3b11-42c9-8f20-0acce129e63c.jpg?1783945504",
+    "normal": "https://cards.scryfall.io/normal/front/b/6/b669e43e-3b11-42c9-8f20-0acce129e63c.jpg?1783945504",
+    "png": "https://cards.scryfall.io/png/front/b/6/b669e43e-3b11-42c9-8f20-0acce129e63c.png?1783945504",
+    "small": "https://cards.scryfall.io/small/front/b/6/b669e43e-3b11-42c9-8f20-0acce129e63c.jpg?1783945504",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/6/b669e43e-3b11-42c9-8f20-0acce129e63c.webp?1783945504"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_foil_id": 15495,
+  "mtgo_id": 15494,
+  "multiverse_ids": [
+    13097
+  ],
+  "name": "Engineered Plague",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "dc8210b4-8e17-4156-994b-e95e215e3e34",
+  "oracle_text": "As this enchantment enters, choose a creature type.\nAll creatures of the chosen type get -1/-1.",
+  "oversized": false,
+  "penny_rank": 2942,
+  "prices": {
+    "eur": "7.24",
+    "eur_foil": null,
+    "tix": "4.75",
+    "usd": "7.32",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Adc8210b4-8e17-4156-994b-e95e215e3e34&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/15494?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=2895&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F2889%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Engineered+Plague",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=13097&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEngineered%2BPlague",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEngineered%2BPlague"
+  },
+  "released_at": "2001-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b669e43e-3b11-42c9-8f20-0acce129e63c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/7ed?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/7ed/133/engineered-plague?utm_source=api",
+  "set": "7ed",
+  "set_id": "230f38aa-9511-4db8-a3aa-aeddbc3f7bb9",
+  "set_name": "Seventh Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A7ed&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/230f38aa-9511-4db8-a3aa-aeddbc3f7bb9",
+  "story_spotlight": false,
+  "tcgplayer_id": 2889,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/b669e43e-3b11-42c9-8f20-0acce129e63c",
+  "variation": false
+}

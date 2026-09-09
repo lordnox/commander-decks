@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "cutoff": 3,
-  "summary": "Creatureless Rakdos control: tax creature boards, double artifact mana, and finish with oversized X-burn.",
+  "summary": "Creatureless Rakdos control: tax creature boards, copy artifact mana, and finish with oversized X-burn.",
   "tags": [
     {
       "name": "burn",
@@ -26,12 +26,12 @@
     {
       "name": "stax",
       "score": 3,
-      "reason": "Tabernacle, Smoke, Mudslide, and entrance punishers restrict creature play."
+      "reason": "Mudslide, Engineered Plague, Lethal Vapors, and entrance punishers restrict creature play."
     },
     {
       "name": "group slug",
       "score": 2,
-      "reason": "Mogis and attack taxes drain the table, but X-burn remains the main kill."
+      "reason": "Mogis and Shivan Gorge drain the table, but X-burn remains the main kill."
     },
     {
       "name": "spellslinger",

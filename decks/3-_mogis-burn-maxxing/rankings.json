@@ -5,14 +5,14 @@
     "Big Mana Burn"
   ],
   "scores": {
-    "jankiness": 8,
-    "fun": 7,
-    "oppressiveness": 8,
+    "jankiness": 9,
+    "fun": 8,
+    "oppressiveness": 7,
     "identity": {
       "Creatureless": 10,
       "Board Control": 9,
       "Big Mana Burn": 8
     }
   },
-  "notes": "The 99 is literally creatureless and uses unusual old enchantments plus finite Cube math. Sequencing locks, mana, and symmetrical doublers gives the pilot decisions, but repeated entrance and upkeep denial is deliberately oppressive to creature decks."
+  "notes": "The 99 is still creatureless. Old shrink enchantments plus Mirage Mirror copying Cube or Coffers keep the list unusual. Tabernacle is gone, so creature decks keep more decisions, while the remaining entrance and upkeep taxes are still harsh."
 }

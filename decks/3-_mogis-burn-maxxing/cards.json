@@ -192,35 +192,27 @@
       "submitted_name": "Bloodstained Mire"
     },
     {
-      "cache": "cards/63b0538e-aa94-4e23-adf1-704cbf5bc3e5.json",
+      "cache": "cards/2867d539-6a63-4fae-aae2-a7fdd4dd9f28.json",
       "card": {
-        "cmc": 7.0,
-        "keywords": [
-          "Treasure"
-        ],
-        "mana_cost": "{6}{R}",
-        "oracle_text": "For each land you control, create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
-        "produced_mana": [
-          "B",
-          "G",
-          "R",
-          "U",
-          "W"
-        ],
-        "type_line": "Sorcery"
+        "cmc": 4.0,
+        "keywords": [],
+        "loyalty": "4",
+        "mana_cost": "{2}{R}{R}",
+        "oracle_text": "Whenever one or more loyalty counters are removed from Chandra, she deals that much damage to target opponent or planeswalker.\n+1: Exile the top card of your library. You may play it this turn.\n−7: Exile the top seven cards of your library. You may play them this turn.",
+        "type_line": "Legendary Planeswalker — Chandra"
       },
       "categories": [
-        "Ramp"
+        "Draw"
       ],
       "category_source": "decklist",
-      "name": "Brass's Bounty",
-      "oracle_id": "63b0538e-aa94-4e23-adf1-704cbf5bc3e5",
+      "name": "Chandra, Fire Artisan",
+      "oracle_id": "2867d539-6a63-4fae-aae2-a7fdd4dd9f28",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/fdn/190/brasss-bounty?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/war/119/chandra-fire-artisan?utm_source=api",
       "submitted_categories": [
-        "Ramp"
+        "Draw"
       ],
-      "submitted_name": "Brass's Bounty"
+      "submitted_name": "Chandra, Fire Artisan"
     },
     {
       "cache": "cards/3c7f2b29-9f42-41ab-a2d4-7a450fb0242d.json",
@@ -302,26 +294,26 @@
       "submitted_name": "Cabal Coffers"
     },
     {
-      "cache": "cards/b13f97b3-56ae-4131-a93b-b162c8ff7cca.json",
+      "cache": "cards/dc8210b4-8e17-4156-994b-e95e215e3e34.json",
       "card": {
         "cmc": 3.0,
         "keywords": [],
-        "mana_cost": "{3}",
-        "oracle_text": "Whenever a creature attacks, this artifact deals 1 damage to it.",
-        "type_line": "Artifact"
+        "mana_cost": "{2}{B}",
+        "oracle_text": "As this enchantment enters, choose a creature type.\nAll creatures of the chosen type get -1/-1.",
+        "type_line": "Enchantment"
       },
       "categories": [
         "Creature Lock"
       ],
       "category_source": "decklist",
-      "name": "Caltrops",
-      "oracle_id": "b13f97b3-56ae-4131-a93b-b162c8ff7cca",
+      "name": "Engineered Plague",
+      "oracle_id": "dc8210b4-8e17-4156-994b-e95e215e3e34",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/7ed/288/caltrops?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/7ed/133/engineered-plague?utm_source=api",
       "submitted_categories": [
         "Creature Lock"
       ],
-      "submitted_name": "Caltrops"
+      "submitted_name": "Engineered Plague"
     },
     {
       "cache": "cards/2031b17c-0536-446f-a9aa-b46fe79b7ea7.json",
@@ -352,35 +344,29 @@
       "submitted_name": "Canyon Slough"
     },
     {
-      "cache": "cards/09b895ff-e729-48d1-bfc1-ea5fd7adda6a.json",
+      "cache": "cards/b7d4b7dd-fbb1-4ca3-875f-ef13a95e66ad.json",
       "card": {
-        "cmc": 6.0,
+        "cmc": 2.0,
         "keywords": [],
-        "mana_cost": "{6}",
-        "oracle_text": "As this artifact enters, choose a color.\nCreatures you control of the chosen color get +1/+1.\nWhenever a land's ability causes you to add one or more mana of the chosen color, add an additional one mana of that color.",
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add {C}.\n{T}: Target nonland permanent becomes an artifact in addition to its other types until end of turn.",
         "produced_mana": [
-          "B",
-          "G",
-          "R",
-          "U",
-          "W"
+          "C"
         ],
         "type_line": "Artifact"
       },
       "categories": [
-        "Ramp",
-        "Mana Doubling"
+        "Ramp"
       ],
       "category_source": "decklist",
-      "name": "Caged Sun",
-      "oracle_id": "09b895ff-e729-48d1-bfc1-ea5fd7adda6a",
+      "name": "Liquimetal Torque",
+      "oracle_id": "b7d4b7dd-fbb1-4ca3-875f-ef13a95e66ad",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cm2/178/caged-sun?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mh2/228/liquimetal-torque?utm_source=api",
       "submitted_categories": [
-        "Ramp",
-        "Mana Doubling"
+        "Ramp"
       ],
-      "submitted_name": "Caged Sun"
+      "submitted_name": "Liquimetal Torque"
     },
     {
       "cache": "cards/086b2564-9114-4ba2-94fd-b490f98f38a7.json",
@@ -427,29 +413,28 @@
       "submitted_name": "Chaos Warp"
     },
     {
-      "cache": "cards/41eec4e8-92d3-4f98-9346-3a3e3cc602ce.json",
+      "cache": "cards/7194cf15-69fc-46f0-987a-2cea8b498f50.json",
       "card": {
-        "cmc": 8.0,
+        "cmc": 5.0,
         "keywords": [
-          "Triple",
-          "Convoke"
+          "Enchant"
         ],
-        "mana_cost": "{5}{R}{R}{R}",
-        "oracle_text": "Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.)\nIf a source you control would deal damage to a permanent or player, it deals triple that damage instead.",
-        "type_line": "Enchantment"
+        "mana_cost": "{3}{B}{B}",
+        "oracle_text": "Enchant player\nCreatures enchanted player controls get -1/-1.",
+        "type_line": "Enchantment — Aura Curse"
       },
       "categories": [
-        "Damage Amplifier"
+        "Creature Lock"
       ],
       "category_source": "decklist",
-      "name": "City on Fire",
-      "oracle_id": "41eec4e8-92d3-4f98-9346-3a3e3cc602ce",
+      "name": "Curse of Death's Hold",
+      "oracle_id": "7194cf15-69fc-46f0-987a-2cea8b498f50",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mom/135/city-on-fire?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/isd/94/curse-of-deaths-hold?utm_source=api",
       "submitted_categories": [
-        "Damage Amplifier"
+        "Creature Lock"
       ],
-      "submitted_name": "City on Fire"
+      "submitted_name": "Curse of Death's Hold"
     },
     {
       "cache": "cards/5d0f4665-aa10-4251-b590-129b59274fb3.json",
@@ -610,29 +595,26 @@
       "submitted_name": "Cut // Ribbons"
     },
     {
-      "cache": "cards/ea9f4de3-fc35-435a-8dff-a5657d14a9bd.json",
+      "cache": "cards/f4aa0f64-d202-42a1-af62-0e53bbe87782.json",
       "card": {
-        "cmc": 4.0,
+        "cmc": 2.0,
         "keywords": [],
-        "loyalty": "3",
-        "mana_cost": "{3}{R}",
-        "oracle_text": "+2: Discard up to two cards, then draw that many cards.\n−2: Sacrifice an artifact. If you do, return target artifact card from your graveyard to the battlefield.\n−10: You get an emblem with \"Whenever an artifact is put into your graveyard from the battlefield, return that card to the battlefield at the beginning of the next end step.\"\nDaretti, Scrap Savant can be your commander.",
-        "type_line": "Legendary Planeswalker — Daretti"
+        "mana_cost": "{X}{R}{R}",
+        "oracle_text": "Exile the top X cards of your library. Until the end of your next turn, you may play those cards.",
+        "type_line": "Instant"
       },
       "categories": [
-        "Draw",
-        "Recursion"
+        "Draw"
       ],
       "category_source": "decklist",
-      "name": "Daretti, Scrap Savant",
-      "oracle_id": "ea9f4de3-fc35-435a-8dff-a5657d14a9bd",
+      "name": "Commune with Lava",
+      "oracle_id": "f4aa0f64-d202-42a1-af62-0e53bbe87782",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cmm/213/daretti-scrap-savant?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/afc/118/commune-with-lava?utm_source=api",
       "submitted_categories": [
-        "Draw",
-        "Recursion"
+        "Draw"
       ],
-      "submitted_name": "Daretti, Scrap Savant"
+      "submitted_name": "Commune with Lava"
     },
     {
       "cache": "cards/79acdb37-8d52-4bc8-a7be-a7e92b6166e5.json",
@@ -840,33 +822,26 @@
       "submitted_name": "Dragonskull Summit"
     },
     {
-      "cache": "cards/6832f9e2-294a-44a2-8af9-eb16ccfdfc36.json",
+      "cache": "cards/6a84eda1-7e72-4b5a-849f-b6e177565aeb.json",
       "card": {
-        "cmc": 4.0,
+        "cmc": 3.0,
         "keywords": [],
-        "mana_cost": "{4}",
-        "oracle_text": "This artifact enters tapped.\n{T}: Put a charge counter on this artifact. Add X mana of any one color, where X is the number of charge counters on this artifact.",
-        "produced_mana": [
-          "B",
-          "G",
-          "R",
-          "U",
-          "W"
-        ],
+        "mana_cost": "{3}",
+        "oracle_text": "{2}: This artifact becomes a copy of target artifact, creature, enchantment, or land until end of turn.",
         "type_line": "Artifact"
       },
       "categories": [
-        "Ramp"
+        "Copy"
       ],
       "category_source": "decklist",
-      "name": "Empowered Autogenerator",
-      "oracle_id": "6832f9e2-294a-44a2-8af9-eb16ccfdfc36",
+      "name": "Mirage Mirror",
+      "oracle_id": "6a84eda1-7e72-4b5a-849f-b6e177565aeb",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/eoc/135/empowered-autogenerator?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/msc/206/mirage-mirror?utm_source=api",
       "submitted_categories": [
-        "Ramp"
+        "Copy"
       ],
-      "submitted_name": "Empowered Autogenerator"
+      "submitted_name": "Mirage Mirror"
     },
     {
       "cache": "cards/0a79237e-0811-4a8a-bd4d-db3ca91bff22.json",
@@ -1290,31 +1265,31 @@
       "submitted_name": "Mudslide"
     },
     {
-      "cache": "cards/2549bc57-9ffb-4053-9f10-f2a5f792b845.json",
+      "cache": "cards/4474ecee-0ec3-409b-90df-738d9313fe3c.json",
       "card": {
         "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
-        "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Search your library for up to two basic land cards that share a land type, put them onto the battlefield tapped, then shuffle.",
+        "oracle_text": "{T}: Add {C}.\n{3}, {T}, Sacrifice this land: Search your library for a land card, put it onto the battlefield tapped, then shuffle.",
         "produced_mana": [
           "C"
         ],
-        "type_line": "Land"
+        "type_line": "Land — Urza's Cave"
       },
       "categories": [
         "Land",
         "Ramp"
       ],
       "category_source": "decklist",
-      "name": "Myriad Landscape",
-      "oracle_id": "2549bc57-9ffb-4053-9f10-f2a5f792b845",
+      "name": "Urza's Cave",
+      "oracle_id": "4474ecee-0ec3-409b-90df-738d9313fe3c",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/eoc/169/myriad-landscape?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mh3/234/urzas-cave?utm_source=api",
       "submitted_categories": [
         "Land",
         "Ramp"
       ],
-      "submitted_name": "Myriad Landscape"
+      "submitted_name": "Urza's Cave"
     },
     {
       "cache": "cards/916bd025-c44f-49c9-8d76-4b7b2f9a8ba3.json",
@@ -1505,50 +1480,48 @@
       "submitted_name": "Repercussion"
     },
     {
-      "cache": "cards/bbf9494c-c4bb-4d36-98fe-8387846b342e.json",
+      "cache": "cards/6c85271c-c711-49b0-a72e-9e576c33714d.json",
       "card": {
         "cmc": 3.0,
         "keywords": [],
         "mana_cost": "{3}",
-        "oracle_text": "Whenever you activate an ability, if it isn't a mana ability, you may pay {2}. If you do, copy that ability. You may choose new targets for the copy.",
+        "oracle_text": "You may have this artifact enter as a copy of any artifact on the battlefield.",
         "type_line": "Artifact"
       },
       "categories": [
-        "Copy",
-        "Mana Doubling"
+        "Copy"
       ],
       "category_source": "decklist",
-      "name": "Rings of Brighthearth",
-      "oracle_id": "bbf9494c-c4bb-4d36-98fe-8387846b342e",
+      "name": "Sculpting Steel",
+      "oracle_id": "6c85271c-c711-49b0-a72e-9e576c33714d",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cmr/335/rings-of-brighthearth?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/moc/374/sculpting-steel?utm_source=api",
       "submitted_categories": [
-        "Copy",
-        "Mana Doubling"
+        "Copy"
       ],
-      "submitted_name": "Rings of Brighthearth"
+      "submitted_name": "Sculpting Steel"
     },
     {
-      "cache": "cards/62dac700-49f7-4745-af67-37d2a81dcebc.json",
+      "cache": "cards/cb923c4d-1d2e-4039-90bb-72d1981b9738.json",
       "card": {
-        "cmc": 5.0,
+        "cmc": 2.0,
         "keywords": [],
-        "mana_cost": "{3}{R}{R}",
-        "oracle_text": "Each player exiles all artifact cards from their graveyard, then sacrifices all artifacts they control, then puts all cards they exiled this way onto the battlefield.",
-        "type_line": "Sorcery"
+        "mana_cost": "{2}",
+        "oracle_text": "{2}, {T}: Draw a card. Activate only if you control three or more lands with the same name.",
+        "type_line": "Artifact"
       },
       "categories": [
-        "Recursion"
+        "Draw"
       ],
       "category_source": "decklist",
-      "name": "Scrap Mastery",
-      "oracle_id": "62dac700-49f7-4745-af67-37d2a81dcebc",
+      "name": "Endless Atlas",
+      "oracle_id": "cb923c4d-1d2e-4039-90bb-72d1981b9738",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/cm2/116/scrap-mastery?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/cmm/947/endless-atlas?utm_source=api",
       "submitted_categories": [
-        "Recursion"
+        "Draw"
       ],
-      "submitted_name": "Scrap Mastery"
+      "submitted_name": "Endless Atlas"
     },
     {
       "cache": "cards/15687ee3-3cdb-4a8f-a726-46b73bceb792.json",
@@ -1909,28 +1882,31 @@
       "submitted_name": "The Meathook Massacre"
     },
     {
-      "cache": "cards/69b409b3-fa16-4c79-8b46-215a7036ed46.json",
+      "cache": "cards/e90a1381-c9c1-4f57-928c-5d19dc065274.json",
       "card": {
         "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
-        "oracle_text": "All creatures have \"At the beginning of your upkeep, destroy this creature unless you pay {1}.\"",
+        "oracle_text": "{T}: Add {C}.\n{2}{R}, {T}: Shivan Gorge deals 1 damage to each opponent.",
+        "produced_mana": [
+          "C"
+        ],
         "type_line": "Legendary Land"
       },
       "categories": [
         "Land",
-        "Creature Lock"
+        "Damage"
       ],
       "category_source": "decklist",
-      "name": "The Tabernacle at Pendrell Vale",
-      "oracle_id": "69b409b3-fa16-4c79-8b46-215a7036ed46",
+      "name": "Shivan Gorge",
+      "oracle_id": "e90a1381-c9c1-4f57-928c-5d19dc065274",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/leg/307/the-tabernacle-at-pendrell-vale?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/dsc/297/shivan-gorge?utm_source=api",
       "submitted_categories": [
         "Land",
-        "Creature Lock"
+        "Damage"
       ],
-      "submitted_name": "The Tabernacle at Pendrell Vale"
+      "submitted_name": "Shivan Gorge"
     },
     {
       "cache": "cards/a699c663-8131-4045-9265-a83e86609374.json",
@@ -2173,7 +2149,7 @@
     }
   ],
   "categorized_cards": 87,
-  "generated_at": "2026-09-08T19:16:37.944039+00:00",
+  "generated_at": "2026-09-09T06:35:04.576039+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 87,
