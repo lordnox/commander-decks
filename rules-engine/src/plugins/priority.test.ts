@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
-import { bears, bolt, newGame } from '../newGame'
+import { bears, bolt, newGame } from '../testGame'
 import type { GameState, ReduceResult, StackItem } from '../types'
 import { priority } from './priority'
 import { turnStructure } from './turnStructure'

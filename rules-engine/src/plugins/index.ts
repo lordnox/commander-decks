@@ -8,10 +8,8 @@ import { spells } from './spells'
 import { stateBased } from './stateBased'
 import { turnStructure } from './turnStructure'
 
-/** Always registered in the catalog. Only live in a game if a RuleInstance exists. */
-export const optionalPlugins = [manaBurn]
-
-export const defaultPlugins = [
+/** Available implementations. A GameFormat decides which become live rules. */
+export const builtInPlugins = [
   turnStructure,
   priority,
   mana,
@@ -20,7 +18,7 @@ export const defaultPlugins = [
   stateBased,
   combat,
   commander,
-  ...optionalPlugins,
+  manaBurn,
 ]
 
 export {

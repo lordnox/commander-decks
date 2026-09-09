@@ -1,9 +1,8 @@
 import { describe, expect, test } from 'bun:test'
-import { createEngine } from './index'
+import { commanderRules, createEngine } from './index'
 import { forest, newGame, yarokFixture } from './newGame'
-import { SEAT_IDS } from './types'
 
-const engine = createEngine()
+const engine = createEngine(commanderRules)
 const ok = (result: ReturnType<typeof engine.rules>) => {
   if (!result.ok) throw new Error(result.error)
   return result.state
@@ -12,7 +11,7 @@ const ok = (result: ReturnType<typeof engine.rules>) => {
 describe('createEngine', () => {
   test('Yarok entering installs manaBurn and leaving removes it', () => {
     const { rules } = engine
-    let state = newGame({
+    let state = newGame(commanderRules, {
       hands: { p1: [yarokFixture(), forest()] },
     })
     const yarok = Object.values(state.objects).find((object) => object.name.startsWith('Yarok'))!
@@ -41,7 +40,7 @@ describe('createEngine', () => {
 
   test('addRule and removeRule toggle manaBurn without a permanent', () => {
     const { rules } = engine
-    let state = newGame()
+    let state = newGame(commanderRules)
     state = ok(rules(state, { type: 'addRule', pluginId: 'manaBurn' }))
     state = ok(rules(state, { type: 'addMana', seat: 'p2', mana: { U: 1 } }))
     state = ok(rules(state, { type: 'emptyManaPools' }))
@@ -54,9 +53,9 @@ describe('createEngine', () => {
 
   test('four priority passes on an empty stack advance the step', () => {
     const { rules } = engine
-    let state = newGame()
+    let state = newGame(commanderRules)
     expect(state.step).toBe('precombatMain')
-    for (const seat of SEAT_IDS) {
+    for (const seat of state.playerOrder) {
       state = ok(rules(state, { type: 'passPriority', seat }))
     }
     expect(state.step).toBe('beginCombat')
@@ -65,7 +64,7 @@ describe('createEngine', () => {
 
   test('an illegal land play leaves the state unchanged', () => {
     const { rules } = engine
-    const state = newGame({ hands: { p1: [forest()] } })
+    const state = newGame(commanderRules, { hands: { p1: [forest()] } })
     const land = Object.values(state.objects)[0]
     const first = ok(rules(state, { type: 'playLand', seat: 'p1', objectId: land.id }))
     const second = rules(first, { type: 'playLand', seat: 'p1', objectId: land.id })

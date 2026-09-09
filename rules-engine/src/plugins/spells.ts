@@ -7,8 +7,8 @@ const COLORED_MANA: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
 const genericCost = (manaCost: string) =>
   [...manaCost.matchAll(/\{(\d+)\}/g)].reduce((total, match) => total + Number(match[1]), 0)
 
-const spellCost = (object: GameObject, commanderTax: number) =>
-  `${object.manaCost}${object.zone === 'command' && object.commander ? `{${commanderTax}}` : ''}`
+const spellCost = (object: GameObject, additionalGeneric = 0) =>
+  `${object.manaCost}${additionalGeneric > 0 ? `{${additionalGeneric}}` : ''}`
 
 export const payCost = (pool: ManaPool, manaCost: string) => {
   const parsed = parseManaCost(manaCost)
@@ -51,8 +51,7 @@ export const spells: Plugin = {
     if (event.type === 'castSpell') {
       const object = state.objects[event.objectId]
       if (!object) return 'spell object does not exist'
-      const castableZone = object.zone === 'hand' || (object.zone === 'command' && object.commander)
-      if (!castableZone) return 'spell is not in hand or command zone'
+      if (!state.castableZones.includes(object.zone)) return 'spell is not in a castable zone'
       if (object.owner !== event.seat || object.controller !== event.seat) {
         return 'spell is not owned and controlled by that seat'
       }
@@ -66,7 +65,7 @@ export const spells: Plugin = {
         if (state.stack.length > 0) return 'non-instant spells require an empty stack'
       }
 
-      const cost = spellCost(object, state.players[event.seat].commanderTax)
+      const cost = spellCost(object, event.additionalGeneric)
       if (!payCost(state.players[event.seat].mana, cost)) return 'not enough mana'
     }
 
@@ -76,7 +75,7 @@ export const spells: Plugin = {
     if (event.type === 'castSpell') {
       const object = draft.object(event.objectId)
       if (!object) return
-      const cost = spellCost(object, draft.players[event.seat].commanderTax)
+      const cost = spellCost(object, event.additionalGeneric)
       const paid = payCost(draft.players[event.seat].mana, cost)
       if (!paid) return
 
@@ -103,10 +102,10 @@ export const spells: Plugin = {
 
       if (object.name === 'Lightning Bolt') {
         const target = item.targets[0]
-        if (target && target in draft.players) {
-          draft.players[target as keyof typeof draft.players].life -= 3
-        } else if (target) {
-          const targetObject = draft.object(target)
+        if (target?.kind === 'player' && draft.players[target.player]) {
+          draft.players[target.player].life -= 3
+        } else if (target?.kind === 'object') {
+          const targetObject = draft.object(target.objectId)
           if (targetObject) targetObject.damageMarked += 3
         }
       }

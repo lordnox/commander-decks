@@ -1,4 +1,4 @@
-import { SEAT_IDS, type GameObject, type GameState, type ManaPool, type SeatId, type ZoneId } from './types'
+import type { GameObject, GameState, ManaPool, PlayerId, ZoneId } from './types'
 
 export const emptyMana = (): ManaPool => ({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
 
@@ -33,8 +33,10 @@ export const parseManaCost = (cost: string): Partial<ManaPool> => {
   return out
 }
 
-export const nextSeat = (seat: SeatId) =>
-  SEAT_IDS[(SEAT_IDS.indexOf(seat) + 1) % SEAT_IDS.length]
+export const nextPlayer = (state: GameState, player: PlayerId) => {
+  const index = state.playerOrder.indexOf(player)
+  return state.playerOrder[(index + 1) % state.playerOrder.length]
+}
 
 export type Draft = GameState & {
   pending: import('./types').GameEvent[]
@@ -44,7 +46,7 @@ export type Draft = GameState & {
   note: (line: string) => void
   object: (id: string) => GameObject | undefined
   move: (id: string, to: ZoneId) => GameObject | undefined
-  zoneOf: (zone: ZoneId, seat?: SeatId) => GameObject[]
+  zoneOf: (zone: ZoneId, player?: PlayerId) => GameObject[]
 }
 
 export const makeDraft = (state: GameState): Draft => {

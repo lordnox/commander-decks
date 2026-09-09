@@ -1,7 +1,7 @@
 import { expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
-import { bears, newGame } from '../newGame'
+import { bears, newGame } from '../testGame'
 import type { Plugin } from '../types'
 import { stateBased } from './stateBased'
 

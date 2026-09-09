@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { emptyMana } from '../draft'
 import { rules } from '../kernel'
-import { bolt, newGame } from '../newGame'
+import { bolt, newGame } from '../testGame'
 import { payCost, spells } from './spells'
 
 describe('spells', () => {
@@ -22,7 +22,12 @@ describe('spells', () => {
 
     const cast = rules(
       state,
-      { type: 'castSpell', seat: 'p1', objectId: boltId, targets: ['p2'] },
+      {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: boltId,
+        targets: [{ kind: 'player', player: 'p2' }],
+      },
       catalog,
     )
     expect(cast.ok).toBe(true)

@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
-import { bears, forest, newGame } from '../newGame'
+import { bears, forest, newGame } from '../testGame'
 import type { GameState, ReduceResult } from '../types'
 import { lands } from './lands'
 import { mana } from './mana'
