@@ -19,6 +19,7 @@ import {
   journalPath,
   replayPath,
 } from './session'
+import { kernelPath } from './kernelHost'
 
 export type AgentResult = {
   /** Generic public status only. Never include plan contents or strategic detail. */
@@ -33,6 +34,8 @@ export type AgentResult = {
   /** Full actionable prompt visible only to the originating seat. */
   privateWaiting?: string
   replayChanged?: boolean
+  pluginsChanged?: boolean
+  needsPlugin?: string[]
   allowedActions?: PlayAction[]
 }
 
@@ -118,13 +121,26 @@ Read and follow:
 - .agents/skills/live-table/SKILL.md
 - .agents/skills/simulate-table/SKILL.md
 - .agents/skills/simulate-table/GAMEPLAY-HINTS.md
-- table-games/${slug}.json
+- rules-engine/DESIGN.md
+- cards/rules-plugins.json
+- table-games/${slug}.json (if present)
+- table-games/${slug}.kernel.json (authoritative rules journal, if present)
 - table-games/${slug}.inbox.jsonl
 
 The newest event to process is seat ${seat}, conduit generation ${generation}:
 ${JSON.stringify(message)}
 
 Do exactly one host step:
+- Use the rules kernel whenever the line is covered (turn structure, priority,
+  lands, mana, simple casts, combat damage, registered card plugins). Prefer
+  appending a legal GameEvent through reasoning about table-games/${slug}.kernel.json
+  over inventing replay-only shortcuts.
+- If a card has a weird rules interaction (see Yurlok of Scorch Thrash), look it
+  up in cards/rules-plugins.json. If it is missing, do not execute the line.
+  Write a plugin under rules-engine/src/cardPlugins/, a bun test that would fail
+  on the old behavior, and an oracle-id entry in cards/rules-plugins.json.
+  Set pluginsChanged true. Set needsPlugin to the card names if you cannot
+  finish the plugin in this step. Pause for confirmation after the plugin exists.
 - plan/replace: check legality, mana, timing, targets, triggers, combat math,
   visible responses, and politics. Do not execute it. Ask for confirmation or
   a replacement.
@@ -163,7 +179,7 @@ Never access conduit credentials. They are intentionally absent. Never commit,
 push, or edit deck files.
 
 Write table-games/${slug}.agent-result.json containing one JSON object:
-{"judge":"generic public status","privateJudge":"full response for ${seat}","privateSummary":"one concise private history line","waiting":"generic public prompt","privateWaiting":"specific private prompt for ${seat}","replayChanged":false,"allowedActions":["confirm","replace"]}
+{"judge":"generic public status","privateJudge":"full response for ${seat}","privateSummary":"one concise private history line","waiting":"generic public prompt","privateWaiting":"specific private prompt for ${seat}","replayChanged":false,"pluginsChanged":false,"needsPlugin":[],"allowedActions":["confirm","replace"]}
 
 For plan/replace, allowedActions must be ["confirm","replace"] when the line is
 legal, or ["replace"] when it is not. For other message types, omit it.
@@ -245,8 +261,9 @@ export const invokeHostAgent = async (options: {
 }) => {
   const { root, slug, seat, generation, message, logFile } = options
   const sourceReplay = replayPath(slug, root)
-  if (!existsSync(sourceReplay)) {
-    throw new Error(`cannot invoke host agent without ${sourceReplay}`)
+  const sourceKernel = kernelPath(slug, root)
+  if (!existsSync(sourceReplay) && !existsSync(sourceKernel)) {
+    throw new Error(`cannot invoke host agent without ${sourceReplay} or ${sourceKernel}`)
   }
 
   const scratchParent = mkdtempSync(join(tmpdir(), `live-host-${slug}-`))
@@ -256,7 +273,8 @@ export const invokeHostAgent = async (options: {
   try {
     await run(['git', 'worktree', 'add', '--detach', scratch, 'HEAD'], root)
     mkdirSync(dirname(scratchReplay), { recursive: true })
-    cpSync(sourceReplay, scratchReplay)
+    if (existsSync(sourceReplay)) cpSync(sourceReplay, scratchReplay)
+    if (existsSync(sourceKernel)) cpSync(sourceKernel, kernelPath(slug, scratch))
     const sourceJournal = journalPath(slug, root)
     if (existsSync(sourceJournal)) {
       cpSync(sourceJournal, journalPath(slug, scratch))
@@ -342,14 +360,35 @@ export const invokeHostAgent = async (options: {
         .slice(0, 400)
     }
     if (result.replayChanged) {
+      if (!existsSync(sourceReplay) || !existsSync(scratchReplay)) {
+        throw new Error('agent claimed a replay change without a replay file')
+      }
       validateReplayReplacement(sourceReplay, scratchReplay)
       cpSync(scratchReplay, sourceReplay)
     }
-    const publicReplay = result.replayChanged ? scratchReplay : sourceReplay
-    if (result.judge) result.judge = redactHiddenCards(result.judge, publicReplay)
-    if (result.talk) result.talk = redactHiddenCards(result.talk, publicReplay)
-    if (result.waiting) {
-      result.waiting = redactHiddenCards(result.waiting, publicReplay)
+    const scratchKernel = kernelPath(slug, scratch)
+    if (existsSync(scratchKernel)) {
+      cpSync(scratchKernel, sourceKernel)
+    }
+    if (result.pluginsChanged) {
+      const pluginDir = 'rules-engine/src/cardPlugins'
+      const registry = 'cards/rules-plugins.json'
+      if (existsSync(join(scratch, pluginDir))) {
+        cpSync(join(scratch, pluginDir), join(root, pluginDir), { recursive: true })
+      }
+      if (existsSync(join(scratch, registry))) {
+        cpSync(join(scratch, registry), join(root, registry))
+      }
+    }
+    const publicReplay = result.replayChanged && existsSync(scratchReplay)
+      ? scratchReplay
+      : existsSync(sourceReplay) ? sourceReplay : scratchReplay
+    if (existsSync(publicReplay)) {
+      if (result.judge) result.judge = redactHiddenCards(result.judge, publicReplay)
+      if (result.talk) result.talk = redactHiddenCards(result.talk, publicReplay)
+      if (result.waiting) {
+        result.waiting = redactHiddenCards(result.waiting, publicReplay)
+      }
     }
     logLine(logFile, `agent done ${seat} generation ${generation}`)
     return result

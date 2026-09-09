@@ -5,6 +5,7 @@ import {
   useState,
 } from 'react'
 import { combatLines } from './combat'
+import { commanderRules, createClientGame } from '../../rules-engine/src/index'
 import {
   conduitPublicUrl,
   encodePublicLivePayload,
@@ -196,6 +197,7 @@ export const LivePage = () => {
   const [inboxType, setInboxType] = useState<InboxType>('plan')
   const [hidePlan, setHidePlan] = useState(false)
   const [logOpen, setLogOpen] = useState(false)
+  const [historyIndex, setHistoryIndex] = useState<number | null>(null)
   const [status, setStatus] = useState('')
   const [conduitStatus, setConduitStatus] = useState('')
   const [hydrationStatus, setHydrationStatus] = useState('')
@@ -231,6 +233,7 @@ export const LivePage = () => {
               const decoded = await openLivePayload(payload, base)
               if (cancelled || currentUpdate !== update) return
               setSnapshot(decoded)
+              setHistoryIndex(decoded.historyCursor ?? decoded.history?.length ?? null)
               setError('')
               setLoading(false)
               setHydrationStatus('Loading card details…')
@@ -278,6 +281,7 @@ export const LivePage = () => {
           const decoded = await openLivePayload(request.payload, base)
           if (cancelled) return
           setSnapshot(decoded)
+          setHistoryIndex(decoded.historyCursor ?? decoded.history?.length ?? null)
           setError('')
           setLoading(false)
           setHydrationStatus('Loading card details…')
@@ -359,9 +363,22 @@ export const LivePage = () => {
     () => (snapshot ? normalizeSeats(snapshot.seats) : []),
     [snapshot],
   )
+  const history = snapshot?.history ?? []
+  const cursor = historyIndex ?? (history.length ? history.length - 1 : 0)
+  const viewingPast = history.length > 0 && cursor < history.length - 1
+  const frame = history[cursor]
+  const boardSeats = viewingPast && frame ? frame.seats : seats
+  const replica = useMemo(() => {
+    if (!snapshot?.replica) return null
+    try {
+      return createClientGame(commanderRules, snapshot.replica)
+    } catch {
+      return null
+    }
+  }, [snapshot?.replica])
   const game = useMemo(
-    () => (snapshot ? toReplayGame(snapshot, seats) : null),
-    [snapshot, seats],
+    () => (snapshot ? toReplayGame(snapshot, boardSeats) : null),
+    [snapshot, boardSeats],
   )
 
   const combat = useMemo(() => {
@@ -430,6 +447,10 @@ export const LivePage = () => {
   }
 
   const sendInbox = async (type = inboxType) => {
+    if (viewingPast) {
+      flash('Return to the latest step before sending')
+      return
+    }
     if (request?.kind !== 'conduit' || !request.inbox) return
     const playAction = ['plan', 'confirm', 'replace', 'pass'].includes(type)
     if (playAction && !snapshot?.actions?.includes(type as 'plan' | 'confirm' | 'replace' | 'pass')) {
@@ -491,11 +512,14 @@ export const LivePage = () => {
 
   const orderedSeats = snapshot.you
     ? [
-        seats.find((seat) => seat.id === snapshot.you),
-        ...seats.filter((seat) => seat.id !== snapshot.you),
+        boardSeats.find((seat) => seat.id === snapshot.you),
+        ...boardSeats.filter((seat) => seat.id !== snapshot.you),
       ].filter(Boolean) as LiveSeat[]
-    : [seats[2], seats[1], seats[3], seats[0]].filter(Boolean)
-  const activeSeat = seats.find((seat) => seat.id === snapshot.active)
+    : [boardSeats[2], boardSeats[1], boardSeats[3], boardSeats[0]].filter(Boolean)
+  const boardTurn = viewingPast && frame ? frame.turn : snapshot.turn
+  const boardPhase = viewingPast && frame ? frame.phase : snapshot.phase
+  const boardActive = viewingPast && frame ? frame.active : snapshot.active
+  const activeSeat = boardSeats.find((seat) => seat.id === boardActive)
   const lastEvent = snapshot.events?.at(-1)
   const priorityOpen = lastEvent?.kind === 'priority'
   const yourAction = Boolean(snapshot.you && snapshot.youAct)
@@ -521,7 +545,9 @@ export const LivePage = () => {
               {snapshot.headline}
             </h1>
             <p className="text-xs text-stone-500">
-              Live snapshot · Turn {snapshot.turn} · {phaseLabel(snapshot.phase)}
+              {replica ? 'Rules kernel' : 'Live snapshot'}
+              {viewingPast ? ' · history' : ''}
+              {' '}· Turn {boardTurn} · {phaseLabel(boardPhase)}
               {activeSeat ? ` · ${activeSeat.name}` : ''}
             </p>
             {hydrationStatus && (
@@ -531,6 +557,29 @@ export const LivePage = () => {
               <p className="text-xs text-orange-200">{conduitStatus}</p>
             )}
           </div>
+          {history.length > 1 && (
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setHistoryIndex(Math.max(0, cursor - 1))}
+                disabled={cursor <= 0}
+                className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold text-stone-300 hover:bg-white/10 disabled:opacity-40"
+              >
+                Previous
+              </button>
+              <span className="px-1 text-xs text-stone-500">
+                {cursor + 1}/{history.length}
+              </span>
+              <button
+                type="button"
+                onClick={() => setHistoryIndex(Math.min(history.length - 1, cursor + 1))}
+                disabled={cursor >= history.length - 1}
+                className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold text-stone-300 hover:bg-white/10 disabled:opacity-40"
+              >
+                Next
+              </button>
+            </div>
+          )}
           {snapshot.events && snapshot.events.length > 0 && (
             <button
               type="button"
@@ -826,7 +875,7 @@ export const LivePage = () => {
                 game={game}
                 seat={toReplaySeat(seat)}
                 state={toPlayerState(seat, isYou)}
-                active={snapshot.active === seat.id}
+                active={boardActive === seat.id}
                 action={new Set()}
                 handCount={seat.hand_count}
                 showHand={isYou}

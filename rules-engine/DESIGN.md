@@ -55,6 +55,20 @@ legacy replay's aggregate commander tax and seat-keyed commander damage are
 not isomorphic to the kernel's per-commander object-ID maps, so they are not
 part of this projection.
 
+## Card plugins
+
+Special Oracle is not compiled. Cards with odd rules are listed in
+`cards/rules-plugins.json` (Oracle ID → plugin ids). `grantedRulesFor(name)`
+attaches those ids when a game object is created. Plugin code lives in
+`rules-engine/src/cardPlugins/` and is idle until granted. Yurlok of Scorch
+Thrash is the first entry: it reuses `manaBurn` for losing unspent mana, and
+the `yurlok` plugin for `{1}, {T}` raining `{B}{R}{G}`.
+
+Add a plugin only when a new deck or card needs one. Write a regression test
+in the same step.
+
+## Pipeline
+
 Active rules live **in the game state**. Catalog entries are code. A permanent
 that grants an effect does `{ type: 'addRule', pluginId, sourceId }`; leaving
 the battlefield does `{ type: 'removeRule', sourceId }`.
@@ -68,7 +82,7 @@ rules(state, { type: 'move', objectId: yarok, to: 'graveyard' })
 // kernel removes every RuleInstance with that sourceId
 ```
 
-## Pipeline
+## Event loop
 
 1. If `state.ended` and the event is not an administrative sync/rule event, reject.
 2. **Replace** — each `RuleInstance` may replace the event once (timestamp order).

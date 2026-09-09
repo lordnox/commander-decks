@@ -13,6 +13,14 @@ import {
 } from './actions'
 import { invokeHostAgent } from './brain'
 import {
+  hasKernel,
+  kernelActions,
+  kernelPath,
+  openKernel,
+  publishKernel,
+  type KernelHandle,
+} from './kernelHost'
+import {
   applyInbox,
   lobbyFromParts,
   restoreLobby,
@@ -58,7 +66,12 @@ const publish = async (
   origin: string,
   bins: HostSession['bins'],
   state: LobbyState,
+  kernel: KernelHandle | null,
 ) => {
+  if (kernel && state.phase === 'play') {
+    await publishKernel(appendSnapshot, origin, bins, kernel, state)
+    return
+  }
   if (state.phase === 'play' && hasReplay(slug, root)) {
     await publishReplay({
       slug,
@@ -125,6 +138,25 @@ export const runHost = async (options: {
     savedHost?.lobby ?? (savedHost ? lobbyFromParts(savedHost) : undefined),
     slug,
   )
+  let kernel: KernelHandle | null = null
+  const ensureKernel = () => {
+    if (state.phase !== 'play') return
+    if (kernel) return
+    try {
+      kernel = openKernel(slug, root, state)
+      if (Object.keys(state.actions).length === 0) {
+        state.actions = kernelActions(kernel.history.current())
+      }
+      logLine(logFile, `kernel journal ${kernelPath(slug, root)}`)
+    } catch (reason) {
+      kernel = null
+      logLine(
+        logFile,
+        `kernel setup failed: ${reason instanceof Error ? reason.message : String(reason)}`,
+      )
+    }
+  }
+  ensureKernel()
   if (
     state.phase === 'play'
     && hasReplay(slug, root)
@@ -156,7 +188,7 @@ export const runHost = async (options: {
     pid: process.pid,
   }
   saveSession(session, root)
-  await publish(slug, root, origin, bins, state)
+  await publish(slug, root, origin, bins, state, kernel)
 
   const maybeRoll = async () => {
     if (state.phase !== 'seated' || state.ready.length !== 4 || state.pendingSwap) return
@@ -165,7 +197,7 @@ export const runHost = async (options: {
     session.phase = state.phase
     session.firstPlayer = state.firstPlayer
     saveSession(session, root)
-    await publish(slug, root, origin, bins, state)
+    await publish(slug, root, origin, bins, state, kernel)
   }
 
   const processInbox = async (
@@ -186,7 +218,7 @@ export const runHost = async (options: {
         state.judge = `${seat}: stale or unavailable ${message.type} ignored. Refresh before acting.`
         state.privateJudge = {}
         state.privateWaiting = {}
-        await publish(slug, root, origin, bins, state)
+        await publish(slug, root, origin, bins, state, kernel)
         return
       }
     }
@@ -194,12 +226,29 @@ export const runHost = async (options: {
     const beforeActions = structuredClone(state.actions)
     const beforeWaiting = state.waiting
     applyInbox(state, seat, message)
+    ensureKernel()
     const privateExchange = ['plan', 'replace', 'confirm', 'rules'].includes(
       message.type,
     )
-    const deterministicPass = message.type === 'pass'
-      && applyDeterministicPass(root, slug, state, seat)
-    if (deterministicPass) {
+    let deterministicPass: false | 'priority' | 'turn' = false
+    if (message.type === 'pass' && kernel) {
+      const result = kernel.dispatch({ type: 'passPriority', seat })
+      if (result.ok) {
+        state.actions = kernelActions(kernel.history.current())
+        state.judge = `${state.occupants[seat]?.name ?? seat} passes.`
+        state.privateJudge = {}
+        state.privateWaiting = {}
+        state.waiting = state.actions[kernel.history.current().priority ?? 'p1']?.includes('plan')
+          ? `${state.occupants[kernel.history.current().priority as SeatId]?.name ?? kernel.history.current().priority}: send a plan or pass.`
+          : 'Priority is still open.'
+        deterministicPass = 'priority'
+      }
+    }
+    if (!deterministicPass && hasReplay(slug, root)) {
+      deterministicPass = message.type === 'pass'
+        && applyDeterministicPass(root, slug, state, seat)
+    }
+    if (deterministicPass && !kernel) {
       state.actions = replayActions(root, slug, state)
       state.judge = `${state.occupants[seat]?.name ?? seat} passes.`
       state.privateJudge = {}
@@ -210,7 +259,12 @@ export const runHost = async (options: {
       state.waiting = deterministicPass === 'turn' && next
         ? `${state.occupants[next]?.name ?? next}: send a turn plan.`
         : 'Priority is still open.'
-    } else if (agentEnabled && state.phase === 'play' && hasReplay(slug, root)) {
+    } else if (
+      !deterministicPass
+      && agentEnabled
+      && state.phase === 'play'
+      && (hasReplay(slug, root) || kernel)
+    ) {
       try {
         if (privateExchange) {
           const name = state.occupants[seat]?.name ?? seat
@@ -224,7 +278,7 @@ export const runHost = async (options: {
               ? `${name} asked a rules question and is conferring with the judge.`
               : `${name} submitted a plan and is conferring with the judge.`
           state.waiting = `${name}: the judge is checking your message.`
-          await publish(slug, root, origin, bins, state)
+          await publish(slug, root, origin, bins, state, kernel)
         }
         const result = await invokeHostAgent({
           root,
@@ -234,6 +288,12 @@ export const runHost = async (options: {
           message,
           logFile,
         })
+        if (hasKernel(slug, root)) {
+          kernel = openKernel(slug, root, state)
+          if (message.type === 'confirm' || message.type === 'pass') {
+            state.actions = kernelActions(kernel.history.current())
+          }
+        }
         const judge = result.privateJudge || result.judge || result.talk
         if (privateExchange) {
           if (judge) state.privateJudge = { [seat]: judge }
@@ -311,7 +371,7 @@ export const runHost = async (options: {
     session.firstPlayer = state.firstPlayer
     session.lobby = state
     saveSession(session, root)
-    await publish(slug, root, origin, bins, state)
+    await publish(slug, root, origin, bins, state, kernel)
     await maybeRoll()
   }
 

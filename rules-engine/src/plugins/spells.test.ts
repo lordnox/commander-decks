@@ -20,6 +20,12 @@ describe('spells', () => {
     expect(payCost(emptyMana(), '{U/B}{U/B}')).toBeNull()
   })
 
+  test('payCost does not mutate the input pool', () => {
+    const pool = { ...emptyMana(), C: 2 }
+    expect(payCost(pool, '{1}')).toEqual({ ...emptyMana(), C: 1 })
+    expect(pool.C).toBe(2)
+  })
+
   test('casts and resolves Lightning Bolt while it is still on the stack', () => {
     const seen: string[] = []
     const witness: Plugin = {

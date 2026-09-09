@@ -1,3 +1,4 @@
+import type { GameState } from '../../rules-engine/src/types'
 import type {
   BattlefieldCard,
   CardDetails,
@@ -52,6 +53,15 @@ export type JudgeHistoryEntry = {
   summary: string
 }
 
+export type LiveHistoryFrame = {
+  seq: number
+  summary: string
+  turn: number
+  phase: string
+  active: string
+  seats: LiveSeat[]
+}
+
 export type LiveSnapshot = {
   v: 1
   you?: string | null
@@ -79,6 +89,9 @@ export type LiveSnapshot = {
   tokens?: Record<string, CardDetails>
   decks?: string[]
   deckIndexes?: Record<string, DeckIndex>
+  history?: LiveHistoryFrame[]
+  historyCursor?: number
+  replica?: GameState
 }
 
 const seatOrder = ['p1', 'p2', 'p3', 'p4'] as const

@@ -6,7 +6,7 @@ table-games/*.conduit.json
 table-games/*.runner.json
 table-games/*.runner.log
 table-games/*.runner.pid
-table-games/*.inbox.jsonl
+table-games/*.kernel.json
 table-games/*.invite-p*.json
 
 # Local secrets (API keys, etc.).

@@ -1,3 +1,4 @@
+import { cardPlugins } from './cardPlugins'
 import { createCatalog } from './catalog'
 import type { GameFormat } from './formats'
 import { rules } from './kernel'
@@ -17,7 +18,7 @@ const createRuntimeEngine = (
   format: GameFormat,
   hiddenInformation: ReturnType<typeof createAuthoritativeHiddenInformation>,
 ) => {
-  const catalog = createCatalog([...format.plugins, hiddenInformation])
+  const catalog = createCatalog([...format.plugins, ...cardPlugins, hiddenInformation])
   return {
     catalog,
     rules: (state: GameState, event: GameEvent) =>

@@ -42,8 +42,15 @@ export {
   standardRules,
 } from './formats'
 export { rules as reduceWithCatalog } from './kernel'
-export { bears, bolt, forest, newGame, timetwister, yarokFixture } from './newGame'
+export { bears, bolt, forest, newGame, timetwister, yarokFixture, yurlokFixture } from './newGame'
 export { createHistory } from './history'
+export {
+  createJournal,
+  recordAccepted,
+  restoreJournal,
+  type KernelJournal,
+} from './journal'
+export { cardPlugins, grantedRulesFor, missingCardPlugins } from './cardPlugins'
 export {
   replayComparableState,
   replayExpectedState,

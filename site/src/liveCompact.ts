@@ -1,5 +1,6 @@
 import type { BattlefieldCard, CardDetails, CombatAttacker, ReplayCombat } from './replayTypes'
 import type { LiveSeat, LiveSnapshot } from './liveCodec'
+import type { GameState } from '../../rules-engine/src/types'
 
 export type DeckCard = {
   n: string
@@ -36,6 +37,9 @@ export type LiveWireV2 = {
   e?: Array<[number, number, number, number, string, string]>
   s?: unknown[]
   m?: Record<string, unknown>
+  H?: Array<[string, number, string, string, LiveSeat[]]>
+  hc?: number
+  K?: GameState
 }
 
 export const SEAT_IDS = ['p1', 'p2', 'p3', 'p4'] as const
@@ -351,6 +355,17 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
       snapshot.tokens?.[key] ?? fallback,
     ])
   }
+  if (snapshot.history?.length) {
+    wire.H = snapshot.history.map((frame) => [
+      frame.summary,
+      frame.turn,
+      frame.phase,
+      frame.active,
+      frame.seats,
+    ])
+    wire.hc = snapshot.historyCursor ?? snapshot.history.length - 1
+  }
+  if (snapshot.replica) wire.K = snapshot.replica
   return wire
 }
 
@@ -567,6 +582,18 @@ export const expandLiveWire = (
   if (tokens.length > 0) {
     snapshot.tokens = Object.fromEntries(tokens)
   }
+  if (wire.H?.length) {
+    snapshot.history = wire.H.map((row, index) => ({
+      seq: index,
+      summary: row[0],
+      turn: row[1],
+      phase: row[2],
+      active: row[3],
+      seats: row[4],
+    }))
+    snapshot.historyCursor = wire.hc ?? snapshot.history.length - 1
+  }
+  if (wire.K) snapshot.replica = wire.K
   return snapshot
 }
 

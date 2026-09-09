@@ -187,6 +187,31 @@ prints `#s=` past 8000. Extra cards that are not in any 99 keep a tiny catalog
 of Scryfall printing IDs; the browser downloads `decks/<slug>.json` and
 hydrates the rest client-side. Do not inline card details when an ID exists.
 
+## Rules kernel and special cards
+
+The live-runner opens `table-games/<slug>.kernel.json` when play starts. That
+journal is the host's authoritative reducer log (`initial` plus accepted
+`GameEvent`s). Reconnects restore it. Passes go through `{ type: 'passPriority' }`.
+The Pages client receives a redacted replica plus history frames and can step
+backward without changing the host.
+
+Most cards need no extra code. Cards with weird rules (Yurlok of Scorch Thrash
+is the template) are listed in [`cards/rules-plugins.json`](../../../cards/rules-plugins.json)
+by Oracle ID. That overlay grants `pluginIds` when the object is created; do
+not copy plugin code into every Scryfall cache file.
+
+When a new deck or card introduces an interaction the kernel cannot represent:
+
+1. Pause. Do not execute the line.
+2. Add `rules-engine/src/cardPlugins/<id>.ts` and a test that would fail on the
+   old behavior.
+3. Register the Oracle ID in `cards/rules-plugins.json`.
+4. Commit and push that plugin. Later tables reuse it.
+
+The host agent copies those files back from its scratch worktree when
+`pluginsChanged` is true. Generic effects stay in builtin plugins; card files
+are only for odd Oracle.
+
 ## Long-running host/seat (no poll)
 
 A Cursor chat must not poll conduit. The Bun **live-runner**

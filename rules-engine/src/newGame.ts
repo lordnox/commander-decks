@@ -1,3 +1,4 @@
+import { grantedRulesFor } from './cardPlugins'
 import { emptyMana } from './draft'
 import type { GameFormat } from './formats'
 import {
@@ -5,6 +6,7 @@ import {
   type GameState,
   type PlayerId,
   type PlayerState,
+  type RuleInstance,
   type ZoneId,
 } from './types'
 
@@ -110,6 +112,11 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
       owner: playerId,
       controller: playerId,
       zone: template.zone ?? zone,
+      grantedRules: [...new Set([
+        ...defaultObject().grantedRules,
+        ...(template.grantedRules ?? []),
+        ...grantedRulesFor(template.name),
+      ])],
       tags: [...new Set([...template.tags, ...(format.tagsForZone?.(zone) ?? [])])],
     }
     const actualZone = objects[id].zone
@@ -126,6 +133,28 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
     }
   }
   const builtin = opts?.builtinRules ?? format.rules
+  const rules: RuleInstance[] = builtin.map((pluginId, index) => ({
+    instanceId: `builtin-${pluginId}`,
+    pluginId,
+    sourceId: null,
+    timestamp: index,
+    params: {},
+  }))
+  let nextTimestamp = builtin.length
+  for (const object of Object.values(objects)) {
+    if (object.zone !== 'battlefield') continue
+    for (const pluginId of object.grantedRules) {
+      rules.push({
+        instanceId: `o${nextId}-rule`,
+        pluginId,
+        sourceId: object.id,
+        timestamp: nextTimestamp,
+        params: {},
+      })
+      nextId += 1
+      nextTimestamp += 1
+    }
+  }
   return {
     format: format.id,
     knowledge: { mode: 'authoritative', viewer: null },
@@ -143,15 +172,9 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
     turn: 1,
     step: 'precombatMain',
     passedInRow: [],
-    rules: builtin.map((pluginId, index) => ({
-      instanceId: `builtin-${pluginId}`,
-      pluginId,
-      sourceId: null,
-      timestamp: index,
-      params: {},
-    })),
+    rules,
     nextId,
-    nextTimestamp: builtin.length,
+    nextTimestamp,
     ended: false,
     log: [],
   }
@@ -193,6 +216,29 @@ export const bears = (): CardTemplate => ({
   counters: {},
   supertypes: [],
   oracleText: '',
+  attachedTo: null,
+  attacking: null,
+  blocking: null,
+  token: false,
+  tags: [],
+})
+
+/** Oracle Yurlok: mana burn on emptying pools, plus {1}, {T} rain. */
+export const yurlokFixture = (): CardTemplate => ({
+  name: 'Yurlok of Scorch Thrash',
+  types: ['Creature'],
+  subtypes: ['Lizard', 'Shaman'],
+  manaCost: '{1}{B}{R}{G}',
+  power: 4,
+  toughness: 4,
+  grantedRules: [],
+  tapped: false,
+  summoningSickness: false,
+  damageMarked: 0,
+  counters: {},
+  supertypes: ['Legendary'],
+  oracleText:
+    'Vigilance\nA player losing unspent mana causes that player to lose that much life.\n{1}, {T}: Each player adds {B}{R}{G}.',
   attachedTo: null,
   attacking: null,
   blocking: null,
