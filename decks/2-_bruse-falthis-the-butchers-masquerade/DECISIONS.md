@@ -194,7 +194,7 @@ Tutor count is now four, which is still inside the four-to-five the user asked f
 
 ### 2026-09-09 — Assessment, ranking, and setup goldfish
 
-Verdict: **Bracket 2− (Core)**. Pregame description: “Bracket 2− morph-combat deck. Usually wins around turns 11–13; a strong unopposed opening can cripple the first player around turn 7–8, but does not win the table then.”
+Verdict: **Bracket 2− (Core)**. Pregame description: “Bracket 2− morph-combat deck. Usually wins around turns 11–13; an unlikely unopposed turn-four Reaper line cuts one player from 40 to 9 but does not eliminate them.”
 
 The list matches Core's incremental texture in `BRACKET-DEFINITIONS.md`: it builds a visible creature board, needs several permanents to survive, and closes through combat. The cached Game Changers snapshot dated 2026-09-03 matches zero cards in the manifest. There is no fast mana, extra turn, mass land denial, or infinite loop. Four tutors plus Sunforger's narrow instant search move it above Exhibition despite its theme-first construction. It stays at the lower edge of Core because the actual finishes are slow, fragile, and five-card packages are not compact combos.
 
