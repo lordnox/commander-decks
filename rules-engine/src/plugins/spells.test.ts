@@ -14,6 +14,12 @@ describe('spells', () => {
     expect(payCost({ ...emptyMana(), G: 2 }, '{C}{G}')).toBeNull()
   })
 
+  test('hybrid mana spends either listed color instead of making the spell free', () => {
+    expect(payCost({ ...emptyMana(), B: 2 }, '{U/B}{U/B}')).toEqual(emptyMana())
+    expect(payCost({ ...emptyMana(), U: 1, B: 1 }, '{U/B}{U/B}')).toEqual(emptyMana())
+    expect(payCost(emptyMana(), '{U/B}{U/B}')).toBeNull()
+  })
+
   test('casts and resolves Lightning Bolt while it is still on the stack', () => {
     const seen: string[] = []
     const witness: Plugin = {

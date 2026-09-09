@@ -1,8 +1,8 @@
-import { parseManaCost, poolTotal, type Draft } from '../draft'
+import { poolTotal, type Draft } from '../draft'
 import type { GameObject, ManaId, ManaPool, Plugin } from '../types'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
-const COLORED_MANA: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
+const MANA_SYMBOLS = new Set<ManaId>(MANA_ORDER)
 
 const genericCost = (manaCost: string) =>
   [...manaCost.matchAll(/\{(\d+)\}/g)].reduce((total, match) => total + Number(match[1]), 0)
@@ -10,18 +10,26 @@ const genericCost = (manaCost: string) =>
 const spellCost = (object: GameObject, additionalGeneric = 0) =>
   `${object.manaCost}${additionalGeneric > 0 ? `{${additionalGeneric}}` : ''}`
 
-export const payCost = (pool: ManaPool, manaCost: string) => {
-  const parsed = parseManaCost(manaCost)
-  const generic = genericCost(manaCost)
-  const required = { ...parsed }
-  required.C = Math.max(0, (required.C ?? 0) - generic)
+const coloredCosts = (manaCost: string) =>
+  [...manaCost.matchAll(/\{([^}]+)\}/g)]
+    .map((match) => match[1].split('/').filter((symbol) => MANA_SYMBOLS.has(symbol as ManaId)))
+    .filter((choices) => choices.length > 0) as ManaId[][]
 
-  const remaining = { ...pool }
-  for (const symbol of COLORED_MANA) {
-    const amount = required[symbol] ?? 0
-    if (remaining[symbol] < amount) return null
-    remaining[symbol] -= amount
+const payColored = (pool: ManaPool, costs: ManaId[][], index = 0): ManaPool | null => {
+  if (index === costs.length) return pool
+  for (const symbol of costs[index]) {
+    if (pool[symbol] < 1) continue
+    const next = { ...pool, [symbol]: pool[symbol] - 1 }
+    const paid = payColored(next, costs, index + 1)
+    if (paid) return paid
   }
+  return null
+}
+
+export const payCost = (pool: ManaPool, manaCost: string) => {
+  const generic = genericCost(manaCost)
+  const remaining = payColored(pool, coloredCosts(manaCost))
+  if (!remaining) return null
 
   if (poolTotal(remaining) < generic) return null
   let unpaid = generic
