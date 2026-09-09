@@ -19,6 +19,8 @@
     "table:run:bg": "bun live-runner/src/cli.ts",
     "test:live-runner": "bun test live-runner",
     "test:rules": "bun test rules-engine",
+    "lint": "oxlint rules-engine",
+    "lint:fix": "oxlint --fix rules-engine",
     "typecheck:live-runner": "tsc --ignoreConfig --noEmit --strict --moduleResolution Bundler --module ESNext --target ES2022 --types bun live-runner/src/*.ts",
     "table:decks": "python3 .agents/skills/live-table/scripts/publish_deck_indexes.py",
     "site:prepare": "bun run table:render && bun run table:pages && bun run table:decks"
@@ -32,6 +34,7 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.82.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "vite": "^8.2.2"

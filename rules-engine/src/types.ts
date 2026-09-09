@@ -1,5 +1,10 @@
+import type PluginCatalog from './catalog'
+import type Draft from './draft'
+
+/** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
 export type PlayerId = string
 
+/** Zones an object can occupy. Command exists only in Commander-format games. */
 export const ZONE_IDS = [
   'battlefield',
   'stack',
@@ -11,6 +16,11 @@ export const ZONE_IDS = [
 ] as const
 export type ZoneId = (typeof ZONE_IDS)[number]
 
+/**
+ * One step of a player-turn. `turn` counts these player-turns, not table rounds.
+ * Empty-stack priority passes enqueue `advanceStep`; combat steps are skipped
+ * unless attackers are declared.
+ */
 export type StepId =
   | 'untap'
   | 'upkeep'
@@ -26,13 +36,22 @@ export type StepId =
   | 'end'
   | 'cleanup'
 
+/** WUBRG plus colorless `{C}`. Generic `{N}` is paid from leftover pool, not stored as `C`. */
 export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 
 export type ManaPool = Record<ManaId, number>
+
+/** Spell or ability target. Player targets use seat ids; object targets use object ids. */
 export type TargetRef =
   | { kind: 'player'; player: PlayerId }
   | { kind: 'object'; objectId: string }
 
+/**
+ * One card or token in the game. Identity is `id`; `name` is Oracle for fixtures.
+ * Zone membership is duplicated in `zone` and in the owner's `zoneOrder` lists.
+ * `grantedRules` are plugin ids installed while this object is on the battlefield.
+ * `tags` carry format roles such as `commander`. `tapProduces` is the mana ability.
+ */
 export type GameObject = {
   id: string
   name: string
@@ -59,6 +78,11 @@ export type GameObject = {
   tapProduces?: Partial<ManaPool>
 }
 
+/**
+ * One object waiting to resolve. The card itself stays `zone: 'stack'` while
+ * this item is in `state.stack`. Instants and sorceries leave the stack array
+ * at `resolveTop` but stay in the stack zone until their finishing `move`.
+ */
 export type StackItem = {
   id: string
   kind: 'spell' | 'ability'
@@ -68,6 +92,11 @@ export type StackItem = {
   targets: TargetRef[]
 }
 
+/**
+ * A live plugin binding. Catalog entries are code; these instances are state.
+ * `timestamp` orders replace/legal/apply. `sourceId` ties the instance to a
+ * permanent so leaving the battlefield can remove it.
+ */
 export type RuleInstance = {
   instanceId: string
   pluginId: string
@@ -76,6 +105,10 @@ export type RuleInstance = {
   params: Record<string, unknown>
 }
 
+/**
+ * Per-seat totals the kernel always knows. Format extras (commander tax,
+ * commander damage) live in untyped `data`, keyed however that format chooses.
+ */
 export type PlayerState = {
   id: PlayerId
   life: number
@@ -87,6 +120,13 @@ export type PlayerState = {
   data: Record<string, unknown>
 }
 
+/**
+ * Frozen game after a reduce. History is not stored here.
+ * `knowledge` chooses the hidden-info profile: authoritative owns library
+ * identities; a replica is a viewer projection and must not leak them.
+ * `zoneCounts` stay public even when `zoneOrder.library` is emptied for a client.
+ * `rules` is the active plugin list. `log` is a human-readable apply trace.
+ */
 export type GameState = {
   format: string
   knowledge: {
@@ -116,6 +156,15 @@ export type GameState = {
 export type AttackerDecl = { objectId: string; defender: PlayerId }
 export type BlockerDecl = { blockerId: string; attackerId: string }
 
+/**
+ * Input to `rules(state, event)`. Plugins ignore types they do not handle.
+ * Replacement can rewrite one event, split it into an array, or return `null`
+ * to prevent it. Apply may `draft.enqueue` follow-up events that drain after.
+ *
+ * Damage is a chain: `assignCombatDamage` → `combatDamage` → `dealDamage` →
+ * `loseLife`. Fog prevents at `combatDamage`; "prevent damage" at `dealDamage`.
+ * Instant/sorcery instructions enqueue, then enqueue `move` to the graveyard.
+ */
 export type GameEvent =
   | { type: 'passPriority'; seat: PlayerId }
   | { type: 'playLand'; seat: PlayerId; objectId: string }
@@ -169,18 +218,31 @@ export type GameEvent =
     }
   | { type: 'custom'; name: string; seat?: PlayerId; payload?: Record<string, unknown> }
 
+/** Successful reduce. `prevented` means a replacement returned `null`. */
 export type ReduceOk = { ok: true; state: GameState; prevented?: boolean }
+/** Failed reduce. `state` is the unchanged input. */
 export type ReduceErr = { ok: false; error: string; state: GameState }
 export type ReduceResult = ReduceOk | ReduceErr
 
+/**
+ * Plugin hook argument. `state` is the frozen pre-event snapshot.
+ * `draft` is the mutable next state (cloned GameState plus enqueue helpers).
+ * `rule` is the instance currently being invoked. `catalog` looks up plugin code.
+ */
 export type HookCtx = {
   state: GameState
   event: GameEvent
-  draft: import('./draft').Draft
+  draft: Draft
   rule: RuleInstance
-  catalog: import('./catalog').PluginCatalog
+  catalog: PluginCatalog
 }
 
+/**
+ * Catalog code for one `pluginId`. Each hook may no-op.
+ * `legal` returns an error string to reject.
+ * `replace` runs before apply: `null` prevents, an array folds left-to-right.
+ * `apply` mutates `draft`. `sba` emits events until the loop goes quiet.
+ */
 export type Plugin = {
   id: string
   legal?: (ctx: HookCtx) => string | void
