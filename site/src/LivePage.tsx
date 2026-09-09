@@ -170,6 +170,7 @@ export const LivePage = () => {
   const [plan, setPlan] = useState('')
   const [inboxType, setInboxType] = useState<InboxType>('plan')
   const [hidePlan, setHidePlan] = useState(false)
+  const [logOpen, setLogOpen] = useState(false)
   const [status, setStatus] = useState('')
   const [conduitStatus, setConduitStatus] = useState('')
   const [hydrationStatus, setHydrationStatus] = useState('')
@@ -322,6 +323,7 @@ export const LivePage = () => {
       if (keyboardEvent.key === 'Escape') {
         setPreview(null)
         setHover(null)
+        setLogOpen(false)
       }
     }
     window.addEventListener('keydown', onKeyDown)
@@ -469,7 +471,6 @@ export const LivePage = () => {
       ].filter(Boolean) as LiveSeat[]
     : [seats[2], seats[1], seats[3], seats[0]].filter(Boolean)
   const activeSeat = seats.find((seat) => seat.id === snapshot.active)
-  const awaitingSeat = seats.find((seat) => seat.id === snapshot.awaiting)
   const lastEvent = snapshot.events?.at(-1)
   const priorityOpen = lastEvent?.kind === 'priority'
   const yourAction = Boolean(snapshot.you && snapshot.youAct)
@@ -505,6 +506,17 @@ export const LivePage = () => {
               <p className="text-xs text-orange-200">{conduitStatus}</p>
             )}
           </div>
+          {snapshot.events && snapshot.events.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setLogOpen(true)}
+              aria-expanded={logOpen}
+              aria-controls="game-log-drawer"
+              className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold text-stone-300 hover:bg-white/10 hover:text-white"
+            >
+              Game log
+            </button>
+          )}
           <button
             type="button"
             onClick={togglePlan}
@@ -522,6 +534,69 @@ export const LivePage = () => {
           </button>
         </div>
       </header>
+
+      {logOpen && snapshot.events && snapshot.events.length > 0 && (
+        <div
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+          role="presentation"
+          onMouseDown={() => setLogOpen(false)}
+        >
+          <section
+            id="game-log-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="game-log-title"
+            className="ml-auto flex h-full w-[min(32rem,calc(100%-1rem))] flex-col border-l border-white/10 bg-ink-950 shadow-2xl shadow-black"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+              <div>
+                <h2 id="game-log-title" className="font-display text-xl text-stone-50">
+                  Game log
+                </h2>
+                <p className="mt-1 text-xs text-stone-500">
+                  Latest {Math.min(snapshot.events.length, 20)} events
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setLogOpen(false)}
+                aria-label="Close game log"
+                className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold text-stone-300 hover:bg-white/10 hover:text-white"
+              >
+                Close
+              </button>
+            </div>
+            <ol className="flex-1 space-y-3 overflow-y-auto px-5 py-4">
+              {snapshot.events.slice(-20).map((event) => {
+                const seat = seats.find(({ id }) => id === event.seat)
+                return (
+                  <li
+                    key={event.id}
+                    className="grid grid-cols-[auto_1fr] gap-3 border-b border-white/5 pb-3 text-sm leading-5 last:border-0"
+                  >
+                    <span className="whitespace-nowrap text-xs text-stone-500">
+                      T{event.turn} · {phaseLabel(event.phase)}
+                    </span>
+                    <span
+                      className={
+                        event.kind === 'think'
+                          ? 'italic text-stone-400'
+                          : event.kind === 'priority'
+                            ? 'font-semibold text-gold-200'
+                            : 'text-stone-200'
+                      }
+                      style={event.kind === 'think' && seat ? { color: seat.color } : undefined}
+                    >
+                      {event.summary}
+                    </span>
+                  </li>
+                )
+              })}
+            </ol>
+          </section>
+        </div>
+      )}
 
       <main className="mx-auto grid max-w-[110rem] gap-5 px-3 py-5 sm:px-5 lg:grid-cols-[minmax(0,1fr)_15rem]">
         <aside
@@ -641,54 +716,6 @@ export const LivePage = () => {
             <h2 className="mt-3 font-display text-2xl leading-tight text-stone-50 sm:text-3xl">
               {snapshot.waiting}
             </h2>
-          )}
-          {snapshot.events && snapshot.events.length > 0 && (
-            <div className="mt-5 rounded-2xl border border-white/10 bg-black/15 p-4">
-              <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-moss-200">
-                Game log
-              </p>
-              <ol className="mt-3 space-y-2">
-                {snapshot.events.slice(-20).map((event) => {
-                  const seat = seats.find(({ id }) => id === event.seat)
-                  return (
-                    <li
-                      key={event.id}
-                      className="grid grid-cols-[auto_1fr] gap-3 text-sm leading-5"
-                    >
-                      <span className="whitespace-nowrap text-xs text-stone-500">
-                        T{event.turn} · {phaseLabel(event.phase)}
-                      </span>
-                      <span
-                        className={
-                          event.kind === 'think'
-                            ? 'italic text-stone-400'
-                            : event.kind === 'priority'
-                              ? 'font-semibold text-gold-200'
-                              : 'text-stone-200'
-                        }
-                        style={event.kind === 'think' && seat ? { color: seat.color } : undefined}
-                      >
-                        {event.summary}
-                      </span>
-                    </li>
-                  )
-                })}
-                {awaitingSeat && (
-                  <li className="grid grid-cols-[auto_1fr] gap-3 border-t border-white/10 pt-2 text-sm leading-5">
-                    <span className="whitespace-nowrap text-xs font-bold uppercase tracking-[0.12em] text-gold-300">
-                      Judge
-                    </span>
-                    <span className="font-semibold text-stone-100">
-                      Waiting on{' '}
-                      <span style={{ color: awaitingSeat.color }}>{awaitingSeat.name}</span>
-                      {awaitingSeat.id === snapshot.you
-                        ? ' — that is you.'
-                        : ` (${awaitingSeat.id}).`}
-                    </span>
-                  </li>
-                )}
-              </ol>
-            </div>
           )}
           {snapshot.talk && (
             <div className="mt-4 border-l-2 border-moss-300 pl-4">
