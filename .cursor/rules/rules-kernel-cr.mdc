@@ -1,0 +1,13 @@
+---
+description: CR kernel bugs get a regression test and a commit
+globs: rules-engine/**
+alwaysApply: true
+---
+
+# Rules kernel CR bugs
+
+When a Comprehensive Rules mismatch is found in `rules-engine/`:
+
+1. Fix the reducer so the CR order is what actually happens.
+2. Add a test that would fail on the old behavior (prefer a named fixture that makes the zone/order difference observable, e.g. Timetwister vs its own graveyard).
+3. Commit that fix and test without waiting to be asked.

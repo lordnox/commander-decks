@@ -109,12 +109,30 @@ export const spells: Plugin = {
         })
       }
 
-      if (object.types.includes('Creature')) {
+      if (object.name === 'Timetwister') {
+        for (const player of draft.playerOrder) {
+          const pile = [
+            ...draft.zoneOrder[player].graveyard,
+            ...draft.zoneOrder[player].hand,
+          ]
+          for (const objectId of pile) {
+            draft.enqueue({ type: 'move', objectId, to: 'library' })
+          }
+          draft.enqueue({ type: 'shuffleLibrary', seat: player })
+        }
+      }
+
+      const permanent = object.types.some((type) =>
+        ['Creature', 'Artifact', 'Enchantment', 'Land', 'Planeswalker', 'Battle'].includes(type),
+      )
+      if (permanent) {
         draft.move(object.id, 'battlefield')
-        object.summoningSickness = true
+        object.summoningSickness = object.types.includes('Creature')
         installGrantedRules(draft, object)
       } else {
-        draft.move(object.id, 'graveyard')
+        // CR 608.2: instructions run while the spell is still on the stack;
+        // the card is put into the graveyard only after those events apply.
+        draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
       }
       draft.passedInRow = []
       draft.priority = state.active
