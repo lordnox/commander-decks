@@ -200,6 +200,29 @@ export const bears = (): CardTemplate => ({
   tags: [],
 })
 
+/** Fixture: shuffles each player's graveyard and hand into their library. Omits the draw-seven. */
+export const timetwister = (): CardTemplate => ({
+  name: 'Timetwister',
+  types: ['Sorcery'],
+  manaCost: '{2}{U}',
+  power: null,
+  toughness: null,
+  grantedRules: [],
+  tapped: false,
+  summoningSickness: false,
+  damageMarked: 0,
+  counters: {},
+  supertypes: [],
+  subtypes: [],
+  oracleText:
+    'Fixture: each player shuffles their hand and graveyard into their library (no draw).',
+  attachedTo: null,
+  attacking: null,
+  blocking: null,
+  token: false,
+  tags: [],
+})
+
 export const bolt = (): CardTemplate => ({
   name: 'Lightning Bolt',
   types: ['Instant'],

@@ -42,7 +42,7 @@ export {
   standardRules,
 } from './formats'
 export { rules as reduceWithCatalog } from './kernel'
-export { bears, bolt, forest, newGame, yarokFixture } from './newGame'
+export { bears, bolt, forest, newGame, timetwister, yarokFixture } from './newGame'
 export { createHistory } from './history'
 export {
   createClientGame,

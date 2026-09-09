@@ -4,11 +4,12 @@ import { rules } from '../kernel'
 import { bears, bolt, newGame } from '../testGame'
 import type { GameState, ReduceResult, StackItem } from '../types'
 import { priority } from './priority'
+import { spells } from './spells'
 import { turnStructure } from './turnStructure'
 
-const catalog = createCatalog([turnStructure, priority])
+const catalog = createCatalog([turnStructure, priority, spells])
 
-const builtinRules = ['turnStructure', 'priority']
+const builtinRules = ['turnStructure', 'priority', 'spells']
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
