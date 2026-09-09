@@ -10313,8 +10313,352 @@
         "land",
         "ramp"
       ]
+    },
+    "abe377f8-35f0-4dea-a681-91d31a36815c": {
+      "name": "Agitator Ant",
+      "categories": [
+        "other"
+      ]
+    },
+    "2b80faaf-92fd-4fa0-a3f6-8bb263e7ff1d": {
+      "name": "Akroma, Angel of Fury",
+      "categories": [
+        "protection"
+      ]
+    },
+    "a3bf5d18-77d5-4881-916c-cc125e621b6e": {
+      "name": "Aphetto Exterminator",
+      "categories": [
+        "other"
+      ]
+    },
+    "fb2d7c3d-b68f-410e-9a73-cfcbfe702ade": {
+      "name": "Ashcloud Phoenix",
+      "categories": [
+        "other"
+      ]
+    },
+    "c99e4768-192c-49bf-8f51-c204a2248326": {
+      "name": "Bane of the Living",
+      "categories": [
+        "other"
+      ]
+    },
+    "c8c38570-0b42-4bfc-896f-f57f9a11ba9d": {
+      "name": "Benevolent Bodyguard",
+      "categories": [
+        "protection",
+        "sacrifice"
+      ]
+    },
+    "cf94cafc-527e-4b27-8a28-7807435aaccf": {
+      "name": "Beseech the Queen",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "b3595359-0d40-495e-85da-6a56fbce7357": {
+      "name": "Blistering Firecat",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "64e29bfc-9313-4e8c-808c-bc27f6b018a6": {
+      "name": "Bloodfell Caves",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "1fcec3b2-47ba-4c56-9ce1-a4807e8ad262": {
+      "name": "Break Open",
+      "categories": [
+        "other"
+      ]
+    },
+    "e39a1f6b-6b13-4a8b-ac0c-63ede4636812": {
+      "name": "Bruse Tarl, Boorish Herder",
+      "categories": [
+        "other"
+      ]
+    },
+    "b7817579-df4d-41db-bb90-2aabac58f299": {
+      "name": "Cabal Executioner",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "9b084cd4-cc21-4f3a-9ac5-1e1160a31aa6": {
+      "name": "Disrupt Decorum",
+      "categories": [
+        "other"
+      ]
+    },
+    "7776c114-c02a-4694-9b9d-00fbfad2d2a2": {
+      "name": "Dream Chisel",
+      "categories": [
+        "other"
+      ]
+    },
+    "2f6e9ab8-6951-4c5f-bcde-0e96e0fe87f2": {
+      "name": "Exalted Angel",
+      "categories": [
+        "other"
+      ]
+    },
+    "860add4f-8fe4-4441-b394-f3a48d610b90": {
+      "name": "Fortune Thief",
+      "categories": [
+        "other"
+      ]
+    },
+    "31ea0a21-9c47-4917-9df9-3469b6e5243d": {
+      "name": "Gathan Raiders",
+      "categories": [
+        "discard"
+      ]
+    },
+    "2dd1450e-902e-480a-9c42-1c47549d2eeb": {
+      "name": "Gift of Doom",
+      "categories": [
+        "protection",
+        "sacrifice"
+      ]
+    },
+    "edad60c6-80de-4033-af1b-a703ac332983": {
+      "name": "Goblin Bombardment",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "ff4b9723-d5f1-40d2-aa35-fa3d2a6f4b5c": {
+      "name": "Goblin Maskmaker",
+      "categories": [
+        "other"
+      ]
+    },
+    "1cea9b82-d2e9-4758-8ec8-729fcf4bb7d7": {
+      "name": "Grand Coliseum",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "7f46839f-175d-4292-8057-c3e0da206075": {
+      "name": "Haunted Cadaver",
+      "categories": [
+        "sacrifice",
+        "discard"
+      ]
+    },
+    "4d6a1391-817a-4ddc-840d-886b138eeb3f": {
+      "name": "Imperial Recruiter",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "bc14356c-3a1a-47af-9a6e-2b449de0331f": {
+      "name": "Kardur, Doomscourge",
+      "categories": [
+        "other"
+      ]
+    },
+    "4f66d82a-492f-4638-9f77-190d4a33ad7f": {
+      "name": "Kirtar's Wrath",
+      "categories": [
+        "board-wipe",
+        "token-production"
+      ]
+    },
+    "dba35ac5-7ad3-488a-a006-6b9a1d54eea5": {
+      "name": "Loxodon Warhammer",
+      "categories": [
+        "other"
+      ]
+    },
+    "910488bf-66ab-415e-973b-1262b2ab7454": {
+      "name": "Marble Diamond",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "d6b2c998-a226-426c-a40d-6e6007041bfe": {
+      "name": "Mask of Memory",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "aca9df28-2df6-477c-b5b8-8e1863c84356": {
+      "name": "Master of Pearls",
+      "categories": [
+        "other"
+      ]
+    },
+    "1b3fb20a-e090-4286-9c03-6b71c27c45be": {
+      "name": "Mortuary Mire",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "1e1a787a-2294-472d-908d-d4d72821a7cc": {
+      "name": "Panoptic Projektor",
+      "categories": [
+        "other"
+      ]
+    },
+    "ee579a32-a048-4335-b966-231ba731cdea": {
+      "name": "Phyrexian Arena",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "8cfb5181-8ab7-484b-8821-a62c561f762f": {
+      "name": "Ponyback Brigade",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "c3acf94e-3adc-4397-a736-3f6072a5967d": {
+      "name": "Proteus Machine",
+      "categories": [
+        "other"
+      ]
+    },
+    "d521a329-a53a-4962-810a-2abed80df260": {
+      "name": "Recruiter of the Guard",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "82cfba28-283f-44f6-8478-fd39ea5a1a29": {
+      "name": "Rockshard Elemental",
+      "categories": [
+        "other"
+      ]
+    },
+    "f60b21c1-d192-4a02-9b1f-a08e9e08a84a": {
+      "name": "Roshan, Hidden Magister",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "cfbcd70b-d3a9-47e9-a8b3-b8134d00dff8": {
+      "name": "Ruthless Ripper",
+      "categories": [
+        "other"
+      ]
+    },
+    "00625242-9348-4ef4-b975-f2ac82fee21d": {
+      "name": "Savai Triome",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "d37f858e-03c8-4594-9b92-cd03699a1591": {
+      "name": "Scoured Barrens",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "4725abd4-06bc-464a-bc5b-c9e0f71ec079": {
+      "name": "Shambling Vent",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "49e70569-b0bc-4705-927e-eb1504925210": {
+      "name": "Silent Specter",
+      "categories": [
+        "discard"
+      ]
+    },
+    "c4dee5fe-36f0-4155-9437-2c0504feba2c": {
+      "name": "Skinthinner",
+      "categories": [
+        "removal"
+      ]
+    },
+    "a7d20fb0-005b-4bcc-9592-cdbd3fbdd43a": {
+      "name": "Skirk Alarmist",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "c92f1d40-0441-4ede-9363-78821ff15f88": {
+      "name": "Skirk Commando",
+      "categories": [
+        "other"
+      ]
+    },
+    "8ba0e831-054a-4e01-92ed-2845bd2fa12f": {
+      "name": "Skirk Marauder",
+      "categories": [
+        "other"
+      ]
+    },
+    "7b7b3a34-13ff-45d4-ad0d-ac4bad9d0581": {
+      "name": "Soul Collector",
+      "categories": [
+        "other"
+      ]
+    },
+    "d1421070-a3cc-4af3-bf91-0f97372f4161": {
+      "name": "Sunforger",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "cbf0190a-198b-49cc-8c79-4028da07fa77": {
+      "name": "Veiled Ascension",
+      "categories": [
+        "other"
+      ]
+    },
+    "63c1ac21-e3d8-40c2-8c09-3f31c52992ef": {
+      "name": "Vindicate",
+      "categories": [
+        "removal"
+      ]
+    },
+    "92cf18ab-dd7b-4bc8-8b85-a81b8cb5192c": {
+      "name": "Watcher of the Roost",
+      "categories": [
+        "other"
+      ]
+    },
+    "4a4c187e-e10b-4fd2-b70b-6401bb0595c5": {
+      "name": "Whipcorder",
+      "categories": [
+        "other"
+      ]
+    },
+    "b0af0c54-2a59-4075-8543-d41ff20c4c87": {
+      "name": "Wind-Scarred Crag",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "81c70ae7-3c18-4c9b-8505-e4db9e0e6518": {
+      "name": "Wishclaw Talisman",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "a0b6aa7d-a8cd-4af7-8fb2-d2fa0861e123": {
+      "name": "Zombie Cutthroat",
+      "categories": [
+        "other"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-08T19:13:33.005482+00:00"
+  "updated_at": "2026-09-09T06:13:31.866223+00:00"
 }

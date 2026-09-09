@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "bc513990-b4e8-498b-84d5-8317bc79a667",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/bc513990-b4e8-498b-84d5-8317bc79a667"
+    },
+    {
+      "component": "combo_piece",
+      "id": "a8684039-e4d9-4e48-9a41-7ccf4a795507",
+      "name": "Watcher of the Roost",
+      "object": "related_card",
+      "type_line": "Creature — Bird Soldier",
+      "uri": "https://api.scryfall.com/cards/a8684039-e4d9-4e48-9a41-7ccf4a795507"
+    }
+  ],
+  "arena_id": 57997,
+  "artist": "Jack Wang",
+  "artist_ids": [
+    "331942ac-401c-4af3-9d70-85f67717496c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 269200,
+  "cmc": 3.0,
+  "collector_number": "30",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 29812,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "a8684039-e4d9-4e48-9a41-7ccf4a795507",
+  "illustration_id": "f0d7a3ec-4784-4c23-b26e-aad2752347f7",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:38:11Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/8/a8684039-e4d9-4e48-9a41-7ccf4a795507.webp?1783939091",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/8/a8684039-e4d9-4e48-9a41-7ccf4a795507.jpg?1783939091",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/8/a8684039-e4d9-4e48-9a41-7ccf4a795507.jpg?1783939091",
+    "crop": "https://cards.scryfall.io/crop/front/a/8/a8684039-e4d9-4e48-9a41-7ccf4a795507.webp?1783939091",
+    "display": "https://cards.scryfall.io/display/front/a/8/a8684039-e4d9-4e48-9a41-7ccf4a795507.webp?1783939091",
+    "grid": "https://cards.scryfall.io/grid/front/a/8/a8684039-e4d9-4e48-9a41-7ccf4a795507.webp?1783939091",
+    "large": "https://cards.scryfall.io/large/front/a/8/a8684039-e4d9-4e48-9a41-7ccf4a795507.jpg?1783939091",
+    "normal": "https://cards.scryfall.io/normal/front/a/8/a8684039-e4d9-4e48-9a41-7ccf4a795507.jpg?1783939091",
+    "png": "https://cards.scryfall.io/png/front/a/8/a8684039-e4d9-4e48-9a41-7ccf4a795507.png?1783939091",
+    "small": "https://cards.scryfall.io/small/front/a/8/a8684039-e4d9-4e48-9a41-7ccf4a795507.jpg?1783939091",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/8/a8684039-e4d9-4e48-9a41-7ccf4a795507.webp?1783939091"
+  },
+  "keywords": [
+    "Flying",
+    "Morph"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_foil_id": 54081,
+  "mtgo_id": 54080,
+  "multiverse_ids": [
+    386718
+  ],
+  "name": "Watcher of the Roost",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "92cf18ab-dd7b-4bc8-8b85-a81b8cb5192c",
+  "oracle_text": "Flying\nMorph—Reveal a white card in your hand. (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)\nWhen this creature is turned face up, you gain 2 life.",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "0.11",
+    "eur_foil": "0.16",
+    "tix": "0.04",
+    "usd": "0.13",
+    "usd_etched": null,
+    "usd_foil": "0.42"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A92cf18ab-dd7b-4bc8-8b85-a81b8cb5192c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/54080?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=269200&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F92896%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Watcher+of+the+Roost",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=386718&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWatcher%2Bof%2Bthe%2BRoost",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWatcher%2Bof%2Bthe%2BRoost"
+  },
+  "released_at": "2014-09-26",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a8684039-e4d9-4e48-9a41-7ccf4a795507/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ktk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ktk/30/watcher-of-the-roost?utm_source=api",
+  "set": "ktk",
+  "set_id": "6c7a715c-ded9-449e-89b0-c665773e9c3c",
+  "set_name": "Khans of Tarkir",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aktk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/6c7a715c-ded9-449e-89b0-c665773e9c3c",
+  "story_spotlight": false,
+  "tcgplayer_id": 92896,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Bird Soldier",
+  "uri": "https://api.scryfall.com/cards/a8684039-e4d9-4e48-9a41-7ccf4a795507",
+  "variation": false,
+  "watermark": "abzan"
+}

@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "2d6343c0-3fb5-4bac-bea7-cba36498cd69",
+      "name": "Rockshard Elemental",
+      "object": "related_card",
+      "type_line": "Creature — Elemental",
+      "uri": "https://api.scryfall.com/cards/2d6343c0-3fb5-4bac-bea7-cba36498cd69"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5430da88-b72e-4d64-bd3c-b21062cac1c2",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/5430da88-b72e-4d64-bd3c-b21062cac1c2"
+    }
+  ],
+  "artist": "Anthony S. Waters",
+  "artist_ids": [
+    "f009de11-3c8d-4663-b996-ca0c3e997fad"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 2090,
+  "cmc": 7.0,
+  "collector_number": "109",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 27475,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2d6343c0-3fb5-4bac-bea7-cba36498cd69",
+  "illustration_id": "614ebb67-f61c-499f-a628-3ae8b922f1b6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:15:04Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/d/2d6343c0-3fb5-4bac-bea7-cba36498cd69.webp?1783944904",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/d/2d6343c0-3fb5-4bac-bea7-cba36498cd69.jpg?1783944904",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/d/2d6343c0-3fb5-4bac-bea7-cba36498cd69.jpg?1783944904",
+    "crop": "https://cards.scryfall.io/crop/front/2/d/2d6343c0-3fb5-4bac-bea7-cba36498cd69.webp?1783944904",
+    "display": "https://cards.scryfall.io/display/front/2/d/2d6343c0-3fb5-4bac-bea7-cba36498cd69.webp?1783944904",
+    "grid": "https://cards.scryfall.io/grid/front/2/d/2d6343c0-3fb5-4bac-bea7-cba36498cd69.webp?1783944904",
+    "large": "https://cards.scryfall.io/large/front/2/d/2d6343c0-3fb5-4bac-bea7-cba36498cd69.jpg?1783944904",
+    "normal": "https://cards.scryfall.io/normal/front/2/d/2d6343c0-3fb5-4bac-bea7-cba36498cd69.jpg?1783944904",
+    "png": "https://cards.scryfall.io/png/front/2/d/2d6343c0-3fb5-4bac-bea7-cba36498cd69.png?1783944904",
+    "small": "https://cards.scryfall.io/small/front/2/d/2d6343c0-3fb5-4bac-bea7-cba36498cd69.jpg?1783944904",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/d/2d6343c0-3fb5-4bac-bea7-cba36498cd69.webp?1783944904"
+  },
+  "keywords": [
+    "Morph",
+    "Double strike"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{R}{R}",
+  "mtgo_foil_id": 18382,
+  "mtgo_id": 18381,
+  "multiverse_ids": [
+    39736
+  ],
+  "name": "Rockshard Elemental",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "82cfba28-283f-44f6-8478-fd39ea5a1a29",
+  "oracle_text": "Double strike (This creature deals both first-strike and regular combat damage.)\nMorph {4}{R}{R} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)",
+  "oversized": false,
+  "power": "4",
+  "prices": {
+    "eur": "0.55",
+    "eur_foil": "2.45",
+    "tix": "0.02",
+    "usd": "0.36",
+    "usd_etched": null,
+    "usd_foil": "2.75"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A82cfba28-283f-44f6-8478-fd39ea5a1a29&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/18381?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=2090&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10788%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rockshard+Elemental",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=39736&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRockshard%2BElemental",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRockshard%2BElemental"
+  },
+  "released_at": "2003-02-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2d6343c0-3fb5-4bac-bea7-cba36498cd69/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lgn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lgn/109/rockshard-elemental?utm_source=api",
+  "set": "lgn",
+  "set_id": "c2d60a18-1a81-4784-8e0c-e1de2f43c5cf",
+  "set_name": "Legions",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Algn&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/c2d60a18-1a81-4784-8e0c-e1de2f43c5cf",
+  "story_spotlight": false,
+  "tcgplayer_id": 10788,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Elemental",
+  "uri": "https://api.scryfall.com/cards/2d6343c0-3fb5-4bac-bea7-cba36498cd69",
+  "variation": false
+}

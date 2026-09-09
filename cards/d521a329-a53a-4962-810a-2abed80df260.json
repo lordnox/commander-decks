@@ -1,0 +1,141 @@
+{
+  "arena_id": 91092,
+  "artist": "Eric Wilkerson",
+  "artist_ids": [
+    "525ec49d-a7c8-4ddc-96aa-58cf5ad5e937"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 772168,
+  "cmc": 3.0,
+  "collector_number": "266",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 1150,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"The kingdom is in peril! Who among you is brave enough to defend it?\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "8e4c6ba1-1abc-478f-9b7c-97e9e3c92fb0",
+  "illustration_id": "f1558062-1ccd-4a62-96fd-ee9f7f45b38d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:53:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/e/8e4c6ba1-1abc-478f-9b7c-97e9e3c92fb0.webp?1783911218",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/e/8e4c6ba1-1abc-478f-9b7c-97e9e3c92fb0.jpg?1783911218",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/e/8e4c6ba1-1abc-478f-9b7c-97e9e3c92fb0.jpg?1783911218",
+    "crop": "https://cards.scryfall.io/crop/front/8/e/8e4c6ba1-1abc-478f-9b7c-97e9e3c92fb0.webp?1783911218",
+    "display": "https://cards.scryfall.io/display/front/8/e/8e4c6ba1-1abc-478f-9b7c-97e9e3c92fb0.webp?1783911218",
+    "grid": "https://cards.scryfall.io/grid/front/8/e/8e4c6ba1-1abc-478f-9b7c-97e9e3c92fb0.webp?1783911218",
+    "large": "https://cards.scryfall.io/large/front/8/e/8e4c6ba1-1abc-478f-9b7c-97e9e3c92fb0.jpg?1783911218",
+    "normal": "https://cards.scryfall.io/normal/front/8/e/8e4c6ba1-1abc-478f-9b7c-97e9e3c92fb0.jpg?1783911218",
+    "png": "https://cards.scryfall.io/png/front/8/e/8e4c6ba1-1abc-478f-9b7c-97e9e3c92fb0.png?1783911218",
+    "small": "https://cards.scryfall.io/small/front/8/e/8e4c6ba1-1abc-478f-9b7c-97e9e3c92fb0.jpg?1783911218",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/e/8e4c6ba1-1abc-478f-9b7c-97e9e3c92fb0.webp?1783911218"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 125943,
+  "multiverse_ids": [
+    664045
+  ],
+  "name": "Recruiter of the Guard",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d521a329-a53a-4962-810a-2abed80df260",
+  "oracle_text": "When this creature enters, you may search your library for a creature card with toughness 2 or less, reveal it, put it into your hand, then shuffle.",
+  "oversized": false,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2024-05-24",
+    "source": "PC Gamer",
+    "source_uri": "https://www.pcgamer.com/games/card-games/thanks-to-modern-horizons-3-my-white-weenie-magic-deck-is-about-to-get-even-more-obnoxious/"
+  },
+  "prices": {
+    "eur": "6.36",
+    "eur_foil": "9.01",
+    "tix": "0.06",
+    "usd": "6.50",
+    "usd_etched": null,
+    "usd_foil": "6.88"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad521a329-a53a-4962-810a-2abed80df260&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/125943?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=772168&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552834%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Recruiter+of+the+Guard",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=664045&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRecruiter%2Bof%2Bthe%2BGuard",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRecruiter%2Bof%2Bthe%2BGuard"
+  },
+  "released_at": "2024-06-14",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8e4c6ba1-1abc-478f-9b7c-97e9e3c92fb0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mh3?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mh3/266/recruiter-of-the-guard?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mh3",
+  "set_id": "3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "set_name": "Modern Horizons 3",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh3&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/3ed80bb6-77e8-4aa7-8262-95377a38aba1",
+  "story_spotlight": false,
+  "tcgplayer_id": 552834,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Soldier",
+  "uri": "https://api.scryfall.com/cards/8e4c6ba1-1abc-478f-9b7c-97e9e3c92fb0",
+  "variation": false,
+  "watermark": "set"
+}

@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "e9375cbe-93c0-41a5-a6e3-fb4416f54a69",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/e9375cbe-93c0-41a5-a6e3-fb4416f54a69"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e0c9b43c-e544-47eb-98f5-45d1b57aabb4",
+      "name": "Skinthinner",
+      "object": "related_card",
+      "type_line": "Creature — Zombie",
+      "uri": "https://api.scryfall.com/cards/e0c9b43c-e544-47eb-98f5-45d1b57aabb4"
+    }
+  ],
+  "artist": "Kev Walker",
+  "artist_ids": [
+    "f366a0ee-a0cd-466d-ba6a-90058c7a31a6"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 391747,
+  "cmc": 2.0,
+  "collector_number": "129",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 16167,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "e0c9b43c-e544-47eb-98f5-45d1b57aabb4",
+  "illustration_id": "a433f7f6-09d0-4f93-90c8-48a456d3f21f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:52:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/0/e0c9b43c-e544-47eb-98f5-45d1b57aabb4.webp?1783932761",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/0/e0c9b43c-e544-47eb-98f5-45d1b57aabb4.jpg?1783932761",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/0/e0c9b43c-e544-47eb-98f5-45d1b57aabb4.jpg?1783932761",
+    "crop": "https://cards.scryfall.io/crop/front/e/0/e0c9b43c-e544-47eb-98f5-45d1b57aabb4.webp?1783932761",
+    "display": "https://cards.scryfall.io/display/front/e/0/e0c9b43c-e544-47eb-98f5-45d1b57aabb4.webp?1783932761",
+    "grid": "https://cards.scryfall.io/grid/front/e/0/e0c9b43c-e544-47eb-98f5-45d1b57aabb4.webp?1783932761",
+    "large": "https://cards.scryfall.io/large/front/e/0/e0c9b43c-e544-47eb-98f5-45d1b57aabb4.jpg?1783932761",
+    "normal": "https://cards.scryfall.io/normal/front/e/0/e0c9b43c-e544-47eb-98f5-45d1b57aabb4.jpg?1783932761",
+    "png": "https://cards.scryfall.io/png/front/e/0/e0c9b43c-e544-47eb-98f5-45d1b57aabb4.png?1783932761",
+    "small": "https://cards.scryfall.io/small/front/e/0/e0c9b43c-e544-47eb-98f5-45d1b57aabb4.jpg?1783932761",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/0/e0c9b43c-e544-47eb-98f5-45d1b57aabb4.webp?1783932761"
+  },
+  "keywords": [
+    "Morph"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 77372,
+  "multiverse_ids": [
+    470675
+  ],
+  "name": "Skinthinner",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c4dee5fe-36f0-4155-9437-2c0504feba2c",
+  "oracle_text": "Morph {3}{B}{B} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)\nWhen this creature is turned face up, destroy target nonblack creature. It can't be regenerated.",
+  "oversized": false,
+  "penny_rank": 14313,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2019-08-06",
+    "source": "The Command Zone",
+    "source_uri": "https://youtu.be/aJUEH4aA_DM"
+  },
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.29",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac4dee5fe-36f0-4155-9437-2c0504feba2c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/77372?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=391747&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F196491%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Skinthinner",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=470675&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSkinthinner",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSkinthinner"
+  },
+  "released_at": "2019-08-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e0c9b43c-e544-47eb-98f5-45d1b57aabb4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c19?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c19/129/skinthinner?utm_source=api",
+  "set": "c19",
+  "set_id": "0fa3ccbb-d86d-4a2e-a55e-c4979c4feeb2",
+  "set_name": "Commander 2019",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac19&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/0fa3ccbb-d86d-4a2e-a55e-c4979c4feeb2",
+  "story_spotlight": false,
+  "tcgplayer_id": 196491,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Zombie",
+  "uri": "https://api.scryfall.com/cards/e0c9b43c-e544-47eb-98f5-45d1b57aabb4",
+  "variation": false
+}

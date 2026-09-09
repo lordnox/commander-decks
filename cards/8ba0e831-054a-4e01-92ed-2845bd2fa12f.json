@@ -1,0 +1,148 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "b0a0cc70-ac86-4e52-a785-6209cbec29dc",
+      "name": "Skirk Marauder",
+      "object": "related_card",
+      "type_line": "Creature — Goblin",
+      "uri": "https://api.scryfall.com/cards/b0a0cc70-ac86-4e52-a785-6209cbec29dc"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5430da88-b72e-4d64-bd3c-b21062cac1c2",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/5430da88-b72e-4d64-bd3c-b21062cac1c2"
+    }
+  ],
+  "artist": "Pete Venters",
+  "artist_ids": [
+    "d54c4a1a-c0c5-4834-84db-125d341f3ad8"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 240665,
+  "cmc": 2.0,
+  "collector_number": "48",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 27601,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "b0a0cc70-ac86-4e52-a785-6209cbec29dc",
+  "illustration_id": "e310bcbd-fb2b-4fe4-9c08-270b2b459696",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:25:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/0/b0a0cc70-ac86-4e52-a785-6209cbec29dc.webp?1783941906",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/0/b0a0cc70-ac86-4e52-a785-6209cbec29dc.jpg?1783941906",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/0/b0a0cc70-ac86-4e52-a785-6209cbec29dc.jpg?1783941906",
+    "crop": "https://cards.scryfall.io/crop/front/b/0/b0a0cc70-ac86-4e52-a785-6209cbec29dc.webp?1783941906",
+    "display": "https://cards.scryfall.io/display/front/b/0/b0a0cc70-ac86-4e52-a785-6209cbec29dc.webp?1783941906",
+    "grid": "https://cards.scryfall.io/grid/front/b/0/b0a0cc70-ac86-4e52-a785-6209cbec29dc.webp?1783941906",
+    "large": "https://cards.scryfall.io/large/front/b/0/b0a0cc70-ac86-4e52-a785-6209cbec29dc.jpg?1783941906",
+    "normal": "https://cards.scryfall.io/normal/front/b/0/b0a0cc70-ac86-4e52-a785-6209cbec29dc.jpg?1783941906",
+    "png": "https://cards.scryfall.io/png/front/b/0/b0a0cc70-ac86-4e52-a785-6209cbec29dc.png?1783941906",
+    "small": "https://cards.scryfall.io/small/front/b/0/b0a0cc70-ac86-4e52-a785-6209cbec29dc.jpg?1783941906",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/0/b0a0cc70-ac86-4e52-a785-6209cbec29dc.webp?1783941906"
+  },
+  "keywords": [
+    "Morph"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}",
+  "multiverse_ids": [
+    220466
+  ],
+  "name": "Skirk Marauder",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8ba0e831-054a-4e01-92ed-2845bd2fa12f",
+  "oracle_text": "Morph {2}{R} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)\nWhen this creature is turned face up, it deals 2 damage to any target.",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "0.16",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.21",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8ba0e831-054a-4e01-92ed-2845bd2fa12f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Skirk+Marauder&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=240665&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F37227%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Skirk+Marauder",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=220466&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSkirk%2BMarauder",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSkirk%2BMarauder"
+  },
+  "released_at": "2010-06-18",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b0a0cc70-ac86-4e52-a785-6209cbec29dc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/arc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/arc/48/skirk-marauder?utm_source=api",
+  "set": "arc",
+  "set_id": "8bc5ec64-18d5-4c81-96a1-8f619d81a019",
+  "set_name": "Archenemy",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aarc&unique=prints",
+  "set_type": "archenemy",
+  "set_uri": "https://api.scryfall.com/sets/8bc5ec64-18d5-4c81-96a1-8f619d81a019",
+  "story_spotlight": false,
+  "tcgplayer_id": 37227,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Goblin",
+  "uri": "https://api.scryfall.com/cards/b0a0cc70-ac86-4e52-a785-6209cbec29dc",
+  "variation": false
+}

@@ -1,0 +1,152 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "a164420c-3619-4f5e-81cf-2aa5a4553bc3",
+      "name": "Haunted Cadaver",
+      "object": "related_card",
+      "type_line": "Creature — Zombie",
+      "uri": "https://api.scryfall.com/cards/a164420c-3619-4f5e-81cf-2aa5a4553bc3"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5430da88-b72e-4d64-bd3c-b21062cac1c2",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/5430da88-b72e-4d64-bd3c-b21062cac1c2"
+    }
+  ],
+  "artist": "Randy Gallegos",
+  "artist_ids": [
+    "a5048cc7-438a-4378-98e4-da99b78e1db0"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 1785,
+  "cmc": 4.0,
+  "collector_number": "154",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 27740,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a164420c-3619-4f5e-81cf-2aa5a4553bc3",
+  "illustration_id": "921b8ddd-730e-42eb-bf27-db3367e91aaa",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:17:47Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/1/a164420c-3619-4f5e-81cf-2aa5a4553bc3.webp?1783945067",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/1/a164420c-3619-4f5e-81cf-2aa5a4553bc3.jpg?1783945067",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/1/a164420c-3619-4f5e-81cf-2aa5a4553bc3.jpg?1783945067",
+    "crop": "https://cards.scryfall.io/crop/front/a/1/a164420c-3619-4f5e-81cf-2aa5a4553bc3.webp?1783945067",
+    "display": "https://cards.scryfall.io/display/front/a/1/a164420c-3619-4f5e-81cf-2aa5a4553bc3.webp?1783945067",
+    "grid": "https://cards.scryfall.io/grid/front/a/1/a164420c-3619-4f5e-81cf-2aa5a4553bc3.webp?1783945067",
+    "large": "https://cards.scryfall.io/large/front/a/1/a164420c-3619-4f5e-81cf-2aa5a4553bc3.jpg?1783945067",
+    "normal": "https://cards.scryfall.io/normal/front/a/1/a164420c-3619-4f5e-81cf-2aa5a4553bc3.jpg?1783945067",
+    "png": "https://cards.scryfall.io/png/front/a/1/a164420c-3619-4f5e-81cf-2aa5a4553bc3.png?1783945067",
+    "small": "https://cards.scryfall.io/small/front/a/1/a164420c-3619-4f5e-81cf-2aa5a4553bc3.jpg?1783945067",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/1/a164420c-3619-4f5e-81cf-2aa5a4553bc3.webp?1783945067"
+  },
+  "keywords": [
+    "Morph"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "mtgo_foil_id": 17928,
+  "mtgo_id": 17927,
+  "multiverse_ids": [
+    39852
+  ],
+  "name": "Haunted Cadaver",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7f46839f-175d-4292-8057-c3e0da206075",
+  "oracle_text": "Whenever this creature deals combat damage to a player, you may sacrifice it. If you do, that player discards three cards.\nMorph {1}{B} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "0.02",
+    "eur_foil": "0.68",
+    "tix": "0.06",
+    "usd": "0.13",
+    "usd_etched": null,
+    "usd_foil": "0.54"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7f46839f-175d-4292-8057-c3e0da206075&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/17927?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=1785&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10557%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Haunted+Cadaver",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=39852&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHaunted%2BCadaver",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHaunted%2BCadaver"
+  },
+  "released_at": "2002-10-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a164420c-3619-4f5e-81cf-2aa5a4553bc3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ons?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ons/154/haunted-cadaver?utm_source=api",
+  "set": "ons",
+  "set_id": "914a6c6d-cb3b-45e8-a2db-9978a2339faf",
+  "set_name": "Onslaught",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aons&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/914a6c6d-cb3b-45e8-a2db-9978a2339faf",
+  "story_spotlight": false,
+  "tcgplayer_id": 10557,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Zombie",
+  "uri": "https://api.scryfall.com/cards/a164420c-3619-4f5e-81cf-2aa5a4553bc3",
+  "variation": false
+}

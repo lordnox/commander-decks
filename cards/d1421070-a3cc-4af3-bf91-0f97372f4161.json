@@ -1,0 +1,131 @@
+{
+  "artist": "Darrell Riche",
+  "artist_ids": [
+    "262c8e55-4efc-467b-a042-6f734b9d2e01"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 514874,
+  "cmc": 3.0,
+  "collector_number": "473",
+  "color_identity": [
+    "R",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 2015,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "dd3e42ee-ab13-460b-90fd-86e677abce4f",
+  "illustration_id": "d7d56e2f-712c-4bbd-b1e7-325bb4a01514",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:44:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/d/dd3e42ee-ab13-460b-90fd-86e677abce4f.webp?1783928686",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/d/dd3e42ee-ab13-460b-90fd-86e677abce4f.jpg?1783928686",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/d/dd3e42ee-ab13-460b-90fd-86e677abce4f.jpg?1783928686",
+    "crop": "https://cards.scryfall.io/crop/front/d/d/dd3e42ee-ab13-460b-90fd-86e677abce4f.webp?1783928686",
+    "display": "https://cards.scryfall.io/display/front/d/d/dd3e42ee-ab13-460b-90fd-86e677abce4f.webp?1783928686",
+    "grid": "https://cards.scryfall.io/grid/front/d/d/dd3e42ee-ab13-460b-90fd-86e677abce4f.webp?1783928686",
+    "large": "https://cards.scryfall.io/large/front/d/d/dd3e42ee-ab13-460b-90fd-86e677abce4f.jpg?1783928686",
+    "normal": "https://cards.scryfall.io/normal/front/d/d/dd3e42ee-ab13-460b-90fd-86e677abce4f.jpg?1783928686",
+    "png": "https://cards.scryfall.io/png/front/d/d/dd3e42ee-ab13-460b-90fd-86e677abce4f.png?1783928686",
+    "small": "https://cards.scryfall.io/small/front/d/d/dd3e42ee-ab13-460b-90fd-86e677abce4f.jpg?1783928686",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/d/dd3e42ee-ab13-460b-90fd-86e677abce4f.webp?1783928686"
+  },
+  "keywords": [
+    "Equip"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}",
+  "mtgo_id": 85758,
+  "multiverse_ids": [
+    500953
+  ],
+  "name": "Sunforger",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d1421070-a3cc-4af3-bf91-0f97372f4161",
+  "oracle_text": "Equipped creature gets +4/+0.\n{R}{W}, Unattach this Equipment: Search your library for a red or white instant card with mana value 4 or less and cast that card without paying its mana cost. Then shuffle.\nEquip {3}",
+  "oversized": false,
+  "penny_rank": 6909,
+  "prices": {
+    "eur": "1.26",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "4.04",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad1421070-a3cc-4af3-bf91-0f97372f4161&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/85758?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=514874&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F227347%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sunforger",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=500953&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSunforger",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSunforger"
+  },
+  "released_at": "2020-11-20",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/dd3e42ee-ab13-460b-90fd-86e677abce4f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmr/473/sunforger?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmr",
+  "set_id": "39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "set_name": "Commander Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "story_spotlight": false,
+  "tcgplayer_id": 227347,
+  "textless": false,
+  "type_line": "Artifact — Equipment",
+  "uri": "https://api.scryfall.com/cards/dd3e42ee-ab13-460b-90fd-86e677abce4f",
+  "variation": false
+}

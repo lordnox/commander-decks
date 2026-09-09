@@ -1,0 +1,132 @@
+{
+  "artist": "Sidharth Chaturvedi",
+  "artist_ids": [
+    "55e6d846-2f73-4fba-9b88-441686bb8dcb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 753310,
+  "cmc": 4.0,
+  "collector_number": "151",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 885,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Dinner and politics don't mix.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c5323fe7-d9df-4287-ae13-d9db35f7973b",
+  "illustration_id": "c5c3c791-5d7f-4d4c-8537-ea2111d9001d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:23:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/5/c5323fe7-d9df-4287-ae13-d9db35f7973b.webp?1783912998",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/5/c5323fe7-d9df-4287-ae13-d9db35f7973b.jpg?1783912998",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/5/c5323fe7-d9df-4287-ae13-d9db35f7973b.jpg?1783912998",
+    "crop": "https://cards.scryfall.io/crop/front/c/5/c5323fe7-d9df-4287-ae13-d9db35f7973b.webp?1783912998",
+    "display": "https://cards.scryfall.io/display/front/c/5/c5323fe7-d9df-4287-ae13-d9db35f7973b.webp?1783912998",
+    "grid": "https://cards.scryfall.io/grid/front/c/5/c5323fe7-d9df-4287-ae13-d9db35f7973b.webp?1783912998",
+    "large": "https://cards.scryfall.io/large/front/c/5/c5323fe7-d9df-4287-ae13-d9db35f7973b.jpg?1783912998",
+    "normal": "https://cards.scryfall.io/normal/front/c/5/c5323fe7-d9df-4287-ae13-d9db35f7973b.jpg?1783912998",
+    "png": "https://cards.scryfall.io/png/front/c/5/c5323fe7-d9df-4287-ae13-d9db35f7973b.png?1783912998",
+    "small": "https://cards.scryfall.io/small/front/c/5/c5323fe7-d9df-4287-ae13-d9db35f7973b.jpg?1783912998",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/5/c5323fe7-d9df-4287-ae13-d9db35f7973b.webp?1783912998"
+  },
+  "keywords": [
+    "Goad"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{R}{R}",
+  "mtgo_id": 122442,
+  "multiverse_ids": [
+    650245
+  ],
+  "name": "Disrupt Decorum",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9b084cd4-cc21-4f3a-9ac5-1e1160a31aa6",
+  "oracle_text": "Goad all creatures you don't control. (Until your next turn, those creatures attack each combat if able and attack a player other than you if able.)",
+  "oversized": false,
+  "prices": {
+    "eur": "2.02",
+    "eur_foil": null,
+    "tix": "6.43",
+    "usd": "4.79",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9b084cd4-cc21-4f3a-9ac5-1e1160a31aa6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/122442?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=753310&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F535601%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Disrupt+Decorum",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=650245&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDisrupt%2BDecorum",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDisrupt%2BDecorum"
+  },
+  "released_at": "2024-02-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c5323fe7-d9df-4287-ae13-d9db35f7973b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mkc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mkc/151/disrupt-decorum?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mkc",
+  "set_id": "286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "set_name": "Murders at Karlov Manor Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amkc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/286c37ca-ba65-4d3e-8c5d-d1878d88fd95",
+  "story_spotlight": false,
+  "tcgplayer_id": 535601,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/c5323fe7-d9df-4287-ae13-d9db35f7973b",
+  "variation": false
+}

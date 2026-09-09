@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "5430da88-b72e-4d64-bd3c-b21062cac1c2",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/5430da88-b72e-4d64-bd3c-b21062cac1c2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "06be8f63-daf2-4dbe-bb07-2b246145cdab",
+      "name": "Aphetto Exterminator",
+      "object": "related_card",
+      "type_line": "Creature — Human Wizard",
+      "uri": "https://api.scryfall.com/cards/06be8f63-daf2-4dbe-bb07-2b246145cdab"
+    }
+  ],
+  "artist": "Scott M. Fischer",
+  "artist_ids": [
+    "23b0cf43-3e43-44c6-8329-96446eca5bce"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 2040,
+  "cmc": 3.0,
+  "collector_number": "59",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 25754,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "06be8f63-daf2-4dbe-bb07-2b246145cdab",
+  "illustration_id": "48c7bb79-650e-4790-870f-b3dc3d98db2b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:15:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/6/06be8f63-daf2-4dbe-bb07-2b246145cdab.webp?1783944917",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/6/06be8f63-daf2-4dbe-bb07-2b246145cdab.jpg?1783944917",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/6/06be8f63-daf2-4dbe-bb07-2b246145cdab.jpg?1783944917",
+    "crop": "https://cards.scryfall.io/crop/front/0/6/06be8f63-daf2-4dbe-bb07-2b246145cdab.webp?1783944917",
+    "display": "https://cards.scryfall.io/display/front/0/6/06be8f63-daf2-4dbe-bb07-2b246145cdab.webp?1783944917",
+    "grid": "https://cards.scryfall.io/grid/front/0/6/06be8f63-daf2-4dbe-bb07-2b246145cdab.webp?1783944917",
+    "large": "https://cards.scryfall.io/large/front/0/6/06be8f63-daf2-4dbe-bb07-2b246145cdab.jpg?1783944917",
+    "normal": "https://cards.scryfall.io/normal/front/0/6/06be8f63-daf2-4dbe-bb07-2b246145cdab.jpg?1783944917",
+    "png": "https://cards.scryfall.io/png/front/0/6/06be8f63-daf2-4dbe-bb07-2b246145cdab.png?1783944917",
+    "small": "https://cards.scryfall.io/small/front/0/6/06be8f63-daf2-4dbe-bb07-2b246145cdab.jpg?1783944917",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/6/06be8f63-daf2-4dbe-bb07-2b246145cdab.webp?1783944917"
+  },
+  "keywords": [
+    "Morph"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_foil_id": 18420,
+  "mtgo_id": 18419,
+  "multiverse_ids": [
+    42060
+  ],
+  "name": "Aphetto Exterminator",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a3bf5d18-77d5-4881-916c-cc125e621b6e",
+  "oracle_text": "Morph {3}{B} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)\nWhen this creature is turned face up, target creature gets -3/-3 until end of turn.",
+  "oversized": false,
+  "penny_rank": 16446,
+  "power": "3",
+  "prices": {
+    "eur": "0.15",
+    "eur_foil": "1.08",
+    "tix": "0.05",
+    "usd": "0.11",
+    "usd_etched": null,
+    "usd_foil": "0.90"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa3bf5d18-77d5-4881-916c-cc125e621b6e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/18419?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=2040&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10745%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Aphetto+Exterminator",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=42060&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAphetto%2BExterminator",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAphetto%2BExterminator"
+  },
+  "released_at": "2003-02-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/06be8f63-daf2-4dbe-bb07-2b246145cdab/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lgn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lgn/59/aphetto-exterminator?utm_source=api",
+  "set": "lgn",
+  "set_id": "c2d60a18-1a81-4784-8e0c-e1de2f43c5cf",
+  "set_name": "Legions",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Algn&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/c2d60a18-1a81-4784-8e0c-e1de2f43c5cf",
+  "story_spotlight": false,
+  "tcgplayer_id": 10745,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Wizard",
+  "uri": "https://api.scryfall.com/cards/06be8f63-daf2-4dbe-bb07-2b246145cdab",
+  "variation": false
+}

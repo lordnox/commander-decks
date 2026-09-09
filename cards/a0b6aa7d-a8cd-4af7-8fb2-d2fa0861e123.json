@@ -1,0 +1,154 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "5430da88-b72e-4d64-bd3c-b21062cac1c2",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/5430da88-b72e-4d64-bd3c-b21062cac1c2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "fe491cba-6ec7-4c44-ad1e-832d936986a0",
+      "name": "Zombie Cutthroat",
+      "object": "related_card",
+      "type_line": "Creature — Zombie",
+      "uri": "https://api.scryfall.com/cards/fe491cba-6ec7-4c44-ad1e-832d936986a0"
+    }
+  ],
+  "artist": "Thomas M. Baxa",
+  "artist_ids": [
+    "ff346569-557d-4043-ae44-97c2c7cabd7d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 1074,
+  "cmc": 5.0,
+  "collector_number": "81",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 30468,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The single-mindedness of a zombie, the cunning of an assassin.",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "fe491cba-6ec7-4c44-ad1e-832d936986a0",
+  "illustration_id": "e0a175b6-803f-497f-b4e9-78d0fa832a62",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:14:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/e/fe491cba-6ec7-4c44-ad1e-832d936986a0.webp?1783944877",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/e/fe491cba-6ec7-4c44-ad1e-832d936986a0.jpg?1783944877",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/e/fe491cba-6ec7-4c44-ad1e-832d936986a0.jpg?1783944877",
+    "crop": "https://cards.scryfall.io/crop/front/f/e/fe491cba-6ec7-4c44-ad1e-832d936986a0.webp?1783944877",
+    "display": "https://cards.scryfall.io/display/front/f/e/fe491cba-6ec7-4c44-ad1e-832d936986a0.webp?1783944877",
+    "grid": "https://cards.scryfall.io/grid/front/f/e/fe491cba-6ec7-4c44-ad1e-832d936986a0.webp?1783944877",
+    "large": "https://cards.scryfall.io/large/front/f/e/fe491cba-6ec7-4c44-ad1e-832d936986a0.jpg?1783944877",
+    "normal": "https://cards.scryfall.io/normal/front/f/e/fe491cba-6ec7-4c44-ad1e-832d936986a0.jpg?1783944877",
+    "png": "https://cards.scryfall.io/png/front/f/e/fe491cba-6ec7-4c44-ad1e-832d936986a0.png?1783944877",
+    "small": "https://cards.scryfall.io/small/front/f/e/fe491cba-6ec7-4c44-ad1e-832d936986a0.jpg?1783944877",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/e/fe491cba-6ec7-4c44-ad1e-832d936986a0.webp?1783944877"
+  },
+  "keywords": [
+    "Morph"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_foil_id": 18805,
+  "mtgo_id": 18804,
+  "multiverse_ids": [
+    43515
+  ],
+  "name": "Zombie Cutthroat",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a0b6aa7d-a8cd-4af7-8fb2-d2fa0861e123",
+  "oracle_text": "Morph—Pay 5 life. (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)",
+  "oversized": false,
+  "penny_rank": 18148,
+  "power": "3",
+  "prices": {
+    "eur": "0.11",
+    "eur_foil": "0.78",
+    "tix": "0.04",
+    "usd": "0.08",
+    "usd_etched": null,
+    "usd_foil": "3.88"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa0b6aa7d-a8cd-4af7-8fb2-d2fa0861e123&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/18804?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=1074&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10828%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Zombie+Cutthroat",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=43515&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DZombie%2BCutthroat",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DZombie%2BCutthroat"
+  },
+  "released_at": "2003-05-26",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/fe491cba-6ec7-4c44-ad1e-832d936986a0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/scg?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/scg/81/zombie-cutthroat?utm_source=api",
+  "set": "scg",
+  "set_id": "5133c3a1-1412-4ce6-a1f0-73b695966ded",
+  "set_name": "Scourge",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ascg&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5133c3a1-1412-4ce6-a1f0-73b695966ded",
+  "story_spotlight": false,
+  "tcgplayer_id": 10828,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Zombie",
+  "uri": "https://api.scryfall.com/cards/fe491cba-6ec7-4c44-ad1e-832d936986a0",
+  "variation": false
+}

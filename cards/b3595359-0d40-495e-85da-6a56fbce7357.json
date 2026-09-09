@@ -1,0 +1,155 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "5430da88-b72e-4d64-bd3c-b21062cac1c2",
+      "name": "Morph",
+      "object": "related_card",
+      "type_line": "Creature",
+      "uri": "https://api.scryfall.com/cards/5430da88-b72e-4d64-bd3c-b21062cac1c2"
+    },
+    {
+      "component": "combo_piece",
+      "id": "e0ddcf4a-1943-49dd-a02c-75804ce4bc3e",
+      "name": "Blistering Firecat",
+      "object": "related_card",
+      "type_line": "Creature — Elemental Cat",
+      "uri": "https://api.scryfall.com/cards/e0ddcf4a-1943-49dd-a02c-75804ce4bc3e"
+    }
+  ],
+  "artist": "Arnie Swekel",
+  "artist_ids": [
+    "af10ecf2-eb82-4100-97b2-6c236b0fa644"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 1820,
+  "cmc": 4.0,
+  "collector_number": "189",
+  "color_identity": [
+    "R"
+  ],
+  "colors": [
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 17702,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "e0ddcf4a-1943-49dd-a02c-75804ce4bc3e",
+  "illustration_id": "6dd1c14f-ed40-4bec-91c2-2747f8c96cbe",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:17:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/0/e0ddcf4a-1943-49dd-a02c-75804ce4bc3e.webp?1783945058",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/0/e0ddcf4a-1943-49dd-a02c-75804ce4bc3e.jpg?1783945058",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/0/e0ddcf4a-1943-49dd-a02c-75804ce4bc3e.jpg?1783945058",
+    "crop": "https://cards.scryfall.io/crop/front/e/0/e0ddcf4a-1943-49dd-a02c-75804ce4bc3e.webp?1783945058",
+    "display": "https://cards.scryfall.io/display/front/e/0/e0ddcf4a-1943-49dd-a02c-75804ce4bc3e.webp?1783945058",
+    "grid": "https://cards.scryfall.io/grid/front/e/0/e0ddcf4a-1943-49dd-a02c-75804ce4bc3e.webp?1783945058",
+    "large": "https://cards.scryfall.io/large/front/e/0/e0ddcf4a-1943-49dd-a02c-75804ce4bc3e.jpg?1783945058",
+    "normal": "https://cards.scryfall.io/normal/front/e/0/e0ddcf4a-1943-49dd-a02c-75804ce4bc3e.jpg?1783945058",
+    "png": "https://cards.scryfall.io/png/front/e/0/e0ddcf4a-1943-49dd-a02c-75804ce4bc3e.png?1783945058",
+    "small": "https://cards.scryfall.io/small/front/e/0/e0ddcf4a-1943-49dd-a02c-75804ce4bc3e.jpg?1783945058",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/0/e0ddcf4a-1943-49dd-a02c-75804ce4bc3e.webp?1783945058"
+  },
+  "keywords": [
+    "Morph",
+    "Haste",
+    "Trample"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{R}{R}{R}",
+  "mtgo_foil_id": 18076,
+  "mtgo_id": 18075,
+  "multiverse_ids": [
+    39737
+  ],
+  "name": "Blistering Firecat",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b3595359-0d40-495e-85da-6a56fbce7357",
+  "oracle_text": "Trample, haste\nAt the beginning of the end step, sacrifice this creature.\nMorph {R}{R} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)",
+  "oversized": false,
+  "penny_rank": 8229,
+  "power": "7",
+  "prices": {
+    "eur": "2.62",
+    "eur_foil": "28.20",
+    "tix": "0.20",
+    "usd": "6.92",
+    "usd_etched": null,
+    "usd_foil": "44.41"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab3595359-0d40-495e-85da-6a56fbce7357&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/18075?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=1820&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10357%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Blistering+Firecat",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=39737&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBlistering%2BFirecat",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBlistering%2BFirecat"
+  },
+  "released_at": "2002-10-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/e0ddcf4a-1943-49dd-a02c-75804ce4bc3e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ons?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ons/189/blistering-firecat?utm_source=api",
+  "set": "ons",
+  "set_id": "914a6c6d-cb3b-45e8-a2db-9978a2339faf",
+  "set_name": "Onslaught",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aons&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/914a6c6d-cb3b-45e8-a2db-9978a2339faf",
+  "story_spotlight": false,
+  "tcgplayer_id": 10357,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Elemental Cat",
+  "uri": "https://api.scryfall.com/cards/e0ddcf4a-1943-49dd-a02c-75804ce4bc3e",
+  "variation": false
+}
