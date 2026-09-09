@@ -21,6 +21,7 @@ describe('game formats', () => {
     expect(state.players.p1.life).toBe(40)
     expect(state.rules.some((rule) => rule.pluginId === 'commander')).toBe(true)
     expect(state.players.p1.data.commanderDamage).toEqual({})
+    expect(state.players.p1.data.commanderTax).toEqual({})
   })
 
   test('Standard and Modern are two-player, 20-life presets without Commander', () => {

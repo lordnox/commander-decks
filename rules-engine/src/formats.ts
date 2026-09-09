@@ -94,6 +94,6 @@ export const commanderRules: GameFormat = {
   },
   createPlayerData: () => ({
     commanderDamage: {},
-    commanderTax: 0,
+    commanderTax: {},
   }),
 }
