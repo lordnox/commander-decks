@@ -17,7 +17,7 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 ## Rankings
 
-Initial score: Jank 8, Fun 7, Mean 8, Creatureless 10, Board Control 9, Big Mana Burn 8. After the 2026-09-09 fairness pass: Jank 9, Fun 8, Mean 7, Creatureless 10, Board Control 9, Big Mana Burn 8. Tabernacle leaving lowers table oppression; Mirage Mirror and Sculpting Steel raise jank.
+2026-09-09: Jank 9, Fun 8, Mean 7, Creatureless 10, Board Control 9, Big Mana Burn 8. Cube math, old shrink enchantments, and Mirage Mirror copying Coffers or Cube are the jank. Sequencing locks versus the X-spell gives the pilot work. Lethal Vapors and Tainted Aether still deny creature decks, but the table keeps more plays without Tabernacle.
 
 ## Cards in
 
@@ -225,4 +225,37 @@ Measured win pace: credible high roll turn seven; normal goldfish turns ten to t
 
 ### 2026-09-09 — Fairness and card-advantage pass
 
-Tabernacle leaves because it is unfun at this table even though it matches the lock. Rings, Caged Sun, Autogenerator, Brass's Bounty, Caltrops, City on Fire, Myriad, Daretti, and Scrap Mastery leave with it. Shrink density stays via Engineered Plague and Curse of Death's Hold. Draw increases with Chandra, Endless Atlas, and Commune with Lava. Mirage Mirror is the Autogenerator replacement because it copies Cube, Coffers, or an opposing permanent for a turn. Game Changer count is now zero against the 2026-09-03 snapshot. Bracket stays 3−: the creature locks and from-hand Cube finish still have Upgraded texture. Pregame sentence: “Bracket 3− creatureless control deck with no Game Changers. Usually threatens a win around turns ten to twelve, with a turn-seven high roll.”
+Tabernacle leaves because it is unfun at this table even though it matches the lock. Rings, Caged Sun, Autogenerator, Brass's Bounty, Caltrops, City on Fire, Myriad, Daretti, and Scrap Mastery leave with it. Shrink density stays via Engineered Plague and Curse of Death's Hold. Draw increases with Chandra, Endless Atlas, and Commune with Lava. Mirage Mirror is the Autogenerator replacement because it copies Cube, Coffers, or an opposing permanent for a turn.
+
+### 2026-09-09 — Assessment after fairness pass
+
+Model: seeds 1729 (eight) and 2718 (four), multiplayer turn-one draw, London mulligans, traces through five for setup and ten for finishes. Milestone: Mogis or a creature-control permanent online with both colors by turn five. Pressure: Bracket 3 commander removal after normal deployment, a must-answer permanent by turn five or six, and artifact or enchantment engine loss. Game Changers counted from the 2026-09-03 snapshot in `BRACKET-DEFINITIONS.md`: **none**.
+
+| Metric | Result |
+|---|---:|
+| Keepable with at most one mulligan | 10/12 |
+| Turn-five milestone reached | 11/12 |
+| Mana or color failure | 1/12 |
+| Useful draw or tutor seen by turn five | 10/12 |
+| Creature interaction available by turn five | 11/12 |
+| Noncreature interaction available by turn five | 6/12 |
+| Commander-removal recovery passed | 3/3 |
+| Game plan successful / delayed / failed by turn ten | 2 / 9 / 1 |
+
+High-roll line (2718-4, mulligan once): Graven Cairns, Mountain, Liquimetal Torque, Mana Flare on turn three, Thran Dynamo, Doubling Cube on turn six. Four lands under Flare plus Torque and Dynamo make 12, Cube leaves 18, [Exsanguinate](https://scryfall.com/card/fdn/173/exsanguinate) X=16 drains 48 from each opponent. That is a credible turn-six goldfish, not the usual game.
+
+1729-7 keeps Cube, Emancipation, Tainted Aether, and finds Exsanguinate on turn ten after Flare and Mirage Mirror: a delayed table kill rather than the old Autogenerator burst. 2718-2 still fails to make a fifth land before turn ten. Most other keeps control the board and stall on converting mana into a table-wide X.
+
+Stress: Mogis removed after turn four still leaves Flash, Lethal Vapors, Tainted Aether, or Engineered Plague. Artifact exile is harder without Daretti and Scrap Mastery; Buried Ruin is the remaining rebuild. Crystal Chimes remains the only enchantment sweep recovery.
+
+**Verdict:** Bracket 3−. Zero Game Changers, no infinite combos, extra turns, mass land denial, or permanent fast mana. Signets, Talisman, Torque, and Chalice are ordinary ramp. Tutors are Beseech the Queen, Dark Petition, and Demonic Collusion.
+
+Not Bracket 2: [Doubling Cube](https://scryfall.com/card/10e/321/doubling-cube) into [Crackle with Power](https://scryfall.com/card/stx/95/crackle-with-power) or Exsanguinate is a from-hand dump after accrued mana, which `BRACKET-DEFINITIONS.md` treats as Upgraded texture, and the lock suite still removes choices from creature decks. Not middle Bracket 3: only 2/12 hands killed by turn ten, noncreature answers were in 6/12 by turn five, and there are no Game Changers.
+
+| Estimate | Turn |
+|---|---|
+| Credible high roll | 6 |
+| Normal goldfish | 10–12 |
+| Interactive game | 12 or later |
+
+Pregame sentence: “Bracket 3− creatureless control deck with no Game Changers. Usually threatens a win around turns ten to twelve, with a turn-six high roll.”
