@@ -1,0 +1,18 @@
+{
+  "goals": [
+    "Character Casting",
+    "Sixth-Floor Masquerade",
+    "Extreme Plans"
+  ],
+  "scores": {
+    "jankiness": 9,
+    "fun": 8,
+    "oppressiveness": 3,
+    "identity": {
+      "Character Casting": 6,
+      "Sixth-Floor Masquerade": 9,
+      "Extreme Plans": 7
+    }
+  },
+  "notes": "The command-zone casting and sixth-floor morph-and-goad identity are strong, but the crew are mostly anonymous rather than individually represented. Three finite Extreme Plans work; Recruit the Hunters is political pressure rather than a deterministic combo because goad sends attackers away from Soul Collector."
+}
