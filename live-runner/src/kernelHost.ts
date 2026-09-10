@@ -173,17 +173,19 @@ export const historyForViewer = (
   lobby: LobbyState,
   viewer: SeatId | null,
 ): LiveHistoryFrame[] => {
-  const frames = [
-    historyFrameFromState(
+  const accepted = handle.history.entries().filter((entry) => entry.accepted)
+  const first = Math.max(0, accepted.length - MAX_HISTORY_FRAMES)
+  const frames: LiveHistoryFrame[] = []
+  if (accepted.length < MAX_HISTORY_FRAMES) {
+    frames.push(historyFrameFromState(
       projectForViewer(handle.journal.initial, viewer),
       lobby,
       viewer,
       'Setup',
-    ),
-  ]
-  let seq = 1
-  for (const entry of handle.history.entries()) {
-    if (!entry.accepted) continue
+    ))
+  }
+  for (let index = first; index < accepted.length; index += 1) {
+    const entry = accepted[index]
     const projected = projectForViewer(entry.after, viewer)
     frames.push({
       ...historyFrameFromState(
@@ -192,11 +194,10 @@ export const historyForViewer = (
         viewer,
         entry.after.log.at(-1) ?? entry.event.type,
       ),
-      seq,
+      seq: index + 1,
     })
-    seq += 1
   }
-  return frames.slice(-MAX_HISTORY_FRAMES)
+  return frames
 }
 
 export const encodeKernelSnapshot = (
@@ -206,13 +207,21 @@ export const encodeKernelSnapshot = (
 ) => {
   const current = handle.history.current()
   const history = historyForViewer(handle, lobby, viewer ?? null)
-  let eventId = 0
-  const events = handle.history.entries()
-    .filter((entry) => entry.accepted)
+  const accepted = handle.history.entries().filter((entry) => entry.accepted)
+  let traceCount = 0
+  let firstTraceEntry = accepted.length
+  while (firstTraceEntry > 0 && traceCount < MAX_TRACE_EVENTS) {
+    firstTraceEntry -= 1
+    traceCount += accepted[firstTraceEntry].trace.length
+  }
+  let eventId = accepted
+    .slice(0, firstTraceEntry)
+    .reduce((count, entry) => count + entry.trace.length, 0)
+  const events = accepted
+    .slice(firstTraceEntry)
     .flatMap((entry) => {
-      const projected = projectForViewer(entry.before, viewer ?? null)
       return entry.trace.map((trace) => {
-        const event = liveEventFromTrace(trace, projected, eventId)
+        const event = liveEventFromTrace(trace, entry.before, eventId)
         eventId += 1
         return event
       })
@@ -236,8 +245,10 @@ export const publishKernel = async (
   handle: KernelHandle,
   lobby: LobbyState,
 ) => {
-  await append(origin, bins.host.write, encodeKernelSnapshot(handle, lobby, undefined))
-  for (const seat of SEAT_IDS) {
-    await append(origin, bins[seat].write, encodeKernelSnapshot(handle, lobby, seat))
-  }
+  await Promise.all([
+    append(origin, bins.host.write, encodeKernelSnapshot(handle, lobby, undefined)),
+    ...SEAT_IDS.map((seat) =>
+      append(origin, bins[seat].write, encodeKernelSnapshot(handle, lobby, seat))
+    ),
+  ])
 }

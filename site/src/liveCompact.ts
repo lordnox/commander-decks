@@ -598,7 +598,8 @@ export const expandLiveWire = (
 }
 
 export const fetchDeckIndex = async (slug: string, base: string) => {
-  const response = await fetch(`${base}decks/${encodeURIComponent(slug)}.json`)
+  const encoded = encodeURIComponent(slug).replaceAll('%2B', '+')
+  const response = await fetch(`${base}decks/${encoded}.json`)
   if (!response.ok) {
     throw new Error(`Could not load deck ${slug}`)
   }

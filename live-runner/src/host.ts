@@ -197,9 +197,8 @@ export const runHost = async (options: {
     if (kernel) return
     try {
       kernel = await openKernel(slug, root, state)
-      if (Object.keys(state.actions).length === 0) {
-        state.actions = kernelActions(kernel.history.current())
-      }
+      // The kernel is the authority once it opens; replay-derived actions are stale.
+      state.actions = kernelActions(kernel.history.current())
       logLine(logFile, `kernel journal ${kernelPath(slug, root)}`)
     } catch (reason) {
       kernel = null
