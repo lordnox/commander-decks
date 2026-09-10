@@ -1,5 +1,12 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs'
 import { dirname, join } from 'node:path'
+import { pathToFileURL } from 'node:url'
 import {
   commanderRules,
   createJournal,
@@ -12,6 +19,7 @@ import {
   type GameState,
   type History,
   type KernelJournal,
+  type Plugin,
   type ReduceResult,
   type TableReplay,
 } from '../../rules-engine/src/index'
@@ -26,6 +34,9 @@ import {
 } from './kernelView'
 import { hasReplay, replayPath, repoRoot } from './session'
 import { encodeWire } from './snapshot'
+
+const MAX_HISTORY_FRAMES = 32
+const MAX_TRACE_EVENTS = 128
 
 export const kernelPath = (slug: string, root = repoRoot()) =>
   join(root, 'table-games', `${slug}.kernel.json`)
@@ -50,6 +61,45 @@ const writeJournal = (slug: string, journal: KernelJournal, root: string) => {
 const loadJson = (path: string) =>
   JSON.parse(readFileSync(path, 'utf8')) as KernelJournal
 
+type PluginEntry = { handlerIds?: string[] }
+let pluginLoad = 0
+
+export const loadHostCardPlugins = async (root: string): Promise<Plugin[]> => {
+  const registryPath = join(root, 'cards', 'rules-plugins.json')
+  if (!existsSync(registryPath)) return []
+  const registry = JSON.parse(readFileSync(registryPath, 'utf8')) as Record<string, PluginEntry>
+  const handlerIds = [...new Set(
+    Object.values(registry).flatMap((entry) => entry.handlerIds ?? []),
+  )]
+  return Promise.all(handlerIds.map(async (handlerId) => {
+    if (!/^[a-z][a-zA-Z0-9-]*$/.test(handlerId)) {
+      throw new Error(`invalid card plugin handler ${handlerId}`)
+    }
+    const path = join(root, 'rules-engine', 'src', 'cardPlugins', `${handlerId}.ts`)
+    pluginLoad += 1
+    const reloadPath = join(
+      dirname(path),
+      `.live-${handlerId}-${process.pid}-${pluginLoad}.ts`,
+    )
+    writeFileSync(reloadPath, readFileSync(path))
+    let module: Record<string, unknown>
+    try {
+      module = await import(pathToFileURL(reloadPath).href)
+    } finally {
+      rmSync(reloadPath, { force: true })
+    }
+    const plugin = Object.values(module).find(
+      (value): value is Plugin =>
+        value !== null
+        && typeof value === 'object'
+        && 'id' in value
+        && value.id === handlerId,
+    )
+    if (!plugin) throw new Error(`card plugin ${handlerId} does not export id ${handlerId}`)
+    return plugin
+  }))
+}
+
 export const kernelPriority = (state: GameState): SeatId | null => {
   if (!state.priority) return null
   if (!isSeatId(state.priority)) {
@@ -63,20 +113,34 @@ export const kernelActions = (state: GameState): SeatActions => {
   return priority ? { [priority]: ['plan', 'pass'] } : {}
 }
 
-export const openKernel = (slug: string, root: string, lobby: LobbyState): KernelHandle => {
+export const openKernel = async (
+  slug: string,
+  root: string,
+  lobby: LobbyState,
+): Promise<KernelHandle> => {
   const path = kernelPath(slug, root)
+  const cardPlugins = await loadHostCardPlugins(root)
   const server = createServerGame(
     commanderRules,
     { first: lobby.firstPlayer },
-    { random: () => 0.5 },
+    { random: () => 0.5, cardPlugins },
   )
-  let journal = existsSync(path)
-    ? loadJson(path)
-    : createJournal(server.state)
-  if (!existsSync(path) && hasReplay(slug, root)) {
-    const replay = JSON.parse(readFileSync(replayPath(slug, root), 'utf8')) as TableReplay
+  const existing = existsSync(path)
+  const replay = hasReplay(slug, root)
+    ? JSON.parse(readFileSync(replayPath(slug, root), 'utf8')) as TableReplay
+    : null
+  if (!existing && !replay) {
+    throw new Error('rules kernel waits for game setup')
+  }
+  let journal = existing ? loadJson(path) : createJournal(server.state)
+  if (replay) {
     const lastTurn = replay.events.at(-1)?.turn ?? 0
-    if (lastTurn > 0) {
+    const blankJournal = journal.events.length === 0
+      && Object.keys(journal.initial.objects).length === 0
+    if (lastTurn <= 0 && (!existing || blankJournal)) {
+      throw new Error('rules kernel waits for the dealt replay to reach turn one')
+    }
+    if (!existing || blankJournal) {
       const converted = runReplayRounds(replay, lastTurn)
       journal = {
         schema: 'rules-engine/v0',
@@ -132,7 +196,7 @@ export const historyForViewer = (
     })
     seq += 1
   }
-  return frames
+  return frames.slice(-MAX_HISTORY_FRAMES)
 }
 
 export const encodeKernelSnapshot = (
@@ -153,6 +217,7 @@ export const encodeKernelSnapshot = (
         return event
       })
     })
+    .slice(-MAX_TRACE_EVENTS)
   const snapshot = liveSnapshotFromState({
     state: projectForViewer(current, viewer ?? null),
     lobby,

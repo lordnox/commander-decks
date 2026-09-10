@@ -60,6 +60,58 @@ const PAGES = 'https://lordnox.github.io/commander-decks/live/'
 
 const d20 = () => 1 + Math.floor(Math.random() * 20)
 
+export const applyKernelPass = (
+  kernel: KernelHandle,
+  state: LobbyState,
+  seat: SeatId,
+) => {
+  const result = kernel.dispatch({ type: 'passPriority', seat })
+  const current = kernel.history.current()
+  const priority = kernelPriority(current)
+  state.actions = kernelActions(current)
+  state.privateJudge = {}
+  state.privateWaiting = {}
+  if (result.ok) {
+    state.judge = `${state.occupants[seat]?.name ?? seat} passes.`
+    state.waiting = priority && state.actions[priority]?.includes('plan')
+      ? `${state.occupants[priority]?.name ?? priority}: send a plan or pass.`
+      : 'Priority is still open.'
+  } else {
+    state.judge = `Pass rejected: ${result.error}`
+    state.waiting = 'The kernel rejected that pass. Refresh before acting.'
+  }
+  return result.ok
+}
+
+export const actionsAfterJudgment = (options: {
+  current: LobbyState['actions']
+  message: InboxMessage
+  seat: SeatId
+  result: Awaited<ReturnType<typeof invokeHostAgent>>
+  kernel: KernelHandle | null
+  legacy: () => LobbyState['actions']
+}) => {
+  const { current, message, seat, result, kernel, legacy } = options
+  if (message.type === 'plan' || message.type === 'replace') {
+    const next = result.allowedActions
+      ?? (/confirm/i.test(result.waiting ?? '') ? ['confirm', 'replace'] : ['replace'])
+    return setSeatActions(current, seat, next)
+  }
+  if (message.type === 'confirm' && kernel) {
+    return kernelActions(kernel.history.current())
+  }
+  if (
+    (message.type === 'confirm' || message.type === 'pass')
+    && result.replayChanged
+  ) {
+    return legacy()
+  }
+  if (message.type === 'confirm') {
+    return setSeatActions(current, seat, ['replace'])
+  }
+  return current
+}
+
 /** Lobby frames come from this process; a dealt game is encoded from the replay. */
 const publish = async (
   slug: string,
@@ -140,11 +192,11 @@ export const runHost = async (options: {
     slug,
   )
   let kernel: KernelHandle | null = null
-  const ensureKernel = () => {
+  const ensureKernel = async () => {
     if (state.phase !== 'play') return
     if (kernel) return
     try {
-      kernel = openKernel(slug, root, state)
+      kernel = await openKernel(slug, root, state)
       if (Object.keys(state.actions).length === 0) {
         state.actions = kernelActions(kernel.history.current())
       }
@@ -157,7 +209,7 @@ export const runHost = async (options: {
       )
     }
   }
-  ensureKernel()
+  await ensureKernel()
   if (
     state.phase === 'play'
     && hasReplay(slug, root)
@@ -227,27 +279,18 @@ export const runHost = async (options: {
     const beforeActions = structuredClone(state.actions)
     const beforeWaiting = state.waiting
     applyInbox(state, seat, message)
-    ensureKernel()
+    await ensureKernel()
     const privateExchange = ['plan', 'replace', 'confirm', 'rules'].includes(
       message.type,
     )
     let deterministicPass: false | 'priority' | 'turn' = false
+    const kernelPass = message.type === 'pass' && Boolean(kernel)
     if (message.type === 'pass' && kernel) {
-      const result = kernel.dispatch({ type: 'passPriority', seat })
-      if (result.ok) {
-        const current = kernel.history.current()
-        const priority = kernelPriority(current)
-        state.actions = kernelActions(current)
-        state.judge = `${state.occupants[seat]?.name ?? seat} passes.`
-        state.privateJudge = {}
-        state.privateWaiting = {}
-        state.waiting = priority && state.actions[priority]?.includes('plan')
-          ? `${state.occupants[priority]?.name ?? priority}: send a plan or pass.`
-          : 'Priority is still open.'
+      if (applyKernelPass(kernel, state, seat)) {
         deterministicPass = 'priority'
       }
     }
-    if (!deterministicPass && hasReplay(slug, root)) {
+    if (!kernelPass && !deterministicPass && hasReplay(slug, root)) {
       deterministicPass = message.type === 'pass'
         && applyDeterministicPass(root, slug, state, seat)
     }
@@ -263,7 +306,8 @@ export const runHost = async (options: {
         ? `${state.occupants[next]?.name ?? next}: send a turn plan.`
         : 'Priority is still open.'
     } else if (
-      !deterministicPass
+      !kernelPass
+      && !deterministicPass
       && agentEnabled
       && state.phase === 'play'
       && (hasReplay(slug, root) || kernel)
@@ -292,7 +336,7 @@ export const runHost = async (options: {
           logFile,
         })
         if (hasKernel(slug, root)) {
-          kernel = openKernel(slug, root, state)
+          kernel = await openKernel(slug, root, state)
           if (message.type === 'confirm' || message.type === 'pass') {
             state.actions = kernelActions(kernel.history.current())
           }
@@ -338,18 +382,14 @@ export const runHost = async (options: {
         } else if (result.waiting) {
           state.waiting = result.waiting
         }
-        if (message.type === 'plan' || message.type === 'replace') {
-          const next = result.allowedActions
-            ?? (/confirm/i.test(result.waiting ?? '') ? ['confirm', 'replace'] : ['replace'])
-          state.actions = setSeatActions(state.actions, seat, next)
-        } else if (
-          (message.type === 'confirm' || message.type === 'pass')
-          && result.replayChanged
-        ) {
-          state.actions = replayActions(root, slug, state)
-        } else if (message.type === 'confirm') {
-          state.actions = setSeatActions(state.actions, seat, ['replace'])
-        }
+        state.actions = actionsAfterJudgment({
+          current: state.actions,
+          message,
+          seat,
+          result,
+          kernel,
+          legacy: () => replayActions(root, slug, state),
+        })
       } catch (reason) {
         const error = reason instanceof Error ? reason.message : String(reason)
         logLine(logFile, `agent failed: ${error}`)

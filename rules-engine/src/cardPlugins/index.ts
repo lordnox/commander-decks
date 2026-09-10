@@ -5,6 +5,7 @@ import { yurlok } from './yurlok'
 export type CardPluginEntry = {
   name: string
   pluginIds: string[]
+  handlerIds?: string[]
 }
 
 const byOracleId = registry as Record<string, CardPluginEntry>

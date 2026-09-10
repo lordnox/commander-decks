@@ -208,12 +208,16 @@ When a new deck or card introduces an interaction the kernel cannot represent:
 1. Pause. Do not execute the line.
 2. Add `rules-engine/src/cardPlugins/<id>.ts` and a test that would fail on the
    old behavior.
-3. Register the Oracle ID in `cards/rules-plugins.json`.
+3. Register static effects under `pluginIds` and activated handlers under
+   `handlerIds` in `cards/rules-plugins.json`.
 4. Commit and push that plugin. Later tables reuse it.
 
 The host agent copies those files back from its scratch worktree when
-`pluginsChanged` is true. Generic effects stay in builtin plugins; card files
-are only for odd Oracle.
+`pluginsChanged` is true, then reloads `handlerIds`. Only a confirmed line may
+replace the kernel journal; plan, replace, rules, pass, and talk are read-only.
+Generic effects stay in builtin plugins; card files are only for odd Oracle.
+Published snapshots retain the latest 32 history frames and 128 trace events;
+the append-only host journal remains complete.
 
 ## Long-running host/seat (no poll)
 

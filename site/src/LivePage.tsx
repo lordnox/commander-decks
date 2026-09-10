@@ -522,7 +522,7 @@ export const LivePage = () => {
   const activeSeat = boardSeats.find((seat) => seat.id === boardActive)
   const lastEvent = snapshot.events?.at(-1)
   const priorityOpen = lastEvent?.kind === 'priority'
-  const yourAction = Boolean(snapshot.you && snapshot.youAct)
+  const yourAction = !viewingPast && Boolean(snapshot.you && snapshot.youAct)
   const canSend = request?.kind === 'conduit' && Boolean(request.inbox)
   const actionPending = sentActionId === snapshot.actionId
   const canPass = Boolean(snapshot.actions?.includes('pass'))
@@ -681,7 +681,7 @@ export const LivePage = () => {
           }`}
         >
           <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-stone-500">
-            Turn {snapshot.turn}
+            Turn {boardTurn}
           </p>
           <div className="mt-2 flex items-start gap-2.5">
             <span
@@ -690,7 +690,7 @@ export const LivePage = () => {
             />
             <div>
               <p className="font-display text-xl leading-tight text-stone-50">
-                {activeSeat?.name || snapshot.active}
+                {activeSeat?.name || boardActive}
               </p>
               <p className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-stone-500">
                 Active player
@@ -701,7 +701,7 @@ export const LivePage = () => {
           <nav className="mt-6" aria-label="Turn steps">
             <ol className="relative space-y-0.5 before:absolute before:bottom-3 before:left-[0.3125rem] before:top-3 before:w-px before:bg-white/10">
               {TURN_STEPS.map(([phase, label]) => {
-                const active = snapshot.phase === phase
+                const active = boardPhase === phase
                 return (
                   <li
                     key={phase}
@@ -776,9 +776,9 @@ export const LivePage = () => {
         <div className="min-w-0 lg:order-1">
         <section className="rounded-[1.5rem] border border-gold-300/20 bg-gradient-to-br from-gold-400/10 to-ink-900/80 p-5 shadow-2xl shadow-black/20 sm:p-6">
           <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-gold-300">
-            <span>Turn {snapshot.turn}</span>
+            <span>Turn {boardTurn}</span>
             <span className="text-stone-600">/</span>
-            <span>{phaseLabel(snapshot.phase)}</span>
+            <span>{phaseLabel(boardPhase)}</span>
             {activeSeat && (
               <>
                 <span className="text-stone-600">/</span>

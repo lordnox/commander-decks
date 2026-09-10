@@ -76,9 +76,10 @@ sets `manaAbility: true` when the activation is a mana ability. The always-on
 priority. The host owns the actual mana-ability window (paying costs, no stack).
 
 Card plugins that handle `activateAbility` are always live (`sourceId: null`).
-They no-op unless `abilityId` matches. Yurlok of Scorch Thrash grants `manaBurn`
-while on the battlefield; `yurlok.mana-rain` is `{1}, {T}` raining `{B}{R}{G}`
-and must be sent as a mana ability.
+They no-op unless `abilityId` matches and are listed under `handlerIds` so a
+running host can reload newly generated modules. Yurlok of Scorch Thrash grants
+`manaBurn` while on the battlefield; `yurlok.mana-rain` is `{1}, {T}` raining
+`{B}{R}{G}` and must be sent as a mana ability.
 
 Add a plugin only when a new deck or card needs one. Write a regression test
 in the same step. Reuse `whenAbility` / `applyAbility` checks from
