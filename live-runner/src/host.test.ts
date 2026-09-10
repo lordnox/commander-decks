@@ -8,7 +8,7 @@ import {
   createServerGame,
 } from '../../rules-engine/src/index'
 import { createLobby } from './lobby'
-import { actionsAfterJudgment, applyKernelPass } from './host'
+import { actionsAfterJudgment, applyKernelPass, needsJudgment } from './host'
 import { kernelPath, kernelPriority, openKernel } from './kernelHost'
 
 const setup = async () => {
@@ -57,5 +57,12 @@ describe('kernel host actions', () => {
 
     expect(actions).toEqual({ p2: ['plan', 'pass'] })
     expect(legacyCalled).toBe(false)
+  })
+
+  test('table talk and lobby bookkeeping never occupy the judge', () => {
+    expect(needsJudgment({ type: 'talk', text: 'nice board' })).toBe(false)
+    expect(needsJudgment({ type: 'ready' })).toBe(false)
+    expect(needsJudgment({ type: 'plan', text: 'attack with Sygg' })).toBe(true)
+    expect(needsJudgment({ type: 'rules', text: 'does this trigger?' })).toBe(true)
   })
 })

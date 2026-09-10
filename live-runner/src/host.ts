@@ -83,6 +83,10 @@ export const applyKernelPass = (
   return result.ok
 }
 
+/** Social speech and lobby bookkeeping are already published; only game questions cost a judging round. */
+export const needsJudgment = (message: InboxMessage) =>
+  ['plan', 'replace', 'confirm', 'rules', 'pass'].includes(message.type)
+
 export const actionsAfterJudgment = (options: {
   current: LobbyState['actions']
   message: InboxMessage
@@ -308,6 +312,7 @@ export const runHost = async (options: {
       !kernelPass
       && !deterministicPass
       && agentEnabled
+      && needsJudgment(message)
       && state.phase === 'play'
       && (hasReplay(slug, root) || kernel)
     ) {
