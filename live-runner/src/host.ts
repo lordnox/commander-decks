@@ -16,6 +16,7 @@ import {
   hasKernel,
   kernelActions,
   kernelPath,
+  kernelPriority,
   openKernel,
   publishKernel,
   type KernelHandle,
@@ -234,12 +235,14 @@ export const runHost = async (options: {
     if (message.type === 'pass' && kernel) {
       const result = kernel.dispatch({ type: 'passPriority', seat })
       if (result.ok) {
-        state.actions = kernelActions(kernel.history.current())
+        const current = kernel.history.current()
+        const priority = kernelPriority(current)
+        state.actions = kernelActions(current)
         state.judge = `${state.occupants[seat]?.name ?? seat} passes.`
         state.privateJudge = {}
         state.privateWaiting = {}
-        state.waiting = state.actions[kernel.history.current().priority ?? 'p1']?.includes('plan')
-          ? `${state.occupants[kernel.history.current().priority as SeatId]?.name ?? kernel.history.current().priority}: send a plan or pass.`
+        state.waiting = priority && state.actions[priority]?.includes('plan')
+          ? `${state.occupants[priority]?.name ?? priority}: send a plan or pass.`
           : 'Priority is still open.'
         deterministicPass = 'priority'
       }

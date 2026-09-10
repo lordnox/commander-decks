@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { describe, expect, test } from 'bun:test'
 import { createLobby } from './lobby'
-import { kernelActions, kernelPath, openKernel } from './kernelHost'
+import { kernelActions, kernelPath, kernelPriority, openKernel } from './kernelHost'
 
 const mkdirGames = (root: string) => {
   writeFileSync(join(root, 'package.json'), '{}\n')
@@ -26,7 +26,10 @@ describe('kernel host journal', () => {
 
     const restored = openKernel('pod', root, lobby)
     expect(restored.history.current().priority).toBe(first.history.current().priority)
-    expect(kernelActions(restored.history.current())[restored.history.current().priority ?? 'p1'])
-      .toEqual(['plan', 'pass'])
+    const priority = kernelPriority(restored.history.current())
+    expect(priority).toBeTruthy()
+    if (priority) {
+      expect(kernelActions(restored.history.current())[priority]).toEqual(['plan', 'pass'])
+    }
   })
 })

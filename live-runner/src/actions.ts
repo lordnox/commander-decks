@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import type { LobbyState } from './lobby'
 import {
+  isSeatId,
   SEAT_IDS,
   type InboxMessage,
   type PlayAction,
@@ -38,7 +39,7 @@ const namedResponders = (
   if (Array.isArray(event.seats)) {
     return event.seats.filter(
       (seat): seat is SeatId =>
-        typeof seat === 'string' && SEAT_IDS.includes(seat as SeatId),
+        typeof seat === 'string' && isSeatId(seat),
     )
   }
   const summary = event.summary ?? ''
@@ -64,8 +65,8 @@ export const replayActions = (
     )
   }
   const active = event.state?.active ?? event.seat
-  return SEAT_IDS.includes(active as SeatId)
-    ? { [active as SeatId]: ['plan'] }
+  return typeof active === 'string' && isSeatId(active)
+    ? { [active]: ['plan'] }
     : {}
 }
 
@@ -139,10 +140,11 @@ export const applyDeterministicPass = (
     writeFileSync(path, `${JSON.stringify(replay, null, 2)}\n`)
     return 'priority'
   } else {
-    const active = last.state.active as SeatId
+    const active = last.state.active
     const emptyStack = (last.state.stack ?? []).length === 0
     if (
-      !SEAT_IDS.includes(active)
+      !active
+      || !isSeatId(active)
       || !emptyStack
       || !/^end step priority/i.test(last.summary ?? '')
     ) {

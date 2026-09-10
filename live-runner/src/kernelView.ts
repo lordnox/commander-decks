@@ -1,22 +1,28 @@
 import { replayComparableState } from '../../rules-engine/src/replay'
 import type { GameState, PlayerId } from '../../rules-engine/src/types'
 import type { LiveHistoryFrame, LiveSeat, LiveSnapshot } from '../../site/src/liveCodec'
-import { SEAT_COLORS, SEAT_IDS } from '../../site/src/liveCompact'
+import { SEAT_COLORS } from '../../site/src/liveCompact'
 import type { LobbyState } from './lobby'
-import type { SeatId } from './protocol'
+import { isSeatId, type SeatId } from './protocol'
 
 const deckPath = (path?: string) => path || ''
+
+const liveSeatId = (player: PlayerId): SeatId => {
+  if (!isSeatId(player)) throw new Error(`live host cannot project player ${player}`)
+  return player
+}
 
 export const liveSeatsFromState = (
   state: GameState,
   lobby: LobbyState,
-  viewer: PlayerId | null,
+  viewer: SeatId | null,
 ): LiveSeat[] => {
   const comparable = replayComparableState(state)
-  return state.playerOrder.map((seat, index) => {
-    const player = comparable.players[seat]
-    const occupant = lobby.occupants[seat as SeatId]
-    const handHidden = viewer !== seat
+  return state.playerOrder.map((playerId, index) => {
+    const seat = liveSeatId(playerId)
+    const player = comparable.players[playerId]
+    const occupant = lobby.occupants[seat]
+    const handHidden = viewer !== playerId
     return {
       id: seat,
       name: occupant?.name || seat,
@@ -45,7 +51,7 @@ export const liveSeatsFromState = (
 export const liveSnapshotFromState = (options: {
   state: GameState
   lobby: LobbyState
-  viewer: PlayerId | null
+  viewer: SeatId | null
   history?: LiveHistoryFrame[]
   historyCursor?: number
 }): LiveSnapshot => {
@@ -59,15 +65,15 @@ export const liveSnapshotFromState = (options: {
     headline: seats.map((seat) => seat.name).join(' / ') || 'Live table',
     waiting: lobby.waiting,
     talk: lobby.talk,
-    judge: viewer && lobby.privateJudge[viewer as SeatId]
-      ? lobby.privateJudge[viewer as SeatId]
+    judge: viewer && lobby.privateJudge[viewer]
+      ? lobby.privateJudge[viewer]
       : lobby.judge,
-    judgeHistory: viewer ? lobby.judgeHistory[viewer as SeatId] : undefined,
+    judgeHistory: viewer ? lobby.judgeHistory[viewer] : undefined,
     youAct: Boolean(viewer && priority === viewer),
-    actions: viewer && lobby.actions[viewer as SeatId]
-      ? lobby.actions[viewer as SeatId]
+    actions: viewer && lobby.actions[viewer]
+      ? lobby.actions[viewer]
       : [],
-    actionId: viewer ? lobby.actionIds[viewer as SeatId] : undefined,
+    actionId: viewer ? lobby.actionIds[viewer] : undefined,
     events: [],
     turn: comparable.turn,
     phase: comparable.phase,
@@ -84,7 +90,7 @@ export const liveSnapshotFromState = (options: {
 export const historyFrameFromState = (
   state: GameState,
   lobby: LobbyState,
-  viewer: PlayerId | null,
+  viewer: SeatId | null,
   summary: string,
 ): LiveHistoryFrame => {
   const comparable = replayComparableState(state)

@@ -13,6 +13,7 @@ export const BIN_LABELS = [
 export const SEAT_IDS = ['p1', 'p2', 'p3', 'p4'] as const
 
 export type SeatId = (typeof SEAT_IDS)[number]
+const SEAT_ID_SET: ReadonlySet<string> = new Set(SEAT_IDS)
 export type BinLabel = (typeof BIN_LABELS)[number]
 export type LobbyPhase =
   | 'gathering'
@@ -67,7 +68,7 @@ export const seatInviteLacksHostWrite = (
 ) => invite.read !== hostWrite && invite.mailbox !== hostWrite
 
 export const isSeatId = (value: string): value is SeatId =>
-  SEAT_IDS.includes(value as SeatId)
+  SEAT_ID_SET.has(value)
 
 export const parseInbox = (raw: string): InboxMessage | null => {
   let value: unknown

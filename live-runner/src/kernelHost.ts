@@ -12,14 +12,13 @@ import {
   type GameState,
   type History,
   type KernelJournal,
-  type PlayerId,
   type ReduceResult,
   type TableReplay,
 } from '../../rules-engine/src/index'
 import type { LiveHistoryFrame } from '../../site/src/liveCodec'
 import { compactLiveWire } from '../../site/src/liveCompact'
 import type { LobbyState } from './lobby'
-import { SEAT_IDS, type SeatActions, type SeatId } from './protocol'
+import { isSeatId, SEAT_IDS, type SeatActions, type SeatId } from './protocol'
 import { historyFrameFromState, liveSnapshotFromState } from './kernelView'
 import { hasReplay, replayPath, repoRoot } from './session'
 import { encodeWire } from './snapshot'
@@ -47,9 +46,17 @@ const writeJournal = (slug: string, journal: KernelJournal, root: string) => {
 const loadJson = (path: string) =>
   JSON.parse(readFileSync(path, 'utf8')) as KernelJournal
 
+export const kernelPriority = (state: GameState): SeatId | null => {
+  if (!state.priority) return null
+  if (!isSeatId(state.priority)) {
+    throw new Error(`live host cannot assign priority to ${state.priority}`)
+  }
+  return state.priority
+}
+
 export const kernelActions = (state: GameState): SeatActions => {
-  if (!state.priority) return {}
-  return { [state.priority]: ['plan', 'pass'] }
+  const priority = kernelPriority(state)
+  return priority ? { [priority]: ['plan', 'pass'] } : {}
 }
 
 export const openKernel = (slug: string, root: string, lobby: LobbyState): KernelHandle => {
@@ -96,7 +103,7 @@ export const openKernel = (slug: string, root: string, lobby: LobbyState): Kerne
 export const historyForViewer = (
   handle: KernelHandle,
   lobby: LobbyState,
-  viewer: PlayerId | null,
+  viewer: SeatId | null,
 ): LiveHistoryFrame[] => {
   const frames = [
     historyFrameFromState(
