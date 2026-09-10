@@ -1,4 +1,3 @@
-import { addPools } from '../draft'
 import {
   applyAbility,
   asManaAbility,
@@ -9,7 +8,6 @@ import {
   sourceOnBattlefield,
   whenAbility,
 } from '../plugins/activateAbility'
-import { payCost } from '../plugins/spells'
 import type { Plugin } from '../types'
 
 const PLUGIN_ID = 'yurlok'
@@ -34,14 +32,10 @@ export const yurlok: Plugin = {
     asManaAbility(),
   ),
   apply: applyAbility(YURLOK_MANA_RAIN, ({ event, draft }) => {
-    const object = draft.object(event.objectId)
-    if (!object) return
-    const paid = payCost(draft.players[event.seat].mana, COST)
-    if (!paid) return
-    draft.players[event.seat].mana = paid
-    object.tapped = true
+    draft.enqueue({ type: 'payMana', seat: event.seat, cost: COST })
+    draft.enqueue({ type: 'tap', objectId: event.objectId })
     for (const player of Object.values(draft.players)) {
-      player.mana = addPools(player.mana, RAIN)
+      draft.enqueue({ type: 'addMana', seat: player.id, mana: RAIN })
     }
     draft.note(`${event.seat} activates Yurlok`)
   }),

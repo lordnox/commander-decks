@@ -19,7 +19,11 @@ import type { LiveHistoryFrame } from '../../site/src/liveCodec'
 import { compactLiveWire } from '../../site/src/liveCompact'
 import type { LobbyState } from './lobby'
 import { isSeatId, SEAT_IDS, type SeatActions, type SeatId } from './protocol'
-import { historyFrameFromState, liveSnapshotFromState } from './kernelView'
+import {
+  historyFrameFromState,
+  liveEventFromTrace,
+  liveSnapshotFromState,
+} from './kernelView'
 import { hasReplay, replayPath, repoRoot } from './session'
 import { encodeWire } from './snapshot'
 
@@ -138,12 +142,24 @@ export const encodeKernelSnapshot = (
 ) => {
   const current = handle.history.current()
   const history = historyForViewer(handle, lobby, viewer ?? null)
+  let eventId = 0
+  const events = handle.history.entries()
+    .filter((entry) => entry.accepted)
+    .flatMap((entry) => {
+      const projected = projectForViewer(entry.before, viewer ?? null)
+      return entry.trace.map((trace) => {
+        const event = liveEventFromTrace(trace, projected, eventId)
+        eventId += 1
+        return event
+      })
+    })
   const snapshot = liveSnapshotFromState({
     state: projectForViewer(current, viewer ?? null),
     lobby,
     viewer: viewer ?? null,
     history,
     historyCursor: history.length - 1,
+    events,
   })
   return encodeWire(compactLiveWire(snapshot))
 }

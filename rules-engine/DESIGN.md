@@ -39,6 +39,13 @@ History is also outside the kernel. `createHistory(state, rules)` records
 events plus before/after states without recursively placing history in
 `GameState`. Server and client may choose different retention policies.
 
+Every `ReduceResult` includes an event-centric `trace`. Enqueued and replacement
+events are indented by `depth`; replacement entries name the plugin that acted.
+Hooks that return nothing are deliberately absent. Activating Yurlok therefore
+shows `activateAbility → payMana / tap / addMana`, but does not emit noise from
+unrelated card plugins inspecting the event. `HistoryEntry` retains this trace,
+and the live host publishes redacted summaries in the game log.
+
 ## Replay conversion
 
 `runReplayRounds(replay, throughRound)` bootstraps an authoritative game from

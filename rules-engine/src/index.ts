@@ -79,6 +79,7 @@ export type { History, HistoryEntry } from './history'
 export type { NewGameOptions } from './newGame'
 export type { ServerDependencies } from './runtime'
 export type {
+  EventTrace,
   GameEvent,
   GameState,
   PlayerId,

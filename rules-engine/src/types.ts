@@ -170,6 +170,7 @@ export type GameEvent =
   | { type: 'playLand'; seat: PlayerId; objectId: string }
   | { type: 'tapForMana'; seat: PlayerId; objectId: string }
   | { type: 'addMana'; seat: PlayerId; mana: Partial<ManaPool> }
+  | { type: 'payMana'; seat: PlayerId; cost: string }
   | { type: 'emptyManaPools' }
   | {
       type: 'castSpell'
@@ -226,10 +227,28 @@ export type GameEvent =
     }
   | { type: 'custom'; name: string; seat?: PlayerId; payload?: Record<string, unknown> }
 
+export type EventTrace = {
+  depth: number
+  event: GameEvent
+  outcome: 'applied' | 'replaced' | 'prevented' | 'rejected'
+  pluginId?: string
+  error?: string
+}
+
 /** Successful reduce. `prevented` means a replacement returned `null`. */
-export type ReduceOk = { ok: true; state: GameState; prevented?: boolean }
+export type ReduceOk = {
+  ok: true
+  state: GameState
+  trace: EventTrace[]
+  prevented?: boolean
+}
 /** Failed reduce. `state` is the unchanged input. */
-export type ReduceErr = { ok: false; error: string; state: GameState }
+export type ReduceErr = {
+  ok: false
+  error: string
+  state: GameState
+  trace: EventTrace[]
+}
 export type ReduceResult = ReduceOk | ReduceErr
 
 /**

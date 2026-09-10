@@ -1,9 +1,10 @@
-import type { GameEvent, GameState, ReduceResult } from './types'
+import type { EventTrace, GameEvent, GameState, ReduceResult } from './types'
 
 export type HistoryEntry = {
   event: GameEvent
   before: GameState
   after: GameState
+  trace: EventTrace[]
   accepted: boolean
   error?: string
 }
@@ -37,6 +38,7 @@ export const createHistory = (
         event: structuredClone(event),
         before,
         after: structuredClone(current),
+        trace: structuredClone(result.trace),
         accepted: result.ok,
         error: result.ok ? undefined : result.error,
       })

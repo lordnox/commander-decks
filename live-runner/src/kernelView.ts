@@ -1,11 +1,73 @@
 import { replayComparableState } from '../../rules-engine/src/replay'
-import type { GameState, PlayerId } from '../../rules-engine/src/types'
-import type { LiveHistoryFrame, LiveSeat, LiveSnapshot } from '../../site/src/liveCodec'
+import type { EventTrace, GameState, ManaPool, PlayerId } from '../../rules-engine/src/types'
+import type {
+  LiveEvent,
+  LiveHistoryFrame,
+  LiveSeat,
+  LiveSnapshot,
+} from '../../site/src/liveCodec'
 import { SEAT_COLORS } from '../../site/src/liveCompact'
 import type { LobbyState } from './lobby'
 import { isSeatId, type SeatId } from './protocol'
 
 const deckPath = (path?: string) => path || ''
+
+const manaText = (mana: Partial<ManaPool>) =>
+  Object.entries(mana)
+    .filter(([, amount]) => amount)
+    .map(([symbol, amount]) => `${amount} {${symbol}}`)
+    .join(', ')
+
+const traceSummary = (trace: EventTrace, state: GameState) => {
+  const { event } = trace
+  let summary: string
+  switch (event.type) {
+    case 'activateAbility':
+      summary = `${event.seat} activates ${event.abilityId}`
+      break
+    case 'payMana':
+      summary = `${event.seat} pays ${event.cost}`
+      break
+    case 'tap':
+      summary = `${state.objects[event.objectId]?.name ?? 'A permanent'} taps`
+      break
+    case 'addMana':
+      summary = `${event.seat} adds ${manaText(event.mana)}`
+      break
+    case 'emptyManaPools':
+      summary = 'Empty mana pools'
+      break
+    case 'loseLife':
+      summary = `${event.seat} loses ${event.amount} life`
+      break
+    case 'custom':
+      summary = event.name
+      break
+    default:
+      summary = event.type
+  }
+  const outcome = trace.outcome === 'applied'
+    ? ''
+    : ` — ${trace.outcome}${trace.pluginId ? ` by ${trace.pluginId}` : ''}`
+  return `${'↳ '.repeat(trace.depth)}${summary}${outcome}`
+}
+
+export const liveEventFromTrace = (
+  trace: EventTrace,
+  state: GameState,
+  id: number,
+): LiveEvent => {
+  const comparable = replayComparableState(state)
+  const event = trace.event
+  return {
+    id,
+    turn: comparable.turn,
+    phase: comparable.phase,
+    ...('seat' in event ? { seat: event.seat ?? null } : {}),
+    kind: `kernel-${trace.outcome}`,
+    summary: traceSummary(trace, state),
+  }
+}
 
 const liveSeatId = (player: PlayerId): SeatId => {
   if (!isSeatId(player)) throw new Error(`live host cannot project player ${player}`)
@@ -54,6 +116,7 @@ export const liveSnapshotFromState = (options: {
   viewer: SeatId | null
   history?: LiveHistoryFrame[]
   historyCursor?: number
+  events?: LiveEvent[]
 }): LiveSnapshot => {
   const { state, lobby, viewer } = options
   const comparable = replayComparableState(state)
@@ -74,7 +137,7 @@ export const liveSnapshotFromState = (options: {
       ? lobby.actions[viewer]
       : [],
     actionId: viewer ? lobby.actionIds[viewer] : undefined,
-    events: [],
+    events: options.events ?? [],
     turn: comparable.turn,
     phase: comparable.phase,
     active: comparable.active,

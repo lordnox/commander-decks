@@ -49,6 +49,13 @@ describe('Yurlok of Scorch Thrash', () => {
     expect(activated.state.objects[yurlokId].tapped).toBe(true)
     expect(activated.state.players.p1.mana).toEqual({ W: 0, U: 0, B: 1, R: 1, G: 1, C: 0 })
     expect(activated.state.players.p2.mana).toEqual({ W: 0, U: 0, B: 1, R: 1, G: 1, C: 0 })
+    expect(activated.trace.map(({ depth, event }) => [depth, event.type])).toEqual([
+      [0, 'activateAbility'],
+      [1, 'payMana'],
+      [1, 'tap'],
+      [1, 'addMana'],
+      [1, 'addMana'],
+    ])
 
     const burned = rules(activated.state, { type: 'emptyManaPools' }, catalog)
     expect(burned.ok).toBe(true)
@@ -56,6 +63,16 @@ describe('Yurlok of Scorch Thrash', () => {
     expect(burned.state.players.p1.life).toBe(37)
     expect(burned.state.players.p2.life).toBe(37)
     expect(burned.state.players.p1.mana.B).toBe(0)
+    expect(burned.trace.map(({ depth, event, pluginId }) => [
+      depth,
+      event.type === 'custom' ? event.name : event.type,
+      pluginId,
+    ])).toEqual([
+      [0, 'emptyManaPools', 'manaBurn'],
+      [1, 'loseLife', undefined],
+      [1, 'loseLife', undefined],
+      [1, 'clearMana', undefined],
+    ])
   })
 
   test('the rain cannot be activated as a stack ability', () => {

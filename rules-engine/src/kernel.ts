@@ -4,6 +4,7 @@ import type {
   GameEvent,
   GameState,
   HookCtx,
+  EventTrace,
   ReduceResult,
   RuleInstance,
   ZoneId,
@@ -26,9 +27,10 @@ const replaceEvent = (
   state: GameState,
   event: GameEvent,
   catalog: PluginCatalog,
-): GameEvent | GameEvent[] | null => {
+): { value: GameEvent | GameEvent[] | null; pluginId?: string } => {
   let current: GameEvent = event
   const used = new Set<string>()
+  let pluginId: string | undefined
   let guard = 0
   while (guard < 64) {
     guard += 1
@@ -38,16 +40,17 @@ const replaceEvent = (
       const plugin = catalog.get(rule.pluginId)
       const next = plugin?.replace?.(ctxFor(state, current, makeDraft(state), rule, catalog))
       if (next === undefined) continue
-      if (next === null) return null
+      pluginId = rule.pluginId
+      if (next === null) return { value: null, pluginId }
       used.add(rule.instanceId)
-      if (Array.isArray(next)) return next
+      if (Array.isArray(next)) return { value: next, pluginId }
       current = next
       hit = true
       break
     }
-    if (!hit) return current
+    if (!hit) return { value: current, pluginId }
   }
-  return current
+  return { value: current, pluginId }
 }
 
 const legalError = (
@@ -166,7 +169,24 @@ const checkEnded = (draft: ReturnType<typeof makeDraft>) => {
   if (alive.length <= 1) draft.ended = true
 }
 
-type ReduceOnce = ReduceResult & { queued?: GameEvent[] }
+type ReduceOnce = ReduceResult & {
+  queued?: GameEvent[]
+  queuedDepth?: number
+}
+
+const trace = (
+  event: GameEvent,
+  outcome: EventTrace['outcome'],
+  options: Partial<Omit<EventTrace, 'event' | 'outcome'>> = {},
+): EventTrace => ({
+  depth: 0,
+  event: structuredClone(event),
+  outcome,
+  ...options,
+})
+
+const nested = (entries: EventTrace[], depth: number) =>
+  entries.map((entry) => ({ ...entry, depth: entry.depth + depth }))
 
 export const reduceOnce = (
   state: GameState,
@@ -180,36 +200,71 @@ export const reduceOnce = (
     && event.type !== 'concede'
     && event.type !== 'authoritativeSync'
   ) {
-    return { ok: false, error: 'game has ended', state }
+    const error = 'game has ended'
+    return { ok: false, error, state, trace: [trace(event, 'rejected', { error })] }
   }
 
   const preDraft = makeDraft(state)
   const preError = legalError(state, event, preDraft, catalog)
-  if (preError) return { ok: false, error: preError, state }
+  if (preError) {
+    return {
+      ok: false,
+      error: preError,
+      state,
+      trace: [trace(event, 'rejected', { error: preError })],
+    }
+  }
 
-  const replaced = replaceEvent(state, event, catalog)
+  const replacement = replaceEvent(state, event, catalog)
+  const replaced = replacement.value
   if (replaced === null) {
-    return { ok: true, state: { ...state, prevented: true }, prevented: true }
+    return {
+      ok: true,
+      state: { ...state, prevented: true },
+      trace: [trace(event, 'prevented', { pluginId: replacement.pluginId })],
+      prevented: true,
+    }
   }
   if (Array.isArray(replaced)) {
     let current = state
+    const entries = [trace(event, 'replaced', { pluginId: replacement.pluginId })]
     for (const inner of replaced) {
       const next = rules(current, inner, catalog)
-      if (!next.ok) return next
+      entries.push(...nested(next.trace, 1))
+      if (!next.ok) return { ...next, trace: entries }
       current = next.state
     }
-    return { ok: true, state: current }
+    return { ok: true, state: current, trace: entries }
   }
 
   const draft = makeDraft(state)
   const error = legalError(state, replaced, draft, catalog)
-  if (error) return { ok: false, error, state }
+  if (error) {
+    return {
+      ok: false,
+      error,
+      state,
+      trace: [trace(replaced, 'rejected', { error })],
+    }
+  }
 
   coreApply(draft, replaced)
   pluginApply(state, replaced, draft, catalog)
   checkEnded(draft)
   const queued = [...draft.pending]
-  return { ok: true, state: freezeDraft(draft), queued }
+  const wasReplaced = replaced !== event
+  return {
+    ok: true,
+    state: freezeDraft(draft),
+    queued,
+    queuedDepth: wasReplaced ? 2 : 1,
+    trace: wasReplaced
+      ? [
+          trace(event, 'replaced', { pluginId: replacement.pluginId }),
+          trace(replaced, 'applied', { depth: 1 }),
+        ]
+      : [trace(event, 'applied')],
+  }
 }
 
 export const rules = (
@@ -220,9 +275,11 @@ export const rules = (
   const first = reduceOnce(state, event, catalog)
   if (!first.ok || first.prevented) return first
   let current = first.state
+  const entries = [...first.trace]
   for (const queued of first.queued ?? []) {
     const next = rules(current, queued, catalog)
-    if (!next.ok) return next
+    entries.push(...nested(next.trace, first.queuedDepth ?? 1))
+    if (!next.ok) return { ...next, trace: entries }
     current = next.state
   }
   for (let i = 0; i < SBA_CAP; i += 1) {
@@ -230,19 +287,21 @@ export const rules = (
     const pending = collectSba(current, draft, catalog)
     if (pending.length === 0) {
       checkEnded(draft)
-      return { ok: true, state: freezeDraft(draft) }
+      return { ok: true, state: freezeDraft(draft), trace: entries }
     }
     const next = reduceOnce(current, pending[0], catalog)
-    if (!next.ok) return next
+    entries.push(...nested(next.trace, 1))
+    if (!next.ok) return { ...next, trace: entries }
     if (next.prevented) break
     current = next.state
     for (const queued of next.queued ?? []) {
-      const nested = rules(current, queued, catalog)
-      if (!nested.ok) return nested
-      current = nested.state
+      const child = rules(current, queued, catalog)
+      entries.push(...nested(child.trace, next.queuedDepth ?? 2))
+      if (!child.ok) return { ...child, trace: entries }
+      current = child.state
     }
   }
-  return { ok: true, state: current }
+  return { ok: true, state: current, trace: entries }
 }
 
 export const isBattlefield = (zone: ZoneId) => zone === 'battlefield'
