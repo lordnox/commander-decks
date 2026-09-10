@@ -1,3 +1,4 @@
+import { abilities } from './plugins/activateAbility'
 import { combat } from './plugins/combat'
 import { commander } from './plugins/commander'
 import { damage } from './plugins/damage'
@@ -37,6 +38,7 @@ export type GameFormat = {
 export const corePlugins = [
   turnStructure,
   priority,
+  abilities,
   mana,
   lands,
   spells,

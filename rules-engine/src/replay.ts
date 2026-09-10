@@ -1,3 +1,4 @@
+import { grantedRulesFor } from './cardPlugins'
 import { commanderRules } from './formats'
 import type { CardTemplate } from './newGame'
 import { createServerGame } from './runtime'
@@ -104,7 +105,7 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
     attachedTo: null,
     attacking: null,
     blocking: null,
-    grantedRules: [],
+    grantedRules: grantedRulesFor(name),
     token: false,
     tags: [],
     tapped: false,
@@ -177,6 +178,7 @@ const bootstrapReplay = (replay: TableReplay, throughRound: number) => {
 
 export const runReplayRounds = (replay: TableReplay, throughRound: number) => {
   const runtime = bootstrapReplay(replay, throughRound)
+  const initial = structuredClone(runtime.state)
   let state = runtime.state
   const events: GameEvent[] = []
 
@@ -286,7 +288,7 @@ export const runReplayRounds = (replay: TableReplay, throughRound: number) => {
     }
   }
 
-  return { state, events }
+  return { state, events, initial }
 }
 
 const replayPhase = (step: StepId) => {

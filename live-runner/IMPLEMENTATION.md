@@ -188,10 +188,23 @@ Foreground bun in the agent terminal dies with that terminal. Always pid+log.
 
 ---
 
+## Kernel journal
+
+The host opens `table-games/<slug>.kernel.json` on play (append-only journal).
+Passes use `passPriority`. Card plugins live in `rules-engine/src/cardPlugins/`
+and `cards/rules-plugins.json`. Full Oracle compilation is still out of scope:
+unregistered weird cards pause for a plugin + test.
+
+The kernel is the sole authority once its journal exists. Only `confirm` may
+replace that file; plan/rules checks are read-only, and failed kernel passes do
+not fall back to the replay. Generated `handlerIds` reload in the running host.
+Wire snapshots retain 32 history frames and 128 trace events; the journal stays
+complete.
+
 ## Out of scope (v1)
 
-Oracle/rules engine (host still *answers* rules questions in table talk),
-Ollama, Cursor SDK, replacing Pages, mint-auth deploy, server-side deltas.
+Compiling every Oracle line, Ollama, replacing Pages, mint-auth deploy,
+server-side deltas.
 
 ---
 

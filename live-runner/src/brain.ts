@@ -19,6 +19,7 @@ import {
   journalPath,
   replayPath,
 } from './session'
+import { kernelPath } from './kernelHost'
 
 export type AgentResult = {
   /** Generic public status only. Never include plan contents or strategic detail. */
@@ -33,6 +34,8 @@ export type AgentResult = {
   /** Full actionable prompt visible only to the originating seat. */
   privateWaiting?: string
   replayChanged?: boolean
+  pluginsChanged?: boolean
+  needsPlugin?: string[]
   allowedActions?: PlayAction[]
 }
 
@@ -40,8 +43,9 @@ export const enforceResultPolicy = (
   result: AgentResult,
   message: InboxMessage,
   seat: SeatId,
+  stateChanged = Boolean(result.replayChanged),
 ): AgentResult => {
-  if (!result.replayChanged || ['confirm', 'pass', 'talk'].includes(message.type)) {
+  if (!stateChanged || message.type === 'confirm') {
     return result
   }
   const planCheck = message.type === 'plan' || message.type === 'replace'
@@ -57,6 +61,34 @@ export const enforceResultPolicy = (
     allowedActions: planCheck ? ['replace'] : result.allowedActions,
   }
 }
+
+export const shouldPersistKernelChange = (
+  message: InboxMessage,
+  changed: boolean,
+) => changed && message.type === 'confirm'
+
+export const assertGameAuthority = (options: {
+  kernelExists: boolean
+  replayChangedOnDisk: boolean
+}) => {
+  if (options.kernelExists && options.replayChangedOnDisk) {
+    throw new Error('agent changed the legacy replay while the kernel is authoritative')
+  }
+}
+
+export const normalizeKernelResult = (
+  result: AgentResult,
+  kernelExists: boolean,
+) => kernelExists ? { ...result, replayChanged: false } : result
+
+const redactNames = (note: string, hiddenNames: string[]) =>
+  hiddenNames
+    .sort((left, right) => right.length - left.length)
+    .reduce(
+      (publicNote, card) =>
+        publicNote.replace(new RegExp(escapePattern(card), 'gi'), 'a hidden card'),
+      note,
+    )
 
 const run = async (
   command: string[],
@@ -118,13 +150,32 @@ Read and follow:
 - .agents/skills/live-table/SKILL.md
 - .agents/skills/simulate-table/SKILL.md
 - .agents/skills/simulate-table/GAMEPLAY-HINTS.md
-- table-games/${slug}.json
+- rules-engine/DESIGN.md
+- cards/rules-plugins.json
+- table-games/${slug}.json (if present)
+- table-games/${slug}.kernel.json (authoritative rules journal, if present)
 - table-games/${slug}.inbox.jsonl
 
 The newest event to process is seat ${seat}, conduit generation ${generation}:
 ${JSON.stringify(message)}
 
 Do exactly one host step:
+- Use the rules kernel whenever the line is covered (turn structure, priority,
+  lands, mana, simple casts, combat damage, registered card plugins). Prefer
+  appending a legal GameEvent through reasoning about table-games/${slug}.kernel.json
+  over inventing replay-only shortcuts.
+- If a card has a weird rules interaction (see Yurlok of Scorch Thrash), look it
+  up in cards/rules-plugins.json. Static effects (mana burn) go in pluginIds and
+  are granted while the object is on the battlefield. Activated abilities use
+  { type: 'activateAbility', abilityId, seat, objectId } and whenAbility.
+  Register activated handlers in the card's handlerIds array so the running
+  host can reload the module after pluginsChanged.
+  Set manaAbility true only when the ability is a mana ability; you own that
+  timing window. If the card is missing, do not execute the line.
+  Write a plugin under rules-engine/src/cardPlugins/, a bun test that would fail
+  on the old behavior, and an oracle-id entry in cards/rules-plugins.json.
+  Set pluginsChanged true. Set needsPlugin to the card names if you cannot
+  finish the plugin in this step. Pause for confirmation after the plugin exists.
 - plan/replace: check legality, mana, timing, targets, triggers, combat math,
   visible responses, and politics. Do not execute it. Ask for confirmation or
   a replacement.
@@ -163,7 +214,7 @@ Never access conduit credentials. They are intentionally absent. Never commit,
 push, or edit deck files.
 
 Write table-games/${slug}.agent-result.json containing one JSON object:
-{"judge":"generic public status","privateJudge":"full response for ${seat}","privateSummary":"one concise private history line","waiting":"generic public prompt","privateWaiting":"specific private prompt for ${seat}","replayChanged":false,"allowedActions":["confirm","replace"]}
+{"judge":"generic public status","privateJudge":"full response for ${seat}","privateSummary":"one concise private history line","waiting":"generic public prompt","privateWaiting":"specific private prompt for ${seat}","replayChanged":false,"pluginsChanged":false,"needsPlugin":[],"allowedActions":["confirm","replace"]}
 
 For plan/replace, allowedActions must be ["confirm","replace"] when the line is
 legal, or ["replace"] when it is not. For other message types, omit it.
@@ -184,8 +235,11 @@ Address the waiting prompt to the seat you need a message from. Seats you did
 not ask are shown a neutral "Waiting on …" line instead, so do not write a
 prompt that only makes sense to one seat without naming who owes the answer.
 
-If you legally append events to the replay, set replayChanged true. Preserve
-_libraries in the working replay. The runner will validate and publish it.
+If the kernel journal exists, it is the sole game authority: only confirm may
+append GameEvents to it. Never edit the replay or set replayChanged in that
+mode. Plan, replace, rules, pass, and talk must not mutate either game file.
+Without a kernel, a confirmed legacy replay change sets replayChanged true and
+preserves _libraries. The runner will validate and publish it.
 `
 
 const escapePattern = (value: string) =>
@@ -203,13 +257,20 @@ export const redactHiddenCards = (note: string, replayPath: string) => {
   const hiddenNames = Object.values(players)
     .flatMap((player) => player.hand ?? [])
     .filter((card): card is string => typeof card === 'string' && card.length > 0)
-    .sort((left, right) => right.length - left.length)
+  return redactNames(note, hiddenNames)
+}
 
-  return hiddenNames.reduce(
-    (publicNote, card) =>
-      publicNote.replace(new RegExp(escapePattern(card), 'gi'), 'a hidden card'),
-    note,
-  )
+export const redactHiddenCardsFromKernel = (note: string, path: string) => {
+  const journal = JSON.parse(readFileSync(path, 'utf8')) as {
+    initial?: {
+      objects?: Record<string, { name?: unknown; zone?: unknown }>
+    }
+  }
+  const hiddenNames = Object.values(journal.initial?.objects ?? {})
+    .filter((object) => object.zone === 'hand' || object.zone === 'library')
+    .map((object) => object.name)
+    .filter((name): name is string => typeof name === 'string' && name.length > 0)
+  return redactNames(note, hiddenNames)
 }
 
 const validateReplayReplacement = (
@@ -245,8 +306,9 @@ export const invokeHostAgent = async (options: {
 }) => {
   const { root, slug, seat, generation, message, logFile } = options
   const sourceReplay = replayPath(slug, root)
-  if (!existsSync(sourceReplay)) {
-    throw new Error(`cannot invoke host agent without ${sourceReplay}`)
+  const sourceKernel = kernelPath(slug, root)
+  if (!existsSync(sourceReplay) && !existsSync(sourceKernel)) {
+    throw new Error(`cannot invoke host agent without ${sourceReplay} or ${sourceKernel}`)
   }
 
   const scratchParent = mkdtempSync(join(tmpdir(), `live-host-${slug}-`))
@@ -256,7 +318,8 @@ export const invokeHostAgent = async (options: {
   try {
     await run(['git', 'worktree', 'add', '--detach', scratch, 'HEAD'], root)
     mkdirSync(dirname(scratchReplay), { recursive: true })
-    cpSync(sourceReplay, scratchReplay)
+    if (existsSync(sourceReplay)) cpSync(sourceReplay, scratchReplay)
+    if (existsSync(sourceKernel)) cpSync(sourceKernel, kernelPath(slug, scratch))
     const sourceJournal = journalPath(slug, root)
     if (existsSync(sourceJournal)) {
       cpSync(sourceJournal, journalPath(slug, scratch))
@@ -326,7 +389,6 @@ export const invokeHostAgent = async (options: {
     )) {
       throw new Error('host agent returned invalid allowed actions')
     }
-    result = enforceResultPolicy(result, message, seat)
     const privateExchange = ['plan', 'replace', 'confirm', 'rules'].includes(
       message.type,
     )
@@ -341,16 +403,63 @@ export const invokeHostAgent = async (options: {
         ?.replaceAll('**', '')
         .slice(0, 400)
     }
+    const scratchKernel = kernelPath(slug, scratch)
+    const kernelChanged = existsSync(scratchKernel)
+      && (
+        !existsSync(sourceKernel)
+        || readFileSync(scratchKernel, 'utf8') !== readFileSync(sourceKernel, 'utf8')
+      )
+    const replayChangedOnDisk = existsSync(sourceReplay)
+      && existsSync(scratchReplay)
+      && readFileSync(scratchReplay, 'utf8') !== readFileSync(sourceReplay, 'utf8')
+    assertGameAuthority({
+      kernelExists: existsSync(sourceKernel),
+      replayChangedOnDisk,
+    })
+    result = normalizeKernelResult(result, existsSync(sourceKernel))
+    result = enforceResultPolicy(
+      result,
+      message,
+      seat,
+      Boolean(result.replayChanged) || kernelChanged,
+    )
     if (result.replayChanged) {
+      if (!existsSync(sourceReplay) || !existsSync(scratchReplay)) {
+        throw new Error('agent claimed a replay change without a replay file')
+      }
       validateReplayReplacement(sourceReplay, scratchReplay)
       cpSync(scratchReplay, sourceReplay)
     }
-    const publicReplay = result.replayChanged ? scratchReplay : sourceReplay
-    if (result.judge) result.judge = redactHiddenCards(result.judge, publicReplay)
-    if (result.talk) result.talk = redactHiddenCards(result.talk, publicReplay)
-    if (result.waiting) {
-      result.waiting = redactHiddenCards(result.waiting, publicReplay)
+    if (shouldPersistKernelChange(message, kernelChanged)) {
+      cpSync(scratchKernel, sourceKernel)
     }
+    if (result.pluginsChanged) {
+      const pluginDir = 'rules-engine/src/cardPlugins'
+      const registry = 'cards/rules-plugins.json'
+      await run(['bun', 'test', pluginDir], scratch)
+      if (existsSync(join(scratch, pluginDir))) {
+        cpSync(join(scratch, pluginDir), join(root, pluginDir), { recursive: true })
+      }
+      if (existsSync(join(scratch, registry))) {
+        cpSync(join(scratch, registry), join(root, registry))
+      }
+    }
+    const publicReplay = result.replayChanged && existsSync(scratchReplay)
+      ? scratchReplay
+      : existsSync(sourceReplay) ? sourceReplay : scratchReplay
+    const redactPublic = (note: string) => {
+      let redacted = note
+      if (existsSync(publicReplay)) {
+        redacted = redactHiddenCards(redacted, publicReplay)
+      }
+      if (existsSync(sourceKernel)) {
+        redacted = redactHiddenCardsFromKernel(redacted, sourceKernel)
+      }
+      return redacted
+    }
+    if (result.judge) result.judge = redactPublic(result.judge)
+    if (result.talk) result.talk = redactPublic(result.talk)
+    if (result.waiting) result.waiting = redactPublic(result.waiting)
     logLine(logFile, `agent done ${seat} generation ${generation}`)
     return result
   } finally {

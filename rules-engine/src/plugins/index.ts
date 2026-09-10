@@ -1,3 +1,4 @@
+import { abilities } from './activateAbility'
 import { combat } from './combat'
 import { commander } from './commander'
 import { damage } from './damage'
@@ -18,6 +19,7 @@ import { turnStructure } from './turnStructure'
 export const builtInPlugins = [
   turnStructure,
   priority,
+  abilities,
   mana,
   lands,
   spells,
@@ -33,6 +35,7 @@ export const builtInPlugins = [
 ]
 
 export {
+  abilities,
   combat,
   commander,
   damage,

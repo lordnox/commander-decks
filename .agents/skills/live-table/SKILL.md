@@ -187,6 +187,38 @@ prints `#s=` past 8000. Extra cards that are not in any 99 keep a tiny catalog
 of Scryfall printing IDs; the browser downloads `decks/<slug>.json` and
 hydrates the rest client-side. Do not inline card details when an ID exists.
 
+## Rules kernel and special cards
+
+The live-runner opens `table-games/<slug>.kernel.json` when play starts. That
+journal is the host's authoritative reducer log (`initial` plus accepted
+`GameEvent`s). Reconnects restore it. Passes go through `{ type: 'passPriority' }`.
+The Pages client receives a redacted replica plus history frames and can step
+backward without changing the host.
+
+Most cards need no extra code. Cards with weird rules (Yurlok of Scorch Thrash
+is the template) are listed in [`cards/rules-plugins.json`](../../../cards/rules-plugins.json)
+by Oracle ID. That overlay grants **static** `pluginIds` (mana burn, replacement
+effects) while the object is on the battlefield. Activated abilities use
+`{ type: 'activateAbility', abilityId, seat, objectId }`. Mark `manaAbility: true`
+when the line is a mana ability; the kernel only checks that flag and priority,
+it does not open the window. The host decides when that timing is legal.
+
+When a new deck or card introduces an interaction the kernel cannot represent:
+
+1. Pause. Do not execute the line.
+2. Add `rules-engine/src/cardPlugins/<id>.ts` and a test that would fail on the
+   old behavior.
+3. Register static effects under `pluginIds` and activated handlers under
+   `handlerIds` in `cards/rules-plugins.json`.
+4. Commit and push that plugin. Later tables reuse it.
+
+The host agent copies those files back from its scratch worktree when
+`pluginsChanged` is true, then reloads `handlerIds`. Only a confirmed line may
+replace the kernel journal; plan, replace, rules, pass, and talk are read-only.
+Generic effects stay in builtin plugins; card files are only for odd Oracle.
+Published snapshots retain the latest 32 history frames and 128 trace events;
+the append-only host journal remains complete.
+
 ## Long-running host/seat (no poll)
 
 A Cursor chat must not poll conduit. The Bun **live-runner**

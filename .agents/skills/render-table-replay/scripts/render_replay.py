@@ -13,6 +13,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[4]
 TABLE_GAMES = ROOT / "table-games"
 REPLAYS = ROOT / "site" / "public" / "replays"
+# Live-runner and working files share the replay directory but are not replays.
+SIDECAR_SUFFIXES = (
+    ".working.json",
+    ".live.json",
+    ".conduit.json",
+    ".runner.json",
+    ".kernel.json",
+)
 PT = re.compile(r"^[^/\s]+/[^/\s]+$")
 TURN_SUMMARY = re.compile(r"^\s*Turn\s+(\d+)\b", re.IGNORECASE)
 SCHEMAS = {1, 2}
@@ -1036,7 +1044,7 @@ def replay_paths(explicit: list[Path]) -> list[Path]:
     return sorted(
         path
         for path in TABLE_GAMES.glob("*.json")
-        if not path.name.endswith(".working.json")
+        if not any(path.name.endswith(suffix) for suffix in SIDECAR_SUFFIXES)
     )
 
 

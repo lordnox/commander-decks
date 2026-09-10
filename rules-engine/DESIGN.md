@@ -39,6 +39,13 @@ History is also outside the kernel. `createHistory(state, rules)` records
 events plus before/after states without recursively placing history in
 `GameState`. Server and client may choose different retention policies.
 
+Every `ReduceResult` includes an event-centric `trace`. Enqueued and replacement
+events are indented by `depth`; replacement entries name the plugin that acted.
+Hooks that return nothing are deliberately absent. Activating Yurlok therefore
+shows `activateAbility → payMana / tap / addMana`, but does not emit noise from
+unrelated card plugins inspecting the event. `HistoryEntry` retains this trace,
+and the live host publishes redacted summaries in the game log.
+
 ## Replay conversion
 
 `runReplayRounds(replay, throughRound)` bootstraps an authoritative game from
@@ -55,6 +62,31 @@ legacy replay's aggregate commander tax and seat-keyed commander damage are
 not isomorphic to the kernel's per-commander object-ID maps, so they are not
 part of this projection.
 
+## Card plugins
+
+Special Oracle is not compiled. Cards with odd rules are listed in
+`cards/rules-plugins.json` (Oracle ID → plugin ids). `grantedRulesFor(name)`
+attaches **static** plugin ids (for example `manaBurn`) when the object is
+created; those RuleInstances exist only while the source is on the battlefield.
+
+Activated abilities use `{ type: 'activateAbility', abilityId, seat, objectId }`.
+The ability type does not change the event. Mana vs stack is timing: the host
+sets `manaAbility: true` when the activation is a mana ability. The always-on
+`abilities` plugin skips the priority check in that case and otherwise requires
+priority. The host owns the actual mana-ability window (paying costs, no stack).
+
+Card plugins that handle `activateAbility` are always live (`sourceId: null`).
+They no-op unless `abilityId` matches and are listed under `handlerIds` so a
+running host can reload newly generated modules. Yurlok of Scorch Thrash grants
+`manaBurn` while on the battlefield; `yurlok.mana-rain` is `{1}, {T}` raining
+`{B}{R}{G}` and must be sent as a mana ability.
+
+Add a plugin only when a new deck or card needs one. Write a regression test
+in the same step. Reuse `whenAbility` / `applyAbility` checks from
+`plugins/activateAbility.ts`.
+
+## Pipeline
+
 Active rules live **in the game state**. Catalog entries are code. A permanent
 that grants an effect does `{ type: 'addRule', pluginId, sourceId }`; leaving
 the battlefield does `{ type: 'removeRule', sourceId }`.
@@ -68,7 +100,7 @@ rules(state, { type: 'move', objectId: yarok, to: 'graveyard' })
 // kernel removes every RuleInstance with that sourceId
 ```
 
-## Pipeline
+## Event loop
 
 1. If `state.ended` and the event is not an administrative sync/rule event, reject.
 2. **Replace** — each `RuleInstance` may replace the event once (timestamp order).
