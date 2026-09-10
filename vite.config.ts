@@ -6,25 +6,11 @@ import { defineConfig } from 'vite'
 
 const rootDir = fileURLToPath(new URL('.', import.meta.url))
 
-const conduit = process.env.LIVE_CONDUIT_URL ?? 'https://conduit.app.kopelke.online'
-
 export default defineConfig({
   base: '/commander-decks/',
   root: 'site',
   publicDir: 'public',
   plugins: [react(), tailwindcss()],
-  // Conduit only allows the Pages origin, so dev reads bins through
-  // /live/?c=http://localhost:5173/commander-decks.
-  server: {
-    proxy: {
-      '/commander-decks/v1': {
-        target: conduit,
-        changeOrigin: true,
-        ws: true,
-        rewrite: (path) => path.replace('/commander-decks', ''),
-      },
-    },
-  },
   build: {
     outDir: '../dist',
     emptyOutDir: true,
