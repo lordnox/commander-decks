@@ -1,6 +1,6 @@
 {
   "7baaf462-b0e6-4e21-86a7-73a883c4c9f7": {
     "name": "Yurlok of Scorch Thrash",
-    "pluginIds": ["manaBurn", "yurlok"]
+    "pluginIds": ["manaBurn"]
   }
 }

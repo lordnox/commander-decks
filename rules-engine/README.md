@@ -54,7 +54,8 @@ history.dispatch(event)
 
 Active effects are `RuleInstance`s on the state. Plugin **code** lives in the
 catalog. A card that grants an effect lists `grantedRules`; moving it onto the
-battlefield `addRule`s those plugins, leaving `removeRule`s them.
+battlefield `addRule`s those plugins, leaving `removeRule`s them. Activated
+ability handlers stay live and match `abilityId` on `activateAbility`.
 
 ```ts
 rules(state, { type: 'addRule', pluginId: 'manaBurn' })
@@ -79,6 +80,7 @@ bun test rules-engine
 
 1. `export const foo: Plugin = { id: 'foo', legal, replace, apply, sba }`
 2. Include it in `format.plugins`, or register it with `addPlugin(foo)`.
-3. Put it on the table with `addRule` or `grantedRules`.
+3. Put static effects on the table with `addRule` or `grantedRules`.
+   Handle activations with `whenAbility` / `activateAbility`.
 
 See `DESIGN.md`.

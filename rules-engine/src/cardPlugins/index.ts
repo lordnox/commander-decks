@@ -13,7 +13,7 @@ const byName = new Map(
   Object.values(byOracleId).map((entry) => [entry.name.toLowerCase(), entry]),
 )
 
-/** Card-specific plugins. Register these in the runtime catalog; they stay idle until granted. */
+/** Card-specific plugins. Always on for activateAbility; static effects use grantedRules. */
 export const cardPlugins: Plugin[] = [yurlok]
 
 export const cardPluginEntry = (name: string) => byName.get(name.toLowerCase())

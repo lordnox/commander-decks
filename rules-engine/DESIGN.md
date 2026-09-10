@@ -59,13 +59,23 @@ part of this projection.
 
 Special Oracle is not compiled. Cards with odd rules are listed in
 `cards/rules-plugins.json` (Oracle ID → plugin ids). `grantedRulesFor(name)`
-attaches those ids when a game object is created. Plugin code lives in
-`rules-engine/src/cardPlugins/` and is idle until granted. Yurlok of Scorch
-Thrash is the first entry: it reuses `manaBurn` for losing unspent mana, and
-the `yurlok` plugin for `{1}, {T}` raining `{B}{R}{G}`.
+attaches **static** plugin ids (for example `manaBurn`) when the object is
+created; those RuleInstances exist only while the source is on the battlefield.
+
+Activated abilities use `{ type: 'activateAbility', abilityId, seat, objectId }`.
+The ability type does not change the event. Mana vs stack is timing: the host
+sets `manaAbility: true` when the activation is a mana ability. The always-on
+`abilities` plugin skips the priority check in that case and otherwise requires
+priority. The host owns the actual mana-ability window (paying costs, no stack).
+
+Card plugins that handle `activateAbility` are always live (`sourceId: null`).
+They no-op unless `abilityId` matches. Yurlok of Scorch Thrash grants `manaBurn`
+while on the battlefield; `yurlok.mana-rain` is `{1}, {T}` raining `{B}{R}{G}`
+and must be sent as a mana ability.
 
 Add a plugin only when a new deck or card needs one. Write a regression test
-in the same step.
+in the same step. Reuse `whenAbility` / `applyAbility` checks from
+`plugins/activateAbility.ts`.
 
 ## Pipeline
 

@@ -197,8 +197,11 @@ backward without changing the host.
 
 Most cards need no extra code. Cards with weird rules (Yurlok of Scorch Thrash
 is the template) are listed in [`cards/rules-plugins.json`](../../../cards/rules-plugins.json)
-by Oracle ID. That overlay grants `pluginIds` when the object is created; do
-not copy plugin code into every Scryfall cache file.
+by Oracle ID. That overlay grants **static** `pluginIds` (mana burn, replacement
+effects) while the object is on the battlefield. Activated abilities use
+`{ type: 'activateAbility', abilityId, seat, objectId }`. Mark `manaAbility: true`
+when the line is a mana ability; the kernel only checks that flag and priority,
+it does not open the window. The host decides when that timing is legal.
 
 When a new deck or card introduces an interaction the kernel cannot represent:
 

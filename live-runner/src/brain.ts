@@ -136,7 +136,11 @@ Do exactly one host step:
   appending a legal GameEvent through reasoning about table-games/${slug}.kernel.json
   over inventing replay-only shortcuts.
 - If a card has a weird rules interaction (see Yurlok of Scorch Thrash), look it
-  up in cards/rules-plugins.json. If it is missing, do not execute the line.
+  up in cards/rules-plugins.json. Static effects (mana burn) go in pluginIds and
+  are granted while the object is on the battlefield. Activated abilities use
+  { type: 'activateAbility', abilityId, seat, objectId } and whenAbility.
+  Set manaAbility true only when the ability is a mana ability; you own that
+  timing window. If the card is missing, do not execute the line.
   Write a plugin under rules-engine/src/cardPlugins/, a bun test that would fail
   on the old behavior, and an oracle-id entry in cards/rules-plugins.json.
   Set pluginsChanged true. Set needsPlugin to the card names if you cannot

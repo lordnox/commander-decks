@@ -216,6 +216,14 @@ export type GameEvent =
       pluginId?: string
       sourceId?: string | null
     }
+  | {
+      type: 'activateAbility'
+      abilityId: string
+      seat: PlayerId
+      objectId: string
+      /** Host marks mana-ability timing. Kernel does not open that window. */
+      manaAbility?: boolean
+    }
   | { type: 'custom'; name: string; seat?: PlayerId; payload?: Record<string, unknown> }
 
 /** Successful reduce. `prevented` means a replacement returned `null`. */

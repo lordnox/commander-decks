@@ -1,4 +1,4 @@
-import { grantedRulesFor } from './cardPlugins'
+import { cardPlugins, grantedRulesFor } from './cardPlugins'
 import { emptyMana } from './draft'
 import type { GameFormat } from './formats'
 import {
@@ -132,7 +132,10 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
       put(playerId, 'command', card)
     }
   }
-  const builtin = opts?.builtinRules ?? format.rules
+  const builtin = opts?.builtinRules ?? [
+    ...format.rules,
+    ...cardPlugins.map((plugin) => plugin.id),
+  ]
   const rules: RuleInstance[] = builtin.map((pluginId, index) => ({
     instanceId: `builtin-${pluginId}`,
     pluginId,

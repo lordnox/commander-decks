@@ -52,6 +52,17 @@ export {
 } from './journal'
 export { cardPlugins, grantedRulesFor, missingCardPlugins } from './cardPlugins'
 export {
+  abilities,
+  applyAbility,
+  asManaAbility,
+  canPay,
+  controlledByActivator,
+  sourceCanTap,
+  sourceNamed,
+  sourceOnBattlefield,
+  whenAbility,
+} from './plugins/activateAbility'
+export {
   replayComparableState,
   replayExpectedState,
   runReplayRounds,
