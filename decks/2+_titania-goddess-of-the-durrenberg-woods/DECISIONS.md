@@ -135,3 +135,54 @@ The user requested a second version of the Bad Dürrenberg shaman on the existin
 **Name:** **Titania — Goddess of the Dürrenberg Woods**. Directory transliterates the title as `titania-goddess-of-the-durrenberg-woods`.
 
 **Rejected directions:** Mono-green landfall staples without a sacrifice role; mass land destruction; Scapeshift-style one-turn dumps; Field of the Dead, Crop Rotation, Seedborn Muse, and other cached Game Changers; Ashaya untap infinites; a generic Elf-ball shell.
+
+### 2026-09-11 — Goldfish and stress test
+
+Test model: Bracket 2+ setup through turn five; eight regression hands at seed 1729 and four confirmation hands at seed 2718. London mulligan to six was allowed. The tested milestone was Titania cast by turn five with a sacrifice land/outlet or recursion piece available. These traces do not establish a turn-eight win.
+
+| Run | Keep and bottom | Legal turn-five line | Result |
+| --- | --- | --- | --- |
+| 1729-1 | Mulligan to six; bottom Meandering Towershell | Overlook → Forest; Hideout → Forest; Forest + Edge; Bala land; Titania T5 with Terramorphic ready | Pass |
+| 1729-2 | Keep seven; no bottom | Dryad Arbor; Forest + Groundskeeper; Drownyard + Burnished Hart; Forest, sacrifice Hart for two; Titania T5 | Pass |
+| 1729-3 | Keep seven; no bottom | Evolving Wilds → Forest; Forest; Drownyard; Treetop; Forest + Titania, Lotus Field ready | Pass |
+| 1729-4 | Mulligan to six; bottom Rude Awakening | Terramorphic → Forest; Forest + Greenseeker; Forest + Harrow; Edge of Autumn reaches five; Titania T5 | Pass |
+| 1729-5 | Keep seven; no bottom | Forest + Llanowar; Forest + Six; Yavimaya Hollow; Forest + Titania; Forest | Pass T4 |
+| 1729-6 | Keep seven; no bottom | Hideout → Forest; Forest; Terramorphic → Forest; Escape Tunnel + Harrow; Blighted Woodland + Titania, Ramunap ready | Pass |
+| 1729-7 | Keep seven; no bottom | Forest + Elvish Reclaimer; Karst; Forest + Druidic Satchel; Escape Tunnel; Forest + Titania with Reclaimer ready | Pass |
+| 1729-8 | Keep seven; no bottom | Forest + Fyndhorn; Forest + Groundskeeper; Courtyard → Forest + Springbloom; Mosswort + Titania; Hollow + Roiling Regrowth | Pass T4 |
+| 2718-1 | Keep seven; no bottom | Forest; Myriad Landscape; Karst + Zuran Orb; Forest + Utopia Sprawl; Dryad Arbor + Titania | Pass |
+| 2718-2 | Keep seven; no bottom | Forest + Safekeeper; Forest + Nature's Lore; Karst + Three Visits; Titania with Safekeeper ready | Pass T4 |
+| 2718-3 | Keep seven; no bottom | Forest + Greenseeker; Terramorphic plus Greenseeker finds Forest; Forest + Fyndhorn, Greenseeker finds another; Forest; Forest + Titania, Constant Mists ready | Pass |
+| 2718-4 | Keep seven; no bottom | Thicket; Forest + Nature's Lore; Springbloom sacrifices Thicket; Warped Landscape; Forest + Titania + Claws sacrifice | Pass |
+
+| Metric | Result |
+| --- | --- |
+| Keepable with at most one mulligan | 12/12 |
+| Titania cast by turn five | 12/12 |
+| Titania cast by turn four | 3/12 |
+| Mana or colour failure | 0/12 |
+| Sacrifice or recursion available at milestone | 12/12 |
+| Relevant interaction/protection seen | 11/12 |
+| Game plan successful / delayed / failed | 12 / 0 / 0 |
+
+Stress branches:
+
+- **Targeted removal:** In 2718-2, Sylvan Safekeeper sacrifices a land in response, Titania creates a 5/3, and shroud counters the opposing removal through illegal target. Passed.
+- **Unprotected removal:** In 1729-5, Titania removed after the turn-four cast cannot be recast by turn five; Six and the land engine still develop, but the commander line is delayed. Recovery beyond the five-turn horizon is untested.
+- **Destroy wipe:** In 1729-8, Wrap in Vigor drawn by turn five protects the Elementals after Titania develops. Passed for destroy effects; exile and toughness wipes still beat it.
+- **Graveyard hate:** Exiling the graveyard stops Loam and replay engines but does not stop fresh fetches from making Elementals. Plan delayed, not disabled.
+- **Must-answer permanent:** Lignify, Song of the Dryads, Krosan Grip, Bind, or Boseiju appeared in eleven hands; 1729-2 had no answer by turn five. This is acceptable for Core, but the deck cannot consistently police a turn-four engine.
+
+No failure repeated three times, so version 1 stays unchanged.
+
+### 2026-09-11 — Assessment
+
+**Verdict: Bracket 2+.** The manifest has 0 Game Changers against the 2026-09-03 cached snapshot in `BRACKET-DEFINITIONS.md`. It has no infinite combo, extra turn, permanent fast mana, or opposing land-denial plan. Elvish Reclaimer is the only repeatable land tutor; the finish is visible creature combat.
+
+| Estimate | Turn | Evidence |
+| --- | --- | --- |
+| Credible high roll | 7 to pressure one player | Titania on four, Lotus Field or Zuran Orb produces several 5/3s, then a trample payoff |
+| Normal goldfish | 8–9 table threat | Titania on four or five, two turns of land deaths, then Baru, Kamahl, or Rude Awakening |
+| Interactive game | 10+ | One commander removal raises Titania to seven mana; graveyard hate also breaks the replay engine |
+
+This is above middle Core because the command zone turns every fetch and sacrifice into five power and the draw payoffs are redundant. It stays below Upgraded because it lacks Game Changers, compact wins, optimized tutors, free protection, and a from-hand game dump; the whole Elemental army is exposed on board.
