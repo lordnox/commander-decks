@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "title": "Trostani — Congregation of the Dürrenberg",
+  "summary": "Populate the congregation: Trostani blesses each arrival with life and copies the best token until combat or Test of Endurance closes.",
+  "tags": [
+    {
+      "name": "populate",
+      "score": 5,
+      "reason": "The commander, Growing Ranks, and a full populate package exist to copy creature tokens as the repeating action."
+    },
+    {
+      "name": "tokens",
+      "score": 5,
+      "reason": "The 99 is built to mint creature tokens so populate has a target; lands, enchantments, and creatures all make the flock."
+    },
+    {
+      "name": "go-wide",
+      "score": 4,
+      "reason": "Win texture is a visible army plus Overrun, True Conviction, or Ascension, not a single voltron body."
+    },
+    {
+      "name": "lifegain",
+      "score": 4,
+      "reason": "Trostani's toughness-life trigger is the blessing engine; Well of Lost Dreams and Test of Endurance pay it off."
+    },
+    {
+      "name": "midrange",
+      "score": 3,
+      "reason": "The deck develops a board, trades, then converts with a telegraphed combat or ordeal rather than combo."
+    },
+    {
+      "name": "ramp",
+      "score": 3,
+      "reason": "Dorks, Wild Growth, Signet, Lore/Visits, and Verge exist to cast GGWW Trostani on four or five."
+    },
+    {
+      "name": "enchantress",
+      "score": 2,
+      "reason": "Growing Ranks, Nest, Mesa, Privileged Position, and Test are enchantments, but the plan is tokens, not enchantress draw."
+    },
+    {
+      "name": "stax",
+      "score": 1,
+      "reason": "No tax or lock pieces; Privileged Position is protection, not a lock."
+    }
+  ]
+}

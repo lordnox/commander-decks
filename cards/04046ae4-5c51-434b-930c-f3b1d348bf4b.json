@@ -1,0 +1,126 @@
+{
+  "artist": "Mark Zug",
+  "artist_ids": [
+    "48e2b98c-5467-4671-bd42-4c3746115117"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 3.0,
+  "collector_number": "RVR-26",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 1331,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"No harm can come to me while the Worldsoul shelters me.\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "50f1b7ba-7888-4f0d-a515-23dcf96bf87e",
+  "illustration_id": "23535f1c-3498-41c5-9ba7-551542c615d0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-09-09T21:59:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/0/50f1b7ba-7888-4f0d-a515-23dcf96bf87e.webp?1788991186",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/0/50f1b7ba-7888-4f0d-a515-23dcf96bf87e.jpg?1788991186",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/0/50f1b7ba-7888-4f0d-a515-23dcf96bf87e.jpg?1788991186",
+    "crop": "https://cards.scryfall.io/crop/front/5/0/50f1b7ba-7888-4f0d-a515-23dcf96bf87e.webp?1788991186",
+    "display": "https://cards.scryfall.io/display/front/5/0/50f1b7ba-7888-4f0d-a515-23dcf96bf87e.webp?1788991186",
+    "grid": "https://cards.scryfall.io/grid/front/5/0/50f1b7ba-7888-4f0d-a515-23dcf96bf87e.webp?1788991186",
+    "large": "https://cards.scryfall.io/large/front/5/0/50f1b7ba-7888-4f0d-a515-23dcf96bf87e.jpg?1788991186",
+    "normal": "https://cards.scryfall.io/normal/front/5/0/50f1b7ba-7888-4f0d-a515-23dcf96bf87e.jpg?1788991186",
+    "png": "https://cards.scryfall.io/png/front/5/0/50f1b7ba-7888-4f0d-a515-23dcf96bf87e.png?1788991186",
+    "small": "https://cards.scryfall.io/small/front/5/0/50f1b7ba-7888-4f0d-a515-23dcf96bf87e.jpg?1788991186",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/0/50f1b7ba-7888-4f0d-a515-23dcf96bf87e.webp?1788991186"
+  },
+  "keywords": [
+    "Populate"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "multiverse_ids": [],
+  "name": "Rootborn Defenses",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "04046ae4-5c51-434b-930c-f3b1d348bf4b",
+  "oracle_text": "Populate. Creatures you control gain indestructible until end of turn. (To populate, create a token that's a copy of a creature token you control.)",
+  "oversized": false,
+  "penny_rank": 4454,
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A04046ae4-5c51-434b-930c-f3b1d348bf4b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Rootborn+Defenses&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Rootborn+Defenses&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DRootborn%2BDefenses%26view%3Dgrid"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rootborn+Defenses",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRootborn%2BDefenses",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRootborn%2BDefenses"
+  },
+  "released_at": "2026-08-10",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/50f1b7ba-7888-4f0d-a515-23dcf96bf87e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/plst?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/plst/RVR-26/rootborn-defenses?utm_source=api",
+  "set": "plst",
+  "set_id": "67e47ba2-b019-4181-9005-fe9fc021de44",
+  "set_name": "The List",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aplst&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/67e47ba2-b019-4181-9005-fe9fc021de44",
+  "story_spotlight": false,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/50f1b7ba-7888-4f0d-a515-23dcf96bf87e",
+  "variation": false,
+  "watermark": "selesnya"
+}

@@ -1,0 +1,160 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "45907b16-af17-4237-ab38-9d7537fd30e8",
+      "name": "Soldier",
+      "object": "related_card",
+      "type_line": "Token Creature — Soldier",
+      "uri": "https://api.scryfall.com/cards/45907b16-af17-4237-ab38-9d7537fd30e8"
+    },
+    {
+      "component": "combo_piece",
+      "id": "41b930ee-e16b-4612-87de-c03ecc6ff6db",
+      "name": "Emmara, Soul of the Accord",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Elf Cleric",
+      "uri": "https://api.scryfall.com/cards/41b930ee-e16b-4612-87de-c03ecc6ff6db"
+    }
+  ],
+  "arena_id": 68629,
+  "artist": "Mark Winters",
+  "artist_ids": [
+    "3d8a379d-f4e8-440d-99d5-5ec107757348"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 363563,
+  "cmc": 2.0,
+  "collector_number": "168",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [
+    "G",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 6606,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Whatever hatred destroys, a single act of trust can revive.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "41b930ee-e16b-4612-87de-c03ecc6ff6db",
+  "illustration_id": "c9286244-cb23-44a0-bfd3-f44351516def",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:15:36Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/1/41b930ee-e16b-4612-87de-c03ecc6ff6db.webp?1783934136",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/1/41b930ee-e16b-4612-87de-c03ecc6ff6db.jpg?1783934136",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/1/41b930ee-e16b-4612-87de-c03ecc6ff6db.jpg?1783934136",
+    "crop": "https://cards.scryfall.io/crop/front/4/1/41b930ee-e16b-4612-87de-c03ecc6ff6db.webp?1783934136",
+    "display": "https://cards.scryfall.io/display/front/4/1/41b930ee-e16b-4612-87de-c03ecc6ff6db.webp?1783934136",
+    "grid": "https://cards.scryfall.io/grid/front/4/1/41b930ee-e16b-4612-87de-c03ecc6ff6db.webp?1783934136",
+    "large": "https://cards.scryfall.io/large/front/4/1/41b930ee-e16b-4612-87de-c03ecc6ff6db.jpg?1783934136",
+    "normal": "https://cards.scryfall.io/normal/front/4/1/41b930ee-e16b-4612-87de-c03ecc6ff6db.jpg?1783934136",
+    "png": "https://cards.scryfall.io/png/front/4/1/41b930ee-e16b-4612-87de-c03ecc6ff6db.png?1783934136",
+    "small": "https://cards.scryfall.io/small/front/4/1/41b930ee-e16b-4612-87de-c03ecc6ff6db.jpg?1783934136",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/1/41b930ee-e16b-4612-87de-c03ecc6ff6db.webp?1783934136"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}{W}",
+  "mtgo_id": 69709,
+  "multiverse_ids": [
+    452918
+  ],
+  "name": "Emmara, Soul of the Accord",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c65ba242-3369-48a9-864f-1b1f85238f67",
+  "oracle_text": "Whenever Emmara becomes tapped, create a 1/1 white Soldier creature token with lifelink.",
+  "oversized": false,
+  "penny_rank": 3656,
+  "power": "2",
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": "0.54",
+    "tix": "0.02",
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": "0.76"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac65ba242-3369-48a9-864f-1b1f85238f67&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/69709?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=363563&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F175175%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Emmara%2C+Soul+of+the+Accord",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=452918&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEmmara%252C%2BSoul%2Bof%2Bthe%2BAccord",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEmmara%252C%2BSoul%2Bof%2Bthe%2BAccord"
+  },
+  "released_at": "2018-10-05",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/41b930ee-e16b-4612-87de-c03ecc6ff6db/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/grn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/grn/168/emmara-soul-of-the-accord?utm_source=api",
+  "security_stamp": "oval",
+  "set": "grn",
+  "set_id": "597c6d4a-8212-4903-a6af-12c4ae9e13f0",
+  "set_name": "Guilds of Ravnica",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Agrn&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/597c6d4a-8212-4903-a6af-12c4ae9e13f0",
+  "story_spotlight": false,
+  "tcgplayer_id": 175175,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Elf Cleric",
+  "uri": "https://api.scryfall.com/cards/41b930ee-e16b-4612-87de-c03ecc6ff6db",
+  "variation": false,
+  "watermark": "selesnya"
+}

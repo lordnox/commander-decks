@@ -11580,8 +11580,312 @@
         "recursion",
         "sacrifice"
       ]
+    },
+    "e94ef397-f5c5-4b8d-ae27-528352fa1d1e": {
+      "name": "Trostani, Selesnya's Voice",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "069f6530-e65c-4d52-85f3-e0a2acd148c5": {
+      "name": "Avacyn's Pilgrim",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "5b2364d7-a811-4595-a1b4-224c70555ffa": {
+      "name": "Raise the Alarm",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "211868ca-662b-4054-bf50-c9e16bb58c49": {
+      "name": "Wake the Reflections",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "c65ba242-3369-48a9-864f-1b1f85238f67": {
+      "name": "Emmara, Soul of the Accord",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "f7252190-ad24-4ba3-a644-2790dd1d680d": {
+      "name": "Rhys the Redeemed",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "da6f79ec-5f7e-4099-89c5-6d2bfc14d957": {
+      "name": "Vitu-Ghazi Guildmage",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "8fbdca3a-7aa3-4b5a-98d7-9168856045ac": {
+      "name": "Selesnya Guildmage",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "10821e37-8a83-4d8e-a12f-249a10933a22": {
+      "name": "Qasali Pridemage",
+      "categories": [
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "5cbbb3f3-63a4-4983-81ea-8c405b10e63f": {
+      "name": "Voice of Resurgence",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "7d0efc64-151f-45b4-8c0b-c32609f9d862": {
+      "name": "Knight of the White Orchid",
+      "categories": [
+        "other"
+      ]
+    },
+    "c0525645-9b5a-488d-b4d1-e80f16a1e4e1": {
+      "name": "Wayfaring Temple",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "c4212ba4-8c43-40ca-aa36-b3b535659fa8": {
+      "name": "Knight of Autumn",
+      "categories": [
+        "removal"
+      ]
+    },
+    "a0335224-9523-47d5-8944-486f2d4a6b8f": {
+      "name": "Selesnya Eulogist",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "fe8fc442-ed17-40b2-8624-69f2eed3f9be": {
+      "name": "Nesting Dovehawk",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "2441696b-a9ba-4813-ba2e-e71f85281d05": {
+      "name": "Wilt-Leaf Liege",
+      "categories": [
+        "discard"
+      ]
+    },
+    "874e0b54-bc24-4887-abe1-1ecfd3a3abae": {
+      "name": "Trostani's Summoner",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "a34c4d5c-6ecb-4da2-8734-a2f3d35cfe8b": {
+      "name": "Scion of Vitu-Ghazi",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "8e1d261d-b8d3-4fb1-922d-47789854b5b3": {
+      "name": "Giant Adephage",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "3b1f8108-6911-49e9-8f78-f950bb58cb6c": {
+      "name": "Hornet Queen",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "1436dd81-496e-42a5-b210-fb5b9cdf073f": {
+      "name": "Selesnya Signet",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "bec6fb31-60a3-432f-ba36-aebf172f8b27": {
+      "name": "Growing Ranks",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "8776d14f-a5a2-4ef3-98d0-e1148e579e4d": {
+      "name": "Sacred Mesa",
+      "categories": [
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "abd62af0-c17d-4f62-af15-9ea83037b990": {
+      "name": "Privileged Position",
+      "categories": [
+        "protection"
+      ]
+    },
+    "11b5308d-5bc0-4782-875f-a28be36e665d": {
+      "name": "Beastmaster Ascension",
+      "categories": [
+        "other"
+      ]
+    },
+    "b0394cf2-12a0-4d4f-87e0-fe8937e6faff": {
+      "name": "Well of Lost Dreams",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "fc299c1c-50f3-492a-b6b8-a3664bb72ab7": {
+      "name": "True Conviction",
+      "categories": [
+        "other"
+      ]
+    },
+    "a2a380d8-4df7-4357-862c-ed3fb795db6c": {
+      "name": "Sundering Growth",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "fde7645a-5f02-4d5f-b38c-8390f325899e": {
+      "name": "Druid's Deliverance",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "04046ae4-5c51-434b-930c-f3b1d348bf4b": {
+      "name": "Rootborn Defenses",
+      "categories": [
+        "protection",
+        "token-production"
+      ]
+    },
+    "9697cd05-474e-46f3-8bcc-d4b6fb2059a1": {
+      "name": "Eyes in the Skies",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "19bb51dd-2b93-45f0-927d-bbafddadd0a3": {
+      "name": "Aura Mutation",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "97cf544e-ffbf-4730-8cd2-4f1d5be933f2": {
+      "name": "Trostani's Judgment",
+      "categories": [
+        "removal",
+        "token-production"
+      ]
+    },
+    "eb62aa4b-c11b-4195-ae85-cff8f78ce17b": {
+      "name": "Advent of the Wurm",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "23674648-d1a0-437d-8a0b-4173c75b4507": {
+      "name": "Coursers' Accord",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "aa8b60b6-cf55-4aaa-9caa-2b17942d8269": {
+      "name": "Icatian Town",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "38abf769-e4ef-4b47-9c79-c8cda0b90f6c": {
+      "name": "Collective Unconscious",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "204f9afe-c20b-4933-b5cd-aa572784762a": {
+      "name": "Overrun",
+      "categories": [
+        "other"
+      ]
+    },
+    "3bc13640-03f8-4b19-b0a4-7e7cb5271c0c": {
+      "name": "Hour of Reckoning",
+      "categories": [
+        "board-wipe"
+      ]
+    },
+    "8b33d890-7d67-44a8-a253-e2b171d7ca9d": {
+      "name": "Sprout Swarm",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "d51831b1-7394-456e-a1de-6787a59f5932": {
+      "name": "Lush Portico",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "3c87ea85-ca29-45a7-b5b2-758c62898b0a": {
+      "name": "Scattered Groves",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "d9a10971-f32b-4978-952d-fed0a5bc9e36": {
+      "name": "Krosan Verge",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "88fb9e82-28b9-4275-a1e2-cb3a9bfda127": {
+      "name": "Vitu-Ghazi, the City-Tree",
+      "categories": [
+        "land",
+        "ramp",
+        "token-production"
+      ]
+    },
+    "f746612a-fbed-44ca-b2cc-5928e10cf4bb": {
+      "name": "Grove of the Guardian",
+      "categories": [
+        "land",
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "8b370db5-dfb9-4ea0-9017-bae3e767b041": {
+      "name": "Kjeldoran Outpost",
+      "categories": [
+        "land",
+        "ramp",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "8a44e4e7-dfa2-427b-bbff-11c398fa60bb": {
+      "name": "Gavony Township",
+      "categories": [
+        "land",
+        "ramp"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-11T15:44:14.108571+00:00"
+  "updated_at": "2026-09-11T16:10:43.498019+00:00"
 }

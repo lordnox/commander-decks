@@ -1,0 +1,134 @@
+{
+  "artist": "David Palumbo",
+  "artist_ids": [
+    "04ce1c75-e30c-4b7a-8cb0-b53e4ecc2f39"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 392492,
+  "cmc": 2.0,
+  "collector_number": "203",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [
+    "G",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 2531,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"One day every pillar will be a tree and every hall a glade.\"\n—Trostani",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "96feebe2-0a6b-4df8-8e7d-ee0bb82ac0c1",
+  "illustration_id": "d1016b7a-446f-4f09-b7b2-db53d87a48ca",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:52:13Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/6/96feebe2-0a6b-4df8-8e7d-ee0bb82ac0c1.webp?1783932733",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/6/96feebe2-0a6b-4df8-8e7d-ee0bb82ac0c1.jpg?1783932733",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/6/96feebe2-0a6b-4df8-8e7d-ee0bb82ac0c1.jpg?1783932733",
+    "crop": "https://cards.scryfall.io/crop/front/9/6/96feebe2-0a6b-4df8-8e7d-ee0bb82ac0c1.webp?1783932733",
+    "display": "https://cards.scryfall.io/display/front/9/6/96feebe2-0a6b-4df8-8e7d-ee0bb82ac0c1.webp?1783932733",
+    "grid": "https://cards.scryfall.io/grid/front/9/6/96feebe2-0a6b-4df8-8e7d-ee0bb82ac0c1.webp?1783932733",
+    "large": "https://cards.scryfall.io/large/front/9/6/96feebe2-0a6b-4df8-8e7d-ee0bb82ac0c1.jpg?1783932733",
+    "normal": "https://cards.scryfall.io/normal/front/9/6/96feebe2-0a6b-4df8-8e7d-ee0bb82ac0c1.jpg?1783932733",
+    "png": "https://cards.scryfall.io/png/front/9/6/96feebe2-0a6b-4df8-8e7d-ee0bb82ac0c1.png?1783932733",
+    "small": "https://cards.scryfall.io/small/front/9/6/96feebe2-0a6b-4df8-8e7d-ee0bb82ac0c1.jpg?1783932733",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/6/96feebe2-0a6b-4df8-8e7d-ee0bb82ac0c1.webp?1783932733"
+  },
+  "keywords": [
+    "Populate"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G/W}{G/W}",
+  "mtgo_id": 77528,
+  "multiverse_ids": [
+    470749
+  ],
+  "name": "Sundering Growth",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a2a380d8-4df7-4357-862c-ed3fb795db6c",
+  "oracle_text": "Destroy target artifact or enchantment, then populate. (Create a token that's a copy of a creature token you control.)",
+  "oversized": false,
+  "penny_rank": 2397,
+  "prices": {
+    "eur": "0.30",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.34",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa2a380d8-4df7-4357-862c-ed3fb795db6c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/77528?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=392492&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F196676%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sundering+Growth",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=470749&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSundering%2BGrowth",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSundering%2BGrowth"
+  },
+  "released_at": "2019-08-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/96feebe2-0a6b-4df8-8e7d-ee0bb82ac0c1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c19?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c19/203/sundering-growth?utm_source=api",
+  "set": "c19",
+  "set_id": "0fa3ccbb-d86d-4a2e-a55e-c4979c4feeb2",
+  "set_name": "Commander 2019",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac19&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/0fa3ccbb-d86d-4a2e-a55e-c4979c4feeb2",
+  "story_spotlight": false,
+  "tcgplayer_id": 196676,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/96feebe2-0a6b-4df8-8e7d-ee0bb82ac0c1",
+  "variation": false
+}
