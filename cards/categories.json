@@ -11295,8 +11295,293 @@
         "land",
         "ramp"
       ]
+    },
+    "68954295-54e3-4303-a6bc-fc4547a4e3a3": {
+      "name": "Llanowar Elves",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "693d8203-4405-4488-9067-cc1cd8041cb4": {
+      "name": "Greenseeker",
+      "categories": [
+        "ramp",
+        "discard"
+      ]
+    },
+    "f2c19fba-9b06-461f-bb5e-e827ba41204d": {
+      "name": "Groundskeeper",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "bddf8f4a-3149-4dd6-a9e5-7747e7e45a1c": {
+      "name": "Sylvan Safekeeper",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "94f01534-7bb3-4b1e-8f77-e84156408686": {
+      "name": "Elvish Reclaimer",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "7fd4c452-07f2-492c-9c78-d1c6362d9eec": {
+      "name": "Yavimaya Elder",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "8973bd99-20f8-4867-90ef-50392147ee1b": {
+      "name": "Wood Elves",
+      "categories": [
+        "tutor"
+      ]
+    },
+    "4ce2357f-93e6-40ca-beca-8f4e15adc464": {
+      "name": "Farhaven Elf",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "50d33663-5d83-4e3c-9ed7-074fe29a9fc8": {
+      "name": "Cartographer",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "e6555cca-e608-4c87-b835-9cd47fd1f543": {
+      "name": "Tireless Tracker",
+      "categories": [
+        "card-draw",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "3d794629-9014-460a-8d3b-785eadc1cdb5": {
+      "name": "Wickerbough Elder",
+      "categories": [
+        "removal"
+      ]
+    },
+    "13279222-422d-4447-9451-2463b0c714c6": {
+      "name": "Garruk's Packleader",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "162572f2-1757-42e9-bd97-e6bd9a762c0e": {
+      "name": "Ashaya, Soul of the Wild",
+      "categories": [
+        "other"
+      ]
+    },
+    "4b8bf64b-4800-45ff-81c6-2857f34999b5": {
+      "name": "Multani, Yavimaya's Avatar",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "b6021700-992a-4faa-8f83-a9af03dc7296": {
+      "name": "Baru, Fist of Krosa",
+      "categories": [
+        "token-production",
+        "discard"
+      ]
+    },
+    "8b21146d-3e92-46e7-b5d9-8240fba5088e": {
+      "name": "Kamahl, Fist of Krosa",
+      "categories": [
+        "other"
+      ]
+    },
+    "a85b845c-a196-43db-b740-6ce191345097": {
+      "name": "Liege of the Tangle",
+      "categories": [
+        "other"
+      ]
+    },
+    "c4d384d7-f294-4b2d-9971-a4689c150255": {
+      "name": "Claws of Gix",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "33c722cf-b4bf-431f-aefd-ee96241a7fbf": {
+      "name": "Crucible of Worlds",
+      "categories": [
+        "other"
+      ]
+    },
+    "75a4ddf5-1b3c-4dde-a6e4-4346e46cebf1": {
+      "name": "Druidic Satchel",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "63625b26-3a19-4c3c-b18a-91247bb2a40c": {
+      "name": "Lignify",
+      "categories": [
+        "other"
+      ]
+    },
+    "7c3944fa-7c86-4979-85a9-86196aa94594": {
+      "name": "Song of the Dryads",
+      "categories": [
+        "other"
+      ]
+    },
+    "d9a7e5a6-3e41-4fc6-987a-18fe1b9d67dd": {
+      "name": "Elemental Bond",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "dc0593c2-ccb4-4648-a592-c5bcd121dc72": {
+      "name": "Greater Good",
+      "categories": [
+        "card-draw",
+        "sacrifice",
+        "discard"
+      ]
+    },
+    "d552f5cb-19b6-4def-90d5-6d2d9570f93d": {
+      "name": "Perilous Forays",
+      "categories": [
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "42d86827-6459-42fc-86b6-6eb055604c36": {
+      "name": "Edge of Autumn",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "sacrifice",
+        "discard"
+      ]
+    },
+    "65d63518-3261-40b5-87b8-19c152b29ee3": {
+      "name": "Roiling Regrowth",
+      "categories": [
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "685a7f67-6809-4386-990f-c52d1846a584": {
+      "name": "Rude Awakening",
+      "categories": [
+        "other"
+      ]
+    },
+    "7aae0a3d-8882-4485-a126-f06ea6593dcb": {
+      "name": "Titania's Command",
+      "categories": [
+        "ramp",
+        "removal",
+        "token-production"
+      ]
+    },
+    "3e39224c-72ce-4ecc-aa17-12c071ea1f3e": {
+      "name": "Krosan Grip",
+      "categories": [
+        "removal"
+      ]
+    },
+    "6f880348-6dc8-4cf8-9313-9893c41a70a3": {
+      "name": "Desert Twister",
+      "categories": [
+        "removal"
+      ]
+    },
+    "d0dd425b-fdba-41b4-b9e6-f5161610bd7e": {
+      "name": "Ezuri's Predation",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "2b9557df-7158-4ada-be77-5c346851a568": {
+      "name": "Bind",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "c04dd88f-fb7f-43be-b586-7fc5642073dc": {
+      "name": "Avoid Fate",
+      "categories": [
+        "other"
+      ]
+    },
+    "b2d5ba45-8674-4428-89db-c2bbbf0bf5c5": {
+      "name": "Khalni Garden",
+      "categories": [
+        "land",
+        "ramp",
+        "token-production"
+      ]
+    },
+    "7cb9e29f-835f-4155-a2a5-4b778866c773": {
+      "name": "Mosswort Bridge",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "9f8fe514-77ed-41b4-a6f3-c6f095bb97be": {
+      "name": "Tranquil Thicket",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "58bfd9a1-67ce-41d0-be38-f05addd1dd9e": {
+      "name": "Slippery Karst",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "0056fc91-4398-471c-b561-7ff99750ac8a": {
+      "name": "Escape Tunnel",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "543e6bb3-a867-43bf-a737-2f5d6d8dc631": {
+      "name": "Warped Landscape",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "65424bea-fd53-4f85-9757-0b91a6d40ba4": {
+      "name": "Cabaretti Courtyard",
+      "categories": [
+        "land",
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "c4bc5bc4-e589-42c5-91fa-2ebc96448e85": {
+      "name": "Petrified Field",
+      "categories": [
+        "land",
+        "ramp",
+        "recursion",
+        "sacrifice"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-11T13:04:03.942676+00:00"
+  "updated_at": "2026-09-11T15:44:14.108571+00:00"
 }

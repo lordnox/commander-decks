@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "title": "Titania — Goddess of the Dürrenberg Woods",
+  "summary": "Sacrifice and regrow lands so Titania manifests the Dürrenberg woods as a visible army of Elemental spirits.",
+  "tags": [
+    {
+      "name": "lands",
+      "score": 5,
+      "reason": "Lands die, return, animate, and form the deck's primary resource and win condition."
+    },
+    {
+      "name": "sacrifice",
+      "score": 5,
+      "reason": "Fetches, outlets, and ramp spells deliberately put lands into the graveyard."
+    },
+    {
+      "name": "graveyard",
+      "score": 4,
+      "reason": "Loam, Crucible, Ramunap, Six, World Shaper, and Reclamation regrow the domain."
+    },
+    {
+      "name": "tokens",
+      "score": 4,
+      "reason": "Titania's 5/3 Elemental tokens are the main clock and card-draw engine."
+    },
+    {
+      "name": "elementals",
+      "score": 3,
+      "reason": "Titania, Ashaya, Multani, Liege, and the 5/3 army embody the living woods."
+    },
+    {
+      "name": "landfall",
+      "score": 3,
+      "reason": "Tracker, Baru, the Satchel, and repeated land returns reward land entries."
+    },
+    {
+      "name": "midrange",
+      "score": 3,
+      "reason": "The deck develops mana and recursion before presenting telegraphed combat."
+    },
+    {
+      "name": "ramp",
+      "score": 3,
+      "reason": "Druids, auras, and sacrifice-ramp bring a five-mana commander online."
+    },
+    {
+      "name": "aggro",
+      "score": 2,
+      "reason": "Combat closes games, but only after a midrange land engine develops."
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "artist": "Ittoku",
+  "artist_ids": [
+    "d3a47c28-84e9-4b53-a236-5066ae1bb62f"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 270090,
+  "cmc": 5.0,
+  "collector_number": "22",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 9915,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "019897e4-d3ba-43b1-9bd9-2ebba6e3b349",
+  "illustration_id": "060a7b95-c796-4722-bd13-750d165a252a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:32:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/1/019897e4-d3ba-43b1-9bd9-2ebba6e3b349.webp?1783938757",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/1/019897e4-d3ba-43b1-9bd9-2ebba6e3b349.jpg?1783938757",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/1/019897e4-d3ba-43b1-9bd9-2ebba6e3b349.jpg?1783938757",
+    "crop": "https://cards.scryfall.io/crop/front/0/1/019897e4-d3ba-43b1-9bd9-2ebba6e3b349.webp?1783938757",
+    "display": "https://cards.scryfall.io/display/front/0/1/019897e4-d3ba-43b1-9bd9-2ebba6e3b349.webp?1783938757",
+    "grid": "https://cards.scryfall.io/grid/front/0/1/019897e4-d3ba-43b1-9bd9-2ebba6e3b349.webp?1783938757",
+    "large": "https://cards.scryfall.io/large/front/0/1/019897e4-d3ba-43b1-9bd9-2ebba6e3b349.jpg?1783938757",
+    "normal": "https://cards.scryfall.io/normal/front/0/1/019897e4-d3ba-43b1-9bd9-2ebba6e3b349.jpg?1783938757",
+    "png": "https://cards.scryfall.io/png/front/0/1/019897e4-d3ba-43b1-9bd9-2ebba6e3b349.png?1783938757",
+    "small": "https://cards.scryfall.io/small/front/0/1/019897e4-d3ba-43b1-9bd9-2ebba6e3b349.jpg?1783938757",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/1/019897e4-d3ba-43b1-9bd9-2ebba6e3b349.webp?1783938757"
+  },
+  "keywords": [
+    "Entwine"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{G}",
+  "multiverse_ids": [
+    393919
+  ],
+  "name": "Rude Awakening",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "685a7f67-6809-4386-990f-c52d1846a584",
+  "oracle_text": "Choose one —\n• Untap all lands you control.\n• Until end of turn, lands you control become 2/2 creatures that are still lands.\nEntwine {2}{G} (Choose both if you pay the entwine cost.)",
+  "oversized": false,
+  "penny_rank": 5492,
+  "prices": {
+    "eur": "0.84",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "1.24",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A685a7f67-6809-4386-990f-c52d1846a584&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Rude+Awakening&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=270090&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F93733%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rude+Awakening",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=393919&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRude%2BAwakening",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRude%2BAwakening"
+  },
+  "released_at": "2014-12-05",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/019897e4-d3ba-43b1-9bd9-2ebba6e3b349/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/gvl?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/gvl/22/rude-awakening?utm_source=api",
+  "security_stamp": "oval",
+  "set": "gvl",
+  "set_id": "db352daa-9827-44ca-ba19-511969a97689",
+  "set_name": "Duel Decks Anthology: Garruk vs. Liliana",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Agvl&unique=prints",
+  "set_type": "duel_deck",
+  "set_uri": "https://api.scryfall.com/sets/db352daa-9827-44ca-ba19-511969a97689",
+  "story_spotlight": false,
+  "tcgplayer_id": 93733,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/019897e4-d3ba-43b1-9bd9-2ebba6e3b349",
+  "variation": false
+}

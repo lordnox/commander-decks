@@ -1,0 +1,2205 @@
+{
+  "cards": [
+    {
+      "cache": "cards/d0ade00d-a496-441d-9b7e-7dc033d3292c.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{G}{G}",
+        "oracle_text": "When Titania enters, return target land card from your graveyard to the battlefield.\nWhenever a land you control is put into a graveyard from the battlefield, create a 5/3 green Elemental creature token.",
+        "power": "5",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Elemental"
+      },
+      "categories": [
+        "Commander{top}"
+      ],
+      "category_source": "decklist",
+      "name": "Titania, Protector of Argoth",
+      "oracle_id": "d0ade00d-a496-441d-9b7e-7dc033d3292c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/111/titania-protector-of-argoth?utm_source=api",
+      "submitted_categories": [
+        "Commander{top}"
+      ],
+      "submitted_name": "Titania, Protector of Argoth"
+    },
+    {
+      "cache": "cards/68954295-54e3-4303-a6bc-fc4547a4e3a3.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{G}",
+        "oracle_text": "{T}: Add {G}.",
+        "power": "1",
+        "produced_mana": [
+          "G"
+        ],
+        "toughness": "1",
+        "type_line": "Creature — Elf Druid"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Llanowar Elves",
+      "oracle_id": "68954295-54e3-4303-a6bc-fc4547a4e3a3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/227/llanowar-elves?utm_source=api",
+      "submitted_categories": [
+        "ramp"
+      ],
+      "submitted_name": "Llanowar Elves"
+    },
+    {
+      "cache": "cards/df317532-7d36-40fd-938f-e972749c8792.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{G}",
+        "oracle_text": "{T}: Add {G}.",
+        "power": "1",
+        "produced_mana": [
+          "G"
+        ],
+        "toughness": "1",
+        "type_line": "Creature — Elf Druid"
+      },
+      "categories": [
+        "ramp",
+        "old-border"
+      ],
+      "category_source": "decklist",
+      "name": "Fyndhorn Elves",
+      "oracle_id": "df317532-7d36-40fd-938f-e972749c8792",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmr/228/fyndhorn-elves?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "old-border"
+      ],
+      "submitted_name": "Fyndhorn Elves"
+    },
+    {
+      "cache": "cards/693d8203-4405-4488-9067-cc1cd8041cb4.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{G}",
+        "oracle_text": "{G}, {T}, Discard a card: Search your library for a basic land card, reveal it, put it into your hand, then shuffle.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Elf Spellshaper"
+      },
+      "categories": [
+        "land-tutor",
+        "discard"
+      ],
+      "category_source": "decklist",
+      "name": "Greenseeker",
+      "oracle_id": "693d8203-4405-4488-9067-cc1cd8041cb4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsr/207/greenseeker?utm_source=api",
+      "submitted_categories": [
+        "land-tutor",
+        "discard"
+      ],
+      "submitted_name": "Greenseeker"
+    },
+    {
+      "cache": "cards/f2c19fba-9b06-461f-bb5e-e827ba41204d.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{G}",
+        "oracle_text": "{1}{G}: Return target basic land card from your graveyard to your hand.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Druid"
+      },
+      "categories": [
+        "land-recursion",
+        "old-border"
+      ],
+      "category_source": "decklist",
+      "name": "Groundskeeper",
+      "oracle_id": "f2c19fba-9b06-461f-bb5e-e827ba41204d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/97/groundskeeper?utm_source=api",
+      "submitted_categories": [
+        "land-recursion",
+        "old-border"
+      ],
+      "submitted_name": "Groundskeeper"
+    },
+    {
+      "cache": "cards/bddf8f4a-3149-4dd6-a9e5-7747e7e45a1c.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{G}",
+        "oracle_text": "Sacrifice a land: Target creature you control gains shroud until end of turn. (It can't be the target of spells or abilities.)",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Human Wizard"
+      },
+      "categories": [
+        "protection",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Sylvan Safekeeper",
+      "oracle_id": "bddf8f4a-3149-4dd6-a9e5-7747e7e45a1c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/287/sylvan-safekeeper?utm_source=api",
+      "submitted_categories": [
+        "protection",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Sylvan Safekeeper"
+    },
+    {
+      "cache": "cards/e3afc704-220f-498f-9eaa-0821b17dc24c.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Sacrifice this creature: Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Snake Shaman"
+      },
+      "categories": [
+        "ramp",
+        "landfall"
+      ],
+      "category_source": "decklist",
+      "name": "Sakura-Tribe Elder",
+      "oracle_id": "e3afc704-220f-498f-9eaa-0821b17dc24c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/285/sakura-tribe-elder?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "landfall"
+      ],
+      "submitted_name": "Sakura-Tribe Elder"
+    },
+    {
+      "cache": "cards/94f01534-7bb3-4b1e-8f77-e84156408686.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{G}",
+        "oracle_text": "This creature gets +2/+2 as long as there are three or more land cards in your graveyard.\n{2}, {T}, Sacrifice a land: Search your library for a land card, put it onto the battlefield tapped, then shuffle.",
+        "power": "1",
+        "toughness": "2",
+        "type_line": "Creature — Elf Warrior"
+      },
+      "categories": [
+        "land-tutor",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Elvish Reclaimer",
+      "oracle_id": "94f01534-7bb3-4b1e-8f77-e84156408686",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/m20/169/elvish-reclaimer?utm_source=api",
+      "submitted_categories": [
+        "land-tutor",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Elvish Reclaimer"
+    },
+    {
+      "cache": "cards/edd5b228-f19f-4b27-8b92-75545389da14.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Trample"
+        ],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Trample\nWhenever this creature attacks, it gets +1/+0 until end of turn for each other attacking Aurochs.",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Creature — Aurochs"
+      },
+      "categories": [
+        "animal-spirit",
+        "combat"
+      ],
+      "category_source": "decklist",
+      "name": "Bull Aurochs",
+      "oracle_id": "edd5b228-f19f-4b27-8b92-75545389da14",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/csp/107/bull-aurochs?utm_source=api",
+      "submitted_categories": [
+        "animal-spirit",
+        "combat"
+      ],
+      "submitted_name": "Bull Aurochs"
+    },
+    {
+      "cache": "cards/7fd4c452-07f2-492c-9c78-d1c6362d9eec.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}{G}",
+        "oracle_text": "When this creature dies, you may search your library for up to two basic land cards, reveal them, put them into your hand, then shuffle.\n{2}, Sacrifice this creature: Draw a card.",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Creature — Human Druid"
+      },
+      "categories": [
+        "ramp",
+        "card-draw"
+      ],
+      "category_source": "decklist",
+      "name": "Yavimaya Elder",
+      "oracle_id": "7fd4c452-07f2-492c-9c78-d1c6362d9eec",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/208/yavimaya-elder?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "card-draw"
+      ],
+      "submitted_name": "Yavimaya Elder"
+    },
+    {
+      "cache": "cards/8973bd99-20f8-4867-90ef-50392147ee1b.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "When this creature enters, search your library for a Forest card, put that card onto the battlefield, then shuffle.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Elf Scout"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Wood Elves",
+      "oracle_id": "8973bd99-20f8-4867-90ef-50392147ee1b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/hob/142/wood-elves?utm_source=api",
+      "submitted_categories": [
+        "ramp"
+      ],
+      "submitted_name": "Wood Elves"
+    },
+    {
+      "cache": "cards/4ce2357f-93e6-40ca-beca-8f4e15adc464.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "When this creature enters, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Elf Druid"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Farhaven Elf",
+      "oracle_id": "4ce2357f-93e6-40ca-beca-8f4e15adc464",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/khc/62/farhaven-elf?utm_source=api",
+      "submitted_categories": [
+        "ramp"
+      ],
+      "submitted_name": "Farhaven Elf"
+    },
+    {
+      "cache": "cards/788a4896-3414-40bf-b391-d2efea2fb5f9.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "When this creature enters, you may sacrifice a land. If you do, search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Elf Druid"
+      },
+      "categories": [
+        "ramp",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Springbloom Druid",
+      "oracle_id": "788a4896-3414-40bf-b391-d2efea2fb5f9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/767/springbloom-druid?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Springbloom Druid"
+    },
+    {
+      "cache": "cards/50d33663-5d83-4e3c-9ed7-074fe29a9fc8.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "When this creature enters, you may return target land card from your graveyard to your hand.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Human"
+      },
+      "categories": [
+        "land-recursion",
+        "old-border"
+      ],
+      "category_source": "decklist",
+      "name": "Cartographer",
+      "oracle_id": "50d33663-5d83-4e3c-9ed7-074fe29a9fc8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ody/232/cartographer?utm_source=api",
+      "submitted_categories": [
+        "land-recursion",
+        "old-border"
+      ],
+      "submitted_name": "Cartographer"
+    },
+    {
+      "cache": "cards/30b24e8e-3b0e-4d8e-90f3-f66eb7c1858c.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}{G}",
+        "oracle_text": "When this creature enters, you may return target card from your graveyard to your hand.",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Creature — Human Shaman"
+      },
+      "categories": [
+        "recursion",
+        "shaman"
+      ],
+      "category_source": "decklist",
+      "name": "Eternal Witness",
+      "oracle_id": "30b24e8e-3b0e-4d8e-90f3-f66eb7c1858c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/286/eternal-witness?utm_source=api",
+      "submitted_categories": [
+        "recursion",
+        "shaman"
+      ],
+      "submitted_name": "Eternal Witness"
+    },
+    {
+      "cache": "cards/dbcbdf37-c40f-4068-b4a7-a849cab1056c.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Reach",
+          "Mill"
+        ],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Reach\nWhenever Six attacks, mill three cards. You may put a land card from among them into your hand.\nDuring your turn, nonland permanent cards in your graveyard have retrace. (You may cast permanent cards from your graveyard by discarding a land card in addition to paying their other costs.)",
+        "power": "2",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Treefolk"
+      },
+      "categories": [
+        "land-recursion",
+        "mill"
+      ],
+      "category_source": "decklist",
+      "name": "Six",
+      "oracle_id": "dbcbdf37-c40f-4068-b4a7-a849cab1056c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/169/six?utm_source=api",
+      "submitted_categories": [
+        "land-recursion",
+        "mill"
+      ],
+      "submitted_name": "Six"
+    },
+    {
+      "cache": "cards/e6555cca-e608-4c87-b835-9cd47fd1f543.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Investigate",
+          "Landfall"
+        ],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Landfall — Whenever a land you control enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")\nWhenever you sacrifice a Clue, put a +1/+1 counter on this creature.",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Creature — Human Scout"
+      },
+      "categories": [
+        "card-draw",
+        "landfall",
+        "excavation"
+      ],
+      "category_source": "decklist",
+      "name": "Tireless Tracker",
+      "oracle_id": "e6555cca-e608-4c87-b835-9cd47fd1f543",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/110/tireless-tracker?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "landfall",
+        "excavation"
+      ],
+      "submitted_name": "Tireless Tracker"
+    },
+    {
+      "cache": "cards/4f819ba4-52ef-4fdd-8e4c-5ae3b2f44db5.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "You may play lands from your graveyard.",
+        "power": "2",
+        "toughness": "3",
+        "type_line": "Creature — Snake Cleric"
+      },
+      "categories": [
+        "land-recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Ramunap Excavator",
+      "oracle_id": "4f819ba4-52ef-4fdd-8e4c-5ae3b2f44db5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/202/ramunap-excavator?utm_source=api",
+      "submitted_categories": [
+        "land-recursion"
+      ],
+      "submitted_name": "Ramunap Excavator"
+    },
+    {
+      "cache": "cards/893fed41-c144-433f-af88-bc7d419b7fb3.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "{3}, Sacrifice this creature: Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Artifact Creature — Elk"
+      },
+      "categories": [
+        "ramp",
+        "animal-spirit"
+      ],
+      "category_source": "decklist",
+      "name": "Burnished Hart",
+      "oracle_id": "893fed41-c144-433f-af88-bc7d419b7fb3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/250/burnished-hart?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "animal-spirit"
+      ],
+      "submitted_name": "Burnished Hart"
+    },
+    {
+      "cache": "cards/3d794629-9014-460a-8d3b-785eadc1cdb5.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{G}",
+        "oracle_text": "This creature enters with a -1/-1 counter on it.\n{G}, Remove a -1/-1 counter from this creature: Destroy target artifact or enchantment.",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Creature — Treefolk Shaman"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Wickerbough Elder",
+      "oracle_id": "3d794629-9014-460a-8d3b-785eadc1cdb5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecc/118/wickerbough-elder?utm_source=api",
+      "submitted_categories": [
+        "removal"
+      ],
+      "submitted_name": "Wickerbough Elder"
+    },
+    {
+      "cache": "cards/13279222-422d-4447-9451-2463b0c714c6.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{4}{G}",
+        "oracle_text": "Whenever another creature you control with power 3 or greater enters, you may draw a card.",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Creature — Beast"
+      },
+      "categories": [
+        "card-draw",
+        "elemental-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Garruk's Packleader",
+      "oracle_id": "13279222-422d-4447-9451-2463b0c714c6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c19/168/garruks-packleader?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "elemental-payoff"
+      ],
+      "submitted_name": "Garruk's Packleader"
+    },
+    {
+      "cache": "cards/21f45043-5419-4019-8b6c-e5294bd5f549.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Deathtouch"
+        ],
+        "mana_cost": "{3}{G}{G}",
+        "oracle_text": "Deathtouch (Any amount of damage this deals to a creature is enough to destroy it.)\nWhen this creature enters, destroy target artifact, enchantment, or land.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Ooze"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Acidic Slime",
+      "oracle_id": "21f45043-5419-4019-8b6c-e5294bd5f549",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/270/acidic-slime?utm_source=api",
+      "submitted_categories": [
+        "removal"
+      ],
+      "submitted_name": "Acidic Slime"
+    },
+    {
+      "cache": "cards/3c075bb6-1831-4521-bd8d-4ed2825ae796.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Mill"
+        ],
+        "mana_cost": "{3}{G}",
+        "oracle_text": "Whenever this creature attacks, you may mill three cards.\nWhen this creature dies, return all land cards from your graveyard to the battlefield tapped.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Creature — Merfolk Shaman"
+      },
+      "categories": [
+        "land-recursion",
+        "mill"
+      ],
+      "category_source": "decklist",
+      "name": "World Shaper",
+      "oracle_id": "3c075bb6-1831-4521-bd8d-4ed2825ae796",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otc/214/world-shaper?utm_source=api",
+      "submitted_categories": [
+        "land-recursion",
+        "mill"
+      ],
+      "submitted_name": "World Shaper"
+    },
+    {
+      "cache": "cards/162572f2-1757-42e9-bd97-e6bd9a762c0e.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{G}{G}",
+        "oracle_text": "Ashaya's power and toughness are each equal to the number of lands you control.\nNontoken creatures you control are Forest lands in addition to their other types. (They're still affected by summoning sickness.)",
+        "power": "*",
+        "toughness": "*",
+        "type_line": "Legendary Creature — Elemental"
+      },
+      "categories": [
+        "land-synergy",
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Ashaya, Soul of the Wild",
+      "oracle_id": "162572f2-1757-42e9-bd97-e6bd9a762c0e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/170/ashaya-soul-of-the-wild?utm_source=api",
+      "submitted_categories": [
+        "land-synergy",
+        "protection"
+      ],
+      "submitted_name": "Ashaya, Soul of the Wild"
+    },
+    {
+      "cache": "cards/4b8bf64b-4800-45ff-81c6-2857f34999b5.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Reach",
+          "Trample"
+        ],
+        "mana_cost": "{4}{G}{G}",
+        "oracle_text": "Reach, trample\nMultani gets +1/+1 for each land you control and each land card in your graveyard.\n{1}{G}, Return two lands you control to their owner's hand: Return this card from your graveyard to your hand.",
+        "power": "0",
+        "toughness": "0",
+        "type_line": "Legendary Creature — Elemental Avatar"
+      },
+      "categories": [
+        "finisher",
+        "land-synergy"
+      ],
+      "category_source": "decklist",
+      "name": "Multani, Yavimaya's Avatar",
+      "oracle_id": "4b8bf64b-4800-45ff-81c6-2857f34999b5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/100/multani-yavimayas-avatar?utm_source=api",
+      "submitted_categories": [
+        "finisher",
+        "land-synergy"
+      ],
+      "submitted_name": "Multani, Yavimaya's Avatar"
+    },
+    {
+      "cache": "cards/b6021700-992a-4faa-8f83-a9af03dc7296.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Grandeur"
+        ],
+        "mana_cost": "{3}{G}{G}",
+        "oracle_text": "Whenever a Forest enters, green creatures you control get +1/+1 and gain trample until end of turn.\nGrandeur — Discard another card named Baru, Fist of Krosa: Create an X/X green Wurm creature token, where X is the number of lands you control.",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Human Druid"
+      },
+      "categories": [
+        "combat-payoff",
+        "landfall"
+      ],
+      "category_source": "decklist",
+      "name": "Baru, Fist of Krosa",
+      "oracle_id": "b6021700-992a-4faa-8f83-a9af03dc7296",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fut/142/baru-fist-of-krosa?utm_source=api",
+      "submitted_categories": [
+        "combat-payoff",
+        "landfall"
+      ],
+      "submitted_name": "Baru, Fist of Krosa"
+    },
+    {
+      "cache": "cards/8b21146d-3e92-46e7-b5d9-8240fba5088e.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{4}{G}{G}",
+        "oracle_text": "{G}: Target land becomes a 1/1 creature until end of turn. It's still a land.\n{2}{G}{G}{G}: Creatures you control get +3/+3 and gain trample until end of turn.",
+        "power": "4",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Human Druid"
+      },
+      "categories": [
+        "finisher",
+        "land-animation"
+      ],
+      "category_source": "decklist",
+      "name": "Kamahl, Fist of Krosa",
+      "oracle_id": "8b21146d-3e92-46e7-b5d9-8240fba5088e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmr/166/kamahl-fist-of-krosa?utm_source=api",
+      "submitted_categories": [
+        "finisher",
+        "land-animation"
+      ],
+      "submitted_name": "Kamahl, Fist of Krosa"
+    },
+    {
+      "cache": "cards/a85b845c-a196-43db-b740-6ce191345097.json",
+      "card": {
+        "cmc": 8.0,
+        "keywords": [
+          "Trample"
+        ],
+        "mana_cost": "{6}{G}{G}",
+        "oracle_text": "Trample\nWhenever this creature deals combat damage to a player, you may choose any number of target lands you control and put an awakening counter on each of them. Each of those lands is an 8/8 green Elemental creature for as long as it has an awakening counter on it. They're still lands.",
+        "power": "8",
+        "toughness": "8",
+        "type_line": "Creature — Elemental"
+      },
+      "categories": [
+        "finisher",
+        "land-animation"
+      ],
+      "category_source": "decklist",
+      "name": "Liege of the Tangle",
+      "oracle_id": "a85b845c-a196-43db-b740-6ce191345097",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/174/liege-of-the-tangle?utm_source=api",
+      "submitted_categories": [
+        "finisher",
+        "land-animation"
+      ],
+      "submitted_name": "Liege of the Tangle"
+    },
+    {
+      "cache": "cards/45154dc6-ff0a-4e99-8528-689757d1778e.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Landwalk",
+          "Islandwalk"
+        ],
+        "mana_cost": "{3}{G}{G}",
+        "oracle_text": "Islandwalk (This creature can't be blocked as long as defending player controls an Island.)\nWhenever this creature attacks, exile it. Return it to the battlefield under your control tapped and attacking at the beginning of the declare attackers step on your next turn.",
+        "power": "5",
+        "toughness": "9",
+        "type_line": "Creature — Turtle"
+      },
+      "categories": [
+        "animal-spirit",
+        "combat"
+      ],
+      "category_source": "decklist",
+      "name": "Meandering Towershell",
+      "oracle_id": "45154dc6-ff0a-4e99-8528-689757d1778e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ktk/141/meandering-towershell?utm_source=api",
+      "submitted_categories": [
+        "animal-spirit",
+        "combat"
+      ],
+      "submitted_name": "Meandering Towershell"
+    },
+    {
+      "cache": "cards/08cb8a30-9cb4-4517-bee5-8848aa60d1a2.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "{0}",
+        "oracle_text": "Sacrifice a land: You gain 2 life.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "land-sacrifice",
+        "lifegain",
+        "old-border"
+      ],
+      "category_source": "decklist",
+      "name": "Zuran Orb",
+      "oracle_id": "08cb8a30-9cb4-4517-bee5-8848aa60d1a2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/300/zuran-orb?utm_source=api",
+      "submitted_categories": [
+        "land-sacrifice",
+        "lifegain",
+        "old-border"
+      ],
+      "submitted_name": "Zuran Orb"
+    },
+    {
+      "cache": "cards/c4d384d7-f294-4b2d-9971-a4689c150255.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "{0}",
+        "oracle_text": "{1}, Sacrifice a permanent: You gain 1 life.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "land-sacrifice",
+        "sacrifice-outlet",
+        "old-border"
+      ],
+      "category_source": "decklist",
+      "name": "Claws of Gix",
+      "oracle_id": "c4d384d7-f294-4b2d-9971-a4689c150255",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsb/107/claws-of-gix?utm_source=api",
+      "submitted_categories": [
+        "land-sacrifice",
+        "sacrifice-outlet",
+        "old-border"
+      ],
+      "submitted_name": "Claws of Gix"
+    },
+    {
+      "cache": "cards/33c722cf-b4bf-431f-aefd-ee96241a7fbf.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "You may play lands from your graveyard.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "land-recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Crucible of Worlds",
+      "oracle_id": "33c722cf-b4bf-431f-aefd-ee96241a7fbf",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2x2/303/crucible-of-worlds?utm_source=api",
+      "submitted_categories": [
+        "land-recursion"
+      ],
+      "submitted_name": "Crucible of Worlds"
+    },
+    {
+      "cache": "cards/75a4ddf5-1b3c-4dde-a6e4-4346e46cebf1.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "{2}, {T}: Reveal the top card of your library. If it's a creature card, create a 1/1 green Saproling creature token. If it's a land card, put that card onto the battlefield under your control. If it's a noncreature, nonland card, you gain 2 life.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "card-advantage",
+        "landfall",
+        "nature-ritual"
+      ],
+      "category_source": "decklist",
+      "name": "Druidic Satchel",
+      "oracle_id": "75a4ddf5-1b3c-4dde-a6e4-4346e46cebf1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c21/241/druidic-satchel?utm_source=api",
+      "submitted_categories": [
+        "card-advantage",
+        "landfall",
+        "nature-ritual"
+      ],
+      "submitted_name": "Druidic Satchel"
+    },
+    {
+      "cache": "cards/706ae742-1807-44b7-a4fa-f2e26f61519a.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{G}",
+        "oracle_text": "Enchant land\nWhenever enchanted land is tapped for mana, its controller adds an additional {G}.",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "ramp",
+        "old-border"
+      ],
+      "category_source": "decklist",
+      "name": "Wild Growth",
+      "oracle_id": "706ae742-1807-44b7-a4fa-f2e26f61519a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mkc/195/wild-growth?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "old-border"
+      ],
+      "submitted_name": "Wild Growth"
+    },
+    {
+      "cache": "cards/00d8efa6-a2d9-4249-8da7-b45173675329.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{G}",
+        "oracle_text": "Enchant Forest\nAs this Aura enters, choose a color.\nWhenever enchanted Forest is tapped for mana, its controller adds an additional one mana of the chosen color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Utopia Sprawl",
+      "oracle_id": "00d8efa6-a2d9-4249-8da7-b45173675329",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rvr/159/utopia-sprawl?utm_source=api",
+      "submitted_categories": [
+        "ramp"
+      ],
+      "submitted_name": "Utopia Sprawl"
+    },
+    {
+      "cache": "cards/63625b26-3a19-4c3c-b18a-91247bb2a40c.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Enchant creature\nEnchanted creature is a Treefolk with base power and toughness 0/4 and loses all abilities.",
+        "type_line": "Kindred Enchantment — Treefolk Aura"
+      },
+      "categories": [
+        "removal",
+        "treefolk"
+      ],
+      "category_source": "decklist",
+      "name": "Lignify",
+      "oracle_id": "63625b26-3a19-4c3c-b18a-91247bb2a40c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/gvl/16/lignify?utm_source=api",
+      "submitted_categories": [
+        "removal",
+        "treefolk"
+      ],
+      "submitted_name": "Lignify"
+    },
+    {
+      "cache": "cards/7c3944fa-7c86-4979-85a9-86196aa94594.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Enchant"
+        ],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Enchant permanent\nEnchanted permanent is a colorless Forest land.",
+        "type_line": "Enchantment — Aura"
+      },
+      "categories": [
+        "removal",
+        "forest"
+      ],
+      "category_source": "decklist",
+      "name": "Song of the Dryads",
+      "oracle_id": "7c3944fa-7c86-4979-85a9-86196aa94594",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/324/song-of-the-dryads?utm_source=api",
+      "submitted_categories": [
+        "removal",
+        "forest"
+      ],
+      "submitted_name": "Song of the Dryads"
+    },
+    {
+      "cache": "cards/d9a7e5a6-3e41-4fc6-987a-18fe1b9d67dd.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Whenever a creature you control with power 3 or greater enters, draw a card.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "card-draw",
+        "elemental-payoff"
+      ],
+      "category_source": "decklist",
+      "name": "Elemental Bond",
+      "oracle_id": "d9a7e5a6-3e41-4fc6-987a-18fe1b9d67dd",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/254/elemental-bond?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "elemental-payoff"
+      ],
+      "submitted_name": "Elemental Bond"
+    },
+    {
+      "cache": "cards/dc0593c2-ccb4-4648-a592-c5bcd121dc72.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{G}{G}",
+        "oracle_text": "Sacrifice a creature: Draw cards equal to the sacrificed creature's power, then discard three cards.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "card-draw",
+        "sacrifice-outlet"
+      ],
+      "category_source": "decklist",
+      "name": "Greater Good",
+      "oracle_id": "dc0593c2-ccb4-4648-a592-c5bcd121dc72",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/174/greater-good?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "sacrifice-outlet"
+      ],
+      "submitted_name": "Greater Good"
+    },
+    {
+      "cache": "cards/d552f5cb-19b6-4def-90d5-6d2d9570f93d.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{G}{G}",
+        "oracle_text": "{1}, Sacrifice a creature: Search your library for a land card with a basic land type, put it onto the battlefield tapped, then shuffle.",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "ramp",
+        "sacrifice-outlet"
+      ],
+      "category_source": "decklist",
+      "name": "Perilous Forays",
+      "oracle_id": "d552f5cb-19b6-4def-90d5-6d2d9570f93d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rav/176/perilous-forays?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "sacrifice-outlet"
+      ],
+      "submitted_name": "Perilous Forays"
+    },
+    {
+      "cache": "cards/78826359-fe63-44ad-adc4-a17ffcd710e4.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Search your library for a Forest card, put that card onto the battlefield, then shuffle.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Nature's Lore",
+      "oracle_id": "78826359-fe63-44ad-adc4-a17ffcd710e4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/177/natures-lore?utm_source=api",
+      "submitted_categories": [
+        "ramp"
+      ],
+      "submitted_name": "Nature's Lore"
+    },
+    {
+      "cache": "cards/1b882a0e-0ede-4d1a-bd1a-9b7cffbcde8e.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Search your library for a Forest card, put it onto the battlefield, then shuffle.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Three Visits",
+      "oracle_id": "1b882a0e-0ede-4d1a-bd1a-9b7cffbcde8e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/181/three-visits?utm_source=api",
+      "submitted_categories": [
+        "ramp"
+      ],
+      "submitted_name": "Three Visits"
+    },
+    {
+      "cache": "cards/42d86827-6459-42fc-86b6-6eb055604c36.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Cycling"
+        ],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "If you control four or fewer lands, search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\nCycling—Sacrifice a land. (Sacrifice a land, Discard this card: Draw a card.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "ramp",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Edge of Autumn",
+      "oracle_id": "42d86827-6459-42fc-86b6-6eb055604c36",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsr/201/edge-of-autumn?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Edge of Autumn"
+    },
+    {
+      "cache": "cards/ac8fba34-512c-4f24-999a-ab72f1ce4acb.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Dredge",
+          "Mill"
+        ],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Return up to three target land cards from your graveyard to your hand.\nDredge 3 (If you would draw a card, you may mill three cards instead. If you do, return this card from your graveyard to your hand.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "land-recursion",
+        "mill"
+      ],
+      "category_source": "decklist",
+      "name": "Life from the Loam",
+      "oracle_id": "ac8fba34-512c-4f24-999a-ab72f1ce4acb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/96/life-from-the-loam?utm_source=api",
+      "submitted_categories": [
+        "land-recursion",
+        "mill"
+      ],
+      "submitted_name": "Life from the Loam"
+    },
+    {
+      "cache": "cards/705509e9-a034-4a5a-9c65-66f58748b8a2.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "As an additional cost to cast this spell, sacrifice a land.\nSearch your library for up to two basic land cards, put them onto the battlefield, then shuffle.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "ramp",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Harrow",
+      "oracle_id": "705509e9-a034-4a5a-9c65-66f58748b8a2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/98/harrow?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Harrow"
+    },
+    {
+      "cache": "cards/65d63518-3261-40b5-87b8-19c152b29ee3.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Sacrifice a land. Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "ramp",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Roiling Regrowth",
+      "oracle_id": "65d63518-3261-40b5-87b8-19c152b29ee3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/105/roiling-regrowth?utm_source=api",
+      "submitted_categories": [
+        "ramp",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Roiling Regrowth"
+    },
+    {
+      "cache": "cards/c850a29e-dc40-4ab6-89f1-d501a1a350d1.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Buyback"
+        ],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Buyback—Sacrifice a land. (You may sacrifice a land in addition to any other costs as you cast this spell. If you do, put this card into your hand as it resolves.)\nPrevent all combat damage that would be dealt this turn.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "fog",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Constant Mists",
+      "oracle_id": "c850a29e-dc40-4ab6-89f1-d501a1a350d1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/sth/104/constant-mists?utm_source=api",
+      "submitted_categories": [
+        "fog",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Constant Mists"
+    },
+    {
+      "cache": "cards/e6e4a8bd-5c40-4654-8de1-0da9afed90fd.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Return target card from your graveyard to your hand.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "recursion",
+        "old-border"
+      ],
+      "category_source": "decklist",
+      "name": "Regrowth",
+      "oracle_id": "e6e4a8bd-5c40-4654-8de1-0da9afed90fd",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh1/175/regrowth?utm_source=api",
+      "submitted_categories": [
+        "recursion",
+        "old-border"
+      ],
+      "submitted_name": "Regrowth"
+    },
+    {
+      "cache": "cards/13fe5e46-77a6-45d8-ac0b-c3d740eccf86.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{G}",
+        "oracle_text": "Return all land cards from your graveyard to the battlefield tapped.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "land-recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Splendid Reclamation",
+      "oracle_id": "13fe5e46-77a6-45d8-ac0b-c3d740eccf86",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/108/splendid-reclamation?utm_source=api",
+      "submitted_categories": [
+        "land-recursion"
+      ],
+      "submitted_name": "Splendid Reclamation"
+    },
+    {
+      "cache": "cards/d2075f58-b0e9-4e85-b7e6-0523a27a1d5b.json",
+      "card": {
+        "cmc": 3.0,
+        "faces": [
+          {
+            "mana_cost": "{2}{G}",
+            "name": "Bala Ged Recovery",
+            "oracle_text": "Return target card from your graveyard to your hand.",
+            "type_line": "Sorcery"
+          },
+          {
+            "mana_cost": "",
+            "name": "Bala Ged Sanctuary",
+            "oracle_text": "This land enters tapped.\n{T}: Add {G}.",
+            "type_line": "Land"
+          }
+        ],
+        "keywords": [],
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Sorcery // Land"
+      },
+      "categories": [
+        "recursion",
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Bala Ged Recovery // Bala Ged Sanctuary",
+      "oracle_id": "d2075f58-b0e9-4e85-b7e6-0523a27a1d5b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/znr/180/bala-ged-recovery-bala-ged-sanctuary?utm_source=api",
+      "submitted_categories": [
+        "recursion",
+        "land"
+      ],
+      "submitted_name": "Bala Ged Recovery"
+    },
+    {
+      "cache": "cards/d1d171de-1c6d-4fb9-817a-9c689c709f3d.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Ferocious"
+        ],
+        "mana_cost": "{3}{G}{G}",
+        "oracle_text": "Draw a card for each creature you control.\nFerocious — You gain 4 life for each creature you control with power 4 or greater.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "card-draw",
+        "shaman"
+      ],
+      "category_source": "decklist",
+      "name": "Shamanic Revelation",
+      "oracle_id": "d1d171de-1c6d-4fb9-817a-9c689c709f3d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ncc/311/shamanic-revelation?utm_source=api",
+      "submitted_categories": [
+        "card-draw",
+        "shaman"
+      ],
+      "submitted_name": "Shamanic Revelation"
+    },
+    {
+      "cache": "cards/685a7f67-6809-4386-990f-c52d1846a584.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Entwine"
+        ],
+        "mana_cost": "{4}{G}",
+        "oracle_text": "Choose one —\n• Untap all lands you control.\n• Until end of turn, lands you control become 2/2 creatures that are still lands.\nEntwine {2}{G} (Choose both if you pay the entwine cost.)",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "finisher",
+        "land-animation"
+      ],
+      "category_source": "decklist",
+      "name": "Rude Awakening",
+      "oracle_id": "685a7f67-6809-4386-990f-c52d1846a584",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/gvl/22/rude-awakening?utm_source=api",
+      "submitted_categories": [
+        "finisher",
+        "land-animation"
+      ],
+      "submitted_name": "Rude Awakening"
+    },
+    {
+      "cache": "cards/7aae0a3d-8882-4485-a126-f06ea6593dcb.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{4}{G}{G}",
+        "oracle_text": "Choose two —\n• Exile target player's graveyard. You gain 1 life for each card exiled this way.\n• Search your library for up to two land cards, put them onto the battlefield tapped, then shuffle.\n• Create two 2/2 green Bear creature tokens.\n• Put two +1/+1 counters on each creature you control.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "land-recursion",
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Titania's Command",
+      "oracle_id": "7aae0a3d-8882-4485-a126-f06ea6593dcb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/bro/194/titanias-command?utm_source=api",
+      "submitted_categories": [
+        "land-recursion",
+        "token-production"
+      ],
+      "submitted_name": "Titania's Command"
+    },
+    {
+      "cache": "cards/3e39224c-72ce-4ecc-aa17-12c071ea1f3e.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Split second"
+        ],
+        "mana_cost": "{2}{G}",
+        "oracle_text": "Split second (As long as this spell is on the stack, players can't cast spells or activate abilities that aren't mana abilities.)\nDestroy target artifact or enchantment.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Krosan Grip",
+      "oracle_id": "3e39224c-72ce-4ecc-aa17-12c071ea1f3e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c21/198/krosan-grip?utm_source=api",
+      "submitted_categories": [
+        "removal"
+      ],
+      "submitted_name": "Krosan Grip"
+    },
+    {
+      "cache": "cards/6f880348-6dc8-4cf8-9313-9893c41a70a3.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{4}{G}{G}",
+        "oracle_text": "Destroy target permanent.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "removal",
+        "old-border"
+      ],
+      "category_source": "decklist",
+      "name": "Desert Twister",
+      "oracle_id": "6f880348-6dc8-4cf8-9313-9893c41a70a3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cma/100/desert-twister?utm_source=api",
+      "submitted_categories": [
+        "removal",
+        "old-border"
+      ],
+      "submitted_name": "Desert Twister"
+    },
+    {
+      "cache": "cards/d0dd425b-fdba-41b4-b9e6-f5161610bd7e.json",
+      "card": {
+        "cmc": 8.0,
+        "keywords": [
+          "Fight"
+        ],
+        "mana_cost": "{5}{G}{G}{G}",
+        "oracle_text": "For each creature your opponents control, create a 4/4 green Phyrexian Beast creature token. Each of those tokens fights a different one of those creatures.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "board-wipe",
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Ezuri's Predation",
+      "oracle_id": "d0dd425b-fdba-41b4-b9e6-f5161610bd7e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/178/ezuris-predation?utm_source=api",
+      "submitted_categories": [
+        "board-wipe",
+        "token-production"
+      ],
+      "submitted_name": "Ezuri's Predation"
+    },
+    {
+      "cache": "cards/2b9557df-7158-4ada-be77-5c346851a568.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Counter target activated ability. (Mana abilities can't be targeted.)\nDraw a card.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "interaction",
+        "card-draw"
+      ],
+      "category_source": "decklist",
+      "name": "Bind",
+      "oracle_id": "2b9557df-7158-4ada-be77-5c346851a568",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inv/182/bind?utm_source=api",
+      "submitted_categories": [
+        "interaction",
+        "card-draw"
+      ],
+      "submitted_name": "Bind"
+    },
+    {
+      "cache": "cards/8998d211-5ca6-41d2-bc64-f51f70bd41e5.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Kicker"
+        ],
+        "mana_cost": "{G}",
+        "oracle_text": "Kicker {G} (You may pay an additional {G} as you cast this spell.)\nTarget creature can't be the target of spells or abilities your opponents control this turn. If this spell was kicked, that creature gets +4/+4 until end of turn.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Vines of Vastwood",
+      "oracle_id": "8998d211-5ca6-41d2-bc64-f51f70bd41e5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mm2/168/vines-of-vastwood?utm_source=api",
+      "submitted_categories": [
+        "protection"
+      ],
+      "submitted_name": "Vines of Vastwood"
+    },
+    {
+      "cache": "cards/c04dd88f-fb7f-43be-b586-7fc5642073dc.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{G}",
+        "oracle_text": "Counter target instant or Aura spell that targets a permanent you control.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "protection",
+        "old-border"
+      ],
+      "category_source": "decklist",
+      "name": "Avoid Fate",
+      "oracle_id": "c04dd88f-fb7f-43be-b586-7fc5642073dc",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tsb/73/avoid-fate?utm_source=api",
+      "submitted_categories": [
+        "protection",
+        "old-border"
+      ],
+      "submitted_name": "Avoid Fate"
+    },
+    {
+      "cache": "cards/39da2aa8-f4d9-44f6-a446-488beaec821f.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Regenerate"
+        ],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Regenerate each creature you control.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Wrap in Vigor",
+      "oracle_id": "39da2aa8-f4d9-44f6-a446-488beaec821f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cns/183/wrap-in-vigor?utm_source=api",
+      "submitted_categories": [
+        "protection"
+      ],
+      "submitted_name": "Wrap in Vigor"
+    },
+    {
+      "cache": "cards/2cb95721-56c8-4008-8055-579a5a97fc8b.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{G}",
+        "oracle_text": "Put a +1/+1 counter on target creature you control. It gains reach, trample, hexproof, and indestructible until end of turn. (It can't be the target of spells or abilities your opponents control. Damage and effects that say \"destroy\" don't destroy it.)",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Gaea's Gift",
+      "oracle_id": "2cb95721-56c8-4008-8055-579a5a97fc8b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/bro/182/gaeas-gift?utm_source=api",
+      "submitted_categories": [
+        "protection"
+      ],
+      "submitted_name": "Gaea's Gift"
+    },
+    {
+      "cache": "cards/e996cd67-739c-40f4-b276-0042acf26c71.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "(This land isn't a spell, it's affected by summoning sickness, and it has \"{T}: Add {G}.\")",
+        "power": "1",
+        "produced_mana": [
+          "G"
+        ],
+        "toughness": "1",
+        "type_line": "Land Creature — Forest Dryad"
+      },
+      "categories": [
+        "land",
+        "creature-land"
+      ],
+      "category_source": "decklist",
+      "name": "Dryad Arbor",
+      "oracle_id": "e996cd67-739c-40f4-b276-0042acf26c71",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/273/dryad-arbor?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "creature-land"
+      ],
+      "submitted_name": "Dryad Arbor"
+    },
+    {
+      "cache": "cards/bf1341dd-41a3-49f6-87ec-63170dde4324.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Channel"
+        ],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {G}.\nChannel — {1}{G}, Discard this card: Destroy target artifact, enchantment, or nonbasic land an opponent controls. That player may search their library for a land card with a basic land type, put it onto the battlefield, then shuffle. This ability costs {1} less to activate for each legendary creature you control.",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "land",
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Boseiju, Who Endures",
+      "oracle_id": "bf1341dd-41a3-49f6-87ec-63170dde4324",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/266/boseiju-who-endures?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "removal"
+      ],
+      "submitted_name": "Boseiju, Who Endures"
+    },
+    {
+      "cache": "cards/53d6113d-acdb-4754-9641-f7991a96c7b9.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Regenerate"
+        ],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{G}, {T}: Regenerate target creature.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "land",
+        "protection"
+      ],
+      "category_source": "decklist",
+      "name": "Yavimaya Hollow",
+      "oracle_id": "53d6113d-acdb-4754-9641-f7991a96c7b9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/uds/143/yavimaya-hollow?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "protection"
+      ],
+      "submitted_name": "Yavimaya Hollow"
+    },
+    {
+      "cache": "cards/b53f216d-1592-4eee-b204-502a805fbc8c.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {G}.\n{1}{G}: This land becomes a 3/3 green Ape creature with trample until end of turn. It's still a land. (It can deal excess combat damage to the player or planeswalker it's attacking.)",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "creature-land"
+      ],
+      "category_source": "decklist",
+      "name": "Treetop Village",
+      "oracle_id": "b53f216d-1592-4eee-b204-502a805fbc8c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ddu/30/treetop-village?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "creature-land"
+      ],
+      "submitted_name": "Treetop Village"
+    },
+    {
+      "cache": "cards/b2d5ba45-8674-4428-89db-c2bbbf0bf5c5.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\nWhen this land enters, create a 0/1 green Plant creature token.\n{T}: Add {G}.",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "token-production"
+      ],
+      "category_source": "decklist",
+      "name": "Khalni Garden",
+      "oracle_id": "b2d5ba45-8674-4428-89db-c2bbbf0bf5c5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c18/262/khalni-garden?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "token-production"
+      ],
+      "submitted_name": "Khalni Garden"
+    },
+    {
+      "cache": "cards/7cb9e29f-835f-4155-a2a5-4b778866c773.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Hideaway"
+        ],
+        "mana_cost": "",
+        "oracle_text": "Hideaway 4 (When this land enters, look at the top four cards of your library, exile one face down, then put the rest on the bottom in a random order.)\nThis land enters tapped.\n{T}: Add {G}.\n{G}, {T}: You may play the exiled card without paying its mana cost if creatures you control have total power 10 or greater.",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "card-advantage"
+      ],
+      "category_source": "decklist",
+      "name": "Mosswort Bridge",
+      "oracle_id": "7cb9e29f-835f-4155-a2a5-4b778866c773",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/379/mosswort-bridge?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "card-advantage"
+      ],
+      "submitted_name": "Mosswort Bridge"
+    },
+    {
+      "cache": "cards/9f8fe514-77ed-41b4-a6f3-c6f095bb97be.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Cycling"
+        ],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {G}.\nCycling {G} ({G}, Discard this card: Draw a card.)",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "cycling"
+      ],
+      "category_source": "decklist",
+      "name": "Tranquil Thicket",
+      "oracle_id": "9f8fe514-77ed-41b4-a6f3-c6f095bb97be",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsc/318/tranquil-thicket?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "cycling"
+      ],
+      "submitted_name": "Tranquil Thicket"
+    },
+    {
+      "cache": "cards/58bfd9a1-67ce-41d0-be38-f05addd1dd9e.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Cycling"
+        ],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {G}.\nCycling {2} ({2}, Discard this card: Draw a card.)",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "cycling",
+        "old-border"
+      ],
+      "category_source": "decklist",
+      "name": "Slippery Karst",
+      "oracle_id": "58bfd9a1-67ce-41d0-be38-f05addd1dd9e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmr/256/slippery-karst?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "cycling",
+        "old-border"
+      ],
+      "submitted_name": "Slippery Karst"
+    },
+    {
+      "cache": "cards/02679a2e-303d-412f-87d8-0a37a8ca259c.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{3}{G}, {T}, Sacrifice this land: Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Blighted Woodland",
+      "oracle_id": "02679a2e-303d-412f-87d8-0a37a8ca259c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/881/blighted-woodland?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Blighted Woodland"
+    },
+    {
+      "cache": "cards/2549bc57-9ffb-4053-9f10-f2a5f792b845.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Search your library for up to two basic land cards that share a land type, put them onto the battlefield tapped, then shuffle.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Myriad Landscape",
+      "oracle_id": "2549bc57-9ffb-4053-9f10-f2a5f792b845",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/169/myriad-landscape?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Myriad Landscape"
+    },
+    {
+      "cache": "cards/a75445d3-1303-4bb5-89ad-26ea93fecd48.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Evolving Wilds",
+      "oracle_id": "a75445d3-1303-4bb5-89ad-26ea93fecd48",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/240/evolving-wilds?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Evolving Wilds"
+    },
+    {
+      "cache": "cards/1bd3e453-aa21-4ee6-95c2-d6d920ee8e7a.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Terramorphic Expanse",
+      "oracle_id": "1bd3e453-aa21-4ee6-95c2-d6d920ee8e7a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/273/terramorphic-expanse?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Terramorphic Expanse"
+    },
+    {
+      "cache": "cards/0c85b8f7-0bd0-4680-9ec5-d4b110460a54.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle. Then if you control four or more lands, untap that land.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Fabled Passage",
+      "oracle_id": "0c85b8f7-0bd0-4680-9ec5-d4b110460a54",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/242/fabled-passage?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Fabled Passage"
+    },
+    {
+      "cache": "cards/0056fc91-4398-471c-b561-7ff99750ac8a.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\n{T}, Sacrifice this land: Target creature with power 2 or less can't be blocked this turn.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Escape Tunnel",
+      "oracle_id": "0056fc91-4398-471c-b561-7ff99750ac8a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmt/184/escape-tunnel?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Escape Tunnel"
+    },
+    {
+      "cache": "cards/543e6bb3-a867-43bf-a737-2f5d6d8dc631.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Warped Landscape",
+      "oracle_id": "543e6bb3-a867-43bf-a737-2f5d6d8dc631",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c18/291/warped-landscape?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Warped Landscape"
+    },
+    {
+      "cache": "cards/5548ff43-e5f6-4a63-8562-a2b1de06d6f5.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "When this land enters, sacrifice it. When you do, search your library for a basic Swamp, Mountain, or Forest card, put it onto the battlefield tapped, then shuffle and you gain 1 life.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Riveteers Overlook",
+      "oracle_id": "5548ff43-e5f6-4a63-8562-a2b1de06d6f5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecc/162/riveteers-overlook?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Riveteers Overlook"
+    },
+    {
+      "cache": "cards/65424bea-fd53-4f85-9757-0b91a6d40ba4.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "When this land enters, sacrifice it. When you do, search your library for a basic Mountain, Forest, or Plains card, put it onto the battlefield tapped, then shuffle and you gain 1 life.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Cabaretti Courtyard",
+      "oracle_id": "65424bea-fd53-4f85-9757-0b91a6d40ba4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/151/cabaretti-courtyard?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Cabaretti Courtyard"
+    },
+    {
+      "cache": "cards/bd002797-a545-4bee-88bf-b878436e7cca.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "When this land enters, sacrifice it. When you do, search your library for a basic Forest, Plains, or Island card, put it onto the battlefield tapped, then shuffle and you gain 1 life.",
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Brokers Hideout",
+      "oracle_id": "bd002797-a545-4bee-88bf-b878436e7cca",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/snc/248/brokers-hideout?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "ramp",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Brokers Hideout"
+    },
+    {
+      "cache": "cards/c30f9be4-c274-4ad0-b5d7-7d3421aa4277.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{3}: Return this card from your graveyard to the battlefield tapped.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "land-recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Drownyard Temple",
+      "oracle_id": "c30f9be4-c274-4ad0-b5d7-7d3421aa4277",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/359/drownyard-temple?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "land-recursion"
+      ],
+      "submitted_name": "Drownyard Temple"
+    },
+    {
+      "cache": "cards/c4bc5bc4-e589-42c5-91fa-2ebc96448e85.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Return target land card from your graveyard to your hand.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "land-recursion",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Petrified Field",
+      "oracle_id": "c4bc5bc4-e589-42c5-91fa-2ebc96448e85",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ody/323/petrified-field?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "land-recursion",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Petrified Field"
+    },
+    {
+      "cache": "cards/134d5b82-7940-4b33-a922-7f9d1f403e50.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Hexproof"
+        ],
+        "mana_cost": "",
+        "oracle_text": "Hexproof\nThis land enters tapped.\nWhen this land enters, sacrifice two lands.\n{T}: Add three mana of any one color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "land",
+        "land-sacrifice"
+      ],
+      "category_source": "decklist",
+      "name": "Lotus Field",
+      "oracle_id": "134d5b82-7940-4b33-a922-7f9d1f403e50",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/385/lotus-field?utm_source=api",
+      "submitted_categories": [
+        "land",
+        "land-sacrifice"
+      ],
+      "submitted_name": "Lotus Field"
+    },
+    {
+      "cache": "cards/b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {G}.)",
+        "produced_mana": [
+          "G"
+        ],
+        "type_line": "Basic Land — Forest"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "decklist",
+      "name": "Forest",
+      "oracle_id": "b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6",
+      "quantity": 18,
+      "scryfall_uri": "https://scryfall.com/card/trk/325/forest?utm_source=api",
+      "submitted_categories": [
+        "land"
+      ],
+      "submitted_name": "Forest"
+    }
+  ],
+  "categorized_cards": 83,
+  "generated_at": "2026-09-11T15:44:14.108571+00:00",
+  "maybeboard_cards": 0,
+  "maybeboard_unique_cards": 0,
+  "resolved_unique_cards": 83,
+  "schema_version": 3,
+  "source": "decks/unrated_titania-goddess-of-the-durrenberg-woods/decklist.txt",
+  "total_cards": 100,
+  "unique_cards": 83,
+  "unresolved": []
+}

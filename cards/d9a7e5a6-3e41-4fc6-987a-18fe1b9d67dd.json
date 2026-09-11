@@ -1,0 +1,133 @@
+{
+  "artist": "David Gaillet",
+  "artist_ids": [
+    "3496c5b4-57bf-4e5e-8bac-a1e05a911a2d"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 819316,
+  "cmc": 3.0,
+  "collector_number": "254",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 559,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"I want to help Zendikar. Show me the way.\"\n—Nissa Revane",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "8efbc925-54ac-4dda-82af-9091b1cf2fda",
+  "illustration_id": "350479b0-a02b-4dbd-915a-20465576fb9e",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:44:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/e/8efbc925-54ac-4dda-82af-9091b1cf2fda.webp?1783907049",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/e/8efbc925-54ac-4dda-82af-9091b1cf2fda.jpg?1783907049",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/e/8efbc925-54ac-4dda-82af-9091b1cf2fda.jpg?1783907049",
+    "crop": "https://cards.scryfall.io/crop/front/8/e/8efbc925-54ac-4dda-82af-9091b1cf2fda.webp?1783907049",
+    "display": "https://cards.scryfall.io/display/front/8/e/8efbc925-54ac-4dda-82af-9091b1cf2fda.webp?1783907049",
+    "grid": "https://cards.scryfall.io/grid/front/8/e/8efbc925-54ac-4dda-82af-9091b1cf2fda.webp?1783907049",
+    "large": "https://cards.scryfall.io/large/front/8/e/8efbc925-54ac-4dda-82af-9091b1cf2fda.jpg?1783907049",
+    "normal": "https://cards.scryfall.io/normal/front/8/e/8efbc925-54ac-4dda-82af-9091b1cf2fda.jpg?1783907049",
+    "png": "https://cards.scryfall.io/png/front/8/e/8efbc925-54ac-4dda-82af-9091b1cf2fda.png?1783907049",
+    "small": "https://cards.scryfall.io/small/front/8/e/8efbc925-54ac-4dda-82af-9091b1cf2fda.jpg?1783907049",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/e/8efbc925-54ac-4dda-82af-9091b1cf2fda.webp?1783907049"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}",
+  "mtgo_id": 138445,
+  "multiverse_ids": [
+    696410
+  ],
+  "name": "Elemental Bond",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d9a7e5a6-3e41-4fc6-987a-18fe1b9d67dd",
+  "oracle_text": "Whenever a creature you control with power 3 or greater enters, draw a card.",
+  "oversized": false,
+  "penny_rank": 5176,
+  "prices": {
+    "eur": "4.28",
+    "eur_foil": null,
+    "tix": "0.09",
+    "usd": "4.88",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad9a7e5a6-3e41-4fc6-987a-18fe1b9d67dd&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138445?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=819316&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624956%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Elemental+Bond",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696410&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DElemental%2BBond",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DElemental%2BBond"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8efbc925-54ac-4dda-82af-9091b1cf2fda/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/254/elemental-bond?utm_source=api",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624956,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/8efbc925-54ac-4dda-82af-9091b1cf2fda",
+  "variation": false
+}
