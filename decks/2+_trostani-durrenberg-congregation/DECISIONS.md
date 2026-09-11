@@ -140,3 +140,25 @@ Commander shortlist already locked in chat: Trostani won as congregation leader.
 Mana: 37 true lands (Bala Ged Recovery included), 10 Forest / 8 Plains, no modal besides Bala. Curve wants Trostani on 4: dorks, Wild Growth, Signet, Lore/Visits, White Orchid, Verge.
 
 Folder: `trostani-durrenberg-congregation`. Primer H1: Trostani — Congregation of the Dürrenberg.
+
+### 2026-09-11 — Goldfish and assessment
+
+Test model: Incremental Core pressure, turn-five milestone = Trostani in play or a populate engine plus a creature token. Seeds 1729 (8) and 2718 (4). London mulligan. Multiplayer turn-one draw. No opposing board except named stress branches.
+
+| Metric | Result |
+|---|---|
+| Keepable with at most one mulligan | 10/12 |
+| Turn-five milestone reached | 12/12 |
+| Mana or colour failure | 0/12 on kept lines |
+| Useful draw seen | 12/12 (Trostani and/or a token source) |
+| Required interaction available | 6/12 (fog, Rootborn/Wrap, or a kill in hand by T5) |
+| Commander-removal recovery passed | 2/2 representative (tax to 6 is a land-drop recast, not a rebuild) |
+| Game plan successful / delayed / failed | 10 / 2 / 0 (two keeps needed a second mulligan; both still hit Trostani by T5) |
+
+Two-mull outliers (1729-4 zero land; 2718-4 no Forest/Plains for Sunpetal plus no dork) are not a three-run mana failure. No list change.
+
+Stress: Trostani removed after the T4 cast — recast on six mana the following land drop. Wipe after a token flock — Rootborn Defenses / Wrap in Vigor; Hour of Reckoning is our wipe, not theirs. Empty-board populate is the failure mode when the flock is gone.
+
+Assessment vs BRACKET-DEFINITIONS.md (Game Changers snapshot 2026-09-03): 0 GCs, no early two-card infinite, no extra turns, no mass land denial. Win texture is Incremental (visible tokens, Overrun, Test of Endurance upkeep). Not Bracket 1: Trostani on four in most keeps is real Core pressure. Not Bracket 3: no from-hand dump, no doublers, no Craterhoof, no Seedborn Muse. Position 2+.
+
+Pregame: Bracket 2+ Selesnya populate deck with no Game Changers. Usually threatens around turn eight or nine; a 5/5 copy plus Trostani can pressure one seat around seven.
