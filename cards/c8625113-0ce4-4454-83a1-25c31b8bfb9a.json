@@ -1,0 +1,138 @@
+{
+  "artist": "Matt Thompson",
+  "artist_ids": [
+    "469f170d-e056-4cfd-893a-458ef021ab73"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 484399,
+  "cmc": 1.0,
+  "collector_number": "86",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2452,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "He stands in the shadow of his lord, Geth, drinking in the dark energies of the Vault.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "4c539843-4e3f-47a7-92e1-412eaaa2d9c5",
+  "illustration_id": "a3b5fe4e-e6bb-4872-a9a2-e1e4d74efb39",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:09:43Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/c/4c539843-4e3f-47a7-92e1-412eaaa2d9c5.webp?1783930183",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/c/4c539843-4e3f-47a7-92e1-412eaaa2d9c5.jpg?1783930183",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/c/4c539843-4e3f-47a7-92e1-412eaaa2d9c5.jpg?1783930183",
+    "crop": "https://cards.scryfall.io/crop/front/4/c/4c539843-4e3f-47a7-92e1-412eaaa2d9c5.webp?1783930183",
+    "display": "https://cards.scryfall.io/display/front/4/c/4c539843-4e3f-47a7-92e1-412eaaa2d9c5.webp?1783930183",
+    "grid": "https://cards.scryfall.io/grid/front/4/c/4c539843-4e3f-47a7-92e1-412eaaa2d9c5.webp?1783930183",
+    "large": "https://cards.scryfall.io/large/front/4/c/4c539843-4e3f-47a7-92e1-412eaaa2d9c5.jpg?1783930183",
+    "normal": "https://cards.scryfall.io/normal/front/4/c/4c539843-4e3f-47a7-92e1-412eaaa2d9c5.jpg?1783930183",
+    "png": "https://cards.scryfall.io/png/front/4/c/4c539843-4e3f-47a7-92e1-412eaaa2d9c5.png?1783930183",
+    "small": "https://cards.scryfall.io/small/front/4/c/4c539843-4e3f-47a7-92e1-412eaaa2d9c5.jpg?1783930183",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/c/4c539843-4e3f-47a7-92e1-412eaaa2d9c5.webp?1783930183"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "banned",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_id": 82206,
+  "multiverse_ids": [
+    489759
+  ],
+  "name": "Disciple of the Vault",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c8625113-0ce4-4454-83a1-25c31b8bfb9a",
+  "oracle_text": "Whenever an artifact is put into a graveyard from the battlefield, you may have target opponent lose 1 life.",
+  "oversized": false,
+  "penny_rank": 2989,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2020-07-24",
+    "source": "Marshall Sutcliffe",
+    "source_uri": "https://twitter.com/marshall_lr/status/1286576371326541825"
+  },
+  "prices": {
+    "eur": "0.57",
+    "eur_foil": "0.94",
+    "tix": "0.03",
+    "usd": "1.00",
+    "usd_etched": null,
+    "usd_foil": "1.35"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac8625113-0ce4-4454-83a1-25c31b8bfb9a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/82206?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=484399&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F218719%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Disciple+of+the+Vault",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=489759&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDisciple%2Bof%2Bthe%2BVault",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDisciple%2Bof%2Bthe%2BVault"
+  },
+  "released_at": "2020-08-07",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4c539843-4e3f-47a7-92e1-412eaaa2d9c5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/2xm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/2xm/86/disciple-of-the-vault?utm_source=api",
+  "set": "2xm",
+  "set_id": "372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "set_name": "Double Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A2xm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "story_spotlight": false,
+  "tcgplayer_id": 218719,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Human Cleric",
+  "uri": "https://api.scryfall.com/cards/4c539843-4e3f-47a7-92e1-412eaaa2d9c5",
+  "variation": false
+}

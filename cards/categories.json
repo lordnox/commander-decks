@@ -898,7 +898,7 @@
       "categories": [
         "commander-top"
       ],
-      "name": "Bartolom\u00e9 del Presidio"
+      "name": "Bartolomé del Presidio"
     },
     "f73da5d8-fd15-4315-ad3c-c86c28087285": {
       "categories": [
@@ -11001,8 +11001,302 @@
         "land",
         "ramp"
       ]
+    },
+    "d6cd4aa1-ff3a-4453-8735-e5ace5cbe386": {
+      "name": "Baba Lysaga, Night Witch",
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "df317532-7d36-40fd-938f-e972749c8792": {
+      "name": "Fyndhorn Elves",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "20347559-95a9-4689-bb79-c5bb3809b719": {
+      "name": "Elves of Deep Shadow",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "a1f20695-6f08-4d5c-9fba-b0018bee298e": {
+      "name": "Scryb Sprites",
+      "categories": [
+        "other"
+      ]
+    },
+    "749d2994-44e7-40d3-8630-7bebed239e9e": {
+      "name": "Haywire Mite",
+      "categories": [
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "c8625113-0ce4-4454-83a1-25c31b8bfb9a": {
+      "name": "Disciple of the Vault",
+      "categories": [
+        "other"
+      ]
+    },
+    "d07d3be3-f69d-4484-8467-cffd43871788": {
+      "name": "Myr Retriever",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "164f3f85-21fc-40b7-9871-4f303ba98428": {
+      "name": "Scrap Trawler",
+      "categories": [
+        "other"
+      ]
+    },
+    "788a4896-3414-40bf-b391-d2efea2fb5f9": {
+      "name": "Springbloom Druid",
+      "categories": [
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "ac7a9d73-dbdf-4e97-b382-67cd30ef5649": {
+      "name": "Glowspore Shaman",
+      "categories": [
+        "other"
+      ]
+    },
+    "893fed41-c144-433f-af88-bc7d419b7fb3": {
+      "name": "Burnished Hart",
+      "categories": [
+        "ramp",
+        "sacrifice"
+      ]
+    },
+    "4b1bf05e-753e-4350-a913-894cf3cecc0c": {
+      "name": "Fleshbag Marauder",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "717bbb9d-0a5b-4979-a24b-9d54aac7657a": {
+      "name": "Shriekmaw",
+      "categories": [
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "21f45043-5419-4019-8b6c-e5294bd5f549": {
+      "name": "Acidic Slime",
+      "categories": [
+        "removal"
+      ]
+    },
+    "8f5ffb0b-0585-4a37-8048-eda53990d1dd": {
+      "name": "Old Rutstein",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "e005bc76-4985-4ec6-b9f6-cf6d0d9f5df4": {
+      "name": "Stinkweed Imp",
+      "categories": [
+        "card-draw",
+        "recursion"
+      ]
+    },
+    "edd5b228-f19f-4b27-8b92-75545389da14": {
+      "name": "Bull Aurochs",
+      "categories": [
+        "other"
+      ]
+    },
+    "d0ade00d-a496-441d-9b7e-7dc033d3292c": {
+      "name": "Titania, Protector of Argoth",
+      "categories": [
+        "recursion",
+        "token-production"
+      ]
+    },
+    "45154dc6-ff0a-4e99-8528-689757d1778e": {
+      "name": "Meandering Towershell",
+      "categories": [
+        "blink"
+      ]
+    },
+    "87e65e36-9483-49fe-b644-2caca092107f": {
+      "name": "Jarad, Golgari Lich Lord",
+      "categories": [
+        "recursion",
+        "sacrifice"
+      ]
+    },
+    "92eed395-62ca-4293-882b-8565c40daab5": {
+      "name": "Sylvan Library",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "3165fe8f-52d7-40f7-bb14-8f4300a564e6": {
+      "name": "Night Soil",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "ffa64ac6-fe55-48b8-b015-849982cd7ad8": {
+      "name": "Fecundity",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "647ca69e-cc01-4b2b-b376-bee2a98331e8": {
+      "name": "Phyrexian Reclamation",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "62e44e0d-eda0-4275-8367-49dab9a087c3": {
+      "name": "Pernicious Deed",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "17dbbca3-ac1c-4d4e-9618-3e66ac3ccd24": {
+      "name": "Urza's Bauble",
+      "categories": [
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "97ba11a1-16cd-47ee-a187-1e919c468e4e": {
+      "name": "Barbed Sextant",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "sacrifice"
+      ]
+    },
+    "08cb8a30-9cb4-4517-bee5-8848aa60d1a2": {
+      "name": "Zuran Orb",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "c9cd266c-7ecf-4beb-b9da-69b88f33abd3": {
+      "name": "Executioner's Capsule",
+      "categories": [
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "4aafb7e7-b9fc-44ae-9c54-da11fd9dcc17": {
+      "name": "Phyrexian Furnace",
+      "categories": [
+        "card-draw",
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "0c936582-d4c0-4da8-bc7e-49da5a433939": {
+      "name": "Bone Splinters",
+      "categories": [
+        "removal",
+        "sacrifice"
+      ]
+    },
+    "8998d211-5ca6-41d2-bc64-f51f70bd41e5": {
+      "name": "Vines of Vastwood",
+      "categories": [
+        "other"
+      ]
+    },
+    "058917c1-21ab-488a-9f9c-591c55f3c596": {
+      "name": "Diabolic Edict",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "a89ebf63-63c9-42cd-98b4-ec852cd9b0a8": {
+      "name": "Grisly Salvage",
+      "categories": [
+        "other"
+      ]
+    },
+    "39da2aa8-f4d9-44f6-a446-488beaec821f": {
+      "name": "Wrap in Vigor",
+      "categories": [
+        "other"
+      ]
+    },
+    "59180e94-ccdf-4d9f-9a4a-fe55497d0d63": {
+      "name": "Creeping Mold",
+      "categories": [
+        "removal"
+      ]
+    },
+    "698e79ec-c2bc-4973-a095-f3c57b50e39c": {
+      "name": "Mutilate",
+      "categories": [
+        "other"
+      ]
+    },
+    "e6e4a8bd-5c40-4654-8de1-0da9afed90fd": {
+      "name": "Regrowth",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "fa6d05a1-3df4-4751-b1a0-8d9693faec73": {
+      "name": "Tainted Wood",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "c30f9be4-c274-4ad0-b5d7-7d3421aa4277": {
+      "name": "Drownyard Temple",
+      "categories": [
+        "land",
+        "ramp",
+        "recursion"
+      ]
+    },
+    "53d6113d-acdb-4754-9641-f7991a96c7b9": {
+      "name": "Yavimaya Hollow",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "73b8cf90-3c71-4f8b-a29f-61894b7f27c9": {
+      "name": "Volrath's Stronghold",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "6c8f276e-4e7b-4974-ab02-9356cc0ffb2b": {
+      "name": "Witch's Cottage",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "2065cada-4078-41c4-9e06-2460d2a2e8ee": {
+      "name": "Darkmoss Bridge",
+      "categories": [
+        "land",
+        "ramp",
+        "protection"
+      ]
+    },
+    "b53f216d-1592-4eee-b204-502a805fbc8c": {
+      "name": "Treetop Village",
+      "categories": [
+        "land",
+        "ramp"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-09T06:34:35.986848+00:00"
+  "updated_at": "2026-09-11T13:04:03.942676+00:00"
 }

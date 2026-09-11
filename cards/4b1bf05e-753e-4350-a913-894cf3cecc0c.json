@@ -1,0 +1,132 @@
+{
+  "artist": "Mark Zug",
+  "artist_ids": [
+    "48e2b98c-5467-4671-bd42-4c3746115117"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 752674,
+  "cmc": 3.0,
+  "collector_number": "111",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 813,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Grixis is a world where the only things found in abundance are death and decay. Corpses, whole or in part, are the standard currency among necromancers and demons.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "fce2baa4-2976-4bbd-b6c5-a5a3c6a901be",
+  "illustration_id": "736feb15-417b-4bf2-b471-edfd135a974a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:15:47Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/c/fce2baa4-2976-4bbd-b6c5-a5a3c6a901be.webp?1783912547",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/c/fce2baa4-2976-4bbd-b6c5-a5a3c6a901be.jpg?1783912547",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/c/fce2baa4-2976-4bbd-b6c5-a5a3c6a901be.jpg?1783912547",
+    "crop": "https://cards.scryfall.io/crop/front/f/c/fce2baa4-2976-4bbd-b6c5-a5a3c6a901be.webp?1783912547",
+    "display": "https://cards.scryfall.io/display/front/f/c/fce2baa4-2976-4bbd-b6c5-a5a3c6a901be.webp?1783912547",
+    "grid": "https://cards.scryfall.io/grid/front/f/c/fce2baa4-2976-4bbd-b6c5-a5a3c6a901be.webp?1783912547",
+    "large": "https://cards.scryfall.io/large/front/f/c/fce2baa4-2976-4bbd-b6c5-a5a3c6a901be.jpg?1783912547",
+    "normal": "https://cards.scryfall.io/normal/front/f/c/fce2baa4-2976-4bbd-b6c5-a5a3c6a901be.jpg?1783912547",
+    "png": "https://cards.scryfall.io/png/front/f/c/fce2baa4-2976-4bbd-b6c5-a5a3c6a901be.png?1783912547",
+    "small": "https://cards.scryfall.io/small/front/f/c/fce2baa4-2976-4bbd-b6c5-a5a3c6a901be.jpg?1783912547",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/c/fce2baa4-2976-4bbd-b6c5-a5a3c6a901be.webp?1783912547"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 123006,
+  "multiverse_ids": [
+    651846
+  ],
+  "name": "Fleshbag Marauder",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4b1bf05e-753e-4350-a913-894cf3cecc0c",
+  "oracle_text": "When this creature enters, each player sacrifices a creature of their choice.",
+  "oversized": false,
+  "penny_rank": 3099,
+  "power": "3",
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": null,
+    "tix": "0.01",
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4b1bf05e-753e-4350-a913-894cf3cecc0c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/123006?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=752674&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F534620%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Fleshbag+Marauder",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=651846&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFleshbag%2BMarauder",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFleshbag%2BMarauder"
+  },
+  "released_at": "2024-02-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/fce2baa4-2976-4bbd-b6c5-a5a3c6a901be/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clu?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clu/111/fleshbag-marauder?utm_source=api",
+  "set": "clu",
+  "set_id": "d4bfabcf-a859-43a4-9d8a-665533c8b174",
+  "set_name": "Ravnica: Clue Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclu&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/d4bfabcf-a859-43a4-9d8a-665533c8b174",
+  "story_spotlight": false,
+  "tcgplayer_id": 534620,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Zombie Warrior",
+  "uri": "https://api.scryfall.com/cards/fce2baa4-2976-4bbd-b6c5-a5a3c6a901be",
+  "variation": false
+}
