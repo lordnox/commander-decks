@@ -121,7 +121,7 @@ See `rankings.json`. First pass: jank 8, fun 8, mean 5, Offerings 8, Grave goods
 
 ## Primer
 
-Win-turn claims in the primer are targets (Incremental Core, normal game around turn nine) until goldfish traces and assessment are written. Do not read the first primer pass as a measured win turn.
+The assessment sentence uses turn nine as the normal threat turn because Baba's drain is 3 life each opponent per successful rite; combat and Titania have to close. Goldfish only measured the turn-five setup milestone, not a turn-eight win.
 
 ## Rules
 
@@ -161,3 +161,23 @@ Winner: **Baba Lysaga**. The archaeological signature is a mixed assemblage, not
 **Mana budget before v1:** 36 true lands plus 2 MDFC land-backs (38 playable). No other modal backs. One-mana dorks: Fyndhorn, Elves of Deep Shadow. Enchantment ramp: Wild Growth, Utopia Sprawl. Two-plus ramp: Lore, Visits, Elder, Springbloom, Harrow, Wayfarer's Bauble, Burnished Hart, Sextant. No Sol Ring. Coloured sources: duals plus 5 Forest and 2 Swamp; T3 needs B and G for Baba. Tapped-land tolerance: one in the opener if a dork or two untapped sources remain. Curve: many 0–2 offerings, commander 3, finishers 4–5. P(≥3 lands in 7 | 38/99) ≈ 55%; P(≥2) ≈ 83%. Keep 2-land hands that have a dork or fetch and both colors in reach.
 
 Rejected: Antler Skulkin (persist only for white), Giant Albatross (blue), Blood Pet (one-shot fast mana in Bracket 2), Salvaging Station (six mana), Pit of Offerings (name fit, exile-our-grave and tapped), Glissa the Traitor (triggers on opponent deaths), Poison-Tip Archer (generic drain).
+
+### 2026-09-11 — Goldfish seeds 1729 and 2718
+
+Turn-five milestone: Baba in play and a three-type rite already fired or the three types on board. Twelve runs, London mull to six allowed.
+
+| Metric | Result |
+|---|---|
+| Keepable with at most one mulligan | 12/12 |
+| Turn-five milestone reached | 12/12 |
+| Mana or colour failure | 1/12 delayed (2718 R3: two lands until T5 Swamp; Baba on T5 with types ready, no same-turn rite) |
+| Useful draw seen | 11/12 |
+| Required interaction available | 8/12 had Vines, Wrap, Malakir, edict, or Mite by T5 |
+| Commander-removal recovery passed | 2/2 traced (R7 1729 Loam+Orb+Elder; R1 2718 Titania+Reclamation in the later draws) |
+| Game plan successful / delayed / failed | 11 / 1 / 0 |
+
+No three-run systemic miss. Did not change the 99. Stress used the traced boards: after a T4 Baba, a kill spell eats her; Loam / Ramunap / Six still return earth. A second removal on tax 5 is slow; Titania is the backup. Opposing Bojuka blanks Loam. No mass-land-denial branch: we only sacrifice our own lands.
+
+### 2026-09-11 — Assessment
+
+Cached Game Changers snapshot 2026-09-03: **0** in the 99 (Sylvan Library and Buried Alive are not on the list). No two-card loop, no extra turns, no opposing land denial. Fast mana: none. Tutor: Buried Alive. Win texture is Incremental Core: the table sees Baba, sees the offerings, and can kill her. Draw-three from the zone is the reason this sits at **2+** rather than middle 2. Not Bracket 3: no Game Changers, no from-hand dump like Torment, expected threat around turn nine. Pregame sentence written on the primer; folder `2+_baba-lysaga-three-offerings`.
