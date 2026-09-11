@@ -162,6 +162,18 @@ Winner: **Baba Lysaga**. The archaeological signature is a mixed assemblage, not
 
 Rejected: Antler Skulkin (persist only for white), Giant Albatross (blue), Blood Pet (one-shot fast mana in Bracket 2), Salvaging Station (six mana), Pit of Offerings (name fit, exile-our-grave and tapped), Glissa the Traitor (triggers on opponent deaths), Poison-Tip Archer (generic drain).
 
+### 2026-09-11 — Why Golgari and not mono-green Titania
+
+Asked why the colour search started at BG instead of mono-green with Titania in the command zone.
+
+The plan was locked before colours: a repeating **mixed-type** offering that pays in cards, life, and a drain. Titania counts one card type (lands) and pays in 5/3 Elementals, so a Titania-led build is a land-sacrifice beatdown deck, not an offerings deck. Green also cannot make an opponent lose life off a sacrifice, so the rite's non-combat payoff does not exist in mono-green at all.
+
+Black carries the burial half of the theme: Buried Alive, Reanimate, Animate Dead, Victimize, Phyrexian Reclamation, Living Death. In mono-green the pit is a place cards return to *hand*, which loses the "things stay in the grave and are dug back up" reading. Black also supplies the edict and targeted kill the drain clock needs (Diabolic Edict, Bone Splinters, Shriekmaw, Mutilate); mono-green would be fights and Naturalize effects.
+
+Cost matters too: Baba is `{1}{B}{G}` and recasts at five after one removal; Titania is `{3}{G}{G}` and recasts at seven, which is bad for an engine the table wants dead.
+
+45 of the 100 cards have black in their colour identity, so mono-green is not a trim, it is a different deck. Titania stays in the 99, where she is the backup finisher after land offerings without distorting the rite.
+
 ### 2026-09-11 — Goldfish seeds 1729 and 2718
 
 Turn-five milestone: Baba in play and a three-type rite already fired or the three types on board. Twelve runs, London mull to six allowed.
