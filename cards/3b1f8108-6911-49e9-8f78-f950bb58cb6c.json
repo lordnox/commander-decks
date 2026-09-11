@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "b2af9184-df81-413b-abcf-331c4471e6d4",
+      "name": "Hornet Queen",
+      "object": "related_card",
+      "type_line": "Creature — Insect",
+      "uri": "https://api.scryfall.com/cards/b2af9184-df81-413b-abcf-331c4471e6d4"
+    },
+    {
+      "component": "token",
+      "id": "f5844636-3fdd-4818-9c35-c24f74b29baa",
+      "name": "Insect",
+      "object": "related_card",
+      "type_line": "Token Creature — Insect",
+      "uri": "https://api.scryfall.com/cards/f5844636-3fdd-4818-9c35-c24f74b29baa"
+    }
+  ],
+  "artist": "Jonathan Kuo",
+  "artist_ids": [
+    "babb75bd-4c75-4b13-ad61-c34597ab79ff"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 788878,
+  "cmc": 7.0,
+  "collector_number": "184",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1697,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b2af9184-df81-413b-abcf-331c4471e6d4",
+  "illustration_id": "48246af6-0290-4128-9bac-b668fee29b63",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:26:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/2/b2af9184-df81-413b-abcf-331c4471e6d4.webp?1783909606",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/2/b2af9184-df81-413b-abcf-331c4471e6d4.jpg?1783909606",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/2/b2af9184-df81-413b-abcf-331c4471e6d4.jpg?1783909606",
+    "crop": "https://cards.scryfall.io/crop/front/b/2/b2af9184-df81-413b-abcf-331c4471e6d4.webp?1783909606",
+    "display": "https://cards.scryfall.io/display/front/b/2/b2af9184-df81-413b-abcf-331c4471e6d4.webp?1783909606",
+    "grid": "https://cards.scryfall.io/grid/front/b/2/b2af9184-df81-413b-abcf-331c4471e6d4.webp?1783909606",
+    "large": "https://cards.scryfall.io/large/front/b/2/b2af9184-df81-413b-abcf-331c4471e6d4.jpg?1783909606",
+    "normal": "https://cards.scryfall.io/normal/front/b/2/b2af9184-df81-413b-abcf-331c4471e6d4.jpg?1783909606",
+    "png": "https://cards.scryfall.io/png/front/b/2/b2af9184-df81-413b-abcf-331c4471e6d4.png?1783909606",
+    "small": "https://cards.scryfall.io/small/front/b/2/b2af9184-df81-413b-abcf-331c4471e6d4.jpg?1783909606",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/2/b2af9184-df81-413b-abcf-331c4471e6d4.webp?1783909606"
+  },
+  "keywords": [
+    "Deathtouch",
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{G}{G}{G}",
+  "mtgo_id": 130993,
+  "multiverse_ids": [
+    676057
+  ],
+  "name": "Hornet Queen",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3b1f8108-6911-49e9-8f78-f950bb58cb6c",
+  "oracle_text": "Flying, deathtouch\nWhen this creature enters, create four 1/1 green Insect creature tokens with flying and deathtouch.",
+  "oversized": false,
+  "penny_rank": 1708,
+  "power": "2",
+  "prices": {
+    "eur": "0.27",
+    "eur_foil": null,
+    "tix": "0.03",
+    "usd": "0.37",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3b1f8108-6911-49e9-8f78-f950bb58cb6c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/130993?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=788878&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F579095%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hornet+Queen",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676057&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHornet%2BQueen",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHornet%2BQueen"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b2af9184-df81-413b-abcf-331c4471e6d4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/184/hornet-queen?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 579095,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Insect",
+  "uri": "https://api.scryfall.com/cards/b2af9184-df81-413b-abcf-331c4471e6d4",
+  "variation": false
+}

@@ -1,0 +1,154 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "91a182ce-11e6-4a7e-a306-15e3670fc433",
+      "name": "Centaur",
+      "object": "related_card",
+      "type_line": "Token Creature — Centaur",
+      "uri": "https://api.scryfall.com/cards/91a182ce-11e6-4a7e-a306-15e3670fc433"
+    },
+    {
+      "component": "combo_piece",
+      "id": "275a3199-1297-4281-a95c-374bcdc198ce",
+      "name": "Vitu-Ghazi Guildmage",
+      "object": "related_card",
+      "type_line": "Creature — Dryad Shaman",
+      "uri": "https://api.scryfall.com/cards/275a3199-1297-4281-a95c-374bcdc198ce"
+    }
+  ],
+  "artist": "Jason Chan",
+  "artist_ids": [
+    "8062d5a9-51b6-4822-933f-fa9e9dba8416"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 392497,
+  "cmc": 2.0,
+  "collector_number": "206",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [
+    "G",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 14499,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Preachers of freedom forget that conformity can be beautiful.\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "275a3199-1297-4281-a95c-374bcdc198ce",
+  "illustration_id": "ac323d79-f625-475a-9070-6395d79f4c1a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:52:11Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/7/275a3199-1297-4281-a95c-374bcdc198ce.webp?1783932731",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/7/275a3199-1297-4281-a95c-374bcdc198ce.jpg?1783932731",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/7/275a3199-1297-4281-a95c-374bcdc198ce.jpg?1783932731",
+    "crop": "https://cards.scryfall.io/crop/front/2/7/275a3199-1297-4281-a95c-374bcdc198ce.webp?1783932731",
+    "display": "https://cards.scryfall.io/display/front/2/7/275a3199-1297-4281-a95c-374bcdc198ce.webp?1783932731",
+    "grid": "https://cards.scryfall.io/grid/front/2/7/275a3199-1297-4281-a95c-374bcdc198ce.webp?1783932731",
+    "large": "https://cards.scryfall.io/large/front/2/7/275a3199-1297-4281-a95c-374bcdc198ce.jpg?1783932731",
+    "normal": "https://cards.scryfall.io/normal/front/2/7/275a3199-1297-4281-a95c-374bcdc198ce.jpg?1783932731",
+    "png": "https://cards.scryfall.io/png/front/2/7/275a3199-1297-4281-a95c-374bcdc198ce.png?1783932731",
+    "small": "https://cards.scryfall.io/small/front/2/7/275a3199-1297-4281-a95c-374bcdc198ce.jpg?1783932731",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/7/275a3199-1297-4281-a95c-374bcdc198ce.webp?1783932731"
+  },
+  "keywords": [
+    "Populate"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}{W}",
+  "mtgo_id": 77534,
+  "multiverse_ids": [
+    470752
+  ],
+  "name": "Vitu-Ghazi Guildmage",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "da6f79ec-5f7e-4099-89c5-6d2bfc14d957",
+  "oracle_text": "{4}{G}{W}: Create a 3/3 green Centaur creature token.\n{2}{G}{W}: Populate. (Create a token that's a copy of a creature token you control.)",
+  "oversized": false,
+  "penny_rank": 8299,
+  "power": "2",
+  "prices": {
+    "eur": "0.22",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.25",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ada6f79ec-5f7e-4099-89c5-6d2bfc14d957&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/77534?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=392497&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F196680%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vitu-Ghazi+Guildmage",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=470752&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVitu-Ghazi%2BGuildmage",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVitu-Ghazi%2BGuildmage"
+  },
+  "released_at": "2019-08-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/275a3199-1297-4281-a95c-374bcdc198ce/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c19?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c19/206/vitu-ghazi-guildmage?utm_source=api",
+  "set": "c19",
+  "set_id": "0fa3ccbb-d86d-4a2e-a55e-c4979c4feeb2",
+  "set_name": "Commander 2019",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac19&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/0fa3ccbb-d86d-4a2e-a55e-c4979c4feeb2",
+  "story_spotlight": false,
+  "tcgplayer_id": 196680,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Dryad Shaman",
+  "uri": "https://api.scryfall.com/cards/275a3199-1297-4281-a95c-374bcdc198ce",
+  "variation": false
+}

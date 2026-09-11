@@ -1,0 +1,129 @@
+{
+  "artist": "Andrew Goldhawk",
+  "artist_ids": [
+    "f4a65a04-9e2e-4541-8d0e-f34e9517f092"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 298046,
+  "cmc": 6.0,
+  "collector_number": "97",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 5977,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"The beasts of the wild are my senses. It is through their eyes that all knowledge shall come to me.\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "3b64755f-1381-4537-a12d-48da274993e6",
+  "illustration_id": "5de30461-2e74-4a90-83b4-3881e02d2040",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:51:10Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/b/3b64755f-1381-4537-a12d-48da274993e6.webp?1783936270",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/b/3b64755f-1381-4537-a12d-48da274993e6.jpg?1783936270",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/b/3b64755f-1381-4537-a12d-48da274993e6.jpg?1783936270",
+    "crop": "https://cards.scryfall.io/crop/front/3/b/3b64755f-1381-4537-a12d-48da274993e6.webp?1783936270",
+    "display": "https://cards.scryfall.io/display/front/3/b/3b64755f-1381-4537-a12d-48da274993e6.webp?1783936270",
+    "grid": "https://cards.scryfall.io/grid/front/3/b/3b64755f-1381-4537-a12d-48da274993e6.webp?1783936270",
+    "large": "https://cards.scryfall.io/large/front/3/b/3b64755f-1381-4537-a12d-48da274993e6.jpg?1783936270",
+    "normal": "https://cards.scryfall.io/normal/front/3/b/3b64755f-1381-4537-a12d-48da274993e6.jpg?1783936270",
+    "png": "https://cards.scryfall.io/png/front/3/b/3b64755f-1381-4537-a12d-48da274993e6.png?1783936270",
+    "small": "https://cards.scryfall.io/small/front/3/b/3b64755f-1381-4537-a12d-48da274993e6.jpg?1783936270",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/b/3b64755f-1381-4537-a12d-48da274993e6.webp?1783936270"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{G}{G}",
+  "multiverse_ids": [
+    430316
+  ],
+  "name": "Collective Unconscious",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "38abf769-e4ef-4b47-9c79-c8cda0b90f6c",
+  "oracle_text": "Draw a card for each creature you control.",
+  "oversized": false,
+  "penny_rank": 12226,
+  "prices": {
+    "eur": "0.87",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.97",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A38abf769-e4ef-4b47-9c79-c8cda0b90f6c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Collective+Unconscious&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=298046&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F131996%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Collective+Unconscious",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=430316&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCollective%2BUnconscious",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCollective%2BUnconscious"
+  },
+  "released_at": "2017-06-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3b64755f-1381-4537-a12d-48da274993e6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cma?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cma/97/collective-unconscious?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cma",
+  "set_id": "fd4d8463-0156-4c60-a40e-778762bb90e4",
+  "set_name": "Commander Anthology",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acma&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/fd4d8463-0156-4c60-a40e-778762bb90e4",
+  "story_spotlight": false,
+  "tcgplayer_id": 131996,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/3b64755f-1381-4537-a12d-48da274993e6",
+  "variation": false
+}

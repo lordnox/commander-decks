@@ -1,0 +1,167 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "258876ae-bdd2-4103-ba76-849907cf181d",
+      "name": "Knight",
+      "object": "related_card",
+      "type_line": "Token Creature — Knight",
+      "uri": "https://api.scryfall.com/cards/258876ae-bdd2-4103-ba76-849907cf181d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "eda757a0-067b-4eb9-badc-d86da5b40305",
+      "name": "Trostani's Summoner",
+      "object": "related_card",
+      "type_line": "Creature — Elf Shaman",
+      "uri": "https://api.scryfall.com/cards/eda757a0-067b-4eb9-badc-d86da5b40305"
+    },
+    {
+      "component": "token",
+      "id": "bc651dc2-9a3b-470c-b415-ecce0a725433",
+      "name": "Rhino",
+      "object": "related_card",
+      "type_line": "Token Creature — Rhino",
+      "uri": "https://api.scryfall.com/cards/bc651dc2-9a3b-470c-b415-ecce0a725433"
+    },
+    {
+      "component": "token",
+      "id": "733268ab-9ec0-4838-9a02-5a95dab3a400",
+      "name": "Centaur",
+      "object": "related_card",
+      "type_line": "Token Creature — Centaur",
+      "uri": "https://api.scryfall.com/cards/733268ab-9ec0-4838-9a02-5a95dab3a400"
+    }
+  ],
+  "artist": "Howard Lyon",
+  "artist_ids": [
+    "6dd06426-59fe-4b9c-aad5-6da8446a5c3d"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 575459,
+  "cmc": 7.0,
+  "collector_number": "156",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [
+    "G",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 17403,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "eda757a0-067b-4eb9-badc-d86da5b40305",
+  "illustration_id": "e9b3b20f-ec73-4552-990b-211614c2cbee",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:48:43Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/d/eda757a0-067b-4eb9-badc-d86da5b40305.webp?1783925323",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/d/eda757a0-067b-4eb9-badc-d86da5b40305.jpg?1783925323",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/d/eda757a0-067b-4eb9-badc-d86da5b40305.jpg?1783925323",
+    "crop": "https://cards.scryfall.io/crop/front/e/d/eda757a0-067b-4eb9-badc-d86da5b40305.webp?1783925323",
+    "display": "https://cards.scryfall.io/display/front/e/d/eda757a0-067b-4eb9-badc-d86da5b40305.webp?1783925323",
+    "grid": "https://cards.scryfall.io/grid/front/e/d/eda757a0-067b-4eb9-badc-d86da5b40305.webp?1783925323",
+    "large": "https://cards.scryfall.io/large/front/e/d/eda757a0-067b-4eb9-badc-d86da5b40305.jpg?1783925323",
+    "normal": "https://cards.scryfall.io/normal/front/e/d/eda757a0-067b-4eb9-badc-d86da5b40305.jpg?1783925323",
+    "png": "https://cards.scryfall.io/png/front/e/d/eda757a0-067b-4eb9-badc-d86da5b40305.png?1783925323",
+    "small": "https://cards.scryfall.io/small/front/e/d/eda757a0-067b-4eb9-badc-d86da5b40305.jpg?1783925323",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/d/eda757a0-067b-4eb9-badc-d86da5b40305.webp?1783925323"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{G}{W}",
+  "mtgo_id": 93728,
+  "multiverse_ids": [
+    539417
+  ],
+  "name": "Trostani's Summoner",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "874e0b54-bc24-4887-abe1-1ecfd3a3abae",
+  "oracle_text": "When this creature enters, create a 2/2 white Knight creature token with vigilance, a 3/3 green Centaur creature token, and a 4/4 green Rhino creature token with trample.",
+  "oversized": false,
+  "penny_rank": 5015,
+  "power": "1",
+  "prices": {
+    "eur": "0.16",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A874e0b54-bc24-4887-abe1-1ecfd3a3abae&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/93728?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=575459&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F248607%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Trostani%27s+Summoner",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=539417&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTrostani%2527s%2BSummoner",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTrostani%2527s%2BSummoner"
+  },
+  "released_at": "2021-09-24",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/eda757a0-067b-4eb9-badc-d86da5b40305/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mic?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mic/156/trostanis-summoner?utm_source=api",
+  "set": "mic",
+  "set_id": "7f9a4deb-715e-47d2-afac-3843ef92f39b",
+  "set_name": "Midnight Hunt Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amic&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/7f9a4deb-715e-47d2-afac-3843ef92f39b",
+  "story_spotlight": false,
+  "tcgplayer_id": 248607,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Creature — Elf Shaman",
+  "uri": "https://api.scryfall.com/cards/eda757a0-067b-4eb9-badc-d86da5b40305",
+  "variation": false
+}

@@ -1,0 +1,139 @@
+{
+  "artist": "Alessandra Pisano",
+  "artist_ids": [
+    "15869690-bf3c-4498-a577-409a6bde5c83"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 705453,
+  "cmc": 4.0,
+  "collector_number": "17",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 3090,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c58ff93f-7135-40af-92ce-358da48694dc",
+  "illustration_id": "ff3a4237-7244-4a10-a7f2-965b1a0f3ea5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:34:50Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/5/c58ff93f-7135-40af-92ce-358da48694dc.webp?1783917290",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/5/c58ff93f-7135-40af-92ce-358da48694dc.jpg?1783917290",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/5/c58ff93f-7135-40af-92ce-358da48694dc.jpg?1783917290",
+    "crop": "https://cards.scryfall.io/crop/front/c/5/c58ff93f-7135-40af-92ce-358da48694dc.webp?1783917290",
+    "display": "https://cards.scryfall.io/display/front/c/5/c58ff93f-7135-40af-92ce-358da48694dc.webp?1783917290",
+    "grid": "https://cards.scryfall.io/grid/front/c/5/c58ff93f-7135-40af-92ce-358da48694dc.webp?1783917290",
+    "large": "https://cards.scryfall.io/large/front/c/5/c58ff93f-7135-40af-92ce-358da48694dc.jpg?1783917290",
+    "normal": "https://cards.scryfall.io/normal/front/c/5/c58ff93f-7135-40af-92ce-358da48694dc.jpg?1783917290",
+    "png": "https://cards.scryfall.io/png/front/c/5/c58ff93f-7135-40af-92ce-358da48694dc.png?1783917290",
+    "small": "https://cards.scryfall.io/small/front/c/5/c58ff93f-7135-40af-92ce-358da48694dc.jpg?1783917290",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/5/c58ff93f-7135-40af-92ce-358da48694dc.webp?1783917290"
+  },
+  "keywords": [
+    "Flying",
+    "Populate"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}",
+  "mtgo_id": 111386,
+  "multiverse_ids": [
+    612130
+  ],
+  "name": "Nesting Dovehawk",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "fe8fc442-ed17-40b2-8624-69f2eed3f9be",
+  "oracle_text": "Flying\nAt the beginning of combat on your turn, populate. (Create a token that's a copy of a creature token you control.)\nWhenever a creature token you control enters, put a +1/+1 counter on this creature.",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2023-04-04",
+    "source": "The Command Zone",
+    "source_uri": "https://www.youtube.com/watch?v=ztAt03EG140"
+  },
+  "prices": {
+    "eur": "20.45",
+    "eur_foil": null,
+    "tix": "6.14",
+    "usd": "23.16",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Afe8fc442-ed17-40b2-8624-69f2eed3f9be&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/111386?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=705453&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F491540%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Nesting+Dovehawk",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=612130&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DNesting%2BDovehawk",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DNesting%2BDovehawk"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c58ff93f-7135-40af-92ce-358da48694dc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/moc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/moc/17/nesting-dovehawk?utm_source=api",
+  "security_stamp": "oval",
+  "set": "moc",
+  "set_id": "6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "set_name": "March of the Machine Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/6bba5de9-5afb-42af-a7eb-24ac854bf671",
+  "story_spotlight": false,
+  "tcgplayer_id": 491540,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Bird",
+  "uri": "https://api.scryfall.com/cards/c58ff93f-7135-40af-92ce-358da48694dc",
+  "variation": false
+}

@@ -1,0 +1,132 @@
+{
+  "artist": "Steve Prescott",
+  "artist_ids": [
+    "a1139fb8-41f5-4a9e-9a74-f662e1a23b35"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 865017,
+  "cmc": 5.0,
+  "collector_number": "85",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1581,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ed2d62c2-85c9-4fd4-8a7e-0017640606be",
+  "illustration_id": "55760b86-1a05-4ea8-811e-cf98ba9bd96b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:02:39Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/d/ed2d62c2-85c9-4fd4-8a7e-0017640606be.webp?1783904559",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/d/ed2d62c2-85c9-4fd4-8a7e-0017640606be.jpg?1783904559",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/d/ed2d62c2-85c9-4fd4-8a7e-0017640606be.jpg?1783904559",
+    "crop": "https://cards.scryfall.io/crop/front/e/d/ed2d62c2-85c9-4fd4-8a7e-0017640606be.webp?1783904559",
+    "display": "https://cards.scryfall.io/display/front/e/d/ed2d62c2-85c9-4fd4-8a7e-0017640606be.webp?1783904559",
+    "grid": "https://cards.scryfall.io/grid/front/e/d/ed2d62c2-85c9-4fd4-8a7e-0017640606be.webp?1783904559",
+    "large": "https://cards.scryfall.io/large/front/e/d/ed2d62c2-85c9-4fd4-8a7e-0017640606be.jpg?1783904559",
+    "normal": "https://cards.scryfall.io/normal/front/e/d/ed2d62c2-85c9-4fd4-8a7e-0017640606be.jpg?1783904559",
+    "png": "https://cards.scryfall.io/png/front/e/d/ed2d62c2-85c9-4fd4-8a7e-0017640606be.png?1783904559",
+    "small": "https://cards.scryfall.io/small/front/e/d/ed2d62c2-85c9-4fd4-8a7e-0017640606be.jpg?1783904559",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/d/ed2d62c2-85c9-4fd4-8a7e-0017640606be.webp?1783904559"
+  },
+  "keywords": [
+    "Evoke",
+    "Fear"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{B}",
+  "mtgo_id": 146105,
+  "multiverse_ids": [],
+  "name": "Shriekmaw",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "717bbb9d-0a5b-4979-a24b-9d54aac7657a",
+  "oracle_text": "Fear (This creature can't be blocked except by artifact creatures and/or black creatures.)\nWhen this creature enters, destroy target nonartifact, nonblack creature.\nEvoke {1}{B} (You may cast this spell for its evoke cost. If you do, it's sacrificed when it enters.)",
+  "oversized": false,
+  "penny_rank": 1146,
+  "power": "3",
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": null,
+    "tix": "0.04",
+    "usd": "0.32",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A717bbb9d-0a5b-4979-a24b-9d54aac7657a&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/146105?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=865017&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F671163%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Shriekmaw",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DShriekmaw",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DShriekmaw"
+  },
+  "released_at": "2026-01-23",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "EE7DF9C3394B3942443A6A4E57D544FB4858EEEB3A8E6D73DB1FC3D561E82AFC",
+  "rulings_uri": "https://api.scryfall.com/cards/ed2d62c2-85c9-4fd4-8a7e-0017640606be/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ecc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ecc/85/shriekmaw?utm_source=api",
+  "set": "ecc",
+  "set_id": "805b5a0c-f8bb-4555-86ea-eb9ec36a011a",
+  "set_name": "Lorwyn Eclipsed Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aecc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/805b5a0c-f8bb-4555-86ea-eb9ec36a011a",
+  "story_spotlight": false,
+  "tcgplayer_id": 671163,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Elemental",
+  "uri": "https://api.scryfall.com/cards/ed2d62c2-85c9-4fd4-8a7e-0017640606be",
+  "variation": false
+}
