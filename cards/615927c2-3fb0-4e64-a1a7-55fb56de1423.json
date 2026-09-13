@@ -1,0 +1,139 @@
+{
+  "arena_id": 73326,
+  "artist": "Wylie Beckert",
+  "artist_ids": [
+    "074daf3d-0849-4c4a-b5a5-c276384e81e5"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 495394,
+  "cmc": 3.0,
+  "collector_number": "127",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 1156,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The Kargan tribes share legends of the victory their ancestors won over the Akoum Skyclave, and its horrendous cost.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2c2fb07b-0f70-403b-be8b-b5217f12e671",
+  "illustration_id": "d117049f-55b8-41c8-befe-82ddba26079e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:56:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/c/2c2fb07b-0f70-403b-be8b-b5217f12e671.webp?1783929366",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/c/2c2fb07b-0f70-403b-be8b-b5217f12e671.jpg?1783929366",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/c/2c2fb07b-0f70-403b-be8b-b5217f12e671.jpg?1783929366",
+    "crop": "https://cards.scryfall.io/crop/front/2/c/2c2fb07b-0f70-403b-be8b-b5217f12e671.webp?1783929366",
+    "display": "https://cards.scryfall.io/display/front/2/c/2c2fb07b-0f70-403b-be8b-b5217f12e671.webp?1783929366",
+    "grid": "https://cards.scryfall.io/grid/front/2/c/2c2fb07b-0f70-403b-be8b-b5217f12e671.webp?1783929366",
+    "large": "https://cards.scryfall.io/large/front/2/c/2c2fb07b-0f70-403b-be8b-b5217f12e671.jpg?1783929366",
+    "normal": "https://cards.scryfall.io/normal/front/2/c/2c2fb07b-0f70-403b-be8b-b5217f12e671.jpg?1783929366",
+    "png": "https://cards.scryfall.io/png/front/2/c/2c2fb07b-0f70-403b-be8b-b5217f12e671.png?1783929366",
+    "small": "https://cards.scryfall.io/small/front/2/c/2c2fb07b-0f70-403b-be8b-b5217f12e671.jpg?1783929366",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/c/2c2fb07b-0f70-403b-be8b-b5217f12e671.webp?1783929366"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 83223,
+  "multiverse_ids": [
+    491765
+  ],
+  "name": "Soul Shatter",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "615927c2-3fb0-4e64-a1a7-55fb56de1423",
+  "oracle_text": "Each opponent sacrifices a creature or planeswalker with the greatest mana value among creatures and planeswalkers they control.",
+  "oversized": false,
+  "penny_rank": 2607,
+  "preview": {
+    "previewed_at": "2020-09-02",
+    "source": "J-E Depraz",
+    "source_uri": "https://twitter.com/JEDepraz/status/1301280566843760640"
+  },
+  "prices": {
+    "eur": "3.86",
+    "eur_foil": "5.30",
+    "tix": "0.02",
+    "usd": "3.93",
+    "usd_etched": null,
+    "usd_foil": "4.06"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A615927c2-3fb0-4e64-a1a7-55fb56de1423&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/83223?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=495394&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F221926%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Soul+Shatter",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=491765&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSoul%2BShatter",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSoul%2BShatter"
+  },
+  "released_at": "2020-09-25",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2c2fb07b-0f70-403b-be8b-b5217f12e671/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/znr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/znr/127/soul-shatter?utm_source=api",
+  "security_stamp": "oval",
+  "set": "znr",
+  "set_id": "f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "set_name": "Zendikar Rising",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aznr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/f4e01fa7-b254-42dd-849f-69b58027a8c4",
+  "story_spotlight": false,
+  "tcgplayer_id": 221926,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/2c2fb07b-0f70-403b-be8b-b5217f12e671",
+  "variation": false
+}

@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "e60d3606-6f90-43b4-b056-543f7245958f",
+      "name": "Court of Cunning",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/e60d3606-6f90-43b4-b056-543f7245958f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "bf7f3fc9-35f1-4b8c-b02b-494c71f31107",
+      "name": "The Monarch",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/bf7f3fc9-35f1-4b8c-b02b-494c71f31107"
+    }
+  ],
+  "artist": "Yeong-Hao Han",
+  "artist_ids": [
+    "f8e7f8d6-6dde-4059-973c-30f1fd1bbe4e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 510400,
+  "cmc": 3.0,
+  "collector_number": "63",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2700,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "A throne built on wisdom cannot be toppled.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2f585f52-7b07-4453-b543-9654d314aa36",
+  "illustration_id": "b52e6155-79b8-4da7-8d82-d9f835d79010",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:47:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/f/2f585f52-7b07-4453-b543-9654d314aa36.webp?1783928864",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/f/2f585f52-7b07-4453-b543-9654d314aa36.jpg?1783928864",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/f/2f585f52-7b07-4453-b543-9654d314aa36.jpg?1783928864",
+    "crop": "https://cards.scryfall.io/crop/front/2/f/2f585f52-7b07-4453-b543-9654d314aa36.webp?1783928864",
+    "display": "https://cards.scryfall.io/display/front/2/f/2f585f52-7b07-4453-b543-9654d314aa36.webp?1783928864",
+    "grid": "https://cards.scryfall.io/grid/front/2/f/2f585f52-7b07-4453-b543-9654d314aa36.webp?1783928864",
+    "large": "https://cards.scryfall.io/large/front/2/f/2f585f52-7b07-4453-b543-9654d314aa36.jpg?1783928864",
+    "normal": "https://cards.scryfall.io/normal/front/2/f/2f585f52-7b07-4453-b543-9654d314aa36.jpg?1783928864",
+    "png": "https://cards.scryfall.io/png/front/2/f/2f585f52-7b07-4453-b543-9654d314aa36.png?1783928864",
+    "small": "https://cards.scryfall.io/small/front/2/f/2f585f52-7b07-4453-b543-9654d314aa36.jpg?1783928864",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/f/2f585f52-7b07-4453-b543-9654d314aa36.webp?1783928864"
+  },
+  "keywords": [
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "banned",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{U}",
+  "mtgo_id": 84908,
+  "multiverse_ids": [
+    497583
+  ],
+  "name": "Court of Cunning",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2ab88c99-aaa0-4a91-9225-0bbfba04b6bc",
+  "oracle_text": "When this enchantment enters, you become the monarch.\nAt the beginning of your upkeep, any number of target players each mill two cards. If you're the monarch, each of those players mills ten cards instead. (To mill a card, a player puts the top card of their library into their graveyard.)",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2020-10-28",
+    "source": "LoadingReadyRun",
+    "source_uri": "https://www.youtube.com/watch?v=e6_G8pkJ3eQ"
+  },
+  "prices": {
+    "eur": "3.73",
+    "eur_foil": "4.28",
+    "tix": "2.00",
+    "usd": "4.29",
+    "usd_etched": null,
+    "usd_foil": "4.50"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2ab88c99-aaa0-4a91-9225-0bbfba04b6bc&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/84908?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=510400&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F226474%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Court+of+Cunning",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=497583&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCourt%2Bof%2BCunning",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCourt%2Bof%2BCunning"
+  },
+  "released_at": "2020-11-20",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2f585f52-7b07-4453-b543-9654d314aa36/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmr/63/court-of-cunning?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmr",
+  "set_id": "39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "set_name": "Commander Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "story_spotlight": false,
+  "tcgplayer_id": 226474,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/2f585f52-7b07-4453-b543-9654d314aa36",
+  "variation": false
+}

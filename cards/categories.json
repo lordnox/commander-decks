@@ -898,7 +898,7 @@
       "categories": [
         "commander-top"
       ],
-      "name": "Bartolom\u00e9 del Presidio"
+      "name": "Bartolomé del Presidio"
     },
     "f73da5d8-fd15-4315-ad3c-c86c28087285": {
       "categories": [
@@ -11001,8 +11001,306 @@
         "land",
         "ramp"
       ]
+    },
+    "151c867f-cc77-42de-9ae5-5fd2233ccdab": {
+      "name": "Afterlife from the Loam",
+      "categories": [
+        "other"
+      ]
+    },
+    "3984e5f6-8643-4104-aa9c-18d474e07801": {
+      "name": "Bone Miser",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "token-production",
+        "discard"
+      ]
+    },
+    "ebbd5b9c-07ff-4b42-81c2-ba09539f3a42": {
+      "name": "Breach the Multiverse",
+      "categories": [
+        "other"
+      ]
+    },
+    "af98156b-3064-4f16-940e-10039241f2b0": {
+      "name": "Burning Inquiry",
+      "categories": [
+        "discard"
+      ]
+    },
+    "2ab88c99-aaa0-4a91-9225-0bbfba04b6bc": {
+      "name": "Court of Cunning",
+      "categories": [
+        "other"
+      ]
+    },
+    "c527eb80-ccac-40b8-8377-c31121613128": {
+      "name": "Dark Deal",
+      "categories": [
+        "discard"
+      ]
+    },
+    "f0ec8681-da50-466b-8cdd-1dc710deccd9": {
+      "name": "Deserted Beach",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "be74a4c1-d569-4203-b28a-3e2ac6a82990": {
+      "name": "Dictate of Kruphix",
+      "categories": [
+        "other"
+      ]
+    },
+    "dcacb717-4ca4-47c0-9b23-26e4eb4ffdc8": {
+      "name": "Ebony Owl Netsuke",
+      "categories": [
+        "other"
+      ]
+    },
+    "7d66f67d-3148-4636-ac5a-2cf8a51d5e50": {
+      "name": "Fate Unraveler",
+      "categories": [
+        "other"
+      ]
+    },
+    "70763549-4b4e-4cb8-8c02-0639ba18bb1a": {
+      "name": "Fevered Visions",
+      "categories": [
+        "other"
+      ]
+    },
+    "9030d508-5cfe-46ed-954b-21d970bc3b5a": {
+      "name": "Folio of Fancies",
+      "categories": [
+        "other"
+      ]
+    },
+    "7194a262-5e7a-4c12-b271-2bc5e0799477": {
+      "name": "Font of Mythos",
+      "categories": [
+        "other"
+      ]
+    },
+    "448b27a5-7c0c-4ab6-bddf-bd62b920aacc": {
+      "name": "Forced Fruition",
+      "categories": [
+        "other"
+      ]
+    },
+    "7b9fafe7-d26a-4ed5-b4c4-ce13763770b5": {
+      "name": "Geier Reach Sanitarium",
+      "categories": [
+        "land",
+        "ramp",
+        "discard"
+      ]
+    },
+    "4aae7102-301a-429d-b169-4f462384d55d": {
+      "name": "Ishai, Ojutai Dragonspeaker",
+      "categories": [
+        "other"
+      ]
+    },
+    "b6c8ac69-daa7-4e2e-a1d9-439731a81870": {
+      "name": "Jace's Archivist",
+      "categories": [
+        "discard"
+      ]
+    },
+    "38cfe4a0-6ead-435b-9f86-928205c0a52c": {
+      "name": "Kami of the Crescent Moon",
+      "categories": [
+        "other"
+      ]
+    },
+    "fc7b46af-6c07-455a-99c7-f1bccaa2a5f4": {
+      "name": "Kederekt Parasite",
+      "categories": [
+        "other"
+      ]
+    },
+    "c3575cf9-847a-472c-94b3-ef70712c297d": {
+      "name": "Khorvath's Fury",
+      "categories": [
+        "discard"
+      ]
+    },
+    "aa286dd5-aa19-446d-9003-684d81eb57ca": {
+      "name": "Laboratory Maniac",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "df13dafb-f82e-42ac-b6dc-efe82af5db58": {
+      "name": "Magus of the Wheel",
+      "categories": [
+        "sacrifice",
+        "discard"
+      ]
+    },
+    "6f98c1eb-0f52-4d21-a266-e8d52f98c1b3": {
+      "name": "Molten Psyche",
+      "categories": [
+        "other"
+      ]
+    },
+    "8a5e3c8e-8e22-49b9-8ee5-4a36361f0da6": {
+      "name": "Nekusar, the Mindrazer",
+      "categories": [
+        "other"
+      ]
+    },
+    "3a940dfa-a026-4969-8981-ef90cdfbe9ef": {
+      "name": "Ornithopter of Paradise",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "7798a4d9-1c1d-48e6-b9a2-ecd6aec1efa7": {
+      "name": "Palantír of Orthanc",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "c7fa1dda-9312-4ec8-82cd-a1ba7bc33497": {
+      "name": "Raugrin Triome",
+      "categories": [
+        "land",
+        "ramp",
+        "card-draw",
+        "discard"
+      ]
+    },
+    "a78f981a-bf8a-42a4-b171-d655cc2cc1a2": {
+      "name": "Razorkin Needlehead",
+      "categories": [
+        "other"
+      ]
+    },
+    "0d40b2c3-9f39-45c6-8b25-12353f300613": {
+      "name": "Red Death, Shipwrecker",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "510a6ac5-f098-4145-ac07-771b1b6f7cdf": {
+      "name": "Riverpyre Verge",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "920445ab-0ac2-4de7-bc1c-f5e58eb4424c": {
+      "name": "Sangromancer",
+      "categories": [
+        "discard"
+      ]
+    },
+    "672e190d-8ea0-4a2e-b74f-5d35304631e4": {
+      "name": "Sea of Clouds",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "144d0817-348c-4171-aa7e-3468b23cf97d": {
+      "name": "See Double",
+      "categories": [
+        "token-production"
+      ]
+    },
+    "34f34409-326d-4994-a0ea-1a69aa278f03": {
+      "name": "Sheoldred, the Apocalypse",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "615927c2-3fb0-4e64-a1a7-55fb56de1423": {
+      "name": "Soul Shatter",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "922cf963-2b1b-43ad-819e-6e49133e6aae": {
+      "name": "Spiteful Visions",
+      "categories": [
+        "other"
+      ]
+    },
+    "0d3bebc6-662a-4cd4-ad1e-aeed0c5e04f6": {
+      "name": "Stormfist Crusader",
+      "categories": [
+        "other"
+      ]
+    },
+    "5958e9e3-9457-48e1-afc1-a5c89e3b0ed0": {
+      "name": "Struggle for Project Purity",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "14c3ff84-1e82-4606-a433-869fc52cc382": {
+      "name": "Syr Konrad, the Grim",
+      "categories": [
+        "other"
+      ]
+    },
+    "fc8032e9-c83a-4cf9-92e1-b1d2d9642695": {
+      "name": "Temple Bell",
+      "categories": [
+        "other"
+      ]
+    },
+    "967cf377-ae26-464d-85ac-8448b5a911f7": {
+      "name": "Underworld Dreams",
+      "categories": [
+        "other"
+      ]
+    },
+    "71faaee5-70ff-449c-85c8-560eb189a0a7": {
+      "name": "Unexplained Absence",
+      "categories": [
+        "removal"
+      ]
+    },
+    "a332e80a-dc51-4dc6-bc85-e114a1c6fdb8": {
+      "name": "Vanquish the Horde",
+      "categories": [
+        "board-wipe"
+      ]
+    },
+    "1b355139-4891-436c-9079-0ce17ecc2d65": {
+      "name": "Vial Smasher the Fierce",
+      "categories": [
+        "other"
+      ]
+    },
+    "6d42dff5-97ec-4768-b112-84a3584d0b87": {
+      "name": "Vision Skeins",
+      "categories": [
+        "other"
+      ]
+    },
+    "00fdcc19-88ed-46c3-91f0-095806228105": {
+      "name": "Waste Not",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "token-production",
+        "discard"
+      ]
+    },
+    "a7c6f07c-3cc3-4271-bbc7-9f7d5bbed3e8": {
+      "name": "Wheel and Deal",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-09T06:34:35.986848+00:00"
+  "updated_at": "2026-09-13T22:25:39.640567+00:00"
 }

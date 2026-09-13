@@ -1,0 +1,134 @@
+{
+  "artist": "Igor Kieryluk",
+  "artist_ids": [
+    "9c3e9d17-509f-485c-9360-46d897ce716b"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 559684,
+  "cmc": 4.0,
+  "collector_number": "152",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 2011,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "59f7f84c-d0a8-4204-a68e-93075f2a96b0",
+  "illustration_id": "99a772b2-a1f1-435f-9017-e8c744dea2f6",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:25:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/9/59f7f84c-d0a8-4204-a68e-93075f2a96b0.webp?1783927552",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/9/59f7f84c-d0a8-4204-a68e-93075f2a96b0.jpg?1783927552",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/9/59f7f84c-d0a8-4204-a68e-93075f2a96b0.jpg?1783927552",
+    "crop": "https://cards.scryfall.io/crop/front/5/9/59f7f84c-d0a8-4204-a68e-93075f2a96b0.webp?1783927552",
+    "display": "https://cards.scryfall.io/display/front/5/9/59f7f84c-d0a8-4204-a68e-93075f2a96b0.webp?1783927552",
+    "grid": "https://cards.scryfall.io/grid/front/5/9/59f7f84c-d0a8-4204-a68e-93075f2a96b0.webp?1783927552",
+    "large": "https://cards.scryfall.io/large/front/5/9/59f7f84c-d0a8-4204-a68e-93075f2a96b0.jpg?1783927552",
+    "normal": "https://cards.scryfall.io/normal/front/5/9/59f7f84c-d0a8-4204-a68e-93075f2a96b0.jpg?1783927552",
+    "png": "https://cards.scryfall.io/png/front/5/9/59f7f84c-d0a8-4204-a68e-93075f2a96b0.png?1783927552",
+    "small": "https://cards.scryfall.io/small/front/5/9/59f7f84c-d0a8-4204-a68e-93075f2a96b0.jpg?1783927552",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/9/59f7f84c-d0a8-4204-a68e-93075f2a96b0.webp?1783927552"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "mtgo_id": 89405,
+  "multiverse_ids": [
+    519187
+  ],
+  "name": "Sangromancer",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "920445ab-0ac2-4de7-bc1c-f5e58eb4424c",
+  "oracle_text": "Flying\nWhenever a creature an opponent controls dies, you may gain 3 life.\nWhenever an opponent discards a card, you may gain 3 life.",
+  "oversized": false,
+  "penny_rank": 8918,
+  "power": "3",
+  "prices": {
+    "eur": "1.21",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.89",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A920445ab-0ac2-4de7-bc1c-f5e58eb4424c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/89405?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=559684&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F236555%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sangromancer",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=519187&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSangromancer",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSangromancer"
+  },
+  "released_at": "2021-04-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/59f7f84c-d0a8-4204-a68e-93075f2a96b0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c21?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c21/152/sangromancer?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c21",
+  "set_id": "27bf6dbd-a9e1-4904-afa7-d28fc7745c4f",
+  "set_name": "Commander 2021",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac21&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/27bf6dbd-a9e1-4904-afa7-d28fc7745c4f",
+  "story_spotlight": false,
+  "tcgplayer_id": 236555,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Vampire Shaman",
+  "uri": "https://api.scryfall.com/cards/59f7f84c-d0a8-4204-a68e-93075f2a96b0",
+  "variation": false
+}
