@@ -134,7 +134,7 @@ winning.
 
 ## 4. Set the mana and curve budget
 
-Read and follow [`MANABASE.md`](../../../MANABASE.md). Set the mana base before
+Read [`MANABASE.md`](../../../MANABASE.md) for hints. Set the mana base before
 spending all 99 slots. Count these separately:
 
 - true lands;
@@ -147,10 +147,10 @@ Never report their sum as "lands" or treat them as interchangeable. Modal land
 backs enter tapped and cost the spell face. Creature ramp dies to creature
 wipes and cannot make the land drop needed to cast it.
 
-Calculate the Karsten effective-land estimate from the proposed curve, then
-turn it into explicit true-land, MDFC, and ramp counts. Treat it as a starting
-point and record every adjustment. "The deck has ten ramp cards" is not
-sufficient: ramp does not replace the land needed to cast it.
+Use the Karsten effective-land estimate from the proposed curve as an opening
+guess, then decide explicit true-land, MDFC, and ramp counts and say why they
+moved. "The deck has ten ramp cards" is not an argument on its own: ramp does
+not replace the land needed to cast it.
 
 Before version 1, record:
 
@@ -163,16 +163,16 @@ Before version 1, record:
 - each always-tapped land's safe turn and deck-specific upside;
 - land-type dependencies, utility lands, and the mana sink or anti-flood plan.
 
-Dual lands are welcome and receive no price penalty unless the user set a
-budget. Reject fixing-only tap lands and life-gain-only tap lands. Prefer lands
-with a deck role only after colour and tempo requirements pass. Do not call an
-animated land a token or assume it can be devoured without paying its
+Dual lands are welcome and get no price penalty unless the user set a budget.
+Fixing-only and life-gain-only tap lands are usually worse than a basic. Once
+colour and tempo look healthy, prefer lands that also do a job, but do not call
+an animated land a token or assume it can be devoured without paying its
 activation cost.
 
-Search current lands with `scryfall-lookup`, including `otag:utility-land`, and
-consider land tutors only when their targets form a real toolbox or enable a
-central line. A tutor is not a land drop. Verify every claimed target and
-record which colored source or basic slot each utility land displaced.
+Search current lands with `scryfall-lookup`, including `otag:utility-land`.
+Land tutors are worth it when their targets form a toolbox or enable a central
+line; a tutor is still not a land drop. Verify claimed targets, and note what a
+utility land displaced when the trade was close.
 
 ## 5. Build version 1
 
