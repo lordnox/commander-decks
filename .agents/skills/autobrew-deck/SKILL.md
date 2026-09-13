@@ -134,7 +134,8 @@ winning.
 
 ## 4. Set the mana and curve budget
 
-Set the mana base before spending all 99 slots. Count these separately:
+Read and follow [`MANABASE.md`](../../../MANABASE.md). Set the mana base before
+spending all 99 slots. Count these separately:
 
 - true lands;
 - modal cards with a land back;
@@ -146,24 +147,32 @@ Never report their sum as "lands" or treat them as interchangeable. Modal land
 backs enter tapped and cost the spell face. Creature ramp dies to creature
 wipes and cannot make the land drop needed to cast it.
 
-Start at 37 true lands unless the user declares another baseline. Go below 37
-only with deck-specific evidence recorded in `DECISIONS.md`: curve, coloured
-source requirements, reliable early draw or selection, ramp that can be cast
-from the proposed opening hands, and hypergeometric access to the required
-land drops. "The deck has ten ramp cards" is not sufficient.
+Calculate the Karsten effective-land estimate from the proposed curve, then
+turn it into explicit true-land, MDFC, and ramp counts. Treat it as a starting
+point and record every adjustment. "The deck has ten ramp cards" is not
+sufficient: ramp does not replace the land needed to cast it.
 
 Before version 1, record:
 
-- true-land count and modal land backs;
-- coloured sources needed by turns two, three, and the commander turn;
+- the estimate inputs, true-land count, modal land backs, and ramp by speed;
+- coloured sources needed and available by turns one, two, three, and the
+  commander turn;
 - counts at mana value 1, 2, 3, 4, and 5+;
 - probability of the required opening lands and of seeing the required land
   count by the commander turn;
-- how many tapped or conditional lands the early sequence can tolerate.
+- each always-tapped land's safe turn and deck-specific upside;
+- land-type dependencies, utility lands, and the mana sink or anti-flood plan.
 
-Prefer lands with a deck role when they do not break colour or tempo
-requirements, but do not call an animated land a token or assume it can be
-devoured without paying its activation cost.
+Dual lands are welcome and receive no price penalty unless the user set a
+budget. Reject fixing-only tap lands and life-gain-only tap lands. Prefer lands
+with a deck role only after colour and tempo requirements pass. Do not call an
+animated land a token or assume it can be devoured without paying its
+activation cost.
+
+Search current lands with `scryfall-lookup`, including `otag:utility-land`, and
+consider land tutors only when their targets form a real toolbox or enable a
+central line. A tutor is not a land drop. Verify every claimed target and
+record which colored source or basic slot each utility land displaced.
 
 ## 5. Build version 1
 
