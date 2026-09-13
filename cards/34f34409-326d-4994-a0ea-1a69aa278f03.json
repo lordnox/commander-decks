@@ -1,0 +1,146 @@
+{
+  "arena_id": 82159,
+  "artist": "Chris Rahn",
+  "artist_ids": [
+    "7742047e-0f80-4c0f-a530-d07460165e86"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 671359,
+  "cmc": 4.0,
+  "collector_number": "107",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 458,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Gix failed. I shall not.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d67be074-cdd4-41d9-ac89-0a0456c4e4b2",
+  "illustration_id": "7111dfce-0bbd-434c-b0a8-33e51a8707af",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:42:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.webp?1783921327",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1783921327",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1783921327",
+    "crop": "https://cards.scryfall.io/crop/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.webp?1783921327",
+    "display": "https://cards.scryfall.io/display/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.webp?1783921327",
+    "grid": "https://cards.scryfall.io/grid/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.webp?1783921327",
+    "large": "https://cards.scryfall.io/large/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1783921327",
+    "normal": "https://cards.scryfall.io/normal/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1783921327",
+    "png": "https://cards.scryfall.io/png/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.png?1783921327",
+    "small": "https://cards.scryfall.io/small/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1783921327",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.webp?1783921327"
+  },
+  "keywords": [
+    "Deathtouch"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{B}",
+  "mtgo_id": 102690,
+  "multiverse_ids": [
+    574587
+  ],
+  "name": "Sheoldred, the Apocalypse",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "34f34409-326d-4994-a0ea-1a69aa278f03",
+  "oracle_text": "Deathtouch\nWhenever you draw a card, you gain 2 life.\nWhenever an opponent draws a card, they lose 2 life.",
+  "oversized": false,
+  "power": "4",
+  "preview": {
+    "previewed_at": "2022-08-18",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/1565562937"
+  },
+  "prices": {
+    "eur": "77.06",
+    "eur_foil": "91.40",
+    "tix": "7.91",
+    "usd": "102.10",
+    "usd_etched": null,
+    "usd_foil": "106.77"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A34f34409-326d-4994-a0ea-1a69aa278f03&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/102690?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=671359&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F282800%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sheoldred%2C+the+Apocalypse",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=574587&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSheoldred%252C%2Bthe%2BApocalypse",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSheoldred%252C%2Bthe%2BApocalypse"
+  },
+  "released_at": "2022-09-09",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d67be074-cdd4-41d9-ac89-0a0456c4e4b2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dmu?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dmu/107/sheoldred-the-apocalypse?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dmu",
+  "set_id": "4e47a6cd-cdeb-4b0f-8f24-cfe1a0127cb3",
+  "set_name": "Dominaria United",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Admu&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4e47a6cd-cdeb-4b0f-8f24-cfe1a0127cb3",
+  "story_spotlight": false,
+  "tcgplayer_id": 282800,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Legendary Creature — Phyrexian Praetor",
+  "uri": "https://api.scryfall.com/cards/d67be074-cdd4-41d9-ac89-0a0456c4e4b2",
+  "variation": false,
+  "watermark": "phyrexian"
+}

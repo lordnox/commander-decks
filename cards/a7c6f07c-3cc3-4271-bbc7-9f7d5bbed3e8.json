@@ -1,0 +1,130 @@
+{
+  "artist": "Alan Pollack",
+  "artist_ids": [
+    "70c20ea3-5ad6-4082-a337-6e994ae5828e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 1752,
+  "cmc": 4.0,
+  "collector_number": "121",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 5865,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "61f50a1a-f3d0-4fcf-bd32-0e173b0d3247",
+  "illustration_id": "ad52a779-c729-4880-b222-90ea4137aeeb",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:17:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/1/61f50a1a-f3d0-4fcf-bd32-0e173b0d3247.webp?1783945075",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/1/61f50a1a-f3d0-4fcf-bd32-0e173b0d3247.jpg?1783945075",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/1/61f50a1a-f3d0-4fcf-bd32-0e173b0d3247.jpg?1783945075",
+    "crop": "https://cards.scryfall.io/crop/front/6/1/61f50a1a-f3d0-4fcf-bd32-0e173b0d3247.webp?1783945075",
+    "display": "https://cards.scryfall.io/display/front/6/1/61f50a1a-f3d0-4fcf-bd32-0e173b0d3247.webp?1783945075",
+    "grid": "https://cards.scryfall.io/grid/front/6/1/61f50a1a-f3d0-4fcf-bd32-0e173b0d3247.webp?1783945075",
+    "large": "https://cards.scryfall.io/large/front/6/1/61f50a1a-f3d0-4fcf-bd32-0e173b0d3247.jpg?1783945075",
+    "normal": "https://cards.scryfall.io/normal/front/6/1/61f50a1a-f3d0-4fcf-bd32-0e173b0d3247.jpg?1783945075",
+    "png": "https://cards.scryfall.io/png/front/6/1/61f50a1a-f3d0-4fcf-bd32-0e173b0d3247.png?1783945075",
+    "small": "https://cards.scryfall.io/small/front/6/1/61f50a1a-f3d0-4fcf-bd32-0e173b0d3247.jpg?1783945075",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/1/61f50a1a-f3d0-4fcf-bd32-0e173b0d3247.webp?1783945075"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "mtgo_foil_id": 17882,
+  "mtgo_id": 17881,
+  "multiverse_ids": [
+    42184
+  ],
+  "name": "Wheel and Deal",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a7c6f07c-3cc3-4271-bbc7-9f7d5bbed3e8",
+  "oracle_text": "Any number of target opponents each discard their hands, then draw seven cards.\nDraw a card.",
+  "oversized": false,
+  "prices": {
+    "eur": "5.94",
+    "eur_foil": "15.14",
+    "tix": "0.12",
+    "usd": "15.98",
+    "usd_etched": null,
+    "usd_foil": "50.11"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa7c6f07c-3cc3-4271-bbc7-9f7d5bbed3e8&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/17881?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=1752&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F10329%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wheel+and+Deal",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=42184&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWheel%2Band%2BDeal",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWheel%2Band%2BDeal"
+  },
+  "released_at": "2002-10-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/61f50a1a-f3d0-4fcf-bd32-0e173b0d3247/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ons?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ons/121/wheel-and-deal?utm_source=api",
+  "set": "ons",
+  "set_id": "914a6c6d-cb3b-45e8-a2db-9978a2339faf",
+  "set_name": "Onslaught",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aons&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/914a6c6d-cb3b-45e8-a2db-9978a2339faf",
+  "story_spotlight": false,
+  "tcgplayer_id": 10329,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/61f50a1a-f3d0-4fcf-bd32-0e173b0d3247",
+  "variation": false
+}

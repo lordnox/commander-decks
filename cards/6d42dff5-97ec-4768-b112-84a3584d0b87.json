@@ -1,0 +1,128 @@
+{
+  "artist": "Aleksi Briclot",
+  "artist_ids": [
+    "5e470014-31cb-41b0-b054-e23374484449"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 298349,
+  "cmc": 2.0,
+  "collector_number": "29",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 4165,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"I could see in the other mage's eyes that he'd thought of it too. Then it became a race to exploit the knowledge first.\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "76999d96-f3fe-421e-9190-e682259e3cdb",
+  "illustration_id": "868606b5-4b1d-493a-ad35-6ece45e60475",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:49:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/6/76999d96-f3fe-421e-9190-e682259e3cdb.webp?1783936158",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/6/76999d96-f3fe-421e-9190-e682259e3cdb.jpg?1783936158",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/6/76999d96-f3fe-421e-9190-e682259e3cdb.jpg?1783936158",
+    "crop": "https://cards.scryfall.io/crop/front/7/6/76999d96-f3fe-421e-9190-e682259e3cdb.webp?1783936158",
+    "display": "https://cards.scryfall.io/display/front/7/6/76999d96-f3fe-421e-9190-e682259e3cdb.webp?1783936158",
+    "grid": "https://cards.scryfall.io/grid/front/7/6/76999d96-f3fe-421e-9190-e682259e3cdb.webp?1783936158",
+    "large": "https://cards.scryfall.io/large/front/7/6/76999d96-f3fe-421e-9190-e682259e3cdb.jpg?1783936158",
+    "normal": "https://cards.scryfall.io/normal/front/7/6/76999d96-f3fe-421e-9190-e682259e3cdb.jpg?1783936158",
+    "png": "https://cards.scryfall.io/png/front/7/6/76999d96-f3fe-421e-9190-e682259e3cdb.png?1783936158",
+    "small": "https://cards.scryfall.io/small/front/7/6/76999d96-f3fe-421e-9190-e682259e3cdb.jpg?1783936158",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/6/76999d96-f3fe-421e-9190-e682259e3cdb.webp?1783936158"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "multiverse_ids": [
+    430568
+  ],
+  "name": "Vision Skeins",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6d42dff5-97ec-4768-b112-84a3584d0b87",
+  "oracle_text": "Each player draws two cards.",
+  "oversized": false,
+  "penny_rank": 5233,
+  "prices": {
+    "eur": "0.32",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.76",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6d42dff5-97ec-4768-b112-84a3584d0b87&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Vision+Skeins&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=298349&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F132343%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vision+Skeins",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=430568&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVision%2BSkeins",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVision%2BSkeins"
+  },
+  "released_at": "2017-06-16",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/76999d96-f3fe-421e-9190-e682259e3cdb/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/e01?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/e01/29/vision-skeins?utm_source=api",
+  "set": "e01",
+  "set_id": "bf058cce-027d-4784-85e7-2750533a11df",
+  "set_name": "Archenemy: Nicol Bolas",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ae01&unique=prints",
+  "set_type": "archenemy",
+  "set_uri": "https://api.scryfall.com/sets/bf058cce-027d-4784-85e7-2750533a11df",
+  "story_spotlight": false,
+  "tcgplayer_id": 132343,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/76999d96-f3fe-421e-9190-e682259e3cdb",
+  "variation": false
+}

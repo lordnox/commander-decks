@@ -1,0 +1,141 @@
+{
+  "artist": "Mark Winters",
+  "artist_ids": [
+    "3d8a379d-f4e8-440d-99d5-5ec107757348"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 721867,
+  "cmc": 5.0,
+  "collector_number": "349",
+  "color_identity": [
+    "B",
+    "R",
+    "U"
+  ],
+  "colors": [
+    "B",
+    "R",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 3749,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "His enemies wondered if the lich king's brutal death and unnatural rebirth had been his plan all along.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "4afdc65d-3c97-47af-83fa-df340389802e",
+  "illustration_id": "ac890f29-b963-485c-ada3-23c6abc60c3a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:06:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/a/4afdc65d-3c97-47af-83fa-df340389802e.webp?1783915612",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/a/4afdc65d-3c97-47af-83fa-df340389802e.jpg?1783915612",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/a/4afdc65d-3c97-47af-83fa-df340389802e.jpg?1783915612",
+    "crop": "https://cards.scryfall.io/crop/front/4/a/4afdc65d-3c97-47af-83fa-df340389802e.webp?1783915612",
+    "display": "https://cards.scryfall.io/display/front/4/a/4afdc65d-3c97-47af-83fa-df340389802e.webp?1783915612",
+    "grid": "https://cards.scryfall.io/grid/front/4/a/4afdc65d-3c97-47af-83fa-df340389802e.webp?1783915612",
+    "large": "https://cards.scryfall.io/large/front/4/a/4afdc65d-3c97-47af-83fa-df340389802e.jpg?1783915612",
+    "normal": "https://cards.scryfall.io/normal/front/4/a/4afdc65d-3c97-47af-83fa-df340389802e.jpg?1783915612",
+    "png": "https://cards.scryfall.io/png/front/4/a/4afdc65d-3c97-47af-83fa-df340389802e.png?1783915612",
+    "small": "https://cards.scryfall.io/small/front/4/a/4afdc65d-3c97-47af-83fa-df340389802e.jpg?1783915612",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/a/4afdc65d-3c97-47af-83fa-df340389802e.webp?1783915612"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}{B}{R}",
+  "mtgo_id": 114927,
+  "multiverse_ids": [
+    627813
+  ],
+  "name": "Nekusar, the Mindrazer",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8a5e3c8e-8e22-49b9-8ee5-4a36361f0da6",
+  "oracle_text": "At the beginning of each player's draw step, that player draws an additional card.\nWhenever an opponent draws a card, Nekusar deals 1 damage to that player.",
+  "oversized": false,
+  "penny_rank": 15924,
+  "power": "2",
+  "prices": {
+    "eur": "1.37",
+    "eur_foil": "3.26",
+    "tix": "0.03",
+    "usd": "3.74",
+    "usd_etched": null,
+    "usd_foil": "4.83"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8a5e3c8e-8e22-49b9-8ee5-4a36361f0da6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/114927?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=721867&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F504084%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Nekusar%2C+the+Mindrazer",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=627813&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DNekusar%252C%2Bthe%2BMindrazer",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DNekusar%252C%2Bthe%2BMindrazer"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/4afdc65d-3c97-47af-83fa-df340389802e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/349/nekusar-the-mindrazer?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 504084,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Zombie Wizard",
+  "uri": "https://api.scryfall.com/cards/4afdc65d-3c97-47af-83fa-df340389802e",
+  "variation": false
+}
