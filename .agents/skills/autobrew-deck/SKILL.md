@@ -134,8 +134,10 @@ winning.
 
 ## 4. Set the mana and curve budget
 
-Read [`MANABASE.md`](../../../MANABASE.md) for hints. Set the mana base before
-spending all 99 slots. Count these separately:
+Read [`MANABASE.md`](../../../MANABASE.md) for hints, and the cached articles
+under [`manabase-sources/`](../../../manabase-sources/README.md) when a number
+or counting convention is in doubt. Do not fetch the live pages. Set the mana
+base before spending all 99 slots. Count these separately:
 
 - true lands;
 - modal cards with a land back;

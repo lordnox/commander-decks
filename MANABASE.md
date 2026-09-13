@@ -7,14 +7,23 @@ right deck — the point is to notice the trade, not to pass a checklist.
 
 Use `simulate-deck` when a mana question actually matters enough to test.
 
-Sources:
+Sources (read the [local cache](manabase-sources/README.md); do not fetch the live pages unless refreshing that cache):
 
-- [All Underplayed Utility Lands in Commander](https://www.youtube.com/watch?v=xy16QHJU-ls)
-  by 3/3 Elk: fixing first, then let lands carry part of the deck's plan
-- Frank Karsten, [How Many Sources Do You Need to Consistently Cast Your Spells?](https://www.tcgplayer.com/content/article/How-Many-Sources-Do-You-Need-to-Consistently-Cast-Your-Spells-A-2022-Update/dc23a7d2-0a16-4c0b-ad36-586fcca03ad8/)
-- Frank Karsten, [How Many Lands Do You Need in Your Deck?](https://www.tcgplayer.com/content/article/How-Many-Lands-Do-You-Need-in-Your-Deck-An-Updated-Analysis/cd1c1a24-d439-4a8e-b369-b936edb0b38a/)
-- Frank Karsten, [What's an Optimal Mana Curve and Land/Ramp Count for Commander?](https://www.tcgplayer.com/content/article/What-s-an-Optimal-Mana-Curve-and-Land-Ramp-Count-for-Commander/e22caad1-b04b-4f8a-951b-a41e9f08da14/)
-- Reid Duke, [Managing Your Mana Base](https://www.tcgplayer.com/content/article/Managing-Your-Mana-Base-Deep-Dive/817630e3-756a-481c-8042-b2bf1e8bbd10/)
+- 3/3 Elk, [All Underplayed Utility Lands in Commander](manabase-sources/33elk-underplayed-utility-lands.md)
+  ([YouTube](https://www.youtube.com/watch?v=xy16QHJU-ls)): fixing first, then let lands carry part of the deck's plan
+- Frank Karsten, [How Many Sources Do You Need to Consistently Cast Your Spells?](manabase-sources/karsten-how-many-sources-2022.md)
+  ([TCGplayer](https://www.tcgplayer.com/content/article/How-Many-Sources-Do-You-Need-to-Consistently-Cast-Your-Spells-A-2022-Update/dc23a7d2-0a16-4c0b-ad36-586fcca03ad8/))
+- Frank Karsten, [How Many Lands Do You Need in Your Deck?](manabase-sources/karsten-how-many-lands.md)
+  ([TCGplayer](https://www.tcgplayer.com/content/article/How-Many-Lands-Do-You-Need-in-Your-Deck-An-Updated-Analysis/cd1c1a24-d439-4a8e-b369-b936edb0b38a/))
+- Frank Karsten, [What's an Optimal Mana Curve and Land/Ramp Count for Commander?](manabase-sources/karsten-optimal-mana-curve-commander.md)
+  ([TCGplayer](https://www.tcgplayer.com/content/article/What-s-an-Optimal-Mana-Curve-and-Land-Ramp-Count-for-Commander/e22caad1-b04b-4f8a-951b-a41e9f08da14/))
+- Reid Duke, [Managing Your Mana Base](manabase-sources/duke-managing-your-mana-base.md)
+  ([TCGplayer](https://www.tcgplayer.com/content/article/Managing-Your-Mana-Base-Deep-Dive/817630e3-756a-481c-8042-b2bf1e8bbd10/))
+
+Snapshot **2026-09-13**. Refresh the article copies with
+`.agents/skills/design-deck/scripts/update_manabase_sources.py` when a source
+changes or a number here is in doubt. The YouTube transcript is replaced by
+hand if the video is revised.
 
 The models come from 60-card constructed and idealized Commander midrange. They
 assume normal mulligans and simplified card behaviour, so treat them as a
