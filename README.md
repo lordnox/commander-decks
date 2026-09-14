@@ -7,6 +7,8 @@ A conversation-driven workspace for importing, resolving, categorizing, assessin
 - [Bracket definitions](BRACKET-DEFINITIONS.md)
 - [Kitchen-table power](POWER-RANKINGS.md)
 - [Interaction](INTERACTION.md)
+- [Mana bases](MANABASE.md)
+- [Deck construction](CONSTRUCTION.md)
 - [Deck ideas](DECK-IDEAS.md)
 - [Skills](SKILLS.md)
 - [Table games](table-games/README.md) — recorded four-player replays and their recaps

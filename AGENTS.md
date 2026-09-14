@@ -63,6 +63,8 @@ When interaction density, removal vs protection, wipes vs pinpoint answers, or f
 
 When brewing or rebuilding a mana base, read [`MANABASE.md`](MANABASE.md) for deck-building hints: land count against the curve, coloured-source sanity numbers, tapped-land timing, and using spare land slots for synergy. They are starting points, not rules. Dual lands are welcome here; tap lands want a reason beyond life gain. Look up the linked articles in [`manabase-sources/`](manabase-sources/README.md) instead of fetching live pages.
 
+When ramp vs draw mix, package density, enablers vs payoffs, or "how many of each role" come up, read [`CONSTRUCTION.md`](CONSTRUCTION.md). Those counts are comparison points, not floors. Look up the linked notes in [`construction-sources/`](construction-sources/README.md) instead of fetching live pages.
+
 Use `autobrew-deck` when the agent should choose and iterate a deck with little or no input, `simulate-deck` for read-only goldfishing and stress tests of any resolved deck, `simulate-table` for a four-player game among stored decks and its replay JSON, `live-table` for hot-seat play where the human pilots one seat via `/live`, `render-table-replay` to validate and publish a replay to the React player, `review-table` to diagnose recorded table games (list gaps vs pilot errors), `design-deck` when collaboratively brewing from a theme, `deck-ideas` when parking a brew that is not a 99, `deck-workspace` for import and validation, `scryfall-lookup` for card searches, `audit-deck` for a slot-by-slot Scryfall review of a stored 99, `deck-primer` when creating or updating a play guide, `tag-deck` for Archidekt deck tags, `assess-deck` for bracket, power, or expected-win-turn analysis, and `rank-deck` for jankiness, fun, oppressiveness, and per-deck identity goals.
 
 ## Chat card presentation
@@ -77,6 +79,8 @@ In conversation (not primers or `decklist.txt`), featured card lists should show
 - `INTERACTION.md`: protection vs disruption tree, in-hand vs on-board trade-off, and how aggro / midrange / control slant their answer packages
 - `MANABASE.md`: mana-base hints — land count, coloured sources, tapped-land timing, fixing, and utility lands
 - `manabase-sources/`: offline copies of the articles and video transcript behind those hints
+- `CONSTRUCTION.md`: 99-skeleton hints — operational threshold, ramp/draw mix, plan-card split, package density
+- `construction-sources/`: working notes for Command Zone 658, commandertemplate.com / Rebell, and 8×8
 - `DECK-IDEAS.md`: grilled brews that are queued or parked, not a `decks/` folder yet
 - `table-games/`: replay JSON from `simulate-table` plus each game's Markdown recap (JSON gitignored except committed examples)
 - `site/`: React and Tailwind source for the GitHub Pages replay index and player; generated public replay JSON and metadata go under ignored `site/public/`

@@ -6,7 +6,7 @@ description: >-
   goldfishes. Use when the user delegates deck concept and construction with
   little or no input, asks the agent to build a deck it likes, or wants the
   agent to choose the plan and commander. Take the target bracket from
-  BRACKET-DEFINITIONS.md.
+  BRACKET-DEFINITIONS.md. Use CONSTRUCTION.md for package-density hints.
 ---
 
 # Autobrew Deck
@@ -63,9 +63,10 @@ Before searching commanders, declare:
 
 - target bracket and expected normal win turn;
 - earliest credible high roll;
-- expected commander or engine setup turn;
+- expected commander or engine setup turn (operational threshold);
 - turn-five milestone;
 - interaction and recovery obligations (read [`INTERACTION.md`](../../../INTERACTION.md): name buckets, not a raw count);
+- package-density starting guess (read [`CONSTRUCTION.md`](../../../CONSTRUCTION.md): ramp/draw mix and plan split are hints);
 - fast-mana, tutor, combo, and Game Changer boundaries.
 
 The target is a design constraint, not a rating assigned after the list exists.
@@ -128,6 +129,12 @@ state its job, minimum useful density, failure mode, and cards that overlap
 another role. Prefer strange multifunctional cards over generic rate when the
 bracket floor remains intact.
 
+Read [`CONSTRUCTION.md`](../../../CONSTRUCTION.md) for density hints
+(operational threshold, ramp/draw mix, enablers vs payoffs, 8-card theme
+packages), and [`construction-sources/`](../../../construction-sources/README.md)
+when a counting convention is in doubt. Do not fetch the live pages. Those
+numbers are comparison points. Count each card once for its floor job.
+
 Verify Oracle text and walk every claimed combo or rules interaction. "Fat
 once" is not infinite. Separate setup, value, presenting lethal, and actually
 winning.
@@ -183,6 +190,11 @@ it, write its primer and decision log, score tags and declared identity goals,
 and validate it. The game plan, target bracket, full commander comparison,
 package map, and rules checks belong under `## Talks` or `## Rules` in the
 deck's `DECISIONS.md`.
+
+Before calling the 99 complete, glance at `CONSTRUCTION.md`: named packages
+that are thinner than they look, a ramp/draw mix that ignores the operational
+threshold, payoffs with no enablers, or enhancers crowding out the verb. Do
+not pad with staples to hit a template count.
 
 Do not evaluate unresolved cards. Do not call version 1 finished.
 
