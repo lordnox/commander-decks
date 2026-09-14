@@ -73,6 +73,9 @@ describe('lobby', () => {
     state.phase = 'play'
 
     applyInbox(state, 'p1', { type: 'plan', text: 'Cast a hidden card.' })
+    expect(state.waiting).toBe('p1 submitted a plan. The judge is checking it.')
+    expect(state.waiting).not.toContain('hidden card')
+    expect(state.judge).not.toContain('hidden card')
     applyInbox(state, 'p1', { type: 'confirm' })
     applyInbox(state, 'p2', { type: 'pass' })
     expect(state.talk).toBe('')
