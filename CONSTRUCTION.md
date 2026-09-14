@@ -89,6 +89,11 @@ Expensive commanders still want ramp that is live before the threshold
 If the commander *is* the ramp or the draw, those 99 slots can lean the
 other way. Say so; do not silently skip the category.
 
+Draw cards are not interchangeable. Name raw draw, impulse access,
+filtering, triggered engines, and burst refills separately. Compare each
+candidate on **timing, scale, and cost**; prefer draw that rewards the deck's
+verb rather than pausing it to draw generic cardboard.
+
 ### 4. Interaction is buckets, not a pile
 
 "Run twelve disruption" is only useful as a density check. Name the
@@ -99,6 +104,11 @@ blogs run fewer wipes. Aggro and combo should look thin on purpose;
 control should look fat on purpose.
 
 Instant-speed answers and sorcery-speed answers are not the same package.
+Rebell's removal model offers another useful lens: **survival** (stop a win),
+**unlocking** (remove what blanks this plan), and **suppression** (de-escalate
+the board). Compare answers on cost, speed, range, and flexibility. Her
+starting densities are about 12 for proactive decks and 18 for reactive
+decks, but the mix of jobs matters more than hitting either number.
 
 ### 5. Plan cards: enablers, payoffs, enhancers
 
@@ -120,6 +130,18 @@ Win-more cards and orphaned leftover themes belong in the maybeboard.
 eight cards per named theme package so you actually draw the theme. A
 package of three is a hope, not a plan.
 
+Rebell's newer engine model is more input-heavy: start a **21-card** theme
+package near **12 enablers / 6 payoffs / 3 scalers**. Good enablers are cheap,
+self-sufficient, and repeatable. Start with payoffs that can actually end the
+game, then work backwards to the resource they need. A commander that is a
+cheap, reliable enabler or payoff can move the split; a commander that costs
+six does not make an opening hand of payoffs functional.
+
+These sources evolved and do not share one sacred plan-slot count: Command
+Zone says roughly 30, Rebell's goldfish video says roughly 27, and her newer
+engine video uses 21. Pick a provisional package, calculate its availability,
+then goldfish it.
+
 ### 6. Curve around the threshold
 
 Density at 2–4 is the usual midrange shape. High-cost commanders need a
@@ -137,6 +159,49 @@ prefers esoteric cards over staples (`DECISIONS.md`). Use the numbers to
 find holes, then fill holes with on-theme or old cards, not with the
 example staples from the videos.
 
+Use Rebell's two-pass distinction:
+
+1. **Rough:** placeholders are allowed. Play a provisional 100 through about
+   turn six until enablers, payoffs, and commander sequencing produce the
+   intended proactive plan.
+2. **Polish:** inspect at least ten opening hands. Record why each is keep,
+   marginal, or mulligan; tune the recurring failure, not the memorable card.
+
+Then use `simulate-deck` pressure branches. Solo goldfishing cannot establish
+whether interaction or recovery is sufficient.
+
+For linear, commander-centric plans, test a pivot: can some ramp, draw, or
+answer slots also develop the backup route? Rebell's midrange experiment is
+to try flexible cards in roughly half of each role package. That is useful
+when it improves recovery; it is harmful when a modal card is bad at both
+jobs. Always ask what the deck does before the commander and after it is
+removed twice.
+
+## Calculator
+
+Use the local calculator when a package count is being argued:
+
+```bash
+python3 .agents/skills/design-deck/scripts/construction_calculator.py \
+  profile --threshold 4 --lands 40 --ramp 12 --draw 12 \
+  --interaction 12 --enablers 12 --payoffs 6 --enhancers 3
+```
+
+It reports exact package, raw-land-drop, and joint
+enabler-plus-payoff probabilities. Defaults are a 99-card library, seven-card
+opener, and one draw each Commander turn. Mulligans, tutors, selection, and
+cross-role overlap are stated assumptions; pass `--engine-overlap N` when
+cards belong to both engine halves. For one arbitrary package:
+
+```bash
+python3 .agents/skills/design-deck/scripts/construction_calculator.py \
+  odds --copies 8 --seen 11 --at-least 1
+```
+
+Numbers explain how often a package appears, not whether its cards are good.
+The calculator does not imitate Commander Template's curve chart because the
+full table or formula is not public in the videos.
+
 ## Comparison points (not floors)
 
 | Role | Command Zone 658 (typical) | Rebell / commandertemplate (threshold 4) |
@@ -146,7 +211,7 @@ example staples from the videos.
 | Card advantage | ~12 dedicated | ~12 of that same 24 |
 | Targeted disruption | ~12 | ~12 interaction (undivided) |
 | Mass disruption | ~6 | inside interaction |
-| Plan / themes | ~30, then 40/35/25 split | 8-card theme packages |
+| Plan / themes | ~30, then 40/35/25 split | newer engine start: 12 enablers / 6 payoffs / 3 scalers |
 
 Generic "36 lands, 10 rocks, 10 draw, 8 removal, 3 wipes" blogs are the
 same family of hints, usually lighter on wipes and lands. Do not average
