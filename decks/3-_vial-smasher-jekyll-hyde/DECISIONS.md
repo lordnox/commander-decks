@@ -127,6 +127,25 @@ Win-turn claims: usual table threat around turn eight once two engines are stack
 
 ## Talks
 
+### 2026-09-14 — Command zone: why white forces Ishai
+
+The white splash is the reason this pair exists. White cards in the 99 are only legal if white is in the command zone, so Ishai's real job is "be a white and blue card in the command zone," not the +1/+1 counters.
+
+Scryfall check of every legend with free `Partner` (excluding `Partner with`, `Friends forever`, `Character select`, `Survivors`, and Backgrounds, which cannot pair with an arbitrary partner) gives exactly one card per relevant pair:
+
+| Identity | Free-Partner legends |
+| --- | --- |
+| WU | Ishai, Ojutai Dragonspeaker |
+| BR | Vial Smasher the Fierce |
+| WB | Tymna the Weaver, Ravos, Soultender |
+| UR | Kraum, Ludevic's Opus; Ludevic, Necro-Alchemist |
+
+So the complete set of WUBR free-Partner pairs is Ishai + Vial Smasher, Tymna or Ravos + Kraum or Ludevic. Keeping Vial Smasher therefore forces Ishai: nothing else supplies W and U together. Replacing Ishai means replacing both commanders.
+
+Best theme fit if the pair changes: **Ludevic, Necro-Alchemist** — "at the beginning of each player's end step, that player may draw a card if a player other than you lost life this turn." The punisher permanents make an opponent lose life every turn, so Ludevic hands the whole table another draw at every end step, and each of those draws re-triggers Underworld Dreams, Fate Unraveler, Razorkin Needlehead, Sheoldred, and Scrawling Crawler. Ludevic is also red, so Kederekt Parasite stays on. Ravos rebuys the punisher creatures after a wipe; Tymna needs combat damage, which this list rarely deals. Tymna + Kraum is the strongest draw pair and also the well-known cEDH pair, which reads as more power than this deck wants.
+
+Not decided. The deck itself is still unconfirmed for the collection.
+
 ### 2026-09-14 — Import and assessment
 
 Imported from https://moxfield.com/decks/j5GgAa9uSX-IUcR1hliwsw. Partners Vial Smasher the Fierce and Ishai, Ojutai Dragonspeaker. Game Changer count is **0** against the 2026-09-03 snapshot in `BRACKET-DEFINITIONS.md` (Sheoldred is not on that list; Palantír is not either). No two-card infinite, no extra turns, no mass land denial, no dedicated tutors, no Sol Ring-class fast mana. Win texture is Upgraded: wheels and Forced Fruition dump life from hand after engines accrue. Not Core Incremental because a Sheoldred or Nekusar wheel is a from-hand table dump rather than a visible board clock. Not Bracket 4: no Game Changer package, no compact combo, usual pace is still mid-game. Position **3−**: high card quality and dump turns exist, but the list is engine-stack rather than Optimized speed.
