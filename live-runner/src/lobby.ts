@@ -308,7 +308,7 @@ export const applyInbox = (
 
   if (message.type === 'plan' || message.type === 'replace') {
     if (state.phase !== 'play') return state
-    state.waiting = `Would this line work?\n${message.text}`
+    state.waiting = `${from} submitted a ${message.type}. The judge is checking it.`
     setJudge(state, `${from} sent a ${message.type}.`)
     return state
   }
