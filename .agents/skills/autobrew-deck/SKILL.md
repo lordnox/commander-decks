@@ -133,7 +133,10 @@ Read [`CONSTRUCTION.md`](../../../CONSTRUCTION.md) for density hints
 (operational threshold, ramp/draw mix, enablers vs payoffs, 8-card theme
 packages), and [`construction-sources/`](../../../construction-sources/README.md)
 when a counting convention is in doubt. Do not fetch the live pages. Those
-numbers are comparison points. Count each card once for its floor job.
+numbers are comparison points. Count each card once for its floor job. Run the
+`construction_calculator.py profile` command from `CONSTRUCTION.md` on the
+proposed counts before version 1; record the assumptions and probabilities,
+not a pass/fail verdict.
 
 Verify Oracle text and walk every claimed combo or rules interaction. "Fat
 once" is not infinite. Separate setup, value, presenting lethal, and actually
