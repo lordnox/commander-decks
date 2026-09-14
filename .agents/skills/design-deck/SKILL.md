@@ -4,7 +4,8 @@ description: >-
   Grill a Commander brew before writing a 99. Use when the user wants to create,
   brew, or rebuild a deck from a theme, commander, or constraint rather than from
   a complete list. Ask the questions that would change the 99, including plan,
-  interaction, and mana; verify Oracle and Game Changers; do not fill in guesses.
+  interaction, mana, and package density; verify Oracle and Game Changers; do
+  not fill in guesses.
   If the brew has a target bracket, read BRACKET-DEFINITIONS.md. Skip if the user
   already posted a list (use deck-workspace).
 ---
@@ -38,13 +39,14 @@ Inspect `decks/` and follow `deck-ideas` (root `DECK-IDEAS.md`). If a stored dec
 6. **Constraints.** Read the root `DECISIONS.md` card preferences first: esoteric old cards over staples, discussable Game Changers, kitchen-table fast mana (one-shot 3+, permanent 4+). Then colors, silence vs draw-go, sticky enchantments vs creatures, politics vs pillowfort, maybeboard vs 99. Reject color-identity illegal cards immediately.
 7. **Interaction package.** Read [`INTERACTION.md`](../../../INTERACTION.md). Name the buckets this plan needs (board protection, fogs, proactive disruption, wipes, targeted removal) and whether answers live in hand or on board. "More interaction" is not a plan; neither is one flexible card covering every bucket.
 8. **Mana plan.** Skim [`MANABASE.md`](../../../MANABASE.md) for hints, and the cached articles under [`manabase-sources/`](../../../manabase-sources/README.md) when a number or counting convention is in doubt. Do not fetch the live pages. Talk through the commander turn, the strictest colored and land-type needs, curve, land and ramp counts, and which turns can absorb a tapped land. Dual lands are welcome; tap lands want a reason. Once colors and tempo look fine, the spare land slots can serve the plan.
-9. **Speed versus high roll.** Gold-fish high roll vs expected win turn. If the brew has a target bracket, read [`BRACKET-DEFINITIONS.md`](../../../BRACKET-DEFINITIONS.md) (Incremental Core vs Upgraded texture, turn floors as satisfaction). Use `assess-deck` only when the user asks to rate a stored 99.
-10. **Name.** Brew title and short commander slug. Folder `unrated_<commander>-<name>` (see AGENTS.md). Primer H1: `# [Commander](scryfall) — Title`. Confirm jokes and subtitles.
+9. **Construction skeleton.** Skim [`CONSTRUCTION.md`](../../../CONSTRUCTION.md) for hints, and [`construction-sources/`](../../../construction-sources/README.md) when a density or counting convention is in doubt. Do not fetch the live pages. Name the operational threshold (usually commander MV), a starting ramp/draw mix, whether remaining slots are enablers vs payoffs vs enhancers, and whether each theme package is thick enough to draw. Template counts are comparison points, not floors.
+10. **Speed versus high roll.** Gold-fish high roll vs expected win turn. If the brew has a target bracket, read [`BRACKET-DEFINITIONS.md`](../../../BRACKET-DEFINITIONS.md) (Incremental Core vs Upgraded texture, turn floors as satisfaction). Use `assess-deck` only when the user asks to rate a stored 99.
+11. **Name.** Brew title and short commander slug. Folder `unrated_<commander>-<name>` (see AGENTS.md). Primer H1: `# [Commander](scryfall) — Title`. Confirm jokes and subtitles.
 
 ## 2. Build only after lock-in
 
 1. Follow `deck-workspace` (save list, resolve, categorize, primer, tags, root README link).
-2. Use the `MANABASE.md` hints while building the mana base, and note the decisions that were actually argued under `## Talks`.
+2. Use the `MANABASE.md` hints while building the mana base, and the `CONSTRUCTION.md` hints while filling ramp, draw, interaction, and plan packages. Note the decisions that were actually argued under `## Talks`.
 3. Write `DECISIONS.md` as required by `deck-workspace` (How to use, Cards in, Talks for this grill). Put cards that lost the 99 but might return in a **Maybe** note, not under Cards in.
 4. Validate with `validate_deck.py`.
 5. Use `simulate-deck` when opening lands, tapped-land timing, colored sources, ramp, or commander sequencing could change the list. Use `assess-deck` only when the user asks for bracket or win-turn. Use `rank-deck` when they ask whether the list is fun, oppressive, janky, or still on its own goals.
