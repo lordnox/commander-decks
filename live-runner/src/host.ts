@@ -300,12 +300,13 @@ export const runHost = async (options: {
   await ensureKernel()
   if (
     state.phase === 'play'
+    && !kernel
     && hasReplay(slug, root)
     && Object.keys(state.actions).length === 0
   ) {
     state.actions = replayActions(root, slug, state)
   }
-  if (state.phase === 'play' && hasReplay(slug, root)) {
+  if (state.phase === 'play' && !kernel && hasReplay(slug, root)) {
     const replay = JSON.parse(readFileSync(replayPath(slug, root), 'utf8')) as {
       events?: Array<{ state?: { active?: SeatId; phase?: string }; kind?: string; seat?: string }>
     }
@@ -325,8 +326,9 @@ export const runHost = async (options: {
   if (savedHost) {
     logLine(logFile, `resumed phase ${state.phase}`)
   }
-  if (state.phase === 'play' && hasReplay(slug, root)) {
-    logLine(logFile, `judging from ${slug}.json; inbox journal ${journalPath(slug, root)}`)
+  if (state.phase === 'play' && (kernel || hasReplay(slug, root))) {
+    const authority = kernel ? `${slug}.kernel.json` : `${slug}.json`
+    logLine(logFile, `judging from ${authority}; inbox journal ${journalPath(slug, root)}`)
   }
   const agentEnabled = options.agent ?? savedHost?.agent ?? false
   if (agentEnabled) logLine(logFile, 'agent host enabled')
