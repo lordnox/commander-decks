@@ -99,10 +99,14 @@ const KEYWORDS = [
   'indestructible',
 ]
 
-/** Only ability-line keywords count, so "gains flying" does not claim flying. */
-const keywordsOf = (object: GameObject) =>
-  KEYWORDS.filter((keyword) =>
-    new RegExp(`(^|[,\\n]\\s*)${keyword}([,.\\n]|$)`, 'i').test(object.oracleText))
+/** A keyword counts only as its own ability token, so "gains flying" does not. */
+const keywordsOf = (object: GameObject) => {
+  const tokens = object.oracleText
+    .split(/\n|\/\//)
+    .flatMap((line) => line.split(','))
+    .map((token) => token.trim().toLowerCase().replace(/\.$/, ''))
+  return KEYWORDS.filter((keyword) => tokens.includes(keyword))
+}
 
 const ptText = (object: GameObject) =>
   object.power === null || object.toughness === null

@@ -31,7 +31,13 @@ const combatTable = () => {
     {
       first: 'p1',
       battlefield: {
-        p1: [creature('Foulmire Knight', 'Deathtouch'), creature('Sygg, River Cutthroat')],
+        p1: [
+          creature(
+            'Foulmire Knight // Profane Insight',
+            'Deathtouch // You draw a card and you lose 1 life.',
+          ),
+          creature('Sygg, River Cutthroat', 'Target creature gains flying until end of turn.'),
+        ],
         p2: [creature('Satyr Wayfinder')],
       },
     },
@@ -50,7 +56,7 @@ const combatTable = () => {
 
 const attackerId = (state: ReturnType<typeof combatTable>['state']) =>
   state.zoneOrder.p1.battlefield
-    .find((id) => state.objects[id].name === 'Foulmire Knight')!
+    .find((id) => state.objects[id].name.startsWith('Foulmire Knight'))!
 
 describe('kernel combat projection', () => {
   test('a declared attack reaches the combat panel and the card face', () => {
@@ -63,7 +69,7 @@ describe('kernel combat projection', () => {
     expect(combat?.step).toBe('attackers')
     expect(combat?.attackers).toEqual([
       {
-        card: 'Foulmire Knight',
+        card: 'Foulmire Knight // Profane Insight',
         defender: 'p2',
         pt: '1/1',
         tapped: true,
@@ -73,10 +79,15 @@ describe('kernel combat projection', () => {
     expect(combat?.possible_blockers).toEqual({ p2: ['Satyr Wayfinder'] })
 
     const seats = liveSeatsFromState(state, lobby, 'p1')
-    const attacker = seats[0].battlefield?.find((card) => card.name === 'Foulmire Knight')
+    const attacker = seats[0].battlefield?.find((card) => card.name === 'Foulmire Knight // Profane Insight')
     expect(attacker?.attacking).toBe('Sin-fall')
     const bystander = seats[0].battlefield?.find((card) => card.name === 'Sygg, River Cutthroat')
     expect(bystander?.attacking).toBeUndefined()
+
+    const granter = state.zoneOrder.p1.battlefield
+      .find((id) => state.objects[id].name.startsWith('Sygg'))!
+    state.objects[granter].attacking = 'p2'
+    expect(kernelCombat(state)?.attackers?.[1].keywords).toBeUndefined()
   })
 
   test('declared blocks replace the possible blockers', () => {
@@ -91,12 +102,12 @@ describe('kernel combat projection', () => {
     const combat = kernelCombat(state)
     expect(combat?.possible_blockers).toBeUndefined()
     expect(combat?.blocks).toEqual([
-      { attacker: 'Foulmire Knight', blockers: ['Satyr Wayfinder'] },
+      { attacker: 'Foulmire Knight // Profane Insight', blockers: ['Satyr Wayfinder'] },
     ])
     expect(combat?.unblocked).toEqual([])
 
     const seats = liveSeatsFromState(state, createLobby(), 'p2')
-    expect(seats[1].battlefield?.[0].blocking).toBe('Foulmire Knight')
+    expect(seats[1].battlefield?.[0].blocking).toBe('Foulmire Knight // Profane Insight')
   })
 
   test('a board outside combat carries no combat block', () => {
