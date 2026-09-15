@@ -173,6 +173,16 @@ export const kernelCombat = (state: GameState): ReplayCombat | undefined => {
   return combat
 }
 
+/**
+ * Loyalty, +1/+1 and charge counters are live game state that the printed card
+ * face cannot show. Without them the board falls back to the printed Scryfall
+ * value and reports a planeswalker at its starting loyalty forever.
+ */
+const counterLabels = (object?: GameObject) =>
+  object && Object.keys(object.counters).length > 0
+    ? { counters: { ...object.counters } }
+    : {}
+
 /** The card face shows tap state only, so attacks need their own label. */
 const combatLabels = (state: GameState, lobby: LobbyState, object?: GameObject) => {
   if (!object) return {}
@@ -220,10 +230,14 @@ export const liveSeatsFromState = (
           .filter((other) => other !== seat)
           .map((other) => [other, 0]),
       ),
-      battlefield: player.battlefield.map((card, index) => ({
-        ...card,
-        ...combatLabels(state, lobby, state.objects[state.zoneOrder[seat].battlefield[index]]),
-      })),
+      battlefield: player.battlefield.map((card, index) => {
+        const object = state.objects[state.zoneOrder[seat].battlefield[index]]
+        return {
+          ...card,
+          ...counterLabels(object),
+          ...combatLabels(state, lobby, object),
+        }
+      }),
       graveyard: player.graveyard,
       exile: player.exile,
       command: player.command,
