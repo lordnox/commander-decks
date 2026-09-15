@@ -69,7 +69,7 @@ export const replayActions = (
   const emptyStack = (event.state?.stack ?? []).length === 0
   const canAdvance =
     emptyStack
-    && ['main1', 'combat', 'main2'].includes(phase ?? '')
+    && ['planning', 'main1', 'combat', 'main2'].includes(phase ?? '')
   return {
     [active as SeatId]: canAdvance ? ['plan', 'advance'] : ['plan'],
   }

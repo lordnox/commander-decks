@@ -574,6 +574,11 @@ export const LivePage = () => {
   const canKeep = Boolean(snapshot.actions?.includes('keep'))
   const canMulligan = Boolean(snapshot.actions?.includes('mulligan'))
   const canAdvance = Boolean(snapshot.actions?.includes('advance'))
+  const advanceLabel = snapshot.phase === 'planning'
+    ? 'Untap & draw'
+    : snapshot.phase === 'main2'
+      ? 'End turn'
+      : 'Next phase'
   const yourHand = orderedSeats.find((seat) => seat.id === snapshot.you)?.hand ?? []
 
   return (
@@ -822,7 +827,7 @@ export const LivePage = () => {
               disabled={actionPending}
               className="mt-3 w-full rounded-xl bg-gold-300 px-3 py-2 text-sm font-black text-ink-950 hover:bg-gold-200 disabled:cursor-wait disabled:opacity-40"
             >
-              {actionPending ? 'Advancing…' : snapshot.phase === 'main2' ? 'End turn' : 'Next phase'}
+              {actionPending ? 'Advancing…' : advanceLabel}
             </button>
           )}
           {priorityOpen && lastEvent && (
@@ -993,7 +998,7 @@ export const LivePage = () => {
                     disabled={!canSend || actionPending}
                     className="rounded-xl bg-gold-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-200 disabled:cursor-wait disabled:opacity-40"
                   >
-                    {actionPending ? 'Advancing…' : snapshot.phase === 'main2' ? 'End turn' : 'Next phase'}
+                    {actionPending ? 'Advancing…' : advanceLabel}
                   </button>
                 )}
                 <select

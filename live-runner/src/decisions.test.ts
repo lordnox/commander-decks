@@ -146,3 +146,98 @@ describe('deterministic phase advance', () => {
     expect(applyAdvance(root, 'pod', lobby, 'p1')).toBe(false)
   })
 })
+
+const turnOpen = (
+  battlefield: Array<{ name: string; tapped?: boolean }> = [],
+  catalog: Record<string, { oracle_text?: string }> = {},
+) => {
+  const { root, lobby } = fixture()
+  const game = replay(root)
+  game.catalog = catalog
+  game.events = [{
+    id: 40,
+    turn: 2,
+    phase: 'planning',
+    seat: 'p1',
+    kind: 'think',
+    state: {
+      active: 'p1',
+      turn: 2,
+      phase: 'planning',
+      stack: [],
+      players: {
+        p1: { hand: ['Swamp'], battlefield, graveyard: [], library_count: 3 },
+      },
+    },
+  }]
+  writeFileSync(join(root, 'table-games', 'pod.json'), JSON.stringify(game))
+  return { root, lobby }
+}
+
+describe('opening a turn', () => {
+  test('untaps, draws, and lands in the first main phase', () => {
+    const { root, lobby } = turnOpen([{ name: 'Shadowy Backstreet', tapped: true }])
+    expect(applyAdvance(root, 'pod', lobby, 'p1')).toBe(true)
+    const game = replay(root)
+    expect(game.events.map((event: { phase: string }) => event.phase)).toEqual([
+      'planning',
+      'untap',
+      'upkeep',
+      'draw',
+      'main1',
+    ])
+    const last = game.events.at(-1).state.players.p1
+    expect(last.hand).toEqual(['Swamp', 'Teferi'])
+    expect(last.battlefield).toEqual([
+      { name: 'Shadowy Backstreet', tapped: false },
+    ])
+    expect(last.library_count).toBe(2)
+    expect(game._libraries.p1).toEqual(['Cabal Coffers', 'Island'])
+    expect(lobby.actions).toEqual({ p1: ['plan', 'advance'] })
+    expect(lobby.privateJudge.p1).toBe('You drew Teferi.')
+  })
+
+  test('keeps the drawn card off the public judge note', () => {
+    const { root, lobby } = turnOpen()
+    applyAdvance(root, 'pod', lobby, 'p1')
+    expect(lobby.judge).not.toContain('Teferi')
+  })
+
+  test('hands a turn with upkeep triggers back to the judge', () => {
+    const { root, lobby } = turnOpen(
+      [{ name: 'Phyrexian Arena' }],
+      {
+        'Phyrexian Arena': {
+          oracle_text:
+            'At the beginning of your upkeep, you draw a card and you lose 1 life.',
+        },
+      },
+    )
+    expect(() => applyAdvance(root, 'pod', lobby, 'p1')).toThrow(
+      /Phyrexian Arena can trigger/,
+    )
+    expect(replay(root).events).toHaveLength(1)
+  })
+
+  test('does not draw twice for one turn', () => {
+    const { root, lobby } = turnOpen()
+    const game = replay(root)
+    game.events.push({
+      id: 41,
+      turn: 2,
+      phase: 'draw',
+      seat: 'p1',
+      kind: 'draw',
+      summary: 'Foggy draws a card.',
+      state: structuredClone(game.events[0].state),
+    })
+    game.events.at(-1).state.phase = 'planning'
+    writeFileSync(join(root, 'table-games', 'pod.json'), JSON.stringify(game))
+    expect(applyAdvance(root, 'pod', lobby, 'p1')).toBe(true)
+    expect(replay(root)._libraries.p1).toEqual([
+      'Teferi',
+      'Cabal Coffers',
+      'Island',
+    ])
+  })
+})
