@@ -1,0 +1,132 @@
+{
+  "artist": "Scott M. Fischer",
+  "artist_ids": [
+    "23b0cf43-3e43-44c6-8329-96446eca5bce"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 2352,
+  "cmc": 2.0,
+  "collector_number": "83",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 14674,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The Patriarch dreams of vile plague.",
+  "foil": true,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9396ac77-9f53-46bd-b126-02441a0f5594",
+  "illustration_id": "965c6834-bb6d-466b-870f-31f43a015077",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:19:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/3/9396ac77-9f53-46bd-b126-02441a0f5594.webp?1783945152",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/3/9396ac77-9f53-46bd-b126-02441a0f5594.jpg?1783945152",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/3/9396ac77-9f53-46bd-b126-02441a0f5594.jpg?1783945152",
+    "crop": "https://cards.scryfall.io/crop/front/9/3/9396ac77-9f53-46bd-b126-02441a0f5594.webp?1783945152",
+    "display": "https://cards.scryfall.io/display/front/9/3/9396ac77-9f53-46bd-b126-02441a0f5594.webp?1783945152",
+    "grid": "https://cards.scryfall.io/grid/front/9/3/9396ac77-9f53-46bd-b126-02441a0f5594.webp?1783945152",
+    "large": "https://cards.scryfall.io/large/front/9/3/9396ac77-9f53-46bd-b126-02441a0f5594.jpg?1783945152",
+    "normal": "https://cards.scryfall.io/normal/front/9/3/9396ac77-9f53-46bd-b126-02441a0f5594.jpg?1783945152",
+    "png": "https://cards.scryfall.io/png/front/9/3/9396ac77-9f53-46bd-b126-02441a0f5594.png?1783945152",
+    "small": "https://cards.scryfall.io/small/front/9/3/9396ac77-9f53-46bd-b126-02441a0f5594.jpg?1783945152",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/3/9396ac77-9f53-46bd-b126-02441a0f5594.webp?1783945152"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_foil_id": 17208,
+  "mtgo_id": 17207,
+  "multiverse_ids": [
+    35063
+  ],
+  "name": "Sickening Dreams",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "728d2e30-2f36-4054-81db-29b01e376a82",
+  "oracle_text": "As an additional cost to cast this spell, discard X cards.\nSickening Dreams deals X damage to each creature and each player.",
+  "oversized": false,
+  "penny_rank": 5896,
+  "prices": {
+    "eur": "3.69",
+    "eur_foil": "16.49",
+    "tix": "1.77",
+    "usd": "1.50",
+    "usd_etched": null,
+    "usd_foil": "16.64"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A728d2e30-2f36-4054-81db-29b01e376a82&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/17207?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=2352&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F9744%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Sickening+Dreams",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=35063&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSickening%2BDreams",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSickening%2BDreams"
+  },
+  "released_at": "2002-02-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9396ac77-9f53-46bd-b126-02441a0f5594/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tor?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tor/83/sickening-dreams?utm_source=api",
+  "set": "tor",
+  "set_id": "e0b3fda1-a6ca-4996-849b-08b463d39484",
+  "set_name": "Torment",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ator&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/e0b3fda1-a6ca-4996-849b-08b463d39484",
+  "story_spotlight": false,
+  "tcgplayer_id": 9744,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/9396ac77-9f53-46bd-b126-02441a0f5594",
+  "variation": false
+}

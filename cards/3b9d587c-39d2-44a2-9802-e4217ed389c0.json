@@ -1,0 +1,134 @@
+{
+  "artist": "Aaron Miller",
+  "artist_ids": [
+    "fc021f3d-773a-4706-bbe7-f602324f511f"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 293517,
+  "cmc": 3.0,
+  "collector_number": "37",
+  "color_identity": [
+    "R",
+    "U"
+  ],
+  "colors": [
+    "R",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 13913,
+  "finishes": [
+    "foil"
+  ],
+  "flavor_text": "\"How does one become a self-taught genius? Naturally, it requires brains.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "f3e7a886-2593-4e6e-b9da-d7cb417cba08",
+  "illustration_id": "fee48b0c-4450-4c90-9a4a-aa7736130612",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:04:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/3/f3e7a886-2593-4e6e-b9da-d7cb417cba08.webp?1783937084",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/3/f3e7a886-2593-4e6e-b9da-d7cb417cba08.jpg?1783937084",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/3/f3e7a886-2593-4e6e-b9da-d7cb417cba08.jpg?1783937084",
+    "crop": "https://cards.scryfall.io/crop/front/f/3/f3e7a886-2593-4e6e-b9da-d7cb417cba08.webp?1783937084",
+    "display": "https://cards.scryfall.io/display/front/f/3/f3e7a886-2593-4e6e-b9da-d7cb417cba08.webp?1783937084",
+    "grid": "https://cards.scryfall.io/grid/front/f/3/f3e7a886-2593-4e6e-b9da-d7cb417cba08.webp?1783937084",
+    "large": "https://cards.scryfall.io/large/front/f/3/f3e7a886-2593-4e6e-b9da-d7cb417cba08.jpg?1783937084",
+    "normal": "https://cards.scryfall.io/normal/front/f/3/f3e7a886-2593-4e6e-b9da-d7cb417cba08.jpg?1783937084",
+    "png": "https://cards.scryfall.io/png/front/f/3/f3e7a886-2593-4e6e-b9da-d7cb417cba08.png?1783937084",
+    "small": "https://cards.scryfall.io/small/front/f/3/f3e7a886-2593-4e6e-b9da-d7cb417cba08.jpg?1783937084",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/3/f3e7a886-2593-4e6e-b9da-d7cb417cba08.webp?1783937084"
+  },
+  "keywords": [
+    "Partner"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{R}",
+  "multiverse_ids": [
+    420654
+  ],
+  "name": "Ludevic, Necro-Alchemist",
+  "nonfoil": false,
+  "object": "card",
+  "oracle_id": "3b9d587c-39d2-44a2-9802-e4217ed389c0",
+  "oracle_text": "At the beginning of each player's end step, that player may draw a card if a player other than you lost life this turn.\nPartner (You can have two commanders if both have partner.)",
+  "oversized": false,
+  "power": "1",
+  "prices": {
+    "eur": null,
+    "eur_foil": "1.72",
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": "1.54"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3b9d587c-39d2-44a2-9802-e4217ed389c0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Ludevic%2C+Necro-Alchemist&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=293517&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F124137%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ludevic%2C+Necro-Alchemist",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=420654&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLudevic%252C%2BNecro-Alchemist",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLudevic%252C%2BNecro-Alchemist"
+  },
+  "released_at": "2016-11-11",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f3e7a886-2593-4e6e-b9da-d7cb417cba08/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c16?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c16/37/ludevic-necro-alchemist?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c16",
+  "set_id": "3e0d713a-b5cb-4287-81b9-a57d4dcaf415",
+  "set_name": "Commander 2016",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac16&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/3e0d713a-b5cb-4287-81b9-a57d4dcaf415",
+  "story_spotlight": false,
+  "tcgplayer_id": 124137,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Human Wizard",
+  "uri": "https://api.scryfall.com/cards/f3e7a886-2593-4e6e-b9da-d7cb417cba08",
+  "variation": false
+}
