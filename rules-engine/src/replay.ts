@@ -188,6 +188,28 @@ const stepFromReplay = (phase: string): StepId => {
 }
 
 /**
+ * A live "planning" frame is recorded before untap, so rewind to the previous
+ * living seat's cleanup and let the engine wrap forward. Landing straight on
+ * `untap` would skip the untap turn-based action entirely.
+ */
+const openImportedTurn = (
+  rules: ReturnType<typeof createServerGame>['rules'],
+  frame: GameState,
+  players: PlayerId[],
+) => {
+  const index = players.indexOf(frame.active)
+  const previous = players
+    .map((_, step) => players[(index - step - 1 + players.length) % players.length])
+    .find((seat) => !frame.players[seat].lost) ?? frame.active
+  const opened = rules(
+    { ...frame, active: previous, priority: previous, turn: frame.turn - 1, step: 'cleanup' },
+    { type: 'advanceStep' },
+  )
+  if (!opened.ok) throw new Error(`imported turn cannot begin: ${opened.error}`)
+  return opened.state
+}
+
+/**
  * Resume a private live replay from its exact latest snapshot. Past events stay
  * in the replay archive; the kernel journal begins at this authoritative frame.
  */
@@ -248,7 +270,8 @@ export const importLiveReplayState = (replay: TableReplay) => {
   state.turn = (Math.max(1, latest.turn) - 1) * players.length + offset + 1
   state.step = stepFromReplay(latest.state.phase)
   state.log.push(`imported live replay event ${latest.id}`)
-  return state
+  if (state.step !== 'untap') return state
+  return openImportedTurn(runtime.rules, state, players)
 }
 
 export const runReplayRounds = (replay: TableReplay, throughRound: number) => {
