@@ -1,6 +1,7 @@
 import { inflateSync } from 'node:zlib'
 import { describe, expect, test } from 'bun:test'
 import { expandLiveWire, type LiveWireV2 } from '../../site/src/liveCompact'
+import { normalizeSeats } from '../../site/src/liveCodec'
 import { applyInbox, createLobby, rollTurnOrder } from './lobby'
 import { encodeLobby, lobbyWire } from './snapshot'
 
@@ -20,14 +21,15 @@ describe('lobby snapshots', () => {
     state.actionIds = { p1: 0, p2: 4, p3: 0, p4: 0 }
 
     const snapshot = expandLiveWire(decodePayload(encodeLobby(state, 'p2')))
+    const seats = normalizeSeats(snapshot.seats)
     expect(snapshot.you).toBe('p2')
     expect(snapshot.youAct).toBe(true)
     expect(snapshot.actions).toEqual(['plan', 'pass'])
     expect(snapshot.actionId).toBe(4)
     expect(snapshot.headline).toContain('Beta')
-    expect(snapshot.seats[1]?.name).toBe('Beta')
-    expect(snapshot.seats[1]?.hand).toBeUndefined()
-    expect(snapshot.seats[1]?.library_count).toBe(99)
+    expect(seats[1]?.name).toBe('Beta')
+    expect(seats[1]?.hand).toBeUndefined()
+    expect(seats[1]?.library_count).toBe(99)
   })
 
   test('four ready does not deal a board into the lobby wire', () => {
