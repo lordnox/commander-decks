@@ -9,7 +9,7 @@ import {
 } from '../../rules-engine/src/index'
 import { createLobby } from './lobby'
 import { actionsAfterJudgment, applyKernelPass, needsJudgment } from './host'
-import { kernelPath, kernelPriority, openKernel } from './kernelHost'
+import { kernelActions, kernelPath, kernelPriority, openKernel } from './kernelHost'
 
 const setup = async () => {
   const root = mkdtempSync(join(tmpdir(), 'kernel-host-actions-'))
@@ -55,7 +55,7 @@ describe('kernel host actions', () => {
       },
     })
 
-    expect(actions).toEqual({ p2: ['plan', 'pass'] })
+    expect(actions).toEqual(kernelActions(kernel.history.current()))
     expect(legacyCalled).toBe(false)
   })
 

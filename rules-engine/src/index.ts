@@ -33,6 +33,7 @@ export const catalog = createCatalog(builtInPlugins)
 export const rules = (state: GameState, event: GameEvent) => reduce(state, event, catalog)
 export const addPlugin = catalog.register
 
+export { availableActions, type AvailableAction } from './actions'
 export { createCatalog } from './catalog'
 export { emptyMana, parseManaCost, payFromPool, poolTotal } from './draft'
 export {

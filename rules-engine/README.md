@@ -76,6 +76,14 @@ public hand count exceeds their maximum. The default is seven;
 Policy chooses and moves the excess cards to the graveyard, then retries the
 step advance.
 
+`availableActions(state, seat)` enumerates meaningful priority choices from
+the authoritative state: affordable spells (including available mana and
+commander tax), land plays, non-mana activated abilities, attackers, and
+blockers. Mana abilities are folded into the action they fund instead of
+making every untapped land look like a reason to stop. Unknown target and
+card-specific restrictions are conservative: they leave a possible action in
+the list rather than permitting an unsafe automatic pass.
+
 For unsupported Oracle behavior, the live host can submit an audited
 `judgeFallback` containing minimal primitive effects. Every child still passes
 normal legality and state checks; one rejected child rolls back the whole

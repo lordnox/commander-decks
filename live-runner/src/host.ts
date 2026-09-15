@@ -20,7 +20,7 @@ import {
   kernelPriority,
   openKernel,
   publishKernel,
-  settleKernelHolds,
+  settleKernelPriority,
   type KernelHandle,
 } from './kernelHost'
 import {
@@ -87,7 +87,7 @@ export const applyKernelPass = (
     state.waiting = priority && state.actions[priority]?.includes('plan')
       ? `${state.occupants[priority]?.name ?? priority}: send a plan or pass.`
       : 'Priority is still open.'
-    settleKernelHolds(kernel, state)
+    settleKernelPriority(kernel, state)
   } else {
     state.judge = `Pass rejected: ${result.error}`
     state.waiting = 'The kernel rejected that pass. Refresh before acting.'
@@ -226,6 +226,7 @@ export const runHost = async (options: {
       kernel = await openKernel(slug, root, state)
       // The kernel is the authority once it opens; replay-derived actions are stale.
       state.actions = kernelActions(kernel.history.current())
+      settleKernelPriority(kernel, state)
       logLine(logFile, `kernel journal ${kernelPath(slug, root)}`)
     } catch (reason) {
       kernel = null
@@ -337,7 +338,7 @@ export const runHost = async (options: {
       && kernel
       && applyKernelAdvance(kernel, state, seat)
     ) {
-      settleKernelHolds(kernel, state)
+      settleKernelPriority(kernel, state)
       logLine(logFile, `${seat} kernel advance`)
     } else if (
       (message.type === 'topdeck' || message.type === 'advance')
@@ -356,7 +357,7 @@ export const runHost = async (options: {
       }
     } else if (message.type === 'hold') {
       logLine(logFile, `${seat} hold ${message.until}`)
-      if (kernel) settleKernelHolds(kernel, state)
+      if (kernel) settleKernelPriority(kernel, state)
     } else if (message.type === 'priority-mode') {
       logLine(
         logFile,
@@ -446,7 +447,7 @@ export const runHost = async (options: {
             || message.type === 'advance'
           ) {
             state.actions = kernelActions(kernel.history.current())
-            settleKernelHolds(kernel, state)
+            settleKernelPriority(kernel, state)
           }
         }
         const judge = result.privateJudge || result.judge || result.talk
