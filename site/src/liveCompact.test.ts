@@ -3,6 +3,7 @@ import {
   compactLiveWire,
   expandLiveWire,
   fetchDeckIndex,
+  loadDeckIndexes,
   STRIDE,
   type DeckIndex,
 } from './liveCompact'
@@ -135,6 +136,23 @@ describe('live compact v2', () => {
     try {
       await fetchDeckIndex('2+_lady-evangela', '/commander-decks/')
       expect(requested).toBe('/commander-decks/decks/2+_lady-evangela.json')
+    } finally {
+      globalThis.fetch = original
+    }
+  })
+
+  test('a missing deck index leaves the rest of the board loadable', async () => {
+    const original = globalThis.fetch
+    globalThis.fetch = (input) =>
+      Promise.resolve(
+        String(input).includes('beta')
+          ? new Response('<!doctype html>', { status: 200 })
+          : new Response('{"cards":[{"n":"Island","id":"id-0"}]}'),
+      )
+    try {
+      const indexes = await loadDeckIndexes(['alpha', 'beta'], '/commander-decks/')
+      expect(indexes.alpha.cards).toHaveLength(1)
+      expect(indexes.beta.cards).toEqual([])
     } finally {
       globalThis.fetch = original
     }
