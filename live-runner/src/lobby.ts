@@ -35,6 +35,7 @@ export type LobbyState = {
   active: SeatId
   actions: SeatActions
   actionIds: SeatActionIds
+  opening?: { seat: SeatId }
 }
 
 const emptyActionIds = (): SeatActionIds => ({
@@ -303,6 +304,20 @@ export const applyInbox = (
     const next = state.pregameRemaining[0]
     state.active = next
     state.waiting = `${next}: pregame?`
+    return state
+  }
+
+  if (message.type === 'mulligan') {
+    if (state.phase !== 'play') return state
+    state.waiting = `${from} is taking a mulligan.`
+    setJudge(state, `${from} mulliganed.`)
+    return state
+  }
+
+  if (message.type === 'keep') {
+    if (state.phase !== 'play') return state
+    state.waiting = `${from} kept an opening hand.`
+    setJudge(state, `${from} kept.`)
     return state
   }
 

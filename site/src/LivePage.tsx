@@ -39,6 +39,7 @@ import {
   type Preview,
 } from './TableBoard'
 import { hydrateLiveSnapshot } from './scryfallCache'
+import { OpeningHandDialog } from './OpeningHandDialog'
 
 const base = import.meta.env.BASE_URL
 
@@ -53,6 +54,8 @@ type InboxType =
   | 'pregame'
   | 'rules'
   | 'talk'
+  | 'keep'
+  | 'mulligan'
 
 const TURN_STEPS = [
   ['planning', 'Planning'],
@@ -200,6 +203,7 @@ export const LivePage = () => {
   const [conduitStatus, setConduitStatus] = useState('')
   const [hydrationStatus, setHydrationStatus] = useState('')
   const [sentActionId, setSentActionId] = useState<number | null>(null)
+  const [openingOpen, setOpeningOpen] = useState(true)
   const planRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
@@ -341,7 +345,8 @@ export const LivePage = () => {
 
   useEffect(() => {
     setSentActionId(null)
-  }, [snapshot?.actionId])
+    if (snapshot?.actions?.includes('keep')) setOpeningOpen(true)
+  }, [snapshot?.actionId, snapshot?.actions])
 
   useEffect(() => {
     const onKeyDown = (keyboardEvent: KeyboardEvent) => {
@@ -429,10 +434,13 @@ export const LivePage = () => {
     flash('Public link copied')
   }
 
-  const sendInbox = async (type = inboxType) => {
+  const sendInbox = async (
+    type = inboxType,
+    extra: { cards?: string[]; cheat?: boolean } = {},
+  ) => {
     if (request?.kind !== 'conduit' || !request.inbox) return
-    const playAction = ['plan', 'confirm', 'replace', 'pass'].includes(type)
-    if (playAction && !snapshot?.actions?.includes(type as 'plan' | 'confirm' | 'replace' | 'pass')) {
+    const playAction = ['plan', 'confirm', 'replace', 'pass', 'keep', 'mulligan'].includes(type)
+    if (playAction && !snapshot?.actions?.includes(type as 'plan' | 'confirm' | 'replace' | 'pass' | 'keep' | 'mulligan')) {
       flash('That action is not available now')
       return
     }
@@ -446,6 +454,15 @@ export const LivePage = () => {
         message = { type: 'pass', ...action }
       } else if (type === 'confirm') {
         message = { type: 'confirm', text: plan.trim() || undefined, ...action }
+      } else if (type === 'mulligan') {
+        message = { type: 'mulligan', ...action }
+      } else if (type === 'keep') {
+        message = {
+          type: 'keep',
+          ...(extra.cards ? { cards: extra.cards } : {}),
+          ...(extra.cheat ? { cheat: true } : {}),
+          ...action,
+        }
       } else if (type === 'join') {
         const separator = plan.includes('|') ? '|' : '\n'
         const split = plan.indexOf(separator)
@@ -470,7 +487,17 @@ export const LivePage = () => {
       if (playAction && snapshot?.actionId !== undefined) {
         setSentActionId(snapshot.actionId)
       }
-      flash(type === 'pass' ? 'Passed' : type === 'confirm' ? 'Confirmed' : 'Message sent')
+      flash(
+        type === 'pass'
+          ? 'Passed'
+          : type === 'confirm'
+            ? 'Confirmed'
+            : type === 'mulligan'
+              ? 'Mulligan sent'
+              : type === 'keep'
+                ? 'Keep sent'
+                : 'Message sent',
+      )
     } catch (reason: unknown) {
       flash(reason instanceof Error ? reason.message : 'Could not send message')
     }
@@ -505,6 +532,9 @@ export const LivePage = () => {
   const canConfirm = Boolean(snapshot.actions?.includes('confirm'))
   const canPlan = Boolean(snapshot.actions?.includes('plan'))
   const canReplace = Boolean(snapshot.actions?.includes('replace'))
+  const canKeep = Boolean(snapshot.actions?.includes('keep'))
+  const canMulligan = Boolean(snapshot.actions?.includes('mulligan'))
+  const yourHand = orderedSeats.find((seat) => seat.id === snapshot.you)?.hand ?? []
 
   return (
     <div className={`min-h-screen ${hidePlan ? 'pb-8' : 'pb-56'}`}>
@@ -557,6 +587,15 @@ export const LivePage = () => {
           >
             Copy public link
           </button>
+          {canKeep && !openingOpen && (
+            <button
+              type="button"
+              onClick={() => setOpeningOpen(true)}
+              className="rounded-xl bg-gold-300 px-3 py-2 text-sm font-black text-ink-950 hover:bg-gold-200"
+            >
+              Opening hand
+            </button>
+          )}
         </div>
       </header>
 
@@ -890,12 +929,6 @@ export const LivePage = () => {
                   <option value="replace" disabled={!canReplace}>Replace my plan</option>
                   <option value="rules">Ask the judge</option>
                   <option value="talk">Table talk</option>
-                  <optgroup label="Game setup">
-                    <option value="join">Join seat</option>
-                    <option value="ready">Ready</option>
-                    <option value="swap">Request seat swap</option>
-                    <option value="pregame">Pregame actions</option>
-                  </optgroup>
                 </select>
                 <button
                   type="button"
@@ -908,7 +941,7 @@ export const LivePage = () => {
                       ['plan', 'replace'].includes(inboxType)
                       && !snapshot.actions?.includes(inboxType as 'plan' | 'replace')
                     )
-                    || (!plan.trim() && !['ready', 'pregame'].includes(inboxType))
+                    || (!plan.trim() && !['talk', 'rules'].includes(inboxType))
                   }
                   className="rounded-xl bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-300 disabled:cursor-not-allowed disabled:opacity-40"
                 >
@@ -963,6 +996,21 @@ export const LivePage = () => {
             void navigator.clipboard.writeText(name)
             flash('Card name copied')
           }}
+        />
+      )}
+
+      {openingOpen && canKeep && canMulligan && snapshot.you && (
+        <OpeningHandDialog
+          key={snapshot.actionId}
+          game={game}
+          cards={yourHand}
+          mulligans={snapshot.opening?.mulligans ?? 0}
+          bottomRequired={snapshot.opening?.bottomRequired ?? 0}
+          pending={actionPending}
+          onClose={() => setOpeningOpen(false)}
+          onMulligan={() => void sendInbox('mulligan')}
+          onKeep={(cards) => void sendInbox('keep', { cards })}
+          onCheat={() => void sendInbox('keep', { cheat: true })}
         />
       )}
     </div>

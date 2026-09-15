@@ -97,8 +97,13 @@ judge that checks and applies inbox messages; it is not three opponent brains.
 Pause, encode, and ask whenever the human must decide or when information
 changed under their standing plan:
 
-- keep / mulligan
+- keep / mulligan (Commander: first redraw is free; later ones bottom `n - 1`)
+- beginning-of-game cards in the human opening hand, before anyone draws
+- the first-turn draw, then a plan
 - human's main-phase actions
+- after a land or spell that surveils, scries, explores, connives, looks at
+  cards, or otherwise asks a hidden-zone choice (stop before the choice)
+- attackers (human attacking or choosing defenders)
 - attackers (human attacking or choosing defenders)
 - blockers when the human cares (their attackers or their creatures)
 - stack when they can respond or care

@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 import { replayActions } from './actions'
 import { ensureHostKeys } from './host'
 import { createLobby } from './lobby'
+import { isOpeningFrame } from './opening'
 import {
   inboxLabel,
   pagesLiveUrl,
@@ -31,8 +32,11 @@ type ReplaySeat = {
 type Replay = {
   seats?: ReplaySeat[]
   events?: Array<{
+    kind?: string
+    seat?: string
     state?: {
       active?: SeatId
+      phase?: string
     }
   }>
 }
@@ -80,6 +84,7 @@ export const createPlaySession = (
   replay: Replay,
   seats: ReplaySeat[],
   agent: boolean,
+  you: SeatId,
 ) => {
   const state = createLobby(slug)
   state.phase = 'play'
@@ -91,9 +96,18 @@ export const createPlaySession = (
   )
   state.active = replay.events?.at(-1)?.state?.active ?? 'p1'
   state.firstPlayer = 'p1'
-  state.waiting = `${state.occupants[state.active]?.name ?? state.active}: send a turn plan.`
-  state.judge = 'The dealt table is ready.'
-  state.actions = replayActions(root, slug, state)
+  if (isOpeningFrame(replay, you)) {
+    const name = state.occupants[you]?.name ?? you
+    state.opening = { seat: you }
+    state.active = you
+    state.waiting = `${name}: keep or mulligan.`
+    state.judge = 'Opening hands are dealt.'
+    state.actions = { [you]: ['keep', 'mulligan'] }
+  } else {
+    state.waiting = `${state.occupants[state.active]?.name ?? state.active}: send a turn plan.`
+    state.judge = 'The dealt table is ready.'
+    state.actions = replayActions(root, slug, state)
+  }
 
   return {
     role: 'host',
@@ -174,7 +188,7 @@ export const main = async (argv = process.argv.slice(2)) => {
 
   if (!saved) {
     saveSession(
-      createPlaySession(slug, root, keys.origin, keys.bins, replay, seats, agent),
+        createPlaySession(slug, root, keys.origin, keys.bins, replay, seats, agent, you),
       root,
     )
   } else if (saved.role !== 'host') {
