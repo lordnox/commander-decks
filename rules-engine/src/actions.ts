@@ -90,10 +90,19 @@ const taxFor = (state: GameState, seat: PlayerId, object: GameObject) => {
   return typeof value === 'number' ? value : 0
 }
 
+/**
+ * A spell that can only target something on the stack is not merely uncertain
+ * with an empty stack, it is uncastable. Offering it would stop the human at
+ * every otherwise empty priority window.
+ */
+const needsStackTarget = (object: GameObject) =>
+  /counter target[^.]*\b(spell|ability)\b/i.test(object.oracleText)
+
 const canCastNow = (state: GameState, seat: PlayerId, object: GameObject) => {
   if (!state.castableZones.includes(object.zone)) return false
   if (object.types.includes('Land')) return false
   if (object.owner !== seat || object.controller !== seat) return false
+  if (state.stack.length === 0 && needsStackTarget(object)) return false
   if (
     !object.types.includes('Instant')
     && (
