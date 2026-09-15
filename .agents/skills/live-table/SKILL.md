@@ -103,6 +103,7 @@ changed under their standing plan:
 - human's main-phase actions
 - after a land or spell that surveils, scries, explores, connives, looks at
   cards, or otherwise asks a hidden-zone choice (stop before the choice)
+- cleanup with more than seven cards in hand: the seat chooses what to discard
 - attackers (human attacking or choosing defenders)
 - attackers (human attacking or choosing defenders)
 - blockers when the human cares (their attackers or their creatures)
@@ -138,6 +139,10 @@ Confirmation is for lines that spend something. A plan that only walks the turn
 forward — "pass until main one", "move to combat" — should not be negotiated at
 all: point the seat at the phase button, which advances the game deterministically
 without a judge call.
+
+A turn cannot end with the active seat over seven cards. Both the deterministic
+turn end and the judge raise the same discard dialog, which lists the hand and
+requires exactly the excess in the graveyard before cleanup is written.
 
 Every play prompt also publishes the actions that seat may currently send and
 a per-seat action ID. The client echoes that ID. Reject stale, duplicate, or

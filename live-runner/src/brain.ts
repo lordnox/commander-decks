@@ -157,6 +157,10 @@ Do exactly one host step:
   \`exile\`. Add \`requirements\` when the effect constrains a destination,
   e.g. \`{"hand":{"min":1,"max":1}}\`. Do not read or name the hidden cards;
   the deterministic host reads its private library and presents the dialog.
+- Cleanup discards the active seat down to seven cards. Never write a cleanup
+  event that leaves them holding more. Which cards go is that seat's choice, so
+  stop and ask rather than choosing for them; the deterministic host raises the
+  same dialog when it ends a turn.
 - Never ask for a turn plan before that seat has drawn for the turn. Commander
   multiplayer: the first player draws. If the replay is still in setup with no
   draw, check the human hand for beginning-of-game cards (Leyline, Chancellor,

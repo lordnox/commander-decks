@@ -14,6 +14,7 @@ import {
 import { invokeHostAgent } from './brain'
 import {
   applyDeterministicChoice,
+  enforceHandSize,
   prepareTopdeckDecision,
 } from './decisions'
 import {
@@ -155,8 +156,8 @@ export const runHost = async (options: {
       state.actions = { [openingSeat]: ['keep', 'mulligan'] }
       state.waiting = `${name}: keep or mulligan.`
       state.judge = 'Opening hands are dealt.'
-    } else {
-      prepareTopdeckDecision(root, slug, state)
+    } else if (!prepareTopdeckDecision(root, slug, state)) {
+      enforceHandSize(root, slug, state)
     }
   }
   if (savedHost) {
@@ -253,7 +254,9 @@ export const runHost = async (options: {
     )
     const deterministicPass = message.type === 'pass'
       && applyDeterministicPass(root, slug, state, seat)
-    if (deterministicPass) {
+    if (deterministicPass === 'discard') {
+      logLine(logFile, `${seat} owes a discard at cleanup`)
+    } else if (deterministicPass) {
       state.actions = replayActions(root, slug, state)
       state.judge = `${state.occupants[seat]?.name ?? seat} passes.`
       state.privateJudge = {}
@@ -341,7 +344,10 @@ export const runHost = async (options: {
           (message.type === 'confirm' || message.type === 'pass')
           && result.replayChanged
         ) {
-          if (!prepareTopdeckDecision(root, slug, state)) {
+          if (
+            !prepareTopdeckDecision(root, slug, state)
+            && !enforceHandSize(root, slug, state)
+          ) {
             state.actions = replayActions(root, slug, state)
           }
         } else if (message.type === 'confirm') {

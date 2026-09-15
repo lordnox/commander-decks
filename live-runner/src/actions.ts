@@ -7,6 +7,11 @@ import {
   type SeatActions,
   type SeatId,
 } from './protocol'
+import {
+  endTurnAt,
+  MAX_HAND_SIZE,
+  prepareDiscardDecision,
+} from './decisions'
 import { replayPath } from './session'
 
 type ReplayEvent = {
@@ -22,6 +27,7 @@ type ReplayEvent = {
     turn?: number
     phase?: string
     stack?: unknown[]
+    players?: Record<string, { hand?: string[] }>
   }
 }
 
@@ -154,38 +160,14 @@ export const applyDeterministicPass = (
     ) {
       return false
     }
-    const next = SEAT_IDS[(SEAT_IDS.indexOf(active) + 1) % SEAT_IDS.length]
     const turn = last.turn ?? last.state.turn ?? 0
-    const nextTurn = turn + (next === state.firstPlayer ? 1 : 0)
-    const cleanupState = structuredClone(last.state)
-    cleanupState.active = active
-    cleanupState.turn = turn
-    cleanupState.phase = 'end'
-    const planningState = structuredClone(last.state)
-    planningState.active = next
-    planningState.turn = nextTurn
-    planningState.phase = 'planning'
-    replay.events.push(
-      pass,
-      {
-        id: nextId + 1,
-        turn,
-        phase: 'end',
-        seat: active,
-        kind: 'note',
-        summary: `Cleanup — no actions. ${state.occupants[active]?.name ?? active}'s turn ends.`,
-        state: cleanupState,
-      },
-      {
-        id: nextId + 2,
-        turn: nextTurn,
-        phase: 'planning',
-        seat: next,
-        kind: 'think',
-        summary: `Turn ${nextTurn} — ${state.occupants[next]?.name ?? next} to act.`,
-        state: planningState,
-      },
-    )
+    replay.events.push(pass)
+    writeFileSync(path, `${JSON.stringify(replay, null, 2)}\n`)
+    if ((last.state.players?.[active]?.hand?.length ?? 0) > MAX_HAND_SIZE) {
+      return prepareDiscardDecision(root, slug, state, active) ? 'discard' : false
+    }
+    endTurnAt(root, slug, state, active, turn)
+    return 'turn'
   }
   writeFileSync(path, `${JSON.stringify(replay, null, 2)}\n`)
   return 'turn'
