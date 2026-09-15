@@ -99,6 +99,8 @@ export type LiveSnapshot = {
   opening?: LiveOpening
   topdeck?: LiveTopdeck
   alwaysStopOnPriority?: boolean
+  /** The viewer asked to be passed for until their own turn. */
+  holding?: boolean
   events?: LiveEvent[]
   turn: number
   phase: string
@@ -430,6 +432,7 @@ export const encodePublicLivePayload = async (snapshot: LiveSnapshot) => {
     opening: _opening,
     topdeck: _topdeck,
     alwaysStopOnPriority: _alwaysStopOnPriority,
+    holding: _holding,
     actions: _actions,
     actionId: _actionId,
     youAct: _youAct,

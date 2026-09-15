@@ -84,3 +84,15 @@ describe('inbox', () => {
     expect(parseInbox('{"type":"topdeck","choices":[{"card":"Teferi","destination":"battlefield"}]}')).toBeNull()
   })
 })
+
+test('a hold message carries only a known target', () => {
+  expect(parseInbox('{"type":"hold","until":"my-turn"}')).toEqual({
+    type: 'hold',
+    until: 'my-turn',
+  })
+  expect(parseInbox('{"type":"hold","until":"off"}')).toEqual({
+    type: 'hold',
+    until: 'off',
+  })
+  expect(parseInbox('{"type":"hold","until":"forever"}')).toBeNull()
+})

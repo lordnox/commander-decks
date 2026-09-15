@@ -128,6 +128,35 @@ export const kernelActions = (state: GameState): SeatActions => {
   return { [priority]: actions }
 }
 
+/**
+ * A seat can ask to be passed for until its own turn. The hold stops at that
+ * turn and pauses whenever something is on the stack, so a held seat still
+ * gets to answer a real spell instead of sleeping through it.
+ */
+export const settleKernelHolds = (kernel: KernelHandle, lobby: LobbyState) => {
+  let current = kernel.history.current()
+  let passed = false
+  for (let guard = 0; guard < 24; guard += 1) {
+    const priority = kernelPriority(current)
+    if (!priority) break
+    if (current.active === priority) {
+      if (lobby.holds[priority]) lobby.holds = { ...lobby.holds, [priority]: false }
+      break
+    }
+    if (!lobby.holds[priority] || current.stack.length > 0) break
+    if (!kernel.dispatch({ type: 'passPriority', seat: priority }).ok) break
+    passed = true
+    current = kernel.history.current()
+  }
+  if (!passed) return false
+  lobby.actions = kernelActions(current)
+  const priority = kernelPriority(current)
+  lobby.waiting = current.stack.length > 0
+    ? 'A spell or ability is waiting on the stack.'
+    : `${lobby.occupants[priority ?? 'p1']?.name ?? priority}: send a plan or pass.`
+  return true
+}
+
 const COMBAT_STEPS = new Set([
   'beginCombat',
   'declareAttackers',

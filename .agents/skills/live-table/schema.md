@@ -148,6 +148,7 @@ this object.
 | `opening` | Private `{mulligans, bottomRequired}` while keep/mulligan is offered |
 | `topdeck` | Private `{kind, cards, destinations, requirements?}` for surveil, scry, and other top-library choices |
 | `alwaysStopOnPriority` | Private boolean preference; false/omitted means smart actionable priority stops |
+| `holding` | Private boolean; the viewer is being passed for until their own turn |
 | `events` | Up to 20 recent redacted event summaries for the viewer timeline |
 | `turn` | Turn number |
 | `phase` | Same strings as replay: `setup`, `untap`, `upkeep`, `draw`, `main1`, `combat`, `main2`, `end`, `priority` |

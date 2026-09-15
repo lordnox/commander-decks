@@ -62,6 +62,7 @@ type InboxType =
   | 'topdeck'
   | 'advance'
   | 'priority-mode'
+  | 'hold'
 
 const TURN_STEPS = [
   ['planning', 'Planning'],
@@ -449,6 +450,7 @@ export const LivePage = () => {
         destination: 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile'
       }>
       always?: boolean
+      until?: 'my-turn' | 'off'
     } = {},
   ) => {
     if (viewingPast) {
@@ -657,6 +659,23 @@ export const LivePage = () => {
           >
             {hidePlan ? 'Show plan' : 'Hide plan'}
           </button>
+          {canSend && snapshot.you && (
+            <button
+              type="button"
+              onClick={() => void sendInbox('hold', {
+                until: snapshot.holding ? 'off' : 'my-turn',
+              })}
+              aria-pressed={Boolean(snapshot.holding)}
+              className={`rounded-xl px-3 py-2 text-sm font-semibold ${
+                snapshot.holding
+                  ? 'bg-sky-300 text-ink-950'
+                  : 'bg-white/5 text-stone-300 hover:bg-white/10'
+              }`}
+              title="Pass every priority window until your own turn, except when a spell or ability is on the stack"
+            >
+              {snapshot.holding ? 'Holding until your turn' : 'Pass until my turn'}
+            </button>
+          )}
           {canSend && snapshot.you && (
             <button
               type="button"

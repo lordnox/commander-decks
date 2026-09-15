@@ -152,3 +152,16 @@ describe('lobby', () => {
     expect(state.alwaysStopOnPriority).toEqual({ p1: false })
   })
 })
+
+test('a hold is remembered for the seat that asked for it', () => {
+  const state = createLobby()
+  state.phase = 'play'
+  state.occupants.p1 = { name: 'Foggy Blood Transfusion', deck: 'deck' }
+
+  applyInbox(state, 'p1', { type: 'hold', until: 'my-turn' })
+  expect(state.holds).toEqual({ p1: true })
+  expect(state.judge).toContain('Foggy Blood Transfusion')
+
+  applyInbox(state, 'p1', { type: 'hold', until: 'off' })
+  expect(state.holds).toEqual({ p1: false })
+})

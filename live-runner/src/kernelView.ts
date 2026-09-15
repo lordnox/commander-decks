@@ -259,6 +259,7 @@ export const liveSnapshotFromState = (options: {
     alwaysStopOnPriority: viewer
       ? lobby.alwaysStopOnPriority[viewer]
       : undefined,
+    holding: viewer ? lobby.holds[viewer] : undefined,
     events: options.events ?? [],
     turn: comparable.turn,
     phase: comparable.phase,

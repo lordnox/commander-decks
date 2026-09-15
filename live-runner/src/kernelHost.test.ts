@@ -23,6 +23,7 @@ import {
   historyForViewer,
   loadHostCardPlugins,
   openKernel,
+  settleKernelHolds,
 } from './kernelHost'
 
 const mkdirGames = (root: string) => {
@@ -133,6 +134,84 @@ describe('kernel host journal', () => {
     writeFileSync(handlerPath, "export const testHandler = { id: 'testHandler', version: 2 }\n")
     const reloaded = await loadHostCardPlugins(root)
     expect((reloaded[0] as typeof reloaded[0] & { version: number }).version).toBe(2)
+  })
+
+  test('a held seat is passed for until its own turn', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-hold-'))
+    mkdirGames(root)
+    seedKernel(root, 'pod', undefined, true)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    lobby.occupants.p2 = { name: 'Crab', deck: 'deck' }
+    const kernel = await openKernel('pod', root, lobby)
+    lobby.holds = { p2: true, p3: true, p4: true }
+
+    expect(kernel.dispatch({ type: 'passPriority', seat: 'p1' }).ok).toBe(true)
+    expect(settleKernelHolds(kernel, lobby)).toBe(true)
+
+    const current = kernel.history.current()
+    expect(current.priority).toBe('p1')
+    expect(current.step).not.toBe('upkeep')
+    expect(lobby.actions).toEqual(kernelActions(current))
+  })
+
+  test('a hold releases when the held seat becomes active', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-hold-release-'))
+    mkdirGames(root)
+    seedKernel(root, 'pod', undefined, true)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    const kernel = await openKernel('pod', root, lobby)
+    lobby.holds = { p2: true, p3: true, p4: true }
+
+    // Walk p1's turn out so that p2 becomes the active player.
+    for (let guard = 0; guard < 40 && kernel.history.current().active === 'p1'; guard += 1) {
+      const priority = kernelPriority(kernel.history.current())
+      if (!priority) break
+      kernel.dispatch({ type: 'passPriority', seat: priority })
+      settleKernelHolds(kernel, lobby)
+    }
+
+    expect(kernel.history.current().active).toBe('p2')
+    expect(lobby.holds.p2).toBe(false)
+    expect(lobby.holds.p3).toBe(true)
+  })
+
+  test('a hold pauses while something waits on the stack', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-hold-stack-'))
+    mkdirGames(root)
+    seedKernel(root, 'pod', undefined, true)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    const kernel = await openKernel('pod', root, lobby)
+    lobby.holds = { p2: true }
+
+    const held = kernel.history.current()
+    const stacked = {
+      ...held,
+      active: 'p1',
+      priority: 'p2',
+      stack: [{
+        id: 's1',
+        kind: 'spell' as const,
+        objectId: 'o1',
+        controller: 'p1',
+        name: 'Held Spell',
+        targets: [],
+      }],
+    }
+    let dispatched = 0
+    const stub = {
+      ...kernel,
+      history: { ...kernel.history, current: () => stacked },
+      dispatch: (event: Parameters<typeof kernel.dispatch>[0]) => {
+        dispatched += 1
+        return kernel.dispatch(event)
+      },
+    }
+
+    expect(settleKernelHolds(stub, lobby)).toBe(false)
+    expect(dispatched).toBe(0)
   })
 
   test('bounds published history frames', async () => {

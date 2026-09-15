@@ -60,6 +60,7 @@ type InboxPayload =
     }
   | { type: 'advance' }
   | { type: 'priority-mode'; always: boolean }
+  | { type: 'hold'; until: 'my-turn' | 'off' }
   | { type: 'rules'; text: string }
   | { type: 'talk'; text: string }
 
@@ -106,6 +107,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     cards?: unknown
     cheat?: unknown
     always?: unknown
+    until?: unknown
   }
   const actionId = typeof message.actionId === 'number' && Number.isSafeInteger(message.actionId)
     ? message.actionId
@@ -148,6 +150,10 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     case 'priority-mode':
       return typeof message.always === 'boolean'
         ? { type: 'priority-mode', always: message.always }
+        : null
+    case 'hold':
+      return message.until === 'my-turn' || message.until === 'off'
+        ? { type: 'hold', until: message.until }
         : null
     case 'topdeck': {
       if (
