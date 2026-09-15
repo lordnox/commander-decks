@@ -69,6 +69,12 @@ Damage is a chain: `combatDamage` → `dealDamage` → `loseLife`. Fog replaces
 `loseLife`. Commander damage is recorded on `combatDamage`, so it still
 counts if only later steps are prevented.
 
+Cleanup cannot advance to the next player's untap while the active player's
+public hand count exceeds their maximum. The default is seven;
+`player.data.maximumHandSize` may set another integer or `null` for no maximum.
+Policy chooses and moves the excess cards to the graveyard, then retries the
+step advance.
+
 ## Tests
 
 ```bash

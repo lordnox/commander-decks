@@ -103,6 +103,101 @@ describe('turnStructure', () => {
     expect(next.players.p3.mana.U).toBe(0)
   })
 
+  test('cleanup cannot end while the active hand exceeds seven cards', () => {
+    const hand = Array.from(
+      { length: 8 },
+      (_, index) => ({ ...bears(), name: `Card ${index}` }),
+    )
+    const state = newGame({ builtinRules, hands: { p1: hand } })
+    const result = rules({ ...state, step: 'cleanup' }, { type: 'advanceStep' }, catalog)
+
+    expect(result.ok).toBe(false)
+    if (!result.ok) expect(result.error).toBe(
+      'p1 must discard 1 card(s) before cleanup can end',
+    )
+  })
+
+  test('cleanup ends after the active player discards to seven', () => {
+    const hand = Array.from(
+      { length: 8 },
+      (_, index) => ({ ...bears(), name: `Card ${index}` }),
+    )
+    let state = newGame({ builtinRules, hands: { p1: hand } })
+    state = { ...state, step: 'cleanup' }
+    const discard = rules(
+      state,
+      { type: 'move', objectId: state.zoneOrder.p1.hand[0], to: 'graveyard' },
+      catalog,
+    )
+    expect(discard.ok).toBe(true)
+    if (!discard.ok) return
+
+    const next = step(discard.state)
+    expect(next.step).toBe('untap')
+    expect(next.active).toBe('p2')
+  })
+
+  test('cleanup respects a player-specific maximum hand size', () => {
+    const hand = Array.from(
+      { length: 6 },
+      (_, index) => ({ ...bears(), name: `Card ${index}` }),
+    )
+    const base = newGame({ builtinRules, hands: { p1: hand } })
+    const state: GameState = {
+      ...base,
+      step: 'cleanup',
+      players: {
+        ...base.players,
+        p1: {
+          ...base.players.p1,
+          data: { ...base.players.p1.data, maximumHandSize: 5 },
+        },
+      },
+    }
+    const result = rules(state, { type: 'advanceStep' }, catalog)
+
+    expect(result.ok).toBe(false)
+    if (!result.ok) expect(result.error).toContain('discard 1')
+  })
+
+  test('cleanup permits a player with no maximum hand size', () => {
+    const hand = Array.from(
+      { length: 12 },
+      (_, index) => ({ ...bears(), name: `Card ${index}` }),
+    )
+    const base = newGame({ builtinRules, hands: { p1: hand } })
+    const state: GameState = {
+      ...base,
+      step: 'cleanup',
+      players: {
+        ...base.players,
+        p1: {
+          ...base.players.p1,
+          data: { ...base.players.p1.data, maximumHandSize: null },
+        },
+      },
+    }
+
+    expect(step(state).step).toBe('untap')
+  })
+
+  test('cleanup uses the public hand count when identities are hidden', () => {
+    const base = newGame({ builtinRules })
+    const state: GameState = {
+      ...base,
+      step: 'cleanup',
+      knowledge: { mode: 'replica', viewer: 'p2' },
+      zoneCounts: {
+        ...base.zoneCounts,
+        p1: { ...base.zoneCounts.p1, hand: 8 },
+      },
+    }
+    const result = rules(state, { type: 'advanceStep' }, catalog)
+
+    expect(result.ok).toBe(false)
+    if (!result.ok) expect(result.error).toContain('discard 1')
+  })
+
   test('advanceStep is illegal while the stack holds an item', () => {
     const base = newGame({ builtinRules, hands: { p1: [bears()] } })
     const item: StackItem = {
