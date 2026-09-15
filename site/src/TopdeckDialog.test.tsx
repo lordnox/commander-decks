@@ -61,3 +61,27 @@ test('library searches offer filtering and one explicit selection', () => {
   expect(html).toContain('Choose this card')
   expect(html).toContain('disabled=""')
 })
+
+test('only the card list scrolls, so hide and resolve stay reachable', () => {
+  const game = { catalog: {} } as unknown as ReplayGame
+  const decision = {
+    seat: 'p4',
+    kind: 'search',
+    cards: Array.from({ length: 40 }, (_, index) => `Card ${index}`),
+    destinations: ['library', 'hand'],
+    requirements: { hand: { min: 1, max: 1 } },
+  } as LiveTopdeck
+  const html = renderToStaticMarkup(
+    <TopdeckDialog
+      game={game}
+      decision={decision}
+      pending={false}
+      onResolve={() => {}}
+    />,
+  )
+
+  const dialog = html.slice(html.indexOf('role="dialog"'))
+  expect(dialog.slice(0, dialog.indexOf('>'))).toContain('overflow-hidden')
+  expect(html).toContain('<ol class="-mx-1 mt-5 min-h-0 flex-1 space-y-3 overflow-y-auto px-1">')
+  expect(html).toContain('shrink-0 self-start rounded-xl bg-purple-200')
+})
