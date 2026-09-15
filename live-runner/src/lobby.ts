@@ -22,17 +22,24 @@ export type TopdeckDecision = {
   seat: SeatId
   kind: string
   cards: string[]
-  destinations: Array<'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield'>
+  destinations: Array<'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'>
   requirements?: Partial<Record<
-    'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield',
+    'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library',
     { min?: number; max?: number }
   >>
   kernel?: {
     sourceId: string
-    stage: 'scry' | 'put-land'
+    stage: 'scry' | 'put-land' | 'search'
     resumePassSeat?: SeatId
     kicked?: boolean
   }
+}
+
+export type PendingKernelPlan = {
+  text: string
+  kind: 'playLand' | 'castSpell'
+  objectId: string
+  name: string
 }
 
 export type LobbyState = {
@@ -58,6 +65,7 @@ export type LobbyState = {
   alwaysStopOnPriority: Partial<Record<SeatId, boolean>>
   /** Seats that asked to be passed for until their own turn comes around. */
   holds: Partial<Record<SeatId, boolean>>
+  pendingKernelPlans: Partial<Record<SeatId, PendingKernelPlan>>
 }
 
 const emptyActionIds = (): SeatActionIds => ({
@@ -147,6 +155,7 @@ export const createLobby = (headline = 'Live table'): LobbyState => ({
   actionIds: emptyActionIds(),
   alwaysStopOnPriority: {},
   holds: {},
+  pendingKernelPlans: {},
 })
 
 export type LobbyParts = {
@@ -174,6 +183,7 @@ export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
   actionIds: emptyActionIds(),
   alwaysStopOnPriority: {},
   holds: {},
+  pendingKernelPlans: {},
 })
 
 export const restoreLobby = (
@@ -214,6 +224,7 @@ export const restoreLobby = (
     actionIds: actionMigrated ? emptyActionIds() : saved.actionIds,
     alwaysStopOnPriority: saved.alwaysStopOnPriority ?? {},
     holds: saved.holds ?? {},
+    pendingKernelPlans: saved.pendingKernelPlans ?? {},
   }
 }
 

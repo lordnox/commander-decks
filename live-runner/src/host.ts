@@ -21,6 +21,7 @@ import {
   kernelPriority,
   openKernel,
   publishKernel,
+  prepareKernelPendingChoice,
   prepareKernelStackChoice,
   settleKernelPriority,
   type KernelHandle,
@@ -41,6 +42,7 @@ import { logLine } from './log'
 import { readFileSync } from 'node:fs'
 import { applyOpeningMessage, isOpeningFrame } from './opening'
 import { publishReplay } from './publish'
+import { executeSimpleKernelPlan, simpleKernelPlan } from './simplePlan'
 import {
   formatInvite,
   inboxLabel,
@@ -103,18 +105,30 @@ export const restoreKernelWindow = (
   kernel: KernelHandle,
   state: LobbyState,
 ) => {
-  if (state.topdeck) {
-    const seat = state.topdeck.seat
+  const restoreChoice = () => {
+    const decision = state.topdeck
+    if (!decision) return false
+    const seat = decision.seat
     state.actions = { [seat]: ['topdeck'] }
-    state.waiting = `${state.occupants[seat]?.name ?? seat} is making a private ${state.topdeck.kind} choice.`
+    state.waiting = `${state.occupants[seat]?.name ?? seat} is making a private ${decision.kind} choice.`
     state.privateWaiting = {
       [seat]: state.privateWaiting[seat]
-        ?? `Resolve the pending ${state.topdeck.kind} choice.`,
+        ?? `Resolve the pending ${decision.kind} choice.`,
     }
-    return
+    return true
   }
+  prepareKernelPendingChoice(kernel, state)
+  if (restoreChoice()) return
   state.actions = kernelActions(kernel.history.current())
   settleKernelPriority(kernel, state)
+  if (restoreChoice()) return
+  const current = kernel.history.current()
+  const priority = kernelPriority(current)
+  state.actions = kernelActions(current)
+  state.privateWaiting = {}
+  state.waiting = priority
+    ? `${state.occupants[priority]?.name ?? priority} (${priority}): act, pass, or advance.`
+    : 'The kernel is advancing the game.'
 }
 
 /**
@@ -369,7 +383,63 @@ export const runHost = async (options: {
     const beforeWaiting = state.waiting
     applyInbox(state, seat, message)
     await ensureKernel()
-    if (message.type === 'keep' || message.type === 'mulligan') {
+    const proposedSimplePlan = (
+      kernel
+      && (message.type === 'plan' || message.type === 'replace')
+    )
+      ? simpleKernelPlan(kernel.history.current(), seat, message.text)
+      : null
+    if (
+      (message.type === 'plan' || message.type === 'replace')
+      && !proposedSimplePlan
+    ) {
+      delete state.pendingKernelPlans[seat]
+    }
+    if (
+      (message.type === 'plan' || message.type === 'replace')
+      && kernel
+      && proposedSimplePlan
+    ) {
+      state.pendingKernelPlans = {
+        ...state.pendingKernelPlans,
+        [seat]: proposedSimplePlan,
+      }
+      state.actions = { [seat]: ['confirm', 'replace'] }
+      state.judge = `${state.occupants[seat]?.name ?? seat} proposed a kernel-verified action.`
+      state.privateJudge = {
+        [seat]: `${proposedSimplePlan.name} is currently legal and choice-free.`,
+      }
+      state.waiting = `${state.occupants[seat]?.name ?? seat}: confirm or replace the checked action.`
+      state.privateWaiting = {
+        [seat]: `Confirm ${proposedSimplePlan.kind === 'playLand' ? 'playing' : 'casting'} ${proposedSimplePlan.name}, or replace it.`,
+      }
+      logLine(logFile, `${seat} kernel plan ${proposedSimplePlan.kind} ${proposedSimplePlan.name}`)
+    } else if (
+      message.type === 'confirm'
+      && kernel
+      && state.pendingKernelPlans[seat]
+    ) {
+      const pending = state.pendingKernelPlans[seat]
+      try {
+        const events = executeSimpleKernelPlan(kernel, seat, pending)
+        delete state.pendingKernelPlans[seat]
+        state.judge = `${state.occupants[seat]?.name ?? seat}'s checked action was applied.`
+        state.privateJudge = {
+          [seat]: `${pending.name} was applied through ${events.length} validated kernel event(s).`,
+        }
+        restoreKernelWindow(kernel, state)
+        logLine(logFile, `${seat} kernel confirm ${pending.kind} ${pending.name}`)
+      } catch (reason) {
+        delete state.pendingKernelPlans[seat]
+        const error = reason instanceof Error ? reason.message : String(reason)
+        state.actions = { [seat]: ['plan', 'replace'] }
+        state.judge = `${state.occupants[seat]?.name ?? seat}'s checked action became unavailable.`
+        state.privateJudge = { [seat]: error }
+        state.waiting = `${state.occupants[seat]?.name ?? seat}: send a new plan.`
+        state.privateWaiting = { [seat]: `${error}. Send a new plan.` }
+        logLine(logFile, `${seat} kernel confirm rejected: ${error}`)
+      }
+    } else if (message.type === 'keep' || message.type === 'mulligan') {
       try {
         applyOpeningMessage(root, slug, state, seat, message)
       } catch (reason) {
@@ -390,7 +460,10 @@ export const runHost = async (options: {
     } else if (
       message.type === 'topdeck'
       && kernel
-      && state.topdeck?.kernel?.stage === 'scry'
+      && (
+        state.topdeck?.kernel?.stage === 'scry'
+        || state.topdeck?.kernel?.stage === 'search'
+      )
     ) {
       try {
         if (!applyKernelChoice(kernel, state, seat, message)) {
@@ -569,6 +642,19 @@ export const runHost = async (options: {
               kernel,
               legacy: () => replayActions(root, slug, state),
             })
+          }
+          if (
+            kernel
+            && (
+              message.type === 'confirm'
+              || message.type === 'topdeck'
+              || message.type === 'advance'
+            )
+          ) {
+            // The reducer owns the post-action window. A judge response was
+            // written before settling and may name a seat that no longer has
+            // priority.
+            restoreKernelWindow(kernel, state)
           }
         } catch (reason) {
           const error = reason instanceof Error ? reason.message : String(reason)

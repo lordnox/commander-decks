@@ -102,6 +102,19 @@ describe('kernel host actions', () => {
     expect(lobby.privateWaiting.p4).toContain('pending scry choice')
   })
 
+  test('the kernel window replaces a stale judge prompt', async () => {
+    const { kernel, lobby } = await setup()
+    lobby.occupants.p1 = { name: 'Eva', deck: 'decks/eva' }
+    lobby.waiting = 'Sin: send a plan, pass, or advance.'
+    lobby.privateWaiting = { p4: 'Sin still has priority.' }
+
+    restoreKernelWindow(kernel, lobby)
+
+    expect(lobby.waiting).toBe('p2 (p2): act, pass, or advance.')
+    expect(lobby.waiting).not.toContain('Sin')
+    expect(lobby.privateWaiting).toEqual({})
+  })
+
   test('table talk and lobby bookkeeping never occupy the judge', () => {
     expect(needsJudgment({ type: 'talk', text: 'nice board' })).toBe(false)
     expect(needsJudgment({ type: 'ready' })).toBe(false)

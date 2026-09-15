@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { availableActions } from './actions'
+import { availableActions, eventsForAvailableAction } from './actions'
 import { commanderRules } from './formats'
 import { bears, bolt, forest, newGame } from './newGame'
 import type { ManaPool } from './types'
@@ -125,5 +125,73 @@ describe('available actions', () => {
     state.players.p1.mana = { ...empty, G: 1, C: 3 }
     expect(availableActions(state, 'p1').some((action) =>
       action.kind === 'castSpell' && action.objectId === card.id)).toBe(true)
+  })
+})
+
+describe('events for available actions', () => {
+  test('a land play is directly executable', () => {
+    const state = newGame(commanderRules, { hands: { p1: [forest()] } })
+    const action = availableActions(state, 'p1').find(
+      (candidate) => candidate.kind === 'playLand',
+    )!
+
+    expect(eventsForAvailableAction(state, 'p1', action)).toEqual([{
+      type: 'playLand',
+      seat: 'p1',
+      objectId: objectNamed(state, 'Forest').id,
+    }])
+  })
+
+  test('a choice-free permanent gets the shortest mana line', () => {
+    const state = newGame(commanderRules, {
+      hands: { p1: [bears()] },
+      battlefield: { p1: [forest(), { ...forest(), name: 'Second Forest' }] },
+    })
+    const action = availableActions(state, 'p1').find(
+      (candidate) => candidate.kind === 'castSpell',
+    )!
+    const events = eventsForAvailableAction(state, 'p1', action)!
+
+    expect(events.filter((event) => event.type === 'tapForMana')).toHaveLength(2)
+    expect(events.at(-1)).toEqual({
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: objectNamed(state, 'Grizzly Bears').id,
+    })
+  })
+
+  test('instants and permanents with entry choices stay with the judge', () => {
+    const state = newGame(commanderRules, {
+      hands: {
+        p1: [
+          bolt(),
+          {
+            ...bears(),
+            name: 'Choice Creature',
+            oracleText: 'As Choice Creature enters, choose a color.',
+          },
+        ],
+      },
+      battlefield: {
+        p1: [
+          forest(),
+          { ...forest(), name: 'Second Forest' },
+          { ...forest(), name: 'Third Forest' },
+        ],
+      },
+    })
+    state.players.p1.mana = { ...empty, R: 1 }
+    const actions = availableActions(state, 'p1')
+
+    expect(eventsForAvailableAction(
+      state,
+      'p1',
+      actions.find((action) => action.name === 'Lightning Bolt')!,
+    )).toBeNull()
+    expect(eventsForAvailableAction(
+      state,
+      'p1',
+      actions.find((action) => action.name === 'Choice Creature')!,
+    )).toBeNull()
   })
 })
