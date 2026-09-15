@@ -1,17 +1,230 @@
 {
+  "6511f317-bd38-46d0-b800-7125a3f420da": {
+    "name": "Aesi, Tyrant of Gyre Strait",
+    "pluginIds": [],
+    "handlerIds": [
+      "additionalLandPlay"
+    ]
+  },
   "ec7d550b-9e13-4249-89c7-6ad43f71ea11": {
     "name": "Analyze the Pollen",
     "pluginIds": [],
-    "handlerIds": ["analyzeThePollen"]
+    "handlerIds": [
+      "analyzeThePollen"
+    ]
+  },
+  "8203c621-a1a0-4865-8c9a-0d4064c86107": {
+    "name": "Buried Alive",
+    "pluginIds": [],
+    "handlerIds": [
+      "librarySearch"
+    ]
+  },
+  "378a1d57-e2f1-4b84-9692-1564602e9e99": {
+    "name": "Dimir Aqueduct",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
+  },
+  "299fc083-0834-4064-8344-f895aff68867": {
+    "name": "Entomb",
+    "pluginIds": [],
+    "handlerIds": [
+      "librarySearch"
+    ]
+  },
+  "b8f566ea-8283-4afa-9ac8-737e26419283": {
+    "name": "Explore",
+    "pluginIds": [],
+    "handlerIds": [
+      "additionalLandPlay"
+    ]
+  },
+  "495e52e6-4c2b-4574-9474-eadbdcc8b4ac": {
+    "name": "Farseek",
+    "pluginIds": [],
+    "handlerIds": [
+      "librarySearch"
+    ]
+  },
+  "aa959340-c869-4caa-92c7-572bd8d23eef": {
+    "name": "Field of the Dead",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped",
+      "landfall"
+    ]
+  },
+  "1b301478-b14f-4ef8-94e6-9647d582eabe": {
+    "name": "Golgari Rot Farm",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
+  },
+  "087c8c0e-a91c-4e3c-8387-9312db01f343": {
+    "name": "Hall of Storm Giants",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
+  },
+  "ca4b6689-04ee-4227-9bdc-cb5a9590c745": {
+    "name": "Hedge Maze",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
+  },
+  "109cdefd-e8cc-4ac7-b6ba-2cfdef8d780f": {
+    "name": "Icetill Explorer",
+    "pluginIds": [],
+    "handlerIds": [
+      "landfall",
+      "additionalLandPlay"
+    ]
   },
   "9eba1789-6e58-4d78-8a0d-b54a8be76ec5": {
     "name": "Joint Exploration",
     "pluginIds": [],
-    "handlerIds": ["jointExploration"]
+    "handlerIds": [
+      "jointExploration"
+    ]
+  },
+  "126e9140-2c05-4c00-8b01-5653456c736a": {
+    "name": "Lair of the Hydra",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
+  },
+  "134d5b82-7940-4b33-a922-7f9d1f403e50": {
+    "name": "Lotus Field",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
+  },
+  "09dd85aa-47bc-4713-a9b9-8b52ff2285ed": {
+    "name": "Misty Rainforest",
+    "pluginIds": [],
+    "handlerIds": [
+      "librarySearch"
+    ]
+  },
+  "84122d81-9634-4d3f-85a5-f6cf4303691a": {
+    "name": "Mossborn Hydra",
+    "pluginIds": [],
+    "handlerIds": [
+      "landfall"
+    ]
+  },
+  "17b60106-a4c7-410a-8ac3-ec8e74e29a7c": {
+    "name": "Mystic Sanctuary",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
+  },
+  "78826359-fe63-44ad-adc4-a17ffcd710e4": {
+    "name": "Nature's Lore",
+    "pluginIds": [],
+    "handlerIds": [
+      "librarySearch"
+    ]
+  },
+  "044d2788-6daa-4849-a813-1f577eef9295": {
+    "name": "Pit of Offerings",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
+  },
+  "ef86989d-ce80-4e55-aece-7d11710eeffa": {
+    "name": "Polluted Delta",
+    "pluginIds": [],
+    "handlerIds": [
+      "librarySearch"
+    ]
+  },
+  "032b8a0d-491a-4a12-ab9f-689010054d5b": {
+    "name": "Prismatic Vista",
+    "pluginIds": [],
+    "handlerIds": [
+      "librarySearch"
+    ]
+  },
+  "aa854d50-444c-49d9-bfb1-5476b33c1c0b": {
+    "name": "Scute Swarm",
+    "pluginIds": [],
+    "handlerIds": [
+      "landfall"
+    ]
+  },
+  "046f5783-cc7b-416a-8cf6-2bcef9c2cc1a": {
+    "name": "Simic Growth Chamber",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
+  },
+  "e5df4597-1647-4ac2-bdb3-a517598d1431": {
+    "name": "Summer Bloom",
+    "pluginIds": [],
+    "handlerIds": [
+      "additionalLandPlay"
+    ]
+  },
+  "1b882a0e-0ede-4d1a-bd1a-9b7cffbcde8e": {
+    "name": "Three Visits",
+    "pluginIds": [],
+    "handlerIds": [
+      "librarySearch"
+    ]
+  },
+  "08d80efc-9542-4ba2-824c-c8615d8d07f2": {
+    "name": "Undercity Sewers",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
+  },
+  "840119bf-e60f-4ff7-9c9b-d420d09df545": {
+    "name": "Underground Mortuary",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
+  },
+  "134dfb35-0c32-4143-aa63-7701f406b59e": {
+    "name": "Unmarked Grave",
+    "pluginIds": [],
+    "handlerIds": [
+      "librarySearch"
+    ]
+  },
+  "67d60b24-d429-4ded-90d9-06e49f28c396": {
+    "name": "Verdant Catacombs",
+    "pluginIds": [],
+    "handlerIds": [
+      "librarySearch"
+    ]
   },
   "7baaf462-b0e6-4e21-86a7-73a883c4c9f7": {
     "name": "Yurlok of Scorch Thrash",
-    "pluginIds": ["manaBurn"],
-    "handlerIds": ["yurlok"]
+    "pluginIds": [
+      "manaBurn"
+    ],
+    "handlerIds": [
+      "yurlok"
+    ]
+  },
+  "fdd46004-eaba-4024-8687-39b23dc6a58c": {
+    "name": "Zagoth Triome",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
   }
 }
