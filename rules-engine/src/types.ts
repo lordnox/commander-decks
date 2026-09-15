@@ -210,6 +210,8 @@ export type GameEvent =
   | { type: 'advanceStep' }
   | { type: 'draw'; seat: PlayerId; count?: number }
   | { type: 'shuffleLibrary'; seat: PlayerId }
+  /** Publishes named cards to the whole table, even from a hidden zone. */
+  | { type: 'reveal'; seat: PlayerId; objectIds: string[]; source?: string }
   | { type: 'authoritativeSync'; snapshot: GameState }
   | {
       type: 'judgeFallback'
