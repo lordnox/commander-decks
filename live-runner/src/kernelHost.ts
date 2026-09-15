@@ -31,6 +31,7 @@ import type { LobbyState } from './lobby'
 import {
   isSeatId,
   SEAT_IDS,
+  type InboxMessage,
   type PlayAction,
   type SeatActions,
   type SeatId,
@@ -129,6 +130,156 @@ export const kernelActions = (state: GameState): SeatActions => {
   return { [priority]: actions }
 }
 
+const finalStackPass = (state: GameState, seat: SeatId) => {
+  if (state.priority !== seat || state.stack.length === 0) return false
+  return state.playerOrder
+    .filter((player) => !state.players[player].lost)
+    .every((player) => player === seat || state.passedInRow.includes(player))
+}
+
+/**
+ * A top-library decision happens during resolution, after everyone passed.
+ * Intercept only the final pass so the kernel stack remains authoritative
+ * while the private dialog owns the no-priority choice.
+ */
+export const prepareKernelStackChoice = (
+  kernel: KernelHandle,
+  lobby: LobbyState,
+  seat: SeatId,
+) => {
+  const state = kernel.history.current()
+  const item = state.stack[0]
+  if (
+    lobby.topdeck
+    || !item
+    || item.name !== 'Joint Exploration'
+    || !finalStackPass(state, seat)
+  ) {
+    return false
+  }
+  const controller = item.controller
+  if (!isSeatId(controller)) return false
+  const cards = state.zoneOrder[controller].library
+    .slice(0, 2)
+    .map((id) => state.objects[id]?.name)
+    .filter((name): name is string => Boolean(name))
+  lobby.topdeck = {
+    seat: controller,
+    kind: 'scry',
+    cards,
+    destinations: ['top', 'bottom'],
+    kernel: {
+      sourceId: item.objectId,
+      stage: 'scry',
+      resumePassSeat: seat,
+      kicked: item.kicked,
+    },
+  }
+  lobby.actions = { [controller]: ['topdeck'] }
+  lobby.waiting = `${lobby.occupants[controller]?.name ?? controller} is making a private scry choice.`
+  lobby.privateWaiting = {
+    [controller]: 'Scry 2 for Joint Exploration, then resolve it.',
+  }
+  lobby.judge = 'Waiting for a private scry 2 choice.'
+  return true
+}
+
+const sameNames = (left: string[], right: string[]) =>
+  [...left].sort().join('\0') === [...right].sort().join('\0')
+
+const objectIdsForNames = (
+  state: GameState,
+  ids: string[],
+  names: string[],
+) => {
+  const remaining = [...ids]
+  return names.map((name) => {
+    const index = remaining.findIndex((id) => state.objects[id]?.name === name)
+    if (index < 0) throw new Error(`${name} is no longer in that zone`)
+    return remaining.splice(index, 1)[0]
+  })
+}
+
+export const applyKernelChoice = (
+  kernel: KernelHandle,
+  lobby: LobbyState,
+  seat: SeatId,
+  message: Extract<InboxMessage, { type: 'topdeck' }>,
+) => {
+  const decision = lobby.topdeck
+  if (!decision?.kernel || decision.seat !== seat) return false
+  if (!sameNames(message.choices.map(({ card }) => card), decision.cards)) {
+    throw new Error('The cards in this choice changed. Refresh and choose again.')
+  }
+  if (message.choices.some(({ destination }) =>
+    !decision.destinations.includes(destination))) {
+    throw new Error(`Invalid ${decision.kind} destination.`)
+  }
+
+  let state = kernel.history.current()
+  if (decision.kernel.stage !== 'scry') return false
+  const ids = objectIdsForNames(
+    state,
+    state.zoneOrder[seat].library.slice(0, decision.cards.length),
+    message.choices.map(({ card }) => card),
+  )
+  const ordered = message.choices.map((choice, index) => ({
+    ...choice,
+    objectId: ids[index],
+  }))
+  for (const choice of ordered.filter(({ destination }) => destination === 'top').reverse()) {
+    if (!kernel.dispatch({ type: 'move', objectId: choice.objectId, to: 'library', position: 'top' }).ok) {
+      throw new Error(`Could not keep ${choice.card} on top`)
+    }
+  }
+  for (const choice of ordered.filter(({ destination }) => destination === 'bottom')) {
+    if (!kernel.dispatch({ type: 'move', objectId: choice.objectId, to: 'library', position: 'bottom' }).ok) {
+      throw new Error(`Could not put ${choice.card} on the bottom`)
+    }
+  }
+  const passSeat = decision.kernel.resumePassSeat
+  const kicked = decision.kernel.kicked
+  lobby.topdeck = undefined
+  if (!passSeat || !kernel.dispatch({ type: 'passPriority', seat: passSeat }).ok) {
+    throw new Error('Could not finish resolving Joint Exploration')
+  }
+  state = kernel.history.current()
+  if (kicked) {
+    const cards = state.zoneOrder[seat].hand
+      .map((id) => state.objects[id])
+      .filter((object) => object?.types.includes('Land'))
+      .map((object) => object.name)
+    if (cards.length > 0) {
+      lobby.topdeck = {
+        seat,
+        kind: 'put-land',
+        cards,
+        destinations: ['hand', 'battlefield'],
+        requirements: { battlefield: { max: 1 } },
+        kernel: {
+          sourceId: decision.kernel.sourceId,
+          stage: 'put-land',
+        },
+      }
+      lobby.actions = { [seat]: ['topdeck'] }
+      lobby.waiting = `${lobby.occupants[seat]?.name ?? seat} is choosing a land privately.`
+      lobby.privateWaiting = {
+        [seat]: 'Joint Exploration was kicked. You may put one land from your hand onto the battlefield.',
+      }
+      return true
+    }
+  }
+
+  state = kernel.history.current()
+  lobby.actions = kernelActions(state)
+  lobby.privateWaiting = {}
+  lobby.privateJudge = {}
+  lobby.waiting = `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
+  lobby.judge = `${lobby.occupants[seat]?.name ?? seat} resolved Joint Exploration.`
+  settleKernelPriority(kernel, lobby)
+  return true
+}
+
 /**
  * Settle priority without involving a judge when the seat has no meaningful
  * action. A manual hold is stronger, but still pauses for a real stack.
@@ -138,6 +289,7 @@ export const kernelActions = (state: GameState): SeatActions => {
 export const settleKernelPriority = (kernel: KernelHandle, lobby: LobbyState) => {
   let current = kernel.history.current()
   let passed = false
+  let prepared = false
   for (let guard = 0; guard < 64; guard += 1) {
     const priority = kernelPriority(current)
     if (!priority) break
@@ -147,11 +299,16 @@ export const settleKernelPriority = (kernel: KernelHandle, lobby: LobbyState) =>
     const held = Boolean(lobby.holds[priority])
     if (held && current.stack.length > 0) break
     if (!held && availableActions(current, priority).length > 0) break
+    if (prepareKernelStackChoice(kernel, lobby, priority)) {
+      prepared = true
+      break
+    }
     if (!kernel.dispatch({ type: 'passPriority', seat: priority }).ok) break
     passed = true
     current = kernel.history.current()
   }
-  if (!passed) return false
+  if (!passed && !prepared) return false
+  if (prepared) return true
   lobby.actions = kernelActions(current)
   const priority = kernelPriority(current)
   lobby.waiting = current.stack.length > 0
@@ -250,6 +407,19 @@ export const openKernel = async (
         events: converted.events,
       }
     }
+  }
+  // Handler plugins are always-on dispatchers. Dynamic modules live in the
+  // catalog, but they also need a RuleInstance or the reducer never calls them.
+  for (const plugin of cardPlugins) {
+    if (journal.initial.rules.some((rule) => rule.pluginId === plugin.id)) continue
+    journal.initial.rules.push({
+      instanceId: `builtin-${plugin.id}`,
+      pluginId: plugin.id,
+      sourceId: null,
+      timestamp: journal.initial.nextTimestamp,
+      params: {},
+    })
+    journal.initial.nextTimestamp += 1
   }
   const history = restoreJournal(journal, server.rules)
   const save = () => writeJournal(slug, journal, root)

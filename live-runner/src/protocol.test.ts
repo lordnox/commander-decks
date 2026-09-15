@@ -81,7 +81,10 @@ describe('inbox', () => {
       always: true,
     })
     expect(parseInbox('{"type":"priority-mode","always":"yes"}')).toBeNull()
-    expect(parseInbox('{"type":"topdeck","choices":[{"card":"Teferi","destination":"battlefield"}]}')).toBeNull()
+    expect(parseInbox('{"type":"topdeck","choices":[{"card":"Forest","destination":"battlefield"}]}')).toEqual({
+      type: 'topdeck',
+      choices: [{ card: 'Forest', destination: 'battlefield' }],
+    })
   })
 })
 

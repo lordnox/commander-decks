@@ -78,9 +78,9 @@ export type LiveOpening = {
 export type LiveTopdeck = {
   kind: string
   cards: Array<string | number>
-  destinations: Array<'top' | 'bottom' | 'graveyard' | 'hand' | 'exile'>
+  destinations: Array<'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield'>
   requirements?: Partial<Record<
-    'top' | 'bottom' | 'graveyard' | 'hand' | 'exile',
+    'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield',
     { min?: number; max?: number }
   >>
 }

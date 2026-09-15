@@ -186,6 +186,9 @@ Do exactly one host step:
 - Strict path first: never use a fallback to bypass a rejected action, timing,
   target, cost, priority, or state-based-action check. Decompose the line into
   ordinary GameEvents and let every event pass through the reducer.
+- A kicked spell uses \`kicked: true\` on its \`castSpell\` event after its
+  additional cost is paid. That flag is part of the stack item and lets card
+  handlers preserve the chosen mode through resolution.
 - If a card has a weird rules interaction (see Yurlok of Scorch Thrash), look it
   up in cards/rules-plugins.json. Static effects (mana burn) go in pluginIds and
   are granted while the object is on the battlefield. Activated abilities use
@@ -203,7 +206,10 @@ Do exactly one host step:
   the source so the fallback remains visible technical debt.
 - topdeck: the submitted choices are authorization. Apply each named private
   card with ordinary move events; use position "top" or "bottom" for library
-  placement. Preserve the submitted order. Do not ask for confirmation again.
+  placement. Preserve the submitted order. For a kernel \`put-land\` choice, use
+  the selected \`battlefield\` card (if any), apply its replacement effects and
+  resulting triggers, and leave every \`hand\` choice alone. Do not ask for
+  confirmation again.
 - advance: the submitted click is authorization to use ordinary advanceStep
   events until the next coarse phase or decision point. Do not ask for a plan
   or confirmation.
