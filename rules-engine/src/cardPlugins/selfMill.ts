@@ -30,6 +30,12 @@ const enqueueMill = (
 export const selfMill: Plugin = {
   id: 'selfMill',
   legal: (ctx) => {
+    if (ctx.event.type === 'tapForMana') {
+      const source = ctx.state.objects[ctx.event.objectId]
+      if (source?.name === 'Millikin') {
+        return 'Millikin mana must mill a card as an activation cost'
+      }
+    }
     const skullError = whenAbility(
       SKULL_PROPHET_MILL,
       sourceNamed('Skull Prophet'),
