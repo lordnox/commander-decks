@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from './formats'
 import { bears, bolt, forest } from './newGame'
+import { RANDOM_STATE } from './plugins/hiddenInformation'
 import { createClientGame, createServerGame } from './runtime'
 
 describe('authoritative and replica runtimes', () => {
@@ -41,6 +42,8 @@ describe('authoritative and replica runtimes', () => {
     expect(p1View.zoneCounts.p2.hand).toBe(1)
     expect(p1View.zoneOrder.p1.library).toEqual([])
     expect(p1View.zoneOrder.p2.hand).toEqual([])
+    expect(server.state.players.p1.data[RANDOM_STATE]).toBeNumber()
+    expect(p1View.players.p1.data[RANDOM_STATE]).toBeUndefined()
   })
 
   test('redacted logs do not reveal drawn card names', () => {

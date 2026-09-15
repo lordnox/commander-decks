@@ -5,6 +5,8 @@ import { rules } from './kernel'
 import { newGame, type NewGameOptions } from './newGame'
 import {
   createAuthoritativeHiddenInformation,
+  initializeRandomState,
+  RANDOM_STATE,
   replicaSnapshotError,
   replicaHiddenInformation,
 } from './plugins/hiddenInformation'
@@ -52,6 +54,7 @@ export const projectForViewer = (
   for (const player of projected.playerOrder) {
     projected.zoneOrder[player].library = []
     if (player !== viewer) projected.zoneOrder[player].hand = []
+    delete projected.players[player].data[RANDOM_STATE]
   }
 
   return projected
@@ -68,15 +71,17 @@ export const createServerGame = (
     dependencies.cardPlugins,
   )
   const runtimeCardPlugins = dependencies.cardPlugins ?? cardPlugins
+  const initialState = newGame(format, {
+    ...options,
+    builtinRules: options?.builtinRules ?? [
+      ...format.rules,
+      ...runtimeCardPlugins.map((plugin) => plugin.id),
+    ],
+  })
+  initializeRandomState(initialState, dependencies.random)
   return {
     ...engine,
-    state: newGame(format, {
-      ...options,
-      builtinRules: options?.builtinRules ?? [
-        ...format.rules,
-        ...runtimeCardPlugins.map((plugin) => plugin.id),
-      ],
-    }),
+    state: initialState,
     project: (state: GameState, viewer: PlayerId | null) =>
       projectForViewer(state, viewer),
   }
