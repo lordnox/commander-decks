@@ -1,58 +1,43 @@
 {
   "schema_version": 1,
   "cutoff": 3,
-  "title": "Vial Smasher — Jekyll/Hyde",
-  "summary": "Partner group slug: feed the table extra cards, then charge for every draw and every wheel discard.",
+  "title": "Ludevic & Tevesh — Jekyll/Hyde",
+  "summary": "A political draw bargain hides distributed draw punishment until one wheel reveals the table-wide kill.",
   "tags": [
     {
       "name": "group slug",
       "score": 5,
-      "reason": "Sheoldred, Nekusar, Underworld Dreams, Razorkin Needlehead, Fate Unraveler, Kederekt Parasite, Scrawling Crawler, and Spiteful Visions tax every extra card; that tax is the clock."
-    },
-    {
-      "name": "wheels",
-      "score": 4,
-      "reason": "Windfall, Magus of the Wheel, Jace's Archivist, Dark Deal, Burning Inquiry, Wheel and Deal, and Molten Psyche are burst turns that fire every slug and discard payoff at once."
+      "reason": "Underworld Dreams, Fate Unraveler, Razorkin Needlehead, Kederekt Parasite, Nekusar, Scrawling Crawler, and Spiteful Visions turn the offered cards into the primary clock."
     },
     {
       "name": "draw",
       "score": 4,
-      "reason": "Howling Mine, Font of Mythos, Kami, Dictate of Kruphix, Temple Bell, Folio of Fancies, and Forced Fruition exist to make opponents draw more than they want."
+      "reason": "Ludevic, Howling Mine, Font of Mythos, Kami, Dictate, Temple Bell, Seizan, and Forced Fruition deliberately expand the table's access to cards."
     },
     {
-      "name": "group hug",
-      "score": 3,
-      "reason": "The extra-draw package is real and symmetric; it is bait for the slug, not a gift deck, but opponents do get the cards."
+      "name": "wheels",
+      "score": 4,
+      "reason": "Windfall, Magus of the Wheel, Jace's Archivist, Dark Deal, Burning Inquiry, Wheel and Deal, Molten Psyche, Urza's Guilt, and Khorvath's Fury convert established punishment into closing bursts."
     },
     {
       "name": "discard",
       "score": 3,
-      "reason": "Wheels plus Liliana's Caress, Waste Not, Bone Miser, and Sangromancer are a dedicated discard-payoff package."
+      "reason": "Wheels plus Liliana's Caress, Glint-Horn Buccaneer, Waste Not, Bone Miser, and Sangromancer form a complete secondary conversion package."
+    },
+    {
+      "name": "group hug",
+      "score": 3,
+      "reason": "The offers are genuinely symmetric and Ludevic rewards opponents for damaging one another, even though the bargain eventually turns hostile."
     },
     {
       "name": "lifedrain",
       "score": 3,
-      "reason": "Caress, Sheoldred, Scrawling Crawler, Stormfist Crusader, and Sangromancer convert draws and discards into life loss and gain."
+      "reason": "Repeated draw and discard triggers reduce every opposing life total while Sangromancer repays the deck's own life costs."
     },
     {
-      "name": "voltron",
-      "score": 2,
-      "reason": "Ishai grows from opponents casting spells and can close with commander damage, but the list is not equipment or aura voltron."
-    },
-    {
-      "name": "alternate wincon",
-      "score": 2,
-      "reason": "Laboratory Maniac and Court of Cunning mill are backups, not the primary plan."
-    },
-    {
-      "name": "mill",
-      "score": 2,
-      "reason": "Court of Cunning, Folio of Fancies, Syr Konrad, and Breach the Multiverse mill as a supporting axis."
-    },
-    {
-      "name": "chaos",
-      "score": 1,
-      "reason": "Vial Smasher picks the burn target at random; that is incidental chaos, not a chaos deck."
+      "name": "politics",
+      "score": 3,
+      "reason": "Ludevic, Temple Bell, Red Death, Khorvath's Fury, and Cerebral Vortex let the pilot choose who receives cards and where combat goes."
     }
   ]
 }
