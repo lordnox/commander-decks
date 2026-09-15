@@ -5,6 +5,7 @@ import {
   sourceOnBattlefield,
   whenAbility,
 } from '../plugins/activateAbility'
+import { payCost } from '../plugins/spells'
 import type Draft from '../draft'
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
 
@@ -29,6 +30,14 @@ export type SearchSpec = {
   reveal?: boolean
   /** Life paid as part of an activation cost. */
   life?: number
+  /** Mana paid as part of an activation cost. */
+  manaCost?: string
+  /** Search abilities sacrifice their source unless Oracle says otherwise. */
+  sacrifice?: boolean
+  /** Extra validation for constraints spanning several selected cards. */
+  validateSelection?: (objects: GameObject[]) => string | void
+  /** Fabled Passage untaps its find once its controller has four lands. */
+  untapWithFourLands?: boolean
 }
 
 /** The searching seat's open choice, stored in authoritative state. */
@@ -43,6 +52,14 @@ const basicLand = (object: GameObject) =>
 
 const hasSubtype = (...subtypes: string[]) => (object: GameObject) =>
   object.types.includes('Land') && subtypes.some((subtype) => object.subtypes.includes(subtype))
+
+const sharedBasicLandType = (objects: GameObject[]) => {
+  if (objects.length < 2) return
+  const basicTypes = ['Plains', 'Island', 'Swamp', 'Mountain', 'Forest']
+  if (!basicTypes.some((type) => objects.every((object) => object.subtypes.includes(type)))) {
+    return 'The chosen basic lands must share a land type.'
+  }
+}
 
 /** Sorceries and instants whose resolution is a library search. */
 export const SEARCH_SPELLS: Record<string, SearchSpec> = {
@@ -125,6 +142,50 @@ export const SEARCH_ABILITIES: Record<string, SearchSpec> = {
     max: 1,
     life: 1,
   },
+  'Evolving Wilds': {
+    prompt: 'Search your library for a basic land card. It enters tapped.',
+    match: basicLand,
+    destination: 'battlefield',
+    tapped: true,
+    min: 1,
+    max: 1,
+  },
+  'Terramorphic Expanse': {
+    prompt: 'Search your library for a basic land card. It enters tapped.',
+    match: basicLand,
+    destination: 'battlefield',
+    tapped: true,
+    min: 1,
+    max: 1,
+  },
+  'Fabled Passage': {
+    prompt: 'Search your library for a basic land card. It enters tapped, then untaps if you control four or more lands.',
+    match: basicLand,
+    destination: 'battlefield',
+    tapped: true,
+    min: 1,
+    max: 1,
+    untapWithFourLands: true,
+  },
+  'Blighted Woodland': {
+    prompt: 'Search your library for up to two basic land cards. They enter tapped.',
+    match: basicLand,
+    destination: 'battlefield',
+    tapped: true,
+    min: 0,
+    max: 2,
+    manaCost: '{3}{G}',
+  },
+  'Myriad Landscape': {
+    prompt: 'Search your library for up to two basic land cards that share a land type. They enter tapped.',
+    match: basicLand,
+    destination: 'battlefield',
+    tapped: true,
+    min: 0,
+    max: 2,
+    manaCost: '{2}',
+    validateSelection: sharedBasicLandType,
+  },
 }
 
 export const searchSpecFor = (name: string): SearchSpec | undefined =>
@@ -164,7 +225,7 @@ const openSearch = (draft: Draft, seat: PlayerId, pending: PendingSearch) => {
   draft.note(`${seat} searches their library for ${pending.source}`)
 }
 
-const abilityLand = (name: string) => SEARCH_ABILITIES[name]?.life !== undefined
+const hasSearchAbility = (name: string) => Boolean(SEARCH_ABILITIES[name])
 
 /**
  * One search capability for every "search your library" card in the pool. The
@@ -188,7 +249,7 @@ export const librarySearch: Plugin = {
       SEARCH_FETCH,
       (abilityCtx) => {
         const source = abilityCtx.state.objects[abilityCtx.event.objectId]
-        if (!source || !abilityLand(source.name)) {
+        if (!source || !hasSearchAbility(source.name)) {
           return 'that card has no library-search ability'
         }
       },
@@ -201,6 +262,13 @@ export const librarySearch: Plugin = {
         if (abilityCtx.state.players[abilityCtx.event.seat].life <= life) {
           return `${abilityCtx.event.seat} cannot pay ${life} life`
         }
+      },
+      (abilityCtx) => {
+        const source = abilityCtx.state.objects[abilityCtx.event.objectId]
+        const cost = source ? SEARCH_ABILITIES[source.name]?.manaCost : undefined
+        if (!cost) return
+        const pool = abilityCtx.state.players[abilityCtx.event.seat].mana
+        if (!payCost(pool, cost)) return `${abilityCtx.event.seat} cannot pay ${cost}`
       },
       (abilityCtx) => {
         if (searchingSeat(abilityCtx.state)) return 'another library search is still open'
@@ -261,7 +329,12 @@ export const librarySearch: Plugin = {
           source: source.name,
         })
       }
-      next.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })
+      if (spec.manaCost) {
+        next.enqueue({ type: 'payMana', seat: ability.seat, cost: spec.manaCost })
+      }
+      if (spec.sacrifice !== false) {
+        next.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })
+      }
       openSearch(next, ability.seat, {
         source: source.name,
         sourceId: source.id,

@@ -215,6 +215,53 @@ describe('librarySearch', () => {
     expect(ok(server.rules(state, { type: 'passPriority', seat: 'p1' }))).toBeTruthy()
   })
 
+  test('Evolving Wilds opens the same search without charging life', () => {
+    const server = game({
+      battlefield: [card('Evolving Wilds', ['Land'])],
+      library: [forest()],
+    })
+    const fetch = server.state.zoneOrder.p1.battlefield[0]
+    const state = ok(server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: SEARCH_FETCH,
+      seat: 'p1',
+      objectId: fetch,
+    }))
+
+    expect(state.players.p1.life).toBe(40)
+    expect(state.objects[fetch].zone).toBe('graveyard')
+    expect(pendingSearch(state, 'p1')?.source).toBe('Evolving Wilds')
+    expect(searchSpecFor('Evolving Wilds')?.tapped).toBe(true)
+  })
+
+  test('Blighted Woodland requires and pays four mana', () => {
+    const server = game({
+      battlefield: [card('Blighted Woodland', ['Land'])],
+      library: [forest(), island()],
+    })
+    const sourceId = server.state.zoneOrder.p1.battlefield[0]
+    const rejected = server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: SEARCH_FETCH,
+      seat: 'p1',
+      objectId: sourceId,
+    })
+    expect(rejected.ok).toBe(false)
+    expect(rejected.ok === false && rejected.error).toContain('cannot pay {3}{G}')
+
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 4, C: 0 }
+    const opened = ok(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: SEARCH_FETCH,
+      seat: 'p1',
+      objectId: sourceId,
+    }))
+    expect(opened.players.p1.mana.G).toBe(0)
+    expect(opened.objects[sourceId].zone).toBe('graveyard')
+    expect(searchSpecFor('Blighted Woodland')).toMatchObject({ min: 0, max: 2 })
+  })
+
   test('a tapped fetchland cannot be activated', () => {
     const server = game({
       battlefield: [card('Polluted Delta', ['Land'], { tapped: true })],

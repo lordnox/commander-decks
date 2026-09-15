@@ -62,6 +62,30 @@ const playTopLand = (server: ReturnType<typeof game>) => {
 }
 
 describe('landfall', () => {
+  test('Mole Man creates one Moloid for each land entry', () => {
+    const server = game({
+      hand: [forest()],
+      battlefield: [
+        card('Mole Man, Moloid Master', ['Creature'], {
+          power: 2,
+          toughness: 4,
+        }),
+      ],
+    })
+    const next = playTopLand(server)
+    const moloid = Object.values(next.objects).find(
+      (object) => object.name === 'Moloid',
+    )
+
+    expect(moloid).toMatchObject({
+      zone: 'battlefield',
+      token: true,
+      power: 1,
+      toughness: 1,
+      subtypes: ['Minion'],
+    })
+  })
+
   test('Scute Swarm makes an Insect while its controller has few lands', () => {
     const server = game({
       hand: [forest()],

@@ -20,6 +20,7 @@ import {
 } from '../../rules-engine/src/index'
 import {
   librarySearch,
+  SEARCH_FETCH,
   searchingSeat,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
 import { createLobby } from './lobby'
@@ -143,6 +144,51 @@ const searchGame = (options: { library?: string[] } = {}) => {
   const lobby = createLobby()
   lobby.phase = 'play'
   return { kernel, lobby, spellId }
+}
+
+const abilitySearchGame = (
+  source: string,
+  library: Array<{ name: string; subtypes: string[] }>,
+  otherLands = 0,
+) => {
+  const server = createServerGame(
+    commanderRules,
+    {
+      first: 'p1',
+      battlefield: {
+        p1: [
+          { ...forest(), name: source, supertypes: [] },
+          ...Array.from({ length: otherLands }, (_, index) => ({
+            ...forest(),
+            name: `Land ${index + 1}`,
+          })),
+        ],
+      },
+      libraries: {
+        p1: library.map(({ name, subtypes }) => ({
+          ...forest(),
+          name,
+          subtypes,
+          supertypes: ['Basic'],
+        })),
+      },
+    },
+    { random: () => 0.5, cardPlugins: [librarySearch] },
+  )
+  const initial = structuredClone(server.state)
+  initial.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 4, C: 0 }
+  const sourceId = initial.zoneOrder.p1.battlefield[0]
+  const kernel = handleFor(server.rules, initial)
+  const activated = kernel.dispatch({
+    type: 'activateAbility',
+    abilityId: SEARCH_FETCH,
+    seat: 'p1',
+    objectId: sourceId,
+  })
+  if (!activated.ok) throw new Error(activated.error)
+  const lobby = createLobby()
+  lobby.phase = 'play'
+  return { kernel, lobby, sourceId }
 }
 
 describe('kernel host journal', () => {
@@ -514,6 +560,46 @@ describe('kernel host journal', () => {
         { card: 'Forest', destination: 'battlefield' },
       ],
     })).toThrow('Choose 1 card(s)')
+    expect(searchingSeat(kernel.history.current())).toBe('p1')
+  })
+
+  test('Fabled Passage untaps its find once the fourth land enters', () => {
+    const { kernel, lobby, sourceId } = abilitySearchGame(
+      'Fabled Passage',
+      [{ name: 'Forest', subtypes: ['Forest'] }],
+      3,
+    )
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [{ card: 'Forest', destination: 'battlefield' }],
+    })).toBe(true)
+
+    const state = kernel.history.current()
+    const found = Object.values(state.objects).find(
+      (object) => object.name === 'Forest',
+    )!
+    expect(found.zone).toBe('battlefield')
+    expect(found.tapped).toBe(false)
+    expect(state.objects[sourceId].zone).toBe('graveyard')
+  })
+
+  test('Myriad Landscape rejects basics that do not share a land type', () => {
+    const { kernel, lobby } = abilitySearchGame(
+      'Myriad Landscape',
+      [
+        { name: 'Forest', subtypes: ['Forest'] },
+        { name: 'Island', subtypes: ['Island'] },
+      ],
+    )
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(() => applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Forest', destination: 'battlefield' },
+        { card: 'Island', destination: 'battlefield' },
+      ],
+    })).toThrow('must share a land type')
     expect(searchingSeat(kernel.history.current())).toBe('p1')
   })
 
