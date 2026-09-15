@@ -1,7 +1,9 @@
-import type { Plugin } from '../types'
+import type Draft from '../draft'
+import type { GameState, Plugin } from '../types'
 
 export const HIDDEN_INFORMATION_ID = 'hiddenInformation'
 export const RANDOM_CHOICE = 'hiddenInformation.randomChoice'
+export const RANDOM_STATE = 'hiddenInformation.randomState'
 
 type RandomChoicePayload = {
   choices: string[]
@@ -27,6 +29,26 @@ const randomChoicePayload = (value: unknown): RandomChoicePayload | undefined =>
     return
   }
   return payload as RandomChoicePayload
+}
+
+export const initializeRandomState = (
+  state: GameState,
+  random: () => number,
+) => {
+  const owner = state.playerOrder[0]
+  const sample = Math.max(0, Math.min(0.9999999999999999, random()))
+  state.players[owner].data[RANDOM_STATE] = Math.floor(sample * 0x100000000)
+}
+
+const nextStateRandom = (draft: Draft) => {
+  const owner = draft.playerOrder[0]
+  const current = draft.players[owner].data[RANDOM_STATE]
+  const seed = typeof current === 'number' && Number.isSafeInteger(current)
+    ? current >>> 0
+    : 0x6d2b79f5
+  const next = (Math.imul(1664525, seed) + 1013904223) >>> 0
+  draft.players[owner].data[RANDOM_STATE] = next
+  return next / 0x100000000
 }
 
 const hiddenEvent = (type: string) =>
@@ -119,7 +141,7 @@ export const createAuthoritativeHiddenInformation = (
       if (!payload || !event.seat) return
       const index = Math.min(
         payload.choices.length - 1,
-        Math.floor(random() * payload.choices.length),
+        Math.floor(nextStateRandom(draft) * payload.choices.length),
       )
       draft.enqueue({
         type: 'custom',
