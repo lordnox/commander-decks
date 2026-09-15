@@ -4,6 +4,7 @@ import { rules } from '../kernel'
 import { bears, newGame } from '../testGame'
 import { combat } from './combat'
 import { damage } from './damage'
+import { turnStructure } from './turnStructure'
 
 test('an unblocked attacker deals combat damage to the defending player', () => {
   const catalog = createCatalog([combat, damage])
@@ -32,6 +33,37 @@ test('an unblocked attacker deals combat damage to the defending player', () => 
   expect(damaged.ok).toBe(true)
   if (!damaged.ok) return
   expect(damaged.state.players.p2.life).toBe(38)
+})
+
+test('entering the combat damage step assigns damage without being asked', () => {
+  const catalog = createCatalog([combat, damage, turnStructure])
+  const state = newGame({
+    battlefield: { p1: [bears()], p2: [bears()] },
+    builtinRules: ['combat', 'damage', 'turnStructure'],
+  })
+  const attackerId = Object.values(state.objects).find((object) => object.controller === 'p1')!.id
+  state.step = 'declareAttackers'
+
+  const declared = rules(
+    state,
+    {
+      type: 'declareAttackers',
+      seat: 'p1',
+      attackers: [{ objectId: attackerId, defender: 'p2' }],
+    },
+    catalog,
+  )
+  if (!declared.ok) throw new Error(declared.error)
+
+  let current = declared.state
+  for (const step of ['declareBlockers', 'firstStrikeDamage', 'combatDamage']) {
+    const advanced = rules(current, { type: 'advanceStep' }, catalog)
+    if (!advanced.ok) throw new Error(advanced.error)
+    current = advanced.state
+    expect(current.step).toBe(step)
+  }
+
+  expect(current.players.p2.life).toBe(38)
 })
 
 test('an attacker cannot target a player outside the game', () => {
