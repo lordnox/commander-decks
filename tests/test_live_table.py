@@ -696,6 +696,33 @@ class LiveTableEncodeTests(unittest.TestCase):
         self.assertEqual(fresh["turn"], 9)
         self.assertEqual(fresh["phase"], "planning")
 
+    def test_a_new_seat_does_not_inherit_the_previous_end_step(self):
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        turn = replay["events"][-1].get("turn", 0)
+        ending = json.loads(json.dumps(replay["events"][-1]))
+        ending.update(id=98, phase="end", kind="note", seat="p2")
+        ending["state"].update(phase="end", active="p2")
+        opening = json.loads(json.dumps(replay["events"][-1]))
+        opening.update(
+            id=99,
+            phase="planning",
+            kind="think",
+            summary="Gamma to act.",
+            seat="p3",
+        )
+        opening["state"].update(phase="planning", active="p3")
+        replay["events"].extend([ending, opening])
+
+        fresh = encode_live.build_snapshot(
+            replay,
+            you="p3",
+            talk="",
+            waiting="Gamma: send a turn plan.",
+            public=False,
+        )
+        self.assertEqual(fresh["turn"], turn)
+        self.assertEqual(fresh["phase"], "planning")
+
     def test_structured_actions_give_each_priority_seat_the_right_prompt(self):
         replay = json.loads(json.dumps(FAKE_REPLAY))
         replay["events"][1].update(

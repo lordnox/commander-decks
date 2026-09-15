@@ -470,12 +470,20 @@ def _event_turn(event: dict) -> Any:
     return (event.get("state") or {}).get("turn", event.get("turn"))
 
 
+def _event_active(event: dict) -> Any:
+    return (event.get("state") or {}).get("active") or event.get("seat")
+
+
 def _current_phase(events: list, last: dict, phase: str, turn: Any) -> str:
     """The step this turn actually reached.
 
     A pause for someone's next decision is logged in phase `planning`, so a
     frame taken mid-turn would otherwise walk the rail back to the top. Only
     a turn that has not stepped anywhere yet is really planning.
+
+    One turn number covers every seat's turn in the round, so the walk stops at
+    the seat boundary as well. Otherwise a seat that has not started its turn
+    inherits the previous seat's end step.
     """
     if phase != PLANNING_PHASE:
         return phase
@@ -483,8 +491,9 @@ def _current_phase(events: list, last: dict, phase: str, turn: Any) -> str:
         (position for position, event in enumerate(events) if event is last),
         len(events) - 1,
     )
+    active = _event_active(last)
     for event in reversed(events[:index]):
-        if _event_turn(event) != turn:
+        if _event_turn(event) != turn or _event_active(event) != active:
             break
         earlier = _event_phase(event)
         if earlier and earlier != PLANNING_PHASE:
