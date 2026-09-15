@@ -8,6 +8,7 @@ import {
 import { dirname, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import {
+  availableActions,
   commanderRules,
   createJournal,
   createServerGame,
@@ -129,21 +130,23 @@ export const kernelActions = (state: GameState): SeatActions => {
 }
 
 /**
- * A seat can ask to be passed for until its own turn. The hold stops at that
- * turn and pauses whenever something is on the stack, so a held seat still
- * gets to answer a real spell instead of sleeping through it.
+ * Settle priority without involving a judge when the seat has no meaningful
+ * action. A manual hold is stronger, but still pauses for a real stack.
+ * Automatic empty-action passes work on the stack because the enumerator has
+ * already checked the seat's castable instants and non-mana activations.
  */
-export const settleKernelHolds = (kernel: KernelHandle, lobby: LobbyState) => {
+export const settleKernelPriority = (kernel: KernelHandle, lobby: LobbyState) => {
   let current = kernel.history.current()
   let passed = false
-  for (let guard = 0; guard < 24; guard += 1) {
+  for (let guard = 0; guard < 64; guard += 1) {
     const priority = kernelPriority(current)
     if (!priority) break
     if (current.active === priority) {
       if (lobby.holds[priority]) lobby.holds = { ...lobby.holds, [priority]: false }
-      break
     }
-    if (!lobby.holds[priority] || current.stack.length > 0) break
+    const held = Boolean(lobby.holds[priority])
+    if (held && current.stack.length > 0) break
+    if (!held && availableActions(current, priority).length > 0) break
     if (!kernel.dispatch({ type: 'passPriority', seat: priority }).ok) break
     passed = true
     current = kernel.history.current()
@@ -156,6 +159,9 @@ export const settleKernelHolds = (kernel: KernelHandle, lobby: LobbyState) => {
     : `${lobby.occupants[priority ?? 'p1']?.name ?? priority}: send a plan or pass.`
   return true
 }
+
+/** Compatibility name for existing callers; settling now covers empty windows too. */
+export const settleKernelHolds = settleKernelPriority
 
 const COMBAT_STEPS = new Set([
   'beginCombat',

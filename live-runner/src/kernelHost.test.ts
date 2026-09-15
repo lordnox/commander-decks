@@ -24,6 +24,7 @@ import {
   loadHostCardPlugins,
   openKernel,
   settleKernelHolds,
+  settleKernelPriority,
 } from './kernelHost'
 
 const mkdirGames = (root: string) => {
@@ -150,8 +151,9 @@ describe('kernel host journal', () => {
     expect(settleKernelHolds(kernel, lobby)).toBe(true)
 
     const current = kernel.history.current()
-    expect(current.priority).toBe('p1')
-    expect(current.step).not.toBe('upkeep')
+    expect(current.active).toBe('p2')
+    expect(current.priority).toBe('p2')
+    expect(current.step).toBe('precombatMain')
     expect(lobby.actions).toEqual(kernelActions(current))
   })
 
@@ -175,6 +177,21 @@ describe('kernel host journal', () => {
     expect(kernel.history.current().active).toBe('p2')
     expect(lobby.holds.p2).toBe(false)
     expect(lobby.holds.p3).toBe(true)
+  })
+
+  test('empty priority windows settle until a real choice', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-empty-actions-'))
+    mkdirGames(root)
+    seedKernel(root, 'pod', undefined, true)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    const kernel = await openKernel('pod', root, lobby)
+
+    expect(settleKernelPriority(kernel, lobby)).toBe(true)
+    const current = kernel.history.current()
+    expect(current.active).toBe('p2')
+    expect(current.step).toBe('precombatMain')
+    expect(current.priority).toBe('p2')
   })
 
   test('a hold pauses while something waits on the stack', async () => {

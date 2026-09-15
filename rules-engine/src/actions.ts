@@ -1,0 +1,223 @@
+import { emptyMana } from './draft'
+import { payCost } from './plugins/spells'
+import type { GameObject, GameState, ManaId, ManaPool, PlayerId } from './types'
+
+export type AvailableAction =
+  | { kind: 'playLand'; objectId: string; name: string }
+  | { kind: 'castSpell'; objectId: string; name: string }
+  | { kind: 'activateAbility'; objectId: string; name: string; text: string }
+  | { kind: 'declareAttackers'; objectIds: string[] }
+  | { kind: 'declareBlockers'; objectIds: string[]; attackerIds: string[] }
+
+const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
+const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
+
+const addPool = (left: ManaPool, right: Partial<ManaPool>) => {
+  const sum = { ...left }
+  for (const mana of MANA_IDS) sum[mana] += right[mana] ?? 0
+  return sum
+}
+
+const manaOptions = (object: GameObject): Partial<ManaPool>[] => {
+  const options: Partial<ManaPool>[] = object.tapProduces
+    ? [object.tapProduces]
+    : []
+  const text = object.oracleText
+  for (const match of text.matchAll(/Add ((?:\{[WUBRGC]\}(?: or )?)+)/gi)) {
+    const symbols = [...match[1].matchAll(/\{([WUBRGC])\}/gi)]
+      .map((symbol) => symbol[1].toUpperCase() as ManaId)
+    if (match[1].includes(' or ')) {
+      for (const symbol of symbols) options.push({ [symbol]: 1 })
+    } else if (symbols.length > 0) {
+      const pool: Partial<ManaPool> = {}
+      for (const symbol of symbols) pool[symbol] = (pool[symbol] ?? 0) + 1
+      options.push(pool)
+    }
+  }
+  if (/one mana of any color/i.test(text)) {
+    for (const symbol of MANA_IDS.slice(0, 5)) options.push({ [symbol]: 1 })
+  }
+  return options
+}
+
+const sourceCanTap = (object: GameObject, seat: PlayerId) =>
+  object.zone === 'battlefield'
+  && object.controller === seat
+  && !object.tapped
+  && (!object.types.includes('Creature') || !object.summoningSickness)
+
+const poolKey = (pool: ManaPool, cap: number) =>
+  MANA_IDS.map((mana) => Math.min(pool[mana], cap)).join(',')
+
+const canFund = (state: GameState, seat: PlayerId, cost: string) => {
+  const sources = Object.values(state.objects)
+    .filter((object) => sourceCanTap(object, seat))
+    .map(manaOptions)
+    .filter((options) => options.length > 0)
+  const cap = Math.max(
+    1,
+    [...cost.matchAll(/\{(\d+)\}/g)].reduce(
+      (total, match) => total + Number(match[1]),
+      [...cost.matchAll(/\{[WUBRGC](?:\/[WUBRGC])?\}/g)].length,
+    ),
+  )
+  let pools = [state.players[seat]?.mana ?? emptyMana()]
+  for (const options of sources) {
+    const next = new Map<string, ManaPool>()
+    for (const pool of pools) {
+      for (const option of options) {
+        const candidate = addPool(pool, option)
+        next.set(poolKey(candidate, cap), candidate)
+      }
+    }
+    pools = [...next.values()]
+  }
+  return pools.some((pool) => payCost(pool, cost))
+}
+
+const taxFor = (state: GameState, seat: PlayerId, object: GameObject) => {
+  if (object.zone !== 'command' || !object.tags.includes('commander')) return 0
+  const taxes = state.players[seat]?.data.commanderTax
+  if (!taxes || typeof taxes !== 'object' || Array.isArray(taxes)) return 0
+  const value = (taxes as Record<string, unknown>)[object.id]
+  return typeof value === 'number' ? value : 0
+}
+
+const canCastNow = (state: GameState, seat: PlayerId, object: GameObject) => {
+  if (!state.castableZones.includes(object.zone)) return false
+  if (object.types.includes('Land')) return false
+  if (object.owner !== seat || object.controller !== seat) return false
+  if (
+    !object.types.includes('Instant')
+    && (
+      state.active !== seat
+      || !MAIN_STEPS.has(state.step)
+      || state.stack.length > 0
+    )
+  ) {
+    return false
+  }
+  const tax = taxFor(state, seat, object)
+  return canFund(state, seat, `${object.manaCost}${tax > 0 ? `{${tax}}` : ''}`)
+}
+
+const activatedText = (object: GameObject) =>
+  object.oracleText
+    .split('\n')
+    .filter((line) => {
+      const colon = line.indexOf(':')
+      if (colon < 0) return false
+      const effect = line.slice(colon + 1)
+      return !/^\s*Add\b/i.test(effect)
+    })
+
+const canActivate = (
+  state: GameState,
+  object: GameObject,
+  seat: PlayerId,
+  line: string,
+) => {
+  if (object.zone !== 'battlefield' || object.controller !== seat) return false
+  const cost = line.slice(0, line.indexOf(':'))
+  if (/\{T\}/i.test(cost) && !sourceCanTap(object, seat)) return false
+  if (
+    (/activate only as a sorcery/i.test(line) || /^[+−-]\d+:/u.test(line))
+    && (
+      state.active !== seat
+      || !MAIN_STEPS.has(state.step)
+      || state.stack.length > 0
+    )
+  ) {
+    return false
+  }
+  if (
+    /prevent all combat damage[^.]*this turn/i.test(line)
+    && ['postcombatMain', 'end', 'cleanup'].includes(state.step)
+  ) {
+    return false
+  }
+  const manaCost = [...cost.matchAll(/\{(?:\d+|[WUBRGC](?:\/[WUBRGC])?)\}/gi)]
+    .map((match) => match[0])
+    .join('')
+  if (manaCost && !canFund(state, seat, manaCost)) return false
+  return true
+}
+
+/**
+ * Enumerate meaningful choices for the seat with priority. Mana abilities are
+ * folded into spells they can fund; listing every untapped land as a choice
+ * would make an otherwise empty priority window look actionable.
+ *
+ * Target legality and card-specific restrictions are deliberately
+ * conservative: an uncertain action remains listed and therefore causes a
+ * stop. The host may auto-pass only when this list is genuinely empty.
+ */
+export const availableActions = (
+  state: GameState,
+  seat: PlayerId = state.priority ?? '',
+): AvailableAction[] => {
+  if (!seat || state.priority !== seat || state.players[seat]?.lost) return []
+  if (state.step === 'untap' || state.step === 'cleanup') return []
+  const actions: AvailableAction[] = []
+  const hand = state.zoneOrder[seat]?.hand ?? []
+
+  if (
+    state.active === seat
+    && MAIN_STEPS.has(state.step)
+    && state.stack.length === 0
+    && state.players[seat].landsPlayed < state.players[seat].landPlaysAllowed
+  ) {
+    for (const id of hand) {
+      const object = state.objects[id]
+      if (object?.types.includes('Land')) {
+        actions.push({ kind: 'playLand', objectId: id, name: object.name })
+      }
+    }
+  }
+
+  for (const object of Object.values(state.objects)) {
+    if (canCastNow(state, seat, object)) {
+      actions.push({ kind: 'castSpell', objectId: object.id, name: object.name })
+    }
+    for (const text of activatedText(object)) {
+      if (canActivate(state, object, seat, text)) {
+        actions.push({
+          kind: 'activateAbility',
+          objectId: object.id,
+          name: object.name,
+          text,
+        })
+      }
+    }
+  }
+
+  if (state.active === seat && state.step === 'declareAttackers') {
+    const objectIds = Object.values(state.objects)
+      .filter((object) =>
+        object.zone === 'battlefield'
+        && object.controller === seat
+        && object.types.includes('Creature')
+        && !object.tapped
+        && !object.summoningSickness)
+      .map((object) => object.id)
+    if (objectIds.length > 0) actions.push({ kind: 'declareAttackers', objectIds })
+  }
+
+  if (state.step === 'declareBlockers') {
+    const attackerIds = Object.values(state.objects)
+      .filter((object) => object.zone === 'battlefield' && object.attacking === seat)
+      .map((object) => object.id)
+    const objectIds = Object.values(state.objects)
+      .filter((object) =>
+        object.zone === 'battlefield'
+        && object.controller === seat
+        && object.types.includes('Creature')
+        && !object.tapped)
+      .map((object) => object.id)
+    if (attackerIds.length > 0 && objectIds.length > 0) {
+      actions.push({ kind: 'declareBlockers', objectIds, attackerIds })
+    }
+  }
+
+  return actions
+}

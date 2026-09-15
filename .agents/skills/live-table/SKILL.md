@@ -113,6 +113,13 @@ changed under their standing plan:
 Skip empty bookkeeping (untap with nothing to do, pure phase labels, opponent
 auto-passes with no interaction). Do not spam snapshots.
 
+The authoritative kernel enforces that policy with `availableActions`: it
+folds untapped mana sources into affordable spells and enumerates land plays,
+non-mana activations, attackers, and blockers. If the priority seat's list is
+empty, the host passes for that seat locally and keeps settling priority until
+a real choice appears. An uncertain card or target restriction must cause a
+stop, never an optimistic automatic pass.
+
 The human defaults to **smart priority**: name them as a responder only when
 their current hand, battlefield, command zone, or resources give them a
 plausible legal game action. No open mana plus no free or activated action is
