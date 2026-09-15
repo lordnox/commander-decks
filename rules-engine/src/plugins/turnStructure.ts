@@ -1,4 +1,5 @@
 import { emptyMana, nextPlayer, type Draft } from '../draft'
+import { strikesFirst } from '../keywords'
 import type { GameState, HookCtx, PlayerId, Plugin, StepId } from '../types'
 
 export const STEPS: StepId[] = [
@@ -88,6 +89,23 @@ const enterStep = (draft: Draft, step: StepId) => {
   if (step === 'cleanup') return onCleanup(draft)
 }
 
+const inCombat = (draft: Draft) =>
+  draft.zoneOf('battlefield').filter(
+    (object) => object.attacking !== null || object.blocking !== null,
+  )
+
+/**
+ * A step nobody can use is still a full pass round for every seat, and the
+ * rules skip both of these: no attackers means no blockers or damage steps,
+ * and no first or double striker means no first strike damage step.
+ */
+const skipEmptyStep = (draft: Draft, step: StepId) => {
+  const combatants = inCombat(draft)
+  if (step === 'declareBlockers' && combatants.length === 0) return 'endCombat'
+  if (step === 'firstStrikeDamage' && !combatants.some(strikesFirst)) return 'combatDamage'
+  return step
+}
+
 /**
  * Move to the next step, wrapping cleanup into the next player's untap.
  * Every player-turn bumps `turn`. Exported so `priority` can advance when all
@@ -96,7 +114,7 @@ const enterStep = (draft: Draft, step: StepId) => {
 export const advanceTurnStep = (draft: Draft) => {
   const index = STEPS.indexOf(draft.step)
   const wraps = index === STEPS.length - 1
-  const step = STEPS[(index + 1) % STEPS.length]
+  const step = skipEmptyStep(draft, STEPS[(index + 1) % STEPS.length])
   draft.step = step
   if (wraps) {
     draft.active = nextLivingPlayer(draft, draft.active)
