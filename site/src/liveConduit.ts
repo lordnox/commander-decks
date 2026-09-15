@@ -81,7 +81,7 @@ export const watchSnapshots = (
 
   const connect = () => {
     if (closed) return
-    const watchUrl = new URL('/v1/watch', origin)
+    const watchUrl = new URL('v1/watch', `${origin.replace(/\/+$/, '')}/`)
     watchUrl.protocol = watchUrl.protocol === 'http:' ? 'ws:' : 'wss:'
     socket = new WebSocket(watchUrl)
     socket.binaryType = 'arraybuffer'

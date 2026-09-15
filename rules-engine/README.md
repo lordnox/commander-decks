@@ -54,7 +54,8 @@ history.dispatch(event)
 
 Active effects are `RuleInstance`s on the state. Plugin **code** lives in the
 catalog. A card that grants an effect lists `grantedRules`; moving it onto the
-battlefield `addRule`s those plugins, leaving `removeRule`s them.
+battlefield `addRule`s those plugins, leaving `removeRule`s them. Activated
+ability handlers stay live and match `abilityId` on `activateAbility`.
 
 ```ts
 rules(state, { type: 'addRule', pluginId: 'manaBurn' })
@@ -75,6 +76,11 @@ public hand count exceeds their maximum. The default is seven;
 Policy chooses and moves the excess cards to the graveyard, then retries the
 step advance.
 
+For unsupported Oracle behavior, the live host can submit an audited
+`judgeFallback` containing minimal primitive effects. Every child still passes
+normal legality and state checks; one rejected child rolls back the whole
+fallback. Administrative sync/rule changes and nested fallbacks are forbidden.
+
 ## Tests
 
 ```bash
@@ -85,6 +91,7 @@ bun test rules-engine
 
 1. `export const foo: Plugin = { id: 'foo', legal, replace, apply, sba }`
 2. Include it in `format.plugins`, or register it with `addPlugin(foo)`.
-3. Put it on the table with `addRule` or `grantedRules`.
+3. Put static effects on the table with `addRule` or `grantedRules`.
+   Handle activations with `whenAbility` / `activateAbility`.
 
 See `DESIGN.md`.

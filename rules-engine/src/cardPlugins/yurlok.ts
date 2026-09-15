@@ -1,0 +1,42 @@
+import {
+  applyAbility,
+  asManaAbility,
+  canPay,
+  controlledByActivator,
+  sourceCanTap,
+  sourceNamed,
+  sourceOnBattlefield,
+  whenAbility,
+} from '../plugins/activateAbility'
+import type { Plugin } from '../types'
+
+const PLUGIN_ID = 'yurlok'
+const NAME = 'Yurlok of Scorch Thrash'
+export const YURLOK_MANA_RAIN = 'yurlok.mana-rain'
+const RAIN = { B: 1, R: 1, G: 1 }
+const COST = '{1}'
+
+/**
+ * Oracle: a player losing unspent mana loses that much life (granted `manaBurn`
+ * while this is on the battlefield). The rain is an activated mana ability.
+ */
+export const yurlok: Plugin = {
+  id: PLUGIN_ID,
+  legal: whenAbility(
+    YURLOK_MANA_RAIN,
+    sourceNamed(NAME),
+    sourceOnBattlefield(),
+    controlledByActivator(),
+    sourceCanTap(),
+    canPay(COST),
+    asManaAbility(),
+  ),
+  apply: applyAbility(YURLOK_MANA_RAIN, ({ event, draft }) => {
+    draft.enqueue({ type: 'payMana', seat: event.seat, cost: COST })
+    draft.enqueue({ type: 'tap', objectId: event.objectId })
+    for (const player of Object.values(draft.players)) {
+      draft.enqueue({ type: 'addMana', seat: player.id, mana: RAIN })
+    }
+    draft.note(`${event.seat} activates Yurlok`)
+  }),
+}

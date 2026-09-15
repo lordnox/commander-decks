@@ -1,3 +1,4 @@
+import { cardPlugins } from './cardPlugins'
 import { createCatalog } from './catalog'
 import type { GameFormat } from './formats'
 import { rules } from './kernel'
@@ -7,17 +8,19 @@ import {
   replicaSnapshotError,
   replicaHiddenInformation,
 } from './plugins/hiddenInformation'
-import type { GameEvent, GameState, PlayerId } from './types'
+import type { GameEvent, GameState, PlayerId, Plugin } from './types'
 
 export type ServerDependencies = {
   random: () => number
+  cardPlugins?: Plugin[]
 }
 
 const createRuntimeEngine = (
   format: GameFormat,
   hiddenInformation: ReturnType<typeof createAuthoritativeHiddenInformation>,
+  runtimeCardPlugins = cardPlugins,
 ) => {
-  const catalog = createCatalog([...format.plugins, hiddenInformation])
+  const catalog = createCatalog([...format.plugins, ...runtimeCardPlugins, hiddenInformation])
   return {
     catalog,
     rules: (state: GameState, event: GameEvent) =>
@@ -62,10 +65,18 @@ export const createServerGame = (
   const engine = createRuntimeEngine(
     format,
     createAuthoritativeHiddenInformation(dependencies.random),
+    dependencies.cardPlugins,
   )
+  const runtimeCardPlugins = dependencies.cardPlugins ?? cardPlugins
   return {
     ...engine,
-    state: newGame(format, options),
+    state: newGame(format, {
+      ...options,
+      builtinRules: options?.builtinRules ?? [
+        ...format.rules,
+        ...runtimeCardPlugins.map((plugin) => plugin.id),
+      ],
+    }),
     project: (state: GameState, viewer: PlayerId | null) =>
       projectForViewer(state, viewer),
   }
