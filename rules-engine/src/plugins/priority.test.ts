@@ -135,4 +135,24 @@ describe('priority', () => {
     expect(state.turn).toBe(2)
     expect(state.priority).toBe('p2')
   })
+
+  test('a cleanup pass round cannot carry eight cards into the next turn', () => {
+    const hand = Array.from(
+      { length: 8 },
+      (_, index) => ({ ...bears(), name: `Card ${index}` }),
+    )
+    const base = newGame({ builtinRules, hands: { p1: hand } })
+    let state: GameState = { ...base, step: 'cleanup' }
+    state = passRound(state, 3)
+    const result = rules(
+      state,
+      { type: 'passPriority', seat: state.priority! },
+      catalog,
+    )
+
+    expect(result.ok).toBe(false)
+    if (!result.ok) expect(result.error).toContain('must discard 1')
+    expect(result.state.step).toBe('cleanup')
+    expect(result.state.active).toBe('p1')
+  })
 })
