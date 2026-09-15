@@ -107,6 +107,36 @@ describe('available actions', () => {
     expect(availableActions({ ...state, priority: 'p3' }, 'p3')).toEqual([])
   })
 
+  test('a counterspell is not an action while the stack is empty', () => {
+    const veto = {
+      ...bolt(),
+      name: "Dovin's Veto",
+      types: ['Instant'],
+      manaCost: '{W}{U}',
+      oracleText: "This spell can't be countered.\nCounter target noncreature spell.",
+    }
+    const state = newGame(commanderRules, {
+      hands: { p1: [veto] },
+      battlefield: { p1: [forest(), { ...forest(), name: 'Second Forest' }] },
+    })
+    state.active = 'p2'
+    state.step = 'end'
+    state.players.p1.mana = { ...empty, W: 1, U: 1 }
+
+    expect(availableActions(state, 'p1')).toEqual([])
+
+    state.stack = [{
+      id: 's1',
+      kind: 'spell',
+      objectId: 'other',
+      controller: 'p2',
+      name: 'Windfall',
+      targets: [],
+    }]
+    expect(availableActions(state, 'p1').some((action) =>
+      action.kind === 'castSpell' && action.name === "Dovin's Veto")).toBe(true)
+  })
+
   test('accounts for commander tax', () => {
     const commander = {
       ...bears(),
