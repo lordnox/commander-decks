@@ -163,6 +163,38 @@ export const needsJudgment = (message: InboxMessage) =>
     message.type,
   )
 
+type HostControlMessage = Extract<
+  InboxMessage,
+  { type: 'hold' | 'priority-mode' }
+>
+
+export const isHostControlMessage = (
+  message: InboxMessage,
+): message is HostControlMessage =>
+  message.type === 'hold' || message.type === 'priority-mode'
+
+/**
+ * Host controls are preferences, not game actions. Apply them immediately so
+ * a slow judge request cannot prevent a seat from changing its automation.
+ */
+export const applyHostControl = (
+  state: LobbyState,
+  seat: SeatId,
+  message: HostControlMessage,
+) => {
+  if (message.type === 'hold') {
+    state.holds = {
+      ...state.holds,
+      [seat]: message.until === 'my-turn',
+    }
+    return
+  }
+  state.alwaysStopOnPriority = {
+    ...state.alwaysStopOnPriority,
+    [seat]: message.always,
+  }
+}
+
 export const actionsAfterJudgment = (options: {
   current: LobbyState['actions']
   message: InboxMessage
@@ -690,6 +722,7 @@ export const runHost = async (options: {
   }
 
   let inboxQueue = Promise.resolve()
+  let controlQueue = Promise.resolve()
   const watchers = SEAT_IDS.map((seat) => {
     const label = inboxLabel(seat)
     return watchSnapshots(
@@ -707,6 +740,29 @@ export const runHost = async (options: {
         logLine(logFile, `${seat} ${message.type}`)
         journalInbox(slug, { seat, generation, message }, root)
         saveSession(session, root)
+        if (isHostControlMessage(message)) {
+          applyHostControl(state, seat, message)
+          session.lobby = state
+          saveSession(session, root)
+          logLine(
+            logFile,
+            message.type === 'hold'
+              ? `${seat} hold ${message.until}`
+              : `${seat} priority mode ${message.always ? 'always' : 'smart'}`,
+          )
+          controlQueue = controlQueue
+            .then(async () => {
+              if (kernel) settleKernelPriority(kernel, state)
+              await publish(slug, root, origin, bins, state, kernel)
+            })
+            .catch((reason) => {
+              logLine(
+                logFile,
+                `control publish failed: ${reason instanceof Error ? reason.message : String(reason)}`,
+              )
+            })
+          return
+        }
         inboxQueue = inboxQueue
           .then(() => processInbox(seat, generation, message))
           .catch((reason) => {

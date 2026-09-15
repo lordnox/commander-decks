@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { battlefieldRow, cardInfo } from './cards'
+import { battlefieldRow, cardInfo, currentStats } from './cards'
 import type { ReplayGame } from './replayTypes'
 
 const gunshipText = [
@@ -77,5 +77,20 @@ describe('battlefield rows', () => {
     expect(
       battlefieldRow(details, { name: 'Knight Paladin', note: 'crewed; trample' }),
     ).toBe('creatures')
+  })
+})
+
+describe('battlefield card stats', () => {
+  test('a planeswalker shows printed and current loyalty', () => {
+    const teferi = {
+      type_line: 'Legendary Planeswalker — Teferi',
+      stats: '3',
+    }
+
+    expect(currentStats(teferi, { name: 'Teferi, Who Slows the Sunset' })).toBe('L 3')
+    expect(currentStats(teferi, {
+      name: 'Teferi, Who Slows the Sunset',
+      counters: { loyalty: 4 },
+    })).toBe('L 4')
   })
 })
