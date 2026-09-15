@@ -110,6 +110,21 @@ describe('kernel combat projection', () => {
     expect(seats[1].battlefield?.[0].blocking).toBe('Foulmire Knight // Profane Insight')
   })
 
+  test('live counters reach the board instead of the printed card value', () => {
+    const { state, lobby } = combatTable()
+    state.step = 'precombatMain'
+    const walker = state.objects[state.zoneOrder.p1.battlefield[1]]
+    walker.counters = { loyalty: 5 }
+
+    const seats = liveSeatsFromState(state, lobby, 'p1')
+    const projected = seats[0].battlefield?.find((card) => card.name === walker.name)
+    expect(projected?.counters).toEqual({ loyalty: 5 })
+
+    // An untouched permanent stays lean on the wire.
+    const plain = seats[1].battlefield?.[0]
+    expect(plain?.counters).toBeUndefined()
+  })
+
   test('a board outside combat carries no combat block', () => {
     const { state, lobby } = combatTable()
     state.step = 'precombatMain'
