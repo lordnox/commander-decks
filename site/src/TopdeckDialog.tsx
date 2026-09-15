@@ -41,6 +41,9 @@ export const TopdeckDialog = ({
       destination: decision.destinations[0] ?? 'top',
     })),
   )
+  const [hidden, setHidden] = useState(false)
+  const [previewCard, setPreviewCard] = useState<string | null>(null)
+  const [previewPinned, setPreviewPinned] = useState(false)
   const valid = (next: Choice[]) => Object.entries(
     decision.requirements ?? {},
   ).every(([destination, limits]) => {
@@ -88,6 +91,25 @@ export const TopdeckDialog = ({
   }
 
   const destinationLabel = decision.destinations.slice(1).join(' or ')
+  const title = discarding
+    ? 'Discard to hand size'
+    : puttingLand
+      ? 'Put a land onto the battlefield'
+      : `${decision.kind[0]?.toUpperCase()}${decision.kind.slice(1)} ${choices.length}`
+  const previewDetails = previewCard ? game.catalog[previewCard] : null
+  const previewImage = previewDetails?.image_normal || previewDetails?.image_small
+
+  if (hidden) {
+    return (
+      <button
+        type="button"
+        onClick={() => setHidden(false)}
+        className="fixed right-4 top-20 z-50 rounded-xl border border-purple-200/40 bg-ink-950 px-4 py-2.5 text-sm font-black text-purple-100 shadow-2xl shadow-black hover:bg-ink-900"
+      >
+        Show decision: {title}
+      </button>
+    )
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-3 backdrop-blur-sm sm:items-center">
@@ -97,16 +119,27 @@ export const TopdeckDialog = ({
         aria-labelledby="topdeck-title"
         className="max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-[1.5rem] border border-purple-300/30 bg-ink-950 p-5 shadow-2xl shadow-black"
       >
-        <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-purple-200">
-          {discarding ? 'Cleanup' : puttingLand ? 'Kicked spell' : 'Private library choice'}
-        </p>
-        <h2 id="topdeck-title" className="mt-1 font-display text-2xl text-stone-50">
-          {discarding
-            ? 'Discard to hand size'
-            : puttingLand
-              ? 'Put a land onto the battlefield'
-            : `${decision.kind[0]?.toUpperCase()}${decision.kind.slice(1)} ${choices.length}`}
-        </h2>
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-purple-200">
+              {discarding ? 'Cleanup' : puttingLand ? 'Kicked spell' : 'Private library choice'}
+            </p>
+            <h2 id="topdeck-title" className="mt-1 font-display text-2xl text-stone-50">
+              {title}
+            </h2>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              setPreviewCard(null)
+              setPreviewPinned(false)
+              setHidden(true)
+            }}
+            className="shrink-0 rounded-xl bg-white/10 px-3 py-2 text-sm font-bold text-stone-200 hover:bg-white/15"
+          >
+            Hide
+          </button>
+        </div>
         <p className="mt-2 text-sm text-stone-400">
           {discarding
             ? 'Your turn ends once the extra cards are in the graveyard.'
@@ -116,6 +149,7 @@ export const TopdeckDialog = ({
           {orderMatters && choices.length > 1
             ? ' The displayed order is the final order.'
             : ''}
+          {' Hover over or tap card art for a readable preview.'}
         </p>
         {decision.requirements && (
           <p className="mt-2 text-xs text-gold-200">
@@ -139,11 +173,33 @@ export const TopdeckDialog = ({
                 className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-3"
               >
                 {details?.image_small || details?.image_normal ? (
-                  <img
-                    src={details.image_small || details.image_normal}
-                    alt={choice.card}
-                    className="h-28 w-20 shrink-0 rounded-lg object-cover object-top"
-                  />
+                  <button
+                    type="button"
+                    aria-label={`Preview ${choice.card}`}
+                    onPointerEnter={() => {
+                      if (!previewPinned) setPreviewCard(choice.card)
+                    }}
+                    onPointerLeave={() => {
+                      if (!previewPinned) setPreviewCard(null)
+                    }}
+                    onFocus={() => {
+                      if (!previewPinned) setPreviewCard(choice.card)
+                    }}
+                    onBlur={() => {
+                      if (!previewPinned) setPreviewCard(null)
+                    }}
+                    onClick={() => {
+                      setPreviewCard(choice.card)
+                      setPreviewPinned(true)
+                    }}
+                    className="shrink-0 cursor-zoom-in rounded-lg outline-none ring-purple-200 focus-visible:ring-2"
+                  >
+                    <img
+                      src={details.image_small || details.image_normal}
+                      alt={choice.card}
+                      className="h-28 w-20 rounded-lg object-cover object-top"
+                    />
+                  </button>
                 ) : (
                   <div className="flex h-28 w-20 shrink-0 items-center justify-center rounded-lg bg-ink-900 p-2 text-center text-xs">
                     {choice.card}
@@ -222,6 +278,41 @@ export const TopdeckDialog = ({
           </button>
         )}
       </section>
+      {previewImage && previewCard && (
+        <div
+          className={`fixed inset-0 z-[60] flex items-center justify-center p-5 ${
+            previewPinned
+              ? 'pointer-events-auto bg-black/75 backdrop-blur-sm'
+              : 'pointer-events-none bg-black/35'
+          }`}
+          onClick={() => {
+            if (!previewPinned) return
+            setPreviewPinned(false)
+            setPreviewCard(null)
+          }}
+        >
+          <div className="relative">
+            <img
+              src={previewImage}
+              alt={previewCard}
+              className="max-h-[82vh] max-w-[min(88vw,30rem)] rounded-2xl shadow-2xl shadow-black"
+            />
+            {previewPinned && (
+              <button
+                type="button"
+                onClick={() => {
+                  setPreviewPinned(false)
+                  setPreviewCard(null)
+                }}
+                className="absolute -right-3 -top-3 rounded-full bg-stone-100 px-3 py-1.5 text-sm font-black text-ink-950 shadow-xl"
+                aria-label="Close card preview"
+              >
+                Close
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
