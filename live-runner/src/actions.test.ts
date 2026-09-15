@@ -62,6 +62,19 @@ describe('play actions', () => {
     })
   })
 
+  test('offers deterministic phase advance in an empty main phase', () => {
+    const state = createLobby()
+    const root = rootWithEvent({
+      kind: 'note',
+      seat: 'p1',
+      state: { active: 'p1', phase: 'main1', stack: [] },
+    })
+
+    expect(replayActions(root, 'test', state)).toEqual({
+      p1: ['plan', 'advance'],
+    })
+  })
+
   test('rejects stale and unavailable actions', () => {
     const state = createLobby()
     state.actions = {

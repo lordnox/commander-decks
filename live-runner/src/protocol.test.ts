@@ -67,5 +67,15 @@ describe('inbox', () => {
       cheat: true,
       actionId: 3,
     })
+    expect(parseInbox('{"type":"topdeck","choices":[{"card":"Teferi","destination":"graveyard"}],"actionId":4}')).toEqual({
+      type: 'topdeck',
+      choices: [{ card: 'Teferi', destination: 'graveyard' }],
+      actionId: 4,
+    })
+    expect(parseInbox('{"type":"advance","actionId":5}')).toEqual({
+      type: 'advance',
+      actionId: 5,
+    })
+    expect(parseInbox('{"type":"topdeck","choices":[{"card":"Teferi","destination":"battlefield"}]}')).toBeNull()
   })
 })

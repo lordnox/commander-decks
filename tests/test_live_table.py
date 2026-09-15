@@ -414,6 +414,39 @@ class LiveTableEncodeTests(unittest.TestCase):
         self.assertEqual(private["actions"], ["keep", "mulligan"])
         self.assertEqual(public["actions"], [])
 
+    def test_topdeck_decision_stays_on_the_private_seat(self):
+        kwargs = {
+            "replay": FAKE_REPLAY,
+            "talk": "",
+            "waiting": "Private surveil choice",
+            "actions": {"p2": ["topdeck"]},
+            "action_ids": {"p1": 0, "p2": 4, "p3": 0, "p4": 0},
+            "topdeck": {
+                "seat": "p2",
+                "kind": "surveil",
+                "cards": ["Forest"],
+                "destinations": ["top", "graveyard"],
+            },
+        }
+        private = encode_live.build_snapshot(you="p2", public=False, **kwargs)
+        other = encode_live.build_snapshot(you="p3", public=False, **kwargs)
+        public = encode_live.build_snapshot(you=None, public=True, **kwargs)
+        self.assertEqual(
+            private["topdeck"],
+            {
+                "kind": "surveil",
+                "cards": ["Forest"],
+                "destinations": ["top", "graveyard"],
+            },
+        )
+        self.assertNotIn("topdeck", other)
+        self.assertNotIn("topdeck", public)
+        decoded = encode_live.decode_snapshot(
+            encode_live.encode_payload(private, replay=FAKE_REPLAY),
+            replay=FAKE_REPLAY,
+        )
+        self.assertEqual(decoded["topdeck"], private["topdeck"])
+
     def test_event_feed_redacts_other_seats_hidden_information(self):
         replay = json.loads(json.dumps(FAKE_REPLAY))
         replay["events"][0].update(

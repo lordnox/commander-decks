@@ -112,6 +112,12 @@ changed under their standing plan:
 Skip empty bookkeeping (untap with nothing to do, pure phase labels, opponent
 auto-passes with no interaction). Do not spam snapshots.
 
+Top-deck choices are structured UI actions, not plans. Put a machine-readable
+`choice` on the unresolved stack item; the runner privately reads the named
+seat's `_libraries`, shows the cards, validates destinations, and resolves the
+choice without invoking the judge. Empty first main, combat, and second main
+steps offer **Next phase** / **End turn** and advance deterministically.
+
 On the human's main phase, attacker declaration, blocker declaration, or stack
 decision, propose one legal candidate when useful and phrase the pause as
 `Would this line work? ... Confirm or replace it.` A user proposal is analysis,

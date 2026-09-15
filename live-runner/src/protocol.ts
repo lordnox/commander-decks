@@ -32,6 +32,8 @@ export const PLAY_ACTIONS = [
   'pass',
   'keep',
   'mulligan',
+  'topdeck',
+  'advance',
 ] as const
 export type PlayAction = (typeof PLAY_ACTIONS)[number]
 export type SeatActions = Partial<Record<SeatId, PlayAction[]>>
@@ -48,6 +50,14 @@ type InboxPayload =
   | { type: 'pregame'; cards: string[] }
   | { type: 'keep'; cards?: string[]; cheat?: boolean }
   | { type: 'mulligan' }
+  | {
+      type: 'topdeck'
+      choices: Array<{
+        card: string
+        destination: 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile'
+      }>
+    }
+  | { type: 'advance' }
   | { type: 'rules'; text: string }
   | { type: 'talk'; text: string }
 
@@ -130,6 +140,31 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         : null
     case 'mulligan':
       return parsed({ type: 'mulligan' })
+    case 'advance':
+      return parsed({ type: 'advance' })
+    case 'topdeck': {
+      if (
+        !Array.isArray(message.choices)
+        || !message.choices.every(
+          (choice) =>
+            choice
+            && typeof choice === 'object'
+            && typeof choice.card === 'string'
+            && ['top', 'bottom', 'graveyard', 'hand', 'exile'].includes(
+              choice.destination,
+            ),
+        )
+      ) {
+        return null
+      }
+      return parsed({
+        type: 'topdeck',
+        choices: message.choices.map(({ card, destination }) => ({
+          card,
+          destination,
+        })),
+      })
+    }
     case 'keep': {
       const cards = Array.isArray(message.cards)
         ? message.cards

@@ -137,7 +137,13 @@ Do exactly one host step:
   Hard stops include surveil, scry, explore, connive, clash, impulse, mill-to-
   hand, and "look at the top". Example: playing Shadowy Backstreet — append the
   land entering, then STOP and ask which card goes to the graveyard before
-  finishing the surveil.
+  finishing the surveil. For every unresolved private top-deck choice, put a
+  machine-readable \`choice\` on the top stack item:
+  \`{"kind":"surveil","count":1,"destinations":["top","graveyard"]}\`.
+  Use destinations from \`top\`, \`bottom\`, \`graveyard\`, \`hand\`, and
+  \`exile\`. Add \`requirements\` when the effect constrains a destination,
+  e.g. \`{"hand":{"min":1,"max":1}}\`. Do not read or name the hidden cards;
+  the deterministic host reads its private library and presents the dialog.
 - Never ask for a turn plan before that seat has drawn for the turn. Commander
   multiplayer: the first player draws. If the replay is still in setup with no
   draw, check the human hand for beginning-of-game cards (Leyline, Chancellor,
