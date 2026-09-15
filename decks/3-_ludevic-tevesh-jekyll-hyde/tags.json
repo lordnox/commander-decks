@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "title": "Ludevic & Tevesh — Jekyll/Hyde",
+  "summary": "A political draw bargain hides distributed draw punishment until one wheel reveals the table-wide kill.",
+  "tags": [
+    {
+      "name": "group slug",
+      "score": 5,
+      "reason": "Underworld Dreams, Fate Unraveler, Razorkin Needlehead, Kederekt Parasite, Nekusar, Scrawling Crawler, and Spiteful Visions turn the offered cards into the primary clock."
+    },
+    {
+      "name": "draw",
+      "score": 4,
+      "reason": "Ludevic, Howling Mine, Font of Mythos, Kami, Dictate, Temple Bell, Seizan, and Forced Fruition deliberately expand the table's access to cards."
+    },
+    {
+      "name": "wheels",
+      "score": 4,
+      "reason": "Windfall, Magus of the Wheel, Jace's Archivist, Dark Deal, Burning Inquiry, Wheel and Deal, Molten Psyche, Urza's Guilt, and Khorvath's Fury convert established punishment into closing bursts."
+    },
+    {
+      "name": "discard",
+      "score": 3,
+      "reason": "Wheels plus Liliana's Caress, Glint-Horn Buccaneer, Waste Not, Bone Miser, and Sangromancer form a complete secondary conversion package."
+    },
+    {
+      "name": "group hug",
+      "score": 3,
+      "reason": "The offers are genuinely symmetric and Ludevic rewards opponents for damaging one another, even though the bargain eventually turns hostile."
+    },
+    {
+      "name": "lifedrain",
+      "score": 3,
+      "reason": "Repeated draw and discard triggers reduce every opposing life total while Sangromancer repays the deck's own life costs."
+    },
+    {
+      "name": "politics",
+      "score": 3,
+      "reason": "Ludevic, Temple Bell, Red Death, Khorvath's Fury, and Cerebral Vortex let the pilot choose who receives cards and where combat goes."
+    }
+  ]
+}

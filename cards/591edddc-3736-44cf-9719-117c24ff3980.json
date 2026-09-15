@@ -1,0 +1,134 @@
+{
+  "artist": "Igor Grechanyi",
+  "artist_ids": [
+    "b7937915-08e0-41c5-a025-2f08619731fa"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 652426,
+  "cmc": 4.0,
+  "collector_number": "37",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 5520,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "As the Adversary's influence grew, the conflicts between families escalated.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b4ed0e64-c7d8-49a2-9d00-21076484da0a",
+  "illustration_id": "ff879b3e-3b91-4d0d-923c-1a185643b5d1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:16:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/4/b4ed0e64-c7d8-49a2-9d00-21076484da0a.webp?1783923366",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/4/b4ed0e64-c7d8-49a2-9d00-21076484da0a.jpg?1783923366",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/4/b4ed0e64-c7d8-49a2-9d00-21076484da0a.jpg?1783923366",
+    "crop": "https://cards.scryfall.io/crop/front/b/4/b4ed0e64-c7d8-49a2-9d00-21076484da0a.webp?1783923366",
+    "display": "https://cards.scryfall.io/display/front/b/4/b4ed0e64-c7d8-49a2-9d00-21076484da0a.webp?1783923366",
+    "grid": "https://cards.scryfall.io/grid/front/b/4/b4ed0e64-c7d8-49a2-9d00-21076484da0a.webp?1783923366",
+    "large": "https://cards.scryfall.io/large/front/b/4/b4ed0e64-c7d8-49a2-9d00-21076484da0a.jpg?1783923366",
+    "normal": "https://cards.scryfall.io/normal/front/b/4/b4ed0e64-c7d8-49a2-9d00-21076484da0a.jpg?1783923366",
+    "png": "https://cards.scryfall.io/png/front/b/4/b4ed0e64-c7d8-49a2-9d00-21076484da0a.png?1783923366",
+    "small": "https://cards.scryfall.io/small/front/b/4/b4ed0e64-c7d8-49a2-9d00-21076484da0a.jpg?1783923366",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/4/b4ed0e64-c7d8-49a2-9d00-21076484da0a.webp?1783923366"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "multiverse_ids": [
+    598151
+  ],
+  "name": "Make an Example",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "591edddc-3736-44cf-9719-117c24ff3980",
+  "oracle_text": "Each opponent separates the creatures they control into two piles. For each opponent, you choose one of their piles. Each opponent sacrifices the creatures in their chosen pile. (Piles can be empty.)",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2022-04-18",
+    "source": "Wargamer",
+    "source_uri": "https://www.wargamer.com/magic-the-gathering/streets-of-new-capenna-commander-deck-maestros-massacre-reveal"
+  },
+  "prices": {
+    "eur": "10.64",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "9.68",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A591edddc-3736-44cf-9719-117c24ff3980&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Make+an+Example&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=652426&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F269234%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Make+an+Example",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=598151&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMake%2Ban%2BExample",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMake%2Ban%2BExample"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b4ed0e64-c7d8-49a2-9d00-21076484da0a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ncc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ncc/37/make-an-example?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ncc",
+  "set_id": "c51de34b-d4d6-4179-a432-573744ded119",
+  "set_name": "New Capenna Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ancc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c51de34b-d4d6-4179-a432-573744ded119",
+  "story_spotlight": false,
+  "tcgplayer_id": 269234,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/b4ed0e64-c7d8-49a2-9d00-21076484da0a",
+  "variation": false
+}

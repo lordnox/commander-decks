@@ -11001,8 +11001,287 @@
         "land",
         "ramp"
       ]
+    },
+    "a7c6f07c-3cc3-4271-bbc7-9f7d5bbed3e8": {
+      "name": "Wheel and Deal",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "0d3bebc6-662a-4cd4-ad1e-aeed0c5e04f6": {
+      "name": "Stormfist Crusader",
+      "categories": [
+        "other"
+      ]
+    },
+    "af98156b-3064-4f16-940e-10039241f2b0": {
+      "name": "Burning Inquiry",
+      "categories": [
+        "discard"
+      ]
+    },
+    "c527eb80-ccac-40b8-8377-c31121613128": {
+      "name": "Dark Deal",
+      "categories": [
+        "discard"
+      ]
+    },
+    "728d2e30-2f36-4054-81db-29b01e376a82": {
+      "name": "Sickening Dreams",
+      "categories": [
+        "discard"
+      ]
+    },
+    "922cf963-2b1b-43ad-819e-6e49133e6aae": {
+      "name": "Spiteful Visions",
+      "categories": [
+        "other"
+      ]
+    },
+    "e580a229-e800-4746-9d37-c32fcef8de28": {
+      "name": "Blightstep Pathway // Searstep Pathway",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "510a6ac5-f098-4145-ac07-771b1b6f7cdf": {
+      "name": "Riverpyre Verge",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "88cd12e5-ca89-4176-96fd-320fe2ccd087": {
+      "name": "Ob Nixilis, the Hate-Twisted",
+      "categories": [
+        "removal"
+      ]
+    },
+    "38cfe4a0-6ead-435b-9f86-928205c0a52c": {
+      "name": "Kami of the Crescent Moon",
+      "categories": [
+        "other"
+      ]
+    },
+    "64ad5657-78e9-4f34-8877-18c4f51fff9a": {
+      "name": "Glint-Horn Buccaneer",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "7d66f67d-3148-4636-ac5a-2cf8a51d5e50": {
+      "name": "Fate Unraveler",
+      "categories": [
+        "other"
+      ]
+    },
+    "79a1783f-ea7e-4cdf-95f5-53b383d38c66": {
+      "name": "Tevesh Szat, Doom of Fools",
+      "categories": [
+        "card-draw",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "b6c8ac69-daa7-4e2e-a1d9-439731a81870": {
+      "name": "Jace's Archivist",
+      "categories": [
+        "discard"
+      ]
+    },
+    "c3575cf9-847a-472c-94b3-ef70712c297d": {
+      "name": "Khorvath's Fury",
+      "categories": [
+        "discard"
+      ]
+    },
+    "3a940dfa-a026-4969-8981-ef90cdfbe9ef": {
+      "name": "Ornithopter of Paradise",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "55082cd0-a33c-4f1d-9f46-9578f63e6bb6": {
+      "name": "Phyrexian Tyranny",
+      "categories": [
+        "other"
+      ]
+    },
+    "5958e9e3-9457-48e1-afc1-a5c89e3b0ed0": {
+      "name": "Struggle for Project Purity",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "615927c2-3fb0-4e64-a1a7-55fb56de1423": {
+      "name": "Soul Shatter",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "00fdcc19-88ed-46c3-91f0-095806228105": {
+      "name": "Waste Not",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "token-production",
+        "discard"
+      ]
+    },
+    "647ca69e-cc01-4b2b-b376-bee2a98331e8": {
+      "name": "Phyrexian Reclamation",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "70763549-4b4e-4cb8-8c02-0639ba18bb1a": {
+      "name": "Fevered Visions",
+      "categories": [
+        "other"
+      ]
+    },
+    "6f98c1eb-0f52-4d21-a266-e8d52f98c1b3": {
+      "name": "Molten Psyche",
+      "categories": [
+        "other"
+      ]
+    },
+    "920445ab-0ac2-4de7-bc1c-f5e58eb4424c": {
+      "name": "Sangromancer",
+      "categories": [
+        "discard"
+      ]
+    },
+    "591edddc-3736-44cf-9719-117c24ff3980": {
+      "name": "Make an Example",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "be74a4c1-d569-4203-b28a-3e2ac6a82990": {
+      "name": "Dictate of Kruphix",
+      "categories": [
+        "other"
+      ]
+    },
+    "448b27a5-7c0c-4ab6-bddf-bd62b920aacc": {
+      "name": "Forced Fruition",
+      "categories": [
+        "other"
+      ]
+    },
+    "6d42dff5-97ec-4768-b112-84a3584d0b87": {
+      "name": "Vision Skeins",
+      "categories": [
+        "other"
+      ]
+    },
+    "967cf377-ae26-464d-85ac-8448b5a911f7": {
+      "name": "Underworld Dreams",
+      "categories": [
+        "other"
+      ]
+    },
+    "c68b4003-e539-4b88-acc9-e95c100173c0": {
+      "name": "Cerebral Vortex",
+      "categories": [
+        "other"
+      ]
+    },
+    "3984e5f6-8643-4104-aa9c-18d474e07801": {
+      "name": "Bone Miser",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "token-production",
+        "discard"
+      ]
+    },
+    "df13dafb-f82e-42ac-b6dc-efe82af5db58": {
+      "name": "Magus of the Wheel",
+      "categories": [
+        "sacrifice",
+        "discard"
+      ]
+    },
+    "3b9d587c-39d2-44a2-9802-e4217ed389c0": {
+      "name": "Ludevic, Necro-Alchemist",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "8a5e3c8e-8e22-49b9-8ee5-4a36361f0da6": {
+      "name": "Nekusar, the Mindrazer",
+      "categories": [
+        "other"
+      ]
+    },
+    "04d0d20f-720e-4cb6-a3ad-ea2b57bb7efa": {
+      "name": "Seizan, Perverter of Truth",
+      "categories": [
+        "other"
+      ]
+    },
+    "fc7b46af-6c07-455a-99c7-f1bccaa2a5f4": {
+      "name": "Kederekt Parasite",
+      "categories": [
+        "other"
+      ]
+    },
+    "34f34409-326d-4994-a0ea-1a69aa278f03": {
+      "name": "Sheoldred, the Apocalypse",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "7b9fafe7-d26a-4ed5-b4c4-ce13763770b5": {
+      "name": "Geier Reach Sanitarium",
+      "categories": [
+        "land",
+        "ramp",
+        "discard"
+      ]
+    },
+    "9c84c681-40c1-4ff3-86e6-48b4ab7491e5": {
+      "name": "Black Waltz No. 3",
+      "categories": [
+        "other"
+      ]
+    },
+    "025939a0-424a-41bf-8fc9-2ef9ea5485f7": {
+      "name": "Fire Covenant",
+      "categories": [
+        "other"
+      ]
+    },
+    "7194a262-5e7a-4c12-b271-2bc5e0799477": {
+      "name": "Font of Mythos",
+      "categories": [
+        "other"
+      ]
+    },
+    "fc8032e9-c83a-4cf9-92e1-b1d2d9642695": {
+      "name": "Temple Bell",
+      "categories": [
+        "other"
+      ]
+    },
+    "a78f981a-bf8a-42a4-b171-d655cc2cc1a2": {
+      "name": "Razorkin Needlehead",
+      "categories": [
+        "other"
+      ]
+    },
+    "0d40b2c3-9f39-45c6-8b25-12353f300613": {
+      "name": "Red Death, Shipwrecker",
+      "categories": [
+        "ramp"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-09T06:34:35.986848+00:00"
+  "updated_at": "2026-09-15T18:27:45.207636+00:00"
 }
