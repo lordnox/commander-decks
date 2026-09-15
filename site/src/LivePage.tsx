@@ -5,6 +5,7 @@ import {
   useState,
 } from 'react'
 import { CombatOverlay } from './CombatOverlay'
+import { LiveControlsDrawer } from './LiveControlsDrawer'
 import { commanderRules, createClientGame } from '../../rules-engine/src/index'
 import {
   conduitPublicUrl,
@@ -25,6 +26,7 @@ import {
   getLatestSnapshot,
   watchSnapshots,
 } from './liveConduit'
+import { holdMessage, priorityModeMessage } from './liveMessages'
 import type {
   PlayerState,
   ReplayEvent,
@@ -144,8 +146,6 @@ const insertAtCursor = (
 }
 
 /** Headings carry their own weight, so emphasis markers only add noise. */
-const withoutEmphasis = (text: string) => text.replace(/\*\*/g, '')
-
 const JudgeText = ({ text }: { text: string }) => (
   <div className="space-y-3 text-sm leading-6 text-stone-300">
     {text.trim().split(/\n{2,}/).map((paragraph, paragraphIndex) => (
@@ -213,7 +213,10 @@ export const LivePage = () => {
   const [status, setStatus] = useState('')
   const [conduitStatus, setConduitStatus] = useState('')
   const [hydrationStatus, setHydrationStatus] = useState('')
-  const [sentActionId, setSentActionId] = useState<number | null>(null)
+  const [pendingAction, setPendingAction] = useState<{
+    id: number
+    type: InboxType
+  } | null>(null)
   const [openingOpen, setOpeningOpen] = useState(true)
   const planRef = useRef<HTMLTextAreaElement>(null)
 
@@ -357,9 +360,13 @@ export const LivePage = () => {
   }, [plan, snapshot])
 
   useEffect(() => {
-    setSentActionId(null)
+    setPendingAction((current) =>
+      current && current.id === snapshot?.actionId ? current : null)
+  }, [snapshot?.actionId])
+
+  useEffect(() => {
     if (snapshot?.actions?.includes('keep')) setOpeningOpen(true)
-  }, [snapshot?.actionId, snapshot?.actions])
+  }, [snapshot?.actions])
 
   useEffect(() => {
     const onKeyDown = (keyboardEvent: KeyboardEvent) => {
@@ -406,10 +413,9 @@ export const LivePage = () => {
     window.setTimeout(() => setStatus(''), 1800)
   }
 
-  const togglePlan = () => {
-    const next = !hidePlan
-    setHidePlan(next)
-    if (next) {
+  const setPlanVisible = (visible: boolean) => {
+    setHidePlan(!visible)
+    if (!visible) {
       setPreview(null)
       setHover(null)
     }
@@ -447,7 +453,7 @@ export const LivePage = () => {
       cheat?: boolean
       choices?: Array<{
         card: string
-        destination: 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile'
+        destination: 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield'
       }>
       always?: boolean
       until?: 'my-turn' | 'off'
@@ -475,7 +481,11 @@ export const LivePage = () => {
       flash('That action is not available now')
       return
     }
-    if (playAction && sentActionId === snapshot?.actionId) return
+    if (playAction && pendingAction?.id === snapshot?.actionId) return
+    const pending = playAction && snapshot?.actionId !== undefined
+      ? { id: snapshot.actionId, type }
+      : null
+    if (pending) setPendingAction(pending)
     try {
       let message: object
       const action = playAction ? { actionId: snapshot?.actionId } : {}
@@ -499,7 +509,9 @@ export const LivePage = () => {
       } else if (type === 'advance') {
         message = { type: 'advance', ...action }
       } else if (type === 'priority-mode') {
-        message = { type: 'priority-mode', always: extra.always === true }
+        message = priorityModeMessage(extra.always === true)
+      } else if (type === 'hold') {
+        message = holdMessage(extra.until ?? 'off')
       } else if (type === 'join') {
         const separator = plan.includes('|') ? '|' : '\n'
         const split = plan.indexOf(separator)
@@ -521,9 +533,6 @@ export const LivePage = () => {
         request.inbox,
         JSON.stringify(message),
       )
-      if (playAction && snapshot?.actionId !== undefined) {
-        setSentActionId(snapshot.actionId)
-      }
       flash(
         type === 'pass'
           ? 'Passed'
@@ -544,6 +553,7 @@ export const LivePage = () => {
                 : 'Message sent',
       )
     } catch (reason: unknown) {
+      if (pending) setPendingAction(null)
       flash(reason instanceof Error ? reason.message : 'Could not send message')
     }
   }
@@ -573,12 +583,13 @@ export const LivePage = () => {
   const activeSeat = boardSeats.find((seat) => seat.id === boardActive)
   const lastEvent = snapshot.events?.at(-1)
   const priorityOpen = lastEvent?.kind === 'priority'
+  const actionPending = pendingAction?.id === snapshot.actionId
   // Priority alone is not a prompt: a seat waiting on the judge holds priority
   // with nothing it may legally send.
   const yourAction = !viewingPast
+    && !actionPending
     && Boolean(snapshot.you && snapshot.youAct && snapshot.actions?.length)
   const canSend = request?.kind === 'conduit' && Boolean(request.inbox)
-  const actionPending = sentActionId === snapshot.actionId
   const canPass = Boolean(snapshot.actions?.includes('pass'))
   const canConfirm = Boolean(snapshot.actions?.includes('confirm'))
   const canPlan = Boolean(snapshot.actions?.includes('plan'))
@@ -591,6 +602,15 @@ export const LivePage = () => {
     : snapshot.phase === 'main2'
       ? 'End turn'
       : 'Next phase'
+  const pendingLabel = pendingAction
+    ? pendingAction.type === 'confirm'
+      ? 'Confirmed. Waiting for the judge to apply the line.'
+      : pendingAction.type === 'pass'
+        ? 'Pass sent. Waiting for the host.'
+        : pendingAction.type === 'advance'
+          ? 'Phase advance sent. Waiting for the host.'
+          : 'Action sent. Waiting for the host.'
+    : null
   const yourHand = orderedSeats.find((seat) => seat.id === snapshot.you)?.hand ?? []
 
   return (
@@ -620,98 +640,27 @@ export const LivePage = () => {
               <p className="text-xs text-orange-200">{conduitStatus}</p>
             )}
           </div>
-          {history.length > 1 && (
-            <div className="flex items-center gap-1">
-              <button
-                type="button"
-                onClick={() => setHistoryIndex(Math.max(0, cursor - 1))}
-                disabled={cursor <= 0}
-                className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold text-stone-300 hover:bg-white/10 disabled:opacity-40"
-              >
-                Previous
-              </button>
-              <span className="px-1 text-xs text-stone-500">
-                {cursor + 1}/{history.length}
-              </span>
-              <button
-                type="button"
-                onClick={() => setHistoryIndex(Math.min(history.length - 1, cursor + 1))}
-                disabled={cursor >= history.length - 1}
-                className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold text-stone-300 hover:bg-white/10 disabled:opacity-40"
-              >
-                Next
-              </button>
-            </div>
-          )}
-          {snapshot.events && snapshot.events.length > 0 && (
-            <button
-              type="button"
-              onClick={() => setLogOpen(true)}
-              aria-expanded={logOpen}
-              aria-controls="game-log-drawer"
-              className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold text-stone-300 hover:bg-white/10 hover:text-white"
-            >
-              Game log
-            </button>
-          )}
-          <button
-            type="button"
-            onClick={togglePlan}
-            aria-pressed={hidePlan}
-            className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold text-stone-300 hover:bg-white/10"
-          >
-            {hidePlan ? 'Show plan' : 'Hide plan'}
-          </button>
-          {canSend && snapshot.you && (
-            <button
-              type="button"
-              onClick={() => void sendInbox('hold', {
-                until: snapshot.holding ? 'off' : 'my-turn',
-              })}
-              aria-pressed={Boolean(snapshot.holding)}
-              className={`rounded-xl px-3 py-2 text-sm font-semibold ${
-                snapshot.holding
-                  ? 'bg-sky-300 text-ink-950'
-                  : 'bg-white/5 text-stone-300 hover:bg-white/10'
-              }`}
-              title="Pass every priority window until your own turn, except when a spell or ability is on the stack"
-            >
-              {snapshot.holding ? 'Holding until your turn' : 'Pass until my turn'}
-            </button>
-          )}
-          {canSend && snapshot.you && (
-            <button
-              type="button"
-              onClick={() => void sendInbox('priority-mode', {
-                always: !snapshot.alwaysStopOnPriority,
-              })}
-              aria-pressed={Boolean(snapshot.alwaysStopOnPriority)}
-              className={`rounded-xl px-3 py-2 text-sm font-semibold ${
-                snapshot.alwaysStopOnPriority
-                  ? 'bg-orange-300 text-ink-950'
-                  : 'bg-white/5 text-stone-300 hover:bg-white/10'
-              }`}
-              title="Keep every priority window, including politics-only stops"
-            >
-              Always stop on priority
-            </button>
-          )}
-          <button
-            type="button"
-            onClick={() => void copyPublicLink()}
-            className="rounded-xl bg-moss-300 px-3 py-2 text-sm font-black text-ink-950 hover:bg-gold-300"
-          >
-            Copy public link
-          </button>
-          {canKeep && !openingOpen && (
-            <button
-              type="button"
-              onClick={() => setOpeningOpen(true)}
-              className="rounded-xl bg-gold-300 px-3 py-2 text-sm font-black text-ink-950 hover:bg-gold-200"
-            >
-              Opening hand
-            </button>
-          )}
+          <LiveControlsDrawer
+            historyCount={history.length}
+            historyCursor={cursor}
+            hasGameLog={Boolean(snapshot.events?.length)}
+            planVisible={!hidePlan}
+            holding={Boolean(snapshot.holding)}
+            alwaysStop={Boolean(snapshot.alwaysStopOnPriority)}
+            canSend={canSend && Boolean(snapshot.you)}
+            pending={actionPending}
+            canOpenHand={canKeep && !openingOpen}
+            onPrevious={() => setHistoryIndex(Math.max(0, cursor - 1))}
+            onNext={() => setHistoryIndex(Math.min(history.length - 1, cursor + 1))}
+            onGameLog={() => setLogOpen(true)}
+            onPlanVisibleChange={setPlanVisible}
+            onHoldingChange={(holding) => void sendInbox('hold', {
+              until: holding ? 'my-turn' : 'off',
+            })}
+            onAlwaysStopChange={(always) => void sendInbox('priority-mode', { always })}
+            onCopyPublicLink={() => void copyPublicLink()}
+            onOpenHand={() => setOpeningOpen(true)}
+          />
         </div>
       </header>
 
@@ -848,7 +797,7 @@ export const LivePage = () => {
             </p>
             <div className="mt-2">
               <JudgeText
-                text={snapshot.waiting || 'The judge is advancing the game.'}
+                text={pendingLabel || snapshot.waiting || 'The judge is advancing the game.'}
               />
             </div>
           </div>
@@ -904,11 +853,6 @@ export const LivePage = () => {
               </>
             )}
           </div>
-          {snapshot.waiting && (
-            <h2 className="mt-3 font-display text-2xl leading-tight text-stone-50 sm:text-3xl">
-              {withoutEmphasis(snapshot.waiting)}
-            </h2>
-          )}
           {snapshot.talk && (
             <div className="mt-4 border-l-2 border-moss-300 pl-4">
               <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-moss-200">
@@ -1015,36 +959,6 @@ export const LivePage = () => {
                 >
                   Copy text
                 </button>
-                {canPass && (
-                  <button
-                    type="button"
-                    onClick={() => void sendInbox('pass')}
-                    disabled={!canSend || actionPending}
-                    className="rounded-xl bg-gold-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-200 disabled:cursor-wait disabled:opacity-40"
-                  >
-                    {actionPending ? 'Sent…' : 'Pass / no action'}
-                  </button>
-                )}
-                {canConfirm && (
-                  <button
-                    type="button"
-                    onClick={() => void sendInbox('confirm')}
-                    disabled={!canSend || actionPending}
-                    className="rounded-xl bg-white/10 px-3 py-1.5 text-sm font-bold text-stone-100 hover:bg-white/15 disabled:cursor-wait disabled:opacity-40"
-                  >
-                    {actionPending ? 'Sent…' : 'Confirm plan'}
-                  </button>
-                )}
-                {canAdvance && (
-                  <button
-                    type="button"
-                    onClick={() => void sendInbox('advance')}
-                    disabled={!canSend || actionPending}
-                    className="rounded-xl bg-gold-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-200 disabled:cursor-wait disabled:opacity-40"
-                  >
-                    {actionPending ? 'Advancing…' : advanceLabel}
-                  </button>
-                )}
                 <select
                   value={inboxType}
                   onChange={(event) => setInboxType(event.target.value as InboxType)}
