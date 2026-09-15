@@ -25,7 +25,14 @@ export type LobbyPhase =
 export type BinPair = { read: string; write: string }
 export type Invite = { read: string; mailbox?: string }
 
-export const PLAY_ACTIONS = ['plan', 'confirm', 'replace', 'pass'] as const
+export const PLAY_ACTIONS = [
+  'plan',
+  'confirm',
+  'replace',
+  'pass',
+  'keep',
+  'mulligan',
+] as const
 export type PlayAction = (typeof PLAY_ACTIONS)[number]
 export type SeatActions = Partial<Record<SeatId, PlayAction[]>>
 export type SeatActionIds = Record<SeatId, number>
@@ -39,6 +46,8 @@ type InboxPayload =
   | { type: 'ready' }
   | { type: 'swap'; with: SeatId }
   | { type: 'pregame'; cards: string[] }
+  | { type: 'keep'; cards?: string[]; cheat?: boolean }
+  | { type: 'mulligan' }
   | { type: 'rules'; text: string }
   | { type: 'talk'; text: string }
 
@@ -77,7 +86,14 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     return null
   }
   if (!value || typeof value !== 'object' || !('type' in value)) return null
-  const message = value as InboxMessage & { text?: string; name?: string; deck?: string; with?: string; cards?: unknown }
+  const message = value as InboxMessage & {
+    text?: string
+    name?: string
+    deck?: string
+    with?: string
+    cards?: unknown
+    cheat?: unknown
+  }
   const actionId = typeof message.actionId === 'number' && Number.isSafeInteger(message.actionId)
     ? message.actionId
     : undefined
@@ -112,6 +128,19 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       return Array.isArray(message.cards) && message.cards.every((card) => typeof card === 'string')
         ? { type: 'pregame', cards: message.cards }
         : null
+    case 'mulligan':
+      return parsed({ type: 'mulligan' })
+    case 'keep': {
+      const cards = Array.isArray(message.cards)
+        ? message.cards
+        : undefined
+      if (cards && !cards.every((card) => typeof card === 'string')) return null
+      return parsed({
+        type: 'keep',
+        ...(cards ? { cards } : {}),
+        ...(message.cheat === true ? { cheat: true } : {}),
+      })
+    }
     case 'rules':
     case 'talk':
       return typeof message.text === 'string' ? { type: message.type, text: message.text } : null

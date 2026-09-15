@@ -394,6 +394,26 @@ class LiveTableEncodeTests(unittest.TestCase):
         self.assertEqual(private["phase"], "main1")
         self.assertEqual(private["active"], "p2")
 
+    def test_opening_metadata_stays_on_the_private_seat(self):
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        replay["seats"][0]["mulligans"] = 2
+        kwargs = {
+            "replay": replay,
+            "talk": "",
+            "waiting": "Keep or mulligan",
+            "actions": {"p1": ["keep", "mulligan"]},
+            "action_ids": {"p1": 1, "p2": 0, "p3": 0, "p4": 0},
+        }
+        private = encode_live.build_snapshot(you="p1", public=False, **kwargs)
+        public = encode_live.build_snapshot(you=None, public=True, **kwargs)
+        self.assertEqual(
+            private["opening"],
+            {"mulligans": 2, "bottomRequired": 1},
+        )
+        self.assertNotIn("opening", public)
+        self.assertEqual(private["actions"], ["keep", "mulligan"])
+        self.assertEqual(public["actions"], [])
+
     def test_event_feed_redacts_other_seats_hidden_information(self):
         replay = json.loads(json.dumps(FAKE_REPLAY))
         replay["events"][0].update(

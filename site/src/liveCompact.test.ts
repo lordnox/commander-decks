@@ -154,4 +154,13 @@ describe('live compact v2', () => {
     expect(expanded.actions).toEqual(['confirm', 'replace'])
     expect(expanded.actionId).toBe(7)
   })
+
+  test('private opening keep/mulligan bits and bottom count survive the wire', () => {
+    const original = snapshot()
+    original.actions = ['keep', 'mulligan']
+    original.opening = { mulligans: 2, bottomRequired: 1 }
+    const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)
+    expect(expanded.actions).toEqual(['keep', 'mulligan'])
+    expect(expanded.opening).toEqual({ mulligans: 2, bottomRequired: 1 })
+  })
 })

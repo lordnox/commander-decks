@@ -57,5 +57,15 @@ describe('inbox', () => {
       type: 'pregame',
       cards: ['Leyline of Sanctity'],
     })
+    expect(parseInbox('{"type":"mulligan","actionId":2}')).toEqual({
+      type: 'mulligan',
+      actionId: 2,
+    })
+    expect(parseInbox('{"type":"keep","cards":["Swamp"],"cheat":true,"actionId":3}')).toEqual({
+      type: 'keep',
+      cards: ['Swamp'],
+      cheat: true,
+      actionId: 3,
+    })
   })
 })

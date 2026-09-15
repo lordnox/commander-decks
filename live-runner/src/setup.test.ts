@@ -64,6 +64,7 @@ describe('live setup', () => {
       loaded.replay,
       loaded.seats,
       true,
+      'p3',
     )
 
     expect(session.phase).toBe('play')
@@ -71,6 +72,35 @@ describe('live setup', () => {
     expect(session.lobby?.active).toBe('p3')
     expect(session.lobby?.occupants.p1?.name).toBe('Human')
     expect(session.lobby?.actions).toEqual({ p3: ['plan'] })
+  })
+
+  test('opens a dealt setup replay on keep or mulligan', () => {
+    const root = fixture()
+    writeFileSync(
+      join(root, 'table-games', 'pod.json'),
+      JSON.stringify({
+        ...replay,
+        events: [{
+          kind: 'keep',
+          seat: 'p1',
+          state: { active: 'p1', phase: 'setup' },
+        }],
+      }),
+    )
+    const loaded = loadReplaySeats('pod', root)
+    const session = createPlaySession(
+      'pod',
+      root,
+      'https://conduit.test',
+      bins,
+      loaded.replay,
+      loaded.seats,
+      true,
+      'p1',
+    )
+    expect(session.lobby?.opening).toEqual({ seat: 'p1' })
+    expect(session.lobby?.actions).toEqual({ p1: ['keep', 'mulligan'] })
+    expect(session.lobby?.waiting).toContain('keep or mulligan')
   })
 
   test('prints a private human link and credential-free public link', () => {

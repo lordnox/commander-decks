@@ -414,7 +414,14 @@ def compact_snapshot(
         ]
     if snapshot.get("youAct"):
         wire["u"] = 1
-    action_bits = {"plan": 1, "confirm": 2, "replace": 4, "pass": 8}
+    action_bits = {
+        "plan": 1,
+        "confirm": 2,
+        "replace": 4,
+        "pass": 8,
+        "keep": 16,
+        "mulligan": 32,
+    }
     actions = snapshot.get("actions") or []
     mask = sum(action_bits.get(action, 0) for action in actions)
     if mask:
@@ -422,6 +429,12 @@ def compact_snapshot(
     action_id = snapshot.get("actionId")
     if isinstance(action_id, int):
         wire["i"] = action_id
+    opening = snapshot.get("opening") or {}
+    if isinstance(opening, dict) and "mulligans" in opening:
+        wire["f"] = [
+            int(opening.get("mulligans") or 0),
+            int(opening.get("bottomRequired") or 0),
+        ]
     events = snapshot.get("events") or []
     if events:
         wire["e"] = [
@@ -715,6 +728,8 @@ def expand_snapshot(wire: dict, indexes: dict[str, list[dict[str, Any]]] | None 
                 "confirm": 2,
                 "replace": 4,
                 "pass": 8,
+                "keep": 16,
+                "mulligan": 32,
             }.items()
             if (wire.get("r") or 0) & bit
         ],
@@ -752,6 +767,12 @@ def expand_snapshot(wire: dict, indexes: dict[str, list[dict[str, Any]]] | None 
         "catalog": catalog_from_indexes(slugs, indexes or {}, wire.get("g")),
         "decks": [slug for slug in slugs if slug],
     }
+    packed_opening = wire.get("f")
+    if isinstance(packed_opening, list) and len(packed_opening) >= 2:
+        snapshot["opening"] = {
+            "mulligans": packed_opening[0],
+            "bottomRequired": packed_opening[1],
+        }
     if wire.get("m"):
         snapshot["combat"] = _unpack_combat(wire["m"], **lookup)
     if tokens:

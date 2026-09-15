@@ -36,6 +36,7 @@ export type LiveWireV2 = {
   e?: Array<[number, number, number, number, string, string]>
   s?: unknown[]
   m?: Record<string, unknown>
+  f?: [number, number]
 }
 
 export const SEAT_IDS = ['p1', 'p2', 'p3', 'p4'] as const
@@ -73,6 +74,8 @@ const ACTION_BITS = {
   confirm: 2,
   replace: 4,
   pass: 8,
+  keep: 16,
+  mulligan: 32,
 } as const
 
 const normalize = (name: string) => name.toLowerCase().split(/\s+/).join(' ')
@@ -316,6 +319,9 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
   )
   if (actionMask) wire.r = actionMask
   if (snapshot.actionId !== undefined) wire.i = snapshot.actionId
+  if (snapshot.opening) {
+    wire.f = [snapshot.opening.mulligans, snapshot.opening.bottomRequired]
+  }
   if (snapshot.events?.length) {
     wire.e = snapshot.events.map((event) => [
       event.id,
@@ -481,6 +487,9 @@ export const expandLiveWire = (
       .filter(([, bit]) => ((wire.r ?? 0) & bit) !== 0)
       .map(([action]) => action as keyof typeof ACTION_BITS),
     actionId: wire.i,
+    opening: Array.isArray(wire.f)
+      ? { mulligans: wire.f[0] ?? 0, bottomRequired: wire.f[1] ?? 0 }
+      : undefined,
     events: (wire.e ?? []).map((event) => ({
       id: event[0],
       turn: event[1],

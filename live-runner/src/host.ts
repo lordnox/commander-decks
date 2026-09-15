@@ -20,12 +20,15 @@ import {
   type LobbyState,
 } from './lobby'
 import { logLine } from './log'
+import { readFileSync } from 'node:fs'
+import { applyOpeningMessage, isOpeningFrame } from './opening'
 import { publishReplay } from './publish'
 import {
   formatInvite,
   inboxLabel,
   pagesLiveUrl,
   parseInbox,
+  PLAY_ACTIONS,
   SEAT_IDS,
   type InboxMessage,
   type PlayAction,
@@ -40,6 +43,7 @@ import {
   loadKeys,
   loadSession,
   repoRoot,
+  replayPath,
   saveKeys,
   saveSession,
   type HostSession,
@@ -132,6 +136,21 @@ export const runHost = async (options: {
   ) {
     state.actions = replayActions(root, slug, state)
   }
+  if (state.phase === 'play' && hasReplay(slug, root)) {
+    const replay = JSON.parse(readFileSync(replayPath(slug, root), 'utf8')) as {
+      events?: Array<{ state?: { active?: SeatId; phase?: string }; kind?: string; seat?: string }>
+    }
+    const openingSeat = state.opening?.seat
+      ?? SEAT_IDS.find((seat) => isOpeningFrame(replay, seat) && seat === state.firstPlayer)
+    if (openingSeat && isOpeningFrame(replay, openingSeat)) {
+      const name = state.occupants[openingSeat]?.name ?? openingSeat
+      state.opening = { seat: openingSeat }
+      state.active = openingSeat
+      state.actions = { [openingSeat]: ['keep', 'mulligan'] }
+      state.waiting = `${name}: keep or mulligan.`
+      state.judge = 'Opening hands are dealt.'
+    }
+  }
   if (savedHost) {
     logLine(logFile, `resumed phase ${state.phase}`)
   }
@@ -173,9 +192,7 @@ export const runHost = async (options: {
     generation: number,
     message: InboxMessage,
   ) => {
-    const playAction = (
-      ['plan', 'confirm', 'replace', 'pass'] as PlayAction[]
-    ).includes(message.type as PlayAction)
+    const playAction = PLAY_ACTIONS.includes(message.type as PlayAction)
     if (state.phase === 'play' && playAction) {
       if (!acceptsPlayAction(state, seat, message)) {
         logLine(
@@ -194,6 +211,18 @@ export const runHost = async (options: {
     const beforeActions = structuredClone(state.actions)
     const beforeWaiting = state.waiting
     applyInbox(state, seat, message)
+    if (message.type === 'keep' || message.type === 'mulligan') {
+      try {
+        applyOpeningMessage(root, slug, state, seat, message)
+      } catch (reason) {
+        const error = reason instanceof Error ? reason.message : String(reason)
+        logLine(logFile, `${seat} opening ${message.type} rejected: ${error}`)
+        state.privateWaiting = { [seat]: error }
+        state.waiting = `${state.occupants[seat]?.name ?? seat}: keep or mulligan.`
+        state.judge = `${state.occupants[seat]?.name ?? seat} still choosing an opening hand.`
+        state.actions = { [seat]: ['keep', 'mulligan'] }
+      }
+    } else {
     const privateExchange = ['plan', 'replace', 'confirm', 'rules'].includes(
       message.type,
     )
@@ -295,6 +324,7 @@ export const runHost = async (options: {
         state.privateWaiting = {}
         state.waiting = 'Host needs attention. Do not send another game action yet.'
       }
+    }
     }
     if (playAction) {
       for (const actionSeat of SEAT_IDS) {

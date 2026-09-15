@@ -105,8 +105,9 @@ Battlefield flags: tapped `1`, token `2`, commander `4`. `extra` holds `p` /
 | `j` | Judge note for this bin: full analysis only in its originating private seat bin; generic status everywhere else |
 | `jh` | Up to eight private judge-history rows `[id, type, summary]`; omit outside the originating seat bin |
 | `u` | `1` when the prompt is addressed to this viewer; omit otherwise |
-| `r` | Allowed action bitmask: plan `1`, confirm `2`, replace `4`, pass `8` |
+| `r` | Allowed action bitmask: plan `1`, confirm `2`, replace `4`, pass `8`, keep `16`, mulligan `32` |
 | `i` | Per-seat action ID; play messages must echo it |
+| `f` | Private opening-hand pair `[mulligans, bottomRequired]`; omit on public bins |
 | `t` | Turn number |
 | `p` | Phase index |
 | `a` | Active seat `0`–`3` |
@@ -142,6 +143,7 @@ this object.
 | `youAct` | Whether the prompt is addressed to this viewer |
 | `actions` | Play actions currently accepted from this viewer |
 | `actionId` | Per-seat ID echoed by the next play action |
+| `opening` | Private `{mulligans, bottomRequired}` while keep/mulligan is offered |
 | `events` | Up to 20 recent redacted event summaries for the viewer timeline |
 | `turn` | Turn number |
 | `phase` | Same strings as replay: `setup`, `untap`, `upkeep`, `draw`, `main1`, `combat`, `main2`, `end`, `priority` |

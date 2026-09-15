@@ -577,6 +577,12 @@ def build_snapshot(
         "stack": list(state.get("stack") or []),
         "seats": seats,
     }
+    if viewer and {"keep", "mulligan"} & set(viewer_actions):
+        mulligans = int((seats_meta.get(viewer) or {}).get("mulligans") or 0)
+        snapshot["opening"] = {
+            "mulligans": mulligans,
+            "bottomRequired": max(0, mulligans - 1),
+        }
 
     combat = last.get("combat")
     if combat is None and isinstance(state.get("combat"), dict):

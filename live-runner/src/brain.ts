@@ -125,13 +125,23 @@ The newest event to process is seat ${seat}, conduit generation ${generation}:
 ${JSON.stringify(message)}
 
 Do exactly one host step:
+- keep/mulligan: the deterministic host already applied it. Do not run.
 - plan/replace: check legality, mana, timing, targets, triggers, combat math,
   visible responses, and politics. Do not execute it. Ask for confirmation or
   a replacement.
 - confirm: execute the latest checked standing plan for this seat, then pause.
   Walk the turn one step at a time and append an event for every step you
   enter, including the empty ones (\`Upkeep — no triggers.\`), each on its own
-  phase. Stop at the next priority window or when information changes.
+  phase. Execute one game action at a time. Stop at the next priority window,
+  when information changes, or after a card that asks a hidden-zone choice.
+  Hard stops include surveil, scry, explore, connive, clash, impulse, mill-to-
+  hand, and "look at the top". Example: playing Shadowy Backstreet — append the
+  land entering, then STOP and ask which card goes to the graveyard before
+  finishing the surveil.
+- Never ask for a turn plan before that seat has drawn for the turn. Commander
+  multiplayer: the first player draws. If the replay is still in setup with no
+  draw, check the human hand for beginning-of-game cards (Leyline, Chancellor,
+  Gemstone Caverns, …). Pause there if any exist; otherwise draw, then ask.
 - a priority window is an event with kind "priority" in phase "priority" that
   names the seats who may act and how (\`plan\` to respond, \`pass\` for no action).
   List those seats on the event as "seats": ["p2","p3"] so each board can tell
