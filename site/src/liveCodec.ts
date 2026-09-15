@@ -88,6 +88,7 @@ export type LiveSnapshot = {
   actionId?: number
   opening?: LiveOpening
   topdeck?: LiveTopdeck
+  alwaysStopOnPriority?: boolean
   events?: LiveEvent[]
   turn: number
   phase: string
@@ -415,6 +416,7 @@ export const encodePublicLivePayload = async (snapshot: LiveSnapshot) => {
   const {
     opening: _opening,
     topdeck: _topdeck,
+    alwaysStopOnPriority: _alwaysStopOnPriority,
     actions: _actions,
     actionId: _actionId,
     youAct: _youAct,

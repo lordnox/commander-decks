@@ -43,6 +43,7 @@ export type LiveWireV2 = {
     LiveTopdeck['destinations'],
     LiveTopdeck['requirements']?,
   ]
+  b?: 1
 }
 
 export const SEAT_IDS = ['p1', 'p2', 'p3', 'p4'] as const
@@ -339,6 +340,7 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
       snapshot.topdeck.requirements,
     ]
   }
+  if (snapshot.alwaysStopOnPriority) wire.b = 1
   if (snapshot.events?.length) {
     wire.e = snapshot.events.map((event) => [
       event.id,
@@ -515,6 +517,7 @@ export const expandLiveWire = (
           requirements: wire.l[3],
         }
       : undefined,
+    alwaysStopOnPriority: wire.b === 1 ? true : undefined,
     events: (wire.e ?? []).map((event) => ({
       id: event[0],
       turn: event[1],

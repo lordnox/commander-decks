@@ -140,4 +140,15 @@ describe('lobby', () => {
       summary: 'Checked line: play Plains, cast Jet Medallion, then pass.',
     }])
   })
+
+  test('persists a private human priority preference', () => {
+    const state = createLobby()
+    state.phase = 'play'
+    applyInbox(state, 'p1', { type: 'priority-mode', always: true })
+    expect(state.human).toBe('p1')
+    expect(state.alwaysStopOnPriority).toEqual({ p1: true })
+
+    applyInbox(state, 'p1', { type: 'priority-mode', always: false })
+    expect(state.alwaysStopOnPriority).toEqual({ p1: false })
+  })
 })

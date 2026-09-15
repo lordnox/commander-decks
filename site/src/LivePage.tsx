@@ -60,6 +60,7 @@ type InboxType =
   | 'mulligan'
   | 'topdeck'
   | 'advance'
+  | 'priority-mode'
 
 const TURN_STEPS = [
   ['planning', 'Planning'],
@@ -447,6 +448,7 @@ export const LivePage = () => {
         card: string
         destination: 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile'
       }>
+      always?: boolean
     } = {},
   ) => {
     if (request?.kind !== 'conduit' || !request.inbox) return
@@ -490,6 +492,8 @@ export const LivePage = () => {
         message = { type: 'topdeck', choices: extra.choices ?? [], ...action }
       } else if (type === 'advance') {
         message = { type: 'advance', ...action }
+      } else if (type === 'priority-mode') {
+        message = { type: 'priority-mode', always: extra.always === true }
       } else if (type === 'join') {
         const separator = plan.includes('|') ? '|' : '\n'
         const split = plan.indexOf(separator)
@@ -527,6 +531,10 @@ export const LivePage = () => {
                   ? 'Library choice sent'
                   : type === 'advance'
                     ? 'Phase advanced'
+                    : type === 'priority-mode'
+                      ? extra.always
+                        ? 'All priority stops enabled'
+                        : 'Smart priority stops enabled'
                 : 'Message sent',
       )
     } catch (reason: unknown) {
@@ -612,6 +620,23 @@ export const LivePage = () => {
           >
             {hidePlan ? 'Show plan' : 'Hide plan'}
           </button>
+          {canSend && snapshot.you && (
+            <button
+              type="button"
+              onClick={() => void sendInbox('priority-mode', {
+                always: !snapshot.alwaysStopOnPriority,
+              })}
+              aria-pressed={Boolean(snapshot.alwaysStopOnPriority)}
+              className={`rounded-xl px-3 py-2 text-sm font-semibold ${
+                snapshot.alwaysStopOnPriority
+                  ? 'bg-orange-300 text-ink-950'
+                  : 'bg-white/5 text-stone-300 hover:bg-white/10'
+              }`}
+              title="Keep every priority window, including politics-only stops"
+            >
+              Always stop on priority
+            </button>
+          )}
           <button
             type="button"
             onClick={() => void copyPublicLink()}

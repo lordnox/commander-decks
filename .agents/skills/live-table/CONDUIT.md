@@ -48,7 +48,7 @@ One host-read key: everyone with it sees the same public game. A seat pipe strin
 {"type":"plan","text":"…","actionId":7}
 ```
 
-`type` is `plan` | `confirm` | `pass` | `replace` | `join` | `ready` | `rules` | `talk` | `swap` | `pregame` | `keep` | `mulligan` | `topdeck` | `advance`.
+`type` is `plan` | `confirm` | `pass` | `replace` | `join` | `ready` | `rules` | `talk` | `swap` | `pregame` | `keep` | `mulligan` | `topdeck` | `advance` | `priority-mode`.
 POST as snapshot (latest wins). Host does not record agent vs human.
 
 `pass` means no game action in the current priority window. `talk` is social
@@ -62,6 +62,8 @@ mulligan is free; later ones bottom `mulligans - 1` cards.
 `topdeck` sends ordered `{card,destination}` choices for the private dialog;
 the host validates the current hidden library and resolves it without an agent.
 `advance` deterministically moves an empty main/combat step forward.
+`priority-mode` carries `always: boolean`; it persists the private seat's
+choice between smart actionable stops and every priority window.
 
 Plan checks and rules discussions are private. The originating seat bin gets
 the complete judge response, exact actionable prompt, and up to eight condensed

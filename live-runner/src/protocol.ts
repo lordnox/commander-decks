@@ -58,6 +58,7 @@ type InboxPayload =
       }>
     }
   | { type: 'advance' }
+  | { type: 'priority-mode'; always: boolean }
   | { type: 'rules'; text: string }
   | { type: 'talk'; text: string }
 
@@ -103,6 +104,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     with?: string
     cards?: unknown
     cheat?: unknown
+    always?: unknown
   }
   const actionId = typeof message.actionId === 'number' && Number.isSafeInteger(message.actionId)
     ? message.actionId
@@ -142,6 +144,10 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       return parsed({ type: 'mulligan' })
     case 'advance':
       return parsed({ type: 'advance' })
+    case 'priority-mode':
+      return typeof message.always === 'boolean'
+        ? { type: 'priority-mode', always: message.always }
+        : null
     case 'topdeck': {
       if (
         !Array.isArray(message.choices)

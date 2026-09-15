@@ -48,6 +48,8 @@ export type LobbyState = {
   actionIds: SeatActionIds
   opening?: { seat: SeatId }
   topdeck?: TopdeckDecision
+  human?: SeatId
+  alwaysStopOnPriority: Partial<Record<SeatId, boolean>>
 }
 
 const emptyActionIds = (): SeatActionIds => ({
@@ -135,6 +137,7 @@ export const createLobby = (headline = 'Live table'): LobbyState => ({
   active: 'p1',
   actions: {},
   actionIds: emptyActionIds(),
+  alwaysStopOnPriority: {},
 })
 
 export type LobbyParts = {
@@ -160,6 +163,7 @@ export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
   active: parts.firstPlayer,
   actions: {},
   actionIds: emptyActionIds(),
+  alwaysStopOnPriority: {},
 })
 
 export const restoreLobby = (
@@ -198,6 +202,7 @@ export const restoreLobby = (
     judgeHistory: promptMigrated ? migratedHistory : (saved.judgeHistory ?? {}),
     actions: actionMigrated ? {} : saved.actions,
     actionIds: actionMigrated ? emptyActionIds() : saved.actionIds,
+    alwaysStopOnPriority: saved.alwaysStopOnPriority ?? {},
   }
 }
 
@@ -344,6 +349,21 @@ export const applyInbox = (
     if (state.phase !== 'play') return state
     state.waiting = `${from} is advancing the turn.`
     setJudge(state, `${from} advances.`)
+    return state
+  }
+
+  if (message.type === 'priority-mode') {
+    state.human = from
+    state.alwaysStopOnPriority = {
+      ...state.alwaysStopOnPriority,
+      [from]: message.always,
+    }
+    setJudge(
+      state,
+      message.always
+        ? `${from} will be offered every priority window.`
+        : `${from} will only be stopped when they can plausibly intervene.`,
+    )
     return state
   }
 

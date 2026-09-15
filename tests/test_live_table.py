@@ -447,6 +447,25 @@ class LiveTableEncodeTests(unittest.TestCase):
         )
         self.assertEqual(decoded["topdeck"], private["topdeck"])
 
+    def test_priority_stop_preference_stays_on_the_private_seat(self):
+        kwargs = {
+            "replay": FAKE_REPLAY,
+            "talk": "",
+            "waiting": "Waiting",
+            "priority_modes": {"p1": True},
+        }
+        private = encode_live.build_snapshot(you="p1", public=False, **kwargs)
+        other = encode_live.build_snapshot(you="p2", public=False, **kwargs)
+        public = encode_live.build_snapshot(you=None, public=True, **kwargs)
+        self.assertIs(private["alwaysStopOnPriority"], True)
+        self.assertIs(other["alwaysStopOnPriority"], False)
+        self.assertNotIn("alwaysStopOnPriority", public)
+        decoded = encode_live.decode_snapshot(
+            encode_live.encode_payload(private, replay=FAKE_REPLAY),
+            replay=FAKE_REPLAY,
+        )
+        self.assertIs(decoded["alwaysStopOnPriority"], True)
+
     def test_event_feed_redacts_other_seats_hidden_information(self):
         replay = json.loads(json.dumps(FAKE_REPLAY))
         replay["events"][0].update(

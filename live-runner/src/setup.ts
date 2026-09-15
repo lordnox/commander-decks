@@ -88,6 +88,7 @@ export const createPlaySession = (
 ) => {
   const state = createLobby(slug)
   state.phase = 'play'
+  state.human = you
   state.occupants = Object.fromEntries(
     seats.map((seat) => [
       seat.id,
