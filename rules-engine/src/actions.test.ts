@@ -66,7 +66,7 @@ describe('available actions', () => {
     expect(availableActions(state, 'p1')).toEqual([])
   })
 
-  test('keeps a non-mana activated ability as a possible response', () => {
+  test('a free fog is offered only once an attacker threatens damage', () => {
     const kami = {
       ...bears(),
       name: 'Kami of False Hope',
@@ -74,15 +74,30 @@ describe('available actions', () => {
       oracleText:
         'Sacrifice Kami of False Hope: Prevent all combat damage that would be dealt this turn.',
     }
-    const state = newGame(commanderRules, { battlefield: { p1: [kami] } })
-    state.step = 'beginCombat'
+    const state = newGame(commanderRules, {
+      battlefield: { p1: [kami], p2: [bears()] },
+    })
+    const attacker = Object.values(state.objects).find(
+      (object) => object.controller === 'p2',
+    )!
+    state.active = 'p2'
 
+    // Nothing is attacking yet, so a fog would interrupt every empty window.
+    for (const step of ['upkeep', 'draw', 'beginCombat', 'declareAttackers'] as const) {
+      state.step = step
+      expect(availableActions(state, 'p1')).toEqual([])
+    }
+
+    attacker.attacking = 'p1'
+    state.step = 'declareBlockers'
     expect(availableActions(state, 'p1')).toContainEqual({
       kind: 'activateAbility',
       objectId: objectNamed(state, 'Kami of False Hope').id,
       name: 'Kami of False Hope',
       text: kami.oracleText,
     })
+
+    // Damage is behind us; a later combat declares attackers again.
     state.step = 'postcombatMain'
     expect(availableActions(state, 'p1')).toEqual([])
   })

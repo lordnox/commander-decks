@@ -17,6 +17,12 @@ export type AvailableAction =
   | { kind: 'declareBlockers'; objectIds: string[]; attackerIds: string[] }
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
+const DAMAGE_PENDING_STEPS = new Set([
+  'declareAttackers',
+  'declareBlockers',
+  'firstStrikeDamage',
+  'combatDamage',
+])
 const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
 
 const addPool = (left: ManaPool, right: Partial<ManaPool>) => {
@@ -146,11 +152,16 @@ const canActivate = (
   ) {
     return false
   }
-  if (
-    /prevent all combat damage[^.]*this turn/i.test(line)
-    && ['postcombatMain', 'end', 'cleanup'].includes(state.step)
-  ) {
-    return false
+  // A free fog is legal in every window, so enumerating it everywhere would
+  // stop its controller at every step of every turn. Surface it once combat
+  // damage is actually threatened; a later combat redeclares attackers and
+  // reopens the window.
+  if (/prevent all combat damage[^.]*this turn/i.test(line)) {
+    if (!DAMAGE_PENDING_STEPS.has(state.step)) return false
+    const attacking = Object.values(state.objects).some(
+      (candidate) => candidate.zone === 'battlefield' && candidate.attacking,
+    )
+    if (!attacking) return false
   }
   const manaCost = [...cost.matchAll(/\{(?:\d+|[WUBRGC](?:\/[WUBRGC])?)\}/gi)]
     .map((match) => match[0])
