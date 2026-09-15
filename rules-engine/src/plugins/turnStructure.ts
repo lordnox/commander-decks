@@ -61,6 +61,17 @@ const onDraw = (draft: Draft) => {
   draft.enqueue({ type: 'draw', seat: draft.active, count: 1 })
 }
 
+/**
+ * Combat damage is a turn-based action, not something a seat has to ask for.
+ * First strike is not modelled, so every attacker hits in this one step.
+ */
+const onCombatDamage = (draft: Draft) => {
+  const attacking = draft
+    .zoneOf('battlefield')
+    .some((object) => object.attacking !== null)
+  if (attacking) draft.enqueue({ type: 'assignCombatDamage' })
+}
+
 const onCleanup = (draft: Draft) => {
   for (const object of draft.zoneOf('battlefield')) {
     object.damageMarked = 0
@@ -73,6 +84,7 @@ const onCleanup = (draft: Draft) => {
 const enterStep = (draft: Draft, step: StepId) => {
   if (step === 'untap') return onUntap(draft)
   if (step === 'draw') return onDraw(draft)
+  if (step === 'combatDamage') return onCombatDamage(draft)
   if (step === 'cleanup') return onCleanup(draft)
 }
 
