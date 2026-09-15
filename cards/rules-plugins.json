@@ -1,242 +1,350 @@
 {
-  "374e54d8-8e73-4268-9dde-c28c77bbbf32": {
-    "name": "Aftermath Analyst",
-    "pluginIds": [],
-    "handlerIds": ["graveyardLands"]
-  },
-  "6511f317-bd38-46d0-b800-7125a3f420da": {
+  "Aesi, Tyrant of Gyre Strait": {
     "name": "Aesi, Tyrant of Gyre Strait",
     "pluginIds": [],
-    "handlerIds": ["additionalLandPlay"]
+    "handlerIds": [
+      "additionalLandPlay"
+    ]
   },
-  "ec7d550b-9e13-4249-89c7-6ad43f71ea11": {
+  "Aftermath Analyst": {
+    "name": "Aftermath Analyst",
+    "pluginIds": [],
+    "handlerIds": [
+      "activated"
+    ]
+  },
+  "Analyze the Pollen": {
     "name": "Analyze the Pollen",
     "pluginIds": [],
-    "handlerIds": ["analyzeThePollen"]
+    "handlerIds": [
+      "analyzeThePollen"
+    ]
   },
-  "8203c621-a1a0-4865-8c9a-0d4064c86107": {
-    "name": "Buried Alive",
-    "pluginIds": [],
-    "handlerIds": ["librarySearch"]
-  },
-  "02679a2e-303d-412f-87d8-0a37a8ca259c": {
+  "Blighted Woodland": {
     "name": "Blighted Woodland",
     "pluginIds": [],
-    "handlerIds": ["librarySearch"]
+    "handlerIds": [
+      "librarySearch"
+    ]
   },
-  "378a1d57-e2f1-4b84-9692-1564602e9e99": {
-    "name": "Dimir Aqueduct",
+  "Buried Alive": {
+    "name": "Buried Alive",
     "pluginIds": [],
-    "handlerIds": ["entersTapped"]
+    "handlerIds": [
+      "librarySearch"
+    ]
   },
-  "cdc4048a-73ec-4ec1-a179-2b36c397bf1a": {
+  "Dakmor Salvage": {
     "name": "Dakmor Salvage",
     "pluginIds": [],
-    "handlerIds": ["entersTapped"]
+    "handlerIds": [
+      "entersTapped"
+    ]
   },
-  "299fc083-0834-4064-8344-f895aff68867": {
+  "Dimir Aqueduct": {
+    "name": "Dimir Aqueduct",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
+  },
+  "Entomb": {
     "name": "Entomb",
     "pluginIds": [],
-    "handlerIds": ["librarySearch"]
+    "handlerIds": [
+      "librarySearch"
+    ]
   },
-  "a75445d3-1303-4bb5-89ad-26ea93fecd48": {
+  "Evolving Wilds": {
     "name": "Evolving Wilds",
     "pluginIds": [],
-    "handlerIds": ["librarySearch"]
+    "handlerIds": [
+      "librarySearch"
+    ]
   },
-  "b8f566ea-8283-4afa-9ac8-737e26419283": {
+  "Explore": {
     "name": "Explore",
     "pluginIds": [],
-    "handlerIds": ["additionalLandPlay"]
+    "handlerIds": [
+      "onResolve"
+    ]
   },
-  "495e52e6-4c2b-4574-9474-eadbdcc8b4ac": {
-    "name": "Farseek",
-    "pluginIds": [],
-    "handlerIds": ["librarySearch"]
-  },
-  "0c85b8f7-0bd0-4680-9ec5-d4b110460a54": {
+  "Fabled Passage": {
     "name": "Fabled Passage",
     "pluginIds": [],
-    "handlerIds": ["librarySearch"]
+    "handlerIds": [
+      "librarySearch"
+    ]
   },
-  "aa959340-c869-4caa-92c7-572bd8d23eef": {
+  "Farseek": {
+    "name": "Farseek",
+    "pluginIds": [],
+    "handlerIds": [
+      "librarySearch"
+    ]
+  },
+  "Field of the Dead": {
     "name": "Field of the Dead",
     "pluginIds": [],
-    "handlerIds": ["entersTapped", "landfall"]
+    "handlerIds": [
+      "entersTapped",
+      "landfall"
+    ]
   },
-  "1b301478-b14f-4ef8-94e6-9647d582eabe": {
-    "name": "Golgari Rot Farm",
-    "pluginIds": [],
-    "handlerIds": ["entersTapped"]
-  },
-  "f2c861d3-b302-4e84-b647-099551007269": {
+  "Ghost Town": {
     "name": "Ghost Town",
     "pluginIds": [],
-    "handlerIds": ["selfBounceLand"]
+    "handlerIds": [
+      "activated"
+    ]
   },
-  "087c8c0e-a91c-4e3c-8387-9312db01f343": {
+  "Golgari Rot Farm": {
+    "name": "Golgari Rot Farm",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
+  },
+  "Hall of Storm Giants": {
     "name": "Hall of Storm Giants",
     "pluginIds": [],
-    "handlerIds": ["entersTapped"]
+    "handlerIds": [
+      "entersTapped"
+    ]
   },
-  "a13aa603-8709-43aa-b69a-ee74de79561f": {
-    "name": "Homer, the Hermit",
-    "pluginIds": [],
-    "handlerIds": ["homer"]
-  },
-  "ca4b6689-04ee-4227-9bdc-cb5a9590c745": {
+  "Hedge Maze": {
     "name": "Hedge Maze",
     "pluginIds": [],
-    "handlerIds": ["entersTapped"]
+    "handlerIds": [
+      "entersTapped"
+    ]
   },
-  "109cdefd-e8cc-4ac7-b6ba-2cfdef8d780f": {
+  "Homer, the Hermit": {
+    "name": "Homer, the Hermit",
+    "pluginIds": [],
+    "handlerIds": [
+      "homer"
+    ]
+  },
+  "Icetill Explorer": {
     "name": "Icetill Explorer",
     "pluginIds": [],
-    "handlerIds": ["landfall", "additionalLandPlay"]
+    "handlerIds": [
+      "additionalLandPlay",
+      "landfall"
+    ]
   },
-  "9eba1789-6e58-4d78-8a0d-b54a8be76ec5": {
+  "Joint Exploration": {
     "name": "Joint Exploration",
     "pluginIds": [],
-    "handlerIds": ["jointExploration"]
+    "handlerIds": [
+      "jointExploration"
+    ]
   },
-  "126e9140-2c05-4c00-8b01-5653456c736a": {
+  "Lair of the Hydra": {
     "name": "Lair of the Hydra",
     "pluginIds": [],
-    "handlerIds": ["entersTapped"]
+    "handlerIds": [
+      "entersTapped"
+    ]
   },
-  "134d5b82-7940-4b33-a922-7f9d1f403e50": {
+  "Lotus Field": {
     "name": "Lotus Field",
     "pluginIds": [],
-    "handlerIds": ["entersTapped"]
+    "handlerIds": [
+      "entersTapped"
+    ]
   },
-  "09dd85aa-47bc-4713-a9b9-8b52ff2285ed": {
-    "name": "Misty Rainforest",
-    "pluginIds": [],
-    "handlerIds": ["librarySearch"]
-  },
-  "fa4dffda-6f04-4d0b-829d-28a1a5794dee": {
+  "Millikin": {
     "name": "Millikin",
     "pluginIds": [],
-    "handlerIds": ["selfMill"]
+    "handlerIds": [
+      "activated"
+    ]
   },
-  "34994475-b914-44f6-8ca1-c2747b6d5956": {
+  "Misty Rainforest": {
+    "name": "Misty Rainforest",
+    "pluginIds": [],
+    "handlerIds": [
+      "librarySearch"
+    ]
+  },
+  "Mole Man, Moloid Master": {
     "name": "Mole Man, Moloid Master",
     "pluginIds": [],
-    "handlerIds": ["landfall"]
+    "handlerIds": [
+      "landfall"
+    ]
   },
-  "84122d81-9634-4d3f-85a5-f6cf4303691a": {
+  "Mossborn Hydra": {
     "name": "Mossborn Hydra",
     "pluginIds": [],
-    "handlerIds": ["landfall"]
+    "handlerIds": [
+      "landfall"
+    ]
   },
-  "17b60106-a4c7-410a-8ac3-ec8e74e29a7c": {
-    "name": "Mystic Sanctuary",
-    "pluginIds": [],
-    "handlerIds": ["entersTapped"]
-  },
-  "645fb11b-d684-4bec-8532-8fa97e8f7b28": {
-    "name": "Oboro, Palace in the Clouds",
-    "pluginIds": [],
-    "handlerIds": ["selfBounceLand"]
-  },
-  "2549bc57-9ffb-4053-9f10-f2a5f792b845": {
+  "Myriad Landscape": {
     "name": "Myriad Landscape",
     "pluginIds": [],
-    "handlerIds": ["entersTapped", "librarySearch"]
+    "handlerIds": [
+      "entersTapped",
+      "librarySearch"
+    ]
   },
-  "78826359-fe63-44ad-adc4-a17ffcd710e4": {
+  "Mystic Sanctuary": {
+    "name": "Mystic Sanctuary",
+    "pluginIds": [],
+    "handlerIds": [
+      "entersTapped"
+    ]
+  },
+  "Nature's Lore": {
     "name": "Nature's Lore",
     "pluginIds": [],
-    "handlerIds": ["librarySearch"]
+    "handlerIds": [
+      "librarySearch"
+    ]
   },
-  "044d2788-6daa-4849-a813-1f577eef9295": {
+  "Oboro, Palace in the Clouds": {
+    "name": "Oboro, Palace in the Clouds",
+    "pluginIds": [],
+    "handlerIds": [
+      "activated"
+    ]
+  },
+  "Pit of Offerings": {
     "name": "Pit of Offerings",
     "pluginIds": [],
-    "handlerIds": ["entersTapped"]
+    "handlerIds": [
+      "entersTapped"
+    ]
   },
-  "ef86989d-ce80-4e55-aece-7d11710eeffa": {
+  "Polluted Delta": {
     "name": "Polluted Delta",
     "pluginIds": [],
-    "handlerIds": ["librarySearch"]
+    "handlerIds": [
+      "librarySearch"
+    ]
   },
-  "032b8a0d-491a-4a12-ab9f-689010054d5b": {
+  "Prismatic Vista": {
     "name": "Prismatic Vista",
     "pluginIds": [],
-    "handlerIds": ["librarySearch"]
+    "handlerIds": [
+      "librarySearch"
+    ]
   },
-  "aa854d50-444c-49d9-bfb1-5476b33c1c0b": {
+  "Scute Swarm": {
     "name": "Scute Swarm",
     "pluginIds": [],
-    "handlerIds": ["landfall"]
+    "handlerIds": [
+      "landfall"
+    ]
   },
-  "39b51f62-8421-42d1-86d3-74fd6e6f31a2": {
-    "name": "Skull Prophet",
-    "pluginIds": [],
-    "handlerIds": ["selfMill"]
-  },
-  "046f5783-cc7b-416a-8cf6-2bcef9c2cc1a": {
+  "Simic Growth Chamber": {
     "name": "Simic Growth Chamber",
     "pluginIds": [],
-    "handlerIds": ["entersTapped"]
+    "handlerIds": [
+      "entersTapped"
+    ]
   },
-  "3bcc378c-4470-4757-a0d5-025a32c918ea": {
+  "Sin, Spira's Punishment": {
     "name": "Sin, Spira's Punishment",
     "pluginIds": [],
-    "handlerIds": ["sin"]
+    "handlerIds": [
+      "sin"
+    ]
   },
-  "13fe5e46-77a6-45d8-ac0b-c3d740eccf86": {
+  "Skull Prophet": {
+    "name": "Skull Prophet",
+    "pluginIds": [],
+    "handlerIds": [
+      "activated"
+    ]
+  },
+  "Splendid Reclamation": {
     "name": "Splendid Reclamation",
     "pluginIds": [],
-    "handlerIds": ["graveyardLands"]
+    "handlerIds": [
+      "onResolve"
+    ]
   },
-  "e5df4597-1647-4ac2-bdb3-a517598d1431": {
+  "Stitcher's Supplier": {
+    "name": "Stitcher's Supplier",
+    "pluginIds": [],
+    "handlerIds": [
+      "zoneTriggers"
+    ]
+  },
+  "Summer Bloom": {
     "name": "Summer Bloom",
     "pluginIds": [],
-    "handlerIds": ["additionalLandPlay"]
+    "handlerIds": [
+      "onResolve"
+    ]
   },
-  "1b882a0e-0ede-4d1a-bd1a-9b7cffbcde8e": {
-    "name": "Three Visits",
-    "pluginIds": [],
-    "handlerIds": ["librarySearch"]
-  },
-  "1bd3e453-aa21-4ee6-95c2-d6d920ee8e7a": {
+  "Terramorphic Expanse": {
     "name": "Terramorphic Expanse",
     "pluginIds": [],
-    "handlerIds": ["librarySearch"]
+    "handlerIds": [
+      "librarySearch"
+    ]
   },
-  "c6792d9f-8b74-43c4-814f-ba4adab2fdea": {
+  "Thawing Glaciers": {
     "name": "Thawing Glaciers",
     "pluginIds": [],
-    "handlerIds": ["entersTapped"]
+    "handlerIds": [
+      "entersTapped"
+    ]
   },
-  "08d80efc-9542-4ba2-824c-c8615d8d07f2": {
+  "Three Visits": {
+    "name": "Three Visits",
+    "pluginIds": [],
+    "handlerIds": [
+      "librarySearch"
+    ]
+  },
+  "Undercity Sewers": {
     "name": "Undercity Sewers",
     "pluginIds": [],
-    "handlerIds": ["entersTapped"]
+    "handlerIds": [
+      "entersTapped"
+    ]
   },
-  "840119bf-e60f-4ff7-9c9b-d420d09df545": {
+  "Underground Mortuary": {
     "name": "Underground Mortuary",
     "pluginIds": [],
-    "handlerIds": ["entersTapped"]
+    "handlerIds": [
+      "entersTapped"
+    ]
   },
-  "134dfb35-0c32-4143-aa63-7701f406b59e": {
+  "Unmarked Grave": {
     "name": "Unmarked Grave",
     "pluginIds": [],
-    "handlerIds": ["librarySearch"]
+    "handlerIds": [
+      "librarySearch"
+    ]
   },
-  "67d60b24-d429-4ded-90d9-06e49f28c396": {
+  "Verdant Catacombs": {
     "name": "Verdant Catacombs",
     "pluginIds": [],
-    "handlerIds": ["librarySearch"]
+    "handlerIds": [
+      "librarySearch"
+    ]
   },
-  "7baaf462-b0e6-4e21-86a7-73a883c4c9f7": {
+  "Yurlok of Scorch Thrash": {
     "name": "Yurlok of Scorch Thrash",
-    "pluginIds": ["manaBurn"],
-    "handlerIds": ["yurlok"]
+    "pluginIds": [
+      "manaBurn"
+    ],
+    "handlerIds": [
+      "activated"
+    ]
   },
-  "fdd46004-eaba-4024-8687-39b23dc6a58c": {
+  "Zagoth Triome": {
     "name": "Zagoth Triome",
     "pluginIds": [],
-    "handlerIds": ["entersTapped"]
+    "handlerIds": [
+      "entersTapped"
+    ]
   }
 }

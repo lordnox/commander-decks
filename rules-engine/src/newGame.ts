@@ -1,4 +1,6 @@
 import { cardPlugins, grantedRulesFor } from './cardPlugins'
+import { effectsFor } from './cardPlugins/cardRules'
+import { serializableEffects } from './cardPlugins/effects'
 import { emptyMana } from './draft'
 import type { GameFormat } from './formats'
 import {
@@ -117,6 +119,7 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
         ...(template.grantedRules ?? []),
         ...grantedRulesFor(template.name),
       ])],
+      effects: serializableEffects(template.effects ?? effectsFor(template.name)),
       tags: [...new Set([...template.tags, ...(format.tagsForZone?.(zone) ?? [])])],
     }
     const actualZone = objects[id].zone

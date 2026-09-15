@@ -76,6 +76,8 @@ export type GameObject = {
   token: boolean
   tags: string[]
   tapProduces?: Partial<ManaPool>
+  /** Stamped from the name-keyed card-rule table when the object is created. */
+  effects?: import('./cardPlugins/effects').CardEffect[]
 }
 
 /**
