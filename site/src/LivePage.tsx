@@ -6,6 +6,7 @@ import {
 } from 'react'
 import { CombatOverlay } from './CombatOverlay'
 import { LiveControlsDrawer } from './LiveControlsDrawer'
+import { liveHeader } from './liveHeader'
 import { commanderRules, createClientGame } from '../../rules-engine/src/index'
 import {
   conduitPublicUrl,
@@ -389,12 +390,17 @@ export const LivePage = () => {
   const viewingPast = history.length > 0 && cursor < history.length - 1
   const frame = history[cursor]
   const boardSeats = viewingPast && frame ? frame.seats : seats
-  const replica = useMemo(() => {
+  // Rebuilding the replica locally is the client's own redaction check: it
+  // throws when a payload carries a zone this viewer must not see.
+  const replicaError = useMemo(() => {
     if (!snapshot?.replica) return null
     try {
-      return createClientGame(commanderRules, snapshot.replica)
-    } catch {
+      createClientGame(commanderRules, snapshot.replica)
       return null
+    } catch (reason) {
+      return reason instanceof Error
+        ? reason.message
+        : 'This snapshot failed its redaction check.'
     }
   }, [snapshot?.replica])
   const game = useMemo(
@@ -453,7 +459,7 @@ export const LivePage = () => {
       cheat?: boolean
       choices?: Array<{
         card: string
-        destination: 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield'
+        destination: 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
       }>
       always?: boolean
       until?: 'my-turn' | 'off'
@@ -611,7 +617,19 @@ export const LivePage = () => {
           ? 'Phase advance sent. Waiting for the host.'
           : 'Action sent. Waiting for the host.'
     : null
-  const yourHand = orderedSeats.find((seat) => seat.id === snapshot.you)?.hand ?? []
+  const yourSeat = orderedSeats.find((seat) => seat.id === snapshot.you)
+  const yourHand = yourSeat?.hand ?? []
+  const header = liveHeader({
+    youName: yourSeat?.name,
+    youSeat: snapshot.you,
+    activeName: activeSeat?.name,
+    activeSeat: boardActive,
+    turn: boardTurn,
+    phaseLabel: phaseLabel(boardPhase),
+    yourAction,
+    actionPending,
+    viewingPast,
+  })
 
   return (
     <div className={`min-h-screen ${hidePlan ? 'pb-8' : 'pb-56'}`}>
@@ -624,20 +642,42 @@ export const LivePage = () => {
             ← All games
           </a>
           <div className="min-w-0 flex-1">
-            <h1 className="truncate font-display text-lg text-stone-50 sm:text-xl">
-              {snapshot.headline}
-            </h1>
-            <p className="text-xs text-stone-500">
-              {replica ? 'Rules kernel' : 'Live snapshot'}
-              {viewingPast ? ' · history' : ''}
-              {' '}· Turn {boardTurn} · {phaseLabel(boardPhase)}
-              {activeSeat ? ` · ${activeSeat.name}` : ''}
+            <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1">
+              <h1 className="flex min-w-0 items-center gap-2 font-display text-lg text-stone-50 sm:text-xl">
+                {yourSeat && (
+                  <span
+                    aria-hidden="true"
+                    className="size-2.5 shrink-0 rounded-full"
+                    style={{ backgroundColor: yourSeat.color }}
+                  />
+                )}
+                <span className="truncate">{header.identity}</span>
+              </h1>
+              <span
+                className={`shrink-0 rounded-full px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] ${
+                  header.status.tone === 'act'
+                    ? 'bg-gold-300 text-ink-950'
+                    : header.status.tone === 'pending'
+                      ? 'bg-white/10 text-stone-300'
+                      : header.status.tone === 'history'
+                        ? 'bg-purple-200/20 text-purple-100'
+                        : 'bg-white/5 text-stone-400'
+                }`}
+              >
+                {header.status.label}
+              </span>
+            </div>
+            <p className="truncate text-xs text-stone-500" title={snapshot.headline}>
+              {header.state}
             </p>
             {hydrationStatus && (
               <p className="text-xs text-gold-300">{hydrationStatus}</p>
             )}
             {conduitStatus && (
               <p className="text-xs text-orange-200">{conduitStatus}</p>
+            )}
+            {replicaError && (
+              <p className="text-xs text-orange-200">{replicaError}</p>
             )}
           </div>
           <LiveControlsDrawer
