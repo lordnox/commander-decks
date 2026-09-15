@@ -688,7 +688,6 @@ export const LivePage = () => {
             holding={Boolean(snapshot.holding)}
             alwaysStop={Boolean(snapshot.alwaysStopOnPriority)}
             canSend={canSend && Boolean(snapshot.you)}
-            pending={actionPending}
             canOpenHand={canKeep && !openingOpen}
             onPrevious={() => setHistoryIndex(Math.max(0, cursor - 1))}
             onNext={() => setHistoryIndex(Math.min(history.length - 1, cursor + 1))}

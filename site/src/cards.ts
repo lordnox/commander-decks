@@ -134,6 +134,11 @@ export const battlefieldRow = (
 export const currentStats = (details: CardDetails, entry?: BattlefieldCard) => {
   if (entry?.pt) return entry.pt
 
+  if (/\bPlaneswalker\b/.test(details.type_line ?? '')) {
+    const loyalty = entry?.counters?.loyalty ?? details.stats
+    return loyalty ? `L ${loyalty}` : ''
+  }
+
   const noted = notePT.exec(entry?.note ?? '')
   const printed = printedPT.exec(details.stats ?? '')
   const body = printed ? [printed[1], printed[2]] : noted && [noted[1], noted[2]]

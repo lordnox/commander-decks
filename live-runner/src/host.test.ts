@@ -11,8 +11,10 @@ import { acceptsPlayAction } from './actions'
 import { createLobby } from './lobby'
 import {
   actionsAfterJudgment,
+  applyHostControl,
   applyKernelPass,
   beginJudgeRound,
+  isHostControlMessage,
   needsJudgment,
   restoreKernelWindow,
 } from './host'
@@ -35,6 +37,25 @@ const setup = async () => {
 }
 
 describe('kernel host actions', () => {
+  test('automation controls update host state without a judge round', () => {
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    lobby.judge = 'Eva submitted a plan and is conferring with the judge.'
+
+    const hold = { type: 'hold', until: 'my-turn' } as const
+    expect(isHostControlMessage(hold)).toBe(true)
+    expect(needsJudgment(hold)).toBe(false)
+    applyHostControl(lobby, 'p4', hold)
+
+    expect(lobby.holds.p4).toBe(true)
+    expect(lobby.judge).toBe('Eva submitted a plan and is conferring with the judge.')
+
+    applyHostControl(lobby, 'p4', { type: 'hold', until: 'off' })
+    applyHostControl(lobby, 'p4', { type: 'priority-mode', always: true })
+    expect(lobby.holds.p4).toBe(false)
+    expect(lobby.alwaysStopOnPriority.p4).toBe(true)
+  })
+
   test('a failed kernel pass remains handled and leaves priority on the kernel seat', async () => {
     const { kernel, lobby } = await setup()
     expect(kernelPriority(kernel.history.current())).toBe('p1')

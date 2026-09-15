@@ -46,7 +46,6 @@ export const LiveControlsDrawer = ({
   holding,
   alwaysStop,
   canSend,
-  pending,
   canOpenHand,
   onPrevious,
   onNext,
@@ -64,7 +63,6 @@ export const LiveControlsDrawer = ({
   holding: boolean
   alwaysStop: boolean
   canSend: boolean
-  pending: boolean
   canOpenHand: boolean
   onPrevious: () => void
   onNext: () => void
@@ -128,7 +126,6 @@ export const LiveControlsDrawer = ({
               label="Pass until my turn"
               description="Auto-pass empty windows, but wake for a spell on the stack and for your turn."
               checked={holding}
-              disabled={pending}
               onCheckedChange={onHoldingChange}
             />
             <ControlSwitch
@@ -136,7 +133,6 @@ export const LiveControlsDrawer = ({
               label="Always stop on priority"
               description="Offer every priority window, including opportunities for table talk."
               checked={alwaysStop}
-              disabled={pending}
               onCheckedChange={onAlwaysStopChange}
             />
           </section>
