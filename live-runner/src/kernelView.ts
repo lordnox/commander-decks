@@ -1,11 +1,18 @@
 import { replayComparableState } from '../../rules-engine/src/replay'
-import type { EventTrace, GameState, ManaPool, PlayerId } from '../../rules-engine/src/types'
+import type {
+  EventTrace,
+  GameObject,
+  GameState,
+  ManaPool,
+  PlayerId,
+} from '../../rules-engine/src/types'
 import type {
   LiveEvent,
   LiveHistoryFrame,
   LiveSeat,
   LiveSnapshot,
 } from '../../site/src/liveCodec'
+import type { ReplayCombat } from '../../site/src/replayTypes'
 import { SEAT_COLORS } from '../../site/src/liveCompact'
 import type { LobbyState } from './lobby'
 import { isSeatId, type SeatId } from './protocol'
@@ -72,6 +79,106 @@ export const liveEventFromTrace = (
   }
 }
 
+const COMBAT_VIEW_STEPS: Partial<Record<GameState['step'], ReplayCombat['step']>> = {
+  declareAttackers: 'attackers',
+  declareBlockers: 'blockers',
+  firstStrikeDamage: 'first_strike_damage',
+  combatDamage: 'combat_damage',
+}
+
+const KEYWORDS = [
+  'flying',
+  'deathtouch',
+  'lifelink',
+  'first strike',
+  'double strike',
+  'trample',
+  'vigilance',
+  'menace',
+  'reach',
+  'indestructible',
+]
+
+/** Only ability-line keywords count, so "gains flying" does not claim flying. */
+const keywordsOf = (object: GameObject) =>
+  KEYWORDS.filter((keyword) =>
+    new RegExp(`(^|[,\\n]\\s*)${keyword}([,.\\n]|$)`, 'i').test(object.oracleText))
+
+const ptText = (object: GameObject) =>
+  object.power === null || object.toughness === null
+    ? undefined
+    : `${object.power}/${object.toughness}`
+
+const battlefieldObjects = (state: GameState) =>
+  state.playerOrder.flatMap((seat) =>
+    state.zoneOrder[seat].battlefield.map((id) => state.objects[id]).filter(Boolean))
+
+const untappedCreatures = (battlefield: GameObject[], seat: PlayerId) =>
+  battlefield
+    .filter((object) =>
+      object.controller === seat
+      && object.types.includes('Creature')
+      && !object.tapped)
+    .map((object) => object.name)
+
+/**
+ * Attackers and blockers are invisible in a public board of names and tap
+ * states, so project them for the viewer's combat panel.
+ */
+export const kernelCombat = (state: GameState): ReplayCombat | undefined => {
+  const step = COMBAT_VIEW_STEPS[state.step]
+  if (!step) return undefined
+  const battlefield = battlefieldObjects(state)
+  const attackers = battlefield.filter((object) => object.attacking)
+  if (attackers.length === 0) return undefined
+  const combat: ReplayCombat = {
+    step,
+    attackers: attackers.map((object) => ({
+      card: object.name,
+      defender: object.attacking as PlayerId,
+      ...(ptText(object) ? { pt: ptText(object) } : {}),
+      tapped: object.tapped,
+      ...(keywordsOf(object).length > 0 ? { keywords: keywordsOf(object) } : {}),
+    })),
+  }
+
+  const blockers = battlefield.filter((object) => object.blocking)
+  if (blockers.length === 0 && step !== 'first_strike_damage' && step !== 'combat_damage') {
+    const defenders = [...new Set(attackers.map((object) => object.attacking as PlayerId))]
+    combat.possible_blockers = Object.fromEntries(
+      defenders.map((seat) => [seat, untappedCreatures(battlefield, seat)]),
+    )
+    return combat
+  }
+
+  combat.blocks = attackers
+    .map((attacker) => ({
+      attacker: attacker.name,
+      blockers: blockers
+        .filter((blocker) => blocker.blocking === attacker.id)
+        .map((blocker) => blocker.name),
+    }))
+    .filter((block) => block.blockers.length > 0)
+  combat.unblocked = attackers
+    .filter((attacker) => !blockers.some((blocker) => blocker.blocking === attacker.id))
+    .map((attacker) => attacker.name)
+  return combat
+}
+
+/** The card face shows tap state only, so attacks need their own label. */
+const combatLabels = (state: GameState, lobby: LobbyState, object?: GameObject) => {
+  if (!object) return {}
+  if (object.attacking) {
+    const defender = object.attacking as SeatId
+    return { attacking: lobby.occupants[defender]?.name || defender }
+  }
+  if (object.blocking) {
+    const blocked = state.objects[object.blocking]?.name
+    return blocked ? { blocking: blocked } : {}
+  }
+  return {}
+}
+
 const liveSeatId = (player: PlayerId): SeatId => {
   if (!isSeatId(player)) throw new Error(`live host cannot project player ${player}`)
   return player
@@ -105,7 +212,10 @@ export const liveSeatsFromState = (
           .filter((other) => other !== seat)
           .map((other) => [other, 0]),
       ),
-      battlefield: player.battlefield,
+      battlefield: player.battlefield.map((card, index) => ({
+        ...card,
+        ...combatLabels(state, lobby, state.objects[state.zoneOrder[seat].battlefield[index]]),
+      })),
       graveyard: player.graveyard,
       exile: player.exile,
       command: player.command,
@@ -125,8 +235,10 @@ export const liveSnapshotFromState = (options: {
   const comparable = replayComparableState(state)
   const seats = liveSeatsFromState(state, lobby, viewer)
   const priority = state.priority
+  const combat = kernelCombat(state)
   return {
     v: 1,
+    ...(combat ? { combat } : {}),
     you: viewer,
     headline: seats.map((seat) => seat.name).join(' / ') || 'Live table',
     waiting: lobby.waiting,

@@ -197,6 +197,27 @@ describe('live compact v2', () => {
     expect(expanded.replica?.knowledge).toEqual({ mode: 'replica', viewer: 'p2' })
   })
 
+  test('attack and block labels survive the wire', () => {
+    const original = snapshot()
+    original.seats[1].battlefield = [
+      { name: 'Sol Ring', tapped: true },
+      { name: 'Satyr Wayfinder', attacking: 'Delta' },
+      { name: 'Hazel of the Rootbloom', blocking: 'Satyr Wayfinder' },
+    ]
+    original.combat = {
+      step: 'attackers',
+      attackers: [{ card: 'Satyr Wayfinder', defender: 'p4', pt: '1/1', tapped: true }],
+      possible_blockers: { p4: [] },
+    }
+    const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)
+    expect(expanded.seats[1].battlefield[1]).toEqual({
+      name: 'Satyr Wayfinder',
+      attacking: 'Delta',
+    })
+    expect(expanded.seats[1].battlefield[2].blocking).toBe('Satyr Wayfinder')
+    expect(expanded.combat?.attackers?.[0].defender).toBe('p4')
+  })
+
   test('private opening keep/mulligan bits and bottom count survive the wire', () => {
     const original = snapshot()
     original.actions = ['keep', 'mulligan']
