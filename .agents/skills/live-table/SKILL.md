@@ -39,6 +39,31 @@ Play-to-win for the other seats: [`simulate-table`](../simulate-table/SKILL.md).
 
 ## Start / continue
 
+### Fast setup for a dealt table
+
+When the user asks an agent to create the table, do not make them join four
+seats or walk the lobby. Select and validate four resolved decks with
+`simulate-table`, put the human deck in the requested seat, inspect the three
+London candidates, and apply the keeps to
+`table-games/<slug>.json`. Then run:
+
+```bash
+bun run table:live:setup -- --slug <slug> --you p2
+```
+
+This idempotent command mints or reuses the nine bins, initializes the runner
+from the dealt replay directly in `play`, starts the background host with its
+judging agent, and prints the one private URL to send the human. It also prints
+the public spectator URL, log path, and exact resume/stop commands. Verify the
+pid exists and the log reaches `listen`, then post only the private URL.
+
+The setup command does not choose mulligans or play the other seats. Those
+remain `simulate-table` decisions: use one seat agent per non-human deck when
+playing the game, with this agent as game master. The runner's `--agent` is the
+judge that checks and applies inbox messages; it is not three opponent brains.
+
+### Manual lobby / fallback
+
 1. Deal and play with `simulate-table` as usual (pod, deal, seat agents, replay
    events). Mark one seat `human` (`p1`–`p4`).
 2. Mint the nine bins (`host`, `p1`, `p1-inbox`, … `p4-inbox`). The mint key
