@@ -61,7 +61,11 @@ the bottom, in order) and `cheat: true` (keep seven anyway, for testing).
 mulligan is free; later ones bottom `mulligans - 1` cards.
 `topdeck` sends ordered `{card,destination}` choices for the private dialog;
 the host validates the current hidden library and resolves it without an agent.
-`advance` deterministically moves an empty main/combat step forward.
+`advance` deterministically moves an empty main/combat step forward. From
+`planning` it opens the turn instead: untap, an empty upkeep, and the draw, so a
+seat reaches its first main phase without a judge call. A permanent whose Oracle
+text can trigger before the first main phase rejects the message and asks for a
+plan.
 `priority-mode` carries `always: boolean`; it persists the private seat's
 choice between smart actionable stops and every priority window.
 

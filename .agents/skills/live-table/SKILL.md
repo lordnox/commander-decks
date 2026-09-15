@@ -99,7 +99,7 @@ changed under their standing plan:
 
 - keep / mulligan (Commander: first redraw is free; later ones bottom `n - 1`)
 - beginning-of-game cards in the human opening hand, before anyone draws
-- the first-turn draw, then a plan
+- the turn draw, then a plan; never ask for a plan before the seat has drawn
 - human's main-phase actions
 - after a land or spell that surveils, scries, explores, connives, looks at
   cards, or otherwise asks a hidden-zone choice (stop before the choice)
@@ -123,7 +123,10 @@ Top-deck choices are structured UI actions, not plans. Put a machine-readable
 `choice` on the unresolved stack item; the runner privately reads the named
 seat's `_libraries`, shows the cards, validates destinations, and resolves the
 choice without invoking the judge. Empty first main, combat, and second main
-steps offer **Next phase** / **End turn** and advance deterministically.
+steps offer **Next phase** / **End turn** and advance deterministically. A turn
+that opens with nothing to decide offers **Untap & draw**, which walks untap,
+upkeep, and the draw to the first main phase the same way; a permanent that can
+trigger in those steps sends the turn open back to the judge instead.
 
 On the human's main phase, attacker declaration, blocker declaration, or stack
 decision, propose one legal candidate when useful and phrase the pause as

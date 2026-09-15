@@ -13,6 +13,7 @@ type PlayerState = {
   exile?: string[]
   library_count?: number
   revealed_top?: string[]
+  battlefield?: Array<{ name?: string; tapped?: boolean; [key: string]: unknown }>
   [key: string]: unknown
 }
 
@@ -48,6 +49,7 @@ type ReplayEvent = {
 
 type Replay = {
   events?: ReplayEvent[]
+  catalog?: Record<string, { oracle_text?: string }>
   _libraries?: Record<string, string[]>
 }
 
@@ -245,6 +247,125 @@ export const applyTopdeckChoice = (
   return true
 }
 
+/**
+ * Anything that can want a choice or a trigger between untap and the first
+ * main phase. A match hands the turn open back to the judge.
+ */
+const TURN_OPEN_TRIGGER =
+  /beginning of (your|each|the) (next )?(untap|upkeep|draw)|skips? (your|their|his or her) (next )?draw step|draws? an additional card|at the beginning of the upkeep/i
+
+export const turnOpenTriggers = (replay: Replay, state: ReplayState) => {
+  const catalog = replay.catalog ?? {}
+  const names = SEAT_IDS.flatMap((seat) =>
+    (state.players?.[seat]?.battlefield ?? []).map((card) => card?.name ?? ''),
+  )
+  return [...new Set(names)].filter(
+    (name) => name && TURN_OPEN_TRIGGER.test(catalog[name]?.oracle_text ?? ''),
+  )
+}
+
+const drewThisTurn = (replay: Replay, seat: SeatId, turn: number) =>
+  (replay.events ?? []).some(
+    (event) =>
+      event.kind === 'draw' && event.seat === seat && event.turn === turn,
+  )
+
+/**
+ * Walk untap, upkeep, and the draw for a turn that has nothing to decide, so
+ * a seat reaches its first main phase without a judge round trip.
+ */
+export const openTurn = (
+  root: string,
+  slug: string,
+  state: LobbyState,
+  seat: SeatId,
+) => {
+  const replay = readReplay(root, slug)
+  const event = latest(replay)
+  const blocked = turnOpenTriggers(replay, event.state!)
+  if (blocked.length > 0) {
+    throw new Error(
+      `${blocked.join(', ')} can trigger before your main phase. Send a plan so the judge resolves it.`,
+    )
+  }
+  const turn = event.turn ?? event.state!.turn ?? 0
+  const name = state.occupants[seat]?.name ?? seat
+  const append = (next: ReplayEvent) => {
+    replay.events!.push({ ...next, id: nextId(replay) })
+  }
+  const carried = () => structuredClone(replay.events!.at(-1)!.state!)
+
+  const untapped = structuredClone(event.state!)
+  untapped.phase = 'untap'
+  const player = untapped.players![seat]
+  player.battlefield = (player.battlefield ?? []).map((card) => ({
+    ...card,
+    tapped: false,
+  }))
+  append({
+    turn,
+    phase: 'untap',
+    seat,
+    kind: 'untap',
+    summary: `${name} untaps.`,
+    state: untapped,
+  })
+
+  const upkeep = carried()
+  upkeep.phase = 'upkeep'
+  append({
+    turn,
+    phase: 'upkeep',
+    seat,
+    kind: 'note',
+    summary: 'Upkeep — no triggers.',
+    state: upkeep,
+  })
+
+  let drawn: string | undefined
+  if (!drewThisTurn(replay, seat, turn)) {
+    const library = replay._libraries?.[seat]
+    if (!library?.length) throw new Error(`${seat} library is empty`)
+    drawn = library.shift()!
+    replay._libraries![seat] = library
+    const draw = carried()
+    draw.phase = 'draw'
+    draw.players![seat] = {
+      ...draw.players![seat],
+      hand: [...(draw.players![seat].hand ?? []), drawn],
+      library_count: library.length,
+    }
+    append({
+      turn,
+      phase: 'draw',
+      seat,
+      kind: 'draw',
+      summary: `${name} draws ${drawn}.`,
+      cards: [drawn],
+      state: draw,
+    })
+  }
+
+  const main = carried()
+  main.phase = 'main1'
+  append({
+    turn,
+    phase: 'main1',
+    seat,
+    kind: 'note',
+    summary: `${name} moves to the first main phase.`,
+    state: main,
+  })
+  writeReplay(root, slug, replay)
+
+  state.actions = { [seat]: ['plan', 'advance'] }
+  state.waiting = `${name}: act or advance to the next phase.`
+  state.privateWaiting = {}
+  state.judge = `${name} untapped and drew for turn.`
+  state.privateJudge = drawn ? { [seat]: `You drew ${drawn}.` } : {}
+  return true
+}
+
 const NEXT_PHASE = {
   main1: 'combat',
   combat: 'main2',
@@ -260,14 +381,15 @@ export const applyAdvance = (
   const replay = readReplay(root, slug)
   const event = latest(replay)
   const current = event.state!.phase ?? event.phase
-  const next = NEXT_PHASE[current as keyof typeof NEXT_PHASE]
   if (
     event.state!.active !== seat
-    || !next
     || (event.state!.stack?.length ?? 0) > 0
   ) {
     return false
   }
+  if (current === 'planning') return openTurn(root, slug, state, seat)
+  const next = NEXT_PHASE[current as keyof typeof NEXT_PHASE]
+  if (!next) return false
   const nextState = structuredClone(event.state!)
   nextState.phase = next
   const name = state.occupants[seat]?.name ?? seat

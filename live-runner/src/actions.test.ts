@@ -75,6 +75,19 @@ describe('play actions', () => {
     })
   })
 
+  test('offers to open the turn from the planning phase', () => {
+    const state = createLobby()
+    const root = rootWithEvent({
+      kind: 'think',
+      seat: 'p1',
+      state: { active: 'p1', phase: 'planning', stack: [] },
+    })
+
+    expect(replayActions(root, 'test', state)).toEqual({
+      p1: ['plan', 'advance'],
+    })
+  })
+
   test('rejects stale and unavailable actions', () => {
     const state = createLobby()
     state.actions = {
