@@ -646,10 +646,20 @@ export const fetchDeckIndex = async (slug: string, base: string) => {
   return response.json() as Promise<DeckIndex>
 }
 
+/**
+ * A renamed or not-yet-published deck must not blank the whole board: card
+ * names that miss their deck index still resolve through the wire name table.
+ */
 export const loadDeckIndexes = async (slugs: string[], base: string) => {
   const unique = [...new Set(slugs.filter(Boolean))]
   const entries = await Promise.all(
-    unique.map(async (slug) => [slug, await fetchDeckIndex(slug, base)] as const),
+    unique.map(async (slug) => {
+      try {
+        return [slug, await fetchDeckIndex(slug, base)] as const
+      } catch {
+        return [slug, { cards: [] }] as const
+      }
+    }),
   )
   return Object.fromEntries(entries) as Record<string, DeckIndex>
 }

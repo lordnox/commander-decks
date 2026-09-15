@@ -4,7 +4,7 @@ import {
   useRef,
   useState,
 } from 'react'
-import { combatLines } from './combat'
+import { CombatOverlay } from './CombatOverlay'
 import { commanderRules, createClientGame } from '../../rules-engine/src/index'
 import {
   conduitPublicUrl,
@@ -394,31 +394,11 @@ export const LivePage = () => {
     [snapshot, boardSeats],
   )
 
-  const combat = useMemo(() => {
-    if (!snapshot || !game || !snapshot.combat) return []
-    const event = {
-      id: 0,
-      turn: snapshot.turn,
-      phase: snapshot.phase,
-      seat: snapshot.active,
-      kind: 'combat',
-      summary: '',
-      combat: snapshot.combat,
-      state: {
-        active: snapshot.active,
-        turn: snapshot.turn,
-        phase: snapshot.phase,
-        stack: snapshot.stack,
-        players: Object.fromEntries(
-          seats.map((seat) => [
-            seat.id,
-            toPlayerState(seat, seat.id === snapshot.you),
-          ]),
-        ),
-      },
-    } satisfies ReplayEvent
-    return combatLines(game, event)
-  }, [game, seats, snapshot])
+  /** A fresh attack reopens the overlay even after the human hid the last one. */
+  const combatKey = useMemo(
+    () => JSON.stringify([snapshot?.combat?.step, snapshot?.combat?.attackers ?? []]),
+    [snapshot?.combat],
+  )
 
   const flash = (message: string) => {
     setStatus(message)
@@ -953,18 +933,6 @@ export const LivePage = () => {
               </ol>
             </details>
           )}
-          {combat.length > 0 && (
-            <div className="mt-4 rounded-2xl border border-orange-300/20 bg-orange-500/5 p-4">
-              <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-orange-200">
-                Combat
-              </p>
-              <ul className="mt-2 space-y-1 text-sm leading-6 text-stone-300">
-                {combat.map((line, index) => (
-                  <li key={`${index}-${line}`}>{line}</li>
-                ))}
-              </ul>
-            </div>
-          )}
           {snapshot.stack.length > 0 && (
             <div className="mt-4 rounded-2xl border border-purple-300/20 bg-purple-500/5 p-4 lg:hidden">
               <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-purple-200">
@@ -1147,6 +1115,16 @@ export const LivePage = () => {
           onMulligan={() => void sendInbox('mulligan')}
           onKeep={(cards) => void sendInbox('keep', { cards })}
           onCheat={() => void sendInbox('keep', { cheat: true })}
+        />
+      )}
+
+      {snapshot.combat && (
+        <CombatOverlay
+          key={combatKey}
+          game={game}
+          combat={snapshot.combat}
+          seats={orderedSeats}
+          you={snapshot.you}
         />
       )}
 
