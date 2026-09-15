@@ -1,3 +1,4 @@
+import { abilityTokens } from '../../rules-engine/src/keywords'
 import { replayComparableState } from '../../rules-engine/src/replay'
 import type {
   EventTrace,
@@ -99,12 +100,8 @@ const KEYWORDS = [
   'indestructible',
 ]
 
-/** A keyword counts only as its own ability token, so "gains flying" does not. */
 const keywordsOf = (object: GameObject) => {
-  const tokens = object.oracleText
-    .split(/\n|\/\//)
-    .flatMap((line) => line.split(','))
-    .map((token) => token.trim().toLowerCase().replace(/\.$/, ''))
+  const tokens = abilityTokens(object.oracleText)
   return KEYWORDS.filter((keyword) => tokens.includes(keyword))
 }
 

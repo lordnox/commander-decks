@@ -12,6 +12,7 @@ import {
   commanderRules,
   createJournal,
   createServerGame,
+  forest,
 } from '../../rules-engine/src/index'
 import { createLobby } from './lobby'
 import {
@@ -29,13 +30,29 @@ const mkdirGames = (root: string) => {
   mkdirSync(join(root, 'table-games'), { recursive: true })
 }
 
-const seedKernel = (root: string, slug = 'pod') => {
+const seedKernel = (
+  root: string,
+  slug = 'pod',
+  adjust?: (state: ReturnType<typeof createServerGame>['state']) => void,
+  stocked = false,
+) => {
   const server = createServerGame(
     commanderRules,
-    undefined,
+    stocked
+      ? {
+          libraries: Object.fromEntries(
+            (['p1', 'p2', 'p3', 'p4'] as const).map((seat) => [
+              seat,
+              Array.from({ length: 40 }, forest),
+            ]),
+          ),
+        }
+      : undefined,
     { random: () => 0.5, cardPlugins: [] },
   )
-  writeFileSync(kernelPath(slug, root), JSON.stringify(createJournal(server.state)))
+  const journal = createJournal(server.state)
+  adjust?.(journal.initial)
+  writeFileSync(kernelPath(slug, root), JSON.stringify(journal))
 }
 
 describe('kernel host journal', () => {
@@ -121,7 +138,16 @@ describe('kernel host journal', () => {
   test('bounds published history frames', async () => {
     const root = mkdtempSync(join(tmpdir(), 'kernel-history-'))
     mkdirGames(root)
-    seedKernel(root)
+    // Forty pass rounds outlive a seven card hand, and this test is about
+    // frame bounds rather than the cleanup discard rule.
+    seedKernel(
+      root,
+      'pod',
+      (state) => {
+        for (const seat of state.playerOrder) state.players[seat].data.maximumHandSize = null
+      },
+      true,
+    )
     const lobby = createLobby()
     lobby.phase = 'play'
     const kernel = await openKernel('pod', root, lobby)
