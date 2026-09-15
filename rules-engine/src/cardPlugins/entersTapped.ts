@@ -19,15 +19,18 @@ const otherLands = (state: GameState, object: GameObject) =>
  * choice instead.
  */
 export const ENTERS_TAPPED: Record<string, EntryCheck> = {
+  'Dakmor Salvage': always,
   'Dimir Aqueduct': always,
   'Field of the Dead': always,
   'Golgari Rot Farm': always,
   'Hedge Maze': always,
   'Lotus Field': always,
+  'Myriad Landscape': always,
   'Pit of Offerings': always,
   'Simic Growth Chamber': always,
   'Undercity Sewers': always,
   'Underground Mortuary': always,
+  'Thawing Glaciers': always,
   'Zagoth Triome': always,
   'Hall of Storm Giants': (state, object) => otherLands(state, object).length >= 2,
   'Lair of the Hydra': (state, object) => otherLands(state, object).length >= 2,

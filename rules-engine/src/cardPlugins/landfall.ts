@@ -101,6 +101,16 @@ const mill = (draft: Draft, seat: PlayerId, count: number) => {
  * deliberately absent.
  */
 export const LANDFALL: Record<string, LandfallEffect> = {
+  'Mole Man, Moloid Master': ({ draft, source }) => {
+    createToken(draft, source.controller, {
+      name: 'Moloid',
+      types: ['Creature'],
+      subtypes: ['Minion'],
+      power: 1,
+      toughness: 1,
+      oracleText: 'Whenever this token attacks, you may mill a card.',
+    })
+  },
   'Scute Swarm': ({ draft, source }) => {
     const copy = controlledLands(draft, source.controller).length >= 6
     createToken(draft, source.controller, copy

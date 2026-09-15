@@ -1,4 +1,9 @@
 {
+  "374e54d8-8e73-4268-9dde-c28c77bbbf32": {
+    "name": "Aftermath Analyst",
+    "pluginIds": [],
+    "handlerIds": ["graveyardLands"]
+  },
   "6511f317-bd38-46d0-b800-7125a3f420da": {
     "name": "Aesi, Tyrant of Gyre Strait",
     "pluginIds": [],
@@ -14,13 +19,28 @@
     "pluginIds": [],
     "handlerIds": ["librarySearch"]
   },
+  "02679a2e-303d-412f-87d8-0a37a8ca259c": {
+    "name": "Blighted Woodland",
+    "pluginIds": [],
+    "handlerIds": ["librarySearch"]
+  },
   "378a1d57-e2f1-4b84-9692-1564602e9e99": {
     "name": "Dimir Aqueduct",
     "pluginIds": [],
     "handlerIds": ["entersTapped"]
   },
+  "cdc4048a-73ec-4ec1-a179-2b36c397bf1a": {
+    "name": "Dakmor Salvage",
+    "pluginIds": [],
+    "handlerIds": ["entersTapped"]
+  },
   "299fc083-0834-4064-8344-f895aff68867": {
     "name": "Entomb",
+    "pluginIds": [],
+    "handlerIds": ["librarySearch"]
+  },
+  "a75445d3-1303-4bb5-89ad-26ea93fecd48": {
+    "name": "Evolving Wilds",
     "pluginIds": [],
     "handlerIds": ["librarySearch"]
   },
@@ -34,6 +54,11 @@
     "pluginIds": [],
     "handlerIds": ["librarySearch"]
   },
+  "0c85b8f7-0bd0-4680-9ec5-d4b110460a54": {
+    "name": "Fabled Passage",
+    "pluginIds": [],
+    "handlerIds": ["librarySearch"]
+  },
   "aa959340-c869-4caa-92c7-572bd8d23eef": {
     "name": "Field of the Dead",
     "pluginIds": [],
@@ -43,6 +68,11 @@
     "name": "Golgari Rot Farm",
     "pluginIds": [],
     "handlerIds": ["entersTapped"]
+  },
+  "f2c861d3-b302-4e84-b647-099551007269": {
+    "name": "Ghost Town",
+    "pluginIds": [],
+    "handlerIds": ["selfBounceLand"]
   },
   "087c8c0e-a91c-4e3c-8387-9312db01f343": {
     "name": "Hall of Storm Giants",
@@ -79,6 +109,16 @@
     "pluginIds": [],
     "handlerIds": ["librarySearch"]
   },
+  "fa4dffda-6f04-4d0b-829d-28a1a5794dee": {
+    "name": "Millikin",
+    "pluginIds": [],
+    "handlerIds": ["selfMill"]
+  },
+  "34994475-b914-44f6-8ca1-c2747b6d5956": {
+    "name": "Mole Man, Moloid Master",
+    "pluginIds": [],
+    "handlerIds": ["landfall"]
+  },
   "84122d81-9634-4d3f-85a5-f6cf4303691a": {
     "name": "Mossborn Hydra",
     "pluginIds": [],
@@ -88,6 +128,16 @@
     "name": "Mystic Sanctuary",
     "pluginIds": [],
     "handlerIds": ["entersTapped"]
+  },
+  "645fb11b-d684-4bec-8532-8fa97e8f7b28": {
+    "name": "Oboro, Palace in the Clouds",
+    "pluginIds": [],
+    "handlerIds": ["selfBounceLand"]
+  },
+  "2549bc57-9ffb-4053-9f10-f2a5f792b845": {
+    "name": "Myriad Landscape",
+    "pluginIds": [],
+    "handlerIds": ["entersTapped", "librarySearch"]
   },
   "78826359-fe63-44ad-adc4-a17ffcd710e4": {
     "name": "Nature's Lore",
@@ -114,10 +164,20 @@
     "pluginIds": [],
     "handlerIds": ["landfall"]
   },
+  "39b51f62-8421-42d1-86d3-74fd6e6f31a2": {
+    "name": "Skull Prophet",
+    "pluginIds": [],
+    "handlerIds": ["selfMill"]
+  },
   "046f5783-cc7b-416a-8cf6-2bcef9c2cc1a": {
     "name": "Simic Growth Chamber",
     "pluginIds": [],
     "handlerIds": ["entersTapped"]
+  },
+  "13fe5e46-77a6-45d8-ac0b-c3d740eccf86": {
+    "name": "Splendid Reclamation",
+    "pluginIds": [],
+    "handlerIds": ["graveyardLands"]
   },
   "e5df4597-1647-4ac2-bdb3-a517598d1431": {
     "name": "Summer Bloom",
@@ -128,6 +188,16 @@
     "name": "Three Visits",
     "pluginIds": [],
     "handlerIds": ["librarySearch"]
+  },
+  "1bd3e453-aa21-4ee6-95c2-d6d920ee8e7a": {
+    "name": "Terramorphic Expanse",
+    "pluginIds": [],
+    "handlerIds": ["librarySearch"]
+  },
+  "c6792d9f-8b74-43c4-814f-ba4adab2fdea": {
+    "name": "Thawing Glaciers",
+    "pluginIds": [],
+    "handlerIds": ["entersTapped"]
   },
   "08d80efc-9542-4ba2-824c-c8615d8d07f2": {
     "name": "Undercity Sewers",

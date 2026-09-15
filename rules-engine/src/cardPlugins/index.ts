@@ -2,8 +2,11 @@ import registry from '../../../cards/rules-plugins.json'
 import type { Plugin } from '../types'
 import { additionalLandPlay } from './additionalLandPlay'
 import { entersTapped } from './entersTapped'
+import { graveyardLands } from './graveyardLands'
 import { landfall } from './landfall'
 import { librarySearch } from './librarySearch'
+import { selfBounceLand } from './selfBounceLand'
+import { selfMill } from './selfMill'
 import { yurlok } from './yurlok'
 
 export type CardPluginEntry = {
@@ -22,8 +25,11 @@ const byName = new Map(
 export const cardPlugins: Plugin[] = [
   additionalLandPlay,
   entersTapped,
+  graveyardLands,
   landfall,
   librarySearch,
+  selfBounceLand,
+  selfMill,
   yurlok,
 ]
 

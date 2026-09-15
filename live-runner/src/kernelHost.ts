@@ -171,6 +171,18 @@ const finishLibrarySearch = (
     if (spec.tapped && spec.destination === 'battlefield') {
       events.push({ type: 'tap', objectId })
     }
+    if (
+      spec.untapWithFourLands
+      && spec.destination === 'battlefield'
+    ) {
+      const landsBeforeEntry = Object.values(kernel.history.current().objects)
+        .filter((object) =>
+          object.zone === 'battlefield'
+          && object.controller === seat
+          && object.types.includes('Land'))
+        .length
+      if (landsBeforeEntry >= 3) events.push({ type: 'untap', objectId })
+    }
   }
   events.push({ type: 'shuffleLibrary', seat })
   events.push({ type: 'custom', name: SEARCH_CHOSEN, seat })
@@ -355,6 +367,10 @@ export const applyKernelChoice = (
       )
     }
     const ids = objectIdsForNames(state, state.zoneOrder[seat].library, selected)
+    const selectionError = spec.validateSelection?.(
+      ids.map((objectId) => state.objects[objectId]),
+    )
+    if (selectionError) throw new Error(selectionError)
     finishLibrarySearch(kernel, lobby, seat, pending, spec, ids)
     state = kernel.history.current()
     lobby.actions = kernelActions(state)
