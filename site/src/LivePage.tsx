@@ -459,7 +459,9 @@ export const LivePage = () => {
       cheat?: boolean
       choices?: Array<{
         card: string
-        destination: 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
+        destination:
+          | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
+          | 'target' | 'skip'
       }>
       always?: boolean
       until?: 'my-turn' | 'off'

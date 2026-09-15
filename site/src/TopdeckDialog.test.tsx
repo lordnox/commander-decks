@@ -85,6 +85,28 @@ test('a fetch search names the battlefield as the destination', () => {
   expect(html).toContain('Taiga')
 })
 
+test('Homer offers every player as an optional target', () => {
+  const game = { catalog: {} } as unknown as ReplayGame
+  const decision = {
+    kind: 'target-players',
+    cards: ['p1', 'p2', 'p3', 'p4'],
+    destinations: ['skip', 'target'],
+  } as LiveTopdeck
+  const html = renderToStaticMarkup(
+    <TopdeckDialog
+      game={game}
+      decision={decision}
+      pending={false}
+      onResolve={() => {}}
+    />,
+  )
+
+  expect(html).toContain('Choose target players')
+  expect(html).toContain('Target this player')
+  expect(html).toContain('Do not target')
+  expect(html).toContain('Confirm targets')
+})
+
 test('only the card list scrolls, so hide and resolve stay reachable', () => {
   const game = { catalog: {} } as unknown as ReplayGame
   const decision = {

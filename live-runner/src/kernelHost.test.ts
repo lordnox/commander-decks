@@ -20,8 +20,10 @@ import {
 } from '../../rules-engine/src/index'
 import {
   librarySearch,
+  SEARCH_FETCH,
   searchingSeat,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
+import { HOMER_NAME, homer } from '../../rules-engine/src/cardPlugins/homer'
 import { createLobby } from './lobby'
 import {
   applyKernelAdvance,
@@ -143,6 +145,51 @@ const searchGame = (options: { library?: string[] } = {}) => {
   const lobby = createLobby()
   lobby.phase = 'play'
   return { kernel, lobby, spellId }
+}
+
+const abilitySearchGame = (
+  source: string,
+  library: Array<{ name: string; subtypes: string[] }>,
+  otherLands = 0,
+) => {
+  const server = createServerGame(
+    commanderRules,
+    {
+      first: 'p1',
+      battlefield: {
+        p1: [
+          { ...forest(), name: source, supertypes: [] },
+          ...Array.from({ length: otherLands }, (_, index) => ({
+            ...forest(),
+            name: `Land ${index + 1}`,
+          })),
+        ],
+      },
+      libraries: {
+        p1: library.map(({ name, subtypes }) => ({
+          ...forest(),
+          name,
+          subtypes,
+          supertypes: ['Basic'],
+        })),
+      },
+    },
+    { random: () => 0.5, cardPlugins: [librarySearch] },
+  )
+  const initial = structuredClone(server.state)
+  initial.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 4, C: 0 }
+  const sourceId = initial.zoneOrder.p1.battlefield[0]
+  const kernel = handleFor(server.rules, initial)
+  const activated = kernel.dispatch({
+    type: 'activateAbility',
+    abilityId: SEARCH_FETCH,
+    seat: 'p1',
+    objectId: sourceId,
+  })
+  if (!activated.ok) throw new Error(activated.error)
+  const lobby = createLobby()
+  lobby.phase = 'play'
+  return { kernel, lobby, sourceId }
 }
 
 describe('kernel host journal', () => {
@@ -463,6 +510,72 @@ describe('kernel host journal', () => {
     expect(lobby.topdeck).toBeUndefined()
   })
 
+  test('Homer target choices survive in kernel state and mill the selected players', () => {
+    const homerCard = {
+      ...forest(),
+      name: HOMER_NAME,
+      types: ['Creature'],
+      subtypes: ['Crab', 'Druid'],
+      supertypes: ['Legendary'],
+      power: 0,
+      toughness: 9,
+      tapProduces: undefined,
+    }
+    const crab = {
+      ...forest(),
+      name: 'Crab',
+      types: ['Creature'],
+      subtypes: ['Crab'],
+      supertypes: [],
+      power: 1,
+      toughness: 1,
+      tapProduces: undefined,
+    }
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [forest()] },
+        battlefield: { p1: [homerCard, crab] },
+        libraries: {
+          p1: Array.from({ length: 6 }, forest),
+          p2: Array.from({ length: 6 }, forest),
+          p3: Array.from({ length: 6 }, forest),
+          p4: Array.from({ length: 6 }, forest),
+        },
+      },
+      { random: () => 0.5, cardPlugins: [homer] },
+    )
+    const kernel = handleFor(server.rules, server.state)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    const landId = server.state.zoneOrder.p1.hand[0]
+    expect(kernel.dispatch({ type: 'playLand', seat: 'p1', objectId: landId }).ok).toBe(true)
+
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'target-players',
+      cards: ['p1', 'p2', 'p3', 'p4'],
+      destinations: ['skip', 'target'],
+    })
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'p1', destination: 'skip' },
+        { card: 'p2', destination: 'target' },
+        { card: 'p3', destination: 'skip' },
+        { card: 'p4', destination: 'target' },
+      ],
+    })).toBe(true)
+
+    const state = kernel.history.current()
+    expect(state.zoneOrder.p1.graveyard).toHaveLength(0)
+    expect(state.zoneOrder.p2.graveyard).toHaveLength(4)
+    expect(state.zoneOrder.p3.graveyard).toHaveLength(0)
+    expect(state.zoneOrder.p4.graveyard).toHaveLength(4)
+    expect(lobby.topdeck).toBeUndefined()
+  })
+
   test('the searching seat is the only viewer who sees the candidates', () => {
     const { kernel, lobby } = searchGame()
     prepareKernelPendingChoice(kernel, lobby)
@@ -514,6 +627,46 @@ describe('kernel host journal', () => {
         { card: 'Forest', destination: 'battlefield' },
       ],
     })).toThrow('Choose 1 card(s)')
+    expect(searchingSeat(kernel.history.current())).toBe('p1')
+  })
+
+  test('Fabled Passage untaps its find once the fourth land enters', () => {
+    const { kernel, lobby, sourceId } = abilitySearchGame(
+      'Fabled Passage',
+      [{ name: 'Forest', subtypes: ['Forest'] }],
+      3,
+    )
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [{ card: 'Forest', destination: 'battlefield' }],
+    })).toBe(true)
+
+    const state = kernel.history.current()
+    const found = Object.values(state.objects).find(
+      (object) => object.name === 'Forest',
+    )!
+    expect(found.zone).toBe('battlefield')
+    expect(found.tapped).toBe(false)
+    expect(state.objects[sourceId].zone).toBe('graveyard')
+  })
+
+  test('Myriad Landscape rejects basics that do not share a land type', () => {
+    const { kernel, lobby } = abilitySearchGame(
+      'Myriad Landscape',
+      [
+        { name: 'Forest', subtypes: ['Forest'] },
+        { name: 'Island', subtypes: ['Island'] },
+      ],
+    )
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(() => applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Forest', destination: 'battlefield' },
+        { card: 'Island', destination: 'battlefield' },
+      ],
+    })).toThrow('must share a land type')
     expect(searchingSeat(kernel.history.current())).toBe('p1')
   })
 

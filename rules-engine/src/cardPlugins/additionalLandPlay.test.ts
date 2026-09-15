@@ -4,6 +4,7 @@ import type { CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
 import { additionalLandPlay } from './additionalLandPlay'
+import { onResolve } from './onResolve'
 
 const card = (
   name: string,
@@ -51,7 +52,7 @@ const game = (options: {
       battlefield: { p1: options.battlefield ?? [] },
       libraries: { p1: options.library ?? [] },
     },
-    { random: () => 0.5, cardPlugins: [additionalLandPlay] },
+    { random: () => 0.5, cardPlugins: [additionalLandPlay, onResolve] },
   )
 
 const run = (

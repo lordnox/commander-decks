@@ -1,6 +1,55 @@
-import type { Plugin } from '../types'
+import type Draft from '../draft'
+import type { GameState, Plugin } from '../types'
 
 export const HIDDEN_INFORMATION_ID = 'hiddenInformation'
+export const RANDOM_CHOICE = 'hiddenInformation.randomChoice'
+export const RANDOM_STATE = 'hiddenInformation.randomState'
+
+type RandomChoicePayload = {
+  choices: string[]
+  resultName: string
+  context?: Record<string, unknown>
+}
+
+const randomChoicePayload = (value: unknown): RandomChoicePayload | undefined => {
+  if (!value || typeof value !== 'object') return
+  const payload = value as Partial<RandomChoicePayload>
+  if (
+    !Array.isArray(payload.choices)
+    || payload.choices.length === 0
+    || !payload.choices.every((choice) => typeof choice === 'string')
+    || typeof payload.resultName !== 'string'
+    || payload.resultName.length === 0
+    || (payload.context !== undefined && (
+      !payload.context
+      || typeof payload.context !== 'object'
+      || Array.isArray(payload.context)
+    ))
+  ) {
+    return
+  }
+  return payload as RandomChoicePayload
+}
+
+export const initializeRandomState = (
+  state: GameState,
+  random: () => number,
+) => {
+  const owner = state.playerOrder[0]
+  const sample = Math.max(0, Math.min(0.9999999999999999, random()))
+  state.players[owner].data[RANDOM_STATE] = Math.floor(sample * 0x100000000)
+}
+
+const nextStateRandom = (draft: Draft) => {
+  const owner = draft.playerOrder[0]
+  const current = draft.players[owner].data[RANDOM_STATE]
+  const seed = typeof current === 'number' && Number.isSafeInteger(current)
+    ? current >>> 0
+    : 0x6d2b79f5
+  const next = (Math.imul(1664525, seed) + 1013904223) >>> 0
+  draft.players[owner].data[RANDOM_STATE] = next
+  return next / 0x100000000
+}
 
 const hiddenEvent = (type: string) =>
   type === 'draw'
@@ -44,6 +93,9 @@ const redactDraft = (draft: import('../draft').Draft) => {
 export const unconfiguredHiddenInformation: Plugin = {
   id: HIDDEN_INFORMATION_ID,
   legal: ({ event }) => {
+    if (event.type === 'custom' && event.name === RANDOM_CHOICE) {
+      return 'random choices require an authoritative runtime'
+    }
     if (hiddenEvent(event.type)) return 'hidden information requires a runtime profile'
   },
 }
@@ -54,6 +106,11 @@ export const createAuthoritativeHiddenInformation = (
   id: HIDDEN_INFORMATION_ID,
   legal: ({ state, event }) => {
     if (event.type === 'authoritativeSync') return 'the server cannot ingest replica state'
+    if (event.type === 'custom' && event.name === RANDOM_CHOICE) {
+      if (!event.seat || !state.players[event.seat]) return 'random choice needs a valid seat'
+      if (!randomChoicePayload(event.payload)) return 'random choice payload is invalid'
+      return
+    }
     if (
       event.type !== 'draw'
       && event.type !== 'shuffleLibrary'
@@ -79,6 +136,25 @@ export const createAuthoritativeHiddenInformation = (
     }
   },
   apply: ({ state, event, draft }) => {
+    if (event.type === 'custom' && event.name === RANDOM_CHOICE) {
+      const payload = randomChoicePayload(event.payload)
+      if (!payload || !event.seat) return
+      const index = Math.min(
+        payload.choices.length - 1,
+        Math.floor(nextStateRandom(draft) * payload.choices.length),
+      )
+      draft.enqueue({
+        type: 'custom',
+        name: payload.resultName,
+        seat: event.seat,
+        payload: {
+          ...payload.context,
+          selected: payload.choices[index],
+        },
+      })
+      return
+    }
+
     if (event.type === 'reveal') {
       // The log is copied into every viewer's projection, so naming the cards
       // here is what makes a reveal public without unhiding the zone itself.
@@ -124,6 +200,9 @@ export const createAuthoritativeHiddenInformation = (
 export const replicaHiddenInformation: Plugin = {
   id: HIDDEN_INFORMATION_ID,
   legal: ({ state, event }) => {
+    if (event.type === 'custom' && event.name === RANDOM_CHOICE) {
+      return 'replicas cannot resolve random choices'
+    }
     if (event.type !== 'authoritativeSync') return
     const redactionError = replicaSnapshotError(event.snapshot)
     if (redactionError) return redactionError

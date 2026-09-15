@@ -50,8 +50,14 @@ Use ordinary validated `GameEvent`s first.
 - Register static battlefield effects under `pluginIds`.
 - Register always-on cast, resolution, activated, or triggered handlers under
   `handlerIds`.
-- Key `cards/rules-plugins.json` by Oracle ID and preserve other agents'
-  entries while rebasing.
+- Key `cards/rules-plugins.json` by English Oracle name. The TypeScript table
+  in `rules-engine/src/cardPlugins/cardRules.ts` is the source of truth; keep
+  the JSON in sync by dumping `registryEntries()`. Do not put card-name
+  dictionaries inside plugins.
+- Add a card by composing builders (`enters(selfMill(3))`, `dies(selfMill(3))`,
+  `entersTapped()`, `activate(...)`). Capability plugins read stamped effects,
+  not names. Search matchers stay in TypeScript; `newGame` stamps a clone-safe
+  copy so `structuredClone` does not fail.
 
 A plugin is not complete when it merely rejects priority or writes a
 `players[seat].data` waiting marker. Any choice it introduces must have a full

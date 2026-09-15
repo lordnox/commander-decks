@@ -5,31 +5,19 @@ import {
   sourceOnBattlefield,
   whenAbility,
 } from '../plugins/activateAbility'
+import { payCost } from '../plugins/spells'
 import type Draft from '../draft'
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
+import { effectsFor } from './cardRules'
+import { searchEffect, type SearchSpec } from './effects'
+
+export type { SearchDestination, SearchSpec } from './effects'
 
 export const SEARCH_PENDING = 'librarySearch.pending'
 export const SEARCH_DONE = 'librarySearch.done'
 export const SEARCH_BEGIN = 'librarySearch.begin'
 export const SEARCH_CHOSEN = 'librarySearch.chosen'
 export const SEARCH_FETCH = 'librarySearch.fetch'
-
-export type SearchDestination = 'hand' | 'battlefield' | 'graveyard'
-
-export type SearchSpec = {
-  /** Sentence shown to the searching seat only. */
-  prompt: string
-  match: (object: GameObject) => boolean
-  destination: SearchDestination
-  /** Battlefield destinations that Oracle puts onto the battlefield tapped. */
-  tapped?: boolean
-  min: number
-  max: number
-  /** Oracle "reveal it": the found card is published to the whole table. */
-  reveal?: boolean
-  /** Life paid as part of an activation cost. */
-  life?: number
-}
 
 /** The searching seat's open choice, stored in authoritative state. */
 export type PendingSearch = {
@@ -38,97 +26,18 @@ export type PendingSearch = {
   via: 'spell' | 'ability'
 }
 
-const basicLand = (object: GameObject) =>
-  object.types.includes('Land') && object.supertypes.includes('Basic')
-
-const hasSubtype = (...subtypes: string[]) => (object: GameObject) =>
-  object.types.includes('Land') && subtypes.some((subtype) => object.subtypes.includes(subtype))
-
-/** Sorceries and instants whose resolution is a library search. */
-export const SEARCH_SPELLS: Record<string, SearchSpec> = {
-  "Nature's Lore": {
-    prompt: 'Search your library for a Forest card and put it onto the battlefield.',
-    match: hasSubtype('Forest'),
-    destination: 'battlefield',
-    min: 1,
-    max: 1,
-  },
-  'Three Visits': {
-    prompt: 'Search your library for a Forest card and put it onto the battlefield.',
-    match: hasSubtype('Forest'),
-    destination: 'battlefield',
-    min: 1,
-    max: 1,
-  },
-  Farseek: {
-    prompt: 'Search your library for a Plains, Island, Swamp, or Mountain card. It enters tapped.',
-    match: hasSubtype('Plains', 'Island', 'Swamp', 'Mountain'),
-    destination: 'battlefield',
-    tapped: true,
-    min: 1,
-    max: 1,
-  },
-  Entomb: {
-    prompt: 'Search your library for a card and put it into your graveyard.',
-    match: () => true,
-    destination: 'graveyard',
-    min: 1,
-    max: 1,
-  },
-  'Buried Alive': {
-    prompt: 'Search your library for up to three creature cards and put them into your graveyard.',
-    match: (object) => object.types.includes('Creature'),
-    destination: 'graveyard',
-    min: 0,
-    max: 3,
-  },
-  'Unmarked Grave': {
-    prompt: 'Search your library for a nonlegendary card and put it into your graveyard.',
-    match: (object) => !object.supertypes.includes('Legendary'),
-    destination: 'graveyard',
-    min: 1,
-    max: 1,
-  },
-}
-
-/** Lands whose `{T}`, pay life, sacrifice ability is a library search. */
-export const SEARCH_ABILITIES: Record<string, SearchSpec> = {
-  'Misty Rainforest': {
-    prompt: 'Search your library for a Forest or Island card and put it onto the battlefield.',
-    match: hasSubtype('Forest', 'Island'),
-    destination: 'battlefield',
-    min: 1,
-    max: 1,
-    life: 1,
-  },
-  'Polluted Delta': {
-    prompt: 'Search your library for an Island or Swamp card and put it onto the battlefield.',
-    match: hasSubtype('Island', 'Swamp'),
-    destination: 'battlefield',
-    min: 1,
-    max: 1,
-    life: 1,
-  },
-  'Verdant Catacombs': {
-    prompt: 'Search your library for a Swamp or Forest card and put it onto the battlefield.',
-    match: hasSubtype('Swamp', 'Forest'),
-    destination: 'battlefield',
-    min: 1,
-    max: 1,
-    life: 1,
-  },
-  'Prismatic Vista': {
-    prompt: 'Search your library for a basic land card and put it onto the battlefield.',
-    match: basicLand,
-    destination: 'battlefield',
-    min: 1,
-    max: 1,
-    life: 1,
-  },
-}
-
 export const searchSpecFor = (name: string): SearchSpec | undefined =>
-  SEARCH_SPELLS[name] ?? SEARCH_ABILITIES[name]
+  searchEffect(effectsFor(name))?.spec
+
+const abilitySpec = (object: GameObject) => {
+  const effect = searchEffect(effectsFor(object.name))
+  return effect?.via === 'ability' ? effect.spec : undefined
+}
+
+const spellSpec = (object: GameObject) => {
+  const effect = searchEffect(effectsFor(object.name))
+  return effect?.via === 'spell' ? effect.spec : undefined
+}
 
 export const pendingSearch = (
   state: GameState,
@@ -164,7 +73,7 @@ const openSearch = (draft: Draft, seat: PlayerId, pending: PendingSearch) => {
   draft.note(`${seat} searches their library for ${pending.source}`)
 }
 
-const abilityLand = (name: string) => SEARCH_ABILITIES[name]?.life !== undefined
+const hasSearchAbility = (object: GameObject) => Boolean(abilitySpec(object))
 
 /**
  * One search capability for every "search your library" card in the pool. The
@@ -188,7 +97,7 @@ export const librarySearch: Plugin = {
       SEARCH_FETCH,
       (abilityCtx) => {
         const source = abilityCtx.state.objects[abilityCtx.event.objectId]
-        if (!source || !abilityLand(source.name)) {
+        if (!source || !hasSearchAbility(source)) {
           return 'that card has no library-search ability'
         }
       },
@@ -197,10 +106,17 @@ export const librarySearch: Plugin = {
       sourceCanTap(),
       (abilityCtx) => {
         const source = abilityCtx.state.objects[abilityCtx.event.objectId]
-        const life = source ? SEARCH_ABILITIES[source.name]?.life ?? 0 : 0
+        const life = source ? abilitySpec(source)?.life ?? 0 : 0
         if (abilityCtx.state.players[abilityCtx.event.seat].life <= life) {
           return `${abilityCtx.event.seat} cannot pay ${life} life`
         }
+      },
+      (abilityCtx) => {
+        const source = abilityCtx.state.objects[abilityCtx.event.objectId]
+        const cost = source ? abilitySpec(source)?.manaCost : undefined
+        if (!cost) return
+        const pool = abilityCtx.state.players[abilityCtx.event.seat].mana
+        if (!payCost(pool, cost)) return `${abilityCtx.event.seat} cannot pay ${cost}`
       },
       (abilityCtx) => {
         if (searchingSeat(abilityCtx.state)) return 'another library search is still open'
@@ -211,7 +127,8 @@ export const librarySearch: Plugin = {
   replace: ({ state, event }) => {
     if (event.type !== 'resolveTop') return
     const item = state.stack[0]
-    if (!item || !SEARCH_SPELLS[item.name]) return
+    const object = item ? state.objects[item.objectId] : undefined
+    if (!item || !object || !spellSpec(object)) return
     if (searchDone(state, item.controller)) return
     if (pendingSearch(state, item.controller)) return null
     return {
@@ -251,7 +168,7 @@ export const librarySearch: Plugin = {
     applyAbility(SEARCH_FETCH, ({ event: ability, draft: next }) => {
       const source = next.object(ability.objectId)
       if (!source) return
-      const spec = SEARCH_ABILITIES[source.name]
+      const spec = abilitySpec(source)
       if (!spec) return
       if (spec.life) {
         next.enqueue({
@@ -261,7 +178,12 @@ export const librarySearch: Plugin = {
           source: source.name,
         })
       }
-      next.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })
+      if (spec.manaCost) {
+        next.enqueue({ type: 'payMana', seat: ability.seat, cost: spec.manaCost })
+      }
+      if (spec.sacrifice !== false) {
+        next.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })
+      }
       openSearch(next, ability.seat, {
         source: source.name,
         sourceId: source.id,

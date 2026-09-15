@@ -55,7 +55,9 @@ type InboxPayload =
       type: 'topdeck'
       choices: Array<{
         card: string
-        destination: 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
+        destination:
+          | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
+          | 'target' | 'skip'
       }>
     }
   | { type: 'advance' }
@@ -163,7 +165,17 @@ export const parseInbox = (raw: string): InboxMessage | null => {
             choice
             && typeof choice === 'object'
             && typeof choice.card === 'string'
-            && ['top', 'bottom', 'graveyard', 'hand', 'exile', 'battlefield', 'library'].includes(
+            && [
+              'top',
+              'bottom',
+              'graveyard',
+              'hand',
+              'exile',
+              'battlefield',
+              'library',
+              'target',
+              'skip',
+            ].includes(
               choice.destination,
             ),
         )

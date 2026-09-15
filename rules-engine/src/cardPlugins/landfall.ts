@@ -1,16 +1,13 @@
 import type Draft from '../draft'
 import type { GameObject, PlayerId, Plugin } from '../types'
-import { enteringObjectId } from './entersTapped'
-
-export type LandfallCtx = {
-  draft: Draft
-  /** The permanent whose landfall ability triggered. */
-  source: GameObject
-  /** The land that entered. */
-  land: GameObject
-}
-
-export type LandfallEffect = (ctx: LandfallCtx) => void
+import {
+  conditionHolds,
+  millLibrary,
+  triggerEffects,
+  type CardInstruction,
+} from './effects'
+import { effectsOf } from './cardRules'
+import { enteringObjectId, PERMANENT_ENTERED } from './entersTapped'
 
 const tokenDefaults = (): Omit<GameObject, 'id' | 'name' | 'owner' | 'controller'> => ({
   zone: 'battlefield',
@@ -31,6 +28,7 @@ const tokenDefaults = (): Omit<GameObject, 'id' | 'name' | 'owner' | 'controller
   grantedRules: [],
   token: true,
   tags: [],
+  effects: [],
 })
 
 /** Tokens are created by the effect, not by a `move`: no card exists to move. */
@@ -38,6 +36,7 @@ export const createToken = (
   draft: Draft,
   controller: PlayerId,
   template: Partial<GameObject> & { name: string },
+  emitEntry = true,
 ) => {
   const id = draft.allocId('tok')
   const token: GameObject = {
@@ -48,6 +47,7 @@ export const createToken = (
     controller,
     zone: 'battlefield',
     token: true,
+    effects: template.effects ?? [],
   }
   draft.objects[id] = token
   draft.zoneOrder[controller].battlefield.push(id)
@@ -62,6 +62,14 @@ export const createToken = (
     })
   }
   draft.note(`${controller} creates ${token.name}`)
+  if (emitEntry) {
+    draft.enqueue({
+      type: 'custom',
+      name: PERMANENT_ENTERED,
+      seat: controller,
+      payload: { objectId: id },
+    })
+  }
   return token
 }
 
@@ -77,65 +85,58 @@ export const addPlusCounters = (object: GameObject, amount: number) => {
   if (object.toughness !== null) object.toughness += amount
 }
 
-const controlledLands = (draft: Draft, seat: PlayerId) =>
-  draft.zoneOf('battlefield', seat).filter((object) => object.types.includes('Land'))
-
-const insectToken = (name: string) => ({
-  name,
-  types: ['Creature'],
-  subtypes: ['Insect'],
-  power: 1,
-  toughness: 1,
-})
-
-/** Mill from the top of a library as ordinary moves, so hidden info stays in the kernel. */
-const mill = (draft: Draft, seat: PlayerId, count: number) => {
-  for (const objectId of draft.zoneOrder[seat].library.slice(0, count)) {
-    draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+const runLandfall = (
+  draft: Draft,
+  source: GameObject,
+  instructions: CardInstruction[],
+) => {
+  for (const instruction of instructions) {
+    if (instruction.kind === 'if') {
+      const live = draft.object(source.id) ?? source
+      runLandfall(
+        draft,
+        source,
+        conditionHolds(instruction.if, draft, live)
+          ? instruction.whenTrue
+          : instruction.whenFalse ?? [],
+      )
+      continue
+    }
+    if (instruction.kind === 'selfMill') {
+      millLibrary(draft, source.controller, instruction.count)
+      continue
+    }
+    if (instruction.kind === 'createToken') {
+      createToken(draft, source.controller, {
+        name: instruction.token.name,
+        types: instruction.token.types,
+        subtypes: instruction.token.subtypes ?? [],
+        power: instruction.token.power ?? null,
+        toughness: instruction.token.toughness ?? null,
+        oracleText: instruction.token.oracleText ?? '',
+      })
+      continue
+    }
+    if (instruction.kind === 'copySelf') {
+      const live = draft.object(source.id) ?? source
+      createToken(draft, live.controller, {
+        name: live.name,
+        types: [...live.types],
+        subtypes: [...live.subtypes],
+        power: live.power,
+        toughness: live.toughness,
+        oracleText: live.oracleText,
+        effects: live.effects ?? [],
+      })
+      continue
+    }
+    if (instruction.kind === 'doublePlusCounters') {
+      const live = draft.object(source.id)
+      if (!live) continue
+      addPlusCounters(live, live.counters['+1/+1'] ?? 0)
+      draft.note(`${live.name} doubles to ${live.counters['+1/+1'] ?? 0} +1/+1 counters`)
+    }
   }
-}
-
-/**
- * Landfall abilities whose whole effect is determined: no target, no "may",
- * and no modes. Anything the controller answers needs a pending choice and is
- * deliberately absent.
- */
-export const LANDFALL: Record<string, LandfallEffect> = {
-  'Scute Swarm': ({ draft, source }) => {
-    const copy = controlledLands(draft, source.controller).length >= 6
-    createToken(draft, source.controller, copy
-      ? {
-          name: source.name,
-          types: [...source.types],
-          subtypes: [...source.subtypes],
-          power: source.power,
-          toughness: source.toughness,
-          oracleText: source.oracleText,
-        }
-      : insectToken('Insect'))
-  },
-  'Mossborn Hydra': ({ draft, source }) => {
-    const live = draft.object(source.id)
-    if (!live) return
-    addPlusCounters(live, live.counters['+1/+1'] ?? 0)
-    draft.note(`${live.name} doubles to ${live.counters['+1/+1'] ?? 0} +1/+1 counters`)
-  },
-  'Icetill Explorer': ({ draft, source }) => {
-    mill(draft, source.controller, 1)
-  },
-  'Field of the Dead': ({ draft, source }) => {
-    const names = new Set(
-      controlledLands(draft, source.controller).map((land) => land.name),
-    )
-    if (names.size < 7) return
-    createToken(draft, source.controller, {
-      name: 'Zombie',
-      types: ['Creature'],
-      subtypes: ['Zombie'],
-      power: 2,
-      toughness: 2,
-    })
-  },
 }
 
 /**
@@ -145,16 +146,19 @@ export const LANDFALL: Record<string, LandfallEffect> = {
  */
 export const landfall: Plugin = {
   id: 'landfall',
-  apply: ({ event, draft }) => {
-    const objectId = enteringObjectId(event)
+  apply: ({ state, event, draft }) => {
+    const objectId = enteringObjectId(event, state)
     if (!objectId) return
     const land = draft.object(objectId)
     if (!land || land.zone !== 'battlefield' || !land.types.includes('Land')) return
     for (const source of draft.zoneOf('battlefield', land.controller)) {
-      const effect = LANDFALL[source.name]
-      if (!effect) continue
+      const effects = triggerEffects(effectsOf(source), 'landfall')
+      if (effects.length === 0) continue
       draft.note(`Landfall — ${source.name}`)
-      effect({ draft, source, land })
+      for (const effect of effects) {
+        if (!conditionHolds(effect.if, draft, source)) continue
+        runLandfall(draft, source, effect.do)
+      }
     }
   },
 }

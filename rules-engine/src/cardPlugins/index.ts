@@ -1,10 +1,16 @@
-import registry from '../../../cards/rules-plugins.json'
+import { CARD_RULES, cardDefinition } from './cardRules'
 import type { Plugin } from '../types'
 import { additionalLandPlay } from './additionalLandPlay'
+import { analyzeThePollen } from './analyzeThePollen'
+import { activated } from './activated'
 import { entersTapped } from './entersTapped'
+import { homer } from './homer'
+import { jointExploration } from './jointExploration'
 import { landfall } from './landfall'
 import { librarySearch } from './librarySearch'
-import { yurlok } from './yurlok'
+import { onResolve } from './onResolve'
+import { sin } from './sin'
+import { zoneTriggers } from './zoneTriggers'
 
 export type CardPluginEntry = {
   name: string
@@ -12,25 +18,41 @@ export type CardPluginEntry = {
   handlerIds?: string[]
 }
 
-const byOracleId = registry as Record<string, CardPluginEntry>
-
-const byName = new Map(
-  Object.values(byOracleId).map((entry) => [entry.name.toLowerCase(), entry]),
-)
-
 /** Card-specific plugins. Always on for activateAbility; static effects use grantedRules. */
 export const cardPlugins: Plugin[] = [
   additionalLandPlay,
+  activated,
   entersTapped,
+  homer,
+  jointExploration,
   landfall,
   librarySearch,
-  yurlok,
+  onResolve,
+  sin,
+  zoneTriggers,
+  analyzeThePollen,
 ]
 
-export const cardPluginEntry = (name: string) => byName.get(name.toLowerCase())
+export const cardPluginEntry = (name: string): CardPluginEntry | undefined => {
+  const definition = cardDefinition(name)
+  if (!definition) return
+  return {
+    name: definition.name,
+    pluginIds: definition.pluginIds,
+    handlerIds: definition.handlerIds,
+  }
+}
 
 export const grantedRulesFor = (name: string) =>
   cardPluginEntry(name)?.pluginIds ?? []
 
 export const missingCardPlugins = (names: string[]) =>
   [...new Set(names)].filter((name) => !cardPluginEntry(name))
+
+export const registryEntries = (): Record<string, CardPluginEntry> =>
+  Object.fromEntries(
+    Object.keys(CARD_RULES).sort().map((name) => {
+      const entry = cardPluginEntry(name)!
+      return [name, { name: entry.name, pluginIds: entry.pluginIds, handlerIds: entry.handlerIds }]
+    }),
+  )

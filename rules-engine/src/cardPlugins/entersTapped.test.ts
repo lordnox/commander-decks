@@ -49,6 +49,21 @@ describe('entersTapped', () => {
     expect(next.objects[objectId].tapped).toBe(true)
   })
 
+  test.each([
+    'Dakmor Salvage',
+    'Myriad Landscape',
+    'Thawing Glaciers',
+  ])('%s enters tapped', (name) => {
+    const server = game([land(name)])
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    const next = ok(server.rules(server.state, {
+      type: 'playLand',
+      seat: 'p1',
+      objectId,
+    }))
+    expect(next.objects[objectId].tapped).toBe(true)
+  })
+
   test('a land with no entry rule is untapped', () => {
     const server = game([land('Forest', ['Forest'])])
     const objectId = server.state.zoneOrder.p1.hand[0]

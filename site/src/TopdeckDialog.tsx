@@ -2,7 +2,9 @@ import { useState } from 'react'
 import type { LiveTopdeck } from './liveCodec'
 import type { ReplayGame } from './replayTypes'
 
-type Destination = 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
+type Destination =
+  | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
+  | 'target' | 'skip'
 type Choice = {
   id: number
   card: string
@@ -16,6 +18,8 @@ const label = (destination: Destination) => {
   if (destination === 'exile') return 'Exile'
   if (destination === 'battlefield') return 'Battlefield'
   if (destination === 'library') return 'Library'
+  if (destination === 'target') return 'Target'
+  if (destination === 'skip') return 'Not targeted'
   return 'Top'
 }
 
@@ -33,6 +37,7 @@ export const TopdeckDialog = ({
   const discarding = decision.kind === 'discard'
   const puttingLand = decision.kind === 'put-land'
   const searching = decision.kind === 'search'
+  const targetingPlayers = decision.kind === 'target-players'
   const orderMatters = decision.destinations.some(
     (destination) => destination === 'top' || destination === 'bottom',
   )
@@ -104,6 +109,8 @@ export const TopdeckDialog = ({
       ? 'Put a land onto the battlefield'
       : searching
         ? 'Search your library'
+        : targetingPlayers
+          ? 'Choose target players'
       : `${decision.kind[0]?.toUpperCase()}${decision.kind.slice(1)} ${choices.length}`
   const previewDetails = previewCard ? game.catalog[previewCard] : null
   const previewImage = previewDetails?.image_normal || previewDetails?.image_small
@@ -155,7 +162,9 @@ export const TopdeckDialog = ({
             ? 'Your turn ends once the extra cards are in the graveyard.'
             : puttingLand
               ? 'Choose at most one land. Leave every other card in your hand.'
-              : searching
+              : targetingPlayers
+                ? 'Choose any number of players. Homer mills each chosen player when you confirm.'
+                : searching
                 ? 'Choose exactly one matching card. The rest stay in your library, then it is shuffled.'
               : `Choose top or ${destinationLabel} for each card.`}
           {orderMatters && choices.length > 1
@@ -189,6 +198,9 @@ export const TopdeckDialog = ({
         <ol className="-mx-1 mt-5 min-h-0 flex-1 space-y-3 overflow-y-auto px-1">
           {visibleChoices.map((choice) => {
             const details = game.catalog[choice.card]
+            const displayName = targetingPlayers
+              ? game.seats?.find((seat) => seat.id === choice.card)?.name ?? choice.card
+              : choice.card
             return (
               <li
                 key={choice.id}
@@ -224,11 +236,11 @@ export const TopdeckDialog = ({
                   </button>
                 ) : (
                   <div className="flex h-28 w-20 shrink-0 items-center justify-center rounded-lg bg-ink-900 p-2 text-center text-xs">
-                    {choice.card}
+                    {displayName}
                   </div>
                 )}
                 <div className="min-w-0 flex-1">
-                  <p className="font-semibold text-stone-100">{choice.card}</p>
+                  <p className="font-semibold text-stone-100">{displayName}</p>
                   <p className="mt-1 text-xs uppercase tracking-wide text-stone-500">
                     {label(choice.destination)}
                   </p>
@@ -245,7 +257,9 @@ export const TopdeckDialog = ({
                             : 'bg-white/10 text-stone-200 hover:bg-white/15'
                         } disabled:opacity-40`}
                       >
-                        {puttingLand
+                        {targetingPlayers
+                          ? (destination === 'target' ? 'Target this player' : 'Do not target')
+                          : puttingLand
                           ? (destination === 'hand' ? 'Keep in hand' : 'Put onto battlefield')
                           : searching
                             ? (destination === 'hand' ? 'Choose this card' : 'Leave in library')
@@ -296,7 +310,9 @@ export const TopdeckDialog = ({
               ? 'Resolving…'
               : discarding
                 ? 'Discard and end turn'
-                : puttingLand
+                : targetingPlayers
+                  ? 'Confirm targets'
+                  : puttingLand
                   ? 'Confirm land choice'
                   : searching
                     ? 'Choose card'

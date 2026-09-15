@@ -4,7 +4,7 @@ import { commanderRules } from '../formats'
 import { rules } from '../kernel'
 import { newGame, yurlokFixture } from '../testGame'
 import { grantedRulesFor, missingCardPlugins } from './index'
-import { yurlok, YURLOK_MANA_RAIN } from './yurlok'
+import { YURLOK_MANA_RAIN, yurlok } from './yurlok'
 
 const catalog = createCatalog([...commanderRules.plugins, yurlok])
 
@@ -27,7 +27,7 @@ describe('Yurlok of Scorch Thrash', () => {
     expect(state.objects[yurlokId].grantedRules).toEqual(['manaBurn'])
     expect(state.rules.some((rule) => rule.pluginId === 'manaBurn' && rule.sourceId === yurlokId))
       .toBe(true)
-    expect(state.rules.some((rule) => rule.pluginId === 'yurlok' && rule.sourceId === null))
+    expect(state.rules.some((rule) => rule.pluginId === 'activated' && rule.sourceId === null))
       .toBe(true)
   })
 
