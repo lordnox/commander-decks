@@ -11299,8 +11299,90 @@
         "card-draw",
         "discard"
       ]
+    },
+    "9c84c681-40c1-4ff3-86e6-48b4ab7491e5": {
+      "name": "Black Waltz No. 3",
+      "categories": [
+        "other"
+      ]
+    },
+    "e580a229-e800-4746-9d37-c32fcef8de28": {
+      "name": "Blightstep Pathway // Searstep Pathway",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "c68b4003-e539-4b88-acc9-e95c100173c0": {
+      "name": "Cerebral Vortex",
+      "categories": [
+        "other"
+      ]
+    },
+    "025939a0-424a-41bf-8fc9-2ef9ea5485f7": {
+      "name": "Fire Covenant",
+      "categories": [
+        "other"
+      ]
+    },
+    "64ad5657-78e9-4f34-8877-18c4f51fff9a": {
+      "name": "Glint-Horn Buccaneer",
+      "categories": [
+        "card-draw",
+        "discard"
+      ]
+    },
+    "3b9d587c-39d2-44a2-9802-e4217ed389c0": {
+      "name": "Ludevic, Necro-Alchemist",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "591edddc-3736-44cf-9719-117c24ff3980": {
+      "name": "Make an Example",
+      "categories": [
+        "sacrifice"
+      ]
+    },
+    "88cd12e5-ca89-4176-96fd-320fe2ccd087": {
+      "name": "Ob Nixilis, the Hate-Twisted",
+      "categories": [
+        "removal"
+      ]
+    },
+    "647ca69e-cc01-4b2b-b376-bee2a98331e8": {
+      "name": "Phyrexian Reclamation",
+      "categories": [
+        "recursion"
+      ]
+    },
+    "55082cd0-a33c-4f1d-9f46-9578f63e6bb6": {
+      "name": "Phyrexian Tyranny",
+      "categories": [
+        "other"
+      ]
+    },
+    "04d0d20f-720e-4cb6-a3ad-ea2b57bb7efa": {
+      "name": "Seizan, Perverter of Truth",
+      "categories": [
+        "other"
+      ]
+    },
+    "728d2e30-2f36-4054-81db-29b01e376a82": {
+      "name": "Sickening Dreams",
+      "categories": [
+        "discard"
+      ]
+    },
+    "79a1783f-ea7e-4cdf-95f5-53b383d38c66": {
+      "name": "Tevesh Szat, Doom of Fools",
+      "categories": [
+        "card-draw",
+        "token-production",
+        "sacrifice"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-13T22:25:39.640567+00:00"
+  "updated_at": "2026-09-15T18:27:45.207636+00:00"
 }

@@ -1,0 +1,175 @@
+{
+  "arena_id": 75300,
+  "artist": "Ravenna Tran",
+  "artist_ids": [
+    "e24bc1d0-446b-45e0-b215-89f581837aa4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Ravenna Tran",
+      "artist_id": "e24bc1d0-446b-45e0-b215-89f581837aa4",
+      "colors": [],
+      "flavor_text": "\"The waters smell oddly sweet, but do not be enticed. You don't want to meet what lurks below the surface.\"\n—Solrun, Beskir warrior",
+      "illustration_id": "91fe8c6e-f373-4f80-83c3-17749849816d",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.webp?1783928185",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.jpg?1783928185",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.jpg?1783928185",
+        "crop": "https://cards.scryfall.io/crop/front/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.webp?1783928185",
+        "display": "https://cards.scryfall.io/display/front/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.webp?1783928185",
+        "grid": "https://cards.scryfall.io/grid/front/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.webp?1783928185",
+        "large": "https://cards.scryfall.io/large/front/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.jpg?1783928185",
+        "normal": "https://cards.scryfall.io/normal/front/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.jpg?1783928185",
+        "png": "https://cards.scryfall.io/png/front/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.png?1783928185",
+        "small": "https://cards.scryfall.io/small/front/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.jpg?1783928185",
+        "thumb": "https://cards.scryfall.io/thumb/front/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.webp?1783928185"
+      },
+      "mana_cost": "",
+      "name": "Blightstep Pathway",
+      "object": "card_face",
+      "oracle_text": "{T}: Add {B}.",
+      "type_line": "Land"
+    },
+    {
+      "artist": "Ravenna Tran",
+      "artist_id": "e24bc1d0-446b-45e0-b215-89f581837aa4",
+      "colors": [],
+      "flavor_text": "\"Our brave Tuskeri brethren blaze new trails, and we follow, mapping the routes of those who survive.\"\n—Solrun, Beskir warrior",
+      "illustration_id": "49795fdd-6638-4d92-bb7a-6f6129de7101",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.webp?1783928185",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.jpg?1783928185",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.jpg?1783928185",
+        "crop": "https://cards.scryfall.io/crop/back/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.webp?1783928185",
+        "display": "https://cards.scryfall.io/display/back/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.webp?1783928185",
+        "grid": "https://cards.scryfall.io/grid/back/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.webp?1783928185",
+        "large": "https://cards.scryfall.io/large/back/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.jpg?1783928185",
+        "normal": "https://cards.scryfall.io/normal/back/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.jpg?1783928185",
+        "png": "https://cards.scryfall.io/png/back/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.png?1783928185",
+        "small": "https://cards.scryfall.io/small/back/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.jpg?1783928185",
+        "thumb": "https://cards.scryfall.io/thumb/back/0/c/0ce39a19-f51d-4a35-ae80-5b82eb15fcff.webp?1783928185"
+      },
+      "mana_cost": "",
+      "name": "Searstep Pathway",
+      "object": "card_face",
+      "oracle_text": "{T}: Add {R}.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 527450,
+  "cmc": 0.0,
+  "collector_number": "252",
+  "color_identity": [
+    "B",
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 835,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "0ce39a19-f51d-4a35-ae80-5b82eb15fcff",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:36:25Z",
+  "keywords": [],
+  "lang": "en",
+  "layout": "modal_dfc",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 87849,
+  "multiverse_ids": [
+    503869,
+    503870
+  ],
+  "name": "Blightstep Pathway // Searstep Pathway",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e580a229-e800-4746-9d37-c32fcef8de28",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2020-12-15",
+    "source": "Mastodon",
+    "source_uri": "https://www.facebook.com/Mastodon/posts/10159147003672948"
+  },
+  "prices": {
+    "eur": "5.53",
+    "eur_foil": "6.05",
+    "tix": "0.20",
+    "usd": "5.01",
+    "usd_etched": null,
+    "usd_foil": "5.98"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae580a229-e800-4746-9d37-c32fcef8de28&unique=prints",
+  "produced_mana": [
+    "B",
+    "R"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/87849?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=527450&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F229209%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Blightstep+Pathway",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=503869&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBlightstep%2BPathway%2B%252F%252F%2BSearstep%2BPathway",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBlightstep%2BPathway%2B%252F%252F%2BSearstep%2BPathway"
+  },
+  "released_at": "2021-02-05",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0ce39a19-f51d-4a35-ae80-5b82eb15fcff/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/khm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/khm/252/blightstep-pathway-searstep-pathway?utm_source=api",
+  "security_stamp": "oval",
+  "set": "khm",
+  "set_id": "43057fad-b1c1-437f-bc48-0045bce6d8c9",
+  "set_name": "Kaldheim",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Akhm&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/43057fad-b1c1-437f-bc48-0045bce6d8c9",
+  "story_spotlight": false,
+  "tcgplayer_id": 229209,
+  "textless": false,
+  "type_line": "Land // Land",
+  "uri": "https://api.scryfall.com/cards/0ce39a19-f51d-4a35-ae80-5b82eb15fcff",
+  "variation": false
+}

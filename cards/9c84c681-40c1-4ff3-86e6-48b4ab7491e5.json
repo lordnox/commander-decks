@@ -1,0 +1,151 @@
+{
+  "arena_id": 96082,
+  "artist": "Lordigan",
+  "artist_ids": [
+    "eae339a0-a8be-40b9-9878-55f7de9256f9"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 826995,
+  "cmc": 4.0,
+  "collector_number": "214",
+  "color_identity": [
+    "B",
+    "R"
+  ],
+  "colors": [
+    "B",
+    "R"
+  ],
+  "digital": false,
+  "edhrec_rank": 3022,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"You fool. Do I look like some lowly black mage soldier?\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "fe86e41b-b0f6-4aa1-8827-c095c721f304",
+  "illustration_id": "eddf1e94-0a16-46fe-8cfc-4a62d69b6a76",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:36:15Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/e/fe86e41b-b0f6-4aa1-8827-c095c721f304.webp?1783906575",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/e/fe86e41b-b0f6-4aa1-8827-c095c721f304.jpg?1783906575",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/e/fe86e41b-b0f6-4aa1-8827-c095c721f304.jpg?1783906575",
+    "crop": "https://cards.scryfall.io/crop/front/f/e/fe86e41b-b0f6-4aa1-8827-c095c721f304.webp?1783906575",
+    "display": "https://cards.scryfall.io/display/front/f/e/fe86e41b-b0f6-4aa1-8827-c095c721f304.webp?1783906575",
+    "grid": "https://cards.scryfall.io/grid/front/f/e/fe86e41b-b0f6-4aa1-8827-c095c721f304.webp?1783906575",
+    "large": "https://cards.scryfall.io/large/front/f/e/fe86e41b-b0f6-4aa1-8827-c095c721f304.jpg?1783906575",
+    "normal": "https://cards.scryfall.io/normal/front/f/e/fe86e41b-b0f6-4aa1-8827-c095c721f304.jpg?1783906575",
+    "png": "https://cards.scryfall.io/png/front/f/e/fe86e41b-b0f6-4aa1-8827-c095c721f304.png?1783906575",
+    "small": "https://cards.scryfall.io/small/front/f/e/fe86e41b-b0f6-4aa1-8827-c095c721f304.jpg?1783906575",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/e/fe86e41b-b0f6-4aa1-8827-c095c721f304.webp?1783906575"
+  },
+  "keywords": [
+    "Deathtouch",
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}{R}",
+  "mtgo_id": 141375,
+  "multiverse_ids": [],
+  "name": "Black Waltz No. 3",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9c84c681-40c1-4ff3-86e6-48b4ab7491e5",
+  "oracle_text": "Flying, deathtouch\nWhenever you cast a noncreature spell, Black Waltz No. 3 deals 2 damage to each opponent.",
+  "oversized": false,
+  "penny_rank": 9287,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2025-05-23",
+    "source": "luastardust",
+    "source_uri": "https://www.instagram.com/p/DKA6ZJjyZrq/?hl=en"
+  },
+  "prices": {
+    "eur": "0.15",
+    "eur_foil": "0.27",
+    "tix": "0.03",
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": "0.35"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9c84c681-40c1-4ff3-86e6-48b4ab7491e5&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond",
+    "ffix"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/141375?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=826995&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F634002%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Black+Waltz+No.+3",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBlack%2BWaltz%2BNo.%2B3",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBlack%2BWaltz%2BNo.%2B3"
+  },
+  "released_at": "2025-06-13",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "DABC1C9496BDA737799AD00D8788F9461507662D3CE9AAC7BD49922912AFF55C",
+  "rulings_uri": "https://api.scryfall.com/cards/fe86e41b-b0f6-4aa1-8827-c095c721f304/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fin?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fin/214/black-waltz-no-3?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "fin",
+  "set_id": "d7beb4b7-e1ff-4d35-ab07-5700f17ea1ea",
+  "set_name": "Final Fantasy",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afin&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/d7beb4b7-e1ff-4d35-ab07-5700f17ea1ea",
+  "story_spotlight": false,
+  "tcgplayer_id": 634002,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Wizard",
+  "uri": "https://api.scryfall.com/cards/fe86e41b-b0f6-4aa1-8827-c095c721f304",
+  "variation": false
+}

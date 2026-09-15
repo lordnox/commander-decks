@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "b9f3042b-784c-4006-9bf1-60a323e60c5c",
+      "name": "Thrull",
+      "object": "related_card",
+      "type_line": "Token Creature — Thrull",
+      "uri": "https://api.scryfall.com/cards/b9f3042b-784c-4006-9bf1-60a323e60c5c"
+    },
+    {
+      "component": "combo_piece",
+      "id": "2f68b4de-271b-415f-ad8f-104981bb12ab",
+      "name": "Tevesh Szat, Doom of Fools",
+      "object": "related_card",
+      "type_line": "Legendary Planeswalker — Szat",
+      "uri": "https://api.scryfall.com/cards/2f68b4de-271b-415f-ad8f-104981bb12ab"
+    }
+  ],
+  "artist": "Livia Prima",
+  "artist_ids": [
+    "0f41e561-bc26-4d85-aab6-66c384e01b74"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 509910,
+  "cmc": 5.0,
+  "collector_number": "153",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3919,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "8f244716-78ab-46f5-b6e9-fc1e6db28052",
+  "illustration_id": "7c4941f4-a593-4583-8c23-17ebbab2cc04",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:47:05Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/f/8f244716-78ab-46f5-b6e9-fc1e6db28052.webp?1783928825",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/f/8f244716-78ab-46f5-b6e9-fc1e6db28052.jpg?1783928825",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/f/8f244716-78ab-46f5-b6e9-fc1e6db28052.jpg?1783928825",
+    "crop": "https://cards.scryfall.io/crop/front/8/f/8f244716-78ab-46f5-b6e9-fc1e6db28052.webp?1783928825",
+    "display": "https://cards.scryfall.io/display/front/8/f/8f244716-78ab-46f5-b6e9-fc1e6db28052.webp?1783928825",
+    "grid": "https://cards.scryfall.io/grid/front/8/f/8f244716-78ab-46f5-b6e9-fc1e6db28052.webp?1783928825",
+    "large": "https://cards.scryfall.io/large/front/8/f/8f244716-78ab-46f5-b6e9-fc1e6db28052.jpg?1783928825",
+    "normal": "https://cards.scryfall.io/normal/front/8/f/8f244716-78ab-46f5-b6e9-fc1e6db28052.jpg?1783928825",
+    "png": "https://cards.scryfall.io/png/front/8/f/8f244716-78ab-46f5-b6e9-fc1e6db28052.png?1783928825",
+    "small": "https://cards.scryfall.io/small/front/8/f/8f244716-78ab-46f5-b6e9-fc1e6db28052.jpg?1783928825",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/f/8f244716-78ab-46f5-b6e9-fc1e6db28052.webp?1783928825"
+  },
+  "keywords": [
+    "Partner"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "loyalty": "4",
+  "mana_cost": "{4}{B}",
+  "mtgo_id": 85088,
+  "multiverse_ids": [
+    497673
+  ],
+  "name": "Tevesh Szat, Doom of Fools",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "79a1783f-ea7e-4cdf-95f5-53b383d38c66",
+  "oracle_text": "+2: Create two 0/1 black Thrull creature tokens.\n+1: You may sacrifice another creature or planeswalker. If you do, draw two cards, then draw another card if the sacrificed permanent was a commander.\n−10: Gain control of all commanders. Put all commanders from the command zone onto the battlefield under your control.\nTevesh Szat, Doom of Fools can be your commander.\nPartner",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2020-10-26",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/making-magic/your-wish-my-commander-legends-part-1-2020-10-26"
+  },
+  "prices": {
+    "eur": "7.00",
+    "eur_foil": "11.68",
+    "tix": "3.82",
+    "usd": "6.62",
+    "usd_etched": null,
+    "usd_foil": "11.09"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A79a1783f-ea7e-4cdf-95f5-53b383d38c66&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/85088?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=509910&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F226122%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Tevesh+Szat%2C+Doom+of+Fools",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=497673&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTevesh%2BSzat%252C%2BDoom%2Bof%2BFools",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTevesh%2BSzat%252C%2BDoom%2Bof%2BFools"
+  },
+  "released_at": "2020-11-20",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8f244716-78ab-46f5-b6e9-fc1e6db28052/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmr/153/tevesh-szat-doom-of-fools?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmr",
+  "set_id": "39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "set_name": "Commander Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/39de6fbf-1f11-48d0-8f04-f0407f6a0732",
+  "story_spotlight": false,
+  "tcgplayer_id": 226122,
+  "textless": false,
+  "type_line": "Legendary Planeswalker — Szat",
+  "uri": "https://api.scryfall.com/cards/8f244716-78ab-46f5-b6e9-fc1e6db28052",
+  "variation": false
+}

@@ -1,0 +1,138 @@
+{
+  "arena_id": 69551,
+  "artist": "Yongjae Choi",
+  "artist_ids": [
+    "5ab91c3b-a6da-4751-a56e-81d0f61a67ab"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 371817,
+  "cmc": 5.0,
+  "collector_number": "100",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 4104,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "14916e2d-73af-4747-a927-d2d4cb3e32db",
+  "illustration_id": "9ef1bee1-e490-4dee-85bf-ef7ab96dc71b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:04:01Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/4/14916e2d-73af-4747-a927-d2d4cb3e32db.webp?1783933441",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/4/14916e2d-73af-4747-a927-d2d4cb3e32db.jpg?1783933441",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/4/14916e2d-73af-4747-a927-d2d4cb3e32db.jpg?1783933441",
+    "crop": "https://cards.scryfall.io/crop/front/1/4/14916e2d-73af-4747-a927-d2d4cb3e32db.webp?1783933441",
+    "display": "https://cards.scryfall.io/display/front/1/4/14916e2d-73af-4747-a927-d2d4cb3e32db.webp?1783933441",
+    "grid": "https://cards.scryfall.io/grid/front/1/4/14916e2d-73af-4747-a927-d2d4cb3e32db.webp?1783933441",
+    "large": "https://cards.scryfall.io/large/front/1/4/14916e2d-73af-4747-a927-d2d4cb3e32db.jpg?1783933441",
+    "normal": "https://cards.scryfall.io/normal/front/1/4/14916e2d-73af-4747-a927-d2d4cb3e32db.jpg?1783933441",
+    "png": "https://cards.scryfall.io/png/front/1/4/14916e2d-73af-4747-a927-d2d4cb3e32db.png?1783933441",
+    "small": "https://cards.scryfall.io/small/front/1/4/14916e2d-73af-4747-a927-d2d4cb3e32db.jpg?1783933441",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/4/14916e2d-73af-4747-a927-d2d4cb3e32db.webp?1783933441"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "loyalty": "5",
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_id": 71806,
+  "multiverse_ids": [
+    461027
+  ],
+  "name": "Ob Nixilis, the Hate-Twisted",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "88cd12e5-ca89-4176-96fd-320fe2ccd087",
+  "oracle_text": "Whenever an opponent draws a card, Ob Nixilis deals 1 damage to that player.\n−2: Destroy target creature. Its controller draws two cards.",
+  "oversized": false,
+  "penny_rank": 4949,
+  "preview": {
+    "previewed_at": "2019-03-31",
+    "source": "Pastimes Comics & Games",
+    "source_uri": "https://twitter.com/pastimesonline/status/1112400793146146822"
+  },
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": "1.03",
+    "tix": "0.03",
+    "usd": "0.52",
+    "usd_etched": null,
+    "usd_foil": "2.70"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A88cd12e5-ca89-4176-96fd-320fe2ccd087&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/71806?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=371817&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F187139%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ob+Nixilis%2C+the+Hate-Twisted",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=461027&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOb%2BNixilis%252C%2Bthe%2BHate-Twisted",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOb%2BNixilis%252C%2Bthe%2BHate-Twisted"
+  },
+  "released_at": "2019-05-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/14916e2d-73af-4747-a927-d2d4cb3e32db/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/war?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/war/100/ob-nixilis-the-hate-twisted?utm_source=api",
+  "set": "war",
+  "set_id": "ee044f0b-e101-4ead-8d0e-aa510aad4277",
+  "set_name": "War of the Spark",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awar&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/ee044f0b-e101-4ead-8d0e-aa510aad4277",
+  "story_spotlight": false,
+  "tcgplayer_id": 187139,
+  "textless": false,
+  "type_line": "Legendary Planeswalker — Nixilis",
+  "uri": "https://api.scryfall.com/cards/14916e2d-73af-4747-a927-d2d4cb3e32db",
+  "variation": false
+}
