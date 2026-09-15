@@ -25,6 +25,15 @@ import {
   type ReduceResult,
   type TableReplay,
 } from '../../rules-engine/src/index'
+import {
+  SEARCH_CHOSEN,
+  pendingSearch,
+  searchCandidates,
+  searchSpecFor,
+  searchingSeat,
+  type PendingSearch,
+  type SearchSpec,
+} from '../../rules-engine/src/cardPlugins/librarySearch'
 import type { LiveHistoryFrame } from '../../site/src/liveCodec'
 import { compactLiveWire } from '../../site/src/liveCompact'
 import type { LobbyState } from './lobby'
@@ -140,11 +149,78 @@ const finalStackPass = (state: GameState, seat: SeatId) => {
 const ANALYZE_THE_POLLEN_SEARCH = 'analyzeThePollen.search'
 const ANALYZE_THE_POLLEN_CHOSEN = 'analyzeThePollen.chosen'
 
+/**
+ * Move the found cards, shuffle, close the marker, and let a spell finish
+ * resolving. An empty selection is a legal "fail to find" and runs the same
+ * path, so the spell never sticks on the stack.
+ */
+const finishLibrarySearch = (
+  kernel: KernelHandle,
+  lobby: LobbyState,
+  seat: SeatId,
+  pending: PendingSearch,
+  spec: SearchSpec,
+  objectIds: string[],
+) => {
+  const events: GameEvent[] = []
+  if (spec.reveal && objectIds.length > 0) {
+    events.push({ type: 'reveal', seat, objectIds, source: pending.source })
+  }
+  for (const objectId of objectIds) {
+    events.push({ type: 'move', objectId, to: spec.destination })
+    if (spec.tapped && spec.destination === 'battlefield') {
+      events.push({ type: 'tap', objectId })
+    }
+  }
+  events.push({ type: 'shuffleLibrary', seat })
+  events.push({ type: 'custom', name: SEARCH_CHOSEN, seat })
+  if (pending.via === 'spell') events.push({ type: 'resolveTop' })
+  for (const event of events) {
+    const result = kernel.dispatch(event)
+    if (!result.ok) throw new Error(result.error)
+  }
+  lobby.topdeck = undefined
+}
+
+/**
+ * Every "search your library" card shares one dialog. The kernel already
+ * recorded whose choice is open, so a host that restarted mid-search rebuilds
+ * the same private dialog instead of resuming past it.
+ */
+const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbyState) => {
+  const state = kernel.history.current()
+  const seat = searchingSeat(state)
+  if (!seat || !isSeatId(seat)) return false
+  const pending = pendingSearch(state, seat)
+  const spec = pending ? searchSpecFor(pending.source) : undefined
+  if (!pending || !spec) return false
+  const cards = searchCandidates(state, seat, spec).map((object) => object.name)
+  if (cards.length < spec.min) {
+    // Failing to find is a legal choice, and the only one available.
+    finishLibrarySearch(kernel, lobby, seat, pending, spec, [])
+    return false
+  }
+  lobby.topdeck = {
+    seat,
+    kind: 'search',
+    cards,
+    destinations: ['library', spec.destination],
+    requirements: { [spec.destination]: { min: spec.min, max: spec.max } },
+    kernel: { sourceId: pending.sourceId, stage: 'library-search' },
+  }
+  lobby.actions = { [seat]: ['topdeck'] }
+  lobby.waiting = `${lobby.occupants[seat]?.name ?? seat} is searching privately.`
+  lobby.privateWaiting = { [seat]: spec.prompt }
+  lobby.judge = 'Waiting for a private library search.'
+  return true
+}
+
 export const prepareKernelPendingChoice = (
   kernel: KernelHandle,
   lobby: LobbyState,
 ) => {
   if (lobby.topdeck) return false
+  if (prepareLibrarySearchChoice(kernel, lobby)) return true
   const state = kernel.history.current()
   const item = state.stack[0]
   if (
@@ -264,6 +340,35 @@ export const applyKernelChoice = (
   }
 
   let state = kernel.history.current()
+  if (decision.kernel.stage === 'library-search') {
+    const pending = pendingSearch(state, seat)
+    const spec = pending ? searchSpecFor(pending.source) : undefined
+    if (!pending || !spec) throw new Error('That library search is no longer open.')
+    const selected = message.choices
+      .filter(({ destination }) => destination === spec.destination)
+      .map(({ card }) => card)
+    if (selected.length < spec.min || selected.length > spec.max) {
+      throw new Error(
+        spec.min === spec.max
+          ? `Choose ${spec.min} card(s) for ${pending.source}.`
+          : `Choose between ${spec.min} and ${spec.max} cards for ${pending.source}.`,
+      )
+    }
+    const ids = objectIdsForNames(state, state.zoneOrder[seat].library, selected)
+    finishLibrarySearch(kernel, lobby, seat, pending, spec, ids)
+    state = kernel.history.current()
+    lobby.actions = kernelActions(state)
+    lobby.privateWaiting = {}
+    lobby.privateJudge = {
+      [seat]: selected.length > 0
+        ? `${pending.source} found ${selected.join(', ')} and you shuffled.`
+        : `${pending.source} found nothing and you shuffled.`,
+    }
+    lobby.waiting = `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
+    lobby.judge = `${lobby.occupants[seat]?.name ?? seat} finished a private library search.`
+    settleKernelPriority(kernel, lobby)
+    return true
+  }
   if (decision.kernel.stage === 'search') {
     const selected = message.choices.filter(
       ({ destination }) => destination === 'hand',
@@ -376,10 +481,18 @@ export const settleKernelPriority = (kernel: KernelHandle, lobby: LobbyState) =>
   let current = kernel.history.current()
   let passed = false
   let prepared = false
+  let seenEvents = kernel.journal.events.length
   for (let guard = 0; guard < 64; guard += 1) {
     if (!lobby.topdeck && prepareKernelPendingChoice(kernel, lobby)) {
       prepared = true
       break
+    }
+    // A pending choice may have resolved itself, for example a search with
+    // nothing legal to find. Re-read before deciding anything else.
+    if (kernel.journal.events.length !== seenEvents) {
+      seenEvents = kernel.journal.events.length
+      current = kernel.history.current()
+      passed = true
     }
     // Restored no-priority decisions are hard stops. Never pass through one
     // merely because the host process restarted while its dialog was open.

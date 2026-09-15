@@ -62,6 +62,29 @@ test('library searches offer filtering and one explicit selection', () => {
   expect(html).toContain('disabled=""')
 })
 
+test('a fetch search names the battlefield as the destination', () => {
+  const game = { catalog: { Taiga: {}, Forest: {} } } as unknown as ReplayGame
+  const decision = {
+    seat: 'p1',
+    kind: 'search',
+    cards: ['Taiga', 'Forest'],
+    destinations: ['library', 'battlefield'],
+    requirements: { battlefield: { min: 1, max: 1 } },
+  } as LiveTopdeck
+  const html = renderToStaticMarkup(
+    <TopdeckDialog
+      game={game}
+      decision={decision}
+      pending={false}
+      onResolve={() => {}}
+    />,
+  )
+
+  expect(html).toContain('Search your library')
+  expect(html).toContain('battlefield')
+  expect(html).toContain('Taiga')
+})
+
 test('only the card list scrolls, so hide and resolve stay reachable', () => {
   const game = { catalog: {} } as unknown as ReplayGame
   const decision = {

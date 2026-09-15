@@ -13,10 +13,19 @@ import {
   createJournal,
   createServerGame,
   forest,
+  projectForViewer,
+  recordAccepted,
+  restoreJournal,
+  type GameState,
 } from '../../rules-engine/src/index'
+import {
+  librarySearch,
+  searchingSeat,
+} from '../../rules-engine/src/cardPlugins/librarySearch'
 import { createLobby } from './lobby'
 import {
   applyKernelAdvance,
+  applyKernelChoice,
   kernelActions,
   kernelPath,
   kernelPriority,
@@ -26,7 +35,10 @@ import {
   prepareKernelPendingChoice,
   settleKernelHolds,
   settleKernelPriority,
+  type KernelHandle,
 } from './kernelHost'
+import { liveSnapshotFromState } from './kernelView'
+import type { SeatId } from './protocol'
 
 const mkdirGames = (root: string) => {
   writeFileSync(join(root, 'package.json'), '{}\n')
@@ -56,6 +68,81 @@ const seedKernel = (
   const journal = createJournal(server.state)
   adjust?.(journal.initial)
   writeFileSync(kernelPath(slug, root), JSON.stringify(journal))
+}
+
+const handleFor = (
+  rules: (state: GameState, event: Parameters<KernelHandle['dispatch']>[0]) => ReturnType<KernelHandle['dispatch']>,
+  initial: GameState,
+): KernelHandle => {
+  let journal = createJournal(initial)
+  const history = restoreJournal(journal, rules)
+  return {
+    get journal() {
+      return journal
+    },
+    history,
+    rules,
+    dispatch: (event) => {
+      const result = history.dispatch(event)
+      if (result.ok) journal = recordAccepted(journal, event)
+      return result
+    },
+    save: () => {},
+  }
+}
+
+/** A live game stopped mid-resolution on Nature's Lore, with no files involved. */
+const searchGame = (options: { library?: string[] } = {}) => {
+  const libraryNames = options.library ?? ['Taiga', 'Forest']
+  const subtypes: Record<string, string[]> = {
+    Taiga: ['Mountain', 'Forest'],
+    Forest: ['Forest'],
+    Mountain: ['Mountain'],
+  }
+  const server = createServerGame(
+    commanderRules,
+    {
+      first: 'p1',
+      hands: {
+        p1: [{
+          ...forest(),
+          name: "Nature's Lore",
+          types: ['Sorcery'],
+          subtypes: [],
+          supertypes: [],
+          manaCost: '{1}{G}',
+          tapProduces: undefined,
+        }],
+      },
+      libraries: {
+        p1: libraryNames.map((name) => ({
+          ...forest(),
+          name,
+          subtypes: subtypes[name] ?? [],
+        })),
+      },
+    },
+    { random: () => 0.5, cardPlugins: [librarySearch] },
+  )
+  const initial = {
+    ...server.state,
+    players: {
+      ...server.state.players,
+      p1: { ...server.state.players.p1, mana: { W: 0, U: 0, B: 0, R: 0, G: 2, C: 0 } },
+    },
+  }
+  const spellId = initial.zoneOrder.p1.hand[0]
+  const kernel = handleFor(server.rules, initial)
+  for (const event of [
+    { type: 'castSpell', seat: 'p1', objectId: spellId } as const,
+    { type: 'resolveTop' } as const,
+  ]) {
+    const result = kernel.dispatch(event)
+    if (!result.ok) throw new Error(result.error)
+  }
+  const lobby = createLobby()
+  lobby.phase = 'play'
+  return { kernel, lobby, spellId }
 }
 
 describe('kernel host journal', () => {
@@ -345,6 +432,89 @@ describe('kernel host journal', () => {
     }
 
     expect(historyForViewer(kernel, lobby, 'p1')).toHaveLength(32)
+  })
+
+  test('every library search shares one private dialog and finishes the spell', () => {
+    const { kernel, lobby, spellId } = searchGame()
+
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'search',
+      destinations: ['library', 'battlefield'],
+      requirements: { battlefield: { min: 1, max: 1 } },
+    })
+    expect(lobby.topdeck?.cards).toEqual(['Taiga', 'Forest'])
+
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Taiga', destination: 'battlefield' },
+        { card: 'Forest', destination: 'library' },
+      ],
+    })).toBe(true)
+
+    const state = kernel.history.current()
+    const taiga = Object.values(state.objects).find((object) => object.name === 'Taiga')!
+    expect(taiga.zone).toBe('battlefield')
+    expect(state.objects[spellId].zone).toBe('graveyard')
+    expect(state.stack).toHaveLength(0)
+    expect(searchingSeat(state)).toBeUndefined()
+    expect(lobby.topdeck).toBeUndefined()
+  })
+
+  test('the searching seat is the only viewer who sees the candidates', () => {
+    const { kernel, lobby } = searchGame()
+    prepareKernelPendingChoice(kernel, lobby)
+
+    const state = kernel.history.current()
+    const snapshotFor = (viewer: SeatId) => liveSnapshotFromState({
+      state: projectForViewer(state, viewer),
+      lobby,
+      viewer,
+    })
+
+    expect(projectForViewer(state, 'p2').zoneOrder.p1.library).toEqual([])
+    expect(snapshotFor('p2').topdeck).toBeUndefined()
+    expect(JSON.stringify(snapshotFor('p2'))).not.toContain('Taiga')
+    expect(snapshotFor('p1').topdeck?.cards).toEqual(['Taiga', 'Forest'])
+  })
+
+  test('a restarted host rebuilds the open search instead of resolving past it', () => {
+    const { kernel, lobby } = searchGame()
+    prepareKernelPendingChoice(kernel, lobby)
+    const events = kernel.journal.events.length
+
+    // A restart keeps the kernel journal but forgets the lobby dialog.
+    const restarted = createLobby()
+    restarted.phase = 'play'
+    expect(settleKernelPriority(kernel, restarted)).toBe(true)
+    expect(restarted.topdeck).toMatchObject({ seat: 'p1', kind: 'search' })
+    expect(kernel.journal.events.length).toBe(events)
+  })
+
+  test('a search with nothing to find fails to find and resolves the spell', () => {
+    const { kernel, lobby, spellId } = searchGame({ library: ['Mountain'] })
+
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(false)
+    expect(lobby.topdeck).toBeUndefined()
+    const state = kernel.history.current()
+    expect(state.objects[spellId].zone).toBe('graveyard')
+    expect(searchingSeat(state)).toBeUndefined()
+  })
+
+  test('a choice outside the search requirements is rejected', () => {
+    const { kernel, lobby } = searchGame()
+    prepareKernelPendingChoice(kernel, lobby)
+
+    expect(() => applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Taiga', destination: 'battlefield' },
+        { card: 'Forest', destination: 'battlefield' },
+      ],
+    })).toThrow('Choose 1 card(s)')
+    expect(searchingSeat(kernel.history.current())).toBe('p1')
   })
 
   test('advances a coarse phase through the kernel without a judge round', async () => {
