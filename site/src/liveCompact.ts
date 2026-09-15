@@ -179,6 +179,8 @@ const packExtra = (entry: BattlefieldCard) => {
   const extra: Record<string, unknown> = {}
   if (entry.pt) extra.p = entry.pt
   if (entry.note) extra.n = entry.note
+  if (entry.attacking) extra.a = entry.attacking
+  if (entry.blocking) extra.b = entry.blocking
   if (entry.counters && Object.keys(entry.counters).length > 0) extra.c = entry.counters
   if (entry.face !== undefined && entry.face !== '' && entry.face !== 'front') {
     extra.f = entry.face
@@ -452,6 +454,8 @@ const unpackBattlefield = (
     if (flags & FLAG_COMMANDER) entry.commander = true
     if (typeof extra.p === 'string') entry.pt = extra.p
     if (typeof extra.n === 'string') entry.note = extra.n
+    if (typeof extra.a === 'string') entry.attacking = extra.a
+    if (typeof extra.b === 'string') entry.blocking = extra.b
     if (extra.c && typeof extra.c === 'object') {
       entry.counters = extra.c as Record<string, number>
     }

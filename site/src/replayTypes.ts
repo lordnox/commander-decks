@@ -30,6 +30,10 @@ export type BattlefieldCard = {
   counters?: Record<string, number>
   note?: string
   face?: string | number
+  /** Seat name this creature is attacking. */
+  attacking?: string
+  /** Card name this creature is blocking. */
+  blocking?: string
 }
 
 export type PlayerState = {

@@ -175,6 +175,16 @@ export const CardTile = ({
             tapped
           </span>
         )}
+        {entry?.attacking && (
+          <span className="max-w-[4.75rem] truncate rounded-md bg-orange-400 px-1.5 py-0.5 text-[0.55rem] font-black uppercase text-ink-950">
+            attacks {entry.attacking}
+          </span>
+        )}
+        {entry?.blocking && (
+          <span className="max-w-[4.75rem] truncate rounded-md bg-sky-300 px-1.5 py-0.5 text-[0.55rem] font-black uppercase text-ink-950">
+            blocks {entry.blocking}
+          </span>
+        )}
       </span>
       {counters.length > 0 && (
         <span className="absolute right-1 top-1 max-w-[85%] rounded-md bg-moss-300 px-1.5 py-0.5 text-right text-[0.55rem] font-black leading-tight text-ink-950">
