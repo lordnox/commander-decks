@@ -50,6 +50,8 @@ export type LobbyState = {
   topdeck?: TopdeckDecision
   human?: SeatId
   alwaysStopOnPriority: Partial<Record<SeatId, boolean>>
+  /** Seats that asked to be passed for until their own turn comes around. */
+  holds: Partial<Record<SeatId, boolean>>
 }
 
 const emptyActionIds = (): SeatActionIds => ({
@@ -138,6 +140,7 @@ export const createLobby = (headline = 'Live table'): LobbyState => ({
   actions: {},
   actionIds: emptyActionIds(),
   alwaysStopOnPriority: {},
+  holds: {},
 })
 
 export type LobbyParts = {
@@ -164,6 +167,7 @@ export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
   actions: {},
   actionIds: emptyActionIds(),
   alwaysStopOnPriority: {},
+  holds: {},
 })
 
 export const restoreLobby = (
@@ -203,6 +207,7 @@ export const restoreLobby = (
     actions: actionMigrated ? {} : saved.actions,
     actionIds: actionMigrated ? emptyActionIds() : saved.actionIds,
     alwaysStopOnPriority: saved.alwaysStopOnPriority ?? {},
+    holds: saved.holds ?? {},
   }
 }
 
@@ -363,6 +368,19 @@ export const applyInbox = (
       message.always
         ? `${from} will be offered every priority window.`
         : `${from} will only be stopped when they can plausibly intervene.`,
+    )
+    return state
+  }
+
+  if (message.type === 'hold') {
+    if (state.phase !== 'play') return state
+    state.holds = { ...state.holds, [from]: message.until === 'my-turn' }
+    const name = state.occupants[from]?.name ?? from
+    setJudge(
+      state,
+      message.until === 'my-turn'
+        ? `${name} is passing until their own turn.`
+        : `${name} wants priority again.`,
     )
     return state
   }

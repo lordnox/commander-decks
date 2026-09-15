@@ -48,7 +48,7 @@ One host-read key: everyone with it sees the same public game. A seat pipe strin
 {"type":"plan","text":"…","actionId":7}
 ```
 
-`type` is `plan` | `confirm` | `pass` | `replace` | `join` | `ready` | `rules` | `talk` | `swap` | `pregame` | `keep` | `mulligan` | `topdeck` | `advance` | `priority-mode`.
+`type` is `plan` | `confirm` | `pass` | `replace` | `join` | `ready` | `rules` | `talk` | `swap` | `pregame` | `keep` | `mulligan` | `topdeck` | `advance` | `priority-mode` | `hold`.
 POST as snapshot (latest wins). Host does not record agent vs human.
 
 `pass` means no game action in the current priority window. `talk` is social
@@ -71,6 +71,10 @@ text can trigger before the first main phase rejects the message and asks for a
 plan.
 `priority-mode` carries `always: boolean`; it persists the private seat's
 choice between smart actionable stops and every priority window.
+`hold` carries `until: "my-turn" | "off"`. While a seat holds, the host passes
+its priority windows automatically; the hold pauses whenever the stack is not
+empty and releases when that seat becomes the active player, so a held seat
+still answers real spells and never sleeps through its own turn.
 
 Plan checks and rules discussions are private. The originating seat bin gets
 the complete judge response, exact actionable prompt, and up to eight condensed

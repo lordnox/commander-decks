@@ -120,6 +120,12 @@ an automatic pass. Table talk remains available even when priority does not
 stop. If the private **Always stop on priority** toggle is on, include the
 human in every priority window so they can intervene politically.
 
+**Pass until my turn** is the seat's own escape from a turn it cannot affect.
+The host passes that seat's priority windows itself, pauses whenever the stack
+is not empty, and drops the hold when the seat becomes the active player, so a
+held seat still answers real spells and always wakes up for its own turn. The
+judge never has to ask a held seat anything.
+
 Top-deck choices are structured UI actions, not plans. Put a machine-readable
 `choice` on the unresolved stack item; the runner privately reads the named
 seat's `_libraries`, shows the cards, validates destinations, and resolves the
