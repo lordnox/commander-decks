@@ -6,7 +6,7 @@ description: >-
   goldfishes. Use when the user delegates deck concept and construction with
   little or no input, asks the agent to build a deck it likes, or wants the
   agent to choose the plan and commander. Take the target bracket from
-  BRACKET-DEFINITIONS.md.
+  BRACKET-DEFINITIONS.md. Use CONSTRUCTION.md for package-density hints.
 ---
 
 # Autobrew Deck
@@ -63,9 +63,10 @@ Before searching commanders, declare:
 
 - target bracket and expected normal win turn;
 - earliest credible high roll;
-- expected commander or engine setup turn;
+- expected commander or engine setup turn (operational threshold);
 - turn-five milestone;
 - interaction and recovery obligations (read [`INTERACTION.md`](../../../INTERACTION.md): name buckets, not a raw count);
+- package-density starting guess (read [`CONSTRUCTION.md`](../../../CONSTRUCTION.md): ramp/draw mix and plan split are hints);
 - fast-mana, tutor, combo, and Game Changer boundaries.
 
 The target is a design constraint, not a rating assigned after the list exists.
@@ -128,13 +129,25 @@ state its job, minimum useful density, failure mode, and cards that overlap
 another role. Prefer strange multifunctional cards over generic rate when the
 bracket floor remains intact.
 
+Read [`CONSTRUCTION.md`](../../../CONSTRUCTION.md) for density hints
+(operational threshold, ramp/draw mix, enablers vs payoffs, 8-card theme
+packages), and [`construction-sources/`](../../../construction-sources/README.md)
+when a counting convention is in doubt. Do not fetch the live pages. Those
+numbers are comparison points. Count each card once for its floor job. Run the
+`construction_calculator.py profile` command from `CONSTRUCTION.md` on the
+proposed counts before version 1; record the assumptions and probabilities,
+not a pass/fail verdict.
+
 Verify Oracle text and walk every claimed combo or rules interaction. "Fat
 once" is not infinite. Separate setup, value, presenting lethal, and actually
 winning.
 
 ## 4. Set the mana and curve budget
 
-Set the mana base before spending all 99 slots. Count these separately:
+Read [`MANABASE.md`](../../../MANABASE.md) for hints, and the cached articles
+under [`manabase-sources/`](../../../manabase-sources/README.md) when a number
+or counting convention is in doubt. Do not fetch the live pages. Set the mana
+base before spending all 99 slots. Count these separately:
 
 - true lands;
 - modal cards with a land back;
@@ -146,24 +159,32 @@ Never report their sum as "lands" or treat them as interchangeable. Modal land
 backs enter tapped and cost the spell face. Creature ramp dies to creature
 wipes and cannot make the land drop needed to cast it.
 
-Start at 37 true lands unless the user declares another baseline. Go below 37
-only with deck-specific evidence recorded in `DECISIONS.md`: curve, coloured
-source requirements, reliable early draw or selection, ramp that can be cast
-from the proposed opening hands, and hypergeometric access to the required
-land drops. "The deck has ten ramp cards" is not sufficient.
+Use the Karsten effective-land estimate from the proposed curve as an opening
+guess, then decide explicit true-land, MDFC, and ramp counts and say why they
+moved. "The deck has ten ramp cards" is not an argument on its own: ramp does
+not replace the land needed to cast it.
 
 Before version 1, record:
 
-- true-land count and modal land backs;
-- coloured sources needed by turns two, three, and the commander turn;
+- the estimate inputs, true-land count, modal land backs, and ramp by speed;
+- coloured sources needed and available by turns one, two, three, and the
+  commander turn;
 - counts at mana value 1, 2, 3, 4, and 5+;
 - probability of the required opening lands and of seeing the required land
   count by the commander turn;
-- how many tapped or conditional lands the early sequence can tolerate.
+- each always-tapped land's safe turn and deck-specific upside;
+- land-type dependencies, utility lands, and the mana sink or anti-flood plan.
 
-Prefer lands with a deck role when they do not break colour or tempo
-requirements, but do not call an animated land a token or assume it can be
-devoured without paying its activation cost.
+Dual lands are welcome and get no price penalty unless the user set a budget.
+Fixing-only and life-gain-only tap lands are usually worse than a basic. Once
+colour and tempo look healthy, prefer lands that also do a job, but do not call
+an animated land a token or assume it can be devoured without paying its
+activation cost.
+
+Search current lands with `scryfall-lookup`, including `otag:utility-land`.
+Land tutors are worth it when their targets form a toolbox or enable a central
+line; a tutor is still not a land drop. Verify claimed targets, and note what a
+utility land displaced when the trade was close.
 
 ## 5. Build version 1
 
@@ -172,6 +193,11 @@ it, write its primer and decision log, score tags and declared identity goals,
 and validate it. The game plan, target bracket, full commander comparison,
 package map, and rules checks belong under `## Talks` or `## Rules` in the
 deck's `DECISIONS.md`.
+
+Before calling the 99 complete, glance at `CONSTRUCTION.md`: named packages
+that are thinner than they look, a ramp/draw mix that ignores the operational
+threshold, payoffs with no enablers, or enhancers crowding out the verb. Do
+not pad with staples to hit a template count.
 
 Do not evaluate unresolved cards. Do not call version 1 finished.
 

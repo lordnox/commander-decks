@@ -294,6 +294,16 @@ export const runReplayRounds = (replay: TableReplay, throughRound: number) => {
 const replayPhase = (step: StepId) => {
   if (step === 'precombatMain') return 'main1'
   if (step === 'postcombatMain') return 'main2'
+  if (
+    step === 'beginCombat'
+    || step === 'declareAttackers'
+    || step === 'declareBlockers'
+    || step === 'firstStrikeDamage'
+    || step === 'combatDamage'
+    || step === 'endCombat'
+  ) {
+    return 'combat'
+  }
   return step
 }
 

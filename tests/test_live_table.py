@@ -394,6 +394,78 @@ class LiveTableEncodeTests(unittest.TestCase):
         self.assertEqual(private["phase"], "main1")
         self.assertEqual(private["active"], "p2")
 
+    def test_opening_metadata_stays_on_the_private_seat(self):
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        replay["seats"][0]["mulligans"] = 2
+        kwargs = {
+            "replay": replay,
+            "talk": "",
+            "waiting": "Keep or mulligan",
+            "actions": {"p1": ["keep", "mulligan"]},
+            "action_ids": {"p1": 1, "p2": 0, "p3": 0, "p4": 0},
+        }
+        private = encode_live.build_snapshot(you="p1", public=False, **kwargs)
+        public = encode_live.build_snapshot(you=None, public=True, **kwargs)
+        self.assertEqual(
+            private["opening"],
+            {"mulligans": 2, "bottomRequired": 1},
+        )
+        self.assertNotIn("opening", public)
+        self.assertEqual(private["actions"], ["keep", "mulligan"])
+        self.assertEqual(public["actions"], [])
+
+    def test_topdeck_decision_stays_on_the_private_seat(self):
+        kwargs = {
+            "replay": FAKE_REPLAY,
+            "talk": "",
+            "waiting": "Private surveil choice",
+            "actions": {"p2": ["topdeck"]},
+            "action_ids": {"p1": 0, "p2": 4, "p3": 0, "p4": 0},
+            "topdeck": {
+                "seat": "p2",
+                "kind": "surveil",
+                "cards": ["Forest"],
+                "destinations": ["top", "graveyard"],
+            },
+        }
+        private = encode_live.build_snapshot(you="p2", public=False, **kwargs)
+        other = encode_live.build_snapshot(you="p3", public=False, **kwargs)
+        public = encode_live.build_snapshot(you=None, public=True, **kwargs)
+        self.assertEqual(
+            private["topdeck"],
+            {
+                "kind": "surveil",
+                "cards": ["Forest"],
+                "destinations": ["top", "graveyard"],
+            },
+        )
+        self.assertNotIn("topdeck", other)
+        self.assertNotIn("topdeck", public)
+        decoded = encode_live.decode_snapshot(
+            encode_live.encode_payload(private, replay=FAKE_REPLAY),
+            replay=FAKE_REPLAY,
+        )
+        self.assertEqual(decoded["topdeck"], private["topdeck"])
+
+    def test_priority_stop_preference_stays_on_the_private_seat(self):
+        kwargs = {
+            "replay": FAKE_REPLAY,
+            "talk": "",
+            "waiting": "Waiting",
+            "priority_modes": {"p1": True},
+        }
+        private = encode_live.build_snapshot(you="p1", public=False, **kwargs)
+        other = encode_live.build_snapshot(you="p2", public=False, **kwargs)
+        public = encode_live.build_snapshot(you=None, public=True, **kwargs)
+        self.assertIs(private["alwaysStopOnPriority"], True)
+        self.assertIs(other["alwaysStopOnPriority"], False)
+        self.assertNotIn("alwaysStopOnPriority", public)
+        decoded = encode_live.decode_snapshot(
+            encode_live.encode_payload(private, replay=FAKE_REPLAY),
+            replay=FAKE_REPLAY,
+        )
+        self.assertIs(decoded["alwaysStopOnPriority"], True)
+
     def test_event_feed_redacts_other_seats_hidden_information(self):
         replay = json.loads(json.dumps(FAKE_REPLAY))
         replay["events"][0].update(
@@ -622,6 +694,33 @@ class LiveTableEncodeTests(unittest.TestCase):
             public=False,
         )
         self.assertEqual(fresh["turn"], 9)
+        self.assertEqual(fresh["phase"], "planning")
+
+    def test_a_new_seat_does_not_inherit_the_previous_end_step(self):
+        replay = json.loads(json.dumps(FAKE_REPLAY))
+        turn = replay["events"][-1].get("turn", 0)
+        ending = json.loads(json.dumps(replay["events"][-1]))
+        ending.update(id=98, phase="end", kind="note", seat="p2")
+        ending["state"].update(phase="end", active="p2")
+        opening = json.loads(json.dumps(replay["events"][-1]))
+        opening.update(
+            id=99,
+            phase="planning",
+            kind="think",
+            summary="Gamma to act.",
+            seat="p3",
+        )
+        opening["state"].update(phase="planning", active="p3")
+        replay["events"].extend([ending, opening])
+
+        fresh = encode_live.build_snapshot(
+            replay,
+            you="p3",
+            talk="",
+            waiting="Gamma: send a turn plan.",
+            public=False,
+        )
+        self.assertEqual(fresh["turn"], turn)
         self.assertEqual(fresh["phase"], "planning")
 
     def test_structured_actions_give_each_priority_seat_the_right_prompt(self):

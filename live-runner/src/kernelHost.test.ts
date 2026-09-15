@@ -15,6 +15,7 @@ import {
 } from '../../rules-engine/src/index'
 import { createLobby } from './lobby'
 import {
+  applyKernelAdvance,
   kernelActions,
   kernelPath,
   kernelPriority,
@@ -132,5 +133,28 @@ describe('kernel host journal', () => {
     }
 
     expect(historyForViewer(kernel, lobby, 'p1')).toHaveLength(32)
+  })
+
+  test('advances a coarse phase through the kernel without a judge round', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-advance-'))
+    mkdirGames(root)
+    const server = createServerGame(
+      commanderRules,
+      { first: 'p1' },
+      { random: () => 0.5, cardPlugins: [] },
+    )
+    const journal = createJournal(server.state)
+    journal.initial.step = 'precombatMain'
+    writeFileSync(kernelPath('pod', root), JSON.stringify(journal))
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    lobby.occupants.p1 = { name: 'Active player', deck: 'deck' }
+    const kernel = await openKernel('pod', root, lobby)
+
+    expect(kernelActions(kernel.history.current()).p1).toContain('advance')
+    expect(applyKernelAdvance(kernel, lobby, 'p1')).toBe(true)
+    expect(kernel.history.current().step).toBe('beginCombat')
+    expect(kernel.journal.events.at(-1)).toEqual({ type: 'advanceStep' })
+    expect(lobby.actions.p1).toContain('advance')
   })
 })

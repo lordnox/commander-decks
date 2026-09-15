@@ -6,6 +6,7 @@ import {
   assertGameAuthority,
   enforceResultPolicy,
   normalizeKernelResult,
+  promptFor,
   redactHiddenCards,
   redactHiddenCardsFromKernel,
   shouldPersistKernelChange,
@@ -82,11 +83,16 @@ describe('host result policy', () => {
     })
   })
 
-  test('only confirmation may persist a changed kernel journal', () => {
+  test('only authorized game actions may persist a changed kernel journal', () => {
     expect(shouldPersistKernelChange({ type: 'plan', text: 'Cast a spell.' }, true)).toBe(false)
     expect(shouldPersistKernelChange({ type: 'replace', text: 'Pass instead.' }, true)).toBe(false)
     expect(shouldPersistKernelChange({ type: 'rules', text: 'Does this trigger?' }, true)).toBe(false)
     expect(shouldPersistKernelChange({ type: 'confirm' }, true)).toBe(true)
+    expect(shouldPersistKernelChange({
+      type: 'topdeck',
+      choices: [{ card: 'Forest', destination: 'top' }],
+    }, true)).toBe(true)
+    expect(shouldPersistKernelChange({ type: 'advance' }, true)).toBe(true)
   })
 
   test('never executes a plan before confirmation', () => {
@@ -126,5 +132,36 @@ describe('host result policy', () => {
       waiting: 'p4: send a replacement plan. Nothing was executed.',
       allowedActions: ['replace'],
     })
+  })
+})
+
+describe('priority preference prompt', () => {
+  test('smart mode omits a human with no plausible game action', () => {
+    const prompt = promptFor(
+      'pod',
+      'p2',
+      3,
+      { type: 'confirm' },
+      'p1',
+      false,
+    )
+    expect(prompt).toContain('Human seat: p1')
+    expect(prompt).toContain('Human priority preference: SMART')
+    expect(prompt).toContain('table talk alone does not justify')
+    expect(prompt).toContain('Strict path first')
+    expect(prompt).toContain('judgeFallback')
+  })
+
+  test('always mode preserves politics-only priority stops', () => {
+    const prompt = promptFor(
+      'pod',
+      'p2',
+      3,
+      { type: 'confirm' },
+      'p1',
+      true,
+    )
+    expect(prompt).toContain('Human priority preference: ALWAYS STOP')
+    expect(prompt).toContain('include the human regardless')
   })
 })

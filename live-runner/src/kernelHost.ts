@@ -26,7 +26,13 @@ import {
 import type { LiveHistoryFrame } from '../../site/src/liveCodec'
 import { compactLiveWire } from '../../site/src/liveCompact'
 import type { LobbyState } from './lobby'
-import { isSeatId, SEAT_IDS, type SeatActions, type SeatId } from './protocol'
+import {
+  isSeatId,
+  SEAT_IDS,
+  type PlayAction,
+  type SeatActions,
+  type SeatId,
+} from './protocol'
 import {
   historyFrameFromState,
   liveEventFromTrace,
@@ -110,7 +116,65 @@ export const kernelPriority = (state: GameState): SeatId | null => {
 
 export const kernelActions = (state: GameState): SeatActions => {
   const priority = kernelPriority(state)
-  return priority ? { [priority]: ['plan', 'pass'] } : {}
+  if (!priority) return {}
+  const actions: PlayAction[] = ['plan', 'pass']
+  const canAdvance =
+    priority === state.active
+    && state.stack.length === 0
+    && state.step !== 'end'
+    && state.step !== 'cleanup'
+  if (canAdvance) actions.push('advance')
+  return { [priority]: actions }
+}
+
+const COMBAT_STEPS = new Set([
+  'beginCombat',
+  'declareAttackers',
+  'declareBlockers',
+  'firstStrikeDamage',
+  'combatDamage',
+  'endCombat',
+])
+
+const advanceTarget = (state: GameState) => {
+  if (['untap', 'upkeep', 'draw'].includes(state.step)) return 'precombatMain'
+  if (state.step === 'precombatMain') return 'beginCombat'
+  if (COMBAT_STEPS.has(state.step)) return 'postcombatMain'
+  if (state.step === 'postcombatMain') return 'end'
+  return null
+}
+
+export const applyKernelAdvance = (
+  kernel: KernelHandle,
+  lobby: LobbyState,
+  seat: SeatId,
+) => {
+  let current = kernel.history.current()
+  const target = advanceTarget(current)
+  if (
+    !target
+    || current.active !== seat
+    || current.priority !== seat
+    || current.stack.length > 0
+  ) {
+    return false
+  }
+
+  for (let guard = 0; current.step !== target && guard < 16; guard += 1) {
+    const result = kernel.dispatch({ type: 'advanceStep' })
+    if (!result.ok) return false
+    current = kernel.history.current()
+    if (current.stack.length > 0) break
+  }
+
+  lobby.actions = kernelActions(current)
+  lobby.privateJudge = {}
+  lobby.privateWaiting = {}
+  lobby.judge = `${lobby.occupants[seat]?.name ?? seat} advances.`
+  lobby.waiting = current.stack.length > 0
+    ? 'A triggered object is waiting on the stack.'
+    : `${lobby.occupants[kernelPriority(current) ?? seat]?.name ?? seat}: act, pass, or advance.`
+  return true
 }
 
 export const openKernel = async (
@@ -153,7 +217,9 @@ export const openKernel = async (
   const save = () => writeJournal(slug, journal, root)
   save()
   return {
-    journal,
+    get journal() {
+      return journal
+    },
     history,
     rules: server.rules,
     dispatch: (event) => {

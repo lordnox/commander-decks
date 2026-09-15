@@ -70,6 +70,17 @@ Damage is a chain: `combatDamage` → `dealDamage` → `loseLife`. Fog replaces
 `loseLife`. Commander damage is recorded on `combatDamage`, so it still
 counts if only later steps are prevented.
 
+Cleanup cannot advance to the next player's untap while the active player's
+public hand count exceeds their maximum. The default is seven;
+`player.data.maximumHandSize` may set another integer or `null` for no maximum.
+Policy chooses and moves the excess cards to the graveyard, then retries the
+step advance.
+
+For unsupported Oracle behavior, the live host can submit an audited
+`judgeFallback` containing minimal primitive effects. Every child still passes
+normal legality and state checks; one rejected child rolls back the whole
+fallback. Administrative sync/rule changes and nested fallbacks are forbidden.
+
 ## Tests
 
 ```bash

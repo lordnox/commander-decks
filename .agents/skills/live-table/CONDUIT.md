@@ -48,16 +48,29 @@ One host-read key: everyone with it sees the same public game. A seat pipe strin
 {"type":"plan","text":"…","actionId":7}
 ```
 
-`type` is `plan` | `confirm` | `pass` | `replace` | `join` | `ready` | `rules` | `talk` | `swap` | `pregame`.
+`type` is `plan` | `confirm` | `pass` | `replace` | `join` | `ready` | `rules` | `talk` | `swap` | `pregame` | `keep` | `mulligan` | `topdeck` | `advance` | `priority-mode`.
 POST as snapshot (latest wins). Host does not record agent vs human.
 
 `pass` means no game action in the current priority window. `talk` is social
 speech visible to every player; never use it as a pass or host-control message.
-Play actions (`plan`, `replace`, `confirm`, `pass`) must echo the current
+Play actions (`plan`, `replace`, `confirm`, `pass`, `keep`, `mulligan`) must echo the current
 snapshot `actionId`. The host rejects a missing or stale ID and any action not
-listed in that snapshot's `actions`. IDs are per seat, so several responders
-may answer the same priority window concurrently without invalidating each
-other.
+listed in that snapshot's `actions`. `keep` may include `cards` (names to put on
+the bottom, in order) and `cheat: true` (keep seven anyway, for testing).
+`mulligan` shuffles the hand into the library and draws seven. Commander's first
+mulligan is free; later ones bottom `mulligans - 1` cards.
+`topdeck` sends ordered `{card,destination}` choices for the private dialog;
+the host validates the current hidden library and resolves it without an agent.
+A decision of kind `discard` carries the seat's hand instead of the library top,
+with `hand` and `graveyard` destinations and the excess as a requirement; the
+host records the discard and ends the turn.
+`advance` deterministically moves an empty main/combat step forward. From
+`planning` it opens the turn instead: untap, an empty upkeep, and the draw, so a
+seat reaches its first main phase without a judge call. A permanent whose Oracle
+text can trigger before the first main phase rejects the message and asks for a
+plan.
+`priority-mode` carries `always: boolean`; it persists the private seat's
+choice between smart actionable stops and every priority window.
 
 Plan checks and rules discussions are private. The originating seat bin gets
 the complete judge response, exact actionable prompt, and up to eight condensed

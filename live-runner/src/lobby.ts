@@ -18,6 +18,17 @@ export type JudgeHistoryEntry = {
   summary: string
 }
 
+export type TopdeckDecision = {
+  seat: SeatId
+  kind: string
+  cards: string[]
+  destinations: Array<'top' | 'bottom' | 'graveyard' | 'hand' | 'exile'>
+  requirements?: Partial<Record<
+    'top' | 'bottom' | 'graveyard' | 'hand' | 'exile',
+    { min?: number; max?: number }
+  >>
+}
+
 export type LobbyState = {
   communicationVersion: 6
   phase: LobbyPhase
@@ -35,6 +46,10 @@ export type LobbyState = {
   active: SeatId
   actions: SeatActions
   actionIds: SeatActionIds
+  opening?: { seat: SeatId }
+  topdeck?: TopdeckDecision
+  human?: SeatId
+  alwaysStopOnPriority: Partial<Record<SeatId, boolean>>
 }
 
 const emptyActionIds = (): SeatActionIds => ({
@@ -122,6 +137,7 @@ export const createLobby = (headline = 'Live table'): LobbyState => ({
   active: 'p1',
   actions: {},
   actionIds: emptyActionIds(),
+  alwaysStopOnPriority: {},
 })
 
 export type LobbyParts = {
@@ -147,6 +163,7 @@ export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
   active: parts.firstPlayer,
   actions: {},
   actionIds: emptyActionIds(),
+  alwaysStopOnPriority: {},
 })
 
 export const restoreLobby = (
@@ -185,6 +202,7 @@ export const restoreLobby = (
     judgeHistory: promptMigrated ? migratedHistory : (saved.judgeHistory ?? {}),
     actions: actionMigrated ? {} : saved.actions,
     actionIds: actionMigrated ? emptyActionIds() : saved.actionIds,
+    alwaysStopOnPriority: saved.alwaysStopOnPriority ?? {},
   }
 }
 
@@ -306,9 +324,52 @@ export const applyInbox = (
     return state
   }
 
+  if (message.type === 'mulligan') {
+    if (state.phase !== 'play') return state
+    state.waiting = `${from} is taking a mulligan.`
+    setJudge(state, `${from} mulliganed.`)
+    return state
+  }
+
+  if (message.type === 'keep') {
+    if (state.phase !== 'play') return state
+    state.waiting = `${from} kept an opening hand.`
+    setJudge(state, `${from} kept.`)
+    return state
+  }
+
+  if (message.type === 'topdeck') {
+    if (state.phase !== 'play') return state
+    state.waiting = `${from} submitted a top-of-library choice.`
+    setJudge(state, `${from} made a private library choice.`)
+    return state
+  }
+
+  if (message.type === 'advance') {
+    if (state.phase !== 'play') return state
+    state.waiting = `${from} is advancing the turn.`
+    setJudge(state, `${from} advances.`)
+    return state
+  }
+
+  if (message.type === 'priority-mode') {
+    state.human = from
+    state.alwaysStopOnPriority = {
+      ...state.alwaysStopOnPriority,
+      [from]: message.always,
+    }
+    setJudge(
+      state,
+      message.always
+        ? `${from} will be offered every priority window.`
+        : `${from} will only be stopped when they can plausibly intervene.`,
+    )
+    return state
+  }
+
   if (message.type === 'plan' || message.type === 'replace') {
     if (state.phase !== 'play') return state
-    state.waiting = `Would this line work?\n${message.text}`
+    state.waiting = `${from} submitted a ${message.type}. The judge is checking it.`
     setJudge(state, `${from} sent a ${message.type}.`)
     return state
   }

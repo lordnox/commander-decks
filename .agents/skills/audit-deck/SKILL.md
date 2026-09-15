@@ -22,7 +22,7 @@ If the user already posted a list that is not imported, follow `deck-workspace` 
 1. Identify the folder with `deck-workspace`. Ask if several decks match.
 2. Read `decklist.txt`, `cards.json`, and that deck's `DECISIONS.md` (`## Cards in`, `## Cards out`, `## Rules`).
 3. Stop if cards are unresolved or validation fails.
-4. Read root `DECISIONS.md`: esoteric old cards, avoid staples, discussable Game Changers, kitchen-table fast mana.
+4. Read root `DECISIONS.md`: staples are flour, so avoid the ones that dilute identity while lands and two-mana rocks stay exempt; esoteric on-theme cards as a tiebreaker; discussable Game Changers; kitchen-table fast mana.
 5. Derive each slot's job from **Cards in**, not from a generic archetype.
 
 Do not edit the 99 until the audit is finished, unless the user already said to apply as you go.
@@ -52,7 +52,7 @@ Search **per job**, not one dump of Dimir. Typical axes:
 - protection, evasion, ramp, graveyard conversion
 - cards that combine two of those verbs
 
-Look for **multifunctional** cards: one card that covers two or more of this deck's jobs. Also look for **packages**: two cards that together do something neither does well, in the manner of Vanish into Memory + Wall of Blood (instant-speed life-for-cards). That pair is an example of the *kind* of interaction, not a card to add unless this deck actually wants it. Details: [lessons.md](lessons.md). For removal, protection, fogs, wipes, and stax slots, classify the incumbent against [`INTERACTION.md`](../../../INTERACTION.md) before searching so the challenger still does that bucket's job.
+Look for **multifunctional** cards: one card that covers two or more of this deck's jobs. Also look for **packages**: two cards that together do something neither does well, in the manner of Vanish into Memory + Wall of Blood (instant-speed life-for-cards). That pair is an example of the *kind* of interaction, not a card to add unless this deck actually wants it. Details: [lessons.md](lessons.md). For removal, protection, fogs, wipes, and stax slots, classify the incumbent against [`INTERACTION.md`](../../../INTERACTION.md) before searching so the challenger still does that bucket's job. For ramp, draw, and thin theme packages, skim [`CONSTRUCTION.md`](../../../CONSTRUCTION.md) so a "better card" does not empty the package or double-count the slot.
 
 Verify every shortlist name with collection or exact named lookup. Check Game Changer status against the cached block in root `BRACKET-DEFINITIONS.md` before recommending.
 
@@ -62,7 +62,7 @@ Keep the incumbent unless the challenger:
 
 1. still does the slot's job, and
 2. adds another job this 99 already needs, a commander trigger, or a package with a card already in the list, and
-3. is not a generic staple without a specific argument, and
+3. is not an identity-diluting staple (popularity alone is not a reason to cut, and lands and two-mana rocks are exempt), and
 4. is not already rejected in `## Cards out` without new evidence.
 
 A slightly cheaper or more conventional version of the same effect is not enough. Two-card packages must have a useful floor when only one half is drawn. Do not force a replacement for every slot.

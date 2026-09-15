@@ -99,7 +99,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       const previous = object.zone
       const leftBattlefield = previous === 'battlefield' && event.to !== 'battlefield'
       const entered = previous !== 'battlefield' && event.to === 'battlefield'
-      draft.move(event.objectId, event.to)
+      draft.move(event.objectId, event.to, event.position)
       if (leftBattlefield) {
         draft.rules = draft.rules.filter((rule) => rule.sourceId !== event.objectId)
         draft.note(`${object.name} leaves battlefield`)
@@ -231,7 +231,7 @@ export const reduceOnce = (
     for (const inner of replaced) {
       const next = rules(current, inner, catalog)
       entries.push(...nested(next.trace, 1))
-      if (!next.ok) return { ...next, trace: entries }
+      if (!next.ok) return { ...next, state, trace: entries }
       current = next.state
     }
     return { ok: true, state: current, trace: entries }
@@ -279,7 +279,7 @@ export const rules = (
   for (const queued of first.queued ?? []) {
     const next = rules(current, queued, catalog)
     entries.push(...nested(next.trace, first.queuedDepth ?? 1))
-    if (!next.ok) return { ...next, trace: entries }
+    if (!next.ok) return { ...next, state, trace: entries }
     current = next.state
   }
   for (let i = 0; i < SBA_CAP; i += 1) {
@@ -291,13 +291,13 @@ export const rules = (
     }
     const next = reduceOnce(current, pending[0], catalog)
     entries.push(...nested(next.trace, 1))
-    if (!next.ok) return { ...next, trace: entries }
+    if (!next.ok) return { ...next, state, trace: entries }
     if (next.prevented) break
     current = next.state
     for (const queued of next.queued ?? []) {
       const child = rules(current, queued, catalog)
       entries.push(...nested(child.trace, next.queuedDepth ?? 2))
-      if (!child.ok) return { ...child, trace: entries }
+      if (!child.ok) return { ...child, state, trace: entries }
       current = child.state
     }
   }

@@ -7,6 +7,7 @@ import {
   replicaHiddenInformation,
   unconfiguredHiddenInformation,
 } from './hiddenInformation'
+import { judgeFallback } from './judgeFallback'
 import { lands } from './lands'
 import { mana } from './mana'
 import { manaBurn } from './manaBurn'
@@ -26,6 +27,7 @@ export const builtInPlugins = [
   stateBased,
   combat,
   damage,
+  judgeFallback,
   unconfiguredHiddenInformation,
   commander,
   manaBurn,
@@ -40,6 +42,7 @@ export {
   commander,
   damage,
   fog,
+  judgeFallback,
   lands,
   mana,
   manaBurn,

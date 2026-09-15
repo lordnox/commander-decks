@@ -1,5 +1,5 @@
 import type { BattlefieldCard, CardDetails, CombatAttacker, ReplayCombat } from './replayTypes'
-import type { LiveSeat, LiveSnapshot } from './liveCodec'
+import type { LiveSeat, LiveSnapshot, LiveTopdeck } from './liveCodec'
 import type { GameState } from '../../rules-engine/src/types'
 
 export type DeckCard = {
@@ -40,6 +40,14 @@ export type LiveWireV2 = {
   H?: Array<[string, number, string, string, LiveSeat[]]>
   hc?: number
   K?: GameState
+  f?: [number, number]
+  l?: [
+    string,
+    unknown[],
+    LiveTopdeck['destinations'],
+    LiveTopdeck['requirements']?,
+  ]
+  b?: 1
 }
 
 export const SEAT_IDS = ['p1', 'p2', 'p3', 'p4'] as const
@@ -77,6 +85,10 @@ const ACTION_BITS = {
   confirm: 2,
   replace: 4,
   pass: 8,
+  keep: 16,
+  mulligan: 32,
+  topdeck: 64,
+  advance: 128,
 } as const
 
 const normalize = (name: string) => name.toLowerCase().split(/\s+/).join(' ')
@@ -320,6 +332,19 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
   )
   if (actionMask) wire.r = actionMask
   if (snapshot.actionId !== undefined) wire.i = snapshot.actionId
+  if (snapshot.opening) {
+    wire.f = [snapshot.opening.mulligans, snapshot.opening.bottomRequired]
+  }
+  if (snapshot.topdeck) {
+    const prefer = you >= 0 ? you : 0
+    wire.l = [
+      snapshot.topdeck.kind,
+      snapshot.topdeck.cards.map((card) => table.cardRef(card, prefer)),
+      snapshot.topdeck.destinations,
+      snapshot.topdeck.requirements,
+    ]
+  }
+  if (snapshot.alwaysStopOnPriority) wire.b = 1
   if (snapshot.events?.length) {
     wire.e = snapshot.events.map((event) => [
       event.id,
@@ -496,6 +521,18 @@ export const expandLiveWire = (
       .filter(([, bit]) => ((wire.r ?? 0) & bit) !== 0)
       .map(([action]) => action as keyof typeof ACTION_BITS),
     actionId: wire.i,
+    opening: Array.isArray(wire.f)
+      ? { mulligans: wire.f[0] ?? 0, bottomRequired: wire.f[1] ?? 0 }
+      : undefined,
+    topdeck: Array.isArray(wire.l)
+      ? {
+          kind: wire.l[0],
+          cards: unpackCards(wire.l[1], lists, extras, tokens),
+          destinations: wire.l[2],
+          requirements: wire.l[3],
+        }
+      : undefined,
+    alwaysStopOnPriority: wire.b === 1 ? true : undefined,
     events: (wire.e ?? []).map((event) => ({
       id: event[0],
       turn: event[1],
@@ -598,8 +635,7 @@ export const expandLiveWire = (
 }
 
 export const fetchDeckIndex = async (slug: string, base: string) => {
-  const encoded = encodeURIComponent(slug).replaceAll('%2B', '+')
-  const response = await fetch(`${base}decks/${encoded}.json`)
+  const response = await fetch(`${base}decks/${encodeURI(slug)}.json`)
   if (!response.ok) {
     throw new Error(`Could not load deck ${slug}`)
   }

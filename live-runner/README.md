@@ -3,6 +3,23 @@
 Bun host/seat for conduit live tables. Chat starts it and exits; this process
 holds WebSockets.
 
+For a dealt replay, skip the lobby and start directly in play mode:
+
+```bash
+bun run table:live:setup -- --slug my-pod --you p2
+```
+
+The command is safe to repeat: it resumes an existing table when possible.
+It starts the host with the judging agent enabled, then prints the human's
+private URL, a spectator URL, log path, and recovery commands. Pass
+`--no-agent` only when chat will judge the game manually.
+
+The replay must already exist at `table-games/my-pod.json`. Create it with
+`bun run table:deal -- <four deck names> --apply ... --out
+table-games/my-pod.json`.
+
+For an open lobby where players join individually:
+
 ```bash
 bun run table:run host --slug my-pod --fg
 bun run table:run host --slug my-pod --agent --fg

@@ -1,5 +1,5 @@
 import { emptyMana, nextPlayer, type Draft } from '../draft'
-import type { HookCtx, PlayerId, Plugin, StepId } from '../types'
+import type { GameState, HookCtx, PlayerId, Plugin, StepId } from '../types'
 
 export const STEPS: StepId[] = [
   'untap',
@@ -28,6 +28,24 @@ export const nextLivingPlayer = (draft: Draft, from: PlayerId) => {
 
 export const emptyAllManaPools = (draft: Draft) => {
   for (const player of draft.playerOrder) draft.players[player].mana = emptyMana()
+}
+
+export const maximumHandSize = (state: GameState, player: PlayerId) => {
+  const configured = state.players[player].data.maximumHandSize
+  if (configured === null) return null
+  return typeof configured === 'number' && Number.isSafeInteger(configured)
+    ? Math.max(0, configured)
+    : 7
+}
+
+const cleanupHandSizeError = (state: GameState) => {
+  if (state.step !== 'cleanup') return
+  const maximum = maximumHandSize(state, state.active)
+  if (maximum === null) return
+  const cards = state.zoneCounts[state.active].hand
+  if (cards > maximum) {
+    return `${state.active} must discard ${cards - maximum} card(s) before cleanup can end`
+  }
 }
 
 const onUntap = (draft: Draft) => {
@@ -84,6 +102,7 @@ const isAdvance = (event: HookCtx['event']) =>
 const legal = ({ state, event }: HookCtx) => {
   if (!isAdvance(event)) return
   if (state.stack.length > 0) return 'cannot advance the step while the stack is not empty'
+  return cleanupHandSizeError(state)
 }
 
 const replace = ({ event }: HookCtx) => {

@@ -62,6 +62,32 @@ describe('play actions', () => {
     })
   })
 
+  test('offers deterministic phase advance in an empty main phase', () => {
+    const state = createLobby()
+    const root = rootWithEvent({
+      kind: 'note',
+      seat: 'p1',
+      state: { active: 'p1', phase: 'main1', stack: [] },
+    })
+
+    expect(replayActions(root, 'test', state)).toEqual({
+      p1: ['plan', 'advance'],
+    })
+  })
+
+  test('offers to open the turn from the planning phase', () => {
+    const state = createLobby()
+    const root = rootWithEvent({
+      kind: 'think',
+      seat: 'p1',
+      state: { active: 'p1', phase: 'planning', stack: [] },
+    })
+
+    expect(replayActions(root, 'test', state)).toEqual({
+      p1: ['plan', 'advance'],
+    })
+  })
+
   test('rejects stale and unavailable actions', () => {
     const state = createLobby()
     state.actions = {
@@ -163,6 +189,40 @@ describe('play actions', () => {
         phase: 'planning',
       },
     })
+  })
+
+  test('stops the turn end for a discard when the hand is too big', () => {
+    const state = createLobby()
+    state.firstPlayer = 'p1'
+    state.occupants = {
+      p1: { name: 'Alpha', deck: 'decks/a' },
+      p2: { name: 'Beta', deck: 'decks/b' },
+    }
+    state.actions = { p4: ['plan', 'pass'] }
+    const root = rootWithEvent({
+      id: 3,
+      turn: 2,
+      kind: 'priority',
+      summary: 'End step priority: Delta may respond or pass.',
+      seats: ['p4'],
+      state: {
+        active: 'p1',
+        turn: 2,
+        phase: 'priority',
+        stack: [],
+        players: {
+          p1: { hand: Array.from({ length: 8 }, (_, index) => `Card ${index}`) },
+        },
+      },
+    })
+
+    expect(applyDeterministicPass(root, 'test', state, 'p4')).toBe('discard')
+    const replay = JSON.parse(
+      readFileSync(join(root, 'table-games', 'test.json'), 'utf8'),
+    )
+    expect(replay.events.at(-1).kind).toBe('pass')
+    expect(state.topdeck).toMatchObject({ seat: 'p1', kind: 'discard' })
+    expect(state.actions).toEqual({ p1: ['topdeck'] })
   })
 
   test('leaves a final stack pass for the judge', () => {

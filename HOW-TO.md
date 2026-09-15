@@ -143,13 +143,15 @@ Before making changes:
 6. For Archidekt deck tags and README badges, read .agents/skills/tag-deck/SKILL.md.
 7. For bracket intent, read BRACKET-DEFINITIONS.md. For power or win-turn analysis of a stored deck, also read .agents/skills/assess-deck/SKILL.md.
 8. For interaction packages (protection vs disruption, wipes vs pinpoint, in-hand vs on-board), read INTERACTION.md.
-9. For fun, oppressiveness, jankiness, and per-deck identity scores, read .agents/skills/rank-deck/SKILL.md.
-10. For parking an unbuilt brew in DECK-IDEAS.md, read .agents/skills/deck-ideas/SKILL.md.
-11. Follow those workflows exactly.
-12. Preserve submitted deck lists and never overwrite a likely existing deck
+9. For mana-base hints (land count, coloured sources, tap lands), read MANABASE.md.
+10. For 99-skeleton hints (ramp/draw mix, plan packages, operational threshold), read CONSTRUCTION.md.
+11. For fun, oppressiveness, jankiness, and per-deck identity scores, read .agents/skills/rank-deck/SKILL.md.
+12. For parking an unbuilt brew in DECK-IDEAS.md, read .agents/skills/deck-ideas/SKILL.md.
+13. Follow those workflows exactly.
+14. Preserve submitted deck lists and never overwrite a likely existing deck
    without confirmation.
-13. Ensure every resolved card has one or more categories.
-14. Ensure every deck has a primer linked near the top of the root README.
+15. Ensure every resolved card has one or more categories.
+16. Ensure every deck has a primer linked near the top of the root README.
 ```
 
 To resolve a saved list manually:

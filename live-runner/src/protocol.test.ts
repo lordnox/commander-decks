@@ -57,5 +57,30 @@ describe('inbox', () => {
       type: 'pregame',
       cards: ['Leyline of Sanctity'],
     })
+    expect(parseInbox('{"type":"mulligan","actionId":2}')).toEqual({
+      type: 'mulligan',
+      actionId: 2,
+    })
+    expect(parseInbox('{"type":"keep","cards":["Swamp"],"cheat":true,"actionId":3}')).toEqual({
+      type: 'keep',
+      cards: ['Swamp'],
+      cheat: true,
+      actionId: 3,
+    })
+    expect(parseInbox('{"type":"topdeck","choices":[{"card":"Teferi","destination":"graveyard"}],"actionId":4}')).toEqual({
+      type: 'topdeck',
+      choices: [{ card: 'Teferi', destination: 'graveyard' }],
+      actionId: 4,
+    })
+    expect(parseInbox('{"type":"advance","actionId":5}')).toEqual({
+      type: 'advance',
+      actionId: 5,
+    })
+    expect(parseInbox('{"type":"priority-mode","always":true}')).toEqual({
+      type: 'priority-mode',
+      always: true,
+    })
+    expect(parseInbox('{"type":"priority-mode","always":"yes"}')).toBeNull()
+    expect(parseInbox('{"type":"topdeck","choices":[{"card":"Teferi","destination":"battlefield"}]}')).toBeNull()
   })
 })

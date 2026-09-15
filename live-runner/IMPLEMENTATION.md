@@ -195,11 +195,17 @@ Passes use `passPriority`. Card plugins live in `rules-engine/src/cardPlugins/`
 and `cards/rules-plugins.json`. Full Oracle compilation is still out of scope:
 unregistered weird cards pause for a plugin + test.
 
-The kernel is the sole authority once its journal exists. Only `confirm` may
-replace that file; plan/rules checks are read-only, and failed kernel passes do
-not fall back to the replay. Generated `handlerIds` reload in the running host.
+The kernel is the sole authority once its journal exists. Confirmed lines and
+submitted top-deck/advance choices may replace that file; plan/rules checks are
+read-only, and failed kernel passes do not fall back to the replay. Generated
+`handlerIds` reload in the running host.
 Wire snapshots retain 32 history frames and 128 trace events; the journal stays
 complete.
+
+Unsupported Oracle behavior uses a strict, audited fallback: `judgeFallback`
+contains only ordinary primitive effects, and the reducer validates them
+atomically. It cannot contain administrative rule changes, replica syncs, or
+another fallback. Normal events and tested card plugins remain the first path.
 
 ## Out of scope (v1)
 

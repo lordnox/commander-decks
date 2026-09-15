@@ -15,6 +15,7 @@ import {
   planStorageKey,
   readLiveRequest,
   replayToLiveSnapshot,
+  type LiveAction,
   type LiveRequest,
   type LiveSeat,
   type LiveSnapshot,
@@ -40,6 +41,8 @@ import {
   type Preview,
 } from './TableBoard'
 import { hydrateLiveSnapshot } from './scryfallCache'
+import { OpeningHandDialog } from './OpeningHandDialog'
+import { TopdeckDialog } from './TopdeckDialog'
 
 const base = import.meta.env.BASE_URL
 
@@ -54,6 +57,11 @@ type InboxType =
   | 'pregame'
   | 'rules'
   | 'talk'
+  | 'keep'
+  | 'mulligan'
+  | 'topdeck'
+  | 'advance'
+  | 'priority-mode'
 
 const TURN_STEPS = [
   ['planning', 'Planning'],
@@ -134,6 +142,9 @@ const insertAtCursor = (
   return next
 }
 
+/** Headings carry their own weight, so emphasis markers only add noise. */
+const withoutEmphasis = (text: string) => text.replace(/\*\*/g, '')
+
 const JudgeText = ({ text }: { text: string }) => (
   <div className="space-y-3 text-sm leading-6 text-stone-300">
     {text.trim().split(/\n{2,}/).map((paragraph, paragraphIndex) => (
@@ -202,6 +213,7 @@ export const LivePage = () => {
   const [conduitStatus, setConduitStatus] = useState('')
   const [hydrationStatus, setHydrationStatus] = useState('')
   const [sentActionId, setSentActionId] = useState<number | null>(null)
+  const [openingOpen, setOpeningOpen] = useState(true)
   const planRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
@@ -345,7 +357,8 @@ export const LivePage = () => {
 
   useEffect(() => {
     setSentActionId(null)
-  }, [snapshot?.actionId])
+    if (snapshot?.actions?.includes('keep')) setOpeningOpen(true)
+  }, [snapshot?.actionId, snapshot?.actions])
 
   useEffect(() => {
     const onKeyDown = (keyboardEvent: KeyboardEvent) => {
@@ -446,14 +459,37 @@ export const LivePage = () => {
     flash('Public link copied')
   }
 
-  const sendInbox = async (type = inboxType) => {
+  const sendInbox = async (
+    type = inboxType,
+    extra: {
+      cards?: string[]
+      cheat?: boolean
+      choices?: Array<{
+        card: string
+        destination: 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile'
+      }>
+      always?: boolean
+    } = {},
+  ) => {
     if (viewingPast) {
       flash('Return to the latest step before sending')
       return
     }
     if (request?.kind !== 'conduit' || !request.inbox) return
-    const playAction = ['plan', 'confirm', 'replace', 'pass'].includes(type)
-    if (playAction && !snapshot?.actions?.includes(type as 'plan' | 'confirm' | 'replace' | 'pass')) {
+    const playAction = [
+      'plan',
+      'confirm',
+      'replace',
+      'pass',
+      'keep',
+      'mulligan',
+      'topdeck',
+      'advance',
+    ].includes(type)
+    if (
+      playAction
+      && !snapshot?.actions?.includes(type as LiveAction)
+    ) {
       flash('That action is not available now')
       return
     }
@@ -467,6 +503,21 @@ export const LivePage = () => {
         message = { type: 'pass', ...action }
       } else if (type === 'confirm') {
         message = { type: 'confirm', text: plan.trim() || undefined, ...action }
+      } else if (type === 'mulligan') {
+        message = { type: 'mulligan', ...action }
+      } else if (type === 'keep') {
+        message = {
+          type: 'keep',
+          ...(extra.cards ? { cards: extra.cards } : {}),
+          ...(extra.cheat ? { cheat: true } : {}),
+          ...action,
+        }
+      } else if (type === 'topdeck') {
+        message = { type: 'topdeck', choices: extra.choices ?? [], ...action }
+      } else if (type === 'advance') {
+        message = { type: 'advance', ...action }
+      } else if (type === 'priority-mode') {
+        message = { type: 'priority-mode', always: extra.always === true }
       } else if (type === 'join') {
         const separator = plan.includes('|') ? '|' : '\n'
         const split = plan.indexOf(separator)
@@ -491,7 +542,25 @@ export const LivePage = () => {
       if (playAction && snapshot?.actionId !== undefined) {
         setSentActionId(snapshot.actionId)
       }
-      flash(type === 'pass' ? 'Passed' : type === 'confirm' ? 'Confirmed' : 'Message sent')
+      flash(
+        type === 'pass'
+          ? 'Passed'
+          : type === 'confirm'
+            ? 'Confirmed'
+            : type === 'mulligan'
+              ? 'Mulligan sent'
+              : type === 'keep'
+                ? 'Keep sent'
+                : type === 'topdeck'
+                  ? 'Library choice sent'
+                  : type === 'advance'
+                    ? 'Phase advanced'
+                    : type === 'priority-mode'
+                      ? extra.always
+                        ? 'All priority stops enabled'
+                        : 'Smart priority stops enabled'
+                : 'Message sent',
+      )
     } catch (reason: unknown) {
       flash(reason instanceof Error ? reason.message : 'Could not send message')
     }
@@ -529,6 +598,15 @@ export const LivePage = () => {
   const canConfirm = Boolean(snapshot.actions?.includes('confirm'))
   const canPlan = Boolean(snapshot.actions?.includes('plan'))
   const canReplace = Boolean(snapshot.actions?.includes('replace'))
+  const canKeep = Boolean(snapshot.actions?.includes('keep'))
+  const canMulligan = Boolean(snapshot.actions?.includes('mulligan'))
+  const canAdvance = Boolean(snapshot.actions?.includes('advance'))
+  const advanceLabel = snapshot.phase === 'planning'
+    ? 'Untap & draw'
+    : snapshot.phase === 'main2'
+      ? 'End turn'
+      : 'Next phase'
+  const yourHand = orderedSeats.find((seat) => seat.id === snapshot.you)?.hand ?? []
 
   return (
     <div className={`min-h-screen ${hidePlan ? 'pb-8' : 'pb-56'}`}>
@@ -599,6 +677,23 @@ export const LivePage = () => {
           >
             {hidePlan ? 'Show plan' : 'Hide plan'}
           </button>
+          {canSend && snapshot.you && (
+            <button
+              type="button"
+              onClick={() => void sendInbox('priority-mode', {
+                always: !snapshot.alwaysStopOnPriority,
+              })}
+              aria-pressed={Boolean(snapshot.alwaysStopOnPriority)}
+              className={`rounded-xl px-3 py-2 text-sm font-semibold ${
+                snapshot.alwaysStopOnPriority
+                  ? 'bg-orange-300 text-ink-950'
+                  : 'bg-white/5 text-stone-300 hover:bg-white/10'
+              }`}
+              title="Keep every priority window, including politics-only stops"
+            >
+              Always stop on priority
+            </button>
+          )}
           <button
             type="button"
             onClick={() => void copyPublicLink()}
@@ -606,6 +701,15 @@ export const LivePage = () => {
           >
             Copy public link
           </button>
+          {canKeep && !openingOpen && (
+            <button
+              type="button"
+              onClick={() => setOpeningOpen(true)}
+              className="rounded-xl bg-gold-300 px-3 py-2 text-sm font-black text-ink-950 hover:bg-gold-200"
+            >
+              Opening hand
+            </button>
+          )}
         </div>
       </header>
 
@@ -740,9 +844,11 @@ export const LivePage = () => {
             }`}>
               {yourAction ? 'Your action' : 'Waiting'}
             </p>
-            <p className="mt-2 text-sm leading-5 text-stone-200">
-              {snapshot.waiting || 'The judge is advancing the game.'}
-            </p>
+            <div className="mt-2">
+              <JudgeText
+                text={snapshot.waiting || 'The judge is advancing the game.'}
+              />
+            </div>
           </div>
           {yourAction && canSend && (canPass || canConfirm) && (
             <div className="mt-3 grid grid-cols-2 gap-2">
@@ -768,6 +874,16 @@ export const LivePage = () => {
               )}
             </div>
           )}
+          {yourAction && canSend && canAdvance && (
+            <button
+              type="button"
+              onClick={() => void sendInbox('advance')}
+              disabled={actionPending}
+              className="mt-3 w-full rounded-xl bg-gold-300 px-3 py-2 text-sm font-black text-ink-950 hover:bg-gold-200 disabled:cursor-wait disabled:opacity-40"
+            >
+              {actionPending ? 'Advancing…' : advanceLabel}
+            </button>
+          )}
           {priorityOpen && lastEvent && (
             <p className="mt-3 text-xs leading-5 text-stone-400">{lastEvent.summary}</p>
           )}
@@ -788,7 +904,7 @@ export const LivePage = () => {
           </div>
           {snapshot.waiting && (
             <h2 className="mt-3 font-display text-2xl leading-tight text-stone-50 sm:text-3xl">
-              {snapshot.waiting}
+              {withoutEmphasis(snapshot.waiting)}
             </h2>
           )}
           {snapshot.talk && (
@@ -829,9 +945,9 @@ export const LivePage = () => {
                     <p className="text-[0.65rem] font-bold uppercase tracking-[0.14em] text-stone-500">
                       {entry.type}
                     </p>
-                    <p className="mt-1 text-sm leading-6 text-stone-300">
-                      {entry.summary}
-                    </p>
+                    <div className="mt-1">
+                      <JudgeText text={entry.summary} />
+                    </div>
                   </li>
                 ))}
               </ol>
@@ -929,6 +1045,16 @@ export const LivePage = () => {
                     {actionPending ? 'Sent…' : 'Confirm plan'}
                   </button>
                 )}
+                {canAdvance && (
+                  <button
+                    type="button"
+                    onClick={() => void sendInbox('advance')}
+                    disabled={!canSend || actionPending}
+                    className="rounded-xl bg-gold-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-200 disabled:cursor-wait disabled:opacity-40"
+                  >
+                    {actionPending ? 'Advancing…' : advanceLabel}
+                  </button>
+                )}
                 <select
                   value={inboxType}
                   onChange={(event) => setInboxType(event.target.value as InboxType)}
@@ -939,12 +1065,6 @@ export const LivePage = () => {
                   <option value="replace" disabled={!canReplace}>Replace my plan</option>
                   <option value="rules">Ask the judge</option>
                   <option value="talk">Table talk</option>
-                  <optgroup label="Game setup">
-                    <option value="join">Join seat</option>
-                    <option value="ready">Ready</option>
-                    <option value="swap">Request seat swap</option>
-                    <option value="pregame">Pregame actions</option>
-                  </optgroup>
                 </select>
                 <button
                   type="button"
@@ -957,7 +1077,7 @@ export const LivePage = () => {
                       ['plan', 'replace'].includes(inboxType)
                       && !snapshot.actions?.includes(inboxType as 'plan' | 'replace')
                     )
-                    || (!plan.trim() && !['ready', 'pregame'].includes(inboxType))
+                    || (!plan.trim() && !['talk', 'rules'].includes(inboxType))
                   }
                   className="rounded-xl bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-300 disabled:cursor-not-allowed disabled:opacity-40"
                 >
@@ -1012,6 +1132,31 @@ export const LivePage = () => {
             void navigator.clipboard.writeText(name)
             flash('Card name copied')
           }}
+        />
+      )}
+
+      {openingOpen && canKeep && canMulligan && snapshot.you && (
+        <OpeningHandDialog
+          key={snapshot.actionId}
+          game={game}
+          cards={yourHand}
+          mulligans={snapshot.opening?.mulligans ?? 0}
+          bottomRequired={snapshot.opening?.bottomRequired ?? 0}
+          pending={actionPending}
+          onClose={() => setOpeningOpen(false)}
+          onMulligan={() => void sendInbox('mulligan')}
+          onKeep={(cards) => void sendInbox('keep', { cards })}
+          onCheat={() => void sendInbox('keep', { cheat: true })}
+        />
+      )}
+
+      {snapshot.topdeck && snapshot.actions?.includes('topdeck') && (
+        <TopdeckDialog
+          key={snapshot.actionId}
+          game={game}
+          decision={snapshot.topdeck}
+          pending={actionPending}
+          onResolve={(choices) => void sendInbox('topdeck', { choices })}
         />
       )}
     </div>

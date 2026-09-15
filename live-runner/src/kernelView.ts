@@ -40,6 +40,9 @@ const traceSummary = (trace: EventTrace, state: GameState) => {
     case 'loseLife':
       summary = `${event.seat} loses ${event.amount} life`
       break
+    case 'judgeFallback':
+      summary = 'Judge fallback applied'
+      break
     case 'custom':
       summary = event.name
       break
@@ -137,6 +140,12 @@ export const liveSnapshotFromState = (options: {
       ? lobby.actions[viewer]
       : [],
     actionId: viewer ? lobby.actionIds[viewer] : undefined,
+    topdeck: viewer && lobby.topdeck?.seat === viewer
+      ? lobby.topdeck
+      : undefined,
+    alwaysStopOnPriority: viewer
+      ? lobby.alwaysStopOnPriority[viewer]
+      : undefined,
     events: options.events ?? [],
     turn: comparable.turn,
     phase: comparable.phase,

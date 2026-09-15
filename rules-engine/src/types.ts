@@ -197,13 +197,25 @@ export type GameEvent =
       combat?: boolean
     }
   | { type: 'loseLife'; seat: PlayerId; amount: number; source?: string }
-  | { type: 'move'; objectId: string; to: ZoneId }
+  | {
+      type: 'move'
+      objectId: string
+      to: ZoneId
+      position?: 'top' | 'bottom'
+    }
   | { type: 'tap'; objectId: string }
   | { type: 'untap'; objectId: string }
   | { type: 'advanceStep' }
   | { type: 'draw'; seat: PlayerId; count?: number }
   | { type: 'shuffleLibrary'; seat: PlayerId }
   | { type: 'authoritativeSync'; snapshot: GameState }
+  | {
+      type: 'judgeFallback'
+      seat: PlayerId
+      source: string
+      reason: string
+      effects: GameEvent[]
+    }
   | { type: 'concede'; seat: PlayerId }
   | {
       type: 'addRule'

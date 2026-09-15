@@ -414,7 +414,16 @@ def compact_snapshot(
         ]
     if snapshot.get("youAct"):
         wire["u"] = 1
-    action_bits = {"plan": 1, "confirm": 2, "replace": 4, "pass": 8}
+    action_bits = {
+        "plan": 1,
+        "confirm": 2,
+        "replace": 4,
+        "pass": 8,
+        "keep": 16,
+        "mulligan": 32,
+        "topdeck": 64,
+        "advance": 128,
+    }
     actions = snapshot.get("actions") or []
     mask = sum(action_bits.get(action, 0) for action in actions)
     if mask:
@@ -422,6 +431,23 @@ def compact_snapshot(
     action_id = snapshot.get("actionId")
     if isinstance(action_id, int):
         wire["i"] = action_id
+    opening = snapshot.get("opening") or {}
+    if isinstance(opening, dict) and "mulligans" in opening:
+        wire["f"] = [
+            int(opening.get("mulligans") or 0),
+            int(opening.get("bottomRequired") or 0),
+        ]
+    topdeck = snapshot.get("topdeck") or {}
+    if isinstance(topdeck, dict) and topdeck.get("kind"):
+        prefer = SEAT_IDS.index(you) if you in SEAT_IDS else 0
+        wire["l"] = [
+            topdeck["kind"],
+            _pack_card_list(topdeck.get("cards") or [], table, prefer=prefer),
+            list(topdeck.get("destinations") or []),
+            topdeck.get("requirements"),
+        ]
+    if snapshot.get("alwaysStopOnPriority"):
+        wire["b"] = 1
     events = snapshot.get("events") or []
     if events:
         wire["e"] = [
@@ -715,6 +741,10 @@ def expand_snapshot(wire: dict, indexes: dict[str, list[dict[str, Any]]] | None 
                 "confirm": 2,
                 "replace": 4,
                 "pass": 8,
+                "keep": 16,
+                "mulligan": 32,
+                "topdeck": 64,
+                "advance": 128,
             }.items()
             if (wire.get("r") or 0) & bit
         ],
@@ -752,6 +782,23 @@ def expand_snapshot(wire: dict, indexes: dict[str, list[dict[str, Any]]] | None 
         "catalog": catalog_from_indexes(slugs, indexes or {}, wire.get("g")),
         "decks": [slug for slug in slugs if slug],
     }
+    packed_opening = wire.get("f")
+    if isinstance(packed_opening, list) and len(packed_opening) >= 2:
+        snapshot["opening"] = {
+            "mulligans": packed_opening[0],
+            "bottomRequired": packed_opening[1],
+        }
+    packed_topdeck = wire.get("l")
+    if isinstance(packed_topdeck, list) and len(packed_topdeck) >= 3:
+        snapshot["topdeck"] = {
+            "kind": packed_topdeck[0],
+            "cards": _unpack_card_list(packed_topdeck[1], **lookup),
+            "destinations": packed_topdeck[2],
+        }
+        if len(packed_topdeck) >= 4 and packed_topdeck[3]:
+            snapshot["topdeck"]["requirements"] = packed_topdeck[3]
+    if "b" in wire:
+        snapshot["alwaysStopOnPriority"] = bool(wire["b"])
     if wire.get("m"):
         snapshot["combat"] = _unpack_combat(wire["m"], **lookup)
     if tokens:

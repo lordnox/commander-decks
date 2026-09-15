@@ -45,7 +45,15 @@ export type LiveEvent = {
   summary: string
 }
 
-export type LiveAction = 'plan' | 'confirm' | 'replace' | 'pass'
+export type LiveAction =
+  | 'plan'
+  | 'confirm'
+  | 'replace'
+  | 'pass'
+  | 'keep'
+  | 'mulligan'
+  | 'topdeck'
+  | 'advance'
 
 export type JudgeHistoryEntry = {
   id: number
@@ -62,6 +70,21 @@ export type LiveHistoryFrame = {
   seats: LiveSeat[]
 }
 
+export type LiveOpening = {
+  mulligans: number
+  bottomRequired: number
+}
+
+export type LiveTopdeck = {
+  kind: string
+  cards: Array<string | number>
+  destinations: Array<'top' | 'bottom' | 'graveyard' | 'hand' | 'exile'>
+  requirements?: Partial<Record<
+    'top' | 'bottom' | 'graveyard' | 'hand' | 'exile',
+    { min?: number; max?: number }
+  >>
+}
+
 export type LiveSnapshot = {
   v: 1
   you?: string | null
@@ -73,6 +96,9 @@ export type LiveSnapshot = {
   youAct?: boolean
   actions?: LiveAction[]
   actionId?: number
+  opening?: LiveOpening
+  topdeck?: LiveTopdeck
+  alwaysStopOnPriority?: boolean
   events?: LiveEvent[]
   turn: number
   phase: string
@@ -400,6 +426,15 @@ export const encodeLivePayload = async (snapshot: LiveSnapshot) => {
 /** Public encode: drop every hand array and clear `you`. Keep hand_count. */
 export const encodePublicLivePayload = async (snapshot: LiveSnapshot) => {
   const compact = compactLiveSnapshot(snapshot)
+  const {
+    opening: _opening,
+    topdeck: _topdeck,
+    alwaysStopOnPriority: _alwaysStopOnPriority,
+    actions: _actions,
+    actionId: _actionId,
+    youAct: _youAct,
+    ...publicSnapshot
+  } = compact
   const seats = normalizeSeats(compact.seats).map((seat) => {
     const { hand: _hand, ...rest } = seat
     return rest
@@ -419,7 +454,7 @@ export const encodePublicLivePayload = async (snapshot: LiveSnapshot) => {
     return event
   })
   return encodeLivePayload({
-    ...compact,
+    ...publicSnapshot,
     you: null,
     seats,
     events,

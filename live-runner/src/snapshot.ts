@@ -5,7 +5,16 @@ import type { LobbyState } from './lobby'
 const HIDDEN = 0
 const ABSENT = 0
 const COLORS = ['#c45c26', '#2f6f64', '#4a5d9e', '#8a3d6b']
-const ACTION_BITS = { plan: 1, confirm: 2, replace: 4, pass: 8 } as const
+const ACTION_BITS = {
+  plan: 1,
+  confirm: 2,
+  replace: 4,
+  pass: 8,
+  keep: 16,
+  mulligan: 32,
+  topdeck: 64,
+  advance: 128,
+} as const
 
 const emptyPackedSeat = () => [
   [40, 0, 0, 99, 0],

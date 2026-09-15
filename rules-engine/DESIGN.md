@@ -85,6 +85,12 @@ Add a plugin only when a new deck or card needs one. Write a regression test
 in the same step. Reuse `whenAbility` / `applyAbility` checks from
 `plugins/activateAbility.ts`.
 
+The live judge may keep a current game moving with `judgeFallback` when exact
+Oracle behavior has no plugin yet. The event names the source and missing
+capability and contains only ordinary primitive effects. Nested fallbacks and
+administrative events are rejected; any illegal child rejects the whole event
+without changing state.
+
 ## Pipeline
 
 Active rules live **in the game state**. Catalog entries are code. A permanent
@@ -150,6 +156,7 @@ state with the `addRule` event (or `grantedRules` on an object).
 | `combat` | attackers, blockers, emits `combatDamage` |
 | `damage` | `combatDamage` → `dealDamage` → `loseLife` |
 | `hiddenInformation` | Server resolves hidden zones; client ingests redacted state |
+| `judgeFallback` | Audited wrapper for atomically validated primitive effects |
 | `fog` | **optional** — prevents `combatDamage` |
 | `commander` | Optional format rule: 21 damage, command zone, tax |
 | `manaBurn` | **optional** — leftover mana becomes unpreventable loss of life |

@@ -1,5 +1,11 @@
 import { describe, expect, test } from 'bun:test'
-import { compactLiveWire, expandLiveWire, STRIDE, type DeckIndex } from './liveCompact'
+import {
+  compactLiveWire,
+  expandLiveWire,
+  fetchDeckIndex,
+  STRIDE,
+  type DeckIndex,
+} from './liveCompact'
 import type { LiveSnapshot } from './liveCodec'
 
 const index = (names: string[]): DeckIndex => ({
@@ -119,6 +125,21 @@ const snapshot = (): LiveSnapshot => ({
 })
 
 describe('live compact v2', () => {
+  test('loads bracket-plus deck slugs without encoding the path separator', async () => {
+    const original = globalThis.fetch
+    let requested = ''
+    globalThis.fetch = (input) => {
+      requested = String(input)
+      return Promise.resolve(new Response('{"cards":[]}'))
+    }
+    try {
+      await fetchDeckIndex('2+_lady-evangela', '/commander-decks/')
+      expect(requested).toBe('/commander-decks/decks/2+_lady-evangela.json')
+    } finally {
+      globalThis.fetch = original
+    }
+  })
+
   test('board cards are deck slot integers', () => {
     const wire = compactLiveWire(snapshot())
     expect(wire.v).toBe(2)
@@ -174,5 +195,41 @@ describe('live compact v2', () => {
     expect(expanded.history?.[0].summary).toBe('Setup')
     expect(expanded.historyCursor).toBe(0)
     expect(expanded.replica?.knowledge).toEqual({ mode: 'replica', viewer: 'p2' })
+  })
+
+  test('private opening keep/mulligan bits and bottom count survive the wire', () => {
+    const original = snapshot()
+    original.actions = ['keep', 'mulligan']
+    original.opening = { mulligans: 2, bottomRequired: 1 }
+    const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)
+    expect(expanded.actions).toEqual(['keep', 'mulligan'])
+    expect(expanded.opening).toEqual({ mulligans: 2, bottomRequired: 1 })
+  })
+
+  test('private top-deck choice and deterministic actions survive the wire', () => {
+    const original = snapshot()
+    original.actions = ['topdeck', 'advance']
+    original.topdeck = {
+      kind: 'surveil',
+      cards: ['Forest'],
+      destinations: ['top', 'graveyard'],
+    }
+    const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)
+    expect(expanded.actions).toEqual(['topdeck', 'advance'])
+    expect(expanded.topdeck).toEqual({
+      kind: 'surveil',
+      cards: ['Forest'],
+      destinations: ['top', 'graveyard'],
+    })
+  })
+
+  test('private always-stop priority preference survives the wire', () => {
+    const original = snapshot()
+    original.alwaysStopOnPriority = true
+    const wire = compactLiveWire(original)
+    expect(wire.b).toBe(1)
+    expect(
+      expandLiveWire(wire, original.deckIndexes).alwaysStopOnPriority,
+    ).toBe(true)
   })
 })

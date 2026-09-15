@@ -73,6 +73,9 @@ describe('lobby', () => {
     state.phase = 'play'
 
     applyInbox(state, 'p1', { type: 'plan', text: 'Cast a hidden card.' })
+    expect(state.waiting).toBe('p1 submitted a plan. The judge is checking it.')
+    expect(state.waiting).not.toContain('hidden card')
+    expect(state.judge).not.toContain('hidden card')
     applyInbox(state, 'p1', { type: 'confirm' })
     applyInbox(state, 'p2', { type: 'pass' })
     expect(state.talk).toBe('')
@@ -136,5 +139,16 @@ describe('lobby', () => {
       type: 'plan',
       summary: 'Checked line: play Plains, cast Jet Medallion, then pass.',
     }])
+  })
+
+  test('persists a private human priority preference', () => {
+    const state = createLobby()
+    state.phase = 'play'
+    applyInbox(state, 'p1', { type: 'priority-mode', always: true })
+    expect(state.human).toBe('p1')
+    expect(state.alwaysStopOnPriority).toEqual({ p1: true })
+
+    applyInbox(state, 'p1', { type: 'priority-mode', always: false })
+    expect(state.alwaysStopOnPriority).toEqual({ p1: false })
   })
 })

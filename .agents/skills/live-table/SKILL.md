@@ -39,6 +39,31 @@ Play-to-win for the other seats: [`simulate-table`](../simulate-table/SKILL.md).
 
 ## Start / continue
 
+### Fast setup for a dealt table
+
+When the user asks an agent to create the table, do not make them join four
+seats or walk the lobby. Select and validate four resolved decks with
+`simulate-table`, put the human deck in the requested seat, inspect the three
+London candidates, and apply the keeps to
+`table-games/<slug>.json`. Then run:
+
+```bash
+bun run table:live:setup -- --slug <slug> --you p2
+```
+
+This idempotent command mints or reuses the nine bins, initializes the runner
+from the dealt replay directly in `play`, starts the background host with its
+judging agent, and prints the one private URL to send the human. It also prints
+the public spectator URL, log path, and exact resume/stop commands. Verify the
+pid exists and the log reaches `listen`, then post only the private URL.
+
+The setup command does not choose mulligans or play the other seats. Those
+remain `simulate-table` decisions: use one seat agent per non-human deck when
+playing the game, with this agent as game master. The runner's `--agent` is the
+judge that checks and applies inbox messages; it is not three opponent brains.
+
+### Manual lobby / fallback
+
 1. Deal and play with `simulate-table` as usual (pod, deal, seat agents, replay
    events). Mark one seat `human` (`p1`–`p4`).
 2. Mint the nine bins (`host`, `p1`, `p1-inbox`, … `p4-inbox`). The mint key
@@ -72,8 +97,14 @@ Play-to-win for the other seats: [`simulate-table`](../simulate-table/SKILL.md).
 Pause, encode, and ask whenever the human must decide or when information
 changed under their standing plan:
 
-- keep / mulligan
+- keep / mulligan (Commander: first redraw is free; later ones bottom `n - 1`)
+- beginning-of-game cards in the human opening hand, before anyone draws
+- the turn draw, then a plan; never ask for a plan before the seat has drawn
 - human's main-phase actions
+- after a land or spell that surveils, scries, explores, connives, looks at
+  cards, or otherwise asks a hidden-zone choice (stop before the choice)
+- cleanup with more than seven cards in hand: the seat chooses what to discard
+- attackers (human attacking or choosing defenders)
 - attackers (human attacking or choosing defenders)
 - blockers when the human cares (their attackers or their creatures)
 - stack when they can respond or care
@@ -82,11 +113,36 @@ changed under their standing plan:
 Skip empty bookkeeping (untap with nothing to do, pure phase labels, opponent
 auto-passes with no interaction). Do not spam snapshots.
 
+The human defaults to **smart priority**: name them as a responder only when
+their current hand, battlefield, command zone, or resources give them a
+plausible legal game action. No open mana plus no free or activated action is
+an automatic pass. Table talk remains available even when priority does not
+stop. If the private **Always stop on priority** toggle is on, include the
+human in every priority window so they can intervene politically.
+
+Top-deck choices are structured UI actions, not plans. Put a machine-readable
+`choice` on the unresolved stack item; the runner privately reads the named
+seat's `_libraries`, shows the cards, validates destinations, and resolves the
+choice without invoking the judge. Empty first main, combat, and second main
+steps offer **Next phase** / **End turn** and advance deterministically. A turn
+that opens with nothing to decide offers **Untap & draw**, which walks untap,
+upkeep, and the draw to the first main phase the same way; a permanent that can
+trigger in those steps sends the turn open back to the judge instead.
+
 On the human's main phase, attacker declaration, blocker declaration, or stack
 decision, propose one legal candidate when useful and phrase the pause as
 `Would this line work? ... Confirm or replace it.` A user proposal is analysis,
 not authorization to append events. Do not commit it until the user confirms
 after seeing the checked sequence and likely responses.
+
+Confirmation is for lines that spend something. A plan that only walks the turn
+forward — "pass until main one", "move to combat" — should not be negotiated at
+all: point the seat at the phase button, which advances the game deterministically
+without a judge call.
+
+A turn cannot end with the active seat over seven cards. Both the deterministic
+turn end and the judge raise the same discard dialog, which lists the hand and
+requires exactly the excess in the graveyard before cleanup is written.
 
 Every play prompt also publishes the actions that seat may currently send and
 a per-seat action ID. The client echoes that ID. Reject stale, duplicate, or
@@ -205,16 +261,23 @@ it does not open the window. The host decides when that timing is legal.
 
 When a new deck or card introduces an interaction the kernel cannot represent:
 
-1. Pause. Do not execute the line.
-2. Add `rules-engine/src/cardPlugins/<id>.ts` and a test that would fail on the
-   old behavior.
-3. Register static effects under `pluginIds` and activated handlers under
-   `handlerIds` in `cards/rules-plugins.json`.
-4. Commit and push that plugin. Later tables reuse it.
+1. First express the line as ordinary kernel events. Never bypass a rejected
+   timing, target, cost, priority, or state-based-action check.
+2. Prefer `rules-engine/src/cardPlugins/<id>.ts` plus a regression test for
+   reusable unsupported Oracle behavior.
+3. To avoid stalling the current game, a confirmed line may use one
+   `judgeFallback` event containing the smallest possible primitive effects.
+   Give it a source and a precise missing-capability reason. The reducer checks
+   every nested effect atomically and records the fallback in its trace.
+4. Never nest a fallback or put `authoritativeSync`, `addRule`, or `removeRule`
+   inside one. A fallback is technical debt, not permission to override rules.
+5. Register the completed static effect under `pluginIds` and activated handler
+   under `handlerIds` in `cards/rules-plugins.json`. Later tables reuse it.
 
 The host agent copies those files back from its scratch worktree when
-`pluginsChanged` is true, then reloads `handlerIds`. Only a confirmed line may
-replace the kernel journal; plan, replace, rules, pass, and talk are read-only.
+`pluginsChanged` is true, then reloads `handlerIds`. Confirmed lines and
+submitted top-deck/advance choices may replace the kernel journal; plan,
+replace, rules, pass, and talk are read-only.
 Generic effects stay in builtin plugins; card files are only for odd Oracle.
 Published snapshots retain the latest 32 history frames and 128 trace events;
 the append-only host journal remains complete.
