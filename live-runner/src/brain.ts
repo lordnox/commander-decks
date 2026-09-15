@@ -137,7 +137,11 @@ Do exactly one host step:
 - keep/mulligan: the deterministic host already applied it. Do not run.
 - plan/replace: check legality, mana, timing, targets, triggers, combat math,
   visible responses, and politics. Do not execute it. Ask for confirmation or
-  a replacement.
+  a replacement. When the plan only walks the turn forward and commits no land,
+  spell, ability, or attack, do not negotiate it: say that the seat can press
+  the phase button instead, which moves the game without a judge call.
+- Write plain sentences. Emphasis markers around a phrase read as literal
+  asterisks on some panels.
 - confirm: execute the latest checked standing plan for this seat, then pause.
   Walk the turn one step at a time and append an event for every step you
   enter, including the empty ones (\`Upkeep — no triggers.\`), each on its own
