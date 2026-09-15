@@ -1,6 +1,13 @@
 import { emptyMana } from './draft'
 import { payCost } from './plugins/spells'
-import type { GameObject, GameState, ManaId, ManaPool, PlayerId } from './types'
+import type {
+  GameEvent,
+  GameObject,
+  GameState,
+  ManaId,
+  ManaPool,
+  PlayerId,
+} from './types'
 
 export type AvailableAction =
   | { kind: 'playLand'; objectId: string; name: string }
@@ -220,4 +227,88 @@ export const availableActions = (
   }
 
   return actions
+}
+
+const SIMPLE_PERMANENT = new Set([
+  'Artifact',
+  'Battle',
+  'Creature',
+  'Enchantment',
+  'Planeswalker',
+])
+
+const fundingEvents = (
+  state: GameState,
+  seat: PlayerId,
+  cost: string,
+): GameEvent[] | null => {
+  const sources = Object.values(state.objects)
+    .filter((object) =>
+      sourceCanTap(object, seat)
+      && object.tapProduces
+      && Object.values(object.tapProduces).some((amount) => amount > 0))
+  let plans = [{
+    pool: state.players[seat]?.mana ?? emptyMana(),
+    events: [] as GameEvent[],
+  }]
+  for (const source of sources) {
+    const next = new Map<string, typeof plans[number]>()
+    for (const plan of plans) {
+      const candidates = [
+        plan,
+        {
+          pool: addPool(plan.pool, source.tapProduces!),
+          events: [
+            ...plan.events,
+            { type: 'tapForMana', seat, objectId: source.id } as GameEvent,
+          ],
+        },
+      ]
+      for (const candidate of candidates) {
+        const key = poolKey(candidate.pool, 20)
+        const previous = next.get(key)
+        if (!previous || candidate.events.length < previous.events.length) {
+          next.set(key, candidate)
+        }
+      }
+    }
+    plans = [...next.values()]
+  }
+  return plans
+    .filter((plan) => payCost(plan.pool, cost))
+    .sort((left, right) => left.events.length - right.events.length)[0]
+    ?.events ?? null
+}
+
+/**
+ * Turn an enumerated, choice-free action into reducer events. Returning null
+ * is deliberate: targets, optional costs, ETB choices, and spell instructions
+ * still need a card handler or the judge.
+ */
+export const eventsForAvailableAction = (
+  state: GameState,
+  seat: PlayerId,
+  action: AvailableAction,
+): GameEvent[] | null => {
+  if (action.kind === 'playLand') {
+    return [{ type: 'playLand', seat, objectId: action.objectId }]
+  }
+  if (action.kind !== 'castSpell') return null
+  const object = state.objects[action.objectId]
+  if (
+    !object
+    || !object.types.some((type) => SIMPLE_PERMANENT.has(type))
+    || /(?:additional cost|enters(?: the battlefield)?|when you cast|choose|target)/i
+      .test(object.oracleText)
+  ) {
+    return null
+  }
+  const tax = taxFor(state, seat, object)
+  const cost = `${object.manaCost}${tax > 0 ? `{${tax}}` : ''}`
+  const mana = fundingEvents(state, seat, cost)
+  if (!mana) return null
+  return [
+    ...mana,
+    { type: 'castSpell', seat, objectId: object.id },
+  ]
 }

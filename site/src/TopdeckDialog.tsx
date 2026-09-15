@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { LiveTopdeck } from './liveCodec'
 import type { ReplayGame } from './replayTypes'
 
-type Destination = 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield'
+type Destination = 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
 type Choice = {
   id: number
   card: string
@@ -15,6 +15,7 @@ const label = (destination: Destination) => {
   if (destination === 'hand') return 'Hand'
   if (destination === 'exile') return 'Exile'
   if (destination === 'battlefield') return 'Battlefield'
+  if (destination === 'library') return 'Library'
   return 'Top'
 }
 
@@ -31,6 +32,7 @@ export const TopdeckDialog = ({
 }) => {
   const discarding = decision.kind === 'discard'
   const puttingLand = decision.kind === 'put-land'
+  const searching = decision.kind === 'search'
   const orderMatters = decision.destinations.some(
     (destination) => destination === 'top' || destination === 'bottom',
   )
@@ -44,6 +46,11 @@ export const TopdeckDialog = ({
   const [hidden, setHidden] = useState(false)
   const [previewCard, setPreviewCard] = useState<string | null>(null)
   const [previewPinned, setPreviewPinned] = useState(false)
+  const [query, setQuery] = useState('')
+  const visibleChoices = searching && query
+    ? choices.filter((choice) =>
+      choice.card.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
+    : choices
   const valid = (next: Choice[]) => Object.entries(
     decision.requirements ?? {},
   ).every(([destination, limits]) => {
@@ -95,6 +102,8 @@ export const TopdeckDialog = ({
     ? 'Discard to hand size'
     : puttingLand
       ? 'Put a land onto the battlefield'
+      : searching
+        ? 'Search your library'
       : `${decision.kind[0]?.toUpperCase()}${decision.kind.slice(1)} ${choices.length}`
   const previewDetails = previewCard ? game.catalog[previewCard] : null
   const previewImage = previewDetails?.image_normal || previewDetails?.image_small
@@ -122,7 +131,7 @@ export const TopdeckDialog = ({
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-purple-200">
-              {discarding ? 'Cleanup' : puttingLand ? 'Kicked spell' : 'Private library choice'}
+              {discarding ? 'Cleanup' : puttingLand ? 'Kicked spell' : searching ? 'Private search' : 'Private library choice'}
             </p>
             <h2 id="topdeck-title" className="mt-1 font-display text-2xl text-stone-50">
               {title}
@@ -145,6 +154,8 @@ export const TopdeckDialog = ({
             ? 'Your turn ends once the extra cards are in the graveyard.'
             : puttingLand
               ? 'Choose at most one land. Leave every other card in your hand.'
+              : searching
+                ? 'Choose exactly one matching card. The rest stay in your library, then it is shuffled.'
               : `Choose top or ${destinationLabel} for each card.`}
           {orderMatters && choices.length > 1
             ? ' The displayed order is the final order.'
@@ -163,9 +174,18 @@ export const TopdeckDialog = ({
               .join(' · ')}
           </p>
         )}
+        {searching && (
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Filter matching cards"
+            className="mt-4 w-full rounded-xl border border-white/10 bg-ink-950 px-3 py-2 text-sm text-stone-100 outline-none placeholder:text-stone-600 focus:border-purple-200/60"
+          />
+        )}
 
         <ol className="mt-5 space-y-3">
-          {choices.map((choice) => {
+          {visibleChoices.map((choice) => {
             const details = game.catalog[choice.card]
             return (
               <li
@@ -225,6 +245,8 @@ export const TopdeckDialog = ({
                       >
                         {puttingLand
                           ? (destination === 'hand' ? 'Keep in hand' : 'Put onto battlefield')
+                          : searching
+                            ? (destination === 'hand' ? 'Choose this card' : 'Leave in library')
                           : destination === 'top'
                           ? 'Leave on top'
                           : destination === 'bottom'
@@ -274,6 +296,8 @@ export const TopdeckDialog = ({
                 ? 'Discard and end turn'
                 : puttingLand
                   ? 'Confirm land choice'
+                  : searching
+                    ? 'Choose card'
                 : `Resolve ${decision.kind}`}
           </button>
         )}

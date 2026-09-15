@@ -32,3 +32,32 @@ test('topdeck dialog offers card previews and a board-view escape', () => {
   expect(html).toContain('Hover over or tap card art')
   expect(html).toContain('>Hide</button>')
 })
+
+test('library searches offer filtering and one explicit selection', () => {
+  const game = {
+    catalog: {
+      Forest: {},
+      'Oracle of Mul Daya': {},
+    },
+  } as unknown as ReplayGame
+  const decision = {
+    seat: 'p4',
+    kind: 'search',
+    cards: ['Forest', 'Oracle of Mul Daya'],
+    destinations: ['library', 'hand'],
+    requirements: { hand: { min: 1, max: 1 } },
+  } as LiveTopdeck
+  const html = renderToStaticMarkup(
+    <TopdeckDialog
+      game={game}
+      decision={decision}
+      pending={false}
+      onResolve={() => {}}
+    />,
+  )
+
+  expect(html).toContain('Search your library')
+  expect(html).toContain('placeholder="Filter matching cards"')
+  expect(html).toContain('Choose this card')
+  expect(html).toContain('disabled=""')
+})

@@ -1,4 +1,9 @@
 {
+  "ec7d550b-9e13-4249-89c7-6ad43f71ea11": {
+    "name": "Analyze the Pollen",
+    "pluginIds": [],
+    "handlerIds": ["analyzeThePollen"]
+  },
   "9eba1789-6e58-4d78-8a0d-b54a8be76ec5": {
     "name": "Joint Exploration",
     "pluginIds": [],

@@ -23,6 +23,7 @@ import {
   historyForViewer,
   loadHostCardPlugins,
   openKernel,
+  prepareKernelPendingChoice,
   settleKernelHolds,
   settleKernelPriority,
 } from './kernelHost'
@@ -206,6 +207,44 @@ describe('kernel host journal', () => {
     expect(settleKernelPriority(kernel, lobby)).toBe(false)
     expect(kernel.journal.events.length).toBe(before)
     expect(lobby.topdeck?.kind).toBe('scry')
+  })
+
+  test('restores an interrupted Analyze the Pollen library search', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-search-restart-'))
+    mkdirGames(root)
+    seedKernel(root, 'pod', (state) => {
+      const spellId = 'analyze'
+      state.objects[spellId] = {
+        ...forest(),
+        id: spellId,
+        name: 'Analyze the Pollen',
+        types: ['Sorcery'],
+        zone: 'stack',
+        owner: 'p1',
+        controller: 'p1',
+      }
+      state.stack = [{
+        id: 'stack-analyze',
+        kind: 'spell',
+        objectId: spellId,
+        controller: 'p1',
+        name: 'Analyze the Pollen',
+        targets: [],
+        kicked: true,
+      }]
+      state.players.p1.data['analyzeThePollen.search'] = true
+    }, true)
+    const lobby = createLobby()
+    const kernel = await openKernel('pod', root, lobby)
+
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'search',
+      destinations: ['library', 'hand'],
+      requirements: { hand: { min: 1, max: 1 } },
+    })
+    expect(lobby.topdeck?.cards).toHaveLength(40)
   })
 
   test('a hold releases when the held seat becomes active', async () => {

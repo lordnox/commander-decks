@@ -137,6 +137,53 @@ const finalStackPass = (state: GameState, seat: SeatId) => {
     .every((player) => player === seat || state.passedInRow.includes(player))
 }
 
+const ANALYZE_THE_POLLEN_SEARCH = 'analyzeThePollen.search'
+const ANALYZE_THE_POLLEN_CHOSEN = 'analyzeThePollen.chosen'
+
+export const prepareKernelPendingChoice = (
+  kernel: KernelHandle,
+  lobby: LobbyState,
+) => {
+  if (lobby.topdeck) return false
+  const state = kernel.history.current()
+  const item = state.stack[0]
+  if (
+    item?.name !== 'Analyze the Pollen'
+    || state.players[item.controller]?.data[ANALYZE_THE_POLLEN_SEARCH] !== true
+    || !isSeatId(item.controller)
+  ) {
+    return false
+  }
+  const seat = item.controller
+  const cards = state.zoneOrder[seat].library
+    .map((id) => state.objects[id])
+    .filter((object) =>
+      item.kicked
+        ? object.types.includes('Creature') || object.types.includes('Land')
+        : object.types.includes('Land') && object.supertypes.includes('Basic'))
+    .map((object) => object.name)
+  lobby.topdeck = {
+    seat,
+    kind: 'search',
+    cards,
+    destinations: ['library', 'hand'],
+    requirements: { hand: { min: 1, max: 1 } },
+    kernel: {
+      sourceId: item.objectId,
+      stage: 'search',
+    },
+  }
+  lobby.actions = { [seat]: ['topdeck'] }
+  lobby.waiting = `${lobby.occupants[seat]?.name ?? seat} is searching privately.`
+  lobby.privateWaiting = {
+    [seat]: item.kicked
+      ? 'Choose one creature or land card for Analyze the Pollen.'
+      : 'Choose one basic land card for Analyze the Pollen.',
+  }
+  lobby.judge = 'Waiting for a private library search.'
+  return true
+}
+
 /**
  * A top-library decision happens during resolution, after everyone passed.
  * Intercept only the final pass so the kernel stack remains authoritative
@@ -217,6 +264,39 @@ export const applyKernelChoice = (
   }
 
   let state = kernel.history.current()
+  if (decision.kernel.stage === 'search') {
+    const selected = message.choices.filter(
+      ({ destination }) => destination === 'hand',
+    )
+    if (selected.length !== 1) {
+      throw new Error('Choose exactly one card for the library search')
+    }
+    const [objectId] = objectIdsForNames(
+      state,
+      state.zoneOrder[seat].library,
+      [selected[0].card],
+    )
+    for (const event of [
+      { type: 'move', objectId, to: 'hand' } as const,
+      { type: 'shuffleLibrary', seat } as const,
+      { type: 'custom', name: ANALYZE_THE_POLLEN_CHOSEN, seat } as const,
+      { type: 'resolveTop' } as const,
+    ]) {
+      const result = kernel.dispatch(event)
+      if (!result.ok) throw new Error(result.error)
+    }
+    lobby.topdeck = undefined
+    state = kernel.history.current()
+    lobby.actions = kernelActions(state)
+    lobby.privateWaiting = {}
+    lobby.privateJudge = {
+      [seat]: 'Analyze the Pollen put the chosen card into your hand and shuffled your library.',
+    }
+    lobby.waiting = `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
+    lobby.judge = `${lobby.occupants[seat]?.name ?? seat} finished a private library search.`
+    settleKernelPriority(kernel, lobby)
+    return true
+  }
   if (decision.kernel.stage !== 'scry') return false
   const ids = objectIdsForNames(
     state,
@@ -291,6 +371,10 @@ export const settleKernelPriority = (kernel: KernelHandle, lobby: LobbyState) =>
   let passed = false
   let prepared = false
   for (let guard = 0; guard < 64; guard += 1) {
+    if (!lobby.topdeck && prepareKernelPendingChoice(kernel, lobby)) {
+      prepared = true
+      break
+    }
     // Restored no-priority decisions are hard stops. Never pass through one
     // merely because the host process restarted while its dialog was open.
     if (lobby.topdeck) break
