@@ -90,6 +90,7 @@ export type StackItem = {
   controller: PlayerId
   name: string
   targets: TargetRef[]
+  kicked?: boolean
 }
 
 /**
@@ -178,6 +179,7 @@ export type GameEvent =
       objectId: string
       targets?: TargetRef[]
       additionalGeneric?: number
+      kicked?: boolean
     }
   | { type: 'resolveTop' }
   | { type: 'declareAttackers'; seat: PlayerId; attackers: AttackerDecl[] }

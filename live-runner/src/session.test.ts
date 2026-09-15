@@ -1,4 +1,4 @@
-import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { describe, expect, mock, test } from 'bun:test'
@@ -7,6 +7,8 @@ import { ensureHostKeys } from './host'
 import { applyInbox, createLobby, lobbyFromParts, restoreLobby } from './lobby'
 import { BIN_LABELS } from './protocol'
 import {
+  invalidJournalPath,
+  journalInvalidInbox,
   journalInbox,
   loadSession,
   pidAlive,
@@ -101,6 +103,23 @@ describe('session', () => {
     const journal = readJournal('pod', root)
     expect(journal.map((entry) => entry.seat)).toEqual(['p1', 'p4'])
     expect(journal[1].message).toEqual({ type: 'talk', text: "I'll keep these 7" })
+  })
+
+  test('malformed inbox bodies are preserved for debugging', () => {
+    const root = mkdtempSync(join(tmpdir(), 'live-runner-'))
+    mkdirGames(root)
+    const body = new TextEncoder().encode('not valid JSON')
+    journalInvalidInbox('pod', { seat: 'p1', generation: 9, body }, root)
+
+    const entry = JSON.parse(readFileSync(invalidJournalPath('pod', root), 'utf8'))
+    expect(entry).toMatchObject({
+      seat: 'p1',
+      generation: 9,
+      byteLength: body.byteLength,
+      raw: 'not valid JSON',
+      base64: Buffer.from(body).toString('base64'),
+      truncated: false,
+    })
   })
 })
 

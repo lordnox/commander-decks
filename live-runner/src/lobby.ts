@@ -22,11 +22,17 @@ export type TopdeckDecision = {
   seat: SeatId
   kind: string
   cards: string[]
-  destinations: Array<'top' | 'bottom' | 'graveyard' | 'hand' | 'exile'>
+  destinations: Array<'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield'>
   requirements?: Partial<Record<
-    'top' | 'bottom' | 'graveyard' | 'hand' | 'exile',
+    'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield',
     { min?: number; max?: number }
   >>
+  kernel?: {
+    sourceId: string
+    stage: 'scry' | 'put-land'
+    resumePassSeat?: SeatId
+    kicked?: boolean
+  }
 }
 
 export type LobbyState = {

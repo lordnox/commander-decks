@@ -14,12 +14,14 @@ import {
 import { invokeHostAgent } from './brain'
 import {
   applyKernelAdvance,
+  applyKernelChoice,
   hasKernel,
   kernelActions,
   kernelPath,
   kernelPriority,
   openKernel,
   publishKernel,
+  prepareKernelStackChoice,
   settleKernelPriority,
   type KernelHandle,
 } from './kernelHost'
@@ -53,6 +55,7 @@ import {
 import {
   emptyLastGen,
   hasReplay,
+  journalInvalidInbox,
   journalInbox,
   journalPath,
   keysPath,
@@ -76,6 +79,7 @@ export const applyKernelPass = (
   state: LobbyState,
   seat: SeatId,
 ) => {
+  if (prepareKernelStackChoice(kernel, state, seat)) return true
   const result = kernel.dispatch({ type: 'passPriority', seat })
   const current = kernel.history.current()
   const priority = kernelPriority(current)
@@ -367,6 +371,23 @@ export const runHost = async (options: {
       settleKernelPriority(kernel, state)
       logLine(logFile, `${seat} kernel advance`)
     } else if (
+      message.type === 'topdeck'
+      && kernel
+      && state.topdeck?.kernel?.stage === 'scry'
+    ) {
+      try {
+        if (!applyKernelChoice(kernel, state, seat, message)) {
+          throw new Error('That private choice is not available now.')
+        }
+        logLine(logFile, `${seat} kernel ${state.topdeck?.kind ?? 'choice'}`)
+      } catch (reason) {
+        const error = reason instanceof Error ? reason.message : String(reason)
+        logLine(logFile, `${seat} topdeck rejected: ${error}`)
+        state.privateWaiting = { [seat]: error }
+        state.waiting = `${state.occupants[seat]?.name ?? seat}: choose again.`
+        state.actions = { [seat]: ['topdeck'] }
+      }
+    } else if (
       (message.type === 'topdeck' || message.type === 'advance')
       && !kernel
     ) {
@@ -500,6 +521,13 @@ export const runHost = async (options: {
           state.privateWaiting = {}
           state.judge = result.judge || result.talk || judge
         }
+        if (
+          message.type === 'topdeck'
+          && kernel
+          && state.topdeck?.kernel?.stage === 'put-land'
+        ) {
+          state.topdeck = undefined
+        }
         if (message.type === 'plan' || message.type === 'replace') {
           const name = state.occupants[seat]?.name ?? seat
           state.waiting = `${name}: confirm or replace your checked line.`
@@ -567,6 +595,7 @@ export const runHost = async (options: {
         session.lastGen[label] = generation
         const message = parseInbox(new TextDecoder().decode(body))
         if (!message) {
+          journalInvalidInbox(slug, { seat, generation, body }, root)
           logLine(logFile, `${label}: invalid inbox`)
           return
         }

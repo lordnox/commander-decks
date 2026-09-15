@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { LiveTopdeck } from './liveCodec'
 import type { ReplayGame } from './replayTypes'
 
-type Destination = 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile'
+type Destination = 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield'
 type Choice = {
   id: number
   card: string
@@ -14,6 +14,7 @@ const label = (destination: Destination) => {
   if (destination === 'bottom') return 'Bottom'
   if (destination === 'hand') return 'Hand'
   if (destination === 'exile') return 'Exile'
+  if (destination === 'battlefield') return 'Battlefield'
   return 'Top'
 }
 
@@ -29,6 +30,10 @@ export const TopdeckDialog = ({
   onResolve: (choices: Array<{ card: string; destination: Destination }>) => void
 }) => {
   const discarding = decision.kind === 'discard'
+  const puttingLand = decision.kind === 'put-land'
+  const orderMatters = decision.destinations.some(
+    (destination) => destination === 'top' || destination === 'bottom',
+  )
   const [choices, setChoices] = useState<Choice[]>(
     decision.cards.map((card, id) => ({
       id,
@@ -93,18 +98,22 @@ export const TopdeckDialog = ({
         className="max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-[1.5rem] border border-purple-300/30 bg-ink-950 p-5 shadow-2xl shadow-black"
       >
         <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-purple-200">
-          {discarding ? 'Cleanup' : 'Private library choice'}
+          {discarding ? 'Cleanup' : puttingLand ? 'Kicked spell' : 'Private library choice'}
         </p>
         <h2 id="topdeck-title" className="mt-1 font-display text-2xl text-stone-50">
           {discarding
             ? 'Discard to hand size'
+            : puttingLand
+              ? 'Put a land onto the battlefield'
             : `${decision.kind[0]?.toUpperCase()}${decision.kind.slice(1)} ${choices.length}`}
         </h2>
         <p className="mt-2 text-sm text-stone-400">
           {discarding
             ? 'Your turn ends once the extra cards are in the graveyard.'
-            : `Choose top or ${destinationLabel} for each card.`}
-          {!discarding && choices.length > 1
+            : puttingLand
+              ? 'Choose at most one land. Leave every other card in your hand.'
+              : `Choose top or ${destinationLabel} for each card.`}
+          {orderMatters && choices.length > 1
             ? ' The displayed order is the final order.'
             : ''}
         </p>
@@ -158,7 +167,9 @@ export const TopdeckDialog = ({
                             : 'bg-white/10 text-stone-200 hover:bg-white/15'
                         } disabled:opacity-40`}
                       >
-                        {destination === 'top'
+                        {puttingLand
+                          ? (destination === 'hand' ? 'Keep in hand' : 'Put onto battlefield')
+                          : destination === 'top'
                           ? 'Leave on top'
                           : destination === 'bottom'
                             ? 'Put on bottom'
@@ -167,7 +178,7 @@ export const TopdeckDialog = ({
                               : `Put in ${destination}`}
                       </button>
                     ))}
-                    {!discarding && choices.length > 1 && (
+                    {orderMatters && choices.length > 1 && (
                       <>
                         <button
                           type="button"
@@ -205,6 +216,8 @@ export const TopdeckDialog = ({
               ? 'Resolving…'
               : discarding
                 ? 'Discard and end turn'
+                : puttingLand
+                  ? 'Confirm land choice'
                 : `Resolve ${decision.kind}`}
           </button>
         )}

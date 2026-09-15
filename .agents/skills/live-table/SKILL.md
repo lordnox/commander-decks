@@ -294,6 +294,10 @@ replace, rules, pass, and talk are read-only.
 Generic effects stay in builtin plugins; card files are only for odd Oracle.
 Published snapshots retain the latest 32 history frames and 128 trace events;
 the append-only host journal remains complete.
+Malformed conduit writes are preserved separately in
+`table-games/<slug>.invalid-inbox.jsonl` with their seat, generation, raw text,
+and base64 bytes. Inspect that file when the runner reports `invalid inbox`;
+never discard the only copy of a bad client message.
 
 ## Long-running host/seat (no poll)
 

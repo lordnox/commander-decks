@@ -96,6 +96,7 @@ export const spells: Plugin = {
         controller: event.seat,
         name: object.name,
         targets: event.targets ?? [],
+        ...(event.kicked ? { kicked: true } : {}),
       })
       draft.move(object.id, 'stack')
       draft.passedInRow = []

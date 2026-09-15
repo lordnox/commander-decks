@@ -137,6 +137,33 @@ describe('kernel host journal', () => {
     expect((reloaded[0] as typeof reloaded[0] & { version: number }).version).toBe(2)
   })
 
+  test('installs dynamically loaded handlers into an existing journal', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-active-plugin-'))
+    mkdirGames(root)
+    mkdirSync(join(root, 'cards'), { recursive: true })
+    mkdirSync(join(root, 'rules-engine', 'src', 'cardPlugins'), { recursive: true })
+    writeFileSync(
+      join(root, 'cards', 'rules-plugins.json'),
+      JSON.stringify({
+        oracle: {
+          name: 'Test Card',
+          pluginIds: [],
+          handlerIds: ['testHandler'],
+        },
+      }),
+    )
+    writeFileSync(
+      join(root, 'rules-engine', 'src', 'cardPlugins', 'testHandler.ts'),
+      "export const testHandler = { id: 'testHandler' }\n",
+    )
+    seedKernel(root)
+
+    const kernel = await openKernel('pod', root, createLobby())
+    expect(kernel.journal.initial.rules.some(
+      (rule) => rule.pluginId === 'testHandler',
+    )).toBe(true)
+  })
+
   test('a held seat is passed for until its own turn', async () => {
     const root = mkdtempSync(join(tmpdir(), 'kernel-hold-'))
     mkdirGames(root)

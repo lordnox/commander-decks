@@ -68,6 +68,9 @@ export const replayPath = (slug: string, root = repoRoot()) =>
 export const journalPath = (slug: string, root = repoRoot()) =>
   join(root, 'table-games', `${slug}.inbox.jsonl`)
 
+export const invalidJournalPath = (slug: string, root = repoRoot()) =>
+  join(root, 'table-games', `${slug}.invalid-inbox.jsonl`)
+
 export const hasReplay = (slug: string, root = repoRoot()) =>
   existsSync(replayPath(slug, root))
 
@@ -115,6 +118,31 @@ export const journalInbox = (
   appendFileSync(
     journalPath(slug, root),
     `${JSON.stringify({ at: new Date().toISOString(), ...entry })}\n`,
+  )
+}
+
+/** Preserve malformed conduit input for post-game debugging instead of dropping it. */
+export const journalInvalidInbox = (
+  slug: string,
+  entry: {
+    seat: SeatId
+    generation: number
+    body: Uint8Array
+  },
+  root = repoRoot(),
+) => {
+  const raw = new TextDecoder().decode(entry.body)
+  appendFileSync(
+    invalidJournalPath(slug, root),
+    `${JSON.stringify({
+      at: new Date().toISOString(),
+      seat: entry.seat,
+      generation: entry.generation,
+      byteLength: entry.body.byteLength,
+      raw: raw.slice(0, 16_384),
+      base64: Buffer.from(entry.body).toString('base64'),
+      truncated: raw.length > 16_384,
+    })}\n`,
   )
 }
 
