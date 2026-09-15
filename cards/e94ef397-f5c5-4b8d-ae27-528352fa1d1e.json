@@ -1,0 +1,145 @@
+{
+  "artist": "Sidharth Chaturvedi",
+  "artist_ids": [
+    "55e6d846-2f73-4fba-9b88-441686bb8dcb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 391992,
+  "cmc": 4.0,
+  "collector_number": "204",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [
+    "G",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 3248,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "There are no soloists in the chorus of Selesnya.",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "34ea44f2-cb2f-4b86-83fc-fe507f05bb9d",
+  "illustration_id": "893c51a5-7795-4398-823c-077e9adf8930",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:52:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/4/34ea44f2-cb2f-4b86-83fc-fe507f05bb9d.webp?1783932732",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/4/34ea44f2-cb2f-4b86-83fc-fe507f05bb9d.jpg?1783932732",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/4/34ea44f2-cb2f-4b86-83fc-fe507f05bb9d.jpg?1783932732",
+    "crop": "https://cards.scryfall.io/crop/front/3/4/34ea44f2-cb2f-4b86-83fc-fe507f05bb9d.webp?1783932732",
+    "display": "https://cards.scryfall.io/display/front/3/4/34ea44f2-cb2f-4b86-83fc-fe507f05bb9d.webp?1783932732",
+    "grid": "https://cards.scryfall.io/grid/front/3/4/34ea44f2-cb2f-4b86-83fc-fe507f05bb9d.webp?1783932732",
+    "large": "https://cards.scryfall.io/large/front/3/4/34ea44f2-cb2f-4b86-83fc-fe507f05bb9d.jpg?1783932732",
+    "normal": "https://cards.scryfall.io/normal/front/3/4/34ea44f2-cb2f-4b86-83fc-fe507f05bb9d.jpg?1783932732",
+    "png": "https://cards.scryfall.io/png/front/3/4/34ea44f2-cb2f-4b86-83fc-fe507f05bb9d.png?1783932732",
+    "small": "https://cards.scryfall.io/small/front/3/4/34ea44f2-cb2f-4b86-83fc-fe507f05bb9d.jpg?1783932732",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/4/34ea44f2-cb2f-4b86-83fc-fe507f05bb9d.webp?1783932732"
+  },
+  "keywords": [
+    "Populate"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}{G}{W}{W}",
+  "mtgo_id": 77530,
+  "multiverse_ids": [
+    470750
+  ],
+  "name": "Trostani, Selesnya's Voice",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e94ef397-f5c5-4b8d-ae27-528352fa1d1e",
+  "oracle_text": "Whenever another creature you control enters, you gain life equal to that creature's toughness.\n{1}{G}{W}, {T}: Populate. (Create a token that's a copy of a creature token you control.)",
+  "oversized": false,
+  "penny_rank": 10868,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2019-08-07",
+    "source": "Jolt",
+    "source_uri": "https://www.youtube.com/watch?v=7LAfZePkqmQ"
+  },
+  "prices": {
+    "eur": "2.06",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "4.35",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae94ef397-f5c5-4b8d-ae27-528352fa1d1e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/77530?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=391992&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F196548%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Trostani%2C+Selesnya%27s+Voice",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=470750&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTrostani%252C%2BSelesnya%2527s%2BVoice",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTrostani%252C%2BSelesnya%2527s%2BVoice"
+  },
+  "released_at": "2019-08-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/34ea44f2-cb2f-4b86-83fc-fe507f05bb9d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c19?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c19/204/trostani-selesnyas-voice?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c19",
+  "set_id": "0fa3ccbb-d86d-4a2e-a55e-c4979c4feeb2",
+  "set_name": "Commander 2019",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac19&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/0fa3ccbb-d86d-4a2e-a55e-c4979c4feeb2",
+  "story_spotlight": false,
+  "tcgplayer_id": 196548,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Legendary Creature — Dryad",
+  "uri": "https://api.scryfall.com/cards/34ea44f2-cb2f-4b86-83fc-fe507f05bb9d",
+  "variation": false
+}

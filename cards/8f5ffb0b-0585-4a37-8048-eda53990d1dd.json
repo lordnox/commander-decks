@@ -1,0 +1,182 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "a6f374bc-cd29-469f-808a-6a6c004ee8aa",
+      "name": "Blood",
+      "object": "related_card",
+      "type_line": "Token Artifact — Blood",
+      "uri": "https://api.scryfall.com/cards/a6f374bc-cd29-469f-808a-6a6c004ee8aa"
+    },
+    {
+      "component": "token",
+      "id": "0a89fdcf-0672-4241-834f-5db2c861694d",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/0a89fdcf-0672-4241-834f-5db2c861694d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "90930e16-4a77-4ce6-bab4-e099184d1b54",
+      "name": "Old Rutstein",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Peasant",
+      "uri": "https://api.scryfall.com/cards/90930e16-4a77-4ce6-bab4-e099184d1b54"
+    },
+    {
+      "component": "token",
+      "id": "f3ac66f8-4bb2-42bd-9a18-7da9c3839c8b",
+      "name": "Insect",
+      "object": "related_card",
+      "type_line": "Token Creature — Insect",
+      "uri": "https://api.scryfall.com/cards/f3ac66f8-4bb2-42bd-9a18-7da9c3839c8b"
+    }
+  ],
+  "arena_id": 79066,
+  "artist": "Greg Staples",
+  "artist_ids": [
+    "93d65564-bf00-447b-8406-e2031f03b6b1"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 582474,
+  "cmc": 3.0,
+  "collector_number": "244",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [
+    "B",
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 4850,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "625b8023-2ef1-4b7b-9e48-4f774fee14e0",
+  "illustration_id": "1c6dd8f5-f0f5-4efd-b47c-9778986df98d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:39:50Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/2/625b8023-2ef1-4b7b-9e48-4f774fee14e0.webp?1783924790",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/2/625b8023-2ef1-4b7b-9e48-4f774fee14e0.jpg?1783924790",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/2/625b8023-2ef1-4b7b-9e48-4f774fee14e0.jpg?1783924790",
+    "crop": "https://cards.scryfall.io/crop/front/6/2/625b8023-2ef1-4b7b-9e48-4f774fee14e0.webp?1783924790",
+    "display": "https://cards.scryfall.io/display/front/6/2/625b8023-2ef1-4b7b-9e48-4f774fee14e0.webp?1783924790",
+    "grid": "https://cards.scryfall.io/grid/front/6/2/625b8023-2ef1-4b7b-9e48-4f774fee14e0.webp?1783924790",
+    "large": "https://cards.scryfall.io/large/front/6/2/625b8023-2ef1-4b7b-9e48-4f774fee14e0.jpg?1783924790",
+    "normal": "https://cards.scryfall.io/normal/front/6/2/625b8023-2ef1-4b7b-9e48-4f774fee14e0.jpg?1783924790",
+    "png": "https://cards.scryfall.io/png/front/6/2/625b8023-2ef1-4b7b-9e48-4f774fee14e0.png?1783924790",
+    "small": "https://cards.scryfall.io/small/front/6/2/625b8023-2ef1-4b7b-9e48-4f774fee14e0.jpg?1783924790",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/2/625b8023-2ef1-4b7b-9e48-4f774fee14e0.webp?1783924790"
+  },
+  "keywords": [
+    "Treasure",
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}{G}",
+  "mtgo_id": 94864,
+  "multiverse_ids": [
+    541118
+  ],
+  "name": "Old Rutstein",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8f5ffb0b-0585-4a37-8048-eda53990d1dd",
+  "oracle_text": "When Old Rutstein enters and at the beginning of your upkeep, mill a card. If a land card is milled this way, create a Treasure token. If a creature card is milled this way, create a 1/1 green Insect creature token. If a noncreature, nonland card is milled this way, create a Blood token.",
+  "oversized": false,
+  "penny_rank": 5145,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2021-11-03",
+    "source": "Air Bubbles Cosplay",
+    "source_uri": "https://twitter.com/AirBubbles/status/1455732242282520582"
+  },
+  "prices": {
+    "eur": "0.64",
+    "eur_foil": "0.64",
+    "tix": "0.02",
+    "usd": "0.54",
+    "usd_etched": null,
+    "usd_foil": "0.69"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8f5ffb0b-0585-4a37-8048-eda53990d1dd&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/94864?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=582474&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F253486%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Old+Rutstein",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=541118&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOld%2BRutstein",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOld%2BRutstein"
+  },
+  "released_at": "2021-11-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/625b8023-2ef1-4b7b-9e48-4f774fee14e0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/vow?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/vow/244/old-rutstein?utm_source=api",
+  "security_stamp": "oval",
+  "set": "vow",
+  "set_id": "8144b676-569f-4716-8005-bc8f0778f3fa",
+  "set_name": "Innistrad: Crimson Vow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Avow&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/8144b676-569f-4716-8005-bc8f0778f3fa",
+  "story_spotlight": false,
+  "tcgplayer_id": 253486,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Human Peasant",
+  "uri": "https://api.scryfall.com/cards/625b8023-2ef1-4b7b-9e48-4f774fee14e0",
+  "variation": false
+}

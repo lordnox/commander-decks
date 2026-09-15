@@ -1,0 +1,136 @@
+{
+  "artist": "Matthew D. Wilson",
+  "artist_ids": [
+    "4fbafd13-0cf9-42a1-870d-7f8ea276f140"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 688442,
+  "cmc": 6.0,
+  "collector_number": "166",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 9228,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"My mind has changed. My strength has not.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "c960672d-06ad-4d41-8904-9c007f824756",
+  "illustration_id": "2877ad25-1e26-4d31-94d4-e374f734543d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:54:02Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/c/9/c960672d-06ad-4d41-8904-9c007f824756.webp?1783918442",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/9/c960672d-06ad-4d41-8904-9c007f824756.jpg?1783918442",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/9/c960672d-06ad-4d41-8904-9c007f824756.jpg?1783918442",
+    "crop": "https://cards.scryfall.io/crop/front/c/9/c960672d-06ad-4d41-8904-9c007f824756.webp?1783918442",
+    "display": "https://cards.scryfall.io/display/front/c/9/c960672d-06ad-4d41-8904-9c007f824756.webp?1783918442",
+    "grid": "https://cards.scryfall.io/grid/front/c/9/c960672d-06ad-4d41-8904-9c007f824756.webp?1783918442",
+    "large": "https://cards.scryfall.io/large/front/c/9/c960672d-06ad-4d41-8904-9c007f824756.jpg?1783918442",
+    "normal": "https://cards.scryfall.io/normal/front/c/9/c960672d-06ad-4d41-8904-9c007f824756.jpg?1783918442",
+    "png": "https://cards.scryfall.io/png/front/c/9/c960672d-06ad-4d41-8904-9c007f824756.png?1783918442",
+    "small": "https://cards.scryfall.io/small/front/c/9/c960672d-06ad-4d41-8904-9c007f824756.jpg?1783918442",
+    "thumb": "https://cards.scryfall.io/thumb/front/c/9/c960672d-06ad-4d41-8904-9c007f824756.webp?1783918442"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{G}{G}",
+  "mtgo_id": 107821,
+  "multiverse_ids": [
+    599040
+  ],
+  "name": "Kamahl, Fist of Krosa",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8b21146d-3e92-46e7-b5d9-8240fba5088e",
+  "oracle_text": "{G}: Target land becomes a 1/1 creature until end of turn. It's still a land.\n{2}{G}{G}{G}: Creatures you control get +3/+3 and gain trample until end of turn.",
+  "oversized": false,
+  "power": "4",
+  "prices": {
+    "eur": "0.66",
+    "eur_foil": "0.89",
+    "tix": "1.04",
+    "usd": "0.75",
+    "usd_etched": null,
+    "usd_foil": "0.69"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8b21146d-3e92-46e7-b5d9-8240fba5088e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/107821?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=688442&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F457163%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Kamahl%2C+Fist+of+Krosa",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=599040&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKamahl%252C%2BFist%2Bof%2BKrosa",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKamahl%252C%2BFist%2Bof%2BKrosa"
+  },
+  "released_at": "2023-01-13",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/c960672d-06ad-4d41-8904-9c007f824756/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dmr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dmr/166/kamahl-fist-of-krosa?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dmr",
+  "set_id": "ca4c2884-e539-4b7f-980d-5d6a50220f2a",
+  "set_name": "Dominaria Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Admr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/ca4c2884-e539-4b7f-980d-5d6a50220f2a",
+  "story_spotlight": false,
+  "tcgplayer_id": 457163,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Legendary Creature — Human Druid",
+  "uri": "https://api.scryfall.com/cards/c960672d-06ad-4d41-8904-9c007f824756",
+  "variation": false
+}

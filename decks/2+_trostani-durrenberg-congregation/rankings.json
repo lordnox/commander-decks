@@ -1,0 +1,13 @@
+{
+  "goals": ["Congregation", "Blessing"],
+  "scores": {
+    "jankiness": 7,
+    "fun": 8,
+    "oppressiveness": 4,
+    "identity": {
+      "Congregation": 8,
+      "Blessing": 7
+    }
+  },
+  "notes": "Populate, old shrine lands, Icatian Town, and Sacred Mesa keep the flock from being a Parallel Lives pile. Mean stays low because the win is telegraphed combat or a 50-life upkeep, with no doublers or Craterhoof."
+}

@@ -1,0 +1,13 @@
+{
+  "goals": ["Offerings", "Grave goods"],
+  "scores": {
+    "jankiness": 8,
+    "fun": 8,
+    "oppressiveness": 5,
+    "identity": {
+      "Offerings": 8,
+      "Grave goods": 7
+    }
+  },
+  "notes": "The 99 is built to feed three card types to Baba rather than a linear aristocrat curve; Ice Age flint, aurochs, turtle, and land-from-grave keep the archaeology visible. Mean stays mid because the drain is 3 life a turn and wipes are slow."
+}

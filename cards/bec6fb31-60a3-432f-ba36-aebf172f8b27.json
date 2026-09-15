@@ -1,0 +1,140 @@
+{
+  "artist": "Seb McKinnon",
+  "artist_ids": [
+    "ad4caca0-8d89-44ce-a1a6-d5ca905bd6fb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 392007,
+  "cmc": 4.0,
+  "collector_number": "193",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [
+    "G",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 4645,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"We will grow an army large enough to withstand the Izzet's madness.\"\n—Trostani",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "6ea45414-4047-4921-b77d-dfcba2fe7694",
+  "illustration_id": "848d9f89-e5f2-4e37-b04f-2adad607b918",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:52:16Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/e/6ea45414-4047-4921-b77d-dfcba2fe7694.webp?1783932736",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/e/6ea45414-4047-4921-b77d-dfcba2fe7694.jpg?1783932736",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/e/6ea45414-4047-4921-b77d-dfcba2fe7694.jpg?1783932736",
+    "crop": "https://cards.scryfall.io/crop/front/6/e/6ea45414-4047-4921-b77d-dfcba2fe7694.webp?1783932736",
+    "display": "https://cards.scryfall.io/display/front/6/e/6ea45414-4047-4921-b77d-dfcba2fe7694.webp?1783932736",
+    "grid": "https://cards.scryfall.io/grid/front/6/e/6ea45414-4047-4921-b77d-dfcba2fe7694.webp?1783932736",
+    "large": "https://cards.scryfall.io/large/front/6/e/6ea45414-4047-4921-b77d-dfcba2fe7694.jpg?1783932736",
+    "normal": "https://cards.scryfall.io/normal/front/6/e/6ea45414-4047-4921-b77d-dfcba2fe7694.jpg?1783932736",
+    "png": "https://cards.scryfall.io/png/front/6/e/6ea45414-4047-4921-b77d-dfcba2fe7694.png?1783932736",
+    "small": "https://cards.scryfall.io/small/front/6/e/6ea45414-4047-4921-b77d-dfcba2fe7694.jpg?1783932736",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/e/6ea45414-4047-4921-b77d-dfcba2fe7694.webp?1783932736"
+  },
+  "keywords": [
+    "Populate"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G/W}{G/W}",
+  "mtgo_id": 77504,
+  "multiverse_ids": [
+    470739
+  ],
+  "name": "Growing Ranks",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "bec6fb31-60a3-432f-ba36-aebf172f8b27",
+  "oracle_text": "At the beginning of your upkeep, populate. (Create a token that's a copy of a creature token you control.)",
+  "oversized": false,
+  "penny_rank": 4854,
+  "preview": {
+    "previewed_at": "2019-08-07",
+    "source": "Sheldon Menery",
+    "source_uri": "https://twitter.com/SheldonMenery/status/1159104453540220928"
+  },
+  "prices": {
+    "eur": "0.57",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.48",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abec6fb31-60a3-432f-ba36-aebf172f8b27&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/77504?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=392007&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F196540%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Growing+Ranks",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=470739&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGrowing%2BRanks",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGrowing%2BRanks"
+  },
+  "released_at": "2019-08-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/6ea45414-4047-4921-b77d-dfcba2fe7694/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c19?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c19/193/growing-ranks?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c19",
+  "set_id": "0fa3ccbb-d86d-4a2e-a55e-c4979c4feeb2",
+  "set_name": "Commander 2019",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac19&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/0fa3ccbb-d86d-4a2e-a55e-c4979c4feeb2",
+  "story_spotlight": false,
+  "tcgplayer_id": 196540,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/6ea45414-4047-4921-b77d-dfcba2fe7694",
+  "variation": false
+}

@@ -1,0 +1,140 @@
+{
+  "arena_id": 58219,
+  "artist": "YW Tang",
+  "artist_ids": [
+    "63b2909b-7102-49c5-8f9d-6116a1913308"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 269333,
+  "cmc": 5.0,
+  "collector_number": "141",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 19350,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "a945b43d-39bc-4ce4-be03-0109e1a681b1",
+  "illustration_id": "9aade7ce-9ea8-4036-b003-404a07f1ea32",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:37:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/9/a945b43d-39bc-4ce4-be03-0109e1a681b1.webp?1783939066",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/9/a945b43d-39bc-4ce4-be03-0109e1a681b1.jpg?1783939066",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/9/a945b43d-39bc-4ce4-be03-0109e1a681b1.jpg?1783939066",
+    "crop": "https://cards.scryfall.io/crop/front/a/9/a945b43d-39bc-4ce4-be03-0109e1a681b1.webp?1783939066",
+    "display": "https://cards.scryfall.io/display/front/a/9/a945b43d-39bc-4ce4-be03-0109e1a681b1.webp?1783939066",
+    "grid": "https://cards.scryfall.io/grid/front/a/9/a945b43d-39bc-4ce4-be03-0109e1a681b1.webp?1783939066",
+    "large": "https://cards.scryfall.io/large/front/a/9/a945b43d-39bc-4ce4-be03-0109e1a681b1.jpg?1783939066",
+    "normal": "https://cards.scryfall.io/normal/front/a/9/a945b43d-39bc-4ce4-be03-0109e1a681b1.jpg?1783939066",
+    "png": "https://cards.scryfall.io/png/front/a/9/a945b43d-39bc-4ce4-be03-0109e1a681b1.png?1783939066",
+    "small": "https://cards.scryfall.io/small/front/a/9/a945b43d-39bc-4ce4-be03-0109e1a681b1.jpg?1783939066",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/9/a945b43d-39bc-4ce4-be03-0109e1a681b1.webp?1783939066"
+  },
+  "keywords": [
+    "Landwalk",
+    "Islandwalk"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{G}{G}",
+  "mtgo_foil_id": 54405,
+  "mtgo_id": 54404,
+  "multiverse_ids": [
+    386602
+  ],
+  "name": "Meandering Towershell",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "45154dc6-ff0a-4e99-8528-689757d1778e",
+  "oracle_text": "Islandwalk (This creature can't be blocked as long as defending player controls an Island.)\nWhenever this creature attacks, exile it. Return it to the battlefield under your control tapped and attacking at the beginning of the declare attackers step on your next turn.",
+  "oversized": false,
+  "penny_rank": 15886,
+  "power": "5",
+  "prices": {
+    "eur": "0.21",
+    "eur_foil": "0.35",
+    "tix": "0.02",
+    "usd": "0.16",
+    "usd_etched": null,
+    "usd_foil": "0.32"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A45154dc6-ff0a-4e99-8528-689757d1778e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/54404?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=269333&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F92980%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Meandering+Towershell",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=386602&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMeandering%2BTowershell",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMeandering%2BTowershell"
+  },
+  "released_at": "2014-09-26",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a945b43d-39bc-4ce4-be03-0109e1a681b1/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ktk?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ktk/141/meandering-towershell?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ktk",
+  "set_id": "6c7a715c-ded9-449e-89b0-c665773e9c3c",
+  "set_name": "Khans of Tarkir",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aktk&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/6c7a715c-ded9-449e-89b0-c665773e9c3c",
+  "story_spotlight": false,
+  "tcgplayer_id": 92980,
+  "textless": false,
+  "toughness": "9",
+  "type_line": "Creature — Turtle",
+  "uri": "https://api.scryfall.com/cards/a945b43d-39bc-4ce4-be03-0109e1a681b1",
+  "variation": false,
+  "watermark": "sultai"
+}

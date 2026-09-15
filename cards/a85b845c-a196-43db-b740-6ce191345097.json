@@ -1,0 +1,140 @@
+{
+  "artist": "Jason Chan",
+  "artist_ids": [
+    "8062d5a9-51b6-4822-933f-fa9e9dba8416"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 484589,
+  "cmc": 8.0,
+  "collector_number": "174",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 11287,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f0dea9d0-9f93-460d-bf69-ae1c1172a95e",
+  "illustration_id": "4ecf1cd7-e365-40ef-b62f-25153aa078a0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:09:03Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/0/f0dea9d0-9f93-460d-bf69-ae1c1172a95e.webp?1783930143",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/0/f0dea9d0-9f93-460d-bf69-ae1c1172a95e.jpg?1783930143",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/0/f0dea9d0-9f93-460d-bf69-ae1c1172a95e.jpg?1783930143",
+    "crop": "https://cards.scryfall.io/crop/front/f/0/f0dea9d0-9f93-460d-bf69-ae1c1172a95e.webp?1783930143",
+    "display": "https://cards.scryfall.io/display/front/f/0/f0dea9d0-9f93-460d-bf69-ae1c1172a95e.webp?1783930143",
+    "grid": "https://cards.scryfall.io/grid/front/f/0/f0dea9d0-9f93-460d-bf69-ae1c1172a95e.webp?1783930143",
+    "large": "https://cards.scryfall.io/large/front/f/0/f0dea9d0-9f93-460d-bf69-ae1c1172a95e.jpg?1783930143",
+    "normal": "https://cards.scryfall.io/normal/front/f/0/f0dea9d0-9f93-460d-bf69-ae1c1172a95e.jpg?1783930143",
+    "png": "https://cards.scryfall.io/png/front/f/0/f0dea9d0-9f93-460d-bf69-ae1c1172a95e.png?1783930143",
+    "small": "https://cards.scryfall.io/small/front/f/0/f0dea9d0-9f93-460d-bf69-ae1c1172a95e.jpg?1783930143",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/0/f0dea9d0-9f93-460d-bf69-ae1c1172a95e.webp?1783930143"
+  },
+  "keywords": [
+    "Trample"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{6}{G}{G}",
+  "mtgo_id": 82382,
+  "multiverse_ids": [
+    489847
+  ],
+  "name": "Liege of the Tangle",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a85b845c-a196-43db-b740-6ce191345097",
+  "oracle_text": "Trample\nWhenever this creature deals combat damage to a player, you may choose any number of target lands you control and put an awakening counter on each of them. Each of those lands is an 8/8 green Elemental creature for as long as it has an awakening counter on it. They're still lands.",
+  "oversized": false,
+  "penny_rank": 8341,
+  "power": "8",
+  "preview": {
+    "previewed_at": "2020-07-27",
+    "source": "Shivam Bhatt",
+    "source_uri": "https://twitter.com/ghirapurigears/status/1287647676222156800"
+  },
+  "prices": {
+    "eur": "0.64",
+    "eur_foil": "1.18",
+    "tix": "0.02",
+    "usd": "1.28",
+    "usd_etched": null,
+    "usd_foil": "1.72"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa85b845c-a196-43db-b740-6ce191345097&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/82382?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=484589&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F218836%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Liege+of+the+Tangle",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=489847&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLiege%2Bof%2Bthe%2BTangle",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLiege%2Bof%2Bthe%2BTangle"
+  },
+  "released_at": "2020-08-07",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f0dea9d0-9f93-460d-bf69-ae1c1172a95e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/2xm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/2xm/174/liege-of-the-tangle?utm_source=api",
+  "security_stamp": "oval",
+  "set": "2xm",
+  "set_id": "372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "set_name": "Double Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A2xm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "story_spotlight": false,
+  "tcgplayer_id": 218836,
+  "textless": false,
+  "toughness": "8",
+  "type_line": "Creature — Elemental",
+  "uri": "https://api.scryfall.com/cards/f0dea9d0-9f93-460d-bf69-ae1c1172a95e",
+  "variation": false
+}

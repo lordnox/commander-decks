@@ -1,0 +1,132 @@
+{
+  "artist": "Heather Hudson",
+  "artist_ids": [
+    "4441fe52-9e41-40c1-9b74-8510426279ab"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 789082,
+  "cmc": 0.0,
+  "collector_number": "318",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 1050,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "7aed7d9d-d796-493e-98fd-c5b1a26621ed",
+  "illustration_id": "bea0bfca-aeaa-4a84-9198-d763908059c9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:25:58Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/a/7aed7d9d-d796-493e-98fd-c5b1a26621ed.webp?1783909558",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/a/7aed7d9d-d796-493e-98fd-c5b1a26621ed.jpg?1783909558",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/a/7aed7d9d-d796-493e-98fd-c5b1a26621ed.jpg?1783909558",
+    "crop": "https://cards.scryfall.io/crop/front/7/a/7aed7d9d-d796-493e-98fd-c5b1a26621ed.webp?1783909558",
+    "display": "https://cards.scryfall.io/display/front/7/a/7aed7d9d-d796-493e-98fd-c5b1a26621ed.webp?1783909558",
+    "grid": "https://cards.scryfall.io/grid/front/7/a/7aed7d9d-d796-493e-98fd-c5b1a26621ed.webp?1783909558",
+    "large": "https://cards.scryfall.io/large/front/7/a/7aed7d9d-d796-493e-98fd-c5b1a26621ed.jpg?1783909558",
+    "normal": "https://cards.scryfall.io/normal/front/7/a/7aed7d9d-d796-493e-98fd-c5b1a26621ed.jpg?1783909558",
+    "png": "https://cards.scryfall.io/png/front/7/a/7aed7d9d-d796-493e-98fd-c5b1a26621ed.png?1783909558",
+    "small": "https://cards.scryfall.io/small/front/7/a/7aed7d9d-d796-493e-98fd-c5b1a26621ed.jpg?1783909558",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/a/7aed7d9d-d796-493e-98fd-c5b1a26621ed.webp?1783909558"
+  },
+  "keywords": [
+    "Cycling"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 131261,
+  "multiverse_ids": [
+    676191
+  ],
+  "name": "Tranquil Thicket",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9f8fe514-77ed-41b4-a6f3-c6f095bb97be",
+  "oracle_text": "This land enters tapped.\n{T}: Add {G}.\nCycling {G} ({G}, Discard this card: Draw a card.)",
+  "oversized": false,
+  "penny_rank": 1160,
+  "prices": {
+    "eur": "0.12",
+    "eur_foil": null,
+    "tix": "0.06",
+    "usd": "0.25",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9f8fe514-77ed-41b4-a6f3-c6f095bb97be&unique=prints",
+  "produced_mana": [
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/131261?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=789082&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F579356%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Tranquil+Thicket",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=676191&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTranquil%2BThicket",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTranquil%2BThicket"
+  },
+  "released_at": "2024-09-27",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/7aed7d9d-d796-493e-98fd-c5b1a26621ed/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dsc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dsc/318/tranquil-thicket?utm_source=api",
+  "set": "dsc",
+  "set_id": "4c822528-83c3-42c7-8708-dd1d37166819",
+  "set_name": "Duskmourn: House of Horror Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/4c822528-83c3-42c7-8708-dd1d37166819",
+  "story_spotlight": false,
+  "tcgplayer_id": 579356,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/7aed7d9d-d796-493e-98fd-c5b1a26621ed",
+  "variation": false
+}

@@ -1,0 +1,13 @@
+{
+  "goals": ["Nature goddess", "Living woods"],
+  "scores": {
+    "jankiness": 8,
+    "fun": 8,
+    "oppressiveness": 4,
+    "identity": {
+      "Nature goddess": 9,
+      "Living woods": 9
+    }
+  },
+  "notes": "Old druids, animal spirits, land sacrifice, regrowth, and animation make Titania an embodied woodland rather than a generic value commander. Combat is visible and disruptable; the list avoids opposing land destruction and compact loops."
+}

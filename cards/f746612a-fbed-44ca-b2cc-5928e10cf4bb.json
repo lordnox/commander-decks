@@ -1,0 +1,152 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "b64c5f80-4676-4860-be0e-20bcf2227405",
+      "name": "Elemental",
+      "object": "related_card",
+      "type_line": "Token Creature — Elemental",
+      "uri": "https://api.scryfall.com/cards/b64c5f80-4676-4860-be0e-20bcf2227405"
+    },
+    {
+      "component": "combo_piece",
+      "id": "3cf60ca0-e01f-499c-8d04-d59050f38c33",
+      "name": "Grove of the Guardian",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/3cf60ca0-e01f-499c-8d04-d59050f38c33"
+    }
+  ],
+  "artist": "Christine Choi",
+  "artist_ids": [
+    "b8266529-1ffe-41e7-9969-fcf39f61426b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 258229,
+  "cmc": 0.0,
+  "collector_number": "240",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 10028,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "3cf60ca0-e01f-499c-8d04-d59050f38c33",
+  "illustration_id": "d8b9f0f1-2b90-4ed2-976c-4ec8d96068a4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:58:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/c/3cf60ca0-e01f-499c-8d04-d59050f38c33.webp?1783940321",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/c/3cf60ca0-e01f-499c-8d04-d59050f38c33.jpg?1783940321",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/c/3cf60ca0-e01f-499c-8d04-d59050f38c33.jpg?1783940321",
+    "crop": "https://cards.scryfall.io/crop/front/3/c/3cf60ca0-e01f-499c-8d04-d59050f38c33.webp?1783940321",
+    "display": "https://cards.scryfall.io/display/front/3/c/3cf60ca0-e01f-499c-8d04-d59050f38c33.webp?1783940321",
+    "grid": "https://cards.scryfall.io/grid/front/3/c/3cf60ca0-e01f-499c-8d04-d59050f38c33.webp?1783940321",
+    "large": "https://cards.scryfall.io/large/front/3/c/3cf60ca0-e01f-499c-8d04-d59050f38c33.jpg?1783940321",
+    "normal": "https://cards.scryfall.io/normal/front/3/c/3cf60ca0-e01f-499c-8d04-d59050f38c33.jpg?1783940321",
+    "png": "https://cards.scryfall.io/png/front/3/c/3cf60ca0-e01f-499c-8d04-d59050f38c33.png?1783940321",
+    "small": "https://cards.scryfall.io/small/front/3/c/3cf60ca0-e01f-499c-8d04-d59050f38c33.jpg?1783940321",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/c/3cf60ca0-e01f-499c-8d04-d59050f38c33.webp?1783940321"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_foil_id": 46788,
+  "mtgo_id": 46787,
+  "multiverse_ids": [
+    270968
+  ],
+  "name": "Grove of the Guardian",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f746612a-fbed-44ca-b2cc-5928e10cf4bb",
+  "oracle_text": "{T}: Add {C}.\n{3}{G}{W}, {T}, Tap two untapped creatures you control, Sacrifice this land: Create an 8/8 green and white Elemental creature token with vigilance.",
+  "oversized": false,
+  "penny_rank": 6187,
+  "prices": {
+    "eur": "0.24",
+    "eur_foil": "0.35",
+    "tix": "0.02",
+    "usd": "0.36",
+    "usd_etched": null,
+    "usd_foil": "0.25"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af746612a-fbed-44ca-b2cc-5928e10cf4bb&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/46787?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=258229&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F66414%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Grove+of+the+Guardian",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=270968&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGrove%2Bof%2Bthe%2BGuardian",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGrove%2Bof%2Bthe%2BGuardian"
+  },
+  "released_at": "2012-10-05",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3cf60ca0-e01f-499c-8d04-d59050f38c33/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rtr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rtr/240/grove-of-the-guardian?utm_source=api",
+  "set": "rtr",
+  "set_id": "80b2374d-c5f1-403e-9772-f6c806fd275e",
+  "set_name": "Return to Ravnica",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Artr&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/80b2374d-c5f1-403e-9772-f6c806fd275e",
+  "story_spotlight": false,
+  "tcgplayer_id": 66414,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/3cf60ca0-e01f-499c-8d04-d59050f38c33",
+  "variation": false,
+  "watermark": "selesnya"
+}

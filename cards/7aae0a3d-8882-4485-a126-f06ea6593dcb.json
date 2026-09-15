@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "854c29a0-b7ea-433f-b342-a3228de0e092",
+      "name": "Titania's Command",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/854c29a0-b7ea-433f-b342-a3228de0e092"
+    },
+    {
+      "component": "token",
+      "id": "772dac39-269b-4a35-aad3-320279af833f",
+      "name": "Bear",
+      "object": "related_card",
+      "type_line": "Token Creature — Bear",
+      "uri": "https://api.scryfall.com/cards/772dac39-269b-4a35-aad3-320279af833f"
+    }
+  ],
+  "arena_id": 82679,
+  "artist": "Dominik Mayer",
+  "artist_ids": [
+    "c3439c4a-1fee-4e33-9b89-18dac27ac927"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 683433,
+  "cmc": 6.0,
+  "collector_number": "194",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 4008,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "753567c7-c484-4c0d-8128-7710e23c428f",
+  "illustration_id": "b19c6e69-4094-4f98-8bd1-53e6144f0084",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:20:39Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/5/753567c7-c484-4c0d-8128-7710e23c428f.webp?1783920039",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/5/753567c7-c484-4c0d-8128-7710e23c428f.jpg?1783920039",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/5/753567c7-c484-4c0d-8128-7710e23c428f.jpg?1783920039",
+    "crop": "https://cards.scryfall.io/crop/front/7/5/753567c7-c484-4c0d-8128-7710e23c428f.webp?1783920039",
+    "display": "https://cards.scryfall.io/display/front/7/5/753567c7-c484-4c0d-8128-7710e23c428f.webp?1783920039",
+    "grid": "https://cards.scryfall.io/grid/front/7/5/753567c7-c484-4c0d-8128-7710e23c428f.webp?1783920039",
+    "large": "https://cards.scryfall.io/large/front/7/5/753567c7-c484-4c0d-8128-7710e23c428f.jpg?1783920039",
+    "normal": "https://cards.scryfall.io/normal/front/7/5/753567c7-c484-4c0d-8128-7710e23c428f.jpg?1783920039",
+    "png": "https://cards.scryfall.io/png/front/7/5/753567c7-c484-4c0d-8128-7710e23c428f.png?1783920039",
+    "small": "https://cards.scryfall.io/small/front/7/5/753567c7-c484-4c0d-8128-7710e23c428f.jpg?1783920039",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/5/753567c7-c484-4c0d-8128-7710e23c428f.webp?1783920039"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{G}{G}",
+  "mtgo_id": 105008,
+  "multiverse_ids": [
+    583777
+  ],
+  "name": "Titania's Command",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7aae0a3d-8882-4485-a126-f06ea6593dcb",
+  "oracle_text": "Choose two —\n• Exile target player's graveyard. You gain 1 life for each card exiled this way.\n• Search your library for up to two land cards, put them onto the battlefield tapped, then shuffle.\n• Create two 2/2 green Bear creature tokens.\n• Put two +1/+1 counters on each creature you control.",
+  "oversized": false,
+  "penny_rank": 3770,
+  "preview": {
+    "previewed_at": "2022-11-03",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.69",
+    "eur_foil": "0.68",
+    "tix": "0.02",
+    "usd": "1.06",
+    "usd_etched": null,
+    "usd_foil": "1.30"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7aae0a3d-8882-4485-a126-f06ea6593dcb&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/105008?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=683433&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F452968%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Titania%27s+Command",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=583777&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTitania%2527s%2BCommand",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTitania%2527s%2BCommand"
+  },
+  "released_at": "2022-11-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/753567c7-c484-4c0d-8128-7710e23c428f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/bro?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/bro/194/titanias-command?utm_source=api",
+  "security_stamp": "oval",
+  "set": "bro",
+  "set_id": "4219a14e-6701-4ddd-a185-21dc054ab19b",
+  "set_name": "The Brothers' War",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Abro&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/4219a14e-6701-4ddd-a185-21dc054ab19b",
+  "story_spotlight": false,
+  "tcgplayer_id": 452968,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/753567c7-c484-4c0d-8128-7710e23c428f",
+  "variation": false
+}

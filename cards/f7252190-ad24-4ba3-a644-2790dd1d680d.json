@@ -1,0 +1,170 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "cb8caa61-e294-4501-b357-a44abd77d09a",
+      "name": "Elf Warrior",
+      "object": "related_card",
+      "type_line": "Token Creature — Elf Warrior",
+      "uri": "https://api.scryfall.com/cards/cb8caa61-e294-4501-b357-a44abd77d09a"
+    },
+    {
+      "component": "token",
+      "id": "6870a2af-80e1-4813-a332-2b1bd789f1c1",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/6870a2af-80e1-4813-a332-2b1bd789f1c1"
+    },
+    {
+      "component": "combo_piece",
+      "id": "b91dadcb-31e9-43b0-b425-c9311af3e9d7",
+      "name": "Rhys the Redeemed",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Elf Warrior",
+      "uri": "https://api.scryfall.com/cards/b91dadcb-31e9-43b0-b425-c9311af3e9d7"
+    }
+  ],
+  "artist": "Steve Prescott",
+  "artist_ids": [
+    "a1139fb8-41f5-4a9e-9a74-f662e1a23b35"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 482799,
+  "cmc": 1.0,
+  "collector_number": "213",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [
+    "G",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 3365,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Whole again in honor and horn.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b91dadcb-31e9-43b0-b425-c9311af3e9d7",
+  "illustration_id": "399abdb7-32e0-421d-b796-046f15b46bcd",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:08:48Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/9/b91dadcb-31e9-43b0-b425-c9311af3e9d7.webp?1783930128",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/9/b91dadcb-31e9-43b0-b425-c9311af3e9d7.jpg?1783930128",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/9/b91dadcb-31e9-43b0-b425-c9311af3e9d7.jpg?1783930128",
+    "crop": "https://cards.scryfall.io/crop/front/b/9/b91dadcb-31e9-43b0-b425-c9311af3e9d7.webp?1783930128",
+    "display": "https://cards.scryfall.io/display/front/b/9/b91dadcb-31e9-43b0-b425-c9311af3e9d7.webp?1783930128",
+    "grid": "https://cards.scryfall.io/grid/front/b/9/b91dadcb-31e9-43b0-b425-c9311af3e9d7.webp?1783930128",
+    "large": "https://cards.scryfall.io/large/front/b/9/b91dadcb-31e9-43b0-b425-c9311af3e9d7.jpg?1783930128",
+    "normal": "https://cards.scryfall.io/normal/front/b/9/b91dadcb-31e9-43b0-b425-c9311af3e9d7.jpg?1783930128",
+    "png": "https://cards.scryfall.io/png/front/b/9/b91dadcb-31e9-43b0-b425-c9311af3e9d7.png?1783930128",
+    "small": "https://cards.scryfall.io/small/front/b/9/b91dadcb-31e9-43b0-b425-c9311af3e9d7.jpg?1783930128",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/9/b91dadcb-31e9-43b0-b425-c9311af3e9d7.webp?1783930128"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G/W}",
+  "mtgo_id": 82460,
+  "multiverse_ids": [
+    489886
+  ],
+  "name": "Rhys the Redeemed",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f7252190-ad24-4ba3-a644-2790dd1d680d",
+  "oracle_text": "{2}{G/W}, {T}: Create a 1/1 green and white Elf Warrior creature token.\n{4}{G/W}{G/W}, {T}: For each creature token you control, create a token that's a copy of that creature.",
+  "oversized": false,
+  "penny_rank": 3721,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2020-07-21",
+    "source": "VGTime",
+    "source_uri": "http://www.vgtime.com/topic/1092696.jhtml"
+  },
+  "prices": {
+    "eur": "3.14",
+    "eur_foil": "7.99",
+    "tix": "0.03",
+    "usd": "5.84",
+    "usd_etched": null,
+    "usd_foil": "8.33"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af7252190-ad24-4ba3-a644-2790dd1d680d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/82460?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=482799&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F218325%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rhys+the+Redeemed",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=489886&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRhys%2Bthe%2BRedeemed",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRhys%2Bthe%2BRedeemed"
+  },
+  "released_at": "2020-08-07",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b91dadcb-31e9-43b0-b425-c9311af3e9d7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/2xm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/2xm/213/rhys-the-redeemed?utm_source=api",
+  "security_stamp": "oval",
+  "set": "2xm",
+  "set_id": "372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "set_name": "Double Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A2xm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "story_spotlight": false,
+  "tcgplayer_id": 218325,
+  "textless": false,
+  "toughness": "1",
+  "type_line": "Legendary Creature — Elf Warrior",
+  "uri": "https://api.scryfall.com/cards/b91dadcb-31e9-43b0-b425-c9311af3e9d7",
+  "variation": false
+}

@@ -1,0 +1,128 @@
+{
+  "artist": "Noah Bradley",
+  "artist_ids": [
+    "81995d11-da98-4f8b-89bd-b88ca2ddb06b"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 298049,
+  "cmc": 6.0,
+  "collector_number": "100",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 17720,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Massive, mindless, and imbued with one terrible purpose.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "38b6ac26-651f-4557-a993-7a65c5ddf35f",
+  "illustration_id": "7ddac305-b2d4-4a9a-af6a-0e3ca0f0ed5f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:51:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/8/38b6ac26-651f-4557-a993-7a65c5ddf35f.webp?1783936267",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/8/38b6ac26-651f-4557-a993-7a65c5ddf35f.jpg?1783936267",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/8/38b6ac26-651f-4557-a993-7a65c5ddf35f.jpg?1783936267",
+    "crop": "https://cards.scryfall.io/crop/front/3/8/38b6ac26-651f-4557-a993-7a65c5ddf35f.webp?1783936267",
+    "display": "https://cards.scryfall.io/display/front/3/8/38b6ac26-651f-4557-a993-7a65c5ddf35f.webp?1783936267",
+    "grid": "https://cards.scryfall.io/grid/front/3/8/38b6ac26-651f-4557-a993-7a65c5ddf35f.webp?1783936267",
+    "large": "https://cards.scryfall.io/large/front/3/8/38b6ac26-651f-4557-a993-7a65c5ddf35f.jpg?1783936267",
+    "normal": "https://cards.scryfall.io/normal/front/3/8/38b6ac26-651f-4557-a993-7a65c5ddf35f.jpg?1783936267",
+    "png": "https://cards.scryfall.io/png/front/3/8/38b6ac26-651f-4557-a993-7a65c5ddf35f.png?1783936267",
+    "small": "https://cards.scryfall.io/small/front/3/8/38b6ac26-651f-4557-a993-7a65c5ddf35f.jpg?1783936267",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/8/38b6ac26-651f-4557-a993-7a65c5ddf35f.webp?1783936267"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{G}{G}",
+  "multiverse_ids": [
+    430319
+  ],
+  "name": "Desert Twister",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6f880348-6dc8-4cf8-9313-9893c41a70a3",
+  "oracle_text": "Destroy target permanent.",
+  "oversized": false,
+  "penny_rank": 13431,
+  "prices": {
+    "eur": "0.22",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6f880348-6dc8-4cf8-9313-9893c41a70a3&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Desert+Twister&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=298049&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F132013%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Desert+Twister",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=430319&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDesert%2BTwister",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDesert%2BTwister"
+  },
+  "released_at": "2017-06-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/38b6ac26-651f-4557-a993-7a65c5ddf35f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cma?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cma/100/desert-twister?utm_source=api",
+  "set": "cma",
+  "set_id": "fd4d8463-0156-4c60-a40e-778762bb90e4",
+  "set_name": "Commander Anthology",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acma&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/fd4d8463-0156-4c60-a40e-778762bb90e4",
+  "story_spotlight": false,
+  "tcgplayer_id": 132013,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/38b6ac26-651f-4557-a993-7a65c5ddf35f",
+  "variation": false
+}

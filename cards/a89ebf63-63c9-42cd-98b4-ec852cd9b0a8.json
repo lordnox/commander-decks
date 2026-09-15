@@ -1,0 +1,132 @@
+{
+  "artist": "Dave Kendall",
+  "artist_ids": [
+    "8a5540a8-18c9-4fa9-802c-59d6866114d5"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818867,
+  "cmc": 2.0,
+  "collector_number": "290",
+  "color_identity": [
+    "B",
+    "G"
+  ],
+  "colors": [
+    "B",
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 1352,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "To the Golgari, anything buried is treasure.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "12a90f7a-28df-4017-b221-0e9234ff74a7",
+  "illustration_id": "87b4e8f7-73bb-4e47-b8ea-19f95475566e",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:43:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/2/12a90f7a-28df-4017-b221-0e9234ff74a7.webp?1783907026",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/2/12a90f7a-28df-4017-b221-0e9234ff74a7.jpg?1783907026",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/2/12a90f7a-28df-4017-b221-0e9234ff74a7.jpg?1783907026",
+    "crop": "https://cards.scryfall.io/crop/front/1/2/12a90f7a-28df-4017-b221-0e9234ff74a7.webp?1783907026",
+    "display": "https://cards.scryfall.io/display/front/1/2/12a90f7a-28df-4017-b221-0e9234ff74a7.webp?1783907026",
+    "grid": "https://cards.scryfall.io/grid/front/1/2/12a90f7a-28df-4017-b221-0e9234ff74a7.webp?1783907026",
+    "large": "https://cards.scryfall.io/large/front/1/2/12a90f7a-28df-4017-b221-0e9234ff74a7.jpg?1783907026",
+    "normal": "https://cards.scryfall.io/normal/front/1/2/12a90f7a-28df-4017-b221-0e9234ff74a7.jpg?1783907026",
+    "png": "https://cards.scryfall.io/png/front/1/2/12a90f7a-28df-4017-b221-0e9234ff74a7.png?1783907026",
+    "small": "https://cards.scryfall.io/small/front/1/2/12a90f7a-28df-4017-b221-0e9234ff74a7.jpg?1783907026",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/2/12a90f7a-28df-4017-b221-0e9234ff74a7.webp?1783907026"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}{G}",
+  "mtgo_id": 138521,
+  "multiverse_ids": [
+    696446
+  ],
+  "name": "Grisly Salvage",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a89ebf63-63c9-42cd-98b4-ec852cd9b0a8",
+  "oracle_text": "Reveal the top five cards of your library. You may put a creature or land card from among them into your hand. Put the rest into your graveyard.",
+  "oversized": false,
+  "penny_rank": 1564,
+  "prices": {
+    "eur": "0.25",
+    "eur_foil": null,
+    "tix": "0.23",
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa89ebf63-63c9-42cd-98b4-ec852cd9b0a8&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138521?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818867&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624491%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Grisly+Salvage",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696446&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGrisly%2BSalvage",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGrisly%2BSalvage"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/12a90f7a-28df-4017-b221-0e9234ff74a7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/290/grisly-salvage?utm_source=api",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624491,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/12a90f7a-28df-4017-b221-0e9234ff74a7",
+  "variation": false
+}

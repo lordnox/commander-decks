@@ -1,0 +1,146 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "3e0f6ae6-b303-405a-8efa-91de9692768e",
+      "name": "Khalni Garden",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/3e0f6ae6-b303-405a-8efa-91de9692768e"
+    },
+    {
+      "component": "token",
+      "id": "84fcc620-a467-47ce-bbbe-387bad7619ab",
+      "name": "Plant",
+      "object": "related_card",
+      "type_line": "Token Creature — Plant",
+      "uri": "https://api.scryfall.com/cards/84fcc620-a467-47ce-bbbe-387bad7619ab"
+    }
+  ],
+  "artist": "Ryan Pancoast",
+  "artist_ids": [
+    "89cc9475-dda2-4d13-bf88-54b92867a25c"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 361895,
+  "cmc": 0.0,
+  "collector_number": "262",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 3175,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "3e0f6ae6-b303-405a-8efa-91de9692768e",
+  "illustration_id": "9e8283ec-3b06-4f0c-b57b-4460cc5668f2",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T09:17:22Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/e/3e0f6ae6-b303-405a-8efa-91de9692768e.webp?1783934242",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/e/3e0f6ae6-b303-405a-8efa-91de9692768e.jpg?1783934242",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/e/3e0f6ae6-b303-405a-8efa-91de9692768e.jpg?1783934242",
+    "crop": "https://cards.scryfall.io/crop/front/3/e/3e0f6ae6-b303-405a-8efa-91de9692768e.webp?1783934242",
+    "display": "https://cards.scryfall.io/display/front/3/e/3e0f6ae6-b303-405a-8efa-91de9692768e.webp?1783934242",
+    "grid": "https://cards.scryfall.io/grid/front/3/e/3e0f6ae6-b303-405a-8efa-91de9692768e.webp?1783934242",
+    "large": "https://cards.scryfall.io/large/front/3/e/3e0f6ae6-b303-405a-8efa-91de9692768e.jpg?1783934242",
+    "normal": "https://cards.scryfall.io/normal/front/3/e/3e0f6ae6-b303-405a-8efa-91de9692768e.jpg?1783934242",
+    "png": "https://cards.scryfall.io/png/front/3/e/3e0f6ae6-b303-405a-8efa-91de9692768e.png?1783934242",
+    "small": "https://cards.scryfall.io/small/front/3/e/3e0f6ae6-b303-405a-8efa-91de9692768e.jpg?1783934242",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/e/3e0f6ae6-b303-405a-8efa-91de9692768e.webp?1783934242"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [
+    451217
+  ],
+  "name": "Khalni Garden",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b2d5ba45-8674-4428-89db-c2bbbf0bf5c5",
+  "oracle_text": "This land enters tapped.\nWhen this land enters, create a 0/1 green Plant creature token.\n{T}: Add {G}.",
+  "oversized": false,
+  "penny_rank": 1826,
+  "prices": {
+    "eur": "2.36",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "1.04",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab2d5ba45-8674-4428-89db-c2bbbf0bf5c5&unique=prints",
+  "produced_mana": [
+    "G"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Khalni+Garden&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=361895&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F171229%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Khalni+Garden",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=451217&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKhalni%2BGarden",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKhalni%2BGarden"
+  },
+  "released_at": "2018-08-10",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3e0f6ae6-b303-405a-8efa-91de9692768e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c18?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c18/262/khalni-garden?utm_source=api",
+  "set": "c18",
+  "set_id": "06ce6bc2-85cd-4cca-85b1-8c620d3e0902",
+  "set_name": "Commander 2018",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac18&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/06ce6bc2-85cd-4cca-85b1-8c620d3e0902",
+  "story_spotlight": false,
+  "tcgplayer_id": 171229,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/3e0f6ae6-b303-405a-8efa-91de9692768e",
+  "variation": false
+}

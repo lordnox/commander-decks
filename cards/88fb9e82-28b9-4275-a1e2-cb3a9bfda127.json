@@ -1,0 +1,148 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "dab779fa-e30a-417c-9303-9cbf2d1fb559",
+      "name": "Saproling",
+      "object": "related_card",
+      "type_line": "Token Creature — Saproling",
+      "uri": "https://api.scryfall.com/cards/dab779fa-e30a-417c-9303-9cbf2d1fb559"
+    },
+    {
+      "component": "combo_piece",
+      "id": "33145080-077e-4231-96ca-e8b1852b6380",
+      "name": "Vitu-Ghazi, the City-Tree",
+      "object": "related_card",
+      "type_line": "Land",
+      "uri": "https://api.scryfall.com/cards/33145080-077e-4231-96ca-e8b1852b6380"
+    }
+  ],
+  "artist": "Martina Pilcerova",
+  "artist_ids": [
+    "30fead7c-da53-4c1b-b514-4be6e5ce487c"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 572447,
+  "cmc": 0.0,
+  "collector_number": "272",
+  "color_identity": [
+    "G",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 8283,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "In the autumn, she casts her seeds across the streets below, and come spring, her children rise in service to the Conclave.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "33145080-077e-4231-96ca-e8b1852b6380",
+  "illustration_id": "32ae9cfb-2774-4e8a-8d18-3f9b3e8fa58e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:02:22Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/3/33145080-077e-4231-96ca-e8b1852b6380.webp?1783926142",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/3/33145080-077e-4231-96ca-e8b1852b6380.jpg?1783926142",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/3/33145080-077e-4231-96ca-e8b1852b6380.jpg?1783926142",
+    "crop": "https://cards.scryfall.io/crop/front/3/3/33145080-077e-4231-96ca-e8b1852b6380.webp?1783926142",
+    "display": "https://cards.scryfall.io/display/front/3/3/33145080-077e-4231-96ca-e8b1852b6380.webp?1783926142",
+    "grid": "https://cards.scryfall.io/grid/front/3/3/33145080-077e-4231-96ca-e8b1852b6380.webp?1783926142",
+    "large": "https://cards.scryfall.io/large/front/3/3/33145080-077e-4231-96ca-e8b1852b6380.jpg?1783926142",
+    "normal": "https://cards.scryfall.io/normal/front/3/3/33145080-077e-4231-96ca-e8b1852b6380.jpg?1783926142",
+    "png": "https://cards.scryfall.io/png/front/3/3/33145080-077e-4231-96ca-e8b1852b6380.png?1783926142",
+    "small": "https://cards.scryfall.io/small/front/3/3/33145080-077e-4231-96ca-e8b1852b6380.jpg?1783926142",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/3/33145080-077e-4231-96ca-e8b1852b6380.webp?1783926142"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "multiverse_ids": [
+    532659
+  ],
+  "name": "Vitu-Ghazi, the City-Tree",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "88fb9e82-28b9-4275-a1e2-cb3a9bfda127",
+  "oracle_text": "{T}: Add {C}.\n{2}{G}{W}, {T}: Create a 1/1 green Saproling creature token.",
+  "oversized": false,
+  "penny_rank": 2053,
+  "prices": {
+    "eur": "0.10",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A88fb9e82-28b9-4275-a1e2-cb3a9bfda127&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Vitu-Ghazi%2C+the+City-Tree&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=572447&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243976%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Vitu-Ghazi%2C+the+City-Tree",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=532659&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DVitu-Ghazi%252C%2Bthe%2BCity-Tree",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DVitu-Ghazi%252C%2Bthe%2BCity-Tree"
+  },
+  "released_at": "2021-07-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/33145080-077e-4231-96ca-e8b1852b6380/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afc/272/vitu-ghazi-the-city-tree?utm_source=api",
+  "set": "afc",
+  "set_id": "db1b46f9-893c-4623-9465-985ff6e4472c",
+  "set_name": "Forgotten Realms Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/db1b46f9-893c-4623-9465-985ff6e4472c",
+  "story_spotlight": false,
+  "tcgplayer_id": 243976,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/33145080-077e-4231-96ca-e8b1852b6380",
+  "variation": false
+}

@@ -1,0 +1,152 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "077aafc3-d94c-4ac0-8b7e-aadbb114e4c7",
+      "name": "Eyes in the Skies",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/077aafc3-d94c-4ac0-8b7e-aadbb114e4c7"
+    },
+    {
+      "component": "token",
+      "id": "fb446f25-40e4-4cd6-968c-8e22fe799203",
+      "name": "Bird",
+      "object": "related_card",
+      "type_line": "Token Creature — Bird",
+      "uri": "https://api.scryfall.com/cards/fb446f25-40e4-4cd6-968c-8e22fe799203"
+    }
+  ],
+  "artist": "James Ryman",
+  "artist_ids": [
+    "3852bbc9-11c0-4fe3-8722-a06ad7e2bcc5"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 748365,
+  "cmc": 4.0,
+  "collector_number": "17",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 16558,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"What root and branch cannot reach, our winged friends will attend to.\"\n—Zunak, Selesnya strategist",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "077aafc3-d94c-4ac0-8b7e-aadbb114e4c7",
+  "illustration_id": "de1efb05-a9f1-4b79-bf66-dc2d7b109d54",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:29:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/7/077aafc3-d94c-4ac0-8b7e-aadbb114e4c7.webp?1783913347",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/7/077aafc3-d94c-4ac0-8b7e-aadbb114e4c7.jpg?1783913347",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/7/077aafc3-d94c-4ac0-8b7e-aadbb114e4c7.jpg?1783913347",
+    "crop": "https://cards.scryfall.io/crop/front/0/7/077aafc3-d94c-4ac0-8b7e-aadbb114e4c7.webp?1783913347",
+    "display": "https://cards.scryfall.io/display/front/0/7/077aafc3-d94c-4ac0-8b7e-aadbb114e4c7.webp?1783913347",
+    "grid": "https://cards.scryfall.io/grid/front/0/7/077aafc3-d94c-4ac0-8b7e-aadbb114e4c7.webp?1783913347",
+    "large": "https://cards.scryfall.io/large/front/0/7/077aafc3-d94c-4ac0-8b7e-aadbb114e4c7.jpg?1783913347",
+    "normal": "https://cards.scryfall.io/normal/front/0/7/077aafc3-d94c-4ac0-8b7e-aadbb114e4c7.jpg?1783913347",
+    "png": "https://cards.scryfall.io/png/front/0/7/077aafc3-d94c-4ac0-8b7e-aadbb114e4c7.png?1783913347",
+    "small": "https://cards.scryfall.io/small/front/0/7/077aafc3-d94c-4ac0-8b7e-aadbb114e4c7.jpg?1783913347",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/7/077aafc3-d94c-4ac0-8b7e-aadbb114e4c7.webp?1783913347"
+  },
+  "keywords": [
+    "Populate"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}",
+  "mtgo_id": 120561,
+  "multiverse_ids": [
+    643024
+  ],
+  "name": "Eyes in the Skies",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9697cd05-474e-46f3-8bcc-d4b6fb2059a1",
+  "oracle_text": "Create a 1/1 white Bird creature token with flying, then populate. (Create a token that's a copy of a creature token you control.)",
+  "oversized": false,
+  "penny_rank": 11647,
+  "prices": {
+    "eur": "0.22",
+    "eur_foil": "0.12",
+    "tix": "0.04",
+    "usd": "0.28",
+    "usd_etched": null,
+    "usd_foil": "0.16"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9697cd05-474e-46f3-8bcc-d4b6fb2059a1&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/120561?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=748365&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F531063%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Eyes+in+the+Skies",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=643024&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEyes%2Bin%2Bthe%2BSkies",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEyes%2Bin%2Bthe%2BSkies"
+  },
+  "released_at": "2024-01-12",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/077aafc3-d94c-4ac0-8b7e-aadbb114e4c7/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rvr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rvr/17/eyes-in-the-skies?utm_source=api",
+  "set": "rvr",
+  "set_id": "fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "set_name": "Ravnica Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arvr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "story_spotlight": false,
+  "tcgplayer_id": 531063,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/077aafc3-d94c-4ac0-8b7e-aadbb114e4c7",
+  "variation": false,
+  "watermark": "selesnya"
+}

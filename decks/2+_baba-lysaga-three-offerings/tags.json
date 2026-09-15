@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "title": "Baba Lysaga — Three Offerings",
+  "summary": "Mixed-type grave offerings feed Baba Lysaga for cards, life, and a telegraphed drain, with land recursion as the backup.",
+  "tags": [
+    {
+      "name": "sacrifice",
+      "score": 5,
+      "reason": "The commander and several outlets exist to sacrifice mixed permanents as the repeating action."
+    },
+    {
+      "name": "graveyard",
+      "score": 4,
+      "reason": "Dredge, reanimation, retrace, and land-from-grave are how the pit keeps paying."
+    },
+    {
+      "name": "lands",
+      "score": 4,
+      "reason": "Land offerings, Loam, Ramunap, Titania, and fetch-sac lands are a major axis."
+    },
+    {
+      "name": "aristocrats",
+      "score": 3,
+      "reason": "Death payoffs exist (Fecundity, Disciple, Jarad) but mixed types matter more than creature tokens."
+    },
+    {
+      "name": "artifacts",
+      "score": 3,
+      "reason": "Cheap artifacts and artifact lands are the flint half of the three-type rite."
+    },
+    {
+      "name": "midrange",
+      "score": 3,
+      "reason": "The deck develops a board, trades, then converts with a visible engine rather than combo."
+    },
+    {
+      "name": "ramp",
+      "score": 3,
+      "reason": "Dorks, auras, Lore/Visits, Harrow, and Bauble support a turn-three commander."
+    },
+    {
+      "name": "reanimator",
+      "score": 3,
+      "reason": "Animate Dead, Reanimate, Victimize, Living Death, and Witness return the pit."
+    },
+    {
+      "name": "lifegain",
+      "score": 2,
+      "reason": "Baba gains 3 on a hit and Zuran Orb gains life; not a lifegain win."
+    },
+    {
+      "name": "tokens",
+      "score": 2,
+      "reason": "Titania elementals and Night Soil Saprolings show up, without token doublers."
+    }
+  ]
+}
