@@ -99,6 +99,24 @@ export const applyKernelPass = (
   return result.ok
 }
 
+export const restoreKernelWindow = (
+  kernel: KernelHandle,
+  state: LobbyState,
+) => {
+  if (state.topdeck) {
+    const seat = state.topdeck.seat
+    state.actions = { [seat]: ['topdeck'] }
+    state.waiting = `${state.occupants[seat]?.name ?? seat} is making a private ${state.topdeck.kind} choice.`
+    state.privateWaiting = {
+      [seat]: state.privateWaiting[seat]
+        ?? `Resolve the pending ${state.topdeck.kind} choice.`,
+    }
+    return
+  }
+  state.actions = kernelActions(kernel.history.current())
+  settleKernelPriority(kernel, state)
+}
+
 /**
  * Publish that a judge round is in flight. The seat's previous buttons are
  * returned so a failed round can hand them back: leaving them on screen would
@@ -255,8 +273,7 @@ export const runHost = async (options: {
     try {
       kernel = await openKernel(slug, root, state)
       // The kernel is the authority once it opens; replay-derived actions are stale.
-      state.actions = kernelActions(kernel.history.current())
-      settleKernelPriority(kernel, state)
+      restoreKernelWindow(kernel, state)
       logLine(logFile, `kernel journal ${kernelPath(slug, root)}`)
     } catch (reason) {
       kernel = null
