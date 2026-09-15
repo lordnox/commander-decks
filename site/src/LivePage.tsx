@@ -573,7 +573,10 @@ export const LivePage = () => {
   const activeSeat = boardSeats.find((seat) => seat.id === boardActive)
   const lastEvent = snapshot.events?.at(-1)
   const priorityOpen = lastEvent?.kind === 'priority'
-  const yourAction = !viewingPast && Boolean(snapshot.you && snapshot.youAct)
+  // Priority alone is not a prompt: a seat waiting on the judge holds priority
+  // with nothing it may legally send.
+  const yourAction = !viewingPast
+    && Boolean(snapshot.you && snapshot.youAct && snapshot.actions?.length)
   const canSend = request?.kind === 'conduit' && Boolean(request.inbox)
   const actionPending = sentActionId === snapshot.actionId
   const canPass = Boolean(snapshot.actions?.includes('pass'))

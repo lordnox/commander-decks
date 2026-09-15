@@ -7,8 +7,14 @@ import {
   createJournal,
   createServerGame,
 } from '../../rules-engine/src/index'
+import { acceptsPlayAction } from './actions'
 import { createLobby } from './lobby'
-import { actionsAfterJudgment, applyKernelPass, needsJudgment } from './host'
+import {
+  actionsAfterJudgment,
+  applyKernelPass,
+  beginJudgeRound,
+  needsJudgment,
+} from './host'
 import { kernelActions, kernelPath, kernelPriority, openKernel } from './kernelHost'
 
 const setup = async () => {
@@ -57,6 +63,21 @@ describe('kernel host actions', () => {
 
     expect(actions).toEqual(kernelActions(kernel.history.current()))
     expect(legacyCalled).toBe(false)
+  })
+
+  test('a seat waiting on the judge is offered no stale buttons', () => {
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    lobby.occupants.p4 = { name: 'Sin-fall', deck: 'decks/sin' }
+    lobby.actions = { p4: ['plan', 'pass', 'advance'] }
+
+    const previous = beginJudgeRound(lobby, 'p4', { type: 'plan', text: 'cast it' })
+
+    expect(lobby.actions.p4).toEqual([])
+    expect(lobby.privateWaiting.p4).toContain('Nothing to do')
+    expect(lobby.judge).toBe('Sin-fall submitted a plan and is conferring with the judge.')
+    expect(acceptsPlayAction(lobby, 'p4', { type: 'pass', actionId: 0 })).toBe(false)
+    expect(previous.p4).toEqual(['plan', 'pass', 'advance'])
   })
 
   test('table talk and lobby bookkeeping never occupy the judge', () => {

@@ -242,7 +242,9 @@ export const liveSnapshotFromState = (options: {
     ...(combat ? { combat } : {}),
     you: viewer,
     headline: seats.map((seat) => seat.name).join(' / ') || 'Live table',
-    waiting: lobby.waiting,
+    // The judge writes the actionable prompt privately: it names the cards and
+    // the sequence, so the seat that owes the answer must read that one.
+    waiting: (viewer && lobby.privateWaiting[viewer]) || lobby.waiting,
     talk: lobby.talk,
     judge: viewer && lobby.privateJudge[viewer]
       ? lobby.privateJudge[viewer]

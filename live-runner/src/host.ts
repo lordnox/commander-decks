@@ -95,6 +95,32 @@ export const applyKernelPass = (
   return result.ok
 }
 
+/**
+ * Publish that a judge round is in flight. The seat's previous buttons are
+ * returned so a failed round can hand them back: leaving them on screen would
+ * offer a pass or a phase advance that races the judge's own events.
+ */
+export const beginJudgeRound = (
+  state: LobbyState,
+  seat: SeatId,
+  message: InboxMessage,
+) => {
+  const previous = state.actions
+  const name = state.occupants[seat]?.name ?? seat
+  state.privateJudge = {}
+  state.privateWaiting = {
+    [seat]: 'The judge is checking your message. Nothing to do until it answers.',
+  }
+  state.judge = message.type === 'confirm'
+    ? `${name} confirmed a line; the judge is applying it.`
+    : message.type === 'rules'
+      ? `${name} asked a rules question and is conferring with the judge.`
+      : `${name} submitted a plan and is conferring with the judge.`
+  state.waiting = `${name}: the judge is checking your message.`
+  state.actions = setSeatActions(state.actions, seat, [])
+  return previous
+}
+
 /** Social speech and lobby bookkeeping are already published; only game questions cost a judging round. */
 export const needsJudgment = (message: InboxMessage) =>
   ['plan', 'replace', 'confirm', 'rules', 'pass', 'topdeck', 'advance'].includes(
@@ -403,19 +429,10 @@ export const runHost = async (options: {
         && state.phase === 'play'
         && (hasReplay(slug, root) || kernel)
       ) {
+        let pendingActions: LobbyState['actions'] | null = null
         try {
         if (privateExchange) {
-          const name = state.occupants[seat]?.name ?? seat
-          state.privateJudge = {}
-          state.privateWaiting = {
-            [seat]: 'The judge is checking your message.',
-          }
-          state.judge = message.type === 'confirm'
-            ? `${name} confirmed a line; the judge is applying it.`
-            : message.type === 'rules'
-              ? `${name} asked a rules question and is conferring with the judge.`
-              : `${name} submitted a plan and is conferring with the judge.`
-          state.waiting = `${name}: the judge is checking your message.`
+          pendingActions = beginJudgeRound(state, seat, message)
           await publish(slug, root, origin, bins, state, kernel)
         }
         const kernelEventsBefore = kernel?.journal.events.length
@@ -515,6 +532,8 @@ export const runHost = async (options: {
           state.privateJudge = {}
           state.privateWaiting = {}
           state.waiting = 'Host needs attention. Do not send another game action yet.'
+          // Hand the window back rather than stranding the seat with no buttons.
+          if (pendingActions) state.actions = pendingActions
         }
       }
     }

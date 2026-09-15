@@ -118,3 +118,22 @@ describe('kernel combat projection', () => {
     expect(liveSnapshotFromState({ state, lobby, viewer: 'p1' }).combat).toBeUndefined()
   })
 })
+
+describe('kernel snapshot prompts', () => {
+  test('the private judge prompt reaches only the seat that owes an answer', () => {
+    const { state, lobby } = combatTable()
+    lobby.waiting = 'Sin-fall: the judge is checking your message.'
+    lobby.privateWaiting = {
+      p2: 'p2: confirm playing Forest, then casting Joint Exploration kicked.',
+    }
+
+    const own = liveSnapshotFromState({ state, lobby, viewer: 'p2' })
+    expect(own.waiting).toBe(lobby.privateWaiting.p2)
+
+    const other = liveSnapshotFromState({ state, lobby, viewer: 'p1' })
+    expect(other.waiting).toBe(lobby.waiting)
+
+    const table = liveSnapshotFromState({ state, lobby, viewer: null })
+    expect(table.waiting).toBe(lobby.waiting)
+  })
+})
