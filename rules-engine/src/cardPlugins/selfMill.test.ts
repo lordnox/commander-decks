@@ -76,6 +76,20 @@ describe('self mill abilities', () => {
     expect(state.players.p1.mana.C).toBe(1)
   })
 
+  test('Millikin cannot use generic tap-for-mana and skip its mill cost', () => {
+    const server = game('Millikin')
+    const sourceId = server.state.zoneOrder.p1.battlefield[0]
+    server.state.objects[sourceId].tapProduces = { C: 1 }
+    const result = server.rules(server.state, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId: sourceId,
+    })
+
+    expect(result.ok).toBe(false)
+    expect(result.ok === false && result.error).toContain('must mill a card')
+  })
+
   test('Millikin rejects stack timing and an empty library', () => {
     const server = game('Millikin', [])
     const sourceId = server.state.zoneOrder.p1.battlefield[0]
