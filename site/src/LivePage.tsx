@@ -141,6 +141,9 @@ const insertAtCursor = (
   return next
 }
 
+/** Headings carry their own weight, so emphasis markers only add noise. */
+const withoutEmphasis = (text: string) => text.replace(/\*\*/g, '')
+
 const JudgeText = ({ text }: { text: string }) => (
   <div className="space-y-3 text-sm leading-6 text-stone-300">
     {text.trim().split(/\n{2,}/).map((paragraph, paragraphIndex) => (
@@ -792,9 +795,11 @@ export const LivePage = () => {
             }`}>
               {yourAction ? 'Your action' : 'Waiting'}
             </p>
-            <p className="mt-2 text-sm leading-5 text-stone-200">
-              {snapshot.waiting || 'The judge is advancing the game.'}
-            </p>
+            <div className="mt-2">
+              <JudgeText
+                text={snapshot.waiting || 'The judge is advancing the game.'}
+              />
+            </div>
           </div>
           {yourAction && canSend && (canPass || canConfirm) && (
             <div className="mt-3 grid grid-cols-2 gap-2">
@@ -850,7 +855,7 @@ export const LivePage = () => {
           </div>
           {snapshot.waiting && (
             <h2 className="mt-3 font-display text-2xl leading-tight text-stone-50 sm:text-3xl">
-              {snapshot.waiting}
+              {withoutEmphasis(snapshot.waiting)}
             </h2>
           )}
           {snapshot.talk && (
@@ -891,9 +896,9 @@ export const LivePage = () => {
                     <p className="text-[0.65rem] font-bold uppercase tracking-[0.14em] text-stone-500">
                       {entry.type}
                     </p>
-                    <p className="mt-1 text-sm leading-6 text-stone-300">
-                      {entry.summary}
-                    </p>
+                    <div className="mt-1">
+                      <JudgeText text={entry.summary} />
+                    </div>
                   </li>
                 ))}
               </ol>

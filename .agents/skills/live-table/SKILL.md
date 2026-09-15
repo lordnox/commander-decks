@@ -134,6 +134,11 @@ decision, propose one legal candidate when useful and phrase the pause as
 not authorization to append events. Do not commit it until the user confirms
 after seeing the checked sequence and likely responses.
 
+Confirmation is for lines that spend something. A plan that only walks the turn
+forward — "pass until main one", "move to combat" — should not be negotiated at
+all: point the seat at the phase button, which advances the game deterministically
+without a judge call.
+
 Every play prompt also publishes the actions that seat may currently send and
 a per-seat action ID. The client echoes that ID. Reject stale, duplicate, or
 unavailable play actions without invoking the judge. Do not let one priority
