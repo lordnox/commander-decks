@@ -184,6 +184,30 @@ describe('kernel host journal', () => {
     expect(lobby.actions).toEqual(kernelActions(current))
   })
 
+  test('a restored private choice survives a host restart', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-choice-restart-'))
+    mkdirGames(root)
+    seedKernel(root)
+    const lobby = createLobby()
+    lobby.topdeck = {
+      seat: 'p1',
+      kind: 'scry',
+      cards: ['Island'],
+      destinations: ['top', 'bottom'],
+      kernel: {
+        sourceId: 'spell',
+        stage: 'scry',
+        resumePassSeat: 'p1',
+      },
+    }
+    const kernel = await openKernel('pod', root, lobby)
+    const before = kernel.journal.events.length
+
+    expect(settleKernelPriority(kernel, lobby)).toBe(false)
+    expect(kernel.journal.events.length).toBe(before)
+    expect(lobby.topdeck?.kind).toBe('scry')
+  })
+
   test('a hold releases when the held seat becomes active', async () => {
     const root = mkdtempSync(join(tmpdir(), 'kernel-hold-release-'))
     mkdirGames(root)

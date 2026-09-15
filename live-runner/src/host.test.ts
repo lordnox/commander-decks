@@ -14,6 +14,7 @@ import {
   applyKernelPass,
   beginJudgeRound,
   needsJudgment,
+  restoreKernelWindow,
 } from './host'
 import { kernelActions, kernelPath, kernelPriority, openKernel } from './kernelHost'
 
@@ -78,6 +79,27 @@ describe('kernel host actions', () => {
     expect(lobby.judge).toBe('Sin-fall submitted a plan and is conferring with the judge.')
     expect(acceptsPlayAction(lobby, 'p4', { type: 'pass', actionId: 0 })).toBe(false)
     expect(previous.p4).toEqual(['plan', 'pass', 'advance'])
+  })
+
+  test('a restored private choice keeps its dialog action', async () => {
+    const { kernel, lobby } = await setup()
+    lobby.topdeck = {
+      seat: 'p4',
+      kind: 'scry',
+      cards: ['Island'],
+      destinations: ['top', 'bottom'],
+      kernel: {
+        sourceId: 'spell',
+        stage: 'scry',
+        resumePassSeat: 'p3',
+      },
+    }
+
+    restoreKernelWindow(kernel, lobby)
+
+    expect(lobby.actions).toEqual({ p4: ['topdeck'] })
+    expect(lobby.waiting).toContain('private scry choice')
+    expect(lobby.privateWaiting.p4).toContain('pending scry choice')
   })
 
   test('table talk and lobby bookkeeping never occupy the judge', () => {

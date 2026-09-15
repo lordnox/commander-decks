@@ -291,6 +291,9 @@ export const settleKernelPriority = (kernel: KernelHandle, lobby: LobbyState) =>
   let passed = false
   let prepared = false
   for (let guard = 0; guard < 64; guard += 1) {
+    // Restored no-priority decisions are hard stops. Never pass through one
+    // merely because the host process restarted while its dialog was open.
+    if (lobby.topdeck) break
     const priority = kernelPriority(current)
     if (!priority) break
     if (current.active === priority) {
