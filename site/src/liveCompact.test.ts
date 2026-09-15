@@ -176,6 +176,27 @@ describe('live compact v2', () => {
     expect(expanded.actionId).toBe(7)
   })
 
+  test('history frames and replica round-trip', () => {
+    const original = snapshot()
+    original.history = [{
+      seq: 0,
+      summary: 'Setup',
+      turn: 1,
+      phase: 'planning',
+      active: 'p1',
+      seats: original.seats,
+    }]
+    original.historyCursor = 0
+    original.replica = {
+      format: 'commander',
+      knowledge: { mode: 'replica', viewer: 'p2' },
+    } as LiveSnapshot['replica']
+    const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)
+    expect(expanded.history?.[0].summary).toBe('Setup')
+    expect(expanded.historyCursor).toBe(0)
+    expect(expanded.replica?.knowledge).toEqual({ mode: 'replica', viewer: 'p2' })
+  })
+
   test('private opening keep/mulligan bits and bottom count survive the wire', () => {
     const original = snapshot()
     original.actions = ['keep', 'mulligan']

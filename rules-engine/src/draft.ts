@@ -45,7 +45,11 @@ export type Draft = GameState & {
   enqueue: (event: GameEvent) => void
   note: (line: string) => void
   object: (id: string) => GameObject | undefined
-  move: (id: string, to: ZoneId) => GameObject | undefined
+  move: (
+    id: string,
+    to: ZoneId,
+    position?: 'top' | 'bottom',
+  ) => GameObject | undefined
   zoneOf: (zone: ZoneId, player?: PlayerId) => GameObject[]
 }
 
@@ -72,13 +76,16 @@ export const makeDraft = (state: GameState): Draft => {
     draft.log.push(line)
   }
   draft.object = (id) => draft.objects[id]
-  draft.move = (id, to) => {
+  draft.move = (id, to, position = 'bottom') => {
     const object = draft.objects[id]
     if (!object) return undefined
     const from = object.zone
     const zones = draft.zoneOrder[object.owner]
     zones[from] = zones[from].filter((objectId) => objectId !== id)
-    if (!zones[to].includes(id)) zones[to].push(id)
+    if (!zones[to].includes(id)) {
+      if (position === 'top') zones[to].unshift(id)
+      else zones[to].push(id)
+    }
     draft.zoneCounts[object.owner][from] = Math.max(
       0,
       draft.zoneCounts[object.owner][from] - 1,

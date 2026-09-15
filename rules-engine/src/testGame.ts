@@ -6,9 +6,10 @@ import {
   newGame as createGame,
   timetwister,
   yarokFixture,
+  yurlokFixture,
   type NewGameOptions,
 } from './newGame'
 
 export const newGame = (options?: NewGameOptions) => createGame(commanderRules, options)
 
-export { bears, bolt, forest, timetwister, yarokFixture }
+export { bears, bolt, forest, timetwister, yarokFixture, yurlokFixture }

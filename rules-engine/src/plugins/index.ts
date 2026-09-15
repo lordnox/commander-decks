@@ -1,3 +1,4 @@
+import { abilities } from './activateAbility'
 import { combat } from './combat'
 import { commander } from './commander'
 import { damage } from './damage'
@@ -6,6 +7,7 @@ import {
   replicaHiddenInformation,
   unconfiguredHiddenInformation,
 } from './hiddenInformation'
+import { judgeFallback } from './judgeFallback'
 import { lands } from './lands'
 import { mana } from './mana'
 import { manaBurn } from './manaBurn'
@@ -18,12 +20,14 @@ import { turnStructure } from './turnStructure'
 export const builtInPlugins = [
   turnStructure,
   priority,
+  abilities,
   mana,
   lands,
   spells,
   stateBased,
   combat,
   damage,
+  judgeFallback,
   unconfiguredHiddenInformation,
   commander,
   manaBurn,
@@ -33,10 +37,12 @@ export const builtInPlugins = [
 ]
 
 export {
+  abilities,
   combat,
   commander,
   damage,
   fog,
+  judgeFallback,
   lands,
   mana,
   manaBurn,

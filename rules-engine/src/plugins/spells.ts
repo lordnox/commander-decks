@@ -28,8 +28,9 @@ const payColored = (pool: ManaPool, costs: ManaId[][], index = 0): ManaPool | nu
 
 export const payCost = (pool: ManaPool, manaCost: string) => {
   const generic = genericCost(manaCost)
-  const remaining = payColored(pool, coloredCosts(manaCost))
-  if (!remaining) return null
+  const colored = payColored(pool, coloredCosts(manaCost))
+  if (!colored) return null
+  const remaining = { ...colored }
 
   if (poolTotal(remaining) < generic) return null
   let unpaid = generic

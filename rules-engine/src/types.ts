@@ -170,6 +170,7 @@ export type GameEvent =
   | { type: 'playLand'; seat: PlayerId; objectId: string }
   | { type: 'tapForMana'; seat: PlayerId; objectId: string }
   | { type: 'addMana'; seat: PlayerId; mana: Partial<ManaPool> }
+  | { type: 'payMana'; seat: PlayerId; cost: string }
   | { type: 'emptyManaPools' }
   | {
       type: 'castSpell'
@@ -196,13 +197,25 @@ export type GameEvent =
       combat?: boolean
     }
   | { type: 'loseLife'; seat: PlayerId; amount: number; source?: string }
-  | { type: 'move'; objectId: string; to: ZoneId }
+  | {
+      type: 'move'
+      objectId: string
+      to: ZoneId
+      position?: 'top' | 'bottom'
+    }
   | { type: 'tap'; objectId: string }
   | { type: 'untap'; objectId: string }
   | { type: 'advanceStep' }
   | { type: 'draw'; seat: PlayerId; count?: number }
   | { type: 'shuffleLibrary'; seat: PlayerId }
   | { type: 'authoritativeSync'; snapshot: GameState }
+  | {
+      type: 'judgeFallback'
+      seat: PlayerId
+      source: string
+      reason: string
+      effects: GameEvent[]
+    }
   | { type: 'concede'; seat: PlayerId }
   | {
       type: 'addRule'
@@ -216,12 +229,38 @@ export type GameEvent =
       pluginId?: string
       sourceId?: string | null
     }
+  | {
+      type: 'activateAbility'
+      abilityId: string
+      seat: PlayerId
+      objectId: string
+      /** Host marks mana-ability timing. Kernel does not open that window. */
+      manaAbility?: boolean
+    }
   | { type: 'custom'; name: string; seat?: PlayerId; payload?: Record<string, unknown> }
 
+export type EventTrace = {
+  depth: number
+  event: GameEvent
+  outcome: 'applied' | 'replaced' | 'prevented' | 'rejected'
+  pluginId?: string
+  error?: string
+}
+
 /** Successful reduce. `prevented` means a replacement returned `null`. */
-export type ReduceOk = { ok: true; state: GameState; prevented?: boolean }
+export type ReduceOk = {
+  ok: true
+  state: GameState
+  trace: EventTrace[]
+  prevented?: boolean
+}
 /** Failed reduce. `state` is the unchanged input. */
-export type ReduceErr = { ok: false; error: string; state: GameState }
+export type ReduceErr = {
+  ok: false
+  error: string
+  state: GameState
+  trace: EventTrace[]
+}
 export type ReduceResult = ReduceOk | ReduceErr
 
 /**

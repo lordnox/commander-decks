@@ -1,5 +1,6 @@
 import { addPools, emptyMana } from '../draft'
 import type { Plugin } from '../types'
+import { payCost } from './spells'
 
 const legal: Plugin['legal'] = ({ state, event }) => {
   if (event.type !== 'tapForMana') return
@@ -30,10 +31,27 @@ const apply: Plugin['apply'] = ({ event, draft }) => {
     draft.note(`${event.seat} adds mana`)
     return
   }
+  if (event.type === 'payMana') {
+    const paid = payCost(draft.players[event.seat].mana, event.cost)
+    if (!paid) return
+    draft.players[event.seat].mana = paid
+    draft.note(`${event.seat} pays ${event.cost}`)
+    return
+  }
   if (event.type === 'emptyManaPools') {
     for (const player of Object.values(draft.players)) player.mana = emptyMana()
     draft.note('mana pools empty')
   }
 }
 
-export const mana: Plugin = { id: 'mana', legal, apply }
+const legalMana: Plugin['legal'] = (ctx) => {
+  const error = legal(ctx)
+  if (error) return error
+  const { state, event } = ctx
+  if (event.type !== 'payMana') return
+  if (!payCost(state.players[event.seat].mana, event.cost)) {
+    return `${event.seat} cannot pay ${event.cost}`
+  }
+}
+
+export const mana: Plugin = { id: 'mana', legal: legalMana, apply }
