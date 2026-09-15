@@ -1,5 +1,7 @@
 import type { GameEvent, GameObject, GameState, Plugin } from '../types'
 
+export const PERMANENT_ENTERED = 'cardPlugins.permanentEntered'
+
 /** Decides whether this specific entry is tapped. `state` is the pre-event state. */
 export type EntryCheck = (state: GameState, object: GameObject) => boolean
 
@@ -42,6 +44,10 @@ export const ENTERS_TAPPED: Record<string, EntryCheck> = {
 export const enteringObjectId = (event: GameEvent) => {
   if (event.type === 'playLand') return event.objectId
   if (event.type === 'move' && event.to === 'battlefield') return event.objectId
+  if (event.type === 'custom' && event.name === PERMANENT_ENTERED) {
+    const objectId = event.payload?.objectId
+    return typeof objectId === 'string' ? objectId : null
+  }
   return null
 }
 

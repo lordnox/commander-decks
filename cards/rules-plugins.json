@@ -79,6 +79,11 @@
     "pluginIds": [],
     "handlerIds": ["entersTapped"]
   },
+  "a13aa603-8709-43aa-b69a-ee74de79561f": {
+    "name": "Homer, the Hermit",
+    "pluginIds": [],
+    "handlerIds": ["homer"]
+  },
   "ca4b6689-04ee-4227-9bdc-cb5a9590c745": {
     "name": "Hedge Maze",
     "pluginIds": [],
@@ -173,6 +178,11 @@
     "name": "Simic Growth Chamber",
     "pluginIds": [],
     "handlerIds": ["entersTapped"]
+  },
+  "3bcc378c-4470-4757-a0d5-025a32c918ea": {
+    "name": "Sin, Spira's Punishment",
+    "pluginIds": [],
+    "handlerIds": ["sin"]
   },
   "13fe5e46-77a6-45d8-ac0b-c3d740eccf86": {
     "name": "Splendid Reclamation",

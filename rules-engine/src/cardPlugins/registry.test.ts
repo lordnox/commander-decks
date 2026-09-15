@@ -37,6 +37,7 @@ describe('card plugin registry', () => {
       'Misty Rainforest',
       "Nature's Lore",
       'Scute Swarm',
+      "Sin, Spira's Punishment",
       'Zagoth Triome',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
@@ -44,9 +45,14 @@ describe('card plugin registry', () => {
       .toEqual(['entersTapped', 'landfall'])
   })
 
+  test('the Homer commander is registered', () => {
+    expect(missingCardPlugins(['Homer, the Hermit'])).toEqual([])
+    expect(cardPluginEntry('Homer, the Hermit')?.handlerIds).toEqual(['homer'])
+  })
+
   test('a card nobody has plugged is still reported as missing', () => {
-    expect(missingCardPlugins(['Sin, Spira\'s Punishment'])).toEqual([
-      "Sin, Spira's Punishment",
+    expect(missingCardPlugins(['Springheart Nantuko'])).toEqual([
+      'Springheart Nantuko',
     ])
   })
 })

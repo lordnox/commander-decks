@@ -3,10 +3,12 @@ import type { Plugin } from '../types'
 import { additionalLandPlay } from './additionalLandPlay'
 import { entersTapped } from './entersTapped'
 import { graveyardLands } from './graveyardLands'
+import { homer } from './homer'
 import { landfall } from './landfall'
 import { librarySearch } from './librarySearch'
 import { selfBounceLand } from './selfBounceLand'
 import { selfMill } from './selfMill'
+import { sin } from './sin'
 import { yurlok } from './yurlok'
 
 export type CardPluginEntry = {
@@ -26,10 +28,12 @@ export const cardPlugins: Plugin[] = [
   additionalLandPlay,
   entersTapped,
   graveyardLands,
+  homer,
   landfall,
   librarySearch,
   selfBounceLand,
   selfMill,
+  sin,
   yurlok,
 ]
 
