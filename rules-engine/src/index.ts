@@ -63,6 +63,7 @@ export {
   whenAbility,
 } from './plugins/activateAbility'
 export {
+  importLiveReplayState,
   replayComparableState,
   replayExpectedState,
   runReplayRounds,

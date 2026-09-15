@@ -11,6 +11,7 @@ import {
   commanderRules,
   createJournal,
   createServerGame,
+  importLiveReplayState,
   projectForViewer,
   recordAccepted,
   restoreJournal,
@@ -205,7 +206,9 @@ export const openKernel = async (
       throw new Error('rules kernel waits for the dealt replay to reach turn one')
     }
     if (!existing || blankJournal) {
-      const converted = runReplayRounds(replay, lastTurn)
+      const converted = replay._libraries
+        ? { initial: importLiveReplayState(replay), events: [] }
+        : runReplayRounds(replay, lastTurn)
       journal = {
         schema: 'rules-engine/v0',
         initial: converted.initial,

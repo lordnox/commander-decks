@@ -43,6 +43,7 @@ type ReplayEvent = {
   seat: PlayerId | null
   kind: string
   summary: string
+  cards?: string[]
   state: ReplayState
 }
 
@@ -51,6 +52,7 @@ export type TableReplay = {
   seats: { id: PlayerId }[]
   catalog: Record<string, ReplayCard>
   events: ReplayEvent[]
+  _libraries?: Partial<Record<PlayerId, string[]>>
 }
 
 const CARD_TYPES = [
@@ -98,7 +100,7 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
     types,
     subtypes,
     supertypes,
-    manaCost: card?.mana_cost ?? '',
+    manaCost: (card?.mana_cost ?? '').split(' // ')[0],
     power: stats ? Number(stats[1]) : null,
     toughness: stats ? Number(stats[2]) : null,
     oracleText: card?.oracle_text ?? '',
@@ -174,6 +176,79 @@ const bootstrapReplay = (replay: TableReplay, throughRound: number) => {
     ...runtime,
     state: { ...runtime.state, step: 'untap' as StepId },
   }
+}
+
+const stepFromReplay = (phase: string): StepId => {
+  if (phase === 'planning') return 'untap'
+  if (phase === 'main1' || phase === 'impact') return 'precombatMain'
+  if (phase === 'combat' || phase === 'priority') return 'beginCombat'
+  if (phase === 'main2') return 'postcombatMain'
+  if (phase === 'end') return 'end'
+  return phase as StepId
+}
+
+/**
+ * Resume a private live replay from its exact latest snapshot. Past events stay
+ * in the replay archive; the kernel journal begins at this authoritative frame.
+ */
+export const importLiveReplayState = (replay: TableReplay) => {
+  const latest = replay.events.at(-1)
+  if (!latest) throw new Error('replay has no current snapshot')
+  if (!replay._libraries) throw new Error('live replay has no private libraries')
+  if (latest.state.stack.length > 0) {
+    throw new Error('live replay migration waits for an empty stack')
+  }
+  const players = replay.seats.map((seat) => seat.id)
+  const templates = (names: string[], zone?: GameObject['zone']) =>
+    names.map((name) => ({ ...cardTemplate(name, replay.catalog[name]), ...(zone ? { zone } : {}) }))
+  const libraries = Object.fromEntries(players.map((seat) => {
+    const library = replay._libraries?.[seat]
+    if (!library || library.length !== latest.state.players[seat].library_count) {
+      throw new Error(`${seat} private library does not match its public count`)
+    }
+    return [seat, templates(library)]
+  }))
+  const hands = Object.fromEntries(players.map((seat) => {
+    const player = latest.state.players[seat]
+    return [seat, [
+      ...templates(player.hand),
+      ...templates(player.graveyard, 'graveyard'),
+      ...templates(player.exile, 'exile'),
+    ]]
+  }))
+  const battlefield = Object.fromEntries(players.map((seat) => [
+    seat,
+    latest.state.players[seat].battlefield.map((card) => ({
+      ...cardTemplate(card.name, replay.catalog[card.name]),
+      tapped: Boolean(card.tapped),
+      tags: card.commander ? ['commander'] : [],
+    })),
+  ]))
+  const command = Object.fromEntries(players.map((seat) => [
+    seat,
+    templates(latest.state.players[seat].command),
+  ]))
+  const first = replay.events.find((event) => event.turn > 0)?.state.active
+    ?? players[0]
+  const runtime = createServerGame(
+    commanderRules,
+    { players, first, libraries, hands, battlefield, command },
+    { random: () => 0.5 },
+  )
+  const state = structuredClone(runtime.state)
+  for (const seat of players) {
+    state.players[seat].life = latest.state.players[seat].life
+    state.players[seat].poison = latest.state.players[seat].poison
+  }
+  const firstIndex = players.indexOf(first)
+  const activeIndex = players.indexOf(latest.state.active)
+  const offset = (activeIndex - firstIndex + players.length) % players.length
+  state.active = latest.state.active
+  state.priority = latest.state.active
+  state.turn = (Math.max(1, latest.turn) - 1) * players.length + offset + 1
+  state.step = stepFromReplay(latest.state.phase)
+  state.log.push(`imported live replay event ${latest.id}`)
+  return state
 }
 
 export const runReplayRounds = (replay: TableReplay, throughRound: number) => {
@@ -266,10 +341,12 @@ export const runReplayRounds = (replay: TableReplay, throughRound: number) => {
           dispatch({ type: 'tapForMana', seat, objectId: object.id })
         }
       }
-      const name = addedNames(
-        battlefieldNames(previous.state.players[seat]),
-        battlefieldNames(expected),
-      )[0]
+      const name = replayEvent.cards?.[0]
+        ?? addedNames(
+          battlefieldNames(previous.state.players[seat]),
+          battlefieldNames(expected),
+        )[0]
+        ?? addedNames(expected.hand, previous.state.players[seat].hand)[0]
       const spell =
         nameInZone(state, seat, 'hand', name)
         ?? nameInZone(state, seat, 'command', name)
