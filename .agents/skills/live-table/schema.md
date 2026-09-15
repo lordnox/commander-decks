@@ -109,6 +109,7 @@ Battlefield flags: tapped `1`, token `2`, commander `4`. `extra` holds `p` /
 | `i` | Per-seat action ID; play messages must echo it |
 | `f` | Private opening-hand pair `[mulligans, bottomRequired]`; omit on public bins |
 | `l` | Private top-deck choice `[kind, cardRefs, destinations, requirements?]`; omit on public bins |
+| `b` | `1` when this private viewer enabled Always stop on priority; omit otherwise and on public bins |
 | `t` | Turn number |
 | `p` | Phase index |
 | `a` | Active seat `0`–`3` |
@@ -146,6 +147,7 @@ this object.
 | `actionId` | Per-seat ID echoed by the next play action |
 | `opening` | Private `{mulligans, bottomRequired}` while keep/mulligan is offered |
 | `topdeck` | Private `{kind, cards, destinations, requirements?}` for surveil, scry, and other top-library choices |
+| `alwaysStopOnPriority` | Private boolean preference; false/omitted means smart actionable priority stops |
 | `events` | Up to 20 recent redacted event summaries for the viewer timeline |
 | `turn` | Turn number |
 | `phase` | Same strings as replay: `setup`, `untap`, `upkeep`, `draw`, `main1`, `combat`, `main2`, `end`, `priority` |

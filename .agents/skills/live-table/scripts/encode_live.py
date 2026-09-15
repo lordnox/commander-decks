@@ -505,6 +505,7 @@ def build_snapshot(
     actions: dict[str, list[str]] | None = None,
     action_ids: dict[str, int] | None = None,
     topdeck: dict[str, Any] | None = None,
+    priority_modes: dict[str, bool] | None = None,
     public: bool = False,
     event_id: int | None = None,
 ) -> dict:
@@ -594,6 +595,10 @@ def build_snapshot(
         }
         if topdeck.get("requirements"):
             snapshot["topdeck"]["requirements"] = topdeck["requirements"]
+    if viewer:
+        snapshot["alwaysStopOnPriority"] = bool(
+            (priority_modes or {}).get(viewer, False)
+        )
 
     combat = last.get("combat")
     if combat is None and isinstance(state.get("combat"), dict):
@@ -651,6 +656,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--action-ids-json", help="current action id keyed by seat")
     parser.add_argument("--topdeck-json", help="private top-deck decision")
     parser.add_argument(
+        "--priority-modes-json",
+        help="private always-stop-on-priority preferences keyed by seat",
+    )
+    parser.add_argument(
         "--waiting",
         default=cl.DEFAULT_WAITING,
         help="prompt for the human",
@@ -704,6 +713,11 @@ def main(argv: list[str] | None = None) -> int:
     actions = json.loads(args.actions_json) if args.actions_json else None
     action_ids = json.loads(args.action_ids_json) if args.action_ids_json else None
     topdeck = json.loads(args.topdeck_json) if args.topdeck_json else None
+    priority_modes = (
+        json.loads(args.priority_modes_json)
+        if args.priority_modes_json
+        else None
+    )
     if args.conduit and args.conduit_keys is None:
         args.conduit_keys = args.replay.with_suffix(".conduit.json")
 
@@ -746,6 +760,7 @@ def main(argv: list[str] | None = None) -> int:
             actions=actions,
             action_ids=action_ids,
             topdeck=topdeck,
+            priority_modes=priority_modes,
             public=True,
             event_id=args.event,
         )
@@ -796,6 +811,7 @@ def main(argv: list[str] | None = None) -> int:
         actions=actions,
         action_ids=action_ids,
         topdeck=topdeck,
+        priority_modes=priority_modes,
         public=False,
         event_id=args.event,
     )
@@ -816,6 +832,7 @@ def main(argv: list[str] | None = None) -> int:
         actions=actions,
         action_ids=action_ids,
         topdeck=topdeck,
+        priority_modes=priority_modes,
         public=True,
         event_id=args.event,
     )

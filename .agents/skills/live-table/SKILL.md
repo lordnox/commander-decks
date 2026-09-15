@@ -112,6 +112,13 @@ changed under their standing plan:
 Skip empty bookkeeping (untap with nothing to do, pure phase labels, opponent
 auto-passes with no interaction). Do not spam snapshots.
 
+The human defaults to **smart priority**: name them as a responder only when
+their current hand, battlefield, command zone, or resources give them a
+plausible legal game action. No open mana plus no free or activated action is
+an automatic pass. Table talk remains available even when priority does not
+stop. If the private **Always stop on priority** toggle is on, include the
+human in every priority window so they can intervene politically.
+
 Top-deck choices are structured UI actions, not plans. Put a machine-readable
 `choice` on the unresolved stack item; the runner privately reads the named
 seat's `_libraries`, shows the cards, validates destinations, and resolves the

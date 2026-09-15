@@ -113,6 +113,7 @@ test('public payload redacts a private draw summary', async () => {
     youAct: true,
     actions: ['topdeck'],
     actionId: 3,
+    alwaysStopOnPriority: true,
     opening: { mulligans: 1, bottomRequired: 0 },
     topdeck: {
       kind: 'surveil',
@@ -151,5 +152,6 @@ test('public payload redacts a private draw summary', async () => {
   expect(publicSnapshot.topdeck).toBeUndefined()
   expect(publicSnapshot.opening).toBeUndefined()
   expect(publicSnapshot.actions).toEqual([])
+  expect(publicSnapshot.alwaysStopOnPriority).toBeUndefined()
   expect(JSON.stringify(publicSnapshot)).not.toContain('Secret Card')
 })

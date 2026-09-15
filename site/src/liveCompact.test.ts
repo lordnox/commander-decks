@@ -201,4 +201,14 @@ describe('live compact v2', () => {
       destinations: ['top', 'graveyard'],
     })
   })
+
+  test('private always-stop priority preference survives the wire', () => {
+    const original = snapshot()
+    original.alwaysStopOnPriority = true
+    const wire = compactLiveWire(original)
+    expect(wire.b).toBe(1)
+    expect(
+      expandLiveWire(wire, original.deckIndexes).alwaysStopOnPriority,
+    ).toBe(true)
+  })
 })

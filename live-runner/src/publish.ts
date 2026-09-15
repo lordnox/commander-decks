@@ -23,6 +23,7 @@ export const publishReplay = async (options: {
   actions: SeatActions
   actionIds: SeatActionIds
   topdeck?: TopdeckDecision
+  priorityModes: Partial<Record<SeatId, boolean>>
   event?: number
 }) => {
   const {
@@ -61,6 +62,8 @@ export const publishReplay = async (options: {
       JSON.stringify(actionIds),
       '--topdeck-json',
       JSON.stringify(options.topdeck ?? null),
+      '--priority-modes-json',
+      JSON.stringify(options.priorityModes),
       '--conduit',
       '--conduit-keys',
       keysPath(slug, root),

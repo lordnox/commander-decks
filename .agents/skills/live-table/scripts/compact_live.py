@@ -446,6 +446,8 @@ def compact_snapshot(
             list(topdeck.get("destinations") or []),
             topdeck.get("requirements"),
         ]
+    if snapshot.get("alwaysStopOnPriority"):
+        wire["b"] = 1
     events = snapshot.get("events") or []
     if events:
         wire["e"] = [
@@ -795,6 +797,8 @@ def expand_snapshot(wire: dict, indexes: dict[str, list[dict[str, Any]]] | None 
         }
         if len(packed_topdeck) >= 4 and packed_topdeck[3]:
             snapshot["topdeck"]["requirements"] = packed_topdeck[3]
+    if "b" in wire:
+        snapshot["alwaysStopOnPriority"] = bool(wire["b"])
     if wire.get("m"):
         snapshot["combat"] = _unpack_combat(wire["m"], **lookup)
     if tokens:

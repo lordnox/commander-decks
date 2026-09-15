@@ -2,7 +2,7 @@ import { afterEach, describe, expect, test } from 'bun:test'
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { enforceResultPolicy, redactHiddenCards } from './brain'
+import { enforceResultPolicy, promptFor, redactHiddenCards } from './brain'
 
 const roots: string[] = []
 
@@ -60,5 +60,34 @@ describe('host result policy', () => {
       { type: 'confirm', actionId: 3 },
       'p1',
     )).toBe(result)
+  })
+})
+
+describe('priority preference prompt', () => {
+  test('smart mode omits a human with no plausible game action', () => {
+    const prompt = promptFor(
+      'pod',
+      'p2',
+      3,
+      { type: 'confirm' },
+      'p1',
+      false,
+    )
+    expect(prompt).toContain('Human seat: p1')
+    expect(prompt).toContain('Human priority preference: SMART')
+    expect(prompt).toContain('table talk alone does not justify')
+  })
+
+  test('always mode preserves politics-only priority stops', () => {
+    const prompt = promptFor(
+      'pod',
+      'p2',
+      3,
+      { type: 'confirm' },
+      'p1',
+      true,
+    )
+    expect(prompt).toContain('Human priority preference: ALWAYS STOP')
+    expect(prompt).toContain('include the human regardless')
   })
 })

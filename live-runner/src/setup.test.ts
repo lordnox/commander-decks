@@ -70,6 +70,7 @@ describe('live setup', () => {
     expect(session.phase).toBe('play')
     expect(session.agent).toBe(true)
     expect(session.lobby?.active).toBe('p3')
+    expect(session.lobby?.human).toBe('p3')
     expect(session.lobby?.occupants.p1?.name).toBe('Human')
     expect(session.lobby?.actions).toEqual({ p3: ['plan'] })
   })

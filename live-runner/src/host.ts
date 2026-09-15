@@ -80,6 +80,7 @@ const publish = async (
       actions: state.actions,
       actionIds: state.actionIds,
       topdeck: state.topdeck,
+      priorityModes: state.alwaysStopOnPriority,
     })
     return
   }
@@ -241,6 +242,11 @@ export const runHost = async (options: {
         state.waiting = `${state.occupants[seat]?.name ?? seat}: choose another action.`
         state.judge = `${state.occupants[seat]?.name ?? seat} is still deciding.`
       }
+    } else if (message.type === 'priority-mode') {
+      logLine(
+        logFile,
+        `${seat} priority mode ${message.always ? 'always' : 'smart'}`,
+      )
     } else {
     const privateExchange = ['plan', 'replace', 'confirm', 'rules'].includes(
       message.type,
@@ -280,6 +286,10 @@ export const runHost = async (options: {
           seat,
           generation,
           message,
+          human: state.human,
+          alwaysStopOnPriority: Boolean(
+            state.human && state.alwaysStopOnPriority[state.human],
+          ),
           logFile,
         })
         const judge = result.privateJudge || result.judge || result.talk
