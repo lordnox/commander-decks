@@ -64,9 +64,15 @@ export const replayActions = (
     )
   }
   const active = event.state?.active ?? event.seat
-  return SEAT_IDS.includes(active as SeatId)
-    ? { [active as SeatId]: ['plan'] }
-    : {}
+  if (!SEAT_IDS.includes(active as SeatId)) return {}
+  const phase = event.state?.phase ?? event.phase
+  const emptyStack = (event.state?.stack ?? []).length === 0
+  const canAdvance =
+    emptyStack
+    && ['main1', 'combat', 'main2'].includes(phase ?? '')
+  return {
+    [active as SeatId]: canAdvance ? ['plan', 'advance'] : ['plan'],
+  }
 }
 
 export const setSeatActions = (

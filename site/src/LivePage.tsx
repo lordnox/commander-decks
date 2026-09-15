@@ -14,6 +14,7 @@ import {
   planStorageKey,
   readLiveRequest,
   replayToLiveSnapshot,
+  type LiveAction,
   type LiveRequest,
   type LiveSeat,
   type LiveSnapshot,
@@ -40,6 +41,7 @@ import {
 } from './TableBoard'
 import { hydrateLiveSnapshot } from './scryfallCache'
 import { OpeningHandDialog } from './OpeningHandDialog'
+import { TopdeckDialog } from './TopdeckDialog'
 
 const base = import.meta.env.BASE_URL
 
@@ -56,6 +58,8 @@ type InboxType =
   | 'talk'
   | 'keep'
   | 'mulligan'
+  | 'topdeck'
+  | 'advance'
 
 const TURN_STEPS = [
   ['planning', 'Planning'],
@@ -436,11 +440,30 @@ export const LivePage = () => {
 
   const sendInbox = async (
     type = inboxType,
-    extra: { cards?: string[]; cheat?: boolean } = {},
+    extra: {
+      cards?: string[]
+      cheat?: boolean
+      choices?: Array<{
+        card: string
+        destination: 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile'
+      }>
+    } = {},
   ) => {
     if (request?.kind !== 'conduit' || !request.inbox) return
-    const playAction = ['plan', 'confirm', 'replace', 'pass', 'keep', 'mulligan'].includes(type)
-    if (playAction && !snapshot?.actions?.includes(type as 'plan' | 'confirm' | 'replace' | 'pass' | 'keep' | 'mulligan')) {
+    const playAction = [
+      'plan',
+      'confirm',
+      'replace',
+      'pass',
+      'keep',
+      'mulligan',
+      'topdeck',
+      'advance',
+    ].includes(type)
+    if (
+      playAction
+      && !snapshot?.actions?.includes(type as LiveAction)
+    ) {
       flash('That action is not available now')
       return
     }
@@ -463,6 +486,10 @@ export const LivePage = () => {
           ...(extra.cheat ? { cheat: true } : {}),
           ...action,
         }
+      } else if (type === 'topdeck') {
+        message = { type: 'topdeck', choices: extra.choices ?? [], ...action }
+      } else if (type === 'advance') {
+        message = { type: 'advance', ...action }
       } else if (type === 'join') {
         const separator = plan.includes('|') ? '|' : '\n'
         const split = plan.indexOf(separator)
@@ -496,6 +523,10 @@ export const LivePage = () => {
               ? 'Mulligan sent'
               : type === 'keep'
                 ? 'Keep sent'
+                : type === 'topdeck'
+                  ? 'Library choice sent'
+                  : type === 'advance'
+                    ? 'Phase advanced'
                 : 'Message sent',
       )
     } catch (reason: unknown) {
@@ -534,6 +565,7 @@ export const LivePage = () => {
   const canReplace = Boolean(snapshot.actions?.includes('replace'))
   const canKeep = Boolean(snapshot.actions?.includes('keep'))
   const canMulligan = Boolean(snapshot.actions?.includes('mulligan'))
+  const canAdvance = Boolean(snapshot.actions?.includes('advance'))
   const yourHand = orderedSeats.find((seat) => seat.id === snapshot.you)?.hand ?? []
 
   return (
@@ -758,6 +790,16 @@ export const LivePage = () => {
               )}
             </div>
           )}
+          {yourAction && canSend && canAdvance && (
+            <button
+              type="button"
+              onClick={() => void sendInbox('advance')}
+              disabled={actionPending}
+              className="mt-3 w-full rounded-xl bg-gold-300 px-3 py-2 text-sm font-black text-ink-950 hover:bg-gold-200 disabled:cursor-wait disabled:opacity-40"
+            >
+              {actionPending ? 'Advancing…' : snapshot.phase === 'main2' ? 'End turn' : 'Next phase'}
+            </button>
+          )}
           {priorityOpen && lastEvent && (
             <p className="mt-3 text-xs leading-5 text-stone-400">{lastEvent.summary}</p>
           )}
@@ -919,6 +961,16 @@ export const LivePage = () => {
                     {actionPending ? 'Sent…' : 'Confirm plan'}
                   </button>
                 )}
+                {canAdvance && (
+                  <button
+                    type="button"
+                    onClick={() => void sendInbox('advance')}
+                    disabled={!canSend || actionPending}
+                    className="rounded-xl bg-gold-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-200 disabled:cursor-wait disabled:opacity-40"
+                  >
+                    {actionPending ? 'Advancing…' : snapshot.phase === 'main2' ? 'End turn' : 'Next phase'}
+                  </button>
+                )}
                 <select
                   value={inboxType}
                   onChange={(event) => setInboxType(event.target.value as InboxType)}
@@ -1011,6 +1063,16 @@ export const LivePage = () => {
           onMulligan={() => void sendInbox('mulligan')}
           onKeep={(cards) => void sendInbox('keep', { cards })}
           onCheat={() => void sendInbox('keep', { cheat: true })}
+        />
+      )}
+
+      {snapshot.topdeck && snapshot.actions?.includes('topdeck') && (
+        <TopdeckDialog
+          key={snapshot.actionId}
+          game={game}
+          decision={snapshot.topdeck}
+          pending={actionPending}
+          onResolve={(choices) => void sendInbox('topdeck', { choices })}
         />
       )}
     </div>

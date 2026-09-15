@@ -13,6 +13,10 @@ import {
 } from './actions'
 import { invokeHostAgent } from './brain'
 import {
+  applyDeterministicChoice,
+  prepareTopdeckDecision,
+} from './decisions'
+import {
   applyInbox,
   lobbyFromParts,
   restoreLobby,
@@ -75,6 +79,7 @@ const publish = async (
       judgeHistory: state.judgeHistory,
       actions: state.actions,
       actionIds: state.actionIds,
+      topdeck: state.topdeck,
     })
     return
   }
@@ -149,6 +154,8 @@ export const runHost = async (options: {
       state.actions = { [openingSeat]: ['keep', 'mulligan'] }
       state.waiting = `${name}: keep or mulligan.`
       state.judge = 'Opening hands are dealt.'
+    } else {
+      prepareTopdeckDecision(root, slug, state)
     }
   }
   if (savedHost) {
@@ -221,6 +228,18 @@ export const runHost = async (options: {
         state.waiting = `${state.occupants[seat]?.name ?? seat}: keep or mulligan.`
         state.judge = `${state.occupants[seat]?.name ?? seat} still choosing an opening hand.`
         state.actions = { [seat]: ['keep', 'mulligan'] }
+      }
+    } else if (message.type === 'topdeck' || message.type === 'advance') {
+      try {
+        if (!applyDeterministicChoice(root, slug, state, seat, message)) {
+          throw new Error('That deterministic action is not available now.')
+        }
+      } catch (reason) {
+        const error = reason instanceof Error ? reason.message : String(reason)
+        logLine(logFile, `${seat} ${message.type} rejected: ${error}`)
+        state.privateWaiting = { [seat]: error }
+        state.waiting = `${state.occupants[seat]?.name ?? seat}: choose another action.`
+        state.judge = `${state.occupants[seat]?.name ?? seat} is still deciding.`
       }
     } else {
     const privateExchange = ['plan', 'replace', 'confirm', 'rules'].includes(
@@ -312,7 +331,9 @@ export const runHost = async (options: {
           (message.type === 'confirm' || message.type === 'pass')
           && result.replayChanged
         ) {
-          state.actions = replayActions(root, slug, state)
+          if (!prepareTopdeckDecision(root, slug, state)) {
+            state.actions = replayActions(root, slug, state)
+          }
         } else if (message.type === 'confirm') {
           state.actions = setSeatActions(state.actions, seat, ['replace'])
         }

@@ -5,6 +5,7 @@ import {
   type SeatId,
 } from './protocol'
 import type { JudgeHistoryEntry } from './lobby'
+import type { TopdeckDecision } from './lobby'
 import { keysPath, replayPath } from './session'
 
 const ENCODER = '.agents/skills/live-table/scripts/encode_live.py'
@@ -21,6 +22,7 @@ export const publishReplay = async (options: {
   judgeHistory: Partial<Record<SeatId, JudgeHistoryEntry[]>>
   actions: SeatActions
   actionIds: SeatActionIds
+  topdeck?: TopdeckDecision
   event?: number
 }) => {
   const {
@@ -57,6 +59,8 @@ export const publishReplay = async (options: {
       JSON.stringify(actions),
       '--action-ids-json',
       JSON.stringify(actionIds),
+      '--topdeck-json',
+      JSON.stringify(options.topdeck ?? null),
       '--conduit',
       '--conduit-keys',
       keysPath(slug, root),

@@ -18,6 +18,17 @@ export type JudgeHistoryEntry = {
   summary: string
 }
 
+export type TopdeckDecision = {
+  seat: SeatId
+  kind: string
+  cards: string[]
+  destinations: Array<'top' | 'bottom' | 'graveyard' | 'hand' | 'exile'>
+  requirements?: Partial<Record<
+    'top' | 'bottom' | 'graveyard' | 'hand' | 'exile',
+    { min?: number; max?: number }
+  >>
+}
+
 export type LobbyState = {
   communicationVersion: 6
   phase: LobbyPhase
@@ -36,6 +47,7 @@ export type LobbyState = {
   actions: SeatActions
   actionIds: SeatActionIds
   opening?: { seat: SeatId }
+  topdeck?: TopdeckDecision
 }
 
 const emptyActionIds = (): SeatActionIds => ({
@@ -318,6 +330,20 @@ export const applyInbox = (
     if (state.phase !== 'play') return state
     state.waiting = `${from} kept an opening hand.`
     setJudge(state, `${from} kept.`)
+    return state
+  }
+
+  if (message.type === 'topdeck') {
+    if (state.phase !== 'play') return state
+    state.waiting = `${from} submitted a top-of-library choice.`
+    setJudge(state, `${from} made a private library choice.`)
+    return state
+  }
+
+  if (message.type === 'advance') {
+    if (state.phase !== 'play') return state
+    state.waiting = `${from} is advancing the turn.`
+    setJudge(state, `${from} advances.`)
     return state
   }
 

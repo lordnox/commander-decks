@@ -421,6 +421,8 @@ def compact_snapshot(
         "pass": 8,
         "keep": 16,
         "mulligan": 32,
+        "topdeck": 64,
+        "advance": 128,
     }
     actions = snapshot.get("actions") or []
     mask = sum(action_bits.get(action, 0) for action in actions)
@@ -434,6 +436,15 @@ def compact_snapshot(
         wire["f"] = [
             int(opening.get("mulligans") or 0),
             int(opening.get("bottomRequired") or 0),
+        ]
+    topdeck = snapshot.get("topdeck") or {}
+    if isinstance(topdeck, dict) and topdeck.get("kind"):
+        prefer = SEAT_IDS.index(you) if you in SEAT_IDS else 0
+        wire["l"] = [
+            topdeck["kind"],
+            _pack_card_list(topdeck.get("cards") or [], table, prefer=prefer),
+            list(topdeck.get("destinations") or []),
+            topdeck.get("requirements"),
         ]
     events = snapshot.get("events") or []
     if events:
@@ -730,6 +741,8 @@ def expand_snapshot(wire: dict, indexes: dict[str, list[dict[str, Any]]] | None 
                 "pass": 8,
                 "keep": 16,
                 "mulligan": 32,
+                "topdeck": 64,
+                "advance": 128,
             }.items()
             if (wire.get("r") or 0) & bit
         ],
@@ -773,6 +786,15 @@ def expand_snapshot(wire: dict, indexes: dict[str, list[dict[str, Any]]] | None 
             "mulligans": packed_opening[0],
             "bottomRequired": packed_opening[1],
         }
+    packed_topdeck = wire.get("l")
+    if isinstance(packed_topdeck, list) and len(packed_topdeck) >= 3:
+        snapshot["topdeck"] = {
+            "kind": packed_topdeck[0],
+            "cards": _unpack_card_list(packed_topdeck[1], **lookup),
+            "destinations": packed_topdeck[2],
+        }
+        if len(packed_topdeck) >= 4 and packed_topdeck[3]:
+            snapshot["topdeck"]["requirements"] = packed_topdeck[3]
     if wire.get("m"):
         snapshot["combat"] = _unpack_combat(wire["m"], **lookup)
     if tokens:

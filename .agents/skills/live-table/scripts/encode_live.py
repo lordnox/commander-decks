@@ -230,6 +230,8 @@ def _collect_names(snapshot: dict) -> set[str]:
                 add(card)
         for entry in seat.get("battlefield") or []:
             add(entry)
+    for card in (snapshot.get("topdeck") or {}).get("cards") or []:
+        add(card)
 
     return names
 
@@ -502,6 +504,7 @@ def build_snapshot(
     judge_history: dict[str, list[dict]] | None = None,
     actions: dict[str, list[str]] | None = None,
     action_ids: dict[str, int] | None = None,
+    topdeck: dict[str, Any] | None = None,
     public: bool = False,
     event_id: int | None = None,
 ) -> dict:
@@ -583,6 +586,14 @@ def build_snapshot(
             "mulligans": mulligans,
             "bottomRequired": max(0, mulligans - 1),
         }
+    if viewer and topdeck and topdeck.get("seat") == viewer:
+        snapshot["topdeck"] = {
+            "kind": topdeck.get("kind"),
+            "cards": list(topdeck.get("cards") or []),
+            "destinations": list(topdeck.get("destinations") or []),
+        }
+        if topdeck.get("requirements"):
+            snapshot["topdeck"]["requirements"] = topdeck["requirements"]
 
     combat = last.get("combat")
     if combat is None and isinstance(state.get("combat"), dict):
@@ -638,6 +649,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--judge-history-json", help="private judge history keyed by seat")
     parser.add_argument("--actions-json", help="allowed play actions keyed by seat")
     parser.add_argument("--action-ids-json", help="current action id keyed by seat")
+    parser.add_argument("--topdeck-json", help="private top-deck decision")
     parser.add_argument(
         "--waiting",
         default=cl.DEFAULT_WAITING,
@@ -691,6 +703,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     actions = json.loads(args.actions_json) if args.actions_json else None
     action_ids = json.loads(args.action_ids_json) if args.action_ids_json else None
+    topdeck = json.loads(args.topdeck_json) if args.topdeck_json else None
     if args.conduit and args.conduit_keys is None:
         args.conduit_keys = args.replay.with_suffix(".conduit.json")
 
@@ -732,6 +745,7 @@ def main(argv: list[str] | None = None) -> int:
             judge_history=judge_history,
             actions=actions,
             action_ids=action_ids,
+            topdeck=topdeck,
             public=True,
             event_id=args.event,
         )
@@ -781,6 +795,7 @@ def main(argv: list[str] | None = None) -> int:
         judge_history=judge_history,
         actions=actions,
         action_ids=action_ids,
+        topdeck=topdeck,
         public=False,
         event_id=args.event,
     )
@@ -800,6 +815,7 @@ def main(argv: list[str] | None = None) -> int:
         judge_history=judge_history,
         actions=actions,
         action_ids=action_ids,
+        topdeck=topdeck,
         public=True,
         event_id=args.event,
     )

@@ -1,5 +1,5 @@
 import type { BattlefieldCard, CardDetails, CombatAttacker, ReplayCombat } from './replayTypes'
-import type { LiveSeat, LiveSnapshot } from './liveCodec'
+import type { LiveSeat, LiveSnapshot, LiveTopdeck } from './liveCodec'
 
 export type DeckCard = {
   n: string
@@ -37,6 +37,12 @@ export type LiveWireV2 = {
   s?: unknown[]
   m?: Record<string, unknown>
   f?: [number, number]
+  l?: [
+    string,
+    unknown[],
+    LiveTopdeck['destinations'],
+    LiveTopdeck['requirements']?,
+  ]
 }
 
 export const SEAT_IDS = ['p1', 'p2', 'p3', 'p4'] as const
@@ -76,6 +82,8 @@ const ACTION_BITS = {
   pass: 8,
   keep: 16,
   mulligan: 32,
+  topdeck: 64,
+  advance: 128,
 } as const
 
 const normalize = (name: string) => name.toLowerCase().split(/\s+/).join(' ')
@@ -322,6 +330,15 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
   if (snapshot.opening) {
     wire.f = [snapshot.opening.mulligans, snapshot.opening.bottomRequired]
   }
+  if (snapshot.topdeck) {
+    const prefer = you >= 0 ? you : 0
+    wire.l = [
+      snapshot.topdeck.kind,
+      snapshot.topdeck.cards.map((card) => table.cardRef(card, prefer)),
+      snapshot.topdeck.destinations,
+      snapshot.topdeck.requirements,
+    ]
+  }
   if (snapshot.events?.length) {
     wire.e = snapshot.events.map((event) => [
       event.id,
@@ -490,6 +507,14 @@ export const expandLiveWire = (
     opening: Array.isArray(wire.f)
       ? { mulligans: wire.f[0] ?? 0, bottomRequired: wire.f[1] ?? 0 }
       : undefined,
+    topdeck: Array.isArray(wire.l)
+      ? {
+          kind: wire.l[0],
+          cards: unpackCards(wire.l[1], lists, extras, tokens),
+          destinations: wire.l[2],
+          requirements: wire.l[3],
+        }
+      : undefined,
     events: (wire.e ?? []).map((event) => ({
       id: event[0],
       turn: event[1],
@@ -580,7 +605,7 @@ export const expandLiveWire = (
 }
 
 export const fetchDeckIndex = async (slug: string, base: string) => {
-  const response = await fetch(`${base}decks/${encodeURIComponent(slug)}.json`)
+  const response = await fetch(`${base}decks/${encodeURI(slug)}.json`)
   if (!response.ok) {
     throw new Error(`Could not load deck ${slug}`)
   }
