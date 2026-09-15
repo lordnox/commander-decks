@@ -192,3 +192,53 @@ Packages:
 | Recovery | Victimize, Phyrexian Reclamation, Crystal Chimes, Takenuma | Artifact engines remain the hardest permanent type to recover |
 
 Mana starts at 37 true lands, no MDFC spell backs, and nine two-mana ramp pieces. Blue is needed on turn two for Strix and the draw engine; black is needed early for Darkness and reaches triple black for Underworld Dreams; red becomes important from turn three for wheels and Ludevic. Xander's Lounge is the only always-tapped land; it brings all three basic land types and cycling.
+
+### 2026-09-15 — Version 1 simulation
+
+Model: 12 five-turn multiplayer goldfishes, regression seed 1729 for eight runs and confirmation seed 2718 for four. London mulligans kept any hand with three lands or two lands plus castable support, then bottomed for mana, an engine half, and defence. Milestone: by turn five, either a punisher plus draw engine or a defensive position with interaction available. Opposing cards appeared only in named stress branches.
+
+| Metric | Result |
+| --- | --- |
+| Keepable with at most one mulligan | 12/12 |
+| Turn-five milestone reached | 12/12 |
+| Mana or colour failure | 0/12 |
+| Useful draw seen | 12/12 |
+| Required interaction or visible deterrent available | 11/12 |
+| Commander-removal recovery passed | 2/2 |
+| Game plan successful / delayed / failed | 11 / 1 / 0 |
+
+Selected traces:
+
+1. **1729-1, keep seven:** Xander's Lounge, Khorvath's Fury, Luxury Suite, Burning Inquiry, Struggle for Project Purity, Polluted Delta, Underground Sea. T1 Xander's Lounge tapped; T2 Luxury Suite; T3 Polluted Delta finds Watery Grave and casts Ludevic; T4 Underground Sea casts Black Waltz No. 3; T5 Volcanic Island casts Struggle for Project Purity on Brotherhood. Waltz damages the table and unlocks Ludevic's end-step card. Success.
+2. **1729-2, mulligan once; bottom Struggle for Project Purity:** Izzet Signet, Sulfurous Springs, Temple Bell, Shivan Reef, Dictate of Kruphix, Arcane Denial. T1 Sulfurous Springs; T2 Shivan Reef casts Izzet Signet; T3 Scalding Tarn finds Underground Sea and casts Ludevic; T4 Island, then Dictate before the next turn; T5 draws Kederekt Parasite plus Magus of the Wheel, casts Kederekt and Howling Mine, and leaves Arcane Denial available. Success.
+3. **1729-3, mulligan once; bottom Sangromancer:** Make an Example, Blightstep Pathway, Fellwar Stone, Scalding Tarn, Shivan Reef, Talisman of Creativity. T1 Blightstep Pathway; T2 Scalding Tarn finds Underground Sea and casts Fellwar Stone; T3 Command Tower casts Ludevic; T4 Shipwreck Marsh casts Tevesh and makes two Thrulls; T5 Swamp casts Talisman while four mana stays available for Make an Example. Defensive milestone reached; proactive plan delayed.
+4. **1729-4, keep seven:** Magus of the Wheel, Shivan Reef, Phyrexian Reclamation, Command Tower, Luxury Suite, Make an Example, Black Waltz No. 3. T1 Command Tower casts Reclamation; T2 Shivan Reef casts Dimir Signet; T3 Luxury Suite casts Waltz; T4 Blightstep Pathway casts Tevesh, whose cast triggers Waltz, then makes Thrulls; T5 Exotic Orchard casts Ludevic and Razorkin Needlehead. Success.
+5. **1729-5, keep seven:** Phyrexian Tyranny, Cerebral Vortex, Xander's Lounge, Geier Reach Sanitarium, Riverglide Pathway, Blood Crypt, Kederekt Parasite. T1 Xander's Lounge tapped; T2 Blood Crypt casts Kederekt; T3 Geier Reach casts Ludevic and enables Kederekt; T4 Riverglide Pathway casts Tyranny; T5 Fate Unraveler adds a second independent punisher while Fire Covenant remains available. Success.
+6. **1729-6, keep seven:** Underground River, Waste Not, Blood Crypt, Riverglide Pathway, Jace's Archivist, Underground Sea, Scrawling Crawler. T1 Underground River; T2 Blood Crypt casts Waste Not; T3 Riverglide Pathway casts Archivist; T4 Underground Sea casts Scrawling Crawler; T5 Badlands casts Tevesh and makes Thrulls, with Soul Shatter retained. Success.
+7. **1729-7, keep seven:** Sangromancer, Illusionist's Gambit, Watery Grave, Razorkin Needlehead, Baleful Strix, Arcane Signet, Burning Inquiry. T1 Shipwreck Marsh tapped; T2 Watery Grave casts Signet; T3 Xander's Lounge tapped and Strix draws Morphic Pool; T4 Steam Vents casts Ludevic plus Needlehead; T5 Morphic Pool casts Underworld Dreams while Arcane Denial remains available. Success.
+8. **1729-8, keep seven:** Victimize, Riverglide Pathway, Blightstep Pathway, Stormfist Crusader, Dimir Signet, Darkness, Kederekt Parasite. T1 Blightstep Pathway; T2 Riverglide Pathway casts Dimir Signet; T3 Reflecting Pool casts Ludevic plus Kederekt; T4 Mikokoro casts Tevesh and makes Thrulls; T5 Takenuma casts Stormfist Crusader, Razorkin Needlehead, and Izzet Signet with Darkness retained. Success.
+9. **2718-1, keep seven:** Razorkin Needlehead, Shivan Reef, Spiteful Visions, Watery Grave, Scrawling Crawler, Illusionist's Gambit, Molten Psyche. T1 Shivan Reef; T2 Sulfurous Springs casts Needlehead; T3 Watery Grave casts Ludevic; T4 Fiery Islet casts Spiteful Visions; T5 Exotic Orchard holds Illusionist's Gambit rather than tapping out. Success.
+10. **2718-2, keep seven:** Font of Mythos, Chaos Warp, Riverglide Pathway, Kederekt Parasite, Sickening Dreams, Watery Grave, Xander's Lounge. T1 Xander's Lounge tapped; T2 Watery Grave casts Kederekt; T3 Riverglide Pathway casts Ludevic; T4 Swamp casts Font; T5 Font draws Soul Shatter, Mountain, and Talisman of Indulgence, then Stormcarved Coast plus Talisman leaves Soul Shatter available. Success.
+11. **2718-3, keep seven:** Fate Unraveler, Takenuma, Soul Shatter, Talisman of Indulgence, Underground Sea, Rakdos Signet, Badlands. T1 Takenuma; T2 Underground Sea casts Talisman; T3 Badlands casts Fate Unraveler; T4 Baleful Strix draws Seizan, then Arcane Signet develops the fifth mana; T5 Ludevic joins Fate, with Strix deterring combat and Soul Shatter available before committing. Success.
+12. **2718-4, keep seven:** Mikokoro, Fiery Islet, Kederekt Parasite, Scrawling Crawler, Phyrexian Tyranny, Seizan, Geier Reach Sanitarium. T1 Fiery Islet; T2 Underground River casts Kederekt; T3 Geier Reach casts Ludevic; T4 Steam Vents casts Tyranny; T5 Mikokoro casts Windfall behind both punishers. Success, but this was the only run without interaction or a visible deathtouch deterrent by turn five.
+
+Stress branches:
+
+- **Ludevic removed after turn three, 1729-5:** Phyrexian Tyranny and Fate Unraveler still establish punishment. Kederekt temporarily switches off until another red permanent appears. Recovery passes with a small delay.
+- **Tevesh removed after turn four, 1729-4:** Black Waltz, Ludevic, and Razorkin continue the clock. Recovery passes.
+- **Creature engine wiped after turn four, 1729-6:** Tevesh makes Thrulls on turn five; Victimize can sacrifice one on turn six to return Jace's Archivist and Scrawling Crawler. Recovery passes one turn beyond the main horizon.
+- **Fate Unraveler removed after turn three, 2718-3:** Strix, rocks, and Ludevic continue development, but no replacement punisher appears by turn five. The plan is delayed rather than mana-locked.
+- **Must-answer draw limit on turn five, 1729-2:** Arcane Denial counters it; Chaos Warp answers it if it resolves. Pass.
+- **Three 4/4 attackers on turn four, 1729-5:** Fire Covenant pays 12 life and removes all three while preserving both punishment permanents. Pass.
+- **Voltron attack, 1729-7:** Baleful Strix changes the attack choice and Illusionist's Gambit answers a committed attack, including one aimed at Tevesh. Pass.
+- **Voltron attack, 1729-8:** Darkness prevents one lethal combat but does not permanently answer the commander. Delay only until an edict or wipe appears.
+
+No failure repeated three times. Version 1 therefore keeps its 37 lands, package densities, and interaction split.
+
+### 2026-09-15 — Final assessment
+
+Verdict: **Bracket 3−**. The 2026-09-03 Game Changer snapshot contains none of the 100 cards. The deck has no tutors, compact combo, extra turns, mass land denial, one-shot fast mana, or permanent fast mana. Its nine two-mana rocks are ordinary ramp.
+
+The texture is Upgraded rather than Core because several visible punishers followed by a wheel or Forced Fruition can dump a large amount of life in one turn from hand. It remains at the lower edge because assembling those pieces is untutored, telegraphed, and normally takes until turns seven or eight; interaction can remove either engine half. A credible high roll threatens a decisive wheel on turn six after multiple visible punishers, but does not reliably deal 40 damage to all three opponents. An interactive game should close around turns nine or ten.
+
+Pregame description: Bracket 3− political group-slug with no Game Changers or tutors; it normally threatens a decisive wheel around turns seven or eight, with an exposed multi-punisher high roll around turn six.
