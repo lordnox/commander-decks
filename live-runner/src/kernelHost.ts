@@ -277,6 +277,12 @@ export const applyKernelChoice = (
       [selected[0].card],
     )
     for (const event of [
+      {
+        type: 'reveal',
+        seat,
+        objectIds: [objectId] as string[],
+        source: 'Analyze the Pollen',
+      } as const,
       { type: 'move', objectId, to: 'hand' } as const,
       { type: 'shuffleLibrary', seat } as const,
       { type: 'custom', name: ANALYZE_THE_POLLEN_CHOSEN, seat } as const,

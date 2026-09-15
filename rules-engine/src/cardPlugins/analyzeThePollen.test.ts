@@ -66,6 +66,12 @@ test('Analyze the Pollen stays on the stack until its library search is chosen',
 
   const choice = state.zoneOrder.p1.library[0]
   for (const event of [
+    {
+      type: 'reveal',
+      seat: 'p1',
+      objectIds: [choice],
+      source: 'Analyze the Pollen',
+    } as const,
     { type: 'move', objectId: choice, to: 'hand' } as const,
     { type: 'shuffleLibrary', seat: 'p1' } as const,
     { type: 'custom', name: ANALYZE_THE_POLLEN_CHOSEN, seat: 'p1' } as const,
@@ -79,4 +85,6 @@ test('Analyze the Pollen stays on the stack until its library search is chosen',
   expect(state.objects[choice].zone).toBe('hand')
   expect(state.objects[spell].zone).toBe('graveyard')
   expect(state.players.p1.data[ANALYZE_THE_POLLEN_SEARCH]).toBeUndefined()
+  // The card is mandatorily revealed, so the table log must name it.
+  expect(state.log).toContain('p1 reveals Oracle of Mul Daya for Analyze the Pollen')
 })

@@ -56,6 +56,47 @@ describe('authoritative and replica runtimes', () => {
     expect(JSON.stringify(spectator)).not.toContain('Grizzly Bears')
   })
 
+  test('a reveal names the card to every seat without unhiding the zone', () => {
+    const server = createServerGame(commanderRules, {
+      libraries: { p1: [bears()] },
+    })
+    const card = server.state.zoneOrder.p1.library[0]
+    const revealed = server.rules(server.state, {
+      type: 'reveal',
+      seat: 'p1',
+      objectIds: [card],
+      source: 'Analyze the Pollen',
+    })
+    expect(revealed.ok).toBe(true)
+    if (!revealed.ok) return
+
+    for (const viewer of ['p1', 'p2', null] as const) {
+      const view = server.project(revealed.state, viewer)
+      expect(view.log.at(-1)).toBe('p1 reveals Grizzly Bears for Analyze the Pollen')
+    }
+    const opponent = server.project(revealed.state, 'p2')
+    expect(opponent.objects[card]).toBeUndefined()
+    expect(opponent.zoneOrder.p1.library).toEqual([])
+  })
+
+  test('a seat cannot reveal cards it does not own', () => {
+    const server = createServerGame(commanderRules, {
+      libraries: { p1: [bears()] },
+    })
+    const card = server.state.zoneOrder.p1.library[0]
+
+    expect(server.rules(server.state, {
+      type: 'reveal',
+      seat: 'p2',
+      objectIds: [card],
+    })).toMatchObject({ ok: false })
+    expect(server.rules(server.state, {
+      type: 'reveal',
+      seat: 'p1',
+      objectIds: [],
+    })).toMatchObject({ ok: false })
+  })
+
   test('client waits on hidden actions and accepts a redacted server sync', () => {
     const server = createServerGame(commanderRules, {
       libraries: { p1: [bears(), forest()] },

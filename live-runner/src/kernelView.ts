@@ -51,6 +51,13 @@ const traceSummary = (trace: EventTrace, state: GameState) => {
     case 'judgeFallback':
       summary = 'Judge fallback applied'
       break
+    case 'reveal':
+      summary = `${event.seat} reveals ${
+        event.objectIds
+          .map((id) => state.objects[id]?.name ?? 'a card')
+          .join(', ')
+      }`
+      break
     case 'custom':
       summary = event.name
       break

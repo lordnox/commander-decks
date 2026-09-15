@@ -3,7 +3,10 @@ import type { Plugin } from '../types'
 export const HIDDEN_INFORMATION_ID = 'hiddenInformation'
 
 const hiddenEvent = (type: string) =>
-  type === 'draw' || type === 'shuffleLibrary' || type === 'authoritativeSync'
+  type === 'draw'
+  || type === 'shuffleLibrary'
+  || type === 'reveal'
+  || type === 'authoritativeSync'
 
 export const replicaSnapshotError = (snapshot: import('../types').GameState) => {
   if (snapshot.knowledge.mode !== 'replica') return 'client snapshots must be replicas'
@@ -51,14 +54,44 @@ export const createAuthoritativeHiddenInformation = (
   id: HIDDEN_INFORMATION_ID,
   legal: ({ state, event }) => {
     if (event.type === 'authoritativeSync') return 'the server cannot ingest replica state'
-    if (event.type !== 'draw' && event.type !== 'shuffleLibrary') return
+    if (
+      event.type !== 'draw'
+      && event.type !== 'shuffleLibrary'
+      && event.type !== 'reveal'
+    ) {
+      return
+    }
     if (!state.players[event.seat]) return 'player is not in the game'
     if (event.type === 'draw') {
       const count = event.count ?? 1
       if (!Number.isInteger(count) || count < 1) return 'draw count must be a positive integer'
     }
+    if (event.type === 'reveal') {
+      if (event.objectIds.length === 0) return 'reveal needs at least one card'
+      const unknown = event.objectIds.find((id) => !state.objects[id])
+      if (unknown) return `cannot reveal unknown object ${unknown}`
+      const foreign = event.objectIds.find(
+        (id) => state.objects[id].owner !== event.seat,
+      )
+      if (foreign) {
+        return `${event.seat} does not own ${state.objects[foreign].name}`
+      }
+    }
   },
-  apply: ({ event, draft }) => {
+  apply: ({ state, event, draft }) => {
+    if (event.type === 'reveal') {
+      // The log is copied into every viewer's projection, so naming the cards
+      // here is what makes a reveal public without unhiding the zone itself.
+      const names = event.objectIds
+        .map((id) => state.objects[id]?.name)
+        .filter(Boolean)
+        .join(', ')
+      draft.note(
+        `${event.seat} reveals ${names}${event.source ? ` for ${event.source}` : ''}`,
+      )
+      return
+    }
+
     if (event.type === 'shuffleLibrary') {
       const library = [...draft.zoneOrder[event.seat].library]
       for (let index = library.length - 1; index > 0; index -= 1) {
