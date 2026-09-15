@@ -126,8 +126,9 @@ export const TopdeckDialog = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby="topdeck-title"
-        className="max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-[1.5rem] border border-purple-300/30 bg-ink-950 p-5 shadow-2xl shadow-black"
+        className="flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-[1.5rem] border border-purple-300/30 bg-ink-950 p-5 shadow-2xl shadow-black"
       >
+        <div className="shrink-0">
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-purple-200">
@@ -183,8 +184,9 @@ export const TopdeckDialog = ({
             className="mt-4 w-full rounded-xl border border-white/10 bg-ink-950 px-3 py-2 text-sm text-stone-100 outline-none placeholder:text-stone-600 focus:border-purple-200/60"
           />
         )}
+        </div>
 
-        <ol className="mt-5 space-y-3">
+        <ol className="-mx-1 mt-5 min-h-0 flex-1 space-y-3 overflow-y-auto px-1">
           {visibleChoices.map((choice) => {
             const details = game.catalog[choice.card]
             return (
@@ -288,7 +290,7 @@ export const TopdeckDialog = ({
               choices.map(({ card, destination }) => ({ card, destination })),
             )}
             disabled={pending || !valid(choices)}
-            className="mt-5 rounded-xl bg-purple-200 px-4 py-2 text-sm font-black text-ink-950 hover:bg-purple-100 disabled:opacity-40"
+            className="mt-5 shrink-0 self-start rounded-xl bg-purple-200 px-4 py-2 text-sm font-black text-ink-950 hover:bg-purple-100 disabled:opacity-40"
           >
             {pending
               ? 'Resolving…'
