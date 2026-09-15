@@ -2,13 +2,21 @@ import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, test } from 'bun:test'
 import registry from '../../../cards/rules-plugins.json'
-import { cardPlugins, cardPluginEntry, missingCardPlugins } from './index'
-import type { CardPluginEntry } from './index'
+import {
+  cardPlugins,
+  cardPluginEntry,
+  missingCardPlugins,
+  registryEntries,
+} from './index'
 
-const entries = Object.values(registry as Record<string, CardPluginEntry>)
+const entries = Object.values(registry as Record<string, { handlerIds?: string[] }>)
 const handlerIds = [...new Set(entries.flatMap((entry) => entry.handlerIds ?? []))]
 
 describe('card plugin registry', () => {
+  test('the name-keyed JSON matches the TypeScript card-rule table', () => {
+    expect(registry).toEqual(registryEntries())
+  })
+
   test('every registered handler is a module the live host can load', () => {
     for (const handlerId of handlerIds) {
       expect(handlerId).toMatch(/^[a-z][a-zA-Z0-9-]*$/)
@@ -20,9 +28,12 @@ describe('card plugin registry', () => {
     const built = new Set(cardPlugins.map((plugin) => plugin.id))
     for (const handlerId of [
       'additionalLandPlay',
+      'activated',
       'entersTapped',
       'landfall',
       'librarySearch',
+      'onResolve',
+      'zoneTriggers',
     ]) {
       expect(built.has(handlerId)).toBe(true)
     }
