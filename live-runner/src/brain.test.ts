@@ -3,7 +3,9 @@ import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import {
+  agentScratchPath,
   assertGameAuthority,
+  DEFAULT_LIVE_AGENT_MODEL,
   enforceResultPolicy,
   normalizeKernelResult,
   promptFor,
@@ -163,5 +165,31 @@ describe('priority preference prompt', () => {
     )
     expect(prompt).toContain('Human priority preference: ALWAYS STOP')
     expect(prompt).toContain('include the human regardless')
+  })
+
+  test('kernel mode omits the legacy replay from the reading list', () => {
+    const prompt = promptFor(
+      'pod',
+      'p2',
+      3,
+      { type: 'confirm' },
+      'p1',
+      false,
+      true,
+    )
+    expect(prompt).toContain('pod.kernel.json (authoritative rules journal)')
+    expect(prompt).not.toContain('pod.json')
+  })
+})
+
+describe('agent runtime', () => {
+  test('defaults to the fast judge model', () => {
+    expect(DEFAULT_LIVE_AGENT_MODEL).toBe('composer-2.5')
+  })
+
+  test('reuses one scratch worktree per repository and table', () => {
+    expect(agentScratchPath('/repo/a', 'pod')).toBe(agentScratchPath('/repo/a', 'pod'))
+    expect(agentScratchPath('/repo/a', 'pod')).not.toBe(agentScratchPath('/repo/b', 'pod'))
+    expect(agentScratchPath('/repo/a', 'pod')).not.toBe(agentScratchPath('/repo/a', 'other'))
   })
 })
