@@ -145,6 +145,179 @@ const sameCards = (left: string[], right: string[]) => {
   return JSON.stringify(sorted(left)) === JSON.stringify(sorted(right))
 }
 
+export const MAX_HAND_SIZE = 7
+
+const seatName = (state: LobbyState, seat: SeatId) =>
+  state.occupants[seat]?.name ?? seat
+
+/** Append the cleanup step and hand the turn to the next seat, on disk. */
+export const endTurnAt = (
+  root: string,
+  slug: string,
+  state: LobbyState,
+  active: SeatId,
+  turn: number,
+) => {
+  const replay = readReplay(root, slug)
+  const next = endTurn(replay, state, active, turn)
+  writeReplay(root, slug, replay)
+  return next
+}
+
+/** Append the cleanup step and hand the turn to the next seat. */
+const endTurn = (
+  replay: Replay,
+  state: LobbyState,
+  active: SeatId,
+  turn: number,
+) => {
+  const base = replay.events?.at(-1)?.state
+  if (!base) throw new Error('replay is missing table state')
+  const next = SEAT_IDS[(SEAT_IDS.indexOf(active) + 1) % SEAT_IDS.length]
+  const nextTurn = turn + (next === state.firstPlayer ? 1 : 0)
+  const cleanupState = structuredClone(base)
+  cleanupState.active = active
+  cleanupState.turn = turn
+  cleanupState.phase = 'end'
+  const planningState = structuredClone(base)
+  planningState.active = next
+  planningState.turn = nextTurn
+  planningState.phase = 'planning'
+  replay.events!.push({
+    id: nextId(replay),
+    turn,
+    phase: 'end',
+    seat: active,
+    kind: 'note',
+    summary: `Cleanup — no actions. ${seatName(state, active)}'s turn ends.`,
+    state: cleanupState,
+  })
+  replay.events!.push({
+    id: nextId(replay),
+    turn: nextTurn,
+    phase: 'planning',
+    seat: next,
+    kind: 'think',
+    summary: `Turn ${nextTurn} — ${seatName(state, next)} to act.`,
+    state: planningState,
+  })
+  return next
+}
+
+/**
+ * Ask the seat which cards leave a hand over the maximum size. Cleanup cannot
+ * finish until they answer, so the turn ends with the discard recorded.
+ */
+export const prepareDiscardDecision = (
+  root: string,
+  slug: string,
+  state: LobbyState,
+  seat: SeatId,
+) => {
+  const replay = readReplay(root, slug)
+  const event = latest(replay)
+  const hand = event.state!.players![seat]?.hand ?? []
+  const excess = hand.length - MAX_HAND_SIZE
+  if (excess <= 0) return false
+  state.topdeck = {
+    seat,
+    kind: 'discard',
+    cards: [...hand],
+    destinations: ['hand', 'graveyard'],
+    requirements: { graveyard: { min: excess, max: excess } },
+  }
+  state.active = seat
+  state.actions = { [seat]: ['topdeck'] }
+  state.waiting = `${seatName(state, seat)} is discarding to ${MAX_HAND_SIZE}.`
+  state.privateWaiting = {
+    [seat]: `Hand size is ${hand.length}. Choose ${excess} card${
+      excess === 1 ? '' : 's'
+    } to discard, then the turn ends.`,
+  }
+  state.judge = `${seatName(state, seat)} is over the maximum hand size.`
+  state.privateJudge = {}
+  return true
+}
+
+/**
+ * A turn that ended while a seat was still over the maximum hand size owes a
+ * discard. The boundary is the cleanup event, or the next seat's planning
+ * event before anything else has happened.
+ */
+export const enforceHandSize = (
+  root: string,
+  slug: string,
+  state: LobbyState,
+) => {
+  const replay = readReplay(root, slug)
+  const events = replay.events ?? []
+  const last = events.at(-1)
+  if (!last?.state) return false
+  const cleanup = last.phase === 'end'
+    ? last
+    : last.phase === 'planning' && events.at(-2)?.phase === 'end'
+      ? events.at(-2)
+      : undefined
+  const seat = cleanup?.seat
+  if (!seat || !SEAT_IDS.includes(seat)) return false
+  const hand = last.state.players?.[seat]?.hand ?? []
+  if (hand.length <= MAX_HAND_SIZE) return false
+  return prepareDiscardDecision(root, slug, state, seat)
+}
+
+const applyDiscardChoice = (
+  root: string,
+  slug: string,
+  state: LobbyState,
+  seat: SeatId,
+  message: Extract<InboxMessage, { type: 'topdeck' }>,
+) => {
+  const replay = readReplay(root, slug)
+  const event = latest(replay)
+  const hand = event.state!.players![seat]?.hand ?? []
+  if (!sameCards(message.choices.map(({ card }) => card), hand)) {
+    throw new Error('Your hand changed. Refresh this discard.')
+  }
+  const discarded = message.choices
+    .filter(({ destination }) => destination === 'graveyard')
+    .map(({ card }) => card)
+  const kept = message.choices
+    .filter(({ destination }) => destination === 'hand')
+    .map(({ card }) => card)
+  if (kept.length > MAX_HAND_SIZE) {
+    throw new Error(`Discard down to ${MAX_HAND_SIZE} cards.`)
+  }
+
+  const turn = event.turn ?? event.state!.turn ?? 0
+  const nextState = structuredClone(event.state!)
+  const player = nextState.players![seat]
+  player.hand = kept
+  player.graveyard = [...(player.graveyard ?? []), ...discarded]
+  replay.events!.push({
+    id: nextId(replay),
+    turn,
+    phase: 'end',
+    seat,
+    kind: 'discard',
+    summary: `${seatName(state, seat)} discards ${discarded.length} at cleanup.`,
+    cards: discarded,
+    state: nextState,
+  })
+  const next = endTurn(replay, state, seat, turn)
+  writeReplay(root, slug, replay)
+
+  state.topdeck = undefined
+  state.active = next
+  state.actions = { [next]: ['plan', 'advance'] }
+  state.waiting = `Waiting on ${seatName(state, next)}.`
+  state.privateWaiting = {}
+  state.judge = `${seatName(state, seat)} discarded ${discarded.length} at cleanup.`
+  state.privateJudge = {
+    [seat]: `Discarded: ${discarded.join(', ')}.`,
+  }
+  return true
+}
+
 export const applyTopdeckChoice = (
   root: string,
   slug: string,
@@ -156,7 +329,11 @@ export const applyTopdeckChoice = (
   if (!decision || decision.seat !== seat) return false
   const cards = message.choices.map(({ card }) => card)
   if (!sameCards(cards, decision.cards)) {
-    throw new Error('The library changed. Refresh this top-deck choice.')
+    throw new Error(
+      decision.kind === 'discard'
+        ? 'Your hand changed. Refresh this discard.'
+        : 'The library changed. Refresh this top-deck choice.',
+    )
   }
   if (
     message.choices.some(
@@ -177,6 +354,10 @@ export const applyTopdeckChoice = (
     if (limits.max !== undefined && count > limits.max) {
       throw new Error(`${decision.kind} allows at most ${limits.max} card(s) in ${destination}.`)
     }
+  }
+
+  if (decision.kind === 'discard') {
+    return applyDiscardChoice(root, slug, state, seat, message)
   }
 
   const replay = readReplay(root, slug)

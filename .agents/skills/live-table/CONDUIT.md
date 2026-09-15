@@ -61,6 +61,9 @@ the bottom, in order) and `cheat: true` (keep seven anyway, for testing).
 mulligan is free; later ones bottom `mulligans - 1` cards.
 `topdeck` sends ordered `{card,destination}` choices for the private dialog;
 the host validates the current hidden library and resolves it without an agent.
+A decision of kind `discard` carries the seat's hand instead of the library top,
+with `hand` and `graveyard` destinations and the excess as a requirement; the
+host records the discard and ends the turn.
 `advance` deterministically moves an empty main/combat step forward. From
 `planning` it opens the turn instead: untap, an empty upkeep, and the draw, so a
 seat reaches its first main phase without a judge call. A permanent whose Oracle

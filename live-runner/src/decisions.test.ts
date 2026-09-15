@@ -11,6 +11,8 @@ import { join } from 'node:path'
 import {
   applyAdvance,
   applyTopdeckChoice,
+  enforceHandSize,
+  prepareDiscardDecision,
   prepareTopdeckDecision,
 } from './decisions'
 import { createLobby } from './lobby'
@@ -239,5 +241,120 @@ describe('opening a turn', () => {
       'Cabal Coffers',
       'Island',
     ])
+  })
+})
+
+const HAND_OF_EIGHT = [
+  'Fact or Fiction',
+  'Scapeshift',
+  'Pit of Offerings',
+  'Singularity Rupture',
+  'Breeding Pool',
+  'Joint Exploration',
+  'Toxic Deluge',
+  'Forest',
+]
+
+const endedTurn = (hand: string[], phase = 'end') => {
+  const { root, lobby } = fixture()
+  lobby.firstPlayer = 'p1'
+  const game = replay(root)
+  game.events = [{
+    id: 50,
+    turn: 2,
+    phase,
+    seat: 'p1',
+    kind: 'note',
+    summary: "Cleanup — no actions. Foggy's turn ends.",
+    state: {
+      active: 'p1',
+      turn: 2,
+      phase: 'end',
+      stack: [],
+      players: { p1: { hand, graveyard: [], library_count: 3 } },
+    },
+  }]
+  writeFileSync(join(root, 'table-games', 'pod.json'), JSON.stringify(game))
+  return { root, lobby }
+}
+
+describe('maximum hand size', () => {
+  test('asks the seat which card leaves a hand of eight', () => {
+    const { root, lobby } = endedTurn(HAND_OF_EIGHT)
+    expect(prepareDiscardDecision(root, 'pod', lobby, 'p1')).toBe(true)
+    expect(lobby.topdeck).toEqual({
+      seat: 'p1',
+      kind: 'discard',
+      cards: HAND_OF_EIGHT,
+      destinations: ['hand', 'graveyard'],
+      requirements: { graveyard: { min: 1, max: 1 } },
+    })
+    expect(lobby.actions).toEqual({ p1: ['topdeck'] })
+  })
+
+  test('leaves a legal hand alone', () => {
+    const { root, lobby } = endedTurn(HAND_OF_EIGHT.slice(0, 7))
+    expect(prepareDiscardDecision(root, 'pod', lobby, 'p1')).toBe(false)
+    expect(enforceHandSize(root, 'pod', lobby)).toBe(false)
+  })
+
+  test('catches a turn that ended over the limit', () => {
+    const { root, lobby } = endedTurn(HAND_OF_EIGHT)
+    expect(enforceHandSize(root, 'pod', lobby)).toBe(true)
+    expect(lobby.topdeck?.kind).toBe('discard')
+  })
+
+  test('discarding records the card and ends the turn', () => {
+    const { root, lobby } = endedTurn(HAND_OF_EIGHT)
+    prepareDiscardDecision(root, 'pod', lobby, 'p1')
+    expect(applyTopdeckChoice(root, 'pod', lobby, 'p1', {
+      type: 'topdeck',
+      choices: HAND_OF_EIGHT.map((card) => ({
+        card,
+        destination: card === 'Singularity Rupture' ? 'graveyard' : 'hand',
+      })),
+    })).toBe(true)
+    const game = replay(root)
+    const player = game.events.at(-1).state.players.p1
+    expect(player.hand).toHaveLength(7)
+    expect(player.hand).not.toContain('Singularity Rupture')
+    expect(player.graveyard).toEqual(['Singularity Rupture'])
+    expect(game.events.map((event: { kind: string }) => event.kind)).toEqual([
+      'note',
+      'discard',
+      'note',
+      'think',
+    ])
+    expect(game.events.at(-1)).toMatchObject({
+      phase: 'planning',
+      seat: 'p2',
+      state: { active: 'p2', phase: 'planning' },
+    })
+    expect(lobby.actions).toEqual({ p2: ['plan', 'advance'] })
+    expect(lobby.topdeck).toBeUndefined()
+  })
+
+  test('refuses a discard that keeps too many cards', () => {
+    const { root, lobby } = endedTurn(HAND_OF_EIGHT)
+    prepareDiscardDecision(root, 'pod', lobby, 'p1')
+    expect(() => applyTopdeckChoice(root, 'pod', lobby, 'p1', {
+      type: 'topdeck',
+      choices: HAND_OF_EIGHT.map((card) => ({ card, destination: 'hand' })),
+    })).toThrow(/at least 1 card/i)
+  })
+
+  test('rejects a discard of a card that is not in hand', () => {
+    const { root, lobby } = endedTurn(HAND_OF_EIGHT)
+    prepareDiscardDecision(root, 'pod', lobby, 'p1')
+    expect(() => applyTopdeckChoice(root, 'pod', lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        ...HAND_OF_EIGHT.slice(1).map((card) => ({
+          card,
+          destination: 'hand' as const,
+        })),
+        { card: 'Island', destination: 'graveyard' as const },
+      ],
+    })).toThrow(/hand changed/i)
   })
 })

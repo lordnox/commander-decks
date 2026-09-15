@@ -28,11 +28,12 @@ export const TopdeckDialog = ({
   pending: boolean
   onResolve: (choices: Array<{ card: string; destination: Destination }>) => void
 }) => {
+  const discarding = decision.kind === 'discard'
   const [choices, setChoices] = useState<Choice[]>(
     decision.cards.map((card, id) => ({
       id,
       card: String(card),
-      destination: 'top',
+      destination: decision.destinations[0] ?? 'top',
     })),
   )
   const valid = (next: Choice[]) => Object.entries(
@@ -92,14 +93,20 @@ export const TopdeckDialog = ({
         className="max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-[1.5rem] border border-purple-300/30 bg-ink-950 p-5 shadow-2xl shadow-black"
       >
         <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-purple-200">
-          Private library choice
+          {discarding ? 'Cleanup' : 'Private library choice'}
         </p>
         <h2 id="topdeck-title" className="mt-1 font-display text-2xl text-stone-50">
-          {decision.kind[0]?.toUpperCase()}{decision.kind.slice(1)} {choices.length}
+          {discarding
+            ? 'Discard to hand size'
+            : `${decision.kind[0]?.toUpperCase()}${decision.kind.slice(1)} ${choices.length}`}
         </h2>
         <p className="mt-2 text-sm text-stone-400">
-          Choose top or {destinationLabel} for each card.
-          {choices.length > 1 ? ' The displayed order is the final order.' : ''}
+          {discarding
+            ? 'Your turn ends once the extra cards are in the graveyard.'
+            : `Choose top or ${destinationLabel} for each card.`}
+          {!discarding && choices.length > 1
+            ? ' The displayed order is the final order.'
+            : ''}
         </p>
         {decision.requirements && (
           <p className="mt-2 text-xs text-gold-200">
@@ -155,10 +162,12 @@ export const TopdeckDialog = ({
                           ? 'Leave on top'
                           : destination === 'bottom'
                             ? 'Put on bottom'
-                            : `Put in ${destination}`}
+                            : discarding
+                              ? (destination === 'hand' ? 'Keep' : 'Discard')
+                              : `Put in ${destination}`}
                       </button>
                     ))}
-                    {choices.length > 1 && (
+                    {!discarding && choices.length > 1 && (
                       <>
                         <button
                           type="button"
@@ -192,7 +201,11 @@ export const TopdeckDialog = ({
             disabled={pending || !valid(choices)}
             className="mt-5 rounded-xl bg-purple-200 px-4 py-2 text-sm font-black text-ink-950 hover:bg-purple-100 disabled:opacity-40"
           >
-            {pending ? 'Resolving…' : `Resolve ${decision.kind}`}
+            {pending
+              ? 'Resolving…'
+              : discarding
+                ? 'Discard and end turn'
+                : `Resolve ${decision.kind}`}
           </button>
         )}
       </section>
