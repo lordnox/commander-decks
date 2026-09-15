@@ -22,14 +22,18 @@ export type TopdeckDecision = {
   seat: SeatId
   kind: string
   cards: string[]
-  destinations: Array<'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'>
+  destinations: Array<
+    'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
+    | 'target' | 'skip'
+  >
   requirements?: Partial<Record<
-    'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library',
+    | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
+    | 'target' | 'skip',
     { min?: number; max?: number }
   >>
   kernel?: {
     sourceId: string
-    stage: 'scry' | 'put-land' | 'search' | 'library-search'
+    stage: 'scry' | 'put-land' | 'search' | 'library-search' | 'homer-targets'
     resumePassSeat?: SeatId
     kicked?: boolean
   }

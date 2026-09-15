@@ -1,6 +1,6 @@
 import type Draft from '../draft'
 import type { GameObject, PlayerId, Plugin } from '../types'
-import { enteringObjectId } from './entersTapped'
+import { enteringObjectId, PERMANENT_ENTERED } from './entersTapped'
 
 export type LandfallCtx = {
   draft: Draft
@@ -38,6 +38,7 @@ export const createToken = (
   draft: Draft,
   controller: PlayerId,
   template: Partial<GameObject> & { name: string },
+  emitEntry = true,
 ) => {
   const id = draft.allocId('tok')
   const token: GameObject = {
@@ -62,6 +63,14 @@ export const createToken = (
     })
   }
   draft.note(`${controller} creates ${token.name}`)
+  if (emitEntry) {
+    draft.enqueue({
+      type: 'custom',
+      name: PERMANENT_ENTERED,
+      seat: controller,
+      payload: { objectId: id },
+    })
+  }
   return token
 }
 

@@ -23,6 +23,7 @@ import {
   SEARCH_FETCH,
   searchingSeat,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
+import { HOMER_NAME, homer } from '../../rules-engine/src/cardPlugins/homer'
 import { createLobby } from './lobby'
 import {
   applyKernelAdvance,
@@ -506,6 +507,72 @@ describe('kernel host journal', () => {
     expect(state.objects[spellId].zone).toBe('graveyard')
     expect(state.stack).toHaveLength(0)
     expect(searchingSeat(state)).toBeUndefined()
+    expect(lobby.topdeck).toBeUndefined()
+  })
+
+  test('Homer target choices survive in kernel state and mill the selected players', () => {
+    const homerCard = {
+      ...forest(),
+      name: HOMER_NAME,
+      types: ['Creature'],
+      subtypes: ['Crab', 'Druid'],
+      supertypes: ['Legendary'],
+      power: 0,
+      toughness: 9,
+      tapProduces: undefined,
+    }
+    const crab = {
+      ...forest(),
+      name: 'Crab',
+      types: ['Creature'],
+      subtypes: ['Crab'],
+      supertypes: [],
+      power: 1,
+      toughness: 1,
+      tapProduces: undefined,
+    }
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [forest()] },
+        battlefield: { p1: [homerCard, crab] },
+        libraries: {
+          p1: Array.from({ length: 6 }, forest),
+          p2: Array.from({ length: 6 }, forest),
+          p3: Array.from({ length: 6 }, forest),
+          p4: Array.from({ length: 6 }, forest),
+        },
+      },
+      { random: () => 0.5, cardPlugins: [homer] },
+    )
+    const kernel = handleFor(server.rules, server.state)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    const landId = server.state.zoneOrder.p1.hand[0]
+    expect(kernel.dispatch({ type: 'playLand', seat: 'p1', objectId: landId }).ok).toBe(true)
+
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'target-players',
+      cards: ['p1', 'p2', 'p3', 'p4'],
+      destinations: ['skip', 'target'],
+    })
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'p1', destination: 'skip' },
+        { card: 'p2', destination: 'target' },
+        { card: 'p3', destination: 'skip' },
+        { card: 'p4', destination: 'target' },
+      ],
+    })).toBe(true)
+
+    const state = kernel.history.current()
+    expect(state.zoneOrder.p1.graveyard).toHaveLength(0)
+    expect(state.zoneOrder.p2.graveyard).toHaveLength(4)
+    expect(state.zoneOrder.p3.graveyard).toHaveLength(0)
+    expect(state.zoneOrder.p4.graveyard).toHaveLength(4)
     expect(lobby.topdeck).toBeUndefined()
   })
 
