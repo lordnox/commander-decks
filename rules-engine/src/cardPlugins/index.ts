@@ -1,5 +1,9 @@
 import registry from '../../../cards/rules-plugins.json'
 import type { Plugin } from '../types'
+import { additionalLandPlay } from './additionalLandPlay'
+import { entersTapped } from './entersTapped'
+import { landfall } from './landfall'
+import { librarySearch } from './librarySearch'
 import { yurlok } from './yurlok'
 
 export type CardPluginEntry = {
@@ -15,7 +19,13 @@ const byName = new Map(
 )
 
 /** Card-specific plugins. Always on for activateAbility; static effects use grantedRules. */
-export const cardPlugins: Plugin[] = [yurlok]
+export const cardPlugins: Plugin[] = [
+  additionalLandPlay,
+  entersTapped,
+  landfall,
+  librarySearch,
+  yurlok,
+]
 
 export const cardPluginEntry = (name: string) => byName.get(name.toLowerCase())
 
