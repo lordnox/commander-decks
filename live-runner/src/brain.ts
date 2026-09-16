@@ -163,7 +163,7 @@ Read and follow:
 - .agents/skills/simulate-table/SKILL.md
 - .agents/skills/simulate-table/GAMEPLAY-HINTS.md
 - rules-engine/DESIGN.md
-- cards/rules-plugins.json
+- rules-engine/src/cardPlugins/cardRules.ts
 - ${
   kernelAuthoritative
     ? `table-games/${slug}.kernel.json (authoritative rules journal)`
@@ -194,11 +194,11 @@ Do exactly one host step:
   additional cost is paid. That flag is part of the stack item and lets card
   handlers preserve the chosen mode through resolution.
 - If a card has a weird rules interaction (see Yurlok of Scorch Thrash), look it
-  up in cards/rules-plugins.json. Static effects (mana burn) go in pluginIds and
-  are granted while the object is on the battlefield. Activated abilities use
-  { type: 'activateAbility', abilityId, seat, objectId } and whenAbility.
-  Register activated handlers in the card's handlerIds array so the running
-  host can reload the module after pluginsChanged.
+  up in rules-engine/src/cardPlugins/cardRules.ts. staticGrant effects (mana
+  burn) are granted while the object is on the battlefield. Activated abilities
+  use { type: 'activateAbility', abilityId, seat, objectId } and whenAbility.
+  Adding the card's activate effect to that table is what lets the running host
+  reload its handler module after pluginsChanged.
   Set manaAbility true only when the ability is a mana ability; you own that
   timing window.
 - Prefer a tested card plugin for reusable unsupported Oracle behavior. If the
@@ -549,13 +549,9 @@ export const invokeHostAgent = async (options: {
     }
     if (result.pluginsChanged) {
       const pluginDir = 'rules-engine/src/cardPlugins'
-      const registry = 'cards/rules-plugins.json'
       await run(['bun', 'test', pluginDir], scratch)
       if (existsSync(join(scratch, pluginDir))) {
         cpSync(join(scratch, pluginDir), join(root, pluginDir), { recursive: true })
-      }
-      if (existsSync(join(scratch, registry))) {
-        cpSync(join(scratch, registry), join(root, registry))
       }
     }
     const publicReplay = result.replayChanged && existsSync(scratchReplay)

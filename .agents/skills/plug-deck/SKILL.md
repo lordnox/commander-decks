@@ -29,7 +29,7 @@ on different decks in parallel; each owns its branch and PR.
    - `rules-engine/src/types.ts`
    - built-in plugins under `rules-engine/src/plugins/`
    - `rules-engine/src/cardPlugins/`
-   - `cards/rules-plugins.json`
+   - `rules-engine/src/cardPlugins/cardRules.ts`
    - the deck's `cards.json` and `tokens.json`
 2. Inventory every unique non-basic card by Oracle ID and current Oracle text.
 3. Classify each card:
@@ -47,17 +47,15 @@ Use ordinary validated `GameEvent`s first.
 - Generic rules belong in `rules-engine/src/plugins/`.
 - Reusable odd Oracle behavior belongs in
   `rules-engine/src/cardPlugins/<camelCaseName>.ts`.
-- Register static battlefield effects under `pluginIds`.
-- Register always-on cast, resolution, activated, or triggered handlers under
-  `handlerIds`.
-- Key `cards/rules-plugins.json` by English Oracle name. The TypeScript table
-  in `rules-engine/src/cardPlugins/cardRules.ts` is the source of truth; keep
-  the JSON in sync by dumping `registryEntries()`. Do not put card-name
-  dictionaries inside plugins.
-- Add a card by composing builders (`enters(selfMill(3))`, `dies(selfMill(3))`,
-  `entersTapped()`, `activate(...)`). Capability plugins read stamped effects,
-  not names. Search matchers stay in TypeScript; `newGame` stamps a clone-safe
-  copy so `structuredClone` does not fail.
+- `rules-engine/src/cardPlugins/cardRules.ts` is the only card table, keyed by
+  English Oracle name. Add a card by composing builders there
+  (`enters(selfMill(3))`, `dies(selfMill(3))`, `entersTapped()`,
+  `activate(...)`); static battlefield grants use `staticGrant(pluginId)`.
+  Handler ids are derived from those effects, so nothing else has to be
+  registered and no plugin keeps its own card-name dictionary.
+- Capability plugins read the effects stamped on the object, never its name.
+  Search matchers stay in TypeScript; `newGame` stamps a clone-safe copy so
+  `structuredClone` does not fail.
 
 A plugin is not complete when it merely rejects priority or writes a
 `players[seat].data` waiting marker. Any choice it introduces must have a full

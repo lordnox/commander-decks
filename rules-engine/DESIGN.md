@@ -65,7 +65,8 @@ part of this projection.
 ## Card plugins
 
 Special Oracle is not compiled. Cards with odd rules are listed in
-`cards/rules-plugins.json` (Oracle ID → plugin ids). `grantedRulesFor(name)`
+`rules-engine/src/cardPlugins/cardRules.ts` (Oracle name → composed effects),
+which is also where `pluginIds` and `handlerIds` come from. `grantedRulesFor(name)`
 attaches **static** plugin ids (for example `manaBurn`) when the object is
 created; those RuleInstances exist only while the source is on the battlefield.
 

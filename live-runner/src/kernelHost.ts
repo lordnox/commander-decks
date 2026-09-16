@@ -84,33 +84,43 @@ const writeJournal = (slug: string, journal: KernelJournal, root: string) => {
 const loadJson = (path: string) =>
   JSON.parse(readFileSync(path, 'utf8')) as KernelJournal
 
-type PluginEntry = { handlerIds?: string[] }
 let pluginLoad = 0
 
+/**
+ * Bun caches modules for the life of the host, so a card file written during a
+ * game is only visible through a uniquely named copy of it.
+ */
+const importFresh = async (path: string, label: string) => {
+  pluginLoad += 1
+  const reloadPath = join(dirname(path), `.live-${label}-${process.pid}-${pluginLoad}.ts`)
+  writeFileSync(reloadPath, readFileSync(path))
+  try {
+    return await import(pathToFileURL(reloadPath).href) as Record<string, unknown>
+  } finally {
+    rmSync(reloadPath, { force: true })
+  }
+}
+
+const cardPluginDir = (root: string) => join(root, 'rules-engine', 'src', 'cardPlugins')
+
+const hostHandlerIds = async (root: string) => {
+  const rulesPath = join(cardPluginDir(root), 'cardRules.ts')
+  if (!existsSync(rulesPath)) return []
+  const module = await importFresh(rulesPath, 'cardRules')
+  const handlerIds = module.allHandlerIds
+  if (typeof handlerIds !== 'function') {
+    throw new Error('cardRules.ts does not export allHandlerIds')
+  }
+  return handlerIds() as string[]
+}
+
 export const loadHostCardPlugins = async (root: string): Promise<Plugin[]> => {
-  const registryPath = join(root, 'cards', 'rules-plugins.json')
-  if (!existsSync(registryPath)) return []
-  const registry = JSON.parse(readFileSync(registryPath, 'utf8')) as Record<string, PluginEntry>
-  const handlerIds = [...new Set(
-    Object.values(registry).flatMap((entry) => entry.handlerIds ?? []),
-  )]
+  const handlerIds = await hostHandlerIds(root)
   return Promise.all(handlerIds.map(async (handlerId) => {
     if (!/^[a-z][a-zA-Z0-9-]*$/.test(handlerId)) {
       throw new Error(`invalid card plugin handler ${handlerId}`)
     }
-    const path = join(root, 'rules-engine', 'src', 'cardPlugins', `${handlerId}.ts`)
-    pluginLoad += 1
-    const reloadPath = join(
-      dirname(path),
-      `.live-${handlerId}-${process.pid}-${pluginLoad}.ts`,
-    )
-    writeFileSync(reloadPath, readFileSync(path))
-    let module: Record<string, unknown>
-    try {
-      module = await import(pathToFileURL(reloadPath).href)
-    } finally {
-      rmSync(reloadPath, { force: true })
-    }
+    const module = await importFresh(join(cardPluginDir(root), `${handlerId}.ts`), handlerId)
     const plugin = Object.values(module).find(
       (value): value is Plugin =>
         value !== null
