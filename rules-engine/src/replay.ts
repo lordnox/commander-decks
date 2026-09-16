@@ -1,5 +1,5 @@
 import { grantedRulesFor } from './cardPlugins'
-import { CARD_TYPES } from './definitions'
+import { CARD_TYPES, SUPERTYPES } from './definitions'
 import { commanderRules } from './formats'
 import { cardTemplate as templateFor, type CardTemplate } from './newGame'
 import { manaModes } from './plugins/mana'
@@ -98,7 +98,9 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
   const types = CARD_TYPES.filter((type) =>
     typeLine.split(' // ').some((face) => face.split(' — ')[0].split(' ').includes(type)),
   )
-  const supertypes = typeLine.includes('Legendary') ? ['Legendary'] : []
+  const supertypes = SUPERTYPES.filter((supertype) =>
+    typeLine.split(' // ').some((face) => face.split(' — ')[0].split(' ').includes(supertype)),
+  )
   const subtypes = typeLine
     .split(' // ')
     .flatMap((face) => face.split(' — ')[1]?.split(' ') ?? [])

@@ -306,7 +306,22 @@ describe('live compact v2', () => {
       kind: 'surveil',
       cards: ['Forest'],
       destinations: ['top', 'graveyard'],
+      library: undefined,
+      requirements: undefined,
     })
+  })
+
+  test('a search carries the whole readable library over the wire', () => {
+    const original = snapshot()
+    original.actions = ['topdeck']
+    original.topdeck = {
+      kind: 'search',
+      cards: ['Forest'],
+      destinations: ['library', 'battlefield'],
+      library: ['Forest', 'Island'],
+    }
+    const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)
+    expect(expanded.topdeck?.library).toEqual(['Forest', 'Island'])
   })
 
   test('private always-stop priority preference survives the wire', () => {

@@ -884,6 +884,15 @@ describe('kernel host journal', () => {
     expect(lobby.topdeck).toBeUndefined()
   })
 
+  test('a search reads the whole library, not only the cards it may take', () => {
+    const { kernel, lobby } = searchGame({ library: ['Taiga', 'Mountain'] })
+    prepareKernelPendingChoice(kernel, lobby)
+
+    // Only Taiga has a Forest type, but looking at the library is free.
+    expect(lobby.topdeck?.cards).toEqual(['Taiga'])
+    expect(lobby.topdeck?.library).toEqual(['Mountain', 'Taiga'])
+  })
+
   test('the searching seat is the only viewer who sees the candidates', () => {
     const { kernel, lobby } = searchGame()
     prepareKernelPendingChoice(kernel, lobby)

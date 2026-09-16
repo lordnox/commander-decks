@@ -82,6 +82,7 @@ export type LiveOpening = {
 export type LiveTopdeck = {
   kind: string
   cards: Array<string | number>
+  library?: string[]
   destinations: Array<
     'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
     | 'target' | 'skip'

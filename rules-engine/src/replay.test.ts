@@ -91,6 +91,64 @@ describe('table replay conversion', () => {
     ).not.toContain(true)
   })
 
+  test('imports every printed supertype, so a basic land can still be searched for', () => {
+    const replay: TableReplay = {
+      starting_life: 40,
+      seats: [{ id: 'p1' }, { id: 'p2' }],
+      catalog: {
+        Island: {
+          type_line: 'Basic Land — Island',
+          mana_cost: '',
+          oracle_text: '({T}: Add {U}.)',
+          stats: '',
+        },
+        'Snow-Covered Forest': {
+          type_line: 'Basic Snow Land — Forest',
+          mana_cost: '',
+          oracle_text: '({T}: Add {G}.)',
+          stats: '',
+        },
+        'Boseiju, Who Endures': {
+          type_line: 'Legendary Land',
+          mana_cost: '',
+          oracle_text: 'Channel',
+          stats: '',
+        },
+      },
+      events: [{
+        id: 0,
+        turn: 1,
+        phase: 'main1',
+        seat: 'p1',
+        kind: 'setup',
+        summary: 'setup',
+        state: {
+          active: 'p1',
+          turn: 1,
+          phase: 'main1',
+          stack: [],
+          players: {
+            p1: replayPlayer([
+              { name: 'Island' },
+              { name: 'Snow-Covered Forest' },
+              { name: 'Boseiju, Who Endures' },
+            ]),
+            p2: replayPlayer(),
+          },
+        },
+      }],
+      _libraries: { p1: [], p2: [] },
+    }
+
+    const imported = importLiveReplayState(replay)
+    const supertypesOf = (name: string) =>
+      Object.values(imported.objects).find((object) => object.name === name)!.supertypes
+
+    expect(supertypesOf('Island')).toEqual(['Basic'])
+    expect(supertypesOf('Snow-Covered Forest')).toEqual(['Basic', 'Snow'])
+    expect(supertypesOf('Boseiju, Who Endures')).toEqual(['Legendary'])
+  })
+
   test('imports printed and current planeswalker loyalty', () => {
     const replay: TableReplay = {
       starting_life: 40,

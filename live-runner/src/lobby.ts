@@ -22,6 +22,8 @@ export type TopdeckDecision = {
   seat: SeatId
   kind: string
   cards: string[]
+  /** CR 701.19a: searching means looking at every card, not only the matches. */
+  library?: string[]
   destinations: Array<
     'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
     | 'target' | 'skip'
