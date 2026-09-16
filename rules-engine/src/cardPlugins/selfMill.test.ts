@@ -3,7 +3,7 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { ReduceResult } from '../types'
-import { MILLIKIN_MANA, SKULL_PROPHET_MILL, selfMill } from './selfMill'
+import { activated, MILLIKIN_MANA, SKULL_PROPHET_MILL } from './activated'
 
 const card = (name: string) => cardTemplate(name, { types: ['Creature'] })
 
@@ -19,7 +19,7 @@ const game = (source: string, cards = ['First', 'Second', 'Third']) =>
       battlefield: { p1: [card(source)] },
       libraries: { p1: cards.map(card) },
     },
-    { random: () => 0.5, cardPlugins: [selfMill] },
+    { random: () => 0.5, cardPlugins: [activated] },
   )
 
 describe('self mill abilities', () => {

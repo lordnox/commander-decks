@@ -3,7 +3,8 @@ import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
-import { AFTERMATH_RECLAIM, graveyardLands } from './graveyardLands'
+import { activated, AFTERMATH_RECLAIM } from './activated'
+import { onResolve } from './onResolve'
 
 const card = (
   name: string,
@@ -36,7 +37,7 @@ describe('graveyard lands', () => {
           ],
         },
       },
-      { random: () => 0.5, cardPlugins: [graveyardLands] },
+      { random: () => 0.5, cardPlugins: [activated, onResolve] },
     )
     const spell = server.state.zoneOrder.p1.hand[0]
     const ready = structuredClone(server.state)
@@ -72,7 +73,7 @@ describe('graveyard lands', () => {
           ],
         },
       },
-      { random: () => 0.5, cardPlugins: [graveyardLands] },
+      { random: () => 0.5, cardPlugins: [activated, onResolve] },
     )
     const sourceId = server.state.zoneOrder.p1.battlefield[0]
     const ready = structuredClone(server.state)
@@ -99,7 +100,7 @@ describe('graveyard lands', () => {
           p1: [card('Aftermath Analyst', ['Creature'], 'battlefield')],
         },
       },
-      { random: () => 0.5, cardPlugins: [graveyardLands] },
+      { random: () => 0.5, cardPlugins: [activated, onResolve] },
     )
     const result = server.rules(server.state, {
       type: 'activateAbility',

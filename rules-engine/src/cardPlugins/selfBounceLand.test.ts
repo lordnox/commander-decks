@@ -4,10 +4,10 @@ import { forest } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { ReduceResult } from '../types'
 import {
+  activated,
   GHOST_TOWN_RETURN,
   OBORO_RETURN,
-  selfBounceLand,
-} from './selfBounceLand'
+} from './activated'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -22,7 +22,7 @@ const game = (name: string) =>
         p1: [{ ...forest(), name, supertypes: name.startsWith('Oboro') ? ['Legendary'] : [] }],
       },
     },
-    { random: () => 0.5, cardPlugins: [selfBounceLand] },
+    { random: () => 0.5, cardPlugins: [activated] },
   )
 
 describe('self-bouncing lands', () => {

@@ -4,9 +4,9 @@ import { commanderRules } from '../formats'
 import { rules } from '../kernel'
 import { newGame, yurlokFixture } from '../testGame'
 import { grantedRulesFor, missingCardPlugins } from './index'
-import { YURLOK_MANA_RAIN, yurlok } from './yurlok'
+import { activated, YURLOK_MANA_RAIN } from './activated'
 
-const catalog = createCatalog([...commanderRules.plugins, yurlok])
+const catalog = createCatalog([...commanderRules.plugins, activated])
 
 const yurlokOnBoard = () => {
   const state = newGame({
