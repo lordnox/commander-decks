@@ -71,7 +71,7 @@ export const homer: Plugin = {
     }
   },
   apply: ({ state, event, draft }) => {
-    const objectId = enteringObjectId(event)
+    const objectId = enteringObjectId(event, state)
     if (objectId) {
       const land = draft.object(objectId)
       if (land?.zone === 'battlefield' && land.types.includes('Land')) {
