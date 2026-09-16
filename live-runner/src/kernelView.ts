@@ -1,5 +1,5 @@
 import { abilityTokens } from '../../rules-engine/src/keywords'
-import { replayComparableState } from '../../rules-engine/src/replay'
+import { controlledBattlefield, replayComparableState } from '../../rules-engine/src/replay'
 import type {
   EventTrace,
   GameObject,
@@ -271,7 +271,7 @@ export const liveSeatsFromState = (
           .map((other) => [other, 0]),
       ),
       battlefield: player.battlefield.map((card, index) => {
-        const object = state.objects[state.zoneOrder[seat].battlefield[index]]
+        const object = controlledBattlefield(state, seat)[index]
         return {
           ...card,
           ...counterLabels(object),
