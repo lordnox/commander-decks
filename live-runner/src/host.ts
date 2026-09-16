@@ -498,7 +498,7 @@ export const runHost = async (options: {
         state.topdeck?.kernel?.stage === 'scry'
         || state.topdeck?.kernel?.stage === 'search'
         || state.topdeck?.kernel?.stage === 'library-search'
-        || state.topdeck?.kernel?.stage === 'homer-targets'
+        || state.topdeck?.kernel?.stage === 'player-targets'
       )
     ) {
       try {

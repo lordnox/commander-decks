@@ -1,3 +1,4 @@
+import { isPermanentType } from '../definitions'
 import type Draft from '../draft'
 import { RANDOM_CHOICE } from '../plugins/hiddenInformation'
 import type { GameObject, PlayerId, Plugin } from '../types'
@@ -14,20 +15,11 @@ export const SIN_COPY_CARD = 'sin.copyCard'
 export const SIN_RESOLVE = 'sin.resolve'
 export const SIN_STACK_NAME = `${SIN_NAME} — Enter or attack`
 
-const PERMANENT_TYPES = new Set([
-  'Artifact',
-  'Battle',
-  'Creature',
-  'Enchantment',
-  'Land',
-  'Planeswalker',
-])
-
 const permanentCards = (draft: Draft, controller: PlayerId) =>
   Object.values(draft.objects).filter((object) =>
     object.owner === controller
     && object.zone === 'graveyard'
-    && object.types.some((type) => PERMANENT_TYPES.has(type)))
+    && isPermanentType(object.types))
 
 const queueRandomCard = (
   draft: Draft,
@@ -162,7 +154,7 @@ export const sin: Plugin = {
         || !sourceId
         || card.owner !== event.seat
         || card.zone !== 'graveyard'
-        || !card.types.some((type) => PERMANENT_TYPES.has(type))
+        || !isPermanentType(card.types)
       ) {
         return
       }

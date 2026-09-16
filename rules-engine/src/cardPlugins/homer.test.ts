@@ -7,8 +7,8 @@ import {
   HOMER_CHOSEN,
   HOMER_NAME,
   homer,
-  pendingHomer,
 } from './homer'
+import { pendingPlayerTargets } from './playerTargets'
 
 const card = (name: string, types: string[], subtypes: string[] = []) =>
   cardTemplate(name, { types, subtypes })
@@ -49,7 +49,11 @@ describe(HOMER_NAME, () => {
       { type: 'playLand', seat: 'p1', objectId: landId },
     ))
 
-    expect(pendingHomer(triggered)).toMatchObject({ controller: 'p1' })
+    expect(pendingPlayerTargets(triggered)).toMatchObject({
+      controller: 'p1',
+      source: HOMER_NAME,
+      chosenEvent: HOMER_CHOSEN,
+    })
     expect(server.rules(triggered, { type: 'passPriority', seat: 'p1' })).toMatchObject({
       ok: false,
     })
@@ -60,7 +64,7 @@ describe(HOMER_NAME, () => {
       seat: 'p1',
       payload: { targets: ['p2', 'p4'] },
     }))
-    expect(pendingHomer(stacked)).toBeUndefined()
+    expect(pendingPlayerTargets(stacked)).toBeUndefined()
     expect(stacked.stack[0]?.kind).toBe('ability')
     const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
     expect(resolved.zoneOrder.p1.graveyard).toHaveLength(0)
@@ -125,7 +129,7 @@ describe(HOMER_NAME, () => {
       payload: { targets: [] },
     }))
     const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
-    expect(pendingHomer(resolved)).toBeUndefined()
+    expect(pendingPlayerTargets(resolved)).toBeUndefined()
     expect(resolved.playerOrder.map((seat) => resolved.zoneOrder[seat].graveyard.length))
       .toEqual([0, 0, 0, 0])
   })

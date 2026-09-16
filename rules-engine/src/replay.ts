@@ -1,4 +1,5 @@
 import { grantedRulesFor } from './cardPlugins'
+import { CARD_TYPES } from './definitions'
 import { commanderRules } from './formats'
 import { cardTemplate as templateFor, type CardTemplate } from './newGame'
 import { createServerGame } from './runtime'
@@ -54,17 +55,6 @@ export type TableReplay = {
   events: ReplayEvent[]
   _libraries?: Partial<Record<PlayerId, string[]>>
 }
-
-const CARD_TYPES = [
-  'Artifact',
-  'Battle',
-  'Creature',
-  'Enchantment',
-  'Instant',
-  'Land',
-  'Planeswalker',
-  'Sorcery',
-]
 
 const countNames = (names: string[]) => {
   const counts = new Map<string, number>()
