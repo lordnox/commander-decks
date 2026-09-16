@@ -341,11 +341,36 @@ const preparePendingDialog = (kernel: KernelHandle, lobby: LobbyState) => {
   return true
 }
 
+/**
+ * A library search is the one dialog the kernel can rebuild from scratch, so a
+ * stored copy that disagrees with it is stale: an older host published Brokers
+ * Hideout with no candidates because basics had lost their Basic supertype, and
+ * that empty prompt then outlived the fix. Dialogs the kernel cannot rebuild,
+ * like a scry captured mid-resolution, are left alone.
+ */
+const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
+  const decision = lobby.topdeck
+  if (decision?.kernel?.stage !== 'library-search') return false
+  const state = kernel.history.current()
+  if (searchingSeat(state) !== decision.seat) return true
+  const pending = pendingSearch(state, decision.seat)
+  const spec = pending ? searchSpecForPending(pending) : undefined
+  if (!pending || !spec) return true
+  return !sameNames(
+    searchCandidates(state, decision.seat, spec, pending.kicked)
+      .map((object) => object.name),
+    decision.cards,
+  )
+}
+
 export const prepareKernelPendingChoice = (
   kernel: KernelHandle,
   lobby: LobbyState,
 ) => {
-  if (lobby.topdeck) return false
+  if (lobby.topdeck) {
+    if (!kernelDialogIsStale(kernel, lobby)) return false
+    delete lobby.topdeck
+  }
   const targetsPending = pendingPlayerTargets(kernel.history.current())
   if (targetsPending && isSeatId(targetsPending.controller)) {
     const seat = targetsPending.controller
