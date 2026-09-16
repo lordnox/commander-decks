@@ -51,3 +51,30 @@ test('legal actions are listed so a line built from them cannot be called illega
   expect(facts).toContain('play Forest')
   expect(facts).toContain('must not be rejected as illegal')
 })
+
+test('a responder the judge would rule tapped out is named with its own actions', () => {
+  const state = table()
+  state.active = 'p2'
+  state.priority = 'p2'
+  state.players.p2.mana = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 }
+  const veto = Object.values(state.objects).find(
+    (object) => object.name === 'Blood Celebrant',
+  )!
+  veto.name = "Dovin's Veto"
+  veto.types = ['Instant']
+  veto.manaCost = '{W}{B}'
+  veto.oracleText = 'Counter target noncreature spell.'
+  state.stack = [{
+    id: 'stack-1',
+    kind: 'spell',
+    objectId: 'other',
+    controller: 'p2',
+    name: 'Reanimate',
+    targets: [],
+  }]
+
+  const facts = kernelFacts(state, 'p2', 'p1')
+
+  expect(facts).toContain("p1 (cast Dovin's Veto)")
+  expect(facts).toContain('Do not pass priority for them')
+})

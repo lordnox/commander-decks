@@ -41,7 +41,7 @@ import {
   type LobbyState,
 } from './lobby'
 import { logLine } from './log'
-import { readFileSync } from 'node:fs'
+import { readFileSync, writeFileSync } from 'node:fs'
 import { applyOpeningMessage, isOpeningFrame } from './opening'
 import { publishReplay } from './publish'
 import { executeSimpleKernelPlan, simpleKernelPlan } from './simplePlan'
@@ -594,6 +594,7 @@ export const runHost = async (options: {
           await publish(slug, root, origin, bins, state, kernel)
         }
         const kernelEventsBefore = kernel?.journal.events.length
+        let humanWindowHeldBack = false
         const result = await invokeHostAgent({
           root,
           slug,
@@ -605,14 +606,27 @@ export const runHost = async (options: {
             state.human && state.alwaysStopOnPriority[state.human],
           ),
           logFile,
-          facts: kernel ? kernelFacts(kernel.history.current(), seat) : undefined,
+          facts: kernel
+            ? kernelFacts(kernel.history.current(), seat, state.human)
+            : undefined,
           validateKernelChange: kernel
-            ? (candidatePath) => assertAgentKernelBoundary(
-                kernel!,
-                JSON.parse(readFileSync(candidatePath, 'utf8')) as KernelJournal,
-                seat,
-                state.human,
-              )
+            ? (candidatePath) => {
+                const checked = assertAgentKernelBoundary(
+                  kernel!,
+                  JSON.parse(readFileSync(candidatePath, 'utf8')) as KernelJournal,
+                  seat,
+                  state.human,
+                  { held: Boolean(state.human && state.holds[state.human]) },
+                )
+                if (checked.trimmed > 0) {
+                  humanWindowHeldBack = true
+                  writeFileSync(candidatePath, `${JSON.stringify(checked.journal)}\n`)
+                  logLine(
+                    logFile,
+                    `held back ${checked.trimmed} event(s) past ${state.human}'s response window`,
+                  )
+                }
+              }
             : undefined,
         })
         if (hasKernel(slug, root)) {
@@ -710,6 +724,17 @@ export const runHost = async (options: {
             // The reducer owns the post-action window. A judge response was
             // written before settling and may name a seat that no longer has
             // priority.
+            restoreKernelWindow(kernel, state)
+          }
+          if (humanWindowHeldBack && kernel) {
+            const name = state.occupants[seat]?.name ?? seat
+            const note = `The rest of the line waits on ${
+              state.human ? state.occupants[state.human]?.name ?? state.human : 'another seat'
+            }, who has a legal response to it.`
+            state.privateJudge = {
+              [seat]: [state.privateJudge[seat], note].filter(Boolean).join('\n\n'),
+            }
+            state.judge = `${name}'s line paused for a response.`
             restoreKernelWindow(kernel, state)
           }
         } catch (reason) {

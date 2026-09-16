@@ -30,6 +30,7 @@ import {
   DIALOG_CHOSEN,
   PENDING_DIALOG,
 } from '../../rules-engine/src/pendingDialog'
+import { cardTemplate } from '../../rules-engine/src/newGame'
 import { createLobby } from './lobby'
 import {
   applyKernelAdvance,
@@ -230,6 +231,58 @@ describe('kernel host journal', () => {
     expect(() =>
       assertAgentKernelBoundary(kernel, candidate, 'p1', 'p1')
     ).not.toThrow()
+  })
+
+  test('an agent cannot pass the human response window inside another seat’s line', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        first: 'p3',
+        hands: { p1: [cardTemplate("Dovin's Veto", {
+          types: ['Instant'],
+          manaCost: '{W}{U}',
+          oracleText: 'Counter target noncreature spell.',
+        })] },
+        battlefield: {
+          p1: [
+            { ...forest(), name: 'Adarkar Wastes', subtypes: [], supertypes: [] },
+            cardTemplate('Phial of Galadriel', {
+              types: ['Artifact'],
+              oracleText: '{T}: Add one mana of any color.',
+            }),
+          ],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [] },
+    )
+    const initial = structuredClone(server.state)
+    initial.objects[initial.zoneOrder.p1.battlefield[0]].oracleText =
+      '{T}: Add {C}.\n{T}: Add {W} or {U}. This land deals 1 damage to you.'
+    initial.step = 'precombatMain'
+    initial.active = 'p3'
+    initial.priority = 'p1'
+    initial.stack = [{
+      id: 'stack-1',
+      kind: 'spell',
+      objectId: 'reanimate',
+      controller: 'p3',
+      name: 'Reanimate',
+      targets: [],
+    }]
+    const kernel = handleFor(server.rules, initial)
+    const candidate = recordAccepted(kernel.journal, {
+      type: 'passPriority',
+      seat: 'p1',
+    })
+
+    const checked = assertAgentKernelBoundary(kernel, candidate, 'p3', 'p1')
+    expect(checked.trimmed).toBe(1)
+    expect(checked.journal.events).toEqual(kernel.journal.events)
+
+    // The seat's own hold is its escape from windows it does not want.
+    expect(
+      assertAgentKernelBoundary(kernel, candidate, 'p3', 'p1', { held: true }).trimmed,
+    ).toBe(0)
   })
 
   test('play start persists and restores a pass', async () => {
