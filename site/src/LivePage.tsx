@@ -487,6 +487,7 @@ export const LivePage = () => {
       until?: 'my-turn' | 'off'
       kind?: AvailableAction['kind']
       objectId?: string
+      targetObjectId?: string
       abilityId?: string
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
@@ -547,6 +548,7 @@ export const LivePage = () => {
           type: 'act',
           kind: extra.kind,
           objectId: extra.objectId,
+          ...(extra.targetObjectId ? { targetObjectId: extra.targetObjectId } : {}),
           ...(extra.abilityId ? { abilityId: extra.abilityId } : {}),
           ...(extra.text ? { text: extra.text } : {}),
           ...(extra.mana ? { mana: extra.mana } : {}),
@@ -1128,6 +1130,9 @@ export const LivePage = () => {
                 void sendInbox('act', {
                   kind: action.kind,
                   objectId: action.objectId,
+                  ...('targetObjectId' in action && action.targetObjectId
+                    ? { targetObjectId: action.targetObjectId }
+                    : {}),
                   ...('abilityId' in action && action.abilityId
                     ? { abilityId: action.abilityId }
                     : {}),
@@ -1169,6 +1174,7 @@ export const LivePage = () => {
           key={snapshot.actionId}
           game={game}
           decision={snapshot.topdeck}
+          prompt={snapshot.waiting}
           pending={actionPending}
           onResolve={(choices) => void sendInbox('topdeck', { choices })}
         />

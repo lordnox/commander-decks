@@ -115,3 +115,27 @@ test('a card preview lists its host-advertised actions', () => {
   expect(html).toContain('Play land')
   expect(html).toContain('Tap for {G}')
 })
+
+test('a targeted fast cast asks for its target after Cast', () => {
+  const html = renderToStaticMarkup(
+    <CardPreview
+      preview={{
+        name: 'Reanimate',
+        details: game.catalog['Mossborn Hydra'],
+        objectId: 'spell',
+      }}
+      acts={[{
+        kind: 'castSpell',
+        objectId: 'spell',
+        name: 'Reanimate',
+        targetObjectId: 'creature',
+        targetName: 'Mossborn Hydra',
+      }]}
+      onAct={() => {}}
+      onClose={() => {}}
+    />,
+  )
+
+  expect(html).toContain('>Cast<')
+  expect(html).not.toContain('Choose target')
+})

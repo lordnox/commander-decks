@@ -282,7 +282,7 @@ const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbyState) => 
   const spec = pending ? searchSpecForPending(pending) : undefined
   if (!pending || !spec) return false
   const cards = searchCandidates(state, seat, spec, pending.kicked).map((object) => object.name)
-  if (cards.length < spec.min) {
+  if (cards.length === 0 || cards.length < spec.min) {
     // Failing to find is a legal choice, and the only one available.
     finishLibrarySearch(kernel, lobby, seat, pending, spec, [])
     return false

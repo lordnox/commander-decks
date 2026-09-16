@@ -26,11 +26,13 @@ const label = (destination: Destination) => {
 export const TopdeckDialog = ({
   game,
   decision,
+  prompt,
   pending,
   onResolve,
 }: {
   game: ReplayGame
   decision: LiveTopdeck
+  prompt?: string
   pending: boolean
   onResolve: (choices: Array<{ card: string; destination: Destination }>) => void
 }) => {
@@ -161,21 +163,21 @@ export const TopdeckDialog = ({
           </button>
         </div>
         <p className="mt-2 text-sm text-stone-400">
-          {discarding
+          {prompt || (discarding
             ? 'Your turn ends once the extra cards are in the graveyard.'
             : puttingLand
               ? 'Choose at most one land. Leave every other card in your hand.'
               : targetingPlayers
                 ? 'Choose any number of players. Homer mills each chosen player when you confirm.'
                 : searching
-                ? 'Choose exactly one matching card. The rest stay in your library, then it is shuffled.'
-              : `Choose top or ${destinationLabel} for each card.`}
+                  ? 'Choose a matching card or decline when the search is optional. The rest stay in your library, then it is shuffled.'
+                  : `Choose top or ${destinationLabel} for each card.`)}
           {orderMatters && choices.length > 1
             ? ' The displayed order is the final order.'
             : ''}
           {' Hover over or tap card art for a readable preview.'}
         </p>
-        {decision.requirements && (
+        {decision.requirements && !searching && (
           <p className="mt-2 text-xs text-gold-200">
             Required: {Object.entries(decision.requirements)
               .map(([destination, limits]) => {
@@ -265,7 +267,11 @@ export const TopdeckDialog = ({
                           : puttingLand
                           ? (destination === 'hand' ? 'Keep in hand' : 'Put onto battlefield')
                           : searching
-                            ? (destination === 'hand' ? 'Choose this card' : 'Leave in library')
+                            ? (destination === 'library'
+                              ? 'Leave in library'
+                              : destination === 'hand'
+                                ? 'Choose this card'
+                                : `Put in ${label(destination).toLocaleLowerCase()}`)
                           : destination === 'top'
                           ? 'Leave on top'
                           : destination === 'bottom'
@@ -300,7 +306,7 @@ export const TopdeckDialog = ({
           })}
         </ol>
 
-        {choices.length > 1 && (
+        {(choices.length > 1 || searching) && (
           <button
             type="button"
             onClick={() => onResolve(
@@ -318,7 +324,9 @@ export const TopdeckDialog = ({
                   : puttingLand
                   ? 'Confirm land choice'
                   : searching
-                    ? 'Choose card'
+                    ? choices.some((choice) => choice.destination !== 'library')
+                      ? 'Choose card'
+                      : 'Decline search'
                 : `Resolve ${decision.kind}`}
           </button>
         )}

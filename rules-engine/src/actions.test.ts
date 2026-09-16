@@ -266,6 +266,44 @@ describe('events for available actions', () => {
       actions.find((action) => action.name === 'Choice Creature')!,
     )).toBeNull()
   })
+
+  test('a supported one-target spell carries its chosen target through the fast path', () => {
+    const reanimate = {
+      ...bolt(),
+      name: 'Reanimate',
+      types: ['Sorcery'],
+      manaCost: '{B}',
+      oracleText: 'Put target creature card from a graveyard onto the battlefield under your control.',
+    }
+    const target = { ...bears(), name: 'Graveyard Creature' }
+    const state = newGame(commanderRules, {
+      hands: { p1: [reanimate], p2: [target] },
+    })
+    const targetObject = objectNamed(state, 'Graveyard Creature')
+    targetObject.zone = 'graveyard'
+    state.zoneOrder.p2.hand = []
+    state.zoneOrder.p2.graveyard = [targetObject.id]
+    state.players.p1.mana = { ...empty, B: 1 }
+
+    const action = legalActsFor(state, 'p1').find(
+      (candidate) => candidate.kind === 'castSpell',
+    )
+    expect(action).toMatchObject({
+      kind: 'castSpell',
+      name: 'Reanimate',
+      targetName: 'Graveyard Creature',
+      targetObjectId: objectNamed(state, 'Graveyard Creature').id,
+    })
+    expect(eventsForAvailableAction(state, 'p1', action!).at(-1)).toEqual({
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: objectNamed(state, 'Reanimate').id,
+      targets: [{
+        kind: 'object',
+        objectId: objectNamed(state, 'Graveyard Creature').id,
+      }],
+    })
+  })
 })
 
 describe('mana affordances', () => {

@@ -889,7 +889,19 @@ export const CardPreview = ({
   onInsertName?: (name: string) => void
   acts?: AvailableAction[]
   onAct?: (action: AvailableAction) => void
-}) => (
+}) => {
+  const [choosingTarget, setChoosingTarget] = useState(false)
+  const targetedCasts = acts.filter((
+    action,
+  ): action is Extract<AvailableAction, { kind: 'castSpell' }> & {
+    targetObjectId: string
+    targetName: string
+  } => action.kind === 'castSpell' && Boolean(action.targetObjectId && action.targetName))
+  const directActs = acts.filter(
+    (action) => action.kind !== 'castSpell' || !action.targetObjectId,
+  )
+
+  return (
   <div
     className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-4 backdrop-blur-sm sm:items-center"
     role="presentation"
@@ -964,7 +976,42 @@ export const CardPreview = ({
         )}
         {acts.length > 0 && onAct && (
           <div className="mt-5 flex flex-wrap gap-2">
-            {acts.map((action, index) => (
+            {targetedCasts.length > 0 && !choosingTarget && (
+              <button
+                type="button"
+                onClick={() => setChoosingTarget(true)}
+                className="inline-flex items-center rounded-full bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-moss-200"
+              >
+                Cast
+              </button>
+            )}
+            {choosingTarget && (
+              <div className="w-full rounded-xl border border-moss-300/30 bg-black/20 p-3">
+                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-moss-200">
+                  Choose target
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {targetedCasts.map((action) => (
+                    <button
+                      key={`${action.objectId}-${action.targetObjectId}`}
+                      type="button"
+                      onClick={() => onAct(action)}
+                      className="rounded-full bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-moss-200"
+                    >
+                      {action.targetName}
+                    </button>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => setChoosingTarget(false)}
+                    className="rounded-full bg-white/10 px-3 py-1.5 text-sm font-semibold text-stone-200 hover:bg-white/15"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+            {directActs.map((action, index) => (
               <button
                 key={`${action.kind}-${'objectId' in action ? action.objectId : index}-${index}`}
                 type="button"
@@ -1014,4 +1061,5 @@ export const CardPreview = ({
       </div>
     </article>
   </div>
-)
+  )
+}
