@@ -429,6 +429,7 @@ export const LivePage = () => {
 
   const onInsertName = (name: string) => {
     setPlan((current) => insertAtCursor(planRef.current, current, name))
+    flash(`${name} added to plan`)
   }
 
   const copyPlan = async () => {
@@ -1077,6 +1078,7 @@ export const LivePage = () => {
             void navigator.clipboard.writeText(name)
             flash('Card name copied')
           }}
+          onInsertName={canSend ? onInsertName : undefined}
         />
       )}
 
