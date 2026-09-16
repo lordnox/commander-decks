@@ -175,4 +175,40 @@ describe('spells', () => {
     expect(resolved.state.zoneOrder.p1.library).toEqual([forestId])
     expect(resolved.state.zoneOrder.p1.graveyard).toEqual([twisterId])
   })
+
+  test('the most recently cast spell resolves first', () => {
+    const catalog = createCatalog([spells])
+    const state = newGame({
+      hands: { p1: [bolt()], p2: [bolt()] },
+      builtinRules: ['spells'],
+    })
+    state.players.p1.mana.R = 1
+    state.players.p2.mana.R = 1
+    const [first, second] = Object.values(state.objects)
+
+    const firstCast = rules(state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: first.id,
+    }, catalog)
+    expect(firstCast.ok).toBe(true)
+    if (!firstCast.ok) return
+    const responseReady = structuredClone(firstCast.state)
+    responseReady.priority = 'p2'
+    const response = rules(responseReady, {
+      type: 'castSpell',
+      seat: 'p2',
+      objectId: second.id,
+    }, catalog)
+    expect(response.ok).toBe(true)
+    if (!response.ok) return
+    expect(response.state.stack.map((item) => item.objectId)).toEqual([second.id, first.id])
+
+    const resolved = rules(response.state, { type: 'resolveTop' }, catalog)
+    expect(resolved.ok).toBe(true)
+    if (!resolved.ok) return
+    expect(resolved.state.objects[second.id].zone).toBe('graveyard')
+    expect(resolved.state.objects[first.id].zone).toBe('stack')
+    expect(resolved.state.stack.map((item) => item.objectId)).toEqual([first.id])
+  })
 })

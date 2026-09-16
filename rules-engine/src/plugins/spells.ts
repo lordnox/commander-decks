@@ -90,7 +90,7 @@ export const spells: Plugin = {
       if (!paid) return
 
       draft.players[event.seat].mana = paid
-      draft.stack.push({
+      draft.stack.unshift({
         id: draft.allocId('s'),
         kind: 'spell',
         objectId: object.id,
