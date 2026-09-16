@@ -1,0 +1,53 @@
+import { expect, test } from 'bun:test'
+import { commanderRules, createServerGame } from '../../rules-engine/src/index'
+import { cardTemplate, forest } from '../../rules-engine/src/newGame'
+import { kernelFacts } from './kernelFacts'
+
+const table = () => {
+  const server = createServerGame(
+    commanderRules,
+    {
+      hands: { p1: [forest(), cardTemplate('Blood Celebrant', { manaCost: '{B}' })] },
+      battlefield: {
+        p1: [
+          { ...forest(), name: 'Shadowy Backstreet' },
+          { ...forest(), name: 'Swamp', tapped: true },
+        ],
+      },
+    },
+    { random: () => 0.5, cardPlugins: [] },
+  )
+  const state = structuredClone(server.state)
+  state.step = 'precombatMain'
+  state.active = 'p1'
+  state.priority = 'p1'
+  state.players.p1.mana = { W: 1, U: 0, B: 1, R: 0, G: 0, C: 0 }
+  return state
+}
+
+test('the facts name the step, pool, and untapped sources the judge kept guessing', () => {
+  const facts = kernelFacts(table(), 'p1')
+
+  expect(facts).toContain('step precombatMain')
+  expect(facts).toContain('Priority p1')
+  expect(facts).toContain('pool {W}{B}')
+  expect(facts).toContain('Untapped mana sources for p1: Shadowy Backstreet.')
+  // A tapped source is exactly the kind of thing it invented.
+  expect(facts).not.toContain('Swamp.')
+})
+
+test('the internal turn counter is translated into the round players see', () => {
+  const state = table()
+  state.turn = 17
+
+  const facts = kernelFacts(state, 'p1')
+  expect(facts).toContain('Internal turn 17 (round 5)')
+  expect(facts).toContain('say "turn 5"')
+})
+
+test('legal actions are listed so a line built from them cannot be called illegal', () => {
+  const facts = kernelFacts(table(), 'p1')
+
+  expect(facts).toContain('play Forest')
+  expect(facts).toContain('must not be rejected as illegal')
+})
