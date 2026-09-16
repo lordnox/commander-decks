@@ -37,6 +37,18 @@ const defaultObject = (): Omit<GameObject, 'id' | 'owner' | 'controller' | 'zone
   tags: [],
 })
 
+/** One place that knows every GameObject field, so callers name only what matters. */
+export const cardTemplate = (
+  name: string,
+  overrides: Partial<CardTemplate> = {},
+): CardTemplate => {
+  const types = overrides.types ?? []
+  const creatureStats = types.includes('Creature')
+    ? { power: 1, toughness: 1 }
+    : {}
+  return { ...defaultObject(), name, ...creatureStats, ...overrides }
+}
+
 const player = (format: GameFormat, id: PlayerId): PlayerState => ({
   id,
   life: format.startingLife,
@@ -186,134 +198,56 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
   }
 }
 
-export const forest = (): CardTemplate => ({
-  name: 'Forest',
+export const forest = (): CardTemplate => cardTemplate('Forest', {
   types: ['Land'],
   subtypes: ['Forest'],
-  tapProduces: { G: 1 },
-  grantedRules: [],
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
   supertypes: ['Basic'],
-  manaCost: '',
-  power: null,
-  toughness: null,
+  tapProduces: { G: 1 },
   oracleText: '{T}: Add {G}.',
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  token: false,
-  tags: [],
 })
 
-export const bears = (): CardTemplate => ({
-  name: 'Grizzly Bears',
+export const bears = (): CardTemplate => cardTemplate('Grizzly Bears', {
   types: ['Creature'],
   subtypes: ['Bear'],
   manaCost: '{1}{G}',
   power: 2,
   toughness: 2,
-  grantedRules: [],
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
-  supertypes: [],
-  oracleText: '',
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  token: false,
-  tags: [],
 })
 
 /** Oracle Yurlok: mana burn on emptying pools, plus {1}, {T} rain. */
-export const yurlokFixture = (): CardTemplate => ({
-  name: 'Yurlok of Scorch Thrash',
+export const yurlokFixture = (): CardTemplate => cardTemplate('Yurlok of Scorch Thrash', {
   types: ['Creature'],
   subtypes: ['Lizard', 'Shaman'],
+  supertypes: ['Legendary'],
   manaCost: '{1}{B}{R}{G}',
   power: 4,
   toughness: 4,
-  grantedRules: [],
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
-  supertypes: ['Legendary'],
   oracleText:
     'Vigilance\nA player losing unspent mana causes that player to lose that much life.\n{1}, {T}: Each player adds {B}{R}{G}.',
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  token: false,
-  tags: [],
 })
 
 /** Fixture: shuffles each player's graveyard and hand into their library. Omits the draw-seven. */
-export const timetwister = (): CardTemplate => ({
-  name: 'Timetwister',
+export const timetwister = (): CardTemplate => cardTemplate('Timetwister', {
   types: ['Sorcery'],
   manaCost: '{2}{U}',
-  power: null,
-  toughness: null,
-  grantedRules: [],
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
-  supertypes: [],
-  subtypes: [],
   oracleText:
     'Fixture: each player shuffles their hand and graveyard into their library (no draw).',
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  token: false,
-  tags: [],
 })
 
-export const bolt = (): CardTemplate => ({
-  name: 'Lightning Bolt',
+export const bolt = (): CardTemplate => cardTemplate('Lightning Bolt', {
   types: ['Instant'],
   manaCost: '{R}',
-  power: null,
-  toughness: null,
-  grantedRules: [],
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
-  supertypes: [],
-  subtypes: [],
   oracleText: 'Lightning Bolt deals 3 damage to any target.',
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  token: false,
-  tags: [],
 })
 
 /** Fixture: entering installs manaBurn; leaving removes it. Not Oracle Yarok. */
-export const yarokFixture = (): CardTemplate => ({
-  name: 'Yarok, the Desecrated',
+export const yarokFixture = (): CardTemplate => cardTemplate('Yarok, the Desecrated', {
   types: ['Creature'],
   subtypes: ['Elemental', 'Horror'],
+  supertypes: ['Legendary'],
   manaCost: '{2}{B}{G}{U}',
   power: 3,
   toughness: 5,
   grantedRules: ['manaBurn'],
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
-  supertypes: ['Legendary'],
   oracleText: 'Fixture: while on the battlefield, leftover mana burns.',
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  token: false,
-  tags: [],
 })

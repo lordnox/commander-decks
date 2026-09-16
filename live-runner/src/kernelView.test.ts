@@ -1,29 +1,11 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules, createServerGame } from '../../rules-engine/src/index'
-import type { CardTemplate } from '../../rules-engine/src/newGame'
+import { cardTemplate } from '../../rules-engine/src/newGame'
 import { createLobby } from './lobby'
 import { kernelCombat, liveSeatsFromState, liveSnapshotFromState } from './kernelView'
 
-const creature = (name: string, oracleText = ''): CardTemplate => ({
-  name,
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
-  types: ['Creature'],
-  subtypes: [],
-  supertypes: [],
-  manaCost: '{B}',
-  power: 1,
-  toughness: 1,
-  oracleText,
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  grantedRules: [],
-  token: false,
-  tags: [],
-})
+const creature = (name: string, oracleText = '') =>
+  cardTemplate(name, { types: ['Creature'], manaCost: '{B}', oracleText })
 
 const combatTable = () => {
   const server = createServerGame(

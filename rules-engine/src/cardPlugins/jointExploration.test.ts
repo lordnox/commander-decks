@@ -1,29 +1,11 @@
 import { expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { createServerGame } from '../runtime'
-import type { CardTemplate } from '../newGame'
+import { cardTemplate } from '../newGame'
 import { jointExploration } from './jointExploration'
 
-const card = (name: string, types: string[], manaCost = ''): CardTemplate => ({
-  name,
-  types,
-  manaCost,
-  subtypes: [],
-  supertypes: [],
-  oracleText: '',
-  power: null,
-  toughness: null,
-  grantedRules: [],
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  token: false,
-  tags: [],
-})
+const card = (name: string, types: string[], manaCost = '') =>
+  cardTemplate(name, { types, manaCost, power: null, toughness: null })
 
 test('Joint Exploration draws after its scry choice has completed', () => {
   const server = createServerGame(commanderRules, {

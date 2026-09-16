@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import type { CardTemplate } from '../newGame'
+import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
 import { AFTERMATH_RECLAIM, graveyardLands } from './graveyardLands'
@@ -10,27 +10,7 @@ const card = (
   types: string[],
   zone: CardTemplate['zone'],
   manaCost = '',
-): CardTemplate => ({
-  name,
-  types,
-  zone,
-  manaCost,
-  subtypes: [],
-  supertypes: [],
-  oracleText: '',
-  power: types.includes('Creature') ? 1 : null,
-  toughness: types.includes('Creature') ? 1 : null,
-  grantedRules: [],
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  token: false,
-  tags: [],
-})
+) => cardTemplate(name, { types, zone, manaCost })
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)

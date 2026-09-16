@@ -1,6 +1,6 @@
 import { grantedRulesFor } from './cardPlugins'
 import { commanderRules } from './formats'
-import type { CardTemplate } from './newGame'
+import { cardTemplate as templateFor, type CardTemplate } from './newGame'
 import { createServerGame } from './runtime'
 import type { GameEvent, GameObject, GameState, PlayerId, StepId } from './types'
 
@@ -95,8 +95,7 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
   const add = card?.oracle_text.match(/Add \{([WUBRGC])\}/)
   const tapProduces = add ? { [add[1]]: 1 } : undefined
 
-  return {
-    name,
+  return templateFor(name, {
     types,
     subtypes,
     supertypes,
@@ -104,18 +103,9 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
     power: stats ? Number(stats[1]) : null,
     toughness: stats ? Number(stats[2]) : null,
     oracleText: card?.oracle_text ?? '',
-    attachedTo: null,
-    attacking: null,
-    blocking: null,
     grantedRules: grantedRulesFor(name),
-    token: false,
-    tags: [],
-    tapped: false,
-    summoningSickness: false,
-    damageMarked: 0,
-    counters: {},
     ...(tapProduces ? { tapProduces } : {}),
-  }
+  })
 }
 
 const nameInZone = (state: GameState, seat: PlayerId, zone: GameObject['zone'], name: string) =>
