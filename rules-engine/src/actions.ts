@@ -1,5 +1,6 @@
 import { emptyMana } from './draft'
 import { PERMANENT_TYPES } from './definitions'
+import { manaModes, poolForChoice } from './plugins/mana'
 import { payCost } from './plugins/spells'
 import { effectsOf } from './cardPlugins/cardRules'
 import { conditionHolds, type ActivateCost } from './cardPlugins/effects'
@@ -35,26 +36,18 @@ const addPool = (left: ManaPool, right: Partial<ManaPool>) => {
   return sum
 }
 
-const manaOptions = (object: GameObject): Partial<ManaPool>[] => {
-  const options: Partial<ManaPool>[] = object.tapProduces
-    ? [object.tapProduces]
-    : []
-  const text = object.oracleText
-  for (const match of text.matchAll(/Add ((?:\{[WUBRGC]\}(?: or )?)+)/gi)) {
-    const symbols = [...match[1].matchAll(/\{([WUBRGC])\}/gi)]
-      .map((symbol) => symbol[1].toUpperCase() as ManaId)
-    if (match[1].includes(' or ')) {
-      for (const symbol of symbols) options.push({ [symbol]: 1 })
-    } else if (symbols.length > 0) {
-      const pool: Partial<ManaPool> = {}
-      for (const symbol of symbols) pool[symbol] = (pool[symbol] ?? 0) + 1
-      options.push(pool)
-    }
-  }
-  if (/one mana of any color/i.test(text)) {
-    for (const symbol of MANA_IDS.slice(0, 5)) options.push({ [symbol]: 1 })
-  }
-  return options
+const samePool = (left: Partial<ManaPool>, right?: Partial<ManaPool>) =>
+  !!right && MANA_IDS.every((mana) => (left[mana] ?? 0) === (right[mana] ?? 0))
+
+/**
+ * The tapForMana choice that yields exactly `mode` from `source`, or null when
+ * the reducer cannot be steered to that mode.
+ */
+const tapChoice = (source: GameObject, mode: Partial<ManaPool>): { mana?: ManaId } | null => {
+  if (samePool(mode, poolForChoice(source))) return {}
+  const mana = MANA_IDS.find((symbol) => (mode[symbol] ?? 0) > 0)
+  if (mana && samePool(mode, poolForChoice(source, mana))) return { mana }
+  return null
 }
 
 const sourceCanTap = (object: GameObject, seat: PlayerId) =>
@@ -69,8 +62,8 @@ const poolKey = (pool: ManaPool, cap: number) =>
 const canFund = (state: GameState, seat: PlayerId, cost: string) => {
   const sources = Object.values(state.objects)
     .filter((object) => sourceCanTap(object, seat))
-    .map(manaOptions)
-    .filter((options) => options.length > 0)
+    .map(manaModes)
+    .filter((modes) => modes.length > 0)
   const cap = Math.max(
     1,
     [...cost.matchAll(/\{(\d+)\}/g)].reduce(
@@ -79,11 +72,11 @@ const canFund = (state: GameState, seat: PlayerId, cost: string) => {
     ),
   )
   let pools = [state.players[seat]?.mana ?? emptyMana()]
-  for (const options of sources) {
+  for (const modes of sources) {
     const next = new Map<string, ManaPool>()
     for (const pool of pools) {
-      for (const option of options) {
-        const candidate = addPool(pool, option)
+      for (const mode of modes) {
+        const candidate = addPool(pool, mode)
         next.set(poolKey(candidate, cap), candidate)
       }
     }
@@ -338,20 +331,17 @@ export const manaAffordances = (
   const seen = new Set<string>()
   for (const object of Object.values(state.objects)) {
     if (!sourceCanTap(object, seat)) continue
-    for (const option of manaOptions(object)) {
-      const symbols = MANA_IDS.filter((mana) => (option[mana] ?? 0) > 0)
-      const needsChoice = !object.tapProduces
-        || MANA_IDS.some((mana) => option[mana] !== object.tapProduces?.[mana])
-      const mana = needsChoice && symbols.length === 1 ? symbols[0] : undefined
-      if (needsChoice && !mana) continue
-      const key = `${object.id}:${mana ?? ''}`
+    for (const mode of manaModes(object)) {
+      const choice = tapChoice(object, mode)
+      if (!choice) continue
+      const key = `${object.id}:${choice.mana ?? ''}`
       if (seen.has(key)) continue
       seen.add(key)
       actions.push({
         kind: 'tapForMana',
         objectId: object.id,
         name: object.name,
-        ...(mana ? { mana } : {}),
+        ...choice,
       })
     }
   }
@@ -392,37 +382,28 @@ const fundingEvents = (
   cost: string,
 ): GameEvent[] | null => {
   const sources = Object.values(state.objects)
-    .filter((object) =>
-      sourceCanTap(object, seat)
-      && manaOptions(object).length > 0)
-    .map((source) => ({ source, options: manaOptions(source) }))
+    .filter((object) => sourceCanTap(object, seat))
+    .map((source) => ({ source, modes: manaModes(source) }))
+    .filter(({ modes }) => modes.length > 0)
   let plans = [{
     pool: state.players[seat]?.mana ?? emptyMana(),
     events: [] as GameEvent[],
   }]
-  for (const { source, options } of sources) {
+  for (const { source, modes } of sources) {
     const next = new Map<string, typeof plans[number]>()
     for (const plan of plans) {
       const candidates = [
         plan,
-        ...options.map((option) => {
-          const selected = MANA_IDS.find((mana) =>
-            option[mana] === 1
-            && Object.values(option).reduce((sum, amount) => sum + (amount ?? 0), 0) === 1)
-          const needsChoice = !source.tapProduces
-            || MANA_IDS.some((mana) => option[mana] !== source.tapProduces?.[mana])
-          return {
-            pool: addPool(plan.pool, option),
+        ...modes.flatMap((mode) => {
+          const choice = tapChoice(source, mode)
+          if (!choice) return []
+          return [{
+            pool: addPool(plan.pool, mode),
             events: [
               ...plan.events,
-              {
-                type: 'tapForMana',
-                seat,
-                objectId: source.id,
-                ...(needsChoice && selected ? { mana: selected } : {}),
-              } as GameEvent,
+              { type: 'tapForMana', seat, objectId: source.id, ...choice } as GameEvent,
             ],
-          }
+          }]
         }),
       ]
       for (const candidate of candidates) {

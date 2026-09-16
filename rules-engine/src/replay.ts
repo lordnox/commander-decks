@@ -2,6 +2,7 @@ import { grantedRulesFor } from './cardPlugins'
 import { CARD_TYPES } from './definitions'
 import { commanderRules } from './formats'
 import { cardTemplate as templateFor, type CardTemplate } from './newGame'
+import { manaModes } from './plugins/mana'
 import { createServerGame } from './runtime'
 import type {
   GameEvent,
@@ -106,8 +107,11 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
     ? Number(card?.stats)
     : null
   const manaCost = (card?.mana_cost ?? '').split(' // ')[0]
+  const modes = manaModes({ oracleText: card?.oracle_text ?? '' })
   const add = card?.oracle_text.match(/Add \{([WUBRGC])\}/)
-  const tapProduces = add ? { [add[1]]: 1 } : undefined
+  const tapProduces = modes.length === 1
+    ? modes[0]
+    : add ? { [add[1]]: 1 } : undefined
 
   return templateFor(name, {
     types,
