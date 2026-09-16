@@ -1,5 +1,6 @@
 import { isPermanentType } from '../definitions'
 import type { GameEvent, GameState, Plugin } from '../types'
+import { DIALOG_CHOSEN, setPendingDialog } from '../pendingDialog'
 import { conditionHolds, replacementTaps } from './effects'
 import { effectsOf } from './cardRules'
 
@@ -27,6 +28,24 @@ export const entersTapped: Plugin = {
     if (!objectId) return
     const object = draft.object(objectId)
     if (!object || object.zone !== 'battlefield' || object.tapped) return
+    const shock = effectsOf(object).some((effect) =>
+      effect.op === 'replacement' && effect.do === 'tapUnlessPayLife')
+    if (shock) {
+      setPendingDialog(draft, {
+        sourceId: object.id,
+        source: object.name,
+        seat: object.controller,
+        kind: 'may-pay-life',
+        prompt: `You may pay 2 life. If you don’t, ${object.name} enters tapped.`,
+        waiting: 'is deciding whether to pay life.',
+        judge: 'Waiting for a shock-land payment.',
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['skip', 'target'],
+        count: 2,
+        optional: true,
+      })
+      return
+    }
     const replacement = replacementTaps(effectsOf(object))
     if (!replacement || !conditionHolds(replacement.if, state, object)) return
     object.tapped = true

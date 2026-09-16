@@ -9,8 +9,8 @@ import { payCost } from '../plugins/spells'
 import type Draft from '../draft'
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
 import { payActivateCosts } from './activated'
+import { conditionHolds, searchEffect, type SearchSpec } from './effects'
 import { effectsFor } from './cardRules'
-import { searchEffect, type SearchSpec } from './effects'
 import { enteringObjectId } from './entersTapped'
 
 export type { SearchDestination, SearchSpec } from './effects'
@@ -27,10 +27,17 @@ export type PendingSearch = {
   sourceId: string
   via: 'spell' | 'ability' | 'enters'
   kicked?: boolean
+  max?: number
 }
 
 export const searchSpecFor = (name: string): SearchSpec | undefined =>
   searchEffect(effectsFor(name))?.spec
+
+export const searchSpecForPending = (pending: PendingSearch): SearchSpec | undefined => {
+  const spec = searchSpecFor(pending.source)
+  if (!spec) return
+  return pending.max === undefined ? spec : { ...spec, max: pending.max }
+}
 
 const abilityEffect = (object: GameObject) => {
   const effect = searchEffect(effectsFor(object.name))
@@ -150,6 +157,13 @@ export const librarySearch: Plugin = {
         sourceId: item.objectId,
         via: 'spell',
         kicked: item.kicked === true,
+        max: spellSpec(object)?.sacrificeLands === 'any'
+          ? item.sacrificed ?? 0
+          : spellSpec(object)?.empoweredIf
+            && spellSpec(object)?.empoweredMax
+            && conditionHolds(spellSpec(object)!.empoweredIf, state, object)
+            ? spellSpec(object)!.empoweredMax
+            : undefined,
       },
     }
   },
@@ -167,6 +181,7 @@ export const librarySearch: Plugin = {
             ? 'enters'
             : 'spell',
         ...(event.payload?.kicked === true ? { kicked: true } : {}),
+        ...(typeof event.payload?.max === 'number' ? { max: event.payload.max } : {}),
       })
       return
     }

@@ -21,6 +21,9 @@ const validTarget = (
   if (!object) return false
   if (filter.zone && object.zone !== filter.zone) return false
   if (filter.type && !object.types.includes(filter.type)) return false
+  if (filter.types && !filter.types.some((type) => object.types.includes(type))) return false
+  if (filter.controller === 'you' && object.controller !== controller) return false
+  if (filter.controller === 'opponent' && object.controller === controller) return false
   if (filter.nonland && object.types.includes('Land')) return false
   if (filter.spellTargetsControlledPermanent) {
     const item = state.stack.find((candidate) => candidate.objectId === object.id)
@@ -62,6 +65,11 @@ export const targetedResolve: Plugin = {
       const object = state.objects[target.objectId]
       if (!validTarget(state, object, effect.filter, item.controller)) continue
 
+      if (effect.action === 'select') {
+        if (effect.do) runInstructions(draft, source, effect.do, item)
+        draft.note(`${source.name} targets ${object.name}`)
+        continue
+      }
       if (effect.action === 'counter') {
         const index = draft.stack.findIndex((candidate) => candidate.objectId === object.id)
         if (index < 0) continue
@@ -72,7 +80,9 @@ export const targetedResolve: Plugin = {
           ? 'exile'
           : effect.action === 'bounce'
             ? 'hand'
-            : 'graveyard'
+            : effect.action === 'reanimate'
+              ? 'battlefield'
+              : 'graveyard'
         draft.enqueue({ type: 'move', objectId: object.id, to: destination })
       }
       if (effect.do) runInstructions(draft, source, effect.do)

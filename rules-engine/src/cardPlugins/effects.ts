@@ -1,3 +1,4 @@
+import { isPermanentType } from '../definitions'
 import type Draft from '../draft'
 import { DIALOG_CHOSEN, setPendingDialog } from '../pendingDialog'
 import type { GameObject, GameState, ManaPool, PlayerId, StackItem, ZoneId } from '../types'
@@ -7,6 +8,10 @@ export type CardCondition =
   | { kind: 'controlledLands'; min?: number; max?: number }
   | { kind: 'uniqueLandNames'; min: number }
   | { kind: 'notActivePlayer' }
+  | { kind: 'controlledCreaturePower'; min: number }
+  | { kind: 'graveyardCards'; min: number }
+  | { kind: 'graveyardPermanentCards'; min: number }
+  | { kind: 'graveyardCardTypes'; min: number }
 
 export type TokenSpec = {
   name: string
@@ -40,6 +45,23 @@ export type CardInstruction =
   | { kind: 'copySelf' }
   | { kind: 'doublePlusCounters' }
   | { kind: 'if'; if: CardCondition; whenTrue: CardInstruction[]; whenFalse?: CardInstruction[] }
+  | { kind: 'surveil'; count: number }
+  | { kind: 'putLandFromHand'; tapped?: boolean }
+  | { kind: 'bounceChosenLand' }
+  | { kind: 'revealPick'; count: number; type?: string; permanent?: boolean }
+  | { kind: 'copyControlledCreature'; notLegendary?: boolean; plusCounters?: number; keepName?: boolean }
+  | { kind: 'copyTargetCreature'; notLegendary?: boolean; flying?: boolean }
+  | { kind: 'returnTargetFromGraveyard'; to: 'hand' | 'battlefield'; tapped?: boolean }
+  | { kind: 'pump'; power: number; toughness: number }
+  | { kind: 'grantUntilEot'; keywords: string[] }
+  | { kind: 'createXTokens'; token: TokenSpec }
+  | { kind: 'dealDamageToSelf'; amount: number }
+  | { kind: 'addChosenColorMana' }
+  | { kind: 'optionalMill'; count: number }
+  | { kind: 'returnChosenLandFromGraveyard'; tapped?: boolean }
+  | { kind: 'drawAtNextUpkeep'; count: number; who: 'you' | 'targetController'; optional?: boolean }
+  | { kind: 'putMilledLandTapped' }
+  | { kind: 'copyAllCreaturesUntilEot'; notLegendary?: boolean }
 
 export type ActivateCost = {
   tap?: boolean
@@ -47,7 +69,8 @@ export type ActivateCost = {
   mill?: number
   life?: number
   sacrifice?: 'self'
-  discard?: 'self'
+  discard?: 'self' | 'land' | 'any'
+  sacrificeTarget?: 'creature' | 'land'
   /** Signed loyalty change paid before the ability goes on the stack. */
   loyalty?: number
   /** Use the activation event's chosen X as a negative loyalty cost. */
@@ -59,7 +82,9 @@ export type SearchDestination = 'hand' | 'battlefield' | 'graveyard'
 export type TargetFilter = {
   zone?: ZoneId
   type?: string
+  types?: string[]
   nonland?: boolean
+  controller?: 'you' | 'opponent'
   spellTargetsControlledPermanent?: boolean
 }
 
@@ -76,13 +101,16 @@ export type SearchSpec = {
   gainLife?: number
   validateSelection?: (objects: GameObject[]) => string | void
   untapWithFourLands?: boolean
+  sacrificeLands?: number | 'any'
+  empoweredMax?: number
+  empoweredIf?: CardCondition
 }
 
 export type CardEffect =
-  | { op: 'replacement'; on: 'enters'; do: 'tapSelf'; if?: CardCondition }
+  | { op: 'replacement'; on: 'enters'; do: 'tapSelf' | 'tapUnlessPayLife'; life?: number; if?: CardCondition }
   | {
       op: 'trigger'
-      on: 'enters' | 'leaves' | 'dies' | 'landfall' | 'attacks' | 'resolve'
+      on: 'enters' | 'leaves' | 'dies' | 'landfall' | 'attacks' | 'resolve' | 'landToGraveyard'
       do: CardInstruction[]
       if?: CardCondition
     }
@@ -103,12 +131,22 @@ export type CardEffect =
       op: 'targetedResolve'
       target: number
       filter: TargetFilter
-      action: 'destroy' | 'exile' | 'bounce' | 'counter'
+      action: 'destroy' | 'exile' | 'bounce' | 'counter' | 'reanimate' | 'select'
       do?: CardInstruction[]
     }
   | { op: 'mana'; if: CardCondition }
-  | { op: 'static'; pluginId?: string; extraLandPlays?: number }
+  | {
+      op: 'static'
+      pluginId?: string
+      extraLandPlays?: number
+      extraLandfall?: number
+      extraEnters?: number
+      playLandsFromGraveyard?: boolean
+      allCreatureTypes?: boolean
+      legendRuleOff?: boolean
+    }
   | { op: 'handler'; pluginId: string }
+  | { op: 'bestow'; cost: string }
 
 export const selfMill = (count: number): CardInstruction => ({ kind: 'selfMill', count })
 
@@ -163,10 +201,142 @@ export const uniqueLandNames = (min: number): CardCondition => ({
   min,
 })
 
+export const controlledCreaturePower = (min: number): CardCondition => ({
+  kind: 'controlledCreaturePower',
+  min,
+})
+
+export const graveyardCards = (min: number): CardCondition => ({
+  kind: 'graveyardCards',
+  min,
+})
+
+export const graveyardPermanentCards = (min: number): CardCondition => ({
+  kind: 'graveyardPermanentCards',
+  min,
+})
+
+export const graveyardCardTypes = (min: number): CardCondition => ({
+  kind: 'graveyardCardTypes',
+  min,
+})
+
 export const extraLandPlays = (count: number): CardInstruction => ({
   kind: 'extraLandPlays',
   count,
 })
+
+export const surveil = (count: number): CardInstruction => ({ kind: 'surveil', count })
+
+export const putLandFromHand = (tapped = false): CardInstruction => ({
+  kind: 'putLandFromHand',
+  tapped,
+})
+
+export const bounceChosenLand = (): CardInstruction => ({ kind: 'bounceChosenLand' })
+
+export const revealPick = (
+  count: number,
+  extra: { type?: string; permanent?: boolean } = {},
+): CardInstruction => ({ kind: 'revealPick', count, ...extra })
+
+export const copyControlledCreature = (extra: {
+  notLegendary?: boolean
+  plusCounters?: number
+  keepName?: boolean
+} = {}): CardInstruction => ({ kind: 'copyControlledCreature', ...extra })
+
+export const copyTargetCreature = (extra: {
+  notLegendary?: boolean
+  flying?: boolean
+} = {}): CardInstruction => ({ kind: 'copyTargetCreature', ...extra })
+
+export const returnTargetFromGraveyard = (
+  to: 'hand' | 'battlefield',
+  tapped = false,
+): CardInstruction => ({ kind: 'returnTargetFromGraveyard', to, tapped })
+
+export const pump = (power: number, toughness: number): CardInstruction => ({
+  kind: 'pump',
+  power,
+  toughness,
+})
+
+export const grantUntilEot = (...keywords: string[]): CardInstruction => ({
+  kind: 'grantUntilEot',
+  keywords,
+})
+
+export const createXTokens = (token: TokenSpec): CardInstruction => ({
+  kind: 'createXTokens',
+  token,
+})
+
+export const optionalMill = (count: number): CardInstruction => ({ kind: 'optionalMill', count })
+
+export const returnChosenLandFromGraveyard = (tapped = true): CardInstruction => ({
+  kind: 'returnChosenLandFromGraveyard',
+  tapped,
+})
+
+export const drawAtNextUpkeep = (
+  count: number,
+  who: 'you' | 'targetController' = 'you',
+  optional = false,
+): CardInstruction => ({ kind: 'drawAtNextUpkeep', count, who, optional })
+
+export const copyAllCreaturesUntilEot = (notLegendary = true): CardInstruction => ({
+  kind: 'copyAllCreaturesUntilEot',
+  notLegendary,
+})
+
+export const tapUnlessPayLife = (life: number): CardEffect => ({
+  op: 'replacement',
+  on: 'enters',
+  do: 'tapUnlessPayLife',
+  life,
+})
+
+export const extraLandfall = (count = 1): CardEffect => ({
+  op: 'static',
+  extraLandfall: count,
+})
+
+export const extraEnters = (count = 1): CardEffect => ({
+  op: 'static',
+  extraEnters: count,
+})
+
+export const playLandsFromGraveyard = (): CardEffect => ({
+  op: 'static',
+  playLandsFromGraveyard: true,
+})
+
+export const allCreatureTypes = (): CardEffect => ({
+  op: 'static',
+  allCreatureTypes: true,
+})
+
+export const legendRuleOff = (): CardEffect => ({
+  op: 'static',
+  legendRuleOff: true,
+})
+
+export const bestow = (cost: string): CardEffect => ({ op: 'bestow', cost })
+
+export const attacks = (...instructions: CardInstruction[]): CardEffect => ({
+  op: 'trigger',
+  on: 'attacks',
+  do: instructions,
+})
+
+export const landToGraveyard = (...instructions: CardInstruction[]): CardEffect => ({
+  op: 'trigger',
+  on: 'landToGraveyard',
+  do: instructions,
+})
+
+export const putMilledLandTapped = (): CardInstruction => ({ kind: 'putMilledLandTapped' })
 
 export const draw = (count: number): CardInstruction => ({ kind: 'draw', count })
 
@@ -413,6 +583,31 @@ export const conditionHolds = (
     if (condition.max !== undefined && lands.length > condition.max) return false
     return true
   }
+  if (condition.kind === 'controlledCreaturePower') {
+    return Object.values(state.objects).some((candidate) =>
+      candidate.zone === 'battlefield'
+      && candidate.controller === object.controller
+      && candidate.types.includes('Creature')
+      && (candidate.power ?? 0) >= condition.min)
+  }
+  if (condition.kind === 'graveyardCards') {
+    return (state.zoneOrder[object.controller]?.graveyard.length ?? 0) >= condition.min
+  }
+  if (condition.kind === 'graveyardPermanentCards') {
+    return Object.values(state.objects).filter((candidate) =>
+      candidate.owner === object.controller
+      && candidate.zone === 'graveyard'
+      && isPermanentType(candidate.types)).length >= condition.min
+  }
+  if (condition.kind === 'graveyardCardTypes') {
+    const types = new Set(
+      Object.values(state.objects)
+        .filter((candidate) =>
+          candidate.owner === object.controller && candidate.zone === 'graveyard')
+        .flatMap((candidate) => candidate.types),
+    )
+    return types.size >= condition.min
+  }
   const names = new Set(controlledLandList(state, object.controller).map((land) => land.name))
   return names.size >= condition.min
 }
@@ -623,7 +818,296 @@ export const runInstructions = (
       draft.note(`${live.name} doubles to ${live.counters['+1/+1'] ?? 0} +1/+1 counters`)
       continue
     }
+    if (instruction.kind === 'surveil') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'surveil',
+        prompt: `Surveil ${instruction.count}.`,
+        waiting: 'is making a private surveil choice.',
+        judge: 'Waiting for a private surveil choice.',
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['top', 'graveyard'],
+        count: instruction.count,
+      })
+      continue
+    }
+    if (instruction.kind === 'putLandFromHand') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'put-land',
+        prompt: instruction.tapped
+          ? 'You may put a land from your hand onto the battlefield tapped.'
+          : 'You may put a land from your hand onto the battlefield.',
+        waiting: 'is choosing a land privately.',
+        judge: 'Waiting for an optional land.',
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['hand', 'battlefield'],
+        types: ['Land'],
+        optional: true,
+        requirements: { battlefield: { max: 1 } },
+      })
+      continue
+    }
+    if (instruction.kind === 'bounceChosenLand') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'bounce-land',
+        prompt: 'Return a land you control to its owner’s hand.',
+        waiting: 'is choosing a land to return.',
+        judge: 'Waiting for a land to bounce.',
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['battlefield', 'hand'],
+        types: ['Land'],
+        requirements: { hand: { min: 1, max: 1 } },
+      })
+      continue
+    }
+    if (instruction.kind === 'revealPick') {
+      const ids = draft.zoneOrder[source.controller].library.slice(0, instruction.count)
+      if (ids.length > 0) {
+        draft.enqueue({ type: 'reveal', seat: source.controller, objectIds: ids, source: source.name })
+      }
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'reveal-pick',
+        prompt: instruction.type
+          ? `You may put a ${instruction.type.toLowerCase()} card into your hand.`
+          : 'You may put a matching card into your hand.',
+        waiting: 'is choosing among revealed cards.',
+        judge: 'Waiting for a revealed-card pick.',
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['hand', 'graveyard'],
+        count: instruction.count,
+        ...(instruction.type ? { types: [instruction.type] } : {}),
+        ...(instruction.permanent ? { permanent: true } : {}),
+        optional: true,
+        requirements: { hand: { max: 1 } },
+      })
+      continue
+    }
+    if (instruction.kind === 'copyControlledCreature') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'copy-creature',
+        prompt: 'You may have this enter as a copy of a creature you control.',
+        waiting: 'is choosing a creature to copy.',
+        judge: 'Waiting for an optional clone.',
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['skip', 'target'],
+        types: ['Creature'],
+        optional: true,
+        requirements: { target: { max: 1 } },
+      })
+      continue
+    }
+    if (instruction.kind === 'copyTargetCreature') {
+      const target = item?.targets[0]
+      if (target?.kind !== 'object') continue
+      const copied = draft.object(target.objectId)
+      if (!copied) continue
+      createToken(draft, source.controller, copyTemplate(copied, {
+        notLegendary: instruction.notLegendary,
+        flying: instruction.flying,
+      }))
+      continue
+    }
+    if (instruction.kind === 'returnTargetFromGraveyard') {
+      const target = item?.targets[0]
+      if (target?.kind !== 'object') continue
+      draft.enqueue({ type: 'move', objectId: target.objectId, to: instruction.to })
+      if (instruction.tapped && instruction.to === 'battlefield') {
+        draft.enqueue({ type: 'tap', objectId: target.objectId })
+      }
+      continue
+    }
+    if (instruction.kind === 'pump') {
+      const target = item?.targets[0]
+      const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+      if (!object || object.power === null || object.toughness === null) continue
+      object.power += instruction.power
+      object.toughness += instruction.toughness
+      continue
+    }
+    if (instruction.kind === 'grantUntilEot') {
+      const target = item?.targets[0]
+      const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+      if (!object) continue
+      const extra = instruction.keywords.join(', ')
+      object.oracleText = object.oracleText
+        ? `${object.oracleText}\n${extra}`
+        : extra
+      continue
+    }
+    if (instruction.kind === 'createXTokens') {
+      const count = Math.max(0, item?.x ?? 0)
+      for (let index = 0; index < count; index += 1) {
+        createToken(draft, source.controller, {
+          name: instruction.token.name,
+          types: instruction.token.types,
+          subtypes: instruction.token.subtypes ?? [],
+          power: instruction.token.power ?? null,
+          toughness: instruction.token.toughness ?? null,
+          oracleText: instruction.token.oracleText ?? '',
+        })
+      }
+      continue
+    }
+    if (instruction.kind === 'dealDamageToSelf') {
+      draft.enqueue({
+        type: 'dealDamage',
+        sourceId: source.id,
+        target: { kind: 'player', player: source.controller },
+        amount: instruction.amount,
+      })
+      continue
+    }
+    if (instruction.kind === 'addChosenColorMana') {
+      continue
+    }
+    if (instruction.kind === 'putMilledLandTapped') {
+      continue
+    }
+    if (instruction.kind === 'optionalMill') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'may',
+        prompt: `You may mill ${instruction.count} cards.`,
+        waiting: 'is deciding whether to mill.',
+        judge: 'Waiting for an optional mill.',
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['skip', 'target'],
+        count: instruction.count,
+        optional: true,
+      })
+      continue
+    }
+    if (instruction.kind === 'returnChosenLandFromGraveyard') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'return-land',
+        prompt: 'Return a land card from your graveyard to the battlefield tapped.',
+        waiting: 'is choosing a land in the graveyard.',
+        judge: 'Waiting for a graveyard land.',
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['graveyard', 'battlefield'],
+        types: ['Land'],
+        requirements: { battlefield: { min: 1, max: 1 } },
+      })
+      continue
+    }
+    if (instruction.kind === 'drawAtNextUpkeep') {
+      const seat = instruction.who === 'you'
+        ? source.controller
+        : item?.targets[0]?.kind === 'object'
+          ? draft.object(item.targets[0].objectId)?.controller
+          : item?.targets[0]?.kind === 'player'
+            ? item.targets[0].player
+            : undefined
+      if (!seat) continue
+      const player = draft.players[seat]
+      const queued = Array.isArray(player.data.delayedDraw)
+        ? [...player.data.delayedDraw as number[]]
+        : []
+      queued.push(instruction.optional ? -instruction.count : instruction.count)
+      player.data.delayedDraw = queued
+      continue
+    }
+    if (instruction.kind === 'copyAllCreaturesUntilEot') {
+      const target = item?.targets[0]
+      const copied = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+      if (!copied) continue
+      for (const object of Object.values(draft.objects)) {
+        if (object.zone !== 'battlefield' || !object.types.includes('Creature')) continue
+        if (object.id === copied.id) continue
+        applyCopy(object, copied, { notLegendary: instruction.notLegendary })
+      }
+      continue
+    }
   }
+}
+
+export const extraTriggerCount = (
+  state: GameState,
+  seat: PlayerId,
+  kind: 'landfall' | 'enters',
+  source?: GameObject,
+) =>
+  Object.values(state.objects).reduce((total, object) => {
+    if (object.zone !== 'battlefield' || object.controller !== seat) return total
+    const staticCount = (object.effects ?? []).reduce((sum, effect) => {
+      if (effect.op !== 'static') return sum
+      if (kind === 'landfall') return sum + (effect.extraLandfall ?? 0)
+      return sum + (effect.extraEnters ?? 0)
+    }, 0)
+    const throne = object.chosenType
+      && source?.types.includes('Creature')
+      && source.subtypes.includes(object.chosenType)
+      ? 1
+      : 0
+    return total + staticCount + (kind === 'landfall' || kind === 'enters' ? throne : 0)
+  }, 0)
+
+function copyTemplate (
+  card: GameObject,
+  extra: { notLegendary?: boolean; flying?: boolean } = {},
+): Partial<GameObject> & { name: string } {
+  return {
+    name: card.name,
+    summoningSickness: card.types.includes('Creature'),
+    types: [...card.types],
+    subtypes: [...card.subtypes],
+    supertypes: extra.notLegendary
+      ? card.supertypes.filter((entry) => entry !== 'Legendary')
+      : [...card.supertypes],
+    manaCost: card.manaCost,
+    power: card.power,
+    toughness: card.toughness,
+    oracleText: extra.flying && !card.oracleText.toLowerCase().includes('flying')
+      ? `${card.oracleText}\nFlying`
+      : card.oracleText,
+    grantedRules: [...card.grantedRules],
+    tapProduces: card.tapProduces ? { ...card.tapProduces } : undefined,
+    effects: card.effects ? [...card.effects] : [],
+  }
+}
+
+export function applyCopy (
+  object: GameObject,
+  copied: GameObject,
+  extra: { notLegendary?: boolean; plusCounters?: number; keepName?: boolean } = {},
+) {
+  const keptStatic = extra.keepName
+    ? (object.effects ?? []).filter((effect) => effect.op === 'static')
+    : []
+  if (!extra.keepName) object.name = copied.name
+  object.types = [...copied.types]
+  object.subtypes = [...copied.subtypes]
+  object.supertypes = extra.notLegendary
+    ? copied.supertypes.filter((entry) => entry !== 'Legendary')
+    : [...copied.supertypes]
+  object.manaCost = copied.manaCost
+  object.power = copied.power
+  object.toughness = copied.toughness
+  object.oracleText = copied.oracleText
+  object.grantedRules = [...copied.grantedRules]
+  object.tapProduces = copied.tapProduces ? { ...copied.tapProduces } : undefined
+  object.effects = copied.effects ? [...copied.effects] : []
+  if (keptStatic.length > 0) object.effects = [...object.effects, ...keptStatic]
+  if (extra.plusCounters && extra.plusCounters > 0) addPlusCounters(object, extra.plusCounters)
 }
 
 export const replacementTaps = (effects: CardEffect[]) =>
@@ -653,7 +1137,10 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
   const ids = new Set<string>()
   for (const effect of effects) {
     if (effect.op === 'replacement') ids.add('entersTapped')
-    if (effect.op === 'trigger' && (effect.on === 'enters' || effect.on === 'dies' || effect.on === 'leaves')) {
+    if (effect.op === 'trigger' && (
+      effect.on === 'enters' || effect.on === 'dies' || effect.on === 'leaves'
+      || effect.on === 'attacks' || effect.on === 'landToGraveyard'
+    )) {
       ids.add('zoneTriggers')
     }
     if (effect.op === 'trigger' && effect.on === 'landfall') ids.add('landfall')
@@ -667,7 +1154,23 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (effect.op === 'search') ids.add('librarySearch')
     if (effect.op === 'targetedResolve') ids.add('targetedResolve')
     if (effect.op === 'static' && effect.extraLandPlays) ids.add('additionalLandPlay')
+    if (effect.op === 'bestow') ids.add('bestow')
     if (effect.op === 'handler') ids.add(effect.pluginId)
+    if (effect.op === 'trigger' && [
+      'surveil', 'putLandFromHand', 'bounceChosenLand', 'revealPick',
+      'copyControlledCreature', 'copyTargetCreature', 'optionalMill',
+      'returnChosenLandFromGraveyard', 'copyAllCreaturesUntilEot',
+      'drawAtNextUpkeep', 'grantUntilEot', 'pump', 'createXTokens',
+    ].some((kind) => effect.do.some((instruction) => instruction.kind === kind))) {
+      ids.add('choiceEffects')
+    }
+    if (effect.op === 'activate' && effect.do.some((instruction) =>
+      instruction.kind === 'putLandFromHand'
+      || instruction.kind === 'bounceChosenLand'
+      || instruction.kind === 'copyTargetCreature'
+      || instruction.kind === 'addChosenColorMana')) {
+      ids.add('choiceEffects')
+    }
   }
   return [...ids]
 }

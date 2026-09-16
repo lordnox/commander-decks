@@ -1,6 +1,7 @@
 import type { Plugin } from '../types'
 import {
   conditionHolds,
+  extraTriggerCount,
   runInstructions,
   triggerEffects,
 } from './effects'
@@ -25,7 +26,10 @@ export const landfall: Plugin = {
       draft.note(`Landfall — ${source.name}`)
       for (const effect of effects) {
         if (!conditionHolds(effect.if, draft, source)) continue
-        runInstructions(draft, source, effect.do)
+        const extras = extraTriggerCount(draft, land.controller, 'landfall', source)
+        for (let index = 0; index < 1 + extras; index += 1) {
+          runInstructions(draft, source, effect.do)
+        }
       }
     }
   },

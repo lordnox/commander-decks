@@ -29,7 +29,7 @@ import {
   SEARCH_CHOSEN,
   pendingSearch,
   searchCandidates,
-  searchSpecFor,
+  searchSpecForPending,
   searchingSeat,
   type PendingSearch,
   type SearchSpec,
@@ -252,7 +252,7 @@ const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbyState) => 
   const seat = searchingSeat(state)
   if (!seat || !isSeatId(seat)) return false
   const pending = pendingSearch(state, seat)
-  const spec = pending ? searchSpecFor(pending.source) : undefined
+  const spec = pending ? searchSpecForPending(pending) : undefined
   if (!pending || !spec) return false
   const cards = searchCandidates(state, seat, spec, pending.kicked).map((object) => object.name)
   if (cards.length < spec.min) {
@@ -281,7 +281,9 @@ const preparePendingDialog = (kernel: KernelHandle, lobby: LobbyState) => {
   const state = kernel.history.current()
   const dialog = pendingDialog(state)
   if (!dialog || !isSeatId(dialog.seat)) return false
-  const cards = dialogCandidates(state, dialog).map((object) => object.name)
+  const cards = dialog.kind === 'may' || dialog.kind === 'may-pay-life'
+    ? ['Yes']
+    : dialogCandidates(state, dialog).map((object) => object.name)
   if (dialog.optional && cards.length === 0) {
     const result = kernel.dispatch({ type: 'custom', name: dialog.chosenEvent, seat: dialog.seat })
     if (!result.ok) throw new Error(result.error)
@@ -406,7 +408,7 @@ export const applyKernelChoice = (
   }
   if (decision.kernel.stage === 'library-search') {
     const pending = pendingSearch(state, seat)
-    const spec = pending ? searchSpecFor(pending.source) : undefined
+    const spec = pending ? searchSpecForPending(pending) : undefined
     if (!pending || !spec) throw new Error('That library search is no longer open.')
     const selected = message.choices
       .filter(({ destination }) => destination === spec.destination)
@@ -466,6 +468,84 @@ export const applyKernelChoice = (
     lobby.privateJudge = {}
     lobby.waiting = `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
     lobby.judge = `${lobby.occupants[seat]?.name ?? seat} finished a private choice.`
+    settleKernelPriority(kernel, lobby)
+    return true
+  }
+  if (
+    decision.kernel.stage === 'may'
+    || decision.kernel.stage === 'may-pay-life'
+    || decision.kernel.stage === 'copy-creature'
+  ) {
+    const accepted = message.choices.some(({ destination }) => destination === 'target')
+    const chosenEvent = decision.kernel.chosenEvent
+    if (!chosenEvent) throw new Error('That choice is no longer open.')
+    const objectIds = decision.kernel.stage === 'copy-creature'
+      ? objectIdsForNames(
+        state,
+        state.zoneOrder[seat].battlefield,
+        message.choices.filter(({ destination }) => destination === 'target').map(({ card }) => card),
+      )
+      : []
+    const chosen = kernel.dispatch({
+      type: 'custom',
+      name: chosenEvent,
+      seat,
+      payload: { accepted, objectIds },
+    })
+    if (!chosen.ok) throw new Error(chosen.error)
+    lobby.topdeck = undefined
+    settleKernelPriority(kernel, lobby)
+    return true
+  }
+  if (
+    decision.kernel.stage === 'bounce-land'
+    || decision.kernel.stage === 'return-land'
+    || decision.kernel.stage === 'reveal-pick'
+    || decision.kernel.stage === 'surveil'
+  ) {
+    const zone = decision.kernel.stage === 'bounce-land'
+      ? state.zoneOrder[seat].battlefield
+      : decision.kernel.stage === 'return-land'
+        ? state.zoneOrder[seat].graveyard
+        : state.zoneOrder[seat].library.slice(0, decision.cards.length)
+    const ids = objectIdsForNames(state, zone, message.choices.map(({ card }) => card))
+    const ordered = message.choices.map((choice, index) => ({
+      ...choice,
+      objectId: ids[index],
+    }))
+    const destinationZone = (destination: string) => {
+      if (destination === 'hand') return 'hand' as const
+      if (destination === 'graveyard') return 'graveyard' as const
+      if (destination === 'battlefield') return 'battlefield' as const
+      return undefined
+    }
+    if (decision.kernel.stage === 'surveil') {
+      for (const choice of ordered.filter(({ destination }) => destination === 'top').reverse()) {
+        if (!kernel.dispatch({ type: 'move', objectId: choice.objectId, to: 'library', position: 'top' }).ok) {
+          throw new Error(`Could not keep ${choice.card} on top`)
+        }
+      }
+      for (const choice of ordered.filter(({ destination }) => destination === 'graveyard')) {
+        if (!kernel.dispatch({ type: 'move', objectId: choice.objectId, to: 'graveyard' }).ok) {
+          throw new Error(`Could not mill ${choice.card}`)
+        }
+      }
+    } else {
+      for (const choice of ordered) {
+        const to = destinationZone(choice.destination)
+        if (!to || to === 'library') continue
+        const moved = kernel.dispatch({ type: 'move', objectId: choice.objectId, to })
+        if (!moved.ok) throw new Error(moved.error)
+        if (to === 'battlefield' && decision.kernel.stage === 'return-land') {
+          kernel.dispatch({ type: 'tap', objectId: choice.objectId })
+        }
+      }
+    }
+    const chosenEvent = decision.kernel.chosenEvent
+    if (!chosenEvent) throw new Error('That choice is no longer open.')
+    const chosen = kernel.dispatch({ type: 'custom', name: chosenEvent, seat })
+    if (!chosen.ok) throw new Error(chosen.error)
+    lobby.topdeck = undefined
     settleKernelPriority(kernel, lobby)
     return true
   }
