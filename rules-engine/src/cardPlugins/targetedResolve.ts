@@ -83,9 +83,15 @@ export const targetedResolve: Plugin = {
             : effect.action === 'reanimate'
               ? 'battlefield'
               : 'graveyard'
-        draft.enqueue({ type: 'move', objectId: object.id, to: destination })
+        draft.enqueue({
+          type: 'move',
+          objectId: object.id,
+          to: destination,
+          // A reanimated card arrives under the spell's controller, not its owner.
+          ...(destination === 'battlefield' ? { controller: item.controller } : {}),
+        })
       }
-      if (effect.do) runInstructions(draft, source, effect.do)
+      if (effect.do) runInstructions(draft, source, effect.do, item)
       draft.note(`${source.name} ${effect.action}s ${object.name}`)
     }
   },

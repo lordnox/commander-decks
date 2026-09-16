@@ -37,6 +37,7 @@ import {
   landToGraveyard,
   landfall,
   legendRuleOff,
+  loseLifeTargetManaValue,
   loyalty,
   loyaltyX,
   lookTopChooseOne,
@@ -567,6 +568,13 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Raise the Palisade': [onResolve(pump(0, 0))],
+  'Reanimate': [
+    targetOnResolve(
+      'reanimate',
+      { zone: 'graveyard', type: 'Creature' },
+      loseLifeTargetManaValue(),
+    ),
+  ],
   'Ripples of Undeath': [enters(selfMill(3))],
   'Roaming Throne': [enters(copyControlledCreature())],
   'Sakashima of a Thousand Faces': [

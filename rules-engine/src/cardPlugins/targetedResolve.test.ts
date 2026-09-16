@@ -99,6 +99,40 @@ describe('targeted spell resolution', () => {
     expect(resolved.objects[spell].zone).toBe('graveyard')
   })
 
+  test('Reanimate steals the creature and charges its mana value in life', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: {
+          p1: [cardTemplate('Reanimate', { types: ['Sorcery'], manaCost: '{B}' })],
+          p2: [cardTemplate('Big Sphinx', {
+            types: ['Creature'],
+            manaCost: '{4}{U}{U}',
+            power: 5,
+            toughness: 5,
+          })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [targetedResolve] },
+    )
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana.B = 1
+    const spell = named(ready, 'Reanimate').id
+    const sphinx = named(ready, 'Big Sphinx').id
+    const life = ready.players.p1.life
+    const resolved = run(server, ready, [
+      { type: 'move', objectId: sphinx, to: 'graveyard' },
+      { type: 'castSpell', seat: 'p1', objectId: spell, targets: [{ kind: 'object', objectId: sphinx }] },
+      { type: 'resolveTop' },
+    ])
+
+    expect(resolved.objects[sphinx].zone).toBe('battlefield')
+    expect(resolved.objects[sphinx].controller).toBe('p1')
+    expect(resolved.objects[sphinx].owner).toBe('p2')
+    expect(resolved.players.p1.life).toBe(life - 6)
+    expect(resolved.objects[spell].zone).toBe('graveyard')
+  })
+
   test('Keep Safe only targets a spell aimed at a controlled permanent', () => {
     const keepSafe = cardTemplate('Keep Safe', { types: ['Instant'], manaCost: '{1}{U}' })
     const removal = cardTemplate('Removal', { types: ['Instant'], manaCost: '{B}' })

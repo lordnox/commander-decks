@@ -32,6 +32,7 @@ export type CardInstruction =
   | { kind: 'addManaToEachPlayer'; mana: Partial<ManaPool> }
   | { kind: 'draw'; count: number }
   | { kind: 'gainLife'; count: number }
+  | { kind: 'loseLifeTargetManaValue' }
   | { kind: 'dealDamageToChosenTarget'; amount: number }
   | { kind: 'teferiSunsetPlusOne' }
   | { kind: 'lookTopChooseOne'; count: number }
@@ -404,6 +405,10 @@ export const loyaltyX = (): ActivateCost => ({ loyalty: 0, loyaltyX: true })
 
 export const gainLife = (count: number): CardInstruction => ({ kind: 'gainLife', count })
 
+export const loseLifeTargetManaValue = (): CardInstruction => ({
+  kind: 'loseLifeTargetManaValue',
+})
+
 export const teferiSunsetPlusOne = (): CardInstruction => ({
   kind: 'teferiSunsetPlusOne',
 })
@@ -629,6 +634,15 @@ export const returnOwnedLands = (draft: Draft, seat: PlayerId, tapped: boolean) 
   }
 }
 
+/** Imported live states and fixtures both carry a cost but not always a stored manaValue. */
+const manaValueOf = (object: GameObject) =>
+  object.manaCost
+    ? [...object.manaCost.matchAll(/\{([^}]+)\}/g)].reduce((total, match) => {
+      if (/^\d+$/.test(match[1])) return total + Number(match[1])
+      return match[1] === 'X' ? total : total + 1
+    }, 0)
+    : object.manaValue ?? 0
+
 export const runInstructions = (
   draft: Draft,
   source: GameObject,
@@ -680,6 +694,14 @@ export const runInstructions = (
     }
     if (instruction.kind === 'gainLife') {
       draft.players[source.controller].life += instruction.count
+      continue
+    }
+    if (instruction.kind === 'loseLifeTargetManaValue') {
+      const target = item?.targets[0]
+      if (target?.kind !== 'object') continue
+      const object = draft.object(target.objectId)
+      if (!object) continue
+      draft.players[source.controller].life -= manaValueOf(object)
       continue
     }
     if (instruction.kind === 'teferiSunsetPlusOne') {
