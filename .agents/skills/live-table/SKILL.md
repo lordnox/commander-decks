@@ -265,9 +265,10 @@ The Pages client receives a redacted replica plus history frames and can step
 backward without changing the host.
 
 Most cards need no extra code. Cards with weird rules (Yurlok of Scorch Thrash
-is the template) are listed in [`cards/rules-plugins.json`](../../../cards/rules-plugins.json)
-by Oracle ID. That overlay grants **static** `pluginIds` (mana burn, replacement
-effects) while the object is on the battlefield. Activated abilities use
+is the template) are listed in
+[`rules-engine/src/cardPlugins/cardRules.ts`](../../../rules-engine/src/cardPlugins/cardRules.ts)
+by Oracle name. A `staticGrant` there grants **static** `pluginIds` (mana burn,
+replacement effects) while the object is on the battlefield. Activated abilities use
 `{ type: 'activateAbility', abilityId, seat, objectId }`. Mark `manaAbility: true`
 when the line is a mana ability; the kernel only checks that flag and priority,
 it does not open the window. The host decides when that timing is legal.
@@ -286,8 +287,8 @@ When a new deck or card introduces an interaction the kernel cannot represent:
    every nested effect atomically and records the fallback in its trace.
 4. Never nest a fallback or put `authoritativeSync`, `addRule`, or `removeRule`
    inside one. A fallback is technical debt, not permission to override rules.
-5. Register the completed static effect under `pluginIds` and activated handler
-   under `handlerIds` in `cards/rules-plugins.json`. Later tables reuse it.
+5. Add the completed card to `cardRules.ts`; its static grants and handler ids
+   follow from the effects you compose there. Later tables reuse it.
 
 The host agent copies those files back from its scratch worktree when
 `pluginsChanged` is true, then reloads `handlerIds`. Confirmed lines and

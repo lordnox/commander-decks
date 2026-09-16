@@ -280,6 +280,10 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
 
 export const effectsFor = (name: string): CardEffect[] => CARD_RULES[name] ?? []
 
+/** Every handler module a host has to load for this table's cards. */
+export const allHandlerIds = () =>
+  [...new Set(Object.values(CARD_RULES).flatMap(handlerIdsFromEffects))].sort()
+
 export const effectsOf = (object: { name: string; effects?: CardEffect[] }) =>
   object.effects && object.effects.length > 0 ? object.effects : effectsFor(object.name)
 

@@ -1,4 +1,4 @@
-import { CARD_RULES, cardDefinition } from './cardRules'
+import { cardDefinition } from './cardRules'
 import type { Plugin } from '../types'
 import { additionalLandPlay } from './additionalLandPlay'
 import { analyzeThePollen } from './analyzeThePollen'
@@ -48,11 +48,3 @@ export const grantedRulesFor = (name: string) =>
 
 export const missingCardPlugins = (names: string[]) =>
   [...new Set(names)].filter((name) => !cardPluginEntry(name))
-
-export const registryEntries = (): Record<string, CardPluginEntry> =>
-  Object.fromEntries(
-    Object.keys(CARD_RULES).sort().map((name) => {
-      const entry = cardPluginEntry(name)!
-      return [name, { name: entry.name, pluginIds: entry.pluginIds, handlerIds: entry.handlerIds }]
-    }),
-  )

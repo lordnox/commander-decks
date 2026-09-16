@@ -47,6 +47,14 @@ const mkdirGames = (root: string) => {
   mkdirSync(join(root, 'table-games'), { recursive: true })
 }
 
+/** A stand-in card table: the host reads handler ids from cardRules.ts, not from JSON. */
+const writeCardRules = (root: string, handlerIds: string[]) => {
+  writeFileSync(
+    join(root, 'rules-engine', 'src', 'cardPlugins', 'cardRules.ts'),
+    `export const allHandlerIds = () => ${JSON.stringify(handlerIds)}\n`,
+  )
+}
+
 const seedKernel = (
   root: string,
   slug = 'pod',
@@ -242,18 +250,8 @@ describe('kernel host journal', () => {
 
   test('loads generated card handlers from the current worktree', async () => {
     const root = mkdtempSync(join(tmpdir(), 'kernel-plugins-'))
-    mkdirSync(join(root, 'cards'), { recursive: true })
     mkdirSync(join(root, 'rules-engine', 'src', 'cardPlugins'), { recursive: true })
-    writeFileSync(
-      join(root, 'cards', 'rules-plugins.json'),
-      JSON.stringify({
-        oracle: {
-          name: 'Test Card',
-          pluginIds: [],
-          handlerIds: ['testHandler'],
-        },
-      }),
-    )
+    writeCardRules(root, ['testHandler'])
     const handlerPath = join(
       root,
       'rules-engine',
@@ -275,18 +273,8 @@ describe('kernel host journal', () => {
   test('installs dynamically loaded handlers into an existing journal', async () => {
     const root = mkdtempSync(join(tmpdir(), 'kernel-active-plugin-'))
     mkdirGames(root)
-    mkdirSync(join(root, 'cards'), { recursive: true })
     mkdirSync(join(root, 'rules-engine', 'src', 'cardPlugins'), { recursive: true })
-    writeFileSync(
-      join(root, 'cards', 'rules-plugins.json'),
-      JSON.stringify({
-        oracle: {
-          name: 'Test Card',
-          pluginIds: [],
-          handlerIds: ['testHandler'],
-        },
-      }),
-    )
+    writeCardRules(root, ['testHandler'])
     writeFileSync(
       join(root, 'rules-engine', 'src', 'cardPlugins', 'testHandler.ts'),
       "export const testHandler = { id: 'testHandler' }\n",

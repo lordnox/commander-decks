@@ -192,7 +192,7 @@ Foreground bun in the agent terminal dies with that terminal. Always pid+log.
 
 The host opens `table-games/<slug>.kernel.json` on play (append-only journal).
 Passes use `passPriority`. Card plugins live in `rules-engine/src/cardPlugins/`
-and `cards/rules-plugins.json`. Full Oracle compilation is still out of scope:
+and their cards in `cardRules.ts`. Full Oracle compilation is still out of scope:
 unregistered weird cards pause for a plugin + test.
 
 The kernel is the sole authority once its journal exists. Confirmed lines and
