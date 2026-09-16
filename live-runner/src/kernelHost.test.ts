@@ -884,6 +884,16 @@ describe('kernel host journal', () => {
     expect(lobby.topdeck).toBeUndefined()
   })
 
+  test('a saved dialog that no longer matches the kernel is rebuilt', () => {
+    const { kernel, lobby } = searchGame()
+    prepareKernelPendingChoice(kernel, lobby)
+
+    // What an older host published before basics carried their Basic supertype.
+    lobby.topdeck = { ...lobby.topdeck!, cards: [] }
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck?.cards).toEqual(['Taiga', 'Forest'])
+  })
+
   test('a search reads the whole library, not only the cards it may take', () => {
     const { kernel, lobby } = searchGame({ library: ['Taiga', 'Mountain'] })
     prepareKernelPendingChoice(kernel, lobby)
