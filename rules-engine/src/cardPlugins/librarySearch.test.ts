@@ -209,15 +209,18 @@ describe('librarySearch', () => {
       library: [forest('Wooded Foothills'), card('Mountain', ['Land'], { subtypes: ['Mountain'] })],
     })
     const fetch = server.state.zoneOrder.p1.battlefield[0]
-    const state = ok(server.rules(server.state, {
+    const activation = server.rules(server.state, {
       type: 'activateAbility',
       abilityId: SEARCH_FETCH,
       seat: 'p1',
       objectId: fetch,
-    }))
+    })
+    const state = ok(activation)
 
     expect(state.players.p1.life).toBe(39)
     expect(state.objects[fetch].zone).toBe('graveyard')
+    expect(activation.trace.map(({ event }) => event.type))
+      .toEqual(['activateAbility', 'loseLife', 'tap', 'move'])
     expect(pendingSearch(state, 'p1')?.via).toBe('ability')
     expect(searchCandidates(state, 'p1', searchSpecFor('Misty Rainforest')!).map((o) => o.name))
       .toEqual(['Wooded Foothills'])
