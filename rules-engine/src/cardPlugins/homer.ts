@@ -42,9 +42,9 @@ const isSeafood = (object: {
   oracleText: string
   controller: string
 }, draft: Draft) => {
-  if (!object.types.includes('Creature')) return false
   if (object.subtypes.some((subtype) => SEA_CREATURE_TYPES.has(subtype))) return true
   if (abilityTokens(object.oracleText).includes('changeling')) return true
+  if (!object.types.includes('Creature')) return false
   return Object.values(draft.objects).some((candidate) =>
     candidate.zone === 'battlefield'
     && candidate.controller === object.controller
