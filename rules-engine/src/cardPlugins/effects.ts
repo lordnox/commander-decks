@@ -1120,7 +1120,12 @@ export function applyCopy (
   const keptStatic = extra.keepName
     ? (object.effects ?? []).filter((effect) => effect.op === 'static')
     : []
-  if (!extra.keepName) object.name = copied.name
+  if (!extra.keepName && object.name !== copied.name) {
+    // The table still needs to read the card underneath: a clone is answered
+    // differently once you know it is a Spark Double wearing someone's face.
+    object.printedName = object.printedName ?? object.name
+    object.name = copied.name
+  }
   object.types = [...copied.types]
   object.subtypes = [...copied.subtypes]
   object.supertypes = extra.notLegendary

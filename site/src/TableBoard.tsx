@@ -30,6 +30,8 @@ export type Preview = {
 export type Hover = {
   name: string
   details: CardDetails
+  /** The card underneath a clone, shown next to the face it is wearing. */
+  printed?: { name: string; details: CardDetails }
   anchor: { top: number; bottom: number; left: number; right: number }
 }
 
@@ -40,13 +42,19 @@ export const phaseLabel = (phase: string) =>
 
 export const canHover = () => window.matchMedia('(hover: hover)').matches
 
-export const hoverProps = (name: string, details: CardDetails, onHover: HoverHandler) => ({
+export const hoverProps = (
+  name: string,
+  details: CardDetails,
+  onHover: HoverHandler,
+  printed?: Hover['printed'],
+) => ({
   onMouseEnter: (mouseEvent: { currentTarget: HTMLElement }) => {
     if (!canHover()) return
     const rect = mouseEvent.currentTarget.getBoundingClientRect()
     onHover({
       name,
       details,
+      ...(printed ? { printed } : {}),
       anchor: {
         top: rect.top,
         bottom: rect.bottom,
@@ -124,6 +132,7 @@ export const CardTile = ({
   onInsertName?: (name: string) => void
 }) => {
   const { name, details } = cardInfo(game, value, entry)
+  const printed = entry?.printed_name ? cardInfo(game, entry.printed_name) : undefined
   const stats = currentStats(details, entry)
   const counters = Object.entries(entry?.counters ?? {})
     .filter(([kind, count]) => kind !== 'loyalty' && count)
@@ -148,7 +157,7 @@ export const CardTile = ({
         })
       }}
       {...longPressProps}
-      {...hoverProps(name, details, onHover)}
+      {...hoverProps(name, details, onHover, printed)}
       className={`group/card relative shrink-0 touch-manipulation select-none overflow-hidden rounded-xl border text-left shadow-lg shadow-black/20 transition hover:-translate-y-1 hover:border-gold-300/60 focus:outline-none focus:ring-2 focus:ring-gold-300 ${
         compact
           ? 'h-24 w-[4.25rem] border-white/10'
@@ -772,14 +781,51 @@ export const StackOverlay = ({
   )
 }
 
+const HoverFace = ({
+  name,
+  details,
+  label,
+}: {
+  name: string
+  details: CardDetails
+  label?: string
+}) => {
+  const image = details.image_normal || details.image_small
+  return (
+    <div className="overflow-hidden rounded-2xl border border-white/20 bg-ink-900 shadow-2xl shadow-black/60">
+      {label && (
+        <p className="border-b border-white/10 px-3 py-1 text-[0.6rem] font-bold uppercase tracking-wide text-stone-400">
+          {label}
+        </p>
+      )}
+      {image ? (
+        <img src={image} alt={name} className="w-full" />
+      ) : (
+        <div className="p-4">
+          <p className="font-display text-lg text-stone-50">{name}</p>
+          <p className="mt-1 text-xs text-stone-400">
+            {details.mana_cost} {details.type_line}
+          </p>
+          {details.oracle_text && (
+            <p className="mt-3 whitespace-pre-line text-xs leading-5 text-stone-300">
+              {details.oracle_text}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export const HoverCard = ({ hover }: { hover: Hover }) => {
-  const image = hover.details.image_normal || hover.details.image_small
   const width = 15 * 16
-  const height = width * 1.4
   const gap = 14
+  // A clone shows the face it is wearing beside the card it is printed as.
+  const total = hover.printed ? width * 2 + gap : width
+  const height = width * 1.4
   const right = hover.anchor.right + gap
   const left =
-    right + width < window.innerWidth ? right : Math.max(12, hover.anchor.left - width - gap)
+    right + total < window.innerWidth ? right : Math.max(12, hover.anchor.left - total - gap)
   const top = Math.min(
     Math.max(12, hover.anchor.top + (hover.anchor.bottom - hover.anchor.top) / 2 - height / 2),
     Math.max(12, window.innerHeight - height - 12),
@@ -787,22 +833,23 @@ export const HoverCard = ({ hover }: { hover: Hover }) => {
 
   return (
     <div
-      className="pointer-events-none fixed z-[60] hidden overflow-hidden rounded-2xl border border-white/20 bg-ink-900 shadow-2xl shadow-black/60 sm:block"
-      style={{ left, top, width }}
+      className="pointer-events-none fixed z-[60] hidden gap-[14px] sm:flex"
+      style={{ left, top, width: total }}
     >
-      {image ? (
-        <img src={image} alt={hover.name} className="w-full" />
-      ) : (
-        <div className="p-4">
-          <p className="font-display text-lg text-stone-50">{hover.name}</p>
-          <p className="mt-1 text-xs text-stone-400">
-            {hover.details.mana_cost} {hover.details.type_line}
-          </p>
-          {hover.details.oracle_text && (
-            <p className="mt-3 whitespace-pre-line text-xs leading-5 text-stone-300">
-              {hover.details.oracle_text}
-            </p>
-          )}
+      <div style={{ width }}>
+        <HoverFace
+          name={hover.name}
+          details={hover.details}
+          label={hover.printed ? 'Copying' : undefined}
+        />
+      </div>
+      {hover.printed && (
+        <div style={{ width }}>
+          <HoverFace
+            name={hover.printed.name}
+            details={hover.printed.details}
+            label="Actually"
+          />
         </div>
       )}
     </div>

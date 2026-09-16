@@ -31,6 +31,8 @@ export type BattlefieldCard = {
   counters?: Record<string, number>
   note?: string
   face?: string | number
+  /** Card this permanent is printed as, when a copy effect renamed it. */
+  printed_name?: string
   /** Seat name this creature is attacking. */
   attacking?: string
   /** Card name this creature is blocking. */
