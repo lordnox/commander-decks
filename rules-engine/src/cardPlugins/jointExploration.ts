@@ -1,46 +1,61 @@
 import type { GameState, PlayerId, Plugin } from '../types'
+import {
+  clearPendingDialog,
+  pendingDialogFor,
+  setPendingDialog,
+} from '../pendingDialog'
 
-export const JOINT_PENDING = 'jointExploration.pending'
 export const JOINT_SCRY_BEGIN = 'jointExploration.scryBegin'
 export const JOINT_SCRY_CHOSEN = 'jointExploration.scryChosen'
 export const JOINT_LAND_CHOSEN = 'jointExploration.landChosen'
+export const JOINT_SCRY_DONE = 'jointExploration.scryDone'
 
-export type PendingJointExploration = {
-  sourceId: string
-  stage: 'scry' | 'scryDone' | 'putLand'
-  kicked: boolean
-}
+const NAME = 'Joint Exploration'
 
-export const pendingJointExploration = (
-  state: GameState,
-  seat: PlayerId,
-): PendingJointExploration | undefined => {
-  const value = state.players[seat]?.data[JOINT_PENDING]
-  if (!value || typeof value !== 'object') return
-  const pending = value as PendingJointExploration
-  return typeof pending.sourceId === 'string'
-    && ['scry', 'scryDone', 'putLand'].includes(pending.stage)
-    ? pending
-    : undefined
-}
+const scryDialog = (sourceId: string, seat: PlayerId) => ({
+  sourceId,
+  source: NAME,
+  seat,
+  kind: 'scry' as const,
+  prompt: 'Scry 2, then this spell resolves.',
+  waiting: 'is making a private scry choice.',
+  judge: 'Waiting for a private scry 2 choice.',
+  chosenEvent: JOINT_SCRY_CHOSEN,
+  destinations: ['top', 'bottom'] as Array<'top' | 'bottom'>,
+  count: 2,
+  after: ['resolveTop' as const],
+})
 
-export const jointExplorationSeat = (state: GameState) =>
-  state.playerOrder.find((seat) => pendingJointExploration(state, seat))
+const landDialog = (sourceId: string, seat: PlayerId) => ({
+  sourceId,
+  source: NAME,
+  seat,
+  kind: 'put-land' as const,
+  prompt: 'You may put one land from your hand onto the battlefield.',
+  waiting: 'is choosing a land privately.',
+  judge: 'Waiting for an optional land.',
+  chosenEvent: JOINT_LAND_CHOSEN,
+  destinations: ['hand', 'battlefield'] as Array<'hand' | 'battlefield'>,
+  types: ['Land'],
+  optional: true,
+  requirements: { battlefield: { max: 1 } },
+})
 
 export const jointExploration: Plugin = {
   id: 'jointExploration',
   legal: ({ state, event }) => {
     if (event.type !== 'passPriority') return
-    const seat = jointExplorationSeat(state)
-    if (seat) return `${seat} is resolving Joint Exploration`
+    const item = state.stack[0]
+    if (item?.name === NAME && state.players[item.controller]?.data[JOINT_SCRY_DONE]) {
+      return `${item.controller} is resolving ${NAME}`
+    }
   },
   replace: ({ state, event }) => {
     if (event.type !== 'resolveTop') return
     const item = state.stack[0]
-    if (item?.name !== 'Joint Exploration') return
-    const pending = pendingJointExploration(state, item.controller)
-    if (pending?.stage === 'scry') return null
-    if (pending?.stage === 'scryDone') return
+    if (item?.name !== NAME) return
+    if (pendingDialogFor(state, item.controller)?.kind === 'scry') return null
+    if (state.players[item.controller]?.data[JOINT_SCRY_DONE]) return
     return {
       type: 'custom',
       name: JOINT_SCRY_BEGIN,
@@ -53,41 +68,37 @@ export const jointExploration: Plugin = {
   },
   apply: ({ state, event, draft }) => {
     if (event.type === 'custom' && event.name === JOINT_SCRY_BEGIN && event.seat) {
-      draft.players[event.seat].data[JOINT_PENDING] = {
-        sourceId: String(event.payload?.sourceId ?? ''),
-        stage: 'scry',
-        kicked: event.payload?.kicked === true,
-      } satisfies PendingJointExploration
-      draft.note(`${event.seat} scries 2 for Joint Exploration`)
+      const sourceId = String(event.payload?.sourceId ?? '')
+      setPendingDialog(draft, scryDialog(sourceId, event.seat))
+      draft.players[event.seat].data.jointKicked = event.payload?.kicked === true
+      draft.note(`${event.seat} scries 2 for ${NAME}`)
       return
     }
     if (event.type === 'custom' && event.name === JOINT_SCRY_CHOSEN && event.seat) {
-      const pending = pendingJointExploration(state, event.seat)
-      if (!pending || pending.stage !== 'scry') return
-      draft.players[event.seat].data[JOINT_PENDING] = {
-        ...pending,
-        stage: 'scryDone',
-      } satisfies PendingJointExploration
+      if (pendingDialogFor(state, event.seat)?.kind !== 'scry') return
+      clearPendingDialog(draft, event.seat)
+      draft.players[event.seat].data[JOINT_SCRY_DONE] = true
       return
     }
     if (event.type === 'custom' && event.name === JOINT_LAND_CHOSEN && event.seat) {
-      const pending = pendingJointExploration(state, event.seat)
-      if (pending?.stage === 'putLand') {
-        delete draft.players[event.seat].data[JOINT_PENDING]
-      }
+      clearPendingDialog(draft, event.seat)
       return
     }
     if (event.type !== 'resolveTop') return
     const item = state.stack[0]
-    const pending = item ? pendingJointExploration(state, item.controller) : undefined
-    if (item?.name !== 'Joint Exploration' || pending?.stage !== 'scryDone') return
-    if (pending.kicked) {
-      draft.players[item.controller].data[JOINT_PENDING] = {
-        ...pending,
-        stage: 'putLand',
-      } satisfies PendingJointExploration
-    } else {
-      delete draft.players[item.controller].data[JOINT_PENDING]
-    }
+    if (item?.name !== NAME || !state.players[item.controller]?.data[JOINT_SCRY_DONE]) return
+    delete draft.players[item.controller].data[JOINT_SCRY_DONE]
+    const kicked = draft.players[item.controller].data.jointKicked === true
+    delete draft.players[item.controller].data.jointKicked
+    if (kicked) setPendingDialog(draft, landDialog(item.objectId, item.controller))
   },
+}
+
+export const pendingJointExploration = (state: GameState, seat: PlayerId) => {
+  const dialog = pendingDialogFor(state, seat)
+  if (dialog?.kind === 'scry') return { sourceId: dialog.sourceId, stage: 'scry' as const }
+  if (dialog?.kind === 'put-land') return { sourceId: dialog.sourceId, stage: 'putLand' as const }
+  if (state.players[seat]?.data[JOINT_SCRY_DONE]) {
+    return { sourceId: '', stage: 'scryDone' as const }
+  }
 }

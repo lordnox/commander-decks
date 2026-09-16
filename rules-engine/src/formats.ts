@@ -1,3 +1,4 @@
+import { pendingDialogLock } from './pendingDialog'
 import { abilities } from './plugins/activateAbility'
 import { combat } from './plugins/combat'
 import { commander } from './plugins/commander'
@@ -48,6 +49,7 @@ export const corePlugins = [
   damage,
   judgeFallback,
   unconfiguredHiddenInformation,
+  pendingDialogLock,
 ]
 
 export const optionalPlugins = [manaBurn, fog]

@@ -1,3 +1,4 @@
+import { pendingDialogLock } from '../pendingDialog'
 import { abilities } from './activateAbility'
 import { combat } from './combat'
 import { commander } from './commander'
@@ -29,6 +30,7 @@ export const builtInPlugins = [
   damage,
   judgeFallback,
   unconfiguredHiddenInformation,
+  pendingDialogLock,
   commander,
   manaBurn,
   fog,
@@ -46,6 +48,7 @@ export {
   lands,
   mana,
   manaBurn,
+  pendingDialogLock,
   priority,
   spells,
   stateBased,
