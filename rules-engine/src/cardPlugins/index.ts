@@ -10,6 +10,7 @@ import { librarySearch } from './librarySearch'
 import { onResolve } from './onResolve'
 import { planeswalker } from './planeswalker'
 import { sin } from './sin'
+import { targetedResolve } from './targetedResolve'
 import { zoneTriggers } from './zoneTriggers'
 
 export type CardPluginEntry = {
@@ -30,6 +31,7 @@ export const cardPlugins: Plugin[] = [
   onResolve,
   planeswalker,
   sin,
+  targetedResolve,
   zoneTriggers,
 ]
 

@@ -25,6 +25,7 @@ describe('card plugin registry', () => {
       'landfall',
       'librarySearch',
       'onResolve',
+      'targetedResolve',
       'zoneTriggers',
     ]) {
       expect(built.has(handlerId)).toBe(true)
@@ -39,6 +40,7 @@ describe('card plugin registry', () => {
       'Icetill Explorer',
       'Misty Rainforest',
       "Nature's Lore",
+      'Riveteers Overlook',
       'Scute Swarm',
       "Sin, Spira's Punishment",
       'Zagoth Triome',
@@ -49,7 +51,7 @@ describe('card plugin registry', () => {
   })
 
   test('the Homer commander is registered', () => {
-    expect(missingCardPlugins(['Homer, the Hermit'])).toEqual([])
+    expect(missingCardPlugins(['Deathsprout', 'Homer, the Hermit', 'Keep Safe'])).toEqual([])
     expect(cardPluginEntry('Homer, the Hermit')?.handlerIds).toEqual(['homer'])
   })
 

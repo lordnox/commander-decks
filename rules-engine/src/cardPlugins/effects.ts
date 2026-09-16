@@ -53,6 +53,13 @@ export type ActivateCost = {
 
 export type SearchDestination = 'hand' | 'battlefield' | 'graveyard'
 
+export type TargetFilter = {
+  zone?: ZoneId
+  type?: string
+  nonland?: boolean
+  spellTargetsControlledPermanent?: boolean
+}
+
 export type SearchSpec = {
   prompt: string
   match: (object: GameObject) => boolean
@@ -89,6 +96,13 @@ export type CardEffect =
   | { op: 'search'; via: 'spell'; spec: SearchSpec }
   | { op: 'search'; via: 'ability'; spec: SearchSpec; costs: ActivateCost }
   | { op: 'search'; via: 'enters'; spec: SearchSpec }
+  | {
+      op: 'targetedResolve'
+      target: number
+      filter: TargetFilter
+      action: 'destroy' | 'exile' | 'bounce' | 'counter'
+      do?: CardInstruction[]
+    }
   | { op: 'mana'; if: CardCondition }
   | { op: 'static'; pluginId?: string; extraLandPlays?: number }
   | { op: 'handler'; pluginId: string }
@@ -234,6 +248,18 @@ export const putPermanentsFromHand = (max: number): CardInstruction => ({
 export const manaIf = (condition: CardCondition): CardEffect => ({
   op: 'mana',
   if: condition,
+})
+
+export const targetOnResolve = (
+  action: Extract<CardEffect, { op: 'targetedResolve' }>['action'],
+  filter: TargetFilter,
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  op: 'targetedResolve',
+  target: 0,
+  filter,
+  action,
+  ...(instructions.length > 0 ? { do: instructions } : {}),
 })
 
 export const searchSpell = (spec: SearchSpec): CardEffect => ({
@@ -586,6 +612,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     }
     if (effect.op === 'mana') ids.add('activated')
     if (effect.op === 'search') ids.add('librarySearch')
+    if (effect.op === 'targetedResolve') ids.add('targetedResolve')
     if (effect.op === 'static' && effect.extraLandPlays) ids.add('additionalLandPlay')
     if (effect.op === 'handler') ids.add(effect.pluginId)
   }
