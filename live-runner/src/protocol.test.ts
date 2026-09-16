@@ -82,6 +82,12 @@ describe('inbox', () => {
       objectId: 'o3',
       actionId: 6,
     })
+    expect(parseInbox('{"type":"act","kind":"castSpell","objectId":"spell","targetObjectId":"target"}')).toEqual({
+      type: 'act',
+      kind: 'castSpell',
+      objectId: 'spell',
+      targetObjectId: 'target',
+    })
     expect(parseInbox('{"type":"priority-mode","always":true}')).toEqual({
       type: 'priority-mode',
       always: true,

@@ -4,6 +4,7 @@ import { manaModes, poolForChoice } from './plugins/mana'
 import { payCost } from './plugins/spells'
 import { effectsOf } from './cardPlugins/cardRules'
 import { conditionHolds, type ActivateCost } from './cardPlugins/effects'
+import { validTarget } from './cardPlugins/targetedResolve'
 import type {
   GameEvent,
   GameObject,
@@ -15,7 +16,13 @@ import type {
 
 export type AvailableAction =
   | { kind: 'playLand'; objectId: string; name: string }
-  | { kind: 'castSpell'; objectId: string; name: string }
+  | {
+      kind: 'castSpell'
+      objectId: string
+      name: string
+      targetObjectId?: string
+      targetName?: string
+    }
   | { kind: 'activateAbility'; objectId: string; name: string; text: string; abilityId?: string }
   | { kind: 'tapForMana'; objectId: string; name: string; mana?: ManaId }
   | { kind: 'declareAttackers'; objectIds: string[] }
@@ -348,11 +355,33 @@ export const manaAffordances = (
   return actions
 }
 
+const targetVariants = (
+  state: GameState,
+  seat: PlayerId,
+  action: AvailableAction,
+): AvailableAction[] => {
+  if (action.kind !== 'castSpell') return [action]
+  const source = state.objects[action.objectId]
+  const targeted = source
+    ? effectsOf(source).filter((effect) => effect.op === 'targetedResolve')
+    : []
+  if (targeted.length !== 1 || !source) return [action]
+  const effect = targeted[0]
+  return Object.values(state.objects)
+    .filter((object) => validTarget(state, object, effect.filter, seat))
+    .map((target) => ({
+      ...action,
+      targetObjectId: target.id,
+      targetName: target.name,
+    }))
+}
+
 export const legalActsFor = (
   state: GameState,
   seat: PlayerId = state.priority ?? '',
 ): AvailableAction[] =>
   [...availableActions(state, seat), ...manaAffordances(state, seat)]
+    .flatMap((action) => targetVariants(state, seat, action))
     .filter((action) => eventsForAvailableAction(state, seat, action))
 
 export const sameLegalAct = (
@@ -363,6 +392,7 @@ export const sameLegalAct = (
     abilityId?: string
     text?: string
     mana?: ManaId
+    targetObjectId?: string
   },
 ) => {
   if (left.kind !== right.kind) return false
@@ -371,6 +401,7 @@ export const sameLegalAct = (
   if (left.kind === 'activateAbility') {
     return left.abilityId === right.abilityId && left.text === right.text
   }
+  if (left.kind === 'castSpell') return left.targetObjectId === right.targetObjectId
   return true
 }
 
@@ -463,20 +494,35 @@ export const eventsForAvailableAction = (
   }
   if (action.kind !== 'castSpell') return null
   const object = state.objects[action.objectId]
+  const targeted = object
+    ? effectsOf(object).filter((effect) => effect.op === 'targetedResolve')
+    : []
   if (
     !object
-    || !object.types.some((type) => SIMPLE_PERMANENT.has(type))
-    || /(?:additional cost|enters(?: the battlefield)?|when you cast|choose|target)/i
+    || (
+      targeted.length === 0
+      && !object.types.some((type) => SIMPLE_PERMANENT.has(type))
+    )
+    || targeted.length > 1
+    || /(?:additional cost|enters(?: the battlefield)?|when you cast|choose)/i
       .test(object.oracleText)
   ) {
     return null
   }
+  if (targeted.length === 1 && !action.targetObjectId) return null
   const tax = taxFor(state, seat, object)
   const cost = `${object.manaCost}${tax > 0 ? `{${tax}}` : ''}`
   const mana = fundingEvents(state, seat, cost)
   if (!mana) return null
   return [
     ...mana,
-    { type: 'castSpell', seat, objectId: object.id },
+    {
+      type: 'castSpell',
+      seat,
+      objectId: object.id,
+      ...(action.targetObjectId
+        ? { targets: [{ kind: 'object' as const, objectId: action.targetObjectId }] }
+        : {}),
+    },
   ]
 }

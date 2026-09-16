@@ -12,7 +12,7 @@ const controlledPermanentTarget = (
   return object?.zone === 'battlefield' && object.controller === controller
 })
 
-const validTarget = (
+export const validTarget = (
   state: GameState,
   object: GameObject | undefined,
   filter: TargetFilter,

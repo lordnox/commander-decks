@@ -66,6 +66,7 @@ type InboxPayload =
       type: 'act'
       kind: 'playLand' | 'tapForMana' | 'castSpell' | 'activateAbility'
       objectId: string
+      targetObjectId?: string
       abilityId?: string
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
@@ -121,6 +122,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     until?: unknown
     kind?: unknown
     objectId?: unknown
+    targetObjectId?: unknown
     abilityId?: unknown
     mana?: unknown
   }
@@ -165,6 +167,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     case 'act': {
       const kind = message.kind
       const objectId = message.objectId
+      const targetObjectId = message.targetObjectId
       const mana = message.mana
       const abilityId = message.abilityId
       const text = message.text
@@ -179,6 +182,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         type: 'act',
         kind: kind as 'playLand' | 'tapForMana' | 'castSpell' | 'activateAbility',
         objectId,
+        ...(typeof targetObjectId === 'string' ? { targetObjectId } : {}),
         ...(typeof abilityId === 'string' ? { abilityId } : {}),
         ...(typeof text === 'string' ? { text } : {}),
         ...(typeof mana === 'string' && ['W', 'U', 'B', 'R', 'G', 'C'].includes(mana)
