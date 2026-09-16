@@ -1,6 +1,8 @@
 import { isPermanentType } from '../definitions'
 import { poolTotal, type Draft } from '../draft'
 import type { GameObject, ManaId, ManaPool, Plugin } from '../types'
+import { searchEffect } from '../cardPlugins/effects'
+import { effectsFor } from '../cardPlugins/cardRules'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
 const MANA_SYMBOLS = new Set<ManaId>(MANA_ORDER)
@@ -77,6 +79,26 @@ export const spells: Plugin = {
 
       const cost = spellCost(object, event.additionalGeneric)
       if (!payCost(state.players[event.seat].mana, cost)) return 'not enough mana'
+      const search = searchEffect(effectsFor(object.name))
+      const needed = search?.via === 'spell' ? search.spec.sacrificeLands : undefined
+      if (needed) {
+        const sacrificed = event.sacrifice ?? []
+        if (needed === 'any') {
+          if (sacrificed.some((objectId) => {
+            const land = state.objects[objectId]
+            return !land || land.controller !== event.seat || !land.types.includes('Land')
+              || land.zone !== 'battlefield'
+          })) return 'illegal land sacrifice'
+        } else if (sacrificed.length !== needed) {
+          return `${object.name} requires sacrificing ${needed} land(s)`
+        } else if (sacrificed.some((objectId) => {
+          const land = state.objects[objectId]
+          return !land || land.controller !== event.seat || !land.types.includes('Land')
+            || land.zone !== 'battlefield'
+        })) {
+          return 'illegal land sacrifice'
+        }
+      }
     }
 
     if (event.type === 'resolveTop' && state.stack.length === 0) return 'stack is empty'
@@ -98,8 +120,14 @@ export const spells: Plugin = {
         name: object.name,
         targets: event.targets ?? [],
         ...(event.kicked ? { kicked: true } : {}),
+        ...(event.x !== undefined ? { x: event.x } : {}),
+        ...(event.sacrifice ? { sacrificed: event.sacrifice.length } : {}),
+        castFrom: object.zone,
       })
       draft.move(object.id, 'stack')
+      for (const objectId of event.sacrifice ?? []) {
+        draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+      }
       draft.passedInRow = []
       draft.priority = event.seat
       return

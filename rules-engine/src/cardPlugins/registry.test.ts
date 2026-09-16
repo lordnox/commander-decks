@@ -27,6 +27,8 @@ describe('card plugin registry', () => {
       'onResolve',
       'targetedResolve',
       'zoneTriggers',
+      'choiceEffects',
+      'bestow',
     ]) {
       expect(built.has(handlerId)).toBe(true)
     }
@@ -55,9 +57,21 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Homer, the Hermit')?.handlerIds).toEqual(['homer'])
   })
 
-  test('a card nobody has plugged is still reported as missing', () => {
-    expect(missingCardPlugins(['Springheart Nantuko'])).toEqual([
+  test('the Homer dumpster cards this pass covers stay registered', () => {
+    const covered = [
+      'Homer, the Hermit',
+      'Sakashima of a Thousand Faces',
+      'Spark Double',
+      "Irenicus's Vile Duplication",
       'Springheart Nantuko',
-    ])
+      'Yarok, the Desecrated',
+      'Harrow',
+      'Scapeshift',
+      'Hedge Shredder',
+      'Watery Grave',
+      'Simic Growth Chamber',
+      'Maskwood Nexus',
+    ]
+    expect(missingCardPlugins(covered)).toEqual([])
   })
 })

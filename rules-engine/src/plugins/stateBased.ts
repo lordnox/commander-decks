@@ -38,7 +38,15 @@ export const stateBased: Plugin = {
     const legendary = Object.values(draft.objects).filter(
       (object) => object.zone === 'battlefield' && object.supertypes.includes('Legendary'),
     )
+    const legendOff = new Set(
+      Object.values(draft.objects)
+        .filter((object) =>
+          object.zone === 'battlefield'
+          && (object.effects ?? []).some((effect) => effect.op === 'static' && effect.legendRuleOff))
+        .map((object) => object.controller),
+    )
     for (const object of legendary) {
+      if (legendOff.has(object.controller)) continue
       const duplicates = legendary.filter(
         (other) => other.controller === object.controller && other.name === object.name,
       )

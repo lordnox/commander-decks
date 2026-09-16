@@ -10,18 +10,34 @@ export type PendingDialog = {
   sourceId: string
   source: string
   seat: PlayerId
-  kind: 'scry' | 'look-top' | 'put-land' | 'put-permanents'
+  kind:
+    | 'scry'
+    | 'look-top'
+    | 'put-land'
+    | 'put-permanents'
+    | 'surveil'
+    | 'bounce-land'
+    | 'reveal-pick'
+    | 'copy-creature'
+    | 'return-land'
+    | 'may'
+    | 'may-pay-life'
   prompt: string
   waiting: string
   judge: string
   chosenEvent: string
-  destinations: Array<'top' | 'bottom' | 'hand' | 'battlefield'>
+  destinations: Array<
+    'top' | 'bottom' | 'hand' | 'battlefield' | 'graveyard' | 'skip' | 'target'
+  >
   count?: number
   types?: string[]
   permanent?: boolean
   optional?: boolean
   after?: Array<'resolveTop'>
-  requirements?: Partial<Record<'hand' | 'battlefield', { min?: number; max?: number }>>
+  requirements?: Partial<Record<
+    'battlefield' | 'hand' | 'target' | 'graveyard',
+    { min?: number; max?: number }
+  >>
 }
 
 const isDialog = (value: unknown): value is PendingDialog =>
@@ -53,11 +69,31 @@ export const clearPendingDialog = (draft: Draft, seat: PlayerId) => {
 }
 
 export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
-  if (dialog.kind === 'scry' || dialog.kind === 'look-top') {
+  if (
+    dialog.kind === 'scry'
+    || dialog.kind === 'look-top'
+    || dialog.kind === 'surveil'
+    || dialog.kind === 'reveal-pick'
+  ) {
     return (state.zoneOrder[dialog.seat].library ?? [])
       .slice(0, dialog.count ?? 1)
       .map((id) => state.objects[id])
       .filter((object): object is NonNullable<typeof object> => Boolean(object))
+  }
+  if (dialog.kind === 'bounce-land' || dialog.kind === 'copy-creature') {
+    return (state.zoneOrder[dialog.seat].battlefield ?? [])
+      .map((id) => state.objects[id])
+      .filter((object): object is NonNullable<typeof object> =>
+        Boolean(object)
+        && (dialog.kind !== 'copy-creature' || object.id !== dialog.sourceId)
+        && (!dialog.types || dialog.types.every((type) => object.types.includes(type))))
+  }
+  if (dialog.kind === 'return-land') {
+    return (state.zoneOrder[dialog.seat].graveyard ?? [])
+      .map((id) => state.objects[id])
+      .filter((object): object is NonNullable<typeof object> =>
+        Boolean(object)
+        && (!dialog.types || dialog.types.every((type) => object.types.includes(type))))
   }
   return (state.zoneOrder[dialog.seat].hand ?? [])
     .map((id) => state.objects[id])

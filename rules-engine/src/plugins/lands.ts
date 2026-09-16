@@ -1,12 +1,20 @@
-import type { Plugin } from '../types'
+import type { GameState, Plugin } from '../types'
+import { effectsOf } from '../cardPlugins/cardRules'
 
 const MAIN_STEPS = ['precombatMain', 'postcombatMain']
+
+const canPlayFromGraveyard = (state: GameState, seat: string) =>
+  Object.values(state.objects).some((object) =>
+    object.zone === 'battlefield'
+    && object.controller === seat
+    && effectsOf(object).some((effect) => effect.op === 'static' && effect.playLandsFromGraveyard))
 
 const legal: Plugin['legal'] = ({ state, event }) => {
   if (event.type !== 'playLand') return
   const object = state.objects[event.objectId]
   if (!object) return 'no such object'
-  if (object.zone !== 'hand' || object.controller !== event.seat) {
+  const fromGraveyard = object.zone === 'graveyard' && canPlayFromGraveyard(state, event.seat)
+  if ((!fromGraveyard && object.zone !== 'hand') || object.controller !== event.seat) {
     return `${object.name} is not in ${event.seat}'s hand`
   }
   if (!object.types.includes('Land')) return `${object.name} is not a land`

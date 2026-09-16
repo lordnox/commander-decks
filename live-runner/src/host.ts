@@ -496,11 +496,19 @@ export const runHost = async (options: {
       && kernel
       && (
         state.topdeck?.kernel?.stage === 'scry'
+        || state.topdeck?.kernel?.stage === 'look-top'
         || state.topdeck?.kernel?.stage === 'put-land'
         || state.topdeck?.kernel?.stage === 'put-permanents'
         || state.topdeck?.kernel?.stage === 'search'
         || state.topdeck?.kernel?.stage === 'library-search'
         || state.topdeck?.kernel?.stage === 'player-targets'
+        || state.topdeck?.kernel?.stage === 'surveil'
+        || state.topdeck?.kernel?.stage === 'bounce-land'
+        || state.topdeck?.kernel?.stage === 'reveal-pick'
+        || state.topdeck?.kernel?.stage === 'copy-creature'
+        || state.topdeck?.kernel?.stage === 'return-land'
+        || state.topdeck?.kernel?.stage === 'may'
+        || state.topdeck?.kernel?.stage === 'may-pay-life'
       )
     ) {
       try {

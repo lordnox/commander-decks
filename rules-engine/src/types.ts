@@ -80,6 +80,8 @@ export type GameObject = {
   token: boolean
   tags: string[]
   tapProduces?: Partial<ManaPool>
+  /** Chosen creature type, for example Roaming Throne. */
+  chosenType?: string
   /** Stamped from the name-keyed card-rule table when the object is created. */
   effects?: import('./cardPlugins/effects').CardEffect[]
 }
@@ -100,6 +102,8 @@ export type StackItem = {
   x?: number
   choices?: string[]
   kicked?: boolean
+  sacrificed?: number
+  castFrom?: ZoneId
 }
 
 /**
@@ -189,6 +193,8 @@ export type GameEvent =
       targets?: TargetRef[]
       additionalGeneric?: number
       kicked?: boolean
+      x?: number
+      sacrifice?: string[]
     }
   | { type: 'resolveTop' }
   | { type: 'declareAttackers'; seat: PlayerId; attackers: AttackerDecl[] }

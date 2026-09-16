@@ -41,6 +41,13 @@ export type TopdeckDecision = {
       | 'search'
       | 'library-search'
       | 'player-targets'
+      | 'surveil'
+      | 'bounce-land'
+      | 'reveal-pick'
+      | 'copy-creature'
+      | 'return-land'
+      | 'may'
+      | 'may-pay-life'
     resumePassSeat?: SeatId
     kicked?: boolean
     chosenEvent?: string

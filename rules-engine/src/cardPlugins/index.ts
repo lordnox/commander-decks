@@ -2,6 +2,8 @@ import { cardDefinition } from './cardRules'
 import type { Plugin } from '../types'
 import { additionalLandPlay } from './additionalLandPlay'
 import { activated } from './activated'
+import { bestow } from './bestow'
+import { choiceEffects } from './choiceEffects'
 import { entersTapped } from './entersTapped'
 import { homer } from './homer'
 import { jointExploration } from './jointExploration'
@@ -11,6 +13,7 @@ import { onResolve } from './onResolve'
 import { planeswalker } from './planeswalker'
 import { sin } from './sin'
 import { targetedResolve } from './targetedResolve'
+import { teferiSunset } from './teferiSunset'
 import { zoneTriggers } from './zoneTriggers'
 
 export type CardPluginEntry = {
@@ -23,6 +26,8 @@ export type CardPluginEntry = {
 export const cardPlugins: Plugin[] = [
   additionalLandPlay,
   activated,
+  bestow,
+  choiceEffects,
   entersTapped,
   homer,
   jointExploration,
@@ -32,6 +37,7 @@ export const cardPlugins: Plugin[] = [
   planeswalker,
   sin,
   targetedResolve,
+  teferiSunset,
   zoneTriggers,
 ]
 

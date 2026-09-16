@@ -53,12 +53,13 @@ export const activated: Plugin = {
       if (manaEffect && !conditionHolds(manaEffect.if, state, source)) {
         return `${source.name} cannot be activated now`
       }
-      const millMana = effectsOf(source).find((effect) =>
-        effect.op === 'activate'
-        && effect.manaAbility
-        && (effect.costs.mill ?? 0) > 0)
+      const millMana = effectsOf(source).find((effect): effect is Extract<typeof effect, { op: 'activate' }> =>
+        effect.op === 'activate' && Boolean(effect.manaAbility))
       if (millMana) {
-        return `${source.name} mana must mill a card as an activation cost`
+        if ((millMana.costs.mill ?? 0) > 0) {
+          return `${source.name} mana must mill a card as an activation cost`
+        }
+        return `${source.name} mana must use its printed mana ability`
       }
       return
     }
