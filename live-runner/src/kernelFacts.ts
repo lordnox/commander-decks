@@ -86,10 +86,8 @@ export const kernelFacts = (state: GameState, seat: SeatId, human?: SeatId) => {
     'A line built only from those actions must not be rejected as illegal.',
     `Other seats the kernel currently offers an action: ${
       responders
-        .map((entry) => `${entry.id} (${
-          entry.id === human
-            ? entry.actions.map(actionText).join('; ')
-            : `${entry.actions.length} action(s)`
+        .map((entry) => `${entry.id} (${entry.actions.length} action(s)${
+          entry.id === human ? ', human seat' : ''
         })`)
         .join(', ') || 'none'
     }.`,
@@ -97,5 +95,7 @@ export const kernelFacts = (state: GameState, seat: SeatId, human?: SeatId) => {
     'you. Do not pass priority for them and do not rule their answer too',
     'expensive: open a window naming them and wait. The host drops any event you',
     'append past the human seat\'s own open response window.',
+    'Counts only: never name or hint at the cards, hand, or plan behind another',
+    "seat's actions, in this seat's private notes or at the table.",
   ].join('\n')
 }

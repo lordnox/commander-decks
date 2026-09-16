@@ -52,7 +52,7 @@ test('legal actions are listed so a line built from them cannot be called illega
   expect(facts).toContain('must not be rejected as illegal')
 })
 
-test('a responder the judge would rule tapped out is named with its own actions', () => {
+test('a responder the judge would rule tapped out is counted, never named', () => {
   const state = table()
   state.active = 'p2'
   state.priority = 'p2'
@@ -75,6 +75,8 @@ test('a responder the judge would rule tapped out is named with its own actions'
 
   const facts = kernelFacts(state, 'p2', 'p1')
 
-  expect(facts).toContain("p1 (cast Dovin's Veto)")
+  expect(facts).toContain('p1 (1 action(s), human seat)')
   expect(facts).toContain('Do not pass priority for them')
+  // A seat learns that an answer exists, never which card it is.
+  expect(facts).not.toContain("Dovin's Veto")
 })
