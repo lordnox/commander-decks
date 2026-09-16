@@ -1,4 +1,7 @@
 import { describe, expect, test } from 'bun:test'
+import { commanderRules } from './formats'
+import { cardTemplate } from './newGame'
+import { createServerGame } from './runtime'
 import {
   importLiveReplayState,
   replayComparableState,
@@ -129,5 +132,40 @@ describe('table replay conversion', () => {
     expect(ugin.counters.loyalty).toBe(4)
     expect(replayComparableState(imported).players.p1.battlefield[0].counters)
       .toEqual({ loyalty: 4 })
+  })
+
+  test('a spell on the stack announces what it targets', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [cardTemplate('Reanimate', { types: ['Sorcery'], manaCost: '{B}' })] },
+        battlefield: {
+          p2: [cardTemplate('Spark Double', { types: ['Creature'], zone: 'graveyard' })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [] },
+    )
+    const state = structuredClone(server.state)
+    state.step = 'precombatMain'
+    state.active = 'p1'
+    state.priority = 'p1'
+    state.players.p1.mana = { W: 0, U: 0, B: 1, R: 0, G: 0, C: 0 }
+    const spark = Object.values(state.objects).find(
+      (object) => object.name === 'Spark Double',
+    )!
+    const cast = server.rules(state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: state.zoneOrder.p1.hand[0],
+      targets: [{ kind: 'object', objectId: spark.id }],
+    })
+    if (!cast.ok) throw new Error(cast.error)
+
+    expect(replayComparableState(cast.state).stack).toEqual([{
+      name: 'Reanimate',
+      kind: 'spell',
+      controller: 'p1',
+      text: 'targeting Spark Double (p2 graveyard)',
+    }])
   })
 })

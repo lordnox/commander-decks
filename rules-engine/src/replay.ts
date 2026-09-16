@@ -3,7 +3,14 @@ import { CARD_TYPES } from './definitions'
 import { commanderRules } from './formats'
 import { cardTemplate as templateFor, type CardTemplate } from './newGame'
 import { createServerGame } from './runtime'
-import type { GameEvent, GameObject, GameState, PlayerId, StepId } from './types'
+import type {
+  GameEvent,
+  GameObject,
+  GameState,
+  PlayerId,
+  StepId,
+  TargetRef,
+} from './types'
 
 type ReplayCard = {
   type_line: string
@@ -419,13 +426,38 @@ const loyaltyActivationLabel = (abilityId?: string) => {
   return `${match[1] === 'plus' ? '+' : '−'}${values[match[2]]} loyalty activation`
 }
 
+const HIDDEN_ZONES = new Set<GameObject['zone']>(['hand', 'library'])
+
+/**
+ * Targets are announced, not private: a seat decides whether to counter a spell
+ * or empty a graveyard in response to what it is aimed at. Name the zone too,
+ * since the same card can sit in several of them.
+ */
+const targetLabel = (state: GameState, target: TargetRef) => {
+  if (target.kind === 'player') return state.players[target.player] ? target.player : undefined
+  const object = state.objects[target.objectId]
+  if (!object) return undefined
+  if (HIDDEN_ZONES.has(object.zone)) return 'a face-down card'
+  if (object.zone === 'battlefield') return `${object.name} (${object.controller})`
+  return `${object.name} (${object.controller} ${object.zone})`
+}
+
+const stackItemText = (state: GameState, item: GameState['stack'][number]) => {
+  const targets = item.targets
+    .map((target) => targetLabel(state, target))
+    .filter((label): label is string => Boolean(label))
+  const loyalty = item.kind === 'ability' ? loyaltyActivationLabel(item.abilityId) : undefined
+  const aimed = targets.length > 0 ? `targeting ${targets.join(', ')}` : undefined
+  return [loyalty, aimed].filter(Boolean).join(' · ') || undefined
+}
+
 export const replayComparableState = (state: GameState) => ({
   active: state.active,
   turn: Math.floor((state.turn - 1) / state.playerOrder.length) + 1,
   phase: replayPhase(state.step),
   stack: state.stack.map((item) => {
     const source = state.objects[item.objectId]
-    const text = item.kind === 'ability' ? loyaltyActivationLabel(item.abilityId) : undefined
+    const text = stackItemText(state, item)
     return {
       name: source?.name ?? item.name,
       kind: item.kind,
