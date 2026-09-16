@@ -1,4 +1,5 @@
 import type { GameEvent, Plugin } from '../types'
+import { pendingDialogFor } from '../pendingDialog'
 
 const moveToGraveyard = (objectId: string): GameEvent => ({
   type: 'move',
@@ -9,6 +10,11 @@ const moveToGraveyard = (objectId: string): GameEvent => ({
 export const stateBased: Plugin = {
   id: 'stateBased',
   sba: ({ draft }) => {
+    const entryChoicePending = draft.playerOrder.some(
+      (seat) => pendingDialogFor(draft, seat)?.kind === 'copy-creature',
+    )
+    if (entryChoicePending) return []
+
     for (const player of Object.values(draft.players)) {
       if (!player.lost && player.life <= 0) return [{ type: 'concede', seat: player.id }]
     }

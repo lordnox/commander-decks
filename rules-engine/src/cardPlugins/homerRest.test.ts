@@ -121,7 +121,11 @@ describe('Homer remaining card plugins', () => {
           p2: [cardTemplate('Homer, the Hermit', { types: ['Creature'] })],
         },
         hands: {
-          p2: [cardTemplate('Spark Double', { types: ['Creature'] })],
+          p2: [cardTemplate('Spark Double', {
+            types: ['Creature'],
+            power: 0,
+            toughness: 0,
+          })],
         },
       },
     )
@@ -139,6 +143,7 @@ describe('Homer remaining card plugins', () => {
     }))
     const dialog = pendingDialog(entered)
     expect(entered.objects[spark.id].controller).toBe('p1')
+    expect(entered.objects[spark.id].zone).toBe('battlefield')
     expect(dialog?.seat).toBe('p1')
     expect(dialogCandidates(entered, dialog!).map((object) => object.name)).toEqual([
       'Sygg, River Cutthroat',
