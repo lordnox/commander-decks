@@ -1,7 +1,6 @@
 import { cardDefinition } from './cardRules'
 import type { Plugin } from '../types'
 import { additionalLandPlay } from './additionalLandPlay'
-import { analyzeThePollen } from './analyzeThePollen'
 import { activated } from './activated'
 import { entersTapped } from './entersTapped'
 import { homer } from './homer'
@@ -30,7 +29,6 @@ export const cardPlugins: Plugin[] = [
   onResolve,
   sin,
   zoneTriggers,
-  analyzeThePollen,
 ]
 
 export const cardPluginEntry = (name: string): CardPluginEntry | undefined => {

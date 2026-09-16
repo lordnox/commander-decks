@@ -24,6 +24,7 @@ export type PendingSearch = {
   source: string
   sourceId: string
   via: 'spell' | 'ability'
+  kicked?: boolean
 }
 
 export const searchSpecFor = (name: string): SearchSpec | undefined =>
@@ -60,10 +61,12 @@ export const searchCandidates = (
   state: GameState,
   seat: PlayerId,
   spec: SearchSpec,
+  kicked = false,
 ) =>
   (state.zoneOrder[seat]?.library ?? [])
     .map((objectId) => state.objects[objectId])
-    .filter((object): object is GameObject => Boolean(object) && spec.match(object))
+    .filter((object): object is GameObject =>
+      Boolean(object) && (kicked && spec.kickedMatch ? spec.kickedMatch(object) : spec.match(object)))
 
 const searchDone = (state: GameState, seat: PlayerId) =>
   state.players[seat]?.data[SEARCH_DONE] === true
@@ -135,7 +138,12 @@ export const librarySearch: Plugin = {
       type: 'custom',
       name: SEARCH_BEGIN,
       seat: item.controller,
-      payload: { source: item.name, sourceId: item.objectId, via: 'spell' },
+      payload: {
+        source: item.name,
+        sourceId: item.objectId,
+        via: 'spell',
+        kicked: item.kicked === true,
+      },
     }
   },
   apply: (ctx) => {
@@ -147,6 +155,7 @@ export const librarySearch: Plugin = {
         source,
         sourceId: String(event.payload?.sourceId ?? ''),
         via: String(event.payload?.via) === 'ability' ? 'ability' : 'spell',
+        ...(event.payload?.kicked === true ? { kicked: true } : {}),
       })
       return
     }
