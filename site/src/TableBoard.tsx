@@ -419,32 +419,44 @@ const MANA_STYLES: Record<string, string> = {
   C: 'bg-stone-400 text-ink-950',
 }
 
+const MANA_NAMES: Record<string, string> = {
+  W: 'white',
+  U: 'blue',
+  B: 'black',
+  R: 'red',
+  G: 'green',
+  C: 'colorless',
+}
+
+/** WUBRG then colorless, so a pool always reads in the printed symbol order. */
+const MANA_ORDER = ['W', 'U', 'B', 'R', 'G', 'C'] as const
+
 /**
  * Floating mana disappears as soon as it pays for something, so the pool is
- * only worth drawing while a seat is actually holding it.
+ * only worth drawing while a seat is actually holding it. These sit among the
+ * hand and library counts, so they render as bare chips rather than a block.
  */
 export const ManaPoolBadge = ({ pool }: { pool?: Record<string, number> }) => {
-  const held = Object.entries(pool ?? {}).filter(([, amount]) => amount > 0)
+  const held = MANA_ORDER
+    .map((symbol) => [symbol, pool?.[symbol] ?? 0] as const)
+    .filter(([, amount]) => amount > 0)
   if (held.length === 0) return null
 
-  const total = held.reduce((sum, [, amount]) => sum + amount, 0)
   return (
-    <div
-      className="mt-2 flex flex-wrap items-center justify-end gap-1"
-      aria-label={`Mana pool: ${held.map(([symbol, amount]) => `${amount} ${symbol}`).join(', ')}`}
-      title={`${total} floating mana`}
-    >
+    <>
       {held.map(([symbol, amount]) => (
         <span
           key={symbol}
-          className={`flex size-5 items-center justify-center rounded-full text-[0.62rem] font-bold shadow ${
+          aria-label={`${amount} ${MANA_NAMES[symbol]} mana`}
+          title={`${amount} ${MANA_NAMES[symbol]} mana`}
+          className={`rounded-full px-2.5 py-1 font-bold tabular-nums shadow ${
             MANA_STYLES[symbol] ?? MANA_STYLES.C
           }`}
         >
-          {amount > 1 ? `${amount}${symbol}` : symbol}
+          {amount}
         </span>
       ))}
-    </div>
+    </>
   )
 }
 
@@ -532,7 +544,6 @@ export const SeatPanel = ({
           <p className="mt-1 text-[0.62rem] font-bold uppercase tracking-wider text-stone-500">
             life
           </p>
-          <ManaPoolBadge pool={state.mana} />
         </div>
       </header>
 
@@ -543,6 +554,7 @@ export const SeatPanel = ({
         <span className="rounded-full bg-white/5 px-2.5 py-1">
           {state.library_count} library
         </span>
+        <ManaPoolBadge pool={state.mana} />
         {!!state.poison && (
           <span className="rounded-full bg-lime-500/15 px-2.5 py-1 text-lime-200">
             {state.poison} poison
