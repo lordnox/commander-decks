@@ -25,6 +25,10 @@ export type CardInstruction =
   | { kind: 'addMana'; mana: Partial<ManaPool> }
   | { kind: 'addManaToEachPlayer'; mana: Partial<ManaPool> }
   | { kind: 'draw'; count: number }
+  | { kind: 'gainLife'; count: number }
+  | { kind: 'dealDamageToChosenTarget'; amount: number }
+  | { kind: 'exileColoredPermanentsAtMostX' }
+  | { kind: 'putPermanentsFromHand'; max: number }
   | { kind: 'extraLandPlays'; count: number }
   | { kind: 'returnOwnedGraveyardLands'; tapped?: boolean }
   | { kind: 'createToken'; token: TokenSpec }
@@ -38,6 +42,10 @@ export type ActivateCost = {
   mill?: number
   life?: number
   sacrifice?: 'self'
+  /** Signed loyalty change paid before the ability goes on the stack. */
+  loyalty?: number
+  /** Use the activation event's chosen X as a negative loyalty cost. */
+  loyaltyX?: boolean
 }
 
 export type SearchDestination = 'hand' | 'battlefield' | 'graveyard'
@@ -68,6 +76,7 @@ export type CardEffect =
       op: 'activate'
       id: string
       manaAbility?: boolean
+      targets?: 'any'
       costs: ActivateCost
       if?: CardCondition
       do: CardInstruction[]
@@ -234,8 +243,12 @@ const tokenDefaults = (): Omit<GameObject, 'id' | 'name' | 'owner' | 'controller
   subtypes: [],
   supertypes: [],
   manaCost: '',
+  manaValue: 0,
+  colors: [],
   power: null,
   toughness: null,
+  printedLoyalty: null,
+  loyaltyActivatedTurn: null,
   oracleText: '',
   attachedTo: null,
   attacking: null,
@@ -463,7 +476,11 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     }
     if (effect.op === 'trigger' && effect.on === 'landfall') ids.add('landfall')
     if (effect.op === 'trigger' && effect.on === 'resolve') ids.add('onResolve')
-    if (effect.op === 'activate') ids.add('activated')
+    if (effect.op === 'activate') {
+      ids.add(effect.costs.loyalty !== undefined || effect.costs.loyaltyX
+        ? 'planeswalker'
+        : 'activated')
+    }
     if (effect.op === 'search') ids.add('librarySearch')
     if (effect.op === 'static' && effect.extraLandPlays) ids.add('additionalLandPlay')
     if (effect.op === 'handler') ids.add(effect.pluginId)

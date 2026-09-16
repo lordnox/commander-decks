@@ -1,7 +1,7 @@
 import { expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
-import { bears, newGame } from '../testGame'
+import { bears, newGame, planeswalker } from '../testGame'
 import { combat } from './combat'
 import { damage } from './damage'
 import { turnStructure } from './turnStructure'
@@ -129,4 +129,32 @@ test('an attacker cannot target a player outside the game', () => {
 
   expect(result.ok).toBe(false)
   if (!result.ok) expect(result.error).toContain('not in the game')
+})
+
+test('an unblocked creature can attack and damage an opponent planeswalker', () => {
+  const catalog = createCatalog([combat, damage])
+  const state = newGame({
+    battlefield: { p1: [bears()], p2: [planeswalker('Target Walker', 5)] },
+    builtinRules: ['combat', 'damage'],
+  })
+  const attacker = Object.values(state.objects).find((object) => object.controller === 'p1')!
+  const walker = Object.values(state.objects).find((object) => object.name === 'Target Walker')!
+  attacker.summoningSickness = false
+  state.step = 'declareAttackers'
+
+  const declared = rules(state, {
+    type: 'declareAttackers',
+    seat: 'p1',
+    attackers: [{
+      objectId: attacker.id,
+      defender: { kind: 'object', objectId: walker.id },
+    }],
+  }, catalog)
+  if (!declared.ok) throw new Error(declared.error)
+  declared.state.step = 'combatDamage'
+  const damaged = rules(declared.state, { type: 'assignCombatDamage' }, catalog)
+  if (!damaged.ok) throw new Error(damaged.error)
+
+  expect(damaged.state.objects[walker.id].counters.loyalty).toBe(3)
+  expect(damaged.state.players.p2.life).toBe(40)
 })

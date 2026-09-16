@@ -8,6 +8,7 @@ import { jointExploration } from './jointExploration'
 import { landfall } from './landfall'
 import { librarySearch } from './librarySearch'
 import { onResolve } from './onResolve'
+import { planeswalker } from './planeswalker'
 import { sin } from './sin'
 import { zoneTriggers } from './zoneTriggers'
 
@@ -27,6 +28,7 @@ export const cardPlugins: Plugin[] = [
   landfall,
   librarySearch,
   onResolve,
+  planeswalker,
   sin,
   zoneTriggers,
 ]

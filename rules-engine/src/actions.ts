@@ -155,6 +155,11 @@ const canActivate = (
   ) {
     return false
   }
+  if (/^[+−-]\d+:/u.test(line)) {
+    if (object.loyaltyActivatedTurn === state.turn) return false
+    const amount = Number(line.match(/^[+−-](\d+)/u)?.[1] ?? 0)
+    if (/^[−-]/u.test(line) && (object.counters.loyalty ?? 0) < amount) return false
+  }
   // A free fog is legal in every window, so enumerating it everywhere would
   // stop its controller at every step of every turn. Surface it once combat
   // damage is actually threatened; a later combat redeclares attackers and
@@ -285,7 +290,12 @@ export const availableActions = (
 
   if (state.step === 'declareBlockers') {
     const attackerIds = Object.values(state.objects)
-      .filter((object) => object.zone === 'battlefield' && object.attacking === seat)
+      .filter((object) => {
+        if (object.zone !== 'battlefield' || !object.attacking) return false
+        if (typeof object.attacking === 'string') return object.attacking === seat
+        if (object.attacking.kind === 'player') return object.attacking.player === seat
+        return state.objects[object.attacking.objectId]?.controller === seat
+      })
       .map((object) => object.id)
     const objectIds = Object.values(state.objects)
       .filter((object) =>
@@ -359,6 +369,27 @@ export const eventsForAvailableAction = (
 ): GameEvent[] | null => {
   if (action.kind === 'playLand') {
     return [{ type: 'playLand', seat, objectId: action.objectId }]
+  }
+  if (action.kind === 'activateAbility') {
+    const object = state.objects[action.objectId]
+    if (!object) return null
+    const sign = action.text.match(/^([+−-])(\d+):/u)
+    if (!sign) return null
+    const amount = sign[1] === '+' ? Number(sign[2]) : -Number(sign[2])
+    const effect = effectsOf(object).find(
+      (candidate): candidate is Extract<ReturnType<typeof effectsOf>[number], { op: 'activate' }> =>
+      candidate.op === 'activate'
+      && candidate.costs.loyalty === amount
+      && !candidate.targets,
+    )
+    return effect
+      ? [{
+          type: 'activateAbility',
+          abilityId: effect.id,
+          seat,
+          objectId: object.id,
+        }]
+      : null
   }
   if (action.kind !== 'castSpell') return null
   const object = state.objects[action.objectId]

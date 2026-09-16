@@ -16,6 +16,7 @@ type ReplayBattlefieldCard = {
   name: string
   tapped?: boolean
   commander?: boolean
+  counters?: Record<string, number>
 }
 
 type ReplayPlayerState = {
@@ -72,6 +73,16 @@ const addedNames = (before: string[], after: string[]) => {
   })
 }
 
+const manaValueOf = (cost: string) =>
+  [...cost.matchAll(/\{([^}]+)\}/g)].reduce((total, match) => {
+    if (/^\d+$/.test(match[1])) return total + Number(match[1])
+    if (match[1] === 'X') return total
+    return total + 1
+  }, 0)
+
+const colorsOf = (cost: string) =>
+  [...new Set([...cost.matchAll(/[WUBRG]/g)].map((match) => match[0]))]
+
 const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
   const typeLine = card?.type_line ?? ''
   const types = CARD_TYPES.filter((type) =>
@@ -82,6 +93,10 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
     .split(' // ')
     .flatMap((face) => face.split(' — ')[1]?.split(' ') ?? [])
   const stats = card?.stats.match(/^(-?\d+)\/(-?\d+)$/)
+  const loyalty = types.includes('Planeswalker') && /^-?\d+$/.test(card?.stats ?? '')
+    ? Number(card?.stats)
+    : null
+  const manaCost = (card?.mana_cost ?? '').split(' // ')[0]
   const add = card?.oracle_text.match(/Add \{([WUBRGC])\}/)
   const tapProduces = add ? { [add[1]]: 1 } : undefined
 
@@ -89,9 +104,12 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
     types,
     subtypes,
     supertypes,
-    manaCost: (card?.mana_cost ?? '').split(' // ')[0],
+    manaCost,
+    manaValue: manaValueOf(manaCost),
+    colors: colorsOf(manaCost),
     power: stats ? Number(stats[1]) : null,
     toughness: stats ? Number(stats[2]) : null,
+    printedLoyalty: loyalty,
     oracleText: card?.oracle_text ?? '',
     grantedRules: grantedRulesFor(name),
     ...(tapProduces ? { tapProduces } : {}),
@@ -223,6 +241,7 @@ export const importLiveReplayState = (replay: TableReplay) => {
     latest.state.players[seat].battlefield.map((card) => ({
       ...cardTemplate(card.name, replay.catalog[card.name]),
       tapped: Boolean(card.tapped),
+      counters: { ...card.counters },
       tags: card.commander ? ['commander'] : [],
     })),
   ]))
@@ -406,6 +425,9 @@ export const replayComparableState = (state: GameState) => ({
         return {
           name: object.name,
           tapped: object.tapped,
+          ...(Object.keys(object.counters).length > 0
+            ? { counters: { ...object.counters } }
+            : {}),
           ...(object.tags.includes('commander') ? { commander: true } : {}),
         }
       }),
@@ -434,6 +456,7 @@ export const replayExpectedState = (replay: TableReplay, throughRound: number) =
         battlefield: player.battlefield.map((object) => ({
           name: object.name,
           tapped: object.tapped ?? false,
+          ...(object.counters ? { counters: { ...object.counters } } : {}),
           ...(object.commander ? { commander: true } : {}),
         })),
         graveyard: player.graveyard,

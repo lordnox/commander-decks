@@ -20,6 +20,13 @@ export const stateBased: Plugin = {
     for (const object of Object.values(draft.objects)) {
       if (
         object.zone === 'battlefield'
+        && object.types.includes('Planeswalker')
+        && (object.counters.loyalty ?? 0) <= 0
+      ) {
+        return [moveToGraveyard(object.id)]
+      }
+      if (
+        object.zone === 'battlefield'
         && object.types.includes('Creature')
         && object.toughness !== null
         && (object.toughness <= 0 || object.damageMarked >= object.toughness)

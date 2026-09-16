@@ -4,6 +4,7 @@ import {
   bolt,
   forest,
   newGame as createGame,
+  planeswalker,
   timetwister,
   yarokFixture,
   yurlokFixture,
@@ -12,4 +13,4 @@ import {
 
 export const newGame = (options?: NewGameOptions) => createGame(commanderRules, options)
 
-export { bears, bolt, forest, timetwister, yarokFixture, yurlokFixture }
+export { bears, bolt, forest, planeswalker, timetwister, yarokFixture, yurlokFixture }

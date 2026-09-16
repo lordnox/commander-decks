@@ -30,7 +30,12 @@ export const damage: Plugin = {
         return
       }
       const object = draft.object(event.target.objectId)
-      if (object) object.damageMarked += event.amount
+      if (!object || object.zone !== 'battlefield') return
+      if (object.types.includes('Planeswalker')) {
+        object.counters.loyalty = Math.max(0, (object.counters.loyalty ?? 0) - event.amount)
+        return
+      }
+      object.damageMarked += event.amount
       return
     }
 
