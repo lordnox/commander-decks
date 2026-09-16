@@ -8,6 +8,7 @@ import {
   copySelf,
   createTokenInstruction,
   dies,
+  discardHandsThenDrawGreatest,
   doublePlusCounters,
   dealDamageToChosenTarget,
   draw,
@@ -22,6 +23,7 @@ import {
   landfall,
   loyalty,
   loyaltyX,
+  manaIf,
   onResolve,
   otherLands,
   pluginIdsFromEffects,
@@ -302,6 +304,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Terramorphic Expanse': [
     fetchBasic('Search your library for a basic land card. It enters tapped.', { tapped: true }),
   ],
+  'Temple of the False God': [manaIf(controlledLands({ min: 5 }))],
   'Thawing Glaciers': [entersTapped()],
   'Three Visits': [
     searchSpell({
@@ -341,6 +344,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       'Forest',
     ]),
   ],
+  Windfall: [onResolve(discardHandsThenDrawGreatest())],
   'Yurlok of Scorch Thrash': [
     staticGrant('manaBurn'),
     activate({
@@ -350,7 +354,15 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [{ kind: 'addManaToEachPlayer', mana: { B: 1, R: 1, G: 1 } }],
     }),
   ],
-  'Zagoth Triome': [entersTapped()],
+  'Zagoth Triome': [
+    entersTapped(),
+    activate({
+      id: 'cycling.zagothTriome',
+      zone: 'hand',
+      costs: { mana: '{3}', discard: 'self' },
+      do: [draw(1)],
+    }),
+  ],
 }
 
 export const effectsFor = (name: string): CardEffect[] => CARD_RULES[name] ?? []

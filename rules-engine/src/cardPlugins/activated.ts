@@ -38,6 +38,9 @@ export const payActivateCosts = (
   if (costs.sacrifice) {
     draft.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })
   }
+  if (costs.discard) {
+    draft.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })
+  }
 }
 
 export const activated: Plugin = {
@@ -46,6 +49,10 @@ export const activated: Plugin = {
     if (event.type === 'tapForMana') {
       const source = state.objects[event.objectId]
       if (!source) return
+      const manaEffect = effectsOf(source).find((effect) => effect.op === 'mana')
+      if (manaEffect && !conditionHolds(manaEffect.if, state, source)) {
+        return `${source.name} cannot be activated now`
+      }
       const millMana = effectsOf(source).find((effect) =>
         effect.op === 'activate'
         && effect.manaAbility
@@ -61,7 +68,8 @@ export const activated: Plugin = {
     const effect = activateEffect(effectsOf(source), event.abilityId)
     if (!effect) return
     if (effect.costs.loyalty !== undefined || effect.costs.loyaltyX) return
-    if (source.zone !== 'battlefield') return `${source.name} is not on the battlefield`
+    const requiredZone = effect.zone ?? 'battlefield'
+    if (source.zone !== requiredZone) return `${source.name} is not in ${requiredZone}`
     if (source.controller !== event.seat) {
       return `${event.seat} does not control ${source.name}`
     }

@@ -1,6 +1,6 @@
 import type Draft from '../draft'
 import { DIALOG_CHOSEN, setPendingDialog } from '../pendingDialog'
-import type { GameObject, GameState, ManaPool, PlayerId, StackItem } from '../types'
+import type { GameObject, GameState, ManaPool, PlayerId, StackItem, ZoneId } from '../types'
 
 export type CardCondition =
   | { kind: 'otherLands'; min?: number; max?: number; subtype?: string }
@@ -30,6 +30,7 @@ export type CardInstruction =
   | { kind: 'dealDamageToChosenTarget'; amount: number }
   | { kind: 'exileColoredPermanentsAtMostX' }
   | { kind: 'putPermanentsFromHand'; max: number }
+  | { kind: 'discardHandsThenDrawGreatest' }
   | { kind: 'extraLandPlays'; count: number }
   | { kind: 'returnOwnedGraveyardLands'; tapped?: boolean }
   | { kind: 'createToken'; token: TokenSpec }
@@ -43,6 +44,7 @@ export type ActivateCost = {
   mill?: number
   life?: number
   sacrifice?: 'self'
+  discard?: 'self'
   /** Signed loyalty change paid before the ability goes on the stack. */
   loyalty?: number
   /** Use the activation event's chosen X as a negative loyalty cost. */
@@ -79,6 +81,7 @@ export type CardEffect =
       id: string
       manaAbility?: boolean
       targets?: 'any'
+      zone?: ZoneId
       costs: ActivateCost
       if?: CardCondition
       do: CardInstruction[]
@@ -86,6 +89,7 @@ export type CardEffect =
   | { op: 'search'; via: 'spell'; spec: SearchSpec }
   | { op: 'search'; via: 'ability'; spec: SearchSpec; costs: ActivateCost }
   | { op: 'search'; via: 'enters'; spec: SearchSpec }
+  | { op: 'mana'; if: CardCondition }
   | { op: 'static'; pluginId?: string; extraLandPlays?: number }
   | { op: 'handler'; pluginId: string }
 
@@ -148,6 +152,10 @@ export const extraLandPlays = (count: number): CardInstruction => ({
 })
 
 export const draw = (count: number): CardInstruction => ({ kind: 'draw', count })
+
+export const discardHandsThenDrawGreatest = (): CardInstruction => ({
+  kind: 'discardHandsThenDrawGreatest',
+})
 
 export const returnOwnedGraveyardLands = (tapped = true): CardInstruction => ({
   kind: 'returnOwnedGraveyardLands',
@@ -221,6 +229,11 @@ export const exileColoredPermanentsAtMostX = (): CardInstruction => ({
 export const putPermanentsFromHand = (max: number): CardInstruction => ({
   kind: 'putPermanentsFromHand',
   max,
+})
+
+export const manaIf = (condition: CardCondition): CardEffect => ({
+  op: 'mana',
+  if: condition,
 })
 
 export const searchSpell = (spec: SearchSpec): CardEffect => ({
@@ -474,6 +487,19 @@ export const runInstructions = (
       })
       continue
     }
+    if (instruction.kind === 'discardHandsThenDrawGreatest') {
+      const count = Math.max(
+        0,
+        ...draft.playerOrder.map((seat) => draft.zoneOrder[seat].hand.length),
+      )
+      for (const seat of draft.playerOrder) {
+        for (const objectId of [...draft.zoneOrder[seat].hand]) {
+          draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+        }
+        draft.enqueue({ type: 'draw', seat, count })
+      }
+      continue
+    }
     if (instruction.kind === 'extraLandPlays') {
       draft.enqueue({
         type: 'custom',
@@ -558,6 +584,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
         ? 'planeswalker'
         : 'activated')
     }
+    if (effect.op === 'mana') ids.add('activated')
     if (effect.op === 'search') ids.add('librarySearch')
     if (effect.op === 'static' && effect.extraLandPlays) ids.add('additionalLandPlay')
     if (effect.op === 'handler') ids.add(effect.pluginId)
