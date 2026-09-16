@@ -66,7 +66,8 @@ describe('Teferi, Who Slows the Sunset', () => {
       name: 'Teferi, Who Slows the Sunset',
       kind: 'ability',
       controller: 'p1',
-      text: '+1 loyalty activation',
+      text: '+1 loyalty activation · targeting Phial of Galadriel (p1), '
+        + 'Mossborn Hydra (p2), Shadowy Backstreet (p1)',
     }])
 
     const resolved = ok(runtime.rules(activated, { type: 'resolveTop' }))
