@@ -202,6 +202,11 @@ const counterLabels = (object?: GameObject) =>
     ? { counters: { ...object.counters } }
     : {}
 
+const summoningSicknessLabel = (object?: GameObject) =>
+  object?.types.includes('Creature') && object.summoningSickness
+    ? { summoningSickness: true }
+    : {}
+
 /** The card face shows tap state only, so attacks need their own label. */
 const combatLabels = (state: GameState, lobby: LobbyState, object?: GameObject) => {
   if (!object) return {}
@@ -259,6 +264,7 @@ export const liveSeatsFromState = (
         return {
           ...card,
           ...counterLabels(object),
+          ...summoningSicknessLabel(object),
           ...combatLabels(state, lobby, object),
         }
       }),

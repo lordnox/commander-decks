@@ -128,6 +128,16 @@ describe('kernel combat projection', () => {
     expect(plain?.counters).toBeUndefined()
   })
 
+  test('summoning sickness reaches only affected creatures', () => {
+    const { state, lobby } = combatTable()
+    const sickId = state.zoneOrder.p2.battlefield[0]
+    state.objects[sickId].summoningSickness = true
+
+    const seats = liveSeatsFromState(state, lobby, 'p1')
+    expect(seats[1].battlefield?.[0].summoningSickness).toBe(true)
+    expect(seats[0].battlefield?.[0].summoningSickness).toBeUndefined()
+  })
+
   test('a board outside combat carries no combat block', () => {
     const { state, lobby } = combatTable()
     state.step = 'precombatMain'

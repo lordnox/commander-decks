@@ -79,6 +79,7 @@ export const DEFAULT_WAITING = 'Would this line work? Confirm or replace it.'
 const FLAG_TAPPED = 1
 const FLAG_TOKEN = 2
 const FLAG_COMMANDER = 4
+const FLAG_SUMMONING_SICKNESS = 8
 const HIDDEN = 0
 const ABSENT = 0
 const ACTION_BITS = {
@@ -173,6 +174,7 @@ const packFlags = (entry: BattlefieldCard) => {
   if (entry.tapped) flags |= FLAG_TAPPED
   if (entry.token) flags |= FLAG_TOKEN
   if (entry.commander) flags |= FLAG_COMMANDER
+  if (entry.summoningSickness) flags |= FLAG_SUMMONING_SICKNESS
   return flags
 }
 
@@ -454,6 +456,7 @@ const unpackBattlefield = (
       }
     }
     if (flags & FLAG_COMMANDER) entry.commander = true
+    if (flags & FLAG_SUMMONING_SICKNESS) entry.summoningSickness = true
     if (typeof extra.p === 'string') entry.pt = extra.p
     if (typeof extra.n === 'string') entry.note = extra.n
     if (typeof extra.a === 'string') entry.attacking = extra.a
