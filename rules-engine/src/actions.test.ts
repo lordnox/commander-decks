@@ -42,6 +42,33 @@ describe('available actions', () => {
     expect(availableActions(state, 'p1')).toEqual([])
   })
 
+  test('offers declarative Ghost Town and fetchland abilities', () => {
+    const state = newGame(commanderRules, {
+      battlefield: {
+        p1: [
+          { ...forest(), name: 'Ghost Town' },
+          { ...forest(), name: 'Misty Rainforest', supertypes: [] },
+        ],
+      },
+    })
+    state.active = 'p2'
+    state.priority = 'p1'
+    state.step = 'end'
+
+    expect(availableActions(state, 'p1')).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        kind: 'activateAbility',
+        name: 'Ghost Town',
+        abilityId: 'selfBounceLand.ghostTown',
+      }),
+      expect.objectContaining({
+        kind: 'activateAbility',
+        name: 'Misty Rainforest',
+        abilityId: 'librarySearch.fetch',
+      }),
+    ]))
+  })
+
   test('untap and cleanup never expose priority actions', () => {
     const state = newGame(commanderRules, {
       hands: { p1: [bolt()] },
