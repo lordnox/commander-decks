@@ -1,6 +1,6 @@
 import { expect, test } from 'bun:test'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { CardTile, StackOverlay } from './TableBoard'
+import { CardTile, HoverCard, StackOverlay, type Hover } from './TableBoard'
 import type { ReplayGame } from './replayTypes'
 
 const game = {
@@ -52,6 +52,27 @@ test('loyalty is shown as a stat rather than a duplicate counter badge', () => {
 
   expect(html).toContain('L 5')
   expect(html).not.toContain('5 loyalty')
+})
+
+test('hovering a clone shows the copied face beside the card it is printed as', () => {
+  const hover: Hover = {
+    name: 'Sygg, River Cutthroat',
+    details: { image_normal: 'https://cards.example/sygg.jpg' },
+    printed: {
+      name: 'Spark Double',
+      details: { image_normal: 'https://cards.example/spark.jpg' },
+    },
+    anchor: { top: 100, bottom: 200, left: 100, right: 200 },
+  }
+
+  // The overlay places itself against the viewport, which server rendering lacks.
+  globalThis.window = { innerWidth: 1440, innerHeight: 900 } as Window & typeof globalThis
+  const html = renderToStaticMarkup(<HoverCard hover={hover} />)
+
+  expect(html).toContain('https://cards.example/sygg.jpg')
+  expect(html).toContain('https://cards.example/spark.jpg')
+  expect(html).toContain('Copying')
+  expect(html).toContain('Actually')
 })
 
 test('a loyalty activation previews its source card and uses a readable label', () => {

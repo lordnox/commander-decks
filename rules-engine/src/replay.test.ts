@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test'
+import { applyCopy } from './cardPlugins/effects'
 import { commanderRules } from './formats'
 import { cardTemplate } from './newGame'
 import { createServerGame } from './runtime'
@@ -132,6 +133,33 @@ describe('table replay conversion', () => {
     expect(ugin.counters.loyalty).toBe(4)
     expect(replayComparableState(imported).players.p1.battlefield[0].counters)
       .toEqual({ loyalty: 4 })
+  })
+
+  test('a clone reports the card it is printed as alongside the face it wears', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p1: [
+            cardTemplate('Spark Double', { types: ['Creature'], manaCost: '{3}{U}' }),
+            cardTemplate('Bear', { types: ['Creature'], power: 2, toughness: 2 }),
+          ],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [] },
+    )
+    const state = structuredClone(server.state)
+    const objects = Object.values(state.objects)
+    applyCopy(
+      objects.find((object) => object.name === 'Spark Double')!,
+      objects.find((object) => object.name === 'Bear')!,
+    )
+
+    expect(replayComparableState(state).players.p1.battlefield).toContainEqual({
+      name: 'Bear',
+      tapped: false,
+      printed_name: 'Spark Double',
+    })
   })
 
   test('a stolen permanent shows on the board of the seat controlling it', () => {

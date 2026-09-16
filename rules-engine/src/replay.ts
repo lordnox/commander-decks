@@ -24,6 +24,7 @@ type ReplayBattlefieldCard = {
   tapped?: boolean
   commander?: boolean
   counters?: Record<string, number>
+  printed_name?: string
 }
 
 type ReplayPlayerState = {
@@ -493,6 +494,9 @@ export const replayComparableState = (state: GameState) => ({
             ? { counters: { ...object.counters } }
             : {}),
           ...(object.tags.includes('commander') ? { commander: true } : {}),
+          ...(object.printedName && object.printedName !== object.name
+            ? { printed_name: object.printedName }
+            : {}),
         }
       }),
       graveyard: names('graveyard'),

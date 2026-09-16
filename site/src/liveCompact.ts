@@ -190,6 +190,7 @@ const packExtra = (entry: BattlefieldCard) => {
   if (entry.face !== undefined && entry.face !== '' && entry.face !== 'front') {
     extra.f = entry.face
   }
+  if (entry.printed_name) extra.o = entry.printed_name
   return Object.keys(extra).length > 0 ? extra : null
 }
 
@@ -482,6 +483,7 @@ const unpackBattlefield = (
       entry.counters = extra.c as Record<string, number>
     }
     if (extra.f !== undefined) entry.face = extra.f as string | number
+    if (typeof extra.o === 'string') entry.printed_name = extra.o
     return [entry]
   })
 }

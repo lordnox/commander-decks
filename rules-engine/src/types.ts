@@ -82,6 +82,8 @@ export type GameObject = {
   tapProduces?: Partial<ManaPool>
   /** Chosen creature type, for example Roaming Throne. */
   chosenType?: string
+  /** The card this permanent is printed as, once a copy effect renamed it. */
+  printedName?: string
   /** Stamped from the name-keyed card-rule table when the object is created. */
   effects?: import('./cardPlugins/effects').CardEffect[]
 }

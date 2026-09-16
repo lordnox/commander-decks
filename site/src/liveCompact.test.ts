@@ -250,6 +250,20 @@ describe('live compact v2', () => {
     })
   })
 
+  test('the card a clone is printed as survives the wire', () => {
+    const original = snapshot()
+    original.seats[1].battlefield = [{
+      name: 'Satyr Wayfinder',
+      printed_name: 'Spark Double',
+    }]
+
+    const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)
+    expect(expanded.seats[1].battlefield[0]).toEqual({
+      name: 'Satyr Wayfinder',
+      printed_name: 'Spark Double',
+    })
+  })
+
   test('a floating mana pool survives the wire', () => {
     const original = snapshot()
     original.seats[0].mana = { W: 1, B: 2 }
