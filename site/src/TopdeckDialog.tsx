@@ -37,6 +37,7 @@ export const TopdeckDialog = ({
   const discarding = decision.kind === 'discard'
   const puttingLand = decision.kind === 'put-land'
   const searching = decision.kind === 'search'
+  const lookingAtTop = decision.kind === 'look-top'
   const targetingPlayers = decision.kind === 'target-players'
   const orderMatters = decision.destinations.some(
     (destination) => destination === 'top' || destination === 'bottom',
@@ -109,6 +110,8 @@ export const TopdeckDialog = ({
       ? 'Put a land onto the battlefield'
       : searching
         ? 'Search your library'
+        : lookingAtTop
+          ? `Look at the top ${choices.length}`
         : targetingPlayers
           ? 'Choose target players'
       : `${decision.kind[0]?.toUpperCase()}${decision.kind.slice(1)} ${choices.length}`

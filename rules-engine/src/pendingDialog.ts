@@ -10,7 +10,7 @@ export type PendingDialog = {
   sourceId: string
   source: string
   seat: PlayerId
-  kind: 'scry' | 'put-land' | 'put-permanents'
+  kind: 'scry' | 'look-top' | 'put-land' | 'put-permanents'
   prompt: string
   waiting: string
   judge: string
@@ -21,7 +21,7 @@ export type PendingDialog = {
   permanent?: boolean
   optional?: boolean
   after?: Array<'resolveTop'>
-  requirements?: Partial<Record<'battlefield', { max?: number }>>
+  requirements?: Partial<Record<'hand' | 'battlefield', { min?: number; max?: number }>>
 }
 
 const isDialog = (value: unknown): value is PendingDialog =>
@@ -53,7 +53,7 @@ export const clearPendingDialog = (draft: Draft, seat: PlayerId) => {
 }
 
 export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
-  if (dialog.kind === 'scry') {
+  if (dialog.kind === 'scry' || dialog.kind === 'look-top') {
     return (state.zoneOrder[dialog.seat].library ?? [])
       .slice(0, dialog.count ?? 1)
       .map((id) => state.objects[id])
