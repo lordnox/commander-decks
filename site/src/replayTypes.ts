@@ -23,6 +23,7 @@ export type CardDetails = {
 export type BattlefieldCard = {
   name: string | number
   tapped?: boolean
+  summoningSickness?: boolean
   token?: boolean
   token_id?: string | null
   pt?: string

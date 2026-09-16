@@ -236,6 +236,20 @@ describe('live compact v2', () => {
     expect(expanded.combat?.attackers?.[0].defender).toBe('p4')
   })
 
+  test('summoning sickness survives the wire', () => {
+    const original = snapshot()
+    original.seats[1].battlefield = [{
+      name: 'Satyr Wayfinder',
+      summoningSickness: true,
+    }]
+
+    const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)
+    expect(expanded.seats[1].battlefield[0]).toEqual({
+      name: 'Satyr Wayfinder',
+      summoningSickness: true,
+    })
+  })
+
   test('private opening keep/mulligan bits and bottom count survive the wire', () => {
     const original = snapshot()
     original.actions = ['keep', 'mulligan']

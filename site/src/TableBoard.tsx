@@ -81,6 +81,27 @@ const CopyIcon = () => (
   </svg>
 )
 
+const SummoningSicknessIcon = () => (
+  <svg viewBox="0 0 16 16" aria-hidden="true" className="size-3">
+    <circle
+      cx="8"
+      cy="8"
+      r="5.5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <path
+      d="M8 4.5V8l2.25 1.5M5.5 2.5 4 1.5M10.5 2.5 12 1.5"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+    />
+  </svg>
+)
+
 export const CardTile = ({
   game,
   value,
@@ -104,7 +125,8 @@ export const CardTile = ({
 }) => {
   const { name, details } = cardInfo(game, value, entry)
   const stats = currentStats(details, entry)
-  const counters = Object.entries(entry?.counters ?? {}).filter(([, count]) => count)
+  const counters = Object.entries(entry?.counters ?? {})
+    .filter(([kind, count]) => kind !== 'loyalty' && count)
   const token = Boolean(entry?.token || entry?.token_id)
   const { longPressProps, consumedClick } = useLongPress(
     onInsertName && (() => onInsertName(name)),
@@ -178,6 +200,15 @@ export const CardTile = ({
         {entry?.tapped && (
           <span className="rounded-md bg-ink-950/90 px-1.5 py-0.5 text-[0.55rem] font-bold uppercase text-stone-200">
             tapped
+          </span>
+        )}
+        {entry?.summoningSickness && (
+          <span
+            title="Summoning sickness"
+            aria-label="Summoning sickness"
+            className="flex size-5 items-center justify-center rounded-full bg-amber-300 text-ink-950 shadow"
+          >
+            <SummoningSicknessIcon />
           </span>
         )}
         {entry?.attacking && (
