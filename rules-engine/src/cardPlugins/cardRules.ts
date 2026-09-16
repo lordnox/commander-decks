@@ -35,6 +35,7 @@ import {
   sharedBasicLandType,
   staticExtraLandPlays,
   staticGrant,
+  targetOnResolve,
   uniqueLandNames,
   type CardEffect,
 } from './effects'
@@ -147,6 +148,17 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Dakmor Salvage': [entersTapped()],
   'Dimir Aqueduct': [entersTapped()],
+  Deathsprout: [
+    targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }),
+    searchSpell({
+      prompt: 'Search your library for a basic land card. It enters tapped.',
+      match: basicLand,
+      destination: 'battlefield',
+      tapped: true,
+      min: 0,
+      max: 1,
+    }),
+  ],
   Entomb: [
     searchSpell({
       prompt: 'Search your library for a card and put it into your graveyard.',
@@ -204,6 +216,13 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Homer, the Hermit': [handler('homer')],
   'Icetill Explorer': [staticExtraLandPlays(1), landfall(selfMill(1))],
   'Joint Exploration': [onResolve(draw(1)), handler('jointExploration')],
+  'Keep Safe': [
+    targetOnResolve(
+      'counter',
+      { zone: 'stack', spellTargetsControlledPermanent: true },
+      draw(1),
+    ),
+  ],
   'Lair of the Hydra': [entersTapped(otherLands({ min: 2 }))],
   'Lightning Bolt': [onResolve(dealDamageToChosenTarget(3))],
   'Lotus Field': [entersTapped()],
