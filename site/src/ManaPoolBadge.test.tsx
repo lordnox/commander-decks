@@ -9,14 +9,25 @@ test('an empty pool draws nothing', () => {
   )).toBe('')
 })
 
-test('held mana is labelled by symbol and amount', () => {
+test('each held color is a counted chip carrying its own color', () => {
   const html = renderToStaticMarkup(
     <ManaPoolBadge pool={{ W: 1, U: 1, B: 2, G: 0 }} />,
   )
 
-  expect(html).toContain('aria-label="Mana pool: 1 W, 1 U, 2 B"')
-  expect(html).toContain('>W<')
-  expect(html).toContain('>2B<')
+  expect(html).toContain('aria-label="1 white mana"')
+  expect(html).toContain('aria-label="2 black mana"')
+  expect(html).toContain('bg-amber-50')
+  expect(html).toContain('bg-sky-300')
   // A zero entry is not a floating mana.
-  expect(html).not.toContain('>G<')
+  expect(html).not.toContain('green mana')
+})
+
+test('chips read in WUBRG order regardless of pool key order', () => {
+  const html = renderToStaticMarkup(
+    <ManaPoolBadge pool={{ G: 1, B: 1, W: 1, R: 1, U: 1 }} />,
+  )
+
+  const order = ['white', 'blue', 'black', 'red', 'green']
+    .map((color) => html.indexOf(`${color} mana`))
+  expect(order).toEqual([...order].sort((left, right) => left - right))
 })

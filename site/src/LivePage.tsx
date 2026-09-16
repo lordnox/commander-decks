@@ -90,11 +90,12 @@ const toReplaySeat = (seat: LiveSeat): ReplaySeat => ({
   color: seat.color,
 })
 
-const toPlayerState = (seat: LiveSeat, revealHand: boolean): PlayerState => ({
+export const toPlayerState = (seat: LiveSeat, revealHand: boolean): PlayerState => ({
   life: seat.life,
   poison: seat.poison,
   commander_damage: seat.commander_damage,
   commander_tax: seat.commander_tax,
+  mana: seat.mana,
   library_count: seat.library_count,
   hand: revealHand ? (seat.hand ?? []) : [],
   battlefield: seat.battlefield ?? [],
