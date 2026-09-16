@@ -333,24 +333,36 @@ const fundingEvents = (
   const sources = Object.values(state.objects)
     .filter((object) =>
       sourceCanTap(object, seat)
-      && object.tapProduces
-      && Object.values(object.tapProduces).some((amount) => amount > 0))
+      && manaOptions(object).length > 0)
+    .map((source) => ({ source, options: manaOptions(source) }))
   let plans = [{
     pool: state.players[seat]?.mana ?? emptyMana(),
     events: [] as GameEvent[],
   }]
-  for (const source of sources) {
+  for (const { source, options } of sources) {
     const next = new Map<string, typeof plans[number]>()
     for (const plan of plans) {
       const candidates = [
         plan,
-        {
-          pool: addPool(plan.pool, source.tapProduces!),
-          events: [
-            ...plan.events,
-            { type: 'tapForMana', seat, objectId: source.id } as GameEvent,
-          ],
-        },
+        ...options.map((option) => {
+          const selected = MANA_IDS.find((mana) =>
+            option[mana] === 1
+            && Object.values(option).reduce((sum, amount) => sum + (amount ?? 0), 0) === 1)
+          const needsChoice = !source.tapProduces
+            || MANA_IDS.some((mana) => option[mana] !== source.tapProduces?.[mana])
+          return {
+            pool: addPool(plan.pool, option),
+            events: [
+              ...plan.events,
+              {
+                type: 'tapForMana',
+                seat,
+                objectId: source.id,
+                ...(needsChoice && selected ? { mana: selected } : {}),
+              } as GameEvent,
+            ],
+          }
+        }),
       ]
       for (const candidate of candidates) {
         const key = poolKey(candidate.pool, 20)

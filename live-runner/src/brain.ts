@@ -193,6 +193,8 @@ Do exactly one host step:
 - A kicked spell uses \`kicked: true\` on its \`castSpell\` event after its
   additional cost is paid. That flag is part of the stack item and lets card
   handlers preserve the chosen mode through resolution.
+- For a source that says "Add one mana of any color", include the chosen symbol
+  on the event: { type: 'tapForMana', seat, objectId, mana: 'W' } (or U/B/R/G).
 - If a card has a weird rules interaction (see Yurlok of Scorch Thrash), look it
   up in rules-engine/src/cardPlugins/cardRules.ts. staticGrant effects (mana
   burn) are granted while the object is on the battlefield. Activated abilities

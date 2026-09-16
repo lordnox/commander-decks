@@ -1,6 +1,7 @@
 import { commanderRules } from '../formats'
 import { cardTemplate, forest, planeswalker } from '../newGame'
 import { pendingDialogFor } from '../pendingDialog'
+import { replayComparableState } from '../replay'
 import { createServerGame } from '../runtime'
 import type { GameObject, ReduceResult } from '../types'
 import { planeswalker as planeswalkerPlugin } from './planeswalker'
@@ -61,6 +62,12 @@ describe('Teferi, Who Slows the Sunset', () => {
       ],
     }))
     expect(activated.objects[source.id].counters.loyalty).toBe(5)
+    expect(replayComparableState(activated).stack).toEqual([{
+      name: 'Teferi, Who Slows the Sunset',
+      kind: 'ability',
+      controller: 'p1',
+      text: '+1 loyalty activation',
+    }])
 
     const resolved = ok(runtime.rules(activated, { type: 'resolveTop' }))
     expect(objectNamed(resolved, 'Phial of Galadriel').tapped).toBe(false)

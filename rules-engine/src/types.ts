@@ -178,7 +178,7 @@ export type BlockerDecl = { blockerId: string; attackerId: string }
 export type GameEvent =
   | { type: 'passPriority'; seat: PlayerId }
   | { type: 'playLand'; seat: PlayerId; objectId: string }
-  | { type: 'tapForMana'; seat: PlayerId; objectId: string }
+  | { type: 'tapForMana'; seat: PlayerId; objectId: string; mana?: ManaId }
   | { type: 'addMana'; seat: PlayerId; mana: Partial<ManaPool> }
   | { type: 'payMana'; seat: PlayerId; cost: string }
   | { type: 'emptyManaPools' }
