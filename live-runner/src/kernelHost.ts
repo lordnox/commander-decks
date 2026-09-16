@@ -701,7 +701,12 @@ export const openKernel = async (
   // Handler plugins are always-on dispatchers. Dynamic modules live in the
   // catalog, but they also need a RuleInstance or the reducer never calls them.
   for (const plugin of cardPlugins) {
-    if (journal.initial.rules.some((rule) => rule.pluginId === plugin.id)) continue
+    const alreadyInstalled = journal.initial.rules.some(
+      (rule) => rule.pluginId === plugin.id,
+    ) || journal.events.some(
+      (event) => event.type === 'addRule' && event.pluginId === plugin.id,
+    )
+    if (alreadyInstalled) continue
     journal.initial.rules.push({
       instanceId: `builtin-${plugin.id}`,
       pluginId: plugin.id,

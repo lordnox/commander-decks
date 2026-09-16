@@ -178,7 +178,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       oracleText: 'Whenever this token attacks, you may mill a card.',
     })),
   ],
-  'Mossborn Hydra': [landfall(doublePlusCounters())],
+  'Mossborn Hydra': [landfall(doublePlusCounters()), handler('mossborn-hydra')],
   'Mystic Sanctuary': [entersTapped(otherLands({ max: 2, subtype: 'Island' }))],
   'Myriad Landscape': [
     entersTapped(),

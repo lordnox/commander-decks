@@ -287,6 +287,37 @@ describe('kernel host journal', () => {
     )).toBe(true)
   })
 
+  test('does not install a handler twice when the journal already adds it', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-recorded-plugin-'))
+    mkdirGames(root)
+    mkdirSync(join(root, 'rules-engine', 'src', 'cardPlugins'), { recursive: true })
+    writeCardRules(root, ['testHandler'])
+    writeFileSync(
+      join(root, 'rules-engine', 'src', 'cardPlugins', 'testHandler.ts'),
+      "export const testHandler = { id: 'testHandler' }\n",
+    )
+    seedKernel(root)
+    const path = kernelPath('pod', root)
+    const journal = JSON.parse(readFileSync(path, 'utf8'))
+    journal.events.push({
+      type: 'addRule',
+      pluginId: 'testHandler',
+      sourceId: null,
+    })
+    writeFileSync(path, JSON.stringify(journal))
+
+    const kernel = await openKernel('pod', root, createLobby())
+    const installed = [
+      ...kernel.journal.initial.rules,
+      ...kernel.history.current().rules,
+    ].filter((rule) => rule.pluginId === 'testHandler')
+
+    expect(kernel.journal.initial.rules.some(
+      (rule) => rule.pluginId === 'testHandler',
+    )).toBe(false)
+    expect(installed).toHaveLength(1)
+  })
+
   test('a held seat is passed for until its own turn', async () => {
     const root = mkdtempSync(join(tmpdir(), 'kernel-hold-'))
     mkdirGames(root)
