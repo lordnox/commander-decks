@@ -26,6 +26,30 @@ describe('spells', () => {
     expect(pool.C).toBe(2)
   })
 
+  test('resolving an ability does not move its battlefield source', () => {
+    const catalog = createCatalog([spells])
+    const state = newGame({
+      battlefield: { p1: [forest()] },
+      builtinRules: ['spells'],
+    })
+    const sourceId = state.zoneOrder.p1.battlefield[0]
+    state.stack = [{
+      id: 'ability-1',
+      kind: 'ability',
+      objectId: sourceId,
+      controller: 'p1',
+      name: 'Dummy ability',
+      targets: [],
+    }]
+
+    const resolved = rules(state, { type: 'resolveTop' }, catalog)
+    expect(resolved.ok).toBe(true)
+    if (!resolved.ok) return
+    expect(resolved.state.stack).toEqual([])
+    expect(resolved.state.objects[sourceId].zone).toBe('battlefield')
+    expect(resolved.state.zoneOrder.p1.battlefield).toContain(sourceId)
+  })
+
   test('casts and resolves Lightning Bolt while it is still on the stack', () => {
     const seen: string[] = []
     const witness: Plugin = {

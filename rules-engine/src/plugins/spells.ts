@@ -108,6 +108,11 @@ export const spells: Plugin = {
     if (event.type === 'resolveTop') {
       const item = draft.stack.shift()
       if (!item) return
+      if (item.kind === 'ability') {
+        draft.passedInRow = []
+        draft.priority = state.active
+        return
+      }
       const object = draft.object(item.objectId)
       if (!object) return
 
