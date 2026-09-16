@@ -273,6 +273,22 @@ describe('live compact v2', () => {
     })
   })
 
+  test('an exiled-with association survives the wire', () => {
+    const original = snapshot()
+    original.seats[1].exile = [{
+      name: 'Blue Card',
+      note: 'Exiled with Pit of Offerings.',
+      objectId: 'o-blue',
+    }]
+
+    const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)
+    expect(expanded.seats[1].exile[0]).toEqual({
+      name: 'Blue Card',
+      note: 'Exiled with Pit of Offerings.',
+      objectId: 'o-blue',
+    })
+  })
+
   test('a floating mana pool survives the wire', () => {
     const original = snapshot()
     original.seats[0].mana = { W: 1, B: 2 }
