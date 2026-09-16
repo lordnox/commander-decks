@@ -291,6 +291,11 @@ const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbyState) => 
     seat,
     kind: 'search',
     cards,
+    // Sorted, because the searcher may read the library but not its order.
+    library: (state.zoneOrder[seat]?.library ?? [])
+      .map((objectId) => state.objects[objectId]?.name ?? '')
+      .filter(Boolean)
+      .sort((left, right) => left.localeCompare(right)),
     destinations: ['library', spec.destination],
     requirements: { [spec.destination]: { min: spec.min, max: spec.max } },
     kernel: { sourceId: pending.sourceId, stage: 'library-search' },

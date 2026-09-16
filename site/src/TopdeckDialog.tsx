@@ -198,6 +198,21 @@ export const TopdeckDialog = ({
             className="mt-4 w-full rounded-xl border border-white/10 bg-ink-950 px-3 py-2 text-sm text-stone-100 outline-none placeholder:text-stone-600 focus:border-purple-200/60"
           />
         )}
+        {searching && decision.library && decision.library.length > 0 && (
+          <details className="mt-3 rounded-xl border border-white/10 bg-black/20 p-3">
+            <summary className="cursor-pointer text-xs font-bold uppercase tracking-wide text-stone-400">
+              Whole library · {decision.library.length}
+            </summary>
+            <p className="mt-2 text-xs text-stone-500">
+              Searching lets you read every card. Only the cards above may be taken.
+            </p>
+            <ul className="mt-2 grid gap-x-4 text-xs text-stone-300 sm:grid-cols-2">
+              {decision.library.map((card, index) => (
+                <li key={`${card}-${index}`}>{card}</li>
+              ))}
+            </ul>
+          </details>
+        )}
         </div>
 
         <ol className="-mx-1 mt-5 min-h-0 flex-1 space-y-3 overflow-y-auto px-1">

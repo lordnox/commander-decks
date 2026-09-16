@@ -11,6 +11,15 @@ export const CARD_TYPES = [
   'Sorcery',
 ] as const
 
+/** CR 205.4: supertypes print before the card types on the same line. */
+export const SUPERTYPES = [
+  'Basic',
+  'Legendary',
+  'Ongoing',
+  'Snow',
+  'World',
+] as const
+
 export const PERMANENT_TYPES = [
   'Artifact',
   'Battle',
