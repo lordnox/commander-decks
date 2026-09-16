@@ -194,9 +194,20 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
   effectsOf(object).flatMap((effect): AvailableAction[] => {
     if (object.zone !== 'battlefield' || object.controller !== seat) return []
     if (effect.op === 'activate' && !effect.manaAbility) {
+      const loyalty = effect.costs.loyalty
       if (
         !canPayActivateCosts(state, object, seat, effect.costs)
         || !conditionHolds(effect.if, state, object)
+        || (
+          loyalty !== undefined
+          && (
+            state.active !== seat
+            || !MAIN_STEPS.has(state.step)
+            || state.stack.length > 0
+            || object.loyaltyActivatedTurn === state.turn
+            || (loyalty < 0 && (object.counters.loyalty ?? 0) < -loyalty)
+          )
+        )
       ) {
         return []
       }
@@ -372,17 +383,14 @@ export const eventsForAvailableAction = (
   }
   if (action.kind === 'activateAbility') {
     const object = state.objects[action.objectId]
-    if (!object) return null
-    const sign = action.text.match(/^([+−-])(\d+):/u)
-    if (!sign) return null
-    const amount = sign[1] === '+' ? Number(sign[2]) : -Number(sign[2])
+    if (!object || !action.abilityId) return null
     const effect = effectsOf(object).find(
       (candidate): candidate is Extract<ReturnType<typeof effectsOf>[number], { op: 'activate' }> =>
       candidate.op === 'activate'
-      && candidate.costs.loyalty === amount
+      && candidate.id === action.abilityId
       && !candidate.targets,
     )
-    return effect
+    return effect && !effect.costs.loyaltyX
       ? [{
           type: 'activateAbility',
           abilityId: effect.id,

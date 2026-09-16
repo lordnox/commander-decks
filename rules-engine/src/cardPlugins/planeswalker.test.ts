@@ -2,6 +2,11 @@ import { describe, expect, test } from 'bun:test'
 import { availableActions, eventsForAvailableAction } from '../actions'
 import { cardTemplate, planeswalker } from '../newGame'
 import { commanderRules } from '../formats'
+import {
+  DIALOG_CHOSEN,
+  dialogCandidates,
+  pendingDialog,
+} from '../pendingDialog'
 import { createServerGame } from '../runtime'
 
 const ugin = (loyalty = 7) => planeswalker('Ugin, the Spirit Dragon', 7, {
@@ -109,26 +114,61 @@ describe('planeswalker loyalty abilities', () => {
   test('−10 gains and draws seven, then puts only the chosen permanents onto the battlefield', () => {
     const permanents = Array.from({ length: 8 }, (_, index) =>
       cardTemplate(`Permanent ${index + 1}`, { types: ['Artifact'] }))
+    const drawnPermanent = cardTemplate('Drawn Permanent', { types: ['Creature'] })
     const runtime = gameWithUgin(10, {
-      libraries: { p1: Array.from({ length: 7 }, (_, index) => cardTemplate(`Draw ${index + 1}`)) },
+      libraries: {
+        p1: [
+          drawnPermanent,
+          ...Array.from({ length: 6 }, (_, index) => cardTemplate(`Draw ${index + 1}`)),
+        ],
+      },
       hands: { p1: permanents },
     })
     const id = uginId(runtime.state)
-    const choices = runtime.state.zoneOrder.p1.hand.slice(0, 7)
     const activated = runtime.rules(runtime.state, {
       type: 'activateAbility',
       abilityId: 'ugin.minus-ten',
       seat: 'p1',
       objectId: id,
-      choices,
     })
     if (!activated.ok) throw new Error(activated.error)
     expect(activated.state.objects[id].zone).toBe('graveyard')
     const resolved = runtime.rules(activated.state, { type: 'resolveTop' })
     if (!resolved.ok) throw new Error(resolved.error)
     expect(resolved.state.players.p1.life).toBe(47)
-    expect(resolved.state.zoneOrder.p1.hand).toHaveLength(8)
-    expect(choices.every((choice) => resolved.state.objects[choice].zone === 'battlefield')).toBe(true)
+    expect(resolved.state.zoneOrder.p1.hand).toHaveLength(15)
+
+    const dialog = pendingDialog(resolved.state)
+    expect(dialog).toMatchObject({
+      source: 'Ugin, the Spirit Dragon',
+      kind: 'put-permanents',
+      requirements: { battlefield: { max: 7 } },
+    })
+    const choices = [
+      ...dialogCandidates(resolved.state, dialog!).slice(0, 6),
+      Object.values(resolved.state.objects).find((object) => object.name === 'Drawn Permanent')!,
+    ]
+    expect(choices).toHaveLength(7)
+
+    let state = resolved.state
+    for (const object of choices) {
+      const moved = runtime.rules(state, {
+        type: 'move',
+        objectId: object.id,
+        to: 'battlefield',
+      })
+      if (!moved.ok) throw new Error(moved.error)
+      state = moved.state
+    }
+    const chosen = runtime.rules(state, {
+      type: 'custom',
+      name: DIALOG_CHOSEN,
+      seat: 'p1',
+    })
+    if (!chosen.ok) throw new Error(chosen.error)
+    expect(pendingDialog(chosen.state)).toBeUndefined()
+    expect(choices.every((choice) => chosen.state.objects[choice.id].zone === 'battlefield'))
+      .toBe(true)
   })
 
   test('a walker activates once per turn and cannot pay unavailable loyalty', () => {
@@ -167,7 +207,7 @@ describe('planeswalker loyalty abilities', () => {
     const action = availableActions(runtime.state, 'p1').find(
       (candidate) =>
         candidate.kind === 'activateAbility'
-        && candidate.text.startsWith('−10:'),
+        && candidate.abilityId === 'ugin.minus-ten',
     )
     expect(action).toBeDefined()
     expect(eventsForAvailableAction(runtime.state, 'p1', action!)).toEqual([{

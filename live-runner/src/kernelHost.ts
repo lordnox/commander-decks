@@ -396,16 +396,26 @@ export const applyKernelChoice = (
     settleKernelPriority(kernel, lobby)
     return true
   }
-  if (decision.kernel.stage === 'put-land') {
+  if (
+    decision.kernel.stage === 'put-land'
+    || decision.kernel.stage === 'put-permanents'
+  ) {
     const selected = message.choices.filter(({ destination }) => destination === 'battlefield')
-    if (selected.length > 1) throw new Error('Choose at most one land.')
-    if (selected[0]) {
-      const [objectId] = objectIdsForNames(state, state.zoneOrder[seat].hand, [selected[0].card])
+    const max = decision.requirements?.battlefield?.max
+    if (max !== undefined && selected.length > max) {
+      throw new Error(`Choose at most ${max} card(s).`)
+    }
+    const objectIds = objectIdsForNames(
+      state,
+      state.zoneOrder[seat].hand,
+      selected.map(({ card }) => card),
+    )
+    for (const objectId of objectIds) {
       const moved = kernel.dispatch({ type: 'move', objectId, to: 'battlefield' })
       if (!moved.ok) throw new Error(moved.error)
     }
     const chosenEvent = decision.kernel.chosenEvent
-    if (!chosenEvent) throw new Error('That land choice is no longer open.')
+    if (!chosenEvent) throw new Error('That card choice is no longer open.')
     const chosen = kernel.dispatch({ type: 'custom', name: chosenEvent, seat })
     if (!chosen.ok) throw new Error(chosen.error)
     lobby.topdeck = undefined

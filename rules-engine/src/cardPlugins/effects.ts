@@ -1,5 +1,6 @@
 import type Draft from '../draft'
-import type { GameObject, GameState, ManaPool, PlayerId } from '../types'
+import { DIALOG_CHOSEN, setPendingDialog } from '../pendingDialog'
+import type { GameObject, GameState, ManaPool, PlayerId, StackItem } from '../types'
 
 export type CardCondition =
   | { kind: 'otherLands'; min?: number; max?: number; subtype?: string }
@@ -193,6 +194,33 @@ export const activate = (effect: Omit<Extract<CardEffect, { op: 'activate' }>, '
   ...effect,
 })
 
+/** Compose one activated ability from a cost and reusable effect instructions. */
+export const ability = (
+  options: Omit<Extract<CardEffect, { op: 'activate' }>, 'op' | 'costs' | 'do'>,
+  costs: ActivateCost,
+  ...instructions: CardInstruction[]
+): CardEffect => activate({ ...options, costs, do: instructions })
+
+export const loyalty = (amount: number): ActivateCost => ({ loyalty: amount })
+
+export const loyaltyX = (): ActivateCost => ({ loyalty: 0, loyaltyX: true })
+
+export const gainLife = (count: number): CardInstruction => ({ kind: 'gainLife', count })
+
+export const dealDamageToChosenTarget = (amount: number): CardInstruction => ({
+  kind: 'dealDamageToChosenTarget',
+  amount,
+})
+
+export const exileColoredPermanentsAtMostX = (): CardInstruction => ({
+  kind: 'exileColoredPermanentsAtMostX',
+})
+
+export const putPermanentsFromHand = (max: number): CardInstruction => ({
+  kind: 'putPermanentsFromHand',
+  max,
+})
+
 export const searchSpell = (spec: SearchSpec): CardEffect => ({
   op: 'search',
   via: 'spell',
@@ -353,6 +381,7 @@ export const runInstructions = (
   draft: Draft,
   source: GameObject,
   instructions: CardInstruction[],
+  item?: StackItem,
 ) => {
   for (const instruction of instructions) {
     if (instruction.kind === 'if') {
@@ -360,7 +389,7 @@ export const runInstructions = (
       const chosen = conditionHolds(instruction.if, draft, live)
         ? instruction.whenTrue
         : instruction.whenFalse ?? []
-      runInstructions(draft, source, chosen)
+      runInstructions(draft, source, chosen, item)
       continue
     }
     if (instruction.kind === 'selfMill') {
@@ -395,6 +424,52 @@ export const runInstructions = (
     }
     if (instruction.kind === 'draw') {
       draft.enqueue({ type: 'draw', seat: source.controller, count: instruction.count })
+      continue
+    }
+    if (instruction.kind === 'gainLife') {
+      draft.players[source.controller].life += instruction.count
+      continue
+    }
+    if (instruction.kind === 'dealDamageToChosenTarget') {
+      const target = item?.targets[0]
+      if (target) {
+        draft.enqueue({
+          type: 'dealDamage',
+          sourceId: source.id,
+          target,
+          amount: instruction.amount,
+        })
+      }
+      continue
+    }
+    if (instruction.kind === 'exileColoredPermanentsAtMostX') {
+      const x = item?.x ?? 0
+      for (const object of Object.values(draft.objects)) {
+        if (
+          object.zone === 'battlefield'
+          && object.colors.length > 0
+          && object.manaValue <= x
+        ) {
+          draft.enqueue({ type: 'move', objectId: object.id, to: 'exile' })
+        }
+      }
+      continue
+    }
+    if (instruction.kind === 'putPermanentsFromHand') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'put-permanents',
+        prompt: `You may put up to ${instruction.max} permanent cards from your hand onto the battlefield.`,
+        waiting: 'is choosing permanent cards privately.',
+        judge: 'Waiting for an optional permanent-card choice.',
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['hand', 'battlefield'],
+        permanent: true,
+        optional: true,
+        requirements: { battlefield: { max: instruction.max } },
+      })
       continue
     }
     if (instruction.kind === 'extraLandPlays') {
