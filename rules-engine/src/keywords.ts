@@ -10,7 +10,12 @@ export const abilityTokens = (oracleText: string) =>
   oracleText
     .split(/\n|\/\//)
     .flatMap((line) => line.split(','))
-    .map((token) => token.trim().toLowerCase().replace(/\.$/, ''))
+    .map((token) =>
+      token
+        .replace(/\s*\([^)]*\)\s*/g, ' ')
+        .trim()
+        .toLowerCase()
+        .replace(/\.$/, ''))
 
 export const hasKeyword = (object: GameObject, keyword: string) =>
   abilityTokens(object.oracleText).includes(keyword)

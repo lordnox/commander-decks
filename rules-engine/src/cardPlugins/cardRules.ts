@@ -492,12 +492,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Firdoch Core': [
     allCreatureTypes(),
-    activate({
-      id: 'anyMana.firdoch',
-      manaAbility: true,
-      costs: { tap: true },
-      do: [{ kind: 'addChosenColorMana' }],
-    }),
   ],
   "Fortune's Favor": [onResolve(revealPick(4))],
   'Growth Spiral': [onResolve(draw(1), putLandFromHand())],

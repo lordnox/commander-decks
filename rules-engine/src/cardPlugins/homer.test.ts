@@ -123,6 +123,42 @@ describe(HOMER_NAME, () => {
     expect(resolved.zoneOrder.p1.graveyard).toHaveLength(4)
   })
 
+  test('changeling counts a noncreature permanent as a Crab', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [card('Forest', ['Land'])] },
+        battlefield: {
+          p1: [
+            card(HOMER_NAME, ['Creature'], ['Crab']),
+            cardTemplate('Firdoch Core', {
+              types: ['Artifact'],
+              oracleText: 'Changeling (This card is every creature type.)',
+            }),
+          ],
+        },
+        libraries: {
+          p1: Array.from({ length: 4 }, (_, index) => card(`Card ${index}`, ['Instant'])),
+        },
+      },
+      { random: () => 0, cardPlugins: [homer] },
+    )
+    const landId = server.state.zoneOrder.p1.hand[0]
+    const triggered = ok(server.rules(
+      server.state,
+      { type: 'playLand', seat: 'p1', objectId: landId },
+    ))
+    const stacked = ok(server.rules(triggered, {
+      type: 'custom',
+      name: HOMER_CHOSEN,
+      seat: 'p1',
+      payload: { targets: ['p1'] },
+    }))
+    const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
+
+    expect(resolved.zoneOrder.p1.graveyard).toHaveLength(4)
+  })
+
   test('counts sea creatures when the triggered ability resolves', () => {
     const server = game()
     const landId = server.state.zoneOrder.p1.hand[0]
