@@ -27,6 +27,7 @@ import {
   type KernelHandle,
 } from './kernelHost'
 import type { KernelJournal } from '../../rules-engine/src'
+import { kernelFacts } from './kernelFacts'
 import {
   applyDeterministicChoice,
   enforceHandSize,
@@ -604,6 +605,7 @@ export const runHost = async (options: {
             state.human && state.alwaysStopOnPriority[state.human],
           ),
           logFile,
+          facts: kernel ? kernelFacts(kernel.history.current(), seat) : undefined,
           validateKernelChange: kernel
             ? (candidatePath) => assertAgentKernelBoundary(
                 kernel!,
