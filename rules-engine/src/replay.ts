@@ -451,6 +451,17 @@ const stackItemText = (state: GameState, item: GameState['stack'][number]) => {
   return [loyalty, aimed].filter(Boolean).join(' · ') || undefined
 }
 
+/**
+ * Zones are filed under the owner, but a permanent sits on the battlefield of
+ * whoever controls it: a reanimated or stolen card belongs to the thief's side
+ * of the table until it leaves.
+ */
+export const controlledBattlefield = (state: GameState, seat: PlayerId) =>
+  state.playerOrder
+    .flatMap((owner) => state.zoneOrder[owner].battlefield)
+    .map((id) => state.objects[id])
+    .filter((object) => object?.controller === seat)
+
 export const replayComparableState = (state: GameState) => ({
   active: state.active,
   turn: Math.floor((state.turn - 1) / state.playerOrder.length) + 1,
@@ -474,8 +485,7 @@ export const replayComparableState = (state: GameState) => ({
       poison: player.poison,
       library_count: state.zoneCounts[seat].library,
       hand: names('hand'),
-      battlefield: state.zoneOrder[seat].battlefield.map((id) => {
-        const object = state.objects[id]
+      battlefield: controlledBattlefield(state, seat).map((object) => {
         return {
           name: object.name,
           tapped: object.tapped,

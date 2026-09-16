@@ -134,6 +134,28 @@ describe('table replay conversion', () => {
       .toEqual({ loyalty: 4 })
   })
 
+  test('a stolen permanent shows on the board of the seat controlling it', () => {
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p2: [cardTemplate('Big Sphinx', { types: ['Creature'] })] } },
+      { random: () => 0.5, cardPlugins: [] },
+    )
+    const sphinx = Object.values(server.state.objects).find(
+      (object) => object.name === 'Big Sphinx',
+    )!
+    const stolen = server.rules(server.state, {
+      type: 'move',
+      objectId: sphinx.id,
+      to: 'battlefield',
+      controller: 'p1',
+    })
+    if (!stolen.ok) throw new Error(stolen.error)
+
+    const players = replayComparableState(stolen.state).players
+    expect(players.p1.battlefield.map((card) => card.name)).toEqual(['Big Sphinx'])
+    expect(players.p2.battlefield).toEqual([])
+  })
+
   test('a spell on the stack announces what it targets', () => {
     const server = createServerGame(
       commanderRules,
