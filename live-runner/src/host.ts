@@ -13,6 +13,7 @@ import {
 } from './actions'
 import { invokeHostAgent } from './brain'
 import {
+  applyKernelAct,
   applyKernelAdvance,
   applyKernelChoice,
   assertAgentKernelBoundary,
@@ -473,6 +474,18 @@ export const runHost = async (options: {
         state.waiting = `${state.occupants[seat]?.name ?? seat}: send a new plan.`
         state.privateWaiting = { [seat]: `${error}. Send a new plan.` }
         logLine(logFile, `${seat} kernel confirm rejected: ${error}`)
+      }
+    } else if (message.type === 'act' && kernel) {
+      try {
+        const events = applyKernelAct(kernel, state, seat, message)
+        restoreKernelWindow(kernel, state)
+        logLine(logFile, `${seat} kernel act ${message.kind} ${events.length}`)
+      } catch (reason) {
+        const error = reason instanceof Error ? reason.message : String(reason)
+        logLine(logFile, `${seat} kernel act rejected: ${error}`)
+        state.privateWaiting = { [seat]: error }
+        state.waiting = `${state.occupants[seat]?.name ?? seat}: send a new action.`
+        state.judge = `${state.occupants[seat]?.name ?? seat}'s action was rejected.`
       }
     } else if (message.type === 'keep' || message.type === 'mulligan') {
       try {

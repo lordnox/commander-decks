@@ -162,6 +162,12 @@ a per-seat action ID. The client echoes that ID. Reject stale, duplicate, or
 unavailable play actions without invoking the judge. Do not let one priority
 responder invalidate another responder's still-open action ID.
 
+The private snapshot also lists `legalActs` for the priority seat: land plays,
+tap-for-mana, and other choice-free kernel actions. The Pages client shows
+those on the card sheet. Inbox `act` is applied by the host through
+`eventsForAvailableAction` with no judge round. Card plugins load only for
+names in the journal or replay, not the whole Oracle table.
+
 ## Phase walk and priority windows
 
 At a judged table every seat watches its own bin, so the log is the only way a

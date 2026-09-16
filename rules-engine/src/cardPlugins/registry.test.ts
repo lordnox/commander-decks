@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, test } from 'bun:test'
-import { allHandlerIds } from './cardRules'
+import { allHandlerIds, handlerIdsForNames } from './cardRules'
 import {
   cardPlugins,
   cardPluginEntry,
@@ -16,6 +16,11 @@ describe('card plugin registry', () => {
     }
   })
 
+  test('a forest table does not load the whole handler catalog', () => {
+    expect(handlerIdsForNames(['Forest'])).toEqual([])
+    expect(handlerIdsForNames(['Field of the Dead'])).toEqual(['entersTapped', 'landfall'])
+    expect(allHandlerIds().length).toBeGreaterThan(handlerIdsForNames(['Forest', 'Sol Ring']).length)
+  })
   test('the always-on land and search handlers are built into every new game', () => {
     const built = new Set(cardPlugins.map((plugin) => plugin.id))
     for (const handlerId of [

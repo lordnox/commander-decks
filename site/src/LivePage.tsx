@@ -28,6 +28,7 @@ import {
   watchSnapshots,
 } from './liveConduit'
 import { holdMessage, priorityModeMessage } from './liveMessages'
+import type { AvailableAction } from '../../rules-engine/src/actions'
 import type {
   PlayerState,
   ReplayEvent,
@@ -90,20 +91,36 @@ const toReplaySeat = (seat: LiveSeat): ReplaySeat => ({
   color: seat.color,
 })
 
-export const toPlayerState = (seat: LiveSeat, revealHand: boolean): PlayerState => ({
-  life: seat.life,
-  poison: seat.poison,
-  commander_damage: seat.commander_damage,
-  commander_tax: seat.commander_tax,
-  mana: seat.mana,
-  library_count: seat.library_count,
-  hand: revealHand ? (seat.hand ?? []) : [],
-  battlefield: seat.battlefield ?? [],
-  graveyard: seat.graveyard ?? [],
-  exile: seat.exile ?? [],
-  command: seat.command ?? [],
-  revealed_top: seat.revealed_top,
-})
+export const toPlayerState = (
+  seat: LiveSeat,
+  revealHand: boolean,
+  replica?: LiveSnapshot['replica'],
+): PlayerState => {
+  const handIds = replica?.zoneOrder[seat.id]?.hand
+  const commandIds = replica?.zoneOrder[seat.id]?.command
+  const withIds = (
+    cards: Array<string | number>,
+    ids?: string[],
+  ) =>
+    cards.map((card, index) => {
+      const objectId = ids?.[index]
+      return objectId ? { name: card, objectId } : card
+    })
+  return {
+    life: seat.life,
+    poison: seat.poison,
+    commander_damage: seat.commander_damage,
+    commander_tax: seat.commander_tax,
+    mana: seat.mana,
+    library_count: seat.library_count,
+    hand: revealHand ? withIds(seat.hand ?? [], handIds) : [],
+    battlefield: seat.battlefield ?? [],
+    graveyard: seat.graveyard ?? [],
+    exile: seat.exile ?? [],
+    command: withIds(seat.command ?? [], commandIds),
+    revealed_top: seat.revealed_top,
+  }
+}
 
 const toReplayGame = (snapshot: LiveSnapshot, seats: LiveSeat[]): ReplayGame => ({
   schema: 1,
@@ -467,6 +484,11 @@ export const LivePage = () => {
       }>
       always?: boolean
       until?: 'my-turn' | 'off'
+      kind?: AvailableAction['kind']
+      objectId?: string
+      abilityId?: string
+      text?: string
+      mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
     } = {},
   ) => {
     if (viewingPast) {
@@ -483,6 +505,7 @@ export const LivePage = () => {
       'mulligan',
       'topdeck',
       'advance',
+      'act',
     ].includes(type)
     if (
       playAction
@@ -518,6 +541,16 @@ export const LivePage = () => {
         message = { type: 'topdeck', choices: extra.choices ?? [], ...action }
       } else if (type === 'advance') {
         message = { type: 'advance', ...action }
+      } else if (type === 'act') {
+        message = {
+          type: 'act',
+          kind: extra.kind,
+          objectId: extra.objectId,
+          ...(extra.abilityId ? { abilityId: extra.abilityId } : {}),
+          ...(extra.text ? { text: extra.text } : {}),
+          ...(extra.mana ? { mana: extra.mana } : {}),
+          ...action,
+        }
       } else if (type === 'priority-mode') {
         message = priorityModeMessage(extra.always === true)
       } else if (type === 'hold') {
@@ -556,10 +589,12 @@ export const LivePage = () => {
                   ? 'Library choice sent'
                   : type === 'advance'
                     ? 'Phase advanced'
-                    : type === 'priority-mode'
-                      ? extra.always
-                        ? 'All priority stops enabled'
-                        : 'Smart priority stops enabled'
+                    : type === 'act'
+                      ? 'Action sent'
+                      : type === 'priority-mode'
+                        ? extra.always
+                          ? 'All priority stops enabled'
+                          : 'Smart priority stops enabled'
                 : 'Message sent',
       )
     } catch (reason: unknown) {
@@ -967,7 +1002,7 @@ export const LivePage = () => {
                 key={seat.id}
                 game={game}
                 seat={toReplaySeat(seat)}
-                state={toPlayerState(seat, isYou)}
+                state={toPlayerState(seat, isYou, snapshot.replica)}
                 active={boardActive === seat.id}
                 action={new Set()}
                 handCount={seat.hand_count}
@@ -1080,6 +1115,26 @@ export const LivePage = () => {
             flash('Card name copied')
           }}
           onInsertName={canSend ? onInsertName : undefined}
+          acts={(snapshot.legalActs ?? []).filter((action) => {
+            if (!('objectId' in action)) return false
+            if (preview.objectId) return action.objectId === preview.objectId
+            return action.name === preview.name
+          })}
+          onAct={snapshot.actions?.includes('act')
+            ? (action) => {
+                if (!('objectId' in action)) return
+                setPreview(null)
+                void sendInbox('act', {
+                  kind: action.kind,
+                  objectId: action.objectId,
+                  ...('abilityId' in action && action.abilityId
+                    ? { abilityId: action.abilityId }
+                    : {}),
+                  ...('text' in action && action.text ? { text: action.text } : {}),
+                  ...('mana' in action && action.mana ? { mana: action.mana } : {}),
+                })
+              }
+            : undefined}
         />
       )}
 

@@ -33,6 +33,7 @@ import {
 import { cardTemplate } from '../../rules-engine/src/newGame'
 import { createLobby } from './lobby'
 import {
+  applyKernelAct,
   applyKernelAdvance,
   applyKernelChoice,
   assertAgentKernelBoundary,
@@ -304,7 +305,7 @@ describe('kernel host journal', () => {
     const priority = kernelPriority(restored.history.current())
     expect(priority).toBeTruthy()
     if (priority) {
-      expect(kernelActions(restored.history.current())[priority]).toEqual(['plan', 'pass'])
+      expect(kernelActions(restored.history.current())[priority]).toEqual(['plan', 'pass', 'act'])
     }
   })
 
@@ -352,6 +353,27 @@ describe('kernel host journal', () => {
     writeFileSync(handlerPath, "export const testHandler = { id: 'testHandler', version: 2 }\n")
     const reloaded = await loadHostCardPlugins(root)
     expect((reloaded[0] as typeof reloaded[0] & { version: number }).version).toBe(2)
+  })
+
+  test('loads only handlers the table cards need', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-plugins-filter-'))
+    mkdirSync(join(root, 'rules-engine', 'src', 'cardPlugins'), { recursive: true })
+    writeFileSync(
+      join(root, 'rules-engine', 'src', 'cardPlugins', 'cardRules.ts'),
+      [
+        'export const allHandlerIds = () => ["testHandler"]',
+        'export const handlerIdsForNames = (names) => names.includes("Test Card") ? ["testHandler"] : []',
+        '',
+      ].join('\n'),
+    )
+    writeFileSync(
+      join(root, 'rules-engine', 'src', 'cardPlugins', 'testHandler.ts'),
+      "export const testHandler = { id: 'testHandler' }\n",
+    )
+
+    expect(await loadHostCardPlugins(root, ['Forest'])).toEqual([])
+    expect((await loadHostCardPlugins(root, ['Test Card'])).map((plugin) => plugin.id))
+      .toEqual(['testHandler'])
   })
 
   test('installs dynamically loaded handlers into an existing journal', async () => {
@@ -977,5 +999,42 @@ describe('kernel host journal', () => {
     expect(kernel.history.current().step).toBe('beginCombat')
     expect(kernel.journal.events.at(-1)).toEqual({ type: 'advanceStep' })
     expect(lobby.actions.p1).toContain('advance')
+  })
+
+  test('plays a land from a structured act without a judge round', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-act-'))
+    mkdirGames(root)
+    seedKernel(root, 'pod', (state) => {
+      const land = forest()
+      const id = 'land-1'
+      state.objects[id] = {
+        ...land,
+        id,
+        owner: 'p1',
+        controller: 'p1',
+        zone: 'hand',
+      }
+      state.zoneOrder.p1.hand = [id]
+      state.zoneCounts.p1.hand = 1
+      state.step = 'precombatMain'
+      state.active = 'p1'
+      state.priority = 'p1'
+    })
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    lobby.occupants.p1 = { name: 'Active player', deck: 'deck' }
+    const kernel = await openKernel('pod', root, lobby)
+
+    applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'playLand',
+      objectId: 'land-1',
+    })
+    expect(kernel.history.current().objects['land-1'].zone).toBe('battlefield')
+    expect(kernel.journal.events.at(-1)).toEqual({
+      type: 'playLand',
+      seat: 'p1',
+      objectId: 'land-1',
+    })
   })
 })

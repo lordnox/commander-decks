@@ -1,3 +1,4 @@
+import type { AvailableAction } from '../../rules-engine/src/actions'
 import type { GameState } from '../../rules-engine/src/types'
 import type {
   BattlefieldCard,
@@ -56,6 +57,7 @@ export type LiveAction =
   | 'mulligan'
   | 'topdeck'
   | 'advance'
+  | 'act'
 
 export type JudgeHistoryEntry = {
   id: number
@@ -102,6 +104,7 @@ export type LiveSnapshot = {
   youAct?: boolean
   actions?: LiveAction[]
   actionId?: number
+  legalActs?: AvailableAction[]
   opening?: LiveOpening
   topdeck?: LiveTopdeck
   alwaysStopOnPriority?: boolean
@@ -442,6 +445,7 @@ export const encodePublicLivePayload = async (snapshot: LiveSnapshot) => {
     actions: _actions,
     actionId: _actionId,
     youAct: _youAct,
+    legalActs: _legalActs,
     ...publicSnapshot
   } = compact
   const seats = normalizeSeats(compact.seats).map((seat) => {

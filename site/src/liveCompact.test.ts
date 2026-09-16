@@ -215,6 +215,15 @@ describe('live compact v2', () => {
     expect(expanded.replica?.knowledge).toEqual({ mode: 'replica', viewer: 'p2' })
   })
 
+  test('private legal acts survive the wire', () => {
+    const original = snapshot()
+    original.actions = ['plan', 'pass', 'act']
+    original.legalActs = [{ kind: 'playLand', objectId: 'o3', name: 'Forest' }]
+    const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)
+    expect(expanded.actions).toEqual(['plan', 'pass', 'act'])
+    expect(expanded.legalActs).toEqual([{ kind: 'playLand', objectId: 'o3', name: 'Forest' }])
+  })
+
   test('attack and block labels survive the wire', () => {
     const original = snapshot()
     original.seats[1].battlefield = [

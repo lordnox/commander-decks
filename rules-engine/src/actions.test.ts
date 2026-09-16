@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { availableActions, eventsForAvailableAction } from './actions'
+import { availableActions, eventsForAvailableAction, legalActsFor, manaAffordances } from './actions'
 import { commanderRules } from './formats'
 import { bears, bolt, forest, newGame } from './newGame'
 import type { ManaPool } from './types'
@@ -265,5 +265,38 @@ describe('events for available actions', () => {
       'p1',
       actions.find((action) => action.name === 'Choice Creature')!,
     )).toBeNull()
+  })
+})
+
+describe('mana affordances', () => {
+  test('an untapped forest can be tapped without counting as a stop', () => {
+    const state = newGame(commanderRules, {
+      battlefield: { p1: [forest()] },
+    })
+    state.step = 'end'
+    const land = objectNamed(state, 'Forest')
+
+    expect(availableActions(state, 'p1')).toEqual([])
+    expect(manaAffordances(state, 'p1')).toEqual([{
+      kind: 'tapForMana',
+      objectId: land.id,
+      name: 'Forest',
+    }])
+    expect(eventsForAvailableAction(state, 'p1', manaAffordances(state, 'p1')[0])).toEqual([{
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId: land.id,
+    }])
+  })
+
+  test('a land play remains executable from legalActsFor', () => {
+    const state = newGame(commanderRules, { hands: { p1: [forest()] } })
+    const land = objectNamed(state, 'Forest')
+
+    expect(legalActsFor(state, 'p1')).toContainEqual({
+      kind: 'playLand',
+      objectId: land.id,
+      name: 'Forest',
+    })
   })
 })

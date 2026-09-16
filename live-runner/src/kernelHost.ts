@@ -13,10 +13,13 @@ import {
   createJournal,
   createServerGame,
   importLiveReplayState,
+  legalActsFor,
   projectForViewer,
   recordAccepted,
   restoreJournal,
   runReplayRounds,
+  sameLegalAct,
+  eventsForAvailableAction,
   type GameEvent,
   type GameState,
   type History,
@@ -163,19 +166,26 @@ const importFresh = async (path: string, label: string) => {
 
 const cardPluginDir = (root: string) => join(root, 'rules-engine', 'src', 'cardPlugins')
 
-const hostHandlerIds = async (root: string) => {
+const hostHandlerIds = async (root: string, names?: string[]) => {
   const rulesPath = join(cardPluginDir(root), 'cardRules.ts')
   if (!existsSync(rulesPath)) return []
   const module = await importFresh(rulesPath, 'cardRules')
-  const handlerIds = module.allHandlerIds
-  if (typeof handlerIds !== 'function') {
+  const forNames = module.handlerIdsForNames
+  const allIds = module.allHandlerIds
+  if (names !== undefined && typeof forNames === 'function') {
+    return forNames(names) as string[]
+  }
+  if (typeof allIds !== 'function') {
     throw new Error('cardRules.ts does not export allHandlerIds')
   }
-  return handlerIds() as string[]
+  return allIds() as string[]
 }
 
-export const loadHostCardPlugins = async (root: string): Promise<Plugin[]> => {
-  const handlerIds = await hostHandlerIds(root)
+export const loadHostCardPlugins = async (
+  root: string,
+  names?: string[],
+): Promise<Plugin[]> => {
+  const handlerIds = await hostHandlerIds(root, names)
   return Promise.all(handlerIds.map(async (handlerId) => {
     if (!/^[a-z][a-zA-Z0-9-]*$/.test(handlerId)) {
       throw new Error(`invalid card plugin handler ${handlerId}`)
@@ -204,7 +214,7 @@ export const kernelPriority = (state: GameState): SeatId | null => {
 export const kernelActions = (state: GameState): SeatActions => {
   const priority = kernelPriority(state)
   if (!priority) return {}
-  const actions: PlayAction[] = ['plan', 'pass']
+  const actions: PlayAction[] = ['plan', 'pass', 'act']
   const canAdvance =
     priority === state.active
     && state.stack.length === 0
@@ -683,6 +693,52 @@ export const settleKernelPriority = (kernel: KernelHandle, lobby: LobbyState) =>
 /** Compatibility name for existing callers; settling now covers empty windows too. */
 export const settleKernelHolds = settleKernelPriority
 
+const namesFromJournal = (journal: KernelJournal) =>
+  Object.values(journal.initial.objects).map((object) => object.name)
+
+const namesFromReplay = (replay: TableReplay | null) => {
+  if (!replay) return []
+  return [
+    ...Object.keys(replay.catalog ?? {}),
+    ...(replay.events ?? []).flatMap((event) => event.cards ?? []),
+  ]
+}
+
+export const applyKernelAct = (
+  kernel: KernelHandle,
+  lobby: LobbyState,
+  seat: SeatId,
+  message: Extract<InboxMessage, { type: 'act' }>,
+) => {
+  const state = kernel.history.current()
+  const action = legalActsFor(state, seat).find((candidate) =>
+    sameLegalAct(candidate, message))
+  if (!action) throw new Error('That action is not available now')
+  const events = eventsForAvailableAction(state, seat, action)
+  if (!events) throw new Error('That action now needs a judge decision')
+
+  let dryRun = state
+  for (const event of events) {
+    const result = kernel.rules(dryRun, event)
+    if (!result.ok) throw new Error(result.error)
+    dryRun = result.state
+  }
+  for (const event of events) {
+    const result = kernel.dispatch(event)
+    if (!result.ok) throw new Error(result.error)
+  }
+
+  const current = kernel.history.current()
+  lobby.actions = kernelActions(current)
+  lobby.privateJudge = {
+    [seat]: `${action.name} was applied through ${events.length} kernel event(s).`,
+  }
+  lobby.judge = `${lobby.occupants[seat]?.name ?? seat} acted.`
+  lobby.waiting = `${lobby.occupants[kernelPriority(current) ?? seat]?.name ?? seat}: act, pass, or advance.`
+  lobby.privateWaiting = {}
+  return events
+}
+
 const COMBAT_STEPS = new Set([
   'beginCombat',
   'declareAttackers',
@@ -739,12 +795,6 @@ export const openKernel = async (
   lobby: LobbyState,
 ): Promise<KernelHandle> => {
   const path = kernelPath(slug, root)
-  const cardPlugins = await loadHostCardPlugins(root)
-  const server = createServerGame(
-    commanderRules,
-    { first: lobby.firstPlayer },
-    { random: () => 0.5, cardPlugins },
-  )
   const existing = existsSync(path)
   const replay = hasReplay(slug, root)
     ? JSON.parse(readFileSync(replayPath(slug, root), 'utf8')) as TableReplay
@@ -752,6 +802,16 @@ export const openKernel = async (
   if (!existing && !replay) {
     throw new Error('rules kernel waits for game setup')
   }
+  const names = [
+    ...(existing ? namesFromJournal(loadJson(path)) : []),
+    ...namesFromReplay(replay),
+  ]
+  const cardPlugins = await loadHostCardPlugins(root, names)
+  const server = createServerGame(
+    commanderRules,
+    { first: lobby.firstPlayer },
+    { random: () => 0.5, cardPlugins },
+  )
   let journal = existing ? loadJson(path) : createJournal(server.state)
   if (replay) {
     const lastTurn = replay.events.at(-1)?.turn ?? 0

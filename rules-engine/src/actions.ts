@@ -16,6 +16,7 @@ export type AvailableAction =
   | { kind: 'playLand'; objectId: string; name: string }
   | { kind: 'castSpell'; objectId: string; name: string }
   | { kind: 'activateAbility'; objectId: string; name: string; text: string; abilityId?: string }
+  | { kind: 'tapForMana'; objectId: string; name: string; mana?: ManaId }
   | { kind: 'declareAttackers'; objectIds: string[] }
   | { kind: 'declareBlockers'; objectIds: string[]; attackerIds: string[] }
 
@@ -323,6 +324,66 @@ export const availableActions = (
   return actions
 }
 
+/**
+ * Tap-for-mana buttons for the acting seat. These are UI affordances, not a
+ * reason to stop an otherwise empty priority window.
+ */
+export const manaAffordances = (
+  state: GameState,
+  seat: PlayerId = state.priority ?? '',
+): AvailableAction[] => {
+  if (!seat || state.priority !== seat || state.players[seat]?.lost) return []
+  if (state.step === 'untap' || state.step === 'cleanup') return []
+  const actions: AvailableAction[] = []
+  const seen = new Set<string>()
+  for (const object of Object.values(state.objects)) {
+    if (!sourceCanTap(object, seat)) continue
+    for (const option of manaOptions(object)) {
+      const symbols = MANA_IDS.filter((mana) => (option[mana] ?? 0) > 0)
+      const needsChoice = !object.tapProduces
+        || MANA_IDS.some((mana) => option[mana] !== object.tapProduces?.[mana])
+      const mana = needsChoice && symbols.length === 1 ? symbols[0] : undefined
+      if (needsChoice && !mana) continue
+      const key = `${object.id}:${mana ?? ''}`
+      if (seen.has(key)) continue
+      seen.add(key)
+      actions.push({
+        kind: 'tapForMana',
+        objectId: object.id,
+        name: object.name,
+        ...(mana ? { mana } : {}),
+      })
+    }
+  }
+  return actions
+}
+
+export const legalActsFor = (
+  state: GameState,
+  seat: PlayerId = state.priority ?? '',
+): AvailableAction[] =>
+  [...availableActions(state, seat), ...manaAffordances(state, seat)]
+    .filter((action) => eventsForAvailableAction(state, seat, action))
+
+export const sameLegalAct = (
+  left: AvailableAction,
+  right: {
+    kind?: string
+    objectId?: string
+    abilityId?: string
+    text?: string
+    mana?: ManaId
+  },
+) => {
+  if (left.kind !== right.kind) return false
+  if ('objectId' in left && left.objectId !== right.objectId) return false
+  if (left.kind === 'tapForMana') return left.mana === right.mana
+  if (left.kind === 'activateAbility') {
+    return left.abilityId === right.abilityId && left.text === right.text
+  }
+  return true
+}
+
 const SIMPLE_PERMANENT = new Set<string>(PERMANENT_TYPES)
 
 const fundingEvents = (
@@ -392,6 +453,14 @@ export const eventsForAvailableAction = (
 ): GameEvent[] | null => {
   if (action.kind === 'playLand') {
     return [{ type: 'playLand', seat, objectId: action.objectId }]
+  }
+  if (action.kind === 'tapForMana') {
+    return [{
+      type: 'tapForMana',
+      seat,
+      objectId: action.objectId,
+      ...(action.mana ? { mana: action.mana } : {}),
+    }]
   }
   if (action.kind === 'activateAbility') {
     const object = state.objects[action.objectId]

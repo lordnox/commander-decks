@@ -16,6 +16,7 @@ import type {
   ReplayPlan,
   ReplaySeat,
 } from './replayTypes'
+import type { AvailableAction } from '../../rules-engine/src/actions'
 
 export type Preview = {
   name: string
@@ -25,6 +26,7 @@ export type Preview = {
   tapped?: boolean
   token?: boolean
   commander?: boolean
+  objectId?: string
 }
 
 export type Hover = {
@@ -154,6 +156,7 @@ export const CardTile = ({
           tapped: entry?.tapped,
           token,
           commander: entry?.commander,
+          objectId: entry?.objectId,
         })
       }}
       {...longPressProps}
@@ -856,16 +859,31 @@ export const HoverCard = ({ hover }: { hover: Hover }) => {
   )
 }
 
+export const legalActLabel = (action: AvailableAction) => {
+  if (action.kind === 'playLand') return 'Play land'
+  if (action.kind === 'castSpell') return 'Cast'
+  if (action.kind === 'tapForMana') {
+    return action.mana ? `Tap for {${action.mana}}` : 'Tap for mana'
+  }
+  if (action.kind === 'activateAbility') return action.text || 'Activate'
+  if (action.kind === 'declareAttackers') return 'Declare attackers'
+  return 'Declare blockers'
+}
+
 export const CardPreview = ({
   preview,
   onClose,
   onCopyName,
   onInsertName,
+  acts = [],
+  onAct,
 }: {
   preview: Preview
   onClose: () => void
   onCopyName?: (name: string) => void
   onInsertName?: (name: string) => void
+  acts?: AvailableAction[]
+  onAct?: (action: AvailableAction) => void
 }) => (
   <div
     className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-4 backdrop-blur-sm sm:items-center"
@@ -938,6 +956,20 @@ export const CardPreview = ({
           <p className="mt-4 rounded-xl bg-black/20 p-3 text-sm text-stone-300">
             {preview.note}
           </p>
+        )}
+        {acts.length > 0 && onAct && (
+          <div className="mt-5 flex flex-wrap gap-2">
+            {acts.map((action, index) => (
+              <button
+                key={`${action.kind}-${'objectId' in action ? action.objectId : index}-${index}`}
+                type="button"
+                onClick={() => onAct?.(action)}
+                className="inline-flex items-center rounded-full bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-moss-200"
+              >
+                {legalActLabel(action)}
+              </button>
+            ))}
+          </div>
         )}
         <div className="mt-5 flex flex-wrap items-center gap-3">
           {onInsertName && (
