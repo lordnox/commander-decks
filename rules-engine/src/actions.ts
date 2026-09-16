@@ -1,5 +1,8 @@
 import { emptyMana } from './draft'
+import { PERMANENT_TYPES } from './definitions'
 import { payCost } from './plugins/spells'
+import { effectsOf } from './cardPlugins/cardRules'
+import { conditionHolds, type ActivateCost } from './cardPlugins/effects'
 import type {
   GameEvent,
   GameObject,
@@ -12,7 +15,7 @@ import type {
 export type AvailableAction =
   | { kind: 'playLand'; objectId: string; name: string }
   | { kind: 'castSpell'; objectId: string; name: string }
-  | { kind: 'activateAbility'; objectId: string; name: string; text: string }
+  | { kind: 'activateAbility'; objectId: string; name: string; text: string; abilityId?: string }
   | { kind: 'declareAttackers'; objectIds: string[] }
   | { kind: 'declareBlockers'; objectIds: string[]; attackerIds: string[] }
 
@@ -170,6 +173,52 @@ const canActivate = (
   return true
 }
 
+const canPayActivateCosts = (
+  state: GameState,
+  object: GameObject,
+  seat: PlayerId,
+  costs: ActivateCost,
+) => {
+  if (costs.tap && !sourceCanTap(object, seat)) return false
+  if (costs.mana && !canFund(state, seat, costs.mana)) return false
+  if ((costs.life ?? 0) >= state.players[seat].life) return false
+  return true
+}
+
+const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =>
+  effectsOf(object).flatMap((effect): AvailableAction[] => {
+    if (object.zone !== 'battlefield' || object.controller !== seat) return []
+    if (effect.op === 'activate' && !effect.manaAbility) {
+      if (
+        !canPayActivateCosts(state, object, seat, effect.costs)
+        || !conditionHolds(effect.if, state, object)
+      ) {
+        return []
+      }
+      return [{
+        kind: 'activateAbility',
+        objectId: object.id,
+        name: object.name,
+        text: effect.id,
+        abilityId: effect.id,
+      }]
+    }
+    if (
+      effect.op === 'search'
+      && effect.via === 'ability'
+      && canPayActivateCosts(state, object, seat, effect.costs)
+    ) {
+      return [{
+        kind: 'activateAbility',
+        objectId: object.id,
+        name: object.name,
+        text: effect.spec.prompt,
+        abilityId: 'librarySearch.fetch',
+      }]
+    }
+    return []
+  })
+
 /**
  * Enumerate meaningful choices for the seat with priority. Mana abilities are
  * folded into spells they can fund; listing every untapped land as a choice
@@ -206,14 +255,18 @@ export const availableActions = (
     if (canCastNow(state, seat, object)) {
       actions.push({ kind: 'castSpell', objectId: object.id, name: object.name })
     }
-    for (const text of activatedText(object)) {
-      if (canActivate(state, object, seat, text)) {
-        actions.push({
-          kind: 'activateAbility',
-          objectId: object.id,
-          name: object.name,
-          text,
-        })
+    const declaredActions = cardRuleActions(state, object, seat)
+    actions.push(...declaredActions)
+    if (declaredActions.length === 0) {
+      for (const text of activatedText(object)) {
+        if (canActivate(state, object, seat, text)) {
+          actions.push({
+            kind: 'activateAbility',
+            objectId: object.id,
+            name: object.name,
+            text,
+          })
+        }
       }
     }
   }
@@ -249,13 +302,7 @@ export const availableActions = (
   return actions
 }
 
-const SIMPLE_PERMANENT = new Set([
-  'Artifact',
-  'Battle',
-  'Creature',
-  'Enchantment',
-  'Planeswalker',
-])
+const SIMPLE_PERMANENT = new Set<string>(PERMANENT_TYPES)
 
 const fundingEvents = (
   state: GameState,
