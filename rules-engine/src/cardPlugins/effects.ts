@@ -247,6 +247,7 @@ export const conditionHolds = (
   return names.size >= condition.min
 }
 
+/** CR 701.13b: a player asked to mill more cards than they have mills their whole library. */
 export const millLibrary = (draft: Draft, seat: PlayerId, count: number) => {
   for (const objectId of draft.zoneOrder[seat].library.slice(0, count)) {
     draft.enqueue({ type: 'move', objectId, to: 'graveyard' })

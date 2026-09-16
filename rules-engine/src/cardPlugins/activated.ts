@@ -51,10 +51,6 @@ export const activated: Plugin = {
     if (effect.costs.mana && !payCost(state.players[event.seat]?.mana, effect.costs.mana)) {
       return `not enough mana to activate ${source.name}`
     }
-    if ((effect.costs.mill ?? 0) > 0
-      && state.zoneCounts[event.seat].library < (effect.costs.mill ?? 0)) {
-      return `${event.seat} cannot mill ${effect.costs.mill} card(s)`
-    }
     if ((effect.costs.life ?? 0) > 0
       && state.players[event.seat].life <= (effect.costs.life ?? 0)) {
       return `${event.seat} cannot pay ${effect.costs.life} life`
