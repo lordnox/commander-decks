@@ -6,7 +6,7 @@ import {
   enteringObjectId,
   PERMANENT_ENTERED,
 } from './entersTapped'
-import { createToken } from './landfall'
+import { createToken } from './effects'
 
 export const SIN_NAME = "Sin, Spira's Punishment"
 export const SIN_RANDOM_CARD = 'sin.randomCard'

@@ -223,6 +223,77 @@ const controlledLandList = (draft: Draft | GameState, seat: PlayerId) =>
     && candidate.controller === seat
     && candidate.types.includes('Land'))
 
+const tokenDefaults = (): Omit<GameObject, 'id' | 'name' | 'owner' | 'controller'> => ({
+  zone: 'battlefield',
+  tapped: false,
+  summoningSickness: true,
+  damageMarked: 0,
+  counters: {},
+  types: [],
+  subtypes: [],
+  supertypes: [],
+  manaCost: '',
+  power: null,
+  toughness: null,
+  oracleText: '',
+  attachedTo: null,
+  attacking: null,
+  blocking: null,
+  grantedRules: [],
+  token: true,
+  tags: [],
+  effects: [],
+})
+
+/** Tokens are created by an effect rather than moved from another zone. */
+export const createToken = (
+  draft: Draft,
+  controller: PlayerId,
+  template: Partial<GameObject> & { name: string },
+  emitEntry = true,
+) => {
+  const id = draft.allocId('tok')
+  const token: GameObject = {
+    ...tokenDefaults(),
+    ...template,
+    id,
+    owner: controller,
+    controller,
+    zone: 'battlefield',
+    token: true,
+    effects: template.effects ?? [],
+  }
+  draft.objects[id] = token
+  draft.zoneOrder[controller].battlefield.push(id)
+  draft.zoneCounts[controller].battlefield += 1
+  for (const pluginId of token.grantedRules) {
+    draft.rules.push({
+      instanceId: draft.allocId('rule'),
+      pluginId,
+      sourceId: id,
+      timestamp: draft.allocTs(),
+      params: {},
+    })
+  }
+  draft.note(`${controller} creates ${token.name}`)
+  if (emitEntry) {
+    draft.enqueue({
+      type: 'custom',
+      name: 'cardPlugins.permanentEntered',
+      seat: controller,
+      payload: { objectId: id },
+    })
+  }
+  return token
+}
+
+export const addPlusCounters = (object: GameObject, amount: number) => {
+  if (amount === 0) return
+  object.counters['+1/+1'] = (object.counters['+1/+1'] ?? 0) + amount
+  if (object.power !== null) object.power += amount
+  if (object.toughness !== null) object.toughness += amount
+}
+
 export const conditionHolds = (
   condition: CardCondition | undefined,
   state: GameState,
@@ -325,11 +396,35 @@ export const runInstructions = (
       returnOwnedLands(draft, source.controller, instruction.tapped !== false)
       continue
     }
-    if (
-      instruction.kind === 'createToken'
-      || instruction.kind === 'copySelf'
-      || instruction.kind === 'doublePlusCounters'
-    ) {
+    if (instruction.kind === 'createToken') {
+      createToken(draft, source.controller, {
+        name: instruction.token.name,
+        types: instruction.token.types,
+        subtypes: instruction.token.subtypes ?? [],
+        power: instruction.token.power ?? null,
+        toughness: instruction.token.toughness ?? null,
+        oracleText: instruction.token.oracleText ?? '',
+      })
+      continue
+    }
+    if (instruction.kind === 'copySelf') {
+      const live = draft.object(source.id) ?? source
+      createToken(draft, live.controller, {
+        name: live.name,
+        types: [...live.types],
+        subtypes: [...live.subtypes],
+        power: live.power,
+        toughness: live.toughness,
+        oracleText: live.oracleText,
+        effects: live.effects ?? [],
+      })
+      continue
+    }
+    if (instruction.kind === 'doublePlusCounters') {
+      const live = draft.object(source.id)
+      if (!live) continue
+      addPlusCounters(live, live.counters['+1/+1'] ?? 0)
+      draft.note(`${live.name} doubles to ${live.counters['+1/+1'] ?? 0} +1/+1 counters`)
       continue
     }
   }

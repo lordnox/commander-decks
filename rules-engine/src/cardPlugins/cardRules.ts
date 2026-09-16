@@ -74,7 +74,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [returnOwnedGraveyardLands()],
     }),
   ],
-  'Aesi, Tyrant of Gyre Strait': [staticExtraLandPlays(1)],
+  'Aesi, Tyrant of Gyre Strait': [staticExtraLandPlays(1), landfall(draw(1))],
   'Analyze the Pollen': [handler('analyzeThePollen')],
   'Buried Alive': [
     searchSpell({
