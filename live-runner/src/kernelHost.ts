@@ -35,10 +35,8 @@ import {
   type SearchSpec,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
 import {
-  HOMER_CHOSEN,
-  HOMER_NAME,
-  pendingHomer,
-} from '../../rules-engine/src/cardPlugins/homer'
+  pendingPlayerTargets,
+} from '../../rules-engine/src/cardPlugins/playerTargets'
 import type { LiveHistoryFrame } from '../../site/src/liveCodec'
 import { compactLiveWire } from '../../site/src/liveCompact'
 import type { LobbyState } from './lobby'
@@ -247,9 +245,9 @@ export const prepareKernelPendingChoice = (
   lobby: LobbyState,
 ) => {
   if (lobby.topdeck) return false
-  const homerPending = pendingHomer(kernel.history.current())
-  if (homerPending && isSeatId(homerPending.controller)) {
-    const seat = homerPending.controller
+  const targetsPending = pendingPlayerTargets(kernel.history.current())
+  if (targetsPending && isSeatId(targetsPending.controller)) {
+    const seat = targetsPending.controller
     const state = kernel.history.current()
     const cards = state.playerOrder.filter((target) => !state.players[target].lost)
     lobby.topdeck = {
@@ -258,16 +256,15 @@ export const prepareKernelPendingChoice = (
       cards,
       destinations: ['skip', 'target'],
       kernel: {
-        sourceId: homerPending.sourceId,
-        stage: 'homer-targets',
+        sourceId: targetsPending.sourceId,
+        stage: 'player-targets',
       },
     }
     lobby.actions = { [seat]: ['topdeck'] }
-    lobby.waiting = `${lobby.occupants[seat]?.name ?? seat} is choosing ${HOMER_NAME} targets.`
-    lobby.privateWaiting = {
-      [seat]: 'Choose any number of target players for Homer’s landfall ability.',
-    }
-    lobby.judge = `Waiting for ${HOMER_NAME} targets.`
+    lobby.waiting =
+      `${lobby.occupants[seat]?.name ?? seat} is choosing ${targetsPending.source} targets.`
+    lobby.privateWaiting = { [seat]: targetsPending.prompt }
+    lobby.judge = `Waiting for ${targetsPending.source} targets.`
     return true
   }
   if (prepareLibrarySearchChoice(kernel, lobby)) return true
@@ -390,17 +387,17 @@ export const applyKernelChoice = (
   }
 
   let state = kernel.history.current()
-  if (decision.kernel.stage === 'homer-targets') {
-    const pending = pendingHomer(state)
+  if (decision.kernel.stage === 'player-targets') {
+    const pending = pendingPlayerTargets(state)
     if (!pending || pending.controller !== seat) {
-      throw new Error(`${HOMER_NAME} no longer has a target choice.`)
+      throw new Error('That target choice is no longer open.')
     }
     const targets = message.choices
       .filter(({ destination }) => destination === 'target')
       .map(({ card }) => card)
     const result = kernel.dispatch({
       type: 'custom',
-      name: HOMER_CHOSEN,
+      name: pending.chosenEvent,
       seat,
       payload: { targets },
     })
@@ -411,15 +408,15 @@ export const applyKernelChoice = (
     lobby.privateWaiting = {}
     lobby.privateJudge = {
       [seat]: targets.length > 0
-        ? `Homer targeted ${targets.join(', ')}.`
-        : 'Homer chose no targets.',
+        ? `${pending.source} targeted ${targets.join(', ')}.`
+        : `${pending.source} chose no targets.`,
     }
     lobby.waiting = `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
     lobby.judge = targets.length > 0
-      ? `${HOMER_NAME} targets ${targets.map(
+      ? `${pending.source} targets ${targets.map(
         (target) => lobby.occupants[target as SeatId]?.name ?? target,
       ).join(', ')}.`
-      : `${HOMER_NAME} has no targets.`
+      : `${pending.source} has no targets.`
     settleKernelPriority(kernel, lobby)
     return true
   }

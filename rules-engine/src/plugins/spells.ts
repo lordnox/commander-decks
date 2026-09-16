@@ -1,3 +1,4 @@
+import { isPermanentType } from '../definitions'
 import { poolTotal, type Draft } from '../draft'
 import type { GameObject, ManaId, ManaPool, Plugin } from '../types'
 
@@ -132,10 +133,7 @@ export const spells: Plugin = {
         }
       }
 
-      const permanent = object.types.some((type) =>
-        ['Creature', 'Artifact', 'Enchantment', 'Land', 'Planeswalker', 'Battle'].includes(type),
-      )
-      if (permanent) {
+      if (isPermanentType(object.types)) {
         draft.move(object.id, 'battlefield')
         object.summoningSickness = object.types.includes('Creature')
         installGrantedRules(draft, object)

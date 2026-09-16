@@ -1,8 +1,15 @@
 import type Draft from '../draft'
-import type { GameState, PlayerId, Plugin } from '../types'
+import type { PlayerId, Plugin } from '../types'
 import { enteringObjectId } from './entersTapped'
+import {
+  chosenTargets,
+  illegalTargets,
+  pendingPlayerTargets,
+  playerTargetsFor,
+  queuePlayerTargets,
+  takePlayerTargets,
+} from './playerTargets'
 
-export const HOMER_PENDING = 'homer.pending'
 export const HOMER_CHOSEN = 'homer.chosen'
 export const HOMER_RESOLVE = 'homer.resolve'
 export const HOMER_NAME = 'Homer, the Hermit'
@@ -16,34 +23,14 @@ const SEA_CREATURE_TYPES = new Set([
   'Trilobite',
 ])
 
-export type PendingHomer = {
-  sourceId: string
-  controller: PlayerId
-}
-
-const pendingList = (state: GameState, seat: PlayerId): PendingHomer[] => {
-  const value = state.players[seat]?.data[HOMER_PENDING]
-  if (!Array.isArray(value)) return []
-  return value.filter((pending): pending is PendingHomer =>
-    pending
-    && typeof pending === 'object'
-    && typeof pending.sourceId === 'string'
-    && typeof pending.controller === 'string')
-}
-
-export const pendingHomer = (state: GameState) => {
-  for (const seat of state.playerOrder) {
-    const pending = pendingList(state, seat)[0]
-    if (pending) return pending
-  }
-}
-
 const queueTrigger = (draft: Draft, sourceId: string, controller: PlayerId) => {
-  const pending = pendingList(draft, controller)
-  draft.players[controller].data[HOMER_PENDING] = [
-    ...pending,
-    { sourceId, controller },
-  ]
+  queuePlayerTargets(draft, {
+    sourceId,
+    controller,
+    source: HOMER_NAME,
+    prompt: 'Choose any number of target players for Homer’s landfall ability.',
+    chosenEvent: HOMER_CHOSEN,
+  })
   draft.note(`${HOMER_NAME} triggers`)
 }
 
@@ -53,19 +40,12 @@ const mill = (draft: Draft, seat: PlayerId, count: number) => {
   }
 }
 
-const chosenTargets = (payload: Record<string, unknown> | undefined) => {
-  const targets = payload?.targets
-  return Array.isArray(targets) && targets.every((target) => typeof target === 'string')
-    ? targets
-    : undefined
-}
-
 export const homer: Plugin = {
   id: 'homer',
   legal: ({ state, event }) => {
-    const pending = pendingHomer(state)
+    const pending = pendingPlayerTargets(state)
     if (event.type === 'passPriority' && pending) {
-      return `${pending.controller} must choose targets for ${HOMER_NAME}`
+      return `${pending.controller} must choose targets for ${pending.source}`
     }
     if (event.type !== 'custom' || event.name !== HOMER_CHOSEN) return
     if (!event.seat || !pending || event.seat !== pending.controller) {
@@ -73,12 +53,7 @@ export const homer: Plugin = {
     }
     const targets = chosenTargets(event.payload)
     if (!targets) return `${HOMER_NAME} targets must be a player list`
-    if (new Set(targets).size !== targets.length) {
-      return `${HOMER_NAME} cannot target one player twice`
-    }
-    const invalid = targets.find((target) =>
-      !state.players[target] || state.players[target].lost)
-    if (invalid) return `${invalid} is not a legal player target`
+    return illegalTargets(state, targets, HOMER_NAME)
   },
   replace: ({ state, event }) => {
     const item = state.stack[0]
@@ -110,18 +85,13 @@ export const homer: Plugin = {
 
     if (event.type !== 'custom' || !event.seat) return
     if (event.name === HOMER_CHOSEN) {
-      const pending = pendingList(state, event.seat)
-      if (pending.length === 0) return
-      const remaining = pending.slice(1)
-      if (remaining.length > 0) {
-        draft.players[event.seat].data[HOMER_PENDING] = remaining
-      } else {
-        delete draft.players[event.seat].data[HOMER_PENDING]
-      }
+      if (playerTargetsFor(state, event.seat).length === 0) return
+      const pending = takePlayerTargets(draft, event.seat)
+      if (!pending) return
       draft.stack.unshift({
         id: draft.allocId('stack'),
         kind: 'ability',
-        objectId: pending[0].sourceId,
+        objectId: pending.sourceId,
         controller: event.seat,
         name: HOMER_STACK_NAME,
         targets: (chosenTargets(event.payload) ?? []).map((player) => ({

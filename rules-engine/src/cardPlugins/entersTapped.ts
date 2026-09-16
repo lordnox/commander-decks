@@ -1,17 +1,9 @@
+import { isPermanentType } from '../definitions'
 import type { GameEvent, GameState, Plugin } from '../types'
 import { conditionHolds, replacementTaps } from './effects'
 import { effectsOf } from './cardRules'
 
 export const PERMANENT_ENTERED = 'cardPlugins.permanentEntered'
-
-const PERMANENT_TYPES = new Set([
-  'Artifact',
-  'Battle',
-  'Creature',
-  'Enchantment',
-  'Land',
-  'Planeswalker',
-])
 
 /** A permanent enters as a land drop, a move, a resolved spell, or a token. */
 export const enteringObjectId = (event: GameEvent, state?: GameState) => {
@@ -23,7 +15,7 @@ export const enteringObjectId = (event: GameEvent, state?: GameState) => {
   }
   if (event.type === 'resolveTop' && state?.stack[0]) {
     const object = state.objects[state.stack[0].objectId]
-    if (object?.types.some((type) => PERMANENT_TYPES.has(type))) return object.id
+    if (object && isPermanentType(object.types)) return object.id
   }
   return null
 }
