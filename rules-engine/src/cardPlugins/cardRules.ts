@@ -75,6 +75,21 @@ const fetchTypes = (prompt: string, subtypes: string[]): CardEffect =>
     sacrifice: 'self',
   })
 
+const fetchHideout = (prompt: string, subtypes: string[]): CardEffect => ({
+  op: 'search',
+  via: 'enters',
+  spec: {
+    prompt,
+    match: (object) => basicLand(object) && subtypes.some((subtype) =>
+      object.subtypes.includes(subtype)),
+    destination: 'battlefield',
+    tapped: true,
+    min: 0,
+    max: 1,
+    gainLife: 1,
+  },
+})
+
 const insect = createTokenInstruction({
   name: 'Insect',
   types: ['Creature'],
@@ -121,6 +136,12 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       max: 2,
       manaCost: '{3}{G}',
     }),
+  ],
+  'Brokers Hideout': [
+    fetchHideout(
+      'Search your library for a basic Forest, Plains, or Island card. It enters tapped.',
+      ['Forest', 'Plains', 'Island'],
+    ),
   ],
   'Dakmor Salvage': [entersTapped()],
   'Dimir Aqueduct': [entersTapped()],
@@ -232,6 +253,12 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       max: 1,
     }),
   ],
+  'Obscura Storefront': [
+    fetchHideout(
+      'Search your library for a basic Plains, Island, or Swamp card. It enters tapped.',
+      ['Plains', 'Island', 'Swamp'],
+    ),
+  ],
   'Oboro, Palace in the Clouds': [
     activate({
       id: 'selfBounceLand.oboro',
@@ -250,6 +277,12 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     fetchBasic('Search your library for a basic land card and put it onto the battlefield.', {
       life: 1,
     }),
+  ],
+  'Riveteers Overlook': [
+    fetchHideout(
+      'Search your library for a basic Swamp, Mountain, or Forest card. It enters tapped.',
+      ['Swamp', 'Mountain', 'Forest'],
+    ),
   ],
   'Scute Swarm': [
     landfall(branch(controlledLands({ min: 6 }), [copySelf()], [insect])),

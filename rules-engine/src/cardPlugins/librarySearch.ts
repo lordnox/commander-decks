@@ -11,6 +11,7 @@ import type { GameObject, GameState, PlayerId, Plugin } from '../types'
 import { payActivateCosts } from './activated'
 import { effectsFor } from './cardRules'
 import { searchEffect, type SearchSpec } from './effects'
+import { enteringObjectId } from './entersTapped'
 
 export type { SearchDestination, SearchSpec } from './effects'
 
@@ -24,7 +25,7 @@ export const SEARCH_FETCH = 'librarySearch.fetch'
 export type PendingSearch = {
   source: string
   sourceId: string
-  via: 'spell' | 'ability'
+  via: 'spell' | 'ability' | 'enters'
   kicked?: boolean
 }
 
@@ -39,6 +40,11 @@ const abilityEffect = (object: GameObject) => {
 const spellSpec = (object: GameObject) => {
   const effect = searchEffect(effectsFor(object.name))
   return effect?.via === 'spell' ? effect.spec : undefined
+}
+
+const entersSpec = (object: GameObject) => {
+  const effect = searchEffect(effectsFor(object.name))
+  return effect?.via === 'enters' ? effect.spec : undefined
 }
 
 export const pendingSearch = (
@@ -155,7 +161,11 @@ export const librarySearch: Plugin = {
       openSearch(draft, event.seat, {
         source,
         sourceId: String(event.payload?.sourceId ?? ''),
-        via: String(event.payload?.via) === 'ability' ? 'ability' : 'spell',
+        via: String(event.payload?.via) === 'ability'
+          ? 'ability'
+          : String(event.payload?.via) === 'enters'
+            ? 'enters'
+            : 'spell',
         ...(event.payload?.kicked === true ? { kicked: true } : {}),
       })
       return
@@ -173,6 +183,23 @@ export const librarySearch: Plugin = {
       if (item && searchDone(state, item.controller)) {
         delete draft.players[item.controller].data[SEARCH_DONE]
       }
+    }
+
+    const enteredId = enteringObjectId(event, state)
+    const entered = enteredId ? draft.object(enteredId) : undefined
+    const enteredSpec = entered ? entersSpec(entered) : undefined
+    if (entered && enteredSpec && entered.zone === 'battlefield') {
+      draft.enqueue({ type: 'move', objectId: entered.id, to: 'graveyard' })
+      if (enteredSpec.gainLife) {
+        draft.players[entered.controller].life += enteredSpec.gainLife
+        draft.note(`${entered.controller} gains ${enteredSpec.gainLife} life (${entered.name})`)
+      }
+      openSearch(draft, entered.controller, {
+        source: entered.name,
+        sourceId: entered.id,
+        via: 'enters',
+      })
+      return
     }
 
     applyAbility(SEARCH_FETCH, ({ event: ability, draft: next }) => {
