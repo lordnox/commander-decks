@@ -12,6 +12,7 @@ const yurlokOnBoard = () => {
   const state = newGame({
     players: 2,
     battlefield: { p1: [yurlokFixture()] },
+    builtinRules: [...commanderRules.rules, 'activated'],
   })
   const yurlokId = Object.values(state.objects).find((object) => object.name.includes('Yurlok'))!.id
   state.objects[yurlokId].summoningSickness = false

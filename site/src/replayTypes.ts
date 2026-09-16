@@ -49,7 +49,7 @@ export type PlayerState = {
   mana?: Record<string, number>
   library_count: number
   hand_count?: number
-  hand: Array<string | number | BattlefieldCard>
+  hand: Array<string | number>
   battlefield: BattlefieldCard[]
   graveyard: Array<string | number>
   exile: Array<string | number>
