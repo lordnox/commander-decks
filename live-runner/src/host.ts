@@ -15,6 +15,7 @@ import { invokeHostAgent } from './brain'
 import {
   applyKernelAdvance,
   applyKernelChoice,
+  assertAgentKernelBoundary,
   hasKernel,
   kernelActions,
   kernelPath,
@@ -25,6 +26,7 @@ import {
   settleKernelPriority,
   type KernelHandle,
 } from './kernelHost'
+import type { KernelJournal } from '../../rules-engine/src'
 import {
   applyDeterministicChoice,
   enforceHandSize,
@@ -594,6 +596,14 @@ export const runHost = async (options: {
             state.human && state.alwaysStopOnPriority[state.human],
           ),
           logFile,
+          validateKernelChange: kernel
+            ? (candidatePath) => assertAgentKernelBoundary(
+                kernel!,
+                JSON.parse(readFileSync(candidatePath, 'utf8')) as KernelJournal,
+                seat,
+                state.human,
+              )
+            : undefined,
         })
         if (hasKernel(slug, root)) {
           kernel = await openKernel(slug, root, state)

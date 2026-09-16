@@ -229,6 +229,9 @@ Do exactly one host step:
   enter, including the empty ones (\`Upkeep — no triggers.\`), each on its own
   phase. Execute one game action at a time. Stop at the next priority window,
   when information changes, or after a card that asks a hidden-zone choice.
+  Never pass through the human's priority on the human's active turn when they
+  have a legal land, spell, ability, or combat action. Their turn is not part
+  of another seat's confirmed line; stop and return control to the host.
   Hard stops include surveil, scry, explore, connive, clash, impulse, mill-to-
   hand, and "look at the top". Example: playing Shadowy Backstreet — append the
   land entering, then STOP and ask which card goes to the graveyard before
@@ -395,6 +398,7 @@ export const invokeHostAgent = async (options: {
   human?: SeatId
   alwaysStopOnPriority?: boolean
   logFile?: string
+  validateKernelChange?: (candidatePath: string) => void
 }) => {
   const {
     root,
@@ -405,6 +409,7 @@ export const invokeHostAgent = async (options: {
     human,
     alwaysStopOnPriority,
     logFile,
+    validateKernelChange,
   } = options
   const sourceReplay = replayPath(slug, root)
   const sourceKernel = kernelPath(slug, root)
@@ -545,6 +550,7 @@ export const invokeHostAgent = async (options: {
       cpSync(scratchReplay, sourceReplay)
     }
     if (shouldPersistKernelChange(message, kernelChanged)) {
+      validateKernelChange?.(scratchKernel)
       cpSync(scratchKernel, sourceKernel)
     }
     if (result.pluginsChanged) {
