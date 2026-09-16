@@ -82,6 +82,8 @@ const FLAG_COMMANDER = 4
 const FLAG_SUMMONING_SICKNESS = 8
 const HIDDEN = 0
 const ABSENT = 0
+/** Wire order for a packed mana pool. Fixed so older frames stay readable. */
+const MANA_SYMBOLS = ['W', 'U', 'B', 'R', 'G', 'C'] as const
 const ACTION_BITS = {
   plan: 1,
   confirm: 2,
@@ -278,6 +280,20 @@ export const slugsFromSnapshot = (snapshot: LiveSnapshot) => {
   return seatsOf(snapshot).map((seat) => deckSlug(seat.deck))
 }
 
+const packMana = (pool?: Record<string, number>) => {
+  if (!pool) return ABSENT
+  const counts = MANA_SYMBOLS.map((symbol) => pool[symbol] ?? 0)
+  return counts.some((amount) => amount > 0) ? counts : ABSENT
+}
+
+const unpackMana = (value: unknown) => {
+  if (!Array.isArray(value)) return undefined
+  const held = MANA_SYMBOLS
+    .map((symbol, index) => [symbol, Number(value[index]) || 0] as const)
+    .filter(([, amount]) => amount > 0)
+  return held.length > 0 ? Object.fromEntries(held) : undefined
+}
+
 export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
   const seats = seatsOf(snapshot)
   const slugs = slugsFromSnapshot(snapshot)
@@ -302,6 +318,7 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
       seat.revealed_top === undefined
         ? ABSENT
         : seat.revealed_top.map((name) => table.cardRef(name, index)),
+      packMana(seat.mana),
     ]
   })
 
@@ -510,6 +527,8 @@ export const expandLiveWire = (
     if (revealed !== ABSENT) {
       seat.revealed_top = unpackCards(revealed, lists, extras, tokens)
     }
+    const mana = unpackMana(row[9])
+    if (mana) seat.mana = mana
     return seat
   })
 

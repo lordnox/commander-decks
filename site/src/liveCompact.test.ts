@@ -250,6 +250,16 @@ describe('live compact v2', () => {
     })
   })
 
+  test('a floating mana pool survives the wire', () => {
+    const original = snapshot()
+    original.seats[0].mana = { W: 1, B: 2 }
+
+    const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)
+    expect(expanded.seats[0].mana).toEqual({ W: 1, B: 2 })
+    // An untouched seat stays lean rather than shipping six zeroes.
+    expect(expanded.seats[1].mana).toBeUndefined()
+  })
+
   test('private opening keep/mulligan bits and bottom count survive the wire', () => {
     const original = snapshot()
     original.actions = ['keep', 'mulligan']

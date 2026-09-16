@@ -26,6 +26,8 @@ export type LiveSeat = {
   poison?: number
   commander_damage?: Record<string, number>
   commander_tax?: number
+  /** Floating mana, by symbol. Absent whenever the pool is empty. */
+  mana?: Record<string, number>
   library_count: number
   hand_count: number
   hand?: Array<string | number>

@@ -138,6 +138,15 @@ describe('kernel combat projection', () => {
     expect(seats[0].battlefield?.[0].summoningSickness).toBeUndefined()
   })
 
+  test('floating mana reaches the seat panel and an empty pool does not', () => {
+    const { state, lobby } = combatTable()
+    state.players.p1.mana = { W: 1, U: 0, B: 2, R: 0, G: 0, C: 0 }
+
+    const seats = liveSeatsFromState(state, lobby, 'p1')
+    expect(seats[0].mana).toEqual({ W: 1, B: 2 })
+    expect(seats[1].mana).toBeUndefined()
+  })
+
   test('a board outside combat carries no combat block', () => {
     const { state, lobby } = combatTable()
     state.step = 'precombatMain'
