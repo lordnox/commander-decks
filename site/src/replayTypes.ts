@@ -37,6 +37,7 @@ export type BattlefieldCard = {
   attacking?: string
   /** Card name this creature is blocking. */
   blocking?: string
+  objectId?: string
 }
 
 export type PlayerState = {
@@ -48,7 +49,7 @@ export type PlayerState = {
   mana?: Record<string, number>
   library_count: number
   hand_count?: number
-  hand: Array<string | number>
+  hand: Array<string | number | BattlefieldCard>
   battlefield: BattlefieldCard[]
   graveyard: Array<string | number>
   exile: Array<string | number>

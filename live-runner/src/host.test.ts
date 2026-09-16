@@ -62,7 +62,7 @@ describe('kernel host actions', () => {
 
     expect(applyKernelPass(kernel, lobby, 'p2')).toBe(false)
     expect(kernel.journal.events).toHaveLength(0)
-    expect(lobby.actions).toEqual({ p1: ['plan', 'pass', 'advance'] })
+    expect(lobby.actions).toEqual({ p1: ['plan', 'pass', 'act', 'advance'] })
     expect(lobby.judge).toContain('Pass rejected')
   })
 

@@ -35,6 +35,7 @@ export const PLAY_ACTIONS = [
   'mulligan',
   'topdeck',
   'advance',
+  'act',
 ] as const
 export type PlayAction = (typeof PLAY_ACTIONS)[number]
 export type SeatActions = Partial<Record<SeatId, PlayAction[]>>
@@ -61,6 +62,14 @@ type InboxPayload =
       }>
     }
   | { type: 'advance' }
+  | {
+      type: 'act'
+      kind: 'playLand' | 'tapForMana' | 'castSpell' | 'activateAbility'
+      objectId: string
+      abilityId?: string
+      text?: string
+      mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
+    }
   | { type: 'priority-mode'; always: boolean }
   | { type: 'hold'; until: 'my-turn' | 'off' }
   | { type: 'rules'; text: string }
@@ -110,6 +119,10 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     cheat?: unknown
     always?: unknown
     until?: unknown
+    kind?: unknown
+    objectId?: unknown
+    abilityId?: unknown
+    mana?: unknown
   }
   const actionId = typeof message.actionId === 'number' && Number.isSafeInteger(message.actionId)
     ? message.actionId
@@ -149,6 +162,30 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       return parsed({ type: 'mulligan' })
     case 'advance':
       return parsed({ type: 'advance' })
+    case 'act': {
+      const kind = message.kind
+      const objectId = message.objectId
+      const mana = message.mana
+      const abilityId = message.abilityId
+      const text = message.text
+      if (
+        !['playLand', 'tapForMana', 'castSpell', 'activateAbility'].includes(kind as string)
+        || typeof objectId !== 'string'
+        || !objectId
+      ) {
+        return null
+      }
+      return parsed({
+        type: 'act',
+        kind: kind as 'playLand' | 'tapForMana' | 'castSpell' | 'activateAbility',
+        objectId,
+        ...(typeof abilityId === 'string' ? { abilityId } : {}),
+        ...(typeof text === 'string' ? { text } : {}),
+        ...(typeof mana === 'string' && ['W', 'U', 'B', 'R', 'G', 'C'].includes(mana)
+          ? { mana: mana as 'W' | 'U' | 'B' | 'R' | 'G' | 'C' }
+          : {}),
+      })
+    }
     case 'priority-mode':
       return typeof message.always === 'boolean'
         ? { type: 'priority-mode', always: message.always }

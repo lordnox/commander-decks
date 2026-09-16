@@ -76,6 +76,12 @@ describe('inbox', () => {
       type: 'advance',
       actionId: 5,
     })
+    expect(parseInbox('{"type":"act","kind":"playLand","objectId":"o3","actionId":6}')).toEqual({
+      type: 'act',
+      kind: 'playLand',
+      objectId: 'o3',
+      actionId: 6,
+    })
     expect(parseInbox('{"type":"priority-mode","always":true}')).toEqual({
       type: 'priority-mode',
       always: true,

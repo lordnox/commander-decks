@@ -14,6 +14,7 @@ const ACTION_BITS = {
   mulligan: 32,
   topdeck: 64,
   advance: 128,
+  act: 256,
 } as const
 
 const emptyPackedSeat = () => [

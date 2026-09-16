@@ -394,6 +394,13 @@ export const applyInbox = (
     return state
   }
 
+  if (message.type === 'act') {
+    if (state.phase !== 'play') return state
+    state.waiting = `${from} submitted a game action.`
+    setJudge(state, `${from} acts.`)
+    return state
+  }
+
   if (message.type === 'priority-mode') {
     state.human = from
     state.alwaysStopOnPriority = {

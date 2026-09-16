@@ -678,6 +678,10 @@ export const effectsFor = (name: string): CardEffect[] => CARD_RULES[name] ?? []
 export const allHandlerIds = () =>
   [...new Set(Object.values(CARD_RULES).flatMap(handlerIdsFromEffects))].sort()
 
+/** Handlers required by the named cards, not the whole Oracle table. */
+export const handlerIdsForNames = (names: string[]) =>
+  [...new Set(names.flatMap((name) => handlerIdsFromEffects(effectsFor(name))))].sort()
+
 export const effectsOf = (object: { name: string; effects?: CardEffect[] }) =>
   object.effects && object.effects.length > 0 ? object.effects : effectsFor(object.name)
 

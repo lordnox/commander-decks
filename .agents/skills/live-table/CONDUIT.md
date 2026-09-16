@@ -48,14 +48,16 @@ One host-read key: everyone with it sees the same public game. A seat pipe strin
 {"type":"plan","text":"…","actionId":7}
 ```
 
-`type` is `plan` | `confirm` | `pass` | `replace` | `join` | `ready` | `rules` | `talk` | `swap` | `pregame` | `keep` | `mulligan` | `topdeck` | `advance` | `priority-mode` | `hold`.
+`type` is `plan` | `confirm` | `pass` | `replace` | `join` | `ready` | `rules` | `talk` | `swap` | `pregame` | `keep` | `mulligan` | `topdeck` | `advance` | `act` | `priority-mode` | `hold`.
 POST as snapshot (latest wins). Host does not record agent vs human.
 
 `pass` means no game action in the current priority window. `talk` is social
 speech visible to every player; never use it as a pass or host-control message.
-Play actions (`plan`, `replace`, `confirm`, `pass`, `keep`, `mulligan`) must echo the current
+Play actions (`plan`, `replace`, `confirm`, `pass`, `keep`, `mulligan`, `act`) must echo the current
 snapshot `actionId`. The host rejects a missing or stale ID and any action not
-listed in that snapshot's `actions`. `keep` may include `cards` (names to put on
+listed in that snapshot's `actions`. `act` is a kernel-verified card action:
+`{"type":"act","kind":"playLand","objectId":"o12","actionId":7}`. The host
+recomputes `legalActs` and dispatches without a judge. `keep` may include `cards` (names to put on
 the bottom, in order) and `cheat: true` (keep seven anyway, for testing).
 `mulligan` shuffles the hand into the library and draws seven. Commander's first
 mulligan is free; later ones bottom `mulligans - 1` cards.

@@ -13,6 +13,7 @@ import type {
   LiveSeat,
   LiveSnapshot,
 } from '../../site/src/liveCodec'
+import { legalActsFor } from '../../rules-engine/src/index'
 import type { ReplayCombat } from '../../site/src/replayTypes'
 import { SEAT_COLORS } from '../../site/src/liveCompact'
 import type { LobbyState } from './lobby'
@@ -274,6 +275,7 @@ export const liveSeatsFromState = (
         const object = controlledBattlefield(state, seat)[index]
         return {
           ...card,
+          objectId: object?.id,
           ...counterLabels(object),
           ...summoningSicknessLabel(object),
           ...combatLabels(state, lobby, object),
@@ -317,6 +319,9 @@ export const liveSnapshotFromState = (options: {
       ? lobby.actions[viewer]
       : [],
     actionId: viewer ? lobby.actionIds[viewer] : undefined,
+    legalActs: viewer && priority === viewer
+      ? legalActsFor(state, viewer)
+      : undefined,
     topdeck: viewer && lobby.topdeck?.seat === viewer
       ? lobby.topdeck
       : undefined,

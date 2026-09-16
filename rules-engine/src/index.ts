@@ -36,6 +36,9 @@ export const addPlugin = catalog.register
 export {
   availableActions,
   eventsForAvailableAction,
+  legalActsFor,
+  manaAffordances,
+  sameLegalAct,
   type AvailableAction,
 } from './actions'
 export { createCatalog } from './catalog'

@@ -40,6 +40,7 @@ export type LiveWireV2 = {
   H?: Array<[string, number, string, string, LiveSeat[]]>
   hc?: number
   K?: GameState
+  A?: unknown[]
   f?: [number, number]
   l?: [
     string,
@@ -93,6 +94,7 @@ const ACTION_BITS = {
   mulligan: 32,
   topdeck: 64,
   advance: 128,
+  act: 256,
 } as const
 
 const normalize = (name: string) => name.toLowerCase().split(/\s+/).join(' ')
@@ -191,6 +193,7 @@ const packExtra = (entry: BattlefieldCard) => {
     extra.f = entry.face
   }
   if (entry.printed_name) extra.o = entry.printed_name
+  if (entry.objectId) extra.i = entry.objectId
   return Object.keys(extra).length > 0 ? extra : null
 }
 
@@ -415,6 +418,7 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
     wire.hc = snapshot.historyCursor ?? snapshot.history.length - 1
   }
   if (snapshot.replica) wire.K = snapshot.replica
+  if (snapshot.legalActs?.length) wire.A = snapshot.legalActs
   return wire
 }
 
@@ -484,6 +488,7 @@ const unpackBattlefield = (
     }
     if (extra.f !== undefined) entry.face = extra.f as string | number
     if (typeof extra.o === 'string') entry.printed_name = extra.o
+    if (typeof extra.i === 'string') entry.objectId = extra.i
     return [entry]
   })
 }
@@ -662,6 +667,9 @@ export const expandLiveWire = (
     snapshot.historyCursor = wire.hc ?? snapshot.history.length - 1
   }
   if (wire.K) snapshot.replica = wire.K
+  if (Array.isArray(wire.A) && wire.A.length > 0) {
+    snapshot.legalActs = wire.A as LiveSnapshot['legalActs']
+  }
   return snapshot
 }
 
