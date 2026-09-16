@@ -22,7 +22,6 @@ import {
   openKernel,
   publishKernel,
   prepareKernelPendingChoice,
-  prepareKernelStackChoice,
   settleKernelPriority,
   type KernelHandle,
 } from './kernelHost'
@@ -81,7 +80,6 @@ export const applyKernelPass = (
   state: LobbyState,
   seat: SeatId,
 ) => {
-  if (prepareKernelStackChoice(kernel, state, seat)) return true
   const result = kernel.dispatch({ type: 'passPriority', seat })
   const current = kernel.history.current()
   const priority = kernelPriority(current)

@@ -2,17 +2,34 @@ import { expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { createServerGame } from '../runtime'
 import { cardTemplate } from '../newGame'
-import { jointExploration } from './jointExploration'
+import {
+  JOINT_LAND_CHOSEN,
+  JOINT_SCRY_CHOSEN,
+  jointExploration,
+  pendingJointExploration,
+} from './jointExploration'
+import { onResolve } from './onResolve'
 
 const card = (name: string, types: string[], manaCost = '') =>
   cardTemplate(name, { types, manaCost, power: null, toughness: null })
 
-test('Joint Exploration draws after its scry choice has completed', () => {
+test('Joint Exploration completes scry, draw, and kicked land in the kernel', () => {
   const server = createServerGame(commanderRules, {
-    hands: { p1: [card('Joint Exploration', ['Instant'], '{1}{U}')] },
-    libraries: { p1: [card('Drawn Land', ['Land'])] },
-  }, { random: () => 0.5, cardPlugins: [jointExploration] })
-  const state = server.state
+    hands: {
+      p1: [
+        card('Joint Exploration', ['Instant'], '{1}{U}'),
+        card('Hand Land', ['Land']),
+      ],
+    },
+    libraries: {
+      p1: [
+        card('Kept', ['Instant']),
+        card('Bottomed', ['Instant']),
+        card('Drawn', ['Instant']),
+      ],
+    },
+  }, { random: () => 0.5, cardPlugins: [jointExploration, onResolve] })
+  let state = server.state
   const spell = state.zoneOrder.p1.hand[0]
   state.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 1, C: 0 }
   const cast = server.rules(
@@ -22,8 +39,35 @@ test('Joint Exploration draws after its scry choice has completed', () => {
   if (!cast.ok) throw new Error(cast.error)
   expect(cast.state.stack[0].kicked).toBe(true)
 
-  const resolved = server.rules(cast.state, { type: 'resolveTop' })
-  if (!resolved.ok) throw new Error(resolved.error)
-  expect(resolved.state.zoneCounts.p1.hand).toBe(1)
-  expect(resolved.state.log).toContain('p1 resolves Joint Exploration')
+  const opened = server.rules(cast.state, { type: 'resolveTop' })
+  if (!opened.ok) throw new Error(opened.error)
+  state = opened.state
+  expect(pendingJointExploration(state, 'p1')?.stage).toBe('scry')
+  expect(state.stack).toHaveLength(1)
+
+  const bottomed = state.zoneOrder.p1.library[1]
+  for (const event of [
+    { type: 'move', objectId: bottomed, to: 'library', position: 'bottom' } as const,
+    { type: 'custom', name: JOINT_SCRY_CHOSEN, seat: 'p1' } as const,
+    { type: 'resolveTop' } as const,
+  ]) {
+    const result = server.rules(state, event)
+    if (!result.ok) throw new Error(result.error)
+    state = result.state
+  }
+  expect(state.zoneOrder.p1.hand.map((id) => state.objects[id].name))
+    .toEqual(['Hand Land', 'Kept'])
+  expect(pendingJointExploration(state, 'p1')?.stage).toBe('putLand')
+
+  const handLand = Object.values(state.objects).find((object) => object.name === 'Hand Land')!
+  for (const event of [
+    { type: 'move', objectId: handLand.id, to: 'battlefield' } as const,
+    { type: 'custom', name: JOINT_LAND_CHOSEN, seat: 'p1' } as const,
+  ]) {
+    const result = server.rules(state, event)
+    if (!result.ok) throw new Error(result.error)
+    state = result.state
+  }
+  expect(handLand.id && state.objects[handLand.id].zone).toBe('battlefield')
+  expect(pendingJointExploration(state, 'p1')).toBeUndefined()
 })
