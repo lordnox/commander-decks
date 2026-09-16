@@ -57,6 +57,11 @@ export {
 } from './journal'
 export { cardPlugins, grantedRulesFor, missingCardPlugins } from './cardPlugins'
 export {
+  dialogCandidates,
+  pendingDialog,
+  type PendingDialog,
+} from './pendingDialog'
+export {
   abilities,
   applyAbility,
   asManaAbility,

@@ -36,6 +36,8 @@ export type TopdeckDecision = {
     stage: 'scry' | 'put-land' | 'search' | 'library-search' | 'player-targets'
     resumePassSeat?: SeatId
     kicked?: boolean
+    chosenEvent?: string
+    after?: Array<'resolveTop'>
   }
 }
 
