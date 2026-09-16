@@ -219,6 +219,7 @@ export type GameEvent =
       objectId: string
       to: ZoneId
       position?: 'top' | 'bottom'
+      controller?: PlayerId
     }
   | { type: 'tap'; objectId: string }
   | { type: 'untap'; objectId: string }

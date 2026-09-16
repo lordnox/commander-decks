@@ -81,10 +81,10 @@ export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
       .filter((object): object is NonNullable<typeof object> => Boolean(object))
   }
   if (dialog.kind === 'bounce-land' || dialog.kind === 'copy-creature') {
-    return (state.zoneOrder[dialog.seat].battlefield ?? [])
-      .map((id) => state.objects[id])
-      .filter((object): object is NonNullable<typeof object> =>
-        Boolean(object)
+    return Object.values(state.objects)
+      .filter((object) =>
+        object.zone === 'battlefield'
+        && object.controller === dialog.seat
         && (dialog.kind !== 'copy-creature' || object.id !== dialog.sourceId)
         && (!dialog.types || dialog.types.every((type) => object.types.includes(type))))
   }

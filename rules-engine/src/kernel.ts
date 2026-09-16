@@ -100,6 +100,9 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       const leftBattlefield = previous === 'battlefield' && event.to !== 'battlefield'
       const entered = previous !== 'battlefield' && event.to === 'battlefield'
       draft.move(event.objectId, event.to, event.position)
+      object.controller = event.to === 'battlefield'
+        ? event.controller ?? object.controller
+        : object.owner
       if (leftBattlefield) {
         draft.rules = draft.rules.filter((rule) => rule.sourceId !== event.objectId)
         draft.note(`${object.name} leaves battlefield`)
