@@ -35,6 +35,7 @@ export type TopdeckDecision = {
     sourceId: string
     stage:
       | 'scry'
+      | 'look-top'
       | 'put-land'
       | 'put-permanents'
       | 'search'

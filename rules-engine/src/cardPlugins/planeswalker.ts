@@ -31,6 +31,24 @@ const legalAnyTarget = (
   )
 }
 
+const legalTeferiTargets = (
+  state: Parameters<NonNullable<Plugin['legal']>>[0]['state'],
+  targets: TargetRef[],
+) => {
+  if (targets.length > 3 || targets.some((target) => target.kind !== 'object')) return false
+  const candidates = targets.map((target) =>
+    target.kind === 'object' ? state.objects[target.objectId] : undefined)
+  if (candidates.some((object) => !object || object.zone !== 'battlefield')) return false
+  const slots = ['Artifact', 'Creature', 'Land']
+  const assign = (index: number, available: string[]): boolean => {
+    if (index === candidates.length) return true
+    return available.some((slot) =>
+      candidates[index]?.types.includes(slot)
+      && assign(index + 1, available.filter((candidate) => candidate !== slot)))
+  }
+  return assign(0, slots)
+}
+
 const loyaltyChange = (
   effect: NonNullable<ReturnType<typeof loyaltyEffect>>,
   x: number | undefined,
@@ -69,6 +87,10 @@ export const planeswalker: Plugin = {
     if (effect.targets === 'any') {
       if (targets.length !== 1 || !legalAnyTarget(state, targets[0])) {
         return `${source.name} needs one legal target`
+      }
+    } else if (effect.targets === 'teferiSunsetPlusOne') {
+      if (!legalTeferiTargets(state, targets)) {
+        return `${source.name} needs at most one artifact, creature, and land target`
       }
     } else if (targets.length > 0) {
       return `${source.name} does not have a targeted ability`

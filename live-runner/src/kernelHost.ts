@@ -469,7 +469,16 @@ export const applyKernelChoice = (
     settleKernelPriority(kernel, lobby)
     return true
   }
-  if (decision.kernel.stage !== 'scry') return false
+  if (decision.kernel.stage !== 'scry' && decision.kernel.stage !== 'look-top') return false
+  for (const [destination, limits] of Object.entries(decision.requirements ?? {})) {
+    const count = message.choices.filter((choice) => choice.destination === destination).length
+    if (
+      (limits.min !== undefined && count < limits.min)
+      || (limits.max !== undefined && count > limits.max)
+    ) {
+      throw new Error(`Choose the required number of cards for ${destination}.`)
+    }
+  }
   const ids = objectIdsForNames(
     state,
     state.zoneOrder[seat].library.slice(0, decision.cards.length),
@@ -482,6 +491,11 @@ export const applyKernelChoice = (
   for (const choice of ordered.filter(({ destination }) => destination === 'top').reverse()) {
     if (!kernel.dispatch({ type: 'move', objectId: choice.objectId, to: 'library', position: 'top' }).ok) {
       throw new Error(`Could not keep ${choice.card} on top`)
+    }
+  }
+  for (const choice of ordered.filter(({ destination }) => destination === 'hand')) {
+    if (!kernel.dispatch({ type: 'move', objectId: choice.objectId, to: 'hand' }).ok) {
+      throw new Error(`Could not put ${choice.card} into hand`)
     }
   }
   for (const choice of ordered.filter(({ destination }) => destination === 'bottom')) {

@@ -23,6 +23,7 @@ import {
   landfall,
   loyalty,
   loyaltyX,
+  lookTopChooseOne,
   manaIf,
   onResolve,
   otherLands,
@@ -35,6 +36,8 @@ import {
   sharedBasicLandType,
   staticExtraLandPlays,
   staticGrant,
+  teferiSunsetEmblem,
+  teferiSunsetPlusOne,
   targetOnResolve,
   uniqueLandNames,
   type CardEffect,
@@ -325,6 +328,19 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Temple of the False God': [manaIf(controlledLands({ min: 5 }))],
   'Thawing Glaciers': [entersTapped()],
+  'Teferi, Who Slows the Sunset': [
+    ability({
+      id: 'teferi.plus-one',
+      targets: 'teferiSunsetPlusOne',
+    }, loyalty(1), teferiSunsetPlusOne()),
+    ability({
+      id: 'teferi.minus-two',
+    }, loyalty(-2), lookTopChooseOne(3)),
+    ability({
+      id: 'teferi.minus-seven',
+    }, loyalty(-7), teferiSunsetEmblem()),
+    handler('teferiSunset'),
+  ],
   'Three Visits': [
     searchSpell({
       prompt: 'Search your library for a Forest card and put it onto the battlefield.',

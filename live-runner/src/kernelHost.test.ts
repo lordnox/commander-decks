@@ -663,6 +663,48 @@ describe('kernel host journal', () => {
     expect(kernel.history.current().players.p1.data[PENDING_DIALOG]).toBeUndefined()
   })
 
+  test('a look-top dialog moves one card to hand and orders the rest on bottom', () => {
+    const server = createServerGame(commanderRules, {
+      libraries: {
+        p1: ['First', 'Second', 'Third', 'Fourth'].map((name) => ({
+          ...forest(),
+          name,
+        })),
+      },
+    })
+    server.state.players.p1.data[PENDING_DIALOG] = {
+      sourceId: 'teferi',
+      source: 'Teferi, Who Slows the Sunset',
+      seat: 'p1',
+      kind: 'look-top',
+      prompt: 'Choose one for your hand.',
+      waiting: 'is choosing.',
+      judge: 'Waiting.',
+      chosenEvent: DIALOG_CHOSEN,
+      destinations: ['bottom', 'hand'],
+      count: 3,
+      requirements: { hand: { min: 1, max: 1 } },
+    }
+    const kernel = handleFor(server.rules, server.state)
+    const lobby = createLobby()
+
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck?.cards).toEqual(['First', 'Second', 'Third'])
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'First', destination: 'bottom' },
+        { card: 'Second', destination: 'hand' },
+        { card: 'Third', destination: 'bottom' },
+      ],
+    })).toBe(true)
+
+    const state = kernel.history.current()
+    expect(state.zoneOrder.p1.hand.map((id) => state.objects[id].name)).toEqual(['Second'])
+    expect(state.zoneOrder.p1.library.slice(-2).map((id) => state.objects[id].name))
+      .toEqual(['First', 'Third'])
+  })
+
   test('Homer target choices survive in kernel state and mill the selected players', () => {
     const homerCard = {
       ...forest(),

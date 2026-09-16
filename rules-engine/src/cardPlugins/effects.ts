@@ -28,6 +28,9 @@ export type CardInstruction =
   | { kind: 'draw'; count: number }
   | { kind: 'gainLife'; count: number }
   | { kind: 'dealDamageToChosenTarget'; amount: number }
+  | { kind: 'teferiSunsetPlusOne' }
+  | { kind: 'lookTopChooseOne'; count: number }
+  | { kind: 'teferiSunsetEmblem' }
   | { kind: 'exileColoredPermanentsAtMostX' }
   | { kind: 'putPermanentsFromHand'; max: number }
   | { kind: 'discardHandsThenDrawGreatest' }
@@ -87,7 +90,7 @@ export type CardEffect =
       op: 'activate'
       id: string
       manaAbility?: boolean
-      targets?: 'any'
+      targets?: 'any' | 'teferiSunsetPlusOne'
       zone?: ZoneId
       costs: ActivateCost
       if?: CardCondition
@@ -230,6 +233,19 @@ export const loyalty = (amount: number): ActivateCost => ({ loyalty: amount })
 export const loyaltyX = (): ActivateCost => ({ loyalty: 0, loyaltyX: true })
 
 export const gainLife = (count: number): CardInstruction => ({ kind: 'gainLife', count })
+
+export const teferiSunsetPlusOne = (): CardInstruction => ({
+  kind: 'teferiSunsetPlusOne',
+})
+
+export const lookTopChooseOne = (count: number): CardInstruction => ({
+  kind: 'lookTopChooseOne',
+  count,
+})
+
+export const teferiSunsetEmblem = (): CardInstruction => ({
+  kind: 'teferiSunsetEmblem',
+})
 
 export const dealDamageToChosenTarget = (amount: number): CardInstruction => ({
   kind: 'dealDamageToChosenTarget',
@@ -469,6 +485,43 @@ export const runInstructions = (
     }
     if (instruction.kind === 'gainLife') {
       draft.players[source.controller].life += instruction.count
+      continue
+    }
+    if (instruction.kind === 'teferiSunsetPlusOne') {
+      for (const target of item?.targets ?? []) {
+        if (target.kind !== 'object') continue
+        const object = draft.object(target.objectId)
+        if (!object || object.zone !== 'battlefield') continue
+        draft.enqueue({
+          type: object.controller === source.controller ? 'untap' : 'tap',
+          objectId: object.id,
+        })
+      }
+      draft.players[source.controller].life += 2
+      continue
+    }
+    if (instruction.kind === 'lookTopChooseOne') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'look-top',
+        prompt: `Look at the top ${instruction.count} cards. Put one into your hand and the rest on the bottom in any order.`,
+        waiting: 'is making a private top-card choice.',
+        judge: 'Waiting for a private top-card choice.',
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['bottom', 'hand'],
+        count: instruction.count,
+        requirements: { hand: { min: 1, max: 1 } },
+      })
+      continue
+    }
+    if (instruction.kind === 'teferiSunsetEmblem') {
+      draft.enqueue({
+        type: 'custom',
+        name: 'teferiSunset.emblem',
+        seat: source.controller,
+      })
       continue
     }
     if (instruction.kind === 'dealDamageToChosenTarget') {
