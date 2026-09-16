@@ -18,6 +18,8 @@ test('each held color is a counted chip carrying its own color', () => {
   expect(html).toContain('aria-label="2 black mana"')
   expect(html).toContain('bg-amber-50')
   expect(html).toContain('bg-sky-300')
+  // The pool sits at the far edge of the badge row, away from the zone counts.
+  expect(html).toContain('ml-auto')
   // A zero entry is not a floating mana.
   expect(html).not.toContain('green mana')
 })

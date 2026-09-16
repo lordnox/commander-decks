@@ -433,8 +433,9 @@ const MANA_ORDER = ['W', 'U', 'B', 'R', 'G', 'C'] as const
 
 /**
  * Floating mana disappears as soon as it pays for something, so the pool is
- * only worth drawing while a seat is actually holding it. These sit among the
- * hand and library counts, so they render as bare chips rather than a block.
+ * only worth drawing while a seat is actually holding it. It shares the badge
+ * row with the zone counts but claims the far edge, so a pool never reads as
+ * one more count.
  */
 export const ManaPoolBadge = ({ pool }: { pool?: Record<string, number> }) => {
   const held = MANA_ORDER
@@ -443,7 +444,7 @@ export const ManaPoolBadge = ({ pool }: { pool?: Record<string, number> }) => {
   if (held.length === 0) return null
 
   return (
-    <>
+    <div className="ml-auto flex flex-wrap items-center gap-2">
       {held.map(([symbol, amount]) => (
         <span
           key={symbol}
@@ -456,7 +457,7 @@ export const ManaPoolBadge = ({ pool }: { pool?: Record<string, number> }) => {
           {amount}
         </span>
       ))}
-    </>
+    </div>
   )
 }
 
@@ -554,7 +555,6 @@ export const SeatPanel = ({
         <span className="rounded-full bg-white/5 px-2.5 py-1">
           {state.library_count} library
         </span>
-        <ManaPoolBadge pool={state.mana} />
         {!!state.poison && (
           <span className="rounded-full bg-lime-500/15 px-2.5 py-1 text-lime-200">
             {state.poison} poison
@@ -573,6 +573,7 @@ export const SeatPanel = ({
             {damage} from {commanderLabel(source)}
           </span>
         ))}
+        <ManaPoolBadge pool={state.mana} />
       </div>
 
       <Zone
