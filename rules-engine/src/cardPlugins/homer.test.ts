@@ -8,6 +8,7 @@ import {
   HOMER_NAME,
   homer,
 } from './homer'
+import { PERMANENT_ENTERED } from './entersTapped'
 import { pendingPlayerTargets } from './playerTargets'
 
 const card = (name: string, types: string[], subtypes: string[] = []) =>
@@ -41,6 +42,38 @@ const game = () => createServerGame(
 )
 
 describe(HOMER_NAME, () => {
+  test('triggers when a land token enters', () => {
+    const tokenLand = { ...card('Land Token', ['Land']), token: true }
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [card(HOMER_NAME, ['Creature'], ['Crab']), tokenLand] } },
+      { random: () => 0, cardPlugins: [homer] },
+    )
+    const tokenId = server.state.zoneOrder.p1.battlefield[1]
+    const triggered = ok(server.rules(server.state, {
+      type: 'custom',
+      name: PERMANENT_ENTERED,
+      seat: 'p1',
+      payload: { objectId: tokenId },
+    }))
+
+    expect(pendingPlayerTargets(triggered)?.source).toBe(HOMER_NAME)
+  })
+
+  test('triggers when a land spell resolves', () => {
+    const server = game()
+    const landId = server.state.zoneOrder.p1.hand[0]
+    const cast = ok(server.rules(server.state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: landId,
+    }))
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+
+    expect(resolved.objects[landId].zone).toBe('battlefield')
+    expect(pendingPlayerTargets(resolved)?.source).toBe(HOMER_NAME)
+  })
+
   test('landfall waits for any number of player targets, then mills each target', () => {
     const server = game()
     const landId = server.state.zoneOrder.p1.hand[0]

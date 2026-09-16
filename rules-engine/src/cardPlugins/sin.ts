@@ -114,11 +114,8 @@ export const sin: Plugin = {
     }
   },
   apply: ({ state, event, draft }) => {
-    const enteredId = enteringObjectId(event)
-    const resolvedPermanent = event.type === 'resolveTop'
-      ? state.stack[0]?.objectId
-      : undefined
-    const entered = draft.object(enteredId ?? resolvedPermanent ?? '')
+    const enteredId = enteringObjectId(event, state)
+    const entered = draft.object(enteredId ?? '')
     if (entered?.zone === 'battlefield' && entered.name === SIN_NAME) {
       putTriggerOnStack(draft, entered)
     }
