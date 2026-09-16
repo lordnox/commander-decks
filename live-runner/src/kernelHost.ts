@@ -81,12 +81,19 @@ export type KernelHandle = {
  * Judge agents work on a scratch copy of the journal. Validate their appended
  * events before replacing the authoritative copy so one seat's confirmed line
  * cannot pass through a real decision on the human's turn.
+ *
+ * A response window is the same violation in a smaller shape: the judge once
+ * read Eva's board itself, decided a counterspell was unaffordable, and passed
+ * her priority inside another seat's line. The kernel already knows what the
+ * human may legally do, so events after that window are dropped and the human
+ * is asked instead.
  */
 export const assertAgentKernelBoundary = (
   kernel: KernelHandle,
   candidate: KernelJournal,
   actingSeat: SeatId,
   human?: SeatId,
+  options: { held?: boolean } = {},
 ) => {
   const source = kernel.journal
   if (JSON.stringify(candidate.initial) !== JSON.stringify(source.initial)) {
@@ -102,19 +109,29 @@ export const assertAgentKernelBoundary = (
   }
 
   const history = restoreJournal(createJournal(kernel.history.current()), kernel.rules)
-  for (const event of candidate.events.slice(source.events.length)) {
+  const appended = candidate.events.slice(source.events.length)
+  const kept: GameEvent[] = []
+  for (const event of appended) {
     const current = history.current()
     if (
       human
       && actingSeat !== human
-      && current.active === human
+      && !options.held
       && kernelPriority(current) === human
       && availableActions(current, human).length > 0
     ) {
-      throw new Error(`host agent crossed an actionable ${human} turn`)
+      if (current.active === human) {
+        throw new Error(`host agent crossed an actionable ${human} turn`)
+      }
+      break
     }
     const result = history.dispatch(event)
     if (!result.ok) throw new Error(`host agent appended an illegal event: ${result.error}`)
+    kept.push(event)
+  }
+  return {
+    journal: { ...candidate, events: [...source.events, ...kept] },
+    trimmed: appended.length - kept.length,
   }
 }
 

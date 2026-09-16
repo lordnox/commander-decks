@@ -29,6 +29,14 @@ const untappedSources = (state: GameState, seat: PlayerId) =>
     .filter((object) => object && !object.tapped && producesMana(object))
     .map((object) => object.name)
 
+/**
+ * The action list is written for whoever holds priority. A responder is only
+ * interesting before priority reaches them, so ask the same question with the
+ * window moved to that seat.
+ */
+const actionsIfPriority = (state: GameState, seat: PlayerId) =>
+  availableActions(state.priority === seat ? state : { ...state, priority: seat }, seat)
+
 const actionText = (action: AvailableAction) => {
   if (action.kind === 'playLand') return `play ${action.name}`
   if (action.kind === 'castSpell') return `cast ${action.name}`
@@ -44,7 +52,7 @@ const actionText = (action: AvailableAction) => {
  * it", and a wrong guess rejected legal lines. These are the few facts it kept
  * getting wrong, computed from the authoritative state instead.
  */
-export const kernelFacts = (state: GameState, seat: SeatId) => {
+export const kernelFacts = (state: GameState, seat: SeatId, human?: SeatId) => {
   const round = Math.floor((state.turn - 1) / state.playerOrder.length) + 1
   const seats = state.playerOrder.map((id) => {
     const player = state.players[id]
@@ -55,6 +63,10 @@ export const kernelFacts = (state: GameState, seat: SeatId) => {
   const stack = state.stack.length > 0
     ? state.stack.map((item) => item.name).join(', ')
     : 'empty'
+  const responders = state.playerOrder
+    .filter((id) => id !== seat && !state.players[id].lost)
+    .map((id) => ({ id, actions: actionsIfPriority(state, id) }))
+    .filter((entry) => entry.actions.length > 0)
 
   return [
     'Authoritative table state, computed by the host from the kernel. Trust it',
@@ -72,5 +84,18 @@ export const kernelFacts = (state: GameState, seat: SeatId) => {
       actions.map(actionText).join('; ') || 'none'
     }.`,
     'A line built only from those actions must not be rejected as illegal.',
+    `Other seats the kernel currently offers an action: ${
+      responders
+        .map((entry) => `${entry.id} (${
+          entry.id === human
+            ? entry.actions.map(actionText).join('; ')
+            : `${entry.actions.length} action(s)`
+        })`)
+        .join(', ') || 'none'
+    }.`,
+    'Those seats can afford something here, whatever their board looks like to',
+    'you. Do not pass priority for them and do not rule their answer too',
+    'expensive: open a window naming them and wait. The host drops any event you',
+    'append past the human seat\'s own open response window.',
   ].join('\n')
 }
