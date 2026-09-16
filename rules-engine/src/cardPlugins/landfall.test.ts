@@ -1,35 +1,12 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import type { CardTemplate } from '../newGame'
+import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
 import { landfall } from './landfall'
 
-const card = (
-  name: string,
-  types: string[],
-  extra: Partial<CardTemplate> = {},
-): CardTemplate => ({
-  name,
-  types,
-  subtypes: [],
-  supertypes: [],
-  manaCost: '',
-  oracleText: '',
-  power: null,
-  toughness: null,
-  grantedRules: [],
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  token: false,
-  tags: [],
-  ...extra,
-})
+const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
+  cardTemplate(name, { types, power: null, toughness: null, ...extra })
 
 const forest = (name = 'Forest') => card(name, ['Land'], { subtypes: ['Forest'] })
 

@@ -1,35 +1,12 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import type { CardTemplate } from '../newGame'
+import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
 import { SIN_NAME, sin } from './sin'
 
-const card = (
-  name: string,
-  types: string[],
-  extra: Partial<CardTemplate> = {},
-): CardTemplate => ({
-  name,
-  types,
-  subtypes: [],
-  supertypes: [],
-  manaCost: '',
-  oracleText: '',
-  power: types.includes('Creature') ? 1 : null,
-  toughness: types.includes('Creature') ? 1 : null,
-  grantedRules: [],
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  token: false,
-  tags: [],
-  ...extra,
-})
+const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
+  cardTemplate(name, { types, ...extra })
 
 const sinCard = () => card(SIN_NAME, ['Creature'], {
   subtypes: ['Leviathan', 'Avatar'],

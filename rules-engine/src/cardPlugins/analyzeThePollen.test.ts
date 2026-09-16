@@ -1,33 +1,15 @@
 import { expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { createServerGame } from '../runtime'
-import type { CardTemplate } from '../newGame'
+import { cardTemplate } from '../newGame'
 import {
   analyzeThePollen,
   ANALYZE_THE_POLLEN_CHOSEN,
   ANALYZE_THE_POLLEN_SEARCH,
 } from './analyzeThePollen'
 
-const card = (name: string, types: string[], manaCost = ''): CardTemplate => ({
-  name,
-  types,
-  manaCost,
-  subtypes: [],
-  supertypes: [],
-  oracleText: '',
-  power: null,
-  toughness: null,
-  grantedRules: [],
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  token: false,
-  tags: [],
-})
+const card = (name: string, types: string[], manaCost = '') =>
+  cardTemplate(name, { types, manaCost, power: null, toughness: null })
 
 test('Analyze the Pollen stays on the stack until its library search is chosen', () => {
   const server = createServerGame(commanderRules, {

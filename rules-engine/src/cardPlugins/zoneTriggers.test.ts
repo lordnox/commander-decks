@@ -1,30 +1,11 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import type { CardTemplate } from '../newGame'
+import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { ReduceResult } from '../types'
 import { zoneTriggers } from './zoneTriggers'
 
-const card = (name: string, types: string[]): CardTemplate => ({
-  name,
-  types,
-  subtypes: [],
-  supertypes: [],
-  manaCost: '',
-  oracleText: '',
-  power: types.includes('Creature') ? 1 : null,
-  toughness: types.includes('Creature') ? 1 : null,
-  grantedRules: [],
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  token: false,
-  tags: [],
-})
+const card = (name: string, types: string[]) => cardTemplate(name, { types })
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
