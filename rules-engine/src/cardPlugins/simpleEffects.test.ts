@@ -14,6 +14,13 @@ const ok = (result: ReduceResult) => {
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
+const land = (name: string) => cardTemplate(name, {
+  types: ['Land'],
+  tapProduces: { G: 1 },
+})
+
+const creature = (name: string) => cardTemplate(name, { types: ['Creature'] })
+
 describe('simple card effects', () => {
   test('Zagoth Triome cycling requires three mana and resolves from hand', () => {
     const triome = cardTemplate('Zagoth Triome', {
@@ -77,10 +84,6 @@ describe('simple card effects', () => {
   })
 
   test('Temple of the False God produces mana only with five lands', () => {
-    const land = (name: string) => cardTemplate(name, {
-      types: ['Land'],
-      tapProduces: { G: 1 },
-    })
     const temple = cardTemplate('Temple of the False God', {
       types: ['Land'],
       tapProduces: { C: 2 },
@@ -122,14 +125,16 @@ describe('simple card effects', () => {
 
   test('Windfall discards every hand and draws the greatest discarded count', () => {
     const windfall = cardTemplate('Windfall', { types: ['Sorcery'], manaCost: '{2}{U}' })
-    const card = (name: string) => cardTemplate(name, { types: ['Creature'] })
     const server = createServerGame(
       commanderRules,
       {
-        hands: { p1: [windfall, card('P1 card')], p2: [card('P2 a'), card('P2 b'), card('P2 c')] },
+        hands: {
+          p1: [windfall, creature('P1 card')],
+          p2: [creature('P2 a'), creature('P2 b'), creature('P2 c')],
+        },
         libraries: {
-          p1: [card('P1 draw 1'), card('P1 draw 2'), card('P1 draw 3')],
-          p2: [card('P2 draw 1'), card('P2 draw 2'), card('P2 draw 3')],
+          p1: [creature('P1 draw 1'), creature('P1 draw 2'), creature('P1 draw 3')],
+          p2: [creature('P2 draw 1'), creature('P2 draw 2'), creature('P2 draw 3')],
         },
       },
       { random: () => 0.5, cardPlugins: [onResolve] },
