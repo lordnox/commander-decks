@@ -406,11 +406,33 @@ const replayPhase = (step: StepId) => {
   return step
 }
 
+const loyaltyActivationLabel = (abilityId?: string) => {
+  const match = abilityId?.match(/\.(plus|minus)-(one|two|seven|ten|x)$/)
+  if (!match) return
+  const values: Record<string, string> = {
+    one: '1',
+    two: '2',
+    seven: '7',
+    ten: '10',
+    x: 'X',
+  }
+  return `${match[1] === 'plus' ? '+' : '−'}${values[match[2]]} loyalty activation`
+}
+
 export const replayComparableState = (state: GameState) => ({
   active: state.active,
   turn: Math.floor((state.turn - 1) / state.playerOrder.length) + 1,
   phase: replayPhase(state.step),
-  stack: state.stack.map((item) => ({ name: item.name })),
+  stack: state.stack.map((item) => {
+    const source = state.objects[item.objectId]
+    const text = item.kind === 'ability' ? loyaltyActivationLabel(item.abilityId) : undefined
+    return {
+      name: source?.name ?? item.name,
+      kind: item.kind,
+      controller: item.controller,
+      ...(text ? { text } : {}),
+    }
+  }),
   players: Object.fromEntries(state.playerOrder.map((seat) => {
     const player = state.players[seat]
     const names = (zone: GameObject['zone']) =>

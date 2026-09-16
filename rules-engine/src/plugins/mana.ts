@@ -1,6 +1,21 @@
 import { addPools, emptyMana } from '../draft'
-import type { Plugin } from '../types'
+import type { ManaId, Plugin } from '../types'
 import { payCost } from './spells'
+
+const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
+
+const chosenPool = (
+  object: { oracleText: string; tapProduces?: Partial<Record<ManaId, number>> },
+  mana?: ManaId,
+) => {
+  if (!mana) return object.tapProduces
+  if (/one mana of any color/i.test(object.oracleText) && mana !== 'C') {
+    return { [mana]: 1 }
+  }
+  const symbols = [...object.oracleText.matchAll(/Add[^.\n]*\{([WUBRGC])\}/gi)]
+    .map((match) => match[1].toUpperCase() as ManaId)
+  if (symbols.includes(mana)) return { [mana]: 1 }
+}
 
 const legal: Plugin['legal'] = ({ state, event }) => {
   if (event.type !== 'tapForMana') return
@@ -9,7 +24,14 @@ const legal: Plugin['legal'] = ({ state, event }) => {
   if (object.zone !== 'battlefield') return `${object.name} is not on the battlefield`
   if (object.controller !== event.seat) return `${event.seat} does not control ${object.name}`
   if (object.tapped) return `${object.name} is already tapped`
-  if (!object.tapProduces) return `${object.name} has no mana ability`
+  if (!chosenPool(object, event.mana)) {
+    if (event.mana && MANA_IDS.includes(event.mana)) {
+      return `${object.name} cannot produce ${event.mana}`
+    }
+    return /one mana of any color/i.test(object.oracleText)
+      ? `${object.name} needs a mana color`
+      : `${object.name} has no mana ability`
+  }
   if (object.types.includes('Creature') && object.summoningSickness) {
     return `${object.name} has summoning sickness`
   }
@@ -18,10 +40,12 @@ const legal: Plugin['legal'] = ({ state, event }) => {
 const apply: Plugin['apply'] = ({ event, draft }) => {
   if (event.type === 'tapForMana') {
     const object = draft.object(event.objectId)
-    if (!object?.tapProduces) return
+    if (!object) return
+    const pool = chosenPool(object, event.mana)
+    if (!pool) return
     object.tapped = true
     const player = draft.players[event.seat]
-    player.mana = addPools(player.mana, object.tapProduces)
+    player.mana = addPools(player.mana, pool)
     draft.note(`${event.seat} taps ${object.name} for mana`)
     return
   }

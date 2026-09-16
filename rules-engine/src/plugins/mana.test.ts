@@ -69,6 +69,31 @@ describe('mana', () => {
     expect(result.ok === false && result.error).toContain('no mana ability')
   })
 
+  test('Phial of Galadriel produces the chosen color without judge fallback', () => {
+    const phial = {
+      ...bears(),
+      name: 'Phial of Galadriel',
+      types: ['Artifact'],
+      oracleText: '{T}: Add one mana of any color.',
+      tapProduces: undefined,
+    }
+    const state = newGame({ builtinRules: ['mana'], battlefield: { p1: [phial] } })
+    const objectId = idOf(state, 'Phial of Galadriel', 'battlefield')
+
+    const missingChoice = rules(state, { type: 'tapForMana', seat: 'p1', objectId }, catalog)
+    expect(missingChoice.ok).toBe(false)
+    expect(missingChoice.ok === false && missingChoice.error).toContain('needs a mana color')
+
+    const next = ok(rules(state, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId,
+      mana: 'U',
+    }, catalog))
+    expect(next.players.p1.mana.U).toBe(1)
+    expect(next.objects[objectId].tapped).toBe(true)
+  })
+
   test('a summoning sick mana creature cannot be tapped', () => {
     const state = newGame({
       builtinRules: ['mana'],
