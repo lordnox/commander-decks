@@ -52,9 +52,6 @@ export type SearchSpec = {
   min: number
   max: number
   reveal?: boolean
-  life?: number
-  manaCost?: string
-  sacrifice?: boolean
   validateSelection?: (objects: GameObject[]) => string | void
   untapWithFourLands?: boolean
 }
@@ -75,7 +72,8 @@ export type CardEffect =
       if?: CardCondition
       do: CardInstruction[]
     }
-  | { op: 'search'; via: 'spell' | 'ability'; spec: SearchSpec }
+  | { op: 'search'; via: 'spell'; spec: SearchSpec }
+  | { op: 'search'; via: 'ability'; spec: SearchSpec; costs: ActivateCost }
   | { op: 'static'; pluginId?: string; extraLandPlays?: number }
   | { op: 'handler'; pluginId: string }
 
@@ -192,10 +190,11 @@ export const searchSpell = (spec: SearchSpec): CardEffect => ({
   spec,
 })
 
-export const searchAbility = (spec: SearchSpec): CardEffect => ({
+export const searchAbility = (spec: SearchSpec, costs: ActivateCost): CardEffect => ({
   op: 'search',
   via: 'ability',
   spec,
+  costs,
 })
 
 export const basicLand = (object: GameObject) =>

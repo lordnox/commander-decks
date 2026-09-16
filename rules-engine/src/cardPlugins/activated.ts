@@ -1,10 +1,13 @@
 import { payCost } from '../plugins/spells'
+import type Draft from '../draft'
+import type { GameObject, PlayerId } from '../types'
 import type { Plugin } from '../types'
 import {
   activateEffect,
   conditionHolds,
   millLibrary,
   runInstructions,
+  type ActivateCost,
 } from './effects'
 import { effectsOf } from './cardRules'
 
@@ -14,6 +17,28 @@ export const GHOST_TOWN_RETURN = 'selfBounceLand.ghostTown'
 export const OBORO_RETURN = 'selfBounceLand.oboro'
 export const AFTERMATH_RECLAIM = 'graveyardLands.aftermath'
 export const YURLOK_MANA_RAIN = 'yurlok.mana-rain'
+
+export const payActivateCosts = (
+  draft: Draft,
+  source: GameObject,
+  seat: PlayerId,
+  costs: ActivateCost,
+) => {
+  if (costs.mana) draft.enqueue({ type: 'payMana', seat, cost: costs.mana })
+  if (costs.life) {
+    draft.enqueue({
+      type: 'loseLife',
+      seat,
+      amount: costs.life,
+      source: source.name,
+    })
+  }
+  if (costs.tap) draft.enqueue({ type: 'tap', objectId: source.id })
+  if (costs.mill) millLibrary(draft, seat, costs.mill)
+  if (costs.sacrifice) {
+    draft.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })
+  }
+}
 
 export const activated: Plugin = {
   id: 'activated',
@@ -68,22 +93,7 @@ export const activated: Plugin = {
     if (!source) return
     const effect = activateEffect(effectsOf(source), event.abilityId)
     if (!effect) return
-    if (effect.costs.mana) {
-      draft.enqueue({ type: 'payMana', seat: event.seat, cost: effect.costs.mana })
-    }
-    if (effect.costs.life) {
-      draft.enqueue({
-        type: 'loseLife',
-        seat: event.seat,
-        amount: effect.costs.life,
-        source: source.name,
-      })
-    }
-    if (effect.costs.tap) draft.enqueue({ type: 'tap', objectId: source.id })
-    if (effect.costs.mill) millLibrary(draft, event.seat, effect.costs.mill)
-    if (effect.costs.sacrifice) {
-      draft.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })
-    }
+    payActivateCosts(draft, source, event.seat, effect.costs)
     runInstructions(draft, source, effect.do)
     draft.note(`${event.seat} activates ${source.name}`)
   },
