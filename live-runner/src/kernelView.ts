@@ -202,6 +202,16 @@ const counterLabels = (object?: GameObject) =>
     ? { counters: { ...object.counters } }
     : {}
 
+/**
+ * Floating mana is public, but it only exists between a tap and the spell it
+ * pays for. Send it only when something is actually held so an empty pool costs
+ * nothing on the wire.
+ */
+const manaLabel = (pool: Record<string, number>) => {
+  const held = Object.entries(pool).filter(([, amount]) => amount > 0)
+  return held.length > 0 ? { mana: Object.fromEntries(held) } : {}
+}
+
 const summoningSicknessLabel = (object?: GameObject) =>
   object?.types.includes('Creature') && object.summoningSickness
     ? { summoningSickness: true }
@@ -251,6 +261,7 @@ export const liveSeatsFromState = (
       life: player.life,
       poison: player.poison,
       commander_tax: 0,
+      ...manaLabel(state.players[playerId].mana),
       library_count: player.library_count,
       hand_count: state.zoneCounts[seat].hand,
       ...(handHidden ? {} : { hand: player.hand }),

@@ -410,6 +410,44 @@ export const Battlefield = ({
   )
 }
 
+const MANA_STYLES: Record<string, string> = {
+  W: 'bg-amber-50 text-ink-950',
+  U: 'bg-sky-300 text-ink-950',
+  B: 'bg-ink-950 text-stone-200 ring-1 ring-white/25',
+  R: 'bg-red-400 text-ink-950',
+  G: 'bg-emerald-400 text-ink-950',
+  C: 'bg-stone-400 text-ink-950',
+}
+
+/**
+ * Floating mana disappears as soon as it pays for something, so the pool is
+ * only worth drawing while a seat is actually holding it.
+ */
+export const ManaPoolBadge = ({ pool }: { pool?: Record<string, number> }) => {
+  const held = Object.entries(pool ?? {}).filter(([, amount]) => amount > 0)
+  if (held.length === 0) return null
+
+  const total = held.reduce((sum, [, amount]) => sum + amount, 0)
+  return (
+    <div
+      className="mt-2 flex flex-wrap items-center justify-end gap-1"
+      aria-label={`Mana pool: ${held.map(([symbol, amount]) => `${amount} ${symbol}`).join(', ')}`}
+      title={`${total} floating mana`}
+    >
+      {held.map(([symbol, amount]) => (
+        <span
+          key={symbol}
+          className={`flex size-5 items-center justify-center rounded-full text-[0.62rem] font-bold shadow ${
+            MANA_STYLES[symbol] ?? MANA_STYLES.C
+          }`}
+        >
+          {amount > 1 ? `${amount}${symbol}` : symbol}
+        </span>
+      ))}
+    </div>
+  )
+}
+
 export const SeatPanel = ({
   game,
   seat,
@@ -494,6 +532,7 @@ export const SeatPanel = ({
           <p className="mt-1 text-[0.62rem] font-bold uppercase tracking-wider text-stone-500">
             life
           </p>
+          <ManaPoolBadge pool={state.mana} />
         </div>
       </header>
 
