@@ -268,6 +268,63 @@ describe('librarySearch', () => {
     expect(searchSpecFor('Evolving Wilds')?.tapped).toBe(true)
   })
 
+  test('a Hideout sacrifices itself, gains life, and completes its typed basic search', () => {
+    const server = game({
+      hand: [card('Brokers Hideout', ['Land'])],
+      library: [
+        forest(),
+        island(),
+        card('Wastes', ['Land'], { supertypes: ['Basic'] }),
+      ],
+    })
+    const hideout = server.state.zoneOrder.p1.hand[0]
+    const opened = ok(server.rules(server.state, {
+      type: 'playLand',
+      seat: 'p1',
+      objectId: hideout,
+    }))
+
+    expect(opened.objects[hideout].zone).toBe('graveyard')
+    expect(opened.players.p1.life).toBe(41)
+    expect(pendingSearch(opened, 'p1')).toMatchObject({
+      source: 'Brokers Hideout',
+      via: 'enters',
+    })
+    expect(searchCandidates(
+      opened,
+      'p1',
+      searchSpecFor('Brokers Hideout')!,
+    ).map((object) => object.name)).toEqual(['Forest', 'Island'])
+
+    const found = named(opened, 'Forest').id
+    const resolved = run(server, opened, [
+      { type: 'move', objectId: found, to: 'battlefield' },
+      { type: 'tap', objectId: found },
+      { type: 'shuffleLibrary', seat: 'p1' },
+      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+    ])
+    expect(resolved.objects[found].zone).toBe('battlefield')
+    expect(resolved.objects[found].tapped).toBe(true)
+    expect(searchingSeat(resolved)).toBeUndefined()
+  })
+
+  test('a Hideout search does not expose library identities to another seat', () => {
+    const server = game({
+      hand: [card('Obscura Storefront', ['Land'])],
+      library: [island()],
+    })
+    const opened = ok(server.rules(server.state, {
+      type: 'playLand',
+      seat: 'p1',
+      objectId: server.state.zoneOrder.p1.hand[0],
+    }))
+    const projected = server.project(opened, 'p2')
+
+    expect(projected.zoneOrder.p1.library).toEqual([])
+    expect(Object.values(projected.objects).some((object) => object.name === 'Island')).toBe(false)
+    expect(pendingSearch(projected, 'p1')?.source).toBe('Obscura Storefront')
+  })
+
   test('Blighted Woodland requires and pays four mana', () => {
     const server = game({
       battlefield: [card('Blighted Woodland', ['Land'])],

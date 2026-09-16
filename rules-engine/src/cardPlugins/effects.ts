@@ -61,6 +61,7 @@ export type SearchSpec = {
   min: number
   max: number
   reveal?: boolean
+  gainLife?: number
   validateSelection?: (objects: GameObject[]) => string | void
   untapWithFourLands?: boolean
 }
@@ -84,6 +85,7 @@ export type CardEffect =
     }
   | { op: 'search'; via: 'spell'; spec: SearchSpec }
   | { op: 'search'; via: 'ability'; spec: SearchSpec; costs: ActivateCost }
+  | { op: 'search'; via: 'enters'; spec: SearchSpec }
   | { op: 'static'; pluginId?: string; extraLandPlays?: number }
   | { op: 'handler'; pluginId: string }
 
