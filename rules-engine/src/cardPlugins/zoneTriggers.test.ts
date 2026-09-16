@@ -3,6 +3,7 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { ReduceResult } from '../types'
+import { createTokenInstruction, enters } from './effects'
 import { zoneTriggers } from './zoneTriggers'
 
 const card = (name: string, types: string[]) => cardTemplate(name, { types })
@@ -13,6 +14,33 @@ const ok = (result: ReduceResult) => {
 }
 
 describe("Stitcher's Supplier", () => {
+  test('an ETB token instruction creates a token through the shared runner', () => {
+    const maker = {
+      ...card('Test Token Maker', ['Creature']),
+      effects: [enters(createTokenInstruction({
+        name: 'Saproling',
+        types: ['Creature'],
+        subtypes: ['Saproling'],
+        power: 1,
+        toughness: 1,
+      }))],
+    }
+    const server = createServerGame(
+      commanderRules,
+      { hands: { p1: [maker] } },
+      { random: () => 0.5, cardPlugins: [zoneTriggers] },
+    )
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    const entered = ok(server.rules(server.state, {
+      type: 'move',
+      objectId,
+      to: 'battlefield',
+    }))
+
+    expect(entered.zoneOrder.p1.battlefield.map((id) => entered.objects[id].name))
+      .toEqual(['Test Token Maker', 'Saproling'])
+  })
+
   test('mills three on enter and three on death, but not when bounced', () => {
     const server = createServerGame(
       commanderRules,

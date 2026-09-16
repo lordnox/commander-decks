@@ -39,6 +39,16 @@ const playTopLand = (server: ReturnType<typeof game>) => {
 }
 
 describe('landfall', () => {
+  test('Aesi draws through the shared instruction runner', () => {
+    const server = game({
+      hand: [forest()],
+      battlefield: [card('Aesi, Tyrant of Gyre Strait', ['Creature'])],
+      library: [card('Drawn', ['Instant'])],
+    })
+    const next = playTopLand(server)
+    expect(next.zoneOrder.p1.hand.map((id) => next.objects[id].name)).toEqual(['Drawn'])
+  })
+
   test('Mole Man creates one Moloid for each land entry', () => {
     const server = game({
       hand: [forest()],
