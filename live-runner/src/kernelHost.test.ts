@@ -26,6 +26,10 @@ import {
 import { HOMER_NAME, homer } from '../../rules-engine/src/cardPlugins/homer'
 import { jointExploration } from '../../rules-engine/src/cardPlugins/jointExploration'
 import { onResolve } from '../../rules-engine/src/cardPlugins/onResolve'
+import {
+  DIALOG_CHOSEN,
+  PENDING_DIALOG,
+} from '../../rules-engine/src/pendingDialog'
 import { createLobby } from './lobby'
 import {
   applyKernelAdvance,
@@ -557,6 +561,50 @@ describe('kernel host journal', () => {
       objectId: land.id,
       to: 'battlefield',
     })
+  })
+
+  test('a generic pending dialog can put several permanent cards from hand', () => {
+    const cards = ['First Permanent', 'Second Permanent'].map((name) => ({
+      ...forest(),
+      name,
+      types: ['Artifact'],
+      subtypes: [],
+      supertypes: [],
+      tapProduces: undefined,
+    }))
+    const server = createServerGame(commanderRules, { hands: { p1: cards } })
+    server.state.players.p1.data[PENDING_DIALOG] = {
+      sourceId: 'source',
+      source: 'A resolving ability',
+      seat: 'p1',
+      kind: 'put-permanents',
+      prompt: 'Choose up to two permanents.',
+      waiting: 'is choosing permanents.',
+      judge: 'Waiting for permanents.',
+      chosenEvent: DIALOG_CHOSEN,
+      destinations: ['hand', 'battlefield'],
+      permanent: true,
+      optional: true,
+      requirements: { battlefield: { max: 2 } },
+    }
+    const kernel = handleFor(server.rules, server.state)
+    const lobby = createLobby()
+
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      kind: 'put-permanents',
+      cards: ['First Permanent', 'Second Permanent'],
+    })
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'First Permanent', destination: 'battlefield' },
+        { card: 'Second Permanent', destination: 'battlefield' },
+      ],
+    })).toBe(true)
+
+    expect(kernel.history.current().zoneOrder.p1.battlefield).toHaveLength(2)
+    expect(kernel.history.current().players.p1.data[PENDING_DIALOG]).toBeUndefined()
   })
 
   test('Homer target choices survive in kernel state and mill the selected players', () => {

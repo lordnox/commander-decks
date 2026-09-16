@@ -33,7 +33,13 @@ export type TopdeckDecision = {
   >>
   kernel?: {
     sourceId: string
-    stage: 'scry' | 'put-land' | 'search' | 'library-search' | 'player-targets'
+    stage:
+      | 'scry'
+      | 'put-land'
+      | 'put-permanents'
+      | 'search'
+      | 'library-search'
+      | 'player-targets'
     resumePassSeat?: SeatId
     kicked?: boolean
     chosenEvent?: string

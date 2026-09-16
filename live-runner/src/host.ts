@@ -494,6 +494,8 @@ export const runHost = async (options: {
       && kernel
       && (
         state.topdeck?.kernel?.stage === 'scry'
+        || state.topdeck?.kernel?.stage === 'put-land'
+        || state.topdeck?.kernel?.stage === 'put-permanents'
         || state.topdeck?.kernel?.stage === 'search'
         || state.topdeck?.kernel?.stage === 'library-search'
         || state.topdeck?.kernel?.stage === 'player-targets'

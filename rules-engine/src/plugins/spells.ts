@@ -116,15 +116,6 @@ export const spells: Plugin = {
       const object = draft.object(item.objectId)
       if (!object) return
 
-      if (object.name === 'Lightning Bolt' && item.targets[0]) {
-        draft.enqueue({
-          type: 'dealDamage',
-          sourceId: object.id,
-          target: item.targets[0],
-          amount: 3,
-        })
-      }
-
       if (object.name === 'Timetwister') {
         for (const player of draft.playerOrder) {
           const pile = [

@@ -1,4 +1,5 @@
 import {
+  ability,
   activate,
   basicLand,
   bounceSelf,
@@ -8,17 +9,23 @@ import {
   createTokenInstruction,
   dies,
   doublePlusCounters,
+  dealDamageToChosenTarget,
   draw,
   enters,
   entersTapped,
   extraLandPlays,
+  exileColoredPermanentsAtMostX,
+  gainLife,
   handler,
   handlerIdsFromEffects,
   hasSubtype,
   landfall,
+  loyalty,
+  loyaltyX,
   onResolve,
   otherLands,
   pluginIdsFromEffects,
+  putPermanentsFromHand,
   returnOwnedGraveyardLands,
   searchAbility,
   searchSpell,
@@ -175,6 +182,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Icetill Explorer': [staticExtraLandPlays(1), landfall(selfMill(1))],
   'Joint Exploration': [onResolve(draw(1)), handler('jointExploration')],
   'Lair of the Hydra': [entersTapped(otherLands({ min: 2 }))],
+  'Lightning Bolt': [onResolve(dealDamageToChosenTarget(3))],
   'Lotus Field': [entersTapped()],
   Millikin: [
     activate({
@@ -274,26 +282,16 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Undercity Sewers': [entersTapped()],
   'Underground Mortuary': [entersTapped()],
   'Ugin, the Spirit Dragon': [
-    activate({
+    ability({
       id: 'ugin.plus-two',
       targets: 'any',
-      costs: { loyalty: 2 },
-      do: [{ kind: 'dealDamageToChosenTarget', amount: 3 }],
-    }),
-    activate({
+    }, loyalty(2), dealDamageToChosenTarget(3)),
+    ability({
       id: 'ugin.minus-x',
-      costs: { loyalty: 0, loyaltyX: true },
-      do: [{ kind: 'exileColoredPermanentsAtMostX' }],
-    }),
-    activate({
+    }, loyaltyX(), exileColoredPermanentsAtMostX()),
+    ability({
       id: 'ugin.minus-ten',
-      costs: { loyalty: -10 },
-      do: [
-        { kind: 'gainLife', count: 7 },
-        draw(7),
-        { kind: 'putPermanentsFromHand', max: 7 },
-      ],
-    }),
+    }, loyalty(-10), gainLife(7), draw(7), putPermanentsFromHand(7)),
   ],
   'Unmarked Grave': [
     searchSpell({

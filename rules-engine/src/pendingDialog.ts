@@ -1,14 +1,16 @@
 import type Draft from './draft'
+import { isPermanentType } from './definitions'
 import type { GameState, PlayerId, Plugin } from './types'
 
 export const PENDING_DIALOG = 'kernel.pendingDialog'
+export const DIALOG_CHOSEN = 'kernel.pendingDialog.chosen'
 
 /** A private table choice the host can present without knowing which card asked. */
 export type PendingDialog = {
   sourceId: string
   source: string
   seat: PlayerId
-  kind: 'scry' | 'put-land'
+  kind: 'scry' | 'put-land' | 'put-permanents'
   prompt: string
   waiting: string
   judge: string
@@ -16,6 +18,7 @@ export type PendingDialog = {
   destinations: Array<'top' | 'bottom' | 'hand' | 'battlefield'>
   count?: number
   types?: string[]
+  permanent?: boolean
   optional?: boolean
   after?: Array<'resolveTop'>
   requirements?: Partial<Record<'battlefield', { max?: number }>>
@@ -59,7 +62,9 @@ export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
   return (state.zoneOrder[dialog.seat].hand ?? [])
     .map((id) => state.objects[id])
     .filter((object): object is NonNullable<typeof object> =>
-      Boolean(object) && (!dialog.types || dialog.types.every((type) => object.types.includes(type))))
+      Boolean(object)
+      && (!dialog.types || dialog.types.every((type) => object.types.includes(type)))
+      && (!dialog.permanent || isPermanentType(object.types)))
 }
 
 /** Blocks priority while any card has posted an open host dialog. */
@@ -69,5 +74,10 @@ export const pendingDialogLock: Plugin = {
     if (event.type !== 'passPriority') return
     const dialog = pendingDialog(state)
     if (dialog) return `${dialog.seat} is resolving ${dialog.source}`
+  },
+  apply: ({ event, draft }) => {
+    if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {
+      clearPendingDialog(draft, event.seat)
+    }
   },
 }
