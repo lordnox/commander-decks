@@ -37,6 +37,12 @@ import {
 import {
   pendingPlayerTargets,
 } from '../../rules-engine/src/cardPlugins/playerTargets'
+import {
+  JOINT_LAND_CHOSEN,
+  JOINT_SCRY_CHOSEN,
+  jointExplorationSeat,
+  pendingJointExploration,
+} from '../../rules-engine/src/cardPlugins/jointExploration'
 import type { LiveHistoryFrame } from '../../site/src/liveCodec'
 import { compactLiveWire } from '../../site/src/liveCompact'
 import type { LobbyState } from './lobby'
@@ -152,13 +158,6 @@ export const kernelActions = (state: GameState): SeatActions => {
   return { [priority]: actions }
 }
 
-const finalStackPass = (state: GameState, seat: SeatId) => {
-  if (state.priority !== seat || state.stack.length === 0) return false
-  return state.playerOrder
-    .filter((player) => !state.players[player].lost)
-    .every((player) => player === seat || state.passedInRow.includes(player))
-}
-
 /**
  * Move the found cards, shuffle, close the marker, and let a spell finish
  * resolving. An empty selection is a legal "fail to find" and runs the same
@@ -239,6 +238,53 @@ const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbyState) => 
   return true
 }
 
+const prepareJointExplorationChoice = (kernel: KernelHandle, lobby: LobbyState) => {
+  const state = kernel.history.current()
+  const controller = jointExplorationSeat(state)
+  if (!controller || !isSeatId(controller)) return false
+  const pending = pendingJointExploration(state, controller)
+  if (!pending || pending.stage === 'scryDone') return false
+  const scry = pending.stage === 'scry'
+  const cards = scry
+    ? state.zoneOrder[controller].library
+        .slice(0, 2)
+        .map((id) => state.objects[id]?.name)
+        .filter((name): name is string => Boolean(name))
+    : state.zoneOrder[controller].hand
+        .map((id) => state.objects[id])
+        .filter((object) => object?.types.includes('Land'))
+        .map((object) => object.name)
+  if (!scry && cards.length === 0) {
+    const result = kernel.dispatch({ type: 'custom', name: JOINT_LAND_CHOSEN, seat: controller })
+    if (!result.ok) throw new Error(result.error)
+    return false
+  }
+  lobby.topdeck = {
+    seat: controller,
+    kind: scry ? 'scry' : 'put-land',
+    cards,
+    destinations: scry ? ['top', 'bottom'] : ['hand', 'battlefield'],
+    ...(scry ? {} : { requirements: { battlefield: { max: 1 } } }),
+    kernel: {
+      sourceId: pending.sourceId,
+      stage: scry ? 'scry' : 'put-land',
+    },
+  }
+  lobby.actions = { [controller]: ['topdeck'] }
+  lobby.waiting = scry
+    ? `${lobby.occupants[controller]?.name ?? controller} is making a private scry choice.`
+    : `${lobby.occupants[controller]?.name ?? controller} is choosing a land privately.`
+  lobby.privateWaiting = {
+    [controller]: scry
+      ? 'Scry 2 for Joint Exploration, then resolve it.'
+      : 'Joint Exploration was kicked. You may put one land from your hand onto the battlefield.',
+  }
+  lobby.judge = scry
+    ? 'Waiting for a private scry 2 choice.'
+    : 'Waiting for an optional land from Joint Exploration.'
+  return true
+}
+
 export const prepareKernelPendingChoice = (
   kernel: KernelHandle,
   lobby: LobbyState,
@@ -266,54 +312,8 @@ export const prepareKernelPendingChoice = (
     lobby.judge = `Waiting for ${targetsPending.source} targets.`
     return true
   }
-  return prepareLibrarySearchChoice(kernel, lobby)
-}
-
-/**
- * A top-library decision happens during resolution, after everyone passed.
- * Intercept only the final pass so the kernel stack remains authoritative
- * while the private dialog owns the no-priority choice.
- */
-export const prepareKernelStackChoice = (
-  kernel: KernelHandle,
-  lobby: LobbyState,
-  seat: SeatId,
-) => {
-  const state = kernel.history.current()
-  const item = state.stack[0]
-  if (
-    lobby.topdeck
-    || !item
-    || item.name !== 'Joint Exploration'
-    || !finalStackPass(state, seat)
-  ) {
-    return false
-  }
-  const controller = item.controller
-  if (!isSeatId(controller)) return false
-  const cards = state.zoneOrder[controller].library
-    .slice(0, 2)
-    .map((id) => state.objects[id]?.name)
-    .filter((name): name is string => Boolean(name))
-  lobby.topdeck = {
-    seat: controller,
-    kind: 'scry',
-    cards,
-    destinations: ['top', 'bottom'],
-    kernel: {
-      sourceId: item.objectId,
-      stage: 'scry',
-      resumePassSeat: seat,
-      kicked: item.kicked,
-    },
-  }
-  lobby.actions = { [controller]: ['topdeck'] }
-  lobby.waiting = `${lobby.occupants[controller]?.name ?? controller} is making a private scry choice.`
-  lobby.privateWaiting = {
-    [controller]: 'Scry 2 for Joint Exploration, then resolve it.',
-  }
-  lobby.judge = 'Waiting for a private scry 2 choice.'
-  return true
+  if (prepareLibrarySearchChoice(kernel, lobby)) return true
+  return prepareJointExplorationChoice(kernel, lobby)
 }
 
 const sameNames = (left: string[], right: string[]) =>
@@ -415,6 +415,26 @@ export const applyKernelChoice = (
     settleKernelPriority(kernel, lobby)
     return true
   }
+  if (decision.kernel.stage === 'put-land') {
+    const selected = message.choices.filter(({ destination }) => destination === 'battlefield')
+    if (selected.length > 1) throw new Error('Choose at most one land for Joint Exploration.')
+    if (selected[0]) {
+      const [objectId] = objectIdsForNames(state, state.zoneOrder[seat].hand, [selected[0].card])
+      const moved = kernel.dispatch({ type: 'move', objectId, to: 'battlefield' })
+      if (!moved.ok) throw new Error(moved.error)
+    }
+    const chosen = kernel.dispatch({ type: 'custom', name: JOINT_LAND_CHOSEN, seat })
+    if (!chosen.ok) throw new Error(chosen.error)
+    lobby.topdeck = undefined
+    state = kernel.history.current()
+    lobby.actions = kernelActions(state)
+    lobby.privateWaiting = {}
+    lobby.privateJudge = {}
+    lobby.waiting = `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
+    lobby.judge = `${lobby.occupants[seat]?.name ?? seat} resolved Joint Exploration.`
+    settleKernelPriority(kernel, lobby)
+    return true
+  }
   if (decision.kernel.stage !== 'scry') return false
   const ids = objectIdsForNames(
     state,
@@ -435,39 +455,13 @@ export const applyKernelChoice = (
       throw new Error(`Could not put ${choice.card} on the bottom`)
     }
   }
-  const passSeat = decision.kernel.resumePassSeat
-  const kicked = decision.kernel.kicked
   lobby.topdeck = undefined
-  if (!passSeat || !kernel.dispatch({ type: 'passPriority', seat: passSeat }).ok) {
+  const chosen = kernel.dispatch({ type: 'custom', name: JOINT_SCRY_CHOSEN, seat })
+  if (!chosen.ok || !kernel.dispatch({ type: 'resolveTop' }).ok) {
     throw new Error('Could not finish resolving Joint Exploration')
   }
   state = kernel.history.current()
-  if (kicked) {
-    const cards = state.zoneOrder[seat].hand
-      .map((id) => state.objects[id])
-      .filter((object) => object?.types.includes('Land'))
-      .map((object) => object.name)
-    if (cards.length > 0) {
-      lobby.topdeck = {
-        seat,
-        kind: 'put-land',
-        cards,
-        destinations: ['hand', 'battlefield'],
-        requirements: { battlefield: { max: 1 } },
-        kernel: {
-          sourceId: decision.kernel.sourceId,
-          stage: 'put-land',
-        },
-      }
-      lobby.actions = { [seat]: ['topdeck'] }
-      lobby.waiting = `${lobby.occupants[seat]?.name ?? seat} is choosing a land privately.`
-      lobby.privateWaiting = {
-        [seat]: 'Joint Exploration was kicked. You may put one land from your hand onto the battlefield.',
-      }
-      return true
-    }
-  }
-
+  if (prepareJointExplorationChoice(kernel, lobby)) return true
   state = kernel.history.current()
   lobby.actions = kernelActions(state)
   lobby.privateWaiting = {}
@@ -512,10 +506,6 @@ export const settleKernelPriority = (kernel: KernelHandle, lobby: LobbyState) =>
     const held = Boolean(lobby.holds[priority])
     if (held && current.stack.length > 0) break
     if (!held && availableActions(current, priority).length > 0) break
-    if (prepareKernelStackChoice(kernel, lobby, priority)) {
-      prepared = true
-      break
-    }
     if (!kernel.dispatch({ type: 'passPriority', seat: priority }).ok) break
     passed = true
     current = kernel.history.current()

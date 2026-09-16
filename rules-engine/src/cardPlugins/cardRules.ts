@@ -163,7 +163,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Hedge Maze': [entersTapped()],
   'Homer, the Hermit': [handler('homer')],
   'Icetill Explorer': [staticExtraLandPlays(1), landfall(selfMill(1))],
-  'Joint Exploration': [handler('jointExploration')],
+  'Joint Exploration': [onResolve(draw(1)), handler('jointExploration')],
   'Lair of the Hydra': [entersTapped(otherLands({ min: 2 }))],
   'Lotus Field': [entersTapped()],
   Millikin: [
