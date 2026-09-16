@@ -8,6 +8,7 @@ import {
 import { payCost } from '../plugins/spells'
 import type Draft from '../draft'
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
+import { payActivateCosts } from './activated'
 import { effectsFor } from './cardRules'
 import { searchEffect, type SearchSpec } from './effects'
 
@@ -30,9 +31,9 @@ export type PendingSearch = {
 export const searchSpecFor = (name: string): SearchSpec | undefined =>
   searchEffect(effectsFor(name))?.spec
 
-const abilitySpec = (object: GameObject) => {
+const abilityEffect = (object: GameObject) => {
   const effect = searchEffect(effectsFor(object.name))
-  return effect?.via === 'ability' ? effect.spec : undefined
+  return effect?.via === 'ability' ? effect : undefined
 }
 
 const spellSpec = (object: GameObject) => {
@@ -76,7 +77,7 @@ const openSearch = (draft: Draft, seat: PlayerId, pending: PendingSearch) => {
   draft.note(`${seat} searches their library for ${pending.source}`)
 }
 
-const hasSearchAbility = (object: GameObject) => Boolean(abilitySpec(object))
+const hasSearchAbility = (object: GameObject) => Boolean(abilityEffect(object))
 
 /**
  * One search capability for every "search your library" card in the pool. The
@@ -109,14 +110,14 @@ export const librarySearch: Plugin = {
       sourceCanTap(),
       (abilityCtx) => {
         const source = abilityCtx.state.objects[abilityCtx.event.objectId]
-        const life = source ? abilitySpec(source)?.life ?? 0 : 0
+        const life = source ? abilityEffect(source)?.costs.life ?? 0 : 0
         if (abilityCtx.state.players[abilityCtx.event.seat].life <= life) {
           return `${abilityCtx.event.seat} cannot pay ${life} life`
         }
       },
       (abilityCtx) => {
         const source = abilityCtx.state.objects[abilityCtx.event.objectId]
-        const cost = source ? abilitySpec(source)?.manaCost : undefined
+        const cost = source ? abilityEffect(source)?.costs.mana : undefined
         if (!cost) return
         const pool = abilityCtx.state.players[abilityCtx.event.seat].mana
         if (!payCost(pool, cost)) return `${abilityCtx.event.seat} cannot pay ${cost}`
@@ -177,22 +178,9 @@ export const librarySearch: Plugin = {
     applyAbility(SEARCH_FETCH, ({ event: ability, draft: next }) => {
       const source = next.object(ability.objectId)
       if (!source) return
-      const spec = abilitySpec(source)
-      if (!spec) return
-      if (spec.life) {
-        next.enqueue({
-          type: 'loseLife',
-          seat: ability.seat,
-          amount: spec.life,
-          source: source.name,
-        })
-      }
-      if (spec.manaCost) {
-        next.enqueue({ type: 'payMana', seat: ability.seat, cost: spec.manaCost })
-      }
-      if (spec.sacrifice !== false) {
-        next.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })
-      }
+      const effect = abilityEffect(source)
+      if (!effect) return
+      payActivateCosts(next, source, ability.seat, effect.costs)
       openSearch(next, ability.seat, {
         source: source.name,
         sourceId: source.id,

@@ -38,15 +38,22 @@ const fetchBasic = (prompt: string, extra: {
   max?: number
   untapWithFourLands?: boolean
   validateSelection?: typeof sharedBasicLandType
-} = {}): CardEffect =>
-  searchAbility({
+} = {}): CardEffect => {
+  const { life, manaCost, ...spec } = extra
+  return searchAbility({
     prompt,
     match: basicLand,
     destination: 'battlefield',
-    min: extra.min ?? 1,
-    max: extra.max ?? 1,
-    ...extra,
+    min: spec.min ?? 1,
+    max: spec.max ?? 1,
+    ...spec,
+  }, {
+    tap: true,
+    sacrifice: 'self',
+    ...(life ? { life } : {}),
+    ...(manaCost ? { mana: manaCost } : {}),
   })
+}
 
 const fetchTypes = (prompt: string, subtypes: string[]): CardEffect =>
   searchAbility({
@@ -55,7 +62,10 @@ const fetchTypes = (prompt: string, subtypes: string[]): CardEffect =>
     destination: 'battlefield',
     min: 1,
     max: 1,
+  }, {
+    tap: true,
     life: 1,
+    sacrifice: 'self',
   })
 
 const insect = createTokenInstruction({
