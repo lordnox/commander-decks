@@ -1,4 +1,5 @@
-import { useState, type CSSProperties } from 'react'
+import { useState, type CSSProperties, type ReactNode } from 'react'
+import { useLongPress } from './longPress'
 import {
   battlefieldRow,
   cardInfo,
@@ -105,12 +106,15 @@ export const CardTile = ({
   const stats = currentStats(details, entry)
   const counters = Object.entries(entry?.counters ?? {}).filter(([, count]) => count)
   const token = Boolean(entry?.token || entry?.token_id)
+  const { longPressProps, consumedClick } = useLongPress(
+    onInsertName && (() => onInsertName(name)),
+  )
 
   return (
     <button
       type="button"
       onClick={() => {
-        onInsertName?.(name)
+        if (consumedClick()) return
         onPreview({
           name,
           details,
@@ -121,8 +125,9 @@ export const CardTile = ({
           commander: entry?.commander,
         })
       }}
+      {...longPressProps}
       {...hoverProps(name, details, onHover)}
-      className={`group/card relative shrink-0 overflow-hidden rounded-xl border text-left shadow-lg shadow-black/20 transition hover:-translate-y-1 hover:border-gold-300/60 focus:outline-none focus:ring-2 focus:ring-gold-300 ${
+      className={`group/card relative shrink-0 touch-manipulation select-none overflow-hidden rounded-xl border text-left shadow-lg shadow-black/20 transition hover:-translate-y-1 hover:border-gold-300/60 focus:outline-none focus:ring-2 focus:ring-gold-300 ${
         compact
           ? 'h-24 w-[4.25rem] border-white/10'
           : 'h-32 w-[5.7rem] border-white/15'
@@ -558,6 +563,41 @@ export const SeatPanel = ({
   )
 }
 
+const StackRowButton = ({
+  name,
+  details,
+  onPreview,
+  onHover,
+  onInsertName,
+  children,
+}: {
+  name: string
+  details: CardDetails
+  onPreview: (preview: Preview) => void
+  onHover: HoverHandler
+  onInsertName?: (name: string) => void
+  children: ReactNode
+}) => {
+  const { longPressProps, consumedClick } = useLongPress(
+    onInsertName && (() => onInsertName(name)),
+  )
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        if (consumedClick()) return
+        onPreview({ name, details })
+      }}
+      {...longPressProps}
+      {...hoverProps(name, details, onHover)}
+      className="min-w-0 flex-1 touch-manipulation select-none rounded-xl px-2.5 py-2 text-left transition hover:bg-white/5"
+    >
+      {children}
+    </button>
+  )
+}
+
 export const StackOverlay = ({
   game,
   stack,
@@ -598,14 +638,12 @@ export const StackOverlay = ({
               return (
                 <li key={`${String(item.name)}-${index}`}>
                   <div className="flex items-start gap-1">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onInsertName?.(name)
-                        onPreview({ name, details })
-                      }}
-                      {...hoverProps(name, details, onHover)}
-                      className="min-w-0 flex-1 rounded-xl px-2.5 py-2 text-left transition hover:bg-white/5"
+                    <StackRowButton
+                      name={name}
+                      details={details}
+                      onPreview={onPreview}
+                      onHover={onHover}
+                      onInsertName={onInsertName}
                     >
                       <span className="flex items-baseline gap-2">
                         <span className="text-[0.6rem] tabular-nums text-stone-600">
@@ -628,7 +666,7 @@ export const StackOverlay = ({
                           {item.text}
                         </span>
                       )}
-                    </button>
+                    </StackRowButton>
                     {copyable && (
                       <button
                         type="button"
@@ -692,10 +730,12 @@ export const CardPreview = ({
   preview,
   onClose,
   onCopyName,
+  onInsertName,
 }: {
   preview: Preview
   onClose: () => void
   onCopyName?: (name: string) => void
+  onInsertName?: (name: string) => void
 }) => (
   <div
     className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-4 backdrop-blur-sm sm:items-center"
@@ -770,6 +810,19 @@ export const CardPreview = ({
           </p>
         )}
         <div className="mt-5 flex flex-wrap items-center gap-3">
+          {onInsertName && (
+            <button
+              type="button"
+              onClick={() => {
+                onInsertName(preview.name)
+                onClose()
+              }}
+              title="You can also press and hold the card on the board"
+              className="inline-flex items-center gap-2 rounded-full bg-gold-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-gold-200"
+            >
+              Add to plan
+            </button>
+          )}
           {onCopyName && (
             <button
               type="button"
