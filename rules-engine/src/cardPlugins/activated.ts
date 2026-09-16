@@ -56,6 +56,11 @@ export const activated: Plugin = {
       const millMana = effectsOf(source).find((effect): effect is Extract<typeof effect, { op: 'activate' }> =>
         effect.op === 'activate' && Boolean(effect.manaAbility))
       if (millMana) {
+        // Older journals embedded Firdoch's choice as an activate effect.
+        // The generic tapForMana event now carries that choice directly.
+        if (millMana.do.some((instruction) => instruction.kind === 'addChosenColorMana')) {
+          return
+        }
         if ((millMana.costs.mill ?? 0) > 0) {
           return `${source.name} mana must mill a card as an activation cost`
         }
