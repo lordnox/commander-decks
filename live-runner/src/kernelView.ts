@@ -121,6 +121,22 @@ const battlefieldObjects = (state: GameState) =>
   state.playerOrder.flatMap((seat) =>
     state.zoneOrder[seat].battlefield.map((id) => state.objects[id]).filter(Boolean))
 
+const defenderName = (state: GameState, object: GameObject) => {
+  if (!object.attacking) return ''
+  if (typeof object.attacking === 'string') return object.attacking
+  return object.attacking.kind === 'player'
+    ? object.attacking.player
+    : state.objects[object.attacking.objectId]?.name ?? object.attacking.objectId
+}
+
+const defendingSeat = (state: GameState, object: GameObject) => {
+  if (!object.attacking) return ''
+  if (typeof object.attacking === 'string') return object.attacking
+  return object.attacking.kind === 'player'
+    ? object.attacking.player
+    : state.objects[object.attacking.objectId]?.controller ?? ''
+}
+
 const untappedCreatures = (battlefield: GameObject[], seat: PlayerId) =>
   battlefield
     .filter((object) =>
@@ -143,7 +159,7 @@ export const kernelCombat = (state: GameState): ReplayCombat | undefined => {
     step,
     attackers: attackers.map((object) => ({
       card: object.name,
-      defender: object.attacking as PlayerId,
+      defender: defenderName(state, object),
       ...(ptText(object) ? { pt: ptText(object) } : {}),
       tapped: object.tapped,
       ...(keywordsOf(object).length > 0 ? { keywords: keywordsOf(object) } : {}),
@@ -152,9 +168,12 @@ export const kernelCombat = (state: GameState): ReplayCombat | undefined => {
 
   const blockers = battlefield.filter((object) => object.blocking)
   if (blockers.length === 0 && step !== 'first_strike_damage' && step !== 'combat_damage') {
-    const defenders = [...new Set(attackers.map((object) => object.attacking as PlayerId))]
+    const defenders = [...new Set(attackers.map((object) => defenderName(state, object)))]
     combat.possible_blockers = Object.fromEntries(
-      defenders.map((seat) => [seat, untappedCreatures(battlefield, seat)]),
+      defenders.map((defender) => {
+        const attacker = attackers.find((object) => defenderName(state, object) === defender)
+        return [defender, untappedCreatures(battlefield, defendingSeat(state, attacker!))]
+      }),
     )
     return combat
   }
@@ -187,8 +206,13 @@ const counterLabels = (object?: GameObject) =>
 const combatLabels = (state: GameState, lobby: LobbyState, object?: GameObject) => {
   if (!object) return {}
   if (object.attacking) {
-    const defender = object.attacking as SeatId
-    return { attacking: lobby.occupants[defender]?.name || defender }
+    if (typeof object.attacking !== 'string' && object.attacking.kind === 'object') {
+      return { attacking: state.objects[object.attacking.objectId]?.name ?? object.attacking.objectId }
+    }
+    const defender = typeof object.attacking === 'string'
+      ? object.attacking
+      : object.attacking.player
+    return { attacking: lobby.occupants[defender as SeatId]?.name || defender }
   }
   if (object.blocking) {
     const blocked = state.objects[object.blocking]?.name

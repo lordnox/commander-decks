@@ -2,10 +2,11 @@ import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { emptyMana } from '../draft'
 import { rules } from '../kernel'
-import { bolt, forest, newGame, timetwister } from '../testGame'
+import { bolt, forest, newGame, planeswalker, timetwister } from '../testGame'
 import { damage } from './damage'
 import { createAuthoritativeHiddenInformation } from './hiddenInformation'
 import { payCost, spells } from './spells'
+import { stateBased } from './stateBased'
 import type { Plugin } from '../types'
 
 describe('spells', () => {
@@ -89,6 +90,52 @@ describe('spells', () => {
     expect(resolved.state.players.p2.life).toBe(37)
     expect(resolved.state.objects[boltId].zone).toBe('graveyard')
     expect(seen).toEqual(['stack'])
+  })
+
+  test('a planeswalker spell enters with its printed loyalty', () => {
+    const catalog = createCatalog([spells])
+    const state = newGame({
+      hands: {
+        p1: [planeswalker('Fresh Walker', 7, {
+          manaCost: '{2}',
+          counters: { loyalty: 1 },
+        })],
+      },
+      builtinRules: ['spells'],
+    })
+    const walker = Object.values(state.objects)[0]
+    state.players.p1.mana.C = 2
+    const cast = rules(state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: walker.id,
+    }, catalog)
+    if (!cast.ok) throw new Error(cast.error)
+    const resolved = rules(cast.state, { type: 'resolveTop' }, catalog)
+    if (!resolved.ok) throw new Error(resolved.error)
+    expect(resolved.state.objects[walker.id].counters.loyalty).toBe(7)
+  })
+
+  test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {
+    const catalog = createCatalog([spells, damage, stateBased])
+    const state = newGame({
+      hands: { p1: [bolt()] },
+      battlefield: { p2: [planeswalker('Bolt Target', 3)] },
+      builtinRules: ['spells', 'damage', 'stateBased'],
+    })
+    const boltId = Object.values(state.objects).find((object) => object.name === 'Lightning Bolt')!.id
+    const walkerId = Object.values(state.objects).find((object) => object.name === 'Bolt Target')!.id
+    state.players.p1.mana.R = 1
+    const cast = rules(state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: boltId,
+      targets: [{ kind: 'object', objectId: walkerId }],
+    }, catalog)
+    if (!cast.ok) throw new Error(cast.error)
+    const resolved = rules(cast.state, { type: 'resolveTop' }, catalog)
+    if (!resolved.ok) throw new Error(resolved.error)
+    expect(resolved.state.objects[walkerId].zone).toBe('graveyard')
   })
 
   test('Timetwister does not shuffle itself: it is still on the stack while its instructions run', () => {

@@ -60,6 +60,7 @@ export const activated: Plugin = {
     if (!source) return 'no such object'
     const effect = activateEffect(effectsOf(source), event.abilityId)
     if (!effect) return
+    if (effect.costs.loyalty !== undefined || effect.costs.loyaltyX) return
     if (source.zone !== 'battlefield') return `${source.name} is not on the battlefield`
     if (source.controller !== event.seat) {
       return `${event.seat} does not control ${source.name}`
@@ -93,6 +94,7 @@ export const activated: Plugin = {
     if (!source) return
     const effect = activateEffect(effectsOf(source), event.abilityId)
     if (!effect) return
+    if (effect.costs.loyalty !== undefined || effect.costs.loyaltyX) return
     payActivateCosts(draft, source, event.seat, effect.costs)
     runInstructions(draft, source, effect.do)
     draft.note(`${event.seat} activates ${source.name}`)

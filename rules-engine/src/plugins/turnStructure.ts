@@ -53,6 +53,7 @@ const onUntap = (draft: Draft) => {
   for (const object of draft.zoneOf('battlefield', draft.active)) {
     object.tapped = false
     object.summoningSickness = false
+    object.loyaltyActivatedTurn = null
   }
   draft.players[draft.active].landsPlayed = 0
   draft.note(`${draft.active} untaps`)

@@ -141,6 +141,12 @@ export const spells: Plugin = {
       if (isPermanentType(object.types)) {
         draft.move(object.id, 'battlefield')
         object.summoningSickness = object.types.includes('Creature')
+        if (
+          object.types.includes('Planeswalker')
+          && object.printedLoyalty !== null
+        ) {
+          object.counters.loyalty = object.printedLoyalty
+        }
         installGrantedRules(draft, object)
       } else {
         // CR 608.2: instructions run while the spell is still on the stack;

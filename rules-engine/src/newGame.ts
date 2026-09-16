@@ -26,8 +26,12 @@ const defaultObject = (): Omit<GameObject, 'id' | 'owner' | 'controller' | 'zone
   subtypes: [],
   supertypes: [],
   manaCost: '',
+  manaValue: 0,
+  colors: [],
   power: null,
   toughness: null,
+  printedLoyalty: null,
+  loyaltyActivatedTurn: null,
   oracleText: '',
   attachedTo: null,
   attacking: null,
@@ -134,6 +138,14 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
       effects: serializableEffects(template.effects ?? effectsFor(template.name)),
       tags: [...new Set([...template.tags, ...(format.tagsForZone?.(zone) ?? [])])],
     }
+    if (
+      objects[id].zone === 'battlefield'
+      && objects[id].types.includes('Planeswalker')
+      && objects[id].counters.loyalty === undefined
+      && objects[id].printedLoyalty !== null
+    ) {
+      objects[id].counters.loyalty = objects[id].printedLoyalty
+    }
     const actualZone = objects[id].zone
     zoneOrder[playerId][actualZone].push(id)
     zoneCounts[playerId][actualZone] += 1
@@ -212,6 +224,17 @@ export const bears = (): CardTemplate => cardTemplate('Grizzly Bears', {
   manaCost: '{1}{G}',
   power: 2,
   toughness: 2,
+})
+
+export const planeswalker = (
+  name = 'Test Planeswalker',
+  loyalty = 3,
+  overrides: Partial<CardTemplate> = {},
+): CardTemplate => cardTemplate(name, {
+  types: ['Planeswalker'],
+  printedLoyalty: loyalty,
+  oracleText: `Loyalty ${loyalty}`,
+  ...overrides,
 })
 
 /** Oracle Yurlok: mana burn on emptying pools, plus {1}, {T} rain. */

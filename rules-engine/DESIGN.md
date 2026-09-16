@@ -128,6 +128,10 @@ that returns `null` stops the rest of the chain: Fog ends at `combatDamage`,
 Circle-of-Protection-style effects end at `dealDamage`, and “you can’t lose
 life” ends at `loseLife`.
 
+Combat defenders use `TargetRef`: a creature attacks either a player or a
+planeswalker object that player controls. Commander damage still counts only
+combat damage whose target is a player.
+
 ## Plugin
 
 ```ts
@@ -158,6 +162,7 @@ state with the `addRule` event (or `grantedRules` on an object).
 | `stateBased` | 0 life, 0 toughness, lethal damage, tokens, legend |
 | `combat` | attackers, blockers, emits `combatDamage` |
 | `damage` | `combatDamage` → `dealDamage` → `loseLife` |
+| `planeswalker` | starting loyalty and stack-based loyalty abilities |
 | `hiddenInformation` | Server resolves hidden zones; client ingests redacted state |
 | `judgeFallback` | Audited wrapper for atomically validated primitive effects |
 | `fog` | **optional** — prevents `combatDamage` |

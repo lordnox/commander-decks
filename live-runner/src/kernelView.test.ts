@@ -20,7 +20,13 @@ const combatTable = () => {
           ),
           creature('Sygg, River Cutthroat', 'Target creature gains flying until end of turn.'),
         ],
-        p2: [creature('Satyr Wayfinder')],
+        p2: [
+          creature('Satyr Wayfinder'),
+          cardTemplate('Ugin, the Spirit Dragon', {
+            types: ['Planeswalker'],
+            printedLoyalty: 7,
+          }),
+        ],
       },
     },
     { random: () => 0.5, cardPlugins: [] },
@@ -90,6 +96,21 @@ describe('kernel combat projection', () => {
 
     const seats = liveSeatsFromState(state, createLobby(), 'p2')
     expect(seats[1].battlefield?.[0].blocking).toBe('Foulmire Knight // Profane Insight')
+  })
+
+  test('names a planeswalker combat defender while using its controller blockers', () => {
+    const { state, lobby } = combatTable()
+    const walkerId = state.zoneOrder.p2.battlefield
+      .find((id) => state.objects[id].types.includes('Planeswalker'))!
+    state.objects[attackerId(state)].attacking = { kind: 'object', objectId: walkerId }
+
+    expect(kernelCombat(state)?.attackers?.[0].defender).toBe('Ugin, the Spirit Dragon')
+    expect(kernelCombat(state)?.possible_blockers).toEqual({
+      'Ugin, the Spirit Dragon': ['Satyr Wayfinder'],
+    })
+    const attacker = liveSeatsFromState(state, lobby, 'p1')[0].battlefield
+      ?.find((card) => card.name === 'Foulmire Knight // Profane Insight')
+    expect(attacker?.attacking).toBe('Ugin, the Spirit Dragon')
   })
 
   test('live counters reach the board instead of the printed card value', () => {

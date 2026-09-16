@@ -309,6 +309,7 @@ const joinedFaces = (cache: Json, field: string) =>
 
 const statLine = (cache: Json) => {
   if (cache.power != null) return `${cache.power}/${cache.toughness}`
+  if (cache.loyalty != null) return `${cache.loyalty}`
   return (cache.card_faces ?? [])
     .filter((face: Json) => face.power != null)
     .map((face: Json) => `${face.power}/${face.toughness}`)
@@ -326,7 +327,9 @@ export const cardFaces = (cache: Json) => {
     type_line: face.type_line || "",
     mana_cost: face.mana_cost || "",
     oracle_text: face.oracle_text || "",
-    stats: face.power != null ? `${face.power}/${face.toughness}` : "",
+    stats: face.power != null
+      ? `${face.power}/${face.toughness}`
+      : face.loyalty != null ? `${face.loyalty}` : "",
   }))
 }
 

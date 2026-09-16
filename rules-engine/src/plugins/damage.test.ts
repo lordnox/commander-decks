@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
-import { bears, newGame } from '../testGame'
+import { bears, newGame, planeswalker } from '../testGame'
 import type { Plugin } from '../types'
 import { combat } from './combat'
 import { commander } from './commander'
@@ -48,6 +48,24 @@ const attack = (power: number, extras: { tags?: string[] } = {}) => {
 }
 
 describe('damage chain', () => {
+  test('damage removes loyalty instead of marking a planeswalker', () => {
+    const catalog = createCatalog([damage])
+    const state = newGame({
+      battlefield: { p2: [planeswalker('Target Walker', 5)] },
+      builtinRules: ['damage'],
+    })
+    const walker = Object.values(state.objects)[0]
+    const result = rules(state, {
+      type: 'dealDamage',
+      sourceId: 'bolt',
+      target: { kind: 'object', objectId: walker.id },
+      amount: 3,
+    }, catalog)
+    if (!result.ok) throw new Error(result.error)
+    expect(result.state.objects[walker.id].counters.loyalty).toBe(2)
+    expect(result.state.objects[walker.id].damageMarked).toBe(0)
+  })
+
   test('combatDamage becomes damage, then life loss', () => {
     const { catalog, state, attackerId } = attack(2, { tags: ['commander'] })
     const result = rules(state, { type: 'assignCombatDamage' }, catalog)

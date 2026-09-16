@@ -273,6 +273,28 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Undercity Sewers': [entersTapped()],
   'Underground Mortuary': [entersTapped()],
+  'Ugin, the Spirit Dragon': [
+    activate({
+      id: 'ugin.plus-two',
+      targets: 'any',
+      costs: { loyalty: 2 },
+      do: [{ kind: 'dealDamageToChosenTarget', amount: 3 }],
+    }),
+    activate({
+      id: 'ugin.minus-x',
+      costs: { loyalty: 0, loyaltyX: true },
+      do: [{ kind: 'exileColoredPermanentsAtMostX' }],
+    }),
+    activate({
+      id: 'ugin.minus-ten',
+      costs: { loyalty: -10 },
+      do: [
+        { kind: 'gainLife', count: 7 },
+        draw(7),
+        { kind: 'putPermanentsFromHand', max: 7 },
+      ],
+    }),
+  ],
   'Unmarked Grave': [
     searchSpell({
       prompt: 'Search your library for a nonlegendary card and put it into your graveyard.',

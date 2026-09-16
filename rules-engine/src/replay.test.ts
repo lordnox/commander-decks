@@ -10,6 +10,19 @@ import {
 const replayPath =
   `${import.meta.dir}/../../table-games/seed1729-sygg-doctor-osgir-bartolome.json`
 
+const replayPlayer = (
+  battlefield: { name: string; counters?: Record<string, number> }[] = [],
+) => ({
+  life: 40,
+  poison: 0,
+  library_count: 0,
+  hand: [],
+  battlefield,
+  graveyard: [],
+  exile: [],
+  command: [],
+})
+
 describe('table replay conversion', () => {
   test('the shortest replay reaches the same public state after two rounds', async () => {
     const replay = await Bun.file(replayPath).json() as TableReplay
@@ -72,5 +85,49 @@ describe('table replay conversion', () => {
     expect(
       imported.zoneOrder[seat].battlefield.map((id) => imported.objects[id].tapped),
     ).not.toContain(true)
+  })
+
+  test('imports printed and current planeswalker loyalty', () => {
+    const replay: TableReplay = {
+      starting_life: 40,
+      seats: [{ id: 'p1' }, { id: 'p2' }],
+      catalog: {
+        'Ugin, the Spirit Dragon': {
+          type_line: 'Legendary Planeswalker — Ugin',
+          mana_cost: '{8}',
+          oracle_text: '+2: Ugin deals 3 damage to any target.',
+          stats: '7',
+        },
+      },
+      events: [{
+        id: 0,
+        turn: 1,
+        phase: 'main1',
+        seat: 'p1',
+        kind: 'setup',
+        summary: 'setup',
+        state: {
+          active: 'p1',
+          turn: 1,
+          phase: 'main1',
+          stack: [],
+          players: {
+            p1: replayPlayer([{
+              name: 'Ugin, the Spirit Dragon',
+              counters: { loyalty: 4 },
+            }]),
+            p2: replayPlayer(),
+          },
+        },
+      }],
+      _libraries: { p1: [], p2: [] },
+    }
+
+    const imported = importLiveReplayState(replay)
+    const ugin = Object.values(imported.objects)[0]
+    expect(ugin.printedLoyalty).toBe(7)
+    expect(ugin.counters.loyalty).toBe(4)
+    expect(replayComparableState(imported).players.p1.battlefield[0].counters)
+      .toEqual({ loyalty: 4 })
   })
 })

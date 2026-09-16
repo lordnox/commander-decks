@@ -66,11 +66,15 @@ export type GameObject = {
   subtypes: string[]
   supertypes: string[]
   manaCost: string
+  manaValue: number
+  colors: string[]
   power: number | null
   toughness: number | null
+  printedLoyalty: number | null
+  loyaltyActivatedTurn: number | null
   oracleText: string
   attachedTo: string | null
-  attacking: PlayerId | null
+  attacking: TargetRef | PlayerId | null
   blocking: string | null
   grantedRules: string[]
   token: boolean
@@ -92,6 +96,9 @@ export type StackItem = {
   controller: PlayerId
   name: string
   targets: TargetRef[]
+  abilityId?: string
+  x?: number
+  choices?: string[]
   kicked?: boolean
 }
 
@@ -156,7 +163,7 @@ export type GameState = {
   log: string[]
 }
 
-export type AttackerDecl = { objectId: string; defender: PlayerId }
+export type AttackerDecl = { objectId: string; defender: TargetRef | PlayerId }
 export type BlockerDecl = { blockerId: string; attackerId: string }
 
 /**
@@ -240,6 +247,9 @@ export type GameEvent =
       abilityId: string
       seat: PlayerId
       objectId: string
+      targets?: TargetRef[]
+      x?: number
+      choices?: string[]
       /** Host marks mana-ability timing. Kernel does not open that window. */
       manaAbility?: boolean
     }

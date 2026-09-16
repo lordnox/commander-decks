@@ -1,4 +1,14 @@
-import type { Plugin } from '../types'
+import type { GameState, PlayerId, Plugin, TargetRef } from '../types'
+
+const targetRef = (target: TargetRef | PlayerId): TargetRef =>
+  typeof target === 'string' ? { kind: 'player', player: target } : target
+
+const defendingPlayer = (state: GameState, target: TargetRef | PlayerId) => {
+  const defender = targetRef(target)
+  return defender.kind === 'player'
+    ? defender.player
+    : state.objects[defender.objectId]?.controller
+}
 
 export const combat: Plugin = {
   id: 'combat',
@@ -20,16 +30,31 @@ export const combat: Plugin = {
         if (object.controller !== event.seat) return 'attacker is not controlled by that seat'
         if (object.tapped) return 'tapped creatures cannot attack'
         if (object.summoningSickness) return 'creatures with summoning sickness cannot attack'
-        if (declaration.defender === event.seat) return 'a creature cannot attack its controller'
-        if (!state.players[declaration.defender]) return 'defender is not in the game'
-        if (state.players[declaration.defender].lost) return 'a player who lost cannot be attacked'
+        const defender = defendingPlayer(state, declaration.defender)
+        if (!defender || !state.players[defender]) return 'defender is not in the game'
+        if (defender === event.seat) return 'a creature cannot attack its controller'
+        if (state.players[defender].lost) return 'a player who lost cannot be attacked'
+        const declaredTarget = targetRef(declaration.defender)
+        if (declaredTarget.kind === 'object') {
+          const target = state.objects[declaredTarget.objectId]
+          if (
+            !target
+            || target.zone !== 'battlefield'
+            || !target.types.includes('Planeswalker')
+          ) {
+            return 'object defender is not a battlefield planeswalker'
+          }
+        }
       }
     }
 
     if (event.type === 'declareBlockers') {
       if (state.step !== 'declareBlockers') return 'blockers can only be declared in declare blockers'
       const attackers = Object.values(state.objects).filter(
-        (object) => object.zone === 'battlefield' && object.attacking === event.seat,
+        (object) =>
+          object.zone === 'battlefield'
+          && object.attacking !== null
+          && defendingPlayer(state, object.attacking) === event.seat,
       )
       if (attackers.length === 0) return 'seat is not a defending player'
 
@@ -51,7 +76,12 @@ export const combat: Plugin = {
         ) {
           return 'blocker is not an untapped creature controlled by that seat'
         }
-        if (!attacker || attacker.zone !== 'battlefield' || attacker.attacking !== event.seat) {
+        if (
+          !attacker
+          || attacker.zone !== 'battlefield'
+          || !attacker.attacking
+          || defendingPlayer(state, attacker.attacking) !== event.seat
+        ) {
           return 'attacker is not attacking that seat'
         }
       }
@@ -70,7 +100,7 @@ export const combat: Plugin = {
       for (const declaration of event.attackers) {
         const attacker = draft.object(declaration.objectId)
         if (!attacker) continue
-        attacker.attacking = declaration.defender
+        attacker.attacking = targetRef(declaration.defender)
         attacker.tapped = true
       }
       draft.passedInRow = []
@@ -109,7 +139,7 @@ export const combat: Plugin = {
         draft.enqueue({
           type: 'combatDamage',
           sourceId: attacker.id,
-          target: { kind: 'player', player: defender },
+          target: targetRef(defender),
           amount,
         })
       }
