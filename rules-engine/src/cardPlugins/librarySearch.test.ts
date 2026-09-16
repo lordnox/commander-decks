@@ -60,6 +60,60 @@ const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
 describe('librarySearch', () => {
+  test('Analyze the Pollen uses the shared kicked search and reveal flow', () => {
+    const server = game({
+      hand: [card('Analyze the Pollen', ['Sorcery'], { manaCost: '{G}' })],
+      library: [
+        card('Oracle of Mul Daya', ['Creature']),
+        card('Wastes', ['Land'], { supertypes: ['Basic'] }),
+      ],
+    })
+    const spell = server.state.zoneOrder.p1.hand[0]
+    const opened = run(server, withMana(server.state), [
+      { type: 'castSpell', seat: 'p1', objectId: spell, kicked: true },
+      { type: 'resolveTop' },
+    ])
+
+    expect(pendingSearch(opened, 'p1')).toMatchObject({
+      source: 'Analyze the Pollen',
+      kicked: true,
+    })
+    expect(searchCandidates(
+      opened,
+      'p1',
+      searchSpecFor('Analyze the Pollen')!,
+      true,
+    ).map((object) => object.name)).toEqual(['Oracle of Mul Daya', 'Wastes'])
+
+    const choice = named(opened, 'Oracle of Mul Daya').id
+    const resolved = run(server, opened, [
+      { type: 'reveal', seat: 'p1', objectIds: [choice], source: 'Analyze the Pollen' },
+      { type: 'move', objectId: choice, to: 'hand' },
+      { type: 'shuffleLibrary', seat: 'p1' },
+      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+      { type: 'resolveTop' },
+    ])
+
+    expect(resolved.objects[choice].zone).toBe('hand')
+    expect(resolved.objects[spell].zone).toBe('graveyard')
+    expect(pendingSearch(resolved, 'p1')).toBeUndefined()
+    expect(resolved.log).toContain('p1 reveals Oracle of Mul Daya for Analyze the Pollen')
+  })
+
+  test('unkicked Analyze the Pollen only finds basic lands', () => {
+    const spec = searchSpecFor('Analyze the Pollen')!
+    const server = game({
+      library: [
+        forest(),
+        card('Dryad Arbor', ['Land', 'Creature']),
+        card('Llanowar Elves', ['Creature']),
+      ],
+    })
+
+    expect(searchCandidates(server.state, 'p1', spec).map((object) => object.name))
+      .toEqual(['Forest'])
+  })
+
   test("Nature's Lore stops resolution and records whose choice is open", () => {
     const server = game({
       hand: [card("Nature's Lore", ['Sorcery'], { manaCost: '{1}{G}' })],

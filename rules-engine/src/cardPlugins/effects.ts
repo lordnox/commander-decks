@@ -45,6 +45,8 @@ export type SearchDestination = 'hand' | 'battlefield' | 'graveyard'
 export type SearchSpec = {
   prompt: string
   match: (object: GameObject) => boolean
+  kickedMatch?: (object: GameObject) => boolean
+  kickedPrompt?: string
   destination: SearchDestination
   tapped?: boolean
   min: number

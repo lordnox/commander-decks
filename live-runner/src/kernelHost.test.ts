@@ -354,7 +354,12 @@ describe('kernel host journal', () => {
         targets: [],
         kicked: true,
       }]
-      state.players.p1.data['analyzeThePollen.search'] = true
+      state.players.p1.data['librarySearch.pending'] = {
+        source: 'Analyze the Pollen',
+        sourceId: spellId,
+        via: 'spell',
+        kicked: true,
+      }
     }, true)
     const lobby = createLobby()
     const kernel = await openKernel('pod', root, lobby)

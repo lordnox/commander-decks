@@ -75,7 +75,19 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Aesi, Tyrant of Gyre Strait': [staticExtraLandPlays(1), landfall(draw(1))],
-  'Analyze the Pollen': [handler('analyzeThePollen')],
+  'Analyze the Pollen': [
+    searchSpell({
+      prompt: 'Choose one basic land card for Analyze the Pollen.',
+      kickedPrompt: 'Choose one creature or land card for Analyze the Pollen.',
+      match: basicLand,
+      kickedMatch: (object) =>
+        object.types.includes('Creature') || object.types.includes('Land'),
+      destination: 'hand',
+      min: 1,
+      max: 1,
+      reveal: true,
+    }),
+  ],
   'Buried Alive': [
     searchSpell({
       prompt: 'Search your library for up to three creature cards and put them into your graveyard.',
