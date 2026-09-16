@@ -511,7 +511,12 @@ export const applyKernelChoice = (
     })
     if (!chosen.ok) throw new Error(chosen.error)
     lobby.topdeck = undefined
-    settleKernelPriority(kernel, lobby)
+    if (!settleKernelPriority(kernel, lobby)) {
+      state = kernel.history.current()
+      lobby.privateWaiting = {}
+      lobby.waiting =
+        `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
+    }
     return true
   }
   if (
@@ -660,8 +665,13 @@ export const settleKernelPriority = (kernel: KernelHandle, lobby: LobbyState) =>
     passed = true
     current = kernel.history.current()
   }
-  if (!passed && !prepared) return false
   if (prepared) return true
+  // Even a settle that moves nothing has to leave the seat holding the buttons
+  // the kernel offers: a resolved dialog otherwise strands its own action.
+  if (!passed) {
+    if (!lobby.topdeck) lobby.actions = kernelActions(current)
+    return false
+  }
   lobby.actions = kernelActions(current)
   const priority = kernelPriority(current)
   lobby.waiting = current.stack.length > 0

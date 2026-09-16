@@ -716,6 +716,44 @@ describe('kernel host journal', () => {
     expect(kernel.history.current().players.p1.data[PENDING_DIALOG]).toBeUndefined()
   })
 
+  test('a resolved clone choice hands the seat its ordinary actions back', () => {
+    const clone = { ...forest(), name: 'Clone', types: ['Creature'], tapProduces: undefined }
+    const bear = { ...forest(), name: 'Bear', types: ['Creature'], tapProduces: undefined }
+    // The seat keeps a land in hand: a seat with nothing to do gets its actions
+    // refreshed by the pass that follows, which would hide the stall.
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [clone, bear] },
+      hands: { p1: [forest()] },
+    })
+    server.state.players.p1.data[PENDING_DIALOG] = {
+      sourceId: Object.values(server.state.objects).find((object) => object.name === 'Clone')!.id,
+      source: 'Clone',
+      seat: 'p1',
+      kind: 'copy-creature',
+      prompt: 'You may have this enter as a copy of a creature you control.',
+      waiting: 'is choosing a creature to copy.',
+      judge: 'Waiting for an optional clone.',
+      chosenEvent: DIALOG_CHOSEN,
+      destinations: ['skip', 'target'],
+      types: ['Creature'],
+      optional: true,
+      requirements: { target: { max: 1 } },
+    }
+    const kernel = handleFor(server.rules, server.state)
+    const lobby = createLobby()
+
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.actions).toEqual({ p1: ['topdeck'] })
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [{ card: 'Bear', destination: 'target' }],
+    })).toBe(true)
+
+    expect(lobby.topdeck).toBeUndefined()
+    expect(lobby.actions.p1).not.toContain('topdeck')
+    expect(lobby.actions).toEqual(kernelActions(kernel.history.current()))
+  })
+
   test('a look-top dialog moves one card to hand and orders the rest on bottom', () => {
     const server = createServerGame(commanderRules, {
       libraries: {
